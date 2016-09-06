@@ -1,0 +1,6 @@
+<select ng-if="multiple" multiple ng-model="value" ng-options="value for (key, value) in options track by key" ng-change="change()">
+	<option value="" disabled>{{ngTitle}}</option>
+</select>
+<select ng-if="!multiple" ng-model="value" ng-options="value for (key, value) in options track by key" ng-change="change()">
+	<option value="" disabled>{{ngTitle}}</option>
+</select>
