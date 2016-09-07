@@ -7,6 +7,6 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function ($timeout, $log, description) {
+angular.module('cocjs').controller('MainCtrl', function ($log) {
 	$log.info('Application started');
 });
