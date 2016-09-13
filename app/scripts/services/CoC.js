@@ -1,9 +1,16 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, kFLAGS, CoC_Settings, Combat, Mutations, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, MiscItemLib, Appearance, EngineCore, StartUp, Parser, GameModel, MainView, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, MiscItemLib, Appearance, EngineCore, StartUp, Parser, GameModel, MainView, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
 	}
+	CoC.getInstance = function() {
+		if(instance === null) {
+			instance = new CoC();
+		}
+		return instance;
+	};
 	CoC.prototype.init = function(that) {
 		// Used for stopping chaos monkey on syntax errors. Separate flag so we can make stopping optional
 		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
@@ -93,6 +100,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, kFLAGS, CoC_Setting
 		that.weapons = new WeaponLib();
 		that.armors = new ArmorLib();
 		that.miscItems = new MiscItemLib();
+		that.inventory = new Inventory(that.saves);
 		that._perkLib = new PerkLib();// to init the static
 		that._statusAffects = new StatusAffects();// to init the static
 		// These are toggled between by the [home] key.
@@ -182,7 +190,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, kFLAGS, CoC_Setting
 		public var camp:Camp = new Camp(campInitialize);
 		public var exploration:Exploration = new Exploration();
 		public var followerInteractions:FollowerInteractions = new FollowerInteractions();
-		public var inventory:Inventory = new Inventory(saves);
 		public var masturbation:Masturbation = new Masturbation();
 		// Scenes/Areas/
 		public var bog:Bog = new Bog();

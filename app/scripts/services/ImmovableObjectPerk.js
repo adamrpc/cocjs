@@ -3,7 +3,7 @@
 angular.module('cocjs').factory('ImmovableObjectPerk', function (PerkType, CoC) {
 	var perk = angular.copy(PerkType);
 	perk.prototype.getDesc = function() {
-		if(CoC.player.tou >= 75) {
+		if(CoC.getInstance().player.tou >= 75) {
 			return '<b>Grants 20% physical damage reduction.</b>';
 		}
 		return '<b>You aren\'t tough enough to benefit from this anymore.</b>';

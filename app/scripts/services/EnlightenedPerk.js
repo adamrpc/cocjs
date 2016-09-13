@@ -3,7 +3,7 @@
 angular.module('cocjs').factory('EnlightenedPerk', function (PerkType, CoC) {
 	var perk = angular.copy(PerkType);
 	perk.prototype.getDesc = function() {
-		if (CoC.player.cor >= 10) {
+		if (CoC.getInstance().player.cor >= 10) {
 			return "<b>DISABLED</b> - Corruption too high!";
 		}
 		return this.desc;

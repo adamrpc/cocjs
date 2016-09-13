@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('SimpleUseable', function ( Useable, CoC ) {
+angular.module('cocjs').factory('SimpleUseable', function ( Useable, EngineCore ) {
 	var SimpleUseable = angular.copy(Useable);
 	SimpleUseable.prototype.init = function(that, args) {
 		Useable.prototype.init(that, args);
@@ -8,11 +8,11 @@ angular.module('cocjs').factory('SimpleUseable', function ( Useable, CoC ) {
 		that.canUseFunction = args.length > 6 && args[6] !== undefined ? args[6] : null;
 	};
 	SimpleUseable.prototype.canUse = function() {
-		CoC.clearOutput();
+		EngineCore.clearOutput();
 		if (this.canUseFunction) {
 			this.canUseFunction();
 		} else {
-			CoC.outputText(this.canUseText);
+			EngineCore.outputText(this.canUseText);
 		}
 		return false;
 	};

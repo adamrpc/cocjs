@@ -3,7 +3,7 @@
 angular.module('cocjs').factory('BrutalBlowsPerk', function (PerkType, CoC) {
 	var perk = angular.copy(PerkType);
 	perk.prototype.getDesc = function() {
-		if(CoC.player.str>=75) {
+		if(CoC.getInstance().player.str>=75) {
 			return 'Reduces enemy armor with each hit.';
 		}
 		return '<b>You aren\'t strong enough to benefit from this anymore.</b>';
