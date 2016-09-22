@@ -4,6 +4,13 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	function Mutations() {
 		this.init(this, arguments);
 	}
+	var instance = null;
+	Mutations.getInstance = function() {
+		if(!instance) {
+			instance = new Mutations();
+		}
+		return instance;
+	};
 	Mutations.prototype.init = function() {};
 	Mutations.prototype.ceruleanPotion = function(player) {
 		player.slimeFeed();
