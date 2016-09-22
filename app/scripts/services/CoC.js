@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, MiscItemLib, Appearance, EngineCore, StartUp, Parser, GameModel, MainView, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, MainView, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -99,7 +99,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.useables = new UseableLib();
 		that.weapons = new WeaponLib();
 		that.armors = new ArmorLib();
-		that.miscItems = new MiscItemLib();
 		that.inventory = new Inventory(that.saves);
 		that._perkLib = new PerkLib();// to init the static
 		that._statusAffects = new StatusAffects();// to init the static
