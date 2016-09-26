@@ -341,12 +341,12 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 				EngineCore.dynStats("lib", 0.5, "sen", 1, "lus", 10);
 			}
 			EngineCore.outputText("\n\nYour mouth curls into a sick smile and, with a voice that isn't your own, speaks, \"<i>I ALWAYS get what I want, dear...</i>\"", false);
-			BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 		} else {
 			EngineCore.outputText("Your mouth forms a smile of its own volition, reading, \"<i>nuf erutuf rof riah ydnas, nus tresed eht sa ydnas.</i>\"\n\nYou feel a tingling in your scalp, and realize your hair has become a sandy blonde!", false);
 			player.hairColor = "sandy blonde";
 			EngineCore.outputText("\n\nYour mouth curls with a sick smile, speaking with a voice that isn't your own, \"<i>I ALWAYS get what I want, dear...</i>\"", false);
-			BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 		}
 		if (!CoC.getInstance().isInCombat()) {
 			//RAEP

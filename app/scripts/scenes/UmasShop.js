@@ -18,7 +18,7 @@
  * I'm also VERY tempted to say the bonuses from massages and acpuncture sessions should be dropped, and they should be turned into like a HP recovery/fatigue recovery deal.
  * Massage recovers 50% of missing health in an hour, Acpuncture recovers 30% of current fatigue in an hour?
  */
-angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFLAGS, StatusAffects, PerkLib, Utils, BaseContent) {
+angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFLAGS, StatusAffects, PerkLib, Utils) {
 	function UmasShop() {
 		this.init(this, arguments);
 	}
@@ -105,7 +105,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		CoC.getInstance().flags[kFLAGS.LOPPE_PC_MET_UMA] = 1;
 		// Player returns to Camp
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * Repeat visits.
@@ -292,7 +292,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n');
 			EngineCore.outputText('Wishing her well, you calmly let yourself out of the shop and head back to CoC.getInstance().scenes.camp.');
 			EngineCore.menu();
-			BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 			return;
 		}
 		EngineCore.outputText('You tell her that sounds fair, withdrawing the gems and handing them to her.\n\n');
@@ -339,7 +339,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		// Apply bonus & back to camp!
 		this.applyMassageBonus(selectedMassage);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	UmasShop.MAX_MASSAGE_BONUS_DURATION = 24;			// Duration of the bonus
 	/**
@@ -585,7 +585,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('You click your tongue and apologize to Uma, but you don\'t have enough gems to pay for your treatment...\n\n');
 			EngineCore.outputText('Uma sighs, "It\'s okay, dear.  Just come back when you do, my doors are always open."');
 			EngineCore.menu();
-			BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 			return;
 		}
 		EngineCore.outputText('You nod in understanding... now you stop and consider your options, ');
@@ -653,7 +653,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your CoC.getInstance().scenes.camp.\n\n');
 		this.applyNeedlework(selectedSession);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * LIPFLAP COMMENCE.
@@ -692,7 +692,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('"<i>It\'s always pleasure speaking to the [man] that wooed my little Loppe, dear.  Come visit soon, will you?</i>"\n\n');
 		EngineCore.outputText('You promise you\'ll try, and then head back to CoC.getInstance().scenes.camp.');
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * Talk Sexuality
@@ -716,7 +716,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You laugh at that, thanking her for her generosity and her time, and then tell her it\'s time for you to go.  Uma smiles at you and says, "<i>Come visit me again soon.</i>"\n\n');
 		EngineCore.outputText('You promise that you will, and then head out of the quaint little clinic and back to CoC.getInstance().scenes.camp.\n\n');
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * Talk about Loppe. Randomly selects a specific scene after selection.
@@ -734,7 +734,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 	 */
 	UmasShop.prototype.talkLoppeJoiner = function() {
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 		//addButton(1, 'Debugz', this.talkMenu);
 	};
 	/**
@@ -1132,7 +1132,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('Uma nods thoughtfully at your words.  "<i>A sister or two?  Definitely.  Hey, why not go out on a limb and say five or six little sisters?  I loved being a mom, being pregnant was actually kind of hot, and I\'m still young enough to do some serious breeding.</i>"  She pats her belly with a defiant expression.  But then she slumps and sighs longingly.  "<i>But I want my Usagi back first...</i>" She mourns.\n\n');
 		EngineCore.outputText('You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to CoC.getInstance().scenes.camp.\n\n');
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * SEXY TIMES
@@ -1290,7 +1290,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.dynStats('lust=', 0);
 		CoC.getInstance().player.hoursSinceCum = Math.ceil(hoursSinceCum * 0.75);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	UmasShop.prototype.sexGetFingered = function() {
 		EngineCore.clearOutput();
@@ -1397,7 +1397,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		}
 		EngineCore.dynStats('lust=', 0);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	UmasShop.prototype.sexHandjob = function() {
 		EngineCore.clearOutput();
@@ -1456,7 +1456,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('.  See you later, dear.  And don\'t be a stranger,</i>" the mare tells you as she waves you goodbye.\n\n');
 		EngineCore.dynStats('lust=', 0);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	//Needs Cock.
 	UmasShop.prototype.sexGetABJFromDisMilfyLesboSlut = function() {
@@ -1691,7 +1691,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.dynStats('lust=', 0);
 		CoC.getInstance().flags[kFLAGS.UMA_TIMES_SUCKED_YOU]++;
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	UmasShop.prototype.sexEatHerOut = function() {
 		EngineCore.clearOutput();
@@ -1745,7 +1745,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You rub her thigh affectionately, promising to do so, then redress yourself and head back to CoC.getInstance().scenes.camp.\n\n');
 		EngineCore.dynStats('lust=', 30);
 		EngineCore.menu();
-		BaseContent.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
 	/**
 	 * Incomplete in the doc
