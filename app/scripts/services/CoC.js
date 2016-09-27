@@ -15,8 +15,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		// Used for stopping chaos monkey on syntax errors. Separate flag so we can make stopping optional
 		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
 		that.parser = new Parser(that, CoC_Settings);
-		that.model = new GameModel(that); // TODO : Add CoC injection into game model
-		that.mainView = new MainView( that.model );
+		that.mainView = new MainView( that );
 		that.mainView.name = 'mainView';
 		that.stage.addChild( that.mainView );
 		// Hooking things to MainView.
