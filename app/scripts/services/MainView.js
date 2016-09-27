@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		dataProvider: [{label:'TEMP',perk:new PerkClass(PerkLib.Acclimation)}],
 		visible: false
 	};
-	MainView.statsView = new StatsView();
+	MainView.statsView = new StatsView(MainView);
 	MainView.bottomButtons = [];
 	_.forEach(_.range(BOTTOM_BUTTON_COUNT), function() {
 		MainView.bottomButtons.push({labelText:'', callback:function(){}, visible: false, toolTipText:''});
@@ -105,7 +105,12 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		perksButton: {visible: false, labelText: '', callback: CoC.getInstance().displayPerks, toolTipText:''},
 		appearanceButton: {visible: false, labelText: '', callback: Appearance.appearance, toolTipText:''}
 	};
-	
+	MainView.prototype.showLevelUp = function() {
+		MainView.menuButtons.levelButton.visible = true;
+	};
+	MainView.prototype.hideLevelUp = function() {
+		MainView.menuButtons.levelButton.visible = false;
+	};
 	//////// Bottom Button Methods ////////
 	// TODO button set-up code to use callback and toolTipViewText here.
 	MainView.setButton = function( index, label, callback, toolTipViewText ) {

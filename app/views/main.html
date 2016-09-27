@@ -1,5 +1,12 @@
-<div id="stats" ng-if="main.statsView.visible"></div>
-<div id="toolTip" ng-if="main.toolTipView.visible"></div>
+<div id="stats" ng-if="main.statsView.visible">
+	<div class="stat" ng-repeat="(statName, stat) in main.statsView.stats">
+		<span class="text">{{stat.text}}</span>
+		<span class="num" ng-if="stat.num >= 0">{{stat.num}}</span>
+		<span class="bar" ng-if="stat.bar >= 0">{{stat.bar}}</span>
+		<span class="up" ng-if="stat.up">+</span>
+		<span class="down" ng-if="stat.down">-</span>
+	</div>
+</div>
 <div id="mainText" ng-bind-html="main.mainText"></div>
 <select ng-if="main.aCb.visible" ng-model="main.aCb.value" ng-options="option.perk as option.label for option in main.aCb.dataProvider track by option.label">
 	<option value="">Choose a perk</option>

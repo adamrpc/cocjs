@@ -2,9 +2,6 @@
 
 angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, UmasShop, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs ) {
 	var EngineCore = {};
-	EngineCore.maxHP = function() {
-		return CoC.getInstance().player.maxHP();
-	};
 	EngineCore.silly = function() {
 		return CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
 	};
@@ -17,17 +14,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			if( CoC.getInstance().player.findPerk( PerkLib.HistoryHealer ) >= 0 ) {
 				changeNum *= 1.2;
 			}
-			if( CoC.getInstance().player.HP + Math.parseInt( changeNum ) > EngineCore.maxHP() ) {
-				if( CoC.getInstance().player.HP >= EngineCore.maxHP() ) {
+			if( CoC.getInstance().player.HP + Math.parseInt( changeNum ) > CoC.getInstance().player.maxHP() ) {
+				if( CoC.getInstance().player.HP >= CoC.getInstance().player.maxHP() ) {
 					if( display ) {
 						EngineCore.outputText( 'You\'re as healthy as you can be.\n', false );
 					}
 					return;
 				}
 				if( display ) {
-					EngineCore.outputText( 'Your HP maxes out at ' + EngineCore.maxHP() + '.\n', false );
+					EngineCore.outputText( 'Your HP maxes out at ' + CoC.getInstance().player.maxHP() + '.\n', false );
 				}
-				CoC.getInstance().player.HP = EngineCore.maxHP();
+				CoC.getInstance().player.HP = CoC.getInstance().player.maxHP();
 			} else {
 				if( display ) {
 					EngineCore.outputText( 'You gain ' + Math.parseInt( changeNum ) + ' HP.\n', false );
@@ -181,7 +178,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	};
 	EngineCore.levelUpStatToughness = function() {
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
-		$log.trace( 'HP: ' + CoC.getInstance().player.HP + ' MAX HP: ' + EngineCore.maxHP() );
+		$log.trace( 'HP: ' + CoC.getInstance().player.HP + ' MAX HP: ' + CoC.getInstance().player.maxHP() );
 		EngineCore.statScreenRefresh();
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
@@ -1641,8 +1638,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		//Add HP for toughness change.
 		EngineCore.HPChange( toug * 2, false );
 		//Reduce hp if over max
-		if( CoC.getInstance().player.HP > EngineCore.maxHP() ) {
-			CoC.getInstance().player.HP = EngineCore.maxHP();
+		if( CoC.getInstance().player.HP > CoC.getInstance().player.maxHP() ) {
+			CoC.getInstance().player.HP = CoC.getInstance().player.maxHP();
 		}
 		//Combat bounds
 		if( CoC.getInstance().player.lust > 99 ) {

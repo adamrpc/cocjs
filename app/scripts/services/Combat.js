@@ -301,7 +301,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-			damage = Combat.takeDamage(0.35 * EngineCore.maxHP());
+			damage = Combat.takeDamage(0.35 * CoC.getInstance().player.maxHP());
 			EngineCore.outputText(" (" + damage + ")");
 			Combat.combatRoundOver();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
@@ -388,7 +388,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				CoC.getInstance().player.removeStatusAffect(StatusAffects.GooBind);
 			} else { //Failed struggle
 				EngineCore.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-				EngineCore.outputText(" (" + Combat.takeDamage(0.15 * EngineCore.maxHP()) + ")", false);
+				EngineCore.outputText(" (" + Combat.takeDamage(0.15 * CoC.getInstance().player.maxHP()) + ")", false);
 			}
 			Combat.combatRoundOver();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
@@ -1500,7 +1500,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			}
 		}
 		if(CoC.getInstance().player.findStatusAffect(StatusAffects.AcidSlap) >= 0) {
-			var slap = 3 + (EngineCore.maxHP() * 0.02);
+			var slap = 3 + (CoC.getInstance().player.maxHP() * 0.02);
 			EngineCore.outputText("<b>Your muscles twitch in agony as the acid keeps burning you. (" + slap + ")</b>\n\n", false);
 		}
 		if(CoC.getInstance().player.findPerk(PerkLib.ArousingAura) >= 0 && CoC.getInstance().monster.lustVuln > 0 && CoC.getInstance().player.cor >= 70) {
@@ -1679,7 +1679,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				CoC.getInstance().player.removeStatusAffect(StatusAffects.Poison);
 			} else {
 				EngineCore.outputText("The poison continues to work on your body, wracking you with pain!\n\n", false);
-				Combat.takeDamage( 8 + Utils.rand(EngineCore.maxHP()/20));
+				Combat.takeDamage( 8 + Utils.rand(CoC.getInstance().player.maxHP()/20));
 			}
 		}
 		//Bondage straps + bondage fetish
@@ -1717,7 +1717,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		if(healingPercent > (combat ? 5 : 10)) {
 			healingPercent = 5;
 		}
-		EngineCore.HPChange(Math.round(EngineCore.maxHP() * healingPercent / 100), false);
+		EngineCore.HPChange(Math.round(CoC.getInstance().player.maxHP() * healingPercent / 100), false);
 	};
 	Combat.startCombat = function(monster,plotFight) {
 		OnLoadVariables.plotFight = plotFight;
@@ -3866,7 +3866,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			}
 			EngineCore.dynStats("lib", 0.25, "lus", 15);
 		} else {
-			var heal = Math.floor((CoC.getInstance().player.inte/(2 + Utils.rand(3)) * Combat.spellMod()) * (EngineCore.maxHP()/150));
+			var heal = Math.floor((CoC.getInstance().player.inte/(2 + Utils.rand(3)) * Combat.spellMod()) * (CoC.getInstance().player.maxHP()/150));
 			if(CoC.getInstance().player.armorName === "skimpy nurse's outfit") {
 				heal *= 1.2;
 			}
