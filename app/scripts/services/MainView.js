@@ -24,6 +24,10 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		dataProvider: [{label:'TEMP',perk:new PerkClass(PerkLib.Acclimation)}],
 		visible: false
 	};
+	MainView.nameBox = {
+		visible: false,
+		value: ''
+	};
 	MainView.statsView = new StatsView(MainView);
 	MainView.bottomButtons = [];
 	_.forEach(_.range(BOTTOM_BUTTON_COUNT), function() {

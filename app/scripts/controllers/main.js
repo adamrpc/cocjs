@@ -12,6 +12,7 @@ angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore
 	this.sprite = MainView.sprite;
 	this.bottomButtons = MainView.bottomButtons;
 	this.menuButtons = MainView.bottomButtons;
+	this.nameBox = MainView.nameBox;
 	this.aCb = MainView.aCb;
 	$scope.$watch('main.aCb.value', EngineCore.changeHandler);
 });
