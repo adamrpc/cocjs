@@ -37,7 +37,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					EngineCore.outputText("\n\nYou have to lean on Isabella's shoulder while the two of your hike back to camp.  She clearly won.", false);
 					CoC.getInstance().setInCombat(false);
 					CoC.getInstance().player.HP = 1;
-					BaseContent.statScreenRefresh();
+					EngineCore.statScreenRefresh();
 					EngineCore.doNext(nextFunc);
 					return;
 				}
@@ -45,13 +45,13 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				if(CoC.getInstance().monster.findStatusAffect(StatusAffects.PeachLootLoss) >= 0) {
 					CoC.getInstance().setInCombat(false);
 					CoC.getInstance().player.HP = 1;
-					BaseContent.statScreenRefresh();
+					EngineCore.statScreenRefresh();
 					return;
 				}
 				if(CoC.getInstance().monster.short === "Ember") {
 					CoC.getInstance().setInCombat(false);
 					CoC.getInstance().player.HP = 1;
-					BaseContent.statScreenRefresh();
+					EngineCore.statScreenRefresh();
 					EngineCore.doNext(nextFunc);
 					return;
 				}
@@ -107,7 +107,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			Combat.combatStatusesUpdate(); //Update Combat Statuses
 		}
 		Combat.display();
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if (Combat.combatRoundOver()) {
 			return;
 		}
@@ -235,7 +235,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					EngineCore.outputText(CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + " <b>mutilates</b> you with powerful fists and " + CoC.getInstance().monster.weaponVerb + "s! (" + temp + ")");
 				}
 			}
-			BaseContent.statScreenRefresh();
+			EngineCore.statScreenRefresh();
 			EngineCore.outputText("\n");
 		}
 		Combat.combatRoundOver();
@@ -3614,7 +3614,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 	};
 	//VICTORY OR DEATH?
 	Combat.combatRoundOver = function() { //Called after the monster's action
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if (!CoC.getInstance().isInCombat()) {
 			return false;
 		}
@@ -3743,7 +3743,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(15,1);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
 			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
@@ -3874,7 +3874,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.HPChange(heal,false);
 		}
 		EngineCore.outputText("\n\n", false);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.getInstance().player.lust >= 100) {
@@ -3940,7 +3940,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			CoC.getInstance().player.tou += CoC.getInstance().player.statusAffectv2(StatusAffects.Might);
 		}
 		EngineCore.outputText("\n\n", false);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.getInstance().player.lust >= 100) {
@@ -3961,7 +3961,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		EngineCore.fatigue(15,1);
 		EngineCore.outputText("You utter words of power, summoning an electrical charge around your " + CoC.getInstance().player.weaponName + ".  It crackles loudly, ensuring you'll do more damage with it for the rest of the fight.\n\n", true);
 		CoC.getInstance().player.createStatusAffect(StatusAffects.ChargeWeapon,10*Combat.spellMod(),0,0,0);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		Combat.enemyAI();
@@ -4035,7 +4035,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		EngineCore.outputText("\n\n", false);
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		Combat.enemyAI();
 	};
 	//(30) Whitefire – burns the enemy for 10 + int/3 + Utils.rand(int/2) * spellMod.
@@ -4079,7 +4079,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		CoC.getInstance().monster.HP -= wound;
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if(CoC.getInstance().monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
@@ -4142,7 +4142,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		CoC.getInstance().monster.HP -= wound;
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if(CoC.getInstance().monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
@@ -5423,7 +5423,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		dmg = Combat.doDamage(dmg);
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if(CoC.getInstance().monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
@@ -5466,7 +5466,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		dmg = Combat.doDamage(dmg);
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
-		BaseContent.statScreenRefresh();
+		EngineCore.statScreenRefresh();
 		if(CoC.getInstance().monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
