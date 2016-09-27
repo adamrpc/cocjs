@@ -4,18 +4,16 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 	var StartUp = {};
 	//MainMenu - kicks CoC.getInstance().player out to the main menu
 	StartUp.mainMenu = function() {
-		CoC.getInstance().stage.focus = CoC.getInstance().mainView.mainText;
-		if( CoC.getInstance().mainView.aCb.parent !== null ) {
-			CoC.getInstance().mainView.removeChild( CoC.getInstance().mainView.aCb );
+		CoC.getInstance().stage.focus = MainView.mainText;
+		if( MainView.aCb.visible ) {
+			MainView.aCb.visible = false;
 		}
-		CoC.getInstance().mainView.eventTestInput.x = -10207.5;
-		CoC.getInstance().mainView.eventTestInput.y = -1055.1;
 		EngineCore.hideStats();
 		//Reset newgame buttons
-		CoC.getInstance().mainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CoC.getInstance().charCreation.newGameGo );
-		CoC.getInstance().mainView.hideAllMenuButtons();
-		CoC.getInstance().mainView.showMenuButton( MainView.MENU_NEW_MAIN );
-		CoC.getInstance().mainView.showMenuButton( MainView.MENU_DATA );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CoC.getInstance().charCreation.newGameGo );
+		MainView.hideAllMenuButtons();
+		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
+		MainView.showMenuButton( MainView.MENU_DATA );
 		//Sets game state to 3, used for determining back functionality of save/load menu.
 		CoC.getInstance().gameState = 3;
 		EngineCore.outputText( '<b>Corruption of Champions (' + CoC.getInstance().version + ')</b>', true );
@@ -94,8 +92,8 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		}
 	};
 	StartUp.settingsScreen = function() {
-		CoC.getInstance().mainView.showMenuButton( MainView.MENU_NEW_MAIN );
-		CoC.getInstance().mainView.showMenuButton( MainView.MENU_DATA );
+		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
+		MainView.showMenuButton( MainView.MENU_DATA );
 		EngineCore.outputText( '<b>Settings toggles:</b>\n', true );
 		EngineCore.outputText( 'Debug mode enabled: <b>No</b>\n	Items consumption will occur as normal.' );
 		EngineCore.outputText( '\n\n' );
@@ -136,39 +134,13 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		EngineCore.choices( '', null,
 			'Sprite Toggle', StartUp.toggleSpritesFlag,
 			'EZ Mode', StartUp.toggleEasyModeFlag,
-			'Larger Font', StartUp.incFontSize,
+			'', null,
 			'Controls', StartUp.displayControls,
 			'Hyper Happy', StartUp.toggleHyperHappy,
 			'Low Standards', StartUp.toggleStandards,
 			'Silly Toggle', StartUp.toggleSillyFlag,
-			'Smaller Font', StartUp.decFontSize,
+			'', null,
 			'Back', StartUp.mainMenu );
-	};
-	StartUp.incFontSize = function() {
-		var fmt = CoC.getInstance().mainView.mainText.getTextFormat();
-		if( fmt.size === null ) {
-			fmt.size = 20;
-		}
-		fmt.size = fmt.size + 1;
-		if( fmt.size > 32 ) {
-			fmt.size = 32;
-		}
-		$log.trace( 'Font size set to: ' + fmt.size );
-		CoC.getInstance().mainView.mainText.setTextFormat( fmt );
-		CoC.getInstance().flags[ kFLAGS.CUSTOM_FONT_SIZE ] = fmt.size;
-	};
-	StartUp.decFontSize = function() {
-		var fmt = CoC.getInstance().mainView.mainText.getTextFormat();
-		if( fmt.size === null ) {
-			fmt.size = 20;
-		}
-		fmt.size = fmt.size - 1;
-		if( fmt.size < 14 ) {
-			fmt.size = 14;
-		}
-		$log.trace( 'Font size set to: ' + fmt.size );
-		CoC.getInstance().mainView.mainText.setTextFormat( fmt );
-		CoC.getInstance().flags[ kFLAGS.CUSTOM_FONT_SIZE ] = fmt.size;
 	};
 	StartUp.toggleStandards = function() {
 		CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
@@ -183,7 +155,7 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 	StartUp.toggleEasyModeFlag = function() {
 		CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] = CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 0 ? 1 : 0;
 		StartUp.settingsScreen();
-		CoC.getInstance().mainView.showMenuButton( MainView.MENU_DATA );
+		MainView.showMenuButton( MainView.MENU_DATA );
 		StartUp.settingsScreen();
 		return;
 	};

@@ -1,1 +1,13 @@
-<h1>Hello world !</h1>
+<div id="stats" ng-if="main.statsView.visible"></div>
+<div id="toolTip" ng-if="main.toolTipView.visible"></div>
+<div id="mainText" ng-bind-html="main.mainText"></div>
+<select ng-if="main.aCb.visible" ng-model="main.aCb.value" ng-options="option.perk as option.label for option in main.aCb.dataProvider track by option.label">
+	<option value="">Choose a perk</option>
+</select>
+<span ng-repeat="(btnName, btn) in main.menuButtons">
+	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
+</span>
+<span ng-repeat="btn in main.bottomButtons">
+	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
+</span>
+<img src="sprites/sprite-{{main.sprite.index}}" ng-if="main.sprite.visible">

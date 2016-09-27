@@ -7,6 +7,11 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function ($log) {
-	$log.info('Application started');
+angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore, MainView) {
+	this.statsView = MainView.statsView;
+	this.sprite = MainView.sprite;
+	this.bottomButtons = MainView.bottomButtons;
+	this.menuButtons = MainView.bottomButtons;
+	this.aCb = MainView.aCb;
+	$scope.$watch('main.aCb.value', EngineCore.changeHandler);
 });

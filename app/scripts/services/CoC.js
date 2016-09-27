@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, MainView, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, ImageManager, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -15,18 +15,8 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		// Used for stopping chaos monkey on syntax errors. Separate flag so we can make stopping optional
 		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
 		that.parser = new Parser(that, CoC_Settings);
-		that.mainView = new MainView( that );
-		that.mainView.name = 'mainView';
-		that.stage.addChild( that.mainView );
-		// Hooking things to MainView.
 		that.charCreation = new CharCreation();
-		that.mainView.onNewGameClick = that.charCreation.newGameGo;
-		that.mainView.onAppearanceClick = Appearance.appearance;
 		that.saves = new Saves(function(){ return that.gameState; }, function(value) { that.gameState = value; });
-		that.mainView.onDataClick = that.saves.saveLoad;
-		that.mainView.onLevelClick = EngineCore.levelUpGo;
-		that.mainView.onPerksClick = EngineCore.displayPerks;
-		that.mainView.onStatsClick = EngineCore.displayStats;
 		/**
 		 * Global Variables used across the whole game. I hope to whittle it down slowly.
 		 */
@@ -101,9 +91,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.inventory = new Inventory(that.saves);
 		that._perkLib = new PerkLib();// to init the static
 		that._statusAffects = new StatusAffects();// to init the static
-		// These are toggled between by the [home] key.
-		that.mainView.textBGWhite.visible = false;
-		that.mainView.textBGTan.visible = false;
 
 		// *************************************************************************************
 		//Used to set what each action buttons displays and does.
@@ -122,15 +109,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.oldStats.oldHP   = 0;
 		that.oldStats.oldLust = 0;
 		// ******************************************************************************************
-		/*
-		 * TODO : Convert this to HTML
-		 * that.mainView.aCb.dataProvider = new DataProvider([{label:"TEMP",perk:new PerkClass(PerkLib.Acclimation)}]);
-		 * that.mainView.aCb.addEventListener(Event.CHANGE, changeHandler); 
-		 */
-		//Hide sprites
-		that.mainView.hideSprite();
-		//Hide up/down arrows
-		that.mainView.statsView.hideUpDown();
 		/*
 		 * TODO : Replace this by angular events.
 		 * that.timeAwareLargeLastEntry = -1;

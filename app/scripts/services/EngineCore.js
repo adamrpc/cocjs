@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 					EngineCore.outputText( 'You gain ' + Math.parseInt( changeNum ) + ' HP.\n', false );
 				}
 				CoC.getInstance().player.HP += Math.parseInt( changeNum );
-				CoC.getInstance().mainView.statsView.showStatUp( 'hp' );
+				MainView.statsView.showStatUp( 'hp' );
 			}
 		} else { //Negative HP
 			if( CoC.getInstance().player.HP + changeNum <= 0 ) {
@@ -53,24 +53,24 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	EngineCore.clone = angular.copy;
 	EngineCore.clearOutput = function() {
 		CoC.getInstance().currentText = '';
-		CoC.getInstance().mainView.clearOutputText();
+		MainView.clearOutputText();
 		if( CoC.getInstance().gameState !== 3 ) {
-			CoC.getInstance().mainView.hideMenuButton( MainView.MENU_DATA );
+			MainView.hideMenuButton( MainView.MENU_DATA );
 		}
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_APPEARANCE );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_LEVEL );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_PERKS );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_STATS );
+		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
+		MainView.hideMenuButton( MainView.MENU_LEVEL );
+		MainView.hideMenuButton( MainView.MENU_PERKS );
+		MainView.hideMenuButton( MainView.MENU_STATS );
 	};
 	EngineCore.rawOutputText = function( output, purgeText ) {
 		//OUTPUT!
 		if( purgeText ) {
 			EngineCore.clearOutput();
 			CoC.getInstance().currentText = output;
-			CoC.getInstance().mainView.setOutputText( output );
+			MainView.setOutputText( output );
 		} else {
 			CoC.getInstance().currentText += output;
-			CoC.getInstance().mainView.appendOutputText( output );
+			MainView.appendOutputText( output );
 		}
 	};
 	EngineCore.outputText = function( output, purgeText, parseAsMarkdown ) {
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 
 		// This is cleaup in case someone hits the Data or new-game button when the event-test window is shown.
 		// It\'s needed since those buttons are available even when in the event-tester
-		CoC.getInstance().mainView.hideTestInputPanel();
+		MainView.hideTestInputPanel();
 		if( purgeText ) {
 			EngineCore.clearOutput();
 		}
@@ -92,8 +92,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 	};
 	EngineCore.flushOutputTextToGUI = function() {
-		CoC.getInstance().mainView.mainText.getTextFormat().size = CoC.getInstance().flags[ kFLAGS.CUSTOM_FONT_SIZE ];
-		CoC.getInstance().mainView.setOutputText( CoC.getInstance().currentText );
+		MainView.mainText.getTextFormat().size = CoC.getInstance().flags[ kFLAGS.CUSTOM_FONT_SIZE ];
+		MainView.setOutputText( CoC.getInstance().currentText );
 	};
 	EngineCore.displayPerks = function() {
 		EngineCore.outputText( '', true );
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	EngineCore.levelUpGo = function() {
 		EngineCore.clearOutput();
 		EngineCore.hideMenus();
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_NEW_MAIN );
+		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		//Level up
 		if( CoC.getInstance().player.XP >= (CoC.getInstance().player.level) * 100 ) {
 			CoC.getInstance().player.level++;
@@ -212,34 +212,28 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			return;
 		}
 		EngineCore.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
-		CoC.getInstance().mainView.aCb.x = 210;
-		CoC.getInstance().mainView.aCb.y = 112;
-		if( CoC.getInstance().mainView.aCb.parent === null ) {
-			CoC.getInstance().mainView.addChild( CoC.getInstance().mainView.aCb );
-			CoC.getInstance().mainView.aCb.visible = true;
-		}
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_NEW_MAIN );
+		MainView.aCb.visible = true;
+		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		EngineCore.menu();
 		EngineCore.addButton( 1, 'Skip', EngineCore.perkSkip );
 	};
 	EngineCore.perkSelect = function( selected ) {
 		CoC.getInstance().stage.focus = null;
-		if( CoC.getInstance().mainView.aCb.parent !== null ) {
-			CoC.getInstance().mainView.removeChild( CoC.getInstance().mainView.aCb );
+		if( MainView.aCb.visible ) {
+			MainView.aCb.visible = false;
 			EngineCore.applyPerk( selected );
 		}
 	};
 	EngineCore.perkSkip = function() {
 		CoC.getInstance().stage.focus = null;
-		if( CoC.getInstance().mainView.aCb.parent !== null ) {
-			CoC.getInstance().mainView.removeChild( CoC.getInstance().mainView.aCb );
+		if( MainView.aCb.visible ) {
+			MainView.aCb.visible = false;
 			EventParser.playerMenu();
 		}
 	};
-	EngineCore.changeHandler = function( selected ) { // TODO : use this method in HTML
+	EngineCore.changeHandler = function( selected ) {
 		//Store perk name for later addition
 		EngineCore.clearOutput();
-		CoC.getInstance().mainView.aCb.move( 210, 85 );
 		EngineCore.outputText( 'You have selected the following perk:\n\n' );
 		EngineCore.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
 		EngineCore.menu();
@@ -421,10 +415,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		perkList = _.filter(perkList, function( perk ) {
 			return CoC.getInstance().player.findPerk( perk.perk.ptype ) < 0;
 		});
-		/*
-		 * TODO : Convert this to HTML
-		 * CoC.getInstance().mainView.aCb.dataProvider = new DataProvider( perkList );
-		 */
+		MainView.aCb.dataProvider = perkList;
 		return perkList;
 	};
 	EngineCore.applyPerk = function( perk ) {
@@ -458,7 +449,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 				buttonIndex = buttonIndex === 0 ? 9 : buttonIndex - 1;
 			}
 		}
-		return (CoC.getInstance().mainView.getButtonText( buttonIndex ) || 'NULL');
+		return (MainView.getButtonText( buttonIndex ) || 'NULL');
 	};
 	// Returns a string or undefined.
 	EngineCore.getButtonToolTipText = function( buttonText ) {
@@ -738,33 +729,33 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		var callback = EngineCore.createCallBackFunction( func1, arg1 );
 		var toolTipText = EngineCore.getButtonToolTipText( text );
-		CoC.getInstance().mainView.showBottomButton( pos, text, callback, toolTipText );
+		MainView.showBottomButton( pos, text, callback, toolTipText );
 		EngineCore.flushOutputTextToGUI();
 	};
-	EngineCore.hasButton = CoC.getInstance().mainView.hasButton;
+	EngineCore.hasButton = MainView.hasButton;
 	EngineCore.removeButton = function( arg ) {
 		var buttonToRemove = 0;
 		if( _.isString(arg) ) {
-			buttonToRemove = CoC.getInstance().mainView.indexOfButtonWithLabel( arg );
+			buttonToRemove = MainView.indexOfButtonWithLabel( arg );
 		}else if( _.isNumber(arg) ) {
 			if( arg < 0 || arg > 9 ) {
 				return;
 			}
 			buttonToRemove = Math.round( arg );
 		}
-		CoC.getInstance().mainView.hideBottomButton( buttonToRemove );
+		MainView.hideBottomButton( buttonToRemove );
 	};
 	EngineCore.menu = function() { //The newer, simpler EngineCore.menu - blanks all buttons so EngineCore.addButton can be used
-		CoC.getInstance().mainView.hideBottomButton( 0 );
-		CoC.getInstance().mainView.hideBottomButton( 1 );
-		CoC.getInstance().mainView.hideBottomButton( 2 );
-		CoC.getInstance().mainView.hideBottomButton( 3 );
-		CoC.getInstance().mainView.hideBottomButton( 4 );
-		CoC.getInstance().mainView.hideBottomButton( 5 );
-		CoC.getInstance().mainView.hideBottomButton( 6 );
-		CoC.getInstance().mainView.hideBottomButton( 7 );
-		CoC.getInstance().mainView.hideBottomButton( 8 );
-		CoC.getInstance().mainView.hideBottomButton( 9 );
+		MainView.hideBottomButton( 0 );
+		MainView.hideBottomButton( 1 );
+		MainView.hideBottomButton( 2 );
+		MainView.hideBottomButton( 3 );
+		MainView.hideBottomButton( 4 );
+		MainView.hideBottomButton( 5 );
+		MainView.hideBottomButton( 6 );
+		MainView.hideBottomButton( 7 );
+		MainView.hideBottomButton( 8 );
+		MainView.hideBottomButton( 9 );
 		EngineCore.flushOutputTextToGUI();
 	};
 	EngineCore.choices = function() { //New typesafe version
@@ -859,21 +850,20 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	};
 	EngineCore.doNext = function( event ) {
 		//Prevent new events in combat from automatically overwriting a game over.
-		if( CoC.getInstance().mainView.getButtonText( 0 ).indexOf( 'Game Over' ) !== -1 ) {
+		if( MainView.getButtonText( 0 ).indexOf( 'Game Over' ) !== -1 ) {
 			$log.trace( 'Do next setup cancelled by game over' );
 			return;
 		}
 		EngineCore.choices('Next', event);
 	};
-	EngineCore.invertGo = CoC.getInstance().mainView.invert;
 	//Used to update the display of statistics
-	EngineCore.statScreenRefresh = CoC.getInstance().mainView.statsView.show;
-	EngineCore.showStats = CoC.getInstance().mainView.statsView.show;
-	EngineCore.hideStats = CoC.getInstance().mainView.statsView.hide;
-	EngineCore.hideMenus = CoC.getInstance().mainView.hideAllMenuButtons;
+	EngineCore.statScreenRefresh = MainView.statsView.show;
+	EngineCore.showStats = MainView.statsView.show;
+	EngineCore.hideStats = MainView.statsView.hide;
+	EngineCore.hideMenus = MainView.hideAllMenuButtons;
 	//Hide the up/down indicators
 	EngineCore.hideUpDown = function() {
-		CoC.getInstance().mainView.statsView.hideUpDown();
+		MainView.statsView.hideUpDown();
 		//Clear storage values so up/down arrows can be properly displayed
 		CoC.getInstance().oldStats.oldStr = 0;
 		CoC.getInstance().oldStats.oldTou = 0;
@@ -950,9 +940,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		CoC.getInstance().player.fatigue += mod;
 		if( mod > 0 ) {
-			CoC.getInstance().mainView.statsView.showStatUp( 'fatigue' );
+			MainView.statsView.showStatUp( 'fatigue' );
 		} else if( mod < 0 ) {
-			CoC.getInstance().mainView.statsView.showStatDown( 'fatigue' );
+			MainView.statsView.showStatDown( 'fatigue' );
 		}
 		if( CoC.getInstance().player.fatigue > 100 ) {
 			CoC.getInstance().player.fatigue = 100;
@@ -1675,7 +1665,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			CoC.getInstance().player.lust = 0;
 		}
 		//Refresh the stat pane with updated values
-		CoC.getInstance().mainView.statsView.showUpDown();
+		MainView.statsView.showUpDown();
 		EngineCore.statScreenRefresh();
 	};
 	EngineCore.range = function( min, max, round ) {
@@ -1747,10 +1737,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			choice = 0;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
-			CoC.getInstance().mainView.selectSprite( choice );
+			MainView.selectSprite( choice );
 		} else if( choice >= 0 ) {
 			$log.trace( 'hiding sprite because flags' );
-			CoC.getInstance().mainView.selectSprite( -1 );
+			MainView.selectSprite( -1 );
 		}
 	};
 	return EngineCore;

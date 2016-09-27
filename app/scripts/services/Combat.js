@@ -99,9 +99,9 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 0;
-		CoC.getInstance().mainView.hideMenuButton(MainView.MENU_DATA);
-		CoC.getInstance().mainView.hideMenuButton(MainView.MENU_APPEARANCE);
-		CoC.getInstance().mainView.hideMenuButton(MainView.MENU_PERKS);
+		MainView.hideMenuButton(MainView.MENU_DATA);
+		MainView.hideMenuButton(MainView.MENU_APPEARANCE);
+		MainView.hideMenuButton(MainView.MENU_PERKS);
 		EngineCore.hideUpDown();
 		if (newRound) {
 			Combat.combatStatusesUpdate(); //Update Combat Statuses
@@ -1643,7 +1643,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			if(CoC.getInstance().player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
 				EngineCore.outputText("You manage to cleanse the naga venom from your system with your knowledge of medicine!\n\n", false);
 				CoC.getInstance().player.spe += CoC.getInstance().player.statusAffectv1(StatusAffects.NagaVenom);
-				CoC.getInstance().mainView.statsView.showStatUp( 'spe' );
+				MainView.statsView.showStatUp( 'spe' );
 				CoC.getInstance().player.removeStatusAffect(StatusAffects.NagaVenom);
 			} else if(CoC.getInstance().player.spe > 3) {
 				CoC.getInstance().player.addStatusValue(StatusAffects.NagaVenom,1,2);
@@ -1721,10 +1721,10 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 	};
 	Combat.startCombat = function(monster,plotFight) {
 		OnLoadVariables.plotFight = plotFight;
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_DATA );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_APPEARANCE );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_LEVEL );
-		CoC.getInstance().mainView.hideMenuButton( MainView.MENU_PERKS );
+		MainView.hideMenuButton( MainView.MENU_DATA );
+		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
+		MainView.hideMenuButton( MainView.MENU_LEVEL );
+		MainView.hideMenuButton( MainView.MENU_PERKS );
 		//Flag the game as being "in combat"
 		CoC.getInstance().setInCombat(true);
 		CoC.getInstance().monster = monster;
@@ -3933,8 +3933,8 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			CoC.getInstance().player.changeStatusValue(StatusAffects.Might,1,tempStr);
 			CoC.getInstance().player.changeStatusValue(StatusAffects.Might,2,tempTou);
 			if(CoC.getInstance().player.str < 100) {
-				CoC.getInstance().mainView.statsView.showStatUp( 'str' );
-				CoC.getInstance().mainView.statsView.showStatUp( 'tou' );
+				MainView.statsView.showStatUp( 'str' );
+				MainView.statsView.showStatUp( 'tou' );
 			}
 			CoC.getInstance().player.str += CoC.getInstance().player.statusAffectv1(StatusAffects.Might);
 			CoC.getInstance().player.tou += CoC.getInstance().player.statusAffectv2(StatusAffects.Might);
