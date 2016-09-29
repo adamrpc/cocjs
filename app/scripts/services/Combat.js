@@ -56,13 +56,13 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					return;
 				}
 				var temp = Utils.rand(10) + 1 + Math.round(CoC.getInstance().monster.level / 2);
-				if (BaseContent.isInDungeon()) {
+				if (DungeonCore.isInDungeon()) {
 					temp += 20 + CoC.getInstance().monster.level * 2;
 				}
 				if (temp > CoC.getInstance().player.gems) {
 					temp = CoC.getInstance().player.gems;
 				}
-				var timePasses = CoC.getInstance().monster.handleCombatLossText(BaseContent.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
+				var timePasses = CoC.getInstance().monster.handleCombatLossText(DungeonCore.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
 				CoC.getInstance().player.gems -= temp;
 				CoC.getInstance().setInCombat(false);
 				//BUNUS XPZ
