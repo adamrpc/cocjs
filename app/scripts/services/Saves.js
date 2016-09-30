@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, StartUp, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs ) {
+angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, StartUp, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs, InputManager ) {
 	var SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION = 816;
 	//Didn't want to include something like this, but an integer is safer than depending on the text version number from the CoC class.
 	//Also, this way the save file version doesn't need updating unless an important structural change happens in the save file.
@@ -406,7 +406,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			saveFile.data.itemSlot4 = angular.copy(CoC.getInstance().player.itemSlot4);
 			saveFile.data.itemSlot5 = angular.copy(CoC.getInstance().player.itemSlot5);
 			// Keybinds
-			saveFile.data.controls = CoC.getInstance().inputManager.SaveBindsToObj();
+			saveFile.data.controls = InputManager.SaveBindsToObj();
 		} catch( error ) {
 			processingError = true;
 			dataError = error;
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			CoC.loadAllAwareClasses( CoC.getInstance() ); //Informs each saveAwareClass that it must load its values from the CoC.getInstance().flags array
 			// Control Bindings
 			if( saveFile.data.controls !== undefined ) {
-				CoC.getInstance().inputManager.LoadBindsFromObj( saveFile.data.controls );
+				InputManager.LoadBindsFromObj( saveFile.data.controls );
 			}
 			EngineCore.doNext(  EventParser.playerMenu );
 		}

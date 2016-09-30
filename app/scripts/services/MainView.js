@@ -9,7 +9,7 @@
  ****/
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, PerkClass, PerkLib) {
+angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, PerkClass, PerkLib, BindingPane) {
 	var BOTTOM_BUTTON_COUNT = 10;
 	var sprites = [
 		'0-akbal.png',
@@ -127,6 +127,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		visible: false,
 		value: ''
 	};
+	MainView.bindingPane = new BindingPane(MainView);
 	MainView.statsView = new StatsView(MainView);
 	MainView.bottomButtons = [];
 	_.forEach(_.range(BOTTOM_BUTTON_COUNT), function() {

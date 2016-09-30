@@ -7,6 +7,7 @@
 		<span class="down" ng-if="stat.down">-</span>
 	</div>
 </div>
+<div id="bindings" ng-if="main.bindingPane.visible"></div>
 <div id="mainText" ng-bind-html="main.mainText"></div>
 <select ng-if="main.aCb.visible" ng-model="main.aCb.value" ng-options="option.perk as option.label for option in main.aCb.dataProvider track by option.label">
 	<option value="">Choose a perk</option>
@@ -18,4 +19,4 @@
 	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
 </span>
 <img src="images/sprites/{{main.sprite.index}}" ng-if="main.sprite.visible">
-<input ng-if="main.nameBox.visible" ng-model="main.nameBox.value">
+<input ng-if="main.nameBox.visible" ng-model="main.nameBox.value" ng-focus="main.nameBox.focus = true" ng-blur="main.nameBox.focus = false" ng-keydown="main.handleNameBoxKey()">

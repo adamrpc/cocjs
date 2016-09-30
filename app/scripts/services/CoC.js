@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, InputManager, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -29,7 +29,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		//Version NUMBER
 		that.ver = "0.9.4"; // TODO : put it in properties file
 		that.version = that.ver + " (<b>Moar Bugfixan</b>)"; // TODO : put it in properties file
-		that.inputManager = new InputManager(that.stage, false);
 		// TODO : Convert include "../../includes/ControlBindings.as"; into HTML
 		that.monkey = new ChaosMonkey(that);
 		/**
