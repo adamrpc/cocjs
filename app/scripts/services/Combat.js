@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, Consumables, Weapons, Armors, OnLoadVariables, DungeonCore, AppearanceDefs) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, Consumables, Weapons, Armors, OnLoadVariables, DungeonCore, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -1758,7 +1758,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		var percent = "(<b>" + (Math.floor(math * 1000) / 10) + "% HP</b>)";
 		if (CoC.getInstance().monster.imageName !== "") {
 			var monsterName = "monster-" + CoC.getInstance().monster.imageName;
-			EngineCore.outputText(CoC.getInstance().images.showImage(monsterName), false,false);
+			EngineCore.outputText(ImageManager.showImage(monsterName), false,false);
 		}
 		EngineCore.outputText("<b>You are fighting ", false);
 		EngineCore.outputText(CoC.getInstance().monster.a + CoC.getInstance().monster.short + ":</b> (Level: " + CoC.getInstance().monster.level + ")\n");

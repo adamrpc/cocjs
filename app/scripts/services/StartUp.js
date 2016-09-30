@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser) {
+angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager) {
 	var StartUp = {};
 	//MainMenu - kicks CoC.getInstance().player out to the main menu
 	StartUp.mainMenu = function() {
@@ -300,7 +300,7 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		EngineCore.doNext( StartUp.mainMenu );
 	};
 	StartUp.imageCreditsScreen = function() {
-		if( CoC.getInstance().images.getLoadedImageCount() > 0 ) {
+		if( ImageManager.getLoadedImageCount() > 0 ) {
 			EngineCore.outputText('**Bundled Image Credits:**<br><br>' + 
 
 				'**Yoh-SL**<br><br>' + 
