@@ -413,17 +413,11 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			$log.error( error.message );
 		}
 		$log.debug( 'done saving' );
-		// Because actionscript is stupid, there is no easy way to block until file operations are done.
-		// Therefore, I'm hacking around it for the chaos monkey.
-		// Really, something needs to listen for the FileReference.complete event, and re-enable saving/loading then.
-		// Something to do in the future
 		if( isFile && !processingError ) {
-			if( !(CoC.getInstance().monkey.run) ) {
-				/*
-				TODO : Save to file
-				*/
-				EngineCore.outputText( 'Attempted to save to file.', true );
-			}
+			/*
+			TODO : Save to file
+			*/
+			EngineCore.outputText( 'Attempted to save to file.', true );
 		} else if( !processingError ) {
 			// Write the file
 			localStorage.setItem( slot, JSON.stringify(saveFile) );

@@ -42,11 +42,6 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 			'', null,
 			'Settings', StartUp.settingsScreen,
 			'Resume', resume );
-		if( false ) { // Conditionally jump into chaosmonkey IMMEDIATELY
-			CoC.getInstance().monkey.throwOnSyntaxError = true;
-			CoC.getInstance().monkey.excludeMenuKeys = true; // Syntax checking monkey should ignore the menu keys (they\'re irrelevant to it\'s functions)
-			StartUp.initiateTheMonkey();
-		}
 	};
 	StartUp.startupScreenBody = function() {
 		EngineCore.outputText('<br>(Formerly Unnamed Text Game)<br><br>' + 

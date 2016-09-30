@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, ChaosMonkey, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster, TimeModel) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -12,7 +12,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		return instance;
 	};
 	CoC.prototype.init = function(that) {
-		// Used for stopping chaos monkey on syntax errors. Separate flag so we can make stopping optional
 		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
 		that.parser = new Parser(that, CoC_Settings);
 		that.charCreation = new CharCreation();
@@ -30,7 +29,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.ver = "0.9.4"; // TODO : put it in properties file
 		that.version = that.ver + " (<b>Moar Bugfixan</b>)"; // TODO : put it in properties file
 		// TODO : Convert include "../../includes/ControlBindings.as"; into HTML
-		that.monkey = new ChaosMonkey(that);
 		/**
 		 * Player specific variables
 		 * The player object and variables associated with the player
