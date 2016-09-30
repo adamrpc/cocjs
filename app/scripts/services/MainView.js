@@ -11,6 +11,105 @@
 
 angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, PerkClass, PerkLib) {
 	var BOTTOM_BUTTON_COUNT = 10;
+	var sprites = [
+		'0-akbal.png',
+		'100-rubi_horns.png',
+		'101-venus.png',
+		'102-kitsune_black.png',
+		'103-kitsune_blonde.png',
+		'104-kitsune_red.png',
+		'10-cotton.png',
+		'11-easter bunneh.png',
+		'12-edryn.png',
+		'13-exgartuan.png',
+		'14-factory omnibus.png',
+		'15-faerie.png',
+		'16-fenimp.png',
+		'17-fetish cultist.png',
+		'18-fetish zealot.png',
+		'1-amily.png',
+		'-1-urta.png',
+		'21-giacomo.png',
+		'22-goblin.png',
+		'23-green slime.png',
+		'24-harpy.png',
+		'25-hellhound.png',
+		'26-ifris.png',
+		'27-imp.png',
+		'28-incubus mechanic.png',
+		'29-isabella.png',
+		'2-anemone.png',
+		'30-izma.png',
+		'32-jojo.png',
+		'33-kelt.png',
+		'34-lottie.png',
+		'35-lumi.png',
+		'36-lynette.png',
+		'37-maddie.png',
+		'38-marae.png',
+		'39-marble.png',
+		'40-markus and lucia.png',
+		'42-minotaur.png',
+		'43-naga.png',
+		'44-oasis demons.png',
+		'45-oswald.png',
+		'47-rathazul.png',
+		'48-sandwich.png',
+		'49-scylla.png',
+		'4-bee girl.png',
+		'50-sean.png',
+		'51-sophie.png',
+		'52-spear gnoll.png',
+		'53-succubus secretary.png',
+		'54-tamani.png',
+		'55-tamani_s daughters.png',
+		'56-uncloaked dominika.png',
+		'57-vagrant cats.png',
+		'58-vala.png',
+		'59-victoria.png',
+		'5-ceraph.png',
+		'61-yara.png',
+		'62-yvonne.png',
+		'63-amily_defurr.png',
+		'66-hel_sprite.png',
+		'67-googirlsprite.png',
+		'68-sharkgirl.png',
+		'69-kida.png',
+		'6-cerulean succubus.png',
+		'70-kiha.png',
+		'71-spidergirl.png',
+		'72-spiderguy.png',
+		'73-basilisk.png',
+		'74-dickworms.png',
+		'75-drider.png',
+		'76-poisontail.png',
+		'77-valeria.png',
+		'78-weaponsmith.png',
+		'79-jojoTentacle.png',
+		'7-christmas elf.png',
+		'80-scyllaAndBear.png',
+		'81-sophieBimbo.png',
+		'82-urtaDrunk.png',
+		'83-valaSlave.png',
+		'84-rogar.png',
+		'85-ceraphClothed.png',
+		'86-ceraphGoblin.png',
+		'87-chameleon.png',
+		'88-chickenHarpy.png',
+		'89-cinnabar.png',
+		'8-cloaked dominika.png',
+		'90-corruptedGlade.png',
+		'91-lilium.png',
+		'92-minotaurSons.png',
+		'93-minerva.png',
+		'94-mrsCoffee.png',
+		'95-sandtrap.png',
+		'96-satyr.png',
+		'97-stuckSatyr.png',
+		'98-tentacleMonster.png',
+		'99-rubi_hornless.png',
+		'9-club gnoll.png'
+	];
 	var MainView = {};
 	// Menu button names.
 	MainView.MENU_NEW_MAIN = 'newGame';
@@ -208,11 +307,12 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		if(index === undefined) {
 			index = 0;
 		}
-		if( index < 0 || CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
+		var sprite = _.find(sprites, function(img) { return img.startsWith(index + '-'); });
+		if( !sprite || CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			MainView.sprite.visible = false;
 		} else {
 			MainView.sprite.visible = true;
-			MainView.sprite.index = index;
+			MainView.sprite.index = sprite;
 		}
 	};
 	MainView.hideSprite = function() {
