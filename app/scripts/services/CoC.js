@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster, TimeModel) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -59,7 +59,13 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		 */
 
 		//Holds the date and time display in the bottom left
-		that.time = new TimeModel();
+		that.time = {
+			days: 0,
+			hours : 0,
+			getTotalTime: function{
+				return (that.time.days * 24 + that.time.hours);
+			}
+		};
 		//The string holds all the "story" text, mainly used in engineCore
 		that.currentText = '';
 		/**
