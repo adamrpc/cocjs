@@ -1,15 +1,16 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, StartUp, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs, InputManager ) {
+angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs, InputManager ) {
 	var SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION = 816;
 	//Didn't want to include something like this, but an integer is safer than depending on the text version number from the CoC class.
 	//Also, this way the save file version doesn't need updating unless an important structural change happens in the save file.
-	function Saves( gameStateDirectGet, gameStateDirectSet ) {
+	function Saves( gameStateDirectGet, gameStateDirectSet, game ) {
 		this.gameStateGet = gameStateDirectGet; //This is so that the save game functions (and nothing else) get direct access to the gameState variable
 		this.gameStateSet = gameStateDirectSet;
 		this.saveFileNames = [ 'CoC_1', 'CoC_2', 'CoC_3', 'CoC_4', 'CoC_5', 'CoC_6', 'CoC_7', 'CoC_8', 'CoC_9' ];
 		this.versionProperties = [ 'legacy', '0.8.3f7', '0.8.3f8', '0.8.4.3', 'latest' ];
 		this.savedGameDir = 'data/com.fenoxo.coc';
+		this.game = game;
 	}
 	Saves.prototype.loadSaveDisplay = function( saveFile, slotName ) {
 		var holding = '';
@@ -77,8 +78,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 		MainView.nameBox.text = '';
 		MainView.nameBox.visible = true;
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.slotName !== 'VOID' ) {
-			EngineCore.outputText( '<b>Last saved or loaded from : ' + CoC.getInstance().player.slotName + '</b>\r\r', false );
+		if( game.player.slotName !== 'VOID' ) {
+			EngineCore.outputText( '<b>Last saved or loaded from : ' + game.player.slotName + '</b>\r\r', false );
 		}
 		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', false );
 		var saveFuncs = [];
@@ -91,7 +92,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 				this.saveGame( saveFileName );
 			} );
 		} );
-		if( CoC.getInstance().player.slotName === 'VOID' ) {
+		if( game.player.slotName === 'VOID' ) {
 			EngineCore.outputText( '\r\r', false );
 		}
 		EngineCore.outputText( '<b>Leave the notes box blank if you don\'t wish to change notes.\r<u>NOTES:</u></b>', false );
@@ -128,12 +129,12 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			EngineCore.addButton( 1, 'Load', this.loadScreen );
 			EngineCore.addButton( 2, '', null ); // TODO : Save to file
 			EngineCore.addButton( 3, 'Delete', this.deleteScreen );
-			EngineCore.addButton( 4, 'Back', CoC.getInstance().gameOver, true );
+			EngineCore.addButton( 4, 'Back', game.gameOver, true );
 			return;
 		}
-		if( CoC.getInstance().player.str === 0 ) {
+		if( game.player.str === 0 ) {
 			// TODO : Save to file
-			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', StartUp.mainMenu );
+			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', $rootScope.StartUp.mainMenu );
 			return;
 		}
 		if( DungeonCore.isInDungeon() ) {
@@ -153,7 +154,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 				'', null,
 				'', null );
 		} else {
-			if( CoC.getInstance().player.autoSave ) {
+			if( game.player.autoSave ) {
 				EngineCore.choices( 'Save', this.saveScreen,
 					'Load', this.loadScreen,
 					'AutoSav: ON', this.autosaveToggle,
@@ -179,7 +180,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 		}
 	};
 	Saves.prototype.autosaveToggle = function() {
-		CoC.getInstance().player.autoSave = !CoC.getInstance().player.autoSave;
+		game.player.autoSave = !game.player.autoSave;
 		this.saveLoad();
 	};
 	Saves.prototype.deleteScreen = function() {
@@ -190,7 +191,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			EngineCore.outputText( this.loadSaveDisplay( test, index + 1 ), false );
 			$log.info( 'Creating function with indice = ', index );
 			delFuncs.push( function() {
-				CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] = saveFileName;
+				game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] = saveFileName;
 				this.confirmDelete();
 			} );
 		} );
@@ -207,20 +208,20 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 			'Back', this.returnToSaveMenu );
 	};
 	Saves.prototype.confirmDelete = function() {
-		EngineCore.outputText( 'You are about to delete the following save: <b>' + CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + '</b>\n\nAre you sure you want to delete it?', true );
+		EngineCore.outputText( 'You are about to delete the following save: <b>' + game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + '</b>\n\nAre you sure you want to delete it?', true );
 		EngineCore.choices( 'No', this.deleteScreen, 'Yes', this.purgeTheMutant, '', null, '', null, '', null );
 	};
 	Saves.prototype.purgeTheMutant = function() {
-		localStorage.removeItem( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] );
-		$log.info( 'DELETING SLOT: ' + CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] );
+		localStorage.removeItem( game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] );
+		$log.info( 'DELETING SLOT: ' + game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] );
 		var blah = [ 'been virus bombed', 'been purged', 'been vaped', 'been nuked from orbit', 'taken an arrow to the knee', 'fallen on its sword', 'lost its reality matrix cohesion', 'been cleansed', 'suffered the following error) Porn Not Found' ];
 		$log.debug( blah.length + ' array slots' );
 		var select = Utils.rand( blah.length );
-		EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + ' has ' + blah[ select ] + '.', true );
+		EngineCore.outputText( game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + ' has ' + blah[ select ] + '.', true );
 		EngineCore.doNext( this.deleteScreen );
 	};
 	Saves.prototype.saveGame = function( slot ) {
-		CoC.getInstance().player.slotName = slot;
+		game.player.slotName = slot;
 		this.saveGameObject( slot, false );
 	};
 	Saves.prototype.loadGame = function( slot ) {
@@ -236,9 +237,9 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 		this.loadGameObject( saveFile, slot );
 		EngineCore.outputText( 'Game Loaded' );
 		EngineCore.statScreenRefresh();
-		if( CoC.getInstance().player.slotName === 'VOID' ) {
+		if( game.player.slotName === 'VOID' ) {
 			$log.info( 'Setting in-use save slot to: ' + slot );
-			CoC.getInstance().player.slotName = slot;
+			game.player.slotName = slot;
 		}
 		EngineCore.doNext(  EventParser.playerMenu );
 	};
@@ -248,27 +249,27 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 	//FURNITURE'S JUNK
 	Saves.prototype.saveGameObject = function( slot, isFile ) {
 		//Autosave stuff
-		if( CoC.getInstance().player.slotName !== 'VOID' ) {
-			CoC.getInstance().player.slotName = slot;
+		if( game.player.slotName !== 'VOID' ) {
+			game.player.slotName = slot;
 		}
-		CoC.saveAllAwareClasses( CoC.getInstance() ); //Informs each saveAwareClass that it must save its values in the flags array
+		CoC.saveAllAwareClasses( game ); //Informs each saveAwareClass that it must save its values in the flags array
 		//Initialize the save file
 		var saveFile = {data: {}};
 		//Set a single variable that tells us if this save exists
 		saveFile.data.exists = true;
-		saveFile.data.version = CoC.getInstance().ver;
-		CoC.getInstance().flags[ kFLAGS.SAVE_FILE_INTEGER_FORMAT_VERSION ] = SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION;
+		saveFile.data.version = game.ver;
+		game.flags[ kFLAGS.SAVE_FILE_INTEGER_FORMAT_VERSION ] = SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION;
 		//CLEAR OLD ARRAYS
 		//Save sum dataz
 		$log.debug( 'SAVE DATAZ' );
-		saveFile.data.short = CoC.getInstance().player.short;
-		saveFile.data.a = CoC.getInstance().player.a;
+		saveFile.data.short = game.player.short;
+		saveFile.data.a = game.player.a;
 		//Notes
 		if( MainView.nameBox.text !== '' ) {
 			saveFile.data.notes = MainView.nameBox.text;
-			CoC.getInstance().notes = MainView.nameBox.text;
+			game.notes = MainView.nameBox.text;
 		} else {
-			saveFile.data.notes = CoC.getInstance().notes;
+			saveFile.data.notes = game.notes;
 		}
 		MainView.nameBox.visible = false;
 		var processingError = false;
@@ -276,135 +277,135 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 		try {
 			//flags
 			saveFile.data.flags = {};
-			_.forOwn(CoC.getInstance().flags, function(value, key) {
+			_.forOwn(game.flags, function(value, key) {
 				if(value !== 0) {
 					saveFile.data.flags[key] = value;
 				}
 			});
 			//CLOTHING/ARMOR
-			saveFile.data.armorId = CoC.getInstance().player.armor.id;
-			saveFile.data.weaponId = CoC.getInstance().player.weapon.id;
-			saveFile.data.armorName = CoC.getInstance().player.modArmorName;
+			saveFile.data.armorId = game.player.armor.id;
+			saveFile.data.weaponId = game.player.weapon.id;
+			saveFile.data.armorName = game.player.modArmorName;
 			//PIERCINGS
-			saveFile.data.nipplesPierced = CoC.getInstance().player.nipplesPierced;
-			saveFile.data.nipplesPShort = CoC.getInstance().player.nipplesPShort;
-			saveFile.data.nipplesPLong = CoC.getInstance().player.nipplesPLong;
-			saveFile.data.lipPierced = CoC.getInstance().player.lipPierced;
-			saveFile.data.lipPShort = CoC.getInstance().player.lipPShort;
-			saveFile.data.lipPLong = CoC.getInstance().player.lipPLong;
-			saveFile.data.tonguePierced = CoC.getInstance().player.tonguePierced;
-			saveFile.data.tonguePShort = CoC.getInstance().player.tonguePShort;
-			saveFile.data.tonguePLong = CoC.getInstance().player.tonguePLong;
-			saveFile.data.eyebrowPierced = CoC.getInstance().player.eyebrowPierced;
-			saveFile.data.eyebrowPShort = CoC.getInstance().player.eyebrowPShort;
-			saveFile.data.eyebrowPLong = CoC.getInstance().player.eyebrowPLong;
-			saveFile.data.earsPierced = CoC.getInstance().player.earsPierced;
-			saveFile.data.earsPShort = CoC.getInstance().player.earsPShort;
-			saveFile.data.earsPLong = CoC.getInstance().player.earsPLong;
-			saveFile.data.nosePierced = CoC.getInstance().player.nosePierced;
-			saveFile.data.nosePShort = CoC.getInstance().player.nosePShort;
-			saveFile.data.nosePLong = CoC.getInstance().player.nosePLong;
+			saveFile.data.nipplesPierced = game.player.nipplesPierced;
+			saveFile.data.nipplesPShort = game.player.nipplesPShort;
+			saveFile.data.nipplesPLong = game.player.nipplesPLong;
+			saveFile.data.lipPierced = game.player.lipPierced;
+			saveFile.data.lipPShort = game.player.lipPShort;
+			saveFile.data.lipPLong = game.player.lipPLong;
+			saveFile.data.tonguePierced = game.player.tonguePierced;
+			saveFile.data.tonguePShort = game.player.tonguePShort;
+			saveFile.data.tonguePLong = game.player.tonguePLong;
+			saveFile.data.eyebrowPierced = game.player.eyebrowPierced;
+			saveFile.data.eyebrowPShort = game.player.eyebrowPShort;
+			saveFile.data.eyebrowPLong = game.player.eyebrowPLong;
+			saveFile.data.earsPierced = game.player.earsPierced;
+			saveFile.data.earsPShort = game.player.earsPShort;
+			saveFile.data.earsPLong = game.player.earsPLong;
+			saveFile.data.nosePierced = game.player.nosePierced;
+			saveFile.data.nosePShort = game.player.nosePShort;
+			saveFile.data.nosePLong = game.player.nosePLong;
 			//MAIN STATS
-			saveFile.data.str = CoC.getInstance().player.str;
-			saveFile.data.tou = CoC.getInstance().player.tou;
-			saveFile.data.spe = CoC.getInstance().player.spe;
-			saveFile.data.inte = CoC.getInstance().player.inte;
-			saveFile.data.lib = CoC.getInstance().player.lib;
-			saveFile.data.sens = CoC.getInstance().player.sens;
-			saveFile.data.cor = CoC.getInstance().player.cor;
-			saveFile.data.fatigue = CoC.getInstance().player.fatigue;
+			saveFile.data.str = game.player.str;
+			saveFile.data.tou = game.player.tou;
+			saveFile.data.spe = game.player.spe;
+			saveFile.data.inte = game.player.inte;
+			saveFile.data.lib = game.player.lib;
+			saveFile.data.sens = game.player.sens;
+			saveFile.data.cor = game.player.cor;
+			saveFile.data.fatigue = game.player.fatigue;
 			//Combat STATS
-			saveFile.data.HP = CoC.getInstance().player.HP;
-			saveFile.data.lust = CoC.getInstance().player.lust;
-			saveFile.data.teaseLevel = CoC.getInstance().player.teaseLevel;
-			saveFile.data.teaseXP = CoC.getInstance().player.teaseXP;
+			saveFile.data.HP = game.player.HP;
+			saveFile.data.lust = game.player.lust;
+			saveFile.data.teaseLevel = game.player.teaseLevel;
+			saveFile.data.teaseXP = game.player.teaseXP;
 			//LEVEL STATS
-			saveFile.data.XP = CoC.getInstance().player.XP;
-			saveFile.data.level = CoC.getInstance().player.level;
-			saveFile.data.gems = CoC.getInstance().player.gems;
-			saveFile.data.perkPoints = CoC.getInstance().player.perkPoints;
+			saveFile.data.XP = game.player.XP;
+			saveFile.data.level = game.player.level;
+			saveFile.data.gems = game.player.gems;
+			saveFile.data.perkPoints = game.player.perkPoints;
 			//Appearance
-			saveFile.data.gender = CoC.getInstance().player.gender;
-			saveFile.data.femininity = CoC.getInstance().player.femininity;
-			saveFile.data.thickness = CoC.getInstance().player.thickness;
-			saveFile.data.tone = CoC.getInstance().player.tone;
-			saveFile.data.tallness = CoC.getInstance().player.tallness;
-			saveFile.data.hairColor = CoC.getInstance().player.hairColor;
-			saveFile.data.hairType = CoC.getInstance().player.hairType;
-			saveFile.data.gills = CoC.getInstance().player.gills;
-			saveFile.data.armType = CoC.getInstance().player.armType;
-			saveFile.data.hairLength = CoC.getInstance().player.hairLength;
-			saveFile.data.beardLength = CoC.getInstance().player.beardLength;
-			saveFile.data.eyeType = CoC.getInstance().player.eyeType;
-			saveFile.data.beardStyle = CoC.getInstance().player.beardStyle;
-			saveFile.data.skinType = CoC.getInstance().player.skinType;
-			saveFile.data.skinTone = CoC.getInstance().player.skinTone;
-			saveFile.data.skinDesc = CoC.getInstance().player.skinDesc;
-			saveFile.data.skinAdj = CoC.getInstance().player.skinAdj;
-			saveFile.data.faceType = CoC.getInstance().player.faceType;
-			saveFile.data.tongueType = CoC.getInstance().player.tongueType;
-			saveFile.data.earType = CoC.getInstance().player.earType;
-			saveFile.data.earValue = CoC.getInstance().player.earValue;
-			saveFile.data.antennae = CoC.getInstance().player.antennae;
-			saveFile.data.horns = CoC.getInstance().player.horns;
-			saveFile.data.hornType = CoC.getInstance().player.hornType;
-			saveFile.data.wingDesc = CoC.getInstance().player.wingDesc;
-			saveFile.data.wingType = CoC.getInstance().player.wingType;
-			saveFile.data.lowerBody = CoC.getInstance().player.lowerBody;
-			saveFile.data.tailType = CoC.getInstance().player.tailType;
-			saveFile.data.tailVenum = CoC.getInstance().player.tailVenom;
-			saveFile.data.tailRecharge = CoC.getInstance().player.tailRecharge;
-			saveFile.data.hipRating = CoC.getInstance().player.hipRating;
-			saveFile.data.buttRating = CoC.getInstance().player.buttRating;
+			saveFile.data.gender = game.player.gender;
+			saveFile.data.femininity = game.player.femininity;
+			saveFile.data.thickness = game.player.thickness;
+			saveFile.data.tone = game.player.tone;
+			saveFile.data.tallness = game.player.tallness;
+			saveFile.data.hairColor = game.player.hairColor;
+			saveFile.data.hairType = game.player.hairType;
+			saveFile.data.gills = game.player.gills;
+			saveFile.data.armType = game.player.armType;
+			saveFile.data.hairLength = game.player.hairLength;
+			saveFile.data.beardLength = game.player.beardLength;
+			saveFile.data.eyeType = game.player.eyeType;
+			saveFile.data.beardStyle = game.player.beardStyle;
+			saveFile.data.skinType = game.player.skinType;
+			saveFile.data.skinTone = game.player.skinTone;
+			saveFile.data.skinDesc = game.player.skinDesc;
+			saveFile.data.skinAdj = game.player.skinAdj;
+			saveFile.data.faceType = game.player.faceType;
+			saveFile.data.tongueType = game.player.tongueType;
+			saveFile.data.earType = game.player.earType;
+			saveFile.data.earValue = game.player.earValue;
+			saveFile.data.antennae = game.player.antennae;
+			saveFile.data.horns = game.player.horns;
+			saveFile.data.hornType = game.player.hornType;
+			saveFile.data.wingDesc = game.player.wingDesc;
+			saveFile.data.wingType = game.player.wingType;
+			saveFile.data.lowerBody = game.player.lowerBody;
+			saveFile.data.tailType = game.player.tailType;
+			saveFile.data.tailVenum = game.player.tailVenom;
+			saveFile.data.tailRecharge = game.player.tailRecharge;
+			saveFile.data.hipRating = game.player.hipRating;
+			saveFile.data.buttRating = game.player.buttRating;
 			//Sexual Stuff
-			saveFile.data.balls = CoC.getInstance().player.balls;
-			saveFile.data.cumMultiplier = CoC.getInstance().player.cumMultiplier;
-			saveFile.data.ballSize = CoC.getInstance().player.ballSize;
-			saveFile.data.hoursSinceCum = CoC.getInstance().player.hoursSinceCum;
-			saveFile.data.fertility = CoC.getInstance().player.fertility;
-			saveFile.data.clitLength = CoC.getInstance().player.clitLength;
+			saveFile.data.balls = game.player.balls;
+			saveFile.data.cumMultiplier = game.player.cumMultiplier;
+			saveFile.data.ballSize = game.player.ballSize;
+			saveFile.data.hoursSinceCum = game.player.hoursSinceCum;
+			saveFile.data.fertility = game.player.fertility;
+			saveFile.data.clitLength = game.player.clitLength;
 			//Preggo stuff
-			saveFile.data.pregnancyIncubation = CoC.getInstance().player.pregnancyIncubation;
-			saveFile.data.pregnancyType = CoC.getInstance().player.pregnancyType;
-			saveFile.data.buttPregnancyIncubation = CoC.getInstance().player.buttPregnancyIncubation;
-			saveFile.data.buttPregnancyType = CoC.getInstance().player.buttPregnancyType;
-			saveFile.data.cocks = angular.copy(CoC.getInstance().player.cocks);
-			saveFile.data.vaginas = angular.copy(CoC.getInstance().player.vaginas);
-			saveFile.data.breastRows = angular.copy(CoC.getInstance().player.breastRows);
-			saveFile.data.perks = angular.copy(CoC.getInstance().player.perks);
-			saveFile.data.statusAffects = angular.copy(CoC.getInstance().player.statusAffects);
-			saveFile.data.ass = angular.copy(CoC.getInstance().player.ass);
-			saveFile.data.keyItems = angular.copy(CoC.getInstance().player.keyItems);
-			saveFile.data.itemStorage = angular.copy(CoC.getInstance().inventory.itemStorage);
-			saveFile.data.gearStorage = angular.copy(CoC.getInstance().inventory.gearStorage);
+			saveFile.data.pregnancyIncubation = game.player.pregnancyIncubation;
+			saveFile.data.pregnancyType = game.player.pregnancyType;
+			saveFile.data.buttPregnancyIncubation = game.player.buttPregnancyIncubation;
+			saveFile.data.buttPregnancyType = game.player.buttPregnancyType;
+			saveFile.data.cocks = angular.copy(game.player.cocks);
+			saveFile.data.vaginas = angular.copy(game.player.vaginas);
+			saveFile.data.breastRows = angular.copy(game.player.breastRows);
+			saveFile.data.perks = angular.copy(game.player.perks);
+			saveFile.data.statusAffects = angular.copy(game.player.statusAffects);
+			saveFile.data.ass = angular.copy(game.player.ass);
+			saveFile.data.keyItems = angular.copy(game.player.keyItems);
+			saveFile.data.itemStorage = angular.copy(game.inventory.itemStorage);
+			saveFile.data.gearStorage = angular.copy(game.inventory.gearStorage);
 			//NIPPLES
-			saveFile.data.nippleLength = CoC.getInstance().player.nippleLength;
+			saveFile.data.nippleLength = game.player.nippleLength;
 			//EXPLORED
-			saveFile.data.exploredLake = CoC.getInstance().player.exploredLake;
-			saveFile.data.exploredMountain = CoC.getInstance().player.exploredMountain;
-			saveFile.data.exploredForest = CoC.getInstance().player.exploredForest;
-			saveFile.data.exploredDesert = CoC.getInstance().player.exploredDesert;
-			saveFile.data.explored = CoC.getInstance().player.explored;
-			saveFile.data.foundForest = CoC.getInstance().foundForest;
-			saveFile.data.foundDesert = CoC.getInstance().foundDesert;
-			saveFile.data.foundMountain = CoC.getInstance().foundMountain;
-			saveFile.data.foundLake = CoC.getInstance().foundLake;
+			saveFile.data.exploredLake = game.player.exploredLake;
+			saveFile.data.exploredMountain = game.player.exploredMountain;
+			saveFile.data.exploredForest = game.player.exploredForest;
+			saveFile.data.exploredDesert = game.player.exploredDesert;
+			saveFile.data.explored = game.player.explored;
+			saveFile.data.foundForest = game.foundForest;
+			saveFile.data.foundDesert = game.foundDesert;
+			saveFile.data.foundMountain = game.foundMountain;
+			saveFile.data.foundLake = game.foundLake;
 			saveFile.data.gameState = this.gameStateGet();
 			//Time and Items
-			saveFile.data.hours = CoC.getInstance().time.hours;
-			saveFile.data.days = CoC.getInstance().time.days;
-			saveFile.data.autoSave = CoC.getInstance().player.autoSave;
+			saveFile.data.hours = game.time.hours;
+			saveFile.data.days = game.time.days;
+			saveFile.data.autoSave = game.player.autoSave;
 			//PLOTZ
-			saveFile.data.whitney = CoC.getInstance().whitney;
-			saveFile.data.monk = CoC.getInstance().monk;
-			saveFile.data.sand = CoC.getInstance().sand;
-			saveFile.data.giacomo = CoC.getInstance().giacomo;
+			saveFile.data.whitney = game.whitney;
+			saveFile.data.monk = game.monk;
+			saveFile.data.sand = game.sand;
+			saveFile.data.giacomo = game.giacomo;
 			//ITEMZ. Item1s
-			saveFile.data.itemSlot1 = angular.copy(CoC.getInstance().player.itemSlot1);
-			saveFile.data.itemSlot2 = angular.copy(CoC.getInstance().player.itemSlot2);
-			saveFile.data.itemSlot3 = angular.copy(CoC.getInstance().player.itemSlot3);
-			saveFile.data.itemSlot4 = angular.copy(CoC.getInstance().player.itemSlot4);
-			saveFile.data.itemSlot5 = angular.copy(CoC.getInstance().player.itemSlot5);
+			saveFile.data.itemSlot1 = angular.copy(game.player.itemSlot1);
+			saveFile.data.itemSlot2 = angular.copy(game.player.itemSlot2);
+			saveFile.data.itemSlot3 = angular.copy(game.player.itemSlot3);
+			saveFile.data.itemSlot4 = angular.copy(game.player.itemSlot4);
+			saveFile.data.itemSlot5 = angular.copy(game.player.itemSlot5);
 			// Keybinds
 			saveFile.data.controls = InputManager.SaveBindsToObj();
 		} catch( error ) {
@@ -436,164 +437,164 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $log, CoC, Utils, Weapon, 
 		if( slot === undefined ) {
 			slot = 'VOID';
 		}
-		var game = CoC.getInstance();
+		var game = game;
 		game.dungeonLoc = 0;
 		game.inRoomedDungeon = false;
 		game.inRoomedDungeonResume = null;
 		//Autosave stuff
-		CoC.getInstance().player.slotName = slot;
+		game.player.slotName = slot;
 		$log.info( 'Loading save!' );
 		//Initialize the save file
 		var saveFile = saveData;
 		if( saveFile.data ) {
 			//KILL ALL COCKS;
-			CoC.getInstance().player = new Player();
-			CoC.getInstance().flags = {};
-			CoC.getInstance().inventory.clearStorage();
-			CoC.getInstance().inventory.clearGearStorage();
-			CoC.getInstance().player.short = saveFile.data.short;
-			CoC.getInstance().player.a = saveFile.data.a;
-			CoC.getInstance().notes = saveFile.data.notes;
+			game.player = new Player();
+			game.flags = {};
+			game.inventory.clearStorage();
+			game.inventory.clearGearStorage();
+			game.player.short = saveFile.data.short;
+			game.player.a = saveFile.data.a;
+			game.notes = saveFile.data.notes;
 			_.forOwn(saveFile.data, function(value, key) {
 				if( value !== undefined ) {
-					CoC.getInstance().flags[key] = value;
+					game.flags[key] = value;
 				}
 			});
 			//PIERCINGS
-			CoC.getInstance().player.nipplesPierced = saveFile.data.nipplesPierced;
-			CoC.getInstance().player.nipplesPShort = saveFile.data.nipplesPShort;
-			CoC.getInstance().player.nipplesPLong = saveFile.data.nipplesPLong;
-			CoC.getInstance().player.lipPierced = saveFile.data.lipPierced;
-			CoC.getInstance().player.lipPShort = saveFile.data.lipPShort;
-			CoC.getInstance().player.lipPLong = saveFile.data.lipPLong;
-			CoC.getInstance().player.tonguePierced = saveFile.data.tonguePierced;
-			CoC.getInstance().player.tonguePShort = saveFile.data.tonguePShort;
-			CoC.getInstance().player.tonguePLong = saveFile.data.tonguePLong;
-			CoC.getInstance().player.eyebrowPierced = saveFile.data.eyebrowPierced;
-			CoC.getInstance().player.eyebrowPShort = saveFile.data.eyebrowPShort;
-			CoC.getInstance().player.eyebrowPLong = saveFile.data.eyebrowPLong;
-			CoC.getInstance().player.earsPierced = saveFile.data.earsPierced;
-			CoC.getInstance().player.earsPShort = saveFile.data.earsPShort;
-			CoC.getInstance().player.earsPLong = saveFile.data.earsPLong;
-			CoC.getInstance().player.nosePierced = saveFile.data.nosePierced;
-			CoC.getInstance().player.nosePShort = saveFile.data.nosePShort;
-			CoC.getInstance().player.nosePLong = saveFile.data.nosePLong;
+			game.player.nipplesPierced = saveFile.data.nipplesPierced;
+			game.player.nipplesPShort = saveFile.data.nipplesPShort;
+			game.player.nipplesPLong = saveFile.data.nipplesPLong;
+			game.player.lipPierced = saveFile.data.lipPierced;
+			game.player.lipPShort = saveFile.data.lipPShort;
+			game.player.lipPLong = saveFile.data.lipPLong;
+			game.player.tonguePierced = saveFile.data.tonguePierced;
+			game.player.tonguePShort = saveFile.data.tonguePShort;
+			game.player.tonguePLong = saveFile.data.tonguePLong;
+			game.player.eyebrowPierced = saveFile.data.eyebrowPierced;
+			game.player.eyebrowPShort = saveFile.data.eyebrowPShort;
+			game.player.eyebrowPLong = saveFile.data.eyebrowPLong;
+			game.player.earsPierced = saveFile.data.earsPierced;
+			game.player.earsPShort = saveFile.data.earsPShort;
+			game.player.earsPLong = saveFile.data.earsPLong;
+			game.player.nosePierced = saveFile.data.nosePierced;
+			game.player.nosePShort = saveFile.data.nosePShort;
+			game.player.nosePLong = saveFile.data.nosePLong;
 			//MAIN STATS
-			CoC.getInstance().player.str = saveFile.data.str;
-			CoC.getInstance().player.tou = saveFile.data.tou;
-			CoC.getInstance().player.spe = saveFile.data.spe;
-			CoC.getInstance().player.inte = saveFile.data.inte;
-			CoC.getInstance().player.lib = saveFile.data.lib;
-			CoC.getInstance().player.sens = saveFile.data.sens;
-			CoC.getInstance().player.cor = saveFile.data.cor;
-			CoC.getInstance().player.fatigue = saveFile.data.fatigue;
+			game.player.str = saveFile.data.str;
+			game.player.tou = saveFile.data.tou;
+			game.player.spe = saveFile.data.spe;
+			game.player.inte = saveFile.data.inte;
+			game.player.lib = saveFile.data.lib;
+			game.player.sens = saveFile.data.sens;
+			game.player.cor = saveFile.data.cor;
+			game.player.fatigue = saveFile.data.fatigue;
 			//CLOTHING/ARMOR
-			CoC.getInstance().player.setWeaponHiddenField( ItemType.lookupItem( saveFile.data.weaponId ) || WeaponLib.FISTS );
-			CoC.getInstance().player.setArmorHiddenField( ItemType.lookupItem( saveFile.data.armorId ) || ArmorLib.COMFORTABLE_UNDERCLOTHES );
-			if( CoC.getInstance().player.armor.name !== saveFile.data.armorName ) {
-				CoC.getInstance().player.modArmorName = saveFile.data.armorName;
+			game.player.setWeaponHiddenField( ItemType.lookupItem( saveFile.data.weaponId ) || WeaponLib.FISTS );
+			game.player.setArmorHiddenField( ItemType.lookupItem( saveFile.data.armorId ) || ArmorLib.COMFORTABLE_UNDERCLOTHES );
+			if( game.player.armor.name !== saveFile.data.armorName ) {
+				game.player.modArmorName = saveFile.data.armorName;
 			}
 			//Combat STATS
-			CoC.getInstance().player.HP = saveFile.data.HP;
-			CoC.getInstance().player.lust = saveFile.data.lust;
-			CoC.getInstance().player.teaseXP = saveFile.data.teaseXP ? saveFile.data.teaseXP : 0;
-			CoC.getInstance().player.teaseLevel = saveFile.data.teaseLevel ? saveFile.data.teaseLevel : 0;
+			game.player.HP = saveFile.data.HP;
+			game.player.lust = saveFile.data.lust;
+			game.player.teaseXP = saveFile.data.teaseXP ? saveFile.data.teaseXP : 0;
+			game.player.teaseLevel = saveFile.data.teaseLevel ? saveFile.data.teaseLevel : 0;
 			//LEVEL STATS
-			CoC.getInstance().player.XP = saveFile.data.XP;
-			CoC.getInstance().player.level = saveFile.data.level;
-			CoC.getInstance().player.gems = saveFile.data.gems;
-			CoC.getInstance().player.perkPoints = saveFile.data.perkPoints ? saveFile.data.perkPoints : 0;
+			game.player.XP = saveFile.data.XP;
+			game.player.level = saveFile.data.level;
+			game.player.gems = saveFile.data.gems;
+			game.player.perkPoints = saveFile.data.perkPoints ? saveFile.data.perkPoints : 0;
 			//Appearance
-			CoC.getInstance().player.gender = saveFile.data.gender;
-			CoC.getInstance().player.femininity = saveFile.data.femininity !== undefined ? saveFile.data.femininity : 50;
-			CoC.getInstance().player.eyeType = saveFile.data.eyeType !== undefined ? saveFile.data.eyeType : AppearanceDefs.EYES_HUMAN;
-			CoC.getInstance().player.beardLength = saveFile.data.beardLength ? saveFile.data.beardLength : 0;
-			CoC.getInstance().player.beardStyle = saveFile.data.beardStyle ? saveFile.data.beardStyle : 0;
-			CoC.getInstance().player.tone = saveFile.data.tone !== undefined ? saveFile.data.tone : 50;
-			CoC.getInstance().player.thickness = saveFile.data.thickness !== undefined ? saveFile.data.thickness : 50;
-			CoC.getInstance().player.tallness = saveFile.data.tallness;
-			CoC.getInstance().player.hairColor = saveFile.data.hairColor;
-			CoC.getInstance().player.hairType = saveFile.data.hairType ? saveFile.data.hairType : 0;
-			CoC.getInstance().player.gills = saveFile.data.gills ? saveFile.data.gills : false;
-			CoC.getInstance().player.armType = saveFile.data.armType !== undefined ? saveFile.data.armType : AppearanceDefs.ARM_TYPE_HUMAN;
-			CoC.getInstance().player.hairLength = saveFile.data.hairLength;
-			CoC.getInstance().player.skinType = saveFile.data.skinType;
-			CoC.getInstance().player.skinAdj = saveFile.data.skinAdj !== undefined ? saveFile.data.skinAdj : '';
-			CoC.getInstance().player.skinTone = saveFile.data.skinTone;
-			CoC.getInstance().player.skinDesc = saveFile.data.skinDesc;
-			CoC.getInstance().player.faceType = saveFile.data.faceType;
-			CoC.getInstance().player.tongueType = saveFile.data.tongueType !== undefined ? saveFile.data.tongueType : AppearanceDefs.TONUGE_HUMAN;
-			CoC.getInstance().player.earType = saveFile.data.earType !== undefined ? saveFile.data.earType : AppearanceDefs.EARS_HUMAN;
-			CoC.getInstance().player.earValue = saveFile.data.earValue ? saveFile.data.earValue : 0;
-			CoC.getInstance().player.antennae = saveFile.data.antennae !== undefined ? saveFile.data.antennae : AppearanceDefs.ANTENNAE_NONE;
-			CoC.getInstance().player.horns = saveFile.data.horns;
-			CoC.getInstance().player.hornType = saveFile.data.hornType !== undefined ? saveFile.data.hornType : AppearanceDefs.HORNS_NONE;
-			CoC.getInstance().player.wingDesc = saveFile.data.wingDesc;
-			CoC.getInstance().player.wingType = saveFile.data.wingType;
-			CoC.getInstance().player.lowerBody = saveFile.data.lowerBody;
-			CoC.getInstance().player.tailType = saveFile.data.tailType;
-			CoC.getInstance().player.tailVenom = saveFile.data.tailVenum;
-			CoC.getInstance().player.tailRecharge = saveFile.data.tailRecharge;
-			CoC.getInstance().player.hipRating = saveFile.data.hipRating;
-			CoC.getInstance().player.buttRating = saveFile.data.buttRating;
+			game.player.gender = saveFile.data.gender;
+			game.player.femininity = saveFile.data.femininity !== undefined ? saveFile.data.femininity : 50;
+			game.player.eyeType = saveFile.data.eyeType !== undefined ? saveFile.data.eyeType : AppearanceDefs.EYES_HUMAN;
+			game.player.beardLength = saveFile.data.beardLength ? saveFile.data.beardLength : 0;
+			game.player.beardStyle = saveFile.data.beardStyle ? saveFile.data.beardStyle : 0;
+			game.player.tone = saveFile.data.tone !== undefined ? saveFile.data.tone : 50;
+			game.player.thickness = saveFile.data.thickness !== undefined ? saveFile.data.thickness : 50;
+			game.player.tallness = saveFile.data.tallness;
+			game.player.hairColor = saveFile.data.hairColor;
+			game.player.hairType = saveFile.data.hairType ? saveFile.data.hairType : 0;
+			game.player.gills = saveFile.data.gills ? saveFile.data.gills : false;
+			game.player.armType = saveFile.data.armType !== undefined ? saveFile.data.armType : AppearanceDefs.ARM_TYPE_HUMAN;
+			game.player.hairLength = saveFile.data.hairLength;
+			game.player.skinType = saveFile.data.skinType;
+			game.player.skinAdj = saveFile.data.skinAdj !== undefined ? saveFile.data.skinAdj : '';
+			game.player.skinTone = saveFile.data.skinTone;
+			game.player.skinDesc = saveFile.data.skinDesc;
+			game.player.faceType = saveFile.data.faceType;
+			game.player.tongueType = saveFile.data.tongueType !== undefined ? saveFile.data.tongueType : AppearanceDefs.TONUGE_HUMAN;
+			game.player.earType = saveFile.data.earType !== undefined ? saveFile.data.earType : AppearanceDefs.EARS_HUMAN;
+			game.player.earValue = saveFile.data.earValue ? saveFile.data.earValue : 0;
+			game.player.antennae = saveFile.data.antennae !== undefined ? saveFile.data.antennae : AppearanceDefs.ANTENNAE_NONE;
+			game.player.horns = saveFile.data.horns;
+			game.player.hornType = saveFile.data.hornType !== undefined ? saveFile.data.hornType : AppearanceDefs.HORNS_NONE;
+			game.player.wingDesc = saveFile.data.wingDesc;
+			game.player.wingType = saveFile.data.wingType;
+			game.player.lowerBody = saveFile.data.lowerBody;
+			game.player.tailType = saveFile.data.tailType;
+			game.player.tailVenom = saveFile.data.tailVenum;
+			game.player.tailRecharge = saveFile.data.tailRecharge;
+			game.player.hipRating = saveFile.data.hipRating;
+			game.player.buttRating = saveFile.data.buttRating;
 			//Sexual Stuff
-			CoC.getInstance().player.balls = saveFile.data.balls;
-			CoC.getInstance().player.cumMultiplier = saveFile.data.cumMultiplier;
-			CoC.getInstance().player.ballSize = saveFile.data.ballSize;
-			CoC.getInstance().player.hoursSinceCum = saveFile.data.hoursSinceCum;
-			CoC.getInstance().player.fertility = saveFile.data.fertility;
-			CoC.getInstance().player.clitLength = saveFile.data.clitLength;
+			game.player.balls = saveFile.data.balls;
+			game.player.cumMultiplier = saveFile.data.cumMultiplier;
+			game.player.ballSize = saveFile.data.ballSize;
+			game.player.hoursSinceCum = saveFile.data.hoursSinceCum;
+			game.player.fertility = saveFile.data.fertility;
+			game.player.clitLength = saveFile.data.clitLength;
 			//Preggo stuff
-			CoC.getInstance().player.knockUpForce( saveFile.data.pregnancyType, saveFile.data.pregnancyIncubation );
-			CoC.getInstance().player.buttKnockUpForce( saveFile.data.buttPregnancyType, saveFile.data.buttPregnancyIncubation );
-			CoC.getInstance().player.cocks = angular.copy(saveFile.data.cocks);
-			CoC.getInstance().player.vaginas = angular.copy(saveFile.data.vaginas);
+			game.player.knockUpForce( saveFile.data.pregnancyType, saveFile.data.pregnancyIncubation );
+			game.player.buttKnockUpForce( saveFile.data.buttPregnancyType, saveFile.data.buttPregnancyIncubation );
+			game.player.cocks = angular.copy(saveFile.data.cocks);
+			game.player.vaginas = angular.copy(saveFile.data.vaginas);
 			//NIPPLES
-			CoC.getInstance().player.nippleLength = saveFile.data.nippleLength !== undefined ? saveFile.data.nippleLength : 0.25;
-			CoC.getInstance().player.breastRows = angular.copy(saveFile.data.breastRows);
-			CoC.getInstance().player.perks = angular.copy(saveFile.data.perks);
-			if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 1 ) {
-				CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
+			game.player.nippleLength = saveFile.data.nippleLength !== undefined ? saveFile.data.nippleLength : 0.25;
+			game.player.breastRows = angular.copy(saveFile.data.breastRows);
+			game.player.perks = angular.copy(saveFile.data.perks);
+			if( game.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 1 ) {
+				game.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
 				$log.debug( 'Force-reverting Marble At Farm flag to 0.' );
 			}
-			CoC.getInstance().player.statusAffects = angular.copy(saveFile.data.statusAffects);
-			CoC.getInstance().player.keyItems = angular.copy(saveFile.data.keyItems);
+			game.player.statusAffects = angular.copy(saveFile.data.statusAffects);
+			game.player.keyItems = angular.copy(saveFile.data.keyItems);
 			//Set storage slot array
 			//Populate storage slot array
-			CoC.getInstance().inventory.itemStorage = angular.copy(saveFile.data.itemStorage);
-			CoC.getInstance().inventory.gearStorage = angular.copy(saveFile.data.gearStorage);
-			CoC.getInstance().player.ass.analLooseness = saveFile.data.ass.analLooseness;
-			CoC.getInstance().player.ass.analWetness = saveFile.data.ass.analWetness;
-			CoC.getInstance().player.ass.fullness = saveFile.data.ass.fullness;
+			game.inventory.itemStorage = angular.copy(saveFile.data.itemStorage);
+			game.inventory.gearStorage = angular.copy(saveFile.data.gearStorage);
+			game.player.ass.analLooseness = saveFile.data.ass.analLooseness;
+			game.player.ass.analWetness = saveFile.data.ass.analWetness;
+			game.player.ass.fullness = saveFile.data.ass.fullness;
 			//Shit
 			this.gameStateSet( saveFile.data.gameState );
-			CoC.getInstance().player.exploredLake = saveFile.data.exploredLake;
-			CoC.getInstance().player.exploredMountain = saveFile.data.exploredMountain;
-			CoC.getInstance().player.exploredForest = saveFile.data.exploredForest;
-			CoC.getInstance().player.exploredDesert = saveFile.data.exploredDesert;
-			CoC.getInstance().player.explored = saveFile.data.explored;
-			CoC.getInstance().foundForest = saveFile.data.foundForest;
-			CoC.getInstance().foundDesert = saveFile.data.foundDesert;
-			CoC.getInstance().foundMountain = saveFile.data.foundMountain;
-			CoC.getInstance().foundLake = saveFile.data.foundLake;
+			game.player.exploredLake = saveFile.data.exploredLake;
+			game.player.exploredMountain = saveFile.data.exploredMountain;
+			game.player.exploredForest = saveFile.data.exploredForest;
+			game.player.exploredDesert = saveFile.data.exploredDesert;
+			game.player.explored = saveFile.data.explored;
+			game.foundForest = saveFile.data.foundForest;
+			game.foundDesert = saveFile.data.foundDesert;
+			game.foundMountain = saveFile.data.foundMountain;
+			game.foundLake = saveFile.data.foundLake;
 			//Days
 			//Time and Items
-			CoC.getInstance().time.hours = saveFile.data.hours;
-			CoC.getInstance().time.days = saveFile.data.days;
-			CoC.getInstance().player.autoSave = saveFile.data.autoSave !== undefined ? saveFile.data.autoSave : false;
+			game.time.hours = saveFile.data.hours;
+			game.time.days = saveFile.data.days;
+			game.player.autoSave = saveFile.data.autoSave !== undefined ? saveFile.data.autoSave : false;
 			//PLOTZ
-			CoC.getInstance().whitney = saveFile.data.whitney;
-			CoC.getInstance().monk = saveFile.data.monk;
-			CoC.getInstance().sand = saveFile.data.sand;
-			CoC.getInstance().player.giacomo = saveFile.data.giacomo !== undefined ? saveFile.data.giacomo : 0;
+			game.whitney = saveFile.data.whitney;
+			game.monk = saveFile.data.monk;
+			game.sand = saveFile.data.sand;
+			game.player.giacomo = saveFile.data.giacomo !== undefined ? saveFile.data.giacomo : 0;
 			//The flag will be zero for any older save that still uses beeProgress and newer saves always store a zero in beeProgress, so we only need to update the flag on a value of one.
 			//ITEMZ. Item1
-			CoC.getInstance().player.itemSlot1 = angular.copy(saveFile.data.itemSlot1);
-			CoC.getInstance().player.itemSlot2 = angular.copy(saveFile.data.itemSlot2);
-			CoC.getInstance().player.itemSlot3 = angular.copy(saveFile.data.itemSlot3);
-			CoC.getInstance().player.itemSlot4 = angular.copy(saveFile.data.itemSlot4);
-			CoC.getInstance().player.itemSlot5 = angular.copy(saveFile.data.itemSlot5);
-			CoC.loadAllAwareClasses( CoC.getInstance() ); //Informs each saveAwareClass that it must load its values from the CoC.getInstance().flags array
+			game.player.itemSlot1 = angular.copy(saveFile.data.itemSlot1);
+			game.player.itemSlot2 = angular.copy(saveFile.data.itemSlot2);
+			game.player.itemSlot3 = angular.copy(saveFile.data.itemSlot3);
+			game.player.itemSlot4 = angular.copy(saveFile.data.itemSlot4);
+			game.player.itemSlot5 = angular.copy(saveFile.data.itemSlot5);
+			CoC.loadAllAwareClasses( game ); //Informs each saveAwareClass that it must load its values from the game.flags array
 			// Control Bindings
 			if( saveFile.data.controls !== undefined ) {
 				InputManager.LoadBindsFromObj( saveFile.data.controls );

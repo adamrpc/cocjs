@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore, MainView) {
+angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore, MainView, StartUp) {
 	this.statsView = MainView.statsView;
 	this.bindingPane = MainView.bindingPane;
 	this.sprite = MainView.sprite;
@@ -21,4 +21,6 @@ angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore
 		}
 	};
 	$scope.$watch('main.aCb.value', EngineCore.changeHandler);
+	$rootScope.StartUp = StartUp; // TODO fix architecture
+	StartUp.mainMenu();
 });

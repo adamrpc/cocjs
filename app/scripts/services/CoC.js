@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, StartUp, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster) {
+angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -15,7 +15,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
 		that.parser = new Parser(that, CoC_Settings);
 		that.charCreation = new CharCreation();
-		that.saves = new Saves(function(){ return that.gameState; }, function(value) { that.gameState = value; });
+		that.saves = new Saves(function(){ return that.gameState; }, function(value) { that.gameState = value; }, that);
 		/**
 		 * Global Variables used across the whole game. I hope to whittle it down slowly.
 		 */
@@ -116,7 +116,6 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		 * that._timeAwareClassList = [];
 		 * that._saveAwareClassList = [];
 		 */
-		StartUp.mainMenu();
 	};
 	CoC.prototype.isEaster = function() {
 		if(!_.has(this.scenes, 'plains')) {

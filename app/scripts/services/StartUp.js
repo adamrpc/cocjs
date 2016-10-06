@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager) {
+angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
 	var StartUp = {};
 	//MainMenu - kicks CoC.getInstance().player out to the main menu
 	StartUp.mainMenu = function() {
@@ -136,6 +136,44 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 			'Silly Toggle', StartUp.toggleSillyFlag,
 			'', null,
 			'Back', StartUp.mainMenu );
+	};
+	StartUp.displayControls = function() {
+		MainView.hideAllMenuButtons();
+		InputManager.DisplayBindingPane();
+		EngineCore.choices( 'Reset Ctrls', StartUp.resetControls,
+			'Clear Ctrls', StartUp.clearControls,
+			'Null', null,
+			'Null', null,
+			'Null', null,
+			'Null', null,
+			'Null', null,
+			'Null', null,
+			'Null', null,
+			'Back', StartUp.hideControls );
+	};
+	StartUp.hideControls = function() {
+		InputManager.HideBindingPane();
+		StartUp.settingsScreen();
+	};
+	StartUp.resetControls = function() {
+		InputManager.HideBindingPane();
+		EngineCore.outputText( 'Are you sure you want to reset all of the currently bound controls to their defaults?', true );
+		EngineCore.doYesNo( StartUp.resetControlsYes, StartUp.displayControls );
+	};
+	StartUp.resetControlsYes = function() {
+		InputManager.ResetToDefaults();
+		EngineCore.outputText( 'Controls have been reset to defaults!\n\n', true );
+		EngineCore.doNext( StartUp.displayControls );
+	};
+	StartUp.clearControls = function() {
+		InputManager.HideBindingPane();
+		EngineCore.outputText( 'Are you sure you want to clear all of the currently bound controls?', true );
+		EngineCore.doYesNo( StartUp.clearControlsYes, StartUp.displayControls );
+	};
+	StartUp.clearControlsYes = function() {
+		InputManager.ClearAllBinds();
+		EngineCore.outputText( 'Controls have been cleared!', true );
+		EngineCore.doNext( StartUp.displayControls );
 	};
 	StartUp.toggleStandards = function() {
 		CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
