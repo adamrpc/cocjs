@@ -62,7 +62,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.time = {
 			days: 0,
 			hours : 0,
-			getTotalTime: function{
+			getTotalTime: function() {
 				return (that.time.days * 24 + that.time.hours);
 			}
 		};
