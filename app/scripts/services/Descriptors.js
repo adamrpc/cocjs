@@ -12,7 +12,7 @@ angular.module('cocjs').factory('Descriptors', function ( Appearance, CoC, Utils
 		if( CoC.getInstance().player.hasCock() && number >= 0 && number < CoC.getInstance().player.cockTotal() ) {
 			return CoC.getInstance().player.cockDescript( number );
 		} else {
-			return this.clitDescript();
+			return Descriptors.clitDescript();
 		}
 	};
 	Descriptors.chestDesc = function() {
@@ -77,10 +77,10 @@ angular.module('cocjs').factory('Descriptors', function ( Appearance, CoC, Utils
 	//Allvagina descript
 	Descriptors.allVaginaDescript = function() {
 		if( CoC.getInstance().player.vaginas.length === 1 ) {
-			return this.vaginaDescript( Utils.rand( CoC.getInstance().player.vaginas.length - 1 ) );
+			return Descriptors.vaginaDescript( Utils.rand( CoC.getInstance().player.vaginas.length - 1 ) );
 		}
 		if( CoC.getInstance().player.vaginas.length > 1 ) {
-			return this.vaginaDescript( Utils.rand( CoC.getInstance().player.vaginas.length - 1 ) ) + 's';
+			return Descriptors.vaginaDescript( Utils.rand( CoC.getInstance().player.vaginas.length - 1 ) ) + 's';
 		}
 		CoC_Settings.error( 'ERROR called with no vaginas.' );
 		return 'ERROR called with no vaginas.';
