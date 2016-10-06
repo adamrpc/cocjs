@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($log, $scope, EngineCore, MainView, StartUp) {
+angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, EngineCore, MainView, StartUp) {
 	this.statsView = MainView.statsView;
 	this.bindingPane = MainView.bindingPane;
 	this.sprite = MainView.sprite;
