@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('CoC', function ( Appearance, CoC, Utils, CoC_Settings ) {
+angular.module('cocjs').factory('Descriptors', function ( Appearance, CoC, Utils, CoC_Settings ) {
 	var Descriptors = {};
 	Descriptors.sackDescript = function() {
 		return Appearance.sackDescript( CoC.getInstance().player );
