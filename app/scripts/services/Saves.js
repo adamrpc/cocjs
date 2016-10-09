@@ -84,9 +84,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', false );
 		var saveFuncs = [];
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			var test = localStorage.getItem( saveFileName );
-			EngineCore.outputText( this.loadSaveDisplay( test, index + 1 ), false );
-			$log.info( 'Creating function with indice = ', index );
+			EngineCore.outputText( this.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			$log.info( 'Creating save function with indice = ', index );
 			saveFuncs.push( function() {
 				$log.info( 'Saving game with name', saveFileName, 'at index', index );
 				this.saveGame( saveFileName );
@@ -187,9 +186,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 		EngineCore.outputText( 'Slot,  Race,  Sex,  Game Days Played\n', true );
 		var delFuncs = [];
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			var test = localStorage.getItem( saveFileName );
-			EngineCore.outputText( this.loadSaveDisplay( test, index + 1 ), false );
-			$log.info( 'Creating function with indice = ', index );
+			EngineCore.outputText( this.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			$log.info( 'Creating delete function with indice = ', index );
 			delFuncs.push( function() {
 				this.game.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] = saveFileName;
 				this.confirmDelete();

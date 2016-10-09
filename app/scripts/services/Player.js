@@ -461,720 +461,357 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		}
 		return this.race;
 	};
+    var computeBooleanSum = function(arr) {
+        return _.sumBy(arr, function(value) { return value ? 1 : 0; });
+    };
+    var computeScore = function(baseCriteria, advancedCriteria, antiCriteria) {
+        if(advancedCriteria === undefined) {
+            advancedCriteria = [];
+        }
+        if(antiCriteria === undefined) {
+            antiCriteria = [];
+        }
+        var baseScore = computeBooleanSum(baseCriteria);
+        return baseScore + (baseScore ? computeBooleanSum(advancedCriteria) : 0) - computeBooleanSum(antiCriteria);
+    };
 	//determine demon rating
 	Player.prototype.demonScore = function() {
-		var demonCounter = 0;
-		if( this.hornType === 1 && this.horns > 0 ) {
-			demonCounter++;
-		}
-		if( this.hornType === 1 && this.horns > 4 ) {
-			demonCounter++;
-		}
-		if( this.tailType === 3 ) {
-			demonCounter++;
-		}
-		if( this.wingType === 6 || this.wingType === 7 ) {
-			demonCounter++;
-		}
-		if( this.skinType === 0 && this.cor > 50 ) {
-			demonCounter++;
-		}
-		if( this.faceType === 0 && this.cor > 50 ) {
-			demonCounter++;
-		}
-		if( this.lowerBody === 5 || this.lowerBody === 6 ) {
-			demonCounter++;
-		}
-		if( this.demonCocks() > 0 ) {
-			demonCounter++;
-		}
-		return demonCounter;
+        return computeScore([
+            this.hornType === 1 && this.horns > 0,
+            this.hornType === 1 && this.horns > 4,
+            this.tailType === 3,
+            this.wingType === 6 || this.wingType === 7,
+            this.skinType === 0 && this.cor > 50,
+            this.faceType === 0 && this.cor > 50,
+            this.lowerBody === 5 || this.lowerBody === 6,
+            this.demonCocks() > 0
+        ]);
 	};
 	//Determine Human Rating
 	Player.prototype.humanScore = function() {
-		var humanCounter = 0;
-		if( this.faceType === 0 ) {
-			humanCounter++;
-		}
-		if( this.skinType === 0 ) {
-			humanCounter++;
-		}
-		if( this.horns === 0 ) {
-			humanCounter++;
-		}
-		if( this.tailType === 0 ) {
-			humanCounter++;
-		}
-		if( this.wingType === 0 ) {
-			humanCounter++;
-		}
-		if( this.lowerBody === 0 ) {
-			humanCounter++;
-		}
-		if( this.normalCocks() === 1 && this.totalCocks() === 1 ) {
-			humanCounter++;
-		}
-		if( this.breastRows.length === 1 && this.skinType === 0 ) {
-			humanCounter++;
-		}
-		return humanCounter;
+        return computeScore([
+            this.faceType === 0,
+            this.skinType === 0,
+            this.horns === 0,
+            this.tailType === 0,
+            this.wingType === 0,
+            this.lowerBody === 0,
+            this.normalCocks() === 1 && this.totalCocks() === 1,
+            this.breastRows.length === 1 && this.skinType === 0
+        ]);
 	};
 	//Determine minotaur rating
 	Player.prototype.minoScore = function() {
-		var minoCounter = 0;
-		if( this.faceType === 3 ) {
-			minoCounter++;
-		}
-		if( this.earType === 3 ) {
-			minoCounter++;
-		}
-		if( this.tailType === 4 ) {
-			minoCounter++;
-		}
-		if( this.hornType === 2 ) {
-			minoCounter++;
-		}
-		if( this.lowerBody === 1 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		if( this.tallness > 80 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		if( this.cocks.length > 0 && minoCounter > 0 ) {
-			if( this.horseCocks() > 0 ) {
-				minoCounter++;
-			}
-		}
-		if( this.vaginas.length > 0 ) {
-			minoCounter--;
-		}
-		return minoCounter;
+        return computeScore([
+            this.faceType === 3,
+            this.earType === 3,
+            this.tailType === 4,
+            this.hornType === 2
+        ], [
+            this.lowerBody === 1,
+            this.tallness > 80,
+            this.horseCocks() > 0
+        ], [this.vaginas.length > 0]);
 	};
 	//Determine cow rating
 	Player.prototype.cowScore = function() {
-		var minoCounter = 0;
-		if( this.faceType === 0 ) {
-			minoCounter++;
-		}
-		if( this.faceType === 3 ) {
-			minoCounter--;
-		}
-		if( this.earType === 3 ) {
-			minoCounter++;
-		}
-		if( this.tailType === 4 ) {
-			minoCounter++;
-		}
-		if( this.hornType === 2 ) {
-			minoCounter++;
-		}
-		if( this.lowerBody === 1 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		if( this.tallness >= 73 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		if( this.vaginas.length > 0 ) {
-			minoCounter++;
-		}
-		if( this.biggestTitSize() > 4 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		if( this.biggestLactation() > 2 && minoCounter > 0 ) {
-			minoCounter++;
-		}
-		return minoCounter;
+        return computeScore([
+            this.faceType === 0,
+            this.faceType === 3,
+            this.earType === 3,
+            this.tailType === 4,
+            this.hornType === 2,
+            this.vaginas.length > 0
+        ], [
+            this.lowerBody === 1,
+            this.tallness >= 73,
+            this.biggestTitSize() > 4,
+            this.biggestLactation() > 2
+        ]);
 	};
 	Player.prototype.sandTrapScore = function() {
-		var counter = 0;
-		if( this.findStatusAffect( StatusAffects.BlackNipples ) >= 0 ) {
-			counter++;
-		}
-		if( this.hasVagina() && this.vaginaType() === 5 ) {
-			counter++;
-		}
-		if( this.eyeType === 2 ) {
-			counter++;
-		}
-		if( this.wingType === 12 ) {
-			counter++;
-		}
-		if( this.findStatusAffect( StatusAffects.Uniball ) >= 0 ) {
-			counter++;
-		}
-		return counter;
+        return computeScore([
+            this.findStatusAffect( StatusAffects.BlackNipples ) >= 0,
+            this.hasVagina() && this.vaginaType() === 5,
+            this.eyeType === 2,
+            this.wingType === 12,
+            this.findStatusAffect( StatusAffects.Uniball ) >= 0
+        ]);
 	};
 	//Determine Bee Rating
 	Player.prototype.beeScore = function() {
-		var beeCounter = 0;
-		if( this.hairColor === 'shiny black' ) {
-			beeCounter++;
-		}
-		if( this.hairColor === 'black and yellow' ) {
-			beeCounter += 2;
-		}
-		if( this.antennae > 0 ) {
-			beeCounter++;
-			if( this.faceType === 0 ) {
-				beeCounter++;
-			}
-		}
-		if( this.lowerBody === 7 ) {
-			beeCounter++;
-			if( this.vaginas.length === 1 ) {
-				beeCounter++;
-			}
-		}
-		if( this.tailType === 6 ) {
-			beeCounter++;
-		}
-		if( this.wingType === 1 ) {
-			beeCounter++;
-		}
-		if( this.wingType === 2 ) {
-			beeCounter++;
-		}
-		return beeCounter;
+        return computeScore([
+            this.hairColor === 'shiny black',
+            this.hairColor === 'black and yellow',
+            this.hairColor === 'black and yellow',
+            this.antennae > 0,
+            this.antennae && this.faceType === 0,
+            this.lowerBody === 7,
+            this.lowerBody === 7 && this.vaginas.length === 1,
+            this.tailType === 6,
+            this.wingType === 1,
+            this.wingType === 2
+        ]);
 	};
 	//Determine Ferret Rating!
 	Player.prototype.ferretScore = function() {
-		var counter = 0;
-		if( this.faceType === AppearanceDefs.FACE_FERRET_MASK ) {
-			counter++;
-		}
-		if( this.faceType === AppearanceDefs.FACE_FERRET ) {
-			counter += 2;
-		}
-		if( this.earType === AppearanceDefs.EARS_FERRET ) {
-			counter++;
-		}
-		if( this.tailType === AppearanceDefs.TAIL_TYPE_FERRET ) {
-			counter++;
-		}
-		if( this.lowerBody === AppearanceDefs.LOWER_BODY_FERRET ) {
-			counter++;
-		}
-		if( this.skinType === AppearanceDefs.SKIN_TYPE_FUR && counter > 0 ) {
-			counter++;
-		}
-		return counter;
+        return computeScore([
+            this.faceType === AppearanceDefs.FACE_FERRET_MASK,
+            this.faceType === AppearanceDefs.FACE_FERRET,
+            this.faceType === AppearanceDefs.FACE_FERRET,
+            this.earType === AppearanceDefs.EARS_FERRET,
+            this.tailType === AppearanceDefs.TAIL_TYPE_FERRET,
+            this.lowerBody === AppearanceDefs.LOWER_BODY_FERRET
+        ], [
+            this.skinType === AppearanceDefs.SKIN_TYPE_FUR
+        ]);
 	};
 	//Determine Dog Rating
 	Player.prototype.dogScore = function() {
-		var dogCounter = 0;
-		if( this.faceType === 2 ) {
-			dogCounter++;
-		}
-		if( this.earType === 2 ) {
-			dogCounter++;
-		}
-		if( this.tailType === 2 ) {
-			dogCounter++;
-		}
-		if( this.lowerBody === 2 ) {
-			dogCounter++;
-		}
-		if( this.dogCocks() > 0 ) {
-			dogCounter++;
-		}
-		if( this.breastRows.length > 1 ) {
-			dogCounter++;
-		}
-		if( this.breastRows.length === 3 ) {
-			dogCounter++;
-		}
-		if( this.breastRows.length > 3 ) {
-			dogCounter--;
-		}
-		//Fur only counts if some canine features are present
-		if( this.skinType === 1 && dogCounter > 0 ) {
-			dogCounter++;
-		}
-		return dogCounter;
+        return computeScore([
+            this.faceType === 2,
+            this.earType === 2,
+            this.tailType === 2,
+            this.lowerBody === 2,
+            this.dogCocks() > 0,
+            this.breastRows.length > 1,
+            this.breastRows.length === 3
+		], [
+            this.skinType === 1
+        ], [
+            this.breastRows.length > 3
+        ]);
 	};
 	Player.prototype.mouseScore = function() {
-		var coonCounter = 0;
-		if( this.earType === 12 ) {
-			coonCounter++;
-		}
-		if( this.tailType === 16 ) {
-			coonCounter++;
-		}
-		if( this.faceType === 15 ) {
-			coonCounter++;
-		}
-		if( this.faceType === 16 ) {
-			coonCounter += 2;
-		}
-		//Fur only counts if some canine features are present
-		if( this.skinType === 1 && coonCounter > 0 ) {
-			coonCounter++;
-		}
-		if( this.tallness < 55 && coonCounter > 0 ) {
-			coonCounter++;
-		}
-		if( this.tallness < 45 && coonCounter > 0 ) {
-			coonCounter++;
-		}
-		return coonCounter;
+        return computeScore([
+            this.earType === 12,
+            this.tailType === 16,
+            this.faceType === 15,
+            this.faceType === 16,
+            this.faceType === 16
+        ], [
+            this.skinType === 1,
+            this.tallness < 55,
+            this.tallness < 45
+        ]);
 	};
 	Player.prototype.raccoonScore = function() {
-		var coonCounter = 0;
-		if( this.faceType === 13 ) {
-			coonCounter++;
-		}
-		if( this.faceType === 14 ) {
-			coonCounter += 2;
-		}
-		if( this.earType === 11 ) {
-			coonCounter++;
-		}
-		if( this.tailType === 15 ) {
-			coonCounter++;
-		}
-		if( this.lowerBody === 19 ) {
-			coonCounter++;
-		}
-		if( coonCounter > 0 && this.balls > 0 ) {
-			coonCounter++;
-		}
-		//Fur only counts if some canine features are present
-		if( this.skinType === 1 && coonCounter > 0 ) {
-			coonCounter++;
-		}
-		return coonCounter;
+        return computeScore([
+            this.faceType === 13,
+            this.faceType === 14,
+            this.faceType === 14,
+            this.earType === 11,
+            this.tailType === 15,
+            this.lowerBody === 19
+        ], [
+            this.balls > 0,
+            this.skinType === 1
+        ]);
 	};
 	//Determine Fox Rating
 	Player.prototype.foxScore = function() {
-		var foxCounter = 0;
-		if( this.faceType === 11 ) {
-			foxCounter++;
-		}
-		if( this.earType === 9 ) {
-			foxCounter++;
-		}
-		if( this.tailType === 13 ) {
-			foxCounter++;
-		}
-		if( this.lowerBody === 17 ) {
-			foxCounter++;
-		}
-		if( this.dogCocks() > 0 && foxCounter > 0 ) {
-			foxCounter++;
-		}
-		if( this.breastRows.length > 1 && foxCounter > 0 ) {
-			foxCounter++;
-		}
-		if( this.breastRows.length === 3 && foxCounter > 0 ) {
-			foxCounter++;
-		}
-		if( this.breastRows.length === 4 && foxCounter > 0 ) {
-			foxCounter++;
-		}
-		//Fur only counts if some canine features are present
-		if( this.skinType === 1 && foxCounter > 0 ) {
-			foxCounter++;
-		}
-		return foxCounter;
+        return computeScore([
+            this.faceType === 11,
+            this.earType === 9,
+            this.tailType === 13,
+            this.lowerBody === 17
+        ], [
+            this.dogCocks() > 0,
+            this.breastRows.length > 1,
+            this.breastRows.length === 3,
+            this.breastRows.length === 4,
+            this.skinType === 1
+        ]);
 	};
 	//Determine cat Rating
 	Player.prototype.catScore = function() {
-		var catCounter = 0;
-		if( this.faceType === 6 ) {
-			catCounter++;
-		}
-		if( this.earType === 5 ) {
-			catCounter++;
-		}
-		if( this.tailType === 8 ) {
-			catCounter++;
-		}
-		if( this.lowerBody === 9 ) {
-			catCounter++;
-		}
-		if( this.catCocks() > 0 ) {
-			catCounter++;
-		}
-		if( this.breastRows.length > 1 && catCounter > 0 ) {
-			catCounter++;
-		}
-		if( this.breastRows.length === 3 && catCounter > 0 ) {
-			catCounter++;
-		}
-		if( this.breastRows.length > 3 ) {
-			catCounter -= 2;
-		}
-		//Fur only counts if some canine features are present
-		if( this.skinType === 1 && catCounter > 0 ) {
-			catCounter++;
-		}
-		return catCounter;
+        return computeScore([
+            this.faceType === 6,
+            this.earType === 5,
+            this.tailType === 8,
+            this.lowerBody === 9,
+            this.catCocks() > 0
+        ], [
+            this.breastRows.length > 1,
+            this.breastRows.length === 3,
+            this.skinType === 1
+        ], [
+            this.breastRows.length > 3,
+            this.breastRows.length > 3
+        ]);
 	};
 	//Determine lizard rating
 	Player.prototype.lizardScore = function() {
-		var lizardCounter = 0;
-		if( this.faceType === 7 ) {
-			lizardCounter++;
-		}
-		if( this.earType === 6 ) {
-			lizardCounter++;
-		}
-		if( this.tailType === 9 ) {
-			lizardCounter++;
-		}
-		if( this.lowerBody === 10 ) {
-			lizardCounter++;
-		}
-		if( this.lizardCocks() > 0 ) {
-			lizardCounter++;
-		}
-		if( this.horns > 0 && (this.hornType === 3 || this.hornType === 4) ) {
-			lizardCounter++;
-		}
-		if( this.skinType === 2 ) {
-			lizardCounter++;
-		}
-		return lizardCounter;
+        return computeScore([
+            this.faceType === 7,
+            this.earType === 6,
+            this.tailType === 9,
+            this.lowerBody === 10,
+            this.lizardCocks() > 0,
+            this.horns > 0 && (this.hornType === 3 || this.hornType === 4),
+            this.skinType === 2
+        ]);
 	};
 	Player.prototype.spiderScore = function() {
-		var score = 0;
-		if( this.eyeType === 1 ) {
-			score += 2;
-		}
-		if( this.faceType === 10 ) {
-			score++;
-		}
-		if( this.armType === 2 ) {
-			score++;
-		}
-		if( this.lowerBody === 15 || this.lowerBody === 16 ) {
-			score += 2;
-		} else if( score > 0 ) {
-			score--;
-		}
-		if( this.tailType === 5 ) {
-			score += 2;
-		}
-		if( this.skinType > 0 && score > 0 ) {
-			score--;
-		}
-		return score;
+        return computeScore([
+		    this.eyeType === 1,
+		    this.eyeType === 1,
+            this.faceType === 10,
+            this.armType === 2,
+            this.lowerBody === 15 || this.lowerBody === 16,
+            this.tailType === 5
+        ], [ ], [
+            this.lowerBody !== 15 && this.lowerBody !== 16,
+            this.skinType > 0
+        ]);
 	};
 	//Determine Horse Rating
 	Player.prototype.horseScore = function() {
-		var horseCounter = 0;
-		if( this.faceType === 1 ) {
-			horseCounter++;
-		}
-		if( this.earType === 1 ) {
-			horseCounter++;
-		}
-		if( this.tailType === 1 ) {
-			horseCounter++;
-		}
-		if( this.horseCocks() > 0 ) {
-			horseCounter++;
-		}
-		if( this.lowerBody === 1 || this.lowerBody === 4 ) {
-			horseCounter++;
-		}
-		//Fur only counts if some equine features are present
-		if( this.skinType === 1 && horseCounter > 0 ) {
-			horseCounter++;
-		}
-		return horseCounter;
+        return computeScore([
+            this.faceType === 1,
+            this.earType === 1,
+            this.tailType === 1,
+            this.horseCocks() > 0,
+            this.lowerBody === 1 || this.lowerBody === 4
+        ], [
+            this.skinType === 1
+        ]);
 	};
 	//Determine kitsune Rating
 	Player.prototype.kitsuneScore = function() {
-		var kitsuneCounter = 0;
-		//If the character has fox ears, +1
-		if( this.earType === 9 ) {
-			kitsuneCounter++;
-		}
-		//If the character has a fox tail, +1
-		if( this.tailType === 13 ) {
-			kitsuneCounter++;
-		}
-		//If the character has two or more fox tails, +2
-		if( this.tailType === 13 && this.tailVenom >= 2 ) {
-			kitsuneCounter += 2;
-		}
-		//If the character has tattooed skin, +1
-		//9999
-		//If the character has a 'vag of holding', +1
-		if( this.vaginalCapacity() >= 8000 ) {
-			kitsuneCounter++;
-		}
-		//If the character's kitsune score is greater than 0 and the character has a normal face, +1
-		if( kitsuneCounter > 0 && this.faceType === 0 ) {
-			kitsuneCounter++;
-		}
-		//If the character's kitsune score is greater than 1 and the character has 'blonde','black','red','white', or 'silver' hair, +1
-		if( kitsuneCounter > 0 && (this.hairColor === 'golden blonde' || this.hairColor === 'black' || this.hairColor === 'red' || this.hairColor === 'white' || this.hairColor === 'silver blonde') ) {
-			kitsuneCounter++;
-		}
-		//If the character's femininity is 40 or higher, +1
-		if( kitsuneCounter > 0 && this.femininity >= 40 ) {
-			kitsuneCounter++;
-		}
-		//If the character has fur, scales, or gooey skin, -1
-		if( this.skinType > 1 ) {
-			kitsuneCounter -= 2;
-		}
-		if( this.skinType === 1 ) {
-			kitsuneCounter--;
-		}
-		//If the character has abnormal legs, -1
-		if( this.lowerBody !== 0 ) {
-			kitsuneCounter--;
-		}
-		//If the character has a nonhuman face, -1
-		if( this.faceType !== 0 ) {
-			kitsuneCounter--;
-		}
-		//If the character has ears other than fox ears, -1
-		if( this.earType !== 9 ) {
-			kitsuneCounter--;
-		}
-		//If the character has tail(s) other than fox tails, -1
-		if( this.tailType !== 13 ) {
-			kitsuneCounter--;
-		}
-		return kitsuneCounter;
+        return computeScore([
+            this.earType === 9,
+            this.tailType === 13,
+            this.tailType === 13 && this.tailVenom >= 2,
+            this.tailType === 13 && this.tailVenom >= 2,
+            this.vaginalCapacity() >= 8000
+        ], [
+            this.faceType === 0,
+            this.hairColor === 'golden blonde' || this.hairColor === 'black' || this.hairColor === 'red' || this.hairColor === 'white' || this.hairColor === 'silver blonde',
+            this.femininity >= 40
+        ], [
+            this.skinType > 1,
+            this.skinType > 1,
+            this.skinType === 1,
+            this.lowerBody !== 0,
+            this.faceType !== 0,
+            this.earType !== 9,
+            this.tailType !== 13
+        ]);
 	};
 	//Determine Horse Rating
 	Player.prototype.dragonScore = function() {
-		var dragonCounter = 0;
-		if( this.faceType === 12 ) {
-			dragonCounter++;
-		}
-		if( this.earType === 10 ) {
-			dragonCounter++;
-		}
-		if( this.tailType === 14 ) {
-			dragonCounter++;
-		}
-		if( this.tongueType === 3 ) {
-			dragonCounter++;
-		}
-		if( this.dragonCocks() > 0 ) {
-			dragonCounter++;
-		}
-		if( this.wingType === 10 ) {
-			dragonCounter++;
-		}
-		if( this.wingType === 11 ) {
-			dragonCounter += 2;
-		}
-		if( this.lowerBody === 18 ) {
-			dragonCounter++;
-		}
-		if( this.skinType === 2 && dragonCounter > 0 ) {
-			dragonCounter++;
-		}
-		if( this.hornType === AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG || this.hornType === AppearanceDefs.HORNS_DRACONIC_X2 ) {
-			dragonCounter++;
-		}
-		return dragonCounter;
+        return computeScore([
+            this.faceType === 12,
+            this.earType === 10,
+            this.tailType === 14,
+            this.tongueType === 3,
+            this.dragonCocks() > 0,
+            this.wingType === 10,
+            this.wingType === 11,
+            this.wingType === 11,
+            this.lowerBody === 18,
+            this.hornType === AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG || this.hornType === AppearanceDefs.HORNS_DRACONIC_X2
+        ], [
+            this.skinType === 2
+        ]);
 	};
 	//Goblinscore
 	Player.prototype.goblinScore = function() {
-		var horseCounter = 0;
-		if( this.earType === 4 ) {
-			horseCounter++;
-		}
-		if( this.skinTone === 'pale yellow' || this.skinTone === 'grayish-blue' || this.skinTone === 'green' || this.skinTone === 'dark green' ) {
-			horseCounter++;
-		}
-		if( horseCounter > 0 ) {
-			if( this.faceType === 0 ) {
-				horseCounter++;
-			}
-			if( this.tallness < 48 ) {
-				horseCounter++;
-			}
-			if( this.hasVagina() ) {
-				horseCounter++;
-			}
-			if( this.lowerBody === 0 ) {
-				horseCounter++;
-			}
-		}
-		return horseCounter;
+        return computeScore([
+            this.earType === 4,
+            this.skinTone === 'pale yellow' || this.skinTone === 'grayish-blue' || this.skinTone === 'green' || this.skinTone === 'dark green'
+        ], [
+            this.faceType === 0,
+            this.tallness < 48,
+            this.hasVagina(),
+            this.lowerBody === 0
+        ]);
 	};
 	//Gooscore
 	Player.prototype.gooScore = function() {
-		var gooCounter = 0;
-		if( this.hairType === 3 ) {
-			gooCounter++;
-		}
-		if( this.skinAdj === 'slimy' ) {
-			gooCounter++;
-		}
-		if( this.lowerBody === 8 ) {
-			gooCounter++;
-		}
-		if( this.vaginalCapacity() > 9000 ) {
-			gooCounter++;
-		}
-		if( this.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
-			gooCounter++;
-		}
-		return gooCounter;
+        return computeScore([
+            this.hairType === 3,
+            this.skinAdj === 'slimy',
+            this.lowerBody === 8,
+            this.vaginalCapacity() > 9000,
+            this.findStatusAffect( StatusAffects.SlimeCraving ) >= 0
+        ]);
 	};
 	//Nagascore
 	Player.prototype.nagaScore = function() {
-		var nagaCounter = 0;
-		if( this.faceType === 5 ) {
-			nagaCounter++;
-		}
-		if( this.tongueType === 1 ) {
-			nagaCounter++;
-		}
-		if( nagaCounter > 0 && this.antennae === 0 ) {
-			nagaCounter++;
-		}
-		if( nagaCounter > 0 && this.wingType === 0 ) {
-			nagaCounter++;
-		}
-		return nagaCounter;
+        return computeScore([
+		    this.faceType === 5,
+            this.tongueType === 1
+        ], [
+            this.antennae === 0,
+            this.wingType === 0
+        ]);
 	};
 	//Bunnyscore
 	Player.prototype.bunnyScore = function() {
-		var bunnyCounter = 0;
-		if( this.faceType === 8 ) {
-			bunnyCounter++;
-		}
-		if( this.tailType === 10 ) {
-			bunnyCounter++;
-		}
-		if( this.earType === 7 ) {
-			bunnyCounter++;
-		}
-		if( this.lowerBody === 12 ) {
-			bunnyCounter++;
-		}
-		//More than 2 this.balls reduces bunny score
-		if( this.balls > 2 && bunnyCounter > 0 ) {
-			bunnyCounter--;
-		}
-		//Human skin on bunmorph adds
-		if( this.skinType === 0 && bunnyCounter > 1 ) {
-			bunnyCounter++;
-		}
-		//No wings and this.antennae a plus
-		if( bunnyCounter > 0 && this.antennae === 0 ) {
-			bunnyCounter++;
-		}
-		if( bunnyCounter > 0 && this.wingType === 0 ) {
-			bunnyCounter++;
-		}
-		return bunnyCounter;
+        return computeScore([
+            this.faceType === 8,
+            this.tailType === 10,
+            this.earType === 7,
+            this.lowerBody === 12
+        ], [
+            this.skinType === 0,
+            this.antennae === 0,
+            this.wingType === 0
+        ], [
+            this.balls > 2
+        ]);
 	};
 	//Harpyscore
 	Player.prototype.harpyScore = function() {
-		var harpy = 0;
-		if( this.armType === 1 ) {
-			harpy++;
-		}
-		if( this.hairType === 1 ) {
-			harpy++;
-		}
-		if( this.wingType === 9 ) {
-			harpy++;
-		}
-		if( this.tailType === 11 ) {
-			harpy++;
-		}
-		if( this.lowerBody === 13 ) {
-			harpy++;
-		}
-		if( harpy >= 2 && this.faceType === 0 ) {
-			harpy++;
-		}
-		if( harpy >= 2 && (this.earType === 0 || this.earType === 4) ) {
-			harpy++;
-		}
-		return harpy;
+        return computeScore([
+            this.armType === 1,
+            this.hairType === 1,
+            this.wingType === 9,
+            this.tailType === 11,
+            this.lowerBody === 13
+        ], [
+            this.faceType === 0,
+            this.earType === 0 || this.earType === 4
+        ]);
 	};
 	//Kangascore
 	Player.prototype.kangaScore = function() {
-		var kanga = 0;
-		if( this.kangaCocks() > 0 ) {
-			kanga++;
-		}
-		if( this.earType === 8 ) {
-			kanga++;
-		}
-		if( this.tailType === 12 ) {
-			kanga++;
-		}
-		if( this.lowerBody === 14 ) {
-			kanga++;
-		}
-		if( this.faceType === 9 ) {
-			kanga++;
-		}
-		if( kanga >= 2 && this.skinType === 1 ) {
-			kanga++;
-		}
-		return kanga;
+        return computeScore([
+            this.kangaCocks() > 0,
+            this.earType === 8,
+            this.tailType === 12,
+            this.lowerBody === 14,
+            this.faceType === 9
+        ], [
+            this.skinType === 1
+        ]);
 	};
 	//sharkscore
 	Player.prototype.sharkScore = function() {
-		var sharkCounter = 0;
-		if( this.faceType === 4 ) {
-			sharkCounter++;
-		}
-		if( this.wingType === 8 ) {
-			sharkCounter++;
-		}
-		if( this.tailType === 7 ) {
-			sharkCounter++;
-		}
-		return sharkCounter;
+        return computeScore([
+		    this.faceType === 4,
+            this.wingType === 8,
+            this.tailType === 7
+        ]);
 	};
 	//Determine Mutant Rating
 	Player.prototype.mutantScore = function() {
-		var mutantCounter = 0;
-		if( this.faceType > 0 ) {
-			mutantCounter++;
-		}
-		if( this.skinType > 0 ) {
-			mutantCounter++;
-		}
-		if( this.tailType > 0 ) {
-			mutantCounter++;
-		}
-		if( this.cockTotal() > 1 ) {
-			mutantCounter++;
-		}
-		if( this.hasCock() && this.hasVagina() ) {
-			mutantCounter++;
-		}
-		if( this.hasFuckableNipples() ) {
-			mutantCounter++;
-		}
-		if( this.breastRows.length > 1 ) {
-			mutantCounter++;
-		}
-		if( this.faceType === 1 ) {
-			if( this.skinType === 1 ) {
-				mutantCounter--;
-			}
-			if( this.tailType === 1 ) {
-				mutantCounter--;
-			}
-		}
-		if( this.faceType === 2 ) {
-			if( this.skinType === 1 ) {
-				mutantCounter--;
-			}
-			if( this.tailType === 2 ) {
-				mutantCounter--;
-			}
-		}
-		return mutantCounter--;
+        return computeScore([
+		    this.faceType > 0,
+            this.skinType > 0,
+            this.tailType > 0,
+            this.cockTotal() > 1,
+            this.hasCock() && this.hasVagina(),
+            this.hasFuckableNipples(),
+            this.breastRows.length > 1
+        ], [ ], [
+            this.faceType === 1 && this.skinType === 1,
+            this.faceType === 1 && this.tailType === 1,
+            this.faceType === 2 && this.skinType === 1,
+            this.faceType === 2 && this.tailType === 2
+        ]);
 	};
 	Player.prototype.lactationQ = function() {
 		if( this.biggestLactation() < 1 ) {

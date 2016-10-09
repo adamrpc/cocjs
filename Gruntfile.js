@@ -143,8 +143,8 @@ module.exports = function (grunt) {
 
     jsinspect: {
         options: {
-            configFile: '.jsinspectrc'
-    //        reporter: require('default')
+            configFile: '.jsinspectrc',
+            threshold: 50
         },
         src: [
           '<%= yeoman.app %>/scripts/{,*/}*.js'

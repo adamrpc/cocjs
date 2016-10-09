@@ -35,49 +35,25 @@ angular.module('KeyItemClass').factory('Vagina', function (Utils) {
 			'vaginalWetness', 'vaginalLooseness', 'type',
 			'fullness', 'labiaPierced', 'clitPierced'
 		]);
-		if (this.labiaPierced) {
-			if (this.labiaPShort === '') {
-				error += 'Labia pierced but labiaPShort = \'\'. ';
-			}
-			if (this.labiaPLong === '') {
-				error += 'Labia pierced but labiaPLong = \'\'. ';
-			}
-		} else {
-			if (this.labiaPShort !== '') {
-				error += 'Labia not pierced but labiaPShort = \'' + this.labiaPShort + '\'. ';
-			}
-			if (this.labiaPLong !== '') {
-				error += 'Labia not pierced but labiaPLong = \'' + this.labiaPShort + '\'. ';
-			}
-		}
-		if (this.clitPierced) {
-			if (this.clitPShort === '') {
-				error += 'Clit pierced but labiaPShort = \'\'. ';
-			}
-			if (this.clitPLong === '') {
-				error += 'Clit pierced but labiaPLong = \'\'. ';
-			}
-		} else {
-			if (this.clitPShort !== '') {
-				error += 'Clit not pierced but labiaPShort = \'' + this.labiaPShort + '\'. ';
-			}
-			if (this.clitPLong !== '') {
-				error += 'Clit not pierced but labiaPLong = \'' + this.labiaPShort + '\'. ';
-			}
-		}
+        _.forEach(['labia', 'clit'], function(value) {
+            _.forEach(['PShort', 'PLong'], function(value2) {
+                if(this[value + 'Pierced'] && this[value + value2] === '') {
+                    error += _.capitalize(value) + ' pierced but ' + value + value2 + ' = \'\'. ';
+                } else if(this[value + value2] !== '') {
+                    error += _.capitalize(value) + ' not pierced but ' + value + value2 + ' = \'' + this[value + value2] + '\'. ';
+                }
+            });
+        });
 		return error;
 	};
+    var getFactor = function(value, factors, defaultFactor) {
+		return (value >= 0 && value < factors.length) ? factors[value] : defaultFactor;
+    };
 	Vagina.prototype.wetnessFactor = function() {
-		if(this.vaginalWetness >= 0 && this.vaginalWetness < 6) {
-			return [1.25, 1, 0.8, 0.7, 0.6, 0.5][this.vaginalWetness];
-		}
-		return 0.5;
+        return getFactor(this.vaginalWetness, [1.25, 1, 0.8, 0.7, 0.6, 0.5], 0.5);
 	};
 	Vagina.prototype.capacity = function() {
-		if(this.vaginalLooseness >= 0 && this.vaginalLooseness < 6) {
-			return [8, 16, 24, 36, 56, 100][this.vaginalLooseness];
-		}
-		return 10000;
+        return getFactor(this.vaginalLooseness, [8, 16, 24, 36, 56, 100], 10000);
 	};
 	return Vagina;
 });

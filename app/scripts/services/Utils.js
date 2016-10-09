@@ -68,12 +68,12 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 	var rand = function(max) {
 		return _.random(0, max - 1);
 	};
-	
-	var validateNonNegativeNumberFields = function(o, func, nnf) {
+
+    var validateFields = function(o, func, fieldNames, validationFunc) {
 		var error = '';
-		_.forEach(nnf, function(field) {
-			if (!o.has(field) || (!_.isNumber(o[field]) && o[field] !== null)) {
-				error = error + 'Misspelling in ' + func + '.nnf: \'' + field + '\'. ';
+		_.forEach(fieldNames, function(field) {
+			if (!o.has(field) || (!validationFunc(o[field]) && o[field] !== null)) {
+				error = error + 'Misspelling in ' + func + '.' + field + '. ';
 			} else if (o[field] === null) {
 				error = error + 'Null \'' + field + '\'. ';
 			} else if (o[field] < 0) {
@@ -81,20 +81,14 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 			}
 		});
 		return error;
+    };
+	
+	var validateNonNegativeNumberFields = function(o, func, nnf) {
+        return validateFields(o, func, nnf, _.isNumber);
 	};
 		
 	var validateNonEmptyStringFields = function(o, func, nef) {
-		var error = '';
-		_.forEach(nef, function(field) {
-			if (!o.has(field) || (!_.isString(o[field]) && o[field] !== null)) {
-				error = error + 'Misspelling in ' + func + '.nef: \'' + field + '\'. ';
-			} else if (o[field] === null) {
-				error = error + 'Null \'' + field + '\'. ';
-			} else if (o[field] === '') {
-				error = error + 'Empty \'' + field + '\'. ';
-			}
-		});
-		return error;
+        return validateFields(o, func, nef, _.isString);
 	};
 	
 	var createMapFromPairs = function(src) {
