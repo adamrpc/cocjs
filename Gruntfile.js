@@ -141,6 +141,16 @@ module.exports = function (grunt) {
       }
     },
 
+    jsinspect: {
+        options: {
+            configFile: '.jsinspectrc'
+    //        reporter: require('default')
+        },
+        src: [
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
+        ]
+    },
+
     // Make sure code styles are up to par
     jscs: {
       options: {
@@ -510,6 +520,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
+    'newer:jsinspect',
     'newer:jscs',
     'test',
     'build'
