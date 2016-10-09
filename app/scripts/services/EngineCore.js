@@ -1,7 +1,8 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, UmasShop, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, UmasShop, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
+    var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
 		return CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
 	};
@@ -80,7 +81,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( purgeText ) {
 			EngineCore.clearOutput();
 		}
-		output = CoC.getInstance().parser.recursiveParser( output, parseAsMarkdown );
+		output = parser.recursiveParser( output, parseAsMarkdown );
 		//OUTPUT!
 		if( purgeText ) {
 			CoC.getInstance().currentText = output;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutations, Inventory, PerkLib, StatusAffects, ConsumableLib, WeaponLib, ArmorLib, Appearance, EngineCore, Parser, GameModel, CharCreation, Saves, Player, PlayerEvents, Monster) {
+angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves, Player, PlayerEvents, Monster) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -12,9 +12,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		return instance;
 	};
 	CoC.prototype.init = function(that) {
-		CoC_Settings.haltOnErrors = false; // TODO : put it in properties file
-		that.parser = new Parser(that, CoC_Settings);
-		that.charCreation = new CharCreation();
+		that.charCreation = new CharCreation(); // TODO : pu this elsewhere
 		that.saves = new Saves(function(){ return that.gameState; }, function(value) { that.gameState = value; }, that);
 		/**
 		 * Global Variables used across the whole game. I hope to whittle it down slowly.
@@ -34,11 +32,11 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		 * The player object and variables associated with the player
 		 */
 		//The Player object, used everywhere
-		that.player = new Player();
-		that.player2 = new Player();
-		that.playerEvent = new PlayerEvents();
+		that.player = new Player(); // TODO : Store only Object here, extract functions
+		that.player2 = new Player(); // TODO : Store only Object here, extract functions
+		that.playerEvent = new PlayerEvents(); // TODO : Store only Object here, extract functions
 		//Create monster, used all over the place
-		that.monster = new Monster();
+		that.monster = new Monster(); // TODO : Store only Object here, extract functions
 		/**
 		 * State Variables
 		 * They hold all the information about item states, menu states, game states, etc
@@ -84,14 +82,7 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		that.giacomo = 0;
 		that.inCombat = false;
 		that.scenes = {};
-		that.mutations = new Mutations();
-		that.consumables = new ConsumableLib();
-		that.useables = new UseableLib();
-		that.weapons = new WeaponLib();
-		that.armors = new ArmorLib();
-		that.inventory = new Inventory(that.saves);
-		that._perkLib = new PerkLib();// to init the static
-		that._statusAffects = new StatusAffects();// to init the static
+		that.inventory = new Inventory(that.saves); // TODO : Store only Object here, extract functions
 
 		// *************************************************************************************
 		//Used to set what each action buttons displays and does.
@@ -117,18 +108,22 @@ angular.module('cocjs').factory('CoC', function (UseableLib, CoC_Settings, Mutat
 		 * that._saveAwareClassList = [];
 		 */
 	};
+    // TODO : WTF is it doing here ?
 	CoC.prototype.isEaster = function() {
 		if(!_.has(this.scenes, 'plains')) {
 			return false;
 		}
 		return this.scenes.plains.bunnyGirl.isItEaster();
 	};
+    // TODO : WTF is it doing here ?
 	CoC.prototype.isInCombat = function() {
 		return this.gameState === 1;
 	};
+    // TODO : WTF is it doing here ?
 	CoC.prototype.setInCombat = function(value) {
 		this.gameState = value ? 1 : 0;
 	};
+    // TODO : WTF is it doing here ?
 	CoC.prototype.registerScene = function(name, scene) {
 		this.scenes[name] = scene;
 	};

@@ -1,18 +1,8 @@
 ﻿'use strict';
 
 angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, Consumables) {
-	function Mutations() {
-		this.init(this, arguments);
-	}
-	var instance = null;
-	Mutations.getInstance = function() {
-		if(!instance) {
-			instance = new Mutations();
-		}
-		return instance;
-	};
-	Mutations.prototype.init = function() {};
-	Mutations.prototype.ceruleanPotion = function(player) {
+    var Mutations = {};
+	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
 		//Repeat genderless encounters
 		if (player.gender === 0 && CoC.getInstance().flags[kFLAGS.CERULEAN_POTION_NEUTER_ATTEMPTED] > 0) {
@@ -37,7 +27,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 	//Vitality Tincture
-	Mutations.prototype.vitalityTincture = function(player) {
+	Mutations.vitalityTincture = function(player) {
 		player.slimeFeed();
 		EngineCore.outputText("You down the contents of the bottle. The liquid is thick and tastes remarkably like cherries. Within moments, you feel much more fit and healthy.", true);
 		//str change
@@ -64,7 +54,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 	//Scholar's Tea
-	Mutations.prototype.scholarsTea = function(player) {
+	Mutations.scholarsTea = function(player) {
 		player.slimeFeed();
 		EngineCore.outputText("Following the merchant's instructions, you steep and drink the tea. Its sharp taste fires up your palate and in moments, you find yourself more alert and insightful. As your mind wanders, a creative, if somewhat sordid, story comes to mind. It is a shame that you do not have writing implements as you feel you could make a coin or two off what you have conceived. The strange seller was not lying about the power of the tea.", true);
 		if ( Utils.rand(3) === 0) {
@@ -73,7 +63,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		EngineCore.dynStats("int", 2.5 + Utils.rand(5));
 	};
 	/* ITEMZZZZZ FUNCTIONS GO HERE */
-	Mutations.prototype.incubiDraft = function(tainted,player) {
+	Mutations.incubiDraft = function(tainted,player) {
 		player.slimeFeed();
 		var changesLevel = Utils.rand(100);
 		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
@@ -269,7 +259,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText(player.modThickness(30, 2), false);
 		}
 	};
-	Mutations.prototype.growDemonCock = function(growCocks, player) {
+	Mutations.growDemonCock = function(growCocks, player) {
 		_.forEach(_.range(growCocks), function() {
 			player.createCock();
 			$log.trace("COCK LENGTH: " + player.cocks[length - 1].cockLength);
@@ -288,7 +278,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 		player.orgasm();
 	};
-	Mutations.prototype.tatteredScroll = function(player) {
+	Mutations.tatteredScroll = function(player) {
 		EngineCore.outputText("Your wobbly " + player.legs() + " give out underneath you as your body's willpower seems to evaporate, your mouth reading the words on the scroll with a backwards sounding sing-song voice.\n\n", true);
 		if (player.hairColor === "sandy blonde") {
 			EngineCore.outputText("Your mouth forms a smile of its own volition, reading, \"<i>Tresed eht retaw llahs klim ruoy.</i>\"\n\n", false);
@@ -357,7 +347,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			player.slimeFeed();
 		}
 	};
-	Mutations.prototype.minotaurCum = function(player) {
+	Mutations.minotaurCum = function(player) {
 		player.slimeFeed();
 		//Minotaur cum addiction
 		player.minoCumAddiction(7);
@@ -428,7 +418,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText("\n\n<b>Your body feels so amazing and sensitive.  Experimentally you pinch yourself and discover that even pain is turning you on!</b>", false);
 		}
 	};
-	Mutations.prototype.minotaurBlood = function(player) {
+	Mutations.minotaurBlood = function(player) {
 		player.slimeFeed();
 		//Changes done
 		var changes = 0;
@@ -887,7 +877,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.dynStats("lus", 50);
 		}
 	};
-	Mutations.prototype.equinum = function(player) {
+	Mutations.equinum = function(player) {
 		player.slimeFeed();
 		//Changes done
 		var changes = 0;
@@ -1371,7 +1361,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.dynStats("lus", 3);
 		}
 	};
-	Mutations.prototype.succubiMilk = function(tainted, player) {
+	Mutations.succubiMilk = function(tainted, player) {
 		player.slimeFeed();
 		var changesLevel = Math.random() * 100;
 		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
@@ -1627,7 +1617,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //3-Black Pepper (Dark Fur, +corruption/libido)
 //4-Knotty Pepper (+Knot + Cum Multiplier)
 //5-Bulbous Pepper (+ball size or fresh balls)
-	Mutations.prototype.caninePepper = function(type, player) {
+	Mutations.caninePepper = function(type, player) {
 		var crit = 1;
 		//Set up changes and changeLimit
 		var changes = 0;
@@ -2274,7 +2264,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.dynStats("lus", 3);
 		}
 	};
-	Mutations.prototype.impFood = function(player) {
+	Mutations.impFood = function(player) {
 		EngineCore.outputText("", true);
 		if (player.cocks.length > 0) {
 			EngineCore.outputText("The food tastes strange and corrupt - you can't really think of a better word for it, but it's unclean.", false);
@@ -2330,7 +2320,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			player.tallness -= 1 + Utils.rand(3);
 		}
 	};
-	Mutations.prototype.succubisDelight = function(tainted, player) {
+	Mutations.succubisDelight = function(tainted, player) {
 		player.slimeFeed();
 		var changes = 0;
 		var crit = 1;
@@ -2432,7 +2422,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText(player.modFem(12, 3), false);
 		}
 	};
-	Mutations.prototype.succubisDream = function(player) {
+	Mutations.succubisDream = function(player) {
 		player.slimeFeed();
 		var changes = 0;
 		var crit = 1;
@@ -2541,7 +2531,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //butt expansion
-	Mutations.prototype.brownEgg = function(large, player) {
+	Mutations.brownEgg = function(large, player) {
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.\n\n", true);
 		if (!large) {
 			EngineCore.outputText("You feel a bit of additional weight on your backside as your " + Descriptors.buttDescript() + " gains a bit more padding.", true);
@@ -2559,7 +2549,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //hip expansion
-	Mutations.prototype.purpleEgg = function(large, player) {
+	Mutations.purpleEgg = function(large, player) {
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.\n\n", true);
 		if (!large || player.hipRating > 20) {
 			EngineCore.outputText("You stumble as you feel your " + Descriptors.hipDescript() + " widen, altering your gait slightly.", false);
@@ -2577,7 +2567,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //Femminess
-	Mutations.prototype.pinkEgg = function(large, player) {
+	Mutations.pinkEgg = function(large, player) {
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.\n\n", true);
 		if (!large) {
 			//Remove a dick
@@ -2629,7 +2619,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //Maleness
-	Mutations.prototype.blueEgg = function(large, player) {
+	Mutations.blueEgg = function(large, player) {
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.", true);
 		var maxLengthChange = 0;
 		var maxThicknessChange = 0;
@@ -2753,7 +2743,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //Nipplezzzzz
-	Mutations.prototype.whiteEgg = function(large, player) {
+	Mutations.whiteEgg = function(large, player) {
 		var hasChange = false;
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.", true);
 		if (!large) {
@@ -2784,7 +2774,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.blackRubberEgg = function(large, player) {
+	Mutations.blackRubberEgg = function(large, player) {
 		EngineCore.outputText("You devour the egg, momentarily sating your hunger.", true);
 		//Small
 		if (!large) {
@@ -2879,7 +2869,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.hairDye = function(color, player) {
+	Mutations.hairDye = function(color, player) {
 		if (player.hairColor.indexOf("rubbery") !== -1 || player.hairColor.indexOf("latex-textured") !== -1) {
 			EngineCore.outputText("You massage the dye into your " + Descriptors.hairDescript() + " but the dye cannot penetrate the impermeable material your hair is composed of.", true);
 			return;
@@ -2896,14 +2886,14 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.dynStats("lus", -15);
 		}
 	};
-	Mutations.prototype.purePearl = function(player) {
+	Mutations.purePearl = function(player) {
 		EngineCore.outputText("You cram the pearl in your mouth and swallow it like a giant pill with some difficulty.  Surprisingly there is no discomfort, only a cool calming sensation that springs up from your core.", true);
 		EngineCore.dynStats("lib", -5, "lus", -25, "cor", -10);
 		if (player.findPerk(PerkLib.PurityBlessing) < 0) {
 			player.createPerk(PerkLib.PurityBlessing, 0, 0, 0, 0);
 		}
 	};
-	Mutations.prototype.lactaid = function(player) {
+	Mutations.lactaid = function(player) {
 		player.slimeFeed();
 		EngineCore.outputText("You gulp down the bottle of lactaid, easily swallowing the creamy liquid.", true);
 		//Bump up size!
@@ -2934,7 +2924,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText(player.modFem(95, 1), false);
 		}
 	};
-	Mutations.prototype.useMarbleMilk = function(player) {
+	Mutations.useMarbleMilk = function(player) {
 		player.slimeFeed();
 		//Bottle of Marble's milk - item
 		//Description: "A clear bottle of milk from Marble's breasts.  It smells delicious.  "
@@ -2996,7 +2986,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	 If the player's nipples are larger than 1 inch in length, this item is guaranteed to give them quad nipples.  This applies to all their breasts; seems like it ould be a good compromise on whether or not cowgirls should have 4 breasts.
 	 Very small chance to increase fertility (normally this increase would only happen when the player forces a creature to drink their milk).
 	 */
-	Mutations.prototype.laBova = function(tainted, enhanced, player) {
+	Mutations.laBova = function(tainted, enhanced, player) {
 		player.slimeFeed();
 		//Changes done
 		var changes = 0;
@@ -3423,7 +3413,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText(player.modTone(10, 5), false);
 		}
 	};
-	Mutations.prototype.blackSpellbook = function(player) {
+	Mutations.blackSpellbook = function(player) {
 		EngineCore.outputText("You open the small black book, and discover it to be an instructional book on the use of black magic.  Most of it is filled with generic information about black magic - how it is drawn from emotions (typically lust), and how it has the power to affect bodies and emotions.  It also warns against using it on oneself, as it is difficult to draw on your emotions while meddling with your own body.  In no time at all you've read the whole thing, but it disappears into thin air before you can put it away.", true);
 		if (player.inte < 30) {
 			EngineCore.outputText("\n\nYou feel greatly enlightened by your time spent reading.", false);
@@ -3456,7 +3446,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			player.createStatusAffect(StatusAffects.KnowsMight, 0, 0, 0, 0);
 		}
 	};
-	Mutations.prototype.whiteSpellbook = function(player) {
+	Mutations.whiteSpellbook = function(player) {
 		EngineCore.outputText("You open the white tome, and discover it to be an instructional book on the use of white magic.  Most of it is filled with generic information about white magic - how it is drawn for mental focus, is difficult to use when tired or aroused, and can be used to create and control energy.  In no time at all you've read the whole thing, but it disappears into thin air before you can put it away.", true);
 		if (player.inte < 30) {
 			EngineCore.outputText("\n\nYou feel greatly enlightened by your time spent reading.", false);
@@ -3489,7 +3479,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			player.createStatusAffect(StatusAffects.KnowsWhitefire, 0, 0, 0, 0);
 		}
 	};
-	Mutations.prototype.lustDraft = function(fuck, player) {
+	Mutations.lustDraft = function(fuck, player) {
 		player.slimeFeed();
 		EngineCore.outputText("You drink the ", true);
 		if (fuck) {
@@ -3531,7 +3521,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 		EngineCore.outputText("\n\n", false);
 	};
-	Mutations.prototype.goblinAle = function(player) {
+	Mutations.goblinAle = function(player) {
 		player.slimeFeed();
 		var changes = 0;
 		var changeLimit = 1;
@@ -3770,7 +3760,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.gooGasmic = function(player) {
+	Mutations.gooGasmic = function(player) {
 		EngineCore.outputText("You take the wet cloth in hand and rub it over your body, smearing the strange slime over your " + player.skinDesc + " slowly.", true);
 		//Stat changes
 		//libido up to 80
@@ -3917,7 +3907,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText(player.modTone(15, 5), false);
 		}
 	};
-	Mutations.prototype.sharkTooth = function(type, player) {
+	Mutations.sharkTooth = function(type, player) {
 		var changes = 0;
 		var changeLimit = 2;
 		if ( Utils.rand(2) === 0) {
@@ -4116,7 +4106,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	 9a) Item Description
 	 "A vial the size of your fist made of dark brown glass. It contains what appears to be an oily, yellowish liquid. The odor is abominable."
 	 */
-	Mutations.prototype.snakeOil = function(player) {
+	Mutations.snakeOil = function(player) {
 		player.slimeFeed();
 		EngineCore.outputText("", true);
 		var changes = 0;
@@ -4207,7 +4197,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.outputText("\n\nRemakarbly, the snake-oil has no effect.  Should you really be surprised at snake-oil NOT doing anything?", false);
 		}
 	};
-	Mutations.prototype.Hummus = function(player) {
+	Mutations.Hummus = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You shovel the stuff into your face, not sure WHY you're eating it, but once you start, you just can't stop.  It tastes incredibly bland, and with a slight hint of cheese.", false);
 		player.str = 30;
@@ -4304,7 +4294,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		player.removeStatusAffect(StatusAffects.BlackNipples);
 		player.vaginaType(0);
 	};
-	Mutations.prototype.coal = function(player) {
+	Mutations.coal = function(player) {
 		var changes = 0;
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You handle the coal rocks experimentally and they crumble to dust in your hands!  You cough as you breathe in the cloud, sputtering and wheezing.  After a minute of terrible coughing, you recover and realize there's no remaining trace of the rocks, not even a sooty stain on your hands!", false);
@@ -4327,7 +4317,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.catTransformation = function(player) {
+	Mutations.catTransformation = function(player) {
 		var changes = 0;
 		var changeLimit = 1;
 		if ( Utils.rand(2) === 0) {
@@ -4641,7 +4631,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.reptilum = function(player) {
+	Mutations.reptilum = function(player) {
 		player.slimeFeed();
 		//init variables
 		var changes = 0;
@@ -5026,7 +5016,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.dynStats("lus", 3);
 		}
 	};
-	Mutations.prototype.neonPinkEgg = function(pregnantChange, player) {
+	Mutations.neonPinkEgg = function(pregnantChange, player) {
 		var changes = 0;
 		var changeLimit = 1;
 		if ( Utils.rand(2) === 0) {
@@ -5472,7 +5462,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.goldenSeed = function(type, player) {
+	Mutations.goldenSeed = function(type, player) {
 		//'type' refers to the variety of seed.
 		//0 === standard.
 		//1 === enhanced - increase change limit and no pre-reqs for TF
@@ -5851,7 +5841,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	 -Roo footsies
 	 -Fur
 	 -Roo face*/
-	Mutations.prototype.kangaFruit = function(type, player) {
+	Mutations.kangaFruit = function(type, player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You squeeze the pod around the middle, forcing the end open.  Scooping out a handful of the yeasty-smelling seeds, you shovel them in your mouth.  Blech!  Tastes like soggy burnt bread... and yet, you find yourself going for another handful...", false);
 		//Used to track changes and the max
@@ -6090,7 +6080,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //[Giant Chocolate Cupcake] – 500 gems
-	Mutations.prototype.giantChocolateCupcake = function(player) {
+	Mutations.giantChocolateCupcake = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You look down at the massive chocolate cupcake and wonder just how you can possibly eat it all.  It fills the over-sized wrapper and bulges out over the top, somehow looking obscene even though it's merely a baked treat.  There is a single candle positioned atop its summit, and it bursts into flame as if by magic.  Eight red gumdrops ring the outer edge of the cupcake, illuminated by the flame.\n\n", false);
 		EngineCore.outputText("You hesitantly take a bite.  It's sweet, as you'd expect, but there's also a slightly salty, chocolaty undercurrent of flavor.  Even knowing what the minotaur put in Maddie's mix, you find yourself grateful that this new creation doesn't seem to have any of his 'special seasonings'.  It wouldn't do to be getting drugged up while you're slowly devouring the massive, muffin-molded masterpiece. Before you know it, most of the cupcake is gone and you polish off the last chocolaty bites before licking your fingers clean.\n\n", false);
@@ -6099,7 +6089,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		EngineCore.outputText(player.modTone(0, 100), false);
 		EngineCore.outputText(player.modThickness(100, 100), false);
 	};
-	Mutations.prototype.sweetGossamer = function(type, player) {
+	Mutations.sweetGossamer = function(type, player) {
 		EngineCore.outputText("", true);
 		var changes = 0;
 		var changeLimit = 1;
@@ -6391,7 +6381,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.fatigue(-33);
 		}
 	};
-	Mutations.prototype.broBrew = function(player) {
+	Mutations.broBrew = function(player) {
 		EngineCore.outputText("", true);
 		//no drink for bimbos!
 		if (player.findPerk(PerkLib.BimboBody) >= 0) {
@@ -6559,7 +6549,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //bottle of ectoplasm. Regular stat-stuff include higher speed, (reduced libido?), reduced sensitivity, and higher intelligence. First-tier effects include 50/50 chance of sable skin with bone-white veins or ivory skin with onyx veins. Second tier, \"wisp-like legs that flit back and forth between worlds,\" or \"wisp-like legs\" for short. Third tier gives an \"Ephemeral\" perk, makes you (10%, perhaps?) tougher to hit, and gives you a skill that replaces tease/seduce—allowing the PC to possess the creature and force it to masturbate to gain lust. Around the same effectiveness as seduce.
 //Mouseover script: \"The green-tinted, hardly corporeal substance flows like a liquid inside its container. It makes you feel...uncomfortable, as you observe it.\"
 //Bottle of Ectoplasm Text
-	Mutations.prototype.ectoplasm = function(player) {
+	Mutations.ectoplasm = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You grimace and uncork the bottle, doing your best to ignore the unearthly smell drifting up to your nostrils. Steeling yourself, you raise the container to your lips and chug the contents, shivering at the feel of the stuff sliding down your throat.  Its taste, at least, is unexpectedly pleasant.  Almost tastes like oranges.", false);
 		var changes = 0;
@@ -6656,7 +6646,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		//Sample possession text (>79 int, perhaps?):  With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into your opponent's frame. Before they can regain the initiative, you take control of one of their arms, vigorously masturbating for several seconds before you're finally thrown out. Recorporealizing, you notice your enemy's blush, and know your efforts were somewhat successful.
 		//Failure:  With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into the opponent's frame. Unfortunately, it seems they were more mentally prepared than you hoped, and you're summarily thrown out of their body before you're even able to have fun with them. Darn, you muse. Gotta get smarter.
 	};
-	Mutations.prototype.isabellaMilk = function(player) {
+	Mutations.isabellaMilk = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You swallow down the bottle of Isabella's milk.", false);
 		if (player.fatigue > 0) {
@@ -6666,7 +6656,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	};
 //TF item - Shriveled Tentacle
 //tooltip:
-	Mutations.prototype.shriveledTentacle = function(player) {
+	Mutations.shriveledTentacle = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You chew on the rubbery tentacle; its texture and taste are somewhat comparable to squid, but the half-dormant nematocysts cause your mouth to tingle sensitively.", false);
 		var changes = 0;
@@ -6755,7 +6745,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	};
 //ITEMS START
 //Numb Rocks
-	Mutations.prototype.numbRocks = function(player) {
+	Mutations.numbRocks = function(player) {
 		EngineCore.outputText("", true);
 		//Numb rocks lower lust significantly but have a chance of inducing the masturbation preventing effect from minotaur.
 		EngineCore.outputText("You pop open the package of numb rocks and dump it into your waiting mouth.  The strange candy fizzes and pops, leaving the nerves on your tongue feeling a bit deadened as you swallow the sweet mess.", false);
@@ -6809,7 +6799,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //2. Sensitivity Draft
-	Mutations.prototype.sensitivityDraft = function(player) {
+	Mutations.sensitivityDraft = function(player) {
 		EngineCore.outputText("", true);
 		EngineCore.outputText("You pop the cork on this small vial and drink down the clear liquid.  It makes your lips and tongue tingle strangely, letting you feel each globule of spit in your mouth and each breath of air as it slides past your lips.", false);
 		if (player.findStatusAffect(StatusAffects.Dysfunction) >= 0) {
@@ -6835,7 +6825,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 		EngineCore.dynStats("sen", 10, "lus", 5);
 	};
-	Mutations.prototype.foxTF = function(enhanced, player) {
+	Mutations.foxTF = function(enhanced, player) {
 		EngineCore.clearOutput();
 		if (!enhanced) {
 			EngineCore.outputText("You examine the berry a bit, rolling the orangish-red fruit in your hand for a moment before you decide to take the plunge and chow down.  It's tart and sweet at the same time, and the flavors seem to burst across your tongue with potent strength.  Juice runs from the corners of your lips as you finish the tasty snack.");
@@ -7218,7 +7208,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			EngineCore.fatigue(-5);
 		}
 	};
-	Mutations.prototype.godMead = function(player) {
+	Mutations.godMead = function(player) {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You take a hearty swig of mead, savoring the honeyed taste on your tongue.  Emboldened by the first drink, you chug the remainder of the horn's contents in no time flat.  You wipe your lips, satisfied, and let off a small belch as you toss the empty horn aside.");
 		//Libido: No desc., always increases.
@@ -7241,7 +7231,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		//[If player already has beard] A sudden tingling runs along your chin. You stroke your beard proudly as it slowly grows in length and lustre.
 		//Grow hair: Your scalp is beset by pins and needles as your hair grows out, stopping after it reaches [medium/long] length.}
 	};
-	Mutations.prototype.sheepMilk = function() {
+	Mutations.sheepMilk = function() {
 		EngineCore.outputText("You gulp the bottle's contents, and its sweet taste immediately invigorates you, making you feel calm and concentrated", true);
 		//-30 fatigue, -2 libido, -10 lust]
 		EngineCore.fatigue(-30);
@@ -7249,7 +7239,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	};
 //Item: Dragon Egg (Z) (FEN CODED TO HERE - OR AT LEAST COPIED INTO THE CODE FOR FUTURE CODING)
 //Itemdescription - "A large, solid egg, easily the size of your clenched fist.  Its shell color is reddish-white, with blue splotches."
-	Mutations.prototype.eatEmberEgg = function(player) {
+	Mutations.eatEmberEgg = function(player) {
 		EngineCore.clearOutput();
 		//Effect:
 		//Boosts the special effect of Dragonbreath by 20% for 1 use. ie: if Tainted's breath weapon has a 80% chance to stun on hit, +20% equals 100% chance to stun.
@@ -7269,7 +7259,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //9999A shining teardrop-shaped jewel.  An eerie blue flame dances beneath the surface.
 //Fox Jewel (Magatama)
 //Consume:
-	Mutations.prototype.foxJewel = function(mystic, player) {
+	Mutations.foxJewel = function(mystic, player) {
 		EngineCore.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
@@ -7574,7 +7564,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 //Fish Fillet
-	Mutations.prototype.fishFillet = function(player) {
+	Mutations.fishFillet = function(player) {
 		EngineCore.clearOutput();
 		if (!CoC.getInstance().isInCombat()) {
 			EngineCore.outputText("You sit down and unwrap your fish fillet. It's perfectly flaky, allowing you to break it off in bite-sized chunks.  The salty meal disappears quickly, and your stomach gives an appreciative gurgle.");
@@ -7592,7 +7582,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	};
 //Trap Oil
 //Flavour Description: A round, opaque glass vial filled with a clear, viscous fluid.  It has a symbol inscribed on it, a circle with a cross and arrow pointing out of it in opposite directions.  It looks and smells entirely innocuous.
-	Mutations.prototype.trapOil = function(player) {
+	Mutations.trapOil = function(player) {
 		EngineCore.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
@@ -7915,7 +7905,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 	};
 //PurPeac
 //Purity Peach - Inventory
-	Mutations.prototype.purityPeach = function(player) {
+	Mutations.purityPeach = function(player) {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You bite into the sweet, juicy peach, feeling a sensation of energy sweeping through your limbs and your mind.  You feel revitalized, refreshed, and somehow cleansed.");
 		EngineCore.fatigue(-15);
@@ -7924,7 +7914,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //New Item: "Purple Fruit"
 //This sweet-smelling produce looks like an eggplant but feels almost squishy, and rubbery to the touch. Holding it to your ear, you think you can hear some fluid sloshing around inside.
 //>When Used
-	Mutations.prototype.purpleFruitEssrayle = function(player) {
+	Mutations.purpleFruitEssrayle = function(player) {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You bite into the fruit Essrayle gave you with little hesitation.  It's amazingly sweet, with a texture that's rather gummy.  The juice is a candied grape syrup that fills your cheeks and flows down your throat with far more fluid than the size of the plant should allow.  You hastily devour the entire thing, unable to stop yourself once you've started.");
 		EngineCore.outputText("\n\nA tingling warmth shifts to a roaring inferno in your veins, your heart-rate spiking abruptly.  The intensity of it almost makes your body feel molten!  But, as quickly as it came, the sensation fades into merely a pleasing warmth that settles in your chest.");
@@ -7945,7 +7935,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //Ringtail Fig/RingFig (please do not change the fruit type to suit whimsy because I have some plans for figs)
 //tooltip:
 //A dried fig with two lobes and thin dark rings just below its stem.  The skin is wrinkly and it looks vaguely like a bulging scrotum.
-	Mutations.prototype.ringtailFig = function(player) {
+	Mutations.ringtailFig = function(player) {
 		EngineCore.clearOutput();
 		//eat it:
 		EngineCore.outputText("You split the fruit and scoop out the pulp, eating it greedily.  It's sweet and slightly gritty with seeds, and you quickly finish both halves.");
@@ -8124,7 +8114,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //tooltip:
 //A handful of rare aromatic beans with sharp creases in the middle, making them look like small mouse ears.  Allegedly very popular and plentiful before the mice-folk were wiped out.
 //Mouse Cocoa/MousCoco (you can change the name if you're saddlesore I guess but I'll make fun of you for having no plausible source of chocolate for your bakery if you do)
-	Mutations.prototype.mouseCocoa = function(player) {
+	Mutations.mouseCocoa = function(player) {
 		EngineCore.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
@@ -8344,7 +8334,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 //You attempt to turn and bite your foe, but " + monster.pronoun1 + " pulls back deftly and your jaws close on empty air.
 //perk - fuck if i know
 //maybe some pregnancy-accelerating thing
-	Mutations.prototype.demonChanges = function(player) {
+	Mutations.demonChanges = function(player) {
 		//Change tail if already horned.
 		if (player.tailType !== AppearanceDefs.TAIL_TYPE_DEMONIC && player.horns > 0) {
 			if (player.tailType !== AppearanceDefs.TAIL_TYPE_NONE) {
@@ -8463,13 +8453,13 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 			}
 		}
 	};
-	Mutations.prototype.herbalContraceptive = function(player) {
+	Mutations.herbalContraceptive = function(player) {
 		EngineCore.clearOutput();
 		// Placeholder, sue me
 		EngineCore.outputText("You chew on the frankly awfully bitter leaves as quickly as possible before swallowing them down.");
 		player.createStatusAffect(StatusAffects.Contraceptives, 1, 48, 0, 0);
 	};
-	Mutations.prototype.princessPucker = function(player) {
+	Mutations.princessPucker = function(player) {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You uncork the bottle, and sniff it experimentally.  The fluid is slightly pink, full of flecks of gold, and smelling vaguely of raspberries.  Princess Gwynn said it was drinkable.\n\n");
 		EngineCore.outputText("You down the bottle, hiccuping a bit at the syrupy-sweet raspberry flavor.  Immediately following the sweet is a bite of sour, like sharp lime.  You pucker your lips, and feel your head clear a bit from the intensity of flavor.  You wonder what Gwynn makes this out of.\n\n");
@@ -8487,7 +8477,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 		}
 	};
 	//Ferret Fruit
-	Mutations.prototype.ferretTF = function(player) {
+	Mutations.ferretTF = function(player) {
 		//CoC Ferret TF (Ferret Fruit)
 		//Finding Ferret Fruit
 		//- Ferret Fruit may be randomly found while exploring the plains.
