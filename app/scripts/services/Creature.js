@@ -1223,6 +1223,10 @@ angular.module('cocjs').factory('Creature', function ($log, CoC, Utils, Ass, Coc
 		} else {
 			this.gender = AppearanceDefs.GENDER_NONE;
 		}
+		//Fertility fixing
+		if(this.hasVagina() && this.fertility < 1) {
+			this.fertility = 1;
+		}
 	};
 	//Remove cocks
 	Creature.prototype.removeCock = function(arraySpot, totalRemoved) {
