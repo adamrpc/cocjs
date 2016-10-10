@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs, InputManager ) {
+angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, Weapon, Armor, CockTypesEnum, EngineCore, MainView, EventParser, kFLAGS, Player, ItemType, DungeonCore, WeaponLib, ArmorLib, AppearanceDefs, InputManager, OnLoadVariables ) {
 	var SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION = 816;
 	//Didn't want to include something like this, but an integer is safer than depending on the text version number from the CoC class.
 	//Also, this way the save file version doesn't need updating unless an important structural change happens in the save file.
@@ -437,8 +437,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 		}
 		var game = game;
 		this.game.dungeonLoc = 0;
-		this.game.inRoomedDungeon = false;
-		this.game.inRoomedDungeonResume = null;
+		OnLoadVariables.inRoomedDungeon = false;
+		OnLoadVariables.inRoomedDungeonResume = null;
 		//Autosave stuff
 		this.game.player.slotName = slot;
 		$log.info( 'Loading save!' );

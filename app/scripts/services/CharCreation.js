@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, Armors, Weapons, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, Consumables, Utils ) {
+angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, Armors, Weapons, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, Consumables, Utils, OnLoadVariables ) {
 	function CharCreation() {
 		this.customPlayerProfile = null;
 	}
@@ -43,8 +43,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//RESET DUNGEOn
 		//No need, dungeonLoc = 0 does this = false;
 		CoC.getInstance().dungeonLoc = 0;
-		CoC.getInstance().inRoomedDungeon = false;
-		CoC.getInstance().inRoomedDungeonResume = null;
+		OnLoadVariables.inRoomedDungeon = false;
+		OnLoadVariables.inRoomedDungeonResume = null;
 		//Hold onto old data for NG+
 		var oldPlayer = angular.copy(CoC.getInstance().player);
 		//Reset all standard stats
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 				CoC.getInstance().player.clitLength = 0.25;
 			}
 		}
-		CoC.getInstance().genderCheck();
+		CoC.getInstance().player.genderCheck();
 		//Hair length long
 		CoC.getInstance().player.hairLength = 22;
 		//Breast size
@@ -1221,7 +1221,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//Gender
 		if( !CoC.getInstance().player.hasVagina() ) {
 			CoC.getInstance().player.createVagina();
-			CoC.getInstance().genderCheck();
+			CoC.getInstance().player.genderCheck();
 		}
 		//'Ears
 		CoC.getInstance().player.earType = AppearanceDefs.EARS_BUNNY;
