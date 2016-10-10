@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, Consumables, Weapons, Armors, OnLoadVariables, DungeonCore, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, DungeonCore, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -1293,19 +1293,19 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		var itype = monster.dropLoot();
 		if(monster.short === "tit-fucked Minotaur") {
-			itype = Consumables.MINOCUM;
+			itype = ConsumableLib.MINOCUM;
 		}
 		if((monster instanceof Minotaur) && monster.weaponName === "axe") {
 			if( Utils.rand(2) === 0) {
 				//50% breakage!
 				if( Utils.rand(2) === 0) {
-					itype = Weapons.L__AXE;
+					itype = WeaponLib.L__AXE;
 					if(CoC.getInstance().player.tallness < 78) {
 						EngineCore.outputText("\nYou find a large axe on the minotaur, but it is too big for a person of your stature to comfortably carry.  ", false);
 						if( Utils.rand(2) === 0) {
 							itype = null;
 						}else {
-							itype = Consumables.SDELITE;
+							itype = ConsumableLib.SDELITE;
 						}
 					} else { //Not too tall, dont rob of axe!
 						OnLoadVariables.plotFight = true;
@@ -1314,54 +1314,54 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					EngineCore.outputText("\nThe minotaur's axe appears to have been broken during the fight, rendering it useless.  ", false);
 				}
 			} else {
-				itype = Consumables.MINOBLO;
+				itype = ConsumableLib.MINOBLO;
 			}
 		}
 		if(monster instanceof BeeGirl) {
 			//force honey drop if milked
 			if(CoC.getInstance().flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] === 1) {
-				itype = Utils.randomChoice(Consumables.BEEHONY, Consumables.PURHONY);
+				itype = Utils.randomChoice(ConsumableLib.BEEHONY, ConsumableLib.PURHONY);
 				CoC.getInstance().flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] = 0;
 			}
 		}
 		if(monster instanceof Jojo && CoC.getInstance().monk > 4) {
-			itype = Utils.randomChoice(Consumables.INCUBID, Consumables.INCUBID, Consumables.B__BOOK, Consumables.SUCMILK);
+			itype = Utils.randomChoice(ConsumableLib.INCUBID, ConsumableLib.INCUBID, ConsumableLib.B__BOOK, ConsumableLib.SUCMILK);
 		}
 		if(monster instanceof Harpy || monster instanceof Sophie) {
 			if( Utils.rand(10) === 0) {
-				itype = Armors.W_ROBES;
+				itype = ArmorLib.W_ROBES;
 			} else if( Utils.rand(3) === 0 && CoC.getInstance().player.findPerk(PerkLib.LuststickAdapted) >= 0) {
-				itype = Consumables.LUSTSTK;
+				itype = ConsumableLib.LUSTSTK;
 			} else {
-				itype = Consumables.GLDSEED;
+				itype = ConsumableLib.GLDSEED;
 			}
 		}
 		//Chance of armor if at level 1 pierce fetish
-		if(!OnLoadVariables.plotFight && !(monster instanceof Ember) && !(monster instanceof Kiha) && !(monster instanceof Hel) && !(monster instanceof Isabella) && CoC.getInstance().flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.getInstance().player.hasItem(Armors.SEDUCTA, 1) && !CoC.getInstance().scenes.ceraphFollowerScene.ceraphIsFollower()) {
-			itype = Armors.SEDUCTA;
+		if(!OnLoadVariables.plotFight && !(monster instanceof Ember) && !(monster instanceof Kiha) && !(monster instanceof Hel) && !(monster instanceof Isabella) && CoC.getInstance().flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.getInstance().player.hasItem(ArmorLib.SEDUCTA, 1) && !CoC.getInstance().scenes.ceraphFollowerScene.ceraphIsFollower()) {
+			itype = ArmorLib.SEDUCTA;
 		}
 		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.getInstance().player.level >= 7) {
-			itype = Consumables.BROBREW;
+			itype = ConsumableLib.BROBREW;
 		}
 		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.getInstance().player.level >= 7) {
-			itype = Consumables.BIMBOLQ;
+			itype = ConsumableLib.BIMBOLQ;
 		}
 		//Chance of eggs if Easter!
 		if(!OnLoadVariables.plotFight && Utils.rand(6) === 0 && CoC.getInstance().isEaster()) {
 			itype = Utils.randomChoice(
-				Consumables.BROWNEG,
-				Consumables.L_BRNEG,
-				Consumables.PURPLEG,
-				Consumables.L_PRPEG,
-				Consumables.BLUEEGG,
-				Consumables.L_BLUEG,
-				Consumables.PINKEGG,
-				Consumables.NPNKEGG,
-				Consumables.L_PNKEG,
-				Consumables.L_WHTEG,
-				Consumables.WHITEEG,
-				Consumables.BLACKEG,
-				Consumables.L_BLKEG
+				ConsumableLib.BROWNEG,
+				ConsumableLib.L_BRNEG,
+				ConsumableLib.PURPLEG,
+				ConsumableLib.L_PRPEG,
+				ConsumableLib.BLUEEGG,
+				ConsumableLib.L_BLUEG,
+				ConsumableLib.PINKEGG,
+				ConsumableLib.NPNKEGG,
+				ConsumableLib.L_PNKEG,
+				ConsumableLib.L_WHTEG,
+				ConsumableLib.WHITEEG,
+				ConsumableLib.BLACKEG,
+				ConsumableLib.L_BLKEG
 			);
 		}
 		//Bonus loot overrides others

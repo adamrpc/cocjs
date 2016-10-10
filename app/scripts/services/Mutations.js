@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, Consumables) {
+angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, ConsumableLib) {
     var Mutations = {};
 	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
@@ -8218,7 +8218,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 				if(intensified) {
 					EngineCore.outputText("\n\nYour womb feels achingly empty, and your temperature shoots up.  Try as you might, you can't stop fantasizing about being filled with semen, drenched inside and out with it, enough to make a baker's dozen offspring.  ");
 					//[(no mino cum in inventory)]
-					if (!player.hasItem(Consumables.MINOCUM)) {
+					if (!player.hasItem(ConsumableLib.MINOCUM)) {
 						EngineCore.outputText("<b>Your heat has intensified as much as your fertility has increased, which is a considerable amount!</b>");
 					} else if (player.lust < 100 || player.isTaur()) {
 						EngineCore.outputText("You even pull out a bottle of minotaur jism and spend several minutes considering the feasibility of pouring it directly in your [vagina], but regain your senses as you're unsealing the cap, setting it aside.  <b>Still, your heat is more intense than ever and your increasingly-fertile body is practically begging for dick - it'll be hard to resist any that come near!</b>");
@@ -8227,7 +8227,7 @@ angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Se
 						//(consumes item, increment addiction/output addict message, small chance of mino preg, reduce lust)]", false);
 						player.minoCumAddiction(5);
 						player.knockUp(PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR, 175);
-						player.consumeItem(Consumables.MINOCUM);
+						player.consumeItem(ConsumableLib.MINOCUM);
 					}
 				} else {
 					EngineCore.outputText("\n\nYour insides feel... roomy.  Accomodating, even.  You could probably carry a whole litter of little [name]s right now.  Filled with a sudden flush of desire, you look around furtively for any fertile males.  With a shake of your head, you try to clear your thoughts, but daydreams of being stuffed with seed creep right back in - it looks like your body is intent on probing the limits of your new fertility.  <b>You're in heat, and pregnable in several senses of the word!</b>", false);

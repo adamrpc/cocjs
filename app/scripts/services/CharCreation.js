@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, Armors, Weapons, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, Consumables, Utils, OnLoadVariables ) {
+angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
 	function CharCreation() {
 		this.customPlayerProfile = null;
 	}
@@ -131,11 +131,11 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 			if( !(oldPlayer.armor instanceof GooArmor) ) {
 				CoC.getInstance().player.setArmor( oldPlayer.armor );
 			} else {
-				CoC.getInstance().player.setArmor( Armors.C_CLOTH );
+				CoC.getInstance().player.setArmor( ArmorLib.C_CLOTH );
 			}
 			CoC.getInstance().player.setWeapon( oldPlayer.weapon );
 		} else { //Clothes clear
-			CoC.getInstance().player.setArmor( Armors.C_CLOTH );
+			CoC.getInstance().player.setArmor( ArmorLib.C_CLOTH );
 			CoC.getInstance().player.setWeapon( WeaponLib.FISTS );
 		}
 		//Clear plot storage array!
@@ -801,7 +801,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.nippleLength = 5;
 		CoC.getInstance().player.breastRows[ 0 ].lactationMultiplier += 20;
 		//Equipment with spiked fist
-		CoC.getInstance().player.setWeapon( Weapons.S_GAUNT );
+		CoC.getInstance().player.setWeapon( WeaponLib.S_GAUNT );
 		//Perks and Lotsa Jizz'	Annetta
 		CoC.getInstance().player.createPerk( PerkLib.HistoryFighter, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.MessyOrgasms, 1.25, 0, 0, 0 );
@@ -852,8 +852,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
-		CoC.getInstance().player.setWeapon( Weapons.SUCWHIP );
-		CoC.getInstance().player.setArmor( Armors.NURSECL );
+		CoC.getInstance().player.setWeapon( WeaponLib.SUCWHIP );
+		CoC.getInstance().player.setArmor( ArmorLib.NURSECL );
 	};
 	CharCreation.prototype.customBetram = function() {
 		//Character Creation
@@ -913,9 +913,9 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.nipplesPLong = 'Silver studs';
 		CoC.getInstance().player.skinTone = 'ghostly pale';
 		CoC.getInstance().player.createPerk( PerkLib.Incorporeality, 0, 0, 0, 0 );
-		CoC.getInstance().player.setArmor( Armors.I_CORST );
+		CoC.getInstance().player.setArmor( ArmorLib.I_CORST );
 		CoC.getInstance().player.level = 5;
-		CoC.getInstance().player.setWeapon( Weapons.W_STAFF );
+		CoC.getInstance().player.setWeapon( WeaponLib.W_STAFF );
 		CoC.getInstance().player.createPerk( PerkLib.Regeneration, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.Smart, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.Channeling, 0, 0, 0, 0 );
@@ -986,8 +986,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.tongueType = AppearanceDefs.TONUGE_DEMONIC;
 		CoC.getInstance().player.nippleLength = 0.1;
 		//Starting with an Inscribed Spellblade and Bondage Straps.	Charaun
-		CoC.getInstance().player.setArmor( Armors.BONSTRP );
-		CoC.getInstance().player.setWeapon( Weapons.S_BLADE );
+		CoC.getInstance().player.setArmor( ArmorLib.BONSTRP );
+		CoC.getInstance().player.setWeapon( WeaponLib.S_BLADE );
 	};
 	CharCreation.prototype.customCharlie = function() {
 		EngineCore.outputText( 'You\'re strong, smart, fast, and tough.  It also helps that you\'ve got four dongs well beyond what others have lurking in their trousers.  With your wings, bow, weapon, and tough armor, you\'re a natural for protecting the town.' );
@@ -1015,8 +1015,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.wingDesc = 'large, feathered';
 		//While we're on the subject, would glowing eyes be possible? I'll take normal eyes if not.
 		//Beautiful Sword
-		CoC.getInstance().player.setWeapon( Weapons.B_SWORD );
-		CoC.getInstance().player.setArmor( Armors.SSARMOR );
+		CoC.getInstance().player.setWeapon( WeaponLib.B_SWORD );
+		CoC.getInstance().player.setArmor( ArmorLib.SSARMOR );
 		//Beautiful Armor (Or just Spider Silk Armor)
 		//Pure Pearl
 		//Tallness 84 (8 feet 0 inches)
@@ -1075,10 +1075,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.skinType = AppearanceDefs.SKIN_TYPE_FUR;
 		CoC.getInstance().player.skinDesc = 'fur';
 		//-Chainmail armor
-		CoC.getInstance().player.setArmor( Armors.FULLCHN );
+		CoC.getInstance().player.setArmor( ArmorLib.FULLCHN );
 		//-Large Claymore (i understand 40 Strength is need so if he could start with that would be great if not hit the gyms)'
 		CoC.getInstance().player.str = 41;
-		CoC.getInstance().player.setWeapon( Weapons.CLAYMOR );
+		CoC.getInstance().player.setWeapon( WeaponLib.CLAYMOR );
 	};
 	CharCreation.prototype.customGalatea = function() {
 		//'(Dangit Fenoxo!  Stop adding sexy must-have things to the game!  If it's not too late to update it I've added in that sexy new armor.  Thanks!)
@@ -1104,9 +1104,9 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.createPerk( PerkLib.StrongBack, 0, 0, 0, 0 );
 		CoC.getInstance().player.createPerk( PerkLib.StrongBack2, 0, 0, 0, 0 );
 		//Equipment Warhammer
-		CoC.getInstance().player.setWeapon( Weapons.WARHAMR );
+		CoC.getInstance().player.setWeapon( WeaponLib.WARHAMR );
 		//Armor shit
-		CoC.getInstance().player.setArmor( Armors.LMARMOR );
+		CoC.getInstance().player.setArmor( ArmorLib.LMARMOR );
 		//player.createPerk(PerkLib.SluttySeduction, 10 + CoC.getInstance().flags[kFLAGS.BIKINI_ARMOR_BONUS], 0, 0, 0);
 		//Stats possible)
 		//Strength
@@ -1115,11 +1115,11 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.fertility = 100;
 		CoC.getInstance().player.cor = 25;
 		//Inventory, GroPlus, BimboLq
-		CoC.getInstance().player.itemSlot1.setItemAndQty( Consumables.LACTAID, 5 );
-		CoC.getInstance().player.itemSlot2.setItemAndQty( Consumables.GROPLUS, 5 );
-		CoC.getInstance().player.itemSlot3.setItemAndQty( Consumables.BIMBOLQ, 1 );
+		CoC.getInstance().player.itemSlot1.setItemAndQty( ConsumableLib.LACTAID, 5 );
+		CoC.getInstance().player.itemSlot2.setItemAndQty( ConsumableLib.GROPLUS, 5 );
+		CoC.getInstance().player.itemSlot3.setItemAndQty( ConsumableLib.BIMBOLQ, 1 );
 		CoC.getInstance().player.itemSlot4.unlocked = true;
-		CoC.getInstance().player.itemSlot4.setItemAndQty( Armors.BIMBOSK, 1 );
+		CoC.getInstance().player.itemSlot4.setItemAndQty( ArmorLib.BIMBOSK, 1 );
 		CoC.getInstance().player.itemSlot5.unlocked = true;
 		EngineCore.outputText( 'You\'ve got large breasts prone to lactation.  You aren\'t sure WHY you got chosen as a champion, but with your considerable strength, you\'re sure you\'ll do a good job protecting Ingnam.' );
 	};
@@ -1142,7 +1142,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		}
 		CoC.getInstance().player.breastRows[ 0 ].breastRating = 4;
 		CoC.getInstance().player.hairLength = 10;
-		CoC.getInstance().player.setArmor( Armors.GELARMR );
+		CoC.getInstance().player.setArmor( ArmorLib.GELARMR );
 		CoC.getInstance().player.gender = 3;
 	};
 	CharCreation.prototype.customIsaac = function() {
@@ -1212,9 +1212,9 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//equipment;
 		//- katana (don't suppose you could rename the katana 'Zon'ith' could you? ~.^)
 		//Items, Leather Armor
-		CoC.getInstance().player.setWeapon( Weapons.KATANA );
+		CoC.getInstance().player.setWeapon( WeaponLib.KATANA );
 		//- robes
-		CoC.getInstance().player.setArmor( Armors.M_ROBES );
+		CoC.getInstance().player.setArmor( ArmorLib.M_ROBES );
 	};
 	CharCreation.prototype.customKatti = function() {
 		EngineCore.outputText( 'You have big breasts with big, fuckable nipples on them, and no matter what, your vagina always seems to be there to keep you company.' );
@@ -1234,10 +1234,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.breastRows[ 0 ].fuckable = true;
 	};
 	CharCreation.prototype.customLeah = function() {
-		CoC.getInstance().player.setArmor( Armors.LEATHRA );
-		CoC.getInstance().player.setWeapon( Weapons.W_STAFF );
-		CoC.getInstance().player.itemSlot1.setItemAndQty( Consumables.B__BOOK, 1 );
-		CoC.getInstance().player.itemSlot2.setItemAndQty( Consumables.W__BOOK, 2 );
+		CoC.getInstance().player.setArmor( ArmorLib.LEATHRA );
+		CoC.getInstance().player.setWeapon( WeaponLib.W_STAFF );
+		CoC.getInstance().player.itemSlot1.setItemAndQty( ConsumableLib.B__BOOK, 1 );
+		CoC.getInstance().player.itemSlot2.setItemAndQty( ConsumableLib.W__BOOK, 2 );
 		CoC.getInstance().player.createBreastRow();
 		CoC.getInstance().player.createVagina();
 		CoC.getInstance().player.breastRows[ 0 ].breastRating = 4;
@@ -1459,8 +1459,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//Posted everything above sorry if it wasn't supposed to go there.
 		//starting equipment leather armor surrounded by voluminous robes
 		//starting weapon if not gamebreaking otherwise spear is fine.
-		CoC.getInstance().player.setArmor( Armors.LTHRROB );
-		CoC.getInstance().player.setWeapon( Weapons.S_BLADE );
+		CoC.getInstance().player.setArmor( ArmorLib.LTHRROB );
+		CoC.getInstance().player.setWeapon( WeaponLib.S_BLADE );
 	};
 	CharCreation.prototype.customMirvanna = function() {
 		//Any equine or dragonny attributes accompanying it a big plus! As I'm a dragon-unicorn furry (Qilin~). Bonus points if you add a horn type for unicorn horn.
@@ -1514,8 +1514,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.cocks[ 0 ].cockThickness = 2.5;
 		//Vulva Type = Equine
 		//Beautiful Sword & Wizard Robe
-		CoC.getInstance().player.setWeapon( Weapons.B_SWORD );
-		CoC.getInstance().player.setArmor( Armors.W_ROBES );
+		CoC.getInstance().player.setWeapon( WeaponLib.B_SWORD );
+		CoC.getInstance().player.setArmor( ArmorLib.W_ROBES );
 		//Herm, lots of jizz.
 		CoC.getInstance().player.femininity -= 2;
 		CoC.getInstance().player.cumMultiplier = 5.5;
@@ -1561,14 +1561,14 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.skinTone = 'light';
 		//Starting Equipment Robe, Wizards Staff, and one White and one Black book in inventory.
 		//equipArmor('inquisitor\'s corset',false);
-		CoC.getInstance().player.setArmor( Armors.W_ROBES );
-		CoC.getInstance().player.setWeapon( Weapons.W_STAFF );
+		CoC.getInstance().player.setArmor( ArmorLib.W_ROBES );
+		CoC.getInstance().player.setWeapon( WeaponLib.W_STAFF );
 		//Gift Perk- Smarts
 		CoC.getInstance().player.createPerk( PerkLib.Smart, 0, 0, 0, 0 );
 		//History- Schooling
 		CoC.getInstance().player.createPerk( PerkLib.HistoryScholar, 0, 0, 0, 0 );
-		CoC.getInstance().player.itemSlot1.setItemAndQty( Consumables.W__BOOK, 1 );
-		CoC.getInstance().player.itemSlot2.setItemAndQty( Consumables.B__BOOK, 1 );
+		CoC.getInstance().player.itemSlot1.setItemAndQty( ConsumableLib.W__BOOK, 1 );
+		CoC.getInstance().player.itemSlot2.setItemAndQty( ConsumableLib.B__BOOK, 1 );
 		CoC.getInstance().player.gender = 2;
 		CoC.getInstance().player.tallness = 64;
 		CoC.getInstance().player.femininity = 75;
@@ -1588,9 +1588,9 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.createPerk( PerkLib.Dragonfire, 0, 0, 0, 0 );
 		//equipment claymore, and platemail
 		//-Chainmail armor
-		CoC.getInstance().player.setArmor( Armors.FULLPLT );
+		CoC.getInstance().player.setArmor( ArmorLib.FULLPLT );
 		//-Large Claymore (i understand 40 Strength is need so if he could start with that would be great if not hit the gyms)'
-		CoC.getInstance().player.setWeapon( Weapons.CLAYMOR );
+		CoC.getInstance().player.setWeapon( WeaponLib.CLAYMOR );
 		CoC.getInstance().player.str = 41;
 		//femininity
 		CoC.getInstance().player.femininity = 95;
@@ -1765,10 +1765,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.earType = AppearanceDefs.EARS_DOG;
 		////'	'I'm picturing a tall, feminine German-Shepherd morph, solid white and gorgeous. She has both sets of genitals, with no balls, and a large set of breasts. She wields a large claymore and is dressed in a full chain vest and pants.
 		//large claymore (and the strength to use it)
-		CoC.getInstance().player.setWeapon( Weapons.CLAYMOR );
+		CoC.getInstance().player.setWeapon( WeaponLib.CLAYMOR );
 		CoC.getInstance().player.str = 40;
 		//full chain
-		CoC.getInstance().player.setArmor( Armors.FULLCHN );
+		CoC.getInstance().player.setArmor( ArmorLib.FULLCHN );
 		EngineCore.outputText( 'As a German-Shepherd morph, the rest of the village never really knew what to do with you... until they sent you through the portal to face whatever\'s on the other side...' );
 	};
 	CharCreation.prototype.customPrismere = function() {
@@ -1880,8 +1880,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.wingType = AppearanceDefs.WING_TYPE_BAT_LIKE_LARGE;
 		CoC.getInstance().player.wingDesc = 'large, bat-like';
 		//Items, Leather Armor
-		CoC.getInstance().player.setWeapon( Weapons.KATANA );
-		CoC.getInstance().player.setArmor( Armors.URTALTA );
+		CoC.getInstance().player.setWeapon( WeaponLib.KATANA );
+		CoC.getInstance().player.setArmor( ArmorLib.URTALTA );
 		//Key Item Dildo
 		CoC.getInstance().player.createKeyItem( 'Deluxe Dildo', 0, 0, 0, 0 );
 	};
@@ -1913,7 +1913,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//Fallen Angel gear (complete with flaming sword and light arrows)
 		//dark skin tone
 		CoC.getInstance().player.skinTone = 'dark';
-		CoC.getInstance().player.setWeapon( Weapons.S_BLADE );
+		CoC.getInstance().player.setWeapon( WeaponLib.S_BLADE );
 		//Elfin ears
 		CoC.getInstance().player.earType = AppearanceDefs.EARS_ELFIN;
 		//tight asshole
@@ -2043,10 +2043,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		EngineCore.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
 		CoC.getInstance().player.itemSlot4.unlocked = true;
 		CoC.getInstance().player.itemSlot5.unlocked = true;
-		CoC.getInstance().player.itemSlot1.setItemAndQty( Consumables.P_LBOVA, 5 );
-		CoC.getInstance().player.itemSlot2.setItemAndQty( Consumables.L_PNKEG, 1 );
-		CoC.getInstance().player.itemSlot3.setItemAndQty( Consumables.OVIELIX, 1 );
-		CoC.getInstance().player.itemSlot4.setItemAndQty( Consumables.REPTLUM, 1 );
+		CoC.getInstance().player.itemSlot1.setItemAndQty( ConsumableLib.P_LBOVA, 5 );
+		CoC.getInstance().player.itemSlot2.setItemAndQty( ConsumableLib.L_PNKEG, 1 );
+		CoC.getInstance().player.itemSlot3.setItemAndQty( ConsumableLib.OVIELIX, 1 );
+		CoC.getInstance().player.itemSlot4.setItemAndQty( ConsumableLib.REPTLUM, 1 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.TelAdre, 1, 0, 0, 0 );
 		//player.createStatusAffect(StatusAffects.MetWhitney, 2, 0, 0, 0);
 		// Izma
@@ -2194,8 +2194,8 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.clitLength = 0.2;
 		CoC.getInstance().player.femininity = 85;
 		//Beautiful Sword
-		CoC.getInstance().player.setWeapon( Weapons.B_SWORD );
-		CoC.getInstance().player.setArmor( Armors.SSARMOR );
+		CoC.getInstance().player.setWeapon( WeaponLib.B_SWORD );
+		CoC.getInstance().player.setArmor( ArmorLib.SSARMOR );
 		//Bow skill 100 (Sorry Kelt, I can't hear your insults over my mad Robin Hood skillz)
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 100, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
