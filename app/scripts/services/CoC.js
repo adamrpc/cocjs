@@ -26,7 +26,6 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 		//Version NUMBER
 		that.ver = "0.9.4"; // TODO : put it in properties file
 		that.version = that.ver + " (<b>Moar Bugfixan</b>)"; // TODO : put it in properties file
-		// TODO : Convert include "../../includes/ControlBindings.as"; into HTML
 		/**
 		 * Player specific variables
 		 * The player object and variables associated with the player
