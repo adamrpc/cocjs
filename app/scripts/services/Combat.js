@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, DungeonCore, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -56,13 +56,13 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					return;
 				}
 				var temp = Utils.rand(10) + 1 + Math.round(CoC.getInstance().monster.level / 2);
-				if (DungeonCore.isInDungeon()) {
+				if (CoC.getInstance().scenes.dungeonCore.isInDungeon()) {
 					temp += 20 + CoC.getInstance().monster.level * 2;
 				}
 				if (temp > CoC.getInstance().player.gems) {
 					temp = CoC.getInstance().player.gems;
 				}
-				var timePasses = CoC.getInstance().monster.handleCombatLossText(DungeonCore.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
+				var timePasses = CoC.getInstance().monster.handleCombatLossText(CoC.getInstance().scenes.dungeonCore.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
 				CoC.getInstance().player.gems -= temp;
 				CoC.getInstance().setInCombat(false);
 				//BUNUS XPZ
@@ -1370,7 +1370,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		monster.handleAwardItemText(itype); //Each monster can now override the default award text
 		if (itype !== null) {
-			if (DungeonCore.isInDungeon()) {
+			if (CoC.getInstance().scenes.dungeonCore.isInDungeon()) {
 				CoC.getInstance().inventory.takeItem(itype, EventParser.playerMenu);
 			} else {
 				CoC.getInstance().inventory.takeItem(itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour);
@@ -1383,7 +1383,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			CoC.getInstance().monster.gems += bonusGems;
 		}
 		CoC.getInstance().monster.handleAwardText(); //Each monster can now override the default award text
-		if (!DungeonCore.isInDungeon() && !OnLoadVariables.inRoomedDungeon) {
+		if (!CoC.getInstance().scenes.dungeonCore.isInDungeon() && !OnLoadVariables.inRoomedDungeon) {
 			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 		} else {
 			EngineCore.doNext(EventParser.playerMenu);
@@ -5010,7 +5010,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(DungeonCore.isInDungeon() || OnLoadVariables.inRoomedDungeon) {
+		if(CoC.getInstance().scenes.dungeonCore.isInDungeon() || OnLoadVariables.inRoomedDungeon) {
 			EngineCore.outputText("You're trapped in your foe's home turf - there is nowhere to run!\n\n", true);
 			Combat.enemyAI();
 			return;

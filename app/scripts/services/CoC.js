@@ -122,7 +122,6 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 	CoC.prototype.setInCombat = function(value) {
 		this.gameState = value ? 1 : 0;
 	};
-    // TODO : WTF is it doing here ?
 	CoC.prototype.registerScene = function(name, scene) {
 		this.scenes[name] = scene;
 	};

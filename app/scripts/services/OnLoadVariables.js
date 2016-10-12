@@ -8,7 +8,6 @@ angular.module('cocjs').factory('OnLoadVariables', function ( ) {
 		inRoomedDungeon: false,
 		inRoomedDungeonResume: null,
 		plotFight: false,
-		timeQ: 0,
-		campQ: false
+		timeQ: 0
 	};
 });

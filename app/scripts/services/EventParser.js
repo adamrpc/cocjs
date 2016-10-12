@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Worms, DungeonCore, Combat, PerkLib, Utils, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Worms, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
 	EventParser.playerMenu = function() {
 		if( !CoC.getInstance().isInCombat() ) {
@@ -14,8 +14,8 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 		}
 		//Clear restriction on item overlaps if not in combat
 		OnLoadVariables.plotFight = false;
-		if( DungeonCore.isInDungeon() ) {
-			DungeonCore.dungeonMenu();
+		if( CoC.getInstance().scenes.dungeonCore.isInDungeon() ) {
+			CoC.getInstance().scenes.dungeonCore.dungeonMenu();
 			return;
 		} else if( OnLoadVariables.inRoomedDungeon ) {
 			if( OnLoadVariables.inRoomedDungeonResume !== null ) {
