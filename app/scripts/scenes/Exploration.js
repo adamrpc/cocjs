@@ -1,9 +1,7 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, EngineCore, Giacomo, kFLAGS, EventParser, Utils, AppearanceDefs, Combat, Imp, Goblin, ComsumableLib, Descriptors, Appearance, StatusAffects ) {
-	function Exploration() {
-		this.giacomo = new Giacomo();
-	}
+angular.module( 'cocjs' ).run( function( CoC, EngineCore, kFLAGS, EventParser, Utils, AppearanceDefs, Combat, Imp, Goblin, ComsumableLib, Descriptors, Appearance, StatusAffects ) {
+	function Exploration() { }
 	Exploration.prototype.doExplore = function() {
 		if( CoC.getInstance().player.explored === 0 ) {
 			EngineCore.outputText( 'You tentatively step away from your campsite, alert and scanning the ground and sky for danger.  You walk for the better part of an hour, marking the rocks you pass for a return trip to your camp.  It worries you that the portal has an opening on this side, and it was totally unguarded...\n\n...Wait a second, why is your campsite in front of you? The portal\'s glow is clearly visible from inside the tall rock formation.   Looking carefully you see your footprints leaving the opposite side of your camp, then disappearing.  You look back the way you came and see your markings vanish before your eyes.  The implications boggle your mind as you do your best to mull over them.  Distance, direction, and geography seem to have little meaning here, yet your campsite remains exactly as you left it.  A few things click into place as you realize you found your way back just as you were mentally picturing the portal!  Perhaps memory influences travel here, just like time, distance, and speed would in the real world!\n\nThis won\'t help at all with finding new places, but at least you can get back to camp quickly.  You are determined to stay focused the next time you explore and learn how to traverse this gods-forsaken realm.', true );
@@ -135,7 +133,7 @@ angular.module( 'cocjs' ).run( function( CoC, EngineCore, Giacomo, kFLAGS, Event
 			//Chance of encountering Giacomo!
 			if( choosey === 0 ) {
 				CoC.getInstance().player.explored++;
-				this.giacomo.giacomoEncounter(); //eventParser(2015);
+				CoC.getInstance().scenes.giacomo.giacomoEncounter(); //eventParser(2015);
 				return;
 			}
 			if( choosey === 1 ) {
