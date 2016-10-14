@@ -290,7 +290,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('You tell her that you don\'t have that many gems on you right now.\n\n');
 			EngineCore.outputText('Uma sighs and shakes her head.  "<i>Sorry dear, but if you can\'t pay I can\'t treat you.</i>"\n\n');
 			EngineCore.outputText('You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n');
-			EngineCore.outputText('Wishing her well, you calmly let yourself out of the shop and head back to CoC.getInstance().scenes.camp.');
+			EngineCore.outputText('Wishing her well, you calmly let yourself out of the shop and head back to camp.');
 			EngineCore.menu();
 			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 			return;
@@ -299,7 +299,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		CoC.getInstance().player.gems -= 75;
 		EngineCore.outputText('"<i>Thanks, dear,</i>" Uma  beams, pocketing the gems and walking towards the table.  "<i>Okay, get yourself stripped naked and lay down on the table, face up for me dear.</i>"\n\n');
 		EngineCore.outputText('You promptly set about removing your [armorname], ');
-		// If CoC.getInstance().player is Exhibitionist
+		// If player is Exhibitionist
 		if (CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 1) {
 			EngineCore.outputText(' flushing with arousal at the idea of being naked before the mare, ');
 		}
@@ -343,7 +343,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 	};
 	UmasShop.MAX_MASSAGE_BONUS_DURATION = 24;			// Duration of the bonus
 	/**
-	 * Apply massage bonus. Bonuses are replaced when a new effect is placed on the CoC.getInstance().player.
+	 * Apply massage bonus. Bonuses are replaced when a new effect is placed on the player.
 	 * StatusAffects.UmasMassage for all bonuses
 	 * @param	selectedMassage
 	 */
@@ -431,7 +431,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 	UmasShop.NEEDLEWORK_MAGIC_PERK = PerkLib.ChiReflowMagic;
 	UmasShop.NEEDLEWORK_MAGIC_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Magic\' perk. As a result your spells are now more powerful, but regular attacks are weaker.';
 	UmasShop.NEEDLEWORK_MAGIC_SPELL_MULTI = 0.25; // Additive bonus to the other magic damage bonuses
-	UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI = 0.75; // Multiplier tagged onto the end of damage calculations for the CoC.getInstance().player.
+	UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI = 0.75; // Multiplier tagged onto the end of damage calculations for the player.
 	UmasShop.NEEDLEWORK_ATTACK_PERK = PerkLib.ChiReflowAttack;
 	UmasShop.NEEDLEWORK_ATTACK_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Attack\' perk. As a result your regular attacks are more powerful, but your damage reduction is decreased.';
 	UmasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI = 1.1;
@@ -490,8 +490,8 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		return baseCost;
 	};
 	/**
-	 * Figure out if the CoC.getInstance().player currently has ANY needlework perk so we can modify scenes accordingly
-	 * @return	true if CoC.getInstance().player has a needlework perk
+	 * Figure out if the player currently has ANY needlework perk so we can modify scenes accordingly
+	 * @return	true if player has a needlework perk
 	 */
 	UmasShop.prototype.hasNeedleworkPerk = function() {
 		var pType = this.getNeedleworkPerk();
@@ -502,8 +502,8 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		}
 	};
 	/**
-	 * Figure out exactly WHICH needlework perk the CoC.getInstance().player has
-	 * @return	Perk name that the CoC.getInstance().player currently has
+	 * Figure out exactly WHICH needlework perk the player has
+	 * @return	Perk name that the player currently has
 	 */
 	UmasShop.prototype.getNeedleworkPerk = function() {
 		return _.find([
@@ -517,10 +517,10 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		});
 	};
 	/**
-	 * Apply a Needlework perk to the CoC.getInstance().player.
-	 * I don\'t want to stuff the stat values themselves into the Perk itself, because then we have to figure out if a CoC.getInstance().player was saved with different bonuses applied to the perk than what we currently have defined.
+	 * Apply a Needlework perk to the player.
+	 * I don\'t want to stuff the stat values themselves into the Perk itself, because then we have to figure out if a player was saved with different bonuses applied to the perk than what we currently have defined.
 	 * ie. it makes future balancing of the perks more of a chore. Rather, other code can just reference the static vars we have here using UmasShop.NEEDLEWORK_MAGIC_blah. It\'s still bad, but its an shader of bad lighter so fuck it!
-	 * @param	selectedSession		Static bonus index to apply to the CoC.getInstance().player
+	 * @param	selectedSession		Static bonus index to apply to the player
 	 */
 	UmasShop.prototype.applyNeedlework = function(selectedSession) {
 		if (selectedSession === UmasShop.NEEDLEWORK_UNDO) {
@@ -544,7 +544,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		}
 	};
 	/**
-	 * Present CoC.getInstance().player with acupuncture details.
+	 * Present player with acupuncture details.
 	 * Edit Status: 85%
 	 * 				Some of the session descriptions might be a little... off. I\'ve touched up one or two.
 	 */
@@ -609,7 +609,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 	/**
 	 * Opening of the Accupuncture session itself. Minor variantion/cost changes
 	 * Edit Status: 100%
-	 * @param	selectedSession		Static var indicating the desired outcome based on CoC.getInstance().player selection. See NEEDLEWORK_ vars.
+	 * @param	selectedSession		Static var indicating the desired outcome based on player selection. See NEEDLEWORK_ vars.
 	 */
 	UmasShop.prototype.needleworkSession = function(selectedSession) {
 		EngineCore.clearOutput();
@@ -630,7 +630,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 	/**
 	 * Actual scene for the acupuncture stuff to happen.
 	 * Edit Status: 90%
-	 * @param	selectedSession		Static var indicating the desired outcome based on CoC.getInstance().player selection. See NEEDLEWORK_ vars.
+	 * @param	selectedSession		Static var indicating the desired outcome based on player selection. See NEEDLEWORK_ vars.
 	 */
 	UmasShop.prototype.doNeedleworkSession = function(selectedSession) {
 		EngineCore.clearOutput();
@@ -650,7 +650,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You tell her that you understand.  True to her words, you feel the slight pricking sensation of needles gently poking into your back. Some of them are removed shortly after, while others stay in place for a while longer.  Eventually, you feel all needles gradually being removed from your back and Uma happily declares,  "<i>All done!</i>"\n\n'); 
 		EngineCore.outputText('You ask if you can get up now, or do you need to stay where you are so that it has time to settle?\n\n');
 		EngineCore.outputText('"<i>No, you can get up and get dressed dear.  The needles are out and your chi should be stable enough now... though you won\'t feel much of a change until some time has passed. </i>"  She takes off her gloves and scratches her chin before continuing, "<i>I should think you will start to feel the changes soon; maybe by the time you get back to your home, if not shortly after.</i>"\n\n');
-		EngineCore.outputText('You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your camp.\n\n');
 		this.applyNeedlework(selectedSession);
 		EngineCore.menu();
 		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
@@ -690,7 +690,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('"<i>Another key point, is that acupuncture is much more disruptive to the flow of chi than do-in.  Usually, in order to make something better, or different, something else has to change... and not always for the better.  I could make you faster, able to move better, but that would seal some of the chi going into your muscles, which means you would never be as strong as you were meant to be...  though sometimes, depending on what you\'re trying to achieve, that could actually benefit you.</i>"  Uma smiles.\n\n');
 		EngineCore.outputText('You tell her that you appreciate her taking the time to explain her job to you; maybe at some point in the future you\'ll have a need for her special skills, but, right now, you think you\'ve taken enough of her time.\n\n');
 		EngineCore.outputText('"<i>It\'s always pleasure speaking to the [man] that wooed my little Loppe, dear.  Come visit soon, will you?</i>"\n\n');
-		EngineCore.outputText('You promise you\'ll try, and then head back to CoC.getInstance().scenes.camp.');
+		EngineCore.outputText('You promise you\'ll try, and then head back to camp.');
 		EngineCore.menu();
 		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
@@ -714,7 +714,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You can\'t resist the wry grin as you comment that it must do wonders for the reputation of her business.\n\n');
 		EngineCore.outputText('Uma nods.  "<i>It does, but as you can see, the clinic is pretty empty most of the time.  It just so happens that we\'re really expensive, especially considering our... extra services.  But don\'t worry, [name].  Since you\'re my little Loppe\'s [boyfriend], I\'ll be happy to give you a pretty good discount on our services.</i>"\n\n');
 		EngineCore.outputText('You laugh at that, thanking her for her generosity and her time, and then tell her it\'s time for you to go.  Uma smiles at you and says, "<i>Come visit me again soon.</i>"\n\n');
-		EngineCore.outputText('You promise that you will, and then head out of the quaint little clinic and back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You promise that you will, and then head out of the quaint little clinic and back to camp.\n\n');
 		EngineCore.menu();
 		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
@@ -760,7 +760,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You sigh quietly and tell Uma you understand, but ask if maybe she could drop a hint to her daughter about trying too hard, hmm?\n\n');
 		EngineCore.outputText('"<i>I can do that, but I don\'t think it\'s going to help.  When she was young I told her she didn\'t have push herself so hard, but she insists on doing so anyway.  She can be quite stubborn, you know?</i>"\n\n');
 		EngineCore.outputText('You confess that you\'ve had that impression from her, yes.  You thank Uma for giving you an insight into her daughter\'s history, but tell her it\'s time you were on your way.\n\n');
-		EngineCore.outputText('"<i>You\'re welcome, see you around.</i>"  Uma waves you goodbye as you excuse yourself and return to CoC.getInstance().scenes.camp.');
+		EngineCore.outputText('"<i>You\'re welcome, see you around.</i>"  Uma waves you goodbye as you excuse yourself and return to camp.');
 		// Join the exit back up from all the loppeTalks
 		this.talkLoppeJoiner();
 	};
@@ -963,9 +963,9 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('Uma shakes her head lightly.  "<i>I don\'t know what it is, dear.  But you\'re able to keep up with my little Loppe, while no other person that we\'ve met so far can.  I suppose that\'s also part of the reason she chose to make you her official [boyfriend].  Much to the chagrin of her admirers.</i>"  Uma chuckles.\n\n');
 		EngineCore.outputText('You can\'t resist a wry joke about Loppe having admirers when she\'s known to be so untameable in bed.\n\n');
 		EngineCore.outputText('"<i>You\'d be surprised with how much people actually enjoy Loppe\'s stamina.  Though anything more than a one night stand with her would probably put them in a coma for a few days.</i>"  Uma chuckles.\n\n');
-		EngineCore.outputText('You thank Uma for telling you about her daughter\'s life and then apologize, as it\'s time for you to head back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You thank Uma for telling you about her daughter\'s life and then apologize, as it\'s time for you to head back to camp.\n\n');
 		EngineCore.outputText('"<i>Not a problem, dear.  I hope you will continue to maintain a healthy relationship with my daughter.</i>" Uma chuckles.\n\n');
-		EngineCore.outputText('You promise her that you\'ll try, gather yourself together, and then politely head back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You promise her that you\'ll try, gather yourself together, and then politely head back to camp.\n\n');
 		this.talkLoppeJoiner();
 	};
 	/**
@@ -1105,7 +1105,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('Uma laughs.  "<i>That she does, dear, that she does.  But in case you\'re curious.  Hyou eventually found another guy, a wandering foreigner, and decided to leave the village with him.  And that was the last time we saw him.  Hope he is ok, wherever he is.</i>"  Uma looks into the distance.\n\n');
 		EngineCore.outputText('You tell her that you hope so, too, but it\'s time for you to leave.\n\n');
 		EngineCore.outputText('"<i>Very well, dear.  Hope you don\'t disappoint.  If you ever have to pick between walking and my daughter, I hope you\'ll pick my daughter.</i>"  She jokes, chuckling to herself.\n\n');
-		EngineCore.outputText('You chuckle and tell her that if Loppe hasn\'t chased you off despite the fact she\'s twice as bad as she ever was, if not worse, then you\'re not likely to make that choice against her favor soon.  That said, you take your things and head back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You chuckle and tell her that if Loppe hasn\'t chased you off despite the fact she\'s twice as bad as she ever was, if not worse, then you\'re not likely to make that choice against her favor soon.  That said, you take your things and head back to camp.\n\n');
 		this.talkLoppeJoiner();
 	};
 	/**
@@ -1130,7 +1130,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You turn and look back at her, which Uma evidently takes as justification to continue, even though she seems to be talking more for her own benefit than yours.  "<i>Now, I\'m not saying I\'m not still mad at her for leaving in the first place, and I\'ll definitely have to punish her when I get my hands on her,</i>" her grin, at this point, makes you suspect that Usagi might not entirely mind her punishment, "<i>but I swear, if she was to walk through that door and ask, I\'d take her back like that.</i>" She snaps her fingers for emphasis.\n\n');
 		EngineCore.outputText('You can\'t resist noting that it sounds like Uma would end up giving Loppe a little sister if Usagi did come back. \n\n');
 		EngineCore.outputText('Uma nods thoughtfully at your words.  "<i>A sister or two?  Definitely.  Hey, why not go out on a limb and say five or six little sisters?  I loved being a mom, being pregnant was actually kind of hot, and I\'m still young enough to do some serious breeding.</i>"  She pats her belly with a defiant expression.  But then she slumps and sighs longingly.  "<i>But I want my Usagi back first...</i>" She mourns.\n\n');
-		EngineCore.outputText('You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to camp.\n\n');
 		EngineCore.menu();
 		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 	};
@@ -1366,7 +1366,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('.\n\n');
 			EngineCore.outputText('"<i>Oh, deary.  You\'re so cute I could just squeeze you all day!</i>"  Uma laughs happily as she pumps her fingers inside you one more time, drawing one last discharge before you finally slump on the older mare\'s lap.  The mare removes her hand from your sensitive pussy and brings it close to her mouth, promptly licking your juices off her hand, close to your ear to ensure you hear every single lewd sound she makes as she cleans your orgasm from her hand.  "<i>Hmm, virgins definitely have the best taste.  Sweet, slick and unclaimed.  Be sure to warn Loppe to go easy on you when you finally decide to work with her equine pride, though I wonder if she\'ll be able to restrain herself with such a cutie like you,</i>" Uma says as she kisses the back of your neck once more before returning to her cleaning duty.\n\n');
 			EngineCore.outputText('You take a few moments to regain control of your [legs], but get up and start helping to clean up the mess - after all, you made it.  Once it\'s all clean, you kiss Uma on the cheek as a thank you before saying you have to be going.  "<i>See you soon, dear.  I\'d love to have given you more of an workout, but I think my daughter will appreciate your inexperience.  So make sure you come prepared next time, so we can have some more fun.</i>" she informs you, as her fingers begin to prod at her own snatch.\n\n');
-			EngineCore.outputText('You can\'t resist a smile as you promise to remember that, redress yourself, and head back to CoC.getInstance().scenes.camp.\n\n');
+			EngineCore.outputText('You can\'t resist a smile as you promise to remember that, redress yourself, and head back to camp.\n\n');
 		} else if (CoC.getInstance().player.looseness() === 0) { // Tight
 			EngineCore.outputText('"<i>Hmm tight!  I wonder how long you can keep yourself like that while dating my little Loppe,</i>" the mare says teasingly.\n\n');
 			EngineCore.outputText('Loppe isn\'t that bad, you find yourself saying - and doesn\'t it feel so weird to be talking about Uma\'s daughter when you\'re letting Uma herself do you, you privately note.\n\n');
@@ -1380,7 +1380,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('You smile lazily at her and assure her it was wonderful; a real treat to experience.  Maybe she should teach Loppe how to use her fingers like that.\n\n');
 			EngineCore.outputText('Uma smiles at you.  "<i>Hmm I might in the future, but my little Loppe has tricks of her own, as I\'m sure you\'ve no doubt experienced?</i>"\n\n');
 			EngineCore.outputText('You smile demurely and tell her that where you come from, a lady doesn\'t kiss and tell... then grin to let her know you\'re just teasing her.  Uma laughs.  "<i>Oh, you silly girl...  Now if you\'ll excuse me.  I have to attend to my own problems.</i>"  The mare motions to her drooling gash.\n\n');
-			EngineCore.outputText('You smile and tell her you\'ll shut the door on your way out, getting dressed and then heading back to CoC.getInstance().scenes.camp.\n\n');
+			EngineCore.outputText('You smile and tell her you\'ll shut the door on your way out, getting dressed and then heading back to camp.\n\n');
 		} else {
 			EngineCore.outputText('"<i>Oh, moist and easy.  I wonder how much of this is Loppe\'s fault?  Maybe I should tell her to be a bit more gentle?</i>" the mare suggests, adding a couple more fingers inside you.\n\n');
 			EngineCore.outputText('Well, maybe a little you manage to squeak out; you\'re really more concerned with just how good Uma\'s fingers feel inside you - they\'re not a nice big fat cock, but they\'re a pretty good substitute.\n\n'); 
@@ -1393,7 +1393,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			EngineCore.outputText('"<i>Oh dear, such a small orgasm.  I was hoping for more from a experienced woman like yourself,</i>" the mare declares, moving her hand a few more times.  "<i>How about if I do... this!</i>"  She grips your G-Spot tightly, while teasing your [clit] with her other hand.  You squeal and writhe, your oversensitized flesh burning with pleasure as she continues playing - it takes only seconds before you dredge up a second orgasm, just as full as the first, and then slump back against her, worn out.\n\n');
 			EngineCore.outputText('Uma chuckles to herself, "<i>Now, that\'s more like it.  Satisfied yet, dear?  I could always give you another...</i>" She suggests.\n\n');
 			EngineCore.outputText('No, you think you\'ve had enough for a while, you tell her.  "<i>Spoilsport...</i>" the mare comments, licking the back of your neck.  "<i>I always enjoy making experienced girls like you see new ways to achieve greater orgasms, and I hope our time together\'s been as pleasurable as it looked.</i>" she chuckles.  "<i>Now then... just rest up and get up when you can... but please don\'t take too long?  This last tryst of ours has left me... wanting.</i>"\n\n');
-			EngineCore.outputText('You chuckle at her, painstakingly hauling yourself up, and get dressed.  Thanking Uma for showing you her magic fingers, you blow her a teasing kiss and then head back to CoC.getInstance().scenes.camp.\n\n');
+			EngineCore.outputText('You chuckle at her, painstakingly hauling yourself up, and get dressed.  Thanking Uma for showing you her magic fingers, you blow her a teasing kiss and then head back to camp.\n\n');
 		}
 		EngineCore.dynStats('lust=', 0);
 		EngineCore.menu();
@@ -1674,7 +1674,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			if(CoC.getInstance().player.cor <= 40) {
 				EngineCore.outputText(' apologize, and ');
 			}
-			EngineCore.outputText('get up to start getting dressed before quietly heading back to CoC.getInstance().scenes.camp.');
+			EngineCore.outputText('get up to start getting dressed before quietly heading back to camp.');
 		} else if(CoC.getInstance().flags[kFLAGS.UMA_TIMES_SUCKED_YOU] < 5) { //Came on her face after second time:
 			EngineCore.outputText('\n\nUma wipes her face off some of your seed.  "<i>I’m fine.  Sorry about that, dear... I\'m trying but to be honest, the idea of having a male member go off in my mouth like that startles me.  The gush of a wet pussy on your lips is just so much more understandable.  I bet Loppe wouldn\'t mind doing this for you, you know.</i>"  She suddenly smirks, "<i>Unless you\'ve got some kind of fetish for letting older mares milk you?</i>"');
 			EngineCore.outputText('\n\nYou give her a wink and a smile as you depart.  She\'s getting better at this.');
@@ -1683,9 +1683,9 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 			//Higher cum quantity epilogue.
 			if(CoC.getInstance().player.cumQ() > 25) {
 				EngineCore.outputText('\n\nShe extends a towel to you.  "<i>Just because your cum is starting to taste okay doesn\'t mean I\'m licking all that up.  Get clean, dear.</i>"');
-				EngineCore.outputText('\n\nYou wipe up with a rueful smile while Uma gets dressed.  She comes back with your clothes and helps you into them, giving your package an appreciative squeeze "to make sure it emptied" before sending you on your way to CoC.getInstance().scenes.camp.');
+				EngineCore.outputText('\n\nYou wipe up with a rueful smile while Uma gets dressed.  She comes back with your clothes and helps you into them, giving your package an appreciative squeeze "to make sure it emptied" before sending you on your way to camp.');
 			} else { //Else normal epilogue.
-				EngineCore.outputText('\n\nUma gets dressed while you cool off.  She comes back with your clothes and helps you into them, giving your package an appreciative squeeze "to make sure it emptied" before sending you on your way to CoC.getInstance().scenes.camp.');
+				EngineCore.outputText('\n\nUma gets dressed while you cool off.  She comes back with your clothes and helps you into them, giving your package an appreciative squeeze "to make sure it emptied" before sending you on your way to camp.');
 			}
 		}
 		EngineCore.dynStats('lust=', 0);
@@ -1742,7 +1742,7 @@ angular.module('cocjs').factory('UmasShop', function ($log, CoC, EngineCore, kFL
 		EngineCore.outputText('You take your mouth off her plush netherlips to pant and regain your breath, licking around your mouth to taste more of her.  You don\'t take long before you plunge yourself back between her legs, licking, slurping, drinking and tasting.\n\n');
 		EngineCore.outputText('"<i>Oh! Oh-oh-OH!</i>"  Uma\'s legs close tightly around your neck, humping her cunt against your [face] before she shudders violently in orgasm, the wetness of her climax splashing across your lips and running down your chin.  One last pleasure-stoked spasm and she slumps in release, her legs unclenching and then sliding off of your shoulders to clop against the floor.  Breathing heavily, she smiles at you.  "<i>Mmm my dear, my little Loppe is a lucky girl indeed to have you willing to do that for her.</i>"\n\n');
 		EngineCore.outputText('You lick your lips and wipe the aftermath from your face, smiling broadly at the mare\'s flattery.  Shaking herself, Uma yawns loudly, one hand in front of her face to be more demure.  "<i>That really felt wonderful... I think... I think I\'m going to take a little rest.  Would you be a dear and flip the sign to Closed on your way out, dear?</i>" she asks, settling back on her table as if she really is about to have a nap here in her own workroom. \n\n');
-		EngineCore.outputText('You rub her thigh affectionately, promising to do so, then redress yourself and head back to CoC.getInstance().scenes.camp.\n\n');
+		EngineCore.outputText('You rub her thigh affectionately, promising to do so, then redress yourself and head back to camp.\n\n');
 		EngineCore.dynStats('lust=', 30);
 		EngineCore.menu();
 		EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);

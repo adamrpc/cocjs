@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 		CoC.getInstance().flags[ kFLAGS.JOJO_FIXED_STATUS ] = 2;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'There is a note left on your bedroll. You pick it up and unseal it – it\'s from Jojo!\n\n', false );
-		EngineCore.outputText( '"<i>After the things that have transpired between us, I felt I ought to give this chapter of our lives some closure.   What you did to me was inexcusable.  It was a violation of everything that I am and was.  But, even though I wasn\'t able to help you tame your inner corruption, I\'m glad that Amily was able to do so in my place.  And although I shall never again be able to return to my life as a chaste CoC.getInstance().monk due to the changes you made to my body and libido, I take solace in the fact that Amily was able to repopulate our people.  Perhaps I\'ll even get married; its impossible to hide how \'large\' I\'ve gotten and the girls all seem to want to see what I\'ve got under my robes.  In any event, good-bye \'Champion\'.</i>"', false );
+		EngineCore.outputText( '"<i>After the things that have transpired between us, I felt I ought to give this chapter of our lives some closure.   What you did to me was inexcusable.  It was a violation of everything that I am and was.  But, even though I wasn\'t able to help you tame your inner corruption, I\'m glad that Amily was able to do so in my place.  And although I shall never again be able to return to my life as a chaste monk due to the changes you made to my body and libido, I take solace in the fact that Amily was able to repopulate our people.  Perhaps I\'ll even get married; its impossible to hide how \'large\' I\'ve gotten and the girls all seem to want to see what I\'ve got under my robes.  In any event, good-bye \'Champion\'.</i>"', false );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//[Amily finds tentacle Jojo]
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 		EngineCore.outputText( 'Amily nods solemnly and says her farewells.  She looks a little bleary-eyed as you pass her, and you give her a comforting squeeze on the shoulder.   The mouse gives you a tight smile and continues away, leaving you alone with the rat.', false );
 		EngineCore.doNext( CoC.getInstance().scenes.rathazul.returnToRathazulMenu );
 	};
-	//[Rathazul and Corrupt/Tentacle Jojo] – Occurs instead of CoC.getInstance().scenes.camp
+	//[Rathazul and Corrupt/Tentacle Jojo] – Occurs instead of camp
 	FollowerInteractions.prototype.rathazulFreaksOverJojo = function() {
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[ kFLAGS.RATHAZUL_CORRUPT_JOJO_FREAKOUT ]++;
@@ -301,10 +301,10 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 	FollowerInteractions.prototype.marbleVsAmilyFreakout = function() {
 		EngineCore.outputText( '', true );
 		CoC.getInstance().flags[ kFLAGS.AMILY_NOT_FREAKED_OUT ]++;
-		//Marble is in CoC.getInstance().scenes.camp first
+		//Marble is in camp first
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT ] <= 1 ) {
 			EngineCore.outputText( 'As you bring Amily into your camp, you see Marble look towards you with a smile for a moment, before that smile turns into a frown.  You realize that this might not have been such a good idea...\n\n', false );
-		}////Amily is in CoC.getInstance().scenes.camp first
+		}////Amily is in camp first
 		else {
 			EngineCore.outputText( 'As you bring Marble back to your camp, you see Amily sitting there as Marble asks while frowning, "<i>Sweetie, who is that?</i>"  Uh-oh, this could get bad.\n\n', false );
 		}
@@ -323,21 +323,21 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 		if( CoC.getInstance().player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
 			//Silent -> PC is addicted (A2)
 			EngineCore.outputText( 'Marble moves protectively in front of you and turns to Amily.  "<i>This ' + CoC.getInstance().player.race() + ' is mine!  ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' needs me to survive, and I will do anything to protect ' + CoC.getInstance().player.mf( 'him', 'her' ) + ',</i>"  Marble declares.  Then, in a dangerously gentle voice, says, "<i>Leave now, or I will kill you.</i>"  Amily tries to look at you through her tear-filled eyes, but Marble softly whispers,  "<i>' + CoC.getInstance().player.short + ', put your arms around me.</i>"  Though soft, her words had nothing in them to suggest a request rather than a command.  You hesitate for a  moment, but, remembering that an angry Marble is a Marble that could revoke milk privileges, you decide that making her mad is something you just can\'t afford.  You take a deep breath and wrap your arms around Marble.  Amily gives one last anguished look at you before she turns to pack her things.  As she scurries away from the site of her former bed, you doubt that you\'ll see her again.\n\n' );
-			//end event, Amily leave the CoC.getInstance().scenes.camp for good
+			//end event, Amily leave the camp for good
 			CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 			CoC.getInstance().flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
 		} else if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
 			//Silent -> PC has had kid(s) with Marble and is not addicted (A3)
-			EngineCore.outputText( 'Marble suddenly bursts into tears herself and, between sobs, yells "<i>Why ' + CoC.getInstance().player.short + '?  Did none of our kids mean anything to you?</i>"  In frustration she slams her hammer against the ground, causing a tremor that almost knocks you and Amily onto your asses.  However, at this point the two of them have broken down and collapsed on their knees sobbing.  You have no idea what you can say at this point, or what you should do.  After a few minutes pass, the two of them each give you a sad look in turn before collecting their things (and in Marble\'s case, her kids) and leaving the CoC.getInstance().scenes.camp.  You doubt that you\'ll ever see either of them again.', false );
-			//end event, Amily and Marble leave the CoC.getInstance().scenes.camp for good
+			EngineCore.outputText( 'Marble suddenly bursts into tears herself and, between sobs, yells "<i>Why ' + CoC.getInstance().player.short + '?  Did none of our kids mean anything to you?</i>"  In frustration she slams her hammer against the ground, causing a tremor that almost knocks you and Amily onto your asses.  However, at this point the two of them have broken down and collapsed on their knees sobbing.  You have no idea what you can say at this point, or what you should do.  After a few minutes pass, the two of them each give you a sad look in turn before collecting their things (and in Marble\'s case, her kids) and leaving the camp.  You doubt that you\'ll ever see either of them again.', false );
+			//end event, Amily and Marble leave the camp for good
 			CoC.getInstance().player.removeStatusAffect( StatusAffects.CampMarble );
 			CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 			CoC.getInstance().flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
 		}
 		//Silent -> Otherwise (A4)
 		else {
-			EngineCore.outputText( 'Turning to face you with her hammer raised, Marble says to you "<i>So I guess that I\'m nothing but a fuck to you then, hun?!  After all I sacrificed to help you get over your addiction, just so that you could be with someone else?!</i>"  She swings her hammer at you and you barely dodge it in time and look back at the angry cowgirl.  "<i>' + CoC.getInstance().player.short + '!</i>" Amily calls out to you while rushing to your side and wiping her tears.  "<i>Fine!</i>"  Marble yells at the two of you. "<i>You two can be together and have as many kids with each other as you want!  I\'m leaving ' + CoC.getInstance().player.short + ', don\'t come looking for me.</i>" she declares before collecting her things and leaving the CoC.getInstance().scenes.camp.  You doubt you\'ll see her again.', false );
-			//end event, Marble leaves the CoC.getInstance().scenes.camp for good
+			EngineCore.outputText( 'Turning to face you with her hammer raised, Marble says to you "<i>So I guess that I\'m nothing but a fuck to you then, hun?!  After all I sacrificed to help you get over your addiction, just so that you could be with someone else?!</i>"  She swings her hammer at you and you barely dodge it in time and look back at the angry cowgirl.  "<i>' + CoC.getInstance().player.short + '!</i>" Amily calls out to you while rushing to your side and wiping her tears.  "<i>Fine!</i>"  Marble yells at the two of you. "<i>You two can be together and have as many kids with each other as you want!  I\'m leaving ' + CoC.getInstance().player.short + ', don\'t come looking for me.</i>" she declares before collecting her things and leaving the camp.  You doubt you\'ll see her again.', false );
+			//end event, Marble leaves the camp for good
 			CoC.getInstance().player.removeStatusAffect( StatusAffects.CampMarble );
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 	FollowerInteractions.prototype.srslyPimpinGuyz = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>Yes I\'m serious.  What, you don\'t think I can take both of you?</i>" you say while putting your hands on your hips and swinging them around.  The two of them almost scream as one before descending upon you.  In an instant you\'re hit with a dart from Amily, causing your body to lock up, just before Marble brings her hammer down onto your head in a massive overhead swing and everything goes black.\n\n', false );
-		EngineCore.outputText( 'You wake up several hours later to find that neither of the two girls are still around, your CoC.getInstance().scenes.camp is in shambles, and most of your equipment is gone.  After looking around camp, you realize that all of your expendable items, gems, and even your weapons and armor have been taken.  All that is left is a suit of comfortable clothes that you put on.  You also find a note in a rough script that says is what you get for being an asshole.</i>  Those damn bitches.', false );
+		EngineCore.outputText( 'You wake up several hours later to find that neither of the two girls are still around, your camp is in shambles, and most of your equipment is gone.  After looking around camp, you realize that all of your expendable items, gems, and even your weapons and armor have been taken.  All that is left is a suit of comfortable clothes that you put on.  You also find a note in a rough script that says is what you get for being an asshole.</i>  Those damn bitches.', false );
 		CoC.getInstance().player.gems = 0;
 		CoC.getInstance().player.itemSlot1.quantity = 0;
 		CoC.getInstance().player.itemSlot2.quantity = 0;
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 		if( CoC.getInstance().player.inte > 50 ) {
 			//Explain -> pass (C2)
 			EngineCore.outputText( 'Right away, you realize that this situation isn\'t really something that you can talk your way out of.  You start to tell the two of them why you like them and why you were with them.  You tell Marble about Amily\'s desire to repopulate her people, and you tell Amily about Marble\'s desire to find someone and the difficulties that her species brings with it.  At the end of your talk, the two of them are just looking at each other.  After a few moments Amily says, "<i>So, you\'re corrupt huh?  I guess you seem nice enough...</i>"  Marble responds, "<i>You\'re really cute yourself, little mousy, and you definitely needed someone for a good reason.  The real problem is that ' + CoC.getInstance().player.short + ' didn\'t get the two of us to talk to each other before now.</i>"  The two of them then turn back to you with dirty looks in their eyes.  It looks like things aren\'t going to be all that nice for you for a while, but at least they don\'t seem to hate each other.', false );
-			//end event, set lust or other sex values to minimum to make it so that Marble and Amily 'punish' the CoC.getInstance().player a little for awhile.
+			//end event, set lust or other sex values to minimum to make it so that Marble and Amily 'punish' the player a little for awhile.
 			CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] = -100;
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			return;
@@ -423,8 +423,8 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 		} else if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
 			EngineCore.outputText( 'and her children', false );
 		}
-		EngineCore.outputText( ' before slowly walking away from the CoC.getInstance().scenes.camp without looking back.  "<i>I\'m going back to the farm, I guess I\'ll see you around.</i>"\n\n', false );
-		//end event, Marble leaves the CoC.getInstance().scenes.camp and returns to the farm, she can now be encountered if she had not joined you in the CoC.getInstance().scenes.camp.
+		EngineCore.outputText( ' before slowly walking away from the camp without looking back.  "<i>I\'m going back to the farm, I guess I\'ll see you around.</i>"\n\n', false );
+		//end event, Marble leaves the camp and returns to the farm, she can now be encountered if she had not joined you in the camp.
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.CampMarble );
 		//Marble goes back to farm
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.NoMoreMarble );
@@ -433,8 +433,8 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 	//Explain -> blame Amily
 	FollowerInteractions.prototype.blameAmilysDumbMouseCunt = function() {
 		//----Quiet Browser should write this part----
-		EngineCore.outputText( 'You turn to Amily and tell her point blank that she\'s the one who is in the wrong here. She claimed to be a pure individual, free of all corruption in this world and begging you for your help, but instead she tricked you, seduced you into being unfaithful to your lover, Marble, and making you into her breeding stud and pleasure toy - and then she had the audacity to try and claim you and her had some connection, when it was nothing but trickery and lies on her part. At this tirade, Amily looks first hurt, then outraged, then livid; it\'s only when Marble silently and defiantly positions herself beside you, holding her hammer and ready to charge, that the female mouse-morph removes her hand from the handle of her knife. Blinking back tears, she starts scurrying around the CoC.getInstance().scenes.camp as fast as she can, gathering up all of her few belongings and then heading for the edge of the CoC.getInstance().scenes.camp as fast as she can. She halts at the edge, turning to face the two of you, and starts screaming a tirade of the most profane obscenities she can muster, blistering your ears with imprecations about your sexual tastes, habits and skills, your lineage, your personal hygiene and your talents before vanishing into the undergrowth whilst you\'re both stunned by the litany of swearing and trying to wrap your mind around some of the things she said. Particularly the one about the greasy maggots, the centaur stallion, the candied apple and the plunger. It\'s pretty obvious she\'s never coming back.', true );
-		//end event, Amily leaves the CoC.getInstance().scenes.camp permanently
+		EngineCore.outputText( 'You turn to Amily and tell her point blank that she\'s the one who is in the wrong here. She claimed to be a pure individual, free of all corruption in this world and begging you for your help, but instead she tricked you, seduced you into being unfaithful to your lover, Marble, and making you into her breeding stud and pleasure toy - and then she had the audacity to try and claim you and her had some connection, when it was nothing but trickery and lies on her part. At this tirade, Amily looks first hurt, then outraged, then livid; it\'s only when Marble silently and defiantly positions herself beside you, holding her hammer and ready to charge, that the female mouse-morph removes her hand from the handle of her knife. Blinking back tears, she starts scurrying around the camp as fast as she can, gathering up all of her few belongings and then heading for the edge of the camp as fast as she can. She halts at the edge, turning to face the two of you, and starts screaming a tirade of the most profane obscenities she can muster, blistering your ears with imprecations about your sexual tastes, habits and skills, your lineage, your personal hygiene and your talents before vanishing into the undergrowth whilst you\'re both stunned by the litany of swearing and trying to wrap your mind around some of the things she said. Particularly the one about the greasy maggots, the centaur stallion, the candied apple and the plunger. It\'s pretty obvious she\'s never coming back.', true );
+		//end event, Amily leaves the camp permanently
 		CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 		CoC.getInstance().flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
@@ -447,11 +447,11 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, EngineCore, ConsumableLib,
 	FollowerInteractions.prototype.amilyUrtaReaction = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'As you finish making your way back to camp, Amily surprises you from behind a rock, her arms folded across her chest.  "<i>Hey, remember when you told me about that city in the desert?  I decided to check it out.</i>"  You don\'t remember, but you\'re too busy absorbing the implications to respond.  "<i>You\'ll never guess what I heard!  It seems someone just like you has been seen in the company of one of their prominent citizens,</i>" she continues.  "<i>I can\'t say I didn\'t expect something like this might happen.  I mean... she\'s not some demon, right?  Still... I thought we had something special, ' + CoC.getInstance().player.short + '.</i>"  As you try to formulate a reply, she seizes her tail and twists it pensively in her hands, already deciding her next move.  "<i>I-I\'ve got to meet her... to know what you see in her.</i>"\n\n', false );
-		EngineCore.outputText( 'Amily bounds out of CoC.getInstance().scenes.camp before you can react, sniffling as she disappears into the distance. She\'s lost to sight almost immediately thanks to the properties of this accursed landscape.', false );
+		EngineCore.outputText( 'Amily bounds out of camp before you can react, sniffling as she disappears into the distance. She\'s lost to sight almost immediately thanks to the properties of this accursed landscape.', false );
 		CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] = 1;
 		CoC.getInstance().flags[ kFLAGS.AMILY_NEED_TO_FREAK_ABOUT_URTA ] = 0;
 		EngineCore.doNext( EventParser.playerMenu );
-		//disable Amily button and replace her CoC.getInstance().scenes.camp screen status, enable [Ask about Amily] button at Wet Bitch
+		//disable Amily button and replace her camp screen status, enable [Ask about Amily] button at Wet Bitch
 	};
 	//[Ask about Amily]
 	FollowerInteractions.prototype.askAboutAmily = function() {

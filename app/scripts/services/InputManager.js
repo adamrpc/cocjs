@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 	/**
 	 * Mode toggle - keyboard events recieved by the input manager will be used to associated the incoming keycode
 	 * with a new bound control method, removing the keycode from *other* bindings and updating data as appropriate.
-	 * Displays a message indicating the CoC.getInstance().player should do the needful.
+	 * Displays a message indicating the player should do the needful.
 	 * @param    funcName    BoundControlMethod name that they key is going to be associated with. Set by a button
 	 *                        callback function generated in BindingPane
 	 * @param    isPrimary    Specifies if the incoming bind will replace/set the primary or secondary bind for a control.
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 			// Made it this far, process the key and call the relevant (if any) function
 			InputManager.ExecuteKeyCode( e.keyCode );
 		}
-		// Otherwise, we're listening for a new keycode from the CoC.getInstance().player
+		// Otherwise, we're listening for a new keycode from the player
 		else {
 			InputManager.BindKeyToControl( e.keyCode, InputManager._bindingFunc, InputManager._bindingSlot );
 			InputManager.StopListenForNewBind();

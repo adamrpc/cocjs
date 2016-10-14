@@ -640,9 +640,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		if( buttonText === 'Jojo' ) {
 			if( CoC.getInstance().monk >= 5 ) {
-				toolTipText = 'Call your corrupted pet into CoC.getInstance().scenes.camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.';
+				toolTipText = 'Call your corrupted pet into camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.';
 			} else {
-				toolTipText = 'Go find Jojo around the edges of your CoC.getInstance().scenes.camp and meditate with him or talk about watch duty.';
+				toolTipText = 'Go find Jojo around the edges of your camp and meditate with him or talk about watch duty.';
 			}
 		}
 		if( buttonText === 'Marble' ) {
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		//CAMP STUFF
 		if( buttonText.indexOf( 'Followers' ) !== -1 ) {
-			toolTipText = 'Check up on any followers or companions who are joining you in or around your CoC.getInstance().scenes.camp.  You\'ll probably just end up sleeping with them.';
+			toolTipText = 'Check up on any followers or companions who are joining you in or around your camp.  You\'ll probably just end up sleeping with them.';
 		}
 		//Marble
 		if( buttonText.indexOf( 'Marble (Sex)' ) !== -1 ) {
@@ -678,7 +678,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			toolTipText = 'Turn on debug mode.  Debug mode is intended for testing purposes but can be thought of as a cheat mode.  Items are infinite and combat is easy to escape from.  Weirdness and bugs are to be expected.';
 		}
 		if( buttonText.indexOf( 'Credits' ) !== -1 ) {
-			toolTipText = 'See a EngineCore.list of all the cool people who have contributed to content for this game!';
+			toolTipText = 'See a list of all the cool people who have contributed to content for this game!';
 		}
 		if( buttonText.indexOf( 'Instructions' ) !== -1 ) {
 			toolTipText = 'How to play.  Starting tips.  And hotkeys for easy left-handed play...';
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		MainView.hideBottomButton( buttonToRemove );
 	};
-	EngineCore.menu = function() { //The newer, simpler EngineCore.menu - blanks all buttons so EngineCore.addButton can be used
+	EngineCore.menu = function() { //The newer, simpler menu - blanks all buttons so addButton can be used
 		MainView.hideBottomButton( 0 );
 		MainView.hideBottomButton( 1 );
 		MainView.hideBottomButton( 2 );
@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	 This function is made for multipage menus of unpredictable length,
 	 say a collection of items or places or people that can change
 	 depending on certain events, past choices, the time of day, or whatever.
-	 This is not the best for general EngineCore.menu use.  Use EngineCore.choices() for that.
+	 This is not the best for general menu use.  Use choices() for that.
 	 This is a bit confusing, so here\'s usage instructions.
 	 Pay attention to all the braces.
 	 This is made to be used with an array that you create before calling it,
@@ -785,9 +785,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 	 that exits the menu.  Provide this if you want a Back button to appear
 	 in the bottom right.
 	 If you do not need a cancel function, perhaps because some or all
-	 of the EngineCore.choices will exit the menu, then you can
+	 of the choices will exit the menu, then you can
 	 pass null or 0 for the cancelFunction.
-	 // This EngineCore.menu shows no Back button.
+	 // This menu shows no Back button.
 	 EngineCore.multipageChoices( null, itemsInStorage );
 	 You can call it directly if you want, but that\'s ridiculous.
 	 EngineCore.multipageChoices( justGoToCamp, [
@@ -822,8 +822,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			}
 			currentPageIndex = pageIndex;
 			currentPageItems = getPageOfItems( pageIndex );
-			// I did it this way so as to use only one actual EngineCore.menu setting function.
-			// I figured it was safer until the EngineCore.menu functions stabilize.
+			// I did it this way so as to use only one actual menu setting function.
+			// I figured it was safer until the menu functions stabilize.
 			// insert page functions.
 			// First pad out the items so it\'s always in a predictable state.
 			while( currentPageItems.length < 8 ) {
@@ -841,7 +841,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		showPage( 0 );
 	};
-	// EngineCore.simpleChoices and EngineCore.doYesNo are convenience functions. They shouldn\'t re-implement code from EngineCore.choices()
+	// simpleChoices and doYesNo are convenience functions. They shouldn\'t re-implement code from choices()
 	EngineCore.simpleChoices = EngineCore.choices;
 	EngineCore.doYesNo = function( eventYes, eventNo ) {
 		EngineCore.choices('Yes', eventYes, 'No', eventNo);
@@ -1449,8 +1449,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		var newSens = EngineCore.applyOperator( CoC.getInstance().player.sens, argOps[ 5 ], argVals[ 5 ] );
 		var newLust = EngineCore.applyOperator( CoC.getInstance().player.lust, argOps[ 6 ], argVals[ 6 ] );
 		var newCor = EngineCore.applyOperator( CoC.getInstance().player.cor, argOps[ 7 ], argVals[ 7 ] );
-		// Because lots of checks and mods are made in the EngineCore.stats(), calculate deltas and pass them. However, this means that the \'=\' operator could be resisted
-		// In future (as I believe) EngineCore.stats() should be replaced with EngineCore.dynStats(), and checks and mods should be made here
+		// Because lots of checks and mods are made in the stats(), calculate deltas and pass them. However, this means that the \'=\' operator could be resisted
+		// In future (as I believe) EngineCore.stats() should be replaced with dynStats(), and checks and mods should be made here
 		EngineCore.stats( newStr - CoC.getInstance().player.str,
 			newTou - CoC.getInstance().player.tou,
 			newSpe - CoC.getInstance().player.spe,

@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		this.teaseXP = 0;
 		//Perks used to store 'queued' perk buys
 		this.perkPoints = 0;
-		//Number of times this.explored for new areas
+		//Number of times explored for new areas
 		this.explored = 0;
 		this.exploredForest = 0;
 		this.exploredDesert = 0;
@@ -332,134 +332,135 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		return desc;
 	};
 	Player.prototype.race = function() {
-		//Determine this.race type this.race:String = 'human';
+		//Determine race type:
+		var race = 'human';
 		if( this.lowerBody === 4 ) {
-			this.race = 'centaur';
+			race = 'centaur';
 		}
 		if( this.lowerBody === 11 ) {
-			this.race = 'pony-kin';
+			race = 'pony-kin';
 		}
 		if( this.catScore() >= 4 ) {
-			this.race = 'cat-' + this.mf( 'boy', 'girl' );
+			race = 'cat-' + this.mf( 'boy', 'girl' );
 		}
 		if( this.lizardScore() >= 4 ) {
 			if( this.gender === 0 ) {
-				this.race = 'lizan';
+				race = 'lizan';
 			} else if( this.gender === 1 ) {
-				this.race = 'male lizan';
+				race = 'male lizan';
 			} else if( this.gender === 2 ) {
-				this.race = 'female lizan';
+				race = 'female lizan';
 			} else {
-				this.race = 'hermaphrodite lizan';
+				race = 'hermaphrodite lizan';
 			}
 		}
 		if( this.dragonScore() >= 4 ) {
-			this.race = 'dragon-morph';
+			race = 'dragon-morph';
 			if( this.faceType === 0 ) {
-				this.race = 'dragon-' + this.mf( 'man', 'girl' );
+				race = 'dragon-' + this.mf( 'man', 'girl' );
 			}
 		}
 		if( this.raccoonScore() >= 4 ) {
-			this.race = 'raccoon-morph';
+			race = 'raccoon-morph';
 			if( this.balls > 0 && this.ballSize > 5 ) {
-				this.race = 'tanuki-morph';
+				race = 'tanuki-morph';
 			}
 		}
 		if( this.dogScore() >= 4 ) {
-			this.race = 'dog-morph';
+			race = 'dog-morph';
 			if( this.faceType === 0 ) {
-				this.race = 'dog-' + this.mf( 'man', 'girl' );
+				race = 'dog-' + this.mf( 'man', 'girl' );
 			}
 		}
 		if( this.foxScore() >= 4 ) {
 			if( this.skinType === 1 ) {
-				this.race = 'fox-morph';
+				race = 'fox-morph';
 			} else {
-				this.race = 'fox-' + this.mf( 'morph', 'girl' );
+				race = 'fox-' + this.mf( 'morph', 'girl' );
 			}
 		}
 		if( this.ferretScore() >= 4 ) {
 			if( this.skinType === 1 ) {
-				this.race = 'ferret-morph';
+				race = 'ferret-morph';
 			} else {
-				this.race = 'ferret-' + this.mf( 'morph', 'girl' );
+				race = 'ferret-' + this.mf( 'morph', 'girl' );
 			}
 		}
 		if( this.kitsuneScore() >= 4 ) {
-			this.race = 'kitsune';
+			race = 'kitsune';
 		}
 		if( this.horseScore() >= 3 ) {
 			if( this.lowerBody === 4 ) {
-				this.race = 'centaur-morph';
+				race = 'centaur-morph';
 			} else {
-				this.race = 'equine-morph';
+				race = 'equine-morph';
 			}
 		}
-		if( this.mutantScore() >= 5 && this.race === 'human' ) {
-			this.race = 'corrupted mutant';
+		if( this.mutantScore() >= 5 && race === 'human' ) {
+			race = 'corrupted mutant';
 		}
 		if( this.minoScore() >= 4 ) {
-			this.race = 'minotaur-morph';
+			race = 'minotaur-morph';
 		}
 		if( this.cowScore() > 5 ) {
-			this.race = 'cow-';
-			this.race += this.mf( 'morph', 'girl' );
+			race = 'cow-';
+			race += this.mf( 'morph', 'girl' );
 		}
 		if( this.beeScore() >= 5 ) {
-			this.race = 'bee-morph';
+			race = 'bee-morph';
 		}
 		if( this.goblinScore() >= 5 ) {
-			this.race = 'goblin';
+			race = 'goblin';
 		}
-		if( this.humanScore() >= 5 && this.race === 'corrupted mutant' ) {
-			this.race = 'somewhat human mutant';
+		if( this.humanScore() >= 5 && race === 'corrupted mutant' ) {
+			race = 'somewhat human mutant';
 		}
 		if( this.demonScore() > 4 ) {
-			this.race = 'demon-morph';
+			race = 'demon-morph';
 		}
 		if( this.sharkScore() >= 3 ) {
-			this.race = 'shark-morph';
+			race = 'shark-morph';
 		}
 		if( this.bunnyScore() >= 4 ) {
-			this.race = 'bunny-' + this.mf( 'boy', 'girl' );
+			race = 'bunny-' + this.mf( 'boy', 'girl' );
 		}
 		if( this.harpyScore() >= 4 ) {
 			if( this.gender >= 2 ) {
-				this.race = 'harpy';
+				race = 'harpy';
 			} else {
-				this.race = 'avian';
+				race = 'avian';
 			}
 		}
 		if( this.spiderScore() >= 4 ) {
-			this.race = 'spider-morph';
+			race = 'spider-morph';
 			if( this.mf( 'no', 'yes' ) === 'yes' ) {
-				this.race = 'spider-girl';
+				race = 'spider-girl';
 			}
 			if( this.lowerBody === 16 ) {
-				this.race = 'drider';
+				race = 'drider';
 			}
 		}
 		if( this.kangaScore() >= 4 ) {
-			this.race = 'kangaroo-morph';
+			race = 'kangaroo-morph';
 		}
 		if( this.mouseScore() >= 3 ) {
 			if( this.faceType !== 16 ) {
-				this.race = 'mouse-' + this.mf( 'boy', 'girl' );
+				race = 'mouse-' + this.mf( 'boy', 'girl' );
 			} else {
-				this.race = 'mouse-morph';
+				race = 'mouse-morph';
 			}
 		}
 		if( this.lowerBody === 3 ) {
-			this.race = 'naga';
+			race = 'naga';
 		}
 		if( this.lowerBody === 4 ) {
-			this.race = 'centaur';
+			race = 'centaur';
 		}
 		if( this.gooScore() >= 3 ) {
-			this.race = 'goo-';
-			this.race += this.mf( 'boi', 'girl' );
+			race = 'goo-';
+			race += this.mf( 'boi', 'girl' );
 		}
-		return this.race;
+		return race;
 	};
     var computeBooleanSum = function(arr) {
         return _.sumBy(arr, function(value) { return value ? 1 : 0; });
@@ -1544,10 +1545,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 			amount = 1;
 		}
 		if( !this.hasItem( itype, amount ) ) {
-			CoC_Settings.error( 'ERROR attempting to find ' + amount + ' item' + (amount > 1 ? 's' : '') + ' to remove when the CoC.getInstance().player has ' + this.itemCount( itype ) + '.' );
+			CoC_Settings.error( 'ERROR attempting to find ' + amount + ' item' + (amount > 1 ? 's' : '') + ' to remove when the player has ' + this.itemCount( itype ) + '.' );
 			return false;
 		}
-		//From here we can be sure the CoC.getInstance().player has enough of the item in inventory
+		//From here we can be sure the player has enough of the item in inventory
 		var slot;
 		while( amount > 0 ) {
 			slot = this.getLowestSlot( itype ); //Always draw from the least filled slots first
@@ -1671,7 +1672,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 					if( this.cocks.length === 1 ) {
 						EngineCore.outputText( '  You could easily stuff your ' + Descriptors.cockDescript( 0 ) + ' between your breasts and give yourself the titty-fuck of a lifetime.', false );
 					} else if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  They reach so far up your chest it would be easy to stuff a few this.cocks between your breasts and give yourself the titty-fuck of a lifetime.', false );
+						EngineCore.outputText( '  They reach so far up your chest it would be easy to stuff a few cocks between your breasts and give yourself the titty-fuck of a lifetime.', false );
 					}
 				} else {
 					if( this.cocks.length === 1 ) {
@@ -1754,7 +1755,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		if( deadCock < 0 || deadCock > this.cocks.length ) {
 			deadCock = this.cocks.length;
 		}
-		//Double loop - outermost counts down this.cocks to remove, innermost counts down
+		//Double loop - outermost counts down cocks to remove, innermost counts down
 		while( deadCock > 0 ) {
 			//Find shortest cock and prune it
 			this.removeCock( _.indexOf(this.cocks, _.minBy(this.cocks, function(cock) { return cock.cockLength; })), 1 );
@@ -1836,9 +1837,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		});
 		return totalGrowth;
 	};
-	// Attempts to put the CoC.getInstance().player in heat (or deeper in heat).
+	// Attempts to put the player in heat (or deeper in heat).
 	// Returns true if successful, false if not.
-	// The CoC.getInstance().player cannot go into heat if she is already pregnant or is a he.
+	// The player cannot go into heat if she is already pregnant or is a he.
 	//
 	// First parameter indicating if function should output standard text.
 	// Second parameter, an integer multiplier that can increase the
@@ -1872,16 +1873,16 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		}
 		return true;
 	};
-	// Attempts to put the CoC.getInstance().player in rut (or deeper in heat).
+	// Attempts to put the player in rut (or deeper in heat).
 	// Returns true if successful, false if not.
-	// The CoC.getInstance().player cannot go into heat if he is a she.
+	// The player cannot go into heat if he is a she.
 	//
 	// First parameter indicating if function should output standard text.
 	// Second parameter, an integer multiplier that can increase the
 	// duration and intensity. Defaults to 1.
 	Player.prototype.goIntoRut = function( output, intensity ) {
 		if( !this.hasCock() ) {
-			// No this.cocks, can't go into rut.
+			// No cocks, can't go into rut.
 			return false;
 		}
 		if( intensity === undefined ) {

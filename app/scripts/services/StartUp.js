@@ -2,7 +2,7 @@
 
 angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
 	var StartUp = {};
-	//MainMenu - kicks CoC.getInstance().player out to the main menu
+	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {
 		CoC.getInstance().stage.focus = MainView.mainText;
 		if( MainView.aCb.visible ) {
@@ -110,8 +110,8 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 			EngineCore.outputText( 'Silly Mode <b>Off</b>\n	You\'re an incorrigable stick-in-the-mud with no sense of humor.' );
 		}
 		EngineCore.outputText( '\n\n' );
-		EngineCore.outputText( '<b>The following CoC.getInstance().flags are not fully implemented yet (e.g. they don\'t apply in <i>all</i> cases where they could be relevant).</b>\n' );
-		EngineCore.outputText( 'Additional note: You <b>must</b> be <i>in a game session</i> (e.g. load your save, hit "Main Menu", change the flag settings, and then hit "Resume") to change these CoC.getInstance().flags. They\'re saved into the saveGame file, so if you load a save, it will clear them to the state in that save.' );
+		EngineCore.outputText( '<b>The following flags are not fully implemented yet (e.g. they don\'t apply in <i>all</i> cases where they could be relevant).</b>\n' );
+		EngineCore.outputText( 'Additional note: You <b>must</b> be <i>in a game session</i> (e.g. load your save, hit "Main Menu", change the flag settings, and then hit "Resume") to change these flags. They\'re saved into the saveGame file, so if you load a save, it will clear them to the state in that save.' );
 		EngineCore.outputText( '\n\n' );
 		if( CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
 			EngineCore.outputText( 'Low standards Mode <b>On</b>\n	NPCs ignore body type preferences.' );

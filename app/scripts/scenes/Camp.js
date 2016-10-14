@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		//Isabella upgrades camp level!
 
 		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			EngineCore.outputText( 'Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable this.places to sit and sleep.', false );
+			EngineCore.outputText( 'Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.', false );
 			if( CoC.getInstance().time.days >= 20 ) {
 				EngineCore.outputText( '  You\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
 			}
@@ -439,7 +439,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			} else if( CoC.getInstance().time.days < 20 ) {
 				EngineCore.outputText( 'Your campsite is starting to get a very \'lived-in\' look.  The fire-pit is well defined with some rocks you\'ve arranged around it, and your bedroll and tent have been set up in the area most sheltered by rocks.', false );
 			} else {
-				EngineCore.outputText( 'Your new home is as comfy as a CoC.getInstance().scenes.camp site can be.  The fire-pit and tent are both set up perfectly, and in good repair, and you\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
+				EngineCore.outputText( 'Your new home is as comfy as a camp site can be.  The fire-pit and tent are both set up perfectly, and in good repair, and you\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
 			}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.CLARA_IMPRISONED ] > 0 ) {
@@ -463,19 +463,19 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			//Rookery Descriptions (Short)
 			//Small (1 mature daughter)
 			if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] === 1 ) {
-				EngineCore.outputText( '  There\'s a smallish harpy nest that your daughter has built up with rocks piled high near the fringes of your CoC.getInstance().scenes.camp.  It\'s kind of pathetic, but she seems proud of her accomplishment.' );
+				EngineCore.outputText( '  There\'s a smallish harpy nest that your daughter has built up with rocks piled high near the fringes of your camp.  It\'s kind of pathetic, but she seems proud of her accomplishment.' );
 			}
 			//Medium (2-3 mature daughters)
 			else if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 3 ) {
-				EngineCore.outputText( '  There\'s a growing pile of stones built up at the fringes of your CoC.getInstance().scenes.camp.  It\'s big enough to be considered a small hill by this point, dotted with a couple small harpy nests just barely big enough for two.' );
+				EngineCore.outputText( '  There\'s a growing pile of stones built up at the fringes of your camp.  It\'s big enough to be considered a small hill by this point, dotted with a couple small harpy nests just barely big enough for two.' );
 			}
 			//Big (4 mature daughters)
 			else if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 4 ) {
-				EngineCore.outputText( '  The harpy rookery at the edge of CoC.getInstance().scenes.camp has gotten pretty big.  It\'s taller than most of the standing stones that surround the portal, and there\'s more nests than harpies at this point.  Every now and then you see the four of them managing a boulder they dragged in from somewhere to add to it.' );
+				EngineCore.outputText( '  The harpy rookery at the edge of camp has gotten pretty big.  It\'s taller than most of the standing stones that surround the portal, and there\'s more nests than harpies at this point.  Every now and then you see the four of them managing a boulder they dragged in from somewhere to add to it.' );
 			}
 			//Large (5-10 mature daughters)
 			else if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 10 ) {
-				EngineCore.outputText( '  The rookery has gotten quite large.  It stands nearly two stories tall at this point, dotted with nests and hollowed out this.places in the center.  It\'s surrounded by the many feathers the assembled harpies leave behind.' );
+				EngineCore.outputText( '  The rookery has gotten quite large.  It stands nearly two stories tall at this point, dotted with nests and hollowed out places in the center.  It\'s surrounded by the many feathers the assembled harpies leave behind.' );
 			}
 			//Giant (11-20 mature daughters)
 			else if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 20 ) {
@@ -483,16 +483,16 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			}
 			//Massive (31-50 mature daughters)
 			else if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 50 ) {
-				EngineCore.outputText( '  A massive harpy rookery towers over the edges of your CoC.getInstance().scenes.camp.  It\'s almost entirely built out of stones that are fit seamlessly into each other, with many ledges and overhangs for nests.  There\'s a constant hum of activity over there day or night.' );
+				EngineCore.outputText( '  A massive harpy rookery towers over the edges of your camp.  It\'s almost entirely built out of stones that are fit seamlessly into each other, with many ledges and overhangs for nests.  There\'s a constant hum of activity over there day or night.' );
 			}
 			//Immense (51+ Mature daughters)
 			else {
-				EngineCore.outputText( '  An immense harpy rookery dominates the edge of your camp, towering over the this.rest of it.  Innumerable harpies flit around it, always working on it, assisted from below by the few sisters unlucky enough to be flightless.' );
+				EngineCore.outputText( '  An immense harpy rookery dominates the edge of your camp, towering over the rest of it.  Innumerable harpies flit around it, always working on it, assisted from below by the few sisters unlucky enough to be flightless.' );
 			}
 		}
 		//Traps
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
-			EngineCore.outputText( '  A thorny tree has sprouted near the center of the camp, growing a protective canopy of spiky vines around the portal and your CoC.getInstance().scenes.camp.', false );
+			EngineCore.outputText( '  A thorny tree has sprouted near the center of the camp, growing a protective canopy of spiky vines around the portal and your camp.', false );
 		} else {
 			EngineCore.outputText( '  You have a number of traps surrounding your makeshift home, but they are fairly simple and may not do much to deter a demon.', false );
 		}
@@ -530,7 +530,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			}
 			//at 6-7 in the morning, scene always displays at this time
 			else if( CoC.getInstance().time.hours === 6 || CoC.getInstance().time.hours === 7 ) {
-				EngineCore.outputText( 'Marble is off in an open area to the side of your CoC.getInstance().scenes.camp right now.  She is practicing with her large hammer, going through her daily training.' );
+				EngineCore.outputText( 'Marble is off in an open area to the side of your camp right now.  She is practicing with her large hammer, going through her daily training.' );
 			}//after nightfall, scene always displays at this time unless PC is wormed
 			else if( CoC.getInstance().time.hours >= 21 && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
 				EngineCore.outputText( 'Marble is hanging around her bedroll waiting for you to come to bed.  However, sometimes she lies down for a bit, and sometimes she paces next to it.' );
@@ -538,19 +538,19 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 					EngineCore.outputText( '  She seems to be feeling antsy.' );
 				}
 			} else if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 && CoC.getInstance().time.hours < 19 && CoC.getInstance().time.hours > 7 ) {
-				//requires at least 6 kids, and no other parental characters in CoC.getInstance().scenes.camp
+				//requires at least 6 kids, and no other parental characters in camp
 				if( Utils.rand( 2 ) === 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 5 ) {
 					EngineCore.outputText( 'Marble is currently tending to your kids, but she looks a bit stressed out right now.  It looks like ' + Utils.num2Text( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] ) + ' might just be too many for her to handle on her own...' );
 				}//requires at least 4 kids
 				else if( Utils.rand( 3 ) === 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 3 ) {
-					EngineCore.outputText( 'Marble herself is in the CoC.getInstance().scenes.camp right now, telling a story about her travels around the world to her kids as they gather around her.  The children are completely enthralled by her words.  You can\'t help but smile.' );
+					EngineCore.outputText( 'Marble herself is in the camp right now, telling a story about her travels around the world to her kids as they gather around her.  The children are completely enthralled by her words.  You can\'t help but smile.' );
 				}//Requires 2 boys
 				else if( Utils.rand( 3 ) === 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_BOYS ] > 1 ) {
 					EngineCore.outputText( 'Marble herself is currently refereeing a wrestling match between two of your sons.  It seems like it\'s a contest to see which one of them gets to go for a ride between her breasts in a game of <i>Bull Blasters</i>, while the loser has to sit on her shoulders.' );
 				}
 				//requires at least 2 kids
 				else if( Utils.rand( 3 ) === 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] - CoC.getInstance().flags[ kFLAGS.MARBLE_BOYS ] > 1 ) {
-					EngineCore.outputText( 'Marble herself is involved in a play fight with two of your kids brandishing small sticks.  It seems that the <i>mommy monster</i> is terrorising the CoC.getInstance().scenes.camp and needs to be stopped by the <i>Mighty Moo and her sidekick Bovine Lass</i>.' );
+					EngineCore.outputText( 'Marble herself is involved in a play fight with two of your kids brandishing small sticks.  It seems that the <i>mommy monster</i> is terrorising the camp and needs to be stopped by the <i>Mighty Moo and her sidekick Bovine Lass</i>.' );
 				} else if( Utils.rand( 3 ) === 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
 					EngineCore.outputText( 'Marble herself is out right now; she\'s taken her kids to go visit Whitney.  You\'re sure though that she\'ll be back within the hour, so you could just wait if you needed her.' );
 				} else {
@@ -568,7 +568,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 						if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
 							EngineCore.outputText( 's' );
 						}
-						EngineCore.outputText( ' playing around the CoC.getInstance().scenes.camp right now.' );
+						EngineCore.outputText( ' playing around the camp right now.' );
 					}
 				}
 			}
@@ -577,15 +577,15 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 				EngineCore.outputText( Utils.randomChoice(
 					'Marble herself has gone off to Whitney\'s farm to get milked right now.  You\'re sure she\'d be back in moments if you needed her.',
 					'Marble herself has gone off to Whitney\'s farm to do some chores right now.  You\'re sure she\'d be back in moments if you needed her.',
-					'Marble herself isn\'t at the CoC.getInstance().scenes.camp right now; she is probably off getting supplies, though she\'ll be back soon enough.  You\'re sure she\'d be back in moments if you needed her.',
+					'Marble herself isn\'t at the camp right now; she is probably off getting supplies, though she\'ll be back soon enough.  You\'re sure she\'d be back in moments if you needed her.',
 					'Marble herself is resting on her bedroll right now.',
-					'Marble herself is wandering around the CoC.getInstance().scenes.camp right now.'
+					'Marble herself is wandering around the camp right now.'
 				), false );
 			}
 			EngineCore.outputText( '\n\n', false );
 		}
 		//RATHAZUL
-		//if rathazul has joined the CoC.getInstance().scenes.camp
+		//if rathazul has joined the camp
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
 			if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] <= 1 ) {
 				EngineCore.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		//MOUSEBITCH
 		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
 			if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 ) {
-				EngineCore.outputText( 'Amily has relocated her grass bedding to the opposite side of the CoC.getInstance().scenes.camp from the strange tree; every now and then, she gives it a suspicious glance, as if deciding whether to move even further.' );
+				EngineCore.outputText( 'Amily has relocated her grass bedding to the opposite side of the camp from the strange tree; every now and then, she gives it a suspicious glance, as if deciding whether to move even further.' );
 			} else {
 				EngineCore.outputText( 'A surprisingly tidy nest of soft grasses and sweet-smelling herbs has been built close to your bedroll. A much-patched blanket draped neatly over the top is further proof that Amily sleeps here. She changes the bedding every few days, to ensure it stays as nice as possible.\n\n', false );
 			}
@@ -680,10 +680,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		}
 		var restEvent = this.doWait;
 		var restName = 'Wait';
-		//Set up this.rest stuff
+		//Set up rest stuff
 		//Night
 		if( CoC.getInstance().time.hours < 6 || CoC.getInstance().time.hours > 20 ) {
-			EngineCore.outputText( 'It is dark out, made worse by the lack of stars in the sky.  A blood-red moon hangs in the sky, seeming to watch you, but providing little light.  It\'s far too dark to leave CoC.getInstance().scenes.camp.\n', false );
+			EngineCore.outputText( 'It is dark out, made worse by the lack of stars in the sky.  A blood-red moon hangs in the sky, seeming to watch you, but providing little light.  It\'s far too dark to leave camp.\n', false );
 			restName = 'Sleep';
 			restEvent = this.doSleep;
 			exploreEvent = null;
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		}
 		//Day Time!
 		else {
-			EngineCore.outputText( 'It\'s light outside, a good time to explore and forage for supplies with which to fortify your CoC.getInstance().scenes.camp.\n', false );
+			EngineCore.outputText( 'It\'s light outside, a good time to explore and forage for supplies with which to fortify your camp.\n', false );
 			if( CoC.getInstance().player.fatigue > 40 || CoC.getInstance().player.HP / CoC.getInstance().player.maxHP() <= 0.9 ) {
 				restName = 'Rest';
 				restEvent = this.rest;
@@ -815,7 +815,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 					EngineCore.outputText( 'Hel is currently sitting at the edge of camp, surrounded by her scraps of armor, sword, and a few half-empty bottles of vodka.  By the way she\'s grunting and growling, it looks like she\'s getting ready to flip her shit and go running off into the plains in her berserker state.\n\n' );
 				}//(8a-5p)
 				else if( CoC.getInstance().time.hours <= 17 ) {
-					EngineCore.outputText( 'Hel\'s out of CoC.getInstance().scenes.camp at the moment, adventuring on the plains.  You\'re sure she\'d be on hand in moments if you needed her, though.\n\n' );
+					EngineCore.outputText( 'Hel\'s out of camp at the moment, adventuring on the plains.  You\'re sure she\'d be on hand in moments if you needed her, though.\n\n' );
 				}//5-7)
 				else if( CoC.getInstance().time.hours <= 19 ) {
 					EngineCore.outputText( 'Hel\'s out visiting her family in Tel\'Adre right now, though you\'re sure she\'s only moments away if you need her.\n\n' );
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			} else if( CoC.getInstance().time.hours < 19 ) {
 				EngineCore.outputText( 'Kiha\'s out right now, likely patrolling for demons to exterminate.  You\'re sure a loud call could get her attention.\n\n' );
 			} else {
-				EngineCore.outputText( 'Kiha is utterly decimating a set of practice dummies she\'s set up out on the edge of CoC.getInstance().scenes.camp.  All of them have crudely drawn horns. Most of them are on fire.\n\n' );
+				EngineCore.outputText( 'Kiha is utterly decimating a set of practice dummies she\'s set up out on the edge of camp.  All of them have crudely drawn horns. Most of them are on fire.\n\n' );
 			}
 			kihaButt = CoC.getInstance().scenes.kihaScene.encounterKiha;
 		}
@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 				if( CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] === -1 ) {
 					EngineCore.outputText( 'Isabella has just returned from a late visit to Whitney\'s farm, bearing a few filled bottles and a small pouch of gems.', false );
 				} else {
-					EngineCore.outputText( 'Isabella was hidden behind a rock when you started looking for her, but as soon as you spot her in the darkness, she jumps, a guilty look flashing across her features.  She turns around and adjusts her top before looking back your way, her dusky skin even darker from a blush.  The cow-girl gives you a smile and walks back to her part of CoC.getInstance().scenes.camp.  A patch of white decorates the ground where she was standing - is that milk?  Whatever it is, it\'s gone almost as fast as you see it, devoured by the parched, wasteland earth.', false );
+					EngineCore.outputText( 'Isabella was hidden behind a rock when you started looking for her, but as soon as you spot her in the darkness, she jumps, a guilty look flashing across her features.  She turns around and adjusts her top before looking back your way, her dusky skin even darker from a blush.  The cow-girl gives you a smile and walks back to her part of camp.  A patch of white decorates the ground where she was standing - is that milk?  Whatever it is, it\'s gone almost as fast as you see it, devoured by the parched, wasteland earth.', false );
 				}
 			} else if( CoC.getInstance().time.hours === 20 ) {
 				EngineCore.outputText( 'Your favorite chocolate-colored cowgirl, Isabella, is moving about, gathering all of her scattered belongings and replacing them in her personal chest.  She yawns more than once, indicating her readiness to hit the hay, but her occasional glance your way lets you know she wouldn\'t mind some company before bed.', false );
@@ -942,13 +942,13 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 					EngineCore.outputText( 'Marble herself has gone off to Whitney\'s farm to do some chores right now.', false );
 				}
 				if( marbleChoice === 2 ) {
-					EngineCore.outputText( 'Marble herself isn\'t at the CoC.getInstance().scenes.camp right now; she is probably off getting supplies, though she\'ll be back soon enough.', false );
+					EngineCore.outputText( 'Marble herself isn\'t at the camp right now; she is probably off getting supplies, though she\'ll be back soon enough.', false );
 				}
 				if( marbleChoice === 3 ) {
 					EngineCore.outputText( 'Marble herself is resting on her bedroll right now.', false );
 				}
 				if( marbleChoice === 4 ) {
-					EngineCore.outputText( 'Marble herself is wandering around the CoC.getInstance().scenes.camp right now.', false );
+					EngineCore.outputText( 'Marble herself is wandering around the camp right now.', false );
 				}
 				if( marbleChoice < 3 ) {
 					EngineCore.outputText( '  You\'re sure she\'d be back in moments if you needed her.', false );
@@ -1170,7 +1170,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 	Camp.prototype.rest = function() {
 		this.campQ = true;
 		if( OnLoadVariables.timeQ === 0 ) {
-			EngineCore.outputText( 'You lie down to this.rest for four hours.\n', true );
+			EngineCore.outputText( 'You lie down to rest for four hours.\n', true );
 			OnLoadVariables.timeQ = 4;
 			//Marble withdrawl
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
@@ -1194,9 +1194,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			}
 		} else {
 			if( OnLoadVariables.timeQ !== 1 ) {
-				EngineCore.outputText( 'You continue to this.rest for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', true );
+				EngineCore.outputText( 'You continue to rest for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', true );
 			} else {
-				EngineCore.outputText( 'You continue to this.rest for another hour.\n', true );
+				EngineCore.outputText( 'You continue to rest for another hour.\n', true );
 			}
 		}
 		EventParser.goNext( OnLoadVariables.timeQ, true );

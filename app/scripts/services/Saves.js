@@ -121,14 +121,14 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 		EngineCore.outputText( '<i>If you want to be absolutely sure you don\'t lose a character, copy the .sol file for that slot out and back it up! <b>For more information, google flash shared objects.</b></i>\n\n', false );
 		EngineCore.outputText( '<b>Why does the Save File and Load File option not work?</b>\n' );
 		EngineCore.outputText( '<i>Save File and Load File are limited by the security settings imposed upon CoC by Flash. These options will only work if you have downloaded the game from the website, and are running it from your HDD. Additionally, they can only correctly save files to and load files from the directory where you have the game saved.</i>' );
-		//This is to clear the 'game over' block from stopping EngineCore.choices from working.  Loading games supercede's game over.
+		//This is to clear the 'game over' block from stopping choices from working.  Loading games supercede's game over.
 		if( MainView.getButtonText( 0 ) === 'Game Over' ) {
 			MainView.setButtonText( 0, 'save/load' );
 			EngineCore.menu();
 			EngineCore.addButton( 1, 'Load', this.loadScreen );
 			EngineCore.addButton( 2, '', null ); // TODO : Save to file
 			EngineCore.addButton( 3, 'Delete', this.deleteScreen );
-			EngineCore.addButton( 4, 'Back', this.game.gameOver, true );
+			EngineCore.addButton( 4, 'Back', EventParser.gameOver, true );
 			return;
 		}
 		if( this.game.player.str === 0 ) {

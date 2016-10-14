@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc, ThanksGiving, Dreams) {
-	//Handles all this.timeChange events for the player. Needed because player is not unique.
+	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);
 		$rootScope.$on('time-change-large', this.timeChangeLarge);
@@ -875,7 +875,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 					EngineCore.outputText( '  It\'s completely soaked your bedroll, too... you won\'t be sleeping on this again until you wash it out.  Grumbling, you roll the soggy, white-stained fabric up and stow it.' );
 				}
 				EngineCore.outputText( '  The sensation of wetness inside your own clothes torments you as you try to return to sleep, driving up your lust and making you half-hard once again... the rumbling of eggs in your abdomen, as if they\'re ready to be laid, doesn\'t help either.' );
-				CoC.getInstance().player.fertilizeEggs(); //convert eggs to fertilized based on CoC.getInstance().player cum output, reduce lust by 100 and then add 20 lust
+				CoC.getInstance().player.fertilizeEggs(); //convert eggs to fertilized based on player cum output, reduce lust by 100 and then add 20 lust
 				CoC.getInstance().player.orgasm(); //reduce lust by 100 and add 20, convert eggs to fertilized depending on cum output
 				EngineCore.dynStats( 'lus', 20 );
 				EngineCore.doNext( EventParser.playerMenu );

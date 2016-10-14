@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 	};
 	/**
 	 * Called no matter of success of the attack
-	 * @param damage damage received by CoC.getInstance().player
+	 * @param damage damage received by player
 	 */
 	Monster.prototype.postAttack = function( damage ) {
 		if( damage > 0 ) {
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 		return true;
 	};
 	/**
-	 * print something about how we miss the CoC.getInstance().player
+	 * print something about how we miss the player
 	 */
 	Monster.prototype.outputPlayerDodged = function( dodge ) {
 		if( dodge === 1 ) {
@@ -555,15 +555,15 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 		}
 	};
 	/**
-	 * Display tease reaction message. Then call this.applyTease() to increase lust.
-	 * @param lustDelta value to be added to lust (already modified by this.lustVuln etc)
+	 * Display tease reaction message. Then call applyTease() to increase lust.
+	 * @param lustDelta value to be added to lust (already modified by lustVuln etc)
 	 */
 	Monster.prototype.teased = function( lustDelta ) {
 		this.outputDefaultTeaseReaction( lustDelta );
 		if( lustDelta > 0 ) {
 			//Imp mob uber interrupt!
 			if( this.findStatusAffect( StatusAffects.ImpUber ) >= 0 ) { // TODO move to proper class
-				EngineCore.outputText( '\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his this.defeated form.', false );
+				EngineCore.outputText( '\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his defeated form.', false );
 				//(-5% of max enemy HP)
 				this.HP -= this.bonusHP * 0.05;
 				this.lust -= 15;
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 	};
 	Monster.prototype.handleAwardItemText = function( itype ) { //New Function, override this function in child classes if you want a monster to output special item drop text
 		if( itype !== null ) {
-			EngineCore.outputText( '\nThere is ' + itype.longName + ' on your this.defeated opponent.  ' );
+			EngineCore.outputText( '\nThere is ' + itype.longName + ' on your defeated opponent.  ' );
 		}
 	};
 	Monster.prototype.handleAwardText = function() { //New Function, override this function in child classes if you want a monster to output special gem and XP text
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 			EngineCore.outputText( '\n\nYou gain ' + this.XP + ' XP from the battle.' );
 		}
 	};
-	Monster.prototype.handleCombatLossText = function( inDungeon, gemsLost ) { //New Function, override this function in child classes if you want a monster to output special text after the CoC.getInstance().player loses in combat
+	Monster.prototype.handleCombatLossText = function( inDungeon, gemsLost ) { //New Function, override this function in child classes if you want a monster to output special text after the player loses in combat
 		//This function doesn’t take the gems away from the player, it just provides the output text
 		if( !inDungeon ) {
 			EngineCore.outputText( '\n\nYou\'ll probably come to your senses in eight hours or so' );
@@ -851,7 +851,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 				EngineCore.outputText( '.' );
 			}
 		}
-		return 8; //This allows different monsters to delay the CoC.getInstance().player by different amounts of time after a combat loss. Normal loss causes an eight hour blackout
+		return 8; //This allows different monsters to delay the player by different amounts of time after a combat loss. Normal loss causes an eight hour blackout
 	};
 	return Monster;
 } );

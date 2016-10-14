@@ -3579,7 +3579,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 					EngineCore.dynStats("lus", 2 + Utils.rand(3));
 				}
 			}
-			// Similar to fetish check, only add XP if the player IS the CoC.getInstance().player...
+			// Similar to fetish check, only add XP if the player IS the player...
 			if (!justText && !CoC.getInstance().scenes.urtaQuest.isUrta()) {
 				Combat.teaseXP(1);
 			}
@@ -3644,7 +3644,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.doNext(Combat.endLustLoss);
 			return true;
 		}
-		EngineCore.doNext(EventParser.playerMenu); //This takes us back to the Combat.combatMenu and a new combat round
+		EngineCore.doNext(EventParser.playerMenu); //This takes us back to the combatMenu and a new combat round
 		return false;
 	};
 	Combat.hasSpells = function() {
@@ -5320,7 +5320,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			CoC.getInstance().scenes.urtaQuest.urtaSpecials();
 			return;
 		}
-	//Pass false to Combat.combatMenu instead:	menuLoc = 3;
+	//Pass false to combatMenu instead:	menuLoc = 3;
 		if (CoC.getInstance().isInCombat() && CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 5) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you've wasted a chance to attack!</b>\n\n");
@@ -5542,7 +5542,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		//Decrease enemy speed and increase their susceptibility to lust attacks if already 110% or more
 		EngineCore.outputText("The world begins to twist and distort around you as reality bends to your will, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s mind blanketed in the thick fog of your illusions.");
-		//Check for success rate. Maximum 100% with over 90 Intelligence difference between PC and CoC.getInstance().monster.
+		//Check for success rate. Maximum 100% with over 90 Intelligence difference between PC and monster.
 		if(CoC.getInstance().player.inte/10 + Utils.rand(20) > CoC.getInstance().monster.inte / 10 + 9) {
 			//Reduce speed down to -20. Um, are there many monsters with 110% lust vulnerability?
 			EngineCore.outputText("  They stumble humorously to and fro, unable to keep pace with the shifting illusions that cloud their perceptions.\n\n");

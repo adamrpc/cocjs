@@ -123,13 +123,13 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 						EngineCore.doNext( EventParser.playerMenu );
 						return true;
 					} else if( CoC.getInstance().flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
-						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the CoC.getInstance().scenes.camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
+						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && CoC.getInstance().scenes.helFollower.followerHel() ) {
 						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she whupped some major imp asshole last night.  She wiggles her tail for emphasis.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a crowd of imps as they tried to sneak into CoC.getInstance().scenes.camp in the night.</b>\n' );
+						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a crowd of imps as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().flags[ kFLAGS.HOLLI_DEFENSE_ON ] > 0 ) {
 						EngineCore.outputText( '\n<b>During the night, you hear distant screeches of surprise, followed by orgasmic moans.  It seems some imps found their way into Holli\'s canopy...</b>\n' );
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a horde of tiny, white worms as they tried to sneak into CoC.getInstance().scenes.camp in the night.</b>\n' );
+						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a horde of tiny, white worms as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
 						EngineCore.outputText( '\n<b>Kid A seems fairly well fed in the morning, and you note a trail of slime leading off in the direction of the lake.</b>\n' ); // Yeah, blah blah travel weirdness. Quickfix so it seems logically correct.
@@ -360,7 +360,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 				return true;
 			}
 		}
-		// update cock type as dog/fox depending on whether the CoC.getInstance().player resembles one more than the other.
+		// update cock type as dog/fox depending on whether the player resembles one more than the other.
 		// Previously used to be computed directly in cockNoun, but refactoring prevents access to the Player class when in cockNoun now.
 		if( CoC.getInstance().player.totalCocks() !== 0 ) {
 			_.forEach(CoC.getInstance().player.cocks, function(cock) {

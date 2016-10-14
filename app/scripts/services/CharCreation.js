@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		while( CoC.getInstance().player.statusAffects.length > 0 ) {
 			CoC.getInstance().player.removeStatuses();
 		}
-		//Clear old CoC.getInstance().scenes.camp slots
+		//Clear old camp slots
 		CoC.getInstance().inventory.clearStorage();
 		CoC.getInstance().inventory.clearGearStorage();
 		//Initialize gearStorage
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 			CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] = 1;
 			this.completeCharacterCreation(); //Skip character creation, this.customPlayerProfile will be called in completeCharacterCreation
 		} else {
-			//After character creation the fact that this.customPlayerProfile is not null will activate a custom CoC.getInstance().player setup
+			//After character creation the fact that customPlayerProfile is not null will activate a custom player setup
 			EngineCore.outputText( 'There is something different about you, but first, what is your basic gender?  An individual such as you may later overcome this, of course...' );
 			EngineCore.outputText( '\n\n\n\nAre you a man or a woman?' );
 			EngineCore.menu();
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 	};
 	CharCreation.prototype.chooseHistory = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] !== 0 ) { //This flag can only be non-zero if this.chooseHistory is called from CoC.getInstance().scenes.camp.as
+		if( CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] !== 0 ) { //This flag can only be non-zero if chooseHistory is called from camp.as
 			EngineCore.outputText( '<b>New history perks are available during creation.  Since this character was created before they were available, you may choose one now!</b>\n\n' );
 		}
 		EngineCore.outputText( 'Before you became a champion, you had other plans for your life.  What were you doing before?' );
@@ -702,7 +702,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		if( CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] === 0 ) {
 			CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] = 1;
 			this.completeCharacterCreation();
-		} else { //Special escape clause for very old saves that do not have a history perk. This is used to allow them the chance to select a perk at CoC.getInstance().scenes.camp on load.
+		} else { //Special escape clause for very old saves that do not have a history perk. This is used to allow them the chance to select a perk at camp on load.
 			CoC.getInstance().flags[ kFLAGS.HISTORY_PERK_SELECTED ] = 1;
 			EventParser.playerMenu();
 		}
@@ -759,7 +759,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 	CharCreation.prototype.arrivalPartFour = function() {
 		EngineCore.clearOutput();
 		EngineCore.hideUpDown();
-		EngineCore.outputText( 'You look around, surveying the hellish landscape as you plot your next move.  The portal is a few yards away, nestled between a formation of rocks.  It does not seem to exude the arousing influence it had on the other side.  The ground and sky are both tinted different shades of red, though the earth beneath your feet feels as normal as any other lifeless patch of dirt.   You settle on the idea of making a CoC.getInstance().scenes.camp here and fortifying this side of the portal.  No demons will ravage your beloved hometown on your watch.\n\nIt does not take long to set up your tent and a few simple traps.  You\'ll need to explore and gather more supplies to fortify it any further.  Perhaps you will even manage to track down the demons who have been abducting the other champions!' );
+		EngineCore.outputText( 'You look around, surveying the hellish landscape as you plot your next move.  The portal is a few yards away, nestled between a formation of rocks.  It does not seem to exude the arousing influence it had on the other side.  The ground and sky are both tinted different shades of red, though the earth beneath your feet feels as normal as any other lifeless patch of dirt.   You settle on the idea of making a camp here and fortifying this side of the portal.  No demons will ravage your beloved hometown on your watch.\n\nIt does not take long to set up your tent and a few simple traps.  You\'ll need to explore and gather more supplies to fortify it any further.  Perhaps you will even manage to track down the demons who have been abducting the other champions!' );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	CharCreation.prototype.customAnnetta = function() {

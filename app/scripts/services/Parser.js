@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 		this._ownerClass = args[ 0 ]; // main game class. Variables are looked-up in this class.
 		this._settingsClass = args[ 1 ]; // global static class used for shoving conf vars around
 		// this.parserState is used to store the scene-parser state.
-		// it is cleared every time this.recursiveParser is called, and then any scene tags are added
+		// it is cleared every time recursiveParser is called, and then any scene tags are added
 		// as parserState['sceneName'] = 'scene content'
 		this.parserState = {};
 		this.buttonNum = 0;
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 		// NOTE: enclosing brackets are *not* included in the actual textCtnt string passed into this function
 		// they\'re shown in the below examples simply for clarity\'s sake.
 		// And because that\'s what the if-statements look like in the raw string passed into the parser
-		// The brackets are actually removed earlier on by the this.recParser() step.
+		// The brackets are actually removed earlier on by the recParser() step.
 		// this.parseConditional():
 		// Takes the contents of an if statement:
 		// [if (condition) OUTPUT_IF_TRUE]
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 	// TODO: Make failed scene button lookups fail in a debuggable manner!
 	// this.Parser button event handler
 	// This is the event bound to all button events, as well as the function called
-	// to enter the parser\'s cached scenes. If you pass this.recursiveParser a set of scenes including a scene named
+	// to enter the parser\'s cached scenes. If you pass recursiveParser a set of scenes including a scene named
 	// 'startup', the parser will not exit normally, and will instead enter the 'startup' scene at the completion of parsing the
 	// input string.
 	//
@@ -753,7 +753,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 	Parser.prototype.enterParserScene = function( sceneName ) {
 		var ret = '';
 		$log.debug( 'Entering parser scene: "' + sceneName + '"' );
-		$log.debug( 'Do we have the scene name? ', sceneName in this.parserState );
+		$log.debug( 'Do we have the scene name? ', _.has(this.parserState, sceneName) );
 		if( sceneName === 'exit' ) {
 			$log.debug( 'Enter scene called to exit' );
 			//doNextClear(debugPane);
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 			// This needs to change to something else anyways. I need to add the ability to
 			// tell the parser where to exit to at some point
 			this._ownerClass.debugPane();
-		} else if( sceneName in this.parserState ) {
+		} else if( _.has(this.parserState, sceneName) ) {
 			$log.debug( 'Have scene "' + sceneName + '". Parsing and setting up menu' );
 			this._ownerClass.menu();
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
@@ -783,7 +783,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 	//
 	// [sceneName | scene contents blaugh]
 	//
-	// This gets placed in this.parserState so this.parserState['sceneName'] === 'scene contents blaugh'
+	// This gets placed in parserState so parserState['sceneName'] === 'scene contents blaugh'
 	//
 	// Note that parsing of the actual scene contents is deferred untill it\'s actually called for display.
 	Parser.prototype.parseSceneTag = function( textCtnt ) {
@@ -866,7 +866,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 		$log.debug( 'Parsing contents = ', textCtnt );
 		// Depth tracks our recursion depth
 		// Basically, we need to handle things differently on the first execution, so we don\'t mistake single-word print-statements for
-		// a tag. Therefore, every call of this.recParser increments depth by 1
+		// a tag. Therefore, every call of recParser increments depth by 1
 		depth += 1;
 		textCtnt = String( textCtnt );
 		if( textCtnt.length === 0 ) { // Short circuit if we\'ve been passed an empty string
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 					if( postfixTmp.indexOf( '[' ) !== -1 ) {
 						$log.debug( 'Need to parse trailing text', postfixTmp );
 						retStr += this.recParser( postfixTmp, depth );	// Parse the trailing text (if any)
-						// Note: This leads to LOTS of recursion. Since we basically call this.recParser once per
+						// Note: This leads to LOTS of recursion. Since we basically call recParser once per
 						// tag, it means that if a body of text has 30 tags, we\'ll end up recursing at least
 						// 29 times before finishing.
 						// Making this tail-call reursive, or just parsing it flatly may be a much better option in
@@ -952,7 +952,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 			prettyQuotes = true;
 		}
 		$log.debug( '------------------ this.Parser called on string -----------------------' );
-		// Eventually, when this goes properly class-based, we\'ll add a period, and have this.parserState.
+		// Eventually, when this goes properly class-based, we\'ll add a period, and have parserState.
 		// Reset the parser\'s internal state, since we\'re parsing a new string:
 		this.parserState = {};
 		var ret = '';

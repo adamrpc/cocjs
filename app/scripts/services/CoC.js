@@ -150,7 +150,7 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 	 */
 	return new CoC();
 	/*
-	TODO : Convert scences and call CoC.registerScene;
+	TODO : Convert scences and call registerScene;
 			private static var doCamp:Function; //Set by campInitialize, should only be called by playerMenu
 		private static function campInitialize(passDoCamp:Function):void { doCamp = passDoCamp; }
 		// Items/
