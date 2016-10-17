@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			return;
 		}
 		//Chance of dick-dragging! 10% + 10% per two foot up to 30%
-		var dickDraggingChances = Math.max( 30, 10 + (CoC.getInstance().player.longestCockLength() - CoC.getInstance().player.tallness) / 24 * 10 );
+		var dickDraggingChances = Math.min( 30, 10 + (CoC.getInstance().player.longestCockLength() - CoC.getInstance().player.tallness) / 24 * 10 );
 		if( dickDraggingChances > Utils.rand( 100 ) && CoC.getInstance().player.longestCockLength() >= CoC.getInstance().player.tallness && CoC.getInstance().player.totalCockThickness() >= 12 ) {
 			this.bigJunkForestScene();
 			return;
