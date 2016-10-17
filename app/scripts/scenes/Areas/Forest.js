@@ -629,5 +629,5 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		EngineCore.dynStats( 'lib', 1, 'sen', -5 );
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
-	return Forest;
+	CoC.getInstance().registerScene( 'forest', new Forest() );
 } );
