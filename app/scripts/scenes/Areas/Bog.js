@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, EngineCore, Fera, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( CoC, Utils, EngineCore, Fera, kFLAGS, OnLoadVariables ) {
 	function Bog() {
 	}
 
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, EngineCore, Fera, kFLAGS ) 
 			CoC.getInstance().scenes.helScene.helSexualAmbush();
 			return;
 		}
-		if( (Fera.isHalloween() && (date.fullYear > CoC.getInstance().flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ]) && CoC.getInstance().flags[ kFLAGS.BOG_EXPLORED ] % 4 === 0) && (CoC.getInstance().flags[ kFLAGS.PHOUKA_LORE ] > 0) ) {
+		if( (Fera.isHalloween() && (OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ]) && CoC.getInstance().flags[ kFLAGS.BOG_EXPLORED ] % 4 === 0) && (CoC.getInstance().flags[ kFLAGS.PHOUKA_LORE ] > 0) ) {
 			CoC.getInstance().scenes.phoukaScene.phoukaHalloween(); //Must have met them enough times to know what they're called, have some idea of their normal behaviour
 			return;
 		}

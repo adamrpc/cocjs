@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
 	function Forest() {
 	}
 
@@ -18,8 +18,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 			//Fera is free!
 			else {
-				if( CoC.getInstance().flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] == 0 ) {
-					if( date.fullYear > CoC.getInstance().flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] ) {
+				if( CoC.getInstance().flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] === 0 ) {
+					if( OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] ) {
 						Fera.feraSceneTwoIntroduction();
 						return;
 					}
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ERLKING_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ] == 4 ) {
+		if( CoC.getInstance().flags[ kFLAGS.ERLKING_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ] === 4 ) {
 			CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ] = 0;
 			CoC.getInstance().scenes.erlkingScene.encounterWildHunt();
 			return;
@@ -56,12 +56,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ]++;
 		}
 		//Faerie
-		if( chooser == 0 ) {
+		if( chooser === 0 ) {
 			CoC.getInstance().scenes.faerie.encounterFaerie();
 			return;
 		}
 		//Tentacle monster
-		if( chooser == 1 ) {
+		if( chooser === 1 ) {
 			//Reset hilarious shit
 			if( CoC.getInstance().player.gender > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00247 ] = 0;
@@ -78,16 +78,16 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 		}
 		//Corrupted Glade
-		if( chooser == 2 ) {
-			if( Utils.rand( 4 ) == 0 ) {
+		if( chooser === 2 ) {
+			if( Utils.rand( 4 ) === 0 ) {
 				this.trappedSatyr();
 				return;
 			}
 			CoC.getInstance().scenes.corruptedGlade.intro();
 		}
-		if( chooser == 3 ) {
+		if( chooser === 3 ) {
 			CoC.getInstance().scenes.akbalScene.supahAkabalEdition();
-		} else if( chooser == 4 ) {
+		} else if( chooser === 4 ) {
 			if( Utils.rand( 3 ) === 0 ) {
 				CoC.getInstance().scenes.kitsuneScene.kitsuneShrine();
 			} else {
@@ -105,15 +105,15 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			chooser = Utils.rand( 3 );
 		}
 		//Quick changes monk is fully corrupted, encounter him less (unless haz ferriiite).
-		if( chooser === 1 && kGAMECLASS.monk >= 2 ) {
+		if( chooser === 1 && CoC.getInstance().monk >= 2 ) {
 			var chooserChange = Utils.rand( 4 );
-			if( chooserChange == 0 ) {
+			if( chooserChange === 0 ) {
 				chooser = 0;
 			}
-			if( chooserChange == 1 ) {
+			if( chooserChange === 1 ) {
 				chooser = 2;
 			}
-			if( chooserChange == 2 ) {
+			if( chooserChange === 2 ) {
 				chooser = 3;
 			}
 		}
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			chooser = 1;
 		}
 		//If Jojo lives in camp, never encounter him
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] == 1 ) {
+		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 1 ) {
 			chooser = Utils.rand( 3 );
 			if( chooser >= 1 ) {
 				chooser++;
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			return;
 		}
 		//Essy every 20 explores or so
-		if( (Utils.rand( 100 ) <= 1) && CoC.getInstance().player.gender > 0 && (CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] === 0 || CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] == 1) ) {
+		if( (Utils.rand( 100 ) <= 1) && CoC.getInstance().player.gender > 0 && (CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] === 0 || CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] === 1) ) {
 			CoC.getInstance().scenes.essrayle.essrayleMeetingI();
 			return;
 		}
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			return;
 		}
 		//Marble randomness
-		if( CoC.getInstance().player.exploredForest % 50 === 0 && CoC.getInstance().player.exploredForest > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] == 0 ) {
+		if( CoC.getInstance().player.exploredForest % 50 === 0 && CoC.getInstance().player.exploredForest > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 			//can be triggered one time after Marble has been met, but before the addiction quest starts.
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'While you\'re moving through the trees, you suddenly hear yelling ahead, followed by a crash and a scream as an imp comes flying at high speed through the foliage and impacts a nearby tree.  The small demon slowly slides down the tree before landing at the base, still.  A moment later, a familiar-looking cow-girl steps through the bushes brandishing a huge two-handed hammer with an angry look on her face.' );
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( chooser == 0 ) {
+		if( chooser === 0 ) {
 			//Determines likelyhood of imp/goblins
 			//Below - goblin, Equal and up - imp
 			var impGob = 5;
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 			//Imptacular Encounter
 			if( Utils.rand( 10 ) < impGob ) {
-				if( CoC.getInstance().player.level >= 8 && Utils.rand( 2 ) == 0 ) {
+				if( CoC.getInstance().player.level >= 8 && Utils.rand( 2 ) === 0 ) {
 					CoC.getInstance().scenes.impScene.impLordEncounter();
 				} else {
 					EngineCore.outputText( 'An imp leaps out of the bushes and attacks!', true );
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 					return;
 				}
 				//50% of the time, goblin assassin!
-				if( CoC.getInstance().player.level >= 10 && Utils.rand( 2 ) == 0 ) {
+				if( CoC.getInstance().player.level >= 10 && Utils.rand( 2 ) === 0 ) {
 					CoC.getInstance().scenes.goblinAssassinScene.goblinAssassinEncounter();
 					return;
 				}
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 				}
 			}
 		}
-		if( chooser == 1 ) {
+		if( chooser === 1 ) {
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			EngineCore.outputText( '', true );
 			if( CoC.getInstance().monk === 0 ) {
@@ -238,10 +238,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 					if( CoC.getInstance().player.level >= 4 ) {
 						CoC.getInstance().monk = 1;
 						CoC.getInstance().scenes.jojoScene.lowCorruptionJojoEncounter();
-						return
+						return;
 					} else {
 						EngineCore.outputText( 'You enjoy a peaceful walk in the woods.  It gives you time to think over the recent, disturbing events.', true );
-						EngineCore.dynStats( 'tou', .5, 'int', 1 );
+						EngineCore.dynStats( 'tou', 0.5, 'int', 1 );
 						EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 						return;
 					}
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 				}
 				return;
 			}
-			if( CoC.getInstance().monk == 1 ) {
+			if( CoC.getInstance().monk === 1 ) {
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 					CoC.getInstance().scenes.jojoScene.jojoSprite();
 					EngineCore.outputText( 'As you approach the serene monk, you see his nose twitch, disturbing his meditation.\n\n', true );
@@ -302,12 +302,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 		}
 		//Tentacles 25% of the time...
-		if( chooser == 2 ) {
+		if( chooser === 2 ) {
 			$log.debug( 'TRACE TENTACRUELS' );
 			EngineCore.outputText( '', true );
 			var action = Utils.rand( 5 );
 			//Oh noes, tentacles!
-			if( action == 0 ) {
+			if( action === 0 ) {
 				//Tentacle avoidance chance due to dangerous plants
 				if( CoC.getInstance().player.hasKeyItem( 'Dangerous Plants' ) >= 0 && CoC.getInstance().player.inte / 2 > Utils.rand( 50 ) ) {
 					$log.debug( 'TENTACLE\'S AVOIDED DUE TO BOOK!' );
@@ -319,10 +319,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 					return;
 				}
 			}
-			if( action == 1 ) {
+			if( action === 1 ) {
 				if( CoC.getInstance().player.cor < 80 ) {
 					EngineCore.outputText( 'You enjoy a peaceful walk in the woods, it gives you time to think.', false );
-					EngineCore.dynStats( 'tou', .5, 'int', 1 );
+					EngineCore.dynStats( 'tou', 0.5, 'int', 1 );
 				} else {
 					EngineCore.outputText( 'As you wander in the forest, you keep ', false );
 					if( CoC.getInstance().player.gender === 1 ) {
@@ -338,21 +338,21 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 						EngineCore.outputText( 'daydreaming about sex-demons with huge sexual attributes, and how you could please them.', false );
 					}
 					EngineCore.outputText( '', false );
-					EngineCore.dynStats( 'tou', .5, 'lib', .25, 'lus', CoC.getInstance().player.lib / 5 );
+					EngineCore.dynStats( 'tou', 0.5, 'lib', 0.25, 'lus', CoC.getInstance().player.lib / 5 );
 				}
 				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				return;
 			}
 			//CORRUPTED GLADE
 			if( action === 2 || action >= 4 ) {
-				if( Utils.rand( 4 ) == 0 ) {
+				if( Utils.rand( 4 ) === 0 ) {
 					this.trappedSatyr();
 					return;
 				}
 				CoC.getInstance().scenes.corruptedGlade.intro();
 			}
 			//Trip on a root!
-			if( action == 3 ) {
+			if( action === 3 ) {
 				EngineCore.outputText( 'You trip on an exposed root, scraping yourself somewhat, but otherwise the hour is uneventful.', false );
 				CoC.getInstance().player.takeDamage( 10 );
 				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
@@ -361,8 +361,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 		}
 		//Bee-girl encounter
-		if( chooser == 3 ) {
-			if( Utils.rand( 10 ) == 0 ) {
+		if( chooser === 3 ) {
+			if( Utils.rand( 10 ) === 0 ) {
 				EngineCore.outputText( 'You find a large piece of insectile carapace obscured in the ferns to your left.  It\'s mostly black with a thin border of bright yellow along the outer edge.  There\'s still a fair portion of yellow fuzz clinging to the chitinous shard.  It feels strong and flexible - maybe someone can make something of it.  ', true );
 				CoC.getInstance().inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				return;
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		} else {
 			EngineCore.outputText( 'earth behind you.', false );
 		}
-		if( CoC.getInstance().player.cocks.length == 1 ) {
+		if( CoC.getInstance().player.cocks.length === 1 ) {
 			if( lake ) {
 				EngineCore.outputText( '  As it drags through the lakeside mud, the sensation forces you to imagine the velvety folds of a monstrous pussy sliding along the head of your ' + Appearance.cockNoun( CoC.getInstance().player.cocks[ x ].cockType ) + ', gently attempting to suck it off.', false );
 			} else {
@@ -396,9 +396,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 		} else if( CoC.getInstance().player.cocks.length >= 2 ) {
 			if( lake ) {
-				EngineCore.outputText( '  With all of your ' + Descriptors.multiCockDescriptLight() + ' dragging through the mud, they begin feeling as if the lips of ' + num2Text( CoC.getInstance().player.cockTotal() ) + ' different cunts were slobbering over each one.', false );
+				EngineCore.outputText( '  With all of your ' + Descriptors.multiCockDescriptLight() + ' dragging through the mud, they begin feeling as if the lips of ' + Utils.num2Text( CoC.getInstance().player.cockTotal() ) + ' different cunts were slobbering over each one.', false );
 			} else {
-				EngineCore.outputText( '  With all of your ' + Descriptors.multiCockDescriptLight() + ' dragging across the grass, twigs, and exposed tree roots, they begin feeling as if the rough fingers of ' + num2Text( CoC.getInstance().player.cockTotal() ) + ' different monstrous hands were sliding over each shaft, gently jerking them off.', false );
+				EngineCore.outputText( '  With all of your ' + Descriptors.multiCockDescriptLight() + ' dragging across the grass, twigs, and exposed tree roots, they begin feeling as if the rough fingers of ' + Utils.num2Text( CoC.getInstance().player.cockTotal() ) + ' different monstrous hands were sliding over each shaft, gently jerking them off.', false );
 			}
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -438,14 +438,14 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			}
 		}
 		//FOR CENTAURS
-		else if( CoC.getInstance().player.lowerBody == AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
+		else if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 			EngineCore.outputText( '  The impending erection can\'t seem to be stopped.  Your sexual frustration forces stiffness into your ' + Descriptors.multiCockDescriptLight() + ', which forces the barrel of your horse-like torso to the ground.  Normally your erection would merely hover above the ground in between your centaurian legs, but your genitals have grown too large and heavy for your ' + Descriptors.hipDescript() + ' to hold them aloft.  Instead, you feel your body being forcibly pulled down at your hind legs until your equine body is resting on top of your ' + Descriptors.multiCockDescriptLight() + '.', false );
 			//IF CHARACTER HAS GIANT BREASTS ADD SENTENCE
 			if( CoC.getInstance().player.biggestTitSize() >= 35 ) {
 				if( lake ) {
-					EngineCore.outputText( '  Your ' + chestDesc() + ' pull your human torso forward until it also is forced to face the ground, obscured as it is in boob-flesh.  Your tits rest on the wet earth to either side of you.  Their immense weight anchors you, further preventing any part of your equine body from lifting itself up.  Mud cakes their undersides and coats your ' + Descriptors.nippleDescript( 0 ) + 's.', false );
+					EngineCore.outputText( '  Your ' + Descriptors.chestDesc() + ' pull your human torso forward until it also is forced to face the ground, obscured as it is in boob-flesh.  Your tits rest on the wet earth to either side of you.  Their immense weight anchors you, further preventing any part of your equine body from lifting itself up.  Mud cakes their undersides and coats your ' + Descriptors.nippleDescript( 0 ) + 's.', false );
 				} else {
-					EngineCore.outputText( '  Your ' + chestDesc() + ' pull your human torso forward until it also is forced to face the ground, obscured as it is in boob-flesh.  Your tits rest on the dirt and twigs to either side of you.  Their immense weight anchors you, further preventing any part of your equine body from lifting itself up.  The rough texture of the bark on various tree roots teases your ' + Descriptors.nippleDescript( 0 ) + 's mercilessly.', false );
+					EngineCore.outputText( '  Your ' + Descriptors.chestDesc() + ' pull your human torso forward until it also is forced to face the ground, obscured as it is in boob-flesh.  Your tits rest on the dirt and twigs to either side of you.  Their immense weight anchors you, further preventing any part of your equine body from lifting itself up.  The rough texture of the bark on various tree roots teases your ' + Descriptors.nippleDescript( 0 ) + 's mercilessly.', false );
 				}
 			}
 			//IF CHARACTER HAS A BALLS ADD SENTENCE
@@ -615,7 +615,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 	};
 	//[=Again=]
 	Forest.prototype.secondSatyrFuck = function() {
-		var x = CoC.getInstance().player.cockThatFits( monster.analCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}

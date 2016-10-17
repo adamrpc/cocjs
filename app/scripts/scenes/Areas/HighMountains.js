@@ -7,13 +7,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 	HighMountains.prototype.exploreHighMountain = function() {
 		CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
 		EngineCore.doNext( EventParser.playerMenu );
-		if( CoC.getInstance().scenes.d3.discoverD3() ==
-			true ) {
+		if( CoC.getInstance().scenes.d3.discoverD3() === true ) {
 			return;
 		}
 		var chooser = Utils.rand( 4 );
 		//Boosts mino and hellhound rates!
-		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) == 0 ) {
+		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) === 0 ) {
 			chooser = 1;
 		}
 		//Helia monogamy fucks
@@ -40,24 +39,23 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		//Harpy odds!
 		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
 			if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
-				if( Utils.rand( 4 ) == 0 ) {
+				if( Utils.rand( 4 ) === 0 ) {
 					this.chickenHarpy();
 					return;
 				}
 			} else {
-				if( Utils.rand( 10 ) == 0 ) {
+				if( Utils.rand( 10 ) === 0 ) {
 					this.chickenHarpy();
 					return;
 				}
 			}
 		}
 		//10% chance to mino encounter rate if addicted
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 && Utils.rand( 10 ) == 0 ) {
+		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 && Utils.rand( 10 ) === 0 ) {
 			EngineCore.spriteSelect( 44 );
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
 			//Withdrawl auto-fuck!
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] ==
-				3 ) {
+			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
 				CoC.getInstance().scenes.mountain.minotaurScene.minoAddictionFuck();
 				return;
 			}
@@ -67,26 +65,26 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		}
 		$log.debug( 'Chooser goin for' + chooser );
 		//Generic harpy
-		if( chooser == 0 ) {
+		if( chooser === 0 ) {
 			EngineCore.outputText( 'A harpy wings out of the sky and attacks!', true );
 			Combat.startCombat( new Harpy() );
 			EngineCore.spriteSelect( 26 );
 			return;
 		}
 		//Basilisk!
-		if( chooser == 1 ) {
+		if( chooser === 1 ) {
 			CoC.getInstance().scenes.basiliskScene.basiliskGreeting();
 			return;
 		}
 		//Sophie
-		if( chooser == 2 ) {
+		if( chooser === 2 ) {
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ||
 				CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
 				EngineCore.outputText( 'A harpy wings out of the sky and attacks!', true );
 				Combat.startCombat( new Harpy() );
 				EngineCore.spriteSelect( 26 );
 			} else {
-				if( CoC.getInstance().flags[ kFLAGS.MET_SOPHIE_COUNTER ] == 0 ) {
+				if( CoC.getInstance().flags[ kFLAGS.MET_SOPHIE_COUNTER ] === 0 ) {
 					CoC.getInstance().scenes.sophieScene.meetSophie();
 				} else {
 					CoC.getInstance().scenes.sophieScene.meetSophieRepeat();
@@ -102,7 +100,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 	HighMountains.prototype.chickenHarpy = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 90 );
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ] == 0 ) {
+		if( CoC.getInstance().flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ] === 0 ) {
 			EngineCore.outputText( 'Taking a stroll along the mountains, you come across a peculiar-looking harpy wandering around with a large wooden cart in tow.  She\'s far shorter and bustier than any regular harpy you\'ve seen before, reaching barely 4\' in height but managing to retain some semblance of their thick feminine asses.  In addition to the fluffy white feathers decorating her body, the bird-woman sports about three more combed back upon her forehead like a quiff, vividly red in color.' );
 			EngineCore.outputText( '\n\nHaving a long, hard think at the person you\'re currently making uncomfortable with your observational glare, you\'ve come to a conclusion - she must be a chicken harpy!' );
 			EngineCore.outputText( '\n\nAs you take a look inside of the cart you immediately spot a large hoard of eggs stacked clumsily in a pile.  The curious collection of eggs come in many colors and sizes, protected by a sheet of strong canvas to keep it all together.' );
@@ -168,7 +166,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		EngineCore.spriteSelect( 90 );
 		CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ]++;
 		EngineCore.outputText( 'You take ' + itype.longName + ', and the harpy nods in regards to your decision.  Prepping her cart back up for the road, she gives you a final wave goodbye before heading back down through the mountains.\n\n' );
-		inventory.takeItem( itype, this.chickenHarpy );
+		CoC.getInstance().inventory.takeItem( itype, this.chickenHarpy );
 	};
 	//If No
 	HighMountains.prototype.leaveChickenx = function() {
