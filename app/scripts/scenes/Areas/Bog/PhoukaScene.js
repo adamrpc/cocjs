@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
+		$rootScope.$on('time-change', this.timeChange);
+		$rootScope.$on('time-change-large', this.timeChangeLarge);
 	}
-
-	// TODO : TimeAware
 
 	PhoukaScene.phoukaForm = 0; //This keeps track of the form of the phouka across different scenes and through combat
 	PhoukaScene.PHOUKA_FORM_FAERIE = 0;
