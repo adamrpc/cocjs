@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'CumWitch', function( CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
 	var CumWitch = angular.copy( Monster );
 	CumWitch.prototype.performCombatAction = function() {
 		CoC.getInstance().scenes.dungeonSandwitch.cumWitchAI();
