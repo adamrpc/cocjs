@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Appearance, AppearanceDefs, PhoukaScene, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, PhoukaScene, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
 	var Phouka = angular.copy( Monster );
 	Phouka.prototype.phoukaFightAttack = function() {
 		var damage;

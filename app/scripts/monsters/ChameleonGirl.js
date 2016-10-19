@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Appearance, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat ) {
 	var ChameleonGirl = angular.copy( Monster );
 
 	ChameleonGirl.prototype.chameleonTongueAttack = function() {

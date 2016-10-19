@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, EventParser ) {
+angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, EventParser ) {
 	function Swamp() {
 	}
 

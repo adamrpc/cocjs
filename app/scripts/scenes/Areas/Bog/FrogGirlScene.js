@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore, AppearanceDefs ) {
 	function FrogGirlScene() {
 	}
 

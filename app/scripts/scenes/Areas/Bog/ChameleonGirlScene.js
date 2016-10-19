@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ChameleonGirl, EventParser, Descriptors, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, Combat, ChameleonGirl, EventParser, Descriptors, ConsumableLib ) {
 	function ChameleonGirlScene() {
 	}
 

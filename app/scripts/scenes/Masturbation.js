@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, EngineCore, ConsumableLib, PerkLib, StatusAffects, ArmorLib, WeaponLib, Utils, EventParser, CockTypesEnum, AppearanceDefs, Descriptors ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, EngineCore, PerkLib, StatusAffects, Utils, EventParser, CockTypesEnum, AppearanceDefs, Descriptors ) {
 	function Masturbation() {
 	}
 	Masturbation.prototype.masturbateMenu = function() {

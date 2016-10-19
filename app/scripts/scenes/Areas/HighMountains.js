@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFLAGS, OnLoadVariables, PerkLib, EventParser, XmasGatsNotAnAngel, XmasBitch, ConsumableLib, Combat, Harpy ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, EventParser, XmasGatsNotAnAngel, XmasBitch, ConsumableLib, Combat, Harpy ) {
 	function HighMountains() {
 	}
 	//Explore High Mountain

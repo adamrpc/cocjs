@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
 		$rootScope.$on('time-change', this.timeChange);
 		$rootScope.$on('time-change-large', this.timeChangeLarge);

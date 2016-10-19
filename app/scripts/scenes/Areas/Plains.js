@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, XmasMisc, OnLoadVariables, ConsumableLib, XmasBitch ) {
+angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, XmasMisc, OnLoadVariables, ConsumableLib, XmasBitch ) {
 	function Plains() {
 	}
 
