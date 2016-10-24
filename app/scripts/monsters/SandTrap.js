@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
+angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
 	var SandTrap = angular.copy( Monster );
 	//Wait:
 	SandTrap.prototype.sandTrapWait = function() {
