@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 	ChameleonGirl.prototype.chameleonClaws = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.capitalA + this.short + ' completely misses you with a blind claw-attack!\n', false );
+			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind claw-attack!\n', false );
 		}
 		//Evade:
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 	ChameleonGirl.prototype.rollKickClawWhatTheFuckComboIsThisShit = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.capitalA + this.short + ' completely misses you with a blind roll-kick!\n', false );
+			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind roll-kick!\n', false );
 		}
 		//Evade:
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {

@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, Stat
 		var damage;
 		//Only the bunny, goat and horse forms make physical attacks
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.capitalA + this.short + ' completely misses you due to his blindness!\n', false );
+			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you due to his blindness!\n', false );
 		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
 			damage = Math.round( (60 + 30 + 10) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ); //60 === Bunny Strength, 30 === Bunny Weapon Attack
 			EngineCore.outputText( 'The bunny morph hops towards you.  At the last second he changes direction and throws a kick toward you with his powerful hind legs.' );
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, Stat
 		Combat.combatRoundOver();
 	};
 	Phouka.prototype.phoukaFightSilence = function() { //Reuses the statusAffect Web-Silence from the spiders
-		EngineCore.outputText( this.capitalA + this.short + ' scoops up some muck from the ground and rams it down over his cock.  After a few strokes he forms the lump of mud and precum into a ball and whips it at your face.  ' );
+		EngineCore.outputText( this.getCapitalA() + this.short + ' scoops up some muck from the ground and rams it down over his cock.  After a few strokes he forms the lump of mud and precum into a ball and whips it at your face.  ' );
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( 'Since he\'s blind the shot goes horribly wide, missing you entirely.' );
 		} else if( Combat.combatMiss() ) {
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, Stat
 		} else if( Combat.combatEvade() ) {
 			EngineCore.outputText( 'You pull back and to the side, blocking the shot with your arm. The muck splatters against it uselessly.' );
 		} else if( Combat.combatMisdirect() ) {
-			EngineCore.outputText( this.capitalA + this.short + ' was watching you carefully before his throw.  That proves to be his undoing as your misleading movements cause him to lob the muck at the wrong time' );
+			EngineCore.outputText( this.getCapitalA() + this.short + ' was watching you carefully before his throw.  That proves to be his undoing as your misleading movements cause him to lob the muck at the wrong time' );
 		} else if( Combat.combatFlexibility() ) {
 			EngineCore.outputText( 'As the ball leaves his fingers you throw yourself back, your spine bending in an inhuman way.  You feel the ball sail past, inches above your chest.' );
 		} else {

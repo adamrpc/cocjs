@@ -983,7 +983,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			//Nuttin honey
 			else {
 				Combat.teaseXP( 5 );
-				EngineCore.outputText( '\n' + CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' seems unimpressed.', false );
+				EngineCore.outputText( '\n' + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' seems unimpressed.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			if( CoC.getInstance().monster.lust > 99 ) {

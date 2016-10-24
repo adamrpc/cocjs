@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, CoC, Monster, Ut
 	DemonPack.prototype.teased = function( lustDelta ) {
 		EngineCore.outputText( '\n', false );
 		if( lustDelta === 0 ) {
-			EngineCore.outputText( '\n' + this.capitalA + this.short + ' seems unimpressed.' );
+			EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' seems unimpressed.' );
 		} else if( lustDelta > 0 && lustDelta < 5 ) {
 			EngineCore.outputText( 'The demons lessen somewhat in the intensity of their attack, and some even eye up your assets as they strike at you.', false );
 		} else if( lustDelta >= 5 && lustDelta < 10 ) {
