@@ -562,7 +562,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 	Combat.fireBreathMenu = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText("Which of your special fire-breath attacks would you like to use?");
-		EngineCore.simpleChoices("Akbal's", Combat.fireballuuuuu, "Hellfire", Combat.hellFire, "Dragonfire", Combat.dragonBreath, "", null, "Back", EventParser.playerMenu);
+		EngineCore.choices("Akbal's", Combat.fireballuuuuu, "Hellfire", Combat.hellFire, "Dragonfire", Combat.dragonBreath, "", null, "Back", EventParser.playerMenu);
 	};
 	//Fantasize
 	Combat.fantasize = function() {
