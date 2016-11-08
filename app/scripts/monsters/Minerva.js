@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Minerva', function( $log, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'Minerva', function( CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, WeightedDrop, ConsumableLib ) {
 	var Minerva = angular.copy( Monster );
 	//Normal Attacks for all Minerva Types
 	//Shark-bite:
