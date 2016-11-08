@@ -4,26 +4,26 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 	var Monster = angular.copy( Creature );
 	Monster.prototype.init = function( that, args ) {
 		Creature.prototype.init( that, args );
-		this.bonusHP = 0;
-		this.long = null;
-		this.plural = false;
-		this.imageName = '';
-		this.lustVuln = 1;
-		this.temperment = Monster.TEMPERMENT_AVOID_GRAPPLES;
-		this.special1 = null;
-		this.special2 = null;
-		this.special3 = null;
+		that.bonusHP = 0;
+		that.long = null;
+		that.plural = false;
+		that.imageName = '';
+		that.lustVuln = 1;
+		that.temperment = Monster.TEMPERMENT_AVOID_GRAPPLES;
+		that.special1 = null;
+		that.special2 = null;
+		that.special3 = null;
 		// He
-		this.pronoun1 = '';
+		that.pronoun1 = '';
 		// Him
-		this.pronoun2 = '';
+		that.pronoun2 = '';
 		// His
-		this.pronoun3 = '';
-		this.drop = null;
-		this.gender = AppearanceDefs.GENDER_NONE;
-		this.checkCalled = false;
-		this.checkError = '';
-		this.initsCalled = {
+		that.pronoun3 = '';
+		that.drop = null;
+		that.gender = AppearanceDefs.GENDER_NONE;
+		that.checkCalled = false;
+		that.checkError = '';
+		that.initsCalled = {
 			a: false,
 			short: false,
 			long: false,
@@ -34,9 +34,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 			lib_sens_cor: false,
 			drop: false
 		};
-		this.onDefeated = null;
-		this.onWon = null;
-		this.onPcRunAttempt = null;
+		that.onDefeated = null;
+		that.onWon = null;
+		that.onPcRunAttempt = null;
 	};
 	/**
 	 * this.temperment - used for determining grapple behaviors
