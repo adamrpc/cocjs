@@ -150,9 +150,9 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.addButton(0, "Struggle", Combat.struggle);
 			EngineCore.addButton(5, "Wait", Combat.wait);
 		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
-			EngineCore.addButton(0, "Squeeze", CoC.getInstance().scenes.desert.nagaScene.naggaSqueeze);
-			EngineCore.addButton(1, "Tease", CoC.getInstance().scenes.desert.nagaScene.naggaTease);
-			EngineCore.addButton(4, "Release", CoC.getInstance().scenes.desert.nagaScene.nagaLeggoMyEggo);
+			EngineCore.addButton(0, "Squeeze", CoC.getInstance().scenes.nagaScene.naggaSqueeze);
+			EngineCore.addButton(1, "Tease", CoC.getInstance().scenes.nagaScene.naggaTease);
+			EngineCore.addButton(4, "Release", CoC.getInstance().scenes.nagaScene.nagaLeggoMyEggo);
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Bound) >= 0) {
 			EngineCore.addButton(0, "Struggle", CoC.getInstance().monster.ceraphBindingStruggle);
 			EngineCore.addButton(5, "Wait", CoC.getInstance().monster.ceraphBoundWait);
@@ -3628,7 +3628,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0) {
 			if(CoC.getInstance().monster.trapLevel() <= 1) {
-				CoC.getInstance().scenes.desert.sandTrapScene.sandtrapmentLoss();
+				CoC.getInstance().scenes.sandTrapScene.sandtrapmentLoss();
 				return true;
 			}
 		}
@@ -5347,7 +5347,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		//Constrict
 		if (CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA) {
-			EngineCore.addButton(3, "Constrict", CoC.getInstance().scenes.desert.nagaScene.nagaPlayerConstrict);
+			EngineCore.addButton(3, "Constrict", CoC.getInstance().scenes.nagaScene.nagaPlayerConstrict);
 		}
 		//Kick attackuuuu
 		else if (CoC.getInstance().player.isTaur() || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {

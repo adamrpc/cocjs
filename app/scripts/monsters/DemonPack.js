@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, CoC, Monster, Ut
 			EngineCore.outputText( 'The demons stop attacking, and reach out to touch your body. Some are already masturbating like it\'s the only thing in the world and you know that right now, if you wanted to, you could make each and every one of them fuck you.' );
 		}
 		if( this.findStatusAffect( StatusAffects.phyllafight ) >= 0 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.desert.antsScene.consolePhylla );
+			EngineCore.doNext( CoC.getInstance().scenes.antsScene.consolePhylla );
 		} else if( hpVictory ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, CoC, Monster, Ut
 	};
 	DemonPack.prototype.rapeDemons = function() {
 		EngineCore.outputText('You open your arms and step into the throng of eager demons. They jump eagerly to touch you, becoming more and more lust-frenzied every second. You take the nearest demon and throw it to the ground and without a moment\'s thought the rest of the group leap to join you in a thoughtless madness of lust...', true);
-		EngineCore.doNext(CoC.getInstance().scenes.desert.oasis.oasisSexing);
+		EngineCore.doNext(CoC.getInstance().scenes.oasis.oasisSexing);
 	};
 	DemonPack.prototype.won = function(hpVictory, pcCameWorms) {
 		if( CoC.getInstance().player.gender === 0 ) {
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, CoC, Monster, Ut
 			Combat.cleanupAfterCombat();
 		} else if( hpVictory ) {
 			EngineCore.outputText( 'The demons finally beat you down and you collapse onto the sand of the oasis. Almost immediately you feel demonic hands pressing and probing your prone form. You hear the leader of the group say something in a strange tongue but you have a feeling you know what it means. The demons dive onto your inert body with intent and begin to press themselves against you...', true );
-			EngineCore.doNext( CoC.getInstance().scenes.desert.oasis.oasisSexing );
+			EngineCore.doNext( CoC.getInstance().scenes.oasis.oasisSexing );
 		} else {
 			EngineCore.outputText( 'You struggle to keep your mind on the fight and fail to do so. ', true );
 			if( pcCameWorms ) {
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, CoC, Monster, Ut
 				EngineCore.outputText( Descriptors.vaginaDescript( 0 ) + ' burns ', false );
 			}
 			EngineCore.outputText( 'with arousal.  You make a grab for the nearest demon and catch a handful of jiggly breast. You try desperately to use your other arm to pull her closer to slake your thirst but you both go tumbling to the ground. The demonic leader laughs out loud and the rest of the tribe falls on you, grabbing for anything it can find.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.desert.oasis.oasisSexing );
+			EngineCore.doNext( CoC.getInstance().scenes.oasis.oasisSexing );
 		}
 	};
 

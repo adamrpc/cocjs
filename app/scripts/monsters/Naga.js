@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, 
 		Combat.combatRoundOver();
 	};
 	Naga.prototype.defeated = function( ) {
-		CoC.getInstance().scenes.desert.nagaScene.nagaRapeChoice();
+		CoC.getInstance().scenes.nagaScene.nagaRapeChoice();
 	};
 	Naga.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, 
 			CoC.getInstance().player.orgasm();
 			EngineCore.doNext( Combat.cleanupAfterCombat );
 		} else {
-			CoC.getInstance().scenes.desert.nagaScene.nagaFUCKSJOOOOOO();
+			CoC.getInstance().scenes.nagaScene.nagaFUCKSJOOOOOO();
 		}
 	};
 	Naga.prototype.Naga = function( that, args ) {

@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PostAkbalSubmission ) >= 0 ) {
 			CoC.getInstance().player.removeStatusAffect( StatusAffects.PostAkbalSubmission );
-			CoC.getInstance().scenes.forest.akbalScene.akbalSubmissionFollowup();
+			CoC.getInstance().scenes.akbalScene.akbalSubmissionFollowup();
 			return;
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PostAnemoneBeatdown ) >= 0 ) {
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			EngineCore.outputText( '\n\n', false );
 		}
 		//►[Added Campsite Description]
-		if( CoC.getInstance().scenes.desert.antsScene.phyllaWaifu() ) {
+		if( CoC.getInstance().scenes.antsScene.phyllaWaifu() ) {
 			EngineCore.outputText( 'You see Phylla\'s anthill in the distance.  Every now and then you see' );
 			//If PC has children w/ Phylla
 			if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 0 ) {
@@ -1015,7 +1015,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			EngineCore.addButton( 7, 'Nieve', nieve );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ANT_WAIFU ] > 0 ) {
-			EngineCore.addButton( 8, 'Phylla', CoC.getInstance().scenes.desert.antsScene.introductionToPhyllaFollower );
+			EngineCore.addButton( 8, 'Phylla', CoC.getInstance().scenes.antsScene.introductionToPhyllaFollower );
 		}
 		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
 	};
@@ -1554,7 +1554,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			EngineCore.addButton( 6, 'Owca', CoC.getInstance().scenes.owca.gangbangVillageStuff );
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
-			EngineCore.addButton( 7, 'Salon', CoC.getInstance().scenes.mountain.salon.salonGreeting );
+			EngineCore.addButton( 7, 'Salon', CoC.getInstance().scenes.salon.salonGreeting );
 		}
 		if( CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
 			EngineCore.addButton( 8, 'Tel\'Adre', CoC.getInstance().scenes.telAdre.telAdreMenu );
@@ -1569,7 +1569,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			EngineCore.addButton( 0, 'TownRuins', CoC.getInstance().scenes.amilyScene.exploreVillageRuin );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] >= 4 ) {
-			EngineCore.addButton( 1, 'Oasis Tower', CoC.getInstance().scenes.highMountains.minervaScene.encounterMinerva );
+			EngineCore.addButton( 1, 'Oasis Tower', CoC.getInstance().scenes.minervaScene.encounterMinerva );
 		}
 		EngineCore.addButton( 4, 'Previous', this.placesToPage1 );
 		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );

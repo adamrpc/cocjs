@@ -1012,7 +1012,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
 			childStats += '<b>Children With Kelly (Females):</b> ' + (CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ]) + '\n';
 		}
-		if( CoC.getInstance().scenes.mountain.salon.lynnetteApproval() !== 0 ) {
+		if( CoC.getInstance().scenes.salon.lynnetteApproval() !== 0 ) {
 			childStats += '<b>Lynnette Children:</b> ' + CoC.getInstance().flags[ kFLAGS.LYNNETTE_BABY_COUNT ] + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
@@ -1233,8 +1233,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + CoC.getInstance().scenes.telAdre.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + CoC.getInstance().scenes.telAdre.lottie.lottieTone() + ' (higher is better)\n';
 		}
-		if( CoC.getInstance().scenes.mountain.salon.lynnetteApproval() !== 0 ) {
-			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + CoC.getInstance().scenes.mountain.salon.lynnetteApproval() + '\n';
+		if( CoC.getInstance().scenes.salon.lynnetteApproval() !== 0 ) {
+			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + CoC.getInstance().scenes.salon.lynnetteApproval() + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 0 ) {
 			interpersonStats += '<b>Owca\'s Attitude:</b> ' + CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] + '\n';

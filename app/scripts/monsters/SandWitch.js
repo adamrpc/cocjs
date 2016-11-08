@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( $log, CoC, Monster, Ut
 			CoC.getInstance().player.removeStatusAffect( StatusAffects.StoneLust );
 		}
 		if( CoC.getInstance().player.lust >= 33 ) {
-			CoC.getInstance().scenes.desert.sandWitchScene.beatSandwitch();
+			CoC.getInstance().scenes.sandWitchScene.beatSandwitch();
 		} else {
 			Combat.finishCombat();
 		}
@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( $log, CoC, Monster, Ut
 			EngineCore.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.desert.sandWitchScene.sandwitchRape();
+			CoC.getInstance().scenes.sandWitchScene.sandwitchRape();
 		}
 	};
 	SandWitch.prototype.lustMagicAttack = function() {

@@ -12,16 +12,16 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( CoC, Monster, Utils, Sta
 			}
 			CoC.getInstance().player.lust = 98;
 			EngineCore.dynStats( 'lus', 1 );
-			var dildoRape = CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? CoC.getInstance().scenes.forest.beeGirlScene.beeGirlsGetsDildoed : null;
-			var milkAndHoney = CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? CoC.getInstance().scenes.forest.beeGirlScene.milkAndHoneyAreKindaFunny : null;
-			EngineCore.choices( 'Rape', CoC.getInstance().scenes.forest.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', dildoRape, '', null, 'B. Feed', milkAndHoney, 'Leave', this.leaveAfterDefeating );
+			var dildoRape = CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? CoC.getInstance().scenes.beeGirlScene.beeGirlsGetsDildoed : null;
+			var milkAndHoney = CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? CoC.getInstance().scenes.beeGirlScene.milkAndHoneyAreKindaFunny : null;
+			EngineCore.choices( 'Rape', CoC.getInstance().scenes.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', dildoRape, '', null, 'B. Feed', milkAndHoney, 'Leave', this.leaveAfterDefeating );
 		} else if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Genderless can still breastfeed
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			} else {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' spreads her legs and starts frigging her honey-soaked cunt.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			}
-			EngineCore.choices( 'B. Feed', CoC.getInstance().scenes.forest.beeGirlScene.milkAndHoneyAreKindaFunny, '', null, '', null, '', null, 'Leave', this.leaveAfterDefeating );
+			EngineCore.choices( 'B. Feed', CoC.getInstance().scenes.beeGirlScene.milkAndHoneyAreKindaFunny, '', null, '', null, '', null, 'Leave', this.leaveAfterDefeating );
 		} else {
 			Combat.finishCombat();
 		}
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( CoC, Monster, Utils, Sta
 			EngineCore.outputText( '\n\nThe bee-girl goes white and backs away with a disgusted look on her face.\n\n' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.forest.beeGirlScene.beeRapesYou();
+			CoC.getInstance().scenes.beeGirlScene.beeRapesYou();
 		}
 	};
 	BeeGirl.prototype.beeStingAttack = function() {

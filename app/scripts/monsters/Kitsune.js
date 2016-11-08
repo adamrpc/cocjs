@@ -178,14 +178,14 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( CoC, PerkLib, Monster, U
 	};
 
 	Kitsune.prototype.defeated = function() {
-		CoC.getInstance().scenes.forest.kitsuneScene.defeatTheKitsunes();
+		CoC.getInstance().scenes.kitsuneScene.defeatTheKitsunes();
 	};
 	Kitsune.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe kitsune recoils before running off, no longer interested in you...' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.forest.kitsuneScene.loseToKitsunes();
+			CoC.getInstance().scenes.kitsuneScene.loseToKitsunes();
 		}
 	};
 	SandWitch.prototype.init = function( that, args ) {

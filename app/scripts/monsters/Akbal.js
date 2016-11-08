@@ -68,10 +68,10 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, CoC, Monster, Utils,
 		Combat.combatRoundOver();
 	};
 	Akbal.prototype.defeated = function( hpVictory ) {
-		CoC.getInstance().scenes.forest.akbalScene.akbalDefeated( hpVictory );
+		CoC.getInstance().scenes.akbalScene.akbalDefeated( hpVictory );
 	};
 	Akbal.prototype.won = function( hpVictory, pcCameWorms ) {
-		CoC.getInstance().scenes.forest.akbalScene.akbalWon( hpVictory, pcCameWorms );
+		CoC.getInstance().scenes.akbalScene.akbalWon( hpVictory, pcCameWorms );
 		Combat.cleanupAfterCombat();
 	};
 	Akbal.prototype.akbalLustAttack = function() {

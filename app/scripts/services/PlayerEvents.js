@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, -0.15 );
 		} //Reduce kelt submissiveness by 1 every 5 hours
 		//Mino cum update.
-		if( CoC.getInstance().scenes.mountain.minotaurScene.minoCumUpdate() ) {
+		if( CoC.getInstance().scenes.minotaurScene.minoCumUpdate() ) {
 			needNext = true;
 		} else if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 2 && CoC.getInstance().time.hours % 13 === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00330 ] === 0 ) { //Repeated warnings!
 			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
@@ -955,12 +955,12 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			}
 		}
 		if( CoC.getInstance().player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 && CoC.getInstance().player.str <= 1 ) { //Bad end!
-			CoC.getInstance().scenes.lake.gooGirlScene.slimeBadEnd();
+			CoC.getInstance().scenes.gooGirlScene.slimeBadEnd();
 			return true;
 		}
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.BEE && CoC.getInstance().player.lust >= 100 ) {
 			EngineCore.outputText( '\nYou can’t help it anymore, you need to find the bee girl right now.  You rush off to the forest to find the release that you absolutely must have.  Going on instinct you soon find the bee girl\'s clearing and her in it.\n\n' );
-			CoC.getInstance().scenes.forest.beeGirlScene.beeSexForCocks( false );
+			CoC.getInstance().scenes.beeGirlScene.beeSexForCocks( false );
 			return true;
 		}
 		return false;

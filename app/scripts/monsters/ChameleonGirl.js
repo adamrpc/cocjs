@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 	};
 
 	ChameleonGirl.prototype.defeated = function( ) {
-		CoC.getInstance().scenes.bog.chameleonGirlScene.defeatChameleonGirl();
+		CoC.getInstance().scenes.chameleonGirlScene.defeatChameleonGirl();
 	};
 
 	ChameleonGirl.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 			EngineCore.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.bog.chameleonGirlScene.loseToChameleonGirl();
+			CoC.getInstance().scenes.chameleonGirlScene.loseToChameleonGirl();
 		}
 	};
 	ChameleonGirl.prototype.outputPlayerDodged = function( ) {

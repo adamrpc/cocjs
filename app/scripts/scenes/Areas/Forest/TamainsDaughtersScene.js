@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				EngineCore.outputText( '\n\n', false );
 				if( this.tamaniPresent ) {
 					EngineCore.outputText( 'Tamani pushes the slut on your face off and plants herself there, smearing your ' + CoC.getInstance().player.face() + ' with a mixture of cum and vaginal wetness.  ', false );
-					if( CoC.getInstance().scenes.forest.tamaniScene.pregnancy.isPregnant ) {
+					if( CoC.getInstance().scenes.tamaniScene.pregnancy.isPregnant ) {
 						EngineCore.outputText( 'She rubs her pregnancy swollen belly', false );
 					} else {
 						EngineCore.outputText( 'She fondles her nipples', false );
@@ -374,7 +374,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		EngineCore.dynStats( 'lib', 1, 'cor', 1 );
 		//Knock the bitches up, boost libido, corruption
 		if( this.tamaniPresent ) {
-			CoC.getInstance().scenes.forest.tamaniScene.tamaniKnockUp();
+			CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
 		} //If she wasn't pregnant she will be now
 		this.knockUpDaughters();
 		CoC.getInstance().player.cumMultiplier += 0.3;
@@ -495,7 +495,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				//increase hypno value
 				CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 				//preggo up tamani
-				CoC.getInstance().scenes.forest.tamaniScene.tamaniKnockUp();
+				CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
 			}
 			//NO TAMANI:
 			else {
@@ -829,7 +829,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				EngineCore.outputText( ', until an orgasm wracks your body and derails your train of thought, drowning it in a sea of pleasure.  She moans and slides down, pressing her entrance against your urethra as your internal muscles clench, pumping thick spurts into the goblin\'s womb.  A new-found sense of satisfaction and pleasure spreads through you.  It feels so good to knock Tamani up that your orgasm drags on forever, until you feel empty and exhausted.   Looking back, you realize just how much more pleasurable her box is in comparison to the other holes you\'ve tasting in your travels, even her daughter\'s.  As Tamani rises up off of you, dripping with cum, the memories of everything but the sex slowly slip away, leaving behind happiness and anticipation of your next chance to fill her.\n\n', false );
 				EngineCore.outputText( 'Your mistress steps away, swaying her more-than ample hips from side to side as she saunters off.  You shake your head, feeling a little out of sorts, but before you get a chance to puzzle it out, the exhaustion of the encounter overwhelms you, blacking you out.', false );
 				//knock up tamani chance
-				CoC.getInstance().scenes.forest.tamaniScene.tamaniKnockUp();
+				CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
 				//increase hypno value
 				CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 			}
@@ -838,7 +838,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'str', -0.5, 'int', -0.5, 'lib', 1, 'cor', 1 );
 		if( this.tamaniPresent ) {
-			CoC.getInstance().scenes.forest.tamaniScene.tamaniKnockUp();
+			CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
 		} //If she wasn't pregnant she will be now
 		this.knockUpDaughters();
 		if( CoC.getInstance().isInCombat() ) {
@@ -1215,7 +1215,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		}
 		//Chance of tamani pregnancy, chance of daughter preggers
 		this.knockUpDaughters();
-		CoC.getInstance().scenes.forest.tamaniScene.tamaniKnockUp();
+		CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
 		CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 		//daughter countdown reset.
 		CoC.getInstance().player.orgasm();

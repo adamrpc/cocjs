@@ -56,10 +56,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
 			//Withdrawl auto-fuck!
 			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
-				CoC.getInstance().scenes.mountain.minotaurScene.minoAddictionFuck();
+				CoC.getInstance().scenes.minotaurScene.minoAddictionFuck();
 				return;
 			}
-			CoC.getInstance().scenes.mountain.minotaurScene.getRapedByMinotaur( true );
+			CoC.getInstance().scenes.minotaurScene.getRapedByMinotaur( true );
 			EngineCore.spriteSelect( 44 );
 			return;
 		}

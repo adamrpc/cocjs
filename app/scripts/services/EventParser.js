@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage ) >= 0 ) {
 			$log.info( 'Uma\'s massage bonus time remaining: ' + CoC.getInstance().player.statusAffectv3( StatusAffects.UmasMassage ) );
 		}
-		CoC.getInstance().scenes.highMountains.izumiScenes.updateSmokeDuration( time );
+		CoC.getInstance().scenes.izumiScenes.updateSmokeDuration( time );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.IzumisPipeSmoke ) >= 0 ) {
 			$log.info( 'Izumis pipe smoke time remaining: ' + CoC.getInstance().player.statusAffectv1( StatusAffects.IzumisPipeSmoke ) );
 		}

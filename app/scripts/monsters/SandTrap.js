@@ -97,14 +97,14 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Uti
 		}
 	};
 	SandTrap.prototype.defeated = function() {
-		CoC.getInstance().scenes.desert.sandTrapScene.pcBeatsATrap();
+		CoC.getInstance().scenes.sandTrapScene.pcBeatsATrap();
 	};
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.desert.sandTrapScene.sandtrapmentLoss( true );
+			CoC.getInstance().scenes.sandTrapScene.sandtrapmentLoss( true );
 		}
 	};
 	SandTrap.prototype.init = function( that, args ) {
