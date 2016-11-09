@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
 	var HellHound = angular.copy( Monster );
 	HellHound.prototype.hellhoundFire = function() {
 		//Blind dodge change
