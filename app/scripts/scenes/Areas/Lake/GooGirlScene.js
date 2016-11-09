@@ -467,5 +467,5 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	return GooGirlScene;
+	CoC.getInstance().registerScene( 'gooGirlScene', new GooGirlScene() );
 } );
