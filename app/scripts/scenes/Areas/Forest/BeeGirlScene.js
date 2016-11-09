@@ -1347,7 +1347,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( '(You could dose her with venom and lay YOUR eggs in her.)\n' );
 		}
 		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( '(You could fuck her with ' + this.oMultiCockDesc() + '.)\n', false );
+			EngineCore.outputText( '(You could fuck her with ' + CoC.getInstance().player.oMultiCockDesc() + '.)\n', false );
 			cock = this.rapeTheBeeGirlWithADick;
 		}
 		if( CoC.getInstance().player.cockTotal() > 1 ) {

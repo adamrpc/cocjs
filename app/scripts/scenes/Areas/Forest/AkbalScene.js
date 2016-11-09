@@ -404,13 +404,13 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( 'Time seems to stretch as you stand there, pinning the god, once so proud and mighty, now just a mewling kitten devoted to your pleasure', false );
 			//({If Herm}
 			if( CoC.getInstance().player.hasCock() ) {
-				EngineCore.outputText( ' while you stroke ' + this.oMultiCockDesc() + ' in time with his thrusts', false );
+				EngineCore.outputText( ' while you stroke ' + CoC.getInstance().player.oMultiCockDesc() + ' in time with his thrusts', false );
 			}
 			EngineCore.outputText( '. His flexible tail pokes and strokes your deepest recesses as you keep him permanently on the edge with your teasing treatment while his sharp claws dig furrows into the earth as he strains up against you, too caught up in his pleasure to mentally voice his desires. Instead, he opens his maw to signal his lust as a savage beast would, full of yowls, snarls and purrs, creating an oddly pleasing cacophony to your ears, making you feel like the ' + CoC.getInstance().player.mf( 'Ruler of Beasts', 'Queen of Beasts' ) + ', adding your own savage calls to his.\n\n', false );
 			EngineCore.outputText( 'The squirming of his tail becomes too much however, as a familiar pressure builds up down below. Increasing the pace upon which you please his shaft, you lower yourself, trying to push more of that skilled tail into you, ', false );
 			//({If Herm}
 			if( CoC.getInstance().player.gender === 3 ) {
-				EngineCore.outputText( 'stroking ' + this.oMultiCockDesc() + ' roughly, ', false );
+				EngineCore.outputText( 'stroking ' + CoC.getInstance().player.oMultiCockDesc() + ' roughly, ', false );
 			}
 			EngineCore.outputText( 'moaning loudly as your pussy lips begin to clench and tighten, slick juices trickling down his fur. Sensing your closeness, Akbal redoubles his efforts, his writhing tail bristling, dragging his fur along your insides. Finally it becomes too much as you release, your thick fem juices pouring out of your stuffed pussy, falling down onto his straining shaft', false );
 			if( CoC.getInstance().player.hasCock() ) {
