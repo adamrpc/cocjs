@@ -95,9 +95,9 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( CoC, EngineCore, Monster
 		if( damage > 0 ) {
 			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.capitalA + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.capitalA + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 5 * this.lustVuln;
 			}

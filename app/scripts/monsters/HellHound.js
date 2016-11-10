@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore,
 	HellHound.prototype.hellhoundFire = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
-			EngineCore.outputText( this.capitalA + this.short + ' completely misses you with a wave of dark fire! Thank the gods it\'s blind!', false );
+			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a wave of dark fire! Thank the gods it\'s blind!', false );
 			Combat.combatRoundOver();
 			return;
 		}
