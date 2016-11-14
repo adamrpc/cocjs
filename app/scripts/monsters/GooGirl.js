@@ -140,7 +140,9 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( CoC, EngineCore, Monster
 			this.gooThrow();
 		}
 	};
-	GooGirl.prototype.defeated = CoC.getInstance().scenes.gooGirlScene.beatUpGoo;
+	GooGirl.prototype.defeated = function() {
+		CoC.getInstance().scenes.gooGirlScene.beatUpGoo();
+	};
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );

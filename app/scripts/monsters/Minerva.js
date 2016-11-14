@@ -162,7 +162,9 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( CoC, kFLAGS, EngineCore,
 			choices[ Utils.rand( choices.length ) ]();
 		}
 	};
-	Minerva.prototype.defeated = CoC.getInstance().scenes.minervaScene.beatUpDatSharpie;
+	Minerva.prototype.defeated = function(){
+		CoC.getInstance().scenes.minervaScene.beatUpDatSharpie();
+	};
 	Minerva.prototype.won = CoC.getInstance().scenes.minervaScene.loseToMinerva;
 	Minerva.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
