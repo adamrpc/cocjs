@@ -779,7 +779,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 					CoC.getInstance().scenes.latexGirl.gooObedience( 1, false );
 				}
 			}
-			CoC.getInstance().scenes.farm.farmCorruption.updateFarmCorruption(); //Farm Corruption updating
+			CoC.getInstance().scenes.farmCorruption.updateFarmCorruption(); //Farm Corruption updating
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) { // Herbal contraceptives countdown
 				if( CoC.getInstance().player.statusAffectv1( StatusAffects.Contraceptives ) === 1 ) {
 					CoC.getInstance().player.addStatusValue( StatusAffects.Contraceptives, 2, -1 );

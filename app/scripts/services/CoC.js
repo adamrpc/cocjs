@@ -109,10 +109,10 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 	};
     // TODO : WTF is it doing here ?
 	CoC.prototype.isEaster = function() {
-		if(!_.has(this.scenes, 'plains')) {
+		if(!_.has(this.scenes, 'bunnyGirl')) {
 			return false;
 		}
-		return this.scenes.plains.bunnyGirl.isItEaster();
+		return this.scenes.bunnyGirl.isItEaster();
 	};
     // TODO : WTF is it doing here ?
 	CoC.prototype.isInCombat = function() {

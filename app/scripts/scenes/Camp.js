@@ -1481,7 +1481,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			if( CoC.getInstance().flags[ kFLAGS.FARM_DISABLED ] === 0 ) {
 				return true;
 			}
-			if( CoC.getInstance().player.cor >= 70 && CoC.getInstance().player.level >= 12 && CoC.getInstance().scenes.farm.farmCorruption.corruptFollowers() >= 2 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_DISABLED ] === 0 ) {
+			if( CoC.getInstance().player.cor >= 70 && CoC.getInstance().player.level >= 12 && CoC.getInstance().scenes.farmCorruption.corruptFollowers() >= 2 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_DISABLED ] === 0 ) {
 				return true;
 			}
 		}
