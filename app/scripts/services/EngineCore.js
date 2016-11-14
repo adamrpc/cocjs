@@ -1187,7 +1187,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			interpersonStats += '<b>' + CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( CoC.getInstance().scenes.benoit.benoitAffection() ) + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] > 0 ) {
-			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( CoC.getInstance().scenes.telAdre.brooke.brookeAffection() ) + '\n';
+			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( CoC.getInstance().scenes.brooke.brookeAffection() ) + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ] > 0 ) {
 			interpersonStats += '<b>Body Parts Taken By Ceraph:</b> ' + (CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]) + '\n';
@@ -1210,7 +1210,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
-			interpersonStats += '<b>Katherine Submissiveness:</b> ' + CoC.getInstance().scenes.telAdre.katherine.submissiveness() + '\n';
+			interpersonStats += '<b>Katherine Submissiveness:</b> ' + CoC.getInstance().scenes.katherine.submissiveness() + '\n';
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		//Lottie stuff
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
-			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + CoC.getInstance().scenes.telAdre.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + CoC.getInstance().scenes.telAdre.lottie.lottieTone() + ' (higher is better)\n';
+			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + CoC.getInstance().scenes.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + CoC.getInstance().scenes.lottie.lottieTone() + ' (higher is better)\n';
 		}
 		if( CoC.getInstance().scenes.salon.lynnetteApproval() !== 0 ) {
 			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + CoC.getInstance().scenes.salon.lynnetteApproval() + '\n';
@@ -1239,8 +1239,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 0 ) {
 			interpersonStats += '<b>Owca\'s Attitude:</b> ' + CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] + '\n';
 		}
-		if( CoC.getInstance().scenes.telAdre.rubi.rubiAffection() > 0 ) {
-			interpersonStats += '<b>Rubi\'s Affection:</b> ' + Math.round( CoC.getInstance().scenes.telAdre.rubi.rubiAffection() ) + '%\n' + '<b>Rubi\'s Orifice Capacity:</b> ' + Math.round( CoC.getInstance().scenes.telAdre.rubi.rubiCapacity() ) + '%\n';
+		if( CoC.getInstance().scenes.rubi.rubiAffection() > 0 ) {
+			interpersonStats += '<b>Rubi\'s Affection:</b> ' + Math.round( CoC.getInstance().scenes.rubi.rubiAffection() ) + '%\n' + '<b>Rubi\'s Orifice Capacity:</b> ' + Math.round( CoC.getInstance().scenes.rubi.rubiCapacity() ) + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 0 ) {
 			interpersonStats += '<b>Sheila\'s Corruption:</b> ' + CoC.getInstance().scenes.sheilaScene.sheilaCorruption();

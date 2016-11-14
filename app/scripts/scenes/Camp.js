@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		//Cotton preg freakout
 		if( CoC.getInstance().player.pregnancyIncubation <= 280 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_COTTON &&
 			CoC.getInstance().flags[ kFLAGS.COTTON_KNOCKED_UP_PC_AND_TALK_HAPPENED ] === 0 && (CoC.getInstance().time.hours === 6 || CoC.getInstance().time.hours === 7) ) {
-			CoC.getInstance().scenes.telAdre.cotton.goTellCottonShesAMomDad();
+			CoC.getInstance().scenes.cotton.goTellCottonShesAMomDad();
 			EngineCore.hideMenus();
 			return;
 		}

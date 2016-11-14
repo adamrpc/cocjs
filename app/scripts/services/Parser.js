@@ -211,14 +211,14 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 	// arianMF("master","mistress")
 	// arianMF("male","girly")
 	Parser.rubiLookups = { // For subject: "rubi"
-		"man"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("man","woman");},
-		"ey"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("he","she");},
-		"em"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("him","her");},
-		"eir"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("his","her");},
-		"eirs"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("his","hers");},
-		"emself"	: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiMF("himself","herself");},
-		"cock"		: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiCock();},
-		"breasts"	: function() {return CoC.getInstance().scenes.telAdre.rubi.rubiBreasts();}
+		"man"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("man","woman");},
+		"ey"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("he","she");},
+		"em"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("him","her");},
+		"eir"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("his","her");},
+		"eirs"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("his","hers");},
+		"emself"	: function() {return CoC.getInstance().scenes.rubi.rubiMF("himself","herself");},
+		"cock"		: function() {return CoC.getInstance().scenes.rubi.rubiCock();},
+		"breasts"	: function() {return CoC.getInstance().scenes.rubi.rubiBreasts();}
 	};
 	Parser.cockLookups = { // For subject: "cock"
 		"all"		: function() { return CoC.getInstance().player.multiCockDescriptLight(); },

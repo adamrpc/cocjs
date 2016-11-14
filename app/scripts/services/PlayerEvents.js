@@ -936,7 +936,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			}
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00157 ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00157 ] < 4 ) { //Dominika Dream
 				EngineCore.outputText( '\n<b>Your rest is somewhat troubled with odd dreams...</b>\n' );
-				CoC.getInstance().scenes.telAdre.dominika.fellatrixDream();
+				CoC.getInstance().scenes.dominika.fellatrixDream();
 				return true;
 			}
 			if( CoC.getInstance().scenes.anemoneScene.kidAXP() >= 40 && CoC.getInstance().flags[ kFLAGS.HAD_KID_A_DREAM ] === 0 && CoC.getInstance().player.gender > 0 ) {

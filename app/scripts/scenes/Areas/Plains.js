@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, XmasMis
 		}
 		//Find Niamh
 		if( CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] === 1 ) {
-			CoC.getInstance().scenes.telAdre.niamh.niamhPostTelAdreMoveOut();
+			CoC.getInstance().scenes.niamh.niamhPostTelAdreMoveOut();
 			return;
 		}
 		//Find Owca

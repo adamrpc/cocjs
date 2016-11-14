@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 			} // We're not capping it, we're going to use negative values to figure out diff events
 		}
 		// Hanging the Uma massage update here, I think it should work...
-		CoC.getInstance().scenes.telAdre.umasShop.updateBonusDuration( time );
+		CoC.getInstance().scenes.umasShop.updateBonusDuration( time );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage ) >= 0 ) {
 			$log.info( 'Uma\'s massage bonus time remaining: ' + CoC.getInstance().player.statusAffectv3( StatusAffects.UmasMassage ) );
 		}
