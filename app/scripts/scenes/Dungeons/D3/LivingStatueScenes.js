@@ -39,5 +39,5 @@ angular.module( 'cocjs' ).run( function( LivingStatue, Combat, EventParser, CoC,
 		EngineCore.outputText( 'You slump to your knees, overwhelmed and unable to see the shadow of the falling hammer. Your last thoughts are of regret.' );
 		EventParser.gameOver();
 	};
-	return LivingStatueScenes;
+	CoC.getInstance().registerScene( 'livingStatueScenes', new LivingStatueScenes() );
 } );
