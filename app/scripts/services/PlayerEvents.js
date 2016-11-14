@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 				CoC.getInstance().flags[ kFLAGS.RUBI_PROFIT ] += 2 + Utils.rand( 4 );
 			}
 			CoC.getInstance().flags[ kFLAGS.BENOIT_TALKED_TODAY ] = 0;
-			CoC.getInstance().scenes.bazaar.benoit.updateBenoitInventory();
+			CoC.getInstance().scenes.benoit.updateBenoitInventory();
 			CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] = 0;
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ]--;

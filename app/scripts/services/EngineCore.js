@@ -1183,8 +1183,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
 			interpersonStats += '<b>Arian Sex Counter:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] ) + '\n';
 		}
-		if( CoC.getInstance().scenes.bazaar.benoit.benoitAffection() > 0 ) {
-			interpersonStats += '<b>' + CoC.getInstance().scenes.bazaar.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( CoC.getInstance().scenes.bazaar.benoit.benoitAffection() ) + '%\n';
+		if( CoC.getInstance().scenes.benoit.benoitAffection() > 0 ) {
+			interpersonStats += '<b>' + CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( CoC.getInstance().scenes.benoit.benoitAffection() ) + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] > 0 ) {
 			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( CoC.getInstance().scenes.telAdre.brooke.brookeAffection() ) + '\n';
