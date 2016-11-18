@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( AppearanceDefs, WeightedD
 			CoC.getInstance().scenes.goblinScene.goblinRapesPlayer();
 		}
 	};
-	Goblin.prototype.Goblin = function( that, args ) {
+	Goblin.prototype.init = function( that, args ) {
 		if( args[ 0 ] ) {
 			return;
 		}
