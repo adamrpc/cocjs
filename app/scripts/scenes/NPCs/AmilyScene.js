@@ -35,7 +35,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 	function AmilyScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
-		this.pregnancy = null;
+		this.pregnancy = new PregnancyStore(kFLAGS.AMILY_PREGNANCY_TYPE, kFLAGS.AMILY_INCUBATION, kFLAGS.AMILY_BUTT_PREGNANCY_TYPE, kFLAGS.AMILY_OVIPOSITED_COUNTDOWN);
+		this.pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 150, 120, 100, 96, 90, 72, 48);
 	}
 
 	//Implementation of TimeAwareInterface;
