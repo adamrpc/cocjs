@@ -1640,7 +1640,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 				}
 			} );
 			//Randomly choose one of those locations;
-			select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+			select = choices[ Utils.rand( choices.length ) ];
 			EngineCore.outputText( '\n\nYour ' + Descriptors.cockDescript( select ) + ' tingles as pins and needles sweep across it.  You pull open your [armor] to watch as it changes; the tip elongates and tapers, like a spear; a series of ridges form along the shaft, giving it an almost segmented look, and a prominent knot swells at its base.  You can\'t resist stroking it, until it begins dripping pre; ' );
 			if( CoC.getInstance().player.sens >= 50 ) {
 				EngineCore.outputText( 'however, it\'s not until you press on your new, sensitive knot that you manage to blow your load and enjoy the last few spasms of pleasure as it finally finishes changing.' );

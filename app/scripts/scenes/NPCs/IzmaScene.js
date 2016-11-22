@@ -2656,17 +2656,16 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, Worms, Cons
 		//Build an array of the possible scenes;
 		if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] > 0 ) {
 			//NEITHER GOOD;
-			//EngineCore.choices[choices.length] = 1;;
-			//EngineCore.choices[choices.length] = 2;;
+			//choices.push(1);
+			//choices.push(2);
 		}
 		if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] + CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] >= 2 ) {
-			EngineCore.choices[ choices.length ] = 3;
+			choices.push(3);
 		}
-		//if(CoC.getInstance().flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00251] > 1) EngineCore.choices[choices.length] = 6;;
-		EngineCore.choices[ choices.length ] = 4;
-		EngineCore.choices[ choices.length ] = 5;
+		choices.push(4);
+		choices.push(5);
 		//Select correct scene!;
-		var choice = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		var choice = choices[ Utils.rand( choices.length ) ];
 		if( CoC.getInstance().time.hours < 10 && CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 && Utils.rand( 2 ) === 0 ) {
 			CoC.getInstance().scenes.anemoneScene.kidAWatchesSharks();
 			return;

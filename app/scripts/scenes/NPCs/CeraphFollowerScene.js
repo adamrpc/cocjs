@@ -2165,15 +2165,15 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		var choices = [];
 		//Choose one of the following at random;
 		if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 ) {
-			EngineCore.choices[ choices.length ] = 0;
+			choices.push(0);
 		}
 		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(1);
 		} else if( CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(1);
 		}
-		EngineCore.choices[ choices.length ] = 2;
-		var select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		choices.push(2);
+		var select = choices[ Utils.rand( choices.length ) ];
 		//HOLLI;
 		if( select === 0 ) {
 			//{Normal Holli};

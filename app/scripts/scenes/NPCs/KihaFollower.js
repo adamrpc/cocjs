@@ -2111,13 +2111,13 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]Working your hands quickly into the fleeting gaps in her stranglehold, you capitalize on her distraction and wiggle out of her grip.  "<i>W-wha-?</i>" she tries to blather out, but her expression of dismay and confusion is cut off as you roughly flip her body over with your hands.  The air is filled briefly with a loud "<i>umph</i>" from your dragoness lover, and then a wail of surprise as you' );
 		var choices = [];
 		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.choices[ choices.length ] = 0;
+			choices.push(0);
 		}
 		if( CoC.getInstance().player.hasVagina() ) {
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(1);
 		}
-		EngineCore.choices[ choices.length ] = 2;
-		var select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		choices.push(2);
+		var select = choices[ Utils.rand( choices.length ) ];
 		//PC's cock is chosen/ has cock only: ;
 		if( select === 0 || !CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( ' plow back into her cunt.  With your brute strength and form, you pin her body down to the ground and fuck her from behind.' );
@@ -2194,16 +2194,16 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '.  Finally, your chance for freedom arrives and you take it, raising your arms up and twisting against her body with all your might.  The move works and Kiha is flung from your lap and down the incline you both were rutting against.  Unfortunately... or fortunately, you find yourself rolling down the same hill as her; the world spinning around violently as you slip and tumble towards even ground.  After what feels like a dizzying eternity, you feel the evenness of earth under your spinning body, and come to rest against an old wooden stump of a dead tree.' );
 		EngineCore.outputText( '[pg]Groaning, you survey the immediate area for the less than cooperative dragon woman.' );
 		//repick scene;
-		EngineCore.choices = [];
+		choices = [];
 		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.choices[ choices.length ] = 0;
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(0);
+			choices.push(1);
 		}
 		if( CoC.getInstance().player.hasVagina() ) {
-			EngineCore.choices[ choices.length ] = 2;
+			choices.push(2);
 		}
-		EngineCore.choices[ choices.length ] = 2;
-		select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		choices.push(2);
+		select = choices[ Utils.rand( choices.length ) ];
 		//Random event one of three: Kiha wins... or so she thinks (doggy-style sexing);
 		if( select === 0 ) {
 			EngineCore.outputText( '[pg]Your answer comes in the form of a tail wrapped around your obviously engorged member' );

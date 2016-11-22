@@ -2238,20 +2238,20 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 	MarbleScene.prototype.marbleKidsPlaytime = function() {
 		EngineCore.clearOutput();
 		var choices = [];
-		EngineCore.choices[ choices.length ] = 1;
+		choices.push(1);
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-			EngineCore.choices[ choices.length ] = 2;
+			choices.push(2);
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-			EngineCore.choices[ choices.length ] = 3;
+			choices.push(3);
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-			EngineCore.choices[ choices.length ] = 4;
+			choices.push(4);
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-			EngineCore.choices[ choices.length ] = 5;
+			choices.push(5);
 		}
-		var select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		var select = choices[ Utils.rand( choices.length ) ];
 		if( CoC.getInstance().flags[ kFLAGS.KID_SITTER ] === 2 && CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
 			select = 6;
 		}

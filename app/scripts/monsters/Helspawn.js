@@ -4,28 +4,28 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( kFLAGS, MainView, Appea
 	var Helspawn = angular.copy( Monster );
 	Helspawn.prototype.doAI = function() {
 		var choices = [];
-		EngineCore.choices[ choices.length ] = this.helspawnTwinStrikes;
+		choices.push(this.helspawnTwinStrikes);
 		//Bowmander only;
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_WEAPON ] === 'bow' ) {
-			EngineCore.choices[ choices.length ] = this.calledShot;
+			choices.push(this.calledShot);
 		}
 		//Zerker ability;
 		if( this.weaponAttack < 50 || CoC.getInstance().flags[ kFLAGS.HELSPAWN_WEAPON ] === 'scimitar' ) {
-			EngineCore.choices[ choices.length ] = this.helSpawnBerserk;	//Shield Bash (Shieldmander Only)
+			choices.push(this.helSpawnBerserk);	//Shield Bash (Shieldmander Only)
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_WEAPON ] === 'scimitar and shield' ) {
-			EngineCore.choices[ choices.length ] = this.helSpawnShieldBash;
+			choices.push(this.helSpawnShieldBash);
 		}
 		//Tease (Sluttymander Only);
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_PERSONALITY ] >= 50 ) {
-			EngineCore.choices[ choices.length ] = this.sluttyMander;
+			choices.push(this.sluttyMander);
 		}
 		//Focus (Chastemander Only);
 		//Self-healing & lust restoration;
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_PERSONALITY ] < 50 ) {
-			EngineCore.choices[ choices.length ] = this.helSpawnFocus;
+			choices.push(this.helSpawnFocus);
 		}
-		EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ]();
+		choices[ Utils.rand( choices.length ) ]();
 		//Tail Whip;
 		if( Utils.rand( 4 ) === 0 ) {
 			this.tailWhipShitYo();

@@ -2946,26 +2946,26 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 			}
 			//Add 'get ridden' if it fits.;
 			else {
-				EngineCore.choices[ choices.length ] = 3;
+				choices.push(3);
 			}
 			//All males get tailjobs;
-			EngineCore.choices[ choices.length ] = 0;
+			choices.push(0);
 			//HJs;
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(1);
 		}
 		//Everyone has a chance of eating mousecunt.;
-		EngineCore.choices[ choices.length ] = 2;
+		choices.push(2);
 		//If Amily is a herm you might suck off...;
 		if( CoC.getInstance().flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 ) {
-			EngineCore.choices[ choices.length ] = 4;
+			choices.push(4);
 		}
 		//Get fucked by amily if she's herm and u have cunt;
 		if( CoC.getInstance().flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 && CoC.getInstance().player.hasVagina() ) {
-			EngineCore.choices[ choices.length ] = 5;
+			choices.push(5);
 		}
 		//========================================;
 		//CHOOSE PROPER SCENE;
-		var scene = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		var scene = choices[ Utils.rand( choices.length ) ];
 		//========================================;
 		//B1: Tailjob;
 		if( scene === 0 ) {

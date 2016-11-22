@@ -77,10 +77,10 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 	MaleSpiderMorphScene.prototype.loseToMaleSpiderMorph = function() {
 		var choices = [];
 		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.choices[ choices.length ] = 0;
+			choices.push(0);
 		}
 		if( CoC.getInstance().player.hasVagina() ) {
-			EngineCore.choices[ choices.length ] = 1;
+			choices.push(1);
 		}
 		if( CoC.getInstance().player.gender === 0 ) {
 			EngineCore.spriteSelect( 74 );
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 			Combat.cleanupAfterCombat();
 			return;
 		}
-		var select = EngineCore.choices[ Utils.rand( EngineCore.choices.length ) ];
+		var select = choices[ Utils.rand( choices.length ) ];
 		if( select === 0 ) {
 			this.spiderBoyLossMaleButtfuck();
 		} else {
