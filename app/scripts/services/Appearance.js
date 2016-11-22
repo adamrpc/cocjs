@@ -281,17 +281,22 @@ angular.module('cocjs').factory('Appearance', function ($log, Utils, AppearanceD
 		if (creature.cocks.length === 0) {
 			return 'CockDescript Called But No Cock Present';
 		}
+		var forceHuman = cockIndex === 99;
+		var cock = cockIndex;
+		if(_.isNumber(cock)) {
+			cock = creature.cocks.length <= cock ? null : creature.cocks[cock];
+		}
 		var cockType = CockTypesEnum.HUMAN;
-		if (cockIndex !== 99) { //CockIndex 99 forces a human cock description
-			if (creature.cocks.length <= cockIndex) {
+		if (!forceHuman) { //CockIndex 99 forces a human cock description
+			if (!cock) {
 				return 'CockDescript called with index of ' + cockIndex + ' - out of BOUNDS';
 			}
-			cockType = creature.cocks[cockIndex].cockType;
+			cockType = cock.cockType;
 		}
-		var isPierced = (creature.cocks.length === 1) && (creature.cocks[cockIndex].isPierced); //Only describe as pierced or sock covered if the creature has just one cock
-		var hasSock = (creature.cocks.length === 1) && (creature.cocks[cockIndex].sock !== '');
+		var isPierced = (creature.cocks.length === 1) && (creature.cocks[cock].isPierced); //Only describe as pierced or sock covered if the creature has just one cock
+		var hasSock = (creature.cocks.length === 1) && (creature.cocks[cock].sock !== '');
 		var isGooey = (creature.skinType === AppearanceDefs.SKIN_TYPE_GOO);
-		return cockDescription(cockType, creature.cocks[cockIndex].cockLength, creature.cocks[cockIndex].cockThickness, creature.lust, creature.cumQ(), isPierced, hasSock, isGooey);
+		return cockDescription(cockType, creature.cocks[cock].cockLength, creature.cocks[cock].cockThickness, creature.lust, creature.cumQ(), isPierced, hasSock, isGooey);
 	};
 
 	//This function takes all the variables independently so that a creature object is not required for a cockDescription.
