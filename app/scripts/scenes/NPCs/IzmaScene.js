@@ -2530,7 +2530,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, Worms, Cons
 	IzmaScene.prototype.IzmaPoopsBabies = function() {
 		EngineCore.spriteSelect( 32 );
 		EngineCore.outputText( '', true );
-		EngineCore.outputText( 'You hear the sounds of splashing and cursing coming from the part of the stream where Izma, by neccessity, keeps her private mini-CoC.getInstance().scenes.camp, and immediately you set off running. When you come tearing to a halt there, you find Izma, wading in the stream well up to her waist, and cursing as she holds her gravid belly, her tail angrily flailing through the water behind her. She still manages to smile when she sees it\'s you who\'s come to see her. No words are neccessary; you plunge into the water and head to her side.\n\n', false );
+		EngineCore.outputText( 'You hear the sounds of splashing and cursing coming from the part of the stream where Izma, by neccessity, keeps her private mini-camp, and immediately you set off running. When you come tearing to a halt there, you find Izma, wading in the stream well up to her waist, and cursing as she holds her gravid belly, her tail angrily flailing through the water behind her. She still manages to smile when she sees it\'s you who\'s come to see her. No words are neccessary; you plunge into the water and head to her side.\n\n', false );
 		EngineCore.outputText( '"<i>Here we go, huh?</i>"  She tries to laugh.  That\'s Izma for you; always trying to be brave.\n\n', false );
 		EngineCore.outputText( 'You take a stand behind and slightly beside her. Looking to comfort her however it\'s possible, you start to massage her taut midriff; you can feel the muscles contracting as they work to expel the baby into the world outside, the child inside wriggling and thrashing like a fish on a hook... all right, bad simile.\n\n', false );
 		EngineCore.outputText( '"<i>Fondle me,</i>" Izma suddenly says.  As you look at her in surprise, she nods vaguely in the direction of her crotch. "<i>Please, start ' );
@@ -2953,7 +2953,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, Worms, Cons
 			'E.Guide', this.sharkEdgingGuideLOL,
 			'Porn', this.sharkgirlPronz, '', null, 'Back', this.izmaFollowerMenu );
 	};
-	//(Req: Vagina. Player has dominated Izma pre-CoC.getInstance().scenes.camp, refused birth control. ;
+	//(Req: Vagina. Player has dominated Izma pre-camp, refused birth control. ;
 	//Izma now in camp.);
 	IzmaScene.prototype.findLostIzmaKids = function() {
 		EngineCore.outputText( '', true );

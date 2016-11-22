@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 	IsabellaFollowerScene.prototype.sendToFarm = function() {
 		EngineCore.clearOutput();
 		this.isabellaSprite();
-		EngineCore.outputText( '“<i>Do you think you could do me a favor?</i>” you say to the Teutonic tit-CoC.getInstance().monster. “<i>There’s a farm near here, down by the lake. I need anyone who is strong, and vigilant, and... has a lot of milk...</i>” To your relief, Isabella responds well to the idea.' );
+		EngineCore.outputText( '“<i>Do you think you could do me a favor?</i>” you say to the Teutonic tit-monster. “<i>There’s a farm near here, down by the lake. I need anyone who is strong, and vigilant, and... has a lot of milk...</i>” To your relief, Isabella responds well to the idea.' );
 		if( this.isabellaAccent() ) {
 			EngineCore.outputText( '\n\n“<i>Ja, I know of this place from mein own travels. The baurehund is very kind, yes? She let me use the milk machines whenever I wanted. If her farm is now unsere farm, I will gladly help!</i>”' );
 		} else {
