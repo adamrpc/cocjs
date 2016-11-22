@@ -1324,7 +1324,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				CoC.getInstance().flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] = 0;
 			}
 		}
-		if(monster instanceof Jojo && CoC.getInstance().monk > 4) {
+		if(monster instanceof Jojo && CoC.getInstance().scenes.jojoScene.monk > 4) {
 			itype = Utils.randomChoice(ConsumableLib.INCUBID, ConsumableLib.INCUBID, ConsumableLib.B__BOOK, ConsumableLib.SUCMILK);
 		}
 		if(monster instanceof Harpy || monster instanceof Sophie) {
@@ -4105,7 +4105,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 		if (CoC.getInstance().monster.short === "Jojo") {
 			// Not a completely corrupted monkmouse
-			if (CoC.getInstance().monk < 2) {
+			if (CoC.getInstance().scenes.jojoScene.monk < 2) {
 				EngineCore.outputText("You thrust your palm forward, sending a blast of pure energy towards Jojo. At the last second he sends a blast of his own against yours canceling it out\n\n");
 				CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
 				Combat.spellPerkUnlock();

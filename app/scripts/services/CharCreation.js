@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.nosePShort = '';
 		CoC.getInstance().player.nosePLong = '';
 		//PLOTZ
-		CoC.getInstance().monk = 0;
+		CoC.getInstance().scenes.jojoScene.monk = 0;
 		CoC.getInstance().whitney = 0;
 		CoC.getInstance().sand = 0;
 		CoC.getInstance().giacomo = 0;
@@ -2056,7 +2056,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		// Amily
 		CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] = 2;
 		// Jojo
-		CoC.getInstance().monk = 5;
+		CoC.getInstance().scenes.jojoScene.monk = 5;
 		// Bimbo Sophie
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] = 1;
 		// Isabella

@@ -387,7 +387,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			_add( new PerkClass( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
 		}
 		//Slot 7 - Seduction (Must have seduced Jojo
-		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && CoC.getInstance().monk >= 5 ) {
+		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
 			_add( new PerkClass( PerkLib.Seduction ) );
 		} else if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 75 ) { //Slot 7 - Nymphomania
 			_add( new PerkClass( PerkLib.Nymphomania ) );
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			toolTipText = 'This is what is called an \'onahole\'.  This device is a simple textured sleeve designed to fit around the male anatomy in a pleasurable way.';
 		}
 		if( buttonText === 'Jojo' ) {
-			if( CoC.getInstance().monk >= 5 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
 				toolTipText = 'Call your corrupted pet into camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.';
 			} else {
 				toolTipText = 'Go find Jojo around the edges of your camp and meditate with him or talk about watch duty.';

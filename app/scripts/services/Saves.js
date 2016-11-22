@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			saveFile.data.autoSave = this.game.player.autoSave;
 			//PLOTZ
 			saveFile.data.whitney = this.game.whitney;
-			saveFile.data.monk = this.game.monk;
+			saveFile.data.monk = this.game.scenes.jojoScene.monk;
 			saveFile.data.sand = this.game.sand;
 			saveFile.data.giacomo = this.game.giacomo;
 			//ITEMZ. Item1s
@@ -582,7 +582,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			this.game.player.autoSave = saveFile.data.autoSave !== undefined ? saveFile.data.autoSave : false;
 			//PLOTZ
 			this.game.whitney = saveFile.data.whitney;
-			this.game.monk = saveFile.data.monk;
+			this.game.scenes.jojoScene.monk = saveFile.data.monk;
 			this.game.sand = saveFile.data.sand;
 			this.game.player.giacomo = saveFile.data.giacomo !== undefined ? saveFile.data.giacomo : 0;
 			//The flag will be zero for any older save that still uses beeProgress and newer saves always store a zero in beeProgress, so we only need to update the flag on a value of one.

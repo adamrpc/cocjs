@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( $log, EventParser, CoC, Mon
 		CoC.getInstance().scenes.jojoScene.loseToJojo();
 	};
 	Jojo.prototype.performCombatAction = function() {
-		if( CoC.getInstance().monk > 1 && Utils.rand( 2 ) === 0 ) {
+		if( CoC.getInstance().scenes.jojoScene.monk > 1 && Utils.rand( 2 ) === 0 ) {
 			this.selfCorruption();
 		}//Shouldn't do any self corruption at monk one. Otherwise a 50/50 chance
 		else {
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( $log, EventParser, CoC, Mon
 		}
 	};
 	Jojo.prototype.selfCorruption = function() {
-		switch( CoC.getInstance().monk ) {
+		switch( CoC.getInstance().scenes.jojoScene.monk ) {
 			case 2:
 				EngineCore.outputText( 'Jojo looks lost in thought for a moment, and fails to attack.  ' );
 				this.lust += 4;
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( $log, EventParser, CoC, Mon
 		that.special1 = that.selfCorruption;
 		//Create jojo sex attributes;
 		//Variations based on jojo's corruption.;
-		if( CoC.getInstance().monk === 3 ) {
+		if( CoC.getInstance().scenes.jojoScene.monk === 3 ) {
 			that.lust += 30;
 			that.cocks[ 0 ].cockThickness += 0.2;
 			that.cocks[ 0 ].cockLength += 1.5;
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( $log, EventParser, CoC, Mon
 				that.ass.analLooseness = 2;
 			}
 		}
-		if( CoC.getInstance().monk === 4 ) {
+		if( CoC.getInstance().scenes.jojoScene.monk === 4 ) {
 			that.lust += 40;
 			that.cocks[ 0 ].cockThickness += 0.5;
 			that.cocks[ 0 ].cockLength += 3.5;
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( $log, EventParser, CoC, Mon
 				that.ass.analLooseness = 3;
 			}
 		}
-		if( CoC.getInstance().monk === 5 ) {
+		if( CoC.getInstance().scenes.jojoScene.monk === 5 ) {
 			that.lust += 50;
 			that.cocks[ 0 ].cockThickness += 1;
 			that.cocks[ 0 ].cockLength += 5.5;

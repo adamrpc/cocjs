@@ -1996,7 +1996,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, EngineCore, PerkLib,
 				//(+sensitivity by 3 & intellect -2 & libido +1	)
 			}
 			//Option Jojo veyeurism?
-			if( CoC.getInstance().monk >= 5 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				EngineCore.outputText( '\n\nAs you stand and try to clean up you manage to spot Jojo off in the woods, ' );
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.TentacleJojo ) >= 0 ) {
 					EngineCore.outputText( 'his tentacles splattering mouse-jizz everywhere as he gets off from your show.' );

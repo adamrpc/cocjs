@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			chooser = Utils.rand( 3 );
 		}
 		//Quick changes monk is fully corrupted, encounter him less (unless haz ferriiite).
-		if( chooser === 1 && CoC.getInstance().monk >= 2 ) {
+		if( chooser === 1 && CoC.getInstance().scenes.jojoScene.monk >= 2 ) {
 			var chooserChange = Utils.rand( 4 );
 			if( chooserChange === 0 ) {
 				chooser = 0;
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			return;
 		}
 		//Raise Jojo chances for furrite
-		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 5 ) === 0 && (CoC.getInstance().player.cor > 25 || CoC.getInstance().monk > 0) ) {
+		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 5 ) === 0 && (CoC.getInstance().player.cor > 25 || CoC.getInstance().scenes.jojoScene.monk > 0) ) {
 			chooser = 1;
 		}
 		//If Jojo lives in camp, never encounter him
@@ -233,10 +233,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		if( chooser === 1 ) {
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			EngineCore.outputText( '', true );
-			if( CoC.getInstance().monk === 0 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk === 0 ) {
 				if( CoC.getInstance().player.cor < 25 ) {
 					if( CoC.getInstance().player.level >= 4 ) {
-						CoC.getInstance().monk = 1;
+						CoC.getInstance().scenes.jojoScene.monk = 1;
 						CoC.getInstance().scenes.jojoScene.lowCorruptionJojoEncounter();
 						return;
 					} else {
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 						return;
 					}
 				}
-				CoC.getInstance().monk = 1;
+				CoC.getInstance().scenes.jojoScene.monk = 1;
 				CoC.getInstance().scenes.jojoScene.jojoSprite();
 				EngineCore.outputText( 'While marvelling at the strange trees and vegetation of the forest, the bushes ruffle ominously.  A bush seems to explode into a flurry of swirling leaves and movement.  Before you can react you feel your ' + CoC.getInstance().player.feet() + ' being swept out from under you, and land hard on your back.\n\n', false );
 				EngineCore.outputText( 'The angry visage of a lithe white mouse gazes down on your prone form with a look of confusion.', false );
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 				}
 				return;
 			}
-			if( CoC.getInstance().monk === 1 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk === 1 ) {
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 					CoC.getInstance().scenes.jojoScene.jojoSprite();
 					EngineCore.outputText( 'As you approach the serene monk, you see his nose twitch, disturbing his meditation.\n\n', true );
@@ -283,19 +283,19 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 					EngineCore.choices( 'Yes', CoC.getInstance().scenes.jojoScene.meditateInForest, 'No', CoC.getInstance().scenes.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', null, '', null );
 				}
 			}
-			if( CoC.getInstance().monk >= 2 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk >= 2 ) {
 				CoC.getInstance().scenes.jojoScene.jojoSprite();
 				EngineCore.outputText( 'You are enjoying a peaceful walk through the woods when Jojo drops out of the trees ahead, ', true );
-				if( CoC.getInstance().monk === 2 ) {
+				if( CoC.getInstance().scenes.jojoScene.monk === 2 ) {
 					EngineCore.outputText( 'his mousey visage twisted into a ferocious snarl.  "YOU!" he screams, launching himself towards you, claws extended.', false );
 				}
-				if( CoC.getInstance().monk === 3 ) {
+				if( CoC.getInstance().scenes.jojoScene.monk === 3 ) {
 					EngineCore.outputText( 'unsteady on his feet, but looking for a fight!', false );
 				}
-				if( CoC.getInstance().monk === 4 ) {
+				if( CoC.getInstance().scenes.jojoScene.monk === 4 ) {
 					EngineCore.outputText( 'visibly tenting his robes, but intent on fighting you.', false );
 				}
-				if( CoC.getInstance().monk === 5 ) {
+				if( CoC.getInstance().scenes.jojoScene.monk === 5 ) {
 					EngineCore.outputText( 'panting and nude, his fur rustling in the breeze, a twitching behemoth of a cock pulsing between his legs.', false );
 				}
 				Combat.startCombat( new Jojo() );

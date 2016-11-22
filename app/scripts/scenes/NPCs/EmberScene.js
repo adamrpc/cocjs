@@ -1211,7 +1211,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 				EngineCore.outputText( 'one goblin being teased by a bunch of pregnant goblins for not being pregnant yet.  She just spat back that she wanted a \'better catch\' to be her baby-maker than a mere imp and wandered off.' );
 			}
 			//(If Jojo isn't in the camp & not corrupt);
-			else if( Utils.rand( 2 ) === 0 && CoC.getInstance().monk <= 1 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && CoC.getInstance().scenes.jojoScene.monk <= 1 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 ) {
 				EngineCore.outputText( 'this mouse-morph monk, sitting in a glade and meditating. A goblin tried to proposition him; he just gave her a lecture and sent her running away in tears.  When an imp tried to attack him, he crushed its skull with a staff he had.  Not bad moves for such a weedy little thing...' );
 			} else {
 				EngineCore.outputText( 'one glade I touched down in to catch myself a nice brace of plump coneys, when all of a sudden this... this thing made out of flailing vines and fruit attacks me.  It went up in a puff of smoke once I torched it, of course.' );

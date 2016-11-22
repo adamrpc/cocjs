@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 					EngineCore.outputText( 'You wind your way deep into the maze of dusty crumbling buildings and twisted saplings, looking for any sign of life – or, failing that, something that can help you in your quest.  Bending down to rummage through an old heap of rubbish, you complain aloud that this is hardly the sort of thing you expected to be doing as a champion. Suddenly, you hear a \'thwip\' and something shoots past your face, embedding into the stone beside your head and trembling with the impact.\n\n', false );
 					EngineCore.outputText( '"<i>Don\'t make any sudden moves!</i>" A voice calls out, high pitched and a little squeaky, but firm and commanding. You freeze to avoid giving your assailant a reason to shoot at you again. "<i>Stand up and turn around, slowly,</i>" it commands again. You do as you are told.\n\n', false );
 					//[Jojo previously encountered];
-					if( CoC.getInstance().monk > 0 ) {
+					if( CoC.getInstance().scenes.jojoScene.monk > 0 ) {
 						EngineCore.outputText( 'The creature that has cornered you is clearly of the same race as Jojo, though notably a female member of his species. Her fur is thick with dust, but you can still easily make out its auburn color. Her limbs and midriff are wiry, hardened as much by meals that are less than frequent as by constant exercise and physical exertion. Her buttocks are non-existent, and her breasts can\'t be any larger than an A-cup. She wears a tattered pair of pants and an equally ragged-looking shirt. A very large and wicked-looking dagger – more of a short sword really – is strapped to her hip, and she is menacing you with a blowpipe.\n\n', false );
 					}
 					//[Jojo not previously encountered];
@@ -336,7 +336,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 					EngineCore.outputText( 'You wind your way deep into the maze of dusty crumbling buildings and twisted saplings, looking for any sign of life – or, failing that, something that can help you in your quest.  Bending down to rummage through an old heap of rubbish, you complain aloud that this is hardly the sort of thing you expected to be doing as a champion. Suddenly, you hear a \'thwip\' and something shoots past your face, embedding into the stone beside your head and trembling with the impact.\n\n', false );
 					EngineCore.outputText( '"<i>Don\'t make any sudden moves!</i>" A voice calls out, high pitched and a little squeaky, but firm and commanding. You freeze to avoid giving your assailant a reason to shoot at you again. "<i>Stand up and turn around, slowly,</i>" it commands again. You do as you are told.\n\n', false );
 					//[Jojo previously encountered];
-					if( CoC.getInstance().monk > 0 ) {
+					if( CoC.getInstance().scenes.jojoScene.monk > 0 ) {
 						EngineCore.outputText( 'The creature that has cornered you is clearly of the same race as Jojo, though notably a female member of his species. Her fur is thick with dust, but you can still easily make out its auburn color. Her limbs and midriff are wiry, hardened as much by meals that are less than frequent as by constant exercise and physical exertion. Her buttocks are non-existent, and her breasts can\'t be any larger than an A-cup. She wears a tattered pair of pants and an equally ragged-looking shirt. A very large and wicked-looking dagger – more of a short sword really – is strapped to her hip, and she is menacing you with a blowpipe.\n\n', false );
 					}
 					//[Jojo not previously encountered];
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 					EngineCore.outputText( 'You wind your way deep into the maze of dusty crumbling buildings and twisted saplings, looking for any sign of life – or, failing that, something that can help you in your quest.  Bending down to rummage through an old heap of rubbish, you complain aloud that this is hardly the sort of thing you expected to be doing as a champion. Suddenly, you hear a \'thwip\' and something shoots past your face, embedding into the stone beside your head and trembling with the impact.\n\n', false );
 					EngineCore.outputText( '"<i>Don\'t make any sudden moves!</i>" A voice calls out, high pitched and a little squeaky, but firm and commanding. You freeze to avoid giving your assailant a reason to shoot at you again. "<i>Stand up and turn around, slowly,</i>" it commands again. You do as you are told.\n\n', false );
 					//[Jojo previously encountered];
-					if( CoC.getInstance().monk > 0 ) {
+					if( CoC.getInstance().scenes.jojoScene.monk > 0 ) {
 						EngineCore.outputText( 'The creature that has cornered you is clearly of the same race as Jojo, though notably a female member of his species. Her fur is thick with dust, but you can still easily make out its auburn color. Her limbs and midriff are wiry, hardened as much by meals that are less than frequent as by constant exercise and physical exertion. Her buttocks are non-existent, and her breasts can\'t be any larger than an A-cup. She wears a tattered pair of pants and an equally ragged-looking shirt. A very large and wicked-looking dagger – more of a short sword really – is strapped to her hip, and she is menacing you with a blowpipe.\n\n', false );
 					}
 					//[Jojo not previously encountered];
@@ -440,7 +440,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 					EngineCore.outputText( 'You wind your way deep into the maze of dusty crumbling buildings and twisted saplings, looking for any sign of life – or, failing that, something that can help you in your quest.  Bending down to rummage through an old heap of rubbish, you complain aloud that this is hardly the sort of thing you expected to be doing as a champion. Suddenly, you hear a \'thwip\' and something shoots past your face, embedding into the stone beside your head and trembling with the impact.\n\n', false );
 					EngineCore.outputText( '"<i>Don\'t make any sudden moves!</i>" A voice calls out, high pitched and a little squeaky, but firm and commanding. You freeze to avoid giving your assailant a reason to shoot at you again. "<i>Stand up and turn around, slowly,</i>" it commands again. You do as you are told.\n\n', false );
 					//[Jojo previously encountered];
-					if( CoC.getInstance().monk > 0 ) {
+					if( CoC.getInstance().scenes.jojoScene.monk > 0 ) {
 						EngineCore.outputText( 'The creature that has cornered you is clearly of the same race as Jojo, though notably a female member of his species. Her fur is thick with dust, but you can still easily make out its auburn color. Her limbs and midriff are wiry, hardened as much by meals that are less than frequent as by constant exercise and physical exertion. Her buttocks are non-existent, and her breasts can\'t be any larger than an A-cup. She wears a tattered pair of pants and an equally ragged-looking shirt. A very large and wicked-looking dagger – more of a short sword really – is strapped to her hip, and she is menacing you with a blowpipe.\n\n', false );
 					}
 					//[Jojo not previously encountered];
@@ -4299,7 +4299,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 		EngineCore.outputText( '  Amily squeals in glee and wraps her legs around your ' + Descriptors.hipDescript() + '. She is too well-trained to use them to slam you into her crotch, but you can feel the muscles in them quivering with the urge to pull you into proper penetrative position. You smile wickedly; as much as you want to plow her depths and fuck her raw, you also want to see just how far you can go before she breaks... "<i>' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + '... please... why are you torturing yourself? Give yourself over to your loving mousy slut; lose yourself between my legs, let my needy cunt swallow your ' + Descriptors.cockDescript( 0 ) + ' and milk you as only I can. No two-bit whore of a succubus will ever bring you the pleasure I will...</i>" Amily moans pleadingly, her tail rising up to caress your ' + Descriptors.assDescript() + ', her hands playing with her ' + this.amilyTits() + '.\n\n', false );
 		EngineCore.outputText( '"<i>Torturing myself you say? I think you\'re right. Maybe I should see if ', false );
 		//[(if Jojo's corrupt);
-		if( CoC.getInstance().monk >= 5 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+		if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 			EngineCore.outputText( 'Jojo wants to play,', false );
 		}
 		//(else);

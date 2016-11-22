@@ -76,7 +76,6 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 		that.foundMountain = false;
 		that.foundLake = false;
 		that.whitney = 0;
-		that.monk = 0;
 		that.sand = 0;
 		that.giacomo = 0;
 		that.inCombat = false;

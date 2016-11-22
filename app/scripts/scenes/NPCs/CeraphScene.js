@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
 		//UBER-Fullbodypenetration;
-		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.biggestCockArea() > 500 && (CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || CoC.getInstance().monk >= 5) ) {
+		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.biggestCockArea() > 500 && (CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || CoC.getInstance().scenes.jojoScene.monk >= 5) ) {
 			this.hugeCorruptionForceFuckCeraph();
 			return;
 		}

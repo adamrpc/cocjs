@@ -963,7 +963,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 			}
 			EngineCore.outputText( '  Liquid-hot pressure slides over the underside of your ' + Descriptors.cockDescript( 0 ) + ', licking wetly at the pulsating, need-filled demon-prick.  Your rogue tongue\'s attentions have the desired effect, and the cries of your pleasure are muffled by your own thick flesh and its rapidly distending urethra.\n\n', false );
 			EngineCore.outputText( 'If someone were watching', false );
-			if( CoC.getInstance().monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				EngineCore.outputText( ', and judging by Jojo\'s high pitched whines, he certainly is,', false );
 			}
 			EngineCore.outputText( ' they\'d see dick-flesh bulging with a heavy load as it\'s pumped into your lips.  The fully-inflated cum-tube distends your mouth, stretching your jaw painfully, and dumps its creamy cargo into its willing receptacle.  Your belly burbles as it adjusts to the ', false );
@@ -1001,7 +1001,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 				}
 			}
 			EngineCore.outputText( '\n\n', false );
-			if( CoC.getInstance().monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				EngineCore.outputText( 'The splatter of mouse-cum erupting in the wood reaches your ears, bringing a wistful smile to your face.  That slutty mouse is such a peeping tom!  ', false );
 			}
 			EngineCore.outputText( 'Your eyes slowly roll back down while Exgartuan deflates, leaving a trail of pleased, white submission ', false );

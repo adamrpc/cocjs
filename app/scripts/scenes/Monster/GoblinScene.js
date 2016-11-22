@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( $log, ImageManager, PerkLib, CockTypesE
 		//Dick stuff:;
 		if( CoC.getInstance().player.hasCock() ) {
 			//Corrupt too big scene;
-			if( CoC.getInstance().player.cockArea( CoC.getInstance().player.biggestCockIndex() ) > CoC.getInstance().monster.vaginalCapacity() && CoC.getInstance().player.cor > 80 && CoC.getInstance().monk > 2 ) {
+			if( CoC.getInstance().player.cockArea( CoC.getInstance().player.biggestCockIndex() ) > CoC.getInstance().monster.vaginalCapacity() && CoC.getInstance().player.cor > 80 && CoC.getInstance().scenes.jojoScene.monk > 2 ) {
 				corruptTooBig = this.rapeAGoblinCorruptTooBig;
 			}
 			//Regular too big scene;
