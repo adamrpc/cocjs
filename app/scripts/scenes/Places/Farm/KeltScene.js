@@ -1068,5 +1068,5 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
-	return KeltScene;
+	CoC.getInstance().registerScene( 'keltScene', new KeltScene() );
 } );
