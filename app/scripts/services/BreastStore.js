@@ -79,11 +79,11 @@ angular.module('cocjs').factory('BreastStore', function (Utils, Appearance, Appe
 	};
 		
 	//Implementation of SaveAwareInterface
-	BreastStore.prototype.updateAfterLoad = function(game) {
+	BreastStore.prototype.updateAfterLoad = function() {
 		if (this._breastFlag < 1 || this._breastFlag > MAX_FLAG_VALUE) {
 			return;
 		}
-		var flagData = game.flags[this._breastFlag].toString().split('^');
+		var flagData = CoC.getInstance().flags[this._breastFlag].toString().split('^');
 		if (flagData.length < 9) {
 			//Loading from a file that doesn't contain appropriate save data.
 			//Values will either have to be assigned in Saves.unFuckSave() or by the first encounter with this NPC
@@ -100,11 +100,11 @@ angular.module('cocjs').factory('BreastStore', function (Utils, Appearance, Appe
 		this.preventLactationDecrease = parseInt(flagData[8]);
 	};
 	
-	BreastStore.prototype.updateBeforeSave = function(game) {
+	BreastStore.prototype.updateBeforeSave = function() {
 		if (this._breastFlag < 1 || this._breastFlag > MAX_FLAG_VALUE) {
 			return;
 		}
-		game.flags[this._breastFlag] = BREAST_STORE_VERSION_1 + '^' + this.getRows() + '^' + this.getCupSize() + '^' + this.getLactationLevel() + '^' + this.getNippleLength() + '^' + this._fullness + '^' + this._timesMilked + '^' + this.preventLactationIncrease + '^' + this.preventLactationDecrease;
+		CoC.getInstance().flags[this._breastFlag] = BREAST_STORE_VERSION_1 + '^' + this.getRows() + '^' + this.getCupSize() + '^' + this.getLactationLevel() + '^' + this.getNippleLength() + '^' + this._fullness + '^' + this._timesMilked + '^' + this.preventLactationIncrease + '^' + this.preventLactationDecrease;
 	};
 	//End of Interface Implementation
 
