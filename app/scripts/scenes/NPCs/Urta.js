@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 		}
 	};
 	Urta.prototype.urtaAvailableForSex = function() {
-		return this.urtaFuckbuddy() && CoC.getInstance().scenes.telAdre.scylla.action !== Scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
+		return this.urtaFuckbuddy() && CoC.getInstance().scenes.scylla.action !== Scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
 	};
 	Urta.prototype.urtaFuckbuddy = function() { //Returns true if Urta is either the player's fuckbuddy or lover
 		if( CoC.getInstance().scenes.urtaQuest.urtaBusy() || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
@@ -371,8 +371,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 			this.urtaChewsOutPC();
 			return;
 		}
-		if( CoC.getInstance().scenes.telAdre.katherineEmployment.canTalkToUrta() ) { //Katherine training discussion
-			CoC.getInstance().scenes.telAdre.katherineEmployment.talkToUrta();
+		if( CoC.getInstance().scenes.katherineEmployment.canTalkToUrta() ) { //Katherine training discussion
+			CoC.getInstance().scenes.katherineEmployment.talkToUrta();
 			return;
 		}
 		//PREGNANT URTA;
@@ -4032,11 +4032,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 		} else if( affection === 1 ) {
 			{ //They’ve never had sex together but each is aware you’re sleeping with the other if you're not in friends mode with Urta
 			}
-			EngineCore.outputText( '“<i>Heh, you really have a thing for ' + (CoC.getInstance().scenes.telAdre.katherine.hasCock() ? 'herms' : 'girls in need') + ', don’t ya?</i>” she says with a smile.  “<i>Not that I’m complaining.  Anyway, in terms of her work she still needs to brush up on the laws of the land and a few other things, but she’s doing fine.  Plus it’s nice to have a cat in the watch.  I had thought about saving her for undercover work, but I figure it’s better for everyone to see a cat who’s a good upright citizen.  There really aren’t that many and maybe some of the ones in gangs will rethink things when they see her on patrol.</i>”' );
+			EngineCore.outputText( '“<i>Heh, you really have a thing for ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'girls in need') + ', don’t ya?</i>” she says with a smile.  “<i>Not that I’m complaining.  Anyway, in terms of her work she still needs to brush up on the laws of the land and a few other things, but she’s doing fine.  Plus it’s nice to have a cat in the watch.  I had thought about saving her for undercover work, but I figure it’s better for everyone to see a cat who’s a good upright citizen.  There really aren’t that many and maybe some of the ones in gangs will rethink things when they see her on patrol.</i>”' );
 		} else if( affection < 11 ) {
 			{ //They’ve had drunken sex with you (can't get to this point in friend mode)
 			}
-			EngineCore.outputText( '“<i>Yeah Kath.  Well I can see why you like her.  Hot girl' + (CoC.getInstance().scenes.telAdre.katherine.hasCock() ? ' with a decent sized cock' : '') + ', gets a bit horny when she’s drunk.  What’s not to like?</i>”\n\n' );
+			EngineCore.outputText( '“<i>Yeah Kath.  Well I can see why you like her.  Hot girl' + (CoC.getInstance().scenes.katherine.hasCock() ? ' with a decent sized cock' : '') + ', gets a bit horny when she’s drunk.  What’s not to like?</i>”\n\n' );
 			EngineCore.outputText( 'She takes a swig of her drink and gives you a hug.  “<i>So, I just want to say I’m not unhappy having sex with you.  I mean that’s always great.  But, um, I gotta admit it’s really fun when you get the three of us together.  If you decide to do that again 0... I’m in.</i>”' );
 		} else if( affection < 32 ) {
 			{ //Willing to have sober sex

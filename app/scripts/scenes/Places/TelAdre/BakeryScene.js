@@ -19,12 +19,12 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, Con
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] = Math.round( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] );
 		//Chef meetings;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] % 8 === 0 ) {
-			CoC.getInstance().scenes.telAdre.maddie.procMaddieOneIntro();
+			CoC.getInstance().scenes.maddie.procMaddieOneIntro();
 			return;
 		}
 		//Maddie Epilogue trigger!;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 3 ) {
-			CoC.getInstance().scenes.telAdre.maddie.bakeryEpilogue();
+			CoC.getInstance().scenes.maddie.bakeryEpilogue();
 			return;
 		}
 		EngineCore.outputText( '', true );
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, Con
 		// I guess it just wouldn't do anything?;
 		// FWIW, the flag that has to be set to get rubiIntros to return zero is set in a function that has the comment:;
 		//(Will no longer encounter Rubi at the bakery.);
-		var rubiB = CoC.getInstance().scenes.telAdre.rubi.rubiIntros();
+		var rubiB = CoC.getInstance().telAdre.rubi.rubiIntros();
 		if( rubiB !== null ) {
 			EngineCore.addButton( 1, rubiT, rubiB );
 		}
@@ -405,7 +405,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, Con
 	BakeryScene.prototype.easterBakeSale = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You make your way to the bakery only to find that it\'s so full you can barely squeeze inside.  ' );
-		if( CoC.getInstance().scenes.telAdre.rubi.rubiAffection() >= 40 ) {
+		if( CoC.getInstance().scenes.rubi.rubiAffection() >= 40 ) {
 			EngineCore.outputText( 'An extremely busy Rubi can only manage a wave in your direction before going back to attending customers.  ' );
 		}
 		EngineCore.outputText( 'Seeing all of the holiday bustle hits you with a pang of homesickness, remembering times from Ingnam.  Shaking these feelings off, you make your way to the front of the queue determined to see what the fuss is about.  The normally absent minotaurus chef greets you, adding fuel to your notion that they are understaffed.' );

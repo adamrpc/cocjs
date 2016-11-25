@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('BreastStore', function (Utils, Appearance, AppearanceDefs, $log) {
+angular.module('cocjs').factory('BreastStore', function (CoC, Utils, Appearance, AppearanceDefs, $log) {
 	var MAX_FLAG_VALUE = 2999;
 	var BREAST_STORE_VERSION_1 = '1';
 	var LACTATION_BOOST = [0, 0, 2, 3, 6, 9, 17]; //Disabled, None, Light, Moderate, Strong, Heavy, Epic

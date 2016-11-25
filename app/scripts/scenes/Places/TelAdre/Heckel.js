@@ -36,8 +36,8 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		}
 		//Brooke + Heckel 3some;
 		// Affection = 70, after first-time sex, talk to Heckel between 13 and 15:00, must not be a first-time encounter with Heckel, requires a gender;
-		else if( CoC.getInstance().scenes.telAdre.brooke.brookeAffection() >= 70 && CoC.getInstance().flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 && CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 && CoC.getInstance().time.hours >= 13 && CoC.getInstance().time.hours <= 15 && (CoC.getInstance().player.hasVagina() || CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.telAdre.brooke.brookeCapacity() ) >= 0) ) {
-			CoC.getInstance().scenes.telAdre.brooke.specialHeckelAndBrookeEncounter();
+		else if( CoC.getInstance().scenes.brooke.brookeAffection() >= 70 && CoC.getInstance().flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 && CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 && CoC.getInstance().time.hours >= 13 && CoC.getInstance().time.hours <= 15 && (CoC.getInstance().player.hasVagina() || CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.brooke.brookeCapacity() ) >= 0) ) {
+			CoC.getInstance().scenes.brooke.specialHeckelAndBrookeEncounter();
 			return;
 		}
 		//Repeat post sex;
