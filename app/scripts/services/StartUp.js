@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
+angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager, Valentines) {
 	var StartUp = {};
 	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {
@@ -79,7 +79,7 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		if( CoC.getInstance().isEaster() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Easter!  Enjoy the eggs!</b>' );
 		}
-		if( CoC.getInstance().isValentine() ) {
+		if( Valentines.isValentine() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Valentine\'s!</b>' );
 		}
 		if( CoC.getInstance().scenes.helFollower.isHeliaBirthday() ) {
