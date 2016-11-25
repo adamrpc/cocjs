@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental, BreastStore, $rootScope, $log, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Katherine() {
 		this.breasts = new BreastStore( kFLAGS.KATHERINE_BREAST_SIZE );
 		$rootScope.$on( 'before-save', this.breasts.updateBeforeSave );
