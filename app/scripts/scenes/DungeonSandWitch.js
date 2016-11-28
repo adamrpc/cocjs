@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SandMother, GooArmor, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, CumWitch, Combat, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonSandWitch() {
 	}
 
