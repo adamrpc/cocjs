@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, AprilFools, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
 	function Lake() {
 	}
 
@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 	Lake.prototype.exploreLake = function() {
 		//Increment exploration count
 		CoC.getInstance().player.exploredLake++;
-		if( AprilFools.poniesYN() ) {
+		if( CoC.getInstance().scenes.aprilFools.poniesYN() ) {
 			return;
 		}
 		//Helia monogamy fucks
