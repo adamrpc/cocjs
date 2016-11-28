@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlotClass, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, UmasShop, Utils, Appearance, Descriptors, ItemType ) {
+angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlotClass, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
 	var Player = angular.copy( Character );
 
 	Player.prototype.init = function( that, args ) {
@@ -161,17 +161,17 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		// Uma's Massage bonuses
 		var statIndex = this.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			if( this.statusAffect( statIndex ).value1 === UmasShop.MASSAGE_RELAXATION ) {
+			if( this.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_RELAXATION ) {
 				damage = Math.round( damage * this.statusAffect( statIndex ).value2 );
 			}
 		}
 		// Uma's Accupuncture Bonuses
 		var modArmorDef = 0;
 		if( this.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
-			modArmorDef = ((this.armorDef * UmasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI) - this.armorDef);
+			modArmorDef = ((this.armorDef * CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI) - this.armorDef);
 		}
 		if( this.findPerk( PerkLib.ChiReflowAttack ) >= 0 ) {
-			modArmorDef = ((this.armorDef * UmasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI) - this.armorDef);
+			modArmorDef = ((this.armorDef * CoC.getInstance().scenes.umasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI) - this.armorDef);
 		}
 		damage -= modArmorDef;
 		if( damage < 0 ) {

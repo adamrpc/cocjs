@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, UmasShop, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -866,10 +866,10 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		}
 			
 		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
-			damage *= UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
+			damage *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
 		}
 		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowAttack) >= 0) {
-			damage *= UmasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
+			damage *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
 		}
 		
 		//One final round
@@ -1242,7 +1242,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		// Uma's Massage Bonuses
 		var statIndex = CoC.getInstance().player.findStatusAffect(StatusAffects.UmasMassage);
 		if (statIndex >= 0) {
-			if (CoC.getInstance().player.statusAffect(statIndex).value1 === UmasShop.MASSAGE_POWER) {
+			if (CoC.getInstance().player.statusAffect(statIndex).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_POWER) {
 				damage *= CoC.getInstance().player.statusAffect(statIndex).value2;
 			}
 		}
@@ -2049,7 +2049,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			chance += 2;
 		}
 		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowLust) >= 0) {
-			chance += UmasShop.NEEDLEWORK_LUST_TEASE_MULTI;
+			chance += CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_TEASE_MULTI;
 		}
 		//==============================
 		//Determine basic damage.
@@ -3555,7 +3555,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				bonusDamage *= 1.15;
 			}
 			if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowLust) >= 0) {
-				damage *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+				damage *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
 			}
 			if(CoC.getInstance().monster.plural) {
 				damage *= 1.3;
@@ -3731,7 +3731,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			mod += CoC.getInstance().player.perkv1(PerkLib.WizardsFocus);
 		}
 		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
-			mod += UmasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
+			mod += CoC.getInstance().scenes.umasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
 		}
 		return mod;
 	};

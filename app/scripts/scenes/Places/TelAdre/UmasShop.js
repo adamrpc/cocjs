@@ -1191,9 +1191,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'EroMassage', this.sexEroticMassage );
 		EngineCore.addButton( 1, 'Eat Her Out', this.sexEatHerOut );
-		if( CoC.getInstance().player.gender >= 2 && CoC.getInstance().player.lowerBody !== 4 ) {
-			// Vaginas & not centaurs
-		}
+		if( CoC.getInstance().player.gender >= 2 && CoC.getInstance().player.lowerBody !== 4 ) 
 		{
 			EngineCore.addButton( 2, 'Fingerbang', this.sexGetFingered );
 		}

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Character', function ($log, Creature, StatusAffects, UmasShop, PerkLib, CoC_Settings, PregnancyStore, KeyItemClass, CockTypesEnum, Appearance) {
+angular.module('cocjs').factory('Character', function ($log, Creature, StatusAffects, PerkLib, CoC_Settings, PregnancyStore, KeyItemClass, CockTypesEnum, Appearance) {
 	var Character = angular.copy(Creature);
 	Character.prototype.init = function(that) {
 		Creature.prototype.init(this);
@@ -28,7 +28,7 @@ angular.module('cocjs').factory('Character', function ($log, Creature, StatusAff
 		var fem = this._femininity;
 		var statIndex = this.findStatusAffect(StatusAffects.UmasMassage);
 		if (statIndex >= 0) {
-			if (this.statusAffect(statIndex).value1 === UmasShop.MASSAGE_MODELLING_BONUS) {
+			if (this.statusAffect(statIndex).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_MODELLING_BONUS) {
 				fem += this.statusAffect(statIndex).value2;
 			}
 		}
@@ -641,7 +641,7 @@ angular.module('cocjs').factory('Character', function ($log, Creature, StatusAff
 			max += Math.round(this.tou);
 		}
 		if (this.findPerk(PerkLib.ChiReflowDefense) >= 0) {
-			max += UmasShop.NEEDLEWORK_DEFENSE_EXTRA_HP;
+			max += CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_EXTRA_HP;
 		}
 		if (this.level <= 20) {
 			max += this.level * 15;

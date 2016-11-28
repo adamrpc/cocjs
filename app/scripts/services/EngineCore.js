@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, UmasShop, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
     var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
@@ -1314,7 +1314,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			lust -= 10;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 ) {
-			lust -= UmasShop.NEEDLEWORK_LUST_LUST_RESIST;
+			lust -= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LUST_RESIST;
 		}
 		if( lust < 25 ) {
 			lust = 25;
@@ -1360,7 +1360,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		// Changing them to an additive bonus should be pretty simple (check the static values in UmasShop.as)
 		var statIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			if( CoC.getInstance().player.statusAffect( statIndex ).value1 === UmasShop.MASSAGE_RELIEF || CoC.getInstance().player.statusAffect( statIndex ).value1 === UmasShop.MASSAGE_LUST ) {
+			if( CoC.getInstance().player.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_RELIEF || CoC.getInstance().player.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_LUST ) {
 				lust *= CoC.getInstance().player.statusAffect( statIndex ).value2;
 			}
 		}
@@ -1506,13 +1506,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		// Uma\'s Perkshit
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 && spee < 0 ) {
-			spee *= UmasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
+			spee *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && libi > 0 ) {
-			libi *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+			libi *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && sens > 0 ) {
-			sens *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+			sens *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		//lust resistance
 		if( lust2 > 0 && resisted ) {
@@ -1575,13 +1575,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		// Uma\'s Str Cap from Perks
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 ) {
-			if( CoC.getInstance().player.str > UmasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
-				CoC.getInstance().player.str = UmasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
+			if( CoC.getInstance().player.str > CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
+				CoC.getInstance().player.str = CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
 			}
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
-			if( CoC.getInstance().player.spe > UmasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
-				CoC.getInstance().player.spe = UmasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
+			if( CoC.getInstance().player.spe > CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
+				CoC.getInstance().player.spe = CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
 			}
 		}
 		//Keep EngineCore.stats in bounds
