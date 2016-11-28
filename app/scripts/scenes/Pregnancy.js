@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Pregnancy() {
 	}
 
