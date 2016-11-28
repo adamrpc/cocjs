@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SymGear, UsableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
 
 	function KihaScene() {
 	}
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( SymGear, UsableLib, Kiha, ConsumableLib
 		var itype;
 		//Grabbin' Inquisitor Armor;
 		if( event === 0 && CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] === 0 ) {
-			SymGear.inquisitorRobesDiscovery();
+			CoC.getInstance().scenes.symGear.inquisitorRobesDiscovery();
 			return;
 		}
 		if( event < 5 ) {

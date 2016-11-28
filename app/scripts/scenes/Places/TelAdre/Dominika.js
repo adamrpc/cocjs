@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SymGear, ImageManager, CockTypesEnum, StatusAffects, AppearanceDefs, EventParser, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ImageManager, CockTypesEnum, StatusAffects, AppearanceDefs, EventParser, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
 	function Dominika() {
 	}
 
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SymGear, ImageManager, CockTypesEnum, S
 		//Get the emporerors new groove (sword);
 		//Req's d2 finished;
 		if( this.fellatrixSucked() && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 && CoC.getInstance().player.hasKeyItem( 'Zetaz\'s Map' ) >= 0 && CoC.getInstance().flags[ kFLAGS.DOMINIKAS_SWORD_GIVEN ] === 0 ) {
-			SymGear.dominikaSpellblade();
+			CoC.getInstance().scenes.symGear.dominikaSpellblade();
 			return;
 		}
 		//[First encounter, CoC.getInstance().player is minotaur (If you lose minotaur characteristics and come back, Dominika will not recognize you and do a regular first encounter)];

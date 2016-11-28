@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SymGear, BreastStore, PerkLib, StatusAffects, ConsumableLib, Descriptors, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, BreastStore, PerkLib, StatusAffects, ConsumableLib, Descriptors, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function LatexGirl() {
 	}
