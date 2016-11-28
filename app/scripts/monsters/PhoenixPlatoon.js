@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PhoenixPlatoon', function( DungeonHelSupplimental, Appearance, Utils, AppearanceDefs, Monster ) {
+angular.module( 'cocjs' ).factory( 'PhoenixPlatoon', function( CoC, Appearance, Utils, AppearanceDefs, Monster ) {
 	var PhoenixPlatoon = angular.copy( Monster );
 	PhoenixPlatoon.prototype.performCombatAction = function() {
-		DungeonHelSupplimental.phoenixPlatoonAI();
+		CoC.getInstance().scenes.dungeonHelSupplimental.phoenixPlatoonAI();
 	};
 	PhoenixPlatoon.prototype.defeated = function() {
-		DungeonHelSupplimental.phoenixPlatoonLosesToPC();
+		CoC.getInstance().scenes.dungeonHelSupplimental.phoenixPlatoonLosesToPC();
 	};
 	PhoenixPlatoon.prototype.won = function() {
-		DungeonHelSupplimental.phoenixPlatoonMurdersPC();
+		CoC.getInstance().scenes.dungeonHelSupplimental.phoenixPlatoonMurdersPC();
 	};
 	PhoenixPlatoon.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

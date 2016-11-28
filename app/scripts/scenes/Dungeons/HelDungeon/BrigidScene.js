@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( DungeonHelSupplimental, Descriptors, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( Descriptors, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
 	function BrigidScene() {
 	}
 
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( DungeonHelSupplimental, Descriptors, Co
 			EngineCore.outputText( '"<i>Tsk tsk tsk,</i>" the harpy jailer croons, looming over you as you slump to the ground. "<i>You shouldn\'t have messed with me, bitch!</i>" she snaps, giving you a rough kick to the side. "<i>Now, let\'s see what Mother has to say about this...</i>"' );
 			//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', DungeonHelSupplimental.harpyQueenBeatsUpPCBadEnd, true );
+			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.dungeonHelSupplimental.harpyQueenBeatsUpPCBadEnd, true );
 		} else {
 			EngineCore.outputText( '"<i>That\'s it?!</i>" Brigid screams, as you collapse in front of her.  "<i>A weak little piece of trash like you took out our queen?</i>"' );
 			EngineCore.outputText( '\n\n"<i>[name]!</i>" calls a voice from behind you.  Hel bounds down the stairs, summoned by the sound of the fight; when she spies your defeated form, she draws her sword and throws herself at the harpy jailer, completely clearing the ground in her rage.  The scene that plays out next passes through your dazed mind agonizingly, like a nightmare.' );

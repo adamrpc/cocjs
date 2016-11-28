@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, DungeonHelSupplimental, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -297,7 +297,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.outputText("The brood continues to hammer away at your defenseless self. (" + damage + ")");
 			Combat.combatRoundOver();
 		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
-			DungeonHelSupplimental.ropeStruggles(true);
+			CoC.getInstance().scenes.dungeonHelSupplimental.ropeStruggles(true);
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
@@ -312,7 +312,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Spar) >= 0) {
 					CoC.getInstance().scenes.valeria.pcWinsValeriaSparDefeat();
 				} else {
-					DungeonHelSupplimental.gooArmorBeatsUpPC();
+					CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorBeatsUpPC();
 				}
 				return;
 			}
@@ -379,7 +379,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
 			CoC.getInstance().monster.struggleOutOfHolli();
 		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
-			DungeonHelSupplimental.ropeStruggles();
+			CoC.getInstance().scenes.dungeonHelSupplimental.ropeStruggles();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0) {
 			EngineCore.clearOutput();
 			//[Struggle](successful) :
@@ -392,9 +392,9 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			}
 			Combat.combatRoundOver();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
-			DungeonHelSupplimental.harpyHordeGangBangStruggle();
+			CoC.getInstance().scenes.dungeonHelSupplimental.harpyHordeGangBangStruggle();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
-			DungeonHelSupplimental.struggleAtGooBind();
+			CoC.getInstance().scenes.dungeonHelSupplimental.struggleAtGooBind();
 		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You claw your way out of the webbing while Kiha does her best to handle the spiders single-handedly!\n\n");

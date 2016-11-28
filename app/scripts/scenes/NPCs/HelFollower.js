@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, DungeonHelSupplimental, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function HelFollower() {
 	}
 
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, DungeonHelSuppli
 					EngineCore.outputText( '\n\n"<i>Heya, [name]! Ready to hit the road?</i>"' );
 				}
 				//(Display Options: [Dungeon] [Not Yet]);
-				EngineCore.choices( 'Dungeon', DungeonHelSupplimental.goToHeliaDungeon, '', null, '', null, '', null, 'Not Yet', DungeonHelSupplimental.notYet );
+				EngineCore.choices( 'Dungeon', CoC.getInstance().scenes.dungeonHelSupplimental.goToHeliaDungeon, '', null, '', null, '', null, 'Not Yet', CoC.getInstance().scenes.dungeonHelSupplimental.notYet );
 			}
 		}
 	};

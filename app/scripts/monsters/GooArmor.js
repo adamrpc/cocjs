@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooArmor', function( DungeonHelSupplimental, Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'GooArmor', function( Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
 	var GooArmor = angular.copy( GooGirl );
 	GooArmor.prototype.performCombatAction = function() {
-		DungeonHelSupplimental.gooArmorAI();
+		CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorAI();
 	};
 	GooArmor.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
 			CoC.getInstance().scenes.valeria.pcWinsValeriaSpar();
 		} else {
-			DungeonHelSupplimental.beatUpGooArmor();
+			CoC.getInstance().scenes.dungeonHelSupplimental.beatUpGooArmor();
 		}
 	};
 	GooArmor.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( DungeonHelSupplimental,
 			if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
 				CoC.getInstance().scenes.valeria.pcWinsValeriaSparDefeat();
 			} else {
-				DungeonHelSupplimental.gooArmorBeatsUpPC();
+				CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorBeatsUpPC();
 			}
 		}
 	};

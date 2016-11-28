@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, PregnancyStore, DungeonHelSupplimental, Hel, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, PregnancyStore, Hel, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	function HelScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.HELIA_PREGNANCY_TYPE, kFLAGS.HEL_PREGNANCY_INCUBATION, 0, 0 );
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 			return true;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === -1 && CoC.getInstance().time.hours === 6 ) {
-			DungeonHelSupplimental.morningAfterHeliaDungeonAgreements();
+			CoC.getInstance().scenes.dungeonHelSupplimental.morningAfterHeliaDungeonAgreements();
 			return true;
 		}
 		//Helspawn night smex!;
