@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, 
 			CoC.getInstance().scenes.nagaScene.nagaFUCKSJOOOOOO();
 		}
 	};
-	Naga.prototype.Naga = function( that, args ) {
+	Naga.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
 		if( args[ 0 ] ) {
 			return;
