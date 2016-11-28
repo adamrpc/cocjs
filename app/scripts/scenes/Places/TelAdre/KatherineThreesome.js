@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineThreesome() {
 	}
 
@@ -125,14 +125,14 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour ); //An additional scene plays afterward if Kath is still being trained by Urta
 		}
 	};
 	KatherineThreesome.prototype.threeSixtyNine = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR_DRUNK ) ) {
+		if( CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ) {
 			EngineCore.outputText( 'You drag the ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'eager herms' : 'lusty pair') + ' to one of the backrooms.  Urta locks the door' );
 		} else {
 			EngineCore.outputText( 'Urta grabs Kath from behind' );
@@ -217,14 +217,14 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.roastYou = function() { //Not available if Kath has no cock
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR_DRUNK ) ) {
+		if( CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ) {
 			EngineCore.outputText( 'You lead the horny herms toward one of the bar’s backrooms.  You get inside and lock the door but as you turn around Urta jumps you from behind, twisting your arm and pulling you to the floor.  Kath laughs and starts helping Urta as she removes your clothes.\n\n“<i>You’re too slow today ' + CoC.getInstance().player.short + '.  I’m horny as anything and I can tell from her scent that Katherine is dying for a good fuck too.  Just relax and we’ll take really good care of you.</i>”' );
 		} else {
 			EngineCore.outputText( 'You start to move towards the door.  It’s not that you don’t want to help Kath, but you really ought to get back to camp.  You think Urta is still distracted by Kath, who is now running her fingers along her sides seductively.\n\n' );
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		EngineCore.outputText( 'Now that Kath has you in hand Urta stands and starts to strip, teasing both you and Kath as she exposes herself.  Even when she’s naked she continues, stroking her cock with one hand and lifting her balls out of the way with the other to give you and Katherine a good look at her soaking wet twat.\n\n' );
 		EngineCore.outputText( 'Kath pushes a little deeper before pulling you off the floor and onto your hands and knees.  “<i>Don’t be a tease Urta, give ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' all you’ve got!</i>”  Urta gives you a grin, grips her cock tightly near the base and pulls her fingers up its length slowly, forcing out a hefty supply of pre.  She gets to her knees in front of you and smears the pre up and down the length of her shaft.\n\n' );
 		EngineCore.outputText( 'She moves close enough and gestures toward her glistening horsecock.  “<i>Salted enough for your tastes?</i>” she asks.  By now Kath’s ' + CoC.getInstance().scenes.katherine.cockMultiple( 'shaft has done its work', 'twin shafts have done their work' ) + ' and you’re too horny to resist.  You wrap your mouth around Urta’s spooge cannon and suck on it like a hot, meaty saltlick.\n\n' );
-		EngineCore.outputText( '“<i>Oh yeah, that’s a good ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '!</i>” Urta shouts, loud enough for ' + (CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR_DRUNK ) ? 'anyone at the bar' : 'people on the street') + ' to hear.  The two herms start to work in tandem - Kath pulling out as Urta shoves her cock deeper and then Urta pulling back far enough for you to tongue the tip of her cock while Kath sinks in up to her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.\n\n' );
+		EngineCore.outputText( '“<i>Oh yeah, that’s a good ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '!</i>” Urta shouts, loud enough for ' + (CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ? 'anyone at the bar' : 'people on the street') + ' to hear.  The two herms start to work in tandem - Kath pulling out as Urta shoves her cock deeper and then Urta pulling back far enough for you to tongue the tip of her cock while Kath sinks in up to her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.\n\n' );
 		EngineCore.outputText( 'They keep up this pace until you decide to push some of Urta’s buttons.  Reaching up blind your hand finds her balls and you begin to rub her sperm filled sack.  Urta shudders, reverses herself and thrusts forward at the same time as Kath.  All of a sudden you’ve got a foot of horsecock down your throat and Katherine’s ' + CoC.getInstance().scenes.katherine.cockType() + CoC.getInstance().scenes.katherine.cockMultiple( ' shlong', ' meatsticks' ) + ' buried knot deep in' );
 		if( !CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( ' your ass' );
@@ -339,14 +339,14 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.spitroastKath = function() { //Works for all except genderless characters
 		EngineCore.clearOutput();
-		var atBar = CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_BAR_DRUNK );
+		var atBar = CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK );
 		if( atBar ) {
 			EngineCore.outputText( 'You lead the ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'horny herms' : 'lusty pair') + ' toward one of the bar’s backrooms.  You get inside, lock the door and when you turn around you see that Urta has grabbed Kath from behind to make sure she couldn’t jump you.' );
 		} else {
@@ -416,7 +416,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 8 + Utils.rand( 2 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
@@ -556,7 +556,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		EngineCore.outputText( 'You lock the door on the way out, ' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] >= 31 ? 'knowing that with those two the sex option will eventually win out.' : 'hoping your sated girlfriends will bond over this.') );
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
@@ -597,7 +597,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		}
 		EngineCore.outputText( 'Kath is already close to cumming but she tries to hold back by taking it slow.  She whispers, “<i>You want it too.  I know cause every time I give you a smile or wiggle my bum you smile back' );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 20 ) {
-			EngineCore.outputText( ' and the tip of your tail does that little wiggle you don’t think anyone notices.  And you rush through all your paperwork once you know I’ll be at the bar because you love staring at my body' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] === Katherine.KDATE_LITTLE ? ' and you’re hoping like crazy ' + CoC.getInstance().player.short + ' will be here so we can fuck all through the night' : '') );
+			EngineCore.outputText( ' and the tip of your tail does that little wiggle you don’t think anyone notices.  And you rush through all your paperwork once you know I’ll be at the bar because you love staring at my body' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] === CoC.getInstance().scenes.katherine.KDATE_LITTLE ? ' and you’re hoping like crazy ' + CoC.getInstance().player.short + ' will be here so we can fuck all through the night' : '') );
 		}
 		EngineCore.outputText( '.</i>”\n\nUrta gives you a smirk and says, “<i>Maybe,</i>” once more.  Kath doesn’t like getting a dose of her own medicine, so she grabs ' );
 		if( CoC.getInstance().scenes.katherine.hasCock() ) {
@@ -617,7 +617,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 20 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
@@ -682,7 +682,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
@@ -816,7 +816,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
@@ -881,7 +881,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 10 + Utils.rand( 2 );
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
 	};
@@ -891,7 +891,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		EngineCore.outputText( 'You ask your two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'lovers') + ' if they want to go somewhere more private.\n\n' );
 		var urtaHasHouse = CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0;
 		EngineCore.outputText( 'Urta ' + CoC.getInstance().scenes.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (CoC.getInstance().scenes.katherine.hasCock() ? CoC.getInstance().scenes.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and says, “<i>That’s a good idea.  My ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment’s close enough.</i>”\n\n' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT;
 		EngineCore.outputText( 'It’s an interesting walk.  Both Urta and Kath need your support and both are horny.  They’re constantly groping and kissing you or each other.  When you get to Urta’s ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment the two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'girls') + ' don’t even make it to the bed.  They crash to the floor and start tearing each other’s clothes off while you close the door.\n\n' );
 		EngineCore.outputText( '“<i>You want to see us fuck?  Is that it?</i>” Kath asks.\n\n' );
 		EngineCore.outputText( 'Urta strokes Katherine’s ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'cock' : 'tail') + ' and says, “<i>Yeah, [he] loves ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms so much' : 'it when we fuck') + ', let’s give [him] a show!</i>”\n\n' );
@@ -1096,7 +1096,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Katherine, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		CoC.getInstance().scenes.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};

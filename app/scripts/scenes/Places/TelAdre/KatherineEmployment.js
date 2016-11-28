@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( AppearanceDefs, Appearance, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineEmployment() {
 	}
 
@@ -280,7 +280,7 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 		EngineCore.outputText( 'You’re in the desert, so there are only so many things that could sound so wet.  You rip the sack off her and are treated to a view of Kath with her hands jammed down her pants.\n\n' );
 		EngineCore.outputText( 'She sits up, embarrassed despite the fact there’s no one else within a mile.  “<i>Come on ' + CoC.getInstance().player.short + ' - You had me walking all over the place.  My cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' kept rubbing against my pants.  I need to do this to even think straight.</i>”\n\n' );
 		EngineCore.outputText( 'You realize there is no way you’re going to get Kath to do anything useful out here.  On the other hand it’s a nice day and your girlfriend is very, very horny.  Might as well make the most of this trip.' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_DESERT; //Makes sure the scene happens out in the dunes
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_DESERT; //Makes sure the scene happens out in the dunes
 		EngineCore.choices( 'Oral', CoC.getInstance().scenes.katherine.giveKatOralPenisWingWang, 'Handjob', CoC.getInstance().scenes.katherine.handjobbiesFurrDemCatFurries, '', null, '', null, '', null );
 	};
 	KatherineEmployment.prototype.katherineTrainingStage2 = function() {
@@ -321,7 +321,7 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 		EngineCore.outputText( 'Katherine returns much sooner than you expected and with energy to spare.  Her pupils are dilated and her head and tail both flick continuously from side to side.  “<i>There is the most amazing smell over that way,</i>” she says, pointing inland toward a patch of bushes.\n\n' );
 		EngineCore.outputText( 'You don’t need to go over to the bushes to find out what the smell is; it’s all over her.  It’s a sweet-yet-creamy scent, unlike anything back home.  It seems whisker fruits, or at least the blossoms of the tree it comes from, have a certain effect on your feline friend.\n\n' );
 		EngineCore.outputText( 'As you smell Katherine she is likewise busy sniffing you.  She rubs her nose against your cheek, her whiskers tickling your face, and says, “<i>This place is really nice... I know what we could do.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_LAKE; //Makes sure the scene happens on the shores of the lake
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_LAKE; //Makes sure the scene happens on the shores of the lake
 		var penKath = null;       //Fuck and give options only available for males and herms
 		var penAnal = null;
 		var penBoth = null;
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 		this.alleywaySexOptions();
 	};
 	KatherineEmployment.prototype.alleywaySexOptions = function() {
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_STREETS; //Makes sure the scene happens in a Tel’Adre alleyway
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_STREETS; //Makes sure the scene happens in a Tel’Adre alleyway
 		var penKath = null;       //Fuck and give options only available for males and herms
 		var penAnal = null;
 		var penBoth = null;
@@ -449,7 +449,7 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 			return;
 		}
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] = 4; //Indicates Kath is now a member of the watch
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_KATHS_APT; //This ensures that after you talk to Urta Kath will disappear for the rest of the day as she needs to sort stuff out.
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_KATHS_APT; //This ensures that after you talk to Urta Kath will disappear for the rest of the day as she needs to sort stuff out.
 		EngineCore.outputText( 'You tell Kath that you feel she’s ready for testing.  She beams and nervously tries to smooth out her clothes.  The two of you walk to the Wet Bitch where, as expected, you find captain Urta sitting alone at her table reading reports and sipping something from a mug.\n\n' );
 		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > -1 ) {
 			if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 ) {
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 		EngineCore.outputText( '“<i>Us girls just wanna have fun, right?</i>” Kath asks, looping an arm around Urta.  “<i>That’s right, my sexy little kitten,</i>”  Urta replies, closing her eyes and nuzzling her face into Kath’s breasts.  Kath purrs and starts stroking Urta’s ears, throwing you a hooded gaze that’s clearly inviting you to make a move on her as well.' );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] = 4; //Indicates Kath is now a member of the watch
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] = 200; //Indicates Training was carried out with Urta's help
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_KATHS_APT; //This ensures that after you talk Kath will disappear for the rest of the day due to stuff she needs to sort out
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_KATHS_APT; //This ensures that after you talk Kath will disappear for the rest of the day due to stuff she needs to sort out
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] += 10; //Kath and Urta will like each other by the time they’re finished training
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 28 ) {
 			CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] = 28; //Make sure they don't like each other too much
@@ -1104,16 +1104,16 @@ angular.module( 'cocjs' ).run( function( Katherine, AppearanceDefs, Appearance, 
 		else {
 			CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] = 0;
 		}
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_KATHS_APT; //Once again she disappears for the rest of the day so we don't find her at the bar right after seeing this encounter
-		CoC.getInstance().scenes.katherine.giveClothing( Katherine.KBIT_CLOTHES_UNIFORM );
-		CoC.getInstance().scenes.katherine.giveClothing( Katherine.KBIT_CLOTHES_C_CLOTH );
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_KATHS_APT; //Once again she disappears for the rest of the day so we don't find her at the bar right after seeing this encounter
+		CoC.getInstance().scenes.katherine.giveClothing( CoC.getInstance().scenes.katherine.KBIT_CLOTHES_UNIFORM );
+		CoC.getInstance().scenes.katherine.giveClothing( CoC.getInstance().scenes.katherine.KBIT_CLOTHES_C_CLOTH );
 		CoC.getInstance().scenes.telAdre.telAdreMenuShow();
 	};
 	KatherineEmployment.prototype.postTrainingAlleyDescription = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You go into the alleyway behind Oswald\'s shop.  It seems empty without a happy cat-morph to greet you.\n\n' );
 		EngineCore.outputText( 'Looking closely you notice a few of the secret hiding spots among the crates have been emptied.  Kath must have been here to collect some of her more sentimental possessions.\n\n' );
-		if( !CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_KATHS_APT ) ) { //Only possible if she's already been seen on guard duty at the gate and you've slept once since
+		if( !CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_KATHS_APT ) ) { //Only possible if she's already been seen on guard duty at the gate and you've slept once since
 			EngineCore.outputText( 'You see a note tucked into the side of the crate Kath used to sleep on.  It says, \'Hi ' + CoC.getInstance().player.short + ', everything is going great!  Come and see me at the Wet Bitch.  I\'ll try to be there from mid-morning to mid-afternoon.  Can\'t wait to see you again, love you, bye\'.  It\'s signed with a kiss.' );
 		} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
 			EngineCore.outputText( 'You guess that Urta and other members of the watch will be keeping her busy for the rest of the day.  Wherever she is you know she\'s being well taken care of.' );

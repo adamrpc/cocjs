@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, ImageManager, Appearance, CockTypesEnum, PregnancyStore, CoC_Settings, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appearance, CockTypesEnum, PregnancyStore, CoC_Settings, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	//Urta variables;
 	//CoC.getInstance().flags[kFLAGS.TIMES_FUCKED_URTA] = times fucked;
 	//CoC.getInstance().flags[kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY] = urtas horsecock comfort level;
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 		}
 	};
 	Urta.prototype.urtaAvailableForSex = function() {
-		return this.urtaFuckbuddy() && CoC.getInstance().scenes.scylla.action !== Scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
+		return this.urtaFuckbuddy() && CoC.getInstance().scenes.scylla.action !== CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
 	};
 	Urta.prototype.urtaFuckbuddy = function() { //Returns true if Urta is either the player's fuckbuddy or lover
 		if( CoC.getInstance().scenes.urtaQuest.urtaBusy() || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
@@ -4055,13 +4055,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 	Urta.prototype.urtaKathSexDont = function() {
 		EngineCore.outputText( 'You give Urta a smile tell her that while you’re happy for her you’d really prefer if she waited for you to be around before banging Katherine.  You feel a little left out.\n\n' );
 		EngineCore.outputText( 'Urta gives you a weak smile and says, “<i>Alright ' + CoC.getInstance().player.short + ', I understand.  I’ll keep it in my pants.  Course I hope you’re up for a lot of three ways.  Girl’s got to get her fix.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = Katherine.KDATE_LITTLE;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_LITTLE;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	Urta.prototype.urtaKathSexWhenever = function() {
 		EngineCore.outputText( 'You put your arm around Urta and tell her that you don’t mind if your favorite girls need to blow off a little steam together.  As long as they don’t wear each other out that is.\n\n' );
 		EngineCore.outputText( 'Urta lets out a relieved laugh and says, “<i>That’s good.  That’s good.  I’ll make sure not to wear our kitten out.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = Katherine.KDATE_WHENEVER;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_WHENEVER;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	Urta.prototype.urtaKathSexEncourage = function() {
@@ -4069,7 +4069,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Scylla, Katherine, Im
 		EngineCore.outputText( '“<i>Are you sure ' + CoC.getInstance().player.short + '?  I mean I love the idea, I’m sure Kath will love it too, but you know what my appetite’s like.</i>”\n\n' );
 		EngineCore.outputText( 'You give her a kiss and tell her you know very well.  Since you’re not in town all the time you expect Urta to see to Kath’s needs and Kath to hers.\n\n' );
 		EngineCore.outputText( '“<i>Carte blanche?  Ok ' + CoC.getInstance().player.short + ', but I’m warning you - your sex kitten is going to be very well fucked whenever you see her.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = Katherine.KDATE_LOTS;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_LOTS;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	//Suggestion: One could either deposit the eggs inside urta (if drunk enough to agree:P) or Urta could help you fertilize them for someone else (Horsecock stretching yer Ovipositer);

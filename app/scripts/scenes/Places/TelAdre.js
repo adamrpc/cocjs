@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scylla, Dungeon2Supplimental, Thanksgiving, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Dungeon2Supplimental, Thanksgiving, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scyl
 			case  3: //You and Urta are training her
 				break;
 			case  4: //Employed
-				if( !CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_KATHS_APT ) && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
+				if( !CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_KATHS_APT ) && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
 					CoC.getInstance().scenes.katherineEmployment.katherineGetsEmployed();
 					return;
 				}
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scyl
 		}
 		EngineCore.addButton( 1, 'Orphanage', orphanage );
 		if( CoC.getInstance().scenes.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
-			EngineCore.addButton( 2, 'Urta\'s House', (CoC.getInstance().scenes.katherine.isAt( Katherine.KLOC_URTAS_HOME ) ? CoC.getInstance().scenes.katherine.katherineAtUrtas : CoC.getInstance().scenes.urtaPregs.visitTheHouse) );
+			EngineCore.addButton( 2, 'Urta\'s House', (CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_URTAS_HOME ) ? CoC.getInstance().scenes.katherine.katherineAtUrtas : CoC.getInstance().scenes.urtaPregs.visitTheHouse) );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
 			EngineCore.addButton( 3, 'Kath\'s Apt', CoC.getInstance().scenes.katherine.visitAtHome );
@@ -1127,7 +1127,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scyl
 				button = this.anotherButton( button, 'Edryn', CoC.getInstance().scenes.edryn.edrynBarTalk );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] === Katherine.KLOC_BAR ) {
+		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] === CoC.getInstance().scenes.katherine.KLOC_BAR ) {
 			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 4 ) {
 				CoC.getInstance().scenes.katherine.barFirstEncounter();
 				return;
@@ -1178,28 +1178,28 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scyl
 			EngineCore.outputText( '\n\nRo\'gar is here with his back turned to the door, wearing his usual obscuring cloak.', false );
 		}
 		switch( CoC.getInstance().scenes.scylla.action ) { //Scylla - requires dungeon shut down
-			case Scylla.SCYLLA_ACTION_FIRST_TALK:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FIRST_TALK:
 				EngineCore.outputText( '\n\nThere is one nun sitting in a corner booth who catches your eye.  She sits straight-backed against the dark, wood chair, her thin waist accentuating the supple curve of her breasts. She\'s dressed in a black robe that looks a few sizes too small for her hips and wears a black and white cloth over her head.' );
 				button = this.anotherButton( button, 'Nun', CoC.getInstance().scenes.scylla.talkToScylla );
 				break;
-			case Scylla.SCYLLA_ACTION_ROUND_TWO:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_TWO:
 				CoC.getInstance().scenes.scylla.scyllaRoundII();
 				return;
-			case Scylla.SCYLLA_ACTION_ROUND_THREE:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_THREE:
 				CoC.getInstance().scenes.scylla.scyllaRoundThreeCUM();
 				return;
-			case Scylla.SCYLLA_ACTION_ROUND_FOUR:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_FOUR:
 				CoC.getInstance().scenes.scylla.scyllaRoundIVGo();
 				return;
-			case Scylla.SCYLLA_ACTION_MEET_CATS:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_MEET_CATS:
 				EngineCore.outputText( '\n\nIt looks like Scylla is here but getting ready to leave.  You could check and see what the misguided nun is up to.' );
 				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.Scylla6 );
 				break;
-			case Scylla.SCYLLA_ACTION_ADICTS_ANON:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ADICTS_ANON:
 				EngineCore.outputText( '\n\nYou see Scylla\'s white and black nun\'s habit poking above the heads of the other patrons.  The tall woman seems unaware of her effect on those around her, but it\'s clear by the way people are crowding she\'s acquired a reputation by now.  You\'re not sure what she\'s doing, but you could push your way through to find out.' );
 				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.scyllaAdictsAnonV );
 				break;
-			case Scylla.SCYLLA_ACTION_FLYING_SOLO:
+			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FLYING_SOLO:
 				EngineCore.outputText( '\n\nIt looks like Scylla is milling around here this morning, praying as she keeps an eye out for someone to \'help\'.' );
 				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.scyllasFlyingSolo );
 				break;
@@ -1213,13 +1213,13 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Katherine, Scyl
 		//URTA;
 		if( CoC.getInstance().scenes.urta.urtaAtBar() ) {
 			//Scylla & The Furries Foursome;
-			if( CoC.getInstance().scenes.scylla.action === Scylla.SCYLLA_ACTION_FURRY_FOURSOME ) {
+			if( CoC.getInstance().scenes.scylla.action === CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FURRY_FOURSOME ) {
 				$log.debug( 'SCYLLA ACTION: ' + CoC.getInstance().scenes.scylla.action );
 				EngineCore.outputText( '\n\nScylla’s spot in the bar is noticeably empty. She’s usually around at this time of day, isn’t she? Urta grabs your attention with a whistle and points to a back room with an accompanying wink. Oh... that makes sense. Surely the nun won’t mind a little help with her feeding...' );
 				button = this.anotherButton( button, 'Back Room', CoC.getInstance().scenes.scylla.openTheDoorToFoursomeWivScyllaAndFurries );
 			}
 			//Urta X Scylla threesome;
-			if( CoC.getInstance().scenes.scylla.action === Scylla.SCYLLA_ACTION_FUCKING_URTA ) {
+			if( CoC.getInstance().scenes.scylla.action === CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FUCKING_URTA ) {
 				if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00143 ] === 0 ) {
 					EngineCore.outputText( '\n\n<b>Though Urta would normally be here getting sloshed, her usual spot is completely vacant.  You ask around but all you get are shrugs and giggles.  Something isn\'t quite right here.  You see an empty bottle of one of her favorite brands of whiskey still rolling on her table, so she can\'t have been gone long.  Maybe she had guard business, or had to head to the back rooms for something?</b>' );
 				} else {
