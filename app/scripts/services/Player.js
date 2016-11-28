@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 	};
 	//Player pregnancy variables and functions
 	Player.prototype.pregnancyUpdate = function() {
-		return Pregnancy.updatePregnancy(); //Returns true if we need to make sure pregnancy texts aren't hidden
+		return CoC.getInstance().scenes.pregnancy.updatePregnancy(); //Returns true if we need to make sure pregnancy texts aren't hidden
 	};
 	Player.prototype.getArmorDef = function() {
 		var result = this.armor.def;
