@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandWitchMob', function( DungeonSandwitch, Utils, AppearanceDefs, Monster, Appearance ) {
+angular.module( 'cocjs' ).factory( 'SandWitchMob', function( CoC, Utils, AppearanceDefs, Monster, Appearance ) {
 	var SandWitchMob = angular.copy( Monster );
 	SandWitchMob.prototype.performCombatAction = function() {
-		DungeonSandwitch.sandWitchMobAI();
+		CoC.getInstance().scenes.dungeonSandWitch.sandWitchMobAI();
 	};
 	SandWitchMob.prototype.defeated = function() {
-		DungeonSandwitch.yoYouBeatUpSomeSandWitchesYOUMONSTER();
+		CoC.getInstance().scenes.dungeonSandWitch.yoYouBeatUpSomeSandWitchesYOUMONSTER();
 	};
 	SandWitchMob.prototype.won = function() {
-		DungeonSandwitch.loseToSammitchMob();
+		CoC.getInstance().scenes.dungeonSandWitch.loseToSammitchMob();
 	};
 	SandWitchMob.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

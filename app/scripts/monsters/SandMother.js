@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandMother', function( DungeonSandwitch, Utils, AppearanceDefs, Monster, StatusAffects, PerkLib, Appearance ) {
+angular.module( 'cocjs' ).factory( 'SandMother', function( CoC, Utils, AppearanceDefs, Monster, StatusAffects, PerkLib, Appearance ) {
 	var SandMother = angular.copy( Monster );
 	SandMother.prototype.defeated = function() {
-		DungeonSandwitch.defeatTheSandMother();
+		CoC.getInstance().scenes.dungeonSandWitch.defeatTheSandMother();
 	};
 	SandMother.prototype.won = function() {
-		DungeonSandwitch.loseToTheSandMother();
+		CoC.getInstance().scenes.dungeonSandWitch.loseToTheSandMother();
 	};
 	SandMother.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
