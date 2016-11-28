@@ -99,12 +99,6 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 		that.oldStats.oldHP   = 0;
 		that.oldStats.oldLust = 0;
 		// ******************************************************************************************
-		/*
-		 * TODO : Replace this by angular events.
-		 * that.timeAwareLargeLastEntry = -1;
-		 * that._timeAwareClassList = [];
-		 * that._saveAwareClassList = [];
-		 */
 	};
     // TODO : WTF is it doing here ?
 	CoC.prototype.isEaster = function() {
@@ -124,102 +118,12 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 	CoC.prototype.registerScene = function(name, scene) {
 		this.scenes[name] = scene;
 	};
-	/*
-	 * TODO : Replace this by angular events.
-	 * CoC.prototype.timeAwareClassAdd = function(newEntry) {
-	 * 	CoC._timeAwareClassList.push(newEntry);
-	 * };
-	 * //Any classes that need to be made aware when the game is saved or loaded can add themselves to this array using saveAwareAdd.
-	 * //	Once in the array they will be notified by Saves.as whenever the game needs them to write or read their data to the flags array.
-	 * CoC.prototype.saveAllAwareClasses = function() {
-	 * 	_.forEach(CoC._saveAwareClassList, function(value) {
-	 * 		value.updateBeforeSave();
-	 * 	});
-	 * };
-	 * //Called by the loadGameObject function in Saves
-	 * //Called by the saveGameObject function in Saves
-	 * CoC.prototype.loadAllAwareClasses = function() {
-	 * 	_.forEach(CoC._saveAwareClassList, function(value) {
-	 * 		value.updateAfterLoad();
-	 * 	});
-	 * };
-	 * CoC.prototype.saveAwareClassAdd = function(newEntry) {
-	 * 	CoC._saveAwareClassList.push(newEntry);
-	 * };
-	 */
 	return new CoC();
 	/*
 	TODO : Convert scences and call registerScene;
 			private static var doCamp:Function; //Set by campInitialize, should only be called by playerMenu
 		private static function campInitialize(passDoCamp:Function):void { doCamp = passDoCamp; }
 		// Items/
-		
-		// Scenes/
-		public var camp:Camp = new Camp(campInitialize);
-		public var exploration:Exploration = new Exploration();
-		public var followerInteractions:FollowerInteractions = new FollowerInteractions();
-		public var masturbation:Masturbation = new Masturbation();
-		// Scenes/Areas/
-		public var bog:Bog = new Bog();
-		public var desert:Desert = new Desert();
-		public var forest:Forest = new Forest();
-		public var highMountains:HighMountains = new HighMountains();
-		public var lake:Lake = new Lake();
-		public var mountain:Mountain = new Mountain();
-		public var swamp:Swamp = new Swamp();
-		// Scenes/Dungeons
-		public var brigidScene:BrigidScene = new BrigidScene();
-		public var d3:D3 = new D3();
-		// Scenes/Explore/
-		public var gargoyle:Gargoyle = new Gargoyle();
-		public var lumi:Lumi = new Lumi();
-		// Scenes/Monsters/
-		public var goblinScene:GoblinScene = new GoblinScene();
-		public var impScene:ImpScene = new ImpScene();
-		public var goblinAssassinScene:GoblinAssassinScene = new GoblinAssassinScene();
-		// Scenes/NPC/
-		public var amilyScene:AmilyScene = new AmilyScene();
-		public var anemoneScene:AnemoneScene = new AnemoneScene();
-		public var arianScene:ArianScene = new ArianScene();
-		public var ceraphScene:CeraphScene = new CeraphScene();
-		public var ceraphFollowerScene:CeraphFollowerScene = new CeraphFollowerScene();
-		public var emberScene:EmberScene = new EmberScene();
-		public var exgartuan:Exgartuan = new Exgartuan();
-		public var helFollower:HelFollower = new HelFollower();
-		public var helScene:HelScene = new HelScene();
-		public var helSpawnScene:HelSpawnScene = new HelSpawnScene();
-		public var holliScene:HolliScene = new HolliScene();
-		public var isabellaScene:IsabellaScene = new IsabellaScene();
-		public var isabellaFollowerScene:IsabellaFollowerScene = new IsabellaFollowerScene();
-		public var izmaScene:IzmaScene = new IzmaScene();
-		public var jojoScene:JojoScene = new JojoScene();
-		public var kihaFollower:KihaFollower = new KihaFollower();
-		public var kihaScene:KihaScene = new KihaScene();
-		public var latexGirl:LatexGirl = new LatexGirl();
-		public var marbleScene:MarbleScene = new MarbleScene();
-		public var marblePurification:MarblePurification = new MarblePurification();
-		public var milkWaifu:MilkWaifu = new MilkWaifu();
-		public var raphael:Raphael = new Raphael();
-		public var rathazul:Rathazul = new Rathazul();
-		public var sheilaScene:SheilaScene = new SheilaScene();
-		public var shouldraFollower:ShouldraFollower = new ShouldraFollower();
-		public var shouldraScene:ShouldraScene = new ShouldraScene();
-		public var sophieBimbo:SophieBimbo = new SophieBimbo();
-		public var sophieFollowerScene:SophieFollowerScene = new SophieFollowerScene();
-		public var sophieScene:SophieScene = new SophieScene();
-		public var urta:Urta = new Urta();
-		public var urtaHeatRut:UrtaHeatRut = new UrtaHeatRut();
-		public var urtaPregs:UrtaPregs = new UrtaPregs();
-		public var valeria:Valeria = new Valeria();
-		public var vapula:Vapula = new Vapula();
-		// Scenes/Places/
-		public var bazaar:Bazaar = new Bazaar();
-		public var boat:Boat = new Boat();
-		public var farm:Farm = new Farm();
-		public var owca:Owca = new Owca();
-		public var telAdre:TelAdre = new TelAdre();
-		// Scenes/Quests/
-		public var urtaQuest:UrtaQuest = new UrtaQuest();
 		// Other scenes
 		include "../../includes/april_fools.as";
 		include "../../includes/dreams.as";
