@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Character', function ($log, Creature, StatusAffects, PerkLib, CoC_Settings, PregnancyStore, KeyItemClass, CockTypesEnum, Appearance) {
+angular.module('cocjs').factory('Character', function ($log, CoC, Creature, StatusAffects, PerkLib, CoC_Settings, PregnancyStore, KeyItemClass, CockTypesEnum, Appearance) {
 	var Character = angular.copy(Creature);
 	Character.prototype.init = function(that) {
 		Creature.prototype.init(this);
