@@ -1,11 +1,16 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, DungeonCore, Combat, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dungeon2Supplimental() {
 	}
 
-	var DUNGEON_CAVE_ENTRANCE = 10;
-	var DUNGEON_CAVE_ZETAZ_CHAMBER = 16;
+	Dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE = 10;
+	Dungeon2Supplimental.DUNGEON_CAVE_TUNNEL = 11;
+	Dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL = 12;
+	Dungeon2Supplimental.DUNGEON_CAVE_FUNGUS_CAVERN = 13;
+	Dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM = 14;
+	Dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL = 15;
+	Dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER = 16;
 	//Index:;
 	//-Imp Gang;
 	//-Plant - 'Encapsulation Start';
@@ -13,7 +18,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, DungeonCore,
 	//-Zetaz - 'Zetaz Start';
 	//-Items - 'Items Start';
 	Dungeon2Supplimental.prototype.enterZetazsLair = function() {
-		DungeonCore.dungeonEnterRoom( DUNGEON_CAVE_ENTRANCE );
+		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE );
 	};
 	Dungeon2Supplimental.prototype.leaveZetazsLair = function() {
 		//	inDungeon = false;;
@@ -483,7 +488,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, DungeonCore,
 			EngineCore.doNext( EventParser.playerMenu );
 			return;
 		} else {
-			DungeonCore.dungeonEnterRoom( DUNGEON_CAVE_ZETAZ_CHAMBER );
+			CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
 		}
 	};
 	//Encapsulation Start;

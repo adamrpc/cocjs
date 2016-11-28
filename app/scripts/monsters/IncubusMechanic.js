@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( CockTypesEnum, WeightedDrop, ConsumableLib, kFLAGS, CoC, EngineCore, DungeonCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( CockTypesEnum, WeightedDrop, ConsumableLib, kFLAGS, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
 	var IncubusMechanic = angular.copy( Monster );
 	IncubusMechanic.prototype.defeated = function( hpVictory ) {
 		if( CoC.getInstance().flags[ kFLAGS.D3_DISCOVERED ] === 0 ) {
@@ -18,19 +18,19 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( CockTypesEnum, W
 		}
 		if( CoC.getInstance().player.gender === 0 ) {
 			EngineCore.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
-			EngineCore.choices( 'Anally', DungeonCore.incubusVictoryRapeBackdoor, 'Orally', DungeonCore.incubusVictoryService, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Anally', CoC.getInstance().scenes.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', CoC.getInstance().scenes.dungeonCore.incubusVictoryService, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 		} else {
 			EngineCore.dynStats( 'lus', 1 );
 			if( hpVictory ) {
 				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do, rape him, service him, or let him take you anally?' );
-				EngineCore.choices( 'Rape', DungeonCore.incubusVictoryRapeSex, 'Service Him', DungeonCore.incubusVictoryService, 'Anal', DungeonCore.incubusVictoryRapeBackdoor, '', null, 'Nothing', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', CoC.getInstance().scenes.dungeonCore.incubusVictoryRapeSex, 'Service Him', CoC.getInstance().scenes.dungeonCore.incubusVictoryService, 'Anal', CoC.getInstance().scenes.dungeonCore.incubusVictoryRapeBackdoor, '', null, 'Nothing', Combat.cleanupAfterCombat );
 			} else {
 				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
 				if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.biggestTitSize() >= 4 && CoC.getInstance().player.armorName === 'lusty maiden\'s armor' ) {
 					titfuck = EngineCore.createCallBackFunction2( CoC.getInstance().player.armor.lustyMaidenPaizuri, CoC.getInstance().player, this );
 				}
-				EngineCore.choices( 'Rape', DungeonCore.incubusVictoryRapeSex, 'Service Him', DungeonCore.incubusVictoryService, 'Anal', DungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', titfuck, 'Nothing', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', CoC.getInstance().scenes.dungeonCore.incubusVictoryRapeSex, 'Service Him', CoC.getInstance().scenes.dungeonCore.incubusVictoryService, 'Anal', CoC.getInstance().scenes.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', titfuck, 'Nothing', Combat.cleanupAfterCombat );
 			}
 		}
 	};
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( CockTypesEnum, W
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			DungeonCore.incubusLossRape();
+			CoC.getInstance().scenes.dungeonCore.incubusLossRape();
 		}
 	};
 	IncubusMechanic.prototype.wonInDungeon3 = function( hpVictory, pcCameWorms ) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'ImpHorde', function( $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'ImpHorde', function( CoC, $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
 	var ImpHorde = angular.copy( Monster );
 	ImpHorde.prototype.performCombatAction = function() {
 		CoC.getInstance().scenes.dungeon2Supplimental.impGangAI();
