@@ -436,7 +436,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			slot = 'VOID';
 		}
 		var game = game;
-		this.game.dungeonLoc = 0;
+		OnLoadVariables.dungeonLoc = 0;
 		OnLoadVariables.inRoomedDungeon = false;
 		OnLoadVariables.inRoomedDungeonResume = null;
 		//Autosave stuff

@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.autoSave = false;
 		//RESET DUNGEOn
 		//No need, dungeonLoc = 0 does this = false;
-		CoC.getInstance().dungeonLoc = 0;
+		OnLoadVariables.dungeonLoc = 0;
 		OnLoadVariables.inRoomedDungeon = false;
 		OnLoadVariables.inRoomedDungeonResume = null;
 		//Hold onto old data for NG+

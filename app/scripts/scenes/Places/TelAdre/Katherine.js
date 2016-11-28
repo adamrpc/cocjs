@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Katherine() {
 		this.breasts = new BreastStore( kFLAGS.KATHERINE_BREAST_SIZE );
 		$rootScope.$on( 'before-save', this.breasts.updateBeforeSave );
@@ -1584,7 +1584,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental
 			if( this.isAt( Katherine.KLOC_KATHS_APT ) ) {
 				EngineCore.outputText( 'lies back on her bed and stares off into space for a while' );
 			} else {
-				EngineCore.outputText( 'takes another sip of her drink and looks to see if Vala’s around somewhere' + (Dungeon2Supplimental.isValaAtBar() ? '.  Vala catches her looking and comes over to see if Kath needs another drink.  Kath, embarrassed at getting caught, orders another one' : '') );
+				EngineCore.outputText( 'takes another sip of her drink and looks to see if Vala’s around somewhere' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? '.  Vala catches her looking and comes over to see if Kath needs another drink.  Kath, embarrassed at getting caught, orders another one' : '') );
 			}
 			EngineCore.outputText( '.\n\nAfter a long silence Kath says, “<i>So she’s new to town, she’s dealing with all sorts of issues and she probably doesn’t know many people here.  It’s a good thing no one took advantage of her.</i>”\n\n' );
 			if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ] > 0 ) {
@@ -3499,7 +3499,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental
 				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 10 && CoC.getInstance().scenes.urta.urtaAtBar() && CoC.getInstance().scenes.urta.urtaAvailableForSex() ) {
 					seeUrta = this.katherineSeeUrta;
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 10 && Dungeon2Supplimental.isValaAtBar() ) {
+				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 10 && CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
 					seeVala = this.katherineSeeVala;
 				}
 			} else if( this.isAt( Katherine.KLOC_BAR_DRUNK ) ) {
@@ -3507,12 +3507,12 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental
 				if( CoC.getInstance().scenes.urta.urtaAtBar() && CoC.getInstance().scenes.urta.urtaAvailableForSex() && !CoC.getInstance().scenes.urta.drainedByKath ) {
 					seeUrta = this.katherineDrunkSeeUrta;
 				} //Different conversation if Kath is sloshed
-				if( Dungeon2Supplimental.isValaAtBar() && !CoC.getInstance().scenes.urta.drainedByKath ) {
+				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() && !CoC.getInstance().scenes.urta.drainedByKath ) {
 					seeVala = this.katherineSeeVala;
 				}
 				backOpt = null; //Kath won't take no for an answer if she's sauced
 			} else if( this.isAt( Katherine.KLOC_BAR_URTA_REFUSED ) ) {
-				if( Dungeon2Supplimental.isValaAtBar() ) {
+				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
 					seeVala = this.katherineSeeVala;
 				}
 				backOpt = null; //Kath won't take no for an answer if she's sauced
@@ -6335,18 +6335,18 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, Dungeon2Supplimental
 				EngineCore.outputText( '\n\nYou step back and tell Kath this won’t do at all.  She pants and reaches to readjust her clothes.  Then you tell her, “<i>These people just applauded your performance Kath.  They expect an encore.</i>”  She freezes in place and then you tell her, “<i>They can’t get a good view with all those clothes in the way... you’re going to have to strip.</i>”\n\n' );
 				EngineCore.outputText( 'That gets some hoots and hollers from the crowd and you see a few patrons kicking off their pants or skirts in preparation for the show.  Katherine shudders but knows better than to argue when you use that tone of voice.  She starts to quickly take off her clothes until you tell her to stop.\n\n' );
 				EngineCore.outputText( 'She looks back, perhaps wondering if you’re about to tell her you were just kidding.  Instead you explain, “<i>Give them a show, strip like you’re doing this for money.</i>”\n\n' );
-				EngineCore.outputText( 'Kath gulps but turns back to the crowd and ' + this.clothesChoice( 'starts unbuttoning her blouse slowly', 'starts unlacing her bodysuit', 'starts unlacing her long dress', 'starts untying the knot of her robe', 'starts running her fingers under the bottom edge of her tube top', 'pulls the front of her nurse’s top open again' ) + '.  The crowd loves it and Kath, perhaps feeling a little bold thanks to the booze still in her system, starts to get into it and starts to sway back and forth, her cat-like flexibility allowing her hips to move through a hypnotic pattern that silences the crowd.' + (Dungeon2Supplimental.isValaAtBar() ? '  You even see a certain faerie waitress paused mid-flight with a tray of drinks.  You see her eyes following every move that Kath’s hips make.' : '') );
+				EngineCore.outputText( 'Kath gulps but turns back to the crowd and ' + this.clothesChoice( 'starts unbuttoning her blouse slowly', 'starts unlacing her bodysuit', 'starts unlacing her long dress', 'starts untying the knot of her robe', 'starts running her fingers under the bottom edge of her tube top', 'pulls the front of her nurse’s top open again' ) + '.  The crowd loves it and Kath, perhaps feeling a little bold thanks to the booze still in her system, starts to get into it and starts to sway back and forth, her cat-like flexibility allowing her hips to move through a hypnotic pattern that silences the crowd.' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? '  You even see a certain faerie waitress paused mid-flight with a tray of drinks.  You see her eyes following every move that Kath’s hips make.' : '') );
 				EngineCore.outputText( '\n\nYou have to smile watching Katherine dancing in front of all these people.  This is something she would never have done before you met her.  As her hips gyrate Kath ' + this.clothesChoice( 'pulls off her blouse and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'pulls her shoulders out of the unlaced top of her bodysuit.  Without missing a beat she gets her arms free and pushes the silky fabric down until the bodysuit covers only her legs, ass and belly', 'finishes unlacing the dress and pulls her arms free, letting the top of the dress fall away.  She starts to play with her breasts and after a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'undoes the knot and opens the front of her robe, giving the audience a lovely view of her bra and panties', 'pulls the tube top over her head and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'slips out of the nurse’s top and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well' ) + '.\n\n' );
 				EngineCore.outputText( 'With every eye in the place locked on her body Kath lets out a sexy purr ' + this.clothesChoice( ', loosens her skirt and slowly slides it over her hips.  She poses before kicking off her panties, leaving herself totally naked in front of the crowd', 'and works the bodysuit down over her hips, leaving herself totally naked in front of the crowd', 'and wiggles her body, working herself out of the dress and leaving herself totally naked in front of the crowd', 'and allows the spider silk robe to slide off her shoulders and drop to the ground.  With a twirl she pulls off her bra and slides off her panties, leaving herself totally naked in front of the crowd', this.clothesLowerChoice( 'and slides the skintight shorts down her legs.  Her panties soon follow, ', ', loosens her skirt and slowly slides it over her hips.  She poses before kicking off her panties,', '', '', '' ) + ' leaving herself totally naked in front of the crowd', 'and unfastens the sexy nurse’s skirt, letting it drop to the floor.  She poses for the crowd, naked save for the little white nurse’s cap resting on her head' ) + '.\n\n' );
 				EngineCore.outputText( 'With Katherine nude and distracted you sneak up behind her and grab ' + this.cockMultiple( 'her cock with both hands', 'both her cocks' ) + '.  She lets out a surprised meow as you fondle her member' + (this.hasBalls() ? ', her balls' : '') + ' and her dripping pussy.\n\n' );
 				EngineCore.outputText( 'The crowd starts to cheer as you smear Kath’s cock' + this.cockMultiple( '', 's' ) + ' with her own pussy juice.' );
-				if( Dungeon2Supplimental.isValaAtBar() ) {
+				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
 					EngineCore.outputText( '   You notice Vala has put down her tray.  One of her hands is under her skirt and she has a zoned out happy look on her face as she watches you molest your ' + this.catGirl( 'cat girl.', 'feline lover.' ) );
 				}
 				EngineCore.outputText( '  Katherine starts playing with her own breasts and grins at her audience' + (this.breasts.lactating() ? '.  Every time she gives them a little squeeze some cream leaks out and dribbles down her front.  She' : '.  Then she') + ' closes her eyes and leans back against you, losing herself in the feeling of her fingers and yours as they pleasure the most sensitive areas of her body.\n\n' );
 				EngineCore.outputText( 'Having cum recently Kath is able to put on quite the show.  Even with your hands working her shaft' + this.cockMultiple( '', 's' ) + ' and occasionally dipping into her cunt it still takes minutes before you feel ' + this.cockMultiple( 'that knot', 'those knots' ) + ' of hers firming up.  Kath’s hips jerk forward and you aim ' + this.cockMultiple( 'her shaft toward the ceiling.  When Kath cums a thick stream of semen under high pressure blasts from the tip of her cock, striking the wall above the door and raining down in thick, heavy droplets', 'her upper cock to the left and her lower cock to the right.  When Kath cums twin streams of semen under high pressure blast from the tips of her cocks - one striking the wall on the left of the door, one striking the wall on the right' ) + '.  The whole bar applauds as Katherine unloads.  As the final squirts bubble from her member' + this.cockMultiple( '', 's' ) + ' Kath falls to her knees and her tongue hangs from the side of her mouth.\n\n' );
 				EngineCore.outputText( 'You’re sure everyone in the bar appreciated that show but you don’t intend to leave a naked and near comatose Katherine in their hands.  You step out of the room and tell Kath you’ll see her later.  She makes a happy gurgling noise that you assume was an “<i>Okay!</i>” and then you close the door, making sure to slam it so the locking bar drops down on the inside.\n\n' );
-				EngineCore.outputText( 'You stride out of the bar' + (Dungeon2Supplimental.isValaAtBar() ? ', pausing only to pull Vala into your arms to quickly kiss her and grope her ass. She sighs, winks and tells you to come back later. You' : ' and') + ' head for home, knowing you’ve ' + (this.doneSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION ) ? 'once again helped Kath see how much fun showing off can be.' : 'opened Kath up to some new possibilities.') );
+				EngineCore.outputText( 'You stride out of the bar' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? ', pausing only to pull Vala into your arms to quickly kiss her and grope her ass. She sighs, winks and tells you to come back later. You' : ' and') + ' head for home, knowing you’ve ' + (this.doneSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION ) ? 'once again helped Kath see how much fun showing off can be.' : 'opened Kath up to some new possibilities.') );
 				this.addSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION );
 			}
 		}

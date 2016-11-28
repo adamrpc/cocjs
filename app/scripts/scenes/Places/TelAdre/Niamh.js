@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, Dungeon2Supplimental, ImageManager, PerkLib, XmasBitch, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, ImageManager, PerkLib, XmasBitch, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -666,7 +666,7 @@ angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, D
 		} else {
 			yep = this.yeahSeanLetsBimbooze;
 		}
-		EngineCore.choices( 'Yep', yep, '', null, '', null, '', null, 'Back', Dungeon2Supplimental.incubusShop );
+		EngineCore.choices( 'Yep', yep, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
 	};
 	//yeah I got this;
 	Niamh.prototype.yeahSeanLetsBimbooze = function() {
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, D
 		EngineCore.outputText( 'You drop the vial into a pouch on your person.\n\n' );
 		//bimbo liqueur aqcquired;
 		CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 0;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.BIMBOLQ, Dungeon2Supplimental.incubusShop );
+		CoC.getInstance().inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
 	};
 	// [LEAVE];
 	Niamh.prototype.leaveWithBeerTits = function() {

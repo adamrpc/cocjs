@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Dungeon2Supplimental, Thanksgiving, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Thanksgiving, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -1236,8 +1236,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Dungeon2Supplim
 			}
 		}
 		//VALA;
-		if( Dungeon2Supplimental.purifiedFaerieBitchBar() ) {
-			button = this.anotherButton( button, 'Vala', Dungeon2Supplimental.chooseValaInBar );
+		if( CoC.getInstance().scenes.dungeon2Supplimental.purifiedFaerieBitchBar() ) {
+			button = this.anotherButton( button, 'Vala', CoC.getInstance().scenes.dungeon2Supplimental.chooseValaInBar );
 		}
 		EngineCore.addButton( 9, 'Leave', this.telAdreMenu );
 	};

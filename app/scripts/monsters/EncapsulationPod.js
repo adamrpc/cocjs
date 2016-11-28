@@ -1,12 +1,12 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( Dungeon2Supplimental, WeightedDrop, WeaponLib, Descriptors, AppearanceDefs, CoC, Monster, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( WeightedDrop, WeaponLib, Descriptors, AppearanceDefs, CoC, Monster, StatusAffects ) {
 	var EncapsulationPod = angular.copy( Monster );
 	EncapsulationPod.prototype.performCombatAction = function() {
-		Dungeon2Supplimental.encapsulationPodAI();
+		CoC.getInstance().scenes.dungeon2Supplimental.encapsulationPodAI();
 	};
 	EncapsulationPod.prototype.defeated = function() {
-		Dungeon2Supplimental.encapsulationVictory();
+		CoC.getInstance().scenes.dungeon2Supplimental.encapsulationVictory();
 	};
 	EncapsulationPod.prototype._getLong = function() {
 		//[Round 1 Description];
