@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc, ThanksGiving, Dreams) {
+angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc, ThanksGiving ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);
@@ -860,7 +860,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 		}
 		if( this.checkedDream++ === 0 && CoC.getInstance().time.hours === 3 ) { //You can only have one dream each night
 			if( CoC.getInstance().player.gender > 0 && CoC.getInstance().time.days === 10 ) { //Day 10 dream - since this can happen only once it takes priority over all other dreams
-				Dreams.dayTenDreams();
+				CoC.getInstance().scenes.dreams.dayTenDreams();
 				return true;
 			}
 			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.findPerk( PerkLib.BeeOvipositor ) >= 0 && (CoC.getInstance().player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Bee dreams proc
@@ -945,11 +945,11 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 				return true;
 			}
 			if( CoC.getInstance().player.viridianChange() ) {
-				Dreams.fuckedUpCockDreamChange();
+				CoC.getInstance().scenes.dreams.fuckedUpCockDreamChange();
 				return true;
 			}
 			if( CoC.getInstance().player.lib > 50 || CoC.getInstance().player.lust > 40 ) { //Randomly generated dreams here
-				if( Dreams.dreamSelect() ) {
+				if( CoC.getInstance().scenes.dreams.dreamSelect() ) {
 					return true;
 				}
 			}
