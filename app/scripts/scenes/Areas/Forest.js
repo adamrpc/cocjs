@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
 	function Forest() {
 	}
 
@@ -8,11 +8,11 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 		CoC.getInstance().player.addStatusValue( StatusAffects.ExploredDeepwoods, 1, 1 );
 		var chooser = Utils.rand( 5 );
 		//Every tenth exploration finds a pumpkin if eligible!
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 10 === 0 && Fera.isHalloween() ) {
+		if( CoC.getInstance().player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 10 === 0 && CoC.getInstance().scenes.fera.isHalloween() ) {
 			//If Fera isn't free yet...
 			if( CoC.getInstance().player.findPerk( PerkLib.FerasBoonBreedingBitch ) < 0 && CoC.getInstance().player.findPerk( PerkLib.FerasBoonAlpha ) < 0 ) {
 				if( OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] ) {
-					Fera.pumpkinFuckEncounter();
+					CoC.getInstance().scenes.fera.pumpkinFuckEncounter();
 					return;
 				}
 			}
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, Fera, kFL
 			else {
 				if( CoC.getInstance().flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] === 0 ) {
 					if( OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] ) {
-						Fera.feraSceneTwoIntroduction();
+						CoC.getInstance().scenes.fera.feraSceneTwoIntroduction();
 						return;
 					}
 				}

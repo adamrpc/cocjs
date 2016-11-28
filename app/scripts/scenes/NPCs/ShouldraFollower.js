@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, Fera, $log, Combat, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function ShouldraFollower() {
 	}
 
@@ -1593,7 +1593,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Fera, $log, Combat, Perk
 			choices[ choices.length ] = 21;
 		}
 		//22 (Computer date is within a week before or after Halloween/or on Halloween whichever's easier);
-		if( Fera.isHalloween() ) {
+		if( CoC.getInstance().scenes.fera.isHalloween() ) {
 			choices[ choices.length ] = 22;
 		}
 		select = choices[ Utils.rand( choices.length ) ];

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Fera, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dreams() {
 	}
 
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( Fera, Utils, PerkLib, StatusAffects, De
 			}
 		}
 		//Halloween;
-		if( Fera.isHalloween() ) {
+		if( CoC.getInstance().scenes.fera.isHalloween() ) {
 			choices.push( 14 );
 			choices.push( 14 );
 			choices.push( 14 );
