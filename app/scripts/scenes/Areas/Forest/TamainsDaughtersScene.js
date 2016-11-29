@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, Worms, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
 	function TamainsDaughtersScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -1289,7 +1289,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		if( CoC.getInstance().player.lust > 99 ) {
 			//worms r gross mmmmkay?
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-				Worms.infestOrgasm();
+				CoC.getInstance().scenes.worms.infestOrgasm();
 				EngineCore.outputText( '\n\nThe goblins sigh and say, "<i>Dad, that\'s just gross.  Don\'t get me wrong, we\'re still gonna have you knock us up, but I hate the feeling of those worms inside me.</i>"', false );
 				CoC.getInstance().player.orgasm();
 			}

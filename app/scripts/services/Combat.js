@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Worms, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -14,7 +14,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 	Combat.endLustLoss = function() {
 		if (CoC.getInstance().player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.getInstance().flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] === 0) {
 			CoC.getInstance().flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] = 1;
-			Worms.infestOrgasm();
+			CoC.getInstance().scenes.worms.infestOrgasm();
 			CoC.getInstance().monster.won_(false,true);
 		} else {
 			CoC.getInstance().monster.won_(false,false);

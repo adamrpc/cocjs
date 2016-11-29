@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Worms, Combat, PerkLib, Utils, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
 	EventParser.playerMenu = function() {
 		if( !CoC.getInstance().isInCombat() ) {
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 					}
 				} else if( CoC.getInstance().flags[ kFLAGS.EVER_INFESTED ] === 1 && Utils.rand( 100 ) <= 4 && CoC.getInstance().player.hasCock() && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) < 0 ) { //wormgasms
 					if( CoC.getInstance().player.hasCock() && (CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 || !CoC.getInstance().scenes.helFollower.followerHel()) && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
-						Worms.nightTimeInfestation();
+						CoC.getInstance().scenes.worms.nightTimeInfestation();
 						return true;
 					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && CoC.getInstance().scenes.helFollower.followerHel() ) {
 						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );

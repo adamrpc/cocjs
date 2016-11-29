@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, XmasBitch, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Worms, Combat, XmasJackFrost, OnLoadVariables, XmasGatsNotAnAngel ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, XmasBitch, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, XmasJackFrost, OnLoadVariables, XmasGatsNotAnAngel ) {
 	function Mountain() {
 	}
 
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 					return;
 				}
-				Worms.wormEncounter();
+				CoC.getInstance().scenes.worms.wormEncounter();
 			} else {
 				//If worms are off or the PC is infested, no worms.
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsOff ) >= 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 || (Utils.rand( 2 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.WormsHalf ) >= 0) ) {
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 					}
 					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				} else {
-					Worms.wormToggle();
+					CoC.getInstance().scenes.worms.wormToggle();
 				}
 			}
 		}
