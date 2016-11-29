@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, XmasJackFrost, XmasMisc, Utils, PregnancyStore, ConsumableLib, StartUp, ImageManager, PerkLib, Descriptors ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, XmasMisc, Utils, PregnancyStore, ConsumableLib, StartUp, ImageManager, PerkLib, Descriptors ) {
 	function Camp() {
 		this.campQ = false;
 	}
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		}
 		if( CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] > 0 ) {
 			EngineCore.hideMenus();
-			XmasJackFrost.processJackFrostEvent();
+			CoC.getInstance().scenes.xmasJackFrost.processJackFrostEvent();
 			return;
 		}
 		if( CoC.getInstance().player.hasKeyItem( 'Super Reducto' ) < 0 && CoC.getInstance().scenes.milkWaifu.milkSlave() && CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.getInstance().player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {

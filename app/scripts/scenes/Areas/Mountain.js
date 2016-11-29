@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, XmasJackFrost, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, OnLoadVariables ) {
 	function Mountain() {
 	}
 
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 				return;
 			}
 			if( Utils.rand( 6 ) === 0 && CoC.getInstance().flags[ kFLAGS.JACK_FROST_YEAR ] < OnLoadVariables.date.fullYear && EngineCore.silly() ) {
-				XmasJackFrost.meetJackFrostInTheMountains();
+				CoC.getInstance().scenes.xmasJackFrost.meetJackFrostInTheMountains();
 				return;
 			}
 		}
