@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, ImageManager, PerkLib, XmasBitch, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager, PerkLib, XmasBitch, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( Valentines, EventParser, Descriptors, I
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
 			// Valentine's;
-			else if( Valentines.isValentine() ) {
+			else if( CoC.getInstance().scenes.valentines.isValentine() ) {
 				EngineCore.outputText( '\n\nThe aroma is distinct and Niamh comments, "<i>My, that\'s quite a delectable white wine you\'re leakin\' there lass.</i>"  She pulls on another nipple to drain a bit more from you.  "<i>Mmmmm, and the other is a good red.</i>"  She grins.  "<i>I bet there are a bunch o\' couples in town that\'d pay good gems for what you\'ve got sloshin\' around inside those babies there.</i>"  She cuddles up close to you.  "<i>What you say sweetie?  Gimme an hour o\' your time?  See if the bar goers can drain you dry?  Ah\'ll make it worth ye worth.</i>"  She winks.' );
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}

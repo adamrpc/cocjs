@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -108,8 +108,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Valentines, OnL
 		EngineCore.doNext( this.telAdreMenu );
 	};
 	TelAdre.prototype.telAdreMenu = function() {
-		if( CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && Valentines.isValentine() ) {
-			Valentines.crazyVDayShenanigansByVenithil();
+		if( CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && CoC.getInstance().scenes.valentines.isValentine() ) {
+			CoC.getInstance().scenes.valentines.crazyVDayShenanigansByVenithil();
 			return;
 		}
 		if( !CoC.getInstance().scenes.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] === 0 && Utils.rand( 15 ) === 0 && CoC.getInstance().time.hours > 15 ) {
