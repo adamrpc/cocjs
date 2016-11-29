@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc, ThanksGiving ) {
+angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);
@@ -854,8 +854,8 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			XmasMisc.xmasBitchEncounter(); //Set it to remember the last year encountered
 			return true;
 		}
-		if( this.checkedTurkey++ === 0 && (Utils.rand( 5 ) === 0 && (CoC.getInstance().time.hours === 18 || CoC.getInstance().time.hours === 19)) && (CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] || CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] > 0) && ThanksGiving.isThanksgiving() && CoC.getInstance().player.gender > 0 ) {
-			ThanksGiving.datTurkeyRumpMeeting(); //TURKEY SURPRISE
+		if( this.checkedTurkey++ === 0 && (Utils.rand( 5 ) === 0 && (CoC.getInstance().time.hours === 18 || CoC.getInstance().time.hours === 19)) && (CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] || CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] > 0) && CoC.getInstance().scenes.thanksgiving.isThanksgiving() && CoC.getInstance().player.gender > 0 ) {
+			CoC.getInstance().scenes.thanksgiving.datTurkeyRumpMeeting(); //TURKEY SURPRISE
 			return true;
 		}
 		if( this.checkedDream++ === 0 && CoC.getInstance().time.hours === 3 ) { //You can only have one dream each night

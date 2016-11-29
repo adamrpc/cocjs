@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Thanksgiving, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Valentines, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -1053,8 +1053,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, Thanksgiving, V
 		return button;
 	};
 	TelAdre.prototype.enterBarTelAdre = function() {
-		if( Thanksgiving.isThanksgiving() ) {
-			Thanksgiving.pigSlutRoastingGreet();
+		if( CoC.getInstance().scenes.thanksgiving.isThanksgiving() ) {
+			CoC.getInstance().scenes.thanksgiving.pigSlutRoastingGreet();
 		} else {
 			this.barTelAdre();
 		}
