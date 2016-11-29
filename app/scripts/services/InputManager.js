@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, BoundControlMethod ) {
+angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 
 	var defaultControlMethods = {};
 	var defaultKeysToControlMethods = {};
@@ -66,9 +66,23 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 	 */
 	InputManager.AddBindableControl = function( name, desc, func, isCheat ) {
 		if( isCheat ) {
-			cheatControlMethods[ name ] = new BoundControlMethod( func, name, desc, availableCheatControlMethods++ );
+			cheatControlMethods[ name ] = {
+				Func: func,
+				Name: name,
+				Description: desc,
+				Index: availableCheatControlMethods++,
+				PrimaryKey: -1,
+				SecondaryKey: -1
+			};
 		} else {
-			controlMethods[ name ] = new BoundControlMethod( func, name, desc, availableControlMethods++ );
+			controlMethods[ name ] = {
+				Func: func,
+				Name: name,
+				Description: desc,
+				Index: availableControlMethods++,
+				PrimaryKey: -1,
+				SecondaryKey: -1
+			};
 		}
 	};
 	/**
@@ -142,10 +156,10 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 	InputManager.ExecuteKeyCode = function( keyCode ) {
 		if( keysToControlMethods[ keyCode ] !== null ) {
 			$log.debug( 'Attempting to exec func [' + controlMethods[ keysToControlMethods[ keyCode ] ].Name + ']' );
-			controlMethods[ keysToControlMethods[ keyCode ] ].ExecFunc();
+			controlMethods[ keysToControlMethods[ keyCode ] ].Func();
 		}
 		_.forOwn(cheatControlMethods, function(cheatControlMethod) {
-			cheatControlMethod.ExecFunc( keyCode );
+			cheatControlMethod.Func( keyCode );
 		});
 	};
 	/**
@@ -173,13 +187,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 	 */
 	InputManager.RegisterDefaults = function() {
 		_.forOwn(controlMethods, function(value, key) {
-			defaultControlMethods[ key ] = new BoundControlMethod(
-				controlMethods[ key ].Func,
-				controlMethods[ key ].Name,
-				controlMethods[ key ].Description,
-				controlMethods[ key ].Index,
-				controlMethods[ key ].PrimaryKey,
-				controlMethods[ key ].SecondaryKey );
+			defaultControlMethods[ key ] = angular.copy(controlMethods[ key ]);
 		});
 		// Elbullshito mode -- 126 is the maximum keycode in as3 we're likely to see
 		_.forEach(_.range(127), function(i) {
@@ -193,13 +201,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView, Bou
 	 */
 	InputManager.ResetToDefaults = function() {
 		_.forOwn(controlMethods, function(value, key) {
-			controlMethods[ key ] = new BoundControlMethod(
-				defaultControlMethods[ key ].Func,
-				defaultControlMethods[ key ].Name,
-				defaultControlMethods[ key ].Description,
-				defaultControlMethods[ key ].Index,
-				defaultControlMethods[ key ].PrimaryKey,
-				defaultControlMethods[ key ].SecondaryKey );
+			controlMethods[ key ] = angular.copy(defaultControlMethods[ key ]);
 		});
 		// Elbullshito mode -- 126 is the maximum keycode in as3 we're likely to see
 		_.forEach(_.range(127), function(i) {
