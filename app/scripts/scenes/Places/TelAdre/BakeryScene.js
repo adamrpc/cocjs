@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, ConsumableLib, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
 	function BakeryScene() {
 	}
 
@@ -36,10 +36,10 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, Con
 		//[Repeat approach];
 		else {
 			//Kanga christmas!;
-			if( XmasMisc.nieveHoliday() ) {
-				XmasMisc.encounterKamiTheChristmasRoo();
+			if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() ) {
+				CoC.getInstance().scenes.xmasMisc.encounterKamiTheChristmasRoo();
 				if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] === 1 ) {
-					EngineCore.addButton( 3, 'Pudding', XmasMisc.getWinterPudding );
+					EngineCore.addButton( 3, 'Pudding', CoC.getInstance().scenes.xmasMisc.getWinterPudding );
 				}
 			}
 			//Normal repeats!;
@@ -271,13 +271,13 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, XmasMisc, PerkLib, Con
 			EngineCore.addButton( 1, rubiT, rubiB );
 		}
 
-		if( XmasMisc.nieveHoliday() ) {
+		if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() ) {
 			if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] > 0 ) {
 				EngineCore.outputText( '\nYou could \'burn off some steam\' with Kami during her lunch break, since you already know how that\'ll end up!\n' );
-				EngineCore.addButton( 2, 'Kami', XmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kami', CoC.getInstance().scenes.xmasMisc.approachKamiTheChristmasRoo );
 			} else {
 				EngineCore.outputText( '\nYou could summon the curvaceous kangaroo waitress you ran into earlier - perhaps you can win her over.\n' );
-				EngineCore.addButton( 2, 'Kangaroo', XmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kangaroo', CoC.getInstance().scenes.xmasMisc.approachKamiTheChristmasRoo );
 			}
 		}
 		EngineCore.outputText( '\nYou see a bubblegum-pink girl at the bakery, walking around and eagerly trying to hand out fliers to people. Her “uniform” is more like a yellow bikini with frills circling the waist of the bottom half. If this didn’t make her stand out from the crowd then her hair certainly would; it’s a big, poofy, curly, dark pink mess that reaches down to her ass with a huge cupcake hat sitting on top.\n' );

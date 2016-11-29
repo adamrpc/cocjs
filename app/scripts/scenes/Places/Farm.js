@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Descriptors, XmasMisc, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Farm() {
 	}
 
@@ -468,8 +468,8 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, XmasMisc, EventParse
 			return;
 		}
 		//FIND CARROT!;
-		if( XmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 3 && CoC.getInstance().player.hasKeyItem( 'Carrot' ) < 0 ) {
-			XmasMisc.findACarrot();
+		if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 3 && CoC.getInstance().player.hasKeyItem( 'Carrot' ) < 0 ) {
+			CoC.getInstance().scenes.xmasMisc.findACarrot();
 			return;
 		}
 		//Free Isabella Milkings!;

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, XmasMisc, Utils, PregnancyStore, ConsumableLib, StartUp, ImageManager, PerkLib, Descriptors ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, Utils, PregnancyStore, ConsumableLib, StartUp, ImageManager, PerkLib, Descriptors ) {
 	function Camp() {
 		this.campQ = false;
 	}
@@ -120,9 +120,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			CoC.getInstance().scenes.milkWaifu.ratducto();
 			return;
 		}
-		if( XmasMisc.nieveHoliday() && CoC.getInstance().time.hours === 6 ) {
+		if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() && CoC.getInstance().time.hours === 6 ) {
 			if( CoC.getInstance().player.hasKeyItem( 'Nieve\'s Tear' ) >= 0 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] !== 5 ) {
-				XmasMisc.returnOfNieve();
+				CoC.getInstance().scenes.xmasMisc.returnOfNieve();
 				EngineCore.hideMenus();
 				return;
 			} else if( CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 0 ) {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 				return;
 			} else if( CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 4 ) {
 				EngineCore.hideMenus();
-				XmasMisc.nieveComesToLife();
+				CoC.getInstance().scenes.xmasMisc.nieveComesToLife();
 				return;
 			}
 		}
@@ -210,8 +210,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			CoC.getInstance().scenes.sophieBimbo.sophieMoveInAttempt();
 			return;
 		}
-		if( !XmasMisc.nieveHoliday() && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] > 0 ) {
-			XmasMisc.nieveIsOver();
+		if( !CoC.getInstance().scenes.xmasMisc.nieveHoliday() && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] > 0 ) {
+			CoC.getInstance().scenes.xmasMisc.nieveIsOver();
 			return;
 		}
 		//Amily followup!
@@ -803,9 +803,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		var nieve = null;
 		EngineCore.clearOutput();
 		if( CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 5 ) {
-			XmasMisc.nieveCampDescs();
+			CoC.getInstance().scenes.xmasMisc.nieveCampDescs();
 			EngineCore.outputText( '\n\n' );
-			nieve = XmasMisc.approachNieve;
+			nieve = CoC.getInstance().scenes.xmasMisc.approachNieve;
 		}
 		if( CoC.getInstance().scenes.helScene.followerHel() ) {
 			if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 2 ) {
