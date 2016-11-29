@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasBitch, XmasMisc ) {
+angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum, XmasMisc ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);
@@ -846,11 +846,11 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 		return needNext;
 	};
 	PlayerEvents.prototype.timeChangeLarge = function() {
-		if( Utils.rand( 4 ) === 0 && XmasBitch.isHolidays() && CoC.getInstance().player.gender > 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.XMAS_CHICKEN_YEAR ] < CoC.getInstance().date.fullYear ) {
+		if( Utils.rand( 4 ) === 0 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().player.gender > 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.XMAS_CHICKEN_YEAR ] < CoC.getInstance().date.fullYear ) {
 			XmasMisc.getAChristmasChicken();
 			return true;
 		}
-		if( CoC.getInstance().time.hours === 1 && XmasBitch.isHolidays() && CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] ) { //XMAS ELF
+		if( CoC.getInstance().time.hours === 1 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] ) { //XMAS ELF
 			XmasMisc.xmasBitchEncounter(); //Set it to remember the last year encountered
 			return true;
 		}

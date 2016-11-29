@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, XmasBitch, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, XmasJackFrost, OnLoadVariables, XmasGatsNotAnAngel ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, XmasJackFrost, OnLoadVariables, XmasGatsNotAnAngel ) {
 	function Mountain() {
 	}
 
@@ -20,9 +20,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( XmasBitch.isHolidays() ) {
+		if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
 			//Gats xmas adventure!
-			if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && XmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] > 0 && CoC.getInstance().player.hasKeyItem( 'North Star Key' ) < 0) ) {
+			if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] > 0 && CoC.getInstance().player.hasKeyItem( 'North Star Key' ) < 0) ) {
 				XmasGatsNotAnAngel.gatsSpectacularRouter();
 				return;
 			}

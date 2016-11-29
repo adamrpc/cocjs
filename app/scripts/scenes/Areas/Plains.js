@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, XmasMisc, OnLoadVariables, ConsumableLib, XmasBitch ) {
+angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, XmasMisc, OnLoadVariables, ConsumableLib ) {
 	function Plains() {
 	}
 
@@ -13,11 +13,11 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, XmasMis
 			return;
 		}
 		//Add some holiday cheer
-		if( XmasBitch.isHolidays() && OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.CANDY_CANE_YEAR_MET ] && Utils.rand( 5 ) === 0 ) {
+		if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.CANDY_CANE_YEAR_MET ] && Utils.rand( 5 ) === 0 ) {
 			XmasMisc.candyCaneTrapDiscovery();
 			return;
 		}
-		if( XmasBitch.isHolidays() && OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.POLAR_PETE_YEAR_MET ] && Utils.rand( 4 ) === 0 && EngineCore.silly() ) {
+		if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.POLAR_PETE_YEAR_MET ] && Utils.rand( 4 ) === 0 && EngineCore.silly() ) {
 			XmasMisc.polarPete();
 			CoC.getInstance().flags[ kFLAGS.POLAR_PETE_YEAR_MET ] = OnLoadVariables.date.fullYear;
 			return;

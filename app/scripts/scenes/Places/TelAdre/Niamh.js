@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager, PerkLib, XmasBitch, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			EngineCore.outputText( '\n\nYou lean back against the bar as the weight on your chest grows ever heavier.  You gasp for air as the growth arouses you even further.  You feel a hand on your wrist and Niamh pulls you around behind the bar.  She grabs a shot glass and holds it up to one of your sensitive nipples, collecting the beverage before sniffing it.' );
 			// Description depends on Holiday.;
 			// New Years;
-			if( XmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
+			if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
 				EngineCore.outputText( '\n\n"<i>Cor, well ah\'ll be.  Sweetie, you be leaking Champagne.</i>"  She gives your other nipple a tweak to fill a second shot glass.  The same clear liquid pours out, and the little champagne bubbles tickle your nipples to new heights of sensitivity, causing your ' );
 				if( CoC.getInstance().player.hasVagina() ) {
 					EngineCore.outputText( 'pussy to wetten' );
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
 			// Christmas;
-			else if( XmasBitch.isHolidays() ) {
+			else if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
 				EngineCore.outputText( '\n\nThe off color indicates it isn\'t milk filling the shot glass, but you aren\'t sure what it is.  Niamh darts her tongue into it and grins.  "<i>Ooooh.  Mmmmm.  Egg nog.  So delicious.</i>"  She slurps the whole shot glass backs and then blinks.  "<i>Whoah.  An\' rather strong shtuff to boot!</i>"  She wraps an arm around your shoulders.  "<i>Lass, I bet those puppies of yours are gonna be squirting that holiday joy for awhile.  Hows about ye let me prop ye up onna bar here and sell that liquid cheer of yours?  I bet it won\'t take long to drain them considering how delicious ye are.  Make you a fair bit o\' gems too!</i>"' );
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
@@ -1028,14 +1028,14 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 
 	Niamh.prototype.boozeBoobsType = function() {
 		// New Years;
-		if( XmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
+		if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
 			return 'champagne';
 		}// Saint Patrick's;
 		else if( OnLoadVariables.date.date === 17 && OnLoadVariables.date.month === 2 ) {
 			return 'Saint Patrick\'s Day lagar';
 		}
 		// Christmas;
-		else if( XmasBitch.isHolidays() ) {
+		else if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
 			return 'egg nog';
 		}// Valentine's;
 		else if( OnLoadVariables.date.date === 14 && OnLoadVariables.date.month === 1 ) {
