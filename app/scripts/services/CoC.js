@@ -119,29 +119,4 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 		this.scenes[name] = scene;
 	};
 	return new CoC();
-	/*
-	TODO : Convert scences and call registerScene;
-			private static var doCamp:Function; //Set by campInitialize, should only be called by playerMenu
-		private static function campInitialize(passDoCamp:Function):void { doCamp = passDoCamp; }
-		// Items/
-		// Other scenes
-		include "../../includes/april_fools.as";
-		include "../../includes/dreams.as";
-		include "../../includes/dungeon2Supplimental.as";
-		include "../../includes/dungeonCore.as";
-		include "../../includes/dungeonHelSupplimental.as";
-		include "../../includes/dungeonSandwitch.as";
-		include "../../includes/fera.as";
-		include "../../includes/pregnancy.as";
-		include "../../includes/runa.as";
-		include "../../includes/symGear.as";
-		include "../../includes/tamaniDildo.as";
-		include "../../includes/thanksgiving.as";
-		include "../../includes/valentines.as";
-		include "../../includes/worms.as";
-		include "../../includes/xmas_bitch.as";
-		include "../../includes/xmas_gats_not_an_angel.as";
-		include "../../includes/xmas_jack_frost.as";
-		include "../../includes/xmas_misc.as";
-		*/
 });
