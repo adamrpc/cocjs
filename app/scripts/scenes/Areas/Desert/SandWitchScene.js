@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandWitch, TamaniDildo, PerkLib ) {
+angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
 	function SandWitchScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -713,7 +713,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			temp3 = this.missingoSex;
 		}
 		if( CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ) {
-			temp2 = TamaniDildo.sandwitchGetsDildoed;
+			temp2 = CoC.getInstance().scenes.tamaniDildo.sandwitchGetsDildoed;
 		}
 		var shouldra = null;
 		if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 ) {

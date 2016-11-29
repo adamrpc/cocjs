@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( TamaniDildo, StatusAffects, Combat, SharkGirl, Appearance, Utils, EventParser, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appearance, Utils, EventParser, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function SharkGirlScene() {
 	}
 
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( TamaniDildo, StatusAffects, Combat, Sha
 		}
 		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
 			EngineCore.outputText( '  Do you have your way with her or leave?', false );
-			var dildo = (CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? TamaniDildo.sharkGirlGetsDildoed : null);
+			var dildo = (CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? CoC.getInstance().scenes.tamaniDildo.sharkGirlGetsDildoed : null);
 			if( CoC.getInstance().player.gender === 1 ) {
 				EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy w/69', null, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
 			} else if( CoC.getInstance().player.gender === 2 ) {
