@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, BaseContent, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kFLAGS, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.getInstance().monster.defeated_(true);
@@ -74,9 +74,9 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				//Bonus lewts
 				if (CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
 					EngineCore.outputText("  Somehow you came away from the encounter with " + ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]).longName + ".\n\n");
-					CoC.getInstance().inventory.takeItem(ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), BaseContent.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
+					CoC.getInstance().inventory.takeItem(ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
 				} else {
-					EngineCore.doNext(BaseContent.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
+					EngineCore.doNext(EngineCore.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
 				}
 			}
 		} else { //Not actually in combat

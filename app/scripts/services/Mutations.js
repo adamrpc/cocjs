@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Mutations', function ($log, BaseContent, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, ConsumableLib, EventParser) {
+angular.module('cocjs').factory('Mutations', function ($log, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, ConsumableLib, EventParser) {
     var Mutations = {};
 	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
