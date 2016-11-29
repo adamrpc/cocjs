@@ -1,12 +1,12 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, EventParser, ItemSlotClass, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, EventParser, ItemSlot, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function UrtaQuest() {
-		this.urtaQItems1 = new ItemSlotClass();
-		this.urtaQItems2 = new ItemSlotClass();
-		this.urtaQItems3 = new ItemSlotClass();
-		this.urtaQItems4 = new ItemSlotClass();
-		this.urtaQItems5 = new ItemSlotClass();
+		this.urtaQItems1 = new ItemSlot();
+		this.urtaQItems2 = new ItemSlot();
+		this.urtaQItems3 = new ItemSlot();
+		this.urtaQItems4 = new ItemSlot();
+		this.urtaQItems5 = new ItemSlot();
 	}
 
 	/**
@@ -151,11 +151,11 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		this.urtaQItems3 = CoC.getInstance().player.itemSlot3;
 		this.urtaQItems4 = CoC.getInstance().player.itemSlot4;
 		this.urtaQItems5 = CoC.getInstance().player.itemSlot5;
-		CoC.getInstance().player.itemSlot1 = new ItemSlotClass();
-		CoC.getInstance().player.itemSlot2 = new ItemSlotClass();
-		CoC.getInstance().player.itemSlot3 = new ItemSlotClass();
-		CoC.getInstance().player.itemSlot4 = new ItemSlotClass();
-		CoC.getInstance().player.itemSlot5 = new ItemSlotClass();
+		CoC.getInstance().player.itemSlot1 = new ItemSlot();
+		CoC.getInstance().player.itemSlot2 = new ItemSlot();
+		CoC.getInstance().player.itemSlot3 = new ItemSlot();
+		CoC.getInstance().player.itemSlot4 = new ItemSlot();
+		CoC.getInstance().player.itemSlot5 = new ItemSlot();
 		CoC.getInstance().player2 = CoC.getInstance().player;
 		CoC.getInstance().player = new Player();
 		CoC.getInstance().player.short = 'Urta';

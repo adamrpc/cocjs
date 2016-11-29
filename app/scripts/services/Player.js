@@ -1,16 +1,16 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlotClass, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
+angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
 	var Player = angular.copy( Character );
 
 	Player.prototype.init = function( that, args ) {
 		Character.prototype.init( that, args );
 		//Item things
-		that.itemSlot1 = new ItemSlotClass();
-		that.itemSlot2 = new ItemSlotClass();
-		that.itemSlot3 = new ItemSlotClass();
-		that.itemSlot4 = new ItemSlotClass();
-		that.itemSlot5 = new ItemSlotClass();
+		that.itemSlot1 = new ItemSlot();
+		that.itemSlot2 = new ItemSlot();
+		that.itemSlot3 = new ItemSlot();
+		that.itemSlot4 = new ItemSlot();
+		that.itemSlot5 = new ItemSlot();
 		that.itemSlots = [ that.itemSlot1, that.itemSlot2, that.itemSlot3, that.itemSlot4, that.itemSlot5 ];
 		this.armor = ArmorLib.COMFORTABLE_UNDERCLOTHES;
 		this.weapon = WeaponLib.FISTS;
