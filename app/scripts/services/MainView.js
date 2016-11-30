@@ -9,7 +9,7 @@
  ****/
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, PerkClass, PerkLib) {
+angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, Perk, PerkLib) {
 	var BOTTOM_BUTTON_COUNT = 10;
 	var sprites = [
 		'0-akbal.png',
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 	MainView.MENU_APPEARANCE = 'appearance';
 	MainView.aCb = {
 		value: null,
-		dataProvider: [{label:'TEMP',perk:new PerkClass(PerkLib.Acclimation)}],
+		dataProvider: [{label:'TEMP',perk:new Perk(PerkLib.Acclimation)}],
 		visible: false
 	};
 	MainView.nameBox = {

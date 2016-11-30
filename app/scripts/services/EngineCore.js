@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, PerkClass, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
     var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
@@ -245,169 +245,169 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		//STRENGTH PERKS
 		if( CoC.getInstance().player.str >= 25 ) {
-			_add( new PerkClass( PerkLib.StrongBack ) );
+			_add( new Perk( PerkLib.StrongBack ) );
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.StrongBack ) >= 0 && CoC.getInstance().player.str >= 50 ) {
-			_add( new PerkClass( PerkLib.StrongBack2 ) );
+			_add( new Perk( PerkLib.StrongBack2 ) );
 		}
 		//Tier 1 Strength Perks
 		if( CoC.getInstance().player.level >= 6 ) {
 			//Thunderous Strikes - +20% basic attack damage while str > 80.
 			if( CoC.getInstance().player.str >= 80 ) {
-				_add( new PerkClass( PerkLib.ThunderousStrikes ) );
+				_add( new Perk( PerkLib.ThunderousStrikes ) );
 			}
 			//Weapon Mastery - Doubles weapon damage bonus of \'large\' type weapons. (Minotaur Axe, M. Hammer, etc)
 			if( CoC.getInstance().player.str > 60 ) {
-				_add( new PerkClass( PerkLib.WeaponMastery ) );
+				_add( new Perk( PerkLib.WeaponMastery ) );
 			}
 			if( CoC.getInstance().player.str >= 75 ) {
-				_add( new PerkClass( PerkLib.BrutalBlows ) );
+				_add( new Perk( PerkLib.BrutalBlows ) );
 			}
 		}
 		//Tier 2 Strength Perks
 		if( CoC.getInstance().player.level >= 12 ) {
 			if( CoC.getInstance().player.str >= 75 ) {
-				_add( new PerkClass( PerkLib.Berzerker ) );
+				_add( new Perk( PerkLib.Berzerker ) );
 			}
 		}
 		//slot 2 - toughness perk 1
 		if( CoC.getInstance().player.findPerk( PerkLib.Tank ) < 0 && CoC.getInstance().player.tou >= 25 ) {
-			_add( new PerkClass( PerkLib.Tank ) );
+			_add( new Perk( PerkLib.Tank ) );
 		}
 		//slot 2 - regeneration perk
 		if( CoC.getInstance().player.findPerk( PerkLib.Tank ) >= 0 && CoC.getInstance().player.tou >= 50 ) {
-			_add( new PerkClass( PerkLib.Regeneration ) );
+			_add( new Perk( PerkLib.Regeneration ) );
 		}
 		//Tier 1 Toughness Perks
 		if( CoC.getInstance().player.level >= 6 ) {
 			if( CoC.getInstance().player.findPerk( PerkLib.Tank ) >= 0 && CoC.getInstance().player.tou >= 60 ) {
-				_add( new PerkClass( PerkLib.Tank2 ) );
+				_add( new Perk( PerkLib.Tank2 ) );
 			}
 			if( CoC.getInstance().player.findPerk( PerkLib.Regeneration ) >= 0 && CoC.getInstance().player.tou >= 70 ) {
-				_add( new PerkClass( PerkLib.Regeneration2 ) );
+				_add( new Perk( PerkLib.Regeneration2 ) );
 			}
 			if( CoC.getInstance().player.tou >= 75 ) {
-				_add( new PerkClass( PerkLib.ImmovableObject ) );
+				_add( new Perk( PerkLib.ImmovableObject ) );
 			}
 		}
 		//Tier 2 Toughness Perks
 		if( CoC.getInstance().player.level >= 12 ) {
 			if( CoC.getInstance().player.tou >= 75 ) {
-				_add( new PerkClass( PerkLib.Resolute ) );
+				_add( new Perk( PerkLib.Resolute ) );
 			}
 			if( CoC.getInstance().player.tou >= 60 ) {
-				_add( new PerkClass( PerkLib.IronMan ) );
+				_add( new Perk( PerkLib.IronMan ) );
 			}
 		}
 		//slot 3 - speed perk
 		if( CoC.getInstance().player.spe >= 25 ) {
-			_add( new PerkClass( PerkLib.Evade ) );
+			_add( new Perk( PerkLib.Evade ) );
 		}
 		//slot 3 - run perk
 		if( CoC.getInstance().player.spe >= 25 ) {
-			_add( new PerkClass( PerkLib.Runner ) );
+			_add( new Perk( PerkLib.Runner ) );
 		}
 		//slot 3 - Double Attack perk
 		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 && CoC.getInstance().player.spe >= 50 ) {
-			_add( new PerkClass( PerkLib.DoubleAttack ) );
+			_add( new Perk( PerkLib.DoubleAttack ) );
 		}
 		//Tier 1 Speed Perks
 		if( CoC.getInstance().player.level >= 6 ) {
 			//Speedy Recovery - Regain Fatigue 50% faster speed.
 			if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && CoC.getInstance().player.spe >= 60 ) {
-				_add( new PerkClass( PerkLib.SpeedyRecovery ) );
+				_add( new Perk( PerkLib.SpeedyRecovery ) );
 			}
 			//Agility - A small portion of your speed is applied to your defense rating when wearing light armors.
 			if( CoC.getInstance().player.spe > 75 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 && (CoC.getInstance().player.armorPerk === 'Light' || CoC.getInstance().player.armorPerk === 'Medium') ) {
-				_add( new PerkClass( PerkLib.Agility ) );
+				_add( new Perk( PerkLib.Agility ) );
 			}
 			if( CoC.getInstance().player.spe >= 60 ) {
-				_add( new PerkClass( PerkLib.LightningStrikes ) );
+				_add( new Perk( PerkLib.LightningStrikes ) );
 			}
 		}
 		//Tier 2 Speed Perks
 		if( CoC.getInstance().player.level >= 12 ) {
 			if( CoC.getInstance().player.spe >= 75 ) {
-				_add( new PerkClass( PerkLib.LungingAttacks ) );
+				_add( new Perk( PerkLib.LungingAttacks ) );
 			}
 		}
 		//Slot 4 - precision - -10 enemy toughness for damage calc
 		if( CoC.getInstance().player.inte >= 25 ) {
-			_add( new PerkClass( PerkLib.Precision ) );
+			_add( new Perk( PerkLib.Precision ) );
 		}
 		//Spellpower - boosts spell power
 		if( CoC.getInstance().player.inte >= 50 ) {
-			_add( new PerkClass( PerkLib.Spellpower ) );
+			_add( new Perk( PerkLib.Spellpower ) );
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.getInstance().player.inte >= 50 ) {
-			_add( new PerkClass( PerkLib.Mage ) );
+			_add( new Perk( PerkLib.Mage ) );
 		}
 		//Tier 1 Intelligence Perks
 		if( CoC.getInstance().player.level >= 6 ) {
 			if( CoC.getInstance().player.inte >= 50 ) {
-				_add( new PerkClass( PerkLib.Tactician ) );
+				_add( new Perk( PerkLib.Tactician ) );
 			}
 			if( Combat.spellCount() > 0 && CoC.getInstance().player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.getInstance().player.findPerk( PerkLib.Mage ) >= 0 && CoC.getInstance().player.inte >= 60 ) {
-				_add( new PerkClass( PerkLib.Channeling ) );
+				_add( new Perk( PerkLib.Channeling ) );
 			}
 			if( CoC.getInstance().player.inte >= 60 ) {
-				_add( new PerkClass( PerkLib.Medicine ) );
+				_add( new Perk( PerkLib.Medicine ) );
 			}
 		}
 		//Tier 2 Intelligence perks
 		if( CoC.getInstance().player.level >= 12 ) {
 			if( CoC.getInstance().player.findPerk( PerkLib.Mage ) >= 0 && CoC.getInstance().player.inte >= 75 ) {
-				_add( new PerkClass( PerkLib.Archmage ) );
+				_add( new Perk( PerkLib.Archmage ) );
 			}
 		}
 		//LIBIDO PERKZ
 		//slot 5 - libido perks
 		//Slot 5 - Fertile+ increases cum production and fertility (+15%)
 		if( CoC.getInstance().player.lib >= 25 ) {
-			_add( new PerkClass( PerkLib.FertilityPlus, 15, 1.75, 0, 0 ) );
+			_add( new Perk( PerkLib.FertilityPlus, 15, 1.75, 0, 0 ) );
 		}
 		//Slot 5 - minimum libido
 		if( CoC.getInstance().player.lib >= 50 ) {
-			_add( new PerkClass( PerkLib.HotBlooded, 20, 0, 0, 0 ) );
+			_add( new Perk( PerkLib.HotBlooded, 20, 0, 0, 0 ) );
 		}
 		//Tier 1 Libido Perks
 		if( CoC.getInstance().player.level >= 6 ) {
 			//Slot 5 - minimum libido
 			if( CoC.getInstance().player.lib >= 60 ) {
-				_add( new PerkClass( PerkLib.WellAdjusted ) );
+				_add( new Perk( PerkLib.WellAdjusted ) );
 			}
 			//Slot 5 - minimum libido
 			if( CoC.getInstance().player.lib >= 60 && CoC.getInstance().player.cor >= 50 ) {
-				_add( new PerkClass( PerkLib.Masochist ) );
+				_add( new Perk( PerkLib.Masochist ) );
 			}
 		}
 		//Corruption Perks - slot 7
 		//Slot 7 - Corrupted Libido - lust raises 10% slower.
 		if( CoC.getInstance().player.cor >= 25 ) {
-			_add( new PerkClass( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
+			_add( new Perk( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
 		}
 		//Slot 7 - Seduction (Must have seduced Jojo
 		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
-			_add( new PerkClass( PerkLib.Seduction ) );
+			_add( new Perk( PerkLib.Seduction ) );
 		} else if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 75 ) { //Slot 7 - Nymphomania
-			_add( new PerkClass( PerkLib.Nymphomania ) );
+			_add( new Perk( PerkLib.Nymphomania ) );
 		}
 		//Slot 7 - UNFINISHED :3
 		if( EngineCore.minLust() >= 20 && CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 50 ) {
-			_add( new PerkClass( PerkLib.Acclimation ) );
+			_add( new Perk( PerkLib.Acclimation ) );
 		}
 		//Tier 1 Corruption Perks - acclimation over-rides
 		if( CoC.getInstance().player.level >= 6 ) {
 			if( CoC.getInstance().player.cor >= 60 && CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
-				_add( new PerkClass( PerkLib.Sadist ) );
+				_add( new Perk( PerkLib.Sadist ) );
 			}
 			if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 70 ) {
-				_add( new PerkClass( PerkLib.ArousingAura ) );
+				_add( new Perk( PerkLib.ArousingAura ) );
 			}
 		}
 		//Tier 1 Misc Perks
 		if( CoC.getInstance().player.level >= 6 ) {
-			_add( new PerkClass( PerkLib.Resistance ) );
+			_add( new Perk( PerkLib.Resistance ) );
 		}
 		// FILTER PERKS
 		perkList = _.filter(perkList, function( perk ) {
