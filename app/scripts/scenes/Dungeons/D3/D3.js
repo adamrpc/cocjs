@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, Utils, EventParser, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, EventParser, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
 	function D3() {
 		this.rooms = {};
 		this._currentRoom = null; // I don't think we'll need to save/load this, as we're not gonna allow saving in the dungeon, and it'll be overwritten by calling enterD3();
@@ -11,20 +11,20 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 	D3.prototype.configureRooms = function() {
 		var tRoom;
 		// Entrance;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'entrance';
 		tRoom.EastExit = 'tunnel1';
 		tRoom.RoomFunction = this.entranceRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Tunnel 1;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'tunnel1';
 		tRoom.NorthExit = 'antechamber';
 		tRoom.WestExit = 'entrance';
 		tRoom.RoomFunction = this.tunnel1RoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Antechamber;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'antechamber';
 		tRoom.NorthExit = 'magpiehalls';
 		tRoom.EastExit = 'roomofmirrors';
@@ -32,48 +32,48 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		tRoom.RoomFunction = this.antechamberRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Room of Mirrors;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'roomofmirrors';
 		tRoom.WestExit = 'antechamber';
 		tRoom.RoomFunction = this.roomofmirrorsRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Magpie Hall S;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'magpiehalls';
 		tRoom.NorthExit = 'tunnel2';
 		tRoom.SouthExit = 'antechamber';
 		tRoom.RoomFunction = this.magpiehallsRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Magpie Hall N;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'magpiehalln';
 		tRoom.NorthExit = 'tunnel2';
 		tRoom.SouthExit = 'antechamber';
 		tRoom.RoomFunction = this.magpiehallnRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Tunnel 2;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'tunnel2';
 		tRoom.EastExit = 'edgeofkeep';
 		tRoom.SouthExit = 'magpiehalln';
 		tRoom.RoomFunction = this.tunnel2RoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Edge of Keep;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'edgeofkeep';
 		tRoom.NorthExit = 'northentry';
 		tRoom.WestExit = 'tunnel2';
 		tRoom.RoomFunction = this.edgeofkeepRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North Entry;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northentry';
 		tRoom.NorthExit = 'southcourtyard';
 		tRoom.SouthExit = 'edgeofkeep';
 		tRoom.RoomFunction = this.northentryRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// South Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'southcourtyard';
 		tRoom.SouthExit = 'northentry';
 		tRoom.EastExit = 'southeastcourtyard';
@@ -81,21 +81,21 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		tRoom.RoomFunction = this.southcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// South West Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'southwestcourtyard';
 		tRoom.EastExit = 'southcourtyard';
 		tRoom.NorthExit = 'southwestwalk';
 		tRoom.RoomFunction = this.southwestcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// South West Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'southwestwalk';
 		tRoom.NorthExit = 'westwalk';
 		tRoom.SouthExit = 'southwestcourtyard';
 		tRoom.RoomFunction = this.southwestwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// West Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'westwalk';
 		tRoom.NorthExit = 'northwestwalk';
 		tRoom.EastExit = 'courtyardsquare';
@@ -103,42 +103,42 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		tRoom.RoomFunction = this.westwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North West Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northwestwalk';
 		tRoom.NorthExit = 'northwestcourtyard';
 		tRoom.SouthExit = 'westwalk';
 		tRoom.RoomFunction = this.northwestwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North West Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northwestcourtyard';
 		tRoom.EastExit = 'northcourtyard';
 		tRoom.SouthExit = 'northwestwalk';
 		tRoom.RoomFunction = this.northwestcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northcourtyard';
 		tRoom.EastExit = 'northeastcourtyard';
 		tRoom.WestExit = 'northwestcourtyard';
 		tRoom.RoomFunction = this.northcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North East Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northeastcourtyard';
 		tRoom.SouthExit = 'northeastwalk';
 		tRoom.WestExit = 'northcourtyard';
 		tRoom.RoomFunction = this.northeastcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// North East Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'northeastwalk';
 		tRoom.NorthExit = 'northeastcourtyard';
 		tRoom.SouthExit = 'eastwalk';
 		tRoom.RoomFunction = this.northeastwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// East Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'eastwalk';
 		tRoom.NorthExit = 'northeastwalk';
 		tRoom.SouthExit = 'southeastwalk';
@@ -146,14 +146,14 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		tRoom.RoomFunction = this.eastwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// South East Walk;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'southeastwalk';
 		tRoom.NorthExit = 'eastwalk';
 		tRoom.SouthExit = 'southeastcourtyard';
 		tRoom.RoomFunction = this.southeastwalkRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// South East Courtyard;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'southeastcourtyard';
 		tRoom.NorthExit = 'southeastwalk';
 		tRoom.SouthExit = 'greatlift';
@@ -161,14 +161,14 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		tRoom.RoomFunction = this.southeastcourtyardRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Courtyard Square;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'courtyardsquare';
 		tRoom.EastExit = 'eastwalk';
 		tRoom.WestExit = 'westwalk';
 		tRoom.RoomFunction = this.courtyardsquareRoomFunc;
 		this.rooms[ tRoom.RoomName ] = tRoom;
 		// Great Lift;
-		tRoom = new Room();
+		tRoom = {};
 		tRoom.RoomName = 'greatlift';
 		tRoom.NorthExit = 'southeastcourtyard';
 		tRoom.RoomFunction = this.greatliftRoomFunc;
@@ -203,23 +203,23 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 		this.move( this._currentRoom );
 	};
 	D3.prototype.generateRoomMenu = function( tRoom ) {
-		if( tRoom.NorthExit !== null && tRoom.NorthExit.length > 0 ) {
-			if( tRoom.NorthExitCondition === null || tRoom.NorthExitCondition() ) {
+		if( tRoom.NorthExit && tRoom.NorthExit.length > 0 ) {
+			if( !tRoom.NorthExitCondition || tRoom.NorthExitCondition() ) {
 				EngineCore.addButton( 0, 'North', this.move, tRoom.NorthExit );
 			}
 		}
-		if( tRoom.EastExit !== null && tRoom.EastExit.length > 0 ) {
-			if( tRoom.EastExitCondition === null || tRoom.EastExitCondition() ) {
+		if( tRoom.EastExit && tRoom.EastExit.length > 0 ) {
+			if( !tRoom.EastExitCondition || tRoom.EastExitCondition() ) {
 				EngineCore.addButton( 1, 'East', this.move, tRoom.EastExit );
 			}
 		}
-		if( tRoom.SouthExit !== null && tRoom.SouthExit.length > 0 ) {
-			if( tRoom.SouthExitCondition === null || tRoom.SouthExitCondition() ) {
+		if( tRoom.SouthExit && tRoom.SouthExit.length > 0 ) {
+			if( !tRoom.SouthExitCondition || tRoom.SouthExitCondition() ) {
 				EngineCore.addButton( 6, 'South', this.move, tRoom.SouthExit );
 			}
 		}
-		if( tRoom.WestExit !== null && tRoom.WestExit.length > 0 ) {
-			if( tRoom.WestExitCondition === null || tRoom.WestExitCondition() ) {
+		if( tRoom.WestExit && tRoom.WestExit.length > 0 ) {
+			if( !tRoom.WestExitCondition || tRoom.WestExitCondition() ) {
 				EngineCore.addButton( 5, 'West', this.move, tRoom.WestExit );
 			}
 		}
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).run( function( $log, Room, SuccubusGardener, Combat, U
 			return;
 		}
 		var tRoom = this.rooms[ roomName ];
-		if( tRoom.RoomFunction === null ) {
+		if( !tRoom.RoomFunction ) {
 			EngineCore.outputText( 'Error: Room entry function for room indexed as \'' + roomName + '\' was not set.' );
 			return;
 		}
