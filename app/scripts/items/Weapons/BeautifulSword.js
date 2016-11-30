@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Utils, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Weapon, EngineCore ) {
 	var BeautifulSword = angular.copy( Weapon );
 	BeautifulSword.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'B.Sword', 'B.Sword', 'beautiful sword', 'a beautiful shining sword', 'slash', 7, 400, 'This beautiful sword shines brilliantly in the light, showing the flawless craftsmanship of its blade.  The pommel and guard are heavily decorated in gold and brass.  Some craftsman clearly poured his heart and soul into this blade.  (ATK) (Cost: 400)', 'holySword' ] );
