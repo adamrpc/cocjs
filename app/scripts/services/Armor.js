@@ -4,10 +4,10 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, 
 	var Armor = angular.copy( Useable );
 	Armor.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 3 ], args.length > 5 ? args[ 5 ] : 0, args.length > 6 ? args[ 6 ] : null ] );
-		this.name = args[ 2 ];
-		this.def = args[ 4 ];
-		this.perk = args.length > 7 ? args[ 7 ] : '';
-		this._supportsBulge = args.length > 8 ? args[ 8 ] : false;
+		that.name = args[ 2 ];
+		that.def = args[ 4 ];
+		that.perk = args.length > 7 ? args[ 7 ] : '';
+		that._supportsBulge = args.length > 8 ? args[ 8 ] : false;
 	};
 	Armor.prototype.supportsBulge = function() {
 		return this._supportsBulge && CoC.getInstance().player.modArmorName === '';
