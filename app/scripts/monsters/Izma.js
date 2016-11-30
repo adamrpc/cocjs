@@ -104,9 +104,10 @@ angular.module( 'cocjs' ).factory( 'Izma', function( PerkLib, CoC, Monster, Util
 		}
 		Combat.combatRoundOver();
 	};
+	Izma.prototype._superEAttack = Izma.prototype.eAttack;
 	Izma.prototype.eAttack = function() {
 		EngineCore.outputText( 'Izma slides up to you, throws a feint, and then launches a rain of jabs at you!\n', false );
-		super.eAttack();
+		this._superEAttack();
 	};
 	Izma.prototype.performCombatAction = function() {
 		var choice = Utils.rand( 5 );

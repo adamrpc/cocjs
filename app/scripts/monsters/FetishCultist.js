@@ -7,8 +7,9 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineC
 	var SWIMSUIT = 'swimsuit';
 	var NOBLES_CLOTHING = 'noble\'s clothing';
 	var PERVY_NUNS_CLOTHING = 'pervy nun\'s clothing';
+	FetishCultist.prototype._superCombatRoundUpdate = FetishCultist.prototype.combatRoundUpdate;
 	FetishCultist.prototype.combatRoundUpdate = function() {
-		super.combatRoundUpdate();
+		this._superCombatRoundUpdate();
 		var changed = false;
 		//Fetish Cultist Update
 		switch( Utils.rand( 5 ) ) {
@@ -151,9 +152,10 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineC
 			}
 		}
 	};
+	FetishCultist.prototype._superWon = FetishCultist.prototype.won;
 	FetishCultist.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( hpVictory ) {
-			super.won( hpVictory, pcCameWorms );
+			this._superWon( hpVictory, pcCameWorms );
 		} else {
 			if( pcCameWorms ) {
 				EngineCore.outputText( '\n\nThe cultist giggles as she watches you struggling.\n\n', false );

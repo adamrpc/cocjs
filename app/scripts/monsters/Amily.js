@@ -238,6 +238,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, CoC_Settings,
 	};
 	//(if PC uses tease/seduce after this);
 	//Deals big lust increase, despite her resistance.;
+	Amily.prototype._superTeased = Amily.prototype.teased;
 	Amily.prototype.teased = function( lustDelta ) {
 		if( this.findStatusAffect( StatusAffects.Concentration ) >= 0 ) {
 			EngineCore.outputText( 'Amily flushes hotly; her concentration only makes her pay more attention to your parts!', false );
@@ -245,7 +246,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, CoC_Settings,
 			this.removeStatusAffect( StatusAffects.Concentration );
 			this.applyTease( lustDelta );
 		} else {
-			super.teased( lustDelta );
+			this._superTeased( lustDelta );
 		}
 	};
 	Amily.prototype.defeated = function() {

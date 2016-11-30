@@ -83,11 +83,12 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		EngineCore.statScreenRefresh();
 		Combat.combatRoundOver();
 	};
+	SuccubusGardener.prototype._superHandleStun = SuccubusGardener.prototype.handleStun;
 	SuccubusGardener.prototype.handleStun = function() {
 		if( this.HPRatio() <= 0.6 ) {
 			return true;
 		} else {
-			return super.handleStun();
+			return this._superHandleStun();
 		}
 	};
 	SuccubusGardener.prototype.vineHeal = function() {

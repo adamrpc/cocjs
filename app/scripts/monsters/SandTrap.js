@@ -77,6 +77,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Uti
 			}
 		}
 	};
+	SandTrap.prototype._superPerformCombatAction = SandTrap.prototype.performCombatAction;
 	SandTrap.prototype.performCombatAction = function() {
 		if( this.findStatusAffect( StatusAffects.Level ) >= 0 ) {
 			if( this.trapLevel() === 4 && this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
@@ -93,7 +94,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Uti
 			}
 			Combat.combatRoundOver();
 		} else {
-			super.performCombatAction();
+			this._superPerformCombatAction();
 		}
 	};
 	SandTrap.prototype.defeated = function() {

@@ -106,8 +106,9 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( StatusAffects, Appearance, 
 		return true;
 	};
 
+	Kiha.prototype._superPostAttack = Kiha.prototype.postAttack;
 	Kiha.prototype.postAttack = function( damage ) {
-		super.postAttack( damage );
+		this._superPostAttack( damage );
 		var flame = CoC.getInstance().player.takeDamage( 15 + Utils.rand( 6 ) );
 		EngineCore.outputText( '\nAn afterwash of flames trails behind her blow, immolating you! (' + flame + ')', false );
 	};

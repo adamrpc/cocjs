@@ -7,8 +7,9 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, CoC, EngineCo
 	var MILITARY_CLOTHES = 'military clothes';
 	var LEATHER_CLOTHES = 'leather clothes';
 	var STUDENTS_CLOTHES = 'student\'s clothes';
+	FetishZealot.prototype._superCombatRoundUpdate = FetishZealot.prototype.combatRoundUpdate;
 	FetishZealot.prototype.combatRoundUpdate = function() {
-		super.combatRoundUpdate();
+		this._superCombatRoundUpdate();
 		var changed = false;
 		//Fetish Zealot Update!
 		switch( Utils.rand( 5 ) ) {
@@ -108,6 +109,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, CoC, EngineCo
 		this.lust /= 2;
 		Combat.combatRoundOver();
 	};
+	FetishZealot.prototype._superPostAttack = FetishZealot.prototype.postAttack;
 	FetishZealot.prototype.postAttack = function( damage ) {
 		if( damage > 0 ) {
 			EngineCore.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
@@ -118,7 +120,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, CoC, EngineCo
 			}
 			EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 20 + 5) );
 		}
-		super.postAttack( damage );
+		this._superPostAttack( damage );
 	};
 	FetishZealot.prototype.defeated = function() {
 		CoC.getInstance().scenes.fetishZealotScene.zealotDefeated();

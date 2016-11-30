@@ -32,9 +32,10 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCo
 	GooArmor.prototype.removeText = function() { //Produces any text seen when removing the armor normally
 		EngineCore.outputText( 'Valeria picks herself up and huffs, "<i>Maybe we can adventure some more later on?</i>" before undulating off towards your camp.\n\n(<b>Valeria now available in the followers tab!</b>)' );
 	};
+	GooArmor.prototype._superPlayerEquip = GooArmor.prototype.playerEquip;
 	GooArmor.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc.
 		CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] = 0;
-		return super.playerEquip();
+		return this._superPlayerEquip();
 	};
 	GooArmor.prototype.playerRemove = function() { //This item is being removed by the player. Remove any perks, etc.
 		CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;

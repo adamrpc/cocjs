@@ -38,12 +38,13 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, CoC, kFLAGS, EngineC
 		Combat.combatRoundOver();
 	};
 
+	Harpy.prototype._superPerformCombatAction = Harpy.prototype.performCombatAction;
 	Harpy.prototype.performCombatAction = function() {
 		if( this.findStatusAffect( StatusAffects.Uber ) >= 0 ) {
 			this.harpyUberCharge();
 			return;
 		}
-		super.performCombatAction();
+		this._superPerformCombatAction();
 	};
 	Harpy.prototype.defeated = function() {
 		CoC.getInstance().scenes.harpyScene.harpyVictoryuuuuu();
