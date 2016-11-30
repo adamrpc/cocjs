@@ -218,8 +218,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	};
 	//End of Interface Implementation;
 	Katherine.prototype.initFlags = function() {	//These are all the flags related to Kath that have a non-zero default value
-		//			CoC.getInstance().flags[kFLAGS.KATHERINE_BREAST_SIZE]		= AppearanceDefs.BREAST_CUP_B;;
-		this.breasts.cupSize = CoC.BREAST_CUP_B;
+		this.breasts.cupSize = AppearanceDefs.BREAST_CUP_B;
 		this.breasts.lactationLevel = BreastStore.LACTATION_DISABLED;
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_DICK_COUNT ] = 1;
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_DICK_LENGTH ] = 8;
@@ -332,24 +331,6 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				return 'enormous';
 		}
 	};
-	/*
-	 Katherine.prototype.breastAdj = function() {
-	 switch (cupSize) {
-	 case BREAST_CUP_FLAT:		return 'non-existent ';
-	 case BREAST_CUP_A:			return 'small ';
-	 case BREAST_CUP_B:
-	 case BREAST_CUP_C:			return 'palmable ';
-	 case BREAST_CUP_D:
-	 case BREAST_CUP_DD:			return 'sizeable ';
-	 case BREAST_CUP_DD_BIG:
-	 case BREAST_CUP_E:
-	 case BREAST_CUP_E_BIG:
-	 case BREAST_CUP_EE:
-	 case BREAST_CUP_EE_BIG:
-	 }
-	 return(' ');
-	 }
-	 */
 	Katherine.prototype.cockAdj = function() {
 		switch( CoC.getInstance().flags[ kFLAGS.KATHERINE_DICK_LENGTH ] ) {
 			case  0:
@@ -399,14 +380,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	};
 	Katherine.prototype.tightTopDescption = function() {
 		switch( this.breasts.cupSize ) {
-			case CoC.BREAST_CUP_FLAT:
-			case CoC.BREAST_CUP_A:
-			case CoC.BREAST_CUP_B:
+			case AppearanceDefs.BREAST_CUP_FLAT:
+			case AppearanceDefs.BREAST_CUP_A:
+			case AppearanceDefs.BREAST_CUP_B:
 				EngineCore.outputText( 'tight enough to showcase even her small breasts' );
 				break;
-			case CoC.BREAST_CUP_C:
-			case CoC.BREAST_CUP_D:
-			case CoC.BREAST_CUP_DD:
+			case AppearanceDefs.BREAST_CUP_C:
+			case AppearanceDefs.BREAST_CUP_D:
+			case AppearanceDefs.BREAST_CUP_DD:
 				EngineCore.outputText( 'just able to hold her bountiful breasts in check' );
 				break;
 			default:
@@ -433,7 +414,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				break;
 			case Katherine.KBIT_CLOTHES_C_CLOTH: //Blouse and Skirt
 				EngineCore.outputText( 'She’s wearing a clean, attractively colored blouse, which ' );
-				if( this.breasts.cupSize < CoC.BREAST_CUP_DD ) {
+				if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_DD ) {
 					EngineCore.outputText( 'is just tight enough at the chest to enhance her breasts without making things too obvious.' );
 				} else {
 					EngineCore.outputText( 'strains to hold her bountiful breasts in check.' );
@@ -2180,7 +2161,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			var knot = (this.knotSize > 2 ? this.useRedoctoOnKatsKnot : null);
 			var leng = (this.cockLength > dickMin ? this.useReductoOnKatsKock : null);
 			var balls = (this.ballSize > 1 ? this.reductoBallSize : null);
-			var breasts = (this.breasts.cupSize > CoC.BREAST_CUP_A ? this.useRreductoOnKatsBreasts : null);
+			var breasts = (this.breasts.cupSize > AppearanceDefs.BREAST_CUP_A ? this.useRreductoOnKatsBreasts : null);
 			EngineCore.outputText( 'You extract the small jar of salve and offer it to her.   Her face lights up in delight.  “<i>Reducto?!  For me?  It\'s so expensive!</i>”  At your nod, she yowls happily and snatches it up, ' + this.clothesLowerChoice( 'yanking down her shorts', 'raising her skirt and pulling down her panties', 'opening the folds of her bodysuit', 'raising her dress and pulling down her panties', 'untying her robe and pulling down her panties' ) + ' to expose her sheath.  All of a sudden, she stops abruptly and looks up at you, a dangerous gleam in her eye.  “<i>Would you like to... help me apply it?</i>” she asks, softly.  You nod your head' );
 			if( CoC.getInstance().player.lib > 50 ) {
 				EngineCore.outputText( ' with a salacious grin' );
@@ -2315,13 +2296,13 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		}
 		this.breasts.cupSize--;
 		EngineCore.outputText( '\n\nKath sits up and begins to play with her smaller and lighter rack.\n\n' );
-		if( this.breasts.cupSize === CoC.BREAST_CUP_A ) {
+		if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_A ) {
 			EngineCore.outputText( '“<i>These are so small people might think I’m a boy.  Guess I’ll just have to act even more girly to make up for it, right?</i>”' );
-		} else if( this.breasts.cupSize === CoC.BREAST_CUP_B ) {
+		} else if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_B ) {
 			EngineCore.outputText( '“<i>Back to my natural size.  Nice, I’ve missed the balance I had when they were this big.  Thank you so much ' + this.playerText() + '.</i>”' );
-		} else if( this.breasts.cupSize === CoC.BREAST_CUP_DD_BIG ) {
+		} else if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_DD_BIG ) {
 			EngineCore.outputText( '“<i>Oh, that’s better.  They’re a lot lighter.  It doesn’t feel like I’ve got a pair of watermelons tied to my chest anymore.</i>”' );
-		} else if( this.breasts.cupSize > CoC.BREAST_CUP_DD_BIG ) {
+		} else if( this.breasts.cupSize > AppearanceDefs.BREAST_CUP_DD_BIG ) {
 			EngineCore.outputText( '“<i>Oh thank Marae.  And thank you too ' + this.playerText() + '.  I can feel some of the muscles in my lower back starting to relax.</i>”' );
 		} else {
 			EngineCore.outputText( '“<i>Yes, I think I’ll get used to these smaller sweater puppies pretty quickly.</i>”' );
@@ -2862,14 +2843,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	Katherine.prototype.giveKatPureSuccubusMilk = function() {
 		EngineCore.clearOutput();
 		var kathSubEnough = this.submissiveness() >= 2;
-		if( this.breasts.cupSize < CoC.BREAST_CUP_DD_BIG ) {
+		if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_DD_BIG ) {
 			{ //She’s willing to go up to big DD-Cup normally
 			}
 			EngineCore.outputText( 'You show Kath the bottle of Succubus’ Milk and tell her that it’s been purified.  Kath takes it and tips the bottle from side to side, examining the cloudy liquid inside.\n\n' );
 			EngineCore.outputText( '“<i>So this stuff is supposed to make my breasts bigger.</i>”  She cups her ' + this.breasts.adj() + ' ' + this.breasts.cup() + 's and asks “<i>' );
-			if( this.breasts.cupSize === CoC.BREAST_CUP_A ) {
+			if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_A ) {
 				EngineCore.outputText( 'So you want me to go back to my natural size, huh?  Good stuff, I’m still not used to how small these mosquito bites are.' );
-			} else if( this.breasts.cupSize === CoC.BREAST_CUP_D ) {
+			} else if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_D ) {
 				EngineCore.outputText( 'What?  I’m <b>still</b> not big enough for you?' );
 			} else {
 				EngineCore.outputText( 'I suppose I could try it.  If it’s been purified then there’s no harm in it, right?' );
@@ -2878,10 +2859,10 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.outputText( 'Kath quickly strips out of her clothes and stands in front of her mirror.  She grins at you and rips the cork out, downing the potion in one gulp.  She only has time to say, “<i>Oh, that tastes weird,</i>” before the magics of the milk reach her chest.\n\n' );
 			EngineCore.outputText( 'As if under the effects of a set of bellows her breasts balloon out, stretching her flesh taut.  After a few moments you see them soften, the skin magically expanding enough to accommodate its new contents.  Kath moans and feels her fuller, heavier rack.  “<i>' );
 			this.breasts.cupSize++;
-			if( this.breasts.cupSize === CoC.BREAST_CUP_B ) {
+			if( this.breasts.cupSize === AppearanceDefs.BREAST_CUP_B ) {
 				EngineCore.outputText( 'Yes, yes, yes!  Oh does that ever feel good.</i>”\n\n' );
 				EngineCore.outputText( 'She turns and walks into your arms, hugging you against her new assets.  You feel her nipples start to harden and as you rub her back her tail begins to flick from side to side.\n\n' );
-			} else if( this.breasts.cupSize < CoC.BREAST_CUP_DD_BIG ) {
+			} else if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_DD_BIG ) {
 				EngineCore.outputText( 'Mmmm yes, I always thought I could do with a bit more sand in the top of my hourglass.</i>”\n\n' );
 				EngineCore.outputText( 'Kath bounces up and down a few times and watches her new rack react to her motion.  She notices you watching, turns and walks into your arms, hugging you against her new assets.  You feel her nipples start to harden and as you rub her back her tail begins to flick from side to side.\n\n' );
 			} else {
@@ -2897,14 +2878,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.outputText( 'Kath seems to be in a loving mood, why disappoint her?\n\n' );
 			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
 			CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK );
-		} else if( this.breasts.cupSize < CoC.BREAST_CUP_EE && kathSubEnough ) {
+		} else if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_EE && kathSubEnough ) {
 			{ //Allows E-Cup, big E-Cup and EE-Cup
 			}
 			EngineCore.outputText( 'You tell Katherine to disrobe.  You have a present for her.  She hops on the bed and takes her clothes off slowly, giving you a nice little striptease.  When she’s finished you place the bottle of succubi’ milk in her hand.\n\n' );
 			EngineCore.outputText( '“<i>But ' + this.playerText() + ' I’m so big 0...</i>”\n\n' );
 			EngineCore.outputText( 'You cut her off by cupping her breasts in your hands.  She sucks in a breath as your thumbs begin to knead her nipples' + (this.breasts.lactating() ? ', drawing forth a few beads of cream' : '') + '.  You tell her that with every cup size she gets more attractive to you.  Kath squirms and moans but you keep rolling her engorged nipples around until you smell the girlcum beginning to drip from her vulva.\n\n' );
 			EngineCore.outputText( 'You tell her that deep down she wants to drink, she wants to see what will happen to her breasts with another dose.  Kath’s eyes open and she stares at you lustily.  Her hands move quickly, yanking the cork and dumping the milk into her mouth.\n\n' );
-			EngineCore.outputText( 'She swallows and asks, “<i>What have I done?</i>” before her ' + (this.breasts.cupSize === CoC.BREAST_CUP_DD_BIG ? 'tits' : 'boobs') + ' begin to swell beneath your fingers.  In just a few moments they ' + (this.breasts.cupSize === CoC.BREAST_CUP_DD ? 'are well and truly boobs' : 'have expanded to epic proportions') + '.  “<i>Oh Marae!  I’m so top heavy.</i>”  Kath leans back and adjusts her posture to support her expanded rack.\n\n' );
+			EngineCore.outputText( 'She swallows and asks, “<i>What have I done?</i>” before her ' + (this.breasts.cupSize === AppearanceDefs.BREAST_CUP_DD_BIG ? 'tits' : 'boobs') + ' begin to swell beneath your fingers.  In just a few moments they ' + (this.breasts.cupSize === AppearanceDefs.BREAST_CUP_DD ? 'are well and truly boobs' : 'have expanded to epic proportions') + '.  “<i>Oh Marae!  I’m so top heavy.</i>”  Kath leans back and adjusts her posture to support her expanded rack.\n\n' );
 			EngineCore.outputText( 'You kiss her and work your fingers into her mammaries.  Kath mewls and asks, “<i>I suppose you want me to show these off, huh?</i>”  You squeeze a little harder' + (this.breasts.lactating() ? ', forcing out a bit more of her milk' : '') + '.  “<i>Okay ' + this.playerText() + '.  When I’m off duty everyone in town will think I’m a big breasted slut.  Guys will try to hire me on the street.  But you’d better fuck me all the time, cause I’m going to be <b>horny</b>.</i>”\n\n' );
 			this.breasts.cupSize++;
 			this.addSubmissive( Katherine.KBIT_SUB_GROW_BIG_BOOBS ); //Have grown her breasts to E-Cup or larger
@@ -2950,7 +2931,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				this.breasts.lactationLevel = BreastStore.LACTATION_NONE; //Initially Kath is at LACTATION_DISABLED. This way incrementing it will bring it to LACTATION_LIGHT
 			}
 			EngineCore.outputText( 'The two of you watch her breasts and it doesn\'t take long for the effects of the lactaid to kick in.  Kath\'s nipples engorge and her breasts plump up very slightly.  You cup them with your hands and feel a little extra weight.' );
-			if( this.breasts.cupSize < CoC.BREAST_CUP_D ) {
+			if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_D ) {
 				this.breasts.cupSize++;
 				EngineCore.outputText( '  You\'d say she\'s a ' + this.breasts.cup() + ' now.' );
 			}
@@ -3013,7 +2994,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				EngineCore.outputText( 'Katherine puts the bottle aside, then takes your hands and places them against her chest.  “<i>Can\'t get enough of my cream?</i>” she asks with a wry smile.  “<i>Well OK, as long as you\'re always there to lick up every drop.</i>”\n\n' );
 				EngineCore.outputText( 'You laugh and rub her nipples.  Kath smiles and her tail wriggles at the attention.  She pops the cork and swallows the pink liquid, then tosses the bottle aside.\n\n' );
 				EngineCore.outputText( 'Again you feel that warmth from deep inside her breasts.' );
-				if( this.breasts.cupSize < CoC.BREAST_CUP_DD_BIG ) {
+				if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_DD_BIG ) {
 					this.breasts.cupSize++;
 					EngineCore.outputText( '  They expand between your fingers, plumping up nicely.  They\'re as firm as ever, but you\'d say Katherine\'s a ' + this.breasts.cup() + ' now.' );
 				}
@@ -3255,9 +3236,9 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You get Kath to stand in front of the mirror and tell her to close her eyes.  When she does you pull out the three pieces of the skimpy nurse outfit and press them against her.\n\n' );
 		EngineCore.outputText( 'Katherine takes each of the three pieces in turn and studies them.  “<i>This is really, really racy.  Oh sure, it covers everything; I won’t get in any trouble... but wow.</i>”  She holds the tiny white top against her ' + this.breasts.cup() + 's and gives you a toothy smile.  “<i>' );
-		if( this.breasts.cupSize < CoC.BREAST_CUP_C ) {
+		if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_C ) {
 			EngineCore.outputText( 'This top is going to make my teenie breasts look bigger, just because there’s so little fabric' );
-		} else if( this.breasts.cupSize < CoC.BREAST_CUP_DD_BIG ) {
+		} else if( this.breasts.cupSize < AppearanceDefs.BREAST_CUP_DD_BIG ) {
 			EngineCore.outputText( 'This top will really show off my rack.  Everyone’s going to be staring' );
 		} else {
 			EngineCore.outputText( 'I don’t know if these buttons will hold up.  I’ve got a huge load of titflesh for this itty bitty top to support' );

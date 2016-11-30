@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'The bee girl pulls back from you after a few minutes and pulls her abdomen between her fuzzy legs, letting it rest wedged between them.  With a delicate hand, she gently rubs her finger along a differently textured part of her carapace close to the base of the stinger.  In a moment, a knotted appendage emerges from it, her ovipositor.  She lies down on her back, and indicates that you should mount her lubricated organ with your ' + Descriptors.assholeDescript() + '.  You take another steadying breath and gently lower yourself onto the organ.  As you feel each knot pass inside you, your partner gives a gentle buzz of pleasure.\n\n' );
 		if( CoC.getInstance().player.analCapacity() < 25 ) {
 			EngineCore.outputText( 'Inserting the organ into your body is a slow but sure process.  The lubrication makes it much easier to get the organ inside you, but you can definitely feel it stretching your rear entrance out.  ' );
-			if( CoC.getInstance().player.ass.analLooseness === CoC.ANAL_LOOSENESS_VIRGIN ) {
+			if( CoC.getInstance().player.ass.analLooseness === AppearanceDefs.ANAL_LOOSENESS_VIRGIN ) {
 				EngineCore.outputText( '<b>Well, at least you’re losing your anal virginity willingly.  That’s something to be said in this world.</b>' );
 			} else {
 				EngineCore.outputText( '<b>Your ' + Descriptors.assholeDescript() + ' has become looser thanks to the knotted appendage penetrating you.</b>' );
@@ -750,13 +750,13 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'Her face breaks into a wide knowing smile.  <i>“Hello again, my fine cocked friend,”</i> she says rising and gently hovering over to you.  <i>“You know, the queen izzz eagerly waiting to meet you.  Zzzhe will be able to take care of you much better than I ever could, but I think we can zzztill zzzpend zzzome time together if you’re up for it.”</i>\n\n' );
 		EngineCore.outputText( 'You look at her a bit confused, unsure exactly what she is telling you.  <i>“Zzzzilly boy, I’ve been telling the queen about our meetingzzz, and zzzhe is eager to aczzzzept you into the hive!”</i>  She moves forward and pulls your ' + CoC.getInstance().player.armorName + ' from your body and gently rubs your ' + CoC.getInstance().player.cockDescript( 0 ) + '.  <i>“I told you that only a queen bee could help you with zzzomething thizzz big, and you’ll be able to fill her with it and fertilize all her eggzzz.  Thizzz izzz the releazzze you’ve been craving all thizzz time, come on!”</i>\n\n' );
 		EngineCore.outputText( 'Her offer intrigues you incredibly, and you can’t imagine turning her down, not now.  Once, you might have been able to turn away from it, but now that you’ve got this bee prick and have felt the release that bee’s honey gives you, there\'s just no way.  You nod eagerly to the bee girl and \n\n' );
-		if( CoC.getInstance().player.wingType === CoC.WING_TYPE_BEE_LIKE_LARGE ) {
+		if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_LARGE ) {
 			EngineCore.outputText( 'spread your wings.  She takes your hand and before rising up into the air and leading you home.\n\n' );
 		} else {
 			EngineCore.outputText( 'accept the bottle of special honey that she hands you which you down in an instant.  ' );
-			if( CoC.getInstance().player.wingType === CoC.WING_TYPE_NONE ) {
+			if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_NONE ) {
 				EngineCore.outputText( 'At once your back starts to tingle, and a pair of bee wings erupt behind you, they quickly grow large and with a few experimental flaps you find that they can carry your weight.' );
-			} else if( CoC.getInstance().player.wingType === CoC.WING_TYPE_BEE_LIKE_SMALL ) {
+			} else if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_SMALL ) {
 				EngineCore.outputText( 'Your wings tingle before suddenly growing much larger.  You test them for a moment finding that they are now big enough to allow you to fly!' );
 			} else {
 				EngineCore.outputText( 'Your ' + CoC.getInstance().player.wingDesc + ' feel itchy for a moment before falling off entirely.  You don’t have much time to worry about that though, as almost immediately afterwards you sprout a large pair of bee wings that you use to lift yourself into the air.\n\n' );

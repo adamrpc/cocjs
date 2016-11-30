@@ -1,16 +1,16 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
 	var LustyMaidensArmor = angular.copy( Armor );
 	LustyMaidensArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'LMArmor', 'LMArmor', 'lusty maiden\'s armor', 'a bikini-like set of armor that could only belong to a lusty maiden', 6, 400, 'This skimpy chain bikini barely qualifies as armor.  Indeed, the chain is made from links much finer and lighter than normal, so fine that it feels almost silken under your fingertips.  A simple seal in the g-string-like undergarment states, "Virgins only."', 'Light' ] );
 	};
 	LustyMaidensArmor.prototype.canUse = function() {
-		if( CoC.getInstance().player.biggestTitSize() < CoC.BREAST_CUP_A ) { //{No titties}
+		if( CoC.getInstance().player.biggestTitSize() < AppearanceDefs.BREAST_CUP_A ) { //{No titties}
 			EngineCore.outputText( 'You slide the bikini top over your chest and buckle it into place, but the material hangs almost comically across your flat chest.  The cold chain dangles away from you, swaying around ridiculously before smacking, cold and hard into your [nipples].  This simply won\'t do - it doesn\'t fit you, and you switch back to your old armor.\n\n' );
 			return false;
 		}
-		if( CoC.getInstance().player.biggestTitSize() < CoC.BREAST_CUP_D ) { //{Too small titties}
+		if( CoC.getInstance().player.biggestTitSize() < AppearanceDefs.BREAST_CUP_D ) { //{Too small titties}
 			EngineCore.outputText( 'You slide the bikini top over your chest, shivering when the cold chains catch on your nipples, stiffening them nicely. The material nicely accentuates your chest, but there\'s a definite problem.  Your [chest] aren\'t big enough!  Sure, they look nice done up in glittering silver and gold trim.  If only the metal wasn\'t hanging loosely around your underbust, flopping around whenever you move.  It doesn\'t even look that sexy on you!  You\'ll need a bigger chest to truly make use of this armor.  For now, you switch back to your old equipment.\n\n' );
 			return false;
 		}
