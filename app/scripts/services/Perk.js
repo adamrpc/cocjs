@@ -11,14 +11,28 @@ angular.module('KeyItemClass').factory('Perk', function () {
 		that.value3 = args.length > 3 ? args[3] : 0;
 		that.value4 = args.length > 4 ? args[4] : 0;
 	};
-	Perk.prototype.getPerkName = function() {
-		return this.ptype.name;
-	};
-	Perk.prototype.getPerkDesc = function() {
-		return this.ptype.desc(this);
-	};
-	Perk.prototype.getPerkLongDesc = function() {
-		return this.ptype.longDesc;
-	};
-	return Perk;
+	return new Proxy( Perk, {
+		construct: function( target ) {
+			return new Proxy( target, {
+				get: function( target, name ) {
+					if( name === 'perkName' ) {
+						return target.ptype.name;
+					}
+					if( name === 'perkDesc' ) {
+						return target.ptype.desc(target);
+					}
+					if( name === 'perkLongDesc' ) {
+						return target.ptype.longDesc;
+					}
+					return target[ name ];
+				},
+				set: function( target, name, value ) {
+					if( name === 'perkName' || name === 'perkDesc' || name === 'perkLongDesc' ) {
+						return;
+					}
+					target[ name ] = value;
+				}
+			} );
+		}
+	} );
 });
