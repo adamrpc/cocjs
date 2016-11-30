@@ -1,0 +1,83 @@
+'use strict';
+
+angular.module( 'cocjs' ).factory( 'OvipositionElixir', function( $log, PregnancyStore, StatusAffects, CoC, Utils, Consumable, EngineCore ) {
+	var OvipositionElixir = angular.copy( Consumable );
+	OvipositionElixir.prototype.init = function( that ) {
+		Consumable.prototype.init( that, [ 'OviElix', 'Ovi Elixir', 'a hexagonal crystal bottle tagged with an image of an egg', 30, 'This hexagonal crystal bottle is filled with a strange green fluid.  A tag with a picture of an egg is tied to the neck of the bottle, indicating it is somehow connected to egg-laying.' ] );
+	};
+	OvipositionElixir.prototype.canUse = function() {
+		if( CoC.getInstance().player.hasVagina() ) {
+			return true;
+		}
+		EngineCore.outputText( 'You pop the cork and prepare to drink the stuff, but the smell nearly makes you gag.  You cork it hastily.\n\n' );
+		return false;
+	};
+	//Oviposition Elixer!;
+	/* Notes on StatusAffects.Eggs
+	 v1 = egg type.
+	 v2 = size - 0 for normal, 1 for large
+	 v3 = quantity
+	 EGG TYPES-
+	 0 - brown - ass expansion
+	 1 - purple - hip expansion
+	 2 - blue - vaginal removal and/or growth of existing maleness
+	 3 - pink - dick removal and/or fertility increase.
+	 4 - white - breast growth.  If lactating increases lactation.
+	 5 - rubbery black
+	 */
+	OvipositionElixir.prototype.useItem = function() {
+		CoC.getInstance().player.slimeFeed();
+		EngineCore.outputText( 'You pop the cork and gulp down the thick greenish fluid.  The taste is unusual and unlike anything you\'ve tasted before.' );
+		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_GOO_STUFFED ) {
+			EngineCore.outputText( '\n\nFor a moment you feel even more bloated than you already are.  That feeling is soon replaced by a dull throbbing pain.  It seems that with Valeria\'s goo filling your womb the ovielixir is unable to work its magic on you.' );
+			return (false);
+		}
+		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_WORM_STUFFED ) {
+			EngineCore.outputText( '\n\nFor a moment you feel even more bloated than you already are.  That feeling is soon replaced by a dull throbbing pain.  It seems that with the worms filling your womb the ovielixir is unable to work its magic on you.' );
+			return (false);
+		}
+		if( CoC.getInstance().player.pregnancyIncubation === 0 ) {
+			{ //If the player is not pregnant, get preggers with eggs!
+			}
+			EngineCore.outputText( '\n\nThe elixir has an immediate effect on your belly, causing it to swell out slightly as if pregnant.  You guess you\'ll be laying eggs sometime soon!' );
+			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.INCUBATION_OVIELIXIR_EGGS, 1, 1 );
+			CoC.getInstance().player.createStatusAffect( StatusAffects.Eggs, Utils.rand( 6 ), 0, Utils.rand( 3 ) + 5, 0 );
+			return (false);
+		}
+		var changeOccurred = false;
+		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+			{ //If player already has eggs, chance of size increase!
+			}
+			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Eggs ) >= 0 ) {
+				//If eggs are small, chance of increase!;
+				if( CoC.getInstance().player.statusAffectv2( StatusAffects.Eggs ) === 0 ) {
+					//1 in 2 chance!;
+					if( Utils.rand( 3 ) === 0 ) {
+						CoC.getInstance().player.addStatusValue( StatusAffects.Eggs, 2, 1 );
+						EngineCore.outputText( '\n\nYour pregnant belly suddenly feels heavier and more bloated than before.  You wonder what the elixir just did.' );
+						changeOccurred = true;
+					}
+				}
+				//Chance of quantity increase!;
+				if( Utils.rand( 2 ) === 0 ) {
+					EngineCore.outputText( '\n\nA rumble radiates from your uterus as it shifts uncomfortably and your belly gets a bit larger.' );
+					CoC.getInstance().player.addStatusValue( StatusAffects.Eggs, 3, Utils.rand( 4 ) + 1 );
+					changeOccurred = true;
+				}
+			}
+		}
+		if( !changeOccurred && CoC.getInstance().player.pregnancyIncubation > 20 && CoC.getInstance().player.pregnancyType !== PregnancyStore.PREGNANCY_BUNNY ) {
+			{ //If no changes, speed up pregnancy.
+			}
+			EngineCore.outputText( '\n\nYou gasp as your pregnancy suddenly leaps forwards, your belly bulging outward a few inches as it gets closer to time for birthing.' );
+			var newIncubation = CoC.getInstance().player.pregnancyIncubation - Math.ceil( CoC.getInstance().player.pregnancyIncubation * 0.3 + 10 );
+			if( newIncubation < 2 ) {
+				newIncubation = 2;
+			}
+			CoC.getInstance().player.knockUpForce( CoC.getInstance().player.pregnancyType, newIncubation );
+			$log.debug( 'Pregger Count New total:' + CoC.getInstance().player.pregnancyIncubation );
+		}
+		return (false);
+	};
+	return OvipositionElixir;
+} );
