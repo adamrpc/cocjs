@@ -747,7 +747,7 @@ angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser
 				}
 				//(High Corruption);
 				else {
-					EngineCore.outputText( CoC.getInstance().monster.capitalA + ' swarms over your body, some stroking themselves as they watch you squirm while others rub their cocks over your flanks. Your imp rider twists your hair, pulling your head back, and you moan in pleasure at the rough handling. Your ' + CoC.getInstance().player.skinDesc + ' tingles as you start to flush with desire.  ', false );
+					EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + ' swarms over your body, some stroking themselves as they watch you squirm while others rub their cocks over your flanks. Your imp rider twists your hair, pulling your head back, and you moan in pleasure at the rough handling. Your ' + CoC.getInstance().player.skinDesc + ' tingles as you start to flush with desire.  ', false );
 				}
 				EngineCore.outputText( 'You yelp in shock as you feel a sharp slap on your ass. You look back to see an imp pulling your tail up. He grins at you and slaps your ' + Descriptors.hipDescript() + ' again. He yanks your tail and slaps your ass one last time, then dives down to plant his face in your ' + Descriptors.vaginaDescript( 0 ) + '. His inhumanly nimble tongue teases the folds of your pussy and flicks at your ' + Descriptors.clitDescript() + '.  ', false );
 				//(If the player has balls);
@@ -970,7 +970,7 @@ angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.ImpGangBang ) >= 0 ) {
 					//(Subsequent encounters - Low Corruption);
 					if( CoC.getInstance().player.cor < 50 ) {
-						EngineCore.outputText( 'You can\'t tell if this is the same ' + CoC.getInstance().monster.short + ' as last time or not. You\'re not racist, but all imps look alike to you. ' + CoC.getInstance().monster.capitalA + ' surges forward, grabbing at your legs and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );
+						EngineCore.outputText( 'You can\'t tell if this is the same ' + CoC.getInstance().monster.short + ' as last time or not. You\'re not racist, but all imps look alike to you. ' + CoC.getInstance().monster.getCapitalA() + ' surges forward, grabbing at your legs and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );
 					}
 					//(Subsequent encounters - High Corruption);
 					else {
@@ -1268,7 +1268,7 @@ angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser
 				}
 				EngineCore.outputText( ', twisting and pinching hard enough to make you yelp in pain. The ' + CoC.getInstance().monster.short + ' stinks of sweat and pre-cum, and their moist grips and obscene smirks leave you with no doubts about what they will do to you if you lose this fight.\n\n', false );
 				//(Bipedal, vaginal);
-				EngineCore.outputText( 'The ' + CoC.getInstance().monster.capitalA + ' overwhelms you, dragging you to the ground with sheer numbers. There are at least two imps on each limb, holding you spread-eagled on the cold ground while other imps stroke your body. ', false );
+				EngineCore.outputText( 'The ' + CoC.getInstance().monster.getCapitalA() + ' overwhelms you, dragging you to the ground with sheer numbers. There are at least two imps on each limb, holding you spread-eagled on the cold ground while other imps stroke your body. ', false );
 				//(If the player has breasts);
 				if( CoC.getInstance().player.biggestTitSize() > 0 ) {
 					EngineCore.outputText( 'Imps surround your chest, slapping their ' + CoC.getInstance().monster.cockDescriptShort( 0 ) + 's on your ' + CoC.getInstance().player.allBreastsDescript() + ' and rubbing their slippery pre-cum into your ' + Descriptors.nippleDescript( 0 ) + '.  ', false );
@@ -1447,14 +1447,14 @@ angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.ImpGangBang ) >= 0 ) {
 					//(Subsequent encounters - Low Corruption);
 					if( CoC.getInstance().player.cor < 50 ) {
-						EngineCore.outputText( 'You can\'t tell if this is the same ' + CoC.getInstance().monster.short + ' as last time or not - all imps look alike to you.  The ' + CoC.getInstance().monster.capitalA + ' surges forward, grabbing at your ' + CoC.getInstance().player.legs() + ' and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );
+						EngineCore.outputText( 'You can\'t tell if this is the same ' + CoC.getInstance().monster.short + ' as last time or not - all imps look alike to you.  The ' + CoC.getInstance().monster.getCapitalA() + ' surges forward, grabbing at your ' + CoC.getInstance().player.legs() + ' and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );
 					}
 					//(Subsequent encounters - High Corruption);
 					else {
 						EngineCore.outputText( 'It\'s about time they showed up. It\'s not like there\'s a lot to do in these rocks, and you were getting bored. You grab an imp dick in either hand and spread your legs as other imps grope your thighs...\n\n', false );
 					}
 				}
-				EngineCore.outputText( 'The ' + CoC.getInstance().monster.capitalA + ' swarms over you, dragging you to the ground as ', false );
+				EngineCore.outputText( 'The ' + CoC.getInstance().monster.getCapitalA() + ' swarms over you, dragging you to the ground as ', false );
 				//(Low Corruption);
 				if( CoC.getInstance().player.cor < 50 ) {
 					EngineCore.outputText( 'you punch and kick wildly, determined not to let them take you', false );

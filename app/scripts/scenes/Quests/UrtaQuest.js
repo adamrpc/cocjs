@@ -1012,13 +1012,13 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//Determine if dodged!;
 		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Blind ) < 0 && (Utils.rand( 3 ) === 0 || (CoC.getInstance().player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().monster.spe - CoC.getInstance().player.spe) / 4) + 80) ) > 80)) ) {
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 8 && CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
 			}
 			EngineCore.outputText( '\n', false );
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Attacks ) >= 0 ) {
@@ -1163,13 +1163,13 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//Determine if dodged!;
 		if( (CoC.getInstance().player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().monster.spe - CoC.getInstance().player.spe) / 4) + 80) ) > 80) ) {
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 8 && CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			Combat.enemyAI();
@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		}
 		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Stunned ) < 0 && CoC.getInstance().monster.findPerk( PerkLib.Resolute ) < 0 && damage > 0 ) {
 			if( CoC.getInstance().monster.tou / 10 + Utils.rand( 20 ) + 1 < 20 ) {
-				EngineCore.outputText( '\n<b>' + CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' is stunned!</b>' );
+				EngineCore.outputText( '\n<b>' + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' is stunned!</b>' );
 				CoC.getInstance().monster.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
 			}
 		} else if( CoC.getInstance().monster.findPerk( PerkLib.Resolute ) >= 0 ) {
@@ -1293,13 +1293,13 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//Determine if dodged!;
 		if( (CoC.getInstance().player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().monster.spe - CoC.getInstance().player.spe) / 4) + 80) ) > 80) ) {
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' narrowly avoids your attack!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 8 && CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' dodges your attack with superior quickness!', false );
 			}
 			if( CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 20 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' deftly avoids your slow attack.', false );
 			}
 			EngineCore.outputText( '\n', false );
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.FirstAttack ) >= 0 ) {

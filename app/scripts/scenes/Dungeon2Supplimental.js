@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			damage = 0;
 			//Blind dodge change;
 			if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' completely misses you with a blind attack!\n', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
 			else if( CoC.getInstance().player.spe - CoC.getInstance().monster.spe > 0 && Utils.rand( ((CoC.getInstance().player.spe - CoC.getInstance().monster.spe) / 4) + 90 ) > 80 ) {
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			damage = 0;
 			//Blind dodge change;
 			if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-				EngineCore.outputText( CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + '\' misguided spooge flies everyone.  A few bursts of it don\'t even land anywhere close to you!\n', false );
+				EngineCore.outputText( CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + '\' misguided spooge flies everyone.  A few bursts of it don\'t even land anywhere close to you!\n', false );
 			}
 			//Determine if dodged!;
 			else if( CoC.getInstance().player.spe - CoC.getInstance().monster.spe > 0 && Utils.rand( ((CoC.getInstance().player.spe - CoC.getInstance().monster.spe) / 4) + 90 ) > 80 ) {
@@ -1753,7 +1753,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			//Enemy struggles - ;
 			EngineCore.outputText( 'Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail\'s tight bonds.', false );
 			if( CoC.getInstance().monster.statusAffectv1( StatusAffects.Constricted ) <= 0 ) {
-				EngineCore.outputText( '  ' + CoC.getInstance().monster.capitalA + CoC.getInstance().monster.short + ' proves to be too much for your tail to handle, breaking free of your tightly bound coils.', false );
+				EngineCore.outputText( '  ' + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + ' proves to be too much for your tail to handle, breaking free of your tightly bound coils.', false );
 				CoC.getInstance().monster.removeStatusAffect( StatusAffects.Constricted );
 			}
 			CoC.getInstance().monster.addStatusValue( StatusAffects.Constricted, 1, -1 );
