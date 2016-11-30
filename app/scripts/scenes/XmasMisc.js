@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( EventParser, AppearanceDefs, Consumable
 		//end encounter;
 		//Receive "<i>Peppermint White</i>";
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PEPPWHT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PEPPWHT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Leave;
 	XmasMisc.prototype.leaveDisFukkinPolarBear = function() {
@@ -573,7 +573,7 @@ angular.module( 'cocjs' ).run( function( EventParser, AppearanceDefs, Consumable
 		EngineCore.outputText( 'You\'ve decided not to trust the stranger, with a nod of your head you walk away from the man.  "<i>Wait!  Before you go...</i>" he speaks as he moves his massive sack in front of himself with a huff.  He leans forward, his upper body rummaging through the sack before reappearing.  He hands you a brightly wrapped gift.' );
 		EngineCore.outputText( '\n\n"<i>A little something from me,</i>" he says with a bright smile.  Despite your hesitation, something about this gesture seems genuine.  You nod your head taking the gift from him and leaving after a simple word of thanks.  You unwrap the gift after returning to a normal climate, inside you find a small crystal bottle filled with a white liquid that looks strangely familiar.  Popping the cork and smelling the contents fills your nose with the refreshing scent of mint. It smells delicious, though you resist the temptation and cork the bottle again.  You take it with you back to camp.\n\n' );
 		//Receive "<i>Peppermint White</i>";
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PEPPWHT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PEPPWHT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Sell "<i>Peppermint White</i>" for 50 gems or Drink it;
 	//Drink "<i>Peppermint White</i>";

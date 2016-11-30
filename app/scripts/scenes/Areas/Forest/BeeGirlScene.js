@@ -220,18 +220,18 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		CoC.getInstance().player.slimeFeed();
 		switch( Utils.rand( 10 ) ) {
 			case  0:
-				CoC.getInstance().inventory.takeItem( ConsumableLib.W__BOOK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W__BOOK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			case  1:
 			case  2:
-				CoC.getInstance().inventory.takeItem( ConsumableLib.OVIELIX, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.OVIELIX, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			case  3:
 			case  4:
-				CoC.getInstance().inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			default:
-				CoC.getInstance().inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterDisgusted = function() {
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( 'In moments, her hands are covered with your usual level of cum, though this gets not much more than a nod of approval from the giver of your pleasure.  She gently sets you to the side of her and pulls the bottle from her lower lips and puts a cork on the bottle before setting it down on your stomach.  <i>“Take thizzz after it hazzz had an hour to zzzet.”</i> she tells you before picking up her bag and flying away.  Thanks to the after effects of her scent, you don’t really have a chance to react before you drift off to sleep for several hours.\n\n' );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', 3, 'cor', -2 );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
 		}
 	};
 	BeeGirlScene.prototype.beeSexForCocksPart2 = function( giantCockIndex ) {
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( '”</i> she says handing you the bottle with a wink.  Then she wipes off some of the dried cum from her face, takes her bag, and flies off.  Just before she is out of sight she calls back to you, <i>“I look forward to zzzeeing you again zzzoon!”</i>  After cumming so many times it\'s no surprise that you wake up hours later, having drifted off to sleep.\n\n' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2, 'cor', -3 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
 	};
 	BeeGirlScene.prototype.beeDroneBadEnd = function() {
 		EngineCore.outputText( 'Her face breaks into a wide knowing smile.  <i>“Hello again, my fine cocked friend,”</i> she says rising and gently hovering over to you.  <i>“You know, the queen izzz eagerly waiting to meet you.  Zzzhe will be able to take care of you much better than I ever could, but I think we can zzztill zzzpend zzzome time together if you’re up for it.”</i>\n\n' );
@@ -946,12 +946,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			case  0:
 				this.conversation = 1;
 				EngineCore.outputText( 'After giving you a chance to recover from the ordeal, your chitinous partner turns to you.  <i>“That wazzz fun, wazzzn’t it?  We zzzhoud do thizzz again zzzome time, maybe get to know each other too?”</i> she says before handing you a small bottle filled with honey.  <i>“Zzzome of mine for you, take it.”</i>  With that, she spreads her wings and flies off giving you one last wave.\n\n' );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			case  1:
 				this.conversation = 2;
 				EngineCore.outputText( 'Once you’ve recovered, she gives a happy stretch.  <i>“It’zzz alwayzzz zzzo fun playing with zzzomeone more than onzzze.  Don’t you agree?”</i> she says as she puts one of her arms around your shoulders.  You don’t hesitate to tell her that it certainly was a fun experience.  <i>“Hey, what hive are you from?”</i> she asks you, <i>“Maybe I could come bring you a zzzurprise zzzome time?”</i>  You hesitate for a moment before telling her that you aren’t actually from a hive, you aren’t even actually a full bee girl.  Her eyes go wide before clapping her hand to her forehead in realization, <i>“Right!  Of course, no wonder you zzzeemed a bit off to me.”</i>  Suddenly she freezes, <i>“Zzzomeone is coming, they probably want my eggzzz and honey, let’zzz talk again zzzome other time.”</i>  She hands you another bottle of amber liquid before shooing you off.  You put your ' + CoC.getInstance().player.armorName + ' back on before going too far.  You turn back just in time to see an imp jump into the bee’s arms.\n\n' );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			case  2:
 				this.conversation = 3;
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 					EngineCore.outputText( '<i>“I’ve been thinking zzzizzzter, I feel zzzo bad that you don’t know the joy of hearing the mother’zzz voizzze.”</i>  You look at her confused and ask her what she means.  <i>“All uzzz beezzz can hear the voizzze of our mother, the queen.  It makezzz me feel zzzo bad when I think about how you can’t hear her voizzze.”</i>  She looks down with a sad expression on her face.  You wonder if maybe you should say something to her, but her feelings are so alien to you that you aren’t sure what exactly you should say.\n\n' );
 					EngineCore.outputText( 'She looks back up at you with an excited look on her face and hands you another bottle of her honey before saying, <i>“Don’t worry zzzizzzter, I’ll try to think of zzzomthing!”</i>   With that she spreads her wings and flies off.  You’re surprised to see she left so suddenly like that.  Her abdomen is still full of eggs and she left her bag behind (you take a look inside it, but all you find is a bottle of her honey)...  She’ll probably be back for that before too long.  You shrug your shoulders, get dressed, gather up your things, and head back towards camp.\n\n' );
 				}
-				CoC.getInstance().inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				break;
 			case  3:
 				this.conversation = 4;
@@ -1033,7 +1033,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'You take the vial absently as you kneel between her legs and take in deep breaths of the scent.  It fills your head and groin with its warmth and sticky sweetness.  You part your lips, leaning ever closer to her delicate flower, tensing with anticipation.  When your tongue finally meets the slickened surface of her vulva you swoon.  The taste is better than anything you\'ve ever experienced - sweet, pure, and yet totally sexual.  You dart over her clit, and are rewarded with a burst of heavenly sweetness.  The maddening taste of her ambrosia gets in your veins – you NEED more and you attack her honeypot mercilessly, until at last she squeals in orgasm, clamping her fuzz-covered thighs around your head.\n\n', false );
 		EngineCore.outputText( 'The force of her orgasm splatters you with the honey, far more than you could possibly try to lap up. You dimly remember the vial she gave to you, and steady it under the dripping fluid.  You catch as much of her sweetness as you can while still mashing your face against her quivering cunt.  You are in heaven, but after a time she pushes you back, smiling contentedly.  Her free hand offers you a small cork.   You reluctantly accept it and cap off the pure honey to save for later.\n\n', false );
 		EngineCore.outputText( 'She waves and stretches, picking up her pack and buzzing her wings as she takes off.  She blows a kiss over her shoulder and flies away, leaving you to return to your camp...', false );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.seduceBeeGirl = function() {
 		EngineCore.spriteSelect( 6 );

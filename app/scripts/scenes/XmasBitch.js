@@ -81,26 +81,26 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, ConsumableLib, Appeara
 			EngineCore.outputText( 'shock at the box\'s contents – a nine inch cock with damn near a dozen buzzing, elliptical devices taped to it.  A pair of coal lumps rattles around underneath it, positioned as if they were the dick\'s testicles.\n\n', false );
 			EngineCore.outputText( 'Before you can utter a single word of confusion or protest, the elf moans and the cock erupts, spurting a rope of cum into your hair.  The next blast takes you across the nose, then on your lips, then your chin, and finally onto your ' + Descriptors.allBreastsDescript() + '.  Shocked and dripping, you stand dumbfounded as the elf plants a kiss on your lips, tears off the box, and runs away with her cock flopping and buzzing in time with each step.  There\'s no way to catch her in this darkness.\n\n', false );
 			EngineCore.outputText( 'The empty \'present\' is on the ground with the coal still inside.  You wonder if the coal has any special effect. Everything else in this place does.  In the distance you can hear sleigh bells, and you know it\'s going to be hard to sleep with all that racket on top of the threat of more intruders...\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.COAL___, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.COAL___, EventParser.playerMenu );
 			CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else if( CoC.getInstance().player.cor <= 33 ) {
 			//Great present!;
 			EngineCore.outputText( 'surprise at the box\'s contents - there\'s a careful arranged set of equipment here, made from woven spider-silk!  Somebody must think you\'re pretty good.\n\n' );
 			if( Utils.rand( 2 ) === 0 ) {
-				CoC.getInstance().inventory.takeItem( ArmorLib.SS_ROBE, EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( ArmorLib.SS_ROBE, EventParser.playerMenu );
 			} else {
-				CoC.getInstance().inventory.takeItem( ArmorLib.SSARMOR, EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( ArmorLib.SSARMOR, EventParser.playerMenu );
 			}
 			CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else if( CoC.getInstance().player.cor < 60 ) {
 			//[Good present];
 			EngineCore.outputText( 'surprise at the box\'s contents – there\'s a vial labeled gro+.  It looks like it\'s going to be a \'big\' Christmas this year...\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
 			CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else {
 			//[Mediocre Present];
 			EngineCore.outputText( 'surprise at the box\'s contents – there is a single vial of succubi\'s delight packed inside.  It\'s going to be a white Christmas after all...\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.SDELITE, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, EventParser.playerMenu );
 			CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		}
 	};

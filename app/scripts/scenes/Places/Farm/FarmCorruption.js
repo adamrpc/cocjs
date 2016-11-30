@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, ConsumableLib, St
 			CoC.getInstance().flags[ kFLAGS.FARM_EGG_COUNTDOWN ] = 7;
 		}
 		CoC.getInstance().flags[ flag ]--;
-		CoC.getInstance().inventory.takeItem( item, this.afterTakeItems );
+		CoC.getInstance().scenes.inventory.takeItem( item, this.afterTakeItems );
 	};
 	FarmCorruption.prototype.afterTakeItems = function() {
 		if( this.collectionAvailable() ) {

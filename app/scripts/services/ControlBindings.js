@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, Engi
 			} else if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 3) {
 				if (keyCode === 39) {
 					if (CoC.getInstance().player.str > 0 && MainView.getButtonText(0).indexOf('Game Over') === -1) {
-						CoC.getInstance().inventory.giveHumanizer();
+						CoC.getInstance().scenes.inventory.giveHumanizer();
 					}
 				} else {
 					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;

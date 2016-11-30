@@ -48,12 +48,12 @@ angular.module( 'cocjs' ).run( function( Holli, PerkLib, $log, CockTypesEnum, Pr
 			if( CoC.getInstance().player.hasKeyItem( 'Jojo\'s Talisman' ) >= 0 ) {
 				EngineCore.addButton( 1, 'Call Jojo', this.callDatJojo );
 			}
-			EngineCore.addButton( 4, 'Back', CoC.getInstance().inventory.inventoryMenu );
+			EngineCore.addButton( 4, 'Back', CoC.getInstance().scenes.inventory.inventoryMenu );
 		} else if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 1 ) {
 			if( output ) {
 				EngineCore.outputText( 'The sprout looks about the same as when you first noticed it.  It\'s a simple, leafy shoot that only goes to about knee height.  It looks healthy and strong, with a few dozen branches and shiny green leaves.  If you look closely, the veins on the undersides of the leaf are purplish and pulse slightly with corruption.  You could easily destroy it.' );
 			}
-			EngineCore.choices( 'Burn It', this.destroyDatFukkinTree, '', null, '', null, '', null, 'Back', CoC.getInstance().inventory.inventoryMenu );
+			EngineCore.choices( 'Burn It', this.destroyDatFukkinTree, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.inventory.inventoryMenu );
 		} else if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 2 ) {
 			//[Fuck It] [Ride Stamen] [Do Nothing] [Destroy It];
 			if( output ) {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( Holli, PerkLib, $log, CockTypesEnum, Pr
 			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 ) {
 				ride = this.rideDatFuckingFukkFlowerP2;
 			}
-			EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, '', null, 'Destroy It', this.destroyDatFuckingPlantAtP2, 'Back', CoC.getInstance().inventory.inventoryMenu );
+			EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, '', null, 'Destroy It', this.destroyDatFuckingPlantAtP2, 'Back', CoC.getInstance().scenes.inventory.inventoryMenu );
 		} else if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 3 ) {
 			if( output ) {
 				EngineCore.outputText( 'The familiar plant has blossomed into a nicely sized tree, though you doubt it has finished growing just yet.  It sports an outstretched canopy with nice, green leaves.  Unfortunately, you can still trace the corrupted veins on their undersides from below.  The vaginal flower is still there and is in full bloom, now several feet across and practically dripping with moisture.  Just up the trunk, there\'s a pair of small, roughly b-cup breasts bulging out of the bark.  They\'re exquisitely smooth and soft, and they ooze sweet-smelling sap that your tongue would love to taste.  In the canopy above, tentacle vines idly writhe about, though they show no sizes of aggression.' );
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( Holli, PerkLib, $log, CockTypesEnum, Pr
 				ride = this.rideTheWalrusP3;
 			}
 			//[Fuck flower] [Drink Sap] [Ride Tentacles] [{Torch It}] [Leave It];
-			EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', CoC.getInstance().inventory.inventoryMenu );
+			EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', CoC.getInstance().scenes.inventory.inventoryMenu );
 		} else {
 			//Camp Menu (edited);
 			if( output ) {
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( Holli, PerkLib, $log, CockTypesEnum, Pr
 				burnIt = this.askHolliToWatch;
 				//[Fuck Her] [Drink] [Tentacle Ride] {Guard Camp} {Threaten} [Leave];
 				EngineCore.choices( 'Fuck Holli', fuck, 'Drink Sap', this.haveAMapleSyrupSnack, 'Ride Tentacles', ride, guardT, burnIt, 'Eat A Fruit', eat,
-					'', null, '', null, '', null, '', null, 'Leave', CoC.getInstance().inventory.inventoryMenu );
+					'', null, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.inventory.inventoryMenu );
 			} else {
 				EngineCore.menu();
 				if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( Holli, PerkLib, $log, CockTypesEnum, Pr
 					EngineCore.addButton( 4, 'Eat A Fruit', this.eatHolliFruit );
 				}
 				EngineCore.addButton( 5, 'Guarding', this.askBrokenHolliToGuard );
-				EngineCore.addButton( 9, 'Leave', CoC.getInstance().inventory.inventoryMenu );
+				EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.inventory.inventoryMenu );
 			}
 			if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_HOLLI ] === 0 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
 				EngineCore.addButton( 6, 'Farm Help', this.helpWithFarm );

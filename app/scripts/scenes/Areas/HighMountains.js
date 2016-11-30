@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 		EngineCore.spriteSelect( 90 );
 		CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ]++;
 		EngineCore.outputText( 'You take ' + itype.longName + ', and the harpy nods in regards to your decision.  Prepping her cart back up for the road, she gives you a final wave goodbye before heading back down through the mountains.\n\n' );
-		CoC.getInstance().inventory.takeItem( itype, this.chickenHarpy );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.chickenHarpy );
 	};
 	//If No
 	HighMountains.prototype.leaveChickenx = function() {

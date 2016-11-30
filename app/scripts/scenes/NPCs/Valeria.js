@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		if( item === null ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			CoC.getInstance().inventory.takeItem( item, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( item, EventParser.playerMenu );
 		}
 	};
 	Valeria.prototype.valeriaAndGooThreeStuff = function() {

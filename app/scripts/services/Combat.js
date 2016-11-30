@@ -74,7 +74,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 				//Bonus lewts
 				if (CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
 					EngineCore.outputText("  Somehow you came away from the encounter with " + ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]).longName + ".\n\n");
-					CoC.getInstance().inventory.takeItem(ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
+					CoC.getInstance().scenes.inventory.takeItem(ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
 				} else {
 					EngineCore.doNext(EngineCore.createCallBackFunction(CoC.getInstance().scenes.camp.returnToCamp, timePasses));
 				}
@@ -129,7 +129,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.addButton(0, "Approach", Combat.approachAfterKnockback);
 			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
 			EngineCore.addButton(2, "Spells", Combat.magic);
-			EngineCore.addButton(3, "Items", CoC.getInstance().inventory.inventoryMenu);
+			EngineCore.addButton(3, "Items", CoC.getInstance().scenes.inventory.inventoryMenu);
 			EngineCore.addButton(4, "Run", Combat.runAway);
 			if (CoC.getInstance().player.hasKeyItem("Bow") >= 0) {
 				EngineCore.addButton(5, "Bow", Combat.fireBow);
@@ -177,7 +177,7 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 			EngineCore.addButton(0, "Attack", Combat.attacks);
 			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
 			EngineCore.addButton(2, "Spells", magic);
-			EngineCore.addButton(3, "Items", CoC.getInstance().inventory.inventoryMenu);
+			EngineCore.addButton(3, "Items", CoC.getInstance().scenes.inventory.inventoryMenu);
 			EngineCore.addButton(4, "Run", Combat.runAway);
 			EngineCore.addButton(5, "P. Specials", pSpecials);
 			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
@@ -1371,9 +1371,9 @@ angular.module('cocjs').factory('Combat', function ($log, CoC, StatusAffects, kF
 		monster.handleAwardItemText(itype); //Each monster can now override the default award text
 		if (itype !== null) {
 			if (CoC.getInstance().scenes.dungeonCore.isInDungeon()) {
-				CoC.getInstance().inventory.takeItem(itype, EventParser.playerMenu);
+				CoC.getInstance().scenes.inventory.takeItem(itype, EventParser.playerMenu);
 			} else {
-				CoC.getInstance().inventory.takeItem(itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+				CoC.getInstance().scenes.inventory.takeItem(itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour);
 			}
 		}
 	};

@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( '\n\n' );
 		CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
 		//PC gains 1x BCB;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.BC_BEER, CoC.getInstance().scenes.telAdre.barTelAdre );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BC_BEER, CoC.getInstance().scenes.telAdre.barTelAdre );
 	};
 	//Talk;
 	Niamh.prototype.talkToNiamh = function() {
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( '\n\nPushing that slightly scary thought to the side, you lean in, firmly grasping one stiff nipple and forcing it to the mouth of your container.  Ignoring her increasingly loud and frequent groans, you dutifully milk the bubbly into the flask, stopper it up, and rise.  Niamh tries to follow you, too aroused by the milking to resist her carnal urges, but you easily push her to the side, her ponderous melons throwing her off balance.' );
 		EngineCore.outputText( '\n\nShe lands into a big pile of similarly blonde and giggling girls who waste no time in swarming her.  You chuckle and shake your head.  Perhaps you\'ll come back later.\n\n' );
 		//bimbo champagne aqua-aired;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.BIMBOCH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOCH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Bazaar sex];
 	Niamh.prototype.bazaarSex = function() {
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( 'You drop the vial into a pouch on your person.\n\n' );
 		//bimbo liqueur aqcquired;
 		CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 0;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
 	};
 	// [LEAVE];
 	Niamh.prototype.leaveWithBeerTits = function() {

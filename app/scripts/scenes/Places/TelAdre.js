@@ -1306,7 +1306,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.spriteSelect( 61 );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( itype, this.tailorShoppe );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.tailorShoppe );
 	};
 	TelAdre.prototype.armorShop = function() {
 		EngineCore.outputText( '', true );
@@ -1365,7 +1365,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.spriteSelect( 80 );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( itype, this.weaponShop );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.weaponShop );
 	};
 	TelAdre.prototype.armorBuy = function( itype ) {
 		EngineCore.spriteSelect( 64 );
@@ -1388,7 +1388,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( '', true );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( itype, this.armorShop );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.armorShop );
 	};
 	TelAdre.prototype.urtaIsABadass = function() {
 		CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] = 1;

@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 		//get 1 Izzit Milk or Cream? item, set Izzy Milked Yet flag to -1, which adds [GetMilk] button to follower menu;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -1;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Mine Mine MINE!];
 	IsabellaFollowerScene.prototype.noMilkingMilky = function() {
@@ -973,7 +973,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		EngineCore.outputText( 'arousal at your touch, blushing at putting on such a show in front of Whitney.  The farmer shrugs.  "<i>Y\'all please yourselves.  Milker\'ll be here if you need it.</i>"\n\n', false );
 		//get 1 Izzit Milk or Cream? item, set Izzy Milked Yet flag to -2, which adds [GetMilk] button to follower menu;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -2;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[GetMilk] ;
 	//follower menu button ;
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		//get 1 Izzit Milk or Cream? item, lose some fatigue and gain some lust if Izzy Milked Yet flag = -2;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -2;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILK_COOLDOWN ] = 7 + Utils.rand( 4 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//TDM's Angry Murble;
 	IsabellaFollowerScene.prototype.angryMurble = function() {

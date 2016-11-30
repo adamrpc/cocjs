@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				EngineCore.outputText( 'Lucia places a small bottle in your hand.  "<i>So thank you, and have this present.  Perhaps you can create some lethicite for us later... oh, and before I forget, Marcus is loving his new existence.</i>"\n\n', false );
 				EngineCore.outputText( 'She steps away and blows a kiss as her wings unfurl.  With a powerful downstroke she scatters sand everywhere, forcing you to throw an arm in front of your eyes.  When the debris settles, she\'s gone.\n\n', false );
 				EngineCore.dynStats( 'lus', 5 );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				CoC.getInstance().player.statusAffect( CoC.getInstance().player.findStatusAffect( StatusAffects.WandererDemon ) ).value1 = 1;
 			}
 			//Second Encounter
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				//Catch it
 				if( 50 < (CoC.getInstance().player.spe + Utils.rand( 60 )) ) {
 					EngineCore.outputText( 'You handily catch a small potion vial.  When you look up, she\'s gone.\n\n', false );
-					CoC.getInstance().inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				}
 				//Drop it
 				else {
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			//Human Epilogue 2
 			else if( CoC.getInstance().player.statusAffectv1( StatusAffects.WandererHuman ) === 1 ) {
 				EngineCore.outputText( 'While exploring the desert, you find a strange bottle half-buried in the sand.  A small note is tied to it just knew you\'d find this.  Try this a few times and I think you might change your mind about Marcus\' situation.\n  -Lovely Lucia</i>"\n\n', true );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			}
 		}
 	};

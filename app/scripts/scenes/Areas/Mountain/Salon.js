@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 			CoC.getInstance().player.gems -= 60;
 			EngineCore.outputText( 'You happily give Lynnette 60 gems and pick up the bottle full of glistening, heavenly cum.  ', true );
 			EngineCore.statScreenRefresh();
-			CoC.getInstance().inventory.takeItem( ConsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	Salon.prototype.salonPurchaseMenu = function() {
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 	};
 	Salon.prototype.buyDye = function( itype ) {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.dyeMenu = function() {
 		EngineCore.spriteSelect( 38 );

@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( '\n\nYou nod and pull out your gems, counting out the exact amount for her.  As soon as you finish, Greta pulls you over the counter and kisses you on the lips, her tongue sensually assaulting your surprised palate. Before you can react, she pulls back with a hum of pleasure.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, sugar!  Have fun and be safe, and if you don\'t want to be safe, come visit me sometime!</i>"' );
 		EngineCore.outputText( '\n\nYou\'ll have to keep that in mind...  ' );
-		CoC.getInstance().inventory.takeItem( ArmorLib.LMARMOR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.LMARMOR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Cock-socks Available - First Time;
 	Bazaar.prototype.browseDemSocksSon = function() {
@@ -1264,7 +1264,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			//Time set to morning;
 			EngineCore.statScreenRefresh();
 		}
@@ -1301,7 +1301,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			//Time set to morning;
 			EngineCore.statScreenRefresh();
 		}
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			EngineCore.statScreenRefresh();
 			//Time set to morning;
 		}

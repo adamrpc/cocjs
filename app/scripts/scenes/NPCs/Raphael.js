@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		//{Third encounter unlocked};
 		//Set 'time to wear dress' countdown.;
 		CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
-		CoC.getInstance().inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
 	};
 	/*DRESS HERE
 	 Descriptive high society bodysuit. It is as easy to mistake it for ballroom apparel as it is for boudoir lingerie. The thin transparent fabric is so light and airy that it makes avoiding blows a second nature.
@@ -650,7 +650,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex} ;
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss. He\'s bound it with his red sash around the length like a ribbon, like he has now gifted it to you. Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {

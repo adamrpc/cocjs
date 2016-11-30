@@ -1304,7 +1304,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 			// return PC to options- no combat option
 			// PC gains 1 Purity peach
 			CoC.getInstance().monster.createStatusAffect( StatusAffects.PeachLootLoss, 0, 0, 0, 0 );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			Combat.cleanupAfterCombat();
 		}
 		//PC loss by Lust
@@ -1342,7 +1342,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.spriteSelect( 95 );
 		//Acquiring:
 		EngineCore.outputText( 'You walk over to the fruit trees surrounding the spring, examining the strange treats.  You decide that one ripe fruit, one resembling a peach, is the best choice, and pluck it from the tree.  Thanking Minerva for letting you have it, you stow it away safely and head back to camp.\n\n' );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	/*
 	 Calming Mint

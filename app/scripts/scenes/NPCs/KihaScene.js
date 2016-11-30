@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 			itype = UsableLib.T_SSILK;
 		}
 		EngineCore.outputText( 'While exploring, you find an item on the ground!  ', false );
-		CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[This was my idea!];
 	KihaScene.prototype.tellKihaTributeWasYourIdea = function() {

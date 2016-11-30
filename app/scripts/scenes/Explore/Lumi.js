@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 			EngineCore.outputText( 'You pay Lumi the gems, and she hands you ' + itype.longName + ' saying, "<i>Here ya go!</i>"\n\n', false );
 			CoC.getInstance().player.gems -= cost;
 			EngineCore.statScreenRefresh();
-			CoC.getInstance().inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
+			CoC.getInstance().scenes.inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
 		} else {
 			//After choosing, and PC doesn't have enough gems;
 			EngineCore.outputText( 'You go to pay Lumi the gems, but then you realize that you don\'t have enough. Lumi seems to know what happened and tells you "<i>Ok, is dere somefing you want to buy that you can affowd?</i>"\n\n', false );
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 		} else if( temp === 2 ) {
 			EngineCore.outputText( 'She adds a few things to the tray before moving down the table.  She adds some reagents to a bubbling chemical reaction, and then adds some more ingredients to that.  You wonder why she just left ' + itype.longName + ' there to work on something else.  Then Lumi moves back across the table, past where ' + itype.longName + ' sits, to start adding things to something else.  Before you have a chance to complain, she moves back to ' + itype.longName + ' and continues.  You decide that it\'s probably best not to ask about her work ethic and just let her do her thing; she has more experience than you, after all.\n\nPOP! You look over in surprise as the first thing she worked on makes a small explosion.  POW! Now the second experiment has blown up!  You start to move in alarm, wondering if Lumi really knows what she\'s doing; just before ' + itype.longName + ' seems to explode with an incredible BOOM.  Lumi stops moving for a moment, looking straight ahead before saying, "<i>Dat was a gud one, Lumi dun!</i>"\n\n', false );
 		}
-		CoC.getInstance().inventory.takeItem( nextItem, this.lumiEnhance, this.lumiLabChoices );
+		CoC.getInstance().scenes.inventory.takeItem( nextItem, this.lumiEnhance, this.lumiLabChoices );
 	};
 	CoC.getInstance().registerScene( 'lumi', new Lumi() );
 } );

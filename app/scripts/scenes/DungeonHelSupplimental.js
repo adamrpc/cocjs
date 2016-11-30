@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
 	};
 	DungeonHelSupplimental.prototype.takeGodsMead = function() {
-		CoC.getInstance().inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]++;
 	};
 	//[Armor]:;
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		//("<i>You put a (previous armorName) in your X pouch);
 		EngineCore.outputText( '\n\nTo your surprise, you feel rather invigorated after the battle, thanks to Valeria\'s strange healing properties, and with a smirk, you turn your attention back to the dungeon ahead.\n\n' );
 		//(PC regains HP);
-		CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.MET_VALERIA ] = 1;
 		EngineCore.HPChange( 1000, false );
 		CoC.getInstance().flags[ kFLAGS.TOOK_GOO_ARMOR ] = 1;
@@ -620,15 +620,15 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
 	};
 	DungeonHelSupplimental.prototype.takeWhip = function() {
-		CoC.getInstance().inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeStraps = function() {
-		CoC.getInstance().inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeDagger = function() {
-		CoC.getInstance().inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] = 1;
 	};
 	//[Prisoner] (First Time);
@@ -1138,7 +1138,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pick up the Harpy Queen\'s staff.  It is a tall whitewood staff, nearly six feet in length, and covered in glowing eldritch runes, with a singular shimmering sphere of crystal at its head, which seems to have a swirling mist within.' );
 		//(New Weapon: EldritchStaff);
-		CoC.getInstance().inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
 		//Similar stats to the Wizard's Staff, but with a better Fatigue reduction and a bonus to Magic damage/effect.;
 		CoC.getInstance().flags[ kFLAGS.TOOK_QUEEN_STAFF ] = 1;
 	};

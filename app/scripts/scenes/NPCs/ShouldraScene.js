@@ -475,7 +475,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.SLIMEGINAED ]++;
 	};
@@ -548,7 +548,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Victory Scenes (Repurposed Loss Scenes);
@@ -705,7 +705,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Worm Infestation Scene;
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Worm Infestation Scene;
@@ -1055,7 +1055,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Hermaphrodite Scene;
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Enormous Cock Scene;
@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Genderless Scene;
@@ -1318,7 +1318,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Exgartuan Scene;
@@ -1423,7 +1423,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	/*Slime x Ghost Girl - Herm Edition
@@ -1536,7 +1536,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.GHOST_GIRL_SLIME_X_SHOULDRA_COUNTER ]++;
 	};

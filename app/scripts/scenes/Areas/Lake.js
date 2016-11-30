@@ -253,10 +253,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.clearOutput();
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'You find a long and oddly flared vial half-buried in the sand.  Written across the middle band of the vial is a single word: "Equinum".\n' );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.EQUINUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.EQUINUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You find an odd, fruit-bearing tree growing near the lake shore.  One of the fruits has fallen on the ground in front of you.  You pick it up.\n' );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	Lake.prototype.eggChoose = function( eggType ) {
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nYou take a minute to recover before doing the same.  ' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//For Chicks
 	Lake.prototype.ottersForGals = function() {
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nYou take several minutes to recover before doing the same.  ' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//For Pansies
 	Lake.prototype.avoidZeOtterPussy = function() {
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nShe retrieves a delicious-smelling slab of roasted fish, properly salted and wrapped in a large green leaf.  "<i>Here ya\'re, fresh as it comes \'less you want it still walkin\' and talkin\'.</i>"' );
 		EngineCore.outputText( '\n\nYou thank Callu for the food and take your leave.  ' );
 		//(You have gained Fish Fillet!)
-		CoC.getInstance().inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 
 	CoC.getInstance().registerScene( 'lake', new Lake() );

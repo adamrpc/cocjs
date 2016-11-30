@@ -2373,7 +2373,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Descriptors, PerkLib,
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY_GIBS_MILK ] = 2;
 					EngineCore.outputText( '\n\nYou wordlessly hold out your hand. Grinning, Amily produces a bottle of succubus milk and places it in your palm.' );
 					EngineCore.outputText( '\n\n“<i>I\'ll leave my regular production with the rest of the payment Whitney owes you [master].</i>”\n\n' );
-					CoC.getInstance().inventory.takeItem( ConsumableLib.SUCMILK, this.amilyFollowerEncounter );
+					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SUCMILK, this.amilyFollowerEncounter );
 					return;
 				} else {
 					this.amilyMenu( false );

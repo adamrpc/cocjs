@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 					EngineCore.outputText( '<b>You\'ve been to the farm enough to easily find it.  You can return by selecting it from the places menu (and will no longer encounter it during random lake exploration)</b>.\n\n', false );
 				}
 			}
-			CoC.getInstance().inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		//Repeat Offender;
 		else {
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		var pepper = Utils.rand( 4 );
 		var itype = pepper <= 2 ? ConsumableLib.CANINEP : Utils.randomChoice( ConsumableLib.LARGEPP, ConsumableLib.DBLPEPP, ConsumableLib.BLACKPP, ConsumableLib.KNOTTYP, ConsumableLib.BULBYPP );
 		$log.debug( 'FARM SHIT: ' + itype.shortName );
-		CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
 	};
 	Farm.prototype.meetMarble = function() {
 		var marbling = 0;

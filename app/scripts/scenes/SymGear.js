@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		EngineCore.outputText( 'The display makes you feel righteous.\n\n', false );
 		//[Player receives: 1x Inquisitor's Robes];
 		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
-		CoC.getInstance().inventory.takeItem( ArmorLib.I_ROBES, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.I_ROBES, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Carnality];
 	SymGear.prototype.carnalityArmorIsCoolShitToo = function() {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		EngineCore.outputText( 'The display makes you feel like a badass.\n\n', false );
 		//[Player receives 1x Inquisitor's Corset];
 		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
-		CoC.getInstance().inventory.takeItem( ArmorLib.I_CORST, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.I_CORST, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 
 	//Item details:;
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 			EngineCore.outputText( 'Well, getting beer and a sword in one night is good enough you suppose, though you sure would\'ve liked a triple combo of head in there too.  A good evening nonetheless.  You bid farewell to Dominika, thanking her once more for the drink and the blade before heading on your way.  She watches you go with an unreadable expression on her face.\n\n', false );
 		}
 		//(Player receives Spellblade);
-		CoC.getInstance().inventory.takeItem( WeaponLib.S_BLADE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.S_BLADE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.DOMINIKAS_SWORD_GIVEN ] = 1;
 	};
 	CoC.getInstance().registerScene( 'symGear', new SymGear() );

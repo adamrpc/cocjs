@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves, Player, PlayerEvents, Monster) {
+angular.module('cocjs').factory('CoC', function (CharCreation, Saves, Player, PlayerEvents, Monster) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -80,7 +80,6 @@ angular.module('cocjs').factory('CoC', function (Inventory, CharCreation, Saves,
 		that.giacomo = 0;
 		that.inCombat = false;
 		that.scenes = {};
-		that.inventory = new Inventory(that.saves); // TODO : Store only Object here, extract functions
 
 		// *************************************************************************************
 		//Used to set what each action buttons displays and does.

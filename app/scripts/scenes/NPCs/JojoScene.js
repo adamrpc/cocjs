@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, $log, PregnancyStore, Con
 				CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO_GIBS_DRAFT ] = 2;
 				EngineCore.outputText( '\n\nYou wordlessly hold out your hand. Trembling, Jojo lays an incubus draft on it.' );
 				EngineCore.outputText( '\n\n“<i>M-mistress Whitney says s-she\'ll put the rest with your cut of the farm profits [master].</i>”\n\n' );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.INCUBID, this.corruptCampJojo );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.INCUBID, this.corruptCampJojo );
 				return;
 			} else {
 				EngineCore.outputText( '\n\n“<i>What can I do for [master]?</i>”' );

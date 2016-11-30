@@ -1066,7 +1066,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[no-fight sex: get your ass in the car];
 	IzmaScene.prototype.nonFightIzmaSmexASS = function() {
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		//(lust minus 100, gain 1 t-shark tooth, Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Decline Izma moving in;
 	IzmaScene.prototype.IzmaStayAtTheLakeBitch = function() {
@@ -1691,7 +1691,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		} else {
 			EngineCore.outputText( 'Izma smiles as she pulls a tooth from her chest.  She hands it to you with a pleased expression.  "<i>Anything for you, my Alpha.</i>"  ' );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00246 ]++;
-			CoC.getInstance().inventory.takeItem( ConsumableLib.TSTOOTH, EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, EventParser.playerMenu );
 		}
 	};
 	//[Appearance];

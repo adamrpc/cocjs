@@ -446,7 +446,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			CoC.getInstance().scenes.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseEightHours );
 		}
 	};
 	//*[Loss - Very Pregnant, Lots of BJs]
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory - Double/Triple penetration]

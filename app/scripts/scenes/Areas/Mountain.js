@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		}
 		//(Acquired minotaur cum!)
 		CoC.getInstance().time.hours++;
-		CoC.getInstance().inventory.takeItem( ComsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ComsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.watchAMinoCumSlut = function() {
 		EngineCore.clearOutput();

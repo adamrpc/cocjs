@@ -731,7 +731,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			EngineCore.addButton( 2, 'Approach', CoC.getInstance().scenes.dungeonSandWitch.sandMotherStuffGOA );
 			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
 		}
-		EngineCore.addButton( 8, 'Items', CoC.getInstance().inventory.inventoryMenu );
+		EngineCore.addButton( 8, 'Items', CoC.getInstance().scenes.inventory.inventoryMenu );
 		EngineCore.addButton( 9, 'Masturbate', CoC.getInstance().scenes.masturbation.masturbateMenu );
 	};
 	DungeonCore.prototype.enterFactory = function() {
@@ -2474,7 +2474,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.TakenLactaid, 4, 0, 0, 0 );
 		}
-		CoC.getInstance().inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
 	};
 	DungeonCore.prototype.storageTakeGroPlus = function() {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TakenGroPlus ) >= 0 ) {
@@ -2482,7 +2482,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.TakenGroPlus, 4, 0, 0, 0 );
 		}
-		CoC.getInstance().inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
 	};
 	CoC.getInstance().registerScene( 'dungeonCore', new DungeonCore() );
 } );

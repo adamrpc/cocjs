@@ -234,7 +234,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, PerkLib, 
 				if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA_GIBS_MILK ] === 1 ) {
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA_GIBS_MILK ] = 2;
 					EngineCore.outputText( '\n\nYou wordlessly hold out your hand. Leering, Vapula places some bottled succubus milk into it.\n\n' );
-					CoC.getInstance().inventory.takeItem( ConsumableLib.SUCMILK, this.callSlaveVapula );
+					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SUCMILK, this.callSlaveVapula );
 					return;
 				}
 			}
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, PerkLib, 
 		CoC.getInstance().flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'tou', Utils.rand( 2 ), 'spe', Utils.rand( 2 ), 'int', Utils.rand( 2 ), 'cor', 2.5 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
 	};
 	//Vapula/Jojo threesome;
 	Vapula.prototype.vapulaJojoThreesomes = function() {

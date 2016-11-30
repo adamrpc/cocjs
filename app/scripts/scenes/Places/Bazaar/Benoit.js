@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( ItemType, ArmorLib, UsableLib, Appearan
 		this.benoitAffection( 3 );
 		CoC.getInstance().player.gems -= Math.ceil( buyMod * itype.value );
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( itype, this.benoitsBuyMenu );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.benoitsBuyMenu );
 	};
 	Benoit.prototype.benoitSellTransact = function( slot, sellMod ) {
 		EngineCore.clearOutput();

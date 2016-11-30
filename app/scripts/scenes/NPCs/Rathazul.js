@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.INCUBID, 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.P_DRAFT, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_DRAFT, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.SUCMILK, 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.P_S_MLK, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_S_MLK, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.SDELITE, 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PSDELIT, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PSDELIT, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.LABOVA_, 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.P_LBOVA, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_LBOVA, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		CoC.getInstance().player.consumeItem( ConsumableLib.SMART_T, 5 );
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.DEBIMBO, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DEBIMBO, this.returnToRathazulMenu );
 	};
 
 	Rathazul.prototype.rathazulArmorMenu = function() {
@@ -503,14 +503,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		//Reset counters;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] = 0;
 		CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] = 0;
-		CoC.getInstance().inventory.takeItem( itype, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.craftOozeArmor = function() {
 		EngineCore.spriteSelect( 49 );
 		CoC.getInstance().player.destroyItems( UsableLib.GREENGL, 5 );
 		EngineCore.outputText( 'Rathazul takes the green gel from you and drops it into an empty cauldron.  With speed well beyond what you\'d expect from such an elderly creature, he nimbly unstops a number of vials and pours them into the cauldron.  He lets the mixture come to a boil, readying a simple humanoid-shaped mold from what you had thought was piles of junk material.  In no time at all, he has cast the boiling liquid into the mold, and after a few more minutes he cracks it open, revealing a suit of glistening armor.\n\n', true );
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.RathazulArmor ) < 0 ) {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.RathazulArmor, 0, 0, 0, 0 );
 		}
@@ -535,7 +535,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 	Rathazul.prototype.buyDye = function( dye ) {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
-		CoC.getInstance().inventory.takeItem( dye, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( dye, this.returnToRathazulMenu );
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		if( CoC.getInstance().player.gems >= cost ) {
 			EngineCore.outputText( 'Rathazul hands you the Reducto with a nod before returning to his work.\n\n' );
 			CoC.getInstance().player.gems -= cost;
-			CoC.getInstance().inventory.takeItem( ConsumableLib.REDUCTO, this.returnToRathazulMenu );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.REDUCTO, this.returnToRathazulMenu );
 			EngineCore.statScreenRefresh();
 			CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		} else {
@@ -598,7 +598,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		}
 		CoC.getInstance().player.destroyItems( UsableLib.B_CHITN, 5 );
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	CoC.getInstance().registerScene( 'rathazul', new Rathazul() );

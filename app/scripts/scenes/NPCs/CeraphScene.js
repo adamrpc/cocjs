@@ -981,7 +981,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph smiles knowingly at your response.  "<i>You\'ll find this to be quite sexy.  Just be careful putting it on.  If you don\'t fit it right it\'ll pinch,</i>" the demoness instructs while tossing you a set of armor.\n\n', false );
 		//(Get trapped armor and go home);
-		CoC.getInstance().inventory.takeItem( ArmorLib.SEDUCTA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.SEDUCTA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Trade Bimbo Liquer];
 	CeraphScene.prototype.tradeCeraphBimboLiqueur = function() {

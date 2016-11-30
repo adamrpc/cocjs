@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		if( chooser === 3 ) {
 			if( Utils.rand( 10 ) === 0 ) {
 				EngineCore.outputText( 'You find a large piece of insectile carapace obscured in the ferns to your left.  It\'s mostly black with a thin border of bright yellow along the outer edge.  There\'s still a fair portion of yellow fuzz clinging to the chitinous shard.  It feels strong and flexible - maybe someone can make something of it.  ', true );
-				CoC.getInstance().inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				return;
 			}
 			CoC.getInstance().scenes.beeGirlScene.beeEncounter();

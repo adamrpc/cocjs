@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 			//(OPTION 2 - GIFT) ;
 			else {
 				EngineCore.outputText( 'After you\'ve both had your fill of talk, the spider-girl smiles and gives you a gentle hug.  She trills, "<i>Thank you so much for talking to me!  It feels so good to actually... communicate with someone again.  I can\'t thank you enough, but here, take this.  Maybe it will help you on your journey.</i>"\n\n', false );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			}
 		}
 		//*Try to Talk - Aggressive Variant;

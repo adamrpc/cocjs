@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.dynStats( 'sen', -2 );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Anal Masturbation - Variant on Genderless Masturbation;
 	//Notes:;
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		EngineCore.outputText( '\n\n', false );
 		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Male Masturbation;
 	//Shouldra leads PC out of camp, finds few flowers, magicks them into huge dick-suckin' not!Corrupt Glade flowers. Also, massive cum production, because.;
@@ -534,7 +534,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.outputText( '\n\n', false );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Female Masturbation;
 	ShouldraFollower.prototype.girlyMasturbationWithGhosts = function() {

@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, ConsumableLib, kFLAGS,
 		if( CoC.getInstance().player.spe < 60 ) {
 			EngineCore.outputText( 'You lunge forward off your ' + CoC.getInstance().player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you, she bounds off in the other direction!  She\'s hopping so fast there\'s no way you could possibly catch her, and in a matter of seconds you\'re left totally alone.  Well, perhaps not TOTALLY alone – there\'s one small egg nestled in the grass.  It fell from the bunny\'s basket in her haste to flee!', false );
 			//(pick and loot random egg);
-			CoC.getInstance().inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		//[Rape Her Faster];
 		else {
@@ -484,7 +484,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, ConsumableLib, kFLAGS,
 		EngineCore.outputText( 'You shrug and pick up one of her eggs, noticing that it\'s turned neon pink in color.  The bunny mumbles, "<i>Have it, iz good for youuuu...</i>" before she starts to snore and murmur out a sexual dream.\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	BunnyGirl.prototype.bunbun69 = function() {
 		EngineCore.spriteSelect( 13 );
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, ConsumableLib, kFLAGS,
 				EngineCore.dynStats( 'int', -2 );
 				//+ Lust;
 				//+ Pink Egg ;
-				CoC.getInstance().inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, ConsumableLib, kFLAGS,
 		EngineCore.outputText( '\n\nThe frantic pace of her initial discharge ebbs as her hulking testes visibly shrink.  She leans up against the wobbling factories, resting atop them like they were hefty, liquid pillows.  It\'ll take her a while to finish emptying herself completely, but for the time being, she seems content.  You give her fluffy tail a playful poof and head back to camp, stooping to retrieve one of the girl\'s eggs from the ground as you go.\n\n' );
 		//[End Encounter, gain neon pink egg];
 		EngineCore.dynStats( 'lus', 25 );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (Male/Futa Only);
 	BunnyGirl.prototype.fuckTheEggBoundBun = function() {

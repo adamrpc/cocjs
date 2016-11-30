@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( CoC, EngineCore, kFLAGS, EventParser, U
 	};
 
 	Exploration.prototype.debugOptions = function() {
-		CoC.getInstance().inventory.takeItem( ComsumableLib.W_FRUIT, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ComsumableLib.W_FRUIT, EventParser.playerMenu );
 	};
 	//Massive bodyparts scene
 	//[DESERT]

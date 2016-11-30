@@ -1003,7 +1003,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(increase player lust);
 		EngineCore.dynStats( 'lus', 10 );
 		//(CoC.getInstance().player receives a bottle of Marble's milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Help out Marble, version 2 (can occur anytime before Marble knows about her milk):;
 	MarbleScene.prototype.helpMarble2 = function() {
@@ -1037,7 +1037,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		}
 		EngineCore.outputText( 'When the two of you finish and you start to leave, Marble calls out to you, "<i>Wait, let me give you something!</i>" You turn and look back at her as she rushes up to you.  Smiling brilliantly, the cow-girl hands you a bottle full of warm milk, "<i>My gift to you for your help, fresh from the source,</i>" she says, patting her sizable chest.\n\n', false );
 		//(CoC.getInstance().player receives a bottle of Marble's milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 
 	//After both helping Marble work events:;
@@ -1236,7 +1236,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'With the possibility of getting some relief, you eagerly get to work and do whatever you can to help Marble.  It is tough work, but the idea of getting milk seems to give you strength you didn\'t realize you had.  Afterwards, Marble is so impressed with your efforts that she gives you a large bottle of her milk.  As you are leaving, you realize that you don\'t have to drink it right away; just having worked for it has soothed your withdrawal a little.', false );
 		//(CoC.getInstance().player gets a large bottle of Marble's milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		//(decrease affection by 5);
 		this.marbleStatusChange( -5, 0 );
 		//(delay withdrawal for a few hours);
@@ -1252,7 +1252,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You agree to help Marble, but not for the milk.  She seems confused for a moment and you tell her that you want to help her for the sake of helping her, not just because you\'ll be getting milk.  She gives you a genuine smile at this and the two of you work well together for the next few hours.  At the end, Marble thanks you for your help and hands you the bottle of milk she promised, even if you didn\'t work solely for it.  As you are leaving, you realize that you don\'t have to drink it right away; just having worked for it has soothed your withdrawal a little.', false );
 		//(CoC.getInstance().player gets a bottle of Marble's milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		//(increase affection by 5);
 		this.marbleStatusChange( 5, 0 );
 		//(delay withdrawal for a few hours);
@@ -1456,7 +1456,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You look at her in horror at the suggestion of wasting her delicious milk in such a way. You snatch the milk bottle and hold it tightly to your chest.  You beg her not to talk about it like that and not to throw her milk away so easily.  She seems to be even more upset by your declaration and grabs hold of your hands.  Marble looks into your eyes for a moment and tells you that there is always hope to change before she runs off.  You are left with the milk bottle, but you think that you can wait until later to drink it.  It just felt right to make that bold declaration and it seems to have made you feel better, if only for now.', false );
 		//(CoC.getInstance().player gets a bottle of Marble's Milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		//(delay withdrawal for a few hours);
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
 			CoC.getInstance().player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
@@ -1708,7 +1708,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(randomly raise either str or spd);
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'spe', Utils.rand( 2 ) );
 		//(CoC.getInstance().player gets a bottle of Marble's milk);
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//Post addiction Camp Text:;
 	//These appear when Marble decides to join the player at their camp.;
@@ -1738,7 +1738,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				EngineCore.outputText( 'She assures you that you\'ll be fine as long as you don\'t drink directly from her breasts.', false );
 			}
 			//(CoC.getInstance().player gains a bottle of Marble's milk);
-			CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Sex scenes (all take an additional hour after the trigger event):;
@@ -2340,7 +2340,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			//increase fatigue by 15, decrease lust by 10, and decrease libido by 1;
 			EngineCore.fatigue( 15 );
 			//Takes 1-2 hours?;
-			CoC.getInstance().inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			//end event;
 			return;
 		}
@@ -2521,7 +2521,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.spriteSelect( 41 );
 		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		EngineCore.outputText( 'You ask Marble for a bottle of her milk, and she happily hands you one.  ', true );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.marbleGathered = function() {
 		EngineCore.spriteSelect( 41 );
@@ -2532,13 +2532,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//items that Marble can find for the player, more to be added later (there aren't many items in the game right now that Marble would bring back for the player):;
 		//Vitality potion (12 hours or one day);
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 1 && CoC.getInstance().player.statusAffectv1( StatusAffects.MarbleHasItem ) <= 4 ) {
-			CoC.getInstance().inventory.takeItem( ConsumableLib.VITAL_T, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.VITAL_T, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}//Tanned Leather clothes, armor, def: 5 (three days);
 		else if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 1 && CoC.getInstance().player.statusAffectv1( StatusAffects.MarbleHasItem ) <= 7 ) {
-			CoC.getInstance().inventory.takeItem( ArmorLib.LEATHRA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ArmorLib.LEATHRA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}//LaBova, cow girl transformation item (if you'll let me put it here, I'd like to use it as part of the purification quest, the player can still get it if they are addicted);
 		else {
-			CoC.getInstance().inventory.takeItem( ConsumableLib.LABOVA_, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LABOVA_, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.MarbleHasItem );
 	};
@@ -3426,9 +3426,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				itype = ConsumableLib.SMALL_EGGS[ Utils.rand( ConsumableLib.SMALL_EGGS.length ) ];
 			}
 			if( OnLoadVariables.timeQ > 0 ) {
-				CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.doSleep );
+				CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.doSleep );
 			} else {
-				CoC.getInstance().inventory.takeItem( itype, EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
 			}
 		}
 	};

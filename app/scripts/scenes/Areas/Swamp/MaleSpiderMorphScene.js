@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 		EngineCore.outputText( 'You talk of your own people, and the good times you had in Ingnam growing up, but you keep coming back to the sadness of losing so many young adults to becoming champions.  Eventually you go over your own selection, training, and eventual journey.  The spider-morph listens with rapt attention the whole way through.\n\n', false );
 		EngineCore.outputText( '"<i>Wow,</i>" comments the arachnid male, "<i>that\'s quite the story.  Thank you so much for talking to me today.  Here, take this.  If you ever want to have your own venom or webbing, eat as much of it as you can.  Who knows, maybe it\'ll help you take down the demons somehow?</i>"\n\n', false );
 		EngineCore.outputText( 'He stands and gives you a bundle of pink fibers with a nervous bow.  You look down at the gossamer strands in your hands, and when you glance back up, he\'s gone.  ', false );
-		CoC.getInstance().inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//*Victory Pretext:rr;
 	MaleSpiderMorphScene.prototype.defeatSpiderBoy = function() {

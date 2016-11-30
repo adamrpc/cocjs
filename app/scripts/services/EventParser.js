@@ -291,7 +291,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 				CoC.getInstance().player.removeStatusAffect( StatusAffects.LootEgg );
 				CoC.getInstance().player.removeStatusAffect( StatusAffects.Eggs );
 				$log.debug( 'TAKEY NAU' );
-				CoC.getInstance().inventory.takeItem( itype, EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
 				return true;
 			}
 			// Benoit preggers update
@@ -311,28 +311,28 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 		//Drop axe if too short!
 		if( CoC.getInstance().player.tallness < 78 && CoC.getInstance().player.weapon === WeaponLib.L__AXE ) {
 			EngineCore.outputText( '<b>\nThis axe is too large for someone of your stature to use, though you can keep it in your inventory until you are big enough.</b>\n' );
-			CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.L_HAMMR && CoC.getInstance().player.tallness < 60 ) {
 			EngineCore.outputText( '<b>\nYou\'ve become too short to use this hammer anymore.  You can still keep it in your inventory, but you\'ll need to be taller to effectively wield it.</b>\n' );
-			CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.CLAYMOR && CoC.getInstance().player.str < 40 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer, and you\'re forced to stop using it.</b>\n' );
-			CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.WARHAMR && CoC.getInstance().player.str < 80 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer!</b>\n' );
-			CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		//Drop beautiful sword if corrupted!
 		if( CoC.getInstance().player.weaponPerk === 'holySword' && CoC.getInstance().player.cor >= 35 ) {
 			EngineCore.outputText( '<b>\nThe <u>' + CoC.getInstance().player.weaponName + '</u> grows hot in your hand, until you are forced to drop it.  Whatever power inhabits this blade appears to be unhappy with you.  Touching it gingerly, you realize it is no longer hot, but as soon as you go to grab the hilt, it nearly burns you.\n\nYou realize you won\'t be able to use it right now, but you could probably keep it in your inventory.</b>\n\n' );
-			CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		//Unequip Lusty maiden armor
@@ -346,17 +346,17 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 					EngineCore.outputText( 'bulgy balls' );
 				}
 				EngineCore.outputText( ' within the imprisoning leather, and it actually hurts to wear it.  <b>You\'ll have to find some other form of protection!</b>\n\n' );
-				CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 			if( !CoC.getInstance().player.hasVagina() ) { //Lost pussy
 				EngineCore.outputText( '\nYou fidget uncomfortably as the crease in the gusset of your lewd bikini digs into your sensitive, featureless loins.  There\'s simply no way you can continue to wear this outfit in comfort - it was expressly designed to press in on the female mons, and without a vagina, <b>you simply can\'t wear this exotic armor.</b>\n\n' );
-				CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 			if( CoC.getInstance().player.biggestTitSize() < 4 ) { //Tits gone or too small
 				EngineCore.outputText( '\nThe fine chain that makes up your lewd bikini-top is dangling slack against your flattened chest.  Every movement and step sends it jangling noisily, slapping up against your [nipples], uncomfortably cold after being separated from your ' + CoC.getInstance().player.skinFurScales() + ' for so long.  <b>There\'s no two ways about it - you\'ll need to find something else to wear.</b>\n\n' );
-				CoC.getInstance().inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 		}

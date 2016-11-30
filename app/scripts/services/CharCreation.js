@@ -173,10 +173,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 			CoC.getInstance().player.removeStatuses();
 		}
 		//Clear old camp slots
-		CoC.getInstance().inventory.clearStorage();
-		CoC.getInstance().inventory.clearGearStorage();
+		CoC.getInstance().scenes.inventory.clearStorage();
+		CoC.getInstance().scenes.inventory.clearGearStorage();
 		//Initialize gearStorage
-		CoC.getInstance().inventory.initializeGearStorage();
+		CoC.getInstance().scenes.inventory.initializeGearStorage();
 	};
 	CharCreation.prototype.chooseName = function() {
 		if( MainView.nameBox.value === '' ) {
@@ -2004,12 +2004,12 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 100, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
 		CoC.getInstance().player.createKeyItem( 'Camp - Chest', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Equipment Rack - Weapons', 0, 0, 0, 0 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00254 ] = 1;
@@ -2199,12 +2199,12 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//Bow skill 100 (Sorry Kelt, I can't hear your insults over my mad Robin Hood skillz)
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 100, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
-		CoC.getInstance().inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
+		CoC.getInstance().scenes.inventory.createStorage();
 		CoC.getInstance().player.createKeyItem( 'Camp - Chest', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Equipment Rack - Weapons', 0, 0, 0, 0 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00254 ] = 1;

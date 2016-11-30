@@ -79,10 +79,10 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, OnLoadV
 	Plains.prototype.plainsLoot = function() {
 		if( Utils.rand( 2 ) === 0 ) { //OVI
 			EngineCore.outputText( 'While exploring the plains you nearly trip over a discarded, hexagonal bottle.  ' );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.OVIELIX, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.OVIELIX, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		} else { //FIND KANGAAA
 			EngineCore.outputText( 'While exploring the plains you come across a strange-looking plant.  As you peer at it, you realize it has some fruit you can get at.  ' );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.KANGAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.KANGAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	CoC.getInstance().registerScene( 'plains', new Plains() );

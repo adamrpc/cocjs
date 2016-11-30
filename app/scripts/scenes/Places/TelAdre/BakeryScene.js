@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay ten gems for some cocoa.  ' );
 		CoC.getInstance().player.gems -= 10;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.MOUSECO, this.ingredientsMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.MOUSECO, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFerretFruit = function() {
 		EngineCore.clearOutput();
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay twenty gems for a single ferret fruit.  ' );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.FRRTFRT, this.ingredientsMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FRRTFRT, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFig = function() {
 		EngineCore.clearOutput();
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay five gems for a fig.  ' );
 		CoC.getInstance().player.gems -= 5;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.RINGFIG, this.ingredientsMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.RINGFIG, this.ingredientsMenu );
 	};
 
 	BakeryScene.prototype.talkBakeryMenu = function() {
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'The minotaur chef emerges from the backroom bearing a box that contains your cupcake.  It\'s too big to scarf down immediately.\n\n', false );
 		CoC.getInstance().player.gems -= 500;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.CCUPCAK, this.bakeryuuuuuu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CCUPCAK, this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.buyFoxBerry = function() {
 		EngineCore.clearOutput();
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay five gems for a fox berry.  ' );
 		CoC.getInstance().player.gems -= 5;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( ConsumableLib.FOXBERY, this.ingredientsMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXBERY, this.ingredientsMenu );
 	};
 
 	BakeryScene.prototype.easterBakeSale = function() {

@@ -341,7 +341,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 		CoC.getInstance().player.gems -= 200;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.removeKeyItem( 'Dragon Eggshell' );
-		CoC.getInstance().inventory.takeItem( WeaponLib.DRGNSHL, CoC.getInstance().scenes.telAdre.armorShop );
+		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.DRGNSHL, CoC.getInstance().scenes.telAdre.armorShop );
 	};
 	//Suggested Reward:;
 	//Dragonshell Shield: a 'weapon' that cannot be disarmed and has 0 attack, but boosts defense.  Has a chance to stun when attacking and has a high chance to block the effects of any 'fluid' attack (Such as Minotaur Cum, Potions, Sticky Web, Valeria Silence Goo, etc.) due to the shell's innate fluid absorption abilities.;
@@ -596,7 +596,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 	EmberScene.prototype.leaveWithoutUsingAnEmberItem = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head; it would probably be best not to tamper with it. Returning the items to your pockets, you leave the egg alone.  As you put them away, the egg\'s glow slows down dramatically, almost as if it were feeling... disappointment?' );
-		EngineCore.doNext( CoC.getInstance().inventory.inventoryMenu );
+		EngineCore.doNext( CoC.getInstance().scenes.inventory.inventoryMenu );
 	};
 	//Incubus Draft/Purified Incubus Draft (Z);
 	EmberScene.prototype.useIncubusDraftOnEmber = function( purified ) {
@@ -1900,7 +1900,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 			EngineCore.outputText( '\n\nEmber mumbles quietly, "<i>Next time, fertilize it for me will you?</i>"  You start at that; did she really just say it aloud?  But, knowing her temper, you decide against asking.  ' );
 			//git a dragon egg, small libido-based lust damage;
 			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		//(Medium Affection);
 		else if( this.emberAffection() < 75 ) {
@@ -1969,7 +1969,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 			EngineCore.outputText( '\n\nYou just smile and tell her you understand exactly what she meant.  One quick kiss and you head back to the camp proper, leaving one adorably flustered dragon behind you.  ' );
 			//git a dragon egg, small libido-based lust damage;
 			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Fob Off];
@@ -1982,7 +1982,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 		}
 		EngineCore.outputText( '  "<i>H-here\'s your egg.  Use it while it\'s fresh, okay?</i>"  Her eyes glaze over a bit at the suggestion, and she giggles.  ' );
 		//git a dragon egg, no Ember affection change;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[Watch];
 	EmberScene.prototype.watchMediumAffectionEmberEggLay = function() {
@@ -2045,7 +2045,7 @@ angular.module( 'cocjs' ).run( function( $log, WeaponLib, PregnancyStore, CockTy
 		EngineCore.outputText( '\n\nYes, you did, because she asked and she seemed to need your help, as you point out.  Ember doesn\'t bother coming up with something to say, she just unfurls her wings and jumps into the air with a gust of wind.' );
 		EngineCore.outputText( '\n\nYou shake your head and sigh softly.  ' );
 		//git an egg, moderate lib-based lust damage, Ember affection up;
-		CoC.getInstance().inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DRGNEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		this.emberAffection( 5 );
 	};
 	//Get Milk;

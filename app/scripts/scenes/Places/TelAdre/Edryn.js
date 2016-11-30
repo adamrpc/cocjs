@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
 					return;
 				}
-				CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(Too big);
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				if( CoC.getInstance().flags[ kFLAGS.EDRYN_GIFT_COUNTER ] < 2 ) {
 					EngineCore.outputText( 'Her eyes light up and she suggests, "<i>Take some of this; it ought to take down some of that swelling.</i>"\n\n', false );
 					CoC.getInstance().flags[ kFLAGS.EDRYN_GIFT_COUNTER ]++;
-					CoC.getInstance().inventory.takeItem( ConsumableLib.REDUCTO, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.REDUCTO, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 					return;
 				}
 				//(ALT);

@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 				}
 			}
 		}
-		EngineCore.addButton( 9, 'Back', CoC.getInstance().inventory.stash );
+		EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.inventory.stash );
 	};
 	//[Item](only appears if hourssinceKiditem flag >= 16);
 	AnemoneScene.prototype.getAnemoneItem = function() {
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			EngineCore.outputText( '  Holy... how did she drag this thing home!?' );
 		}
 		EngineCore.outputText( '\n\n' );
-		CoC.getInstance().inventory.takeItem( itype, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
 		//(set hourssinceKiditem = 0);
 		CoC.getInstance().flags[ kFLAGS.KID_ITEM_FIND_HOURS ] = 0;
 	};
@@ -1485,7 +1485,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 		if( !foundItem ) {
 			EngineCore.outputText( '\n<b>You have no appropriate items to have your offspring hold.</b>' );
 		}
-		EngineCore.addButton( 9, 'Back', CoC.getInstance().inventory.stash );
+		EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.inventory.stash );
 	};
 	AnemoneScene.prototype.placeInAnemone = function( slot ) {
 		EngineCore.clearOutput();
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			EngineCore.outputText( 'Your anemone daughter will not be able to guard you at night without a weapon.  If you want her to guard, you\'ll need to give her a new weapon and tell her to watch at night again.  ' );
 			CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] = 0;
 		}
-		CoC.getInstance().inventory.takeItem( itype, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
 		//(add weapon to inventory, then revert Kidweapon to empty);
 		CoC.getInstance().flags[ kFLAGS.ANEMONE_WEAPON_ID ] = 0;
 	};

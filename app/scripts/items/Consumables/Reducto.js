@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 		}
 		EngineCore.outputText( 'You feel your scrotum shift, shrinking down along with your ' + CoC.getInstance().player.ballsDescriptLight() + '.  Within a few seconds the paste has been totally absorbed and the shrinking stops.' );
 		EngineCore.dynStats( 'lib', -2, 'lus', -10 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoBreasts = function() {
 		EngineCore.clearOutput();
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 		}
 		EngineCore.outputText( '\nThe last of it wicks away into your skin, completing the changes.' );
 		EngineCore.dynStats( 'sen', -2, 'lus', -5 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoButt = function() {
 		EngineCore.clearOutput();
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 			EngineCore.outputText( 'After a few seconds your ' + CoC.getInstance().player.buttDescript() + ' has shrunk to a much smaller size!' );
 		}
 		EngineCore.dynStats( 'lib', -2, 'lus', -10 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoClit = function() {
 		EngineCore.clearOutput();
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 		CoC.getInstance().player.clitLength = Math.ceil( CoC.getInstance().player.clitLength * 100 ) / 100;
 		EngineCore.outputText( 'Your ' + CoC.getInstance().player.clitDescript() + ' shrinks rapidly, dwindling down to almost half its old size before it finishes absorbing the paste.' );
 		EngineCore.dynStats( 'sen', 2, 'lus', 10 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoCock = function() {
 		EngineCore.clearOutput();
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 			}
 		}
 		EngineCore.dynStats( 'sen', -2, 'lus', -10 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoHips = function() {
 		EngineCore.clearOutput();
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 			EngineCore.outputText( 'After a few seconds your [hips] have shrunk to a much smaller size!' );
 		}
 		EngineCore.dynStats( 'lib', -2, 'lus', -10 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoNipples = function() {
 		EngineCore.clearOutput();
@@ -129,12 +129,12 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( CockTypesEnum, CoC, Util
 			CoC.getInstance().player.nippleLength /= 2;
 		}
 		EngineCore.dynStats( 'sen', -5, 'lus', -5 );
-		CoC.getInstance().inventory.itemGoNext();
+		CoC.getInstance().scenes.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoCancel = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You put the salve away.\n\n' );
-		CoC.getInstance().inventory.returnItemToInventory( this );
+		CoC.getInstance().scenes.inventory.returnItemToInventory( this );
 	};
 	return Reducto;
 } );

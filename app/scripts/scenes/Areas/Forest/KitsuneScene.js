@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 			Combat.cleanupAfterCombat();
 		} else {
 			//add Kitsune's Gift to inventory
-			CoC.getInstance().inventory.takeItem( ConsumableLib.KITGIFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.KITGIFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 	};
 	//Illusory Mansion (C)
@@ -2006,7 +2006,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 		EngineCore.outputText( 'The thought of how many gems you\'ll be able to get for it is enough to quickly suppress those feelings, avarice winning out over guilt.' );
 		//+10 COR, add Gold Statue to inventory, Advance 1hr and return to camp
 		EngineCore.dynStats( 'lus', 10 );
-		CoC.getInstance().inventory.takeItem( UsableLib.GLDSTAT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( UsableLib.GLDSTAT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 1;
 	};
 	//[Put it Back]

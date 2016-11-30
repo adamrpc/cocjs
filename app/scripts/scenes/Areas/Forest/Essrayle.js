@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLi
 		EngineCore.outputText( 'She smiles knowingly and, reaching into her pouch once more, Essy produces a strange looking fruit.  It seems almost like a plum-colored eggplant, but it feels soft and rubbery to the touch.  "<i>Here ya go!  Whenever you\'d like, enjoy this!</i>"  She places the strange thing in your hands.  "<i>Call it my gift to another chest connoisseur.</i>"' );
 		this.essyRewardEpilogueOUTTIES();
 		//[gain purple fruit] [Next]
-		CoC.getInstance().inventory.takeItem( ConsumableLib.PRFRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PRFRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//[No]
 	Essrayle.prototype.noGimmeGiantNipplesEssy = function() {

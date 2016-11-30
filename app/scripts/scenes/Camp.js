@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		this.campQ = false;
 	}
 	Camp.prototype.hasItemInStorage = function( itype ) {
-		return CoC.getInstance().inventory.hasItemInStorage( itype );
+		return CoC.getInstance().scenes.inventory.hasItemInStorage( itype );
 	};
 	Camp.prototype.returnToCamp = function( timeUsed ) {
 		EngineCore.clearOutput();
@@ -387,8 +387,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 		var lovers = null;
 		var slaves = null;
 		var storage = null;
-		if( CoC.getInstance().inventory.showStash() ) {
-			storage = CoC.getInstance().inventory.stash;
+		if( CoC.getInstance().scenes.inventory.showStash() ) {
+			storage = CoC.getInstance().scenes.inventory.stash;
 		}
 		//Clear stuff
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.SlimeCravingOutput ) >= 0 ) {
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, EngineCore, OnLoadVariables,
 			}
 		}
 		//Menu
-		EngineCore.choices( 'Explore', exploreEvent, 'Places', placesEvent, 'Inventory', CoC.getInstance().inventory.inventoryMenu, 'Stash', storage, 'Followers', followers,
+		EngineCore.choices( 'Explore', exploreEvent, 'Places', placesEvent, 'Inventory', CoC.getInstance().scenes.inventory.inventoryMenu, 'Stash', storage, 'Followers', followers,
 			'Lovers', lovers, 'Slaves', slaves, '', null, baitText, masturbate, restName, restEvent );
 		//Lovers
 		//Followers

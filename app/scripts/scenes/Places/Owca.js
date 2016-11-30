@@ -778,7 +778,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		CoC.getInstance().player.gems -= price === undefined ? 0 : price;
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( 'The bartender hands you a bottle and grabs your gems before attending other clients, leaving you to your own business.\n\n' );
-		CoC.getInstance().inventory.takeItem( bleh, this.owcaTavern );
+		CoC.getInstance().scenes.inventory.takeItem( bleh, this.owcaTavern );
 	};
 	//Herds (Z);
 	Owca.prototype.herds = function() {
@@ -794,7 +794,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		//[if attitude > 70];
 		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 70 ) {
 			EngineCore.outputText( '\n\nThe villagers thank you for your hard work and one of them hands you a bottle of sheep milk.  "<i>\'Tis good for your health.  Don\'t worry, it won\'t... mutate you.</i>"\n\n' );
-			CoC.getInstance().inventory.takeItem( ConsumableLib.SHEEPMK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SHEEPMK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}

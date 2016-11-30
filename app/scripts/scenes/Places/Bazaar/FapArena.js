@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearanc
 			}
 			CoC.getInstance().flags[ kFLAGS.FAP_ARENA_VICTORIES ]++;
 			CoC.getInstance().player.orgasm();
-			CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 		}
 		//[if you didn't win];
 		else if( place === 2 ) {

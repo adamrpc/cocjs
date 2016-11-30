@@ -14,14 +14,14 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, CoC, Consumabl
 			case 0:
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, and to your delight, sitting in the center is a small teardrop-shaped jewel!' );
 				EngineCore.outputText( '\n\n<b>You\'ve received a shining Fox Jewel from the kitsune\'s gift!  How generous!</b>  ' );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.FOXJEWL, CoC.getInstance().inventory.inventoryMenu );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXJEWL, CoC.getInstance().scenes.inventory.inventoryMenu );
 				return (true);
 			//[Fox Berries];
 			case 1:
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, and to your delight, there is a small cluster of orange-colored berries sitting in the center!' );
 				EngineCore.outputText( '\n\n<b>You\'ve received a fox berry from the kitsune\'s gift!  How generous!</b>  ' );
 				//add Fox Berries to inventory;
-				CoC.getInstance().inventory.takeItem( ConsumableLib.FOXBERY, CoC.getInstance().inventory.inventoryMenu );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXBERY, CoC.getInstance().scenes.inventory.inventoryMenu );
 				return (true);
 			//[Gems];
 			case 2:
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, CoC, Consumabl
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, and to your delight, it contains a small bag of dried tea leaves!' );
 				EngineCore.outputText( '\n\n<b>You\'ve received a bag of tea from the kitsune\'s gift!  How thoughtful!</b>  ' );
 				//add Kitsune Tea/Scholar's Tea to inventory;
-				CoC.getInstance().inventory.takeItem( ConsumableLib.SMART_T, CoC.getInstance().inventory.inventoryMenu );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SMART_T, CoC.getInstance().scenes.inventory.inventoryMenu );
 				return (true);
 			//[Hair Dye];
 			case 4:
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, CoC, Consumabl
 				][ Utils.rand( 4 ) ];
 				EngineCore.outputText( '\n\n<b>You\'ve received ' + itype.longName + ' from the kitsune\'s gift!  How generous!</b>  ' );
 				//add <color> Dye to inventory;
-				CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().inventory.inventoryMenu );
+				CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.inventory.inventoryMenu );
 				return (true);
 			//[Knowledge Spell];
 			case 5:
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, CoC, Consumabl
 			case 11:
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, but to your disappointment, the only other contents appear to be nothing more than twigs, leaves, and other forest refuse.  Upon further investigation, though, you find a shard of shiny black chitinous plating mixed in with the other useless junk.' );
 				EngineCore.outputText( '\n\n<b>At least you managed to salvage a shard of black chitin from it...</b>  ' );
-				CoC.getInstance().inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().inventory.inventoryMenu );
+				CoC.getInstance().scenes.inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.inventory.inventoryMenu );
 				return (true);
 			default:
 				$log.debug( 'Kitsune\'s gift roll foobar...' );

@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 				EngineCore.outputText( '\n\n"<i>Ooh, that looks so sexy, babe.  Let me get that for you.  My treat, for such a sexy beast,</i>" Rubi exclaims, and passes the money to the tailor.  As you leave the shop, you thank your lover profusely, and then head back to camp.' );
 				EngineCore.outputText( '\n\nIt\'s only once you get back tbat you realize you meant to fuck Rubi while you were in town!  You giggle and curse your airheadedness.  Oh well, you can always go into town again, there\'s always more shopping to be done!' );
 				//(Add Bimbo Skirt to inventory);
-				CoC.getInstance().inventory.takeItem( ArmorLib.BIMBOSK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BIMBOSK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(If Bimbo Skirt not found);

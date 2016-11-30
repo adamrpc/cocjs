@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				//set Ro'gar phase = 4 and Ro'roh Raggy = 0, Acquire 1x Bro Brew;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 4;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] = 0;
-				CoC.getInstance().inventory.takeItem( ConsumableLib.BROBREW, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BROBREW, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 			}
 			//(else if Dirt Mc Girt = 2);
 			else {

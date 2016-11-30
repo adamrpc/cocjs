@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Appearance, ConsumableLib,
 				EngineCore.outputText( '"<i>Thank you,</i>" she says, breaking the hug and turning back to her tree, "<i>The onslaught has lessened, and I feel more myself already.  Let me thank you for your heroic deeds.</i>"\n\n', false );
 				EngineCore.outputText( 'She plunges a hand inside the tree and pulls out a small pearl.  "<i>This is a pearl from the very depths of the lake, infused with my purity.  If you eat it, it will grant you my aid in resisting the lust and corruption of this land.</i>"\n\n', false );
 				EngineCore.outputText( 'Marae pushes the pearl into your hand, and closes your fingers over it gently.  "<i>Go now, there is still much to be done.  With luck we will not need each other again,</i>" commands the goddess as she slips back into her tree.  ', false );
-				CoC.getInstance().inventory.takeItem( ConsumableLib.P_PEARL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_PEARL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 				CoC.getInstance().player.createStatusAffect( StatusAffects.MaraeComplete, 0, 0, 0, 0 );
 			}
 			//Corrupt!;

@@ -226,7 +226,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		if( tRoom.RoomName === 'entrance' ) {
 			EngineCore.addButton( 5, 'Exit', this.exitD3 );
 		}
-		EngineCore.addButton( 8, 'Items', CoC.getInstance().inventory.inventoryMenu );
+		EngineCore.addButton( 8, 'Items', CoC.getInstance().scenes.inventory.inventoryMenu );
 		EngineCore.addButton( 9, 'Masturbate', CoC.getInstance().scenes.masturbation.masturbateGo );
 	};
 	D3.prototype.move = function( roomName ) {
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pluck out ' + item.longName + ' ' );
 		CoC.getInstance().flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
-		CoC.getInstance().inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
+		CoC.getInstance().scenes.inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
 	};
 	D3.prototype.fallbackFromMagpieHallS = function() {
 		EngineCore.clearOutput();

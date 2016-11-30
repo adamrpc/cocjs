@@ -374,8 +374,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			saveFile.data.statusAffects = angular.copy(this.game.player.statusAffects);
 			saveFile.data.ass = angular.copy(this.game.player.ass);
 			saveFile.data.keyItems = angular.copy(this.game.player.keyItems);
-			saveFile.data.itemStorage = angular.copy(this.game.inventory.itemStorage);
-			saveFile.data.gearStorage = angular.copy(this.game.inventory.gearStorage);
+			saveFile.data.itemStorage = angular.copy(this.game.scenes.inventory.itemStorage);
+			saveFile.data.gearStorage = angular.copy(this.game.scenes.inventory.gearStorage);
 			//NIPPLES
 			saveFile.data.nippleLength = this.game.player.nippleLength;
 			//EXPLORED
@@ -448,8 +448,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			//KILL ALL COCKS;
 			this.game.player = new Player();
 			this.game.flags = {};
-			this.game.inventory.clearStorage();
-			this.game.inventory.clearGearStorage();
+			this.game.scenes.inventory.clearStorage();
+			this.game.scenes.inventory.clearGearStorage();
 			this.game.player.short = saveFile.data.short;
 			this.game.player.a = saveFile.data.a;
 			this.game.notes = saveFile.data.notes;
@@ -559,8 +559,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( $rootScope, $log, Utils, W
 			this.game.player.keyItems = angular.copy(saveFile.data.keyItems);
 			//Set storage slot array
 			//Populate storage slot array
-			this.game.inventory.itemStorage = angular.copy(saveFile.data.itemStorage);
-			this.game.inventory.gearStorage = angular.copy(saveFile.data.gearStorage);
+			this.game.scenes.inventory.itemStorage = angular.copy(saveFile.data.itemStorage);
+			this.game.scenes.inventory.gearStorage = angular.copy(saveFile.data.gearStorage);
 			this.game.player.ass.analLooseness = saveFile.data.ass.analLooseness;
 			this.game.player.ass.analWetness = saveFile.data.ass.analWetness;
 			this.game.player.ass.fullness = saveFile.data.ass.fullness;

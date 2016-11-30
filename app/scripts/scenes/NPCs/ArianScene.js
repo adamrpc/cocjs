@@ -3795,7 +3795,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'rubbery black' ) {
 			itype = ConsumableLib.L_BLKEG;
 		}
-		CoC.getInstance().inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
 	};
 	//DildoFun;
 	ArianScene.prototype.arianDildoFun = function() {

@@ -1689,7 +1689,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 	Dungeon2Supplimental.prototype.takeBondageStraps = function() {
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[ kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS ]++;
-		CoC.getInstance().inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
 	};
 	//ZETAZ START;
 	Dungeon2Supplimental.prototype.zetazTaunt = function() {
@@ -2353,7 +2353,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.clearOutput();
 		CoC.getInstance().player.gems -= itype.value * 3;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().inventory.takeItem( itype, this.incubusShop );
+		CoC.getInstance().scenes.inventory.takeItem( itype, this.incubusShop );
 	};
 	//[Cum Bath];
 	Dungeon2Supplimental.prototype.valaCumBath = function() {
