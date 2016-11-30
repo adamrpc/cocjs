@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Armor', function( Armor, CoC ) {
+angular.module( 'cocjs' ).factory( 'ArmorWithPerk', function( Armor, CoC ) {
 	var ArmorWithPerk = angular.copy( Armor );
 	ArmorWithPerk.prototype.init = function( that, args ) {
 		Armor.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 2 ], args[ 3 ], args[ 4 ], args[ 5 ], args[ 6 ], args[ 7 ], args.length > 14 ? args[ 14 ] : false ] );
