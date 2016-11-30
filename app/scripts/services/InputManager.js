@@ -169,7 +169,6 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 	InputManager.DisplayBindingPane = function() {
 		MainView.mainText.visible = false;
 		MainView.bindingPane.functions = InputManager.GetAvailableFunctions();
-		MainView.bindingPane.ListBindingOptions();
 		MainView.bindingPane.visible = true;
 		MainView.nameBox.KeyHandler = InputManager.KeyHandler;
 	};

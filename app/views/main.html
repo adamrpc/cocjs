@@ -7,7 +7,47 @@
 		<span class="down" ng-if="stat.down">-</span>
 	</div>
 </div>
-<div id="bindings" ng-if="main.bindingPane.visible"></div>
+<div id="bindings" ng-if="main.bindingPane.visible" ng-keydown="main.bindingPane.keyDown($event)">
+	<ul>
+		<li ng-repeat="func in main.bindingPane.functions">
+			<b>{{func.Name}}&nbsp;:</b>
+			<button ng-click="main.bindingPane.listenForKey(func.PrimaryKey)" ng-disabled="main.bindingPane.currentKey">
+				<span ng-if="!func.PrimaryKey">
+					Not set
+				</span>
+				<span ng-if="func.PrimaryKey && func.PrimaryKey.temp">
+					<span ng-if="func.PrimaryKey.temp.ctrlKey">CTRL + </span>
+					<span ng-if="func.PrimaryKey.temp.altKey">ALT + </span>
+					<span ng-if="func.PrimaryKey.temp.shiftKey">SHIFT + </span>
+					{{func.PrimaryKey.temp.key}}
+				</span>
+				<span ng-if="func.PrimaryKey && !func.PrimaryKey.temp">
+					<span ng-if="func.PrimaryKey.ctrlKey">CTRL + </span>
+					<span ng-if="func.PrimaryKey.altKey">ALT + </span>
+					<span ng-if="func.PrimaryKey.shiftKey">SHIFT + </span>
+					{{func.PrimaryKey.key}}
+				</span>
+			</button>
+			<button ng-click="listenFor(func.SecondaryKey)" ng-disabled="main.bindingPane.currentKey">
+				<span ng-if="!func.SecondaryKey">
+					Not set
+				</span>
+				<span ng-if="func.SecondaryKey && func.SecondaryKey.temp">
+					<span ng-if="func.SecondaryKey.temp.ctrlKey">CTRL + </span>
+					<span ng-if="func.SecondaryKey.temp.altKey">ALT + </span>
+					<span ng-if="func.SecondaryKey.temp.shiftKey">SHIFT + </span>
+					{{func.SecondaryKey.temp.key}}
+				</span>
+				<span ng-if="func.SecondaryKey && !func.SecondaryKey.temp">
+					<span ng-if="func.SecondaryKey.ctrlKey">CTRL + </span>
+					<span ng-if="func.SecondaryKey.altKey">ALT + </span>
+					<span ng-if="func.SecondaryKey.shiftKey">SHIFT + </span>
+					{{func.SecondaryKey.key}}
+				</span>
+			</button>
+		</li>
+	</ul>
+</div>
 <div id="mainText" ng-bind-html="main.mainText"></div>
 <select ng-if="main.aCb.visible" ng-model="main.aCb.value" ng-options="option.perk as option.label for option in main.aCb.dataProvider track by option.label">
 	<option value="">Choose a perk</option>
