@@ -80,31 +80,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 							this.exgartuanWormCure();
 							EngineCore.outputText( '</b>\n' );
 							needNext = true;
-						} else if( Utils.rand( 10 ) === 0 && CoC.getInstance().player.armor.supportsBulge ) {
-							/* Old way of doing it.
-							 (armorName === 'sexy black chitin armor-plating' ||
-							 armorName === 'glistening gel-armor plates' ||
-							 CoC.getInstance().player.armorName === 'leather armor segments' ||
-							 CoC.getInstance().player.armorName === 'comfortable clothes' ||
-							 CoC.getInstance().player.armorName === 'bondage patient clothes' ||
-							 CoC.getInstance().player.armorName === 'crotch-revealing clothes' ||
-							 CoC.getInstance().player.armorName === 'cute servant\'s clothes' ||
-							 CoC.getInstance().player.armorName === 'maid\'s clothes' ||
-							 CoC.getInstance().player.armorName === 'servant\'s clothes' ||
-							 CoC.getInstance().player.armorName === 'maid\'s clothes' ||
-							 CoC.getInstance().player.armorName === 'practically indecent steel armor' ||
-							 CoC.getInstance().player.armorName === 'red, high-society bodysuit' ||
-							 CoC.getInstance().player.armorName === 'spider-silk armor' ||
-							 CoC.getInstance().player.armorName === 'slutty swimwear' ||
-							 CoC.getInstance().player.armorName === 'full-body chainmail' ||
-							 CoC.getInstance().player.armorName === 'revealing chainmail bikini' ||
-							 CoC.getInstance().player.armorName === 'full platemail' ||
-							 CoC.getInstance().player.armorName === 'scale-mail armor' ||
-							 CoC.getInstance().player.armorName === 'black leather armor surrounded by voluminous robes' ||
-							 CoC.getInstance().player.armorName === 'rubber fetish clothes' ||
-							 CoC.getInstance().player.armorName === 'green adventurer\'s clothes' ||
-							 CoC.getInstance().player.armorName === 'white shirt and overalls')) {
-							 */
+						} else if( Utils.rand( 10 ) === 0 && CoC.getInstance().player.armor.supportsBulge() ) {
 							EngineCore.outputText( '\n<b>' );
 							this.exgartuanArmorShift();
 							EngineCore.outputText( '</b>\n' );
