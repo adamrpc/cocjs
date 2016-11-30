@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( GooArmor, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonHelSupplimental() {
 	}
 
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( GooArmor, ArmorLib, WeaponLib, Pregnanc
 		EngineCore.outputText( 'You reach out to grab the armor, but as soon as your finger brushes the shiny surface, a human-like face appears in the helm!  You recoil as a daintily feminine and bright blue face takes shape out of nowhere, staring at you with eyes afire with rage.  More of the gooey substance that makes up the girl\'s face fills out the armor, yanking it off the racks on feet made of goop.' );
 		EngineCore.outputText( '\n\nQuietly, the armored goo-girl growls, "<i>You dare to disturb my rest, mortal? Prepare yourself for my vengeance!</i>"' );
 		EngineCore.outputText( '\n\nWhat the fuck!? Oh well, looks like she wants a fight!' );
-		Combat.startCombat( new GooArmor() );
+		Combat.startCombat( new GooArmorMonster() );
 	};
 	DungeonHelSupplimental.prototype.gooArmorAI = function() {
 		EngineCore.spriteSelect( 79 );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, GooArmor, ArmorLib, PregnancyStore, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, PregnancyStore, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Valeria() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmor, ArmorLib, Pregnan
 		EngineCore.outputText( '\n\n"<i>Hey, that\'d be great, partner. Gotta keep our skills sharp if we wanna have a chance against the demons, after all! Let\'s do it.</i>"' );
 		EngineCore.outputText( '\n\nYou take Valeria out to the fringe of camp and ready your [weapon] as she forms a gooey greatsword in her hands.' );
 		//(Play normal combat scenes, with EXP rewards. No rape options, however; use the following outtros:);
-		Combat.startCombat( new GooArmor() );
+		Combat.startCombat( new GooArmorMonster() );
 		CoC.getInstance().monster.createStatusAffect( StatusAffects.Spar, 0, 0, 0, 0 );
 		CoC.getInstance().monster.gems = 0;
 		EngineCore.doNext( EventParser.playerMenu );

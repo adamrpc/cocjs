@@ -1,18 +1,18 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooArmor', function( Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
-	var GooArmor = angular.copy( GooGirl );
-	GooArmor.prototype.performCombatAction = function() {
+angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+	var GooArmorMonster = angular.copy( GooGirl );
+	GooArmorMonster.prototype.performCombatAction = function() {
 		CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorAI();
 	};
-	GooArmor.prototype.defeated = function() {
+	GooArmorMonster.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
 			CoC.getInstance().scenes.valeria.pcWinsValeriaSpar();
 		} else {
 			CoC.getInstance().scenes.dungeonHelSupplimental.beatUpGooArmor();
 		}
 	};
-	GooArmor.prototype.won = function( hpVictory, pcCameWorms ) {
+	GooArmorMonster.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe armored goo sighs while you exhaust yourself...' );
 			EngineCore.doNext( Combat.endLustLoss );
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Appearance, GooGirl, Co
 			}
 		}
 	};
-	GooArmor.prototype.init = function( that ) {
+	GooArmorMonster.prototype.init = function( that ) {
 		GooGirl.prototype.init( that, [ true ] );
 		that.a = 'a ';
 		that.short = 'Goo Armor';
@@ -58,5 +58,5 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Appearance, GooGirl, Co
 		that.drop = Monster.NO_DROP;
 		that.checkMonster();
 	};
-	return GooArmor;
+	return GooArmorMonster;
 } );
