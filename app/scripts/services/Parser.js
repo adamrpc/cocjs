@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdown, Descriptors, Combat) {
+angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, $showdown, Descriptors, Combat) {
 	function Parser() {
 		this.init( this, arguments );
 	}
@@ -734,7 +734,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 			$log.debug( 'Have sceneSection "' + sceneName + '". Parsing and setting up menu' );
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
 			// Split up into multiple variables for debugging (it was crashing at one point. Separating the calls let me delineate what was crashing)
-			return Showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) ); // and then stick it on the display
+			return $showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) ); // and then stick it on the display
 		}
 		return 'Insert sceneSection called with unknown arg "' + sceneName + '". falling back to the debug pane';
 	};
@@ -765,7 +765,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 			$log.debug( 'Have scene "' + sceneName + '". Parsing and setting up menu' );
 			this._ownerClass.menu();
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
-			ret = Showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) );
+			ret = $showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) );
 			this._ownerClass.rawOutputText( ret, true );			// and then stick it on the display
 			$log.debug( 'Scene contents after markdown: "' + ret + '"' );
 		} else if( this.getObjectFromString( this._ownerClass, sceneName ) !== null ) {
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, Showdow
 			// Quote conversion has to go before markdown calls
 		}
 		if( parseAsMarkdown ) {
-			ret = Showdown.makeHtml( ret );
+			ret = $showdown.makeHtml( ret );
 			var regexPCloseTag = /<\/p>/gi;
 			ret = ret.replace( regexPCloseTag, '</p>\n' );
 			// Finally, add a additional newline after each closing P tag, because flash only

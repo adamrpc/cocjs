@@ -14,7 +14,8 @@ angular
     'ngAria',
     'ngRoute',
     'ngSanitize',
-	'chart.js'
+	'chart.js',
+	'ng-showdown'
   ])
   .constant('_', window._)
   .config(function ($routeProvider) {
