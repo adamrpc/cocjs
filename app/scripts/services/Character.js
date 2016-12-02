@@ -1,7 +1,10 @@
 ﻿'use strict';
 
 angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature, StatusAffects, PerkLib, CoC_Settings, PregnancyStore, KeyItemClass, CockTypesEnum, Appearance) {
-	var Character = angular.copy(Creature);
+	function Character() {
+		this.init(this, arguments);
+	}
+	angular.extend(Character.prototype, Creature.prototype);
 	Character.prototype.init = function(that) {
 		Creature.prototype.init(this);
 		that._femininity = 50;

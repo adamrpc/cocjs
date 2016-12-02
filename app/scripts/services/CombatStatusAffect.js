@@ -1,9 +1,12 @@
 ﻿'use strict';
 
 angular.module('cocjs').factory('CombatStatusAffect', function (StatusAffectType) {
-	var CombatStatusAffect = angular.copy(StatusAffectType.StatusAffectType);
+	function CombatStatusAffect() {
+		this.init(this, arguments);
+	}
+	angular.extend(CombatStatusAffect.prototype, StatusAffectType.prototype);
 	CombatStatusAffect.prototype.init = function(that, args) {
-		StatusAffectType.StatusAffectType.prototype.init(this, args);
+		StatusAffectType.prototype.init(this, args);
 	};
 	
 	return CombatStatusAffect;
