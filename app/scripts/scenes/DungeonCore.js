@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		//Level junk;
 		if( CoC.player.XP >= (CoC.player.level) * 100 ) {
 			MainView.showMenuButton( MainView.MENU_LEVEL );
-			MainView.statsView.showLevelUp();
+			MainView.showLevelUp();
 		}
 		EngineCore.menu();
 		//Entry Room;

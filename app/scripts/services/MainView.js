@@ -230,10 +230,10 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		perksButton: {visible: false, labelText: '', callback: CoC.displayPerks, toolTipText:''},
 		appearanceButton: {visible: false, labelText: '', callback: Appearance.appearance, toolTipText:''}
 	};
-	MainView.prototype.showLevelUp = function() {
+	MainView.showLevelUp = function() {
 		MainView.menuButtons.levelButton.visible = true;
 	};
-	MainView.prototype.hideLevelUp = function() {
+	MainView.hideLevelUp = function() {
 		MainView.menuButtons.levelButton.visible = false;
 	};
 	//////// Bottom Button Methods ////////

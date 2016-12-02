@@ -414,10 +414,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				MainView.setMenuButton( MainView.MENU_LEVEL, 'Level Up' );
 			}
 			MainView.showMenuButton( MainView.MENU_LEVEL );
-			MainView.statsView.showLevelUp();
+			MainView.showLevelUp();
 		} else {
 			MainView.hideMenuButton( MainView.MENU_LEVEL );
-			MainView.statsView.hideLevelUp();
+			MainView.hideLevelUp();
 		}
 		//Build main menu
 		var exploreEvent = SceneLib.exploration.doExplore;
