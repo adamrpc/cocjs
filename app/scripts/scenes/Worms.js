@@ -326,7 +326,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 			EngineCore.dynStats( 'cor', 2 );
 			CoC.player.cor = 25;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'worms', new Worms() );
 } );

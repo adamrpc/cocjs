@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pluck out ' + item.longName + ' ' );
 		CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
-		SceneLib.inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
+		SceneLib.inventory.takeItem( item, MainView.playerMenu ); //MainView.playerMenu is equivalent to doNext(1)
 	};
 	D3.prototype.fallbackFromMagpieHallS = function() {
 		EngineCore.clearOutput();

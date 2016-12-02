@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, CockTypesEnum,
 		//[Demonic dildo added];
 		CoC.player.createKeyItem( 'Demonic Strap-On', 0, 0, 0, 0 );
 		EngineCore.outputText( '\n\n(<b>Gained Item: Demonic Strap-On</b>)' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Vapula.prototype.vapulaGivesPCAPresent = function() {
 		EngineCore.outputText( '\nVapula walks up to you and frowns, clearly disappointed.  "<i>Since you got rid of the only way you could properly feed me, I got you this.</i>"\n\nShe drops a strap-on into your hand as she explains, "<i>It can convert the lust of a woman into something that will be palatable to my... appetites.  You\'re welcome.</i>"' );
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, CockTypesEnum,
 		EngineCore.outputText( 'moved out.' );
 		EngineCore.outputText( '\n\nMaybe it\'s past time you brought them around to your way of thinking?' );
 		//Amily and Jojo removed from followers. Amily is encounterable again in the Village Place through the corrupted route and Jojo can still meditate with you.];
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//tion camp;
 	//Follower Summoning text (Z);
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, CockTypesEnum,
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'tou', Utils.rand( 2 ), 'spe', Utils.rand( 2 ), 'int', Utils.rand( 2 ), 'cor', 2.5 );
-		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, MainView.playerMenu );
 	};
 	//Vapula/Jojo threesome;
 	Vapula.prototype.vapulaJojoThreesomes = function() {
@@ -1254,7 +1254,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, CockTypesEnum,
 			CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 			CoC.flags[ kFLAGS.VAPULA_EARNED_A_SPANK ] = 1;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//Spank Vapula for misbehaving.;

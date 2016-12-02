@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MaleSpiderMorph, EventParser,
 	MaleSpiderMorphScene.prototype.fightSpiderBoy = function() {
 		Combat.startCombat( new MaleSpiderMorph() );
 		EngineCore.spriteSelect( 74 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//Talk;
 	MaleSpiderMorphScene.prototype.talkToSpiderBoy = function() {

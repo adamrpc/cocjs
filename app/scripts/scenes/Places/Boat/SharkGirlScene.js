@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			Combat.cleanupAfterCombat();
 			return;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'sharkGirlScene', new SharkGirlScene() );
 } );

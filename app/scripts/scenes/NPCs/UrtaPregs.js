@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, EventParser, Pregnancy
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You apologize, but there are pressing matters you need to attend to today... but you\'ll make it up to her somehow, you promise.  Urta looks disappointed, but sighs sadly and nods her head.  "<i>Of course.  You\'re still a busy adventurer and all that.  Well, don\'t worry; I\'ll make sure this little one gets home and settled in safely.</i>"' );
 		CoC.time.hours++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//=Yes=];
 	UrtaPregs.prototype.stayAfterUrtaBirf = function() {

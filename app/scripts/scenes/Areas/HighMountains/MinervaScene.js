@@ -373,7 +373,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	MinervaScene.prototype.fightMinerva = function() {
 		Combat.startCombat( new Minerva(), true );
 		EngineCore.spriteSelect( 95 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//1-2 Repeatable Cute, Romantic Encounter. Only if PC accepted Minerva's feelings. Add to normal encounters.
 	MinervaScene.prototype.repeatableMinervaRomanceScene = function() {

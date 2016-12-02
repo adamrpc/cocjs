@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 				slots.push( function() {
 					$log.info( 'Loading save with name', saveFileName, 'at index', index );
 					if( this.loadGame( saveFileName ) ) {
-						EngineCore.doNext(  EventParser.playerMenu );
+						EngineCore.doNext(  MainView.playerMenu );
 						EngineCore.showStats();
 						EngineCore.statScreenRefresh();
 						EngineCore.outputText( 'Slot ' + index + ' Loaded!', true );
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 		}
 		if( SceneLib.dungeonCore.isInDungeon() ) {
 			// TODO : Save to file
-			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', EventParser.playerMenu );
+			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', MainView.playerMenu );
 			return;
 		}
 		if( CoC.gameState === 3 ) {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 					'', null, // TODO : Save to file
 					'', null,
 					'', null,
-					'Back', EventParser.playerMenu );
+					'Back', MainView.playerMenu );
 			} else {
 				EngineCore.choices( 'Save', this.saveScreen,
 					'Load', this.loadScreen,
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 					'', null, // TODO : Save to file
 					'', null,
 					'', null,
-					'Back', EventParser.playerMenu );
+					'Back', MainView.playerMenu );
 			}
 		}
 	};
@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 			$log.info( 'Setting in-use save slot to: ' + slot );
 			CoC.player.slotName = slot;
 		}
-		EngineCore.doNext(  EventParser.playerMenu );
+		EngineCore.doNext(  MainView.playerMenu );
 	};
 	/*
 	 OH GOD SOMEONE FIX THIS DISASTER!!!!111one1ONE!
@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 			EngineCore.outputText( '\n\n' );
 			EngineCore.outputText( dataError.getStackTrace() );
 		}
-		EngineCore.doNext(  EventParser.playerMenu );
+		EngineCore.doNext(  MainView.playerMenu );
 	};
 	Saves.prototype.returnToSaveMenu = Saves.prototype.saveLoad;
 	Saves.prototype.loadGameObject = function( saveData, slot ) {
@@ -594,7 +594,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 			if( saveFile.data.controls !== undefined ) {
 				InputManager.LoadBindsFromObj( saveFile.data.controls );
 			}
-			EngineCore.doNext(  EventParser.playerMenu );
+			EngineCore.doNext(  MainView.playerMenu );
 		}
 	};
 	MainView.registerSave( Saves );

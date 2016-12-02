@@ -2,30 +2,6 @@
 
 angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
-	EventParser.playerMenu = function() {
-		if( !CoC.isInCombat() ) {
-			EngineCore.spriteSelect( -1 );
-		}
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CharCreation.newGameGo );
-		MainView.nameBox.visible = false;
-		if( CoC.gameState === 1 || CoC.gameState === 2 ) {
-			Combat.combatMenu();
-			return;
-		}
-		//Clear restriction on item overlaps if not in combat
-		OnLoadVariables.plotFight = false;
-		if( SceneLib.dungeonCore.isInDungeon() ) {
-			SceneLib.dungeonCore.dungeonMenu();
-			return;
-		} else if( OnLoadVariables.inRoomedDungeon ) {
-			if( OnLoadVariables.inRoomedDungeonResume !== null ) {
-				OnLoadVariables.inRoomedDungeonResume();
-			}
-			return;
-		}
-		CoC.flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] = 0;
-		SceneLib.camp.doCamp(); // TODO : Put this in camp scene.
-	};
 	EventParser.gameOver = function( clear ) { //Leaves text on screen unless clear is set to true
 		if( clear ) {
 			EngineCore.clearOutput();
@@ -35,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		EngineCore.addButton( 0, 'Game Over', EventParser.gameOverMenuOverride );
 		EngineCore.addButton( 3, 'NewGamePlus', CharCreation.newGamePlus );
 		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
-			EngineCore.addButton( 4, 'Debug Cheat', EventParser.playerMenu );
+			EngineCore.addButton( 4, 'Debug Cheat', MainView.playerMenu );
 		}
 		EventParser.gameOverMenuOverride();
 		CoC.setInCombat( false );
@@ -120,7 +96,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				} else if( temp > Utils.rand( 100 ) && CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) < 0 ) {
 					if( CoC.player.gender > 0 && (CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !SceneLib.kihaFollower.followerKiha()) ) {
 						SceneLib.impScene.impGangabangaEXPLOSIONS();
-						EngineCore.doNext( EventParser.playerMenu );
+						EngineCore.doNext( MainView.playerMenu );
 						return true;
 					} else if( CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && SceneLib.kihaFollower.followerKiha() ) {
 						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
@@ -291,7 +267,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				CoC.player.removeStatusAffect( StatusAffects.LootEgg );
 				CoC.player.removeStatusAffect( StatusAffects.Eggs );
 				$log.debug( 'TAKEY NAU' );
-				SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( itype, MainView.playerMenu );
 				return true;
 			}
 			// Benoit preggers update
@@ -311,28 +287,28 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		//Drop axe if too short!
 		if( CoC.player.tallness < 78 && CoC.player.weapon === WeaponLib.L__AXE ) {
 			EngineCore.outputText( '<b>\nThis axe is too large for someone of your stature to use, though you can keep it in your inventory until you are big enough.</b>\n' );
-			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.L_HAMMR && CoC.player.tallness < 60 ) {
 			EngineCore.outputText( '<b>\nYou\'ve become too short to use this hammer anymore.  You can still keep it in your inventory, but you\'ll need to be taller to effectively wield it.</b>\n' );
-			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.CLAYMOR && CoC.player.str < 40 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer, and you\'re forced to stop using it.</b>\n' );
-			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.WARHAMR && CoC.player.str < 80 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer!</b>\n' );
-			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		//Drop beautiful sword if corrupted!
 		if( CoC.player.weaponPerk === 'holySword' && CoC.player.cor >= 35 ) {
 			EngineCore.outputText( '<b>\nThe <u>' + CoC.player.weaponName + '</u> grows hot in your hand, until you are forced to drop it.  Whatever power inhabits this blade appears to be unhappy with you.  Touching it gingerly, you realize it is no longer hot, but as soon as you go to grab the hilt, it nearly burns you.\n\nYou realize you won\'t be able to use it right now, but you could probably keep it in your inventory.</b>\n\n' );
-			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		//Unequip Lusty maiden armor
@@ -346,17 +322,17 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					EngineCore.outputText( 'bulgy balls' );
 				}
 				EngineCore.outputText( ' within the imprisoning leather, and it actually hurts to wear it.  <b>You\'ll have to find some other form of protection!</b>\n\n' );
-				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
 			if( !CoC.player.hasVagina() ) { //Lost pussy
 				EngineCore.outputText( '\nYou fidget uncomfortably as the crease in the gusset of your lewd bikini digs into your sensitive, featureless loins.  There\'s simply no way you can continue to wear this outfit in comfort - it was expressly designed to press in on the female mons, and without a vagina, <b>you simply can\'t wear this exotic armor.</b>\n\n' );
-				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
 			if( CoC.player.biggestTitSize() < 4 ) { //Tits gone or too small
 				EngineCore.outputText( '\nThe fine chain that makes up your lewd bikini-top is dangling slack against your flattened chest.  Every movement and step sends it jangling noisily, slapping up against your [nipples], uncomfortably cold after being separated from your ' + CoC.player.skinFurScales() + ' for so long.  <b>There\'s no two ways about it - you\'ll need to find something else to wear.</b>\n\n' );
-				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
 		}
@@ -375,10 +351,10 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		}
 		EngineCore.statScreenRefresh();
 		if( needNext ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return true;
 		}
-		EventParser.playerMenu();
+		MainView.playerMenu();
 		return false;
 	};
 	EventParser.cheatTime = function( time ) {

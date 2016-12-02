@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 		var damage = 0;
 		var attack = Utils.rand( 6 );
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 		var damage = 0;
 		var attack = Utils.rand( 6 );
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			var damage = 0;
 			var attack = Utils.rand( 6 );
 			//return to combat menu when finished;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			//Blind dodge change;
 			if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 				EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );

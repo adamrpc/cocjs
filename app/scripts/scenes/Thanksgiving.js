@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\n"<i>G-gobble?</i>"  she repeats, cocking her head to the side.' );
 		EngineCore.outputText( '\n\nRolling your eyes, you yell at the strange girl until she finally gets the idea and; with a few more sorrowful gobbles, she wobbles off again, looking for someone else to bother.' );
 		EngineCore.outputText( '\n\nShaking your head, you sit back down and eat.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Let her Approach;
 	Thanksgiving.prototype.letZeTurkeyApproach = function() {

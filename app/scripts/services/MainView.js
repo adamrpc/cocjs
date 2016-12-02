@@ -343,8 +343,37 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 	MainView.registerSave = function( saveManager ) {
 		MainView.menuButtons.dataButton.callback = saveManager.saveLoad;
 	};
+	var _charCreationManager = null;
 	MainView.registerCharCreation = function( charCreationManager ) {
+		_charCreationManager = charCreationManager;
 		MainView.menuButtons.newGameButton.callback = charCreationManager.newGameGo;
+	};
+	MainView.resetNewGameButton = function( ) {
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', _charCreationManager.newGameGo );
+	};
+	MainView.playerMenu = function() {
+		if( !CoC.isInCombat() ) {
+			EngineCore.spriteSelect( -1 );
+		}
+		MainView.resetNewGameButton();
+		MainView.nameBox.visible = false;
+		if( CoC.gameState === 1 || CoC.gameState === 2 ) {
+			Combat.combatMenu();
+			return;
+		}
+		//Clear restriction on item overlaps if not in combat
+		OnLoadVariables.plotFight = false;
+		if( SceneLib.dungeonCore.isInDungeon() ) {
+			SceneLib.dungeonCore.dungeonMenu();
+			return;
+		} else if( OnLoadVariables.inRoomedDungeon ) {
+			if( OnLoadVariables.inRoomedDungeonResume !== null ) {
+				OnLoadVariables.inRoomedDungeonResume();
+			}
+			return;
+		}
+		CoC.flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] = 0;
+		SceneLib.camp.doCamp(); // TODO : Put this in camp scene.
 	};
 	return MainView;
 });

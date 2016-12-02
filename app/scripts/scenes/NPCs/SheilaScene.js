@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheila1ndEncLookCloserPtIITalkFight = function() {
 		EngineCore.clearOutput();
 		Combat.startCombat( new Sheila() );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//XP-1: PC's apology (sheila xp = -1 and demon sheila = 0):;
 	SheilaScene.prototype.sheilaApology = function() {
@@ -1234,7 +1234,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		CoC.time.hours = 6;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[XP3 - Guard Duty];
 	SheilaScene.prototype.sheilaXPThreeSexyTimeGuardDuty = function() {
@@ -3730,7 +3730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		SceneLib.camp.sleepRecovery( false );
 		CoC.time.hours = 7;
 		CoC.time.days++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//demonization Sheila transformation (output when demon sheila = 0 and sheila corruption is about to hit 100 with the PC):;
 	//-mad with desire, Sheila jumps the PC for another round of sex;

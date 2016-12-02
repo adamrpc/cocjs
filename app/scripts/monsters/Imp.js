@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( SceneLib, $log, CockTypesEnu
 		if( CoC.player.lust > 99 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	Imp.prototype.init = function( that, args ) {

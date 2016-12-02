@@ -562,7 +562,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.fireBreathMenu = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText("Which of your special fire-breath attacks would you like to use?");
-		EngineCore.choices("Akbal's", Combat.fireballuuuuu, "Hellfire", Combat.hellFire, "Dragonfire", Combat.dragonBreath, "", null, "Back", EventParser.playerMenu);
+		EngineCore.choices("Akbal's", Combat.fireballuuuuu, "Hellfire", Combat.hellFire, "Dragonfire", Combat.dragonBreath, "", null, "Back", MainView.playerMenu);
 	};
 	//Fantasize
 	Combat.fantasize = function() {
@@ -1371,7 +1371,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		monster.handleAwardItemText(itype); //Each monster can now override the default award text
 		if (itype !== null) {
 			if (SceneLib.dungeonCore.isInDungeon()) {
-				SceneLib.inventory.takeItem(itype, EventParser.playerMenu);
+				SceneLib.inventory.takeItem(itype, MainView.playerMenu);
 			} else {
 				SceneLib.inventory.takeItem(itype, SceneLib.camp.returnToCampUseOneHour);
 			}
@@ -1386,7 +1386,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (!SceneLib.dungeonCore.isInDungeon() && !OnLoadVariables.inRoomedDungeon) {
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 		} else {
-			EngineCore.doNext(EventParser.playerMenu);
+			EngineCore.doNext(MainView.playerMenu);
 		}
 		Combat.dropItem(CoC.monster);
 		CoC.setInCombat(false);
@@ -1741,7 +1741,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.monster.armorDef -= 10;
 			}
 		}
-		EngineCore.doNext(EventParser.playerMenu);
+		EngineCore.doNext(MainView.playerMenu);
 	};
 	Combat.startCombatImmediate = function(monster, plotFight) {
 		Combat.startCombat(monster, plotFight);
@@ -3644,14 +3644,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext(Combat.endLustLoss);
 			return true;
 		}
-		EngineCore.doNext(EventParser.playerMenu); //This takes us back to the combatMenu and a new combat round
+		EngineCore.doNext(MainView.playerMenu); //This takes us back to the combatMenu and a new combat round
 		return false;
 	};
 	Combat.hasSpells = function() {
 		return CoC.player.hasSpells();
-	};
-	Combat.spellCount = function() {
-		return CoC.player.spellCount();
 	};
 	Combat.magicMenu = function() {
 		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 2) {
@@ -3713,28 +3710,6 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
 	};
-	Combat.spellMod = function() {
-		var mod = 1;
-		if(CoC.player.findPerk(PerkLib.Archmage) >= 0 && CoC.player.inte >= 75) {
-			mod += 0.5;
-		}
-		if(CoC.player.findPerk(PerkLib.Channeling) >= 0 && CoC.player.inte >= 60) {
-			mod += 0.5;
-		}
-		if(CoC.player.findPerk(PerkLib.Mage) >= 0 && CoC.player.inte >= 50) {
-			mod += 0.5;
-		}
-		if(CoC.player.findPerk(PerkLib.Spellpower) >= 0 && CoC.player.inte >= 50) {
-			mod += 0.5;
-		}
-		if(CoC.player.findPerk(PerkLib.WizardsFocus) >= 0) {
-			mod += CoC.player.perkv1(PerkLib.WizardsFocus);
-		}
-		if (CoC.player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
-			mod += SceneLib.umasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
-		}
-		return mod;
-	};
 	Combat.spellArouse = function() {
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
@@ -3758,7 +3733,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("\n\n", false);
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
-			EngineCore.doNext(EventParser.playerMenu);
+			EngineCore.doNext(MainView.playerMenu);
 			if(CoC.monster.lust >= 100) {
 				EngineCore.doNext(Combat.endLustVictory);
 			} else {
@@ -3773,7 +3748,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		CoC.monster.lust += CoC.monster.lustVuln * (CoC.player.inte/5*Combat.spellMod() + Utils.rand(CoC.monster.lib - CoC.monster.inte*2 + CoC.monster.cor)/5);
+		CoC.monster.lust += CoC.monster.lustVuln * (CoC.player.inte/5 * CoC.player.spellMod() + Utils.rand(CoC.monster.lib - CoC.monster.inte*2 + CoC.monster.cor)/5);
 		if(CoC.monster.lust < 30) {
 			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " squirms as the magic affects " + CoC.monster.pronoun2 + ".  ", false);
 		}else if(CoC.monster.lust < 60) {
@@ -3826,7 +3801,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		EngineCore.doNext(EventParser.playerMenu);
+		EngineCore.doNext(MainView.playerMenu);
 		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.monster.lust >= 100) {
@@ -3866,7 +3841,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			EngineCore.dynStats("lib", 0.25, "lus", 15);
 		} else {
-			var heal = Math.floor((CoC.player.inte/(2 + Utils.rand(3)) * Combat.spellMod()) * (CoC.player.maxHP()/150));
+			var heal = Math.floor((CoC.player.inte/(2 + Utils.rand(3)) * CoC.player.spellMod()) * (CoC.player.maxHP()/150));
 			if(CoC.player.armorName === "skimpy nurse's outfit") {
 				heal *= 1.2;
 			}
@@ -3921,7 +3896,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		} else {
 			EngineCore.outputText("The rush of success and power flows through your body.  You feel like you can do anything!", false);
 			CoC.player.createStatusAffect(StatusAffects.Might,0,0,0,0);
-			var might = 5 * Combat.spellMod();
+			var might = 5 * CoC.player.spellMod();
 			tempStr = might;
 			tempTou = might;
 			if(CoC.player.str + might > 100) {
@@ -3960,7 +3935,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(15,1);
 		EngineCore.outputText("You utter words of power, summoning an electrical charge around your " + CoC.player.weaponName + ".  It crackles loudly, ensuring you'll do more damage with it for the rest of the fight.\n\n", true);
-		CoC.player.createStatusAffect(StatusAffects.ChargeWeapon,10*Combat.spellMod(),0,0,0);
+		CoC.player.createStatusAffect(StatusAffects.ChargeWeapon,10 * CoC.player.spellMod(),0,0,0);
 		EngineCore.statScreenRefresh();
 		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
@@ -3989,7 +3964,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			if ( Utils.rand(CoC.player.spe) >= 50 || Utils.rand(CoC.player.inte) >= 50) {
 				EngineCore.outputText("\n\nThe light sears into your eyes, but with the discipline of conscious effort you escape the hypnotic pull before it can mesmerize you, before Jean-Claude can blind you.");
 				EngineCore.outputText("\n\n“<i>You fight dirty,</i>” the monster snaps. He sounds genuinely outraged. “<i>I was told the interloper was a dangerous warrior, not a little [boy] who accepts duels of honour and then throws sand into his opponent’s eyes. Look into my eyes, little [boy]. Fair is fair.</i>”");
-				CoC.monster.HP -= Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+				CoC.monster.HP -= Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * CoC.player.spellMod());
 			} else {
 				EngineCore.outputText("\n\nThe light sears into your eyes and mind as you stare into it. It’s so powerful, so infinite, so exquisitely painful that you wonder why you’d ever want to look at anything else, at anything at- with a mighty effort, you tear yourself away from it, gasping. All you can see is the afterimages, blaring white and yellow across your vision. You swipe around you blindly as you hear Jean-Claude bark with laughter, trying to keep the monster at arm’s length.");
 				EngineCore.outputText("\n\n“<i>The taste of your own medicine, it is not so nice, eh? I will show you much nicer things in there in time intrus, don’t worry. Once you have learnt your place.</i>”");
@@ -4013,7 +3988,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				} else {
 					EngineCore.outputText("is blinded!</b>", false);
 				}
-				CoC.monster.createStatusAffect(StatusAffects.Blind,5*Combat.spellMod(),0,0,0);
+				CoC.monster.createStatusAffect(StatusAffects.Blind,5 * CoC.player.spellMod(),0,0,0);
 				if(CoC.monster.short === "Isabella") {
 					if (SceneLib.isabellaFollowerScene.isabellaAccent()) {
 						EngineCore.outputText("\n\n\"<i>Nein! I cannot see!</i>\" cries Isabella.", false);
@@ -4062,7 +4037,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		EngineCore.outputText("You narrow your eyes, focusing your mind with deadly intent.  You snap your fingers and " + CoC.monster.a + CoC.monster.short + " is enveloped in a flash of white flames!\n", true);
-		var wound = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		var wound = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * CoC.player.spellMod());
 		//High damage to goes.
 		if(CoC.monster.short === "goo-girl") {
 			wound = Math.round(wound * 1.5);
@@ -4124,7 +4099,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (corruptionMulti > 1.5) {
 			corruptionMulti = 1.5;
 		}
-		var wound = Math.floor((CoC.player.inte / 4 + Utils.rand(CoC.player.inte / 3)) * (Combat.spellMod() * corruptionMulti));
+		var wound = Math.floor((CoC.player.inte / 4 + Utils.rand(CoC.player.inte / 3)) * (CoC.player.spellMod() * corruptionMulti));
 		
 		if (wound > 0) {
 			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against " + CoC.monster.a + CoC.monster.short + ", tossing");
@@ -5408,7 +5383,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(35,1);
 		//Deals direct damage and lust regardless of enemy defenses.  Especially effective against non-corrupted targets.
 		EngineCore.outputText("Holding out your palm, you conjure corrupted purple flame that dances across your fingertips.  You launch it at " + CoC.monster.a + CoC.monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling lavender sparks everywhere.");
-		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * CoC.player.spellMod());
 		if(CoC.monster.cor >= 66) {
 			dmg = Math.round(dmg * 0.66);
 		} else if(CoC.monster.cor >= 50) {
@@ -5451,7 +5426,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Deals direct damage and lust regardless of enemy defenses.  Especially effective against corrupted targets.
 		EngineCore.outputText("Holding out your palm, you conjure an ethereal blue flame that dances across your fingertips.  You launch it at " + CoC.monster.a + CoC.monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling azure sparks everywhere.");
-		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * CoC.player.spellMod());
 		if(CoC.monster.cor < 33) {
 			dmg = Math.round(dmg * 0.66);
 		} else if(CoC.monster.cor < 50) {
@@ -5593,7 +5568,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.immolationSpell = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You gather energy in your Talisman and unleash the spell contained within.  A wave of burning flames gathers around " + CoC.monster.a + CoC.monster.short + ", slowly burning " + CoC.monster.pronoun2 + ".");
-		var temp = Math.floor(75+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		var temp = Math.floor(75+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * CoC.player.spellMod());
 		temp = Combat.doDamage(temp);
 		EngineCore.outputText(" (" + temp + ")\n\n");
 		CoC.player.removeStatusAffect(StatusAffects.ImmolationSpell);

@@ -38,12 +38,12 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, SceneLib, CoC, 
 	GreenSlime.prototype.lustAttack = function() {
 		EngineCore.outputText( 'The creature surges forward slowly with a swing that you easily manage to avoid.  You notice traces of green liquid spurt from the creature as it does, forming a thin mist that makes your skin tingle with excitement when you inhale it.' );
 		EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 8 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	GreenSlime.prototype.lustReduction = function() {
 		EngineCore.outputText( 'The creature collapses backwards as its cohesion begins to give out, and the faint outline of eyes and a mouth form on its face.  Its chest heaves as if it were gasping, and the bolt upright erection it sports visibly quivers and pulses before relaxing slightly.' );
 		this.lust -= 13;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	GreenSlime.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);

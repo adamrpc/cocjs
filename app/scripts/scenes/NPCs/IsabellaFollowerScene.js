@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, Isabella, Cock
 		EngineCore.outputText( 'You slump down while the tension oozes from your frame.  By the time you can move again, Isabella has walked off towards her section of camp.  Is it just you, or does her ass have a particularly sensuous sway this morning?', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1.5 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//No BJ's Plz ;
 	IsabellaFollowerScene.prototype.toggleIsabellasMorningWoodChopping = function() {
@@ -1028,7 +1028,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, Isabella, Cock
 		EngineCore.outputText( 'You come to Isabella\'s part of the camp with Marble in tow, supposing now is as good a time as ever to introduce the two.  Marble greats Isabella warmly but immediately starts bombarding her with questions about her origin.  From her persistence, it seems she is interested in meeting another cow-girl.  Though a little overwhelmed, Isabella recovers quickly, explaining her origins and the impurity of her cow-girl nature.  Marble is visibly disappointed.\n\n', false );
 		EngineCore.outputText( '"<i>The topic of conversation gradually shifts to the reason why Marble has come to the camp.  Marble seems to be happy to meet your friend, and is eager to spend some more time with her in the future.  Isabella, on the other hand, seems a little off-put regarding Marble\'s actions.  Only time will tell how the two take to each other.', false );
 		CoC.flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] = 2;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Sparring;
 	//normal isabella combat + status affect 'sparring';

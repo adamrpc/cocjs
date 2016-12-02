@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 		if( CoC.player.lust >= 100 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	BeeGirl.prototype.init = function( that, args ) {

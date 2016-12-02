@@ -1249,7 +1249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 		EngineCore.outputText( '"<i>Yeah.  You\'re all right.</i>" Hel says, finally sheathing her sword.  "<i>Thanks for giving me my mom\'s bandana back.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>You are... welcome,</i>" Isabella says as Hel disappears into the night.  Heaving a relieved sigh, you return to the camp proper and try to get some shut-eye before the sun rises.', false );
 		CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Isabella x Hel Threesome Scene – Beginning in the Plains (edited);
 	HelScene.prototype.isabellaXHelThreeSomePlainsStart = function() {
@@ -1278,7 +1278,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 
 		EngineCore.outputText( 'You certainly do feel thirsty, and Isabella\'s invitation is certainly... enticing, and is made all the more exciting by the busty salamander you\'ll be sharing a meal with.', false );
 		//(Display Options: [Drink] [Leave]);
-		EngineCore.choices( 'Drink', this.nomOnIzzyTitWithSallyMancer, '', null, '', null, '', null, 'Leave', EventParser.playerMenu );
+		EngineCore.choices( 'Drink', this.nomOnIzzyTitWithSallyMancer, '', null, '', null, '', null, 'Leave', MainView.playerMenu );
 	};
 	//[Leave];
 	HelScene.prototype.leaveIsabellaSallyBehind = function() {
@@ -1286,7 +1286,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You decline the cow-girl\'s offer, but tell the redheads to have fun without you.  Though a bit disappointed, they both wave as you make your way back to camp.', false );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1353,7 +1353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 		}
 		EngineCore.outputText( '.', false );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1495,7 +1495,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 		EngineCore.outputText( '"<i>Yeah.  Resting is... resting is good,</i>" Hel says, trying and failing to suppress a yawn of her own.  Smiling, you wrap your arms around your two beautiful, busty redheads and let sleep overcome you.', false );
 		//(Either return PC to camp or advance to the next day, if in plains or camp, respectively);
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -1543,7 +1543,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance,
 		SceneLib.isabellaFollowerScene.isabellaAffection( 4 );
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}

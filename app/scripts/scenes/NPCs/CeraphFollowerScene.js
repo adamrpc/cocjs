@@ -795,7 +795,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Combat, PregnancyStore,
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shake your head at the kitty sisters and tell them that you aren\'t interested in fucking cats; you wanted the sexy demoness you were promised.  The two mewl meekly before slumping away.', false );
 		//to camp menu;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//SEX!;
 	CeraphFollowerScene.prototype.fuckCeraphsCatgirls = function() {

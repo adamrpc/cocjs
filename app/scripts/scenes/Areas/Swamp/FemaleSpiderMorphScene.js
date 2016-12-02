@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, FemaleSpide
 	FemaleSpiderMorphScene.prototype.fightFSpiderMorph = function() {
 		Combat.startCombat( new FemaleSpiderMorph() );
 		EngineCore.spriteSelect( 73 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//Run;
 	FemaleSpiderMorphScene.prototype.runFromFSpiderMorph = function() {

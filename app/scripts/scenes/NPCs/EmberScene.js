@@ -623,7 +623,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Succubi Milk/Purified Succubi Milk (Z);
 	EmberScene.prototype.useSuccubiMilkOnEmber = function( purified ) {
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Ovi Elixir (Z);
 	EmberScene.prototype.useOviElixerOnEmber = function() {
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( 'Uncorking the crystalline bottle, you pour the strange green liquid inside onto the egg, briefly wondering what on earth it could want with this stuff, before catching your fallacy.  It\'s an egg, right?  It can\'t want things...  The fluid spills all over the shell, coating it, and then seeps inside, leaving the egg\'s previously pale surface marked with small green splotches.' );
 		CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] = 1;
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Lactaid (Z);
 	EmberScene.prototype.useLactaidOnEmber = function() {
@@ -673,7 +673,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( 'Feeling a little bemused, you pour the creamy fluid onto the egg.  It is absorbed through the shell, and a spiderwork of creamy yellow vein-like markings suddenly forms on the shell\'s surface.' );
 		CoC.flags[ kFLAGS.EMBER_MILK ] = 1;
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Hair Extension Serum (Z);
 	EmberScene.prototype.hairExtensionSerum = function() {
@@ -690,7 +690,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( ' on the egg.' );
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Your Blood (Z);
 	EmberScene.prototype.giveEmberBludSausages = function() {
@@ -710,7 +710,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(Token HP Loss, can't drop below 1 HP.);
 		CoC.player.takeDamage( 10 );
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Masturbate Onto the Egg (Z);
 	//Genderless Version (Z);
@@ -1548,13 +1548,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(If Ember hasn't recovered from the last time ' + this.emberMF('he','she') + ' shared her blood);
 		if( CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Sorry, but I\'m still recovering from last time, so no blood for you,</i>" Ember states matter-of-factly.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>What!?  Why should I hurt myself for you?!</i>"  Ember indignantly blows a small ring of flames at you and walks away.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		//(Medium Affection);
@@ -3587,7 +3587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		this.emberAffection( -10 );
 		//Set some cooldown so this doesn't proc all the goddamn time!;
 		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 12, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[=Accept=];
 	EmberScene.prototype.timeToPuffTheMagicDragon = function() {
@@ -3892,7 +3892,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		if( !emberPregged ) {
 			EngineCore.outputText( '  You touch your belly with a smirk.  Very certain they took indeed...' );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	EmberScene.prototype.emberPregUpdate = function() {
 		switch( this.pregnancy.eventTriggered() ) {

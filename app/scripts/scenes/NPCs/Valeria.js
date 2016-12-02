@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, GooArmorMonster, 
 		Combat.startCombat( new GooArmorMonster() );
 		CoC.monster.createStatusAffect( StatusAffects.Spar, 0, 0, 0, 0 );
 		CoC.monster.gems = 0;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Valeria] -- [Spar] -- PC Victorious;
 	Valeria.prototype.pcWinsValeriaSpar = function() {
@@ -485,9 +485,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, GooArmorMonster, 
 		CoC.player.armor.removeText();
 		var item = CoC.player.setArmor( ArmorLib.GOOARMR ); //Item is now the player's old armor
 		if( item === null ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
-			SceneLib.inventory.takeItem( item, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( item, MainView.playerMenu );
 		}
 	};
 	Valeria.prototype.valeriaAndGooThreeStuff = function() {

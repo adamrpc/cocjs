@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 		}
 		if( !foundItem ) {
 			EngineCore.outputText( '\nYou have no usable items.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv1( StatusAffects.Sealed ) === 3 ) {
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 			EngineCore.addButton( 9, 'Back', Combat.combatMenu, false );
 		}//Player returns to the combat menu on cancel
 		else {
-			EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+			EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 		}
 	};
 	Inventory.prototype.stash = function() {
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 			}
 			EngineCore.outputText( '\n\n' );
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Inventory.prototype.takeItem = function( itype, nextAction, overrideAbandon, source ) {
 		if( itype === null ) {
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 		if( nextAction !== null ) {
 			this.callNext = nextAction;
 		} else {
-			this.callNext = EventParser.playerMenu;
+			this.callNext = MainView.playerMenu;
 		}
 		//Check for an existing stack with room in the inventory and return the value for it.;
 		var temp = CoC.player.roomInExistingStack( itype );
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 			return;
 		}
 		EngineCore.outputText( 'I AM NOT A CROOK.  BUT YOU ARE!  <b>CHEATER</b>!\n\n', true );
-		SceneLib.inventory.takeItem( ConsumableLib.HUMMUS_, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.HUMMUS_, MainView.playerMenu );
 		CoC.flags[ kFLAGS.TIMES_CHEATED_COUNTER ]++;
 	};
 	//Create a storage slot;
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 		EngineCore.clearOutput(); //Selects an item from a gear slot. Rewritten so that it no longer needs to use numbered events
 		EngineCore.hideUpDown();
 		if( !this.itemAnyInStorage( storage, startSlot, endSlot ) ) { //If no items are left then return to the camp menu. Can only happen if the player removes the last item.
-			EventParser.playerMenu();
+			MainView.playerMenu();
 			return;
 		}
 		EngineCore.outputText( 'What ' + text + ' slot do you wish to take an item from?' );

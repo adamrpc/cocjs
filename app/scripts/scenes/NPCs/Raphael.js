@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//No more meetings + endgame in 21 days;
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 0;
 		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{When player chooses swoon after the first encounter};
 	Raphael.prototype.RaphaelFirstMeetingSWOON = function() {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'In a blink of an eye, the red fox jumps back up the wall. "<i>We will meet again!</i>" He exclaims in a hushed tone, while slinking over to the other side of the wall.\n\n', false );
 		EngineCore.outputText( 'You hold the hand he touched close to your chest.', false );
 		EngineCore.dynStats( 'str', -1, 'tou', -1, 'spe', 3, 'sen', 1, 'lus', 25 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{When you choose the [Talk] option in the first encounter};
 	Raphael.prototype.RaphaelFirstMeetingTALK = function() {
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			CoC.player.gems = 0;
 		}
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//{Second encounter.} ;
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//{Third encounter unlocked};
 		//Set 'time to wear dress' countdown.;
 		CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
-		SceneLib.inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.R_BDYST, MainView.playerMenu );
 	};
 	/*DRESS HERE
 	 Descriptive high society bodysuit. It is as easy to mistake it for ballroom apparel as it is for boudoir lingerie. The thin transparent fabric is so light and airy that it makes avoiding blows a second nature.
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'The fox looks dissapointed. "<i>Beauty is in the eye of the beholder, but it certainly isn\'t gracing mine right now.  señorita... or what remains of you, please clean yourself up. Meanwhile, I just remembered: I have a sick mother to take care of. I hope you\'ll excuse me!</i>" he mentions before hopping back of the wall and making a hasty retreat.\n\n', false );
 			EngineCore.outputText( 'You clench your jaw as he vanishes, more than a bit offended.', false );
 			//{Game removal untill the PC complies with the requirements again.});
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			CoC.flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] = 1;
 			//7 days to fix or done with!;
 		}
@@ -341,7 +341,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//{Game Removal.};
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
 		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{When player chooses [Frisk] after second encounter};
 	Raphael.prototype.RaphaelChooseFrisk = function() {
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//{Game removal};
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
 		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Fondle];
 	Raphael.prototype.friskFondleChoice = function() {
@@ -446,7 +446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//{Game removal};
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
 		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Raphael.prototype.RaphaelPicnic = function() {
 		EngineCore.outputText( '', true );
@@ -480,7 +480,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'A minute of silence follows and just when it has been long enough to reassure you, he makes his excuses and sets about heading back to... whatever it is the sly fox spends his days doing.\n\n', false );
 			EngineCore.outputText( 'You recollect yourself and head back to camp.', false );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{Player chooses [Skill]};
 	Raphael.prototype.RaphaelPicnicSkill = function() {
@@ -650,7 +650,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, MainView.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex} ;
 		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
 		//Next button if not taking Rapier;
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss. He\'s bound it with his red sash around the length like a ribbon, like he has now gifted it to you. Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, MainView.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		//Next button if not looting!;
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	//{Player chooses [Thieving] while in the picnic};
@@ -776,7 +776,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.choices( 'Fencing', this.RaphaelPicnicSkill, 'Flirt', this.thieveryEnding, '', null, '', null, '', null );
 			return;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{High Int picnic ending};
 	Raphael.prototype.thieveryEnding = function() {
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, MainView.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -848,7 +848,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
 		//If not taking item, go next.;
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You blink as he fades off into the mist and you\'re left to absorb the morning\'s events by yourself.  For a minute you\'re concerned with the wolves, but at least you\'ve managed to keep Raphael as a friend.  Though, you are curious what he means by \'orphanage\'.', false );
 		//Concludify things;
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -2;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//{PC chooses to betray Raphael};
 	Raphael.prototype.betrayRaphael = function() {
@@ -963,7 +963,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You blink as he fades and you\'re left to reflect on these morning\'s events by yourself.  For a minute you\'re concerned for the fox, but the wolves don\'t seem like the types to harm him... much.  You are curious what they plan to do with him and what his \'sentence\' might be, though.', false );
 		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -1;
 		//1k gems?;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Intro;
 	Raphael.prototype.orphanageIntro = function() {

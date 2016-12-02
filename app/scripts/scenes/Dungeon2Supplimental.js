@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		if( CoC.flags[ kFLAGS.ZETAZ_DOOR_UNLOCKED ] === 0 ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'The door won\'t budge.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		} else {
 			SceneLib.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
@@ -802,7 +802,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 			EngineCore.outputText( 'You clutch your ' + Descriptors.allBreastsDescript() + ' and squeeze the ' + Descriptors.nippleDescript( 0 ) + ' until they hurt, the agony giving you strength to drive the dildo back into the fairy. She cums before you do, her pulsing walls locking down and driving the dildo out, inch by painful inch, deeper into your body until the base is so far against your gut that it is pushed into your furthest recesses with a toe-curling, wet slap. You silently scream in ecstasy and agony, unable to believe that the frail fairy managed to fuck your womb with your own toy. Your strength redoubles and you thrust back, your ' + Descriptors.cockDescript( 0 ) + ' penetrating her spongy, well-used cervix, her womb sucking you inside it. You release the knotted tension, spraying your spunk deep inside her. You slap your ' + Descriptors.buttDescript() + ' against hers with each pulsing load, your pussy clenching at the dildo stuffing it even as your empty your seed into the chained slave.  You try to go limp, but the double penetrated girl keeps you from pulling out, both holes clenching you against her until every last drop of your sperm has filled her greedy womb. Fairy cum drips down your length, while the flared tip deep inside her large intestine keeps your pussy twitching against her posterior. You jill your ' + Descriptors.clitDescript() + ' for a few minutes afterward, just enjoying the afterglow as your strength returns and the fairy\'s body unclenches, releasing you from your breeder\'s embrace, the minotaur dildo still halfway up her ass. You remind yourself to clean your ' + CoC.player.armorName + ' after this is over, sliding into them with wet, squishing noises. Giving your drooling fairy girl\'s rump a slap on the way out, you head back into the dungeon- you\'ve got demons to stomp.', false );
 		}
 		CoC.flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Free];
 	Dungeon2Supplimental.prototype.freeValazLooseCoochie = function() {
@@ -848,7 +848,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 			EngineCore.outputText( 'Leaving the way you came, Vala makes her exodus from the abyssal cavern. Despite her savagely warped body, you do not doubt that her renewed vigor for life will let her achieve some measure of happiness again. You feel like you\'ve managed to do a truly selfless thing in this den of iniquity. Defeating monsters is satisfying, but it\'s the lives you save that really make you feel like a hero. You sigh contentedly and wonder where she\'ll end up, now that she\'s been given her life back.', false );
 			//(Vala unlocked in The Wet Bitch)[End Encounter];
 			CoC.flags[ kFLAGS.FREED_VALA ] = 1;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	Dungeon2Supplimental.prototype.healValaPartTwoTheHealingHealsOfRevenge = function() {
@@ -858,7 +858,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		EngineCore.outputText( 'Leaving the way you came, Vala makes her exodus from the abyssal cavern. Despite her savagely warped body, you do not doubt that her renewed vigor for life will let her achieve some measure of happiness again. You feel like you\'ve managed to do a truly selfless thing in this den of iniquity. Defeating monsters is satisfying, but it is the lives you save that really make you feel like a hero. You sigh contentedly and press on. You\'ve got demons to dethrone.', false );
 		//[End Encounter];
 		CoC.flags[ kFLAGS.FREED_VALA ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Sex];
 	Dungeon2Supplimental.prototype.ValaGetsSexed = function() {
@@ -941,7 +941,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		}
 		//[End Encounter];
 		CoC.flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Reject];
 	Dungeon2Supplimental.prototype.rejectFuckingVala = function() {
@@ -960,7 +960,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		}
 		//Initiate fight;
 		Combat.startCombat( new Vala(), true );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	Dungeon2Supplimental.prototype.loseToVala = function() {
@@ -1245,7 +1245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		if( CoC.player.lust >= 33 && SceneLib.shouldraFollower.followerShouldra() ) {
 			EngineCore.addButton( 3, 'ShouldraVala', SceneLib.shouldraFollower.shouldraMeetsCorruptVala );
 		}
-		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
 	};
 	//[Heal];
 	Dungeon2Supplimental.prototype.tryToHealVala = function() {
@@ -1254,7 +1254,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		//(Without Pure Honey);
 		if( !(CoC.player.hasItem( ConsumableLib.PURHONY, 1 ) || CoC.player.hasItem( ConsumableLib.P_PEARL, 1 )) ) {
 			EngineCore.outputText( 'You try your best with what you\'ve got, but nothing seems to restore the broken fairy\'s mind to her sex-addled  body. You\'re going to have to go out and gather more materials. Surely there\'s something that can break the damage the imps have done to Vala.', false );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		//(With Pure Honey);
 		else if( CoC.player.hasItem( ConsumableLib.PURHONY, 1 ) ) {
@@ -1272,7 +1272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 			EngineCore.outputText( 'Leaving the way you came, Vala makes her exodus from the abyssal cavern. Despite her savagely warped body, you do not doubt that her renewed vigor for life will let her achieve some measure of happiness again. You feel like you\'ve managed to do a truly selfless thing in this den of iniquity. Defeating monsters is satisfying, but it\'s the lives you save that really make you feel like a hero. You sigh contentedly and wonder where she\'ll end up, now that she\'s been given her life back.', false );
 			//(Vala unlocked in The Wet Bitch)[End Encounter];
 			CoC.flags[ kFLAGS.FREED_VALA ] = 1;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	Dungeon2Supplimental.prototype.tryToHealValaWHoney2 = function() {
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		//(Vala unlocked in The Wet Bitch);
 		CoC.flags[ kFLAGS.FREED_VALA ] = 1;
 		//[End Encounter];
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Use];
 	Dungeon2Supplimental.prototype.useValaOHYEAHSNAPINTOASLIMJIM = function() {
@@ -1333,7 +1333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		//DAH END;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Wake];
 	Dungeon2Supplimental.prototype.wakeValaUpBeforeYouGoGo = function() {
@@ -1401,7 +1401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Answers the simpler question 'Is Vala at the bar right now' rather than 'can Vala have sex with you right now';
 	Dungeon2Supplimental.prototype.isValaAtBar = function() {
@@ -1689,7 +1689,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 	Dungeon2Supplimental.prototype.takeBondageStraps = function() {
 		EngineCore.clearOutput();
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS ]++;
-		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, MainView.playerMenu );
 	};
 	//ZETAZ START;
 	Dungeon2Supplimental.prototype.zetazTaunt = function() {
@@ -1850,7 +1850,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		if( CoC.player.lust >= 100 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 
@@ -2306,14 +2306,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 		EngineCore.outputText( '"<i>Excellent!  Give me a few moments to gather my things and I\'ll be open for business!</i>" exclaims the strange demon.  If his story is true it\'s no wonder he doesn\'t get along with the rest of his kind.' );
 		//[Next – to room];
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusNoDeal = function() {
 		EngineCore.spriteSelect( 52 );
 		EngineCore.clearOutput();
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] = -1;
 		EngineCore.outputText( 'Sean nods, grabs a pack, and takes off running before you have a chance to kill him.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusShop = function() {
 		EngineCore.spriteSelect( 52 );
@@ -2335,7 +2335,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Co
 				EngineCore.addButton( 4, ConsumableLib.BIMBOLQ.shortName, SceneLib.telAdre.niamh.seanBimboBrewing );
 			}
 		}
-		EngineCore.addButton( 9, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Leave', MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusBuy = function( itype ) {
 		EngineCore.spriteSelect( 52 );

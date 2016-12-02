@@ -1393,7 +1393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Combat, Shouldra,
 			EngineCore.outputText( '\n\nYou rage fap and consider going back to bed.', false );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//Vagina with Boobgartuan Scene;

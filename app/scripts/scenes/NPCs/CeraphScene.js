@@ -911,7 +911,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	CeraphScene.prototype.startAFightWithCeraph = function() {
 		Combat.startCombat( new Ceraph() );
 		EngineCore.spriteSelect( 7 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//[Run] → ;
 	CeraphScene.prototype.runFromCeraphsNiceDeal = function() {
@@ -1417,7 +1417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				CoC.player.hoursSinceCum += 100;
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	CeraphScene.prototype.buttRapeCeraph = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;

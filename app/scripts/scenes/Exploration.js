@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, EngineCore, kFLAGS, Even
 		if( CoC.player.exploredMountain > 0 ) {
 			EngineCore.addButton( 8, 'Mountain', SceneLib.mountain.exploreMountain );
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Exploration.prototype.explorePageII = function() {
 		CoC.flags[ kFLAGS.EXPLORATION_PAGE ] = 2;
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, EngineCore, kFLAGS, Even
 			EngineCore.addButton( 1, 'Bog', SceneLib.bog.exploreBog );
 		}
 		EngineCore.addButton( 4, 'Previous', this.goBackToPageI );
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Exploration.prototype.goBackToPageI = function() {
 		CoC.flags[ kFLAGS.EXPLORATION_PAGE ] = 1;
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, EngineCore, kFLAGS, Even
 	};
 
 	Exploration.prototype.debugOptions = function() {
-		SceneLib.inventory.takeItem( ComsumableLib.W_FRUIT, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ComsumableLib.W_FRUIT, MainView.playerMenu );
 	};
 	//Massive bodyparts scene
 	//[DESERT]

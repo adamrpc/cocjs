@@ -860,7 +860,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib
 		if( CoC.player.hasVagina() ) {
 			mommy = this.beBimboSophiesSugarMommy;
 		}
-		EngineCore.choices( 'Daddy', daddy, 'Mommy', mommy, '', null, '', null, 'Leave', EventParser.playerMenu );
+		EngineCore.choices( 'Daddy', daddy, 'Mommy', mommy, '', null, '', null, 'Leave', MainView.playerMenu );
 	};
 	//[Daddy];
 	SophieBimbo.prototype.beBimboSophiesSugarDaddy = function() {
@@ -1512,7 +1512,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		if( morning ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1598,7 +1598,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		if( morning ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -2124,7 +2124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib
 		EngineCore.outputText( '\n\nIzma jumps away from the Harpy in surprise.  "<i>Oh, Alpha!</i>" she sputters, turning to face you.  She thinks for a moment, a bead of sweat forming on her already moist forehead.  "<i>I was, uh, just getting your slave ready for you,</i>" she lies.' );
 		EngineCore.outputText( '\n\nYou narrow your eyes at them and look to the large-breasted slut and ask if this is true.  "<i>No, [name], but I\'m just <b>so</b> horny!</i>"' );
 		EngineCore.outputText( '\n\nYou toss an icy stare at Izma and order her to cut Sophie down.  She does so, albeit reluctantly.  You remind Izma that you\'re HER Alpha, not the other way around, and that she should keep her hands off the merchandise.  You grope the bimbo\'s ample ass and lead her away from Izma\'s section of the camp, whispering that she\'ll get hers in due time.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//(Watch like the voyeur you are);
 	SophieBimbo.prototype.watchIzmaSophie = function() {
@@ -2159,7 +2159,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib
 		EngineCore.outputText( '\n\nIzma pants and withdraws from her home-made cream pie with a self-satisfied sigh, but her cock is still just as hard as before, even though her sack looks a little bit smaller.  She groans out loud as she staggers away, muttering something about coming back to \'check on\' the harpy in a few minutes.  Her hand takes a few experimental pumps as she goes, and with all the lipstick she was exposed to, you\'re sure she\'ll be back before long.  As soon as she\'s out of sight, Sophie flexes her wings, easily breaking through the knots.  She gets loose and drops to the ground, then sticks a digit in her still-drooling cunt before sucking it into her mouth to taste.  "<i>Hehe, EngineCore.silly sharks!</i>" she chants before flouncing away.  "<i>I gotta remember to be back before she is... this is totally fun!</i>"' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'sophieBimbo', new SophieBimbo() );
 } );

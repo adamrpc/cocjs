@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, EngineCore
 		if( CoC.player.hasCock() && (CoC.player.cocks[ 0 ].cockType === CockTypesEnum.BEE) ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'Although your bee cock aches you know that there\'s no way for you to get relief on your own.  When you touch your shaft or think about cumming images of the bee girl and the sound of her hypnotic buzzing fill your mind.' );
-			EngineCore.addButton( 0, 'Next', EventParser.playerMenu );
+			EngineCore.addButton( 0, 'Next', MainView.playerMenu );
 			return;
 		}
 		var button = 0;
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, EngineCore
 			}
 			return;
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Masturbation.prototype.fappingItems = function( menus ) {
 		if( menus === undefined || menus ) {
@@ -137,24 +137,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, EngineCore
 		EngineCore.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
 			EngineCore.outputText( 'You\'d love to masturbate, but your sexual organs\' numbness makes it impossible.  You\'ll have to find something to fuck to relieve your lust.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		if( CoC.player.hasCock() && (CoC.player.cocks[ 0 ].cockType === CockTypesEnum.BEE) ) {
 			EngineCore.outputText( 'Although your bee cock aches you know that there\'s no way for you to get relief on your own.  When you touch your shaft or think about cumming images of the bee girl and the sound of her hypnotic buzzing fill your mind.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		if( SceneLib.dungeonCore.isInDungeon() ) {
 			EngineCore.outputText( 'There is no way you could get away with masturbating in a place like this!  You\'d better find your way back to camp if you want to take care of that.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		if( CoC.player.isTaur() ) {
 			if( this.centaurMasturbation() ) {
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} else {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 			return;
 		}

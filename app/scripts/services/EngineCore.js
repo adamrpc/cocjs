@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
     var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.outputText( '\n<b>You can adjust your double attack settings.</b>' );
 			EngineCore.addButton( 2, 'Dbl Options', EngineCore.doubleAttackOptions );
 		}
-		EngineCore.addButton( 0, 'Next', EventParser.playerMenu );
+		EngineCore.addButton( 0, 'Next', MainView.playerMenu );
 	};
 	EngineCore.doubleAttackOptions = function() {
 		EngineCore.clearOutput();
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.perkBuyMenu();
 		} else {
 			EngineCore.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	EngineCore.levelUpStatStrength = function() {
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		EngineCore.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
@@ -226,7 +226,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		CoC.stage.focus = null;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
-			EventParser.playerMenu();
+			MainView.playerMenu();
 		}
 	};
 	EngineCore.changeHandler = function( selected ) {
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			if( CoC.player.inte >= 50 ) {
 				_add( new Perk( PerkLib.Tactician ) );
 			}
-			if( Combat.spellCount() > 0 && CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 60 ) {
+			if( CoC.player.spellCount() > 0 && CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 60 ) {
 				_add( new Perk( PerkLib.Channeling ) );
 			}
 			if( CoC.player.inte >= 60 ) {
@@ -432,7 +432,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.HPChange( CoC.player.tou, false );
 			EngineCore.statScreenRefresh();
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	EngineCore.buttonText = function( buttonName ) {
 		var buttonIndex = 0;
@@ -961,7 +961,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			combatStats += '<b>Bow Skill:</b> ' + Math.round( CoC.player.statusAffectv1( StatusAffects.Kelt ) ) + '\n';
 		}
 		combatStats += '<b>Lust Resistance:</b> ' + (100 - Math.round( EngineCore.lustPercent() )) + '% (Higher is better.)\n';
-		combatStats += '<b>Spell Effect Multiplier:</b> ' + (100 * Combat.spellMod()) + '%\n';
+		combatStats += '<b>Spell Effect Multiplier:</b> ' + (100 * CoC.player.spellMod()) + '%\n';
 		combatStats += '<b>Spell Cost:</b> ' + EngineCore.spellCost( 100 ) + '%\n';
 		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] > 0 ) {
 			combatStats += '<b>Rapier Skill (Out of 4):</b> ' + CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] + '\n';
@@ -1282,7 +1282,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.outputText( '\n<b><u>Ongoing Status Effects</u></b>\n' + statEffects, false );
 		}
 		// End Ongoing Stat Effects
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	EngineCore.lustPercent = function() {
 		var lust = 100;

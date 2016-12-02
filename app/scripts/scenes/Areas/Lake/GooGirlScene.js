@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, kFLAGS, Con
 		EngineCore.outputText( 'waters. You pause, trying to figure out what the shape might be. Just under the surface of the water, there appears to be a fist-sized heart shedding a crimson glow. Leaning closer, you gaze down into your reflection only to find your face rising up with pursed lips, trying to kiss you! You jerk backwards and the pseudo-head quivers, resolving its face into a gooey-looking girl, her ', false );
 		Combat.startCombat( new GooGirl() );
 		EngineCore.outputText( this.gooGirl().gooColor() + ' slime body sculpting itself into a humanoid shape. The girl curiously tilts her head to one side, as if trying to figure out why you\'re backing away, before she happily surges forward!', false );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//New Perk – Slime Core (requires goo player, random drop rate?)
 	GooGirlScene.prototype.coreDropChance = function() {

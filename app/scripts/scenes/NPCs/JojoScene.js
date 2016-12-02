@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, $log, Pregnancy
 		//(LIMITED MASTURBATE MENU – No Jojo);
 		CoC.player.createStatusAffect( StatusAffects.NoJojo, 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.TentacleJojo, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[POST TENTACLE DICKINGS];
 	JojoScene.prototype.useTentacleJojo = function() {
@@ -1050,7 +1050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, $log, Pregnancy
 			EngineCore.addButton( 0, 'Demonstrate', this.BJRidesGETYOUONE );
 		}
 		EngineCore.addButton( 1, 'Watch', this.amilyAndJojoFuck );
-		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
 	};
 	//Scene 1 Result: Male Gets BJ (Z);
 	JojoScene.prototype.BJRidesGETYOUONE = function() {
@@ -1872,7 +1872,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, $log, Pregnancy
 		if( CoC.player.biggestTitSize() >= 2 ) {
 			EngineCore.addButton( 6, (CoC.player.biggestLactation() > 1 ? 'Suckle' : 'Breasts'), this.corruptJojoBreasts );
 		} //All ya need is bewbs
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	JojoScene.prototype.corruptJojoBJCruel = function() {
 		this.jojoSprite();

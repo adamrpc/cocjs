@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 					}
 				}
 			}
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return true;
 		}
 		return false;
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 		} else {
 			EngineCore.dynStats( 'lus', 25 );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Dreams.prototype.fuckedUpCockDreamChange = function() {
 		//Cock Transformation Dream!;
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				CoC.player.cocks[ x ].cockType = CockTypesEnum.DISPLACER;
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'dreams', new Dreams() );
 } );

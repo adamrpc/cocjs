@@ -1401,7 +1401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Clara, EventParser, S
 		EngineCore.outputText( '\n\nShe runs off, not looking back.  You get the impression that she really doesn\'t like what she just said, and she\'s desperately trying to avoid letting what\'s happening to you bother her.  Should you really care though?' );
 		CoC.flags[ kFLAGS.MARBLE_WARNED_ABOUT_CORRUPTION ] = 1;
 		//end event;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Leaving from corruption;
 	//PC's corruption is now too high.;

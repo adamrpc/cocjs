@@ -221,7 +221,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, Isabella, EventParse
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		EngineCore.spriteSelect( 31 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Fuck-fight;
 	IsabellaScene.prototype.fightIsabella = function() {
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, Isabella, EventParse
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		EngineCore.spriteSelect( 31 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Talk] ;
 	IsabellaScene.prototype.tryToTalkDownAngryCow = function() {

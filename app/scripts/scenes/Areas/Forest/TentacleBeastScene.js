@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, StatusAffects, Com
 	};
 	TentacleBeastScene.prototype.startTentacleBeastCombat = function() {
 		Combat.startCombat( new TentacleBeast() );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	TentacleBeastScene.prototype.tentacleEntice = function() {
 		//Spoiler for Entice Attack Male/Herm: 

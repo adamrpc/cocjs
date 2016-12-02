@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Looking down at the sapling, you stay your wrath.  It may be corrupt, but it hasn\'t done anything to harm you just yet.  You give it a little pat on the uppermost leaves and leave it be.  It\'s not like it\'s going anywhere.' );
 		EngineCore.outputText( '\n\n(<b>\'Plant\' added to your items menu</b>.  It\'s too small to know what it will grow into yet.  You can currently remove it at your leisure.)' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Phase 2: Pussy Tentacle Flower Phase (edited);
 	HolliScene.prototype.fuckPlantGrowsToLevel2 = function() {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
 			ride = this.rideDatFuckingFukkFlowerP2;
 		}
-		EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, 'Do Nothing', EventParser.playerMenu, 'Destroy It', this.destroyDatFuckingPlantAtP2, '', null );
+		EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, 'Do Nothing', MainView.playerMenu, 'Destroy It', this.destroyDatFuckingPlantAtP2, '', null );
 	};
 
 	//Destroy It (edited);
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 			ride = this.rideTheWalrusP3;
 		}
 		//[Fuck flower] [Drink Sap] [Ride Tentacles] [{Torch It}] [Leave It];
-		EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', EventParser.playerMenu );
+		EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', MainView.playerMenu );
 	};
 	//Fuck Flower (skimmed);
 	HolliScene.prototype.fuckTheFlower = function() {
@@ -668,7 +668,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		//return Jojo to forest, get key item Small Talisman;
 		CoC.player.removeStatusAffect( StatusAffects.PureCampJojo );
 		CoC.player.createKeyItem( 'Jojo\'s Talisman', 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Amily Hates Trees -Z;
 	//new overriding line for Amily's camp descript if tree is there;
@@ -699,7 +699,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_AMILY ) {
 			CoC.player.knockUpForce( PregnancyStore.PREGNANCY_MOUSE, CoC.player.pregnancyIncubation );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Slapaho];
 	HolliScene.prototype.slapAmilysWhoreFace = function() {
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		//no more classes, no more books; no more Amily's dirty looks;
 		//bitch goes in ruined village;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//(FUCK DAT TREE BITCH);
@@ -1732,7 +1732,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 1;
 		//Enable village encounters;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'holliScene', new HolliScene() );
 } );

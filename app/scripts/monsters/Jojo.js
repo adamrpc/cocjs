@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( SceneLib, $log, EventParser
 		} else if( this.lust > 50 ) {
 			EngineCore.outputText( 'The mouse\'s skin remains flushed with the beginnings of arousal.  ' );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Jojo.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

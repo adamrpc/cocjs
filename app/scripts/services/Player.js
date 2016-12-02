@@ -35,6 +35,28 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		this.exploredMountain = 0;
 		this.exploredLake = 0;
 	};
+	Player.prototype.spellMod = function() {
+		var mod = 1;
+		if(this.findPerk(PerkLib.Archmage) >= 0 && this.inte >= 75) {
+			mod += 0.5;
+		}
+		if(this.findPerk(PerkLib.Channeling) >= 0 && this.inte >= 60) {
+			mod += 0.5;
+		}
+		if(this.findPerk(PerkLib.Mage) >= 0 && this.inte >= 50) {
+			mod += 0.5;
+		}
+		if(this.findPerk(PerkLib.Spellpower) >= 0 && this.inte >= 50) {
+			mod += 0.5;
+		}
+		if(this.findPerk(PerkLib.WizardsFocus) >= 0) {
+			mod += this.perkv1(PerkLib.WizardsFocus);
+		}
+		if (this.findPerk(PerkLib.ChiReflowMagic) >= 0) {
+			mod += SceneLib.umasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
+		}
+		return mod;
+	};
 	//Player pregnancy variables and functions
 	Player.prototype.pregnancyUpdate = function() {
 		return SceneLib.pregnancy.updatePregnancy(); //Returns true if we need to make sure pregnancy texts aren't hidden

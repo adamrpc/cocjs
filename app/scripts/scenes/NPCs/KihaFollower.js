@@ -1936,7 +1936,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Kiha, SpiderMorphMob, Consuma
 		//{if no ghost legs (whadda fag)};
 		if( CoC.player.findPerk( PerkLib.Incorporeality ) < 0 ) {
 			EngineCore.outputText( '[pg]Shaking your head in disappointment, you shuffle away, replacing the Gro+ in your pack with a sigh.  Maybe some day.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		//{if you've got that ghost shit down};
@@ -1987,7 +1987,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Kiha, SpiderMorphMob, Consuma
 		} else {
 			EngineCore.outputText( 'Kiha approaches you, her belongings gathered in her hands.  The sexy dragoness seems visibly upset, and before you can say a word, she interrupts, "<i>Don\'t say a word, [name].  You\'re corrupt.  I can smell the corruption rolling off you from over here.  I won\'t be here when you turn into a demon, and I don\'t want to fight you... but if you come after me, I won\'t hesitate to defend myself!</i>"' );
 			EngineCore.outputText( '[pg]Kiha closes her eyes and launches herself into the air, only leaving a few tears for the parched wasteland to claim.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		CoC.flags[ kFLAGS.KIHA_CORRUPTION_BITCH ] = 1;
 		//(Display Options: [Fight!] [Leave]);

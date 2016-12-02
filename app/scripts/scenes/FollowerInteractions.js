@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 0;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Fix Him]
 	FollowerInteractions.prototype.agreeToHelpAmilyFixJojo = function() {
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		EngineCore.dynStats( 'cor', -5 );
 		// Amily won't sex.  Jojo sex still available)
 		CoC.flags[ kFLAGS.AMILY_WAIT_FOR_PC_FIX_JOJO ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Go to amily with pure honey in inventory]
 	FollowerInteractions.prototype.fixJojoOOOOHYEEEEAHSNAPINTOASLIMJIM = function() {
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'There is a note left on your bedroll. You pick it up and unseal it – it\'s from Jojo!\n\n', false );
 		EngineCore.outputText( '"<i>After the things that have transpired between us, I felt I ought to give this chapter of our lives some closure.   What you did to me was inexcusable.  It was a violation of everything that I am and was.  But, even though I wasn\'t able to help you tame your inner corruption, I\'m glad that Amily was able to do so in my place.  And although I shall never again be able to return to my life as a chaste monk due to the changes you made to my body and libido, I take solace in the fact that Amily was able to repopulate our people.  Perhaps I\'ll even get married; its impossible to hide how \'large\' I\'ve gotten and the girls all seem to want to see what I\'ve got under my robes.  In any event, good-bye \'Champion\'.</i>"', false );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Amily finds tentacle Jojo]
 	FollowerInteractions.prototype.amilyDiscoversJojoWithTentaclesAndShitOhBoy = function() {
@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 			CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 			//+5 corruption)
 			EngineCore.dynStats( 'cor', 5 );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		else {
 			EngineCore.outputText( 'This is bad.  You could try to explain that what happened to Jojo was a moment of weakness before you overcame your corruption, but judging from the look in her eyes, she would KILL JOJO rather than let him continue to live in such a pathetic state.  Or, you could stand by your choice to corrupt Jojo, but you\'d have to get Amily to leave so she couldn\'t harm Jojo.  Flipping her the bird might do the trick.' );
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		//+5 corruption)
 		EngineCore.dynStats( 'cor', 5 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//(Uncorrupt)
 	//[Choose Amily – Aeris (I mean Jojo) Dies]
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		EngineCore.outputText( 'Amily bounds out of camp before you can react, sniffling as she disappears into the distance. She\'s lost to sight almost immediately thanks to the properties of this accursed landscape.', false );
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 1;
 		CoC.flags[ kFLAGS.AMILY_NEED_TO_FREAK_ABOUT_URTA ] = 0;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//disable Amily button and replace her camp screen status, enable [Ask about Amily] button at Wet Bitch
 	};
 	//[Ask about Amily]
@@ -553,7 +553,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 		CoC.flags[ kFLAGS.AMILY_CORRUPT_FLIPOUT ] = 1;
 		//no more Puru Amily, corruption path only
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Smile and nod]
 	FollowerInteractions.prototype.smileAndNodToAmilyXUrta = function() {
@@ -564,7 +564,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, Cons
 		//'Urta' is now unlocked in Amily's options between 0600 and 1400
 		EngineCore.outputText( '\n\n(<b>Urta is now unlocked from Amily\'s sex menu.</b>)', false );
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 4;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Amily Option - Urta
 	//This option should probably only appear when Urta is actually at the Wet Bitch

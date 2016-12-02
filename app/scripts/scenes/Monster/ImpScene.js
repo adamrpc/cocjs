@@ -1724,7 +1724,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, E
 				}
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	ImpScene.prototype.impRapesYou = function() {
 		EngineCore.outputText( '', true );

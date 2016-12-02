@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		SceneLib.sophieBimbo.sophieSprite();
 		Combat.startCombat( new Sophie() );
 		CoC.flags[ kFLAGS.SOPHIE_ANGRY_AT_PC_COUNTER ] += Utils.rand( 24 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//[Yes];
 	SophieScene.prototype.repeatBreastFeeding = function() {
@@ -659,13 +659,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		if( x < 0 ) {
 			CoC_Settings.error( '' );
 			EngineCore.outputText( 'ERROR: No cock found that fits, yet \'fits\' scene was called.', true );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			CoC.setInCombat( false );
 			return;
 		} else if( x > CoC.player.cocks.length - 1 ) {
 			CoC_Settings.error( '' );
 			EngineCore.outputText( 'ERROR: Cock above max cocks selected for Sophie sex.  Please report bug on fen\'s bug report forum.', true );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			CoC.setInCombat( false );
 			return;
 		}

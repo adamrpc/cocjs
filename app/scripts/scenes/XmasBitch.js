@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( 'You shake your head \'no\', and inform the elf that you\'ll have nothing to do with her \'gifts\' or \'surprises\'.  She looks on the verge of tears as she whines, "<i>I\'m going to get reamed for this!</i>"\n\n', false );
 		EngineCore.outputText( 'Before you can react, she sprints off into the darkness.', false );
 		CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Open Present];
 	XmasBitch.prototype.openXmasPresent = function() {
@@ -81,26 +81,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( 'shock at the box\'s contents – a nine inch cock with damn near a dozen buzzing, elliptical devices taped to it.  A pair of coal lumps rattles around underneath it, positioned as if they were the dick\'s testicles.\n\n', false );
 			EngineCore.outputText( 'Before you can utter a single word of confusion or protest, the elf moans and the cock erupts, spurting a rope of cum into your hair.  The next blast takes you across the nose, then on your lips, then your chin, and finally onto your ' + Descriptors.allBreastsDescript() + '.  Shocked and dripping, you stand dumbfounded as the elf plants a kiss on your lips, tears off the box, and runs away with her cock flopping and buzzing in time with each step.  There\'s no way to catch her in this darkness.\n\n', false );
 			EngineCore.outputText( 'The empty \'present\' is on the ground with the coal still inside.  You wonder if the coal has any special effect. Everything else in this place does.  In the distance you can hear sleigh bells, and you know it\'s going to be hard to sleep with all that racket on top of the threat of more intruders...\n\n', false );
-			SceneLib.inventory.takeItem( ConsumableLib.COAL___, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.COAL___, MainView.playerMenu );
 			CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else if( CoC.player.cor <= 33 ) {
 			//Great present!;
 			EngineCore.outputText( 'surprise at the box\'s contents - there\'s a careful arranged set of equipment here, made from woven spider-silk!  Somebody must think you\'re pretty good.\n\n' );
 			if( Utils.rand( 2 ) === 0 ) {
-				SceneLib.inventory.takeItem( ArmorLib.SS_ROBE, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( ArmorLib.SS_ROBE, MainView.playerMenu );
 			} else {
-				SceneLib.inventory.takeItem( ArmorLib.SSARMOR, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( ArmorLib.SSARMOR, MainView.playerMenu );
 			}
 			CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else if( CoC.player.cor < 60 ) {
 			//[Good present];
 			EngineCore.outputText( 'surprise at the box\'s contents – there\'s a vial labeled gro+.  It looks like it\'s going to be a \'big\' Christmas this year...\n\n', false );
-			SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, MainView.playerMenu );
 			CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		} else {
 			//[Mediocre Present];
 			EngineCore.outputText( 'surprise at the box\'s contents – there is a single vial of succubi\'s delight packed inside.  It\'s going to be a white Christmas after all...\n\n', false );
-			SceneLib.inventory.takeItem( ConsumableLib.SDELITE, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.SDELITE, MainView.playerMenu );
 			CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 		}
 	};
@@ -295,12 +295,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( '<b> - +15 bonus fertility!</b>' );
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	XmasBitch.prototype.xmasSmart = function() {
 		EngineCore.hideUpDown();
 		EngineCore.outputText( 'You nod to yourself, feeling pretty smart about your decision.', true );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		EngineCore.dynStats( 'int', 15 );
 	};
 	SceneLib.registerScene( 'xmasBitch', new XmasBitch() );

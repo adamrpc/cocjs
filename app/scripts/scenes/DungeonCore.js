@@ -751,11 +751,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.dungeonEnterRoom = function( room ) {
 		OnLoadVariables.dungeonLoc = room;
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	DungeonCore.prototype.actuallyEnterFactory = function() {
 		OnLoadVariables.dungeonLoc = DungeonCore.DUNGEON_FACTORY_FOYER;
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	DungeonCore.prototype.leaveFactory = function() {
 		OnLoadVariables.dungeonLoc = 0;
@@ -766,13 +766,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	DungeonCore.prototype.factoryShutdown = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You resolve to shut down the factory, then destroy the controls.  You spend a few moments making sure you aren\'t about to do something disastrous.  A few deep breaths calm your nerves, letting you focus on pressing the correct buttons.  The constant thrumming of the machinery slowly dies down, closely followed by a chorus of disappointed moans.  You step over to the window and watch as the captives come out of their drug induced sex-comas.  A great deal of them gather up and leave, though you are unsure what their destination is.  A few seem to be gathering back around the equipment, and puzzling out how to operate it.  Maybe they liked being here...' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.player.createStatusAffect( StatusAffects.DungeonShutDown, 0, 0, 0, 0 );
 	};
 	DungeonCore.prototype.factoryOverload = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You resolve to shut down the factory by overloading the storage tanks, rendering much of the equipment inoperable and difficult to repair.  With a quick twist of a knob, you override the pressure vents for the storage tanks.  Within minutes, you hear the sounds of popping rivets and straining pumps.  You look out over the factory floor and watch as many of the pipes fracture, dripping seed over the moaning captives.  Smoke rises from pumps as they short out and overheat.  The entire building shudders as a massive blast echoes from somewhere to the west.  A high pitched whine fills the building as the last motors shriek and die.  The captives slowly start to come to as the flood of drugs and artificial pleasure come to a stop.  Many break down and cry, others begin unhooking themselves and exploring their surroundings.  You watch with interest as many of them rally together and make for an exit.   The remaining survivors begin scavenging parts from the machinery and puzzling out how to use it.  Perhaps they liked it here.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.player.createStatusAffect( StatusAffects.DungeonShutDown, 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.FactoryOverload, 0, 0, 0, 0 );
 	};
@@ -882,7 +882,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				return;
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.factoryFinisher = function() {
 		EngineCore.clearOutput();
@@ -1376,13 +1376,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.outputText( 'You take a sip of the rich creamy coffee and suddenly feel refreshed. As you replace the coffeepot, the busty coffee-maker comes to life, grabbing her thick dusky nipples and squeezing out a trickle of scaldingly hot liquid. You can see her eyes roll up into her head from what you assume to be pleasure as she automatically refills the missing coffee, mouth open with ecstasy.  Her movements gradually slow as she quivers almost imperceptibly. A contented smile graces her features as immobility overtakes her, freezing her back in place.  You wonder if \'Mrs. Coffee\' was created, or is a victim of this place\'s dark master.' );
 		EngineCore.dynStats( 'lus', 1 );
 		EngineCore.HPChange( 35, false );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.takeIronKey = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You take the <b>Iron Key</b> to keep with your other important items.' );
 		CoC.player.createKeyItem( 'Iron Key', 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.openFactoryDoor = function() {
 		if( CoC.player.hasKeyItem( 'Iron Key' ) < 0 ) {
@@ -1399,7 +1399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.outputText( '\n\nYou\'ll need a little help to use it though.' );
 		CoC.player.createKeyItem( 'Cock Milker', 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.BuiltMilker, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.takeBreastMilker = function() {
 		EngineCore.clearOutput();
@@ -1407,7 +1407,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.outputText( '\n\nYou\'ll need a little help to use it though.' );
 		CoC.player.createKeyItem( 'Breast Milker', 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.BuiltMilker, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.talkToIncubus = function() {
 		EngineCore.spriteSelect( 30 );
@@ -1443,7 +1443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.outputText( 'You hand over the Hentai Comic tentatively to the male sex demon.  As soon as he has it in his grubby mitts he sits down and starts thumbing through the pages, toying with his half-hard member the entire time.  He must really like porn.' );
 		CoC.player.removeKeyItem( 'Hentai Comic' );
 		CoC.player.createStatusAffect( StatusAffects.IncubusBribed, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.incubusLossRape = function() {
 		CoC.player.slimeFeed();
@@ -2457,7 +2457,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You search the desk and find a silver key labelled \'Supervisor\'.\n\n(Supervisor\'s Key acquired!)' );
 		CoC.player.createKeyItem( 'Supervisor\'s Key', 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonCore.prototype.openPumpRoom = function() {
 		if( CoC.player.hasKeyItem( 'Supervisor\'s Key' ) < 0 ) {
@@ -2474,7 +2474,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.TakenLactaid, 4, 0, 0, 0 );
 		}
-		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, MainView.playerMenu );
 	};
 	DungeonCore.prototype.storageTakeGroPlus = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.TakenGroPlus ) >= 0 ) {
@@ -2482,7 +2482,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.TakenGroPlus, 4, 0, 0, 0 );
 		}
-		SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'dungeonCore', new DungeonCore() );
 } );

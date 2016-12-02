@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		//{Plot Item gained: 'Super Reducto'};
 		CoC.player.createKeyItem( 'Super Reducto', 0, 0, 0, 0 );
 		EngineCore.outputText( '\n\n(<b>Key Item Acquired: Super Reducto</b>)' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//Milky's Menu (Accessed from the FOLLOWERS tab);

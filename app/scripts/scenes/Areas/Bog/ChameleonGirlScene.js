@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCor
 			EngineCore.outputText( '\n\nA sudden scrape sounds behind you!  You spin around in time to see the familiar shape of a chameleon girl peeling off the trees.  She approaches you with a menacing glare in her eyes, growling "<i>This is my bog!  Get out now or... or face the consequences!</i>"  You raise your ' + CoC.player.weaponName + ' and prepare to defend yourself.' );
 		}
 		CoC.flags[ kFLAGS.TIMES_MET_CHAMELEON ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//LOSS SCENES (Intro) (Z edited)
 	ChameleonGirlScene.prototype.loseToChameleonGirl = function() {

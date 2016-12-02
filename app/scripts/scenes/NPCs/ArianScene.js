@@ -3674,7 +3674,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 		}
 		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 0;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Egging Event;
 	//Only if Arian has a vagina.;

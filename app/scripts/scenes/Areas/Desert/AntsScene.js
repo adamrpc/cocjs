@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou are now fighting demons!' );
 		Combat.startCombat( new DemonPack() );
 		CoC.monster.createStatusAffect( StatusAffects.phyllafight, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//►Console ant-morph
 	//After whuppin' demons!
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		CoC.monster.createStatusAffect( StatusAffects.PhyllaFight, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//(Tentacle Beast - Win) Standard Tentacle Beast Win Scene. (Again we're going to need to adapt the ending so the PC does not go back to camp.)
 	AntsScene.prototype.phyllaTentacleDefeat = function() {

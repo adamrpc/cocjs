@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 	Hel.prototype.helAttack = function() {
 		var damage;
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 	Hel.prototype.helAttack2 = function() {
 		var damage;
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );

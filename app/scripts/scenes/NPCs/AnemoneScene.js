@@ -1256,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 		EngineCore.outputText( '\n\nUpon reaching your destination, you dump the contents of the anemone\'s erstwhile apartment into the babbling brook, then point down-current toward the lake and set your jaw.  Glancing at your stony demeanor, the blue girl steps into the water, moistens her gills, and then begins the long trek to her ancestral home.' );
 		//(set Kidswag to -1);
 		CoC.flags[ kFLAGS.ANEMONE_KID ] = -1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[no, bonsai anemone is awesome and fuck the haters];
 	AnemoneScene.prototype.keepAnemoneKid = function() {
@@ -1273,7 +1273,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 		EngineCore.outputText( '\n\n(<b>Kid A can be found in your "Stash"!</b>)' );
 		//set Kidswag flag to 1;
 		CoC.flags[ kFLAGS.ANEMONE_KID ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//KID A FOLLOWER STUFF;
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 			EngineCore.outputText( '  Holy... how did she drag this thing home!?' );
 		}
 		EngineCore.outputText( '\n\n' );
-		SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( itype, MainView.playerMenu );
 		//(set hourssinceKiditem = 0);
 		CoC.flags[ kFLAGS.KID_ITEM_FIND_HOURS ] = 0;
 	};
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 			EngineCore.outputText( 'Your anemone daughter will not be able to guard you at night without a weapon.  If you want her to guard, you\'ll need to give her a new weapon and tell her to watch at night again.  ' );
 			CoC.flags[ kFLAGS.ANEMONE_WATCH ] = 0;
 		}
-		SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( itype, MainView.playerMenu );
 		//(add weapon to inventory, then revert Kidweapon to empty);
 		CoC.flags[ kFLAGS.ANEMONE_WEAPON_ID ] = 0;
 	};
@@ -2001,7 +2001,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 			EngineCore.outputText( '  Sighing, you turn over and attempt to return to sleep despite the pervading smell of semen.' );
 		}
 		EngineCore.dynStats( 'lus', 50 + CoC.player.sens / 2, 'resisted', false );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Kid-and-kid interaction scenes:;
 	//Cows one-time scene(plays the first time Kidswag > 0, Kidweapon is populated, and PC has 5+ delicious well-Marbled steak children);

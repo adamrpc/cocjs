@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCor
 				break;
 			default:
 				EngineCore.outputText( 'New explore code fucked up.  YOU BONED (TELL FEN)' );
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 				break;
 		}
 	};

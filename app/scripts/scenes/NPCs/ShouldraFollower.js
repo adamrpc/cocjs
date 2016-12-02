@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n(<b>Gained Shouldra as a follower!</b>)' );
 		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 1;
 		CoC.flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//PC x Shouldra x Vala Threesome: Female Scene;
 	//Add-on to the normal scene; Shouldra learns Vala's breastmilk makes things bigger, decides to return the favor. Obviously too drunk to know when to stop, Vala gets room-sized.;
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nYou stare at each other for a little while, still half-drunk from the fragrant secretions that have filled up the room.  Looking over to the fae, you see Vala returned to her normal size as she weakly tries to redo the chains that held her.  Shouldra giggles again at the poor fairy, and tries her best to stand. Pulling you up, she helps you gather your things.' );
 		CoC.player.orgasm();
 		this.shouldraSleeping( 10 + Utils.rand( 15 ), true );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//PC x Shouldra x Sand Witch;
 	//Male Scene;
@@ -784,7 +784,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}
 		CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ]++;
 		CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Talk 1 - First Possession Discussion;
 	ShouldraFollower.prototype.shouldraYappin = function() {
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}//Follower Screen Quick Text - Shouldra asleep;
 		else {
 			EngineCore.outputText( 'You try and contact Shouldra, but the ghost is still sound asleep within you.  Or whatever ghosts consider sleep after an arousing round of debauchery. Either way, you garner no response.  Best to try again later.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		var sex = null;
@@ -1476,7 +1476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nThe dream was all too real, it turns out.\n\n(<b>Minimum Lust reduced!</b>)' );
 		//Libido and Sensitivity slight increase;
 		CoC.flags[ kFLAGS.SHOULDRA_TIMES_NIGHT_RAPED_PC ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Shouldra Waking Up/PC Exploring;
 	//occurs at scene transitions similar to Exgartuan;
@@ -1872,7 +1872,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nBefore Shouldra\'s rebuttal, you at least get to make it clear for her to relinquish control over your body back to you.  She does as much while maintaining the spirited debate over semantics and property rights with the protective demon, her upper torso -- slightly scaled down -- molding up and out of your flesh.  You\'re honestly too tired to pay the two much mind, so you resume working your way back down to your bedroll.  Though with your dick still arguing with your ghost, you doubt getting under your covers would be wise.' );
 		EngineCore.outputText( '\n\n[if (isBiped = true) You instead tuck your [cock] down between your [legs] and lay on your stomach, distancing yourself from their bickering.  Neither party pays you much mind as they continue arguing, your third leg still fidgeting despite the awkward placement while Shouldra has moved residency to your back.  You cover your head with a pillow and soon thereafter head off to slumber.][if (isBiped = false) The best you can hope to manage is to lay on your side and use your covers as a makeshift fortification between you and your arguing [cock].  Shouldra and Exgartuan pay you no mind despite the odd construction, leaving you to bury your head in your pillows and, eventually, head off to sleep.]' );
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Argue 2 - When out exploring;
 	ShouldraFollower.prototype.exgartumonAndShouldraFightPartII = function() {
@@ -1941,7 +1941,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -1;
 		//Shouldra gone for good;
 		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Keep Shouldra;
 	ShouldraFollower.prototype.keepShouldraAndKickOutExgartuan = function() {
@@ -1972,7 +1972,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 		//unlocks one more scene for later that night;
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -0.5;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Keeping Shouldra 2 - Exgartuan's back from the dead!;
 	ShouldraFollower.prototype.keepShouldraPartIIExgartumonsUndeatH = function() {
@@ -1996,7 +1996,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nShouldra\'s head materializes out of your covers directly in front of yours, smiling smugly.' );
 		EngineCore.outputText( '\n\n"<i>The look on your face,</i>" the fabric phantom laughs.  You sigh and at least manage to poke your head out from under your haunted sheets.  Shouldra\'s head quickly follows you, forming on the outside to greet you.  The frisky ghost tucks you in nice and tight before she begins massaging your [cock] from every angle with her cot haunt arrangement.' );
 		EngineCore.outputText( '\n\nYou enjoy a peaceful night\'s sleep for a change.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Keep Both!";
 	//earth elemental;
@@ -2038,7 +2038,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, (12 + Utils.rand( 7 )) );
 		//unlocks follower dialog;
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 4;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Intro;
 	ShouldraFollower.prototype.shouldraBakeryIntro = function() {

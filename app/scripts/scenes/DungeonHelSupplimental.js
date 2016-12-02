@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] = 0;
 		CoC.flags[ kFLAGS.HEL_AFFECTION ] = 0;
 		SceneLib.helFollower.helAffection( -70 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Intro Scene -- Yes;
 	DungeonHelSupplimental.prototype.agreeToHelpHeliaDungeon = function() {
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		}
 		//PROC NEXT FUNCTION AT 6AM.  OVERRIDES OTHER SHIIIIITE;
 		CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = -1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//(Decrease Player Lust to minimum, increase HP to maximum, etc. etc. You're sleeping, but also fucking. Figure it out.);
 		CoC.player.orgasm();
 	};
@@ -111,14 +111,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(Display: ;
 		EngineCore.outputText( '\n\n(<b>Helia can now be found under the Lovers tab! (For Now!)</b>)' );
 		CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//Introduction -- Not Yet.;
 	DungeonHelSupplimental.prototype.notYet = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Hel you were only checking on her, and that you\'ve still got some things to do.  She sighs and quietly asks you to hurry.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Introduction -- Dungeon;
 	DungeonHelSupplimental.prototype.goToHeliaDungeon = function() {
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		SceneLib.dungeonCore.dungeonEnterRoom( DungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
 	};
 	DungeonHelSupplimental.prototype.takeGodsMead = function() {
-		SceneLib.inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.GODMEAD, MainView.playerMenu );
 		CoC.flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]++;
 	};
 	//[Armor]:;
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You approach the armor rack.  A suit of heavy plated armor sits upon it, overlaying a flexible chain vest.  Contrasting against the rotting room, the armor seems to be in pristine condition, even shining.  Perhaps someone uses this heavy equipment - but surely not a harpy? You suppose you could take it.' );
 		//(Display Options: [Take Armor] [Back]);
-		EngineCore.choices( 'Take Armor', this.takeGooArmor4Realz, '', null, '', null, '', null, 'Back', EventParser.playerMenu );
+		EngineCore.choices( 'Take Armor', this.takeGooArmor4Realz, '', null, '', null, '', null, 'Back', MainView.playerMenu );
 		//(Back takes you back to Room 1 menu);
 	};
 	//[Armor] -> [Take]:;
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 3 );
 		Combat.cleanupAfterCombat();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.flags[ kFLAGS.LOST_GOO_ARMOR_FIGHT ] = 1;
 	};
 	//Goo Armor -- PC is Victorious (Intro);
@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		EngineCore.HPChange( 1000, false );
 		Combat.cleanupAfterCombat();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Take Her];
 	DungeonHelSupplimental.prototype.takeGooArmorAndWearIt = function() {
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//("<i>You put a (previous armorName) in your X pouch);
 		EngineCore.outputText( '\n\nTo your surprise, you feel rather invigorated after the battle, thanks to Valeria\'s strange healing properties, and with a smirk, you turn your attention back to the dungeon ahead.\n\n' );
 		//(PC regains HP);
-		SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
+		SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.GOOARMR ), MainView.playerMenu );
 		CoC.flags[ kFLAGS.MET_VALERIA ] = 1;
 		EngineCore.HPChange( 1000, false );
 		CoC.flags[ kFLAGS.TOOK_GOO_ARMOR ] = 1;
@@ -452,7 +452,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( 'You ask Kiri if she wouldn\'t mind sharing a bit of information with you.' );
 		EngineCore.outputText( '\n\n"<i>Of course,</i>" she says pleasantly, "<i>that\'s what I\'m here for!  What do you want to know?</i>"' );
 		//(Display Options: [Hel] [Harpies] [Salamander] [Kiri]);
-		EngineCore.choices( 'Hel', this.askKirkAboutHel, 'Harpies', this.askKiriAboutHarpies, 'Salamander', this.askKiriAboutSalamander, 'Kiri', this.askKiriAboutKiri, 'Nevermind', EventParser.playerMenu );
+		EngineCore.choices( 'Hel', this.askKirkAboutHel, 'Harpies', this.askKiriAboutHarpies, 'Salamander', this.askKiriAboutSalamander, 'Kiri', this.askKiriAboutKiri, 'Nevermind', MainView.playerMenu );
 	};
 	//Kiri -- [Talk] -- [Hel];
 	DungeonHelSupplimental.prototype.askKirkAboutHel = function() {
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 1, 'Get Licked', this.kiriSexGetLicked );
 		}
-		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Back', MainView.playerMenu );
 	};
 	//Kiri -- [Sex] -- [Anal];
 	DungeonHelSupplimental.prototype.kiriSexAnal = function() {
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '.  With a scream of delight, Kiri clamps down on your [cock ' + y + '] and climaxes too, leaking a pool of fem-spunk onto the ground.  She starts to bounce on your cock, riding out her anal orgasm until she\'s exhausted and you\'re deflated inside her.' );
 		EngineCore.outputText( '\n\nYou pull out with a POP, letting a stream of cum leak out her butt.  You clean your cock off and stick it back in your [armor].' );
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Kiri -- [Sex] -- [Get Licked];
 	DungeonHelSupplimental.prototype.kiriSexGetLicked = function() {
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou cannot resist her skillful tongue-fuck for long.  Grabbing Kiri\'s head, you force her face into your crotch, getting every last bit of her tongue inside you as you can as you climax, spraying your fem-cum all across her face.' );
 		EngineCore.outputText( '\n\nUtterly satisfied, you stagger back from Kiri, letting her whip her head around to flick off your fem-cum.  You clean yourself off and suit up again.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Valeria];
 	DungeonHelSupplimental.prototype.talkToValeria = function() {
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>There\'s some freaky-ass half-breed harpy things upstairs that I\'ve seen around a bit.  Phoenixes, I guess they\'re called.  They breathe fire, so watch your ass.  I can absorb some of the heat, but... Don\'t get roasted, okay?</i>"' );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//[Torture Gear];
@@ -617,18 +617,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			}
 			EngineCore.outputText( '.  ' );
 		}
-		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Back', MainView.playerMenu );
 	};
 	DungeonHelSupplimental.prototype.takeWhip = function() {
-		SceneLib.inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.SUCWHIP, MainView.playerMenu );
 		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeStraps = function() {
-		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, MainView.playerMenu );
 		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeDagger = function() {
-		SceneLib.inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.L_DAGGR, MainView.playerMenu );
 		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] = 1;
 	};
 	//[Prisoner] (First Time);
@@ -657,7 +657,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		else {
 			EngineCore.outputText( 'You approach Hakon the Salamander.  He strains against his bonds, yelling at you to get Hel and get out before it\'s too late.  You roll your eyes and carry on.' );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//ATTACK ONE: SPARTAN RUSH;
@@ -746,7 +746,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			//If Genderless: [Ride Anal];
 			rideAnal = this.gitButtRoadPhoenix;
 		}
-		EngineCore.choices( 'Missionary', missionary, 'Get Wanked', wanked, 'Ride Anal', rideAnal, 'Ride Vaginal', rideVaginal, '', null, '', null, '', null, '', null, '', null, 'Back', EventParser.playerMenu );
+		EngineCore.choices( 'Missionary', missionary, 'Get Wanked', wanked, 'Ride Anal', rideAnal, 'Ride Vaginal', rideVaginal, '', null, '', null, '', null, '', null, '', null, 'Back', MainView.playerMenu );
 	};
 	//Phoenixes -- [Missionary];
 	DungeonHelSupplimental.prototype.phoenixMissionary = function() {
@@ -822,7 +822,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( ' and gather your gear.' );
 		//(Return to Mezzanine main menu);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Phoenixes -- [Get Wanked];
 	DungeonHelSupplimental.prototype.phoenixWanking = function() {
@@ -836,7 +836,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYour [cock ' + y + '] explodes, pumping a thick load into the shocked phoenix\'s mouth.  She gags on your cum, finally swallowing it as the last of your sperm drips into her mouth.  With a grin, you tell her what a good job she did as you withdraw your [cock ' + y + ']  from her grip.  With little rivulets of cum dripping down her face, the half-breed collapses onto her back, rapidly fingering herself.' );
 		//(Return to Mezzanine main menu);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Phoenixes -- [Git Butt-rode];
 	DungeonHelSupplimental.prototype.gitButtRoadPhoenix = function() {
@@ -855,7 +855,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWhen you come to your senses a few minutes later, the phoenix-girl is asleep, still holding you tight.  You pull her deflated lizard dick out of your ass and shudder as a torrent of her sizzling hot spunk dribbles out onto her thighs and hips.  You wriggle out of her tight embrace and give her a little kiss on the cheek before collecting your [armor] and heading out.' );
 		//(Return to Mezzanine main menu);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Phoenix -- [Ride Vaginal];
 	DungeonHelSupplimental.prototype.phoenixAginal = function() {
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		CoC.player.createStatusAffect( StatusAffects.Eggs, Utils.rand( 6 ), 0, (5 + Utils.rand( 3 )), 0 );
 		//(Return to Mezzanine main menu);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	DungeonHelSupplimental.prototype.harpyQueenAI = function() {
 		if( Utils.rand( 4 ) === 0 ) {
@@ -996,7 +996,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] > 0 ) {
 			hakon = this.heliaHakonTalk;
 		}
-		EngineCore.choices( 'Hakon', hakon, 'Kiri', this.heliaKiriTalk, 'Queen', queen, '', null, 'Back', EventParser.playerMenu );
+		EngineCore.choices( 'Hakon', hakon, 'Kiri', this.heliaKiriTalk, 'Queen', queen, '', null, 'Back', MainView.playerMenu );
 	};
 	//Throne Room -- [Helia] -- [Hakon];
 	DungeonHelSupplimental.prototype.heliaHakonTalk = function() {
@@ -1009,7 +1009,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '  "<i>You\'re going to pay for what you did to my father, you bitch.  I promise you that.</i>"' );
 		}
 		CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Helia] -- [Kiri];
 	DungeonHelSupplimental.prototype.heliaKiriTalk = function() {
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWith a knowing look, you ask if they\'re more than just friends.' );
 		EngineCore.outputText( '\n\n"<i>' + CoC.player.mf( 'Dude', 'Babe' ) + ', come on, you know me.  Give me SOME credit, will ya?  I\'m not letting an ass like that go to waste.</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes and laugh with her.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Helia] -- [Queen];
 	DungeonHelSupplimental.prototype.heliaQueenTalk = function() {
@@ -1034,7 +1034,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( '  "<i>Maybe snap her neck afterwards.</i>"' );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen];
 	DungeonHelSupplimental.prototype.harpyQueenAdvantage = function() {
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.player.lust > 33 && CoC.player.hasCock() ) {
 			fuck = this.fuckHarpyQueen;
 		}
-		EngineCore.choices( 'Fuck Her', fuck, 'Interrogate', this.harpyQueenInterrogate, 'Kill Her', this.killHarpyQueen, 'Let Her Go', this.letHarpyQueenGo, 'Back', EventParser.playerMenu );
+		EngineCore.choices( 'Fuck Her', fuck, 'Interrogate', this.harpyQueenInterrogate, 'Kill Her', this.killHarpyQueen, 'Let Her Go', this.letHarpyQueenGo, 'Back', MainView.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Let Her Go];
 	DungeonHelSupplimental.prototype.letHarpyQueenGo = function() {
@@ -1076,7 +1076,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\nShe turns to you, and says, "<i>For better or worse, [name], we will meet again.</i>"' );
 			EngineCore.outputText( '\n\nWith that, the harpies take flight.' );
 			//(Return PC to Room Menu);
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = -1;
 		}
 		EngineCore.dynStats( 'cor', -5 );
@@ -1099,7 +1099,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( 'out of the dungeon.  I\'ll make sure the phoenixes and harpies don\'t give you two trouble on the way out.</i>"' );
 		EngineCore.outputText( '\n\nWith that, Hel trots out the door and down the stairs, leaving you alone in the room. You notice that the queen\'s staff has fallen beside her body.' );
 		//(Return to Room Menu);
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Let Her Go] -- [Berate];
 	DungeonHelSupplimental.prototype.harpyQueenLetHerGoBerate = function() {
@@ -1111,7 +1111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou notice the queen\'s staff has fallen beside her body.' );
 		//(Remove all options but [Go Downstairs]; add [Take Staff]); (Remove Kiri from Stairwell);
 		CoC.flags[ kFLAGS.FOUGHT_WITH_HEL_IN_DUNGEON ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Kill Her];
 	DungeonHelSupplimental.prototype.killHarpyQueen = function() {
@@ -1131,14 +1131,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWith that, Hel trots out the door and down the stairs, leaving you alone in the room. You notice that the queen\'s staff has fallen beside her body.' );
 		CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
 		//(Remove all options but [Go Downstairs]; add [Take Staff]) (Remove Kiri from Stairwell);
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Take Staff];
 	DungeonHelSupplimental.prototype.takeQueensStaff = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pick up the Harpy Queen\'s staff.  It is a tall whitewood staff, nearly six feet in length, and covered in glowing eldritch runes, with a singular shimmering sphere of crystal at its head, which seems to have a swirling mist within.' );
 		//(New Weapon: EldritchStaff);
-		SceneLib.inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.E_STAFF, MainView.playerMenu );
 		//Similar stats to the Wizard's Staff, but with a better Fatigue reduction and a bonus to Magic damage/effect.;
 		CoC.flags[ kFLAGS.TOOK_QUEEN_STAFF ] = 1;
 	};
@@ -1156,7 +1156,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( CoC.player.biggestCockArea() > 50 ) {
 			anal = this.harpyQueenSexAnal;
 		}
-		EngineCore.choices( 'Anal', anal, 'Vaginal', this.vaginalHarpyQueenSex, '', null, '', null, 'Back', EventParser.playerMenu );
+		EngineCore.choices( 'Anal', anal, 'Vaginal', this.vaginalHarpyQueenSex, '', null, '', null, 'Back', MainView.playerMenu );
 	};
 	//Harpy Queen Sex -- [Dick in Anal];
 	DungeonHelSupplimental.prototype.harpyQueenSexAnal = function() {
@@ -1178,7 +1178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nSpent, you pull out of the broodmother\'s now-gaping asshole.  Her huge asscheeks, however, bottle up your load inside her, preventing it from pooling out.  Laughing, you squeeze her squishy ass one last time before Hel rolls her over and pins her again.' );
 		//(Return to normal room menu);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Harpy Queen Sex -- [Vaginal];
 	DungeonHelSupplimental.prototype.vaginalHarpyQueenSex = function() {
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		}
 		EngineCore.outputText( '\n\nAfter a fuck like that, the broodmother will be laying a clutch of your eggs in no time.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Interrogate];
 	DungeonHelSupplimental.prototype.harpyQueenInterrogate = function() {
@@ -1237,7 +1237,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\n\Hel scowls, but says nothing. It doesn\'t seem like you\'ll get anything further from the queen.' );
 		}
 		//(Return PC to room menu);
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Tower of the Phoenix: Outro;
 	//(Play when the PC interacts with Hakon, in the dungeon, while possessing both HARPY KEY key items);

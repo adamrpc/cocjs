@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, U
 		// -> Standard Imp Battle
 		Combat.startCombat( new Imp() );
 		CoC.monster.createStatusAffect( StatusAffects.KitsuneFight, 0, 0, 0, 0 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.flags[ kFLAGS.MET_KITSUNES ]++;
 	};
 	//Lose:
@@ -737,7 +737,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, U
 			EngineCore.outputText( 'red-haired' );
 		}
 		EngineCore.outputText( ' kitsune!</b>' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	KitsuneScene.prototype.loseToKitsunes = function() {

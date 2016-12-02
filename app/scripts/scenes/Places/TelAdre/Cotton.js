@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//COTTON PREGNANCY;
 	/*2. Preggo my Eggo!

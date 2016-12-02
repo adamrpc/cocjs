@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, LustyDemons, WeaponLi
 				}
 			}
 		}
-		EventParser.playerMenu(); //Avoid showing the next button. Must call it here, after setting up all the statuses, so the first round combat menu is correct
+		MainView.playerMenu(); //Avoid showing the next button. Must call it here, after setting up all the statuses, so the first round combat menu is correct
 	};
 
 	//Loss scene/Submit (gangrape) (Z);
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, LustyDemons, WeaponLi
 		//You are fighting the villagers (level 14):;
 		Combat.startCombat( new Farmers() );
 		CoC.monster.createStatusAffect( StatusAffects.GenericRunDisabled, 0, 0, 0, 0 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 		//~500 HP, 6 different attacks at 20 hp, can't run, 100% lust resistance (can't arouse), ~200 xp;
 	};
 

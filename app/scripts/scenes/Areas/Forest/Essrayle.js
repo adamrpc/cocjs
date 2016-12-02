@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 0, 'Feed Her', this.feedTrappedEssy );
 		}
-		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
 	};
 	//[Feed Her]
 	Essrayle.prototype.feedTrappedEssy = function() {
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nIt doesn\'t take long before the gushing, milky embrace of Essy\'s flowering breasts coaxes you to paint the green girl\'s emerald flesh white with your ivory seed.  As you cum, her shuddering udders seem to experience their own release, massive teats bulging between your fingers as they swell with a tremendous, liquid weight.  Then, in a strangely synchronized discharge, surging gouts of milky sap shower out in pressured geysers that rain down around the two of you in a sticky deluge of rich passion.  The floor teems with sprouting undergrowth while the plant girl\'s shapely ass jiggles with orgasmic delight as the soil she\'s planted in turns a deep black, instantly enriched by her fertile cream.' );
 		EngineCore.outputText( '\n\nExhausted anew, Essy reclines in her pot, already dozing with an expression of happy contentment.  Though she\'s still imprisoned, you\'ve at least set her at ease.  While you might like to move her somewhere more private, the sheer weight of her pot is more than enough to frustrate any attempt you might make.  Best to just leave her and check in later.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Essrayle.prototype.hasPussyFeedEssy = function( newPage ) {
 		if( newPage === undefined || newPage ) {
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		if( CoC.player.fertility < 50 ) {
 			CoC.player.fertility++;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//(After defeating the Cum Witch)
 	Essrayle.prototype.essyWitchVictory = function() {
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		CoC.player.gems += 100 + Utils.rand( 70 );
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( '\n\n"<i>Well, maybe in the future you\'ll change your mind and find another way to do it on your own.  But I guess for now I\'ll just see you around!  Thanks for the save, hun!</i>"  The planty beauty blows you a kiss before she heads off, bulging breasts jiggling and bouncing steadily all the way.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Yes]
 	Essrayle.prototype.acceptEssyPrizes = function() {
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nThe passionate kiss goes on for a while before she releases it, sticky strands of saliva still clinging to both of your mouths.  Separating, she leans back and puffs herself out once more, smiling to you.  "<i>Do enjoy yourself a bit, Hero.  Here\'s hoping we meet again.</i>"  She places the back of her hand conspiratorially against the side of her mouth and lowers her voice.  "<i>After you get a chance to enjoy your improved chest a bit, I\'d love to get my shot at playing with those lovely melons!</i>"' );
 		EngineCore.outputText( '\n\nWith a shameless giggle, she kisses the peak of one of your breasts while groping the one next to it.  "<i>Mmm, yes, I\'d ravish them hard and drain you dry right now, but out of respect I\'ll let you have the first crack at it.</i>"  With a dainty wave, she shuffles towards the exit and is gone once more.\n\n' );
 		//[End Encounter]
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Essrayle.prototype.askMotherToReleaseEssy = function() {
 		EngineCore.clearOutput();
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( '\n\nThat\'ll do.' );
 		}
 		CoC.flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'essrayle', new Essrayle() );
 } );

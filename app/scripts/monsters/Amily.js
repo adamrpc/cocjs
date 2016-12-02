@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 		var dodged = 0;
 		var damage;
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 		var dodged = 0;
 		var damage = 0;
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			dodged++;

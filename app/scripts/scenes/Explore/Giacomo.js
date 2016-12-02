@@ -509,7 +509,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC,
 			EngineCore.outputText( 'The Succubus stops, turns and points to you in derision.  "<i>And YOU!  You no-cock, no-cunt having pissant!  Take your ass back to the lab before they find out you escaped!!!!!</i>"\n\n' );
 			EngineCore.outputText( 'The Succubus resumes her stormy exit.  You look at the bottle of Cerulean Potion and wonder if it REALLY had some psychotropics in it.  What the hell just happened?!' );
 			CoC.flags[ kFLAGS.CERULEAN_POTION_NEUTER_ATTEMPTED ] = 1;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		if( CoC.player.gender === 1 ) {
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC,
 			EngineCore.outputText( 'She gives a giggle and disappears before your eyes.  At that moment the fatigue from the massive fucking you received catches up with you and you pass out in a slump.' );
 			EngineCore.dynStats( 'str', 0.5, 'lus', 4 );
 		}
-		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, MainView.playerMenu );
 	};
 	Giacomo.prototype.nightSuccubiRepeat = function() {
 		EngineCore.spriteSelect( 8 );
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC,
 				EngineCore.outputText( 'As the cacophony fades, you only hear one facetiously toned word,\n\n', false );
 				EngineCore.outputText( '"<i><b>Problem?</b></i>"', false );
 			}
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		CoC.player.orgasm();
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC,
 		EngineCore.outputText( '\n', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'tou', Utils.rand( 2 ), 'spe', Utils.rand( 2 ), 'int', Utils.rand( 2 ), 'cor', 1 );
-		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'giacomo', new Giacomo() );
 } );

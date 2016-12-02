@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		} else {
 			EngineCore.outputText( 'You scramble away from the demons, but are too late. A swift demon with canine features tackles you to the ground.  Luckily he loses his grip as you tumble onto the sand and you slither free, stand up and wheel to face the host of leering demons which begin to advance with malicious intent.', true );
 			Combat.startCombat( new DemonPack() );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	Oasis.prototype.oasisTalk = function() {
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		//MORTAL KOMBAAAAAT
 		EngineCore.outputText( 'The demons begin to circle menacingly, and you can do nothing but prepare to defend yourself.', false );
 		Combat.startCombat( new DemonPack() );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Oasis.prototype.oasisTalkAccept = function() {
 		EngineCore.spriteSelect( 46 );
@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	//Desert Tribe Bad End

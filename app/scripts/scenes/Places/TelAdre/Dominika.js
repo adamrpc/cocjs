@@ -561,7 +561,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, CockTypesEnum, 
 		EngineCore.outputText( 'She is the sky and the sorceress, suns burning in her eyes but stolen of all light. Stars blink out within her lips. Each staggering step brings you closer, until you trip and fall up into their awaiting darkness. You try to lift and reach out but the tar clings to you, drags your limbs back in as you fight. Surrender would be easier. Looking up into the planet, antediluvian tentacles break from the crust and curve slowly towards you, sucked into the tar pit like yourself. It climbs higher, or you sink lower, or both, and you wonder if you will suffocate when it swallows you.\n\n', false );
 		EngineCore.outputText( 'As the weight of the tar covers your eyes the stars above blink into sight. Panting, you realize you have returned to your campsite, sweaty and uncomfortable with the fire burnt out. The dream is over, memories of it already fading. You remember lips, and stars, and the crushing weight of the darkness.\n\n', false );
 		EngineCore.outputText( 'You think you preferred the dreams about the factory.', false );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//[After UNKNOWN CRITERIA, CAN TRIGGER AFTER POST-SCYLLA SCENE, ONE-SHOT, HAPPENS AFTER DOMI SCENE];

@@ -2492,7 +2492,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 			EngineCore.outputText( 'As she collapses onto the ground, crying her heart out, you silently redress yourself and slink away. All this blubbering has turned you off, and it\'s obvious that nothing can be done until you\'ve grown a cock, a pussy, or both.', false );
 			EngineCore.dynStats( 'lus', -20 );
 			if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 ) {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			} else {
 				EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 			}
@@ -3216,7 +3216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 					}
 
 					EngineCore.outputText( 'You put the vial back in its pouch, as Amily excuses herself and walks off.', false );
-					EngineCore.doNext( EventParser.playerMenu );
+					EngineCore.doNext( MainView.playerMenu );
 					return;
 				}
 				//[Purified Incubus Draft - If Amily is Hermaphrodite];
@@ -4768,7 +4768,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 		CoC.flags[ kFLAGS.AMILY_NIPPLE_LENGTH ] = 0.3;
 		CoC.flags[ kFLAGS.AMILY_HIP_RATING ] = 6;
 		CoC.flags[ kFLAGS.AMILY_ASS_SIZE ] = 6;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[=Stay Friends=];
 	AmilyScene.prototype.declineButBeFriends = function() {
@@ -4777,7 +4777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 		EngineCore.outputText( 'You think about it, and then shake your head. You tell her that you do appreciate her feelings, but you\'re not sure the two of you are ready to make the committment that living together entails. Besides, your camp is set up to guard the portal leading back to your world; that makes it a magnet for demons. You can\'t imagine exposing her to the danger that moving to camp would entail for her.\n\n', false );
 		EngineCore.outputText( 'Amily doesn\'t look entirely happy, but you assure her that you will keep coming back to see her. And when you tease at the possibility of a few more litters in your respective futures, stroking her penis through her tattered pants, she blushes but agrees to go.\n\n', false );
 		//(Amily returns to the Ruined Village; this scene will repeat the next time the player gives birth to a litter of Amily's children);
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Shoot the bitch down!;
 	//[=Not Interested=];
@@ -4788,7 +4788,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 		EngineCore.outputText( 'Amily reels, heartstruck, her expression making it clear that her heart has shattered, tears rolling down her face. "<i>I...I didn\'t know that was the way you felt about me. F-Fine, if that\'s how it is...</i>" She bursts into sobs and runs away; you know she\'ll never come back.\n\n', false );
 		//Disable village encounters, go!;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Gender Modified:;
 	AmilyScene.prototype.amilyNewGenderConfrontation = function() {
@@ -7050,7 +7050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors
 		} else {
 			EngineCore.outputText( '[pg]If only you had a cock, you could fuck them all.' );
 		}
-		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
 		//[Get doubleteamed {Vag req}] [Fuck Cunts] [Fuck 'Em All][Skedaddle];
 	};
 	//Fuck Cunts/All (extra pg or two) (Z);

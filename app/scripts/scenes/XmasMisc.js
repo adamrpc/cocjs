@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 	XmasMisc.prototype.declineChickenBlowjobs = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The harpy squints at you suspiciously.  "<i>What do you mean, \'no thanks?\'  Nobody says that around here!</i>"  She rolls her eyes and sighs in an obviously exaggerated manner, then turns tail and flaps off into the distance.  You head back to camp, quite looking forward to the silence.  The air warms and the snow thaws soon after you return, leaving no trace of its presence but a few spots of slushy mud.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Accept];
 	XmasMisc.prototype.acceptChristmasBJs = function() {
@@ -201,7 +201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 			EngineCore.outputText( 'You free your [cock ' + (x + 1) + '] from your [armor], signaling your acceptance.  Your monster flops free, and the harpy grabs at her throat reflexively when she looks at it.  She glances up to you with wide eyes and back down at it.  "<i>A-a promise is a promise, but...</i>"' );
 			EngineCore.outputText( '\n\nShe turns and flees with a few terrified flaps of her wings.  You sigh, covering your enormous prick once more.  At least you won\'t have to deal with her pesky shrieking any more.  The air warms and the snow thaws soon after you return, leaving no trace of its presence but a few spots of slushy mud.' );
 			EngineCore.dynStats( 'lus', 10 );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		//(else if cock would please Goldilocks) (area<= 30 or some shit i dunno whatever the standard is);
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 			EngineCore.outputText( '\n\nThe happy girl suddenly hugs you as you\'re in the process of putting your prick back into your [armor].  The silvery glow around her pale skin looks stronger now, so strong that you\'re almost sure you can see it.  "<i>Oh, thank you!</i>" she starts, but quickly composes herself.  "<i>For, um, helping me.  Up.</i>"  She lets go and backs away from you.  "<i>I\'ve gotta be going though, see you around!  Enjoy the weather!</i>"  With that, she wings off into the skies.  She lands atop a nearby tree, arms outstretched in an odd pose.  The silvery glow surrounding her is still visible, even at a distance.  You shake your head and return to camp, wondering who in the world that was.  Not long after you return, the air warms once more and the snow melts, leaving the ground a slushy mess in spots.' );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	XmasMisc.prototype.acceptChristmasWomanBJ = function() {
 		EngineCore.clearOutput();
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 		EngineCore.outputText( '\n\nShe suddenly embraces you as you readjust your [armor].  The silvery glow around her pale skin looks stronger now, so strong that you\'re almost sure you can see it.  "<i>Oh, thank you!</i>" she starts, but quickly composes herself.  "<i>For, um, helping me.  Up.</i>"  She lets go and backs away from you.  "<i>I\'ve gotta be going though, see you around!  Enjoy the weather!</i>"  With that, she wings off into the skies.  She lands atop a nearby tree, arms outstretched in an odd pose.  The silvery glow surrounding her is still visible, even at a distance.  You shake your head and return to camp, wondering who in the world that was.  Not long after you return, the air warms once more and the snow melts, leaving the ground a slushy mess in spots.' );
 		//(end female);
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//3. nRage's Kanga herm lovin;
 	//Xmas 'Roo Romping.;
@@ -604,7 +604,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 		//(Adds "<i>Snow</i>" to the Stash or Lover menu);
 		EngineCore.outputText( '\n\n(\'Snow\' added to the <b>Items</b> menu!)' );
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Creation!;
 	//Accessed from "<i>Snow</i>" at the Lover or Stash menu.;
@@ -1331,7 +1331,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, 
 			}
 			CoC.flags[ kFLAGS.NIEVE_STAGE ] = 0;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	XmasMisc.prototype.fixNieve = function() {
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 0 ) {

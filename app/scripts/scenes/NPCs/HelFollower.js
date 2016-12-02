@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, OnLoadVariables, Hel, C
 		EngineCore.outputText( ', and maybe you and I can spend some quality time together.  Alright?"</i>' );
 		EngineCore.outputText( '\n\nYou nod and tell your fiery lover you\'ll be sure to do just that.' );
 		CoC.flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Come2Camp] -Dirty;
 	HelFollower.prototype.comeToCampHeliaIWantTailInButt = function() {
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, OnLoadVariables, Hel, C
 		EngineCore.outputText( '\n\nYou roll your eyes and give her a little swat on the ass toward the plains.  Laughing, Hel blows a kiss over her shoulder before dashing off to collect her belongings.' );
 		EngineCore.outputText( '\n\n(<b>Hel has been added to the Lovers menu!</b>)' );
 		CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = 2;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Just Friends] -Dirt;
 	HelFollower.prototype.justFriendsWithAnalTailWaifu = function() {
@@ -286,7 +286,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, OnLoadVariables, Hel, C
 			return;
 		} else {
 			CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] = 9001;
-			EventParser.playerMenu();
+			MainView.playerMenu();
 			return;
 		}
 		EngineCore.menu();
@@ -1753,7 +1753,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, OnLoadVariables, Hel, C
 	HelFollower.prototype.stayHomeFromHeliaParty = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Aww, lame,</i>" Hel groans, sighing.  "<i>Fiiiiiine.  I guess I\'ll just go have awesome fun and party hard without you. Don\'t stick too hard into that mud, lover,</i>" she chuckles, giving you a reassuringly affectionate kiss on the cheek before trucking off.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	HelFollower.prototype.helPartyMenu = function() {
 		EngineCore.menu();

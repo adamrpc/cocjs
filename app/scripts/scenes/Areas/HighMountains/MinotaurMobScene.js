@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MinotaurMob
 	MinotaurMobScene.prototype.fightOTaurs = function() {
 		Combat.startCombat( new MinotaurMob() );
 		EngineCore.spriteSelect( 94 );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 	};
 	//[Submit]
 	MinotaurMobScene.prototype.submitToMinotaurMob = function() {

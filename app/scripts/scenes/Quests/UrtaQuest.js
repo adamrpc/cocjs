@@ -1570,7 +1570,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Sirius, GnollSpearThrow
 		CoC.monster.short = 'alpha gnoll';
 		CoC.monster.HP = CoC.monster.eMaxHP(); // TODO extract to AlphaGnoll class
 		CoC.monster.long = 'The gnoll standing before you is obviously an alpha among her kind; she has to be over seven feet tall and rippling with muscle, not that this stops her from having a curvy form, squeezable ass and full E-cup boobs.  The remnants of what must have once been a gorgeous and expensive silken dress are draped across her figure, torn off at the knees and hanging by only a single shoulder, arms bare and exposed.  A heavy necklace of gold is wrapped around her neck, while bracelets of more of the same adorn her arms, and piercings of gold stud her ears.  She carries a mighty-looking spear in her hands, which she brandishes at you menacingly, and a basket of throwing javelins is strapped to her back.';
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Fight*;
 	//Use attack descriptions/effects from Gnoll Spearthrower;

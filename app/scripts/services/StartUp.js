@@ -26,7 +26,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		StartUp.startupScreenBody();
 		var resume = null;
 		if( CoC.player.str > 0 ) { // we're in a game, allow resume.
-			resume = EventParser.playerMenu;
+			resume = MainView.playerMenu;
 		}
 		// I really wanted to only have the 'imageCreditsScreen' button if images were found, but it turns out
 		// that if you check if any images were found immediately when this screen is shown, you get 0

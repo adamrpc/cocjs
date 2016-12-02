@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 				}
 			}
 			EngineCore.outputText( '\n<b>You have gained the perk Marble Resistance</b> (You know how to avoid the addictive qualities of her milk!)\n', false );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return true;
 		}
 		//Become permanently addicted (occurs when the player goes to sleep with addiction 100, before it is reduced by the standard 1):;
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 				}
 			}
 			EngineCore.outputText( '\n(You gain the <b>Marble\'s Milk</b> perk.  It boosts your strength and toughness, but requires that you drink Marble\'s Milk every day.)\n', false );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return true;
 		}
 		if( this.checkedMarbleMilk++ === 0 && CoC.time.hours === 6 && CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 					OnLoadVariables.timeQ++; //We can get rid of this;
 				}
 			}
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return true;
 		}
 		return false;
@@ -2379,7 +2379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 			EngineCore.outputText( ' and her children' );
 		}
 		EngineCore.outputText( ', and leaves the camp behind.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.flags[ kFLAGS.BROKE_UP_WITH_MARBLE ] = 1;
 		CoC.player.removeStatusAffect( StatusAffects.CampMarble );
 		CoC.player.removeStatusAffect( StatusAffects.NoMoreMarble );
@@ -2393,7 +2393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 		if( CoC.player.findStatusAffect( StatusAffects.MarbleSpecials ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.MarbleSpecials, 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//I don't understand your code enough yet to come up with the conditions for these ifs:;
 		//General thoughts:;
 		EngineCore.outputText( 'You call Marble over and the two of you sit down on some rocks to chat.  After thinking a bit, you sort through everything that has happened in this strange land, trying to come up with a new story for your bovine friend.  ', true );
@@ -2525,7 +2525,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 	};
 	MarbleScene.prototype.marbleGathered = function() {
 		EngineCore.spriteSelect( 41 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//If Marble has found an item, it is collected with this button;
 		//What she has available is determined either in a fixed order, or at random.  Once an item has been chosen, an appropriate number days must pass before it can be collected from her.;
 		EngineCore.outputText( 'You ask Marble about any supplies she might have found.  She smiles and hands you her latest find.\n\n', true );
@@ -3398,7 +3398,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 			}
 			//cow-girl child is added to the nursery, her name is set to "<i>childName</i>";
 			CoC.flags[ kFLAGS.MARBLE_KIDS ]++;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		//Eggs;
 		else if( this.pregnancy.type === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
@@ -3428,7 +3428,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 			if( OnLoadVariables.timeQ > 0 ) {
 				SceneLib.inventory.takeItem( itype, SceneLib.camp.doSleep );
 			} else {
-				SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( itype, MainView.playerMenu );
 			}
 		}
 	};
@@ -3506,7 +3506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 			} else {
 				EngineCore.outputText( '  Do you ask Marble if she\'d like to have sex?' );
 				//[Ask][Don't Ask];
-				EngineCore.choices( 'Ask', this.atNightAskMarbleForSomeSexMaybe, 'Don\'t Ask', EventParser.playerMenu, '', null, '', null, '', null );
+				EngineCore.choices( 'Ask', this.atNightAskMarbleForSomeSexMaybe, 'Don\'t Ask', MainView.playerMenu, '', null, '', null, '', null );
 				return true;
 			}
 			EngineCore.outputText( '  ' );
@@ -3531,11 +3531,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 				if( CoC.player.isNaga() && CoC.flags[ kFLAGS.MARBLE_DICK_LENGTH ] > 0 ) {
 					tailJob = this.giveMarbleTailjobRelease;
 				}
-				EngineCore.choices( 'Yes', this.marbleNomNoms, 'No', EventParser.playerMenu, 'Tailjob', tailJob, '', null, '', null );
+				EngineCore.choices( 'Yes', this.marbleNomNoms, 'No', MainView.playerMenu, 'Tailjob', tailJob, '', null, '', null );
 			} else {
 				EngineCore.outputText( '.  I can tell you want this too, so can we please have sex?</i>"  You sit up and consider her request.  Will you have sex with Marble?  If not, you could always offer to give her oral instead.' );
 				//options: yes/no/oral (yes continues to the next part of the scene as it did before.;
-				EngineCore.choices( 'Yes', this.marbleNightSexIntro, 'No', EventParser.playerMenu, 'Oral', this.marbleNomNoms, '', null, '', null );
+				EngineCore.choices( 'Yes', this.marbleNightSexIntro, 'No', MainView.playerMenu, 'Oral', this.marbleNomNoms, '', null, '', null );
 			}
 			return true;
 		}
@@ -3592,7 +3592,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 			this.marbleNightSexIntro( false );
 			return;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 
 	//SEKCS;
@@ -3611,7 +3611,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 		//No sex if dude and too big!;
 		else if( CoC.player.gender === 1 && CoC.player.cockArea( x ) > this.marbleCuntCapacity() ) {
 			EngineCore.outputText( 'You lie down next to her, but you can\'t help wishing that the two of you could have sex.  Suddenly, you feel Marble\'s hand grab a hold of your ' + Descriptors.cockDescript( x ) + '.  She sighs and says, "<i>Sweetie, I\'m afraid that you won\'t fit inside me.  Do you think you could get a little smaller, just for me?</i>"  After a moment of getting comfortable, the two of you go to sleep.', false );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		//Ok lets light this fire!;
 		EngineCore.outputText( 'At that moment, you feel Marble breathe in your ear, "<i>I know you want this, don\'t you sweetie?</i>"\n\n', false );
@@ -3939,7 +3939,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 		EngineCore.outputText( '"<i>Thank you so much sweetie.  Next time if you\'re in the mood, maybe we can have fun together,</i>" says Marble.', false );
 		//Increase PC lust by (random number 0-10) + lib/10;
 		EngineCore.dynStats( 'lus', Utils.rand( 10 ) + CoC.player.lib / 10 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Next set of items that can be given to Marble;
 	//Pure incubus draft;
@@ -4196,7 +4196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, On
 		//slimefeed if corruption, gain fuckin' lust n lower marble lust n' shit;
 		EngineCore.dynStats( 'lus', 20 );
 		CoC.flags[ kFLAGS.MARBLE_LUST ] = 0;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	// TheDarkMaster's Marble in her Milker;
 	MarbleScene.prototype.milkMarble = function() {

@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	//Explore High Mountain
 	HighMountains.prototype.exploreHighMountain = function() {
 		CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		if( SceneLib.d3.discoverD3() === true ) {
 			return;
 		}

@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Appearance, Cons
 		}
 		EngineCore.outputText( 'dose of Marae\'s tender affections.</i>"\n\n', false );
 		//Incase something breaks;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Cant fly?  Stuck for sex!;
 		if( !CoC.player.canFly() ) {
 			EngineCore.outputText( 'You don\'t see any escape!', false );

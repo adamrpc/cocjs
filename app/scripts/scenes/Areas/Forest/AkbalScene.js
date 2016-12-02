@@ -851,7 +851,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		} else {
 			EngineCore.outputText( 'You awake in your camp feeling dangerous, powerful and fiercely satisfied.', false );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	/*
 	 [Items]

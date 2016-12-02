@@ -1002,7 +1002,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, $log, CockTypesEnum
 			CoC.player.slimeFeed();
 		}
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	Exgartuan.prototype.exgartuanBulgeTortureII = function() {
 		EngineCore.outputText( '', true );
@@ -1164,7 +1164,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, $log, CockTypesEnum
 		EngineCore.outputText( '  You pay one more glance to Exgartuan, the ' + Descriptors.cockDescript( 0 ) + ' comfortably resting away in your outfit.\n\n', false );
 		EngineCore.outputText( 'Damn demons.', false );
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Exgartuan in breasts;
 	//≥48 hours since Boobgartuan masturbation scene. ;
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, $log, CockTypesEnum
 		EngineCore.dynStats( 'lus', 5, 'cor', 2 );
 		CoC.flags[ kFLAGS.BOOBGARTUAN_SURPRISE_COUNT ]++;
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Requirements:;
 	//Exgartuan in cock;

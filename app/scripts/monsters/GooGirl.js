@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 	GooGirl.prototype.gooGalAttack = function() {
 		var damage = 0;
 		//return to combat menu when finished
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 			EngineCore.outputText( 'Her body quivering from your flames, the goo-girl ', false );
 		} else {

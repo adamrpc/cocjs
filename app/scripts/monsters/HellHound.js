@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 				return;
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	HellHound.prototype.hellhoundScent = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {

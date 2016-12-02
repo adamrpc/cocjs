@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				EngineCore.outputText( '\n\nYou don\'t move quickly enough, however, and you may as well be running on the spot; the edge of the pit recedes as the fluid sand carries you downwards.  You struggle upright as best you can and ready yourself to fight the sandtrap, which is leering at you hungrily from the bottom of its vast pit.' );
 				EngineCore.outputText( '\n\n"<i>Only a matter of time now, little ant,</i>" it says huskily, in its fluttering, buzzing voice.  You will have to defeat it in order to escape, and before it pulls you to the bottom!' );
 				Combat.startCombat( new SandTrap() );
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 		}
 	};
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 		Combat.startCombat( new SandTrap() );
 		CoC.monster.changeStatusValue( StatusAffects.Level, 1, 2 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Don't Save]:
 	SandTrapScene.prototype.dontSaveTheTarps = function() {
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 
 	SandTrapScene.prototype.startSandTarpFight = function() {
 		Combat.startCombat( new SandTrap() );
-		EventParser.playerMenu();
+		MainView.playerMenu();
 		EngineCore.spriteSelect( 97 );
 	};
 

@@ -673,7 +673,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Perfect!</i>" he says, moving forward to gather up the flasks.  "<i>You can go, now.  This is a delicate process, and any mistakes may lead to an outbreak of large-breasted and dim-witted fauna.</i>"  He pauses, gauging your expression.  "<i>... Which is <b>not</b> a good thing,</i>" he adds.  Almost as an afterthought, he extends his hand toward the table, saying, "<i>I\'d like the payment now, if you\'d please.</i>"  You separate out the appropriate number of gems for the demon.  He snatches it up and idly throws it behind him, where you hear a clunk and tinkle as it strikes something and rolls a bit.' );
 		EngineCore.outputText( '\n\n"<i>Now shoo, I must do work!</i>" he scolds, ushering you out of the cave.  "<i>Come back tomorrow!</i>"  Satisfied, you leave his shop.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		CoC.player.gems -= 500;
 		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
 		CoC.player.consumeItem( ConsumableLib.BIMBOCH );

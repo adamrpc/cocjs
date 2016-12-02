@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.ANT_WAIFU ] > 0 ) {
 			EngineCore.addButton( 8, 'Phylla', SceneLib.antsScene.introductionToPhyllaFollower );
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Camp.prototype.campSlavesMenu = function() {
 		EngineCore.clearOutput();
@@ -1082,7 +1082,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( goo !== null ) {
 			EngineCore.addButton( 8, CoC.flags[ kFLAGS.GOO_NAME ], goo );
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Camp.prototype.campFollowers = function() {
 		var rathazulEvent = null;
@@ -1165,7 +1165,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		EngineCore.addButton( 4, 'Shouldra', shouldra );
 		//ABOVE: EngineCore.ddButton(4,"Sophie",followerSophieMainScreen);
 		EngineCore.addButton( 6, 'Valeria', valeria2 );
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Camp.prototype.rest = function() {
 		this.campQ = true;
@@ -1559,7 +1559,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
 			EngineCore.addButton( 8, 'Tel\'Adre', SceneLib.telAdre.telAdreMenu );
 		}
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Camp.prototype.placesPage2 = function() {
 		EngineCore.menu();
@@ -1572,7 +1572,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			EngineCore.addButton( 1, 'Oasis Tower', SceneLib.minervaScene.encounterMinerva );
 		}
 		EngineCore.addButton( 4, 'Previous', this.placesToPage1 );
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	Camp.prototype.placesToPage1 = function() {
 		CoC.flags[ kFLAGS.PLACES_PAGE ] = 0;
@@ -1617,7 +1617,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 			}
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	SceneLib.registerScene('camp', new Camp());
 } );

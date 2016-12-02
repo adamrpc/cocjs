@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, 
 	Shouldra.prototype.shouldrattack = function() {
 		var damage = 0;
 		//return to combat menu when finished;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'The girl wades in for a swing, but you deftly dodge to the side. She recovers quickly, spinning back at you.', false );

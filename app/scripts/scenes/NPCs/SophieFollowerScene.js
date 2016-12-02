@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, CockTypesEnum
 		CoC.flags[ kFLAGS.TIMES_MORNING_SOPHIE_FEMDOMMED ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', 3 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Alert Message For Going Into Season☼;
 	//Similar to bimbo sophie;
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, CockTypesEnum
 		EngineCore.outputText( '\n\nWith that, she darts above the camp, flying back to her home in the high mountains.  You were having such a nice dream, too.' );
 		EngineCore.dynStats( 'lus', -5 );
 		CoC.flags[ kFLAGS.NO_PURE_SOPHIE_RECRUITMENT ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Kiss Her;
 	SophieFollowerScene.prototype.kissSophieRecruitment = function() {
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, CockTypesEnum
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n(<b>Sophie is now available in the followers tab!</b>)' );
 		CoC.flags[ kFLAGS.SOPHIE_RECRUITED_PURE ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	/*Sophie daughter incest.  scenes
 	 vaginal, maybe anal.

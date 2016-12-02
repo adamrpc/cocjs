@@ -1443,7 +1443,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 				EngineCore.addButton( 9, 'Leave', Combat.cleanupAfterCombat );
 			}
 		} else {
-			EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+			EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 		}
 	};
 	//*Decline Sex;
@@ -1453,7 +1453,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 	};
 	//*Male Victory Sex;
@@ -1569,7 +1569,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
@@ -1609,7 +1609,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
@@ -1646,7 +1646,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
@@ -1694,7 +1694,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( EventParser.playerMenu );
+				EngineCore.doNext( MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
@@ -2592,7 +2592,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.addButton( 8, 'Sex', this.sexWithFriendlySandMother );
 		}
 
-		EngineCore.addButton( 9, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Leave', MainView.playerMenu );
 	};
 	DungeonSandWitch.prototype.slavesDiscussion = function() {
 		EngineCore.menu();
@@ -2612,7 +2612,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		if( CoC.player.inte <= 20 ) {
 			EngineCore.outputText( '\n\nYou start to respond, stop, and have to think for a moment.  You spend a good long minute contemplating, before shrugging.  You\'re sure there\'s a convincing argument against this, but can\'t think of it at the moment.' );
 			//[Back to menu;
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 			return;
 		}
 		// Else:;
@@ -2641,7 +2641,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 	DungeonSandWitch.prototype.noDemandMilkRelease = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You suppose not, when she puts it that way.  The poor girl\'s probably better off here than in the clutches of the demons.  Seeing you relent, the Sand Mother smiles and pats your shoulder.  "<i>I\'m glad you can see things my way, [name].  There is wisdom in you.  Come, let us speak of other things,</i>" she says, leading you back to her throne room.' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Gimme her (Gimme dat delicious milk slut);
 	DungeonSandWitch.prototype.gimmeDatDeliciousMilkWaifuINeedMoreWaifusCauseTheTwoCowslutsWerentEnoughForMyInsatiableLacticLustandDesire = function() {
@@ -2732,7 +2732,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		if( CoC.flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] > 0 && CoC.flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] === 0 ) {
 			EngineCore.addButton( 7, 'Essrayle', SceneLib.essrayle.askMotherToReleaseEssy );
 		}
-		EngineCore.addButton( 9, 'Leave', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Leave', MainView.playerMenu );
 	};
 
 	DungeonSandWitch.prototype.sandMotherStuffGOA = function() {
@@ -3030,7 +3030,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		if( !CoC.isInCombat() ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -3133,7 +3133,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		if( !CoC.isInCombat() ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -3182,7 +3182,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		if( !CoC.isInCombat() ) {
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -3648,7 +3648,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\n"<i>Thank you, Champion.  Perhaps you wouldn\'t mind helping me again with this some time in the future...</i>"' );
 		CoC.flags[ kFLAGS.TIMES_FRIENDLY_FUCKED_SAND_MOTHER ]++;
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Friendly Milk-Ride (Optional?);
 	//>Lesbo milk-filling;
@@ -3736,7 +3736,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nSighing, you eventually disentangle yourself from the satisfied enchantress, but not before giving her a long, wet kiss.' );
 		EngineCore.outputText( '\n\n"<i>Perhaps we can tend to our needs the next time they get out of hand,</i>" she suggests.  Yes, you just might have to. ' );
 		CoC.player.orgasm();
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*History;
 	//>Learn about the origin of the sand witches.;
@@ -3811,7 +3811,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//[Send Them Out] [Back];
 		//[Keep Them In] [Back];
 		//[Bolster Numbers] [Back];
-		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 4, 'Back', MainView.playerMenu );
 	};
 	//Send them out:;
 	DungeonSandWitch.prototype.sendOutCumWitch = function() {
@@ -3829,7 +3829,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 	};
 	DungeonSandWitch.prototype.sendOutOrKeepInEnding = function() {
 		EngineCore.outputText( '\n\nThe Sand Mother nods and graciously answers, "<i>Very well.  I will honor your request, for now.  I cannot speak for the other covens, but you are unlikely to stray into their territory.  When our time of ascendance comes, do not expect me to honor your requests so freely.  We will stop the Demon Queen however we must, regardless of your wishes.</i>"' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//Bolster Numbers:;
 	DungeonSandWitch.prototype.moreCumWitchesPlease = function() {
@@ -3838,7 +3838,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 			EngineCore.outputText( 'Wouldn\'t it be better if there were like, lots of cum witches, with yummy cocks that you could suck?' );
 			EngineCore.outputText( '\n\n"<i>No, it wouldn\'t,</i>" the Sand Mother retorts, ending the conversation.' );
-			EngineCore.doNext( EventParser.playerMenu );
+			EngineCore.doNext( MainView.playerMenu );
 		}
 		EngineCore.outputText( 'You ask her if it wouldn\'t be more humane to simply create a few more cum witches, allowing them to split their duties and actually have time to serve in other ways, either as normal sisters or perhaps helping with the recruitment.' );
 		EngineCore.outputText( '\n\n"<i>Doing so would reduce milk production and our breeding population somewhat,</i>" the Dune Mother protests.  "<i>We have done things this way for nearly two decades... it is the most efficient way.</i>"' );
@@ -3901,7 +3901,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.outputText( '\n\nYou\'re suddenly not so sure this was a great idea.' );
 			CoC.flags[ kFLAGS.SAND_WITCH_LEAVE_ME_ALONE ] = 0;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Lactaid;
 	//>Get lactaid;
@@ -3920,7 +3920,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nYou decline the offer and repeat your request for Lactaid, which sours the woman\'s expression slightly.  The corners of her mouth are still upturned in a half smirk when she procures a bottle and hands it to you.  After, she smooths her hand across her robed lap, and for a split second, you wonder if she\'s trying to beckon you to take a seat there...  You shake your head as you examine the bottle in your hand.  You got what you came for.\n\n' );
 		CoC.flags[ kFLAGS.SAND_WITCH_LOOT_TAKEN ]++;
 		//Receive one lactaid;
-		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, MainView.playerMenu );
 	};
 	//*Labova;
 	//>Get Labova;
@@ -3944,7 +3944,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\n"<i>That is good.  The ways of beasts offer many boons.  This one is quite useful for enhancing lactation, for instance.  However, there is great risk in reveling in such transformation.  Be sure that you don\'t lose yourself to it,</i>" the statuesque sorceress warns.' );
 		EngineCore.outputText( '\n\nYou nod, and she gives you the La Bova.\n\n' );
 		CoC.flags[ kFLAGS.SAND_WITCH_LOOT_TAKEN ]++;
-		SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, MainView.playerMenu );
 	};
 	//TURN EM OFF!;
 	DungeonSandWitch.prototype.unfriendlyWitchToggle = function() {
@@ -3968,7 +3968,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.outputText( '\n\nYou reply, "<i>I wouldn\'t dream of it.</i>"' );
 			CoC.flags[ kFLAGS.SAND_WITCH_LEAVE_ME_ALONE ] = 0;
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//EngineCore.addButton(5,'Get LaBova',this.takeLaBovaOrLactaid, false);;
 	//EngineCore.addButton(6,'Get Lactaid',this.takeLaBovaOrLactaid);;
@@ -3978,16 +3978,16 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( 'Smirking, you circle around the Sand Mother\'s throne towards the secure chests behind her.  She stiffens when you come close but doesn\'t make a move.  The poor little witch is afraid of you, and with good reason.  You gather the item you came for, condescending patting the sorceress\'s platinum tresses on your way back in front of her throne.  She glares at you.\n\n' );
 		//New lines and take appropriate item.;
 		if( lactaid === undefined || lactaid ) {
-			SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.LACTAID, MainView.playerMenu );
 		} else {
-			SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, MainView.playerMenu );
 		}
 	};
 	DungeonSandWitch.prototype.pullLever = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'There is a loud rumbling from the direction of the cavernous commons...' );
 		CoC.flags[ kFLAGS.SANDWITCH_THRONE_UNLOCKED ] = 1;
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Take Fertile Pills ✓Kirbu;
 	DungeonSandWitch.prototype.takeFertilePills = function() {
@@ -4003,7 +4003,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.outputText( '.' );
 			CoC.player.removeStatusAffect( StatusAffects.Contraceptives );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Take Barren Pills✓Kirbu;
 	DungeonSandWitch.prototype.takeBarrenPills = function() {
@@ -4023,7 +4023,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			}
 			CoC.player.createStatusAffect( StatusAffects.Contraceptives, 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Friendly Cum Witch Blessing;
 	//✓Kirbu;
@@ -4066,7 +4066,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Thinking better of it, you grab your [armor] and get dressed, telling the jizz-obsessed enchantress that you don\'t need her gifts for now.' );
 		EngineCore.outputText( '\n\n"<i>Awww, and I thought we were going to have some fun,</i>" the sable seductress purrs.  "<i>Perhaps you\'ll see the error of your ways and come back for a proper blessing soon.</i>"  She pumps her fat cock until thick dribbles of sperm-tinted pre-cum slobbers out of her drooling dick-tip once more.  "<i>Don\'t be a stranger.</i>"' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Virility/Fertility;
 	DungeonSandWitch.prototype.cumWitchBlessed = function( virility ) {
@@ -4120,7 +4120,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -5 );
 		EngineCore.outputText( '</b>' );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Impregnating Pregnant Sand Witches by Xodin (NEEDS EDIT);
 	DungeonSandWitch.prototype.knockUpSomeDoubleStuffedSandWitches = function() {
@@ -4146,7 +4146,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		}
 		//[MASS GANGBANG] *Requires lots of cocks of appropriate size and enough lust.;
 		//[TENTACLE GANGBANG] *Requires lots of tentacle cocks and enough lust.;
-		EngineCore.addButton( 9, 'Back', EventParser.playerMenu );
+		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
 	};
 	//~ FUCK ONE;
 	DungeonSandWitch.prototype.fuckOneSandWitch = function() {
@@ -4288,7 +4288,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	// FUCK TWO AT ONCE;
 	DungeonSandWitch.prototype.fuckTwoPregWitches = function() {
@@ -4412,7 +4412,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//~ FUCK EM ALL;
 	DungeonSandWitch.prototype.fuckAllThePregWitches = function() {
@@ -4667,7 +4667,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nFinally finished, you stand in a pool of your own jizz and stare down at the piles of tits and bellies that allegedly are women but for all intent and purpose have become nothing more than sacks of flesh filled with milk, babies, and cum.  Each of them is covered in a layer of sweat and splooge, and small mewing cries of satisfied delight emanate from somewhere underneath those heavy orbs.  You can\'t help but wonder how long it\'ll take for them to give birth so that you can once again knock them up with the broods of children that their bodies are so obviously intended to produce.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//*Sand Witch Milk Bath -McGirt;
 	DungeonSandWitch.prototype.milkBathsAhoy = function() {
@@ -4704,7 +4704,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//(+Lust, -Fatigue);
 		EngineCore.dynStats( 'lus', 10 );
 		EngineCore.fatigue( -50 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Milk Girl];
 	DungeonSandWitch.prototype.grabTheMilkGirl = function() {
@@ -4771,7 +4771,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//[+Lust, +HP, -Fatigue];
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
 		EngineCore.fatigue( -20 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Fuck Her] (PC has a Dick);
 	DungeonSandWitch.prototype.fuckMilkbabeWithPenor = function() {
@@ -4797,7 +4797,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//[+Lust, +HP, -Fatigue];
 		CoC.player.orgasm();
 		EngineCore.fatigue( -15 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Fuck Her] (PC has Cooch & C+cups);
 	DungeonSandWitch.prototype.ladyFucks = function() {
@@ -4827,7 +4827,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//[+Lust, +HP, -Fatigue];
 		CoC.player.orgasm();
 		EngineCore.fatigue( -15 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	//[Drink & Masturbate];
 	DungeonSandWitch.prototype.drinkNFap = function() {
@@ -4887,7 +4887,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.fatigue( -15 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( EventParser.playerMenu );
+		EngineCore.doNext( MainView.playerMenu );
 	};
 	/*336 === bigger belly
 	 280 === prolly pregger

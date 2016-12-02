@@ -1691,7 +1691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, PregnancyStore, Izma, C
 		} else {
 			EngineCore.outputText( 'Izma smiles as she pulls a tooth from her chest.  She hands it to you with a pleased expression.  "<i>Anything for you, my Alpha.</i>"  ' );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00246 ]++;
-			SceneLib.inventory.takeItem( ConsumableLib.TSTOOTH, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.TSTOOTH, MainView.playerMenu );
 		}
 	};
 	//[Appearance];
