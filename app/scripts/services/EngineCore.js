@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			_add( new Perk( PerkLib.Nymphomania ) );
 		}
 		//Slot 7 - UNFINISHED :3
-		if( EngineCore.minLust() >= 20 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 50 ) {
+		if( CoC.player.minLust() >= 20 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 50 ) {
 			_add( new Perk( PerkLib.Acclimation ) );
 		}
 		//Tier 1 Corruption Perks - acclimation over-rides
@@ -951,7 +951,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.statScreenRefresh();
 	};
 	EngineCore.changeFatigue = EngineCore.fatigue;
-	EngineCore.minLust = CoC.player.minLust;
 	EngineCore.displayStats = function( ) {
 		EngineCore.spriteSelect( -1 );
 		EngineCore.outputText( '', true );
@@ -1626,8 +1625,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		} else if( CoC.player.lib < 10 && CoC.player.gender === 0 ) {
 			CoC.player.lib = 10;
 		}
-		if( CoC.player.lib < EngineCore.minLust() * 2 / 3 ) {
-			CoC.player.lib = EngineCore.minLust() * 2 / 3;
+		if( CoC.player.lib < CoC.player.minLust() * 2 / 3 ) {
+			CoC.player.lib = CoC.player.minLust() * 2 / 3;
 		}
 		//Minimum sensitivity.
 		if( CoC.player.sens > 100 ) {
@@ -1647,8 +1646,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			CoC.player.lust = 100;
 		}
 		//Update to minimum lust if lust falls below it.
-		if( CoC.player.lust < EngineCore.minLust() ) {
-			CoC.player.lust = EngineCore.minLust();
+		if( CoC.player.lust < CoC.player.minLust() ) {
+			CoC.player.lust = CoC.player.minLust();
 		}
 		//worms raise min lust!
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
