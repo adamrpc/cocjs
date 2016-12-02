@@ -2222,6 +2222,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'attitude' ) {
 						return CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] & BEE_GIRL_ATTITUDE;
 					}

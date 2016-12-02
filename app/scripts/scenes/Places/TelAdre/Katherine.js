@@ -6341,6 +6341,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ArmorLib, BreastStor
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'ballSize' ) {
 						return CoC.flags[ kFLAGS.KATHERINE_BALL_SIZE ];
 					}

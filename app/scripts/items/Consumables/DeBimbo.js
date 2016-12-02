@@ -33,6 +33,9 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'description' ) {
 						if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 							return 'This should totally like, fix your brain and stuff.  You don\'t really think anything is wrong with your head - it feels all pink and giggly all the time.';

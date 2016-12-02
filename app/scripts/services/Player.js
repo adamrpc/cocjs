@@ -1938,6 +1938,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'armorName' ) {
 						if( this.modArmorName.length > 0 ) {
 							return this.modArmorName;

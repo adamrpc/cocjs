@@ -19,6 +19,9 @@ angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Weapon, Engi
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'attack' ) {
 						return 7 + Math.ceil( 10 - CoC.player.cor / 3 );
 					}

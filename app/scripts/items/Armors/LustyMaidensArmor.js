@@ -162,6 +162,9 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'def' ) {
 						if( CoC.player.hasVirginVagina() ) {
 							return 9 + CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ];

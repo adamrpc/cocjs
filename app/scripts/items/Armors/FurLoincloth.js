@@ -12,6 +12,9 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'description' ) {
 						return 'A pair of loincloths to cover your crotch and ' + CoC.player.buttDescript() + '.  Typically worn by people named \'Conan\'.';
 					}

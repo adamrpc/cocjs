@@ -47,6 +47,9 @@ angular.module( 'cocjs' ).factory( 'ItemSlot', function( ItemType, CoC_Settings 
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'quantity' ) {
 						return target._quantity;
 					}

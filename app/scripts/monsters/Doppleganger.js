@@ -250,6 +250,9 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'long' ) {
 						return this._getLong();
 					}

@@ -15,6 +15,9 @@ angular.module('cocjs').factory('Perk', function () {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'perkName' ) {
 						return target.ptype.name;
 					}

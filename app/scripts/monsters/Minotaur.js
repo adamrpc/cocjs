@@ -82,6 +82,9 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
+					if(_.has(target.prototype, name)) {
+						return target.prototype[name];
+					}
 					if( name === 'long' ) {
 						return 'An angry-looking minotaur looms over you.  Covered in shaggy ' + this.hairColor + ' fur, the beast is an imposing sight.  Wearing little but an obviously distended loincloth, he is clearly already plotting his method of punishment.  Like most minotaurs he has hooves, a cow-like tail and face, prominent horns, and impressive musculature. ' +
 							(this.ballSize > 4 ? ('  Barely visible below the tattered shreds of loincloth are ' + Appearance.ballsDescription( true, true, this ) + ', swollen with the minotaur\'s long pent-up need.') : '') +
