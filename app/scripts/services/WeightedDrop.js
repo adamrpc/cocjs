@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ChainedDrop', function( ) {
+angular.module( 'cocjs' ).factory( 'WeightedDrop', function( ) {
 	function WeightedDrop( first, firstWeight ) {
 		this.items = [];
 		this.sum = 0;
