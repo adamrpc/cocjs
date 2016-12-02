@@ -1,17 +1,15 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLAGS, $showdown, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
 	function Parser() {
 		this.init( this, arguments );
 	}
-	Parser.prototype.init = function( that, args ) {
-		this._ownerClass = args[ 0 ]; // main game class. Variables are looked-up in this class.
-		this._settingsClass = args[ 1 ]; // global static class used for shoving conf vars around
+	Parser.prototype.init = function( that ) {
 		// this.parserState is used to store the scene-parser state.
 		// it is cleared every time recursiveParser is called, and then any scene tags are added
 		// as parserState['sceneName'] = 'scene content'
-		this.parserState = {};
-		this.buttonNum = 0;
+		that.parserState = {};
+		that.buttonNum = 0;
 	};
 	/**
 	 this.Parser Syntax:
@@ -131,7 +129,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		var capitalize = this.isUpperCase( arg.charAt( 0 ) );
 		var argLower = arg.toLowerCase();
 		if( Parser.singleArgConverters[argLower] ) {
-			argResult = Parser.singleArgConverters[ argLower ]( this._ownerClass );
+			argResult = Parser.singleArgConverters[ argLower ]( CoC );
 			if( this.lookupParserDebug ) {
 				$log.warn( 'WARNING: Called, return = ', argResult );
 			}
@@ -145,7 +143,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 			// UGLY hack to patch legacy functionality in TiTS
 			// This needs to go eventually
 			var descriptorArray = arg.split( '.' );
-			var obj = this.getObjectFromString( this._ownerClass, descriptorArray[ 0 ] );
+			var obj = this.getObjectFromString( CoC, descriptorArray[ 0 ] );
 			if( obj === null ) { // Completely bad tag
 				if( this.lookupParserDebug || this.logErrors ) {
 					$log.warn( 'WARNING: Unknown subject in ' + arg );
@@ -160,7 +158,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 			if( this.lookupParserDebug ) {
 				$log.warn( 'WARNING: Lookup Arg = ', arg );
 			}
-			obj = this.getObjectFromString( this._ownerClass, arg );
+			obj = this.getObjectFromString( CoC, arg );
 			if( obj !== null ) {
 				if( _.isFunction(obj) ) {
 					if( this.lookupParserDebug ) {
@@ -350,7 +348,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		if( Parser.twoWordNumericTagsLookup[subjectLower] && !isNaN( aspect ) ) {
 			aspectLower = parseInt( aspectLower );
 			$log.debug( 'Found corresponding anonymous function' );
-			argResult = Parser.twoWordNumericTagsLookup[ subjectLower ]( this._ownerClass, aspectLower );
+			argResult = Parser.twoWordNumericTagsLookup[ subjectLower ]( CoC, aspectLower );
 			if( capitalize ) {
 				argResult = _.capitalize( argResult );
 			}
@@ -361,7 +359,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		if( Parser.twoWordTagsLookup[subjectLower] ) {
 			if( Parser.twoWordTagsLookup[ subjectLower ][aspectLower] ) {
 				$log.debug( 'Found corresponding anonymous function' );
-				argResult = Parser.twoWordTagsLookup[ subjectLower ][ aspectLower ]( this._ownerClass );
+				argResult = Parser.twoWordTagsLookup[ subjectLower ][ aspectLower ]( CoC );
 				if( capitalize ) {
 					argResult = _.capitalize( argResult );
 				}
@@ -377,7 +375,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		// UGLY hack to patch legacy functionality in TiTS
 		// This needs to go eventually
 		var descriptorArray = subject.split( '.' );
-		thing = this.getObjectFromString( this._ownerClass, descriptorArray[ 0 ] );
+		thing = this.getObjectFromString( CoC, descriptorArray[ 0 ] );
 		if( thing === null ) { // Completely bad tag
 			$log.error( 'Unknown subject in ' + inputArg );
 			return '<b>!Unknown subject in "' + inputArg + '"!</b>';
@@ -390,7 +388,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		}
 		// end hack
 		// ---------------------------------------------------------------------------------
-		var aspectLookup = this.getObjectFromString( this._ownerClass, aspect );
+		var aspectLookup = this.getObjectFromString( CoC, aspect );
 		if( thing !== null ) {
 			if( _.isFunction(thing)) {
 				$log.debug( 'Found corresponding function in owner class' );
@@ -488,13 +486,13 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		}
 		if( Parser.conditionalOptions[argLower] ) {
 			$log.debug( 'Found corresponding anonymous function' );
-			argResult = Parser.conditionalOptions[ argLower ]( this._ownerClass );
+			argResult = Parser.conditionalOptions[ argLower ]( CoC );
 			$log.debug( 'Called, return = ', argResult );
 			return argResult;
 		}
 
-		var obj = this.getObjectFromString( this._ownerClass, arg );
-		$log.debug( 'Looked up ', arg, ' in ', this._ownerClass, 'Result was:', obj );
+		var obj = this.getObjectFromString( CoC, arg );
+		$log.debug( 'Looked up ', arg, ' in ', CoC, 'Result was:', obj );
 		if( obj !== null ) {
 				$log.debug( 'Found corresponding function for conditional argument lookup.' );
 			if( _.isFunction(obj)) {
@@ -595,7 +593,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 				case '|':                  // At a conditional split
 					if( nestLevel === 0 ) { // conditional split is only valid in this context if we\'re not in a nested bracket.
 						if( section === 1 ) { // barf if we hit a second '|' that\'s not in brackets
-							if( this._settingsClass.haltOnErrors ) {
+							if( CoC_Settings.haltOnErrors ) {
 								throw new Error( 'Nested IF statements still a WIP' );
 							}
 							ret = [ '<b>Error! Too many options in if statement!</b>',
@@ -675,7 +673,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 				}
 			}
 		} else {
-			if( this._settingsClass.haltOnErrors ) {
+			if( CoC_Settings.haltOnErrors ) {
 				throw new Error( 'Invalid if statement!', textCtnt );
 			}
 			return '<b>Invalid IF Statement<b/>' + textCtnt;
@@ -754,25 +752,23 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		$log.debug( 'Entering parser scene: "' + sceneName + '"' );
 		$log.debug( 'Do we have the scene name? ', _.has(this.parserState, sceneName) );
 		if( sceneName === 'exit' ) {
-			$log.debug( 'Enter scene called to exit' );
+			$log.error( 'Enter scene called to exit' );
 			//doNextClear(debugPane);
 			// TODO:
 			// This needs to change to something else anyways. I need to add the ability to
 			// tell the parser where to exit to at some point
-			this._ownerClass.debugPane();
 		} else if( _.has(this.parserState, sceneName) ) {
 			$log.debug( 'Have scene "' + sceneName + '". Parsing and setting up menu' );
-			this._ownerClass.menu();
+			EngineCore.menu();
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
 			ret = $showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) );
-			this._ownerClass.rawOutputText( ret, true );			// and then stick it on the display
+			EngineCore.rawOutputText( ret, true );			// and then stick it on the display
 			$log.debug( 'Scene contents after markdown: "' + ret + '"' );
-		} else if( this.getObjectFromString( this._ownerClass, sceneName ) !== null ) {
+		} else if( this.getObjectFromString( CoC, sceneName ) !== null ) {
 			$log.debug( 'Have function "' + sceneName + '" in this!. Calling.' );
-			this.getObjectFromString( this._ownerClass, sceneName )();
+			this.getObjectFromString( CoC, sceneName )();
 		} else {
-			$log.debug( 'Enter scene called with unknown arg/function "' + sceneName + '". falling back to the debug pane' );
-			this._ownerClass.doNext( this._ownerClass.debugPane );
+			$log.error( 'Enter scene called with unknown arg/function "' + sceneName + '". falling back to the debug pane' );
 		}
 		return ret;
 	};
@@ -810,7 +806,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 		}
 		var buttonName = _.trim( arr[ 1 ] );
 		var buttonFunc = _.trim( arr[ 0 ].substring( arr[ 0 ].indexOf(' ')));
-		this._ownerClass.addButton( this.buttonNum, buttonName, this.enterParserScene, buttonFunc );
+		EngineCore.addButton( this.buttonNum, buttonName, this.enterParserScene, buttonFunc );
 		this.buttonNum += 1;
 	};
 	// pushes the contents of the passed string into the scene list object if it\'s a scene, or instantiates the named button if it\'s a button
@@ -984,7 +980,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLA
 			// since we\'re initially called via a outputText command, the content of the first page\'s text will be overwritten
 			// when we return. Therefore, in a horrible hack, we return the contents of mainTest.htmlText as the ret value, so
 			// the outputText call overwrites the window content with the exact same content.
-			this._ownerClass.currentText = ret;
+			CoC.currentText = ret;
 		}
 		return ret;
 	};

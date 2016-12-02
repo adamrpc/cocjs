@@ -2,7 +2,7 @@
 
 angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
-    var parser = new Parser(CoC.getInstance(), CoC_Settings);
+    var parser = new Parser( );
 	EngineCore.silly = function() {
 		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
 	};
