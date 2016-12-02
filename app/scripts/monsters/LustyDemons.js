@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, EngineCore
 			EngineCore.outputText( '\n\nThe demons smile to one at another as they watch your display, then close in...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenesgetInstance().scenes.owca.loseOrSubmitToVapula();
+			CoC.scenesgetInstance().scenes.owca.loseOrSubmitToVapula();
 		}
 	};
 	LustyDemons.prototype.teased = function( lustDelta ) {

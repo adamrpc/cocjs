@@ -16,9 +16,9 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			EngineCore.outputText( 'He snarls as you duck his blow and it swishes harmlessly through the air.' );
 		} else {
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) );
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( 'It feels like you just got hit with a wooden club! (' + damage + ')' );
 			} else {
 				EngineCore.outputText( 'You successfully block it.' );
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 	Satyr.prototype.satyrBate = function() {
 		EngineCore.outputText( 'He glares at you, panting while his tongue hangs out and begins to masturbate.  You can nearly see his lewd thoughts reflected in his eyes, as beads of pre form on his massive cock and begin sliding down the erect shaft.' );
 		//(small Libido based Lust increase, and increase lust);
-		EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 5) + 4 );
+		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) + 4 );
 		this.lust += 5;
 		Combat.combatRoundOver();
 	};
@@ -50,13 +50,13 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 			EngineCore.outputText( 'He charges at you with a loud bleat, but using your misdirecting skills, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
 			this.HP -= 5;
 		} else {
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) );
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( 'He charges at you with a loud bleat, catching you off-guard and sending you flying into the ground.' );
-				if( CoC.getInstance().player.findPerk( PerkLib.Resolute ) < 0 ) {
+				if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
 					EngineCore.outputText( '  The pain of the impact is so big you feel completely dazed, almost seeing stars.' );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 				}
 				//stun PC + hp damage if hit, hp damage dependent on str if miss;
 				EngineCore.outputText( ' (' + damage + ')' );
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 	Satyr.prototype.bottleChug = function() {
 		EngineCore.outputText( 'He whips a bottle of wine seemingly from nowhere and begins chugging it down, then lets out a bellowing belch towards you.  The smell is so horrible you cover your nose in disgust, yet you feel hot as you inhale some of the fetid scent.' );
 		//(damage PC lust very slightly and raise the satyr's lust.);
-		EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 5) );
+		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) );
 		this.lust += 5;
 		Combat.combatRoundOver();
 	};
@@ -81,10 +81,10 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 		} else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatMisdirect() || Combat.combatEvade() ) {
 			EngineCore.outputText( 'As he charges you, you grab him by the horns and spin around, sending him away.' );
 		} else {
-			EngineCore.outputText( 'You fall with a <b>THUD</b> and the Satyr doesn\'t even bother to undress you before he begins rubbing his massive cock on your body until he comes, soiling your [armor] and ' + CoC.getInstance().player.skinFurScales() + ' with slimy, hot cum.  As it rubs into your body, you shiver with unwanted arousal.' );
+			EngineCore.outputText( 'You fall with a <b>THUD</b> and the Satyr doesn\'t even bother to undress you before he begins rubbing his massive cock on your body until he comes, soiling your [armor] and ' + CoC.player.skinFurScales() + ' with slimy, hot cum.  As it rubs into your body, you shiver with unwanted arousal.' );
 			//large-ish sensitivity based lust increase if hit.)(This also relieves him of some of his lust, though not completely.);
 			this.lust -= 50;
-			EngineCore.dynStats( 'lus', (CoC.getInstance().player.sens / 5 + 20) );
+			EngineCore.dynStats( 'lus', (CoC.player.sens / 5 + 20) );
 		}
 		Combat.combatRoundOver();
 	};

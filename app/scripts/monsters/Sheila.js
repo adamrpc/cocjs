@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		var damage = 0;
 		this.spe -= 30;
 		//Midget misfire (if PC < 3'6"):;
-		if( CoC.getInstance().player.tallness < 42 && Utils.rand( 2 ) === 0 ) {
+		if( CoC.player.tallness < 42 && Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'Sheila bounces up to you and crouches low, curling her body like a watchspring.  She uncoils with her fist aimed at your jaw, but you easily perform a crouch of your own and duck under her lanky form, unbending yourself to push her legs up as she flies harmlessly overhead.  You can hear a partial shriek before she crashes face-first into the dirt behind you.' );
 			damage = 3 + Utils.rand( 10 );
 			damage = Combat.doDamage( damage );
@@ -23,29 +23,29 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
 			EngineCore.outputText( 'Sheila bounces up to you and crouches low, curling up her body like a watchspring.  The girl uncoils with fist raised, but you lean away from the uppercut, catching a faceful of her breasts instead!  Sheila squeals and pushes away from you' );
 			//[(libido>40);
-			if( CoC.getInstance().player.lib > 40 ) {
+			if( CoC.player.lib > 40 ) {
 				EngineCore.outputText( ', though not before you have a chance to stick your tongue in her cleavage!' );
 			} else {
 				EngineCore.outputText( '.' );
 			}
 			EngineCore.outputText( '  Blushing pinkly, she crosses her arms over her chest as she resumes her distance.' );
 			//(+med-small lib-based lust damage to PC);
-			EngineCore.dynStats( 'lus', 10 + Utils.rand( CoC.getInstance().player.sens / 10 ) );
+			EngineCore.dynStats( 'lus', 10 + Utils.rand( CoC.player.sens / 10 ) );
 		}
 		//Hit:;
 		else {
 			EngineCore.outputText( 'Sheila bounces up to you and crouches low, curling up her body like a watchspring.  The girl uncoils just as quickly, launching herself at your face with a fist raised in front of her.  She lands a staggering crack on your jaw which knocks your head back and blurs your vision!' );
 			//deals minor concussion which adds 5-10 pts fatigue, may stun pc and prevent attack, misses while blinded or misfires on pcs under 3'6");
 			EngineCore.fatigue( 5 + Utils.rand( 5 ) );
-			if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.findPerk( PerkLib.Resolute ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
+			if( Utils.rand( 2 ) === 0 && CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
 				EngineCore.outputText( '  <b>You are stunned!</b>' );
 			}
-			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			if( damage < 1 ) {
 				damage = 2;
 			}
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 		}
 		this.spe += 30;
@@ -67,15 +67,15 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		else {
 			EngineCore.outputText( 'Sheila squats down, then bounds explosively toward you feet-first!  She snaps one leg out softly just as she reaches your chest, then twists her body to the side, bringing her other leg over and landing a kick to the rear of your skull!  Your vision blurs and you wobble on your feet as she pushes off your chest.' );
 			//Stun triggered:;
-			if( CoC.getInstance().player.findPerk( PerkLib.Resolute ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.Stunned, 2, 0, 0, 0 );
+			if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.Stunned, 2, 0, 0, 0 );
 				EngineCore.outputText( '  <b>You are stunned!</b>' );
 			}
-			damage = Math.ceil( (this.str + 50 + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + 50 + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			if( damage < 1 ) {
 				damage = 2;
 			}
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 			EngineCore.fatigue( 10 + Utils.rand( 6 ) );
 		}
@@ -101,13 +101,13 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			EngineCore.outputText( 'Sheila\'s blind eyes glint suspiciously as she focuses her power, trying to send her fantasy to anything caught in their stare.  It seems to work - the rock next to you vibrates a little.' );
 		}
 		//Miss:;
-		else if( CoC.getInstance().player.inte / 15 + Utils.rand( 20 ) + 1 > 16 ) {
+		else if( CoC.player.inte / 15 + Utils.rand( 20 ) + 1 > 16 ) {
 			EngineCore.outputText( 'Sheila\'s eyes glint suspiciously as she proclaims her affection for you and begs you to look into them, but you keep your head down and focus on her feet.  You can feel her stare boring holes into you, but eventually she abandons the attempt.' );
 		}
 		//Hit:;
 		else {
 			EngineCore.outputText( 'Sheila\'s eyes glint suspiciously, and you feel your mind slowing down and your body heating up as you meet her lascivious gaze.  Too late you look away, but the damage is done; her fantasies of ' );
-			if( !CoC.getInstance().player.hasCock() ) {
+			if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( 'burying her drooling tail inside you until it squirts' );
 			} else {
 				EngineCore.outputText( 'riding your dick to the hilt' );
@@ -121,14 +121,14 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 				// inteDown.visible = true;;
 				// inteUp.visible = false;;
 				while( counter > 0 ) {
-					if( CoC.getInstance().player.inte >= 2 ) {
-						CoC.getInstance().player.inte--;
+					if( CoC.player.inte >= 2 ) {
+						CoC.player.inte--;
 						this.addStatusValue( StatusAffects.TwuWuv, 1, 1 );
 					}
 					counter--;
 				}
 			}
-			EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 10 );
+			EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10 + CoC.player.cor / 10 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		else if( SceneLib.sheilaScene.sheilaCorruption() < 150 ) {
 			EngineCore.outputText( '  As her hands run over the soft-looking mammaries, kneading and squeezing them, teasing the nipples relentlessly until she lets out a cute little moan, you feel the blood rush to your face.  "<i>Enjoying this, are you?</i>" she calls sweetly.  "<i>Why don\'t you stop being contrary and come play with them too?</i>"' );
 			//med lib-based lust damage if 20 < sheila corruption < 150;
-			EngineCore.dynStats( 'lus', 25 + CoC.getInstance().player.lib / 10 );
+			EngineCore.dynStats( 'lus', 25 + CoC.player.lib / 10 );
 		}
 		//(else; 'miss');
 		else {
@@ -158,8 +158,8 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		//Hit:;
 		if( !Combat.combatMiss() && !Combat.combatEvade() && !Combat.combatMisdirect() && !Combat.combatFlexibility() ) {
 			EngineCore.outputText( 'It lands on target, and you\'re forced to close your eyes lest it get in them!' );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Blind, 1, 0, 0, 0 );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.SheilaOil, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Blind, 1, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.SheilaOil, 0, 0, 0, 0 );
 		} else {
 			EngineCore.outputText( 'You easily lean away from the path of her tainted fluids, and she sighs.  "<i>You\'re no fun, mate.</i>"' );
 		}
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		this.lust = 100;
 		this.HP = 0;
 		//(if PC lust < 30);
-		if( CoC.getInstance().player.lust < 33 ) {
+		if( CoC.player.lust < 33 ) {
 			EngineCore.outputText( '\n\nYou\'re not that interested, though; Sheila harrumphs as you pass her by and leave.' );
 			Combat.cleanupAfterCombat();
 			return;
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 	Sheila.prototype.lickEmAndStickEm = function() {
 		EngineCore.outputText( 'Sheila\'s voice gets closer, becoming disarmingly apologetic as you scrub furiously at your face in darkness.  "<i>Oh, my.  I didn\'t mean to get that in your eyes... let me help clean you up, love.</i>"  Your face is gently gripped between her hands and pulled down, then the demon begins passing her tongue over you affectionately, wiping the fluid away with long, ticklish licks as you wait for the other shoe to fall.' );
 		EngineCore.outputText( '"<i>All better,</i>" Sheila announces.  With her thumb, she gingerly pushes one eyelid up before you can pull away, proving her claim - and causing you to look right into her own glowing, purple iris.  A fantasy invades your mind, one where ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[oneCock] fucks Sheila to the base while her tail snakes around and penetrates your [vagOrAss]' );
 		} else {
 			EngineCore.outputText( 'you take Sheila from behind by plunging her spaded tail into your [vagina] as she lies face-down on the ground with her ass pushed in the air' );
@@ -196,15 +196,15 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		//results, no new pg;
 		//[(int check passed);
 		//Miss:;
-		if( CoC.getInstance().player.inte / 15 + Utils.rand( 20 ) + 1 > 16 ) {
+		if( CoC.player.inte / 15 + Utils.rand( 20 ) + 1 > 16 ) {
 			EngineCore.outputText( '\n\nBefore the fantasy can advance, you recoil and pull out of the demon\'s hands, shoving her away.' );
-			EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 15 + CoC.player.sens / 20 + CoC.player.lib / 20 );
 		}
 		//(int check failed);
 		else {
 			EngineCore.outputText( '\n\nYour ego\'s urgent danger warnings are drowned in a sea of rising lust, and you find yourself transfixed.  The vision continues until Sheila tires of fantasizing.' );
 			//mild lib-based lust gain if PC resists; else big int drop and big lib-based lust gain plus Infest lock for remainder of fight;
-			EngineCore.dynStats( 'lus', 25 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 25 + CoC.player.sens / 20 + CoC.player.lib / 20 );
 			//harder to resist and bigger damage than normal Suspicious Glint;
 		}
 		Combat.combatRoundOver();
@@ -216,11 +216,11 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		//results, no new pg;
 		//[(sheila corruption < 100; hit, 'light damage')];
 		if( SceneLib.sheilaScene.sheilaCorruption() < 100 ) {
-			EngineCore.outputText( 'The silence is broken with a giggle as the demon catches you in an embrace, pressing her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts into you.  You shiver as she drags the perky nipples over your ' + CoC.getInstance().player.skinFurScales() + ', but push her away.' );
-			EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
+			EngineCore.outputText( 'The silence is broken with a giggle as the demon catches you in an embrace, pressing her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts into you.  You shiver as she drags the perky nipples over your ' + CoC.player.skinFurScales() + ', but push her away.' );
+			EngineCore.dynStats( 'lus', 15 + CoC.player.sens / 20 + CoC.player.lib / 20 );
 		} else if( SceneLib.sheilaScene.sheilaCorruption() < 300 ) {
-			EngineCore.outputText( 'A sigh ends the silence as your body is partially enfolded in the hot valley of an aroused Sheila\'s cleavage. As the demon grabs you and pushes her tits into you, the skin-on-' + CoC.getInstance().player.skinFurScales() + ' contact makes you shiver, and your attempts to get free meet with some resistance... or rather, a lack of resistance, as the soft, yielding breast flesh quivers and heats to your touch without moving the demon overmuch.  You accidentally brush her nipples several times before you can escape, unleashing horny moans from Sheila that linger in your mind.' );
-			EngineCore.dynStats( 'lus', 25 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
+			EngineCore.outputText( 'A sigh ends the silence as your body is partially enfolded in the hot valley of an aroused Sheila\'s cleavage. As the demon grabs you and pushes her tits into you, the skin-on-' + CoC.player.skinFurScales() + ' contact makes you shiver, and your attempts to get free meet with some resistance... or rather, a lack of resistance, as the soft, yielding breast flesh quivers and heats to your touch without moving the demon overmuch.  You accidentally brush her nipples several times before you can escape, unleashing horny moans from Sheila that linger in your mind.' );
+			EngineCore.dynStats( 'lus', 25 + CoC.player.sens / 20 + CoC.player.lib / 20 );
 		} else {
 			{//; miss)
 			}
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			return;
 		}
 		var choices = [];
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.SheilaOil ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SheilaOil ) < 0 ) {
 			choices = [ this.suspiciousGlint,
 				this.tittyMonsterAttack,
 				this.splashAttackLookOutShellEvolveIntoGyrados ];
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		choices[ Utils.rand( choices.length ) ]();
 	};
 	Sheila.prototype.performCombatAction = function() {
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
 			this.demonSheilaAI();
 			return;
 		}
@@ -265,14 +265,14 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		}
 	};
 	Sheila.prototype.defeated = function() {
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
 			SceneLib.sheilaScene.beatUpDemonSheila();
 		} else {
 			SceneLib.sheilaScene.sheilaGotWhomped();
 		}
 	};
 	Sheila.prototype.won = function() {
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
 			SceneLib.sheilaScene.loseToSheila();
 		} else {
 			SceneLib.sheilaScene.getBeatUpBySheila();
@@ -280,7 +280,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 	};
 	Sheila.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
-		var sheilaDemon = CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1;
+		var sheilaDemon = CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1;
 		that.a = '';
 		that.short = 'Sheila';
 		that.imageName = 'sheila';
@@ -289,9 +289,9 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		} else {
 			that.long = 'Sheila is a slim, somewhat athletic woman, over six feet in height.  Most of her lightly-tanned skin is hidden, either by her vest and shorts or by the fuzzy fur that covers her legs from the thighs down to her prominent nails.  Her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts are briefly defined against the white of her shirt as she sways on her feet, ' + (SceneLib.sheilaScene.sheilaCorruption() <= 40 ? 'small, round things that match her slender frame.' : 'swollen, jiggling globes that stand in contrast to her slender body and tell a tale of all the corruption that has been pumped into her.') + '  Her straight, jaw-length auburn hair hangs unrestrained, falling around the fuzzy ears that stick out sideways from her head.  The hat she usually wears is hanging on her back by a string, pushed off to prevent its being lost in the chaos.  Something about slipping a rope around her own neck just to keep a hat tells you that Sheila\'s mind isn\'t really staying in the fight - though it could also be the desperate, faraway look in her eyes.';
 		}
-		that.createVagina( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] <= 3 && !sheilaDemon, AppearanceDefs.VAGINA_WETNESS_SLICK, AppearanceDefs.VAGINA_LOOSENESS_NORMAL );
+		that.createVagina( CoC.flags[ kFLAGS.SHEILA_XP ] <= 3 && !sheilaDemon, AppearanceDefs.VAGINA_WETNESS_SLICK, AppearanceDefs.VAGINA_LOOSENESS_NORMAL );
 		that.createStatusAffect( StatusAffects.BonusVCapacity, 30, 0, 0, 0 );
-		that.createBreastRow( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] / 10 );
+		that.createBreastRow( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] / 10 );
 		that.ass.analLooseness = AppearanceDefs.ANAL_LOOSENESS_TIGHT;
 		that.ass.analWetness = AppearanceDefs.ANAL_WETNESS_DRY;
 		that.createStatusAffect( StatusAffects.BonusACapacity, 20, 0, 0, 0 );
@@ -333,7 +333,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		that.temperment = Monster.TEMPERMENT_LUSTY_GRAPPLES;
 		that.level = 14;
 		that.gems = Utils.rand( 5 ) + 5;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
 			that.drop = new WeightedDrop( ConsumableLib.KANGAFT, 1 );
 		} else {
 			that.drop = new ChainedDrop( ConsumableLib.KANGAFT ).add( ConsumableLib.SUCMILK, 1 / 3 ).add( ConsumableLib.INCUBID, 1 / 2 );

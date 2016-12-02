@@ -15,17 +15,17 @@ angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( SceneLib, Weigh
 		//[Round 1 Description];
 		var _long;
 		if( this.findStatusAffect( StatusAffects.Round ) < 0 ) {
-			_long = 'You\'re totally trapped inside a pod!  The walls are slimy and oozing moisture that makes the air sickeningly sweet.  It makes you feel a little dizzy.  Tentacles are climbing up your ' + CoC.getInstance().player.legs() + ' towards your crotch, doing their best to get under you ' + CoC.getInstance().player.armorName + '.  There\'s too many to try to pull away.  Your only chance of escape is to create a way out!';
+			_long = 'You\'re totally trapped inside a pod!  The walls are slimy and oozing moisture that makes the air sickeningly sweet.  It makes you feel a little dizzy.  Tentacles are climbing up your ' + CoC.player.legs() + ' towards your crotch, doing their best to get under you ' + CoC.player.armorName + '.  There\'s too many to try to pull away.  Your only chance of escape is to create a way out!';
 		}//[Round 2 Description];
 		else if( this.statusAffectv1( StatusAffects.Round ) === 2 ) {
 			_long = 'You\'re still trapped inside the pod!  By now the walls are totally soaked with some kind of viscous slime.  The smell of it is unbearably sweet and you have to put a hand against the wall to steady yourself.  Warm tentacles are curling and twisting underneath your armor, caressing every ';
-			if( CoC.getInstance().player.skinType === AppearanceDefs.SKIN_TYPE_FUR ) {
+			if( CoC.player.skinType === AppearanceDefs.SKIN_TYPE_FUR ) {
 				_long += 'furry ';
 			}
-			if( CoC.getInstance().player.skinType === AppearanceDefs.SKIN_TYPE_SCALES ) {
+			if( CoC.player.skinType === AppearanceDefs.SKIN_TYPE_SCALES ) {
 				_long += 'scaley ';
 			}
-			_long += 'inch of your ' + CoC.getInstance().player.legs() + ', crotch, and ' + Descriptors.assDescript() + '.';
+			_long += 'inch of your ' + CoC.player.legs() + ', crotch, and ' + Descriptors.assDescript() + '.';
 		}
 		//[Round 3 Description];
 		else if( this.statusAffectv1( StatusAffects.Round ) === 3 ) {
@@ -34,13 +34,13 @@ angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( SceneLib, Weigh
 		//[Round 4 Description];
 		else {
 			_long = 'You\'re trapped inside the pod and being violated by tentacles from the shoulders down!  The slime around your waist is rising even faster now.  It will probably reach ';
-			if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+			if( CoC.player.biggestTitSize() >= 1 ) {
 				_long += 'the underside of your ' + Descriptors.allBreastsDescript();
 			} else {
 				_long += 'your chest';
 			}
 			_long += ' in moments.  You\'re being fucked by a bevy of tentacles while your nipples are ';
-			if( !CoC.getInstance().player.hasFuckableNipples() ) {
+			if( !CoC.player.hasFuckableNipples() ) {
 				_long += 'fondled ';
 			} else {
 				_long += 'fucked ';

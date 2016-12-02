@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, CockTypesEn
 		SceneLib.jeanClaudeScenes.fuckhugeBasiliskFuckedYouUp( hpVictory );
 	};
 	JeanClaude.prototype.handleTease = function( lustDelta, successful ) {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.RemovedArmor ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.RemovedArmor ) < 0 ) {
 			EngineCore.outputText( '\n\nJean-Claude stops circling you, looking mildly surprised as you attempt to entice him with your body.' );
 			EngineCore.outputText( '\n\n“<i>This is the legendary Champion of Ignam?</i>” he husks. “<i>Flaunting themselves like the most amateur of Lethice’s strippers?</i>” His eyes glow orange. “<i>If that was your intent all along, interloper, you should not do it so half-assedly. You should take off all your clothes, embrace what you truly are, show me what you are really made of.</i>” The hypnotic compulsion presses upon you, commanding you to raise your hands to your [armor]’s clasps...' );
 			if( !successful ) {
@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, CockTypesEn
 				EngineCore.outputText( '\n\nYour intent is to arouse this creature. Surely the most arousing thing you can do right now is to take off all of your clothes. You smile at him, your eyes half-lidded as you slowly, sexily slide out of your [armor], pushing your [butt] out and sucking on a finger as you loosen first the top half, then the bottom half, letting it all slide off, piece by piece. The basilisk stands back and watches, grinning, his eyes a bonfire of lust, gripping one of his girthy dicks and slowly masturbating as you kick your underclothes outwards, smouldering at him and arching your back to display your [chest].' );
 				EngineCore.outputText( '\n\n“<i>Very nice, interloper,</i>” Jean-Claude breathes. His wide smile turns ugly. “<i>Look forward to seeing that every night. I hope it is not too chilly in here for you.</i>” The basilisks which surround you snigger and you blink, the scales falling from your eyes as you realize what you have just done. There is no time to claw your clothes back on is upon you, forcing you to fall back, and you will have to fight the rest of this battle in the buff!' );
 				// (JC arousal up one level, PC’s armor removed for rest of battle);
-				CoC.getInstance().player.createStatusAffect( StatusAffects.RemovedArmor, 0, 0, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.RemovedArmor, 0, 0, 0, 0 );
 				if( this.findStatusAffect( StatusAffects.JCLustLevel ) < 0 ) {
 					this.createStatusAffect( StatusAffects.JCLustLevel, 1, 0, 0, 0 );
 					this.lustVuln += 0.1;

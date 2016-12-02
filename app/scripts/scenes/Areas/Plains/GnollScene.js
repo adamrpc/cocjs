@@ -15,31 +15,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 	//Gnoll Rape;
 	GnollScene.prototype.getRapedByGnoll = function() {
 		//Oh shit get anal raped.;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.S_DREAM ) ) {
+		if( CoC.player.hasItem( ConsumableLib.S_DREAM ) ) {
 			this.yoDawgIHeardULiekGNollBallzzzdahdakjldh();
 			return;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'The sound of the gnoll\'s mocking laughter grates in your ears as you collapse down on your knees before her.  She circles you with the last scrap of her wariness and then surges forward to knock you over, exposing your ', false );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( Descriptors.multiCockDescriptLight(), false );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and ', false );
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( Descriptors.vaginaDescript( 0 ), false );
 		}
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( '.  ', false );
 		} else {
 			EngineCore.outputText( 'flat, featureless groin.  ', false );
 		}
 		//  (if cockTotal=0 AND vaginas=1);
-		if( !CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.hasVagina() ) {
+		if( !CoC.player.hasCock() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'The gnoll looks a little disappointed at the void between your legs.  "<i>Aw, I was hoping for something substantial,</i>" she titters.  That doesn\'t stop her from hefting her engorged clit-dick and slapping its tip onto the entrance of your ' + Descriptors.vaginaDescript( 0 ) + '.  With one jittery lurch forward, she shoves her clit up inside you, her pubic mound mashing up against your ' + Descriptors.clitDescript() + '.', false );
-				CoC.getInstance().player.cuntChange( 9, true, true, false );
+				CoC.player.cuntChange( 9, true, true, false );
 				EngineCore.outputText( '\n\n', false );
 			}
 			//(if cockTotal=0 AND vaginas=0);
@@ -48,49 +48,49 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 			}
 		}
 		//(if cockTotal>0 AND ;
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			//thickestCock()>2");
-			if( CoC.getInstance().player.thickestCockThickness() > 2 ) {
+			if( CoC.player.thickestCockThickness() > 2 ) {
 				//(if cockTotal>1);
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'The gnoll fishes into your ' + Descriptors.multiCockDescriptLight() + ' and quickly snaps up the thickest one.  ', false );
 				}//(if cockTotal=1);
 				else {
 					EngineCore.outputText( 'The gnoll\'s hands dart down to your crotch and grabs ' + Descriptors.cockDescript( 0 ) + '.  ', false );
 				}
-				EngineCore.outputText( '"<i>Yes, this will do nicely,</i>" she says with relish, pumping your ' + Appearance.cockNoun( CoC.getInstance().player.cocks[ CoC.getInstance().player.thickestCock() ].cockType ) + ' until it plumps up, filling with blood.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your ' + Appearance.cockNoun( CoC.getInstance().player.cocks[ CoC.getInstance().player.thickestCock() ].cockType ) + '.  ', false );
+				EngineCore.outputText( '"<i>Yes, this will do nicely,</i>" she says with relish, pumping your ' + Appearance.cockNoun( CoC.player.cocks[ CoC.player.thickestCock() ].cockType ) + ' until it plumps up, filling with blood.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your ' + Appearance.cockNoun( CoC.player.cocks[ CoC.player.thickestCock() ].cockType ) + '.  ', false );
 				EngineCore.outputText( 'You gasp at the feeling of her hot skin rippling down the interior of your dick, and all she can do is laugh as she plunges it deeper and deeper into you.\n\n', false );
 			}
 			//(if cockTotal>0 AND thickestCock()<2");
 			else {
 				//(if cockTotal>1);
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '"<i>This will have to do,</i>" she says with the barest trace of disappointment as she grabs your thickest cock.  ', false );
 				}//(if cockTotal=1);
 				else {
 					EngineCore.outputText( '"<i>This will have to do,</i>" she says as she grabs your cock.  ', false );
 				}
-				EngineCore.outputText( 'She runs her rough hand up and down its length until it begins to plump up.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your ' + Appearance.cockNoun( CoC.getInstance().player.cocks[ CoC.getInstance().player.thickestCock() ].cockType ) + '.  ', false );
+				EngineCore.outputText( 'She runs her rough hand up and down its length until it begins to plump up.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your ' + Appearance.cockNoun( CoC.player.cocks[ CoC.player.thickestCock() ].cockType ) + '.  ', false );
 				EngineCore.outputText( 'You scream in pain as she forces her bizarre pseudo-penis down the length of your dick.  In horror, you watch as the bulge of her anatomy\'s invasion of yours slowly descends towards your ', false );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'balls', false );
 				} else {
 					EngineCore.outputText( 'groin', false );
 				}
 				EngineCore.outputText( '.  All she can do is laugh as she plunges it deeper and deeper into you.\n\n', false );
 				//(increase thickness of thickestCock());
-				CoC.getInstance().player.cocks[ CoC.getInstance().player.thickestCock() ].cockThickness += 0.25;
+				CoC.player.cocks[ CoC.player.thickestCock() ].cockThickness += 0.25;
 			}
 		}
 		EngineCore.outputText( 'In no time whatsoever she falls into an easy rhythm, pistoning her obscene girl-dick in and out of you.  At first, you can do little more than gurgle and squirm under the assault, but all too soon you feel the telltale signs of your own arousal building.  You find yourself moving in sympathy with her thrusts, at least as best you can given the circumstances.', false );
 		//(if breastRating>C);
-		if( CoC.getInstance().player.biggestTitSize() >= 3 ) {
-			EngineCore.outputText( '  Your ' + CoC.getInstance().player.allBreastsDescript() + ' bounce up and down as the gnoll grinds her anatomy into yours, slick with sweat under the hot sun.  Your ' + Descriptors.nippleDescript( 0 ) + 's tighten and flush as your whole body submits to the rough fuck administered by the hyena girl.', false );
+		if( CoC.player.biggestTitSize() >= 3 ) {
+			EngineCore.outputText( '  Your ' + CoC.player.allBreastsDescript() + ' bounce up and down as the gnoll grinds her anatomy into yours, slick with sweat under the hot sun.  Your ' + Descriptors.nippleDescript( 0 ) + 's tighten and flush as your whole body submits to the rough fuck administered by the hyena girl.', false );
 		}
 		//(if cockTotal>0);
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  Your hips begin to buck as your orgasm builds, but the gnoll slams her hands down on your sides, pinning you to the hardscrabble ground.  "<i>Best if you don\'t move too much, lover,</i>" she laughs, even as she quickens her pace.  Immediately your ', false );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( Descriptors.sackDescript(), false );
 			} else {
 				EngineCore.outputText( 'body', false );
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		}
 		EngineCore.outputText( 'The hyena girl slumps against your body, but only for a moment.  Then she\'s suddenly up again, sliding her bizarre member out of you with an obscene slurp.  She leans down to pat your cheek and giggles, "<i>Thanks, lover.</i>"   Then she sprints off towards the horizon.', false );
 		EngineCore.outputText( '  A whimper bubbles up your throat and comes out as a half-giggle as you slump down unconscious.', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		EngineCore.outputText( '', true );
 		var dickDownClit = null;
 		//Gnoll Defeat (HP)	;
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'The hyena girl collapses backwards onto the dusty ground, unable to continue the fight.', false );
 		}
 		//Gnoll Defeat (Lust);
@@ -121,10 +121,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		}
 
 		//Do You Rape The Gnoll?;
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			//(if cockTotal>0 AND vaginas=0);
-			if( CoC.getInstance().player.gender === 1 ) {
-				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.vaginalCapacity() ) !== -1 ) {
+			if( CoC.player.gender === 1 ) {
+				if( CoC.player.cockThatFits( CoC.monster.vaginalCapacity() ) !== -1 ) {
 					dickDownClit = this.dickDownGnollClit;
 				}
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
@@ -132,8 +132,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				EngineCore.choices( 'DickDownClit', dickDownClit, 'DickInAss', this.dickInGnollAss, 'SuckHerClit', this.suckGnollClit, '', null, 'Leave', Combat.cleanupAfterCombat );
 			}
 			//(if cockTotal>0 AND vaginas=1);
-			else if( CoC.getInstance().player.gender === 3 ) {
-				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.vaginalCapacity() ) !== -1 ) {
+			else if( CoC.player.gender === 3 ) {
+				if( CoC.player.cockThatFits( CoC.monster.vaginalCapacity() ) !== -1 ) {
 					dickDownClit = this.dickDownGnollClit;
 				}
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				EngineCore.choices( 'DickDownClit', dickDownClit, 'DickInAss', this.dickInGnollAss, 'SuckHerClit', this.suckGnollClit, 'TakeHerClit', this.takeGnollClit, 'Leave', Combat.cleanupAfterCombat );
 			}
 			//(if cockTotal=0 AND vaginas=1);
-			else if( CoC.getInstance().player.gender === 2 ) {
+			else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[SuckHerClit] [TakeHerClit] [Leave];
 				EngineCore.choices( 'SuckHerClit', this.suckGnollClit, 'TakeHerClit', this.takeGnollClit, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
@@ -161,9 +161,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'This is not an opportunity you can pass up.  You roughly roll her onto her back and pull her long clit up to a vertical position.  She moans softly, and the rough skin beneath your fingers pulses as her arousal brings it harder and taller.  The end bloats larger, fuller, until finally it looks nearly wide enough.  You don\'t wait any further; you position the head of your dick against the end of hers and jam it inside.\n\n', false );
 		EngineCore.outputText( 'Inch by inch, you sink your dick down into the warm tunnel of her monstrous clitoris.  The interior, you are happy to find, is not as rough as the exterior, and in fact is just slick enough to make your invasion possible.  After a few thrusts, you find it easiest to adopt a sort of reverse-cowgirl position, facing her feet as you roll your hips forward and shove more and more of your dick inside her.   Beneath you, the gnoll is clutching at the ground and making little submissive whimpers.\n\n', false );
-		var x = CoC.getInstance().player.longestCock();
+		var x = CoC.player.longestCock();
 		//(if biggestCockLength()>9);
-		if( CoC.getInstance().player.cocks[ x ].cockLength > 9 ) {
+		if( CoC.player.cocks[ x ].cockLength > 9 ) {
 			EngineCore.outputText( 'Finally you can feel your cockhead push free into a deeper, wetter place.  You look down at her strange anatomy, the entire length of her tube bulging thicker to accommodate your ' + Descriptors.cockDescript( x ) + '.  You\'ve made it all the way to her vagina!\n\n', false );
 		} else {
 			EngineCore.outputText( 'Soon you feel the end of her clitoral tunnel butting up against your crotch.  You are as far in as you\'ll get.  You look down the length of her strange anatomy, the tube bulging thicker to accomodate your ' + Descriptors.cockDescript( x ) + '.  There are still inches between your cockhead and the end of her clit-dick.\n\n', false );
@@ -171,55 +171,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 
 		EngineCore.outputText( 'Now you begin to roll your hips in a steady rhythm, running your dick up and down her long clitoral tunnel.  It\'s like the deepest, tightest cunt you\'ve ever had, gripping every inch of you.', false );
 		//(if balls>0);
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  It doesn\'t take long before your ' + Descriptors.ballsDescriptLight() + ' begin twitching, pumping cum down the length of your encased cock.', false );
 		}
 		EngineCore.outputText( '  Your orgasm is quick and hard.  Your entire body seems to tremble under the hot sun and your thrusting doubles and then redoubles, stuffing your dick down hers like mad.\n\n', false );
 		//(if cumQ()<25);
-		if( CoC.getInstance().player.cumQ() < 25 ) {
+		if( CoC.player.cumQ() < 25 ) {
 			EngineCore.outputText( 'Your ' + Descriptors.cockDescript( x ) + ' convulses, pumping down the length of her clitoris.  She squirms and howls beneath you, hissing for more.', false );
 		}//(if cumQ()>25 AND cumQ()<500);
-		else if( CoC.getInstance().player.cumQ() < 500 ) {
+		else if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( 'Your ' + Descriptors.cockDescript( x ) + ' convulses, pumping cum into her.  Her clitoris bulges even more as the jism backs up.  The warm, wet, sticky insides swirl around your dick.', false );
 		}//(if cumQ()>500);
 		else {
 			EngineCore.outputText( 'Your ' + Descriptors.cockDescript( x ) + ' convulses, pouring cum into her.  Her clitoris bulges even more as the jism backs up, the skin pulling tight and shiny as the pressure builds.  Finally gouts of cum begin spurting back out the tip of her clitoris, splashing against your crotch.', false );
 		}
 		EngineCore.outputText( '  With a lusty groan, you pull out with a long, slippery sound, and leave the gnoll panting on the dusty ground.', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	//DickInAss;
 	GnollScene.prototype.dickInGnollAss = function() {
 		EngineCore.outputText( '', true );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() );
+		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
 			x = 0;
 		}
-		var y = CoC.getInstance().player.cockThatFits2( CoC.getInstance().monster.analCapacity() );
+		var y = CoC.player.cockThatFits2( CoC.monster.analCapacity() );
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'The gnoll must be taught a lesson, but you\'re staying the hell away from her freaky anatomy.  You roughly roll her onto her belly and pull her lean ass up into the air.  You line up your ' + Descriptors.cockDescript( x ) + ' and ram it home into her tiny puckered entrance, eliciting a half-conscious gasp from the hyena girl.\n\n', false );
 			//(if cockTotal>1);
-			if( CoC.getInstance().player.totalCocks() > 1 && CoC.getInstance().player.cockArea( x ) < CoC.getInstance().monster.analCapacity() && y !== -1 ) {
+			if( CoC.player.totalCocks() > 1 && CoC.player.cockArea( x ) < CoC.monster.analCapacity() && y !== -1 ) {
 				EngineCore.outputText( 'With a smirk, you pound away for a few minutes to get her loosened up.  Then you reach down and slap another ' + Appearance.cockNoun( CockTypesEnum.HUMAN ) + ' alongside the first.  With a grunt and a thrust, you shove both of them inside.', false );
 				//(if cockTotal>2);
-				if( CoC.getInstance().player.totalCocks() > 2 && CoC.getInstance().player.cockArea( x ) + CoC.getInstance().player.cockArea( y ) < CoC.getInstance().monster.analCapacity() ) {
+				if( CoC.player.totalCocks() > 2 && CoC.player.cockArea( x ) + CoC.player.cockArea( y ) < CoC.monster.analCapacity() ) {
 					EngineCore.outputText( '  A few thrusts more, and you slow again.  As you gather up your third cock, the gnoll whimpers quietly, fearing what she knows will come next.  You slowly push forward, sinking your rigid meat into her ass.  When all three are in, it\'s very slow going, but you don\'t let up.', false );
 				}
 				//(if cockTotal>3);
-				if( CoC.getInstance().player.cockTotal() > 3 && CoC.getInstance().player.cockArea( 0 ) + CoC.getInstance().player.cockArea( 1 ) + CoC.getInstance().player.cockArea( 2 ) < CoC.getInstance().monster.analCapacity() ) {
+				if( CoC.player.cockTotal() > 3 && CoC.player.cockArea( 0 ) + CoC.player.cockArea( 1 ) + CoC.player.cockArea( 2 ) < CoC.monster.analCapacity() ) {
 					EngineCore.outputText( '  From there it\'s some time before her anus is stretched wide enough for more.  By now you can feel your orgasm on the horizon, so you\'re less careful with your fourth ' + Descriptors.cockDescript( y ) + '.  You slap it into the bundle of dicks and then ram it home.', false );
 				}
 				//(if cockTotal>4);
-				if( CoC.getInstance().player.cockTotal() > 4 && CoC.getInstance().player.cockArea( 0 ) + CoC.getInstance().player.cockArea( 1 ) + CoC.getInstance().player.cockArea( 2 ) + CoC.getInstance().player.cockArea( 3 ) < CoC.getInstance().monster.analCapacity() ) {
+				if( CoC.player.cockTotal() > 4 && CoC.player.cockArea( 0 ) + CoC.player.cockArea( 1 ) + CoC.player.cockArea( 2 ) + CoC.player.cockArea( 3 ) < CoC.monster.analCapacity() ) {
 					EngineCore.outputText( '  And then the next.', false );
 				}
 				//(if cockTotal>5);
-				if( CoC.getInstance().player.cockTotal() > 5 && CoC.getInstance().player.cockArea( 0 ) + CoC.getInstance().player.cockArea( 1 ) + CoC.getInstance().player.cockArea( 2 ) + CoC.getInstance().player.cockArea( 4 ) + CoC.getInstance().player.cockArea( 5 ) < CoC.getInstance().monster.analCapacity() ) {
+				if( CoC.player.cockTotal() > 5 && CoC.player.cockArea( 0 ) + CoC.player.cockArea( 1 ) + CoC.player.cockArea( 2 ) + CoC.player.cockArea( 4 ) + CoC.player.cockArea( 5 ) < CoC.monster.analCapacity() ) {
 					EngineCore.outputText( '  And the next.', false );
 				}
 				//(if cockTotal>6);
-				if( CoC.getInstance().player.cockTotal() > 6 && CoC.getInstance().player.cockArea( 0 ) + CoC.getInstance().player.cockArea( 1 ) + CoC.getInstance().player.cockArea( 2 ) + CoC.getInstance().player.cockArea( 4 ) + CoC.getInstance().player.cockArea( 5 ) + CoC.getInstance().player.cockArea( 6 ) < CoC.getInstance().monster.analCapacity() ) {
+				if( CoC.player.cockTotal() > 6 && CoC.player.cockArea( 0 ) + CoC.player.cockArea( 1 ) + CoC.player.cockArea( 2 ) + CoC.player.cockArea( 4 ) + CoC.player.cockArea( 5 ) + CoC.player.cockArea( 6 ) < CoC.monster.analCapacity() ) {
 					EngineCore.outputText( '  And the next, until all of your ' + Descriptors.multiCockDescriptLight() + ' are inside her wide-spread ass.', false );
 				}
 				EngineCore.outputText( '\n\n', false );
@@ -230,22 +230,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 			EngineCore.outputText( 'Your mind is made up; this gnoll needs to learn her place.  You eye her freakish pseudo-phallus for a moment, then shake your head, roughly grabbing her by the bony hips and flopping her onto her belly.  She lets out a little barking whine when you firmly smack her bony rear, lowering her chin to the ground and raising her hips submissively in recognition of your dominance.\n\n', false );
 			EngineCore.outputText( 'You stroke your ' + Descriptors.cockDescript( x ) + ' eagerly, bringing yourself to full mast and squeezing out a few drops of pre to pool against her puckered anus, leaning over and adding a little bit of saliva for good measure.  Sliding your shaft between her flat ass cheeks, you make sure to get the tip nice and lubed up, then you drop her hips down and ram yourself home in one go.\n\n', false );
 			EngineCore.outputText( 'The gnoll lets out a squeal that sounds halfway like a maniacal laugh, sliding forward in the dirt a little.  Your ' + Descriptors.cockDescript( x ) + ' throbs wonderfully, fully engulfed by the tight passage of the gnoll\'s anus', false );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' while the remainder of your endowments slide along her bare buttocks', false );
 			}
 			EngineCore.outputText( ', and you begin to thrust forward and back, digging your fingers into her hips.\n\n', false );
 			EngineCore.outputText( 'As the defeated gnoll resigns herself fully to her role as your willing cum dump, you decide to really take her for a ride, pulling yourself back until you are almost free of the tightness of her rectum, then dropping forward again until you impact her ass with your hips.  You pull yourself back and ram home again and again, feeling the gnoll\'s tight asshole loosen a little bit with each thrust.  The force with which you are pounding the poor savannah girl\'s rear has her odd endowments slapping up against her stomach with each thrust, and from the cackling moans issuing from her throat, you can only guess that she enjoys being dominated in some capacity.\n\n', false );
 			EngineCore.outputText( 'Your hands slide further down her sides, and you bear down on her as you feel your climax building.  Increasing momentum, you piston into her ass with a desperate vigor, moaning your animalistic pleasure into her ear', false );
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( ' as your voluminous pre-cum turns her innards into a sloppy fuckhole', false );
 			}
 			EngineCore.outputText( '.\n\n', false );
 			//(Low cumQ):;
-			if( CoC.getInstance().player.cumQ() <= 250 ) {
+			if( CoC.player.cumQ() <= 250 ) {
 				EngineCore.outputText( 'Pressing your fingertips into her sides, you let out a moan into the open air, spurting cum deep and hard into her warm rectum', false );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( ' while your other endowment', false );
-					if( CoC.getInstance().player.cockTotal() > 2 ) {
+					if( CoC.player.cockTotal() > 2 ) {
 						EngineCore.outputText( 's soak', false );
 					} else {
 						EngineCore.outputText( ' soaks', false );
@@ -255,9 +255,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				EngineCore.outputText( '.  You pull out with an audible *schlick!*, and the gnoll slumps forward to the ground, panting a bit as she begins to shamelessly play with herself.\n\n', false );
 			}
 			//Med CumQ):;
-			else if( CoC.getInstance().player.cumQ() <= 500 ) {
+			else if( CoC.player.cumQ() <= 500 ) {
 				EngineCore.outputText( 'Gripping her sides tightly, you let out a bellowing moan that echos through the grasslands, ' + Descriptors.sMultiCockDesc() + ' swelling noticeably as you pump thick ribbons of spunk into the gnoll\'s innards', false );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( ', unleashing a torrent of semen that mats down the short fur on her back and rear as', false );
 				}
 				EngineCore.outputText( '.  The muscular ring of her anus bears down on your ' + Descriptors.cockDescript( x ) + ' as you pull out, making an audible *schlick!*, and the gnoll drops to the ground in exhaustion, shamelessly playing with herself in an effort to get off.\n\n', false );
@@ -265,8 +265,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 			//(High CumQ):;
 			else {
 				EngineCore.outputText( 'You bear down on the limber hyena girl with all your force, groaning through clenched teeth as ' + Descriptors.sMultiCockDesc() + ' distends with the pressure of your virile load.  Her puckered anus stretches around the swell of your seed, and she lets out a shuddering, laughing moan as her belly begins to distend with your thick jism.  The involuntary spasms of her rectum milk your ' + Descriptors.cockDescript( x ) + ' for every drop, clenching your member tightly', false );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
-					if( CoC.getInstance().player.cockTotal() > 2 ) {
+				if( CoC.player.cockTotal() > 1 ) {
+					if( CoC.player.cockTotal() > 2 ) {
 						EngineCore.outputText( ' while your remaining endowments soak her back thoroughly, covering her in a thick blanket of spunk', false );
 					} else {
 						EngineCore.outputText( ' while your remaining endowment soaks her back thoroughly, covering her in a thick blanket of spunk', false );
@@ -274,9 +274,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				}
 				EngineCore.outputText( '.  Her anus makes an audible *schlick!* as you pull back, and the gnoll rolls off your member, cradling her gravid, cum-filled belly as she begins to shamelessly finger herself.\n\n', false );
 			}
-			EngineCore.outputText( 'Satisfied, you leave the gnoll to her pleasures, gather your ' + CoC.getInstance().player.armorName + ', and head back to camp.', false );
+			EngineCore.outputText( 'Satisfied, you leave the gnoll to her pleasures, gather your ' + CoC.player.armorName + ', and head back to camp.', false );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	//SuckHerClit;
@@ -295,22 +295,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 	GnollScene.prototype.takeGnollClit = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You roughly roll her onto her back and pull her long clit up to a vertical position.  She moans softly, and the rough skin beneath your fingers pulses as her arousal brings it harder and taller.  The end bloats larger, fuller, until it might be too wide for your purposes.  You line up your ' + Descriptors.vaginaDescript( 0 ) + ' and lower yourself onto the long, narrow faux-cock.', false );
-		CoC.getInstance().player.cuntChange( 9, true, true, false );
+		CoC.player.cuntChange( 9, true, true, false );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'It slithers up your love canal with alacrity, and you quickly find yourself sitting on the gnoll\'s haunches.  You pump your hips up and down, relishing the feel of the thin spike slipping around within you.  This was not, however, what her anatomy was designed to do, and you can feel her monstrous clitoris flagging within you, collapsing down and denying you your well-deserved fucking.\n\n', false );
 		EngineCore.outputText( '"<i>Hey!</i>" you shout, and reach forward to slap the gnoll across the face.  Abruptly the clit-dick hardens inside you, even as the girl\'s face registers little response.  With a smirk, you try it again.  A second hard slap brings the hyena\'s pseudocock ramrod straight up inside you, and you roll your hips atop her appreciatively.\n\n', false );
 		EngineCore.outputText( 'Every few strokes, the fake dick starts to fail you and you reach forward to slap her again.  Pump pump slap.  Thrust thrust smack.  Grunt grunt slap.  By the time your body rises up to the quivering summit of orgasm, the gnoll\'s face is purple with bruises.  You scream your orgasm to the sky, bearing down hard on her hollow clitoris, and come hard enough that you see stars.\n\n', false );
 		EngineCore.outputText( 'When you can get your feet under yourself again, you stand up, letting the now-shrunken clitoris fall out of your ' + Descriptors.vaginaDescript( 0 ) + ' with a wet plop.  You leave her there on the sun-caked ground and head back to camp.', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	GnollScene.prototype.yoDawgIHeardULiekGNollBallzzzdahdakjldh = function() {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().player.consumeItem( ConsumableLib.S_DREAM );
+		CoC.player.consumeItem( ConsumableLib.S_DREAM );
 		//[either Gnoll loss, if the player has a succubi's dream in inventory];
-		EngineCore.outputText( 'A rolling, harsh laughter surrounds you as you sink to ground, no longer strong enough to remain upright.  The gnoll\'s mocking bark fills the air as she disposes of your ' + CoC.getInstance().player.armorName, false );
-		if( CoC.getInstance().player.weaponName !== 'fists' ) {
-			EngineCore.outputText( ' and ' + CoC.getInstance().player.weaponName, false );
+		EngineCore.outputText( 'A rolling, harsh laughter surrounds you as you sink to ground, no longer strong enough to remain upright.  The gnoll\'s mocking bark fills the air as she disposes of your ' + CoC.player.armorName, false );
+		if( CoC.player.weaponName !== 'fists' ) {
+			EngineCore.outputText( ' and ' + CoC.player.weaponName, false );
 		}
 		EngineCore.outputText( ' with rough motions, the soft pads of her paw-like hands coarsely grasping your ' + Descriptors.hipDescript() + ' as much to grope as to strip you.  As she knocks your belongings aside, a small, bulbous bottle rolls out of your pouches, the lurid white fluid sloshing inside like an alabaster stain against the dull browns and greens of the plains.  The hyena-girl pauses in her eagerness to taste the spoils of victory, regarding the stray vial doubtfully.  Her lips curl into a sneer that approaches a smile and she stoops down to retrieve the creamy flask.  Through the panting haze obscuring your vision, you can make out the murky whorls of curious thickness in the cum-colored elixir and you realize that the amazon has found your Succubi\'s Dream.\n\n', false );
 		EngineCore.outputText( 'You try to protest the theft, but she casually snaps her leg into a kick that jerks your chin up and the ground rushes to meet the back of your head, white pain exploding before your eyes.  "<i>All that you have and all that you are belongs to me,</i>" the hyena-woman snarls.  "<i>I will take what tribute I see fit.</i>"  Laughing again, she flicks the cork from your potion and sniffs the concoction with renewed interest.  Her nostrils crinkle at the scent, but she locks her gaze to yours and, in an aggressive, unblinking gesture, throws her head back to swallow the curiously thick ivory fluid.  Discarding the empty glass, she licks her lips as if the refreshingly cool cream merely inflamed a different sort of thirst.\n\n', false );
@@ -321,35 +321,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 	};
 	GnollScene.prototype.yoDawgHyenaBallz2 = function() {
 		EngineCore.outputText( '', true );
-		EngineCore.outputText( 'Using the distraction, you roll onto your belly, crawling towards your ' + CoC.getInstance().player.armorName + ', hoping to use the distraction to make an escape.  Baring your ' + Descriptors.buttDescript() + ', however, proves to be a mistake, as the gnoll fixates on the wobbling orbs, lunging desperately.  She lands atop you, her paws pinning your head and shoulders to the ground as the warmth of her impatient shaft slides between your cheeks, her new scrotum slapping wetly against ', false );
-		if( CoC.getInstance().player.balls > 0 ) {
+		EngineCore.outputText( 'Using the distraction, you roll onto your belly, crawling towards your ' + CoC.player.armorName + ', hoping to use the distraction to make an escape.  Baring your ' + Descriptors.buttDescript() + ', however, proves to be a mistake, as the gnoll fixates on the wobbling orbs, lunging desperately.  She lands atop you, her paws pinning your head and shoulders to the ground as the warmth of her impatient shaft slides between your cheeks, her new scrotum slapping wetly against ', false );
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'your own ' + Descriptors.ballsDescriptLight(), false );
 		} else {
 			EngineCore.outputText( 'your sweat-slick thighs', false );
 		}
 		EngineCore.outputText( '.  The amazon wastes no time, guiding her monstrous clit to your ' + Descriptors.assholeDescript() + ' with gasping pleasure, thrusting the barrel-like pseudo-cock deeply inside your nethers, drawing a cry of penetration from your lips.  The plush interior of your anus parts before her energized clitoris, her cunt flowing with warm lubrication so heavily that its deluge inundates your bowels like a flood of pre-cum.', false );
-		CoC.getInstance().player.buttChange( 30, true, true, false );
+		CoC.player.buttChange( 30, true, true, false );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Roughly, she bucks against your hips, pushing your face against the grass and dirt, moving with relentless speed as she fucks you with every ounce of strength in her well-toned body.  She snarls and cries out, even laughing with a mad desperation, as she plunges her rock-hard joy buzzer into your loins trying to achieve release.  Your struggles are useless against the rutting passion of the hyena-girl, who uses you like a beast in heat.  In mere minutes, her body seizes, muscles straining with the blissful throes of imminent orgasm and you whisper a prayer that she\'ll be done shortly.  Gnashing her teeth, she hooks both spotted paws around your shoulders and drives her jet-black member into the velvet folds of your clenching asshole, her sweltering cunny gushing with her girl-cum.\n\n', false );
 		EngineCore.outputText( 'Her bucking pauses for a split-second and you can feel her fuzzy balls throbbing against your ' + Descriptors.buttDescript() + ', the stimulation of her fucking filling them with fresh loads, eager to spill into your violated hole.  But, without a passage to let loose the torrent of her sperm with, the gnoll\'s balls merely swell with unspent passion, lewdly quivering against', false );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' your distended sac, ballooning with the fatigued flood of the prostate-milking the girl is giving you', false );
 		} else {
 			EngineCore.outputText( ' your sore loins, soaked with the slimy river of the girl\'s excitement', false );
 		}
-		EngineCore.outputText( '.  "<i>N-no! I can\'t... quite... arg!</i>" She trembles, unable to cum, before mindlessly starting anew, pistoning into your ' + Descriptors.assholeDescript() + ' with renewed vigor.  "<i>I just! Have to! Fucking! Cum!</i>" she grunts from between clenched teeth as she slams into you, the waterfall of lubrication from her pussy soaking your ' + CoC.getInstance().player.skinFurScales() + ' as she wetly slaps her hips into yours in her increasingly desperate assault.\n\n', false );
+		EngineCore.outputText( '.  "<i>N-no! I can\'t... quite... arg!</i>" She trembles, unable to cum, before mindlessly starting anew, pistoning into your ' + Descriptors.assholeDescript() + ' with renewed vigor.  "<i>I just! Have to! Fucking! Cum!</i>" she grunts from between clenched teeth as she slams into you, the waterfall of lubrication from her pussy soaking your ' + CoC.player.skinFurScales() + ' as she wetly slaps her hips into yours in her increasingly desperate assault.\n\n', false );
 		EngineCore.outputText( 'Again and again, she rushes toward a release, and every time, her balls slosh with overflowing lust, unable to climax yet urging her to greater depravity until even words are too difficult to manage.  Your ravaged body aches under the endless rape.  It\'s all you can do to work your hands under your hips to masturbate in the blissful pauses while the gnoll\'s muscles clench in near orgasm, before she slams you back to the dirt for another round.  You lose track of time as your world narrows to the endlessly thrusting shaft of the hyena-girl\'s massive clitoris and the merciless weight of her ball-slapping, spunk-swollen pouch. Every time you climax, it fuels her mad frenzy until you silently beg your body to shut out the overwhelming sensations, to no avail.  Day fades into night and night into day as the amazon fucks your spasming, shuddering pucker without thought, or pity, or release.\n\n', false );
 		//[NEXT];
 		EngineCore.doNext( this.yoDawgHyenaBallz3 );
-		CoC.getInstance().time.hours = 7;
-		CoC.getInstance().time.days++;
+		CoC.time.hours = 7;
+		CoC.time.days++;
 		EngineCore.statScreenRefresh();
 	};
 	GnollScene.prototype.yoDawgHyenaBallz3 = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Finally, you feel the gnoll\'s clit slide out of your anus as the overly-endowed girl collapses at your side.  Broken utterly, she pants with depraved exhaustion, no strength left to continue pounding your body into the dirt.  Even now, she strokes her massive clit with one spotted paw as the other helplessly massages the basketball-sized testicles that audibly churn with gallons of the girl\'s jizz.  Finding a reserve of strength you didn\'t know you had, you rise tenderly and gather your belongings, creeping away before the hyena-girl can get her second wind.', false );
-		//[24 hours pass, CoC.getInstance().player asshole size increased, sensitivity significantly lowered, toughness lowered temporarily, EngineCore.fatigue maxed, remove one succubi's dream];
-		CoC.getInstance().player.orgasm();
+		//[24 hours pass, CoC.player asshole size increased, sensitivity significantly lowered, toughness lowered temporarily, EngineCore.fatigue maxed, remove one succubi's dream];
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', -10 );
 		Combat.cleanupAfterCombat();
 	};

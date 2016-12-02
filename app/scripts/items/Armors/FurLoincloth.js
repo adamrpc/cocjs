@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
 					if( name === 'description' ) {
-						return 'A pair of loincloths to cover your crotch and ' + CoC.getInstance().player.buttDescript() + '.  Typically worn by people named \'Conan\'.';
+						return 'A pair of loincloths to cover your crotch and ' + CoC.player.buttDescript() + '.  Typically worn by people named \'Conan\'.';
 					}
 					return target[ name ];
 				},

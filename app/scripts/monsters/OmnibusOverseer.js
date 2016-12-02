@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 		EngineCore.outputText( 'The demoness blinks her eyes closed and knits her eyebrows in concentration.  The red orbs open wide and she smiles, licking her lips.   The air around her grows warmer, and muskier, as if her presence has saturated it with lust.' );
 		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
 			EngineCore.outputText( '  Your eyes cross with unexpected feelings as the taste of desire in the air worms its way into you.  The intense aura quickly subsides, but it\'s already done its job.' );
-			EngineCore.dynStats( 'lus', (8 + Math.ceil( CoC.getInstance().player.lib / 20 + CoC.getInstance().player.cor / 25 )) );
+			EngineCore.dynStats( 'lus', (8 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 25 )) );
 		} else {
 			this.createStatusAffect( StatusAffects.LustAura, 0, 0, 0, 0 );
 		}
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 		} else {
 			EngineCore.outputText( 'Your foe curls up to pinch her nipples, tugging hard and squirting milk towards you.\n' );
 		}
-		if( (CoC.getInstance().player.spe > 50 && Utils.rand( 4 ) === 0) || (CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 3 ) === 0) || (CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 4 ) === 0 && CoC.getInstance().player.armorName === 'red, high-society bodysuit') ) {
+		if( (CoC.player.spe > 50 && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 3 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
 			EngineCore.outputText( 'You sidestep the gushing fluids.' );
 		}
 		//You didn't dodge;
@@ -40,18 +40,18 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 			if( Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( 'The milk splatters across your face and chest, soaking you with demonic cream.  Some managed to get into your mouth, and you swallow without thinking.  It makes you tingle with warmth.  ' );
 			} else {
-				EngineCore.outputText( 'The milk splashes into your ' + CoC.getInstance().player.armorName + ', soaking you effectively.  ' );
-				if( CoC.getInstance().player.cocks.length > 0 ) {
+				EngineCore.outputText( 'The milk splashes into your ' + CoC.player.armorName + ', soaking you effectively.  ' );
+				if( CoC.player.cocks.length > 0 ) {
 					EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' gets hard as the milk lubricates and stimulates it.  ' );
 					EngineCore.dynStats( 'lus', 5 );
 				}
-				if( CoC.getInstance().player.vaginas.length > 0 ) {
+				if( CoC.player.vaginas.length > 0 ) {
 					EngineCore.outputText( 'You rub your thighs together as the milk slides between your pussy lips, stimulating you far more than it should.  ' );
 					EngineCore.dynStats( 'lus', 5 );
 				}
 			}
-			EngineCore.dynStats( 'lus', 7 + CoC.getInstance().player.sens / 20 );
-			if( CoC.getInstance().player.biggestLactation() > 1 ) {
+			EngineCore.dynStats( 'lus', 7 + CoC.player.sens / 20 );
+			if( CoC.player.biggestLactation() > 1 ) {
 				EngineCore.outputText( 'Milk dribbles from your ' + Descriptors.allBreastsDescript() + ' in sympathy.' );
 			}
 		}

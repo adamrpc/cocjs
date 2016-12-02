@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Appearance (edited) (C);
 	Loppe.prototype.appearanceOfLoppe = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
 			EngineCore.outputText( 'Loppe is a 6\'2" bunny-girl with deep brown eyes set in her pretty face.  Shoulder-length black hair and a pair of snow-white rabbit ears adorn the top of her head, tilted and lying backward to conceal the insides.  Curiously, her face is that of a normal human woman.' );
 			EngineCore.outputText( '\n\nHer body is covered in smooth olive-colored skin, save for her wrists, where she has a pair of fluffy cushion-like fur bracelets; her legs are what you would expect of a bunny, curved and with elongated furry feet; her fur color is snow-white.  Her butt is firm and girly; it fills out her shorts nicely.  If you were to look at her from behind, her hips and butt would form a perfect heart shape.  A long, elegantly-cared for black horse\'s tail falls from her butt, easily reaching to the back of her knees.' );
 			EngineCore.outputText( '\n\nShe usually has a smile on her face, which is nice, and her tight-fitting shorts reveal her slender-but-powerful legs but struggle to contain her hefty package.  Covering her chest, she has a tight-fitting sleeveless top that holds her C-cup breasts snugly together.' );
@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Dancers aren\'t really your thing, and you shake your head.' );
 		//(disable repeat and NPC);
-		CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] = 1;
+		CoC.flags[ kFLAGS.LOPPE_DISABLED ] = 1;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.barTelAdre );
 	};
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//[=Yes=];
 	Loppe.prototype.yesToMeetingLoppe = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] = 1;
+		CoC.flags[ kFLAGS.LOPPE_MET ] = 1;
 		EngineCore.outputText( 'There\'s no harm in staying a while...' );
 		EngineCore.outputText( '\n\nYou make your way through the crowd, pushing past the doorway to try and find a table to sit down at.  The place is really jam-packed, and it\'s not helped by the fact that a small makeshift stage has been set up in the center of the room.  The bartender is working flat-out to provide drinks for all the thirsty people, and you wonder where in the world you\'ll find a place to sit down and watch.  After a lot of elbowing, narrowly avoiding being stepped on, and small confusions, you manage to find what you think is a good place to watch the \'show\'.' );
 		//--Next--;
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nThe dancer spins one last time, slowly crouching and looking at you over her opened pair of fans, as the glow in her robes and the stage begin to fade.  The patrons, entranced, miss the ending of the show and begin to clap and cheer only a short while after the lights have gone back on inside the bar.  The dancer\'s eyes stay locked on you, even as a few of the patrons attempt to approach the stage and touch her. A pair of city guards enter the bar and make their way through the crowd, likely to open a passage for her egress.' );
 		EngineCore.outputText( '\n\nYou watch her as she goes, and then get up to try to leave, elbowing your way through the crowd' );
 		//[(corr < 40)];
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( ' as politely as possible. It felt nice to see a display like that here; makes it feel a little less like a wasteland of sex-mad monsters and a little more like home' );
 		}
 		EngineCore.outputText( '.' );
@@ -125,13 +125,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>Carrot cake!</i>" she happily pips to nobody in particular.  "<i>With a side of chocolate-chip cookies, and some cupcakes.  Can\'t wait!</i>"' );
 		EngineCore.outputText( '\n\nThe carrot cake was something you could have seen coming, but what\'s with the cookies and cupcakes?  Is one little, dainty-looking bunny-girl really going to eat all that?' );
 		EngineCore.outputText( '\n\nLoppe shrugs and smiles.  "<i>I love sweets, and dancing works up an appetite.</i>"  Then she gives you a seductive glance.  "<i>You aren\'t going to deny a dainty-looking bunny-girl her pleasure, are you... sugar?</i>"  She lets the last word roll off her tongue in a provocative manner.' );
-		EngineCore.outputText( '\n\nYou tell her that you aren\'t, you just didn\'t expect her to have such an appetite.  With a playful smile, you ask what other not-so-dainty secrets she\'s hiding; does she burp loudly to show she enjoyed her meal?  Loppe smiles mischievously, "<i>Oh, my sweet ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '...  When I get my hands on something I like, I eat it up whole...</i>"  Slowly, you feel a foot gently glide across your [legs].' );
+		EngineCore.outputText( '\n\nYou tell her that you aren\'t, you just didn\'t expect her to have such an appetite.  With a playful smile, you ask what other not-so-dainty secrets she\'s hiding; does she burp loudly to show she enjoyed her meal?  Loppe smiles mischievously, "<i>Oh, my sweet ' + CoC.player.mf( 'boy', 'girl' ) + '...  When I get my hands on something I like, I eat it up whole...</i>"  Slowly, you feel a foot gently glide across your [legs].' );
 		//(Low Libido);
-		if( CoC.getInstance().player.lib < 33 ) {
+		if( CoC.player.lib < 33 ) {
 			EngineCore.outputText( '\n\nWell, now.  This is a different kind of world, indeed, but this feels a little too quick.  You\'re not sure you\'re all that comfortable with the bunny-girl feeling you up under the table, cute as she may be.  An awkward silence falls over the both of you as you try to think of a polite way to stop or slow her advances without telling her off... thankfully, the waitress arrives to take your orders.' );
 		}
 		//(Moderate Libido);
-		else if( CoC.getInstance().player.lib < 66 ) {
+		else if( CoC.player.lib < 66 ) {
 			EngineCore.outputText( '\n\nWell, now.  This is a different kind of world, indeed, but this feels a little too quick.  Still, it\'s not entirely unwelcome, and while you decide to leave your hand where it is, you allow her to continue, not hiding that you recognize what she\'s doing and you rather like it.  However, the waitress stops your playing around with her approach.' );
 		}
 		//(High Libido);
@@ -143,14 +143,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou keep your hand where it is for now; there\'s a waitress ready for your orders.' );
 		EngineCore.outputText( '\n\nLoppe clicks her tongue in disappointment and quietly retracts her foot.  "<i>You know what I want, sugar.</i>"  She smiles lasciviously, reinforcing the double entendre behind her apparently innocuous words.' );
 		//(if PC has >= 30 gems);
-		if( CoC.getInstance().player.gems >= 30 ) {
+		if( CoC.player.gems >= 30 ) {
 			EngineCore.outputText( '\n\nYou tell the waitress, a fetching young cat-woman, what you\'d like, and pull out the thirty gems needed to cover the tab; as mostly specialty items not on the usual menu, the price is a bit higher.' );
 			//[(corr > 40);
-			if( CoC.getInstance().player.cor > 40 ) {
+			if( CoC.player.cor > 40 ) {
 				EngineCore.outputText( '  A small voice inside wonders if she\'d eat so extravagantly were she footing her own bill.' );
 			}
 			//remove 30 gems;
-			CoC.getInstance().player.gems -= 30;
+			CoC.player.gems -= 30;
 			EngineCore.statScreenRefresh();
 		} else {
 			EngineCore.outputText( '\n\nAs mostly specialty items not on the usual menu, the price for her items is a bit high.  You look at Loppe and admit you don\'t have the money on you to pay for the both of you.  The dancer smiles at you.  "<i>Don\'t worry about it, [name]; I asked you out, so it\'s my treat.  Go ahead and order whatever you want.</i>"  You thank Loppe and tell the waitress, a fetching young cat-woman, what you\'d like; Loppe takes thirty gems from her pocket and hands them over.' );
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Loppe lets out a breath she had obviously been holding in a bitter sigh, the ghost of the words, "<i>I knew it</i>" echoing faintly as she does so.  "<i>Well, I understand.  I just had to give it a try all the same.  It was nice talking to you, [name].  Might see you again, someday.  Sorry for wasting your time...</i>"' );
 		EngineCore.outputText( '\n\nShe drains her drink and stands up, walking out on you and her snack.' );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] = 1;
+		CoC.flags[ kFLAGS.LOPPE_DISABLED ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Okay=];
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( 'Loppe looks at you, studying you to see if you\'re mocking her.  But when she detects only honesty, she sighs and breaths a sigh of relief.  "<i>Sugar, you really are sweet.  I can\'t tell you the number of times I\'ve been rejected just because I\'m a herm... anyways, we can chat later.  Our food is here.</i>"  She points toward the waitress holding your orders in a tray.  You nod to her in agreement and turn your attention towards the food, ready to savor the sweets.' );
 		EngineCore.outputText( '\n\nLoppe\'s dress robe - a kimono, as she calls it - is very well-made, and it really hides her package well.  You wouldn\'t have thought she was a hermaphrodite if she hadn\'t revealed it during your little tête-à-tête.  You ask if her deception is, perhaps, intentional? She did say she got rejected plenty of times for being a herm.' );
 		EngineCore.outputText( '\n\n"<i>Haha, I have no problems with my sex.  It\'s just coincidence that this kimono is really good at hiding it.</i>"  Loppe grins at you, then gives you a sultry look.' );
-		EngineCore.outputText( '\n\n"<i>Hey, [name],</i>" she says quietly, "<i>you\'re really ' + CoC.getInstance().player.mf( 'handsome', 'beautiful' ) + ', y\'know?  And kind... how about a quick stop at my place, before we say goodbye?</i>"' );
+		EngineCore.outputText( '\n\n"<i>Hey, [name],</i>" she says quietly, "<i>you\'re really ' + CoC.player.mf( 'handsome', 'beautiful' ) + ', y\'know?  And kind... how about a quick stop at my place, before we say goodbye?</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.yesLoppesHouse );
@@ -199,17 +199,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( 'The dancer smiles mischievously at you.  "<i>Wonderful.  I\'m going to show you just how great my body looks without this dress.  You wouldn\'t believe how much time I spend in the gym, working out.</i>"  Loppe grabs her last cookie in one hand and your arm in the other, leading you away - presumably to her house.  Enroute, she giggles constantly, provoking a question from you.' );
 		EngineCore.outputText( '\n\n"<i>I always get giddy when I can spend time with a sexy thing like you...</i>" she replies, "<i>but I was just recalling some of my earlier encounters.  I should warn you, I tend to get very, and I do mean <b>very</b> carried away during the act.  Things can get pretty intense.</i>"' );
 		//(Min Lust >= 50);
-		if( CoC.getInstance().player.minLust() >= 50 ) {
+		if( CoC.player.minLust() >= 50 ) {
 			EngineCore.outputText( '\n\nYou grin and warn her that your appetite is a lot higher than normal; you are usually so aroused that you have no doubt you can go at it a lot more than the average person.' );
 			EngineCore.outputText( '\n\nLoppe shoots you a sultry look.  "<i>Well, sugar, I guess I\'ll just have to take care of this \'endless lust\' of yours, huh?</i>"  She tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 		}
 		//(else High Libido);
-		else if( CoC.getInstance().player.lib >= 70 ) {
+		else if( CoC.player.lib >= 70 ) {
 			EngineCore.outputText( '\n\nYou smirk back and announce that you like it intense.  Perhaps she\'s the one who should watch out?' );
 			EngineCore.outputText( '\n\n"<i>Oh, I like the sound of that... let\'s go, sugar!</i>"  Loppe tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 		}
 		//(else High Toughness and has beaten mino mob);
-		else if( CoC.getInstance().player.tou >= 70 ) {
+		else if( CoC.player.tou >= 70 ) {
 			EngineCore.outputText( '\n\nYou tell her that you\'re confident in your stamina.  Truth be told, you can withstand a fight with a whole mob of minotaurs and still have enough energy left to fight off demons.' );
 			EngineCore.outputText( '\n\nLoppe smirks.  "<i>So if I manage to tire you out, that would make me stronger than a mob of minotaurs, right?  Okay!  Challenge accepted!</i>"  She tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 		} else {
@@ -246,28 +246,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		//Loppe;
 		EngineCore.addButton( 0, 'Loppe', this.talkWithLoppeAboutLoppe );
 		//Children (available after having sex with Loppe at least once);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
 			EngineCore.addButton( 1, 'Children', this.askLoppeAboutChildren );
 		}
 		//Gossip (after sexin' once);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
 			EngineCore.addButton( 2, 'Gossip', this.gossipWithLoppe );
 		}
 		//Working (after [Loppe];
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
 			EngineCore.addButton( 3, 'Working', this.talkWithLoppeAboutWorking );
 		}
 		//Her Mom (available after choosing "<i>Loppe</i>" at least once);
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
 			EngineCore.addButton( 4, 'Her Mom', this.chatWithLoppeAboutHerMom );
 		}
 		//Her Village (after [Loppe];
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 ) {
 			EngineCore.addButton( 5, 'Her Village', this.chatWithLoppeAboutLoppesVillage );
 		}
 		//The curse (unfinished; available after choosing "<i>Loppe</i>" at least once);
 		//Fondle (after 'Loppe'; see appropriate section);
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] > 0 && CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
 			EngineCore.addButton( 6, 'Tease Her', this.fondleAndTease );
 		}
 		EngineCore.addButton( 9, 'Back', this.loppeGenericMeetings );
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nLoppe smiles, not insulted, and shrugs her shoulders.  "<i>Well, it\'s unusual, I can tell you that... Although I have never been treated differently because of my mixed blood. Mom says my father was just the cutest bunny there is, it was love at first sight.</i>"' );
 		EngineCore.outputText( '\n\nYou tell her that from what her mom says, Loppe definitely must take after her dad\'s side of the family, giving her a winsome grin. Loppe smiles at you.' );
 		//(if first dialogue);
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>Flatterer...  To tell the truth I used to look a lot more like my dad, but then came the curse...</i>"' );
 			EngineCore.outputText( '\n\nCurse?' );
 			EngineCore.outputText( '\n\nLoppe shakes her head. "<i>There are actually more than one species of bunny in this world.  You may have seen the cute ones with the ears and human faces... my father was a bit more like our animal cousins; fuzzy, cuddly... also lethal with a sword, though that\'s less related.  All the fun stuff.</i>"' );
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nSurprised at the abrupt end, you rise when Loppe does, and return her thanks.' );
 		EngineCore.outputText( '\n\n"<i>I guess I\'ll see you later then.</i>"' );
 		//set LoppeChat = 1;
-		CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 1;
+		CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Children (edited) (C);
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nIt makes sense she wouldn\'t want to be a mother right now... but, what about being a father?  How can she control that?' );
 		EngineCore.outputText( '\n\nLoppe grins at you.  "<i>I have taken special measures to ensure neither my partners nor I will end up with an unexpected package.</i>"' );
 		//(If EdrynKids or CottonKids =>1:;
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] + CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] + CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
 			EngineCore.outputText( '\n\nYou warn her that might not be enough, as you\'ve learned the hard way you\'re a bit too potent for most herbal contraceptives to handle.' );
 		}
 
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( 'With a faint smile, you declare that having children is definitely in your future.  You want to be a parent; all you need is to find somebody who feels similar to you.' );
 		EngineCore.outputText( '\n\nLoppe smiles at you.  "<i>I\'m sure you will.  Maybe, if the time is right, I might be willing to help you build you a nice, big family... just maybe.</i>"  Loppe shoots you a sultry stare.' );
 		EngineCore.outputText( '\n\nHmm... is that a suggestion?' );
-		EngineCore.outputText( '\n\nLoppe grins at you.  "<i>Oh... I don\'t know.  I\'m sure a ' + CoC.getInstance().player.mf( 'handsome', 'beautiful' ) + ' person like you has already drawn quite a few stares,</i>" Loppe teases, batting her eyes at you.  "<i>But, if the time is right, and you ask nicely... I\'m pretty sure there\'s a certain bunny-girl around here who wouldn\'t mind...</i>"' );
+		EngineCore.outputText( '\n\nLoppe grins at you.  "<i>Oh... I don\'t know.  I\'m sure a ' + CoC.player.mf( 'handsome', 'beautiful' ) + ' person like you has already drawn quite a few stares,</i>" Loppe teases, batting her eyes at you.  "<i>But, if the time is right, and you ask nicely... I\'m pretty sure there\'s a certain bunny-girl around here who wouldn\'t mind...</i>"' );
 		EngineCore.outputText( '\n\nWell, you\'ll keep that in mind.  Realizing how much time has gone past, you politely excuse yourself.' );
 		EngineCore.outputText( '\n\n"<i>It was nice chatting with you, [name].  Come visit me soon,</i>" Loppe says, giving you a little peck on the cheek.' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -394,25 +394,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		//Urta;
 		EngineCore.addButton( 0, 'Urta', this.gossipWithLoppeAboutUrta );
 		//Scylla (Must have helped her enough times to know she needs cum to survive.);
-		if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
 			EngineCore.addButton( 1, 'Scylla', this.gossipWithLoppeAboutScylla );
 		}
 		//Jasun;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ] > 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ] > 0 ) {
 			EngineCore.addButton( 2, 'Jasun', this.gossipWithLoppeAboutJasun );
 		}
 		//Heckel;
-		if( CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 ) {
+		if( CoC.flags[ kFLAGS.MET_HECKEL ] > 0 ) {
 			EngineCore.addButton( 3, 'Heckel', this.gossipWithLoppeAboutHeckel );
 		}
 		//Edryn;
 		EngineCore.addButton( 4, 'Edryn', this.gossipWithLoppeAboutEdryn );
 		//Lottie;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			EngineCore.addButton( 5, 'Lottie', this.gossipWithLoppeAboutLottie );
 		}
 		//Cotton;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] > 0 ) {
 			EngineCore.addButton( 6, 'Cotton', this.gossipWithLoppeAboutCotton );
 		}
 		//Back (spacebar default);
@@ -422,11 +422,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	Loppe.prototype.gossipWithLoppeAboutUrta = function() {
 		EngineCore.clearOutput();
 		//(if UrtaSex or UrtaLover flags are NOT active);
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_URTA ] <= 0 || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ] <= 0 || CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 			EngineCore.outputText( '"<i>Ah, so you\'ve met Watch Captain Urta?  She\'s famous around here, you know; people say she\'s a legendary bare-knuckle brawler and one of the toughest guards on the force.  The only problem is that she\'s not really that easy to approach... I guess she prefers to keep to herself.  Although she acts very friendly with that pretty centauress, Edryn.</i>"' );
 			EngineCore.outputText( '\n\nLoppe taps her lips thinking of what else she could add, but shrugs.  "<i>I guess that\'s all I have on her - I don\'t really know her that well.  Sorry!</i>"' );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-		} else if( CoC.getInstance().flags[ kFLAGS.LOPPE_URTA_CHATS ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.LOPPE_URTA_CHATS ] === 0 ) {
 			EngineCore.outputText( 'Loppe smirks at you.  "<i>I heard she\'s been getting along nicely with a certain outsider; you wouldn\'t happen to know anything about that, would you, [name]?</i>"' );
 			//[It's Me] [No];
 			EngineCore.menu();
@@ -454,7 +454,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	Loppe.prototype.itsMeFuckingUrtaLoppe = function() {
 		EngineCore.clearOutput();
 		//set LoppeUrtaKnowledge = 1;
-		CoC.getInstance().flags[ kFLAGS.LOPPE_URTA_CHATS ] = 1;
+		CoC.flags[ kFLAGS.LOPPE_URTA_CHATS ] = 1;
 		EngineCore.outputText( 'Loppe is surprised at this news.  "<i>Really?  I would never have guessed... anyways, that is not important right now!  Give me all the juicy details of your rendezvous!  I thought I saw her packing something non-regulation into her trousers, but... let\'s just say the watch uniforms aren\'t as concealing as a kimono.</i>"  She looks at you expectantly, like a rabbit that\'s found the literal carrot patch.  You smile back, then gently tap her on the nose to chastise.' );
 		EngineCore.outputText( '\n\nThe dancer pouts at you.  "<i>That\'s not fair.  You wanted me to gossip, but you\'re not willing give up any gossip of your own?</i>" She makes a motion of mock hurt.  "<i>How could you take advantage of a poor laquine, [name]?  Am I right, at least?  Is it big?</i>"' );
 		EngineCore.outputText( '\n\nIn the face of her insistence, you turn your empty glass on its side, then stand your coaster on its rim quite a ways apart.  She stares at them for a few seconds before your meaning becomes clear.' );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>Oh my goodness!  Her, too?</i>" Loppe blurts, before rallying.  "<i>Well... bigger doesn\'t mean better,</i>" she says, still sounding a little defensive - maybe jealous, "<i>I\'m pretty sure I can give you a ride like she could never hope to.  Just call her over and get us a room and I\'ll show you what I mean, sugar.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Perhaps,</i>" you laugh.' );
 		EngineCore.outputText( '\n\nLoppe grins encouragingly, as though her offer were completely serious.  "<i>Well, anyways... I\'d say you\'d be in more position to gossip about her than I would.  </i>You<i> can tell </i>me<i> about her next time.  For now, I\'m going to go work off these calories.</i>"' );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//End Scene;
 	};
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nHer voice is almost liquid with desperation and lust, and you sadistically rub her straining bulge, playing your fingers absently over the stretched material, then \'remember\' that you had plans to meet with Urta.' );
 		EngineCore.outputText( '\n\n"<i>Sugar, wait up!  I know you said she\'s bigger and yada, yada, yada.  But size isn\'t everything... I doubt she is able to keep up as long as I am, or that she\'s as experienced as I am, so let\'s just tuck ourselves in a corner and you can help me with this... please?  Pretty please?  With cream on top?  Or bottom, or wherever you want it?  Just a quickie, so I can go back to working out?</i>"  Loppe is on the verge of begging, and a pained look contorts her face as you hear the distinct sound of a seam ripping.  Loppe\'s hands dart to her shorts, trying to hold it together against her straining erection.  "<i>Fuck!</i>" she hisses.' );
 		EngineCore.outputText( '\n\nYou could just leave her like this or give her some relief... though you\'d better be quick if you choose the latter.   You could always slide under the table and help blow off her steam, but a small part of you wonders just how upset she\'d be if you kept rubbing her until her seams gave out and she creamed herself.' );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		//[Suck] [Handjob] [Kiss 'n' Run];
 		//See the Tease section for these scenes//;
 		//Tease Menu options!;
@@ -565,11 +565,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>That pig-girl that started hanging around the gym in the evenings?  I heard about her... I believe she wants to get fit,</i>" Loppe comments conversationally.' );
 		//(if PC's training Lottie);
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00299 ] === 1 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00299 ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Seems like she found a gym buddy.  That\'s great; poor thing could really use some help with that.  She tries hard in short bursts, but she needs to actually stick with it and eat a proper diet.  Ah, I suppose I should hide the carrot cake before saying that, huh?</i>"' );
 		}
 		//(else if PC's met Lottie);
-		else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
+		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>Poor girl hasn\'t found a real partner to help her yet.  Maybe you could give her a little attention if you\'re going to be around?  I bet she\'d be grateful.</i>"' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>I thought about helping, but I\'m not very good at training others.  I\'m afraid if I did invite her to work out with me, and I mean actually work out, I\'d kill her from exhaustion; I tend to get a bit carried away, and she is, well, let\'s just say she doesn\'t really look like she\'s ever tried seriously working out before.  I actually talked to her a little, once, and it looks like she\'s always tried fad dieting before now.</i>"  Loppe smiles nervously.' );
@@ -597,7 +597,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou nod your head in understanding, and tuck that fact away in the back of your head.  Realizing how much time has passed, you politely tell Loppe that it\'s time to go.' );
 		EngineCore.outputText( '\n\n"<i>Oh, ok.  I should get back to my exercises anyways.</i>"  Loppe gets up and gives you a little peck on the cheek.  "<i>It was nice chatting with you; come see me soon.</i>"' );
 		//set LoppeChat = 2;
-		CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 2;
+		CoC.flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 2;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Her Mother (edited);
@@ -617,16 +617,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nLoppe shakes her head.  "<i>As far as I can tell, mom isn\'t seeing anyone.  And that\'s the way it\'s been, ever since I was a little girl.  I don\'t think mom could bear to have a relationship after my father... but she doesn\'t let that get to her either, as far as I can tell...  Why the sudden interest in my mom\'s sex life, anyway?  You interested in her?</i>"' );
 		EngineCore.outputText( '\n\nYou ignore the question and point out that if Uma\'s got a girlfriend of her own, never mind if she\'s been playing the field, well, she can\'t really get upset if her daughter\'s found herself a lover... or several.' );
 		//(If PC is male:);
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( '  Well, from what Loppe\'s told you, Uma wouldn\'t be attracted to you anyway.' );
 		}
 		EngineCore.outputText( '\n\nLoppe giggles and grins. "<i>Silly [name].  I don\'t need several lovers.  Just one... the perfect one.  And I don\'t think my mom would be upset either way.  She knows I\'m a big girl now.</i>"' );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
 			EngineCore.outputText( '\n\nSo, if she\'s so confident that her mom wouldn\'t disapprove of her daughter\'s sexual awakening... what about your relationship?\n\n' );
-			EngineCore.outputText( 'Loppe looks you over, thoughtful.  "<i>To be honest... I don\'t think she would mind.  Want me to introduce you to her?  To become my \'official\' ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + 'friend?  I know I certainly wouldn\'t mind having a \'serious\' relationship with a cutie like you.</i>"  The dancer winks at you. "<i>How about it Sugar, do you wanna go visit my mom?</i>"' );
+			EngineCore.outputText( 'Loppe looks you over, thoughtful.  "<i>To be honest... I don\'t think she would mind.  Want me to introduce you to her?  To become my \'official\' ' + CoC.player.mf( 'boy', 'girl' ) + 'friend?  I know I certainly wouldn\'t mind having a \'serious\' relationship with a cutie like you.</i>"  The dancer winks at you. "<i>How about it Sugar, do you wanna go visit my mom?</i>"' );
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
 			EngineCore.addButton( 0, 'Visit Mom', SceneLib.telAdre.umasShop.firstVisitPart1 );
 			EngineCore.addButton( 1, 'Mebbe Later', SceneLib.camp.returnToCampUseOneHour );
 		} else {
@@ -649,23 +649,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	Loppe.prototype.loppeSexChoice = function( bakery ) {
 		EngineCore.clearOutput();
 		//First Time Intro (edited);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			//first-time only output, if not coming from bakery date;
 			if( !bakery ) {
 				EngineCore.outputText( 'That \'workout\' seems like a nice option right now.' );
 				EngineCore.outputText( '\n\nLoppe lifts an eyebrow and smiles at you.  "<i>Are you sure, sugar?  I tend to get carried away, so it can be pretty intense.</i>"' );
 				//(Min Lust >= 50);
-				if( CoC.getInstance().player.minLust() >= 50 ) {
+				if( CoC.player.minLust() >= 50 ) {
 					EngineCore.outputText( '\n\nYou grin and warn her that your appetite is a lot higher than normal; you are usually so aroused that you have no doubt you can go at it a lot more than the average person.' );
 					EngineCore.outputText( '\n\nLoppe shoots you a sultry look.  "<i>Well, sugar, I guess I\'ll just have to take care of this \'endless lust\' of yours, huh?</i>" She tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 				}
 				//(else High Libido);
-				else if( CoC.getInstance().player.lib >= 70 ) {
+				else if( CoC.player.lib >= 70 ) {
 					EngineCore.outputText( '\n\nYou smirk back and announce that you like it intense.  Perhaps she\'s the one who should watch out?' );
 					EngineCore.outputText( '\n\n"<i>Oh, I like the sound of that... let\'s go, sugar!</i>"  Loppe tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 				}
 				//(else High Toughness and has beaten mino mob);
-				else if( CoC.getInstance().player.tou >= 70 ) {
+				else if( CoC.player.tou >= 70 ) {
 					EngineCore.outputText( '\n\nYou tell her that you\'re confident in your stamina.  Truth be told, you can withstand a fight with a whole mob of minotaurs and still have enough energy left to fight off demons.' );
 					EngineCore.outputText( '\n\nLoppe smirks.  "<i>So if I manage to tire you out, that would make me stronger than a mob of minotaurs, right?  Okay!  Challenge accepted!</i>"  She tightens her hold on your hand and starts walking faster, eager to get you to her place.' );
 				}
@@ -673,7 +673,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 				else {
 					EngineCore.outputText( '\n\nYou tell her that, even despite that, you still want this.' );
 					//[(lib>40)];
-					if( CoC.getInstance().player.lib >= 40 ) {
+					if( CoC.player.lib >= 40 ) {
 						EngineCore.outputText( '.. it almost sounds exciting.' );
 					}
 				}
@@ -685,7 +685,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( 'It\'s not very difficult to reach Loppe\'s place; it happens to be located only a few blocks away from the gym, behind a small shop with the sign "<i>Kemono\'s Oriental Clinic</i>".' );
 			EngineCore.outputText( '\n\nOnce you get to the front door you\'re surprised to see that Loppe\'s house is most unusual.  The structure is the same as all other houses in Tel\'Adre but the decoration is what sets it apart, it is covered in symbols that just don\'t any make sense to you; noticing your confusion, Loppe explains, "<i>Mom drew these, it\'s supposed to be something to help ward off bad influences.  It\'s a cultural thing.</i>" Loppe grins.' );
 			//[(corr < 40)];
-			if( CoC.getInstance().player.cor < 40 ) {
+			if( CoC.player.cor < 40 ) {
 				EngineCore.outputText( '  You tell her they\'re quite nice... though privately you\'re curious what the interior looks like.' );
 			} else {
 				EngineCore.outputText( '  They don\'t seem to work very well - after all, <i>you\'re</i> here.' );
@@ -699,22 +699,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\nLoppe admires you as you undress, giving you ample opportunity to admire her back.  As you examine each other, your eyes set on her hardening horse-cock.  It swells to an impressive size and points the same direction as her eyes - it certainly didn\'t look this big when it was tucked inside her tight shorts.' );
 			EngineCore.outputText( '\n\n"<i>So, sugar,</i>" she says, interrupting your reverie, "<i>we can do this however you like.  I don\'t really mind pitching or catching, especially with a cutie like you.</i>"  Loppe winks at you, posing for your benefit.\n\n' );
 			//[(any cock fits area 80);
-			if( CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.smallestCockArea() <= this.loppeCapacity() ) {
+			if( CoC.player.hasCock() ) {
+				if( CoC.player.smallestCockArea() <= this.loppeCapacity() ) {
 					EngineCore.outputText( 'Pulling her onto your dick would result in some cowgirl fun, though you\'d have to deal with her cock pointed right at you when she came.  ' );
 				} else {
 					EngineCore.outputText( 'As good as it would feel to shove your [cock smallest] into her cunt, the nervous looks she\'s giving it tell you what her response would probably be.  ' );
 				}
 			}
 			//[(any cock);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'You could just whip it out and ask what she thinks of it, compared to hers - it might lead to some cross words and crossed swords, though.  ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'You could take her monster length vaginally, but if her libido is what she claims, you\'ll probably wind up quite stretched.  ' );
 			}
 			//[(boobs >= boobjob req);
-			if( CoC.getInstance().player.biggestTitSize() >= 5 ) {
+			if( CoC.player.biggestTitSize() >= 5 ) {
 				EngineCore.outputText( 'Her hardening horsecock looks like it would fit between your [chest], an act likely to net you a messy demonstration of her enthusiasm.  ' );
 			}
 			EngineCore.outputText( 'There\'s always the option to receive her anally, though with her vaunted libido, you\'d probably end up so flooded with her cum that it would wash from your mouth.  Or you could be a prick-tease and leave.' );
@@ -726,18 +726,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( 'Loppe\'s other \'workout\' sounds pretty good right now.' );
 			EngineCore.outputText( '\n\nThe dancer grins and gives you a little peck on the lips.  "<i>Can\'t get enough laquine loving, can you?</i>"' );
 			//(High Min Lust);
-			if( CoC.getInstance().player.minLust() >= 50 ) {
+			if( CoC.player.minLust() >= 50 ) {
 				EngineCore.outputText( '\n\nWell, after all, how many people can actually sate your hunger for sex?' );
 				EngineCore.outputText( '\n\nLoppe grins at you.  "<i>I just knew you\'d come back for more.</i>"  She takes your hand in hers and fairly drags you along, already heading for the door.' );
 			}
 			//(High Libido);
-			else if( CoC.getInstance().player.lib >= 70 ) {
+			else if( CoC.player.lib >= 70 ) {
 				EngineCore.outputText( '\n\nYou thought you held out pretty well last time.' );
 				EngineCore.outputText( '\n\nLoppe smiles teasingly at you.  "<i>Really?  Care to remind me who was snoring on my bed, too spent to stay awake?</i>"' );
 				EngineCore.outputText( '\n\nWho, indeed?  Didn\'t Loppe herself fall asleep at the same time?  Your lover giggles.  "<i>I was just being nice, sugar; I thought you\'d like to sleep with someone besides you.  But if you\'re so confident in your abilities, why don\'t you follow me and show me just what you\'re made of?</i>"' );
 			}
 			//(High Toughness);
-			else if( CoC.getInstance().player.tou >= 70 ) {
+			else if( CoC.player.tou >= 70 ) {
 				EngineCore.outputText( '\n\nThe test of your stamina was nice; now you want a rematch.' );
 				EngineCore.outputText( '\n\nLoppe grins at you.  "<i>I\'m always up for a rematch... literally.</i>"  The statement draws your eyes to the bulge in her shorts, and you note that it is indeed bigger than usual.  Loppe doesn\'t bother saying anything else; she takes your hand and begins leading you back to her home.' );
 			} else {
@@ -747,22 +747,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\nYou wonder if that was deliberate or not... still, you follow suit, stripping off your [armor] and presenting yourself to the sexy herm smiling at you.' );
 			EngineCore.outputText( '\n\n"<i>How will you be having me, sugar?</i>" she asks, hopefully.\n\n' );
 			//[(any cock fits area 80);
-			if( CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.smallestCockArea() <= this.loppeCapacity() ) {
+			if( CoC.player.hasCock() ) {
+				if( CoC.player.smallestCockArea() <= this.loppeCapacity() ) {
 					EngineCore.outputText( 'Pulling her onto your dick would result in some cowgirl fun, though you\'d have to deal with her cock pointed right at you when she came.  ' );
 				} else {
 					EngineCore.outputText( 'As good as it would feel to shove your [cock smallest] into her cunt, the nervous looks she\'s giving it tell you what her response would probably be.  ' );
 				}
 			}
 			//[(any cock);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'You could just whip it out and ask what she thinks of it, compared to hers - it might lead to some cross words and crossed swords, though.  ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'You could take her monster length vaginally, but if her libido is what she claims, you\'ll probably wind up quite stretched.  ' );
 			}
 			//[(boobs >= boobjob req);
-			if( CoC.getInstance().player.biggestTitSize() >= 5 ) {
+			if( CoC.player.biggestTitSize() >= 5 ) {
 				EngineCore.outputText( 'Her hardening horsecock looks like it would fit between your [chest], an act likely to net you a messy demonstration of her enthusiasm.  ' );
 			}
 			EngineCore.outputText( 'There\'s always the option to receive her anally, though with her vaunted libido, you\'d probably end up so flooded with her cum that it would wash from your mouth.  Or you could be a prick-tease and leave.' );
@@ -771,34 +771,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			//Display sex options;
 			//[Cowgirl][CockWorship][TakeVaginal][Boobjob][TakeAnal][Squeezejob][Bail];
 		}
-		if( CoC.getInstance().player.lust < 33 ) {
-			CoC.getInstance().player.lust = 33;
+		if( CoC.player.lust < 33 ) {
+			CoC.player.lust = 33;
 			EngineCore.dynStats( 'lus', 0.2 );
 		}
 		//Display sex options;
 		//[Cowgirl][Frot][TakeVaginal][Boobjob][TakeAnal][Bail];
 		EngineCore.menu();
-		//if(CoC.getInstance().flags[kFLAGS.LOPPE_TIMES_SEXED] > 0);
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
-			if( CoC.getInstance().player.cockThatFits( this.loppeCapacity() ) >= 0 ) {
+		//if(CoC.flags[kFLAGS.LOPPE_TIMES_SEXED] > 0);
+		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
+			if( CoC.player.cockThatFits( this.loppeCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Cow-girl', this.loppeRidesCocks );
 			}
 		}
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'Get BJ', this.loppeWorshipsDicks );
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'TakeVaginal', this.getFuckedInYerTwatYaCunt );
 		}
-		if( CoC.getInstance().player.biggestTitSize() >= 4 ) {
+		if( CoC.player.biggestTitSize() >= 4 ) {
 			EngineCore.addButton( 3, 'Boob-job', this.boobjobLoppe );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] > 0 ) {
 			EngineCore.addButton( 4, 'SqueezeJob', this.loppeSqueezedickWhateverThatIs );
 		}
-		if( CoC.getInstance().player.isTaur() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.isTaur() && CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 5, 'TakeAnal', this.getAssFuckedByLoppeAsACentaur );
-		} else if( CoC.getInstance().player.lust >= 33 ) {
+		} else if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 5, 'TakeAnal', this.getButtFuckedNonHoarseByLoppe );
 		}
 		EngineCore.addButton( 9, 'Leave', this.beATeaseAndLeaveLoppeAfterSexInvite );
@@ -811,7 +811,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( ImageManager.showImage( 'loppe-rides-your-cocks' ) );
 		EngineCore.outputText( 'Looking over the hermaphroditic, horse-cocked bunny-girl, you contemplate your options.  You settle yourself ' );
 		//[(not centaur)];
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'on her bed, making yourself comfortable, and start suggestively stroking yourself' );
 		}//(centaur);
 		else {
@@ -820,15 +820,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '.  Quietly, you ask Loppe how she would feel about indulging her feminine half.' );
 		EngineCore.outputText( '\n\n"<i>I would love to, sugar!</i>"  Loppe gazes at your ' + Descriptors.multiCockDescriptLight() + '.' );
 		//[(2 fit cocks);
-		var x = CoC.getInstance().player.cockThatFits( this.loppeCapacity() );
-		var y = CoC.getInstance().player.cockThatFits2( this.loppeCapacity() );
-		if( y >= 0 && CoC.getInstance().player.cockTotal() === 2 ) {
+		var x = CoC.player.cockThatFits( this.loppeCapacity() );
+		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
+		if( y >= 0 && CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( '  "<i>In fact... I could just eat both of those up.</i>"' );
 		}//(3+ fit cocks);
-		else if( y >= 0 && CoC.getInstance().player.cockTotal() === 3 ) {
+		else if( y >= 0 && CoC.player.cockTotal() === 3 ) {
 			EngineCore.outputText( '  "<i>But I\'m afraid I\'ll only be able to handle two of them.</i>"' );
 		}
-		if( CoC.getInstance().player.cockTotal() > 1 && y >= 0 ) {
+		if( CoC.player.cockTotal() > 1 && y >= 0 ) {
 			EngineCore.outputText( '\n\nBetter than the usual reaction... at least she\'s willing to give more than one some love.' );
 		}
 		EngineCore.outputText( '\n\nLoppe pushes you on your back and gently takes hold of ' );
@@ -850,8 +850,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		} else {
 			EngineCore.outputText( 'pinion her shaft between your' );
 		}
-		EngineCore.outputText( ' own, shivering from the sensation of your sensitive ' + CoC.getInstance().player.skin() + ' against her proud horseflesh, already drooling even though you can plainly feel that it\'s only half-erect.' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		EngineCore.outputText( ' own, shivering from the sensation of your sensitive ' + CoC.player.skin() + ' against her proud horseflesh, already drooling even though you can plainly feel that it\'s only half-erect.' );
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  Your [balls] gently brush and rub against her own swollen cum-factories, and you can\'t wait to empty your overfilled sac into her waiting womb.' );
 		}
 
@@ -861,7 +861,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( '.  "<i>Itadakimasu!</i>" Loppe says, licking her lips as she finally slides you home.' );
 		EngineCore.outputText( '\n\nYou moan softly; she\'s so warm inside, burning with lust and dripping with arousal, her innards stretching so perfectly to fit around every contour and groove of your shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', yet squeezing you as tightly as a velvety vise.  In fact, she\'s gripping you so hard that you can\'t seem to push yourself any further into her depths; she\'s squeezing you much too tightly to move in or out, an outright amazing feat, if Loppe gets half as much action as she claims to.' );
@@ -879,15 +879,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( ' and watertight ass' );
 		}
 		EngineCore.outputText( '.  The sensation borders on the thin line between pleasure and pain, and you can\'t help but moan into Loppe\'s kiss; you wrap your ' );
-		if( CoC.getInstance().player.isDrider() ) {
+		if( CoC.player.isDrider() ) {
 			EngineCore.outputText( 'spindly legs' );
-		} else if( CoC.getInstance().player.isTaur() ) {
+		} else if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'forelegs' );
 		} else {
 			EngineCore.outputText( 'arms' );
 		}
 		EngineCore.outputText( ' around the bunny-girl\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
 			EngineCore.outputText( 'silky-smooth' );
 		} else {
 			EngineCore.outputText( 'softly furred' );
@@ -896,7 +896,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>Brace yourself, sugar!  Here comes your cream!</i>" Loppe yells in rapture, arching her back so powerfully it\'s like she\'s trying to pull herself free of your embrace.' );
 		EngineCore.outputText( '\n\n' );
 		//[(not horse)];
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '<b>You realize that if you keep holding onto Loppe, you\'re going to end up with a face covered in herm-cum - if you act quickly, though, you can avoid the impromptu facial.  You could even turn her hose of a cock back on her.</b>' );
 			//[NoFace] [Facial] [HoseHer];
 			EngineCore.menu();
@@ -912,9 +912,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//{If NoFace:;
 	Loppe.prototype.loppeRidesYouNoFaceJizz = function() {
 		EngineCore.clearOutput();
-		var y = CoC.getInstance().player.cockThatFits2( this.loppeCapacity() );
+		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
 		EngineCore.outputText( 'You let go of the horse-dicked rabbit and she gratefully swivels herself fully upright, cock jutting out over your belly - instinctively, your ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'foreleg tucks under her cock, angling it away from your body.' );
 		} else {
 			EngineCore.outputText( 'hand lunges forward and places itself underneath, fingers curling around as you push it further up, aiming it over your shoulder.  You can feel it throbbing like mad against your fingers, can feel the impressive bulge of semen as it distends her urethra and surges up towards her flared tip.' );
@@ -930,10 +930,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//{If Facial:};
 	Loppe.prototype.loppeRidesYouSpunksInYourEye = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( this.loppeCapacity() );
-		var y = CoC.getInstance().player.cockThatFits2( this.loppeCapacity() );
+		var x = CoC.player.cockThatFits( this.loppeCapacity() );
+		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
 		EngineCore.outputText( 'You keep your ' );
-		if( CoC.getInstance().player.isDrider() ) {
+		if( CoC.player.isDrider() ) {
 			EngineCore.outputText( 'legs' );
 		} else {
 			EngineCore.outputText( 'arms' );
@@ -944,14 +944,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nThe smell of her juices fills the air and floods your nostrils, the copious cum painting itself over both your bodies in great smears that make things deliciously slick and slippery.  The combination of this stimulus with the expert milking of her wonderfully tight nethers and your own hyper-aroused state renders you unable to hold out any more.  With a great shout of your own, you unleash your orgasm into her waiting depths.' );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		this.loppeRidesPCCockFinal();
 	};
 	//{If HoseHer:;
 	Loppe.prototype.loppeRidesYouHoseHer = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You let go of Loppe, and she gratefully swivels herself fully upright, cock jutting out over your belly - your hand lunges forward and places itself palm upright underneath the shaft, fingers curling around as you push it further up and up until it\'s pointing, as best you can make it, at her face!  You can feel it throbbing like mad against your fingers, can feel the impressive bulge of semen as it distends her urethra and surges up towards her flared tip.  With an ululation of ecstasy, she literally explodes into orgasm, cum geysering from her cock and squarely into her face, causing her to choke and splutter at the surprise facial, the pearly spooge splattering down her throat and onto her breasts.  With a laugh she shakes her head, closing her eyes and opening her mouth; even as she continues to bounce and buck and grind against you, her cock keeps spurting cum, and she clumsily tries to catch it, eagerly swallowing down mouthful after mouthful.  She\'s actually quite good at it, but despite her best efforts, her hair, ears, face and breasts end up completely plastered in cum... not that this stops her from milking you with her lower hole' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' until you can\'t help it and cum yourself.' );
@@ -959,23 +959,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 
 	Loppe.prototype.loppeRidesPCCockFinal = function() {
-		var x = CoC.getInstance().player.cockThatFits( this.loppeCapacity() );
-		var y = CoC.getInstance().player.cockThatFits2( this.loppeCapacity() );
+		var x = CoC.player.cockThatFits( this.loppeCapacity() );
+		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
 		EngineCore.outputText( ImageManager.showImage( 'loppe-rides-your-cock' ) );
 		EngineCore.outputText( '\n\nYour ' + Descriptors.cockDescript( x ) + ' gushes fluids into her hungry womb' );
-		if( y >= 0 || CoC.getInstance().player.hasVagina() ) {
+		if( y >= 0 || CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', while ' );
 			if( y >= 0 ) {
 				EngineCore.outputText( 'your second ' + Descriptors.cockDescript( y ) + ' just as easily pumps her perverted ass full of baby juice' );
 			}
-			if( y >= 0 && CoC.getInstance().player.hasVagina() ) {
+			if( y >= 0 && CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'your [vagina] ' );
-				if( CoC.getInstance().player.wetness() < 3 ) {
+				if( CoC.player.wetness() < 3 ) {
 					EngineCore.outputText( 'drizzles' );
-				} else if( CoC.getInstance().player.wetness() < 5 ) {
+				} else if( CoC.player.wetness() < 5 ) {
 					EngineCore.outputText( 'spatters' );
 				} else {
 					EngineCore.outputText( 'gushes' );
@@ -985,25 +985,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( '.  You cry out as you cum long and hard, arching your back off of the bed in your pleasure before finishing and collapsing, gasping for breath as, above you, the laquine comes to her own climactic end.' );
 		EngineCore.outputText( '\n\nLoppe slumps atop you, rubbing your bodies together as her hips slow down.  Spent from your recent orgasm, you resolve to just wrap your ' );
-		if( CoC.getInstance().player.isDrider() || CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isDrider() || CoC.player.isTaur() ) {
 			EngineCore.outputText( 'forelegs' );
 		} else {
 			EngineCore.outputText( 'arms' );
 		}
 		EngineCore.outputText( ' around her, pulling her into a post-coital cuddle.  Her wet cock quietly slaps against your belly as she embraces you back, clearly savoring the closeness the same way you are.  However, moments later, you feel Loppe\'s hips start to twitch, slowly building into more lustful thrustings, seconds before Loppe pushes herself back into a deliberately upright position, her pace building steadily.  With a lusty smile and a mischievous twinkle in her eyes, Loppe looks you straight in the eye as she proclaims, "<i>It\'s time for round two, [name]!</i>"' );
 		//(High libido or High Min lust);
-		if( CoC.getInstance().player.lib >= 70 || CoC.getInstance().player.minLust() >= 50 ) {
+		if( CoC.player.lib >= 70 || CoC.player.minLust() >= 50 ) {
 			EngineCore.outputText( '\n\nYou remember what she told you about her libido and shrug; what\'s another round, after all?  You\'re happy to finally have someone capable of sating your endless hunger for sex.  [EachCock] begins to harden again, and the girl on top of you gives you a knowing smile.' );
 		}
 		//(Medium libido or Medium Min lust);
-		else if( CoC.getInstance().player.lib >= 50 || CoC.getInstance().player.minLust() >= 35 ) {
+		else if( CoC.player.lib >= 50 || CoC.player.minLust() >= 35 ) {
 			EngineCore.outputText( '\n\nYou remember what she told you about her libido, but another round?  So soon?  Sighing, you tell Loppe that you just can\'t handle so much sex in such a short notice; she\'d have to at least give you a few moments to recover.' );
 		} else {
 			EngineCore.outputText( '\n\nWhat!?  Round two?  Now?  You sigh in exasperation... she did warn you about her libido, but this is ridiculous!  You just can\'t work yourself into another erection... especially after having just climaxed...' );
 		}
 		EngineCore.outputText( '\n\nLoppe quietly disentangles herself from your half-staff ' );
 		EngineCore.outputText( Descriptors.multiCockDescriptLight() + ' and slides down your body, pressing her soft, cum-slickened breasts against you.  You moan as the smooth curves of her chest press against [eachCock]; the cum-slick ' );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
 			EngineCore.outputText( 'skin' );
 		} else {
 			EngineCore.outputText( 'fur' );
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( ' the laquine on her nose, leaving you ready to be mounted by her once again.' );
 		EngineCore.outputText( '\n\n"<i>I can\'t remember the last time I\'ve had so much fun with anyone else,</i>" Loppe whispers, shivering.  "<i>Now, sugar... it\'s time for another session, and you\'d best be ready for overtime' );
-		if( CoC.getInstance().player.minLust() <= 30 && CoC.getInstance().player.lib <= 50 ) {
+		if( CoC.player.minLust() <= 30 && CoC.player.lib <= 50 ) {
 			EngineCore.outputText( '; if I have to stop to tend to you after every coupling, I\'ll never get these empty' );
 		}
 		EngineCore.outputText( '.</i>"  She points with a smirk to her swollen balls.  Er... didn\'t she just blow her load? Her balls look at least as full as, if not fuller than, when you started, and they nearly slosh with eagerness to be rid of their cargo!' );
@@ -1045,9 +1045,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( ' once more.  You moan as once again you follow the lusty dickgirl into the throes of pleasure...' );
 		EngineCore.outputText( '\n\n<b>One hour and several orgasms later...</b>' );
-		EngineCore.outputText( '\n\n"<i>Thanks, sugar.  You\'re the best!  I feel completely satisfied!</i>" Loppe says, happily smiling and hugging you tightly.  As she snuggles up to you, you can feel the distinct bump of her gravid-looking belly rubbing against your ' + CoC.getInstance().player.skin() + '; the cum-filled flesh deforms as the pressure pushes some of the skin-stretching load out of her nethers and further smears the proof of your pleasure on your entwined lower halves, but even so she still looks ready to pop with three or four kids.  You consider answering her, but find that you lack the will to do so... in fact, you lack the energy to do anything at all, Loppe having fucked you until you were shooting blanks' );
+		EngineCore.outputText( '\n\n"<i>Thanks, sugar.  You\'re the best!  I feel completely satisfied!</i>" Loppe says, happily smiling and hugging you tightly.  As she snuggles up to you, you can feel the distinct bump of her gravid-looking belly rubbing against your ' + CoC.player.skin() + '; the cum-filled flesh deforms as the pressure pushes some of the skin-stretching load out of her nethers and further smears the proof of your pleasure on your entwined lower halves, but even so she still looks ready to pop with three or four kids.  You consider answering her, but find that you lack the will to do so... in fact, you lack the energy to do anything at all, Loppe having fucked you until you were shooting blanks' );
 		//[(if high cum amount)];
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( ' despite your usually messy orgasms' );
 		}
 		EngineCore.outputText( '.' );
@@ -1057,7 +1057,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>Morning!</i>" Loppe says.  You turn to look at her and notice that she\'s dressed in what looks like a very comfortable bathrobe; in her hands she holds a tray containing a loaf of bread and a cup of what you presume to be some sort of herbal tea.  Looking further down you notice that her gigantic belly has been reduced to normal proportions, giving the dancing bunny-girl the slim, slender silhouette she had when you first met her.  You open your mouth to ask her a few questions, but your rumbling stomach interrupts you before you can say anything.' );
 		EngineCore.outputText( '\n\nLoppe giggles, sauntering over to you and helping you up, before offering you the tray with a small peck on the cheek.  "<i>Here you go; I made these especially for you.  Eat up!</i>"  Ravenously, you dig into the humble fare, finding it takes the edge off of your fatigue... though your muscles still feel drained and weak from the amount of \'exercise\' you gave them.' );
 		//(First Time);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			EngineCore.outputText( '\n\nLoppe zeroes in on a trembling hand and takes the tray from you as you finish, then grins nervously.  "<i>Sorry about that, sugar.  I guess I might have overdone it, but it was so exciting being with someone new.  If it was too much, I\'ll be happy to make it up to you - maybe a date, or... maybe another, much slower session.</i>"  She looks slyly at you.  "<i>Whichever you\'re up for.</i>"' );
 			EngineCore.outputText( '\n\nBefore you have a chance to answer, she leans in and captures your lips in a kiss.' );
 		} else {
@@ -1065,13 +1065,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( '\n\nReleasing you, Loppe points to a nearby chair.  "<i>I\'ve laid out your [armor] over there, but feel free to stay as long as you want to.</i>"  You thank her for the kind offer, but the last thing you need are imps or goblins getting into your supplies and making off with your things.  You redress yourself, negligently allowing Loppe glimpses of your naked body as you do so' );
 		//[(Exhibitionist);
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( '; it gives you something of a thrill, though nowhere near as much as taking them off for her in the first place did' );
 		}
 		EngineCore.outputText( '.  Finished, you depart.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		//3 hours pass.;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
@@ -1083,22 +1083,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-worships-your-cock' ) );
 		EngineCore.outputText( 'As your eyes sweep over the naked half-breed\'s form, they focus on her equine masculinity, already standing proud and eager at the prospect of sex.  Distinctly aware of your own male appendage' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', you conversationally ask Loppe what she thinks of your [cock biggest], an idea starting to form in your mind.' );
 		//(if cock area <= 17.5);
-		if( CoC.getInstance().player.biggestCockArea() <= 17.5 ) {
+		if( CoC.player.biggestCockArea() <= 17.5 ) {
 			EngineCore.outputText( '\n\n"<i>What do I think about your dick?  Well... it\'s much smaller than my own, but it\'s cute.  And to be honest I wouldn\'t mind having it fill me up, even if you won\'t be able to go that deep.</i>"' );
 			EngineCore.outputText( '\n\nLoppe laughs.  "<i>Or, were you thinking I\'d care about who has the biggest dick between us?  As long as you can hump me till I blow a load of my own, I\'m fine.  And, to be entirely honest, lately I find myself getting off on anything... so, as long as you don\'t mind a little tussle in the bed, I certainly don\'t mind getting on with a cutie like you.</i>"  She winks and blows you a kiss.' );
-		} else if( CoC.getInstance().player.biggestCockArea() <= 35 ) {
+		} else if( CoC.player.biggestCockArea() <= 35 ) {
 			EngineCore.outputText( '\n\n"<i>What do I think about your dick?  Well, it\'s about the same size as mine, which is good, I think... and it looks hard too.  I can see the veins bulge each time it throbs.  Looks tasty... and I wouldn\'t mind having something like that inside me.</i>"  She nods appreciatively.' );
 		} else {
 			{ //cock area > 35
 			}
 			EngineCore.outputText( '\n\n"<i>What do I think about your dick?  Well... it\'s huge!  So big, hard and juicy - that\'s a cock I can really get my hands around.  To be honest with you, I\'m having a hard time not taking it for a spin.  Such a wonderful looking member... ' );
 			//[(if cock area > Loppe's capacity);
-			if( CoC.getInstance().player.biggestCockArea() > this.loppeCapacity() ) {
+			if( CoC.player.biggestCockArea() > this.loppeCapacity() ) {
 				EngineCore.outputText( 'even if it does look too big to fit.' );
 			} else {
 				EngineCore.outputText( 'or maybe I should get a taste first?' );
@@ -1116,35 +1116,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nWith a moan, hollow and deep with longing, unable to even think of warning Loppe that it\'s coming, you orgasm right into the laquine\'s mouth.  Your ejaculate feels like molten magma as it boils up from inside of you, consuming your cock with the most delicious warmth of pure bliss as you splurt gush after gush into your partner.  So intense is the feeling - and so eagerly does she suck, lick, and swallow, caressing your cock even as she gulps down each mouthful - that even when the haze clears and you stop cumming, your cock is still rock-hard.' );
 		EngineCore.outputText( '\n\nLoppe unlatches from you with a <b>\'pop\'</b>.  "<i>Thanks for the meal, sugar,</i>" she grins.  "<i>Now... I can see you\'re still hard, so how about some more fun?  Hmm?  I\'ll be wanting to have some of my own, of course.</i>"  She unbends, to rest your wet shaft in her cleavage.' );
 		EngineCore.outputText( '\n\nUsing her hands and arms, Loppe grinds her soft boobs against your [cock biggest], milking a few more dollops of cum from you, slickening her breasts, as well as your saliva-coated prick.  You shudder and instinctively thrust your cock into her soft ' );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_FURRY ] > 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] > 0 ) {
 			EngineCore.outputText( 'fluffy ' );
 		}
 		EngineCore.outputText( 'cleavage; her ' );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
 			EngineCore.outputText( 'skin' );
 		} else {
 			EngineCore.outputText( 'fur' );
 		}
 		EngineCore.outputText( ' against your [cock biggest] sends tingles of pleasure rippling through your loins.  The half-breed doesn\'t stop her ministrations, barely noticing your reaction.  All she does is giggle as you continue pumping more of your slick pre all over her breasts.  Murmuring and moaning appreciatively, you continue to thrust and grind, eagerly spilling pre-cum all over your herm lover\'s cleavage and midriff, though you can\'t prevent one sudden spurt from landing right on her face' );
 		//[(lib > 40);
-		if( CoC.getInstance().player.lib >= 40 ) {
+		if( CoC.player.lib >= 40 ) {
 			EngineCore.outputText( ' - nor would you want to; she looks just right covered in your fluids' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>All ready!</i>"  Loppe declares, letting go of your slick shaft and delivering a parting peck.  You wonder what exactly you\'re ready for, other than the obvious... it doesn\'t stop you from continuing to thrust in anticipation of your second release.' );
 		EngineCore.outputText( '\n\nLoppe pushes you back onto the bed and straddles you, stroking her equine-prick in order to milk more pre and spread it over her shaft.  "<i>It\'s time to give this wonderful [cock biggest] of yours a ride of its own,</i>" she hums.  She aligns her tool with your own, rubbing your slick lengths together as she begins humping.  You grind and slide your wet, pre-smeared shaft against hers, groaning and hissing at the sparks of pleasure the slippery friction sends surging into your brain.' );
 		EngineCore.outputText( '\n\nLoppe pants over you, humping your shaft as she looks deeply into your eyes with a gaze fogged by pleasure.  You can feel the warmth emanating from her equine endowment as she leaks copious amounts of pre over your own shaft.  With a gasp of surprise and without slowing her rhythm, Loppe cums.  Rope after sticky rope of cum splashes across your belly and your [chest].  You squeeze her ass, feeling her tail swishing across your fingers as you grind and rut against her, cock to cock' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and balls to balls' );
 		}
 		EngineCore.outputText( ', the delicious friction pushing you over the edge.' );
 		EngineCore.outputText( '\n\n"<i>Can you see... how much I love... your cock, now?</i>"  Loppe asks, panting.  Panting right back, you answer her with your eyes as your cock proclaims its love for her, dropping the last dike of resistance and yielding to your overreaching orgasm.  The pleasure of cumming fills your addled brain again as you spray your cock-juice all over your lover\'s belly, breasts, face and dick, soaking her with every last drop you can dredge up.  Your orgasm triggers another of Loppe\'s own, and with a groan, she gives you a coating of her own issue.  After spewing the last of her load onto you, she collapses and gives you a gooey hug, followed by a slimy kiss on your cheek.' );
 		EngineCore.outputText( '\n\n"<i>You\'re the best, sugar.</i>"  You simply nod, too dazed to really listen.  She humps you a couple more times, noting your softening member.  Giggling, she says,  "<i>It\'s too early for you to go soft on me, [name].  I still have a lot of appreciation to show you... and I\'m sure you still want to show your appreciation for me too.  So get ready for round two!</i>"  She leers at you, licking her lips in blatant anticipation.' );
 		//Low Libido:;
-		if( CoC.getInstance().player.lib < 33 && CoC.getInstance().player.minLust() < 30 ) {
+		if( CoC.player.lib < 33 && CoC.player.minLust() < 30 ) {
 			EngineCore.outputText( '\n\nYou groan from the depths of your throat; Loppe and her libido...' );
 		}//{Moderate Libido:;
-		else if( CoC.getInstance().player.lib < 66 && CoC.getInstance().player.minLust() < 50 ) {
+		else if( CoC.player.lib < 66 && CoC.player.minLust() < 50 ) {
 			EngineCore.outputText( '\n\nWith a wince of equal parts anticipated pleasure and pain, you ready yourself for a long session.' );
 		}//High Libido:;
 		else {
@@ -1156,9 +1156,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>You sure?</i>" she asks, giggling.   "<i>Alright then... my cock feels so sensitive I\'d probably end up appreciating you right away, anyways, and there\'s no fun in that, right?  How about a nap instead?</i>"  Without a word in reply, you lie back and closing your eyes.  You think you feel Loppe snuggle up against you, but you fall asleep too quickly to be sure.' );
 		EngineCore.outputText( '\n\n<b>Two hours later...</b>' );
 		EngineCore.outputText( '\n\nA familiar feeling emanates from your crotch... a distinct sucking and bobbing feeling.  Your eyes open and you awaken with a gasp as you blast a fresh batch of cum into Loppe\'s eager mouth.  She withdraws with a slurp and smiles gleefully at you.  "<i>Morning, sleepyhead!  Rest well?  Want me to wake you up some more?</i>" she asks, licking her lips.  "<i>I placed your stuff on the chair over there.  And don\'t worry, it\'s all cleaned too.  See you later on?  For more \'appreciation\', of course...</i>"' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Female;
@@ -1168,7 +1168,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( ImageManager.showImage( 'loppe-sticks-it-in-your-vagoo' ) );
 		EngineCore.outputText( 'As you contemplate the delicious possibilities that the herm presents, your eyes are drawn to her admirable piece of horse-meat.  With a half-grin, you settle yourself on her bed, ' );
 		//[(mans);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'spreading your labia in an invitation that needs no words.' );
 		} else {
 			EngineCore.outputText( 'exposing your rump and spreading your hind legs in your best effort to make her feel welcome.' );
@@ -1176,16 +1176,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 
 		EngineCore.outputText( '\n\nLoppe smirks at you and winks.  "<i>Don\'t worry; I\'ll treat you like a ' );
 		//[(femininity <= 40);
-		if( CoC.getInstance().player.femininity > 50 ) {
+		if( CoC.player.femininity > 50 ) {
 			EngineCore.outputText( 'princess.  A sexy, smoking hot princess' );
 		} else {
 			EngineCore.outputText( 'prince.  A dashing, dandy prince' );
 		}
 		EngineCore.outputText( ' that I intend to fill up with my laquine love.</i>"  She wastes no time and pounces on the bed, ready to bury her face between your [legs], licking her lips while taking deep breaths to inhale as much of your pheromones as she can.  You blink at the speed with which she moves, but smile, repositioning yourself to give her better access' );
 		//[(herm non-horse);
-		if( CoC.getInstance().player.gender === 3 && !CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.gender === 3 && !CoC.player.isTaur() ) {
 			EngineCore.outputText( ', though she needs to move aside ' + Descriptors.sMultiCockDesc() + ' ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'and [balls] ' );
 			}
 			EngineCore.outputText( 'to really get at your cunt' );
@@ -1193,9 +1193,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>Sugar, you have no idea how good you smell.  Oh, I just have to get a taste of that sweet-looking pussy of yours.</i>"  Loppe dives forward' );
 		//[(not horse and herm);
-		if( !CoC.getInstance().player.isTaur() && CoC.getInstance().player.gender === 3 ) {
+		if( !CoC.player.isTaur() && CoC.player.gender === 3 ) {
 			EngineCore.outputText( ', under your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[sack]' );
 			} else {
 				EngineCore.outputText( Descriptors.multiCockDescriptLight() );
@@ -1203,20 +1203,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( ',' );
 		}
 		EngineCore.outputText( ' to lick and kiss your sensitive labia.  You arch your back and thrust your crotch at her, letting the laquine have your precious pussy to taste and suckle and ravage... she\'s pretty good with that tongue of hers.  Loppe lifts her head and wipes her face with her arm.  "<i>I\'m even better with this,</i>" she says, mirroring your thoughts and holding her painfully erect equine-shaft.  You watch as it throbs, every vein bulging visibly, balls engorged as they churn up a load of cum to deposit in your waiting womb.  She ducks to take another lick, tasting you like one tastes a fine wine.' );
-		if( CoC.getInstance().player.vaginas[ 0 ].virgin ) {
+		if( CoC.player.vaginas[ 0 ].virgin ) {
 			EngineCore.outputText( '\n\n"<i>You taste like a virgin, [name].  But that\'s impossible, right?  There\'s no way a hottie like you would let a silly horse-bunny like me be your first.</i>"' );
 			//[(low corr)];
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '  You look coy, for her benefit, and cast your eyes down shyly.' );
 			} else {
 				EngineCore.outputText( '  You do your best to warn her away from the topic with your eyes, eager to get on with the fuck.' );
 			}
 			//(not for horsez);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nLoppe gasps and persists.  "<i>Wow... I\'ll actually get to be your first... are you sure that\'s okay?</i>"' );
 			}
 			EngineCore.outputText( '\n\nYou reach out ' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'and tap her playfully on the nose' );
 			} else {
 				EngineCore.outputText( 'in your irritation and squeeze her face imploringly' );
@@ -1225,43 +1225,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\nShe swallows audibly and grins.  "<i>I assure you I\'ll be gentle and that I\'ll make your first time as memorable as I can.  You\'re not leaving this room until you are completely satisfied, I promise!</i>"' );
 		}
 		//(else if vaginalLooseness < 3);
-		else if( CoC.getInstance().player.looseness() < 3 ) {
+		else if( CoC.player.looseness() < 3 ) {
 			EngineCore.outputText( '\n\n"<i>You taste so sweet... I knew I was right to call you \'sugar\', sugar!</i>" Loppe comments with a smile and lick of her lips.  "<i>But enough foreplay!</i>"' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>I see I\'m not dealing with a rookie,</i>" she muses.  "<i>You must be quite experienced.  But no worries, I\'m pretty skillful with my tool; I assure you I\'ll give you a ride unlike any other!</i>"' );
 		}
 
 		EngineCore.outputText( '\n\nLoppe aligns her flared tip with your [vagina] and finally pushes herself in, plumbing your depths with her delicious, juicy horse-prick; pre-cum helps her entrance as she pushes as far as she can inside your depths with flared tip caressing your walls as she finally' );
-		if( CoC.getInstance().player.vaginalCapacity() >= 35 ) {
+		if( CoC.player.vaginalCapacity() >= 35 ) {
 			EngineCore.outputText( ' bottoms out, completely hilted inside you' );
 		}//[else:;
 		else {
 			EngineCore.outputText( ' bumps against your cervix' );
 		}
 		EngineCore.outputText( '. You moan in delight as she sinks into you' );
-		if( CoC.getInstance().player.vaginas[ 0 ].virgin ) {
+		if( CoC.player.vaginas[ 0 ].virgin ) {
 			EngineCore.outputText( ', repressing a shiver of pain as she tears through your hymen, taking your virginity' );
-		} else if( CoC.getInstance().player.vaginalCapacity() < 35 ) {
+		} else if( CoC.player.vaginalCapacity() < 35 ) {
 			EngineCore.outputText( ', forcing your entrance wide to accommodate herself' );
 		}
 		EngineCore.outputText( '.' );
 		//cuntchange, but suppress standard messages;
-		CoC.getInstance().player.cuntChange( 35, true, true, false );
+		CoC.player.cuntChange( 35, true, true, false );
 		EngineCore.outputText( '\n\n"<i>Ah, It feels even better than it tastes...</i>" Loppe says airily as she begins humping you, her powerful hips working to bring both of you closer to the edge and beyond.' );
 		//[(not horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '  You wrap your [legs] around her hips as best you can, thrusting in your efforts to meet her strong rhythm, feeling your cunt rippling around her wonderfully long, thick horsecock.' );
 		}
 		EngineCore.outputText( '\n\nLoppe\'s technique is exquisite; she gyrates her hips with each thrust, making sure to press her flare against that special spot inside you that makes you scream in pleasure, once she sees your reaction, she deliberately drags her tip across it with each pass, depositing huge amounts of pre.' );
 		EngineCore.outputText( '\n\nYou hiss and shudder, writhing across the bedsheets as your lover works her magic on you, filling you with pleasure.  Juices flow wet and thick from your pussy' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', precum begins to drool from your ' + Descriptors.multiCockDescriptLight() );
 		}
 		EngineCore.outputText( '.' );
 		//Not Centaur:;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nYou grab Loppe\'s face to kiss her passionately. One hand strokes her long, dark hair, while the other slides down her back - it takes some work to position yourself right, but you\'re finally able to grasp her balls, kneading and jiggling them in the palm of your hand, fingers curling around to tickle their way into her wet, dripping cunt.\n\nLoppe breaks the kiss and gasps. "<i>If you... ah... keep this up, sugar, you\'ll be getting a healthy dose of laquine love anytime now.  Oh, right there!</i>" Loppe moves to kiss along your collarbone and suckle on your neck.\n\nWell, now, if that isn\'t encouraging in its own right... your free hand starts to play with her long, rabbit-like ears - after all, those should be sensitive, right?  Them being erogenous zones makes as much sense as anything about your relationship with Loppe does - even as your busy hand continues to massage her balls and her pussy, flicking her clit and pumping your increasingly juice-smeared fingers into her neglected, greedily-sucking hole, you grind your hips into hers, gyrating in a countermeasure to her own motions' );
-			if( CoC.getInstance().player.gender >= 3 ) {
+			if( CoC.player.gender >= 3 ) {
 				EngineCore.outputText( ' and smearing both your bellies with herm-pre' );
 			}
 			EngineCore.outputText( '.' );
@@ -1275,9 +1275,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\nWith a pointed comment about her not being enough of a stallion to please a proper mare and a laugh for emphasis, you push your hips back with extra force, moaning at the feeling of her horse-cock inside your mare\'s cunt.  The lusty half-breed doesn\'t bother replying, she just thrusts against you as hard as she can, pistoning in and out of your [vagina] with abandon.  Each slap of your hips sends pleasure rippling through you.  You gasp and moan, flicking your fingers across your [nipples] for further stimulus.  You rut back against your hybrid herm lover as hard as you can... just a little more, oh, you\'re so close!' );
 		}
 		EngineCore.outputText( '\n\nLoppe gasps and screams, almost neighing, as you feel her cock bulge right before the first of many ropes of cum splatter against the walls of your womb.  You cry out in delight as the sensation of steaming hot spunk gushing into you sets your inflamed nerves alight; your cunt squeezes down on her cock rapturously as you shudder and heave your way to your own climax' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', neglected cock fountaining cum ' );
-			if( CoC.getInstance().player.cumQ() < 500 ) {
+			if( CoC.player.cumQ() < 500 ) {
 				EngineCore.outputText( 'between you and painting you both' );
 			} else {
 				EngineCore.outputText( 'gushing onto the bedsheets and smearing your belly' );
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nLoppe\'s endless ropes of semen fill you to the brim within instants; the excess jets out of the seal formed by her cock, smearing her bedsheets with the results of your coupling.  By the time she\'s spent you\'re lying in a pool of your combined juices, completely matted with cum and utterly satisfied.  Loppe sighs and smiles at you.  "<i>So... how did you like your ride, sugar?</i>" she asks, lightly humping you with her slowly softening horse-prick as she leans over you.' );
 		EngineCore.outputText( '\n\nYou smile, stroke her cheek, and give her a kiss.  Loppe grins happily at you. "<i>... Let\'s not waste any time and get started with round 2!</i>" She says excitedly' );
-		if( !CoC.getInstance().player.isTaur() && CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.isTaur() && CoC.player.hasCock() ) {
 			EngineCore.outputText( ', giving you a quick peck on the cheek and licking a small gob of cum that seems to have stuck to your chin' );
 		}
 		EngineCore.outputText( '.' );
@@ -1298,7 +1298,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou shake your head, not sure if you\'d even feel her going to work again, so tired and raw are you. Loppe gives you a mischievous smirk and says, "<i>Really?  Then you don\'t mind if I take another shot?  I wanna make sure I gave every single little spot of you some lovin\'.</i>"' );
 		EngineCore.outputText( '\n\nWords fail you, and you give her ' );
 		//[(low corr);
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'a pleading look... and if there\'s maybe a trace of horror dancing in the depths of your eyes, well, that\'s understandable, isn\'t it?' );
 		} else {
 			EngineCore.outputText( 'an incendiary glare, letting her know just what you think of her posturing.' );
@@ -1314,7 +1314,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '  "<i>Da! Sandvich is kredit to team!</i>"' );
 		}
 		//(First Time);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			EngineCore.outputText( '\n\nLoppe grins nervously as you ravenously tuck into your meal, hovering by your side until you finish.  Once you\'re done, she gives you a sheepish smile.  "<i>Sorry about that.  I guess I might have overdone it, but it was so exciting being with someone new.  If it was too much, I\'ll be happy to make it up to you - maybe a date, or... maybe another, much slower session.</i>"  She looks slyly at you.  "<i>Whichever you\'re up for.</i>"' );
 			EngineCore.outputText( '\n\nBefore you have a chance to answer, she leans in and captures your lips in a kiss.' );
 		}
@@ -1325,15 +1325,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nWiping off the remnants of the post-sex meal, you\'re briefly disappointed that there isn\'t more - you\'re still only halfway home from famished.  "<i>Sorry, but that\'s all that I had time to make,</i>" Loppe apologizes.  Then she grins,  "<i>Looks like you enjoyed it, though; I knew you\'d want something after the \'workout\'.  If you want, I can also draw you a bath.</i>"' );
 		EngineCore.outputText( '\n\nYou think it over, but then laugh and turn her down; just how can you trust her not to follow you into the bath and stuff you so full you can\'t get out of it?' );
 		//[Libido >=50:;
-		if( CoC.getInstance().player.lib >= 50 || CoC.getInstance().player.minLust() >= 30 ) {
+		if( CoC.player.lib >= 50 || CoC.player.minLust() >= 30 ) {
 			EngineCore.outputText( '  Not that you didn\'t just titillate yourself thinking of it...' );
 		}
 		EngineCore.outputText( '  Your lover laughs, "<i>Okay, you got me there... but, anyway, I have some chores to run for my mom, so I guess I\'ll see you later?</i>"' );
 		EngineCore.outputText( '\n\nYou slide out from beneath the covers and start redressing yourself.  Once you\'re done, Loppe steals a quick peck on the lips before you head out.' );
 		//3 hours pass.;
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		CoC.getInstance().player.orgasm();
+		CoC.player.slimeFeed();
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
@@ -1349,7 +1349,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nNow, why do you suppose she has that handy?  Loppe blushes a bit and giggles.  "<i>Well, a girl has her kinks, sugar.  So it pays to be ready... anyways, you\'re one to talk, crawling onto my bed and lifting that cute butt up for me.</i>"' );
 		EngineCore.outputText( '\n\nLoppe moves back towards the bed and gently places the vial beside you.  "<i>Since you\'re so eager for this, you may do the honors.</i>"  She crosses her arms and stands beside the bed, waiting for you to get started; her cock looks painfully erect and throbs visibly.' );
 		//(PC has Anal Wetness);
-		if( CoC.getInstance().player.ass.analWetness > 0 ) {
+		if( CoC.player.ass.analWetness > 0 ) {
 			EngineCore.outputText( '\n\nYou smirk and fold your arms - you don\'t need it; your ass makes its own lube.  Loppe\'s eyes widen in surprise.  "<i>What? Are you serious?</i>"  A coy look and an elevated rear invite her to see for herself, but for emphasis, you suck with exaggerated innocence on the tip of a finger.  Already, you can feel your arousal stimulating you, resulting in beads of moisture welling up within your sex-ready hole.  Loppe reaches in and thrusts her index finger into your butt, gasping in surprise.  "<i>Wow... you really are full of surprises, aren\'t you, sugar?</i>"' );
 			EngineCore.outputText( '\n\nYou simply moan and arch your back, so conditioned to anal sex that even this blunt insertion is arousing and wonderfully stimulating rather than painful, as it would have been to a neophyte. To encourage her to get started, you press back against her hand, grinding your ass against the palm.' );
 			EngineCore.outputText( '\n\nLoppe smirks.  "<i>Have some patience, sugar.  Even if I can get myself pretty slick, it doesn\'t hurt to have a little something extra to help me ease myself in, y\'know?  Plus I want to feel those wonderful hands of yours, so get to work!</i>"  Loppe presents you her erect horse-prick.' );
@@ -1364,70 +1364,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou give her your most mischievous smile and promptly give her balls a playful squeeze.  The bunny-stallion moans hoarsely, precum welling up from her flared head and noisily dripping with a soft splat onto the floor.  You release her shaft and reposition yourself on her bed as you were originally were, telling her that you think she\'s ready to go.' );
 		EngineCore.outputText( '\n\nLoppe pants and smiles at you.  "<i>Now you\'ve done it... you got me really going now, so get ready.  I\'ll give you a ride you won\'t forget anytime soon!</i>" your lover hurriedly snatches the vial of lube and puts it away, then literally pounces on your elevated butt and aligns the tip with your moist rosebud.' );
 		//(if Anal Looseness === 0);
-		if( CoC.getInstance().player.ass.analLooseness === 0 ) {
+		if( CoC.player.ass.analLooseness === 0 ) {
 			EngineCore.outputText( '\n\nLoppe presses her flared head against your tight little hole, but it won\'t go in, despite all the lube.  "<i>Wow, sugar.  You\'re really tight here... how many times have you done this before?</i>"' );
 			EngineCore.outputText( '\n\nYou admit this is your first time.  Loppe\'s eyes open wide in surprise.  "<i>Really?  So I get to be the first to spread this gorgeous butt of yours?  Are you sure... ?</i>"' );
 			EngineCore.outputText( '\n\nYou shake your head and your ass emphatically.  This far in, there\'s nothing to second-guess.  "<i>Wow... I\'m honored, sugar!</i>" Loppe gushes.  "<i>I\'ll make sure to be as gentle as possible.  Try to relax; it\'ll make this easier.</i>"' );
 			EngineCore.outputText( '\n\nHaving said that, she begins to push against your tightly-sealed sphincter, slowly increasing the pressure until her flared tip finally pops in.  You try to relax, like she said, but still can\'t restrain a soft groan of pleasure-pain as she forces her way inside of you, stretching you in a way you know you\'ll never completely recover from.' );
 			//insert anal virginity loss message;
-			CoC.getInstance().player.buttChange( 35, true, true, false );
+			CoC.player.buttChange( 35, true, true, false );
 			EngineCore.outputText( '\n\nOnce inside, Loppe slowly slides forward, aided by the lube you\'ve poured on her shaft earlier, until she\'s as far in as she\'s going to get.' );
 		}
 		//(else if Anal Looseness < 3);
-		else if( CoC.getInstance().player.ass.analLooseness < 3 ) {
+		else if( CoC.player.ass.analLooseness < 3 ) {
 			EngineCore.outputText( '\n\nLoppe presses her flared head against your [butt]; it takes a little work, but she manages to pop her tip inside your waiting hole.  You shiver and let out a purr of pleasure at being filled so...' );
 			EngineCore.outputText( '\n\n"<i>I see that you\'re no stranger to anal, sugar.  But damn, you\'re still tight!</i>" Loppe sighs, shuddering as your sphincter contracts around her shaft.' );
 			EngineCore.outputText( '\n\nYou manage to look at her over your shoulder and tell her it\'s no fun for your partners if you let yourself get too stretched out; you take good care of yourself.  Loppe leers at you.  "<i>Don\'t worry, sugar. I\'ll take very good care of you, too.</i>"  She licks her lips salaciously at the thought of what she intends.' );
 			EngineCore.outputText( '\n\nYour eyes twinkle with eagerness; as much fun as banter is, you\'re waiting for the hard rod in your ass to start moving.  Loppe smiles back and gently humps you, sliding herself in inch by inch until she\'s as deep in your tight confines as she\'ll go.  You just purr in pleasure, wiggling your ass back into her crotch in appreciation.' );
-			CoC.getInstance().player.buttChange( 35, true, true, false );
+			CoC.player.buttChange( 35, true, true, false );
 		} else {
 			EngineCore.outputText( '\n\nLoppe presses her flared head against your [butt] and gasps in surprise as her tip all but glides inside without a hitch.  You croon in delight at the welcome feeling of cock up your trained ass once more.  "<i>Whoa, sugar.  I can see you really enjoy some butt-fun.</i>"' );
 			EngineCore.outputText( '\n\nHaving an enormous cock and a libido as large as she claims, you would think she\'d be pretty used to stimulating herself with a little ass-play as well.  "<i>Of course I do, once in a while, but I\'m not nearly as loose as you are.  But I won\'t lie and say this doesn\'t feel good; it\'s like a moist little pussy...</i>" Loppe retorts.' );
 			EngineCore.outputText( '\n\nWell, in that case, surely Loppe knows what to do.  You push back against her, sliding several more inches into yourself, and Loppe giggles.  "<i>Of course I do, sugar.</i>"  She bucks her hips into you, quickly hilting herself within your gaping, accommodating ass.  You gasp in pleasure and surprise as you suddenly find yourself filled with Loppe\'s equine-prick, moaning audibly as Loppe settles inside you, and turn to smile at her, eager to see what she can do once she really gets going.' );
-			CoC.getInstance().player.buttChange( 35, true, true, false );
+			CoC.player.buttChange( 35, true, true, false );
 		}
 		EngineCore.outputText( '\n\nLoppe grabs your [hips], leaning over your back to whisper into your ear.  "<i>Should I get started, sugar?  Or do you want me to wait while you get used to me?</i>"' );
 		EngineCore.outputText( '\n\nShivering around the horse-cock spearing your tingling ass, you grind back against your hermaphrodite lover in physical encouragement, impatient with desire.  Loppe giggles, amused by your reactions.' );
 		EngineCore.outputText( '\n\nYou moan as Loppe quickly pulls out, leaving you with a feeling of uncomfortable emptiness; but soon she thrusts herself back inside, filling you up once more.  She initially sets upon a slow, long rhythm but quickly speeds up as your moans and gasps of pleasure encourage her to go further.  "<i>How is it, sugar?  It feels pretty good back here,</i>"  Loppe pants, humping you.  You simply nod, groaning softly at the sensations filling you' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' dripping pre' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and' );
 			}
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' pussy oozing femlube' );
 		}
 		EngineCore.outputText( '... you beg her to go faster, to do it harder!' );
 		EngineCore.outputText( '\n\nLoppe happily complies, thrusting herself deeper and stronger.  ' );
 		//[(cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'One of her hands reaches around to grasp your pre-slickned [cock biggest], stroking you in time with her thrusts.  ' );
 		}
-		if( CoC.getInstance().player.gender === 2 ) {
+		if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( 'One of her hands reaches around to tease your dripping [vagina] and erect [clit], dipping a finger in every time she bottoms out.  ' );
 		}
 		EngineCore.outputText( 'Wet slapping noises fill the room, and you gasp in pleasure each time her cum-churning balls slap against ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'yours' );
 		} else {
 			EngineCore.outputText( 'your [butt]' );
 		}
 		EngineCore.outputText( '.  Loppe lays down on top of you, panting hotly on your neck, moaning in pleasure each time your sphincter contracts.' );
 		EngineCore.outputText( '\n\nWith a groan, she jams herself as far in as she can, grasping your [hips] tightly.  You can feel her balls churning against your butt, her throbbing dick seemingly growing fatter as cum travels up her urethra; finally, with a moan, she explodes inside you, filling you up with hot laquine cream.  You gasp and shudder as shot after shot of herm-spunk rushes in; you\'d almost swear you can hear it slurping and splashing as it cascades into your belly, and you\'re positive you can feel your stomach start to distend from the glutinous mass of semen building up inside of you.  You struggle to hold back your own orgasm but finally lose the battle, crying out as it rocks through you.' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  A gush of sexual fluids from your crotch ' );
-			if( CoC.getInstance().player.wetness() < 3 ) {
+			if( CoC.player.wetness() < 3 ) {
 				EngineCore.outputText( 'spatters' );
-			} else if( CoC.getInstance().player.wetness() < 4 ) {
+			} else if( CoC.player.wetness() < 4 ) {
 				EngineCore.outputText( 'splashes' );
-			} else if( CoC.getInstance().player.wetness() < 5 ) {
+			} else if( CoC.player.wetness() < 5 ) {
 				EngineCore.outputText( 'drenches' );
 			} else {
 				EngineCore.outputText( 'completely soaks' );
@@ -1444,7 +1444,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou run your hands over your distended abdomen... you wouldn\'t be surprised if she got you pregnant despite this being the wrong hole.' );
 		EngineCore.outputText( '\n\n"<i>Now you\'re just being silly; I\'m not that virile... nobody\'s that virile.</i>"  The laquine pouts, clearly upset.  ' );
 		//[(has had 1+ satyr babies);
-		if( CoC.getInstance().flags[ kFLAGS.SATYR_KIDS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SATYR_KIDS ] > 0 ) {
 			EngineCore.outputText( 'You laugh softly; hopefully she\'ll never have to meet the creature that dispelled that same doubt in you.  ' );
 		}
 		EngineCore.outputText( '"<i>I think this is time for sleeping, not joking.</i>"  With a trace of wounded dignity, she lays herself down and curls into your back, one arm wrapped around your gurgling belly.' );
@@ -1454,16 +1454,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nFinally satisfied, she pulls away, a thin strand of saliva linking her lips to your own.  "<i>Are you alright, sugar?  Want me to get you something to eat?</i>" Loppe offers.' );
 		EngineCore.outputText( '\n\nYou think it over, then shake your head.  No, you feel too queasy still to really eat anything for a while yet.' );
 		//(First Time);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			EngineCore.outputText( 'Loppe laughs nervously.  "<i>Sorry about that.  It\'s just that I usually can\'t bag a real cutie like you, and I think I might have gone a bit overboard... is there anyway I can make it up to you?</i>"' );
 			EngineCore.outputText( '\n\nYou\'ll tell her if you think of something... though watching her sweat over your meaning is almost recompense enough already.' );
 			EngineCore.outputText( '\n\n"<i>H-hey, I know for a fact that you enjoyed it too, so try not to think of anything too abusive... unless you want another round?</i>"' );
 			//(Low Libido);
-			if( CoC.getInstance().player.lib < 33 ) {
+			if( CoC.player.lib < 33 ) {
 				EngineCore.outputText( '\n\nYou give her a flat stare, letting your expression speak for you.' );
 			}
 			//(Medium Libido);
-			else if( CoC.getInstance().player.lib < 66 ) {
+			else if( CoC.player.lib < 66 ) {
 				EngineCore.outputText( '\n\nYou tell her that maybe you\'ll take her up on that... some other time.' );
 			}
 			//(High Libido);
@@ -1483,10 +1483,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nLoppe blushes when she sees your expression and looks down; you follow her eyes and, sure enough, her equine member is slowly growing back to full erection again.  You stare at her in disbelief, to which she shrugs casually.  "<i>I can\'t help it.  You\'re hot.</i>"' );
 		EngineCore.outputText( '\n\n<b>One bath later...</b>' );
 		EngineCore.outputText( '\n\nFeeling clean and refreshed, not to mention much lighter, you leave Loppe\'s bathroom with a thank-you.  The girl laughs nervously.  "<i>Again, sorry about that, sugar.  Anyways, I\'m in need of a bath of my own.</i>"' );
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.player.slimeFeed();
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		//3 hours pass;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
@@ -1500,72 +1500,72 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nGood, because you feel like having her put that cock of hers to work on your [ass].  You slowly circle her, lazily waving your tail.' );
 		EngineCore.outputText( '\n\n"<i>Mmm... maybe it\'s the horse in me, but this sounds like a wonderful idea.  If you\'re willing to let me loose back there, I\'m going to enjoy this...</i>"  Loppe croons, already advancing towards you, hands reaching out to grab at your flank.  You\'re more than prepared for her...' );
 		//[ass wet);
-		if( CoC.getInstance().player.ass.analWetness > 0 ) {
+		if( CoC.player.ass.analWetness > 0 ) {
 			EngineCore.outputText( '  She doesn\'t even have to bother with lube; your ass is wet enough to accommodate her on its own.' );
 		}
 
 		EngineCore.outputText( '\n\n"<i>You might be even more eager than me - just give me a moment to set myself up,</i>"  Loppe insists, giving your [ass] an appreciative slap.  From behind you, you can hear her bustling around, muttering, "<i>Where did I put my lube?</i>"  A triumphant exclamation follows, and you hear the wet, sloppy sound of fluid being enthusiastically applied to a sizable cock as the laquine eagerly strokes herself off.  You can already imagine that thick shaft of hers piercing your interior, satiating your hungry bottom with the heavy load contained in those balls.' );
 		EngineCore.outputText( '\n\nSo caught up are you in your fantasy that you don\'t realize Loppe has finished lubing herself up and is behind you until you feel hands caressing your flanks.  "<i>Alright, sugar, let\'s just see what we\'re getting into...</i>"  One hand continues to rub your ass, while the other begins pressing something against your black rosebud...' );
 		//(if Anal Looseness === 0);
-		if( CoC.getInstance().player.ass.analLooseness === 0 ) {
+		if( CoC.player.ass.analLooseness === 0 ) {
 			EngineCore.outputText( '\n\nIt won\'t go in, despite all the lube.  "<i>Wow, sugar.  You\'re really tight here... how many times have you done this before?</i>"' );
 			EngineCore.outputText( '\n\nYou admit this is your first time.  Loppe\'s eyes open wide in surprise.  "<i>Really?  So I get to be the first to spread this gorgeous butt of yours?  Are you sure... ?</i>"' );
 			EngineCore.outputText( '\n\nYou shake your head and your ass emphatically.  This far in, there\'s nothing to second-guess.  "<i>Wow... I\'m honored, sugar!</i>" Loppe gushes.  "<i>I\'ll make sure to be as gentle as possible.  Try to relax; it\'ll make this easier.</i>"' );
 			EngineCore.outputText( '\n\nHaving said that, she begins to push against your tightly-sealed sphincter, slowly increasing the pressure until her flared tip finally pops in.  You try to relax, like she said, but still can\'t restrain a soft groan of pleasure-pain as she forces her way inside of you, stretching you in a way you know you\'ll never completely recover from.' );
 			//insert anal virginity loss message;
-			CoC.getInstance().player.buttChange( 35, true, true, false );
+			CoC.player.buttChange( 35, true, true, false );
 			EngineCore.outputText( '\n\nOnce inside, Loppe slowly slides forward, aided by the lube you\'ve poured on her shaft earlier, until she\'s as far in as she\'s going to get.' );
 		}
 		//(else if Anal Looseness < 3);
-		else if( CoC.getInstance().player.ass.analLooseness < 3 ) {
+		else if( CoC.player.ass.analLooseness < 3 ) {
 			EngineCore.outputText( '\n\nLoppe presses her flared head against your [butt]; it takes a little work, but she manages to pop her tip inside your waiting hole.  You shiver and let out a purr of pleasure at being filled so...' );
 			EngineCore.outputText( '\n\n"<i>I see that you\'re no stranger to anal, sugar.  But damn, you\'re still tight!</i>" Loppe sighs, shuddering as your sphincter contracts around her shaft.' );
 			EngineCore.outputText( '\n\nYou manage to look at her over your shoulder and tell her it\'s no fun for your partners if you let yourself get too stretched out; you take good care of yourself.  Loppe leers at you.  "<i>Don\'t worry, sugar. I\'ll take very good care of you, too.</i>"  She licks her lips salaciously at the thought of what she intends.' );
 			EngineCore.outputText( '\n\nYour eyes twinkle with eagerness; as much fun as banter is, you\'re waiting for the hard rod in your ass to start moving.  Loppe smiles back and gently humps you, sliding herself in inch by inch until she\'s as deep in your tight confines as she\'ll go.  You just purr in pleasure, wiggling your ass back into her crotch in appreciation.' );
-			CoC.getInstance().player.buttChange( 35, true, true, false );
+			CoC.player.buttChange( 35, true, true, false );
 		} else {
 			EngineCore.outputText( '\n\nLoppe presses her flared head against your [butt] and gasps in surprise as her tip all but glides inside without a hitch.  You croon in delight at the welcome feeling of cock up your trained ass once more.  "<i>Whoa, sugar.  I can see you really enjoy some butt-fun.</i>"' );
 			EngineCore.outputText( '\n\nHaving an enormous cock and a libido as large as she claims, you would think she\'d be pretty used to stimulating herself with a little ass-play as well.  "<i>Of course I do, once in a while, but I\'m not nearly as loose as you are.  But I won\'t lie and say this doesn\'t feel good; it\'s like a moist little pussy...</i>" Loppe retorts.' );
 			EngineCore.outputText( '\n\nWell, in that case, surely Loppe knows what to do.  You push back against her, sliding several more inches into yourself, and Loppe giggles.  "<i>Of course I do, sugar.</i>"  She bucks her hips into you, quickly hilting herself within your gaping, accommodating ass.  You gasp in pleasure and surprise as you suddenly find yourself filled with Loppe\'s equine-prick, moaning audibly as Loppe settles inside you, and turn to smile at her, eager to see what she can do once she really gets going.' );
 		}
 		EngineCore.outputText( '\n\nA hand grips either of your hips; the half-breed grinds her crotch against your ass before she pulls herself out and then thrusts back in.  It\'s a little awkward, but soon she starts to pick up her rhythm, her flared head scraping against your inner walls, her balls slapping meatily against you' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'rs' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'r pussy' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nYou moan as she gets into her task' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', feeling your erect [cock] press against your underbelly, mashed between your centaur half and the soft carpet of Loppe\'s room.  You hope she doesn\'t mind a few stains...  ' );
 		}//(else vag);
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '; your cunt is sopping, making a small pool of juices one the floor.  ' );
 		} else {
 			EngineCore.outputText( '.  ' );
 		}
 		EngineCore.outputText( 'She seems more worked up than usual, perhaps because you have a horse-like lower body?  "<i>Are your instincts acting up?</i>" you tease her.  "<i>Or do you just love ass that much?</i>"' );
 		EngineCore.outputText( '\n\n"<i>A little from column A... and a whole lot from column B,</i>" Loppe grunts, without breaking her frantic pace.  "<i>Instinct\'s part of it - I\'m stallion enough that when I see a nice flank, I wanna fuck it.  But it\'s the fact that this is you and your incredible ass that\'s... that\'s driving me wild!</i>"  She shudders, spasming so hard you can feel her cock twitching inside of you, eyes rolling in her head as she frantically pistons back and forth, too worked up to care that this is the wrong hole entirely - she\'s a stallion on a mission, and that mission is to breed you like a proper broodmare.' );
-		if( CoC.getInstance().player.gender <= 1 ) {
+		if( CoC.player.gender <= 1 ) {
 			EngineCore.outputText( '  Even if you are the wrong sex entirely for that.' );
 		}
 
 		EngineCore.outputText( '\n\nHer enthusiasm is contagious, and you find yourself bucking against her with almost as much eagerness as she\'s using to fuck your [asshole].  The pleasure is exquisite; that flared tip of hers plugs your hole in a most wonderful way... it\'s almost like every thrust fills up a part of you that was missing, while every pull creates a vacuum that threatens to suck that big horse-dick right where it belongs.  ' );
 		//[PC has cock:;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  The bumps against your prostate send waves of pleasure running through [eachCock] and spreading along your body, until they reach your throat and come out as a ragged groan.  ' );
 		}
 		EngineCore.outputText( 'If she keeps this up for too much longer, you will pop any moment now...' );
 		EngineCore.outputText( '\n\n"<i>Ohhh!  G-gonna cum... [name], your ass is incredible!</i>"  Loppe moans, humping your butt like a herm possessed, delirious with her eagerness to climax.  Precum shoots in spurts easily equal to the orgasms of normal men and dickgirls; when she blows, it\'s going to be a big one...' );
 		EngineCore.outputText( '\n\nYou clench your ass and groan, shuddering as you try to stop Loppe\'s movements with your gripping sphincter.  The ferocious climax brought by your anal stimulation sends waves of pleasure coursing along your body, rattling your teeth and making you see stars.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  [EachCock] spasms and unloads beneath you, smearing you and the carpet below and pooling thickly with fluid forced out by the prostate stimulation.' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your vagina contracts, trying to grip at a phantom member as you spill your fluids on the carpet beneath you.' );
 		}
 		EngineCore.outputText( '\n\nThe scent of your orgasm and the feeling of your sphincter clenching around her cock as tightly as it can is too much for Loppe, who roughly slams into you one last time and whinnies with glee as she floods your ass with cum.  She continues to thrust and rut and buck as she fills you with splurt after gush of hot, thick herm spunk.  The liquid warmth of Loppe\'s orgasm only enhances your afterglow, and slowly you feel yourself filled until you' );
-		if( CoC.getInstance().player.skinType !== AppearanceDefs.SKIN_TYPE_SCALES ) {
+		if( CoC.player.skinType !== AppearanceDefs.SKIN_TYPE_SCALES ) {
 			EngineCore.outputText( ' have goosebumps all over your body' );
 		} else {
 			EngineCore.outputText( 'r scales are practically standing on end' );
@@ -1573,17 +1573,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>Ohhh... you are incredible, [name].  ' );
 		//[PC has dick that fits);
-		if( CoC.getInstance().player.cockThatFits( this.loppeCapacity() ) >= 0 ) {
+		if( CoC.player.cockThatFits( this.loppeCapacity() ) >= 0 ) {
 			EngineCore.outputText( 'Though I hope you won\'t mind riding me, sometime,</i>" she laughs.  "<i>' );
 		}
 		EngineCore.outputText( 'How about another round, hmm?  Big strong \'taur like you should certainly be able to hold a little more loving inside of you, right?</i>"  She croons happily, running her hands up and down your ass as if trying to entice you.' );
 		//(Low Libido);
-		if( CoC.getInstance().player.lib < 33 ) {
+		if( CoC.player.lib < 33 ) {
 			EngineCore.outputText( '\n\nCentaur or not, you do have your limits...' );
 			EngineCore.outputText( '\n\n"<i>Oh, I\'ll be gentle with you,</i>"  Loppe murmurs... though the way she\'s looking at you and already starting to hump your ass again, having never pulled out, makes her reassurance less than reassuring.' );
 		}
 		//(Medium Libido);
-		else if( CoC.getInstance().player.lib < 66 ) {
+		else if( CoC.player.lib < 66 ) {
 			EngineCore.outputText( '\n\nYou stop and consider her words... you still do have some fight left in you.' );
 			EngineCore.outputText( '\n\n"<i>You want to see what kind of bronco buster I am?  Alright, let\'s get ready to do some real riding!</i>" Loppe cheers, already beginning to thrust back and forth.' );
 		}
@@ -1595,7 +1595,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n<b>One hour and some orgasms later...</b>' );
 		EngineCore.outputText( '\n\nWith a gasp and a moan, Loppe finishes cumming inside you, finally going flaccid.  She half-collapses onto your ass, using your broad horse-body to rest up, panting hard.  WIth a groan, she pulls herself wetly from your used hole.  "<i>Sugar, you are without a doubt an excellent ass to fuck; I feel so damn satisfied - you\'ve completely drained my balls!  This body of yours is really something; normally, I end up totally flooding the place when I have sex, but it looks like every last drop I came is still inside of you.</i>"  From the sound of her voice, she\'s grinning quite proudly.' );
 		EngineCore.outputText( '\n\nYou would say something if you weren\'t so tired after the multiple orgasms.  You feel completely battered... also, satisfied.  Quite tired too.  Your whole body feels bloated with laquine seed and for a moment you wonder how you\'ll be able to fit out the door again.  But right now, sleep is more important.  You set down on the floor and close your eyes, intent on getting some rest.' );
-		EngineCore.outputText( '\n\n"<i>[name]?  [name], are you... oh.</i>"  Loppe smiles as she sees you\'ve dozed off.  Quietly she slips away to the bed and pulls off her blanket, moving around to carefully seat herself against your bloated stomach, draping her blanket over the both of you and gently resting her head on your distended horse-gut.  "<i>Sweet dreams, lover-' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ',</i>" she stage-whispers to you, then closes her eyes, just as eager for some rest, listening to the gurgling of your flooded stomach as she drifts off.' );
+		EngineCore.outputText( '\n\n"<i>[name]?  [name], are you... oh.</i>"  Loppe smiles as she sees you\'ve dozed off.  Quietly she slips away to the bed and pulls off her blanket, moving around to carefully seat herself against your bloated stomach, draping her blanket over the both of you and gently resting her head on your distended horse-gut.  "<i>Sweet dreams, lover-' + CoC.player.mf( 'boy', 'girl' ) + ',</i>" she stage-whispers to you, then closes her eyes, just as eager for some rest, listening to the gurgling of your flooded stomach as she drifts off.' );
 		EngineCore.outputText( '\n\n<b>Two hours later...</b>' );
 		EngineCore.outputText( '\n\nWhen you come to, the first thing you notice is the absence of a certain horny half-breed.  Examining your surrounding you note that much of the mess generated by your last outing seems to be gone.  With a groan you force yourself to stand on your hooves.  Damn, Loppe really did a number on you... you\'re still heavily bloated and heavy with all the seed she pumped into you earlier.' );
 		EngineCore.outputText( '\n\n"<i>Hey there, [name]; I see you\'re up now,</i>"  Loppe calls to you in greeting as she comes through the door, hair wrapped up in a towel.  "<i>Bath\'s free, so you might want to go and offload some of the cargo I gave you.</i>"' );
@@ -1606,7 +1606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n<b>A few minutes later...</b>' );
 		EngineCore.outputText( '\n\nYou exit the bathroom, much lighter than you were previously.' );
 		//(First Time);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>I\'m sorry I stuffed you that full,</i>" Loppe apologizes, having the decency to look sheepish.  "<i>I just get so horny, and my balls fill up so fast, that I just can\'t help it.  If it makes you feel any better, I wind up just as bloated when I\'m the one getting the dick; I can\'t stop milking a cock until they\'ve stuffed me as full as I can get.</i>"' );
 			EngineCore.outputText( '\n\nWell... Loppe did warn you about her libido.' );
 			EngineCore.outputText( '\n\n"<i>I won\'t lie and promise it won\'t happen again, but I swear I\'ll always try to make it as good for you as it is for me.' );
@@ -1617,10 +1617,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.outputText( '  Anyway, your clothes are back in my room; sorry to fuck and run, but I\'ve got some errands to run before mom gets home - you\'ll have to see yourself out, okay?</i>"' );
 		EngineCore.outputText( '\n\nYou nod and head to her room to fetch your [armor].' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		CoC.getInstance().player.slimeFeed();
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.player.slimeFeed();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
@@ -1630,7 +1630,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-orgazm-denial' ) );
 		//(if LoppeDenial === 0);
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] === 0 ) {
 			EngineCore.outputText( 'After seeing Loppe\'s prodigious output, you wonder how she would handle not being able to orgasm.' );
 			EngineCore.outputText( '\n\n"<i>Different?  What do you have in mind?</i>"  She asks curiously.' );
 			EngineCore.outputText( '\n\nOrgasm denial - a test to see just how long she can bear being pleasured before climaxing.' );
@@ -1639,7 +1639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\n"<i>Hmm... I like the long, hard orgasm part,  and I haven\'t ever tried something like this - let\'s do it!</i>"' );
 		}
 		//(else if LoppeDenial === 1);
-		else if( CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] === 1 ) {
+		else if( CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] === 1 ) {
 			EngineCore.outputText( '\n\nWith a wry smile, you hold out a hand in response to her question, curling it into a half-clenched fist.  Loppe follows curiously, then starts when you squeeze it shut.' );
 			EngineCore.outputText( '\n\n"<i>It was kind of painful last time, but... I won\'t deny that it felt good.</i>"  She smiles, then nods.  "<i>Let\'s do it.</i>"' );
 		} else {
@@ -1651,7 +1651,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			return;
 		}
 		EngineCore.outputText( '\n\nYou sit yourself down comfortably ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'on' );
 		} else {
 			EngineCore.outputText( 'beside' );
@@ -1676,7 +1676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nLoppe\'s testicles visibly grow bigger and bigger; the laquine\'s balls bulge and swell as orgasm after orgasm floods cum into the increasingly-strained organs.  Risking an explosion, you remove one hand and place it on your lover\'s right nut - it has to be at least the size of a melon, now!  You stroke the taut skin, feeling its firmness under your fingers, imagining you can hear the cum churning around inside of it.' );
 		EngineCore.outputText( '\n\nLoppe gasps raggedly, trying to recapture her breath.  "<i>Please... you have to let me go.  It hurts!  I-I need to cum!  If you keep holding me I\'m going to explode... ah!  No!  Here it comes again!</i>"  She warns as you feel her rock hard shaft throb once more; yet another toe curling orgasm approaches, and you\'re not sure how much more she can physically take.' );
 		//(Low corruption, no new pg);
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  You loosen your grip; this was supposed to be pleasurable, not painful, so it\'s definitely time to stop.' );
 			//Goto [Let Go];
 			EngineCore.menu();
@@ -1700,7 +1700,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou look around at the room, cum dripping wetly from the ceiling, puddling inches deep on the floor... maybe her mother should have installed drains in her bedroom.' );
 		EngineCore.outputText( '\n\nHaving caught her breath and recovered her senses, Loppe looks at you with a smile.  "<i>No kidding.  I don\'t think I\'ve ever come so hard before.  You really know how to get a girl worked up, don\'t you?  I still can\'t feel my toes.</i>"  She tries to wiggle them experimentally, but if they\'re moving, you can\'t tell under the complete glazing she gave herself.  "<i>Help me up, we should get cleaned up.</i>"' );
 		//[(low corr);
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '\n\nYou nod and give her a hand to rise to her feet.  Not the brightest idea, in retrospect; she\'s so numb from the waist down that she promptly collapses against you and it\'s only your swift action that keeps her from falling.  The creamy-white liquid is now smeared all over your front, and Loppe giggles and delivers a cum-caked kiss straight to your lips.  "<i>As fun as that was, I think I\'ll want to wait some time before trying that again.</i>"' );
 			EngineCore.outputText( '\n\nThe two of you manage to clean up the worst of the mess you\'ve made, and you move to leave.  Loppe draws you into another, much cleaner, kiss before letting you go.  "<i>See you later, sugar!</i>"' );
 		}
@@ -1711,9 +1711,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\n"<i>Fuck...</i>"' );
 		}
 		//set LoppeDenial to 4;
-		CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 3;
-		EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10, 'resisted', false );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 3;
+		EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10, 'resisted', false );
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Hold=];
@@ -1730,26 +1730,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nWell, that doesn\'t mean never, does it?  Loppe rubs her chin and rolls her eyes.  "<i>Yeah... okay.  I did like it... despite the pain.  You\'re lucky I like you as much as I do.  I\'d be kicking anyone else\'s ass... as soon as I got feeling back in my feet.  Now be a gent and help me up; we need a bath.  And no funny moves during the bath, or I\'ll tell mom!</i>"  She raspberries you mockingly.' );
 		EngineCore.outputText( '\n\nYou sigh reluctantly; she\'s a real spoilsport.  "<i>And that\'s exactly why you love me.  I keep you wanting more.  Now, onwards!</i>"' );
 		//[(med-high corr);
-		if( CoC.getInstance().player.cor >= 66 ) {
+		if( CoC.player.cor >= 66 ) {
 			EngineCore.outputText( '\n\nYou leave her assertion unanswered and haul your childish date to the bath; soon, the two of you are clean enough that you can dry yourself off and pull your clothes on.' );
 		}
 
 		EngineCore.outputText( '\n\n"<i>Bye, sugar!' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Maybe next time I\'ll be the one to give you a bit of a holdout!' );
 		}
 		EngineCore.outputText( '</i>"' );
 		//leave, set LoppeDenial flag = 7;
-		CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 5;
+		CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 5;
 		//(very high corr);
-		if( CoC.getInstance().player.cor >= 90 ) {
+		if( CoC.player.cor >= 90 ) {
 			EngineCore.outputText( '\n\nYou laugh softly, staring at her with hooded eyes.  "<i>I just squeezed your dick until your balls inflated so much that they hurt, then kept torturing you until you came so hard you screamed and fainted.  What makes you think I love you?</i>"' );
 			EngineCore.outputText( '\n\nLoppe looks hurt and, for once, is at a loss for words.  To torment her further, you give her a smile just warm enough to make her think you might be joking, but not open enough to assuage her doubts.  You leave her like that, confused in a pool of her own wasted seed, as you step out of her room to take advantage of the clean bath first.' );
-			CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 10;
+			CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 10;
 			//leave, set LoppeDenial flag = 14 (an extra 7 for being a jerk);
 		}
-		EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10, 'resisted', false );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10, 'resisted', false );
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -1767,9 +1767,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>But... but... aww, fine.</i>"  Loppe settles down, leaning back and supporting herself on her hands to allow you free access, while her shaft throbs and drools pre.' );
 		EngineCore.outputText( '\n\nThat\'s better.  Gently lifting the mismatched horse-dick, you settle it gently into your cleavage.  She\'s so warm and already so wet; running a hand up and down her length, you slick your tits and her cock alike with the copious amounts of precum bubbling and oozing from her length.' );
 		EngineCore.outputText( '\n\nLoppe can\'t resist humping you slightly.  "<i>Sugar, you\'re so soft...</i>"  Smiling wanly, you grab your [chest] and do your best to wrap around her horse-dick, pinning the shaft inside.  "<i>I love it!  Don\'t stop!</i>" the girl moans in pleasure.' );
-		EngineCore.outputText( '\n\nEmboldened, you clasp your breasts firmer together and start to rise and fall, slowly scraping your ' + CoC.getInstance().player.skin() + ' up and down the half-breed\'s prick.  It feels so hot and firm against your chest, growing increasingly damp as Loppe oozes gouts as voluminous as the cumshots of ordinary men, making your breasts and her prick alike equally slippery and enabling you to stroke her faster and faster. "<i>K-keep that up and I\'m gonna shoot anytime,</i>" Loppe groans, trying to hump into your cleavage.' );
+		EngineCore.outputText( '\n\nEmboldened, you clasp your breasts firmer together and start to rise and fall, slowly scraping your ' + CoC.player.skin() + ' up and down the half-breed\'s prick.  It feels so hot and firm against your chest, growing increasingly damp as Loppe oozes gouts as voluminous as the cumshots of ordinary men, making your breasts and her prick alike equally slippery and enabling you to stroke her faster and faster. "<i>K-keep that up and I\'m gonna shoot anytime,</i>" Loppe groans, trying to hump into your cleavage.' );
 		//[(Normal/Naga tongue);
-		if( CoC.getInstance().player.tongueType < AppearanceDefs.TONUGE_DEMONIC ) {
+		if( CoC.player.tongueType < AppearanceDefs.TONUGE_DEMONIC ) {
 			EngineCore.outputText( '\n\nYou bend your head and lean down, letting your tongue flick out of your lips and slide gently across the flared head of Loppe\'s horse-prick, seductively tasting the sweet-salty flavor of her pre.  "<i>Ah!  Hmm... I seriously hope you like the taste, because you\'re getting a faceful anytime now!</i>"  Loppe moans.' );
 		}
 		//Demon/Dragon:;
@@ -1778,18 +1778,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 
 		EngineCore.outputText( '\n\n"<i>C-cumming!</i>" is all the warning you get before Loppe\'s slit opens wide and she begins spewing rope upon rope of hot jism.  You ' );
-		if( CoC.getInstance().player.tongueType >= AppearanceDefs.TONUGE_DEMONIC ) {
+		if( CoC.player.tongueType >= AppearanceDefs.TONUGE_DEMONIC ) {
 			EngineCore.outputText( 'retract your tongue into your mouth and ' );
 		}
 		EngineCore.outputText( 'barely shut your eyes in time, continuing to pump and squeeze with your tits even as your lover paints your upper body white in fresh spooge.  You can\'t see anything; all you know is the wet splashing of cum against your face, the intimate smell of hot, musky cock-cream assaulting your nose with the subtlety of a battering ram, Loppe\'s ecstatic moans and gasps and howls filling your ears.  Finally, the deluge stops; your hair is soaked in spunk, dripping wetly onto the floor, and you shake your head to try and fling off some of the worst of the gooey gunk, allowing you to look the panting girl in the eyes.' );
 		EngineCore.outputText( '\n\nShe looks back with the hungry stare of a predator eyeing a morsel.  "<i>Boobies!</i>" Loppe yells as she pounces you, trying to force you backward onto her bed.' );
 		//[(non-horse and str < 40 or horse and str < 20);
-		if( (CoC.getInstance().player.str < 50 && !CoC.getInstance().player.isTaur()) || (CoC.getInstance().player.str < 30 && CoC.getInstance().player.isTaur()) ) {
+		if( (CoC.player.str < 50 && !CoC.player.isTaur()) || (CoC.player.str < 30 && CoC.player.isTaur()) ) {
 			EngineCore.outputText( '  Struggle as you may, you\'re powerless to stop the drooling laquine as she sends you crashing down on her bed.  The whole piece of furniture shakes ominously with the force of your impact, and for a moment you think it will break apart.' );
 			EngineCore.outputText( '\n\nLeft a bit dizzied after this sudden turn of events, you yelp in surprise when a rock-hard, hot, throbbing horse-cock is shoved between your [chest].  Loppe works over your boobs like a ravenous beast, not caring that she\'s spewing pre all over your face and even sometimes forcing you to taste her as she pushes her shaft up your mouth.  "<i>So soft... so hot...</i>" she moans as she continues to drool in lust.' );
 			EngineCore.outputText( '\n\nYou open your mouth, about to say something - and Loppe promptly shoves her cock-head inside.  With a gag and a splutter at the sudden intrusion, your hands dart to her shaft, but she only feeds it deeper inside of you - she stops, however, before she enters your throat, letting you taste the cum still dripping from her flare.' );
 			EngineCore.outputText( '\n\n"<i>Tittyfuck AND oral!?  You\'re the best!  You\'re making me a very, very happy girl!</i>"  Loppe exclaims, oblivious to any protests you might make as she begins rutting you even harder.  "<i>I got a present coming for you riiiight now!  Ah!</i>"  Groaning sharply, she fills your mouth with huge ropes of spunk, and you have no choice but to swallow...  Without any way to struggle, you do your best to lick at the part of her cock that\'s in your mouth, ' );
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( 'looping your inhuman tongue around it and stroking for extra stimulus even while ' );
 			}
 			EngineCore.outputText( 'grabbing your breasts and squeezing the horsemeat between them.  The sooner you help her get over this frenzy, the sooner she\'ll get off of you... hopefully.  "<i>Ah, sugar!  I knew you liked it rough!</i>" your suddenly forceful lover shouts, ominously.' );
@@ -1813,14 +1813,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			EngineCore.outputText( '\n\n<b>Many orgasms later...</b>' );
 			EngineCore.outputText( '\n\nWith one last pump and a groan from the glazed laquine, she shoots the last rope of cum straight into her face... right on top of the last five minutes\' worth.  She\'s panting heavily now, and you are, admittedly, getting tired of holding her in this position.  As you step aside, the herm\'s lower body hits the floor with a splat, landing in the pool of the laquine\'s own making.  "<i>Hmm... that was great, sugar,</i>" Loppe drawls raggedly, reaching up to swipe some cum from her face.  She certainly looks like she enjoyed herself; eying her totally cum-drenched form and the ankle-high puddle that covers the floor of her bedroom, you wonder how her mother would react if she saw this mess...' );
 			EngineCore.outputText( '\n\n"<i>Hey, sugar?  Mind cuddling with me?  Just a bit?</i>" she asks, still soaking in her puddle of cum.  She\'s all slimy and sticky, and your reaction must be apparent in your face.  "<i>Aww.... come on?  It\'s not like you\'re in a better state yourself...</i>"' );
-			EngineCore.outputText( '\n\nLooking at your own ' + CoC.getInstance().player.skinFurScales() + ', now off-white from the glazing she\'s given you inadvertently, you concede the point to yourself.  Still...' );
+			EngineCore.outputText( '\n\nLooking at your own ' + CoC.player.skinFurScales() + ', now off-white from the glazing she\'s given you inadvertently, you concede the point to yourself.  Still...' );
 			EngineCore.outputText( '\n\n"<i>Pleaaase?</i>" she asks, giving you her best doe eyes.' );
 			//[(corr >= 60)That's for babies.  Pulling the sheet off of Loppe's bed, you wipe the crust off of your face and chest, then let the stained fabric drop to the floor.  You take one of the stuffed dolls off of her shelf and, raising an eyebrow, toss it at her; her eyes widen as it hits her squarely in the sopping, white tits.  'Cuddle with that.  I need to go.';
 			//'You jerk, [name]; now I have to wash this!';
 			//Laughing, you blow her a kiss and make your way out of the house.;
 			//end scene;
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().player.cor >= 60 ) {
+			if( CoC.player.cor >= 60 ) {
 				EngineCore.outputText( 'You don\'t really feel like it, but you figure you had better humor the greedy herm if you want to keep fucking her whenever you like.  ' );
 			}
 			EngineCore.outputText( 'Oh, well... you reach down and heft the surprised hybrid off of the floor and onto her spattered bed, then slide yourself into it as best you can, wrapping your arms around her.  She hugs you back, then yawning widely.  "<i>Naptime...</i>"' );
@@ -1830,13 +1830,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nYou have the distinct feeling that someone is licking your [nipples]... and when you finally open your eyes, you\'re introduced to a pair of rabbit-like ears.  Loppe looks up, licking a stray dollop of cum from her nose.  "<i>Hey, sleepyhead!  I was just finishing cleaning you up.</i>"' );
 		EngineCore.outputText( '\n\nYour face must be showing thoughts, because she looks away defensively.  "<i>It\'s not like I licked all of you clean...</i>"  Loppe protests.  "<i>Okay... I might have done most of you, but only because you\'re sweet and I don\'t mind tasting myself...</i>"' );
 		EngineCore.outputText( '\n\n"<i>Anyway, I set your [armor] over there.</i>"  She points to a chair nearby.   You thank her and pick yourself out of bed ' );
-		if( (CoC.getInstance().player.str < 50 && !CoC.getInstance().player.isTaur()) || (CoC.getInstance().player.str < 30 && CoC.getInstance().player.isTaur()) ) {
+		if( (CoC.player.str < 50 && !CoC.player.isTaur()) || (CoC.player.str < 30 && CoC.player.isTaur()) ) {
 			EngineCore.outputText( '- while your stomach is still heavily swollen and gurgles in protest, it\'s not bad enough to impair you - ' );
 		}
 		EngineCore.outputText( 'before going over and dressing yourself.  Loppe waves goodbye to you as you head out once again.' );
-		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().player.orgasm();
+		CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
+		CoC.player.slimeFeed();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
@@ -1909,7 +1909,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\nA small voice sounds behind you as you exit.  "<i>Oh my!  Look at all this cum!  What a waste... not to worry though!  I know just where to store it!</i>"' );
 		//If FertileLoppe flag is not active, no special effects;
 		//If FertileLoppe flag is active, PC who can become pregnant who uses the Goblin Machine at the Gym will become pregnant with Loppe-daughter if they use it within a week of playing this scene;
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Suck (edited)(C);
@@ -1929,7 +1929,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n"<i>I thought you said you wanted to blow me?  Why don\'t I feel your lips wrapped around my shaft?</i>" Loppe asks, desperation apparent in her voice.  You laugh starkly; a little foreplay doesn\'t hurt.  Giving her balls a flick and poking at her clit causes Loppe to gasp, "<i>Oh, but it hurts!  It hurts a lot!  Can\'t you see how hard I am!?</i>"' );
 		EngineCore.outputText( '\n\nLoppe\'s legs grab you under your arms, pulling you closer to her tool.  "<i>Please, sugar.  Stop teasing me and help me.  You have no idea how badly I want to put my dick between those wonderful lips of yours!</i>"' );
 		EngineCore.outputText( '\n\nWith a smile to yourself, you oblige' );
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( ', inhumanly long tongue looping out to coil wetly around the length' );
 		}
 		EngineCore.outputText( '.  You suckle gently, letting the salty tang of hot spunk wash over your tastebuds, and then start to gulp and swallow your way down her prick\'s sizable length.' );
@@ -1958,9 +1958,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		//[=Accept=];
 		//[=Refuse=];
 		EngineCore.outputText( '\n\nLoppe smiles at you, holding her cock in her hand.  "<i>Alright then, sugar.  I\'ll be going in then; I have business to handle.  See you later!</i>"' );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 	};
 	//Kiss 'n' Run (edited)(C);
 	Loppe.prototype.teaseLoppeKissRun = function() {
@@ -1969,7 +1969,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.outputText( '\n\n... Which is when you promptly pull your hand off of her strained shorts, push yourself off from the table, and back away, telling Loppe that as much as you\'d like to play, you have other engagements to pursue.' );
 		EngineCore.outputText( '\n\nLoppe looks at you in shock.  "<i>H-hey!  You can\'t just go after getting me all worked up like this!  What am I supposed to do?</i>" she demands, pointing to her bulging shorts under the table.' );
 		EngineCore.outputText( '\n\nYou advise her to order herself something sweet, sit back, relax, and just try to cool off - it\'ll go down on its own.  Eventually.' );
-		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20, 'cor', 0.5 );
+		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20, 'cor', 0.5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'loppe', new Loppe() );

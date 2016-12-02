@@ -18,14 +18,14 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 		else {
 			EngineCore.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to knock most of them away, but a few nasty hits manage to punch through your [armorName].  ', false );
 			//Determine damage - str modified by enemy toughness!;
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ) + 20;
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ) + 20;
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 			}
 			if( damage <= 0 ) {
 				damage = 0;
-				if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.getInstance().player.armorName + '.', false );
+				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 				} else {
 					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 				EngineCore.outputText( '</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
 			}
 			if( damage > 0 ) {
-				if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+				if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 					if( !this.plural ) {
 						EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 					} else {
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 		} else {
 			EngineCore.outputText( 'Some of the spiders and driders launch huge globs of wet webbing right at you, hitting you in the torso!  You try to wiggle out, but it\'s no use; you\'re stuck like this for now.  Though comfortingly, the driders\' open stance and self-satisfaction allow Kiha to blast them in the side with a huge conflagration!', false );
 			//(PC cannot attack or use spells for one turn; can use Magical Special and Possess);
-			CoC.getInstance().player.createStatusAffect( StatusAffects.UBERWEB, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.UBERWEB, 0, 0, 0, 0 );
 			this.HP -= 250;
 			Combat.combatRoundOver();
 		}
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 	};
 	SpiderMorphMob.prototype.performCombatAction = function() {
 		EngineCore.spriteSelect( 72 );
-		if( Utils.rand( 2 ) === 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
+		if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
 			this.spiderStandardAttack();
 		} else {
 			this.spoidahHordeWebLaunchahs();
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 		that.a = 'the ';
 		that.short = 'mob of spiders-morphs';
 		that.imageName = 'spidermorphmob';
-		that.long = 'You are fighting a horde of spider-morphs!  A group of some two-dozen spiders and driders approaches you, all baring their teeth.  A pair of large, powerful driders lead the group, their corrupt, lusty stares sending shivers up your spine.  While ' + (CoC.getInstance().player.level <= 13 ? 'you\'d never face such a large horde on your own' : 'you could probably handle them alone') + ', you have a powerful ally in this fight - the dragoness Kiha!';
+		that.long = 'You are fighting a horde of spider-morphs!  A group of some two-dozen spiders and driders approaches you, all baring their teeth.  A pair of large, powerful driders lead the group, their corrupt, lusty stares sending shivers up your spine.  While ' + (CoC.player.level <= 13 ? 'you\'d never face such a large horde on your own' : 'you could probably handle them alone') + ', you have a powerful ally in this fight - the dragoness Kiha!';
 		that.plural = true;
 		that.pronoun1 = 'they';
 		that.pronoun2 = 'them';

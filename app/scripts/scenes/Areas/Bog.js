@@ -5,17 +5,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, EngineCore, kFLAG
 	}
 
 	Bog.prototype.exploreBog = function() {
-		CoC.getInstance().flags[ kFLAGS.BOG_EXPLORED ]++;
+		CoC.flags[ kFLAGS.BOG_EXPLORED ]++;
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helFollower.followerHel() ) {
+		if( CoC.flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.player.gender > 0 && !SceneLib.helFollower.followerHel() ) {
 			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
-		if( (SceneLib.fera.isHalloween() && (OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ]) && CoC.getInstance().flags[ kFLAGS.BOG_EXPLORED ] % 4 === 0) && (CoC.getInstance().flags[ kFLAGS.PHOUKA_LORE ] > 0) ) {
+		if( (SceneLib.fera.isHalloween() && (OnLoadVariables.date.fullYear > CoC.flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ]) && CoC.flags[ kFLAGS.BOG_EXPLORED ] % 4 === 0) && (CoC.flags[ kFLAGS.PHOUKA_LORE ] > 0) ) {
 			SceneLib.phoukaScene.phoukaHalloween(); //Must have met them enough times to know what they're called, have some idea of their normal behaviour
 			return;
 		}
-		if( CoC.getInstance().player.buttPregnancyIncubation === 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.buttPregnancyIncubation === 0 && Utils.rand( 3 ) === 0 ) {
 			SceneLib.frogGirlScene.findTheFrogGirl();
 		} else if( Utils.rand( 3 ) === 0 ) {
 			SceneLib.phoukaScene.phoukaEncounter();

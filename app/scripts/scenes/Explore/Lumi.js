@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	Lumi.prototype.lumiEncounter = function() {
 		EngineCore.outputText( '', true );
 		//1st time lumi meeting;
-		if( CoC.getInstance().flags[ kFLAGS.LUMI_MET ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LUMI_MET ] === 0 ) {
 			//placeholder text for outside the cathedral;
 			EngineCore.outputText( 'You spot an anomaly in the barren wastes; a door that seems to be standing out in the middle of nowhere. Somehow, you figure that it must lead to some other part of the world, and the only reason it\'s here is because you can\'t get to where the door should be right now.\n\n', false );
 			EngineCore.outputText( 'Do you open it?', false );
@@ -23,9 +23,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		EngineCore.spriteSelect( 37 );
 		EngineCore.outputText( '', true );
 		//First time meeting;
-		if( CoC.getInstance().flags[ kFLAGS.LUMI_MET ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LUMI_MET ] === 0 ) {
 			//Set Lumi met flag ;
-			CoC.getInstance().flags[ kFLAGS.LUMI_MET ]++;
+			CoC.flags[ kFLAGS.LUMI_MET ]++;
 			EngineCore.outputText( 'You open the door and carefully check inside for any enemies that may be trying to ambush you. The room seems to be some kind of alchemical lab, with shelves full of apparatuses all along the walls, a desk on one side of the room, and a long table across the room from you that is full of alchemical experiments in progress, many give off lots of smoke, and others are bottles of bubbling fluids.  A goblin wearing an apron and some kind of headband is sitting on a tall, wheeled stool; she is otherwise nude and seems to be watching at least 3 experiments right now. She suddenly turns around and looks straight in your direction.  It\'s hard to tell thanks to the dark goggles that hide her eyes from view, but you\'re fairly certain she\'s watching you.  After a few seconds she yells "<i>Cuths-tohmer!</i>" in a thick lisp. She looks harmless enough, so you step inside while she fiddles with her experiments, reducing the bubbling smoke.  She jumps down from her stool, tears off her apron, bounds over to the desk, and scrambles on top of it.\n\n', false );
 			EngineCore.outputText( 'She\'s about 3 feet tall, with yellow-green skin, and wears her orange hair in a long ponytail that reaches to her knees.  Her breasts are about B cup, with average nipples that have been colored orange. All of her nails have been painted orange to match. She doesn\'t seem to ever stop moving, and while the majority of her face looks cute, it\'s a little hard to be sure while she\'s wearing those thick goggles.  The solid black lenses of her goggles make her look quite unsettling, stifling any appeal her form could inspire in you.\n\n', false );
 			EngineCore.outputText( '"<i>Stho, what can Lumi, Gobin Aochomist Extwaordinaire, do fo you today?</i>" asks the unusual goblin.\n\n', false );
@@ -92,9 +92,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		if( itype === ConsumableLib.L_DRAFT ) {
 			cost = 15;
 		}
-		if( CoC.getInstance().player.gems >= cost ) {
+		if( CoC.player.gems >= cost ) {
 			EngineCore.outputText( 'You pay Lumi the gems, and she hands you ' + itype.longName + ' saying, "<i>Here ya go!</i>"\n\n', false );
-			CoC.getInstance().player.gems -= cost;
+			CoC.player.gems -= cost;
 			EngineCore.statScreenRefresh();
 			SceneLib.inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
 		} else {
@@ -107,34 +107,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	Lumi.prototype.lumiEnhance = function( justCheck ) {
 		EngineCore.spriteSelect( 37 );
 		var fox = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.FOXBERY ) ) {
+		if( CoC.player.hasItem( ConsumableLib.FOXBERY ) ) {
 			fox = this.lumiEnhanceFox;
 		}
 		var laBova = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.LABOVA_ ) ) {
+		if( CoC.player.hasItem( ConsumableLib.LABOVA_ ) ) {
 			laBova = this.lumiEnhanceLaBova;
 		}
 		var succuDelight = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.SDELITE ) ) {
+		if( CoC.player.hasItem( ConsumableLib.SDELITE ) ) {
 			succuDelight = this.lumiEnhanceSDelight;
 		}
 		var oviElix = null;
-		//if(CoC.getInstance().player.hasItem(ConsumableLib.OVIELIX));
+		//if(CoC.player.hasItem(ConsumableLib.OVIELIX));
 		//	oviElix = this.lumiEnhanceOviElix;;
 		var lustDraft = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.L_DRAFT ) ) {
+		if( CoC.player.hasItem( ConsumableLib.L_DRAFT ) ) {
 			lustDraft = this.lumiEnhanceDraft;
 		}
 		var seed = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.GLDSEED ) ) {
+		if( CoC.player.hasItem( ConsumableLib.GLDSEED ) ) {
 			seed = this.lumiEnhanceGoldenSeed;
 		}
 		var kanga = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.KANGAFT ) ) {
+		if( CoC.player.hasItem( ConsumableLib.KANGAFT ) ) {
 			kanga = this.lumiEnhanceKanga;
 		}
 		var kitsune = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.FOXJEWL ) ) {
+		if( CoC.player.hasItem( ConsumableLib.FOXJEWL ) ) {
 			kitsune = this.lumiEnhanceFoxJewel;
 		}
 		if( justCheck ) {
@@ -142,8 +142,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>Do you have 100 gems for de enhancement?</i>" asks Lumi.\n\n', false );
-		//If (CoC.getInstance().player has less than 100 gems);
-		if( CoC.getInstance().player.gems < 100 ) {
+		//If (CoC.player has less than 100 gems);
+		if( CoC.player.gems < 100 ) {
 			EngineCore.outputText( 'You shake your head no, and Lumi gives you a disappointed look and says, "<i>Den Lumi can do no enhancement for you. Anyfing else?</i>"\n\n', false );
 			//Return to main Lumi menu;
 			EngineCore.doNext( this.lumiLabChoices );
@@ -210,9 +210,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		} else if( itype === ConsumableLib.FOXJEWL ) {
 			nextItem = ConsumableLib.MYSTJWL;
 		}
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().player.consumeItem( itype );
+		CoC.player.consumeItem( itype );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Lumi grabs the item from you and runs over to her table, stopping for only a second to put her apron on.  ', false );
 		//start list of possible enhancement texts;

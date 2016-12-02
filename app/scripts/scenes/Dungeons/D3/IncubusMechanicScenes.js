@@ -7,10 +7,10 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 	// There's nothing to track if you just enter the Incubus' room in D1 and didn't approach him.;
 	// IF you approach him, then we can track that (either you fight, or you talk and give him an item);
 	IncubusMechanicScenes.prototype.metIncubusMechanicInD1 = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.FactoryIncubusDefeated ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryIncubusDefeated ) >= 0 ) {
 			return true;
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
 			return true;
 		}
 		return false;
@@ -24,13 +24,13 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 	var MECHANIC_FUCKED = 3;
 	var MECHANIC_FUCKED_YOU = 4;
 	IncubusMechanicScenes.prototype.meetAtElevator = function() {
-		if( CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHNIC_NO_SELECTION ) {
+		if( CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHNIC_NO_SELECTION ) {
 			EngineCore.outputText( '\n\nA' );
 			if( this.metIncubusMechanicInD1() ) {
 				EngineCore.outputText( ' familiar,' );
 			}
 			EngineCore.outputText( ' demonic mechanic lounges against a gleaming, metallic control panel' );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
 				EngineCore.outputText( ', a rolled-up hentai magazine tucked neatly into the chest-pocket of his overalls' );
 			}
 			if( this.metIncubusMechanicInD1() ) {
@@ -51,40 +51,40 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( '\n\nThe incredulity must be plain on your [face], because his smile parts with an edge of worry. "<i>Listen, I just like to get paid, slack off, and fuck. I\'d rather not risk my life if I can help it. So how about it? You get a safe exit, and I get my dick sucked... or get a little richer, maybe.</i>"' );
 			EngineCore.outputText( '\n\nThe mechanic doesn\'t seem like he\'d stop you from turning around and walking back into the complex, but if you want to use the lift, you\'re going to need to accede to his demands or fight him. What do you do?' );
 			// [Pay Toll] [Suck Dick] [Fight];
-			if( CoC.getInstance().player.gems >= 500 ) {
+			if( CoC.player.gems >= 500 ) {
 				EngineCore.addButton( 2, 'Pay Toll', this.payDaToll );
 			} else {
 				EngineCore.outputText( '\n\n<b>You do not have enough gems to pay the required toll!</b>' );
 			}
 			EngineCore.addButton( 3, 'Suck Dick', this.suckIncubusDick );
 			EngineCore.addButton( 4, 'Fight', Combat.startCombatImmediate, new IncubusMechanic() );
-		} else if( CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_SUCKED ) {
+		} else if( CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_SUCKED ) {
 			EngineCore.outputText( '\n\nAs soon as the incubus mechanic spots you approaching, his wriggling, exotic cock settles slightly, growing longer and thicker in anticipation. The demonic, corrupted nubs that encircle its girth pulsate as the whole of his dong floods with arousal, and you cannot help but imagine the feel and taste of it on your tongue once more, the corrupted flavor making your mouth salivate with such intensity that you\'re forced to swallow to keep yourself from drooling all over yourself. Why is his dick so goddamn delicious?' );
 			EngineCore.outputText( '\n\nThe grinning demon offers, "<i>If you want to use the lift, you\'ll need to pay the toll.</i>" He strokes himself enticingly, no longer offering you a more standard form of payment; only the musky aroma of his tumescent cock.' );
 			EngineCore.outputText( '\n\nIt appears that your only options are to walk away, suck his cock, or fight him.' );
 			EngineCore.dynStats( 'lus', 10 );
 			EngineCore.addButton( 3, 'Suck Dick', this.suckIncubusDick );
 			EngineCore.addButton( 4, 'Fight', Combat.startCombatImmediate, new IncubusMechanic() );
-		} else if( CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_PAID ) {
+		} else if( CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_PAID ) {
 			EngineCore.outputText( '\n\n"<i>Back again?</i>" the incubus queries while he reclines against the softly thrumming machinery. "<i>I was just calibrating my baby here. Now she purrs like a kitten.</i>" He affectionately pats the metal devices that power the lift. "<i>If you want to use her, you\'re going to need to pay up, [name]. 500 gems seems fitting recompense, but between you and me, I\'d rather have you on your knees polishing my python here.</i>" The mechanic\'s cock suddenly rears up, swaying back and forth in a decidedly snake-like motion, the light glistening off his purple-hued pecker as it stiffens encouragingly.' );
 			EngineCore.outputText( '\n\nThe very air seems to thicken with the scent of it. His musky aroma is powerful and potent, and you nearly comply with the latter portion of his request before common sense surfaces.' );
 			EngineCore.outputText( '\n\nDo you leave, pay him for the lift, suck his dick, or just fight him and be done with it?' );
 			EngineCore.dynStats( 'lus', 10 );
-			if( CoC.getInstance().player.gems >= 500 ) {
+			if( CoC.player.gems >= 500 ) {
 				EngineCore.addButton( 2, 'Pay Toll', this.payDaToll );
 			} else {
 				EngineCore.outputText( '\n\n<b>You do not have enough gems to pay the required toll!</b>' );
 			}
 			EngineCore.addButton( 3, 'Suck Dick', this.suckIncubusDick );
 			EngineCore.addButton( 4, 'Fight', Combat.startCombatImmediate, new IncubusMechanic() );
-		} else if( CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_FOUGHT ) {
+		} else if( CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] === MECHANIC_FOUGHT ) {
 			EngineCore.addButton( 2, 'Lift', this.useLiftPostDefeat );
 		}
 	};
 	IncubusMechanicScenes.prototype.payDaToll = function() {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_PAID;
+		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_PAID;
 		EngineCore.clearOutput();
-		CoC.getInstance().player.gems -= 500;
+		CoC.player.gems -= 500;
 		EngineCore.outputText( '\n\nYou unceremoniously fill a small pouch with 500 gems and toss it to the incubus.' );
 		EngineCore.outputText( '\n\nHe lamely says, "<i>You know, I wasn\'t really serious about the gems. Are you sure you don\'t want to suck my dick instead?</i>" The demon offers you your bag full of money back.' );
 		EngineCore.outputText( '\n\nYou shake your head. If you wanted to suck his dick, you would\'ve said so. "<i>A deal is a deal.</i>"' );
@@ -101,9 +101,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.addButton( 0, 'Next', SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.suckIncubusDick = function() {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_SUCKED;
+		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_SUCKED;
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gems < 500 ) {
+		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( 'You spare a glance to your depleted pouches and admit, "<i>I guess I\'ll suck your dick then.</i>"' );
 		} else {
 			EngineCore.outputText( 'You shrug and smile. "<i>I guess now is as good a time as any to suck some dick, huh?</i>"' );
@@ -111,17 +111,17 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 
 		EngineCore.outputText( '\n\nStiffening further at your declaration, the demon agrees. "<i>It\'s probably the best idea you\'ve had since coming through the portal. Come on then.</i>" He slumps down against a bare spot on the console, edging his narrow hips forward to place his large cock at the perfect height for you to kneel and pleasure. "<i>It ain’t gonna suck itself.</i>"' );
 		EngineCore.outputText( '\n\nScowling a little, you go ahead and get down off your [feet], bringing your [face] level with the pulsating, sexual monstrosity that seems to be growing larger by the second. This close, you can make out every fast-pumping vein. His tumescent crown pulsates, the helmet thickening and darkening with pleased engorgement. The demonic nodules that line the head fill, becoming more distinct hard, sensitive, and ready to stimulate you with their exotic texture.' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' You find your crotch becoming' );
-			if( CoC.getInstance().player.wetness() <= 2 ) {
+			if( CoC.player.wetness() <= 2 ) {
 				EngineCore.outputText( ' even more soaked than normal' );
-			} else if( CoC.getInstance().player.wetness() <= 4 ) {
+			} else if( CoC.player.wetness() <= 4 ) {
 				EngineCore.outputText( ' wet with fresh lust' );
 			} else {
 				EngineCore.outputText( ' sticky with lust' );
 			}
 			EngineCore.outputText( ' at his masculine scent and appearance.' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' You feel a heady, turgid warmth growing in your own crotch, mirroring the ardor displayed by the cock you\'re about to service.' );
 		}
 		EngineCore.outputText( ' A patch of neatly trimmed pubic hairs lead up his abdomen to a set well-defined muscles, half-hidden under his loose not-so-coveralls.' );
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.addButton( 0, 'Next', SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.beatDaMechanic = function( hpVictory ) {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_FOUGHT;
+		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_FOUGHT;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The mechanic collapses, his overalls' );
 		if( hpVictory ) {
@@ -154,21 +154,21 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Kill', this.killMechanic );
 		EngineCore.addButton( 1, 'Let Go', this.letMechanicGo, hpVictory );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 2, 'Buttfuck', this.buttfuckTheMechanic, hpVictory );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 3, 'Ride Cock', this.rideMechanicsCock );
 		}
 	};
 	IncubusMechanicScenes.prototype.killMechanic = function() {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_KILLED;
+		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_KILLED;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'He proves blessedly easy to kill, and you roll the body off the cliffs to avoid alerting any of Lethice\'s other ilk.' );
 		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.letMechanicGo = function( hpVictory ) {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_RELEASED;
+		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_RELEASED;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Feeling merciful, you point off the side of the cliff. <i>"Leave this place and never return. If you do, I might have to kill you. I\'d rather not shed any more blood than necessary, but I will do what I have to in order to cleanse this land. Leave and never return. Maybe you can find your own peace without driving everything around you to corruption."</i>' );
 		EngineCore.outputText( '\n\nThe incubus' );
@@ -182,8 +182,8 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.buttfuckTheMechanic = function( hpVictory ) {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED;
-		var x = CoC.getInstance().player.cockThatFits( 200 );
+		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED;
+		var x = CoC.player.cockThatFits( 200 );
 		if( x === -1 ) {
 			x = 0;
 		}
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( ' gently bobbing' );
 		}
 		EngineCore.outputText( ' dick, but you\'ve got a better idea. You got more than one look at the curvature of his butt while you were fighting, tempting your burgeoning bulge to the point of distraction. You hastily remove your [armor] and smile. [EachCock] springs up, full and hard. You take' );
-		if( CoC.getInstance().player.cocks.length > 1 ) {
+		if( CoC.player.cocks.length > 1 ) {
 			EngineCore.outputText( ' one' );
 		} else {
 			EngineCore.outputText( ' it' );
@@ -217,38 +217,38 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		} else {
 			EngineCore.outputText( ' your eager tool with the corrupted anus' );
 		}
-		EngineCore.outputText( ' and steadily push. At first, his asshole shuts you out. The sphincter is just too tightly clenched for anything, let alone something so full and thick, to fit inside. You give up on the push and begin rocking your [hips] back and forth, getting his soon-to-be-stretched hole used to the idea of having you inside him. A droplet of pre-cum escapes your ' + CoC.getInstance().player.cockHead( x ) + ' as you work, smearing over him.' );
-		EngineCore.outputText( '\n\nThe incubus\'s now-slickened pucker quivers, and that\'s all the opening you need. Your ' + CoC.getInstance().player.cockHead( x ) + ' slips in during a moment of looseness. In that second, you turn his crinkly rosebud into a smoothly stretched o-ring. The incubus moans, though whether in pleasure or pain, you cannot tell. You slap his ass and feel him clamp down on you with renewed vigor, briefly arresting your progress, but he can\'t squeeze that hard all the time. His asshole relaxes after a few seconds and lets another inch in.' );
-		EngineCore.outputText( '\n\n"<i>Just relax and let it happen,</i>" you instruct as you slowly squeeze another inch inside him. The incubus\' insides are just so... so tight around your length and so warm compared to the outside air. You lean down over him, listening to him grunt, enjoying the feel of his entrance slowly slackening as he obeys. A huge blob of pre or cum (you can\'t be sure which) splatters into the growing puddle below him as your ' + CoC.getInstance().player.cockHead( x ) + ' inexpertly milks his prostate. The incubus shakes from head to toe, and you feed yourself in to the halfway point.' );
+		EngineCore.outputText( ' and steadily push. At first, his asshole shuts you out. The sphincter is just too tightly clenched for anything, let alone something so full and thick, to fit inside. You give up on the push and begin rocking your [hips] back and forth, getting his soon-to-be-stretched hole used to the idea of having you inside him. A droplet of pre-cum escapes your ' + CoC.player.cockHead( x ) + ' as you work, smearing over him.' );
+		EngineCore.outputText( '\n\nThe incubus\'s now-slickened pucker quivers, and that\'s all the opening you need. Your ' + CoC.player.cockHead( x ) + ' slips in during a moment of looseness. In that second, you turn his crinkly rosebud into a smoothly stretched o-ring. The incubus moans, though whether in pleasure or pain, you cannot tell. You slap his ass and feel him clamp down on you with renewed vigor, briefly arresting your progress, but he can\'t squeeze that hard all the time. His asshole relaxes after a few seconds and lets another inch in.' );
+		EngineCore.outputText( '\n\n"<i>Just relax and let it happen,</i>" you instruct as you slowly squeeze another inch inside him. The incubus\' insides are just so... so tight around your length and so warm compared to the outside air. You lean down over him, listening to him grunt, enjoying the feel of his entrance slowly slackening as he obeys. A huge blob of pre or cum (you can\'t be sure which) splatters into the growing puddle below him as your ' + CoC.player.cockHead( x ) + ' inexpertly milks his prostate. The incubus shakes from head to toe, and you feed yourself in to the halfway point.' );
 		EngineCore.outputText( '\n\nYou enjoy the muscular tightness of the demon\'s tainted anus for a moment, but he has ideas of his own. An inch of cock vanishes inside him, pulled inside by contractions a human could never manage. Gods, it feels good, and he\'s just getting started. He\'s pulling you inside him like some kind of sucking vacuum, drawing the entirety of your length inside him in seconds. You gasp, barely having the presence of mind to paddle his rosy asscheeks for his disobedience, but that only encourages him. Muscular ripples roll around your ' + Descriptors.cockDescript( x ) + ' in a way that conjures up the image of the inside of a tornado - a suckling, insatiable vortex that\'s twisting and stroking until it pulls everything inside it.' );
 		EngineCore.outputText( '\n\nThe demon has the audacity to smile back over his shoulder at you. "<i>You didn\'t honestly think I wouldn\'t find the pleasure in a little buttlove, did you?</i>" He smirks and squeezes you so expertly that you feel ready to explode.' );
-		EngineCore.outputText( '\n\nNo! He\'s not going to win, even if him \'winning\' is just making you cum into his asshole. You put your hands on his near-bruised bottom and pull away, struggling with all your might to extract your ' + Descriptors.cockDescript( x ) + ' from his hungry asshole. It\'s slow going, and tremendously pleasurable, but you manage to extract yourself with a noisy \'schliiiiiiiiick\' that never seems to end. When you finally pop your ' + CoC.getInstance().player.cockHead( x ) + ' out, you adjust your positioning and thrust with all your might, slapping your [hips] into his curvy backside with enough force to audibly slap. You hear the echo of your dominance rebound off the walls of Lethice\'s fortress, washing over her prone lieutenant.' );
-		EngineCore.outputText( '\n\nYou can actually feel your ' + CoC.getInstance().player.cockHead( x ) + ' nearly mashing his prostate flat as it grinds past. Shuddering, the incubus loses his focus, and his butthole slackens. You don\'t give him a chance for a second wind, bouncing back off and immediately starting your next thrust. Your hold is firm, and your strokes sure. His ass bounces beautifully with each prick-hilting slam against it. Down below, the demon\'s nubby phallus is bobbing back and forth like a pendulum, practically pissing out streams of pre-cum each time you bottom out. He\'s getting awful close, and all he can do is gasp and drool.' );
+		EngineCore.outputText( '\n\nNo! He\'s not going to win, even if him \'winning\' is just making you cum into his asshole. You put your hands on his near-bruised bottom and pull away, struggling with all your might to extract your ' + Descriptors.cockDescript( x ) + ' from his hungry asshole. It\'s slow going, and tremendously pleasurable, but you manage to extract yourself with a noisy \'schliiiiiiiiick\' that never seems to end. When you finally pop your ' + CoC.player.cockHead( x ) + ' out, you adjust your positioning and thrust with all your might, slapping your [hips] into his curvy backside with enough force to audibly slap. You hear the echo of your dominance rebound off the walls of Lethice\'s fortress, washing over her prone lieutenant.' );
+		EngineCore.outputText( '\n\nYou can actually feel your ' + CoC.player.cockHead( x ) + ' nearly mashing his prostate flat as it grinds past. Shuddering, the incubus loses his focus, and his butthole slackens. You don\'t give him a chance for a second wind, bouncing back off and immediately starting your next thrust. Your hold is firm, and your strokes sure. His ass bounces beautifully with each prick-hilting slam against it. Down below, the demon\'s nubby phallus is bobbing back and forth like a pendulum, practically pissing out streams of pre-cum each time you bottom out. He\'s getting awful close, and all he can do is gasp and drool.' );
 		EngineCore.outputText( '\n\nSwitching to a one-handed grip, you lavish him with more swats and slaps, paddling one side, then the other, raining blows down upon his crimson cheeks in between punishing thrusts. His asshole feels looser with each stroke, more like a personal, well-used onahole. You can\'t wait to finish and watch your cum drizzle out of his gaped entrance.' );
 		EngineCore.outputText( '\n\n"<i>S-slow down,</i>" the demon stutters between shudders of pleasure.' );
 		EngineCore.outputText( '\n\nYour own pleasure rising, you start fuck him even faster. "<i>No.</i>"' );
 		EngineCore.outputText( '\n\nThe incubus\'s dick-flopping diminishes as it begins to properly engorge once more, aiming higher with each beat of the demon\'s heart as he nears his orgasm. You push him down a bit so that your ' + Descriptors.cockDescript( x ) + ' will press more powerfully across his prostate, panting from your own exertion. It\'s enough. The demon mewls out a long, high-pitched moan and erupts, painting a line of white up his overalls all the way to his chin. The next blobs of cum splatter off his chin. Each new ejaculation seems a little larger than the one before. You\'re doing your best to milk him from behind, and he\'s doing his best to whimper like a bitch and paint his face. A smile breaks across your face. It\'s more than a fair trade.' );
 		EngineCore.outputText( '\n\nEventually, the spent demon finishes, dribbling semen so weak that it\'s practically clear into a salty puddle between his knees. You don\'t slow or stop. In fact, your ' + Descriptors.cockDescript( x ) + ' feels bigger and harder than it was a few seconds. The velvety folds of the demon\'s pre-slickened asshole are caressing you wonderfully, slowly egging you towards a climax of your own. You fuck him hard enough to knock him off-balance, dropping his cheek into his own spooge-puddle. Then, you cum, flooding your toy\'s asshole with its reward for a job well done.' );
 		////Low cum exit;
-		if( CoC.getInstance().player.cumQ() <= 250 ) {
+		if( CoC.player.cumQ() <= 250 ) {
 			EngineCore.outputText( '\n\nYou pull' );
-			if( CoC.getInstance().player.hasKnot( x ) ) {
+			if( CoC.player.hasKnot( x ) ) {
 				EngineCore.outputText( ', popping your knot' );
 			}
 			EngineCore.outputText( ' out after depositing your meager load into your demonic fuck-hole. One slick strand of creamy spunk is leaking out over the demon\'s ballsack.' );
 		}
 		//Medium cum exit;
-		else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+		else if( CoC.player.cumQ() <= 1000 ) {
 			EngineCore.outputText( '\n\nYou pull' );
-			if( CoC.getInstance().player.hasKnot( x ) ) {
+			if( CoC.player.hasKnot( x ) ) {
 				EngineCore.outputText( ', popping your knot' );
 			}
 			EngineCore.outputText( ' out of the demon\'s creampied fuck-hole with a smile. His stretched-out ass looks virtually glazed with cum, and you can see small rivers of it trickling down over his balls and slowly shrinking cock.' );
 		}
 		//High cum exit;
-		else if( CoC.getInstance().player.cumQ() <= 2500 ) {
+		else if( CoC.player.cumQ() <= 2500 ) {
 			EngineCore.outputText( '\n\nYou pull' );
-			if( CoC.getInstance().player.hasKnot( x ) ) {
+			if( CoC.player.hasKnot( x ) ) {
 				EngineCore.outputText( ', popping your knot' );
 			}
 			EngineCore.outputText( ' out of the demon\'s well-fucked asshole with a smile. As soon as the bulk of your dick unplugs him, a river of white spills out, washing over his balls and cock to drip down into his puddle. You smirk at the white-glazed demon. His butt is still full of your spunk.' );
@@ -256,13 +256,13 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		//Huge cum;
 		else {
 			EngineCore.outputText( '\n\nYou pull' );
-			if( CoC.getInstance().player.hasKnot( x ) ) {
+			if( CoC.player.hasKnot( x ) ) {
 				EngineCore.outputText( ', popping your knot' );
 			}
 			EngineCore.outputText( ' out after depositing a massive, belly-bulging load directly into the demon\'s guts. A tidal wave of goo bursts out of his over-pressurized asshole to fall on the ground, and as it dies off, small rivers of ivory spunk escape the lake in his ass to run down his balls and cock. His belly is' );
-			if( CoC.getInstance().player.cumQ() <= 5000 ) {
+			if( CoC.player.cumQ() <= 5000 ) {
 				EngineCore.outputText( ' pudgy' );
-			} else if( CoC.getInstance().player.cumQ() <= 10000 ) {
+			} else if( CoC.player.cumQ() <= 10000 ) {
 				EngineCore.outputText( ' swollen' );
 			} else {
 				EngineCore.outputText( ' absolutely gravid' );
@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		//No new paragraph;
 		EngineCore.outputText( 'The incubus slumps down into the puddled semen, gasping in exhaustion.' );
 		EngineCore.outputText( '\n\nYou wipe your ' + Descriptors.cockDescript( x ) + ' off on his practically glowing bottom before turning to re-dress. When you turn back, he\'s gone, though a trail of white drops indicates the direction of his flight. It looks like he fled towards the cliff, perhaps growing wings. Oh well, that\'s one less obstacle between you and Lethice.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
 		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
@@ -280,17 +280,17 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 	var MECHANIC_HORZ_GOG = 1;
 	var MECHANIC_DOG_COCK = 2;
 	IncubusMechanicScenes.prototype.rideMechanicsCock = function() {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED_YOU;
+		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED_YOU;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Well, he does have quite the thick, throbbing piece of male genitalia on display for you.... There\'s no sense in letting a good cock go to waste, right? You stalk over to him, looming over the defeated demon with a predatory grin. Your tongue flicks out to lick your lips. Meanwhile, your lower ones go suddenly and irrevocably slick, excited and instantly ready for a helping of thick demon-cock. Your [vagina] is getting warmer and warmer as you tease the poor demon, leaving him to wonder if you\'re going to kill him or fuck him. The worry is as obvious on his face as the upraised tumescence that jabs spear-like out from his crotch, aimed straight at you.' );
 		EngineCore.outputText( '\n\nAbruptly, you drop your [butt] down on top of him, sitting square on top of his chest' );
-		if( CoC.getInstance().player.tailType !== 0 ) {
+		if( CoC.player.tailType !== 0 ) {
 			EngineCore.outputText( ', tail draped across his face' );
 		}
 		EngineCore.outputText( ', and casually begin to undress. Looking over your shoulders, you see hope in his soulless eyes. You tease, "<i>I wouldn\'t want to stain my clothes when I finish you off, would I?</i>" His dick wilts a little at that, and he looks about to faint. Giggling, you toss aside your [armor] and grab hold of his mostly-hard cock, feeling the corrupted, textured nodules that encircle his shaft flaring up at your gentle squeeze. He firms up nicely in your grip, filling back to a pulsating, rigid hardness in seconds.' );
 		EngineCore.outputText( '\n\n"<i>Hey, you can transform your dick, right?</i>" you call over your shoulder.' );
 		EngineCore.outputText( '\n\nThe demons voice comes back as a dry, irritated rumble. "<i>That and more, mortal. Would it please you to shape my cock for your pleasure?</i>"' );
-		if( CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 			EngineCore.outputText( '\n\nGiggling, you answer, "<i>Like totally! Let\'s give you a cock makeover!</i>"' );
 		} else {
 			EngineCore.outputText( '\n\nNodding and languidly stroking his fantastically useful phallus, you answer, "<i>Maybe. I still haven\'t decided what to do with you.</i>"' );
@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.addButton( 2, 'Dog', this.rideMechanicsCockII, MECHANIC_DOG_COCK );
 	};
 	IncubusMechanicScenes.prototype.rideMechanicsCockII = function( cType ) {
-		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_COCK_TYPE_SELECTION ] = cType;
+		CoC.flags[ kFLAGS.D3_MECHANIC_COCK_TYPE_SELECTION ] = cType;
 		EngineCore.clearOutput();
 		//Demon first:;
 		if( cType === MECHANIC_DEMON_COCK ) {
@@ -317,9 +317,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( '\n\nWith a final whimper of relief, the demon completes his transformation by doubling the size of his balls. His sack grows taut and heavy, and the space between his legs is rapidly filled by the heavy orbs. He groans, leaking a solid strand of pre-cum all the way down to his belly as the cock juts up away from him, bobbing in the air and ready to sate your desire.' );
 			//22" horsecock;
 			//4" thick. WE CALL HIM THOR!;
-			CoC.getInstance().monster.cocks[ 0 ].cockLength = 22;
-			CoC.getInstance().monster.cocks[ 0 ].cockThickness = 4;
-			CoC.getInstance().monster.cocks[ 0 ].cockType = CockTypesEnum.HORSE;
+			CoC.monster.cocks[ 0 ].cockLength = 22;
+			CoC.monster.cocks[ 0 ].cockThickness = 4;
+			CoC.monster.cocks[ 0 ].cockType = CockTypesEnum.HORSE;
 		}
 		//Dogdick;
 		else if( cType === MECHANIC_DOG_COCK ) {
@@ -329,24 +329,24 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( '\n\nSmiling, you reach down to the fuzzy bulge and rub it. You move your hand in slow, circular motions around the canine cock-cozy, teasing it while slowly murmuring, "<i>Good puppy... come out and play, pet....</i>" Your encouraging coos and gentle strokes soon have the incubus whining like a naughty puppy, and the crimson tip of his wolfish phallus emerges from hiding. It\'s bright red and covered with so many veins! You cradle the exposed portion, feeling it jump out into your hand. The more dick that slides out, the thicker it gets. It stops once you have ten inches of thick, throbbing dock-cock in your grip, pulsing and ready. It seems like more is trying to come out, but it just can\'t make it.' );
 			EngineCore.outputText( '\n\nYou give your pet an encouraging tug, grinning as a huge knot slips out and stretches the sheath on the way. Your demonic slut-puppy moans happily, leaking ropes of pre onto his belly as his immense dog-cock points skyward, ready to be used.' );
 			//12' dogdick. 6' wide knot.;
-			CoC.getInstance().monster.cocks[ 0 ].cockLength = 12;
-			CoC.getInstance().monster.cocks[ 0 ].cockThickness = 2;
-			CoC.getInstance().monster.cocks[ 0 ].knotMultiplier = 3;
-			CoC.getInstance().monster.cocks[ 0 ].cockType = CockTypesEnum.DOG;
+			CoC.monster.cocks[ 0 ].cockLength = 12;
+			CoC.monster.cocks[ 0 ].cockThickness = 2;
+			CoC.monster.cocks[ 0 ].knotMultiplier = 3;
+			CoC.monster.cocks[ 0 ].cockType = CockTypesEnum.DOG;
 		}
 		//ALL CONTINUE TO THIS:;
-		EngineCore.outputText( '\n\nYou dare not delay any further. Your [vagina] is so hot and slick with lube that it feels almost like it\'s steaming. It aches for penetration. Lifting yourself up off your [legs], you guide your wanton honeypot up until it\'s poised just above the ' + CoC.getInstance().monster.cockDescriptShort() );
-		if( CoC.getInstance().player.wetness() <= 2 ) {
+		EngineCore.outputText( '\n\nYou dare not delay any further. Your [vagina] is so hot and slick with lube that it feels almost like it\'s steaming. It aches for penetration. Lifting yourself up off your [legs], you guide your wanton honeypot up until it\'s poised just above the ' + CoC.monster.cockDescriptShort() );
+		if( CoC.player.wetness() <= 2 ) {
 			EngineCore.outputText( ', letting your free-flowing pussyjuice wash over it, lubricating it with your glorious girlcum' );
-		} else if( CoC.getInstance().player.wetness() <= 3 ) {
+		} else if( CoC.player.wetness() <= 3 ) {
 			EngineCore.outputText( ', letting your oh-so-juicy vagina drip and dribble, soaking it with your copious girlcum' );
 		} else {
 			EngineCore.outputText( ', letting your lubricant drip over it' );
 		}
-		EngineCore.outputText( '. You stuff two fingers inside and stroke deep before pulling them out and using them to spread you wide open. The ' + CoC.getInstance().monster.cockDescriptShort() + ' pulsates with every beat of its demonic owner\'s heart, needing you every bit as much as you now need it.' );
-		EngineCore.outputText( '\n\nLetting your [legs] go slack, you press down upon the incubus\' length. His ' + CoC.getInstance().monster.cockHead() + ' presses poignantly at your entrance, throbbing gently. Small blooms of warm tickle over your lips, warm and wet as he leaks his liquid excitement into your nethers, lubricating you further. You relax a bit more' );
-		var mCockArea = CoC.getInstance().monster.cockArea( 0 );
-		var pCuntArea = CoC.getInstance().player.vaginalCapacity();
+		EngineCore.outputText( '. You stuff two fingers inside and stroke deep before pulling them out and using them to spread you wide open. The ' + CoC.monster.cockDescriptShort() + ' pulsates with every beat of its demonic owner\'s heart, needing you every bit as much as you now need it.' );
+		EngineCore.outputText( '\n\nLetting your [legs] go slack, you press down upon the incubus\' length. His ' + CoC.monster.cockHead() + ' presses poignantly at your entrance, throbbing gently. Small blooms of warm tickle over your lips, warm and wet as he leaks his liquid excitement into your nethers, lubricating you further. You relax a bit more' );
+		var mCockArea = CoC.monster.cockArea( 0 );
+		var pCuntArea = CoC.player.vaginalCapacity();
 		var tightFit = false;
 		//Easy fit -- Player cunt can fit at least 50% more cock;
 		if( pCuntArea >= mCockArea * 1.5 ) {
@@ -360,7 +360,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		}
 		//Decent Fit - Player cunt can fit between 95% - 149% of the total cock area;
 		else if( pCuntArea >= (mCockArea * 0.95) ) {
-			EngineCore.outputText( ' and feel the girthy boner slowly start to slide through your clinging lips. He\'s so big and yet fits so well. It\'s like his ' + CoC.getInstance().monster.cockDescriptShort() + ' was made to violate your channel - to slip and to slide through you while keeping you oh-so-pleasantly full. You\'re so busy enjoying the agonizingly slow pleasure that you barely notice when you bottom out above his balls' );
+			EngineCore.outputText( ' and feel the girthy boner slowly start to slide through your clinging lips. He\'s so big and yet fits so well. It\'s like his ' + CoC.monster.cockDescriptShort() + ' was made to violate your channel - to slip and to slide through you while keeping you oh-so-pleasantly full. You\'re so busy enjoying the agonizingly slow pleasure that you barely notice when you bottom out above his balls' );
 			if( cType === MECHANIC_HORZ_GOG ) {
 				EngineCore.outputText( ', your belly bulging with his equine shape' );
 			} else if( cType === MECHANIC_DOG_COCK ) {
@@ -371,7 +371,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		//Two (dohohoh, wrong too) tight - Player cunt can fit between 50% - 94% of the total cock area;
 		else if( pCuntArea >= (mCockArea * 0.5) ) {
 			tightFit = true;
-			EngineCore.outputText( ' and feel the girthy boner slowly pry your lips further apart. He\'s so goddamn big that it feels like it\'s barely fitting inside. The first inch eventually slips into your tightly-clinging lips, forcing an inadvertent clench to run up the length of your channel. Your [vagina] noisily squelches around the slowly inserting member. You\'re stretched so full, and you\'re loving every moment of it. His ' + CoC.getInstance().monster.cockDescriptShort() + ' is so goddamn filling, and you\'ve only taken the first few inches! The feel of him sliding through you is so fulfilling, so all-consuming, that you barely notice your [butt] touching down against his crotch' );
+			EngineCore.outputText( ' and feel the girthy boner slowly pry your lips further apart. He\'s so goddamn big that it feels like it\'s barely fitting inside. The first inch eventually slips into your tightly-clinging lips, forcing an inadvertent clench to run up the length of your channel. Your [vagina] noisily squelches around the slowly inserting member. You\'re stretched so full, and you\'re loving every moment of it. His ' + CoC.monster.cockDescriptShort() + ' is so goddamn filling, and you\'ve only taken the first few inches! The feel of him sliding through you is so fulfilling, so all-consuming, that you barely notice your [butt] touching down against his crotch' );
 			if( cType === MECHANIC_HORZ_GOG ) {
 				EngineCore.outputText( ', your belly bulging with his equine shape' );
 			} else if( cType === MECHANIC_DOG_COCK ) {
@@ -382,11 +382,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		//Cunt WRECKER - Basically anything sub-50% of the cock area;
 		else {
 			tightFit = true;
-			EngineCore.outputText( ' and feel the immensely girthy boner butt up against your lips, too wide to slip even the tiniest bit inside. Grunting in frustration, you grind against him, slicking his head further and applying more force. You push harder and harder, actually bending his rigid shaft slightly from the force. He groans in pain and pleasure. Suddenly, your voice joins his. His ' + CoC.getInstance().monster.cockHead() + ' finally powers through your sopping gates and into your tunnel, stretching it painfully wide as it goes. The intensity of the combined pain and pleasure shocks you so badly that you nearly faint, and your [legs] go limp, forcing your body to slide down the belly-stretching meat-pole. You quiver and cry, sobbing words that sometimes sound like no and sometimes sound like yes, filled with more cock than you ever hoped to handle.' );
+			EngineCore.outputText( ' and feel the immensely girthy boner butt up against your lips, too wide to slip even the tiniest bit inside. Grunting in frustration, you grind against him, slicking his head further and applying more force. You push harder and harder, actually bending his rigid shaft slightly from the force. He groans in pain and pleasure. Suddenly, your voice joins his. His ' + CoC.monster.cockHead() + ' finally powers through your sopping gates and into your tunnel, stretching it painfully wide as it goes. The intensity of the combined pain and pleasure shocks you so badly that you nearly faint, and your [legs] go limp, forcing your body to slide down the belly-stretching meat-pole. You quiver and cry, sobbing words that sometimes sound like no and sometimes sound like yes, filled with more cock than you ever hoped to handle.' );
 		}
-		CoC.getInstance().player.cuntChange( CoC.getInstance().monster.cockArea( 0 ), false, false, false );
+		CoC.player.cuntChange( CoC.monster.cockArea( 0 ), false, false, false );
 		//Merge together;
-		EngineCore.outputText( '\n\nYou hold yourself atop him and let your abdominal muscles flutter around the incubus\' ' + CoC.getInstance().monster.cockDescriptShort() + ' like an organic sextoy, getting used to holding him inside you. Turning to look back over your shoulders, you place a hand upon his chest feel his well-defined muscles. You stop to admire his nipple, tugging at it a little bit. He growls in irritation, but you just squeeze his dick with your' );
+		EngineCore.outputText( '\n\nYou hold yourself atop him and let your abdominal muscles flutter around the incubus\' ' + CoC.monster.cockDescriptShort() + ' like an organic sextoy, getting used to holding him inside you. Turning to look back over your shoulders, you place a hand upon his chest feel his well-defined muscles. You stop to admire his nipple, tugging at it a little bit. He growls in irritation, but you just squeeze his dick with your' );
 		if( tightFit ) {
 			EngineCore.outputText( ' well-stretched' );
 		} else {
@@ -394,15 +394,15 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		}
 		EngineCore.outputText( ' twat to silence him.' );
 		EngineCore.outputText( '\n\n"<i>Are all demons controlled this easily?</i>" you muse out loud. "<i>A few squeezes from a cunt and you\'re content to let me do whatever I want to you. I could probably slap a collar around your neck and take you back to camp without hearing a word of complaint. Perhaps \'please fuck me,\' but I doubt I\'d hear any legitimate desire to come back here.</i>" You lift yourself up an inch and glide back down, teasing him. "<i>Poor boy, they keep you so pent up, don\'t they?' );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
 			EngineCore.outputText( ' Nothing but hentai mags for you to drain your balls with....' );
 		}
 		EngineCore.outputText( '</i>"' );
 		EngineCore.outputText( '\n\nThe incubus sighs and nods. "<i>It isn\'t easy to get off when the bitches make you fix their machinery all day long. Are a few hours with a succubus every day too much to ask for?</i>" You feel his cock twitch inside you at the word succubus, and you give his poor boner another squeeze from your cunt for being so honest.' );
-		EngineCore.outputText( '\n\n"<i>I really did consider ending your life, demon, but you were just doing your job.</i>" Your pussy spasms with pleasure, and you begin sliding up once more, this time going most of the way up before slowly sliding back down. You settle into a nice slow rhythm as you talk, interrupting your own words the occasional pleasured moan or breathless ' + CoC.getInstance().player.mf( 'gasp', 'giggle' ) + '. "<i>With a talented cock like this, I might have to keep you around.</i>" You feel your [vagina] gush its approval around his girth. His ' + CoC.getInstance().monster.cockDescriptShort() + ' feels too good not to keep around. Riding it would be the perfect way to clear your head in the morning or settle down for a nice, well-fucked sleep.' );
-		EngineCore.outputText( '\n\nThe demon grunts, "<i>I... I would accept that.</i>" His dick swells a little inside you, expanding with his ardor. "<i>If you have any machines, I would gladly keep them working for you. Just... ung... right there, baby... uh... just let me do this with you every day.</i>" His hips shudder slightly underneath you. They start to thrust until you push them down with your hand, holding them in place. You\'re in charge here, and this ' + CoC.getInstance().monster.cockDescriptShort() + ' is going to have to stay in your [vagina], making you feel good until you feel you\'ve gotten your feel of pussy-pleasing pleasure.' );
+		EngineCore.outputText( '\n\n"<i>I really did consider ending your life, demon, but you were just doing your job.</i>" Your pussy spasms with pleasure, and you begin sliding up once more, this time going most of the way up before slowly sliding back down. You settle into a nice slow rhythm as you talk, interrupting your own words the occasional pleasured moan or breathless ' + CoC.player.mf( 'gasp', 'giggle' ) + '. "<i>With a talented cock like this, I might have to keep you around.</i>" You feel your [vagina] gush its approval around his girth. His ' + CoC.monster.cockDescriptShort() + ' feels too good not to keep around. Riding it would be the perfect way to clear your head in the morning or settle down for a nice, well-fucked sleep.' );
+		EngineCore.outputText( '\n\nThe demon grunts, "<i>I... I would accept that.</i>" His dick swells a little inside you, expanding with his ardor. "<i>If you have any machines, I would gladly keep them working for you. Just... ung... right there, baby... uh... just let me do this with you every day.</i>" His hips shudder slightly underneath you. They start to thrust until you push them down with your hand, holding them in place. You\'re in charge here, and this ' + CoC.monster.cockDescriptShort() + ' is going to have to stay in your [vagina], making you feel good until you feel you\'ve gotten your feel of pussy-pleasing pleasure.' );
 		EngineCore.outputText( '\n\nGods, your clit is so hard right now!' );
-		if( CoC.getInstance().player.clitLength >= 5 ) {
+		if( CoC.player.clitLength >= 5 ) {
 			EngineCore.outputText( ' You grab hold of it in your hand and start to stroke it to the tempo your rising and falling body is setting, pumping the oversensitive organ like a dick. Every stroke sends your walls into fits of fluttering ecstasy. It feels so good that you don\'t think you\'ll be able to stop until you\'re cumming and gushing all over your demonic lover.' );
 		} else {
 			EngineCore.outputText( ' You thumb at it, rubbing in slow circles around it. Sometimes you push on its hood. Other times you oh-so-gently squeeze at it. It feels so good that the touches drive you crazy with ecstasy, and your walls flutter excitedly around your demonic lover.' );
@@ -416,14 +416,14 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( ', the knot popping in just in time to start bloating, locking you in place' );
 		}
 		EngineCore.outputText( ', and jism begins to shoot out in waves.' );
-		if( !CoC.getInstance().player.isPregnant() ) {
+		if( !CoC.player.isPregnant() ) {
 			EngineCore.outputText( ' Your empty womb drinks up the virile, seed-filled sludge with abandon.' );
 			if( cType === MECHANIC_HORZ_GOG ) {
 				EngineCore.outputText( ' After all, that bestial horse-cock doesn\'t really leave it anywhere else to go. The demonic animal-cunt just continues spurting straight on in to have its way with your eggs, and you\'re sure there isn\'t a contraceptive this side of Mareth that could stop you from having his imps.' );
 			} else if( cType === MECHANIC_DOG_COCK ) {
 				EngineCore.outputText( ' After all, that immense knot doesn\'t really leave it anywhere else to go. Once every fold is bathed in alabaster doggie-cream, the continued ejaculations start pouring in after your eggs. His knot is so big and stretching you so wide; you don\'t think he would pop out even if he filled your belly to look nine months pregnant. Worse, or perhaps better, you\'re sure with how thick and virile his seed feels that you\'ll be getting pregnant with his imps from this.' );
 			}
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP );
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP );
 		} else {
 			EngineCore.outputText( ' Your blocked womb deflects the seed, forcing it all to stay in your channel' );
 			if( cType !== MECHANIC_DOG_COCK ) {
@@ -432,12 +432,12 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 				EngineCore.outputText( ' and stretch you further.' );
 			}
 		}
-		EngineCore.outputText( '\n\nThe feeling triggers your own climax. Your [vagina] clenches down around his ' + CoC.getInstance().monster.cockDescriptShort() + ' and gushes out around it, splattering the demon\'s crotch and legs the whole way down to his hooves. Arcs of femcum actually jet across the air' );
-		if( CoC.getInstance().player.wetness() < 4 ) {
+		EngineCore.outputText( '\n\nThe feeling triggers your own climax. Your [vagina] clenches down around his ' + CoC.monster.cockDescriptShort() + ' and gushes out around it, splattering the demon\'s crotch and legs the whole way down to his hooves. Arcs of femcum actually jet across the air' );
+		if( CoC.player.wetness() < 4 ) {
 			EngineCore.outputText( ', even though you aren\'t normally a squirter' );
 		}
 		EngineCore.outputText( '. The pleasure is so great that you can feel electric impulses arcing between neurons, short-circuiting your throughs into involuntary ecstasy. Your eyes roll back, and your [hips] twitch and shake, vibrating around the object that brough you to this perfect' );
-		if( !CoC.getInstance().player.isPregnant() ) {
+		if( !CoC.player.isPregnant() ) {
 			EngineCore.outputText( ' insemination' );
 		} else {
 			EngineCore.outputText( ' tryst' );
@@ -447,17 +447,17 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		if( cType === MECHANIC_DOG_COCK ) {
 			EngineCore.outputText( ' When you try to rise, you find that his knot is still stubbornly inflated, trying to hold all his fertile sperm deep inside you. It won\'t come out! Glaring at him, you put as much of your gear on as possible and start dragging him through the dungeon after you until he has the good sense to shift his cock into another shape. He weakly slides out, panting something about seeing you at your camp. He\'s gone by the time your gear is properly settled.' );
 		} else {
-			EngineCore.outputText( ' When you rise, it amazes you just how many inches of cock are sliding out of your well-used snatch. The ' + CoC.getInstance().monster.cockHead() + ' eventually slips free, and you watch in awe at how his musky semen runs out from your gaped, thoroughly creamed lips. By the time you dress, he\'s vanished, but you recall hearing him panting something about seeing you at camp.' );
+			EngineCore.outputText( ' When you rise, it amazes you just how many inches of cock are sliding out of your well-used snatch. The ' + CoC.monster.cockHead() + ' eventually slips free, and you watch in awe at how his musky semen runs out from your gaped, thoroughly creamed lips. By the time you dress, he\'s vanished, but you recall hearing him panting something about seeing you at camp.' );
 		}
 
 		EngineCore.outputText( '\n\nHe\'s a demon. Maybe he\'ll actually find his way to your camp to be your fucktoy. More likely he was just saying whatever would save his hide and sharing his excessive perversions with you. You wouldn\'t mind him fucking you every morning, would you?' );
 		EngineCore.outputText( '\n\nShaking your head, you clear away the errant thoughts and focus on the battles to come.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
 		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.mechanicFuckedYouUp = function( hpVictory ) {
-		if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			this.maleLossToMechanic( hpVictory );
 		} else {
 			this.errybodyelseLossToMechanic( hpVictory );
@@ -469,33 +469,33 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		//Lust loss;
 		if( !hpVictory ) {
 			EngineCore.outputText( 'Your [legs] are quivering too wildly to support you anymore, and you collapse, splaying yourself out so that your rigid cock' );
-			if( CoC.getInstance().player.cocks.length > 1 ) {
+			if( CoC.player.cocks.length > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' are jutting out enticingly, hard and ready. You shudder, too aroused to fight and certainly too turned on to think straight. Looking longingly at the demon\'s throbbing-hard member, you unconsciously lick your lips, finding yourself craving its touch unconditionally. Your hands remove your [armor] before falling to your crotch, grabbing, squeezing, and tugging, but in the back of your mind, you realize you\'ll need his help to orgasm.' );
 			EngineCore.outputText( '\n\nThe inubus leers, smiling down at you.' );
 			//Small cocks;
-			if( CoC.getInstance().player.biggestCockLength() < 6 ) {
+			if( CoC.player.biggestCockLength() < 6 ) {
 				EngineCore.outputText( '\n\n"<i>That\'s it? You expect to please anyone with such a pitiful endowment? I suppose there may be someone into that, somewhere.</i>" The incubus sighs. <i>"Your flaws only make my job harder.</i>"' );
 			}
 			//Medium cocks;
-			else if( CoC.getInstance().player.biggestCockLength() < 12 ) {
+			else if( CoC.player.biggestCockLength() < 12 ) {
 				EngineCore.outputText( '"<i>You\'re so... average. I suppose you\'ll do, if the succubi feel like having a drab, everyday orgasm.</i>" The incubus shrugs. "<i>A dick will do...</i>"' );
 			}
 			//Big cocks;
-			else if( CoC.getInstance().player.biggestCockLength() < 18 ) {
+			else if( CoC.player.biggestCockLength() < 18 ) {
 				EngineCore.outputText( '\n\n"<i>Huh....</i>" The incubus seems pleasantly surprised by your endowment. "<i>I gotta say, that\'ll probably work good for what I have in mind. Maybe you\'ll even be popular with the succubi.</i>" He laughs.' );
 			}
 			//Huge cocks;
 			else {
 				EngineCore.outputText( '"<i>Seriously?</i>" the incubus asks. "<i>How am I supposed to work with something so gargantuan?</i>" He disdainfully pulls a vial from his pocket and upends it over your crotch. The effect is immediate. [Eachcock] shrinks from ridiculously large down to horse-sized. <i>"There, that\'s better."</i>' );
 				//Shrink down to 18' by 3';
-				CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockLength = 18;
-				CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockThickness = 3;
+				CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockLength = 18;
+				CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockThickness = 3;
 			}
 			//Merge size forks;
 			EngineCore.outputText( '\n\nYou hump against your palm and lick your lips encouragingly. The sheer need thrumming through your veins will allow nothing less. You want to fuck and be fucked. To be used and abused. To sink' );
-			if( CoC.getInstance().player.cocks.length === 1 ) {
+			if( CoC.player.cocks.length === 1 ) {
 				EngineCore.outputText( ' your' );
 			} else {
 				EngineCore.outputText( ' a' );
@@ -507,23 +507,23 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( 'Dropping prone, you gasp for breath, struggling against your injured body to rise. Your muscles burn with the effort, exhausted from the fight, and ultimately, you fail to stand. Slumping down on the ground, you\'re forced to come to terms with your defeat. The incubus has won. You came all this way, gave your best, and got smacked down by a lower demon for all your troubles. Some champion you are.' );
 			EngineCore.outputText( '\n\nLeering down at you, the incubus swiftly tears away your [armor], his fingers suddenly razor-sharp claws. He is precise in his attentions, leaving your [skin] pristine and unbroken. You get the impression he doesn\'t want damaged goods. He regards your ' + Descriptors.multiCockDescriptLight() + ' with interest, judging them.' );
 			//Small cocks;
-			if( CoC.getInstance().player.biggestCockLength() < 6 ) {
+			if( CoC.player.biggestCockLength() < 6 ) {
 				EngineCore.outputText( '\n\n"<i>That\'s it? You expect to please anyone with such a pitiful endowment? I suppose there may be someone into that, somewhere.</i>" The incubus sighs. <i>"Your flaws only make my job harder.</i>"' );
 			}
 			//Medium cocks;
-			else if( CoC.getInstance().player.biggestCockLength() < 12 ) {
+			else if( CoC.player.biggestCockLength() < 12 ) {
 				EngineCore.outputText( '\n\n"<i>You\'re so... average. I suppose you\'ll do, if the succubi feel like having a drab, everyday orgasm.</i>" The incubus shrugs. "<i>A dick will do...</i>"' );
 			}
 			//Big cocks;
-			else if( CoC.getInstance().player.biggestCockLength() < 18 ) {
+			else if( CoC.player.biggestCockLength() < 18 ) {
 				EngineCore.outputText( '\n\n"<i>Huh....</i>" The incubus seems pleasantly surprised by your endowment. "<i>I gotta say, that\'ll probably work good for what I have in mind. Maybe you\'ll even be popular with the succubi.</i>" He laughs.' );
 			}
 			//Huge cocks;
 			else {
 				EngineCore.outputText( '\n\n"<i>Seriously?</i>" the incubus asks. "<i>How am I supposed to work with something so gargantuan?</i>" He disdainfully pulls a vial from his pocket and upends it over your crotch. The effect is immediate. [Eachcock] shrinks from ridiculously large down to horse-sized. <i>"There, that\'s better."</i>' );
 				//Shrink down to 18' by 3';
-				CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockLength = 18;
-				CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockThickness = 3;
+				CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockLength = 18;
+				CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockThickness = 3;
 			}
 			//MERGE size fork;
 			EngineCore.outputText( '\n\nThe incubus strokes his finely-groomed goatee while considering you further. He comes to a decision a moment later, though he does not bother to explain his thoughts to you, his fallen foe. Holding his hand aloft, he inhales deeply and utters words of nonsense - words that make your head hurt just listening to them. A swirling vortex of incandescent pink appears in his hand, glowing with a light all its own, growing bigger with every uttered word. When it is as big as a basketball, the demon gestures towards you, and the ball flies as true as an arrow, impacting you square in the chest.' );
@@ -532,11 +532,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\n"<i>Now, you may have been a champion before, but by right of battle, you\'re little more than my property. It\'s time to make your appearance match your new station,</i>" the tainted mechanic explains.' );
 		EngineCore.outputText( '\n\nFirst, he reaches into his pocket and produces a shining, golden ring. It gleams with unnatural brightness in his hand, far too thick to be worn on a finger and yet far too narrow to be a collar of any kind. The demon twirls it over his knuckles and kneels beside you, letting his member flop against your cheek. A trickle of corrupted pre-seed oozes out onto your cheek, and you cannot help but turn your head to suck his crown into your mouth. As you suckle and polish the phallus, your throat works to swallow everything he gives you, and he feeds you plenty.' );
 		//Multicock;
-		if( CoC.getInstance().player.cocks.length > 1 ) {
+		if( CoC.player.cocks.length > 1 ) {
 			EngineCore.outputText( '\n\nThe incubus gathers your ' + Descriptors.multiCockDescriptLight() + ' together in his hands, pressing them together into a column of compressed cock. His touch feels so nice that you piston your [hips] against him, trying to fuck his hands, but he holds you firmly. A warm tightness, pleasant and yet entirely unyielding presses down against your tips, so tight that whimper at the slight pinch of pain. You crane your head, careful not to lose your mouth\'s grip on its leaking fixation. What you see nearly makes you spit it out.' );
 			EngineCore.outputText( '\n\nThe ring is being forced down your bundled shafts. Below, your dicks remain as they are. Above, they\'re being merged together into one impressive tool.' );
 			var allDemon = false;
-			if( CoC.getInstance().player.demonCocks() === CoC.getInstance().player.cocks.length ) {
+			if( CoC.player.demonCocks() === CoC.player.cocks.length ) {
 				allDemon = true;
 			}
 			if( !allDemon ) {
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			//Single;
 			EngineCore.outputText( '\n\nThe incubus grabs your [cock] in his hand, holding it steady, not really intending to bring you much pleasure. His touch feels so nice that you piston your [hips] against him anyway, but he holds you firm and steady. A warm tightness, pleasant and unyielding presses down against your [cockHead], so tight that you whimper at the slight touch of pain. You crane your head for a better look, careful not to lose your mouth\'s grip on its leaking fixation. What you see nearly makes you swoon.' );
 			//Has nondemon dick;
-			if( CoC.getInstance().player.demonCocks() === 0 ) {
+			if( CoC.player.demonCocks() === 0 ) {
 				EngineCore.outputText( '\n\nThe gleaming ring is sliding down your length, and every inch that passes through it is turning... changing into a purple-hued monstrosity - a pale imitation of the cock currently plugging your hungry lips. It feels... surprisingly good to transform, and the sensation of your dick\'s nubs growing in is wonderfully divine. You blissfully sigh as the ring touches down against your crotch, <b>completing your transformation into a demon-cocked toy.</b>' );
 			}
 			//Has demon cock;
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 	};
 	IncubusMechanicScenes.prototype.maleLossToMechanicIII = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'The champion finally got to cum once Lethice had her turn, but by that point, pussy was all ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' could think about. Release came more frequently with the demon queen\'s permission. It didn\'t really matter, though. The champion was addicted to riding on the edge of climax, broken into nothing more than a demonic vibrator.' );
+		EngineCore.outputText( 'The champion finally got to cum once Lethice had her turn, but by that point, pussy was all ' + CoC.player.mf( 'he', 'she' ) + ' could think about. Release came more frequently with the demon queen\'s permission. It didn\'t really matter, though. The champion was addicted to riding on the edge of climax, broken into nothing more than a demonic vibrator.' );
 		EventParser.gameOver();
 	};
 
@@ -586,27 +586,27 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.clearOutput();
 		//Get turned into girl-lube pot.;
 		//Genderless Lust Loss;
-		if( !CoC.getInstance().player.hasVagina() && !hpVictory ) {
+		if( !CoC.player.hasVagina() && !hpVictory ) {
 			EngineCore.outputText( 'You stagger about drunkenly, stuffing your hand down your [armor] to get at your needy, aching [asshole]. You feel like a molten-hot font of lust and a delirious, jizz-craving slut all at the same time. Nothing short of hours of endlessly rutting on a virile, demonic cock for hours will quench the flames of your ardor and give you the pleasure you now crave. You whimper, looking up at the incubus imploringly as you try to get him to take you, yanking open your [armor] to show off your ready sphincter and busily pumping fingers. You even spread yourself open, beckoning him to stuff you.' );
 			EngineCore.outputText( '\n\nThe demon uncaps a bottle of something and presses it into your spread-open sphincter, pouring something into you. Before you try to push it out, you feel buzzing heat in your groin, so strong that it\'s practically disabling. Slowly, that heat focusing into an incredible, wet sensation. <b>You\'ve grown a pussy!</b> The empty bottle falls to the ground.' );
-			CoC.getInstance().player.createVagina();
+			CoC.player.createVagina();
 			EngineCore.outputText( '\n\n' );
 		}
 		//Genderless HP Loss;
-		else if( !CoC.getInstance().player.hasVagina() && hpVictory ) {
+		else if( !CoC.player.hasVagina() && hpVictory ) {
 			EngineCore.outputText( 'Collapsing onto the ground, you look up at the demonic aggressor with hate in your eyes, unwilling to admit defeat even when staring full-on into its face. The incubus, for his part, simply smiles down at you as he steps closer, claws clicking noisily on the smooth, tiled pavement.' );
 			EngineCore.outputText( '\n\n"<i>Is that all the mighty champion is capable of? Feeble resistance that ends itself before lust can be properly awakened? I am... disappointed in you,</i>" the incubus admits as he kneels down to look at conquered prize. "<i>Still, Lethice will be pleased to have you at hand at last. I think I might get to keep you.</i>" He playfully manhandles his foot-long meat to smack against your [face], forcing you to get a good feel for his tainted cock, to smell lurid, sexual scent.' );
 			EngineCore.outputText( '\n\nIt makes your [asshole] tingle hungrily. More hungrily than it\'s ever felt.' );
 			EngineCore.outputText( '\n\nSmiling, the overall-clad corruptor drags his thick tool up your cheek and across your lips, leaking his slime as he goes, and he gleefully watches you try to maintain your disdain in the face of his lascivious influence.' );
 			EngineCore.outputText( '\n\nWhile you are distracted, he unhooked your [armor], casting it aside, already forgotten. Like this... he can take you more easily. No! You\'ve got to fight this. He gently strokes your [hair] and laughs. You clench needily, aching to feel him inside you. Acting while you\'re distracted, the incubus suddenly presses something smooth and cold against your exposed ass. Something flows out of it into you! It was a bottle. You squeeze down, trying to force it out, but it stays stubbornly inside you. The incubus pulls it out a moment later, but the damage is done. Increadible warmth gathers in your crotch. With it comes arousal. In seconds, you\'re panting, and lurid wetness spreads out from your crotch, leaking from <b>your new vagina.</b>' );
-			CoC.getInstance().player.createVagina();
+			CoC.player.createVagina();
 			EngineCore.outputText( '\n\nGods, your pussy is wet, but you\'ve got to fight it! You have to hold on, maybe bite him or something to give you the time to recover and get back on the offensive! Yeah... biting might do the trick. You inhale to steel yourself for the oral assault, getting a nice, long whiff of his supremely potent pheromones in the process. Your [clit] gets so stiff that you start writhing your [hips] in order to squish your cunt-lips tight around. <i>Mmmm, gotta attack...</i> you think, but your heart just isn\'t in it anymore. You open your mouth, letting him push his tip inside, so that you can bite him, of course. Oh, the flavor is so intense... so strong and masculine and perfect on your tongue that you decide NOT to chomp down. Not yet. You can spend a little time recovering first, with his wonderfully tasty, throbbing-hot demon-cock on your happily licking tongue.' );
 			EngineCore.outputText( '\n\nSoon, those licks turn to sucks, and those sucks into a devilishly pleasurable blowjob. One hand winds to your steaming box while the other gropes at your [fullChest],' );
-			if( CoC.getInstance().player.hasFuckableNipples() ) {
+			if( CoC.player.hasFuckableNipples() ) {
 				EngineCore.outputText( ' slipping inside a [nipple] to thrust just like your other hand. You work your upper and lower pussies like a woman possessed.' );
 			} else {
 				EngineCore.outputText( ' pinching and tugging on' );
-				if( CoC.getInstance().player.totalNipples() > CoC.getInstance().player.totalBreasts() ) {
+				if( CoC.player.totalNipples() > CoC.player.totalBreasts() ) {
 					EngineCore.outputText( ' nipple after nipple, your myriad breastly endowments providing you with oh so many buttons to tend to' );
 				} else {
 					EngineCore.outputText( 'your [nipples] one after another' );
@@ -616,7 +616,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( '\n\nYou give a mewl of disappointment and open your eyes to see the incubus standing back a few feet, smirking at you, his cock hard, jutting, and leaking. That simply won\'t do! A dick like that... it needs to be sucked... tended to... until it can cum! You struggle out of your [armor] and up onto your [feet], staggering towards it with your hand still firmly lodged in your [vagina]. You\'ve got to tempt him back to you, or catch him at the very least.' );
 		}
 		//Lust Lawss;
-		else if( CoC.getInstance().player.hasVagina() && !hpVictory ) {
+		else if( CoC.player.hasVagina() && !hpVictory ) {
 			EngineCore.outputText( 'You stagger about drunkenly, stuffing your hand down your [armor] to get at your needy, aching [vagina]. You feel like a molten-hot font of lust and a delirious, jizz-craving slut all at the same time. Nothing short of hours of endlessly rutting on a virile, demonic cock for hours will quench the flames of your ardor and give you the pleasure you now crave. You whimper, looking up at the incubus imploringly as you try to get him to take you, yanking open your [armor] to show off your splayed-open twat and busily pumping fingers. You even pull them out lick clean, hoping he\'ll enjoy the show as much as you enjoy your own taste.' );
 		}
 		//HP Lawss:;
@@ -627,11 +627,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 			EngineCore.outputText( '\n\nSmiling, the overall-clad corruptor drags his thick tool up your cheek and across your lips, leaking his slime as he goes, and he gleefully watches you try to maintain your disdain in the face of his lascivious influence. ' );
 			EngineCore.outputText( '\n\nGods, your pussy is wet, but you\'ve got to fight it! You have to hold on, maybe bite him or something to give you the time to recover and get back on the offensive! Yeah... biting might do the trick. You inhale to steel yourself for the oral assault, getting a nice, long whiff of his supremely potent pheromones in the process. Your [clit] gets so stiff that you start writhing your [hips] in order to squish your cunt-lips tight around. <i>Mmmm, gotta attack...</i> you think, but your heart just isn\'t in it anymore. You open your mouth, letting him push his tip inside, so that you can bite him, of course. Oh, the flavor is so intense... so strong and masculine and perfect on your tongue that you decide NOT to chomp down. Not yet. You can spend a little time recovering first, with his wonderfully tasty, throbbing-hot demon-cock on your happily licking tongue.' );
 			EngineCore.outputText( '\n\nSoon, those licks turn to sucks, and those sucks into a devilishly pleasurable blowjob. One hand winds under your [armor] to tend to your steaming box while the other gropes at your [fullChest],' );
-			if( CoC.getInstance().player.hasFuckableNipples() ) {
+			if( CoC.player.hasFuckableNipples() ) {
 				EngineCore.outputText( ' slipping inside a [nipple] to thrust just like your other hand. You work your upper and lower pussies like a woman possessed.' );
 			} else {
 				EngineCore.outputText( ' pinching and tugging on' );
-				if( CoC.getInstance().player.totalNipples() > CoC.getInstance().player.totalBreasts() ) {
+				if( CoC.player.totalNipples() > CoC.player.totalBreasts() ) {
 					EngineCore.outputText( ' nipple after nipple, your myriad breastly endowments providing you with oh so many buttons to tend to' );
 				} else {
 					EngineCore.outputText( 'your [nipples] one after another' );
@@ -646,9 +646,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\n"<i>That\'s my good slut,</i>" he sighs in whispery pleasure. "<i>You just keep sucking while I get the machinery into position.</i>" Whatever. After a little more rod-polishing, you\'re sure he\'ll give you a fucking for the ages, the one your cunny deserves. You\'ve just got to focus on getting his musky member so perfectly aroused that he has no other choice. The sound of unspooling chains and clanking metal doesn\'t bother you. Not even when a set of wooden stocks are fastened around your hands and neck, holding you in place. You regret the inability to cup his balls, but when he pushes wholly inside, you\'re able to lick them all the same.' );
 		EngineCore.outputText( '\n\nThe source of your lust is soon bending double to fasten more bindings around your waist and [hips], attacking them to more chains by the sounds of it. Soon after, the devices lift you up off the ground such that you' );
 		// 9999 not sure about these;
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'r coils don\'t get sore' );
-		} else if( !CoC.getInstance().player.isBiped() ) {
+		} else if( !CoC.player.isBiped() ) {
 			EngineCore.outputText( ' don\'t even need to support yourself anymore' );
 		} else {
 			EngineCore.outputText( ' knees don\'t get sore' );
@@ -661,7 +661,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\nW-what!? So this... this... delicious goo... it\'s going to make you even wetter down there?' );
 		EngineCore.outputText( '\n\nThe demon must be able to read the question in your eyes, because he nods understandingly. "<i>Yes, little mortal, this draught is going to make you wetter and hornier than you can possibly image. That cute little twat you\'ve got is going to be my own personal lubricant-fountain. I suspect you may even manage to learn how to bring yourself off by shifting your [hips] to make your lips rub your [clit] just right.</i>" He shrugs. "<i>I don\'t really care, so long as that cunt of yours stays wet enough to shame the goo-girls at the lake.</i>" His hand ruffles your hair once more before he steps back to watch you drink this the milky, medicinal goo.' );
 		EngineCore.outputText( '\n\nYou can already feel the first few swallows affecting you. Your [skin] is flushing, worse than before, and your nether-lips are getting so wonderfully slippery that you can feel your moisture beading on your mons. Your [clit] fares little better, swelling up nearly double its old size' );
-		if( CoC.getInstance().player.clitLength > 5 ) {
+		if( CoC.player.clitLength > 5 ) {
 			EngineCore.outputText( ', even if that makes it truly monstrous indeed' );
 		}
 		EngineCore.outputText( '. It drips long, sticky strands of girlish lust as you swallow, only becoming more soaked as time passes as your body becomes even more productive. A plaintive whimper escapes around the edges of your phallic gag, but your cry falls on deaf ears. The incubus is too busy fitting pipes together beneath you to care.' );

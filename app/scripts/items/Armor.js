@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, 
 		that._supportsBulge = args.length > 8 ? args[ 8 ] : false;
 	};
 	Armor.prototype.supportsBulge = function() {
-		return this._supportsBulge && CoC.getInstance().player.modArmorName === '';
+		return this._supportsBulge && CoC.player.modArmorName === '';
 	};
 	//For most clothes if the modArmorName is set then it's Exgartuan's doing. The comfortable clothes are the exception, they override this function.;
 	Armor.prototype.useText = function() {
@@ -23,11 +23,11 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, 
 		return this;
 	};
 	Armor.prototype.playerRemove = function() { //This item is being removed by the player. Remove any perks, etc. - This function should only handle mechanics, not text output
-		while( CoC.getInstance().player.findPerk( PerkLib.BulgeArmor ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.BulgeArmor );
+		while( CoC.player.findPerk( PerkLib.BulgeArmor ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.BulgeArmor );
 		} //TODO remove this Exgartuan hack
-		if( CoC.getInstance().player.modArmorName.length > 0 ) {
-			CoC.getInstance().player.modArmorName = '';
+		if( CoC.player.modArmorName.length > 0 ) {
+			CoC.player.modArmorName = '';
 		}
 		return this;
 	};

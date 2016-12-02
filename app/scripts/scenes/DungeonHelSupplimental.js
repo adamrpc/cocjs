@@ -19,10 +19,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(Scene proc's the first time all requirements are met and the player chooses [Sleep] at camp.);
 		EngineCore.outputText( 'Before bedding down for the night, you make one last check of your camp\'s perimeter, making sure all your traps and defenses are still in place and primed in the event of a surprise nighttime assault.  As you come to the outermost parts of your makeshift camp, you notice a cloaked stranger approaching out of the evening darkness.  You\'re about to ready your [weapon], but you recognize the shapely figure of Hel the salamander walking towards you, hips a-sway underneath her loose traveling cloak.' );
 		//(If Hel has never been to camp before (ie, no Isabella threesome at camp);
-		if( CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>[name]!</i>" the salamander shouts, waving emphatically as she approaches.  "<i>Shit, do you have any idea how hard you are to track down? I\'ve been looking for you everywhere!</i>"  You ' );
 			//[(pussy);
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'quickly rush over and stop Hel before she loses a leg to one of your traps' );
 			}
 			//(dick);
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(Resume All);
 		EngineCore.outputText( '\n\nYou sit the salamander down near your campfire and ask her what brought her all the way from the plains to your humble abode.  She shrugs lightly and says, "<i>Maybe I just wanted some company tonight.</i>"' );
 		//[If not Centaur: ;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '  Her hand slides over to rest on your thigh.' );
 		} else {
 			EngineCore.outputText( '  "<i>She gives your flank a slow, affectionate stroke.</i>"' );
@@ -63,9 +63,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nBefore you can even try to calm her down, Hel is running away from the camp and back into the night from whence she came.' );
 		EngineCore.outputText( '\n\nWell then.' );
 		//(In-Game effect: Reduce Hel's encounter rate, end fuckbuddy mode. Will fight player in plains.);
-		CoC.getInstance().flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] = 1;
-		CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] = 0;
-		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ] = 0;
+		CoC.flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] = 1;
+		CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] = 0;
+		CoC.flags[ kFLAGS.HEL_AFFECTION ] = 0;
 		SceneLib.helFollower.helAffection( -70 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -75,14 +75,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( 'You mull the salamander\'s proposition over and eventually agree to assist her.  Not only will you be stopping a new race of monsters from spawning into the mountains, but you\'ll be getting into the lovely Helia\'s good graces - a win-win if ever there was one.' );
 		EngineCore.outputText( '\n\nHel breaks out into a great big smile and leaps at you, pulling you into a hug and squeezing until you damn near choke.  You return her tight embrace, and are eventually rewarded by Hel relaxing in your arms' );
 		//[if has lap: ;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( ' and cuddling up in your lap' );
 		}
 		EngineCore.outputText( '.  She nuzzles your neck and whispers, "<i>Thanks, Champ. It means a lot to know I can count on you to... watch my back.</i>"' );
 		EngineCore.outputText( '\n\nYou run a hand through Hel\'s hair and tell her that you\'ve got her back no matter what.  You give her muscular ass a playful little grope; and she immediately wraps her tail around you, pinning your arms to your chest.  Doesn\'t look like you\'re going anywhere now.  With a little smirk, the salamander whispers, "<i>Let\'s stay like this \'til morning - what do you say?</i>"' );
 		EngineCore.outputText( '\n\nResigned to your fate, you curl up with Helia; who throws her cloak over the two of you.' );
 		//[If Marble is in camp:];
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && EngineCore.silly() ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && EngineCore.silly() ) {
 			EngineCore.outputText( '\n\nJust as you and Hel start to get intimate, you hear a familiar clopping of hooves. You poke your head out of the blanket, rather alarmed to see Marble standing over you.' );
 			EngineCore.outputText( '\n\n"<i>S-Sweetie?</i>" Marble says, aghast at Hel\'s presence in your arms.  "<i>What... just what do you think you\'re doing!?</i>"' );
 			EngineCore.outputText( '\n\nThis could be ba--' );
@@ -93,15 +93,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			}
 		}
 		//PROC NEXT FUNCTION AT 6AM.  OVERRIDES OTHER SHIIIIITE;
-		CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = -1;
+		CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = -1;
 		EngineCore.doNext( EventParser.playerMenu );
 		//(Decrease Player Lust to minimum, increase HP to maximum, etc. etc. You're sleeping, but also fucking. Figure it out.);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 	};
 	DungeonHelSupplimental.prototype.morningAfterHeliaDungeonAgreements = function() {
 		EngineCore.outputText( '\nWhen your eyes flicker open at the crack of dawn, you\'re pleased to see Helia is lying on your chest, ' );
 		//[If PC has >C Cups, "<i>;
-		if( CoC.getInstance().player.biggestTitSize() > 3 ) {
+		if( CoC.player.biggestTitSize() > 3 ) {
 			EngineCore.outputText( 'her head nestled between your soft tits and ' );
 		}
 		EngineCore.outputText( 'snoring boorishly.  The air around you smells like hot booze and sex, yet you awaken feeling as spirited and lively as you ever have.  You give Hel a little shake, waking her.' );
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou tell the salamander you just need to get your affairs in order and you\'re off to the harpies\' nest. She nods, reminding you that each moment you spend waiting around is another moment that poor man suffers.  You tell her you\'ll be quick, and set about preparing.' );
 		//(Display: ;
 		EngineCore.outputText( '\n\n(<b>Helia can now be found under the Lovers tab! (For Now!)</b>)' );
-		CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = 1;
+		CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	DungeonHelSupplimental.prototype.takeGodsMead = function() {
 		SceneLib.inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]++;
+		CoC.flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]++;
 	};
 	//[Armor]:;
 	DungeonHelSupplimental.prototype.takeGooArmor = function() {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	DungeonHelSupplimental.prototype.gooArmorAI = function() {
 		EngineCore.spriteSelect( 79 );
-		if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.GooArmorSilence ) < 0 ) {
+		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.GooArmorSilence ) < 0 ) {
 			this.gooSilenceAttack();
 		} else if( Utils.rand( 3 ) > 0 ) {
 			this.gooArmorAttackPhysical();
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//HIT!;
 		else {
 			EngineCore.outputText( 'The goo-armor rushes forward and swings her sword in a mighty arc.  You aren\'t quite quick enough to dodge her blow, and the goopy sword slams into you, throwing you back and leaving a nasty welt.' );
-			var damage = Math.round( (CoC.getInstance().monster.str + CoC.getInstance().monster.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			var damage = Math.round( (CoC.monster.str + CoC.monster.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			if( damage <= 0 ) {
 				damage = 1;
 			}
@@ -194,19 +194,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//ATTACK TWO: Goo Consume;
 	DungeonHelSupplimental.prototype.gooArmorAttackTwoGooConsume = function() {
 		EngineCore.outputText( 'Suddenly, the goo-girl leaks half-way out of her heavy armor and lunges at you.  You attempt to dodge her attack, but she doesn\'t try and hit you - instead, she wraps around you, pinning your arms to your chest.  More and more goo latches onto you - you\'ll have to fight to get out of this.' );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.GooArmorBind, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.GooArmorBind, 0, 0, 0, 0 );
 		Combat.combatRoundOver();
 	};
 	//(Struggle);
 	DungeonHelSupplimental.prototype.struggleAtGooBind = function() {
 		EngineCore.clearOutput();
 		//If fail:;
-		if( Utils.rand( 10 ) > 0 && CoC.getInstance().player.str / 5 + Utils.rand( 20 ) < 23 ) {
+		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 ) {
 			EngineCore.outputText( 'You try and get out of the goo\'s grasp, but every bit of goop you pull off you seems to be replaced by twice as much!' );
 			//(If fail 5 times, go to defeat scene);
-			CoC.getInstance().player.addStatusValue( StatusAffects.GooArmorBind, 1, 1 );
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.GooArmorBind ) >= 5 ) {
-				if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.GooArmorBind, 1, 1 );
+			if( CoC.player.statusAffectv1( StatusAffects.GooArmorBind ) >= 5 ) {
+				if( CoC.monster.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
 					SceneLib.valeria.pcWinsValeriaSparDefeat();
 				} else {
 					this.gooArmorBeatsUpPC();
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//If succeed: ;
 		else {
 			EngineCore.outputText( 'You finally pull the goop off of you and dive out of her reach before the goo-girl can re-attach herself to you.  Pouting, she refills her suit of armor and reassumes her fighting stance.' );
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.GooArmorBind );
+			CoC.player.removeStatusAffect( StatusAffects.GooArmorBind );
 		}
 		Combat.combatRoundOver();
 	};
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	DungeonHelSupplimental.prototype.gooSilenceAttack = function() {
 		EngineCore.outputText( 'The goo pulls a hand off her greatsword and shoots her left wrist out towards you.  You recoil as a bit of goop slaps onto your mouth, preventing you from speaking - looks like you\'re silenced until you can pull it off!' );
 		//(No spells until PC passes a moderate STR check or burns it away);
-		CoC.getInstance().player.createStatusAffect( StatusAffects.GooArmorSilence, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.GooArmorSilence, 0, 0, 0, 0 );
 		Combat.combatRoundOver();
 	};
 	//Goo Armor -- PC Defeated (PC has Gender);
@@ -234,22 +234,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou collapse, unable to resist the goo-armor\'s onslaught.  Laughing, she slithers out from underneath her armor, completely encasing you before you can do anything more than scream.  Laughing maniacally, the goo looms over you, hands on her hips.  "<i>Tsk, tsk, tsk.  Not so eager to steal my armor now, are you?  Well... what am I to do with you, hmm?</i>"  You struggle, but wrapped snugly in her goo, you can do little more than wiggle your hips and chest, accidentally moving yourself seductively.' );
 		EngineCore.outputText( '\n\nAs you realize your mistake, a little smile spreads on her face.  "<i>Ah, I know... I haven\'t had my precious fluids in so very long...</i>"' );
 		//(PC has Vagina);
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nShe begins to use her goo to peel back your [armor], soon revealing your defenseless [vagina], and makes a show of licking her lips as tendrils of goo seep into your cunt, filling you utterly.  You writhe and struggle against your gooey bonds, but your efforts are futile.  The goo-girl inside the armor only shakes her head at you, and withdraws herself from your [vagina].' );
 			EngineCore.outputText( '\n\nYou have only a moment to figure out what\'s coming before her goo -- now perfectly shaped like the inside of your cunt -- slams back into you like a stiff cock. You can\'t help yourself as a moan escapes your lips, barely audible through the goop covering your mouth.' );
 			EngineCore.outputText( '\n\n"<i>Oh, you like that do you?</i>" the armor-goo asks, smiling evilly.  "<i>Well, maybe this can be mutually... beneficial.</i>"  Still grinning, she begins to hammer her cock-like appendage into your pussy, fucking you fast and hard with her goo-dildo.' );
-			CoC.getInstance().player.cuntChange( 25, true, true, false );
+			CoC.player.cuntChange( 25, true, true, false );
 			//[If PC has breasts > A-cups: ;
-			if( CoC.getInstance().player.biggestTitSize() > 1 ) {
+			if( CoC.player.biggestTitSize() > 1 ) {
 				EngineCore.outputText( '  As she hammers your cunny, bits of her goo swirl around your [chest], squeezing and massaging your tits.  You squirm as she roughly teases your boobs, pinching at your nipples and squeezing your tender flesh roughly.' );
 				//[if PC is lactating: "<i>;
-				if( CoC.getInstance().player.lactationQ() > 0 ) {
+				if( CoC.player.lactationQ() > 0 ) {
 					EngineCore.outputText( '  To her delight, a spray of warm milk jets out of your sore nipples, milky white mixing into blue goo like oil in water. "<i>Mmm, tasty!</i>" she teases, massaging more and more from you.</i>"' );
 				}
 			}
 			EngineCore.outputText( '\n\nShe continues to pound your cunt mercilessly, her grin spreading to inhuman width as your juices begin to flow around and into her gooey penetration.  She soaks your fem-lube up greedily, enjoying the meal, but her fucking is relentless until you feel orgasm approaching.  "<i>Aw, ' );
 			//[if height is less than 6': ;
-			if( CoC.getInstance().player.tallness < 70 ) {
+			if( CoC.player.tallness < 70 ) {
 				EngineCore.outputText( 'little' );
 			} else {
 				EngineCore.outputText( 'big' );
@@ -257,28 +257,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( ' girl ready to cum?  Well, go on then. Feed me!</i>"' );
 			EngineCore.outputText( '\n\nYou erupt, femspunk gushing out of your [vagina] and into the goo-cock.  Laughing, the goo-girl absorbs your cum, growing larger and larger as you feed her, until she towers over you, her massive cock now wide enough to painfully stretch your walls.  "<i>Oh, that\'s good.  Good, girl, good.  Yes, let it all out, just like that... just like that,</i>" she coos, soaking your juices up until your orgasm finally passes.  Sated, she withdraws from inside you, leaving a decidedly empty feeling in your gut as she allows you to stand.' );
 			EngineCore.outputText( '\n\n"<i>Mmm, that was fun,</i>" the goo-girl says, patting her full belly.  You can see a bit of your cum ' );
-			if( CoC.getInstance().player.biggestTitSize() > 1 && CoC.getInstance().player.lactationQ() > 0 ) {
+			if( CoC.player.biggestTitSize() > 1 && CoC.player.lactationQ() > 0 ) {
 				EngineCore.outputText( 'and milk ' );
 			}
 			EngineCore.outputText( 'swirling around inside her.  "<i>Well, I suppose since you fed me so well, I\'ll let you go.  This time! See you around, tasty!</i>"' );
 			EngineCore.outputText( '\n\nBefore you can recover enough to say a word, the goo-girl saunters off out the door.  To your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		}
 		//(PC has Dick);
-		else if( CoC.getInstance().player.hasCock() ) {
+		else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'She begins to use her goo to peel back your armor, soon revealing your defenseless, half-erect cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  She makes a show of licking her lips as tendrils of goo wrap tightly around [eachCock] like a warm, wet onahole. You writhe and struggle against your gooey bonds, but your efforts are futile.  The goo-girl inside the armor only shakes her head at you, and squeezes [eachCock] tighter.' );
-			EngineCore.outputText( '\n\nYou gasp with pleasure as she starts to stroke your ' + CoC.getInstance().player.multiCockDescriptLight() + ', jerking you off as she looms over you, grinning wickedly.  "<i>Oh, you like that do you?</i>" the armor-goo asks.  "<i>Well, maybe this can be mutually... beneficial.</i>"  She starts to increase her tempo, making you squirm and writhe as she wanks your ' + CoC.getInstance().player.multiCockDescriptLight() + ', licking her lips as little bubbles of pre-cum form.  Helpless, you can only submit and try to enjoy yourself as the armored goo-girl continues to milk you.' );
+			EngineCore.outputText( '\n\nYou gasp with pleasure as she starts to stroke your ' + CoC.player.multiCockDescriptLight() + ', jerking you off as she looms over you, grinning wickedly.  "<i>Oh, you like that do you?</i>" the armor-goo asks.  "<i>Well, maybe this can be mutually... beneficial.</i>"  She starts to increase her tempo, making you squirm and writhe as she wanks your ' + CoC.player.multiCockDescriptLight() + ', licking her lips as little bubbles of pre-cum form.  Helpless, you can only submit and try to enjoy yourself as the armored goo-girl continues to milk you.' );
 			EngineCore.outputText( '\n\nShe continues to jerk you off mercilessly, her grin spreading to inhuman width as your pre begins to flow around and into her gooey \'hands\'.  She soaks you up greedily, enjoying the meal, but her fucking is relentless until you feel orgasm approaching.  "<i>Aw, ' );
-			if( CoC.getInstance().player.tallness < 70 ) {
+			if( CoC.player.tallness < 70 ) {
 				EngineCore.outputText( 'little' );
 			} else {
 				EngineCore.outputText( 'big' );
 			}
-			EngineCore.outputText( ' ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ' ready to cum? Well, go on then. Feed me!</i>"' );
-			EngineCore.outputText( '\n\nYou climax, ropes of thick, white jizz shooting out of [eachCock] and into the goo\'s waiting body.  Laughing, the goo-girl absorbs your cum, growing larger and larger as you feed her until she towers over you, her expanding breasts and belly now hanging over you. "<i>Oh, that\'s good. Good, ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ', good.  Yes, let it all out, just like that... Just like that,</i>" she coos, soaking your cum up until your orgasm finally passes.  Sated, she withdraws from around you, leaving your ' + CoC.getInstance().player.multiCockDescriptLight() + ' decidedly empty and sore.' );
+			EngineCore.outputText( ' ' + CoC.player.mf( 'boy', 'girl' ) + ' ready to cum? Well, go on then. Feed me!</i>"' );
+			EngineCore.outputText( '\n\nYou climax, ropes of thick, white jizz shooting out of [eachCock] and into the goo\'s waiting body.  Laughing, the goo-girl absorbs your cum, growing larger and larger as you feed her until she towers over you, her expanding breasts and belly now hanging over you. "<i>Oh, that\'s good. Good, ' + CoC.player.mf( 'boy', 'girl' ) + ', good.  Yes, let it all out, just like that... Just like that,</i>" she coos, soaking your cum up until your orgasm finally passes.  Sated, she withdraws from around you, leaving your ' + CoC.player.multiCockDescriptLight() + ' decidedly empty and sore.' );
 			EngineCore.outputText( '\n\n"<i>Mmm, that was fun,</i>" the goo-girl says, patting her full belly.  You can see a bit of your cum swirling around inside her.  "<i>Well, I suppose since you fed me so well, I\'ll let you go.  This time!  See you around, tasty!</i>"' );
 			EngineCore.outputText( '\n\nBefore you can recover enough to say a word, the goo-girl saunters off out the door.  To your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		}
@@ -286,7 +286,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		else {
 			EngineCore.outputText( 'You collapse, unable to resist the goo-armor\'s onslaught.  Laughing, goo slithers out from the bottom of her armor, completely encasing you before you can do anything more than scream.  Laughing maniacally, the goo looms over you, hands on her hips.  "<i>Tsk, tsk, tsk.  Not so eager to steal my armor now, are you?  Well... what am I to do with you, hmm?</i>"  You struggle, but wrapped snugly in her goo, you can do little more than wiggle your hips and chest, accidentally moving yourself seductively.' );
 			EngineCore.outputText( '\n\nAs you realize your mistake, a little smile spreads on your face.  "<i>Ah, I know... I haven\'t had my precious fluids in so very long...</i>" She begins to use her goo to peel back your armor, but stops with a look of horror as she reveals you bare, empty crotch.' );
-			EngineCore.outputText( '\n\n"<i>What. Just... WHAT. How do you... ' + CoC.getInstance().player.mf( 'Dude', 'Babe' ) + ', how do you PEE!?</i>"' );
+			EngineCore.outputText( '\n\n"<i>What. Just... WHAT. How do you... ' + CoC.player.mf( 'Dude', 'Babe' ) + ', how do you PEE!?</i>"' );
 			EngineCore.outputText( '\n\nYou struggle weakly, unable to respond.' );
 			EngineCore.outputText( '\n\n"<i>Oh... fuck it. Just... whatever. Go away, you freak.</i>"' );
 			EngineCore.outputText( '\n\nThe goo-girl shrugs and saunters out the front door.' );
@@ -294,18 +294,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		}
 		//(PC regains HP);
 		EngineCore.HPChange( 1000, false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 3 );
 		Combat.cleanupAfterCombat();
 		EngineCore.doNext( EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.LOST_GOO_ARMOR_FIGHT ] = 1;
+		CoC.flags[ kFLAGS.LOST_GOO_ARMOR_FIGHT ] = 1;
 	};
 	//Goo Armor -- PC is Victorious (Intro);
 	DungeonHelSupplimental.prototype.beatUpGooArmor = function() {
 		EngineCore.spriteSelect( 79 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Succumbing to your ' );
-		if( CoC.getInstance().monster.lust > 99 ) {
+		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'erotic abilities' );
 		} else {
 			EngineCore.outputText( 'skill in battle' );
@@ -318,14 +318,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWell, that\'s certainly an interesting offer. Do you take the goo-girl armor with you?' );
 		//(Display Options: [Take Her] [Refuse Her]);
 		EngineCore.choices( 'Take Her', this.takeGooArmorAndWearIt, 'Refuse Her', this.refuseGooArmorOffer, '', null, '', null, '', null );
-		CoC.getInstance().flags[ kFLAGS.WON_GOO_ARMOR_FIGHT ] = 1;
+		CoC.flags[ kFLAGS.WON_GOO_ARMOR_FIGHT ] = 1;
 	};
 	//[Refuse Her];
 	DungeonHelSupplimental.prototype.refuseGooArmorOffer = function() {
 		EngineCore.spriteSelect( 79 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell her to fuck off -- you don\'t need armor that might try to kill or rape you at night.' );
-		EngineCore.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.getInstance().player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
+		EngineCore.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		EngineCore.HPChange( 1000, false );
 		Combat.cleanupAfterCombat();
 		EngineCore.doNext( EventParser.playerMenu );
@@ -338,16 +338,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWith an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );
 		EngineCore.outputText( '\n\nBefore she can get too excited, you remind the goo that she\'s supposed to be your armor right about now.  Clasping her hands over her mouth in embarrassment, she utters a muted apology and urges you to just "<i>put me on!</i>"  Awkwardly, you strip out of your [armor] and open up the platemail armor and clamber in.  It\'s wet and squishy, making you shudder and squirm as you squash your new friend flat against the metal armor.' );
 		EngineCore.outputText( '\n\nEventually, the two of you get situated. The goo-girl slips around your body inside the heavy armor, maneuvering so that your face is unobstructed and your joints, not protected by the armor, are soundly clad in squishy goo.  She even forms a gooey beaver on your new helm, allowing you to open and close her like a visor in battle.  Eventually, her goo settles around your ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '[vagina]' );
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight() );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( CoC.player.multiCockDescriptLight() );
 		}
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'groin' );
 		}
 		EngineCore.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
@@ -358,23 +358,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//("<i>You put a (previous armorName) in your X pouch);
 		EngineCore.outputText( '\n\nTo your surprise, you feel rather invigorated after the battle, thanks to Valeria\'s strange healing properties, and with a smirk, you turn your attention back to the dungeon ahead.\n\n' );
 		//(PC regains HP);
-		SceneLib.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.MET_VALERIA ] = 1;
+		SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
+		CoC.flags[ kFLAGS.MET_VALERIA ] = 1;
 		EngineCore.HPChange( 1000, false );
-		CoC.getInstance().flags[ kFLAGS.TOOK_GOO_ARMOR ] = 1;
+		CoC.flags[ kFLAGS.TOOK_GOO_ARMOR ] = 1;
 	};
 	//ATTACK ONE: Claw Flurry;
 	DungeonHelSupplimental.prototype.harpyHordeClawFlurry = function() {
 		EngineCore.outputText( 'The harpies lunge at you, a veritable storm of talons and claws raining down around you.  You stumble back, trying desperately to deflect some of the attacks, but there are simply too many to block them all!  Only a single harpy in the brood seems to be holding back...\n' );
 		//(Effect: Multiple light attacks);
-		CoC.getInstance().monster.createStatusAffect( StatusAffects.Attacks, 3 + Utils.rand( 3 ), 0, 0, 0 );
-		CoC.getInstance().monster.eAttack();
+		CoC.monster.createStatusAffect( StatusAffects.Attacks, 3 + Utils.rand( 3 ), 0, 0, 0 );
+		CoC.monster.eAttack();
 		Combat.combatRoundOver();
 	};
 	//ATTACK TWO: Gangbang;
 	DungeonHelSupplimental.prototype.harpyHordeGangBangAttack = function() {
 		EngineCore.outputText( 'Suddenly, a pair of harpies grabs you from behind, holding your arms to keep you from fighting back! Taking advantage of your open state, the other harpies leap at you, hammering your chest with punches and kicks - only one hangs back from the gang assault.\n\n' );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.HarpyBind, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.HarpyBind, 0, 0, 0, 0 );
 		//(PC must struggle:;
 		this.harpyHordeGangBangStruggle( false );
 	};
@@ -384,14 +384,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		}
 		//Failure: ;
 		//If fail:;
-		if( Utils.rand( 10 ) > 0 && CoC.getInstance().player.str / 5 + Utils.rand( 20 ) < 23 ) {
+		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 ) {
 			var damage = 80 + Utils.rand( 40 );
 			damage = Combat.takeDamage( damage );
 			EngineCore.outputText( 'You struggle in the harpies\' grasp, but can\'t quite get free.  The brood continues to hammer away at your defenseless self. (' + damage + ')' );
 		}
 		//Success: ;
 		else {
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.HarpyBind );
+			CoC.player.removeStatusAffect( StatusAffects.HarpyBind );
 			EngineCore.outputText( 'With a mighty roar, you throw off the harpies grabbing you and return to the fight!' );
 		}
 		Combat.combatRoundOver();
@@ -399,12 +399,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//ATTACK THREE: LUSTY HARPIES!;
 	DungeonHelSupplimental.prototype.harpyHordeLustAttack = function() {
 		EngineCore.outputText( 'The harpies back off for a moment, giving you room to breathe - only to begin a mini strip-tease, pulling off bits of clothing to reveal their massive asses and hips or bearing their small, perky tits.  They caress themselves and each other, moaning lewdly.  Distracted by the burlesque, you don\'t notice a lipstick-wearing harpy approaching you until it\'s too late!  She plants a kiss right on your lips, ' );
-		if( CoC.getInstance().player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
 			EngineCore.outputText( 'doing relatively little thanks to your adaptation' );
 		} else {
 			EngineCore.outputText( 'sending shivers of lust up your spine' );
 			EngineCore.dynStats( 'lus', 5 );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.dynStats( 'lus', 15 );
 			}
 		}
@@ -424,12 +424,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Harpy Horde -- PC is Defeated (MAYBE BAD END!!!);
 	DungeonHelSupplimental.prototype.pcLosesToHarpyHorde = function() {
 		EngineCore.outputText( '\n\nUnable to withstand the ' );
-		if( CoC.getInstance().player.HP < 1 ) {
+		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'brutal assault' );
 		} else {
 			EngineCore.outputText( 'raw sexuality' );
 		}
-		EngineCore.outputText( ', you collapse, utterly at the harpies\' mercy.  The group looms over you, lusty, evil grins all around, but to your surprise, one of them shouts a harsh command, making the swarm of feathery bitches back off.  A particularly slight harpy with a shock of bright-orange hair waves the brood off, astonishingly commanding for the runt of the litter.  The other harpies hiss and growl at her, but still she speaks, "<i>Hold it!  We can\'t have the intruder yet.  Mother will want to talk to ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' first.</i>"' );
+		EngineCore.outputText( ', you collapse, utterly at the harpies\' mercy.  The group looms over you, lusty, evil grins all around, but to your surprise, one of them shouts a harsh command, making the swarm of feathery bitches back off.  A particularly slight harpy with a shock of bright-orange hair waves the brood off, astonishingly commanding for the runt of the litter.  The other harpies hiss and growl at her, but still she speaks, "<i>Hold it!  We can\'t have the intruder yet.  Mother will want to talk to ' + CoC.player.mf( 'him', 'her' ) + ' first.</i>"' );
 		EngineCore.outputText( '\n\nThe brood grumbles, but you are hauled off your feet and dragged upstairs...' );
 		//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 		EngineCore.menu();
@@ -438,9 +438,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Harpy Horde -- PC is Victorious;
 	DungeonHelSupplimental.prototype.pcDefeatsHarpyHorde = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.HEL_HARPIES_DEFEATED ] = 1;
+		CoC.flags[ kFLAGS.HEL_HARPIES_DEFEATED ] = 1;
 		EngineCore.outputText( 'The harpies collapse in a pile in the center of the room, all utterly defeated... except one.  The lone harpy that did not attack you throughout the fight, a rather slight girl with a shock of bright orange hair, still stands, gaping at the destruction you\'ve wrought.  Eventually, her gaze shifts up to you.' );
-		EngineCore.outputText( '\n\n"<i>Holy shit, ' + CoC.getInstance().player.mf( 'dude', 'lady' ) + '.  You\'re a goddamn one-' + CoC.getInstance().player.race() + '-army, aren\'t you? You... you must be [name], right? Hel... er, Miss Helia told me about you.  I\'m, uh... I\'m Kiri.  Sorry about the other girls - I\'d just spiked their drinks, but they didn\'t have time to finish them.  You\'re a little earlier than I was expecting.  Sorry,</i>" she whispers nervously, rubbing the back of her neck.' );
+		EngineCore.outputText( '\n\n"<i>Holy shit, ' + CoC.player.mf( 'dude', 'lady' ) + '.  You\'re a goddamn one-' + CoC.player.race() + '-army, aren\'t you? You... you must be [name], right? Hel... er, Miss Helia told me about you.  I\'m, uh... I\'m Kiri.  Sorry about the other girls - I\'d just spiked their drinks, but they didn\'t have time to finish them.  You\'re a little earlier than I was expecting.  Sorry,</i>" she whispers nervously, rubbing the back of her neck.' );
 		EngineCore.outputText( '\n\nYou ask her who she is exactly and how she knows Hel.' );
 		EngineCore.outputText( '\n\n"<i>Uh, well, I\'m the one who told her about this place. You could say I\'m her informant, I guess,</i>" she shrugs and slips her hands behind her inhumanly wide hips.  Cocking an eyebrow, you notice the girl is actually quite pretty - her wings and hair are an orange as bright as the sun, and she has deliciously curvaceous thighs and hips, not to mention cute perky breasts.  Noticing your lusty glances, she makes a little giggle and bites her lower lip.' );
 		EngineCore.outputText( '\n\n"<i>Anyway, Miss Helia asked me to help you any way I can, so... I guess, just ask me if you need anything.</i>"' );
@@ -507,13 +507,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//If Female [Get Licked];
 		//If Genderless: "<i>Unfortunately, there's not much she can do for you...</i>";
 		EngineCore.menu();
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'Unfortunately, there\'s not much she can do for you...' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Anal', this.kiriSexAnal );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 1, 'Get Licked', this.kiriSexGetLicked );
 		}
 		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
@@ -521,15 +521,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Kiri -- [Sex] -- [Anal];
 	DungeonHelSupplimental.prototype.kiriSexAnal = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 60 );
+		var x = CoC.player.cockThatFits( 60 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		var y = x + 1;
 		EngineCore.outputText( 'You whip your [cock ' + (y) + '] out of your [armor] and tell Kiri to get on all fours.  She grimaces, but does as you ask.  You hike up her shift to reveal her large, egg-laying pussy and her tight little pucker.' );
 		EngineCore.outputText( '\n\n"<i>Just make sure you pull out, all right? I don\'t wanna get pregnant - EEEP!</i>" she shrieks as your [cock ' + y + '] pokes against her backdoor.  Her wings beat furiously around you, nearly lifting you both off the ground.  You give her a swat on the ass to help her get a grip as you take hold of her inhumanly wide hips.  She wriggles around for a bit before finally calming down and trying to relax as best she can.' );
 		EngineCore.outputText( '\n\nIt takes some doing, but you eventually manage to push your prick in past her tight sphincter.  With a relieved sigh, you start to push into her ass, slowly but steadily feeding her inches of your [cock ' + y + '] until ' );
-		if( CoC.getInstance().player.cockArea( x ) > 60 ) {
+		if( CoC.player.cockArea( x ) > 60 ) {
 			EngineCore.outputText( 'you can fit no more in' );
 		} else {
 			EngineCore.outputText( 'you are buried to the hilt' );
@@ -537,27 +537,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '.  Beneath you, Kiri writhes and groans in pained pleasure as you stuff her ass full of your cock.  When you\'ve finally buried yourself as far as you\'ll go, you give her lush ass cheeks a little squeeze and start to rock your hips.  Kiri gasps, suddenly feeling empty as you withdraw from inside her - and screams when you slam yourself back in.' );
 		EngineCore.outputText( '\n\nSinking your hands into her soft, plush butt, you start to hammer her asshole, fucking her hard and fast until you\'re both moaning like whores.  Your combined pre-cum and juices are staining the floor and her inner walls.  To your surprise, Kiri lifts herself off the ground and presses her back to your chest, letting her wings wrap around you.  Grinning, you grope her perky breasts as you continue to ream her ass.  She puts her hands on yours, pinching her nipples and guiding you to all her most sensitive spots.' );
 		EngineCore.outputText( '\n\nYou cum quickly, grunting into her ear and ramming yourself until you\'re ' );
-		if( CoC.getInstance().player.cockArea( x ) > 60 ) {
+		if( CoC.player.cockArea( x ) > 60 ) {
 			EngineCore.outputText( 'as far in as you can manage' );
 		} else {
 			EngineCore.outputText( 'filling her completely' );
 		}
 		EngineCore.outputText( '.  Your cock squirts a thick load inside her, shooting creamy ropes of jizz deep into her bowels ' );
 		//[if High Cum Production: ;
-		if( CoC.getInstance().player.cumQ() > 500 ) {
+		if( CoC.player.cumQ() > 500 ) {
 			EngineCore.outputText( 'until your cream squelches back out around your cock and onto the floor' );
 		}
 		EngineCore.outputText( '.  With a scream of delight, Kiri clamps down on your [cock ' + y + '] and climaxes too, leaking a pool of fem-spunk onto the ground.  She starts to bounce on your cock, riding out her anal orgasm until she\'s exhausted and you\'re deflated inside her.' );
 		EngineCore.outputText( '\n\nYou pull out with a POP, letting a stream of cum leak out her butt.  You clean your cock off and stick it back in your [armor].' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Kiri -- [Sex] -- [Get Licked];
 	DungeonHelSupplimental.prototype.kiriSexGetLicked = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ask Kiri to eat you out. She grimaces but drops to her knees and undoes the bottom of your [armor], revealing your lusty [vagina]' );
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( ' and ' + CoC.getInstance().player.multiCockDescriptLight() );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( ' and ' + CoC.player.multiCockDescriptLight() );
 		}
 		EngineCore.outputText( '.  With a word of encouragement from you, she leans forward and presses her face into your groin, letting her tongue loose to explore your lower lips.' );
 		EngineCore.outputText( '\n\nThe girl\'s tongue is surprisingly skilled.  She quickly teases it across your clitty, making you moan with unexpected pleasure.  She begins to tease and play with your pleasure buzzer, using the flat of her tongue to tickle the sensitive flesh around it; you urge her on with little pats of the head and shoulders, even reaching down to cup one of her perky breasts beneath her loose shift or stroke one of her great orange wings.' );
@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou begin to grind your slit into her face as she eats you out, rubbing your cunt along her nose and forehead to the beat of her tongue\'s skillful ministrations.  She makes a slow, steady progression inward, slipping her long tongue further and further into your cunny until you can feel her flicking around your cervix.' );
 		EngineCore.outputText( '\n\nYou cannot resist her skillful tongue-fuck for long.  Grabbing Kiri\'s head, you force her face into your crotch, getting every last bit of her tongue inside you as you can as you climax, spraying your fem-cum all across her face.' );
 		EngineCore.outputText( '\n\nUtterly satisfied, you stagger back from Kiri, letting her whip her head around to flick off your fem-cum.  You clean yourself off and suit up again.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//[Valeria];
@@ -576,15 +576,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Well hey there, cutie,</i>" Valeria says, giving Kiri a little wink.  The harpy shudders slightly and shakes the surprise off.' );
 		EngineCore.outputText( '\n\nYou clear your throat and repeat your question.' );
 		//[If Broodmother hasn't been defeated];
-		if( CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>Oh, right. Well, that harpy broodmother is serious business. She\'s a powerful mage, and a heavy-hitter besides.  Careful with her, or you\'re liable to end up drugged out of your mind and used as breeding stock \'til you die.  I\'ve seen it happen to other adventurers coming through.</i>"' );
 		}
 		//[If Jailer hasn't been defeated];
-		if( CoC.getInstance().flags[ kFLAGS.HEL_BRIGID_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_BRIGID_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>Brigid the Jailer is a big girl, probably the meanest harpy here. The others give her plenty of space, from what I\'ve seen.  She uses a hot poker as her weapon, too.  Watch out unless you wanna get burned!</i>"' );
 		}
 		//[If phoenixes haven't been defeated];
-		if( CoC.getInstance().flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>There\'s some freaky-ass half-breed harpy things upstairs that I\'ve seen around a bit.  Phoenixes, I guess they\'re called.  They breathe fire, so watch your ass.  I can absorb some of the heat, but... Don\'t get roasted, okay?</i>"' );
 		}
 		EngineCore.doNext( EventParser.playerMenu );
@@ -595,21 +595,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.clearOutput();
 		EngineCore.menu();
 		EngineCore.outputText( 'You walk up to the torture rack.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 || CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
 			EngineCore.outputText( 'The rack contains: ' );
-			if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
+			if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
 				EngineCore.outputText( 'A whip' );
 				EngineCore.addButton( 0, 'Succ. Whip', this.takeWhip );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 ) {
-				if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
+			if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 ) {
+				if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
 					EngineCore.outputText( ', ' );
 				}
 				EngineCore.outputText( 'some leather straps' );
 				EngineCore.addButton( 1, 'BondageStraps', this.takeStraps );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
-				if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
+			if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
+				if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 ) {
 					EngineCore.outputText( ', ' );
 				}
 				EngineCore.outputText( 'a lust-draft coated dagger' );
@@ -621,20 +621,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	DungeonHelSupplimental.prototype.takeWhip = function() {
 		SceneLib.inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] = 1;
+		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeStraps = function() {
 		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] = 1;
+		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeDagger = function() {
 		SceneLib.inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
-		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] = 1;
+		CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] = 1;
 	};
 	//[Prisoner] (First Time);
 	DungeonHelSupplimental.prototype.helDungeonPrisonerTalk = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] === 0 ) {
 			EngineCore.outputText( 'You approach the Salamander strapped to the table.  He looks at you with his one good eye, warily gauging you as you approach.' );
 			EngineCore.outputText( '\n\n"<i>Well, aren\'t you a sight for sore eyes,</i>" he laughs, his voice little more than a rasp.  "<i>About time somebody put a boot up that punk bitch\'s ass.  Ha!  Hey, the name\'s Hakon.  I\'d shake your hand, but, uh, I\'m a bit tied up at the moment as it were.  So, what brings an outsider all the way up here?</i>"' );
 			EngineCore.outputText( '\n\nYou tell him that you\'re here to rescue him as it happens.' );
@@ -643,11 +643,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\n"<i>H... Helia? My little Hel?</i>" he asks in disbelief. With a slight grin, you tell him that \'little\' Hel isn\'t so little anymore.  He laughs, but for an instant you think he might be about to cry.  "<i>Of... of course she is.  My little girl\'s all grown up.  Oh, what I wouldn\'t give to meet her...</i>"' );
 			EngineCore.outputText( '\n\nYou tell him that she\'s not far away at all... just a few floors up, in fact.' );
 			EngineCore.outputText( '\n\n"<i>WHAT!?</i>" He yells, straining against the chains that bind him.  "<i>You brought Hel here!?  What were you thinking?  Go and get her out of here.  NOW!</i>"' );
-			CoC.getInstance().flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] = 1;
+			CoC.flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] = 1;
 		}
 		//[Prisoner] (Repeat);
 		//[IF PC HAS HARPY KEY A & B];
-		else if( CoC.getInstance().player.hasKeyItem( 'Harpy Key A' ) >= 0 && CoC.getInstance().player.hasKeyItem( 'Harpy Key B' ) >= 0 ) {
+		else if( CoC.player.hasKeyItem( 'Harpy Key A' ) >= 0 && CoC.player.hasKeyItem( 'Harpy Key B' ) >= 0 ) {
 			EngineCore.outputText( 'You smile as you approach Hakon the Salamander.  He starts to yell at you again, but you snap at him to hush.  You explain that Hel and Kiri are waiting outside and that the broodmother has been defeated.  Both sets of keys jingling in your hands.  He watches you approach silently, his eyes wary but hopeful.  You quickly undo his bonds, freeing him for the first time in years.  He struggles to sit, but nearly collapses. You catch him before he hurts himself and, throwing his arm over your shoulder, help the old salamander toward the stairs...' );
 			//(Go to DUNGEON END scene);
 			EngineCore.doNext( this.towerOutro );
@@ -665,8 +665,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( 'You fall back under a hail of scimitar attacks.  The sheer number of phoenixes attacking is bad enough, but their attacks are perfectly coordinated, leaving virtually no room for escape or maneuver without getting hit!\n' );
 		//(Effect: Multiple medium-damage attacks);
 		//(Effect: Multiple light attacks);
-		CoC.getInstance().monster.createStatusAffect( StatusAffects.Attacks, 2 + Utils.rand( 3 ), 0, 0, 0 );
-		CoC.getInstance().monster.eAttack();
+		CoC.monster.createStatusAffect( StatusAffects.Attacks, 2 + Utils.rand( 3 ), 0, 0, 0 );
+		CoC.monster.eAttack();
 		Combat.combatRoundOver();
 	};
 	//ATTACK TWO: FIRE BREATH;
@@ -686,28 +686,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		Combat.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.phoenixPlatoonAI = function() {
-		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Platoon ) < 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Platoon ) < 0 ) {
 			this.phoenixPlatoonRush();
-			CoC.getInstance().monster.createStatusAffect( StatusAffects.Platoon, 0, 0, 0, 0 );
-		} else if( CoC.getInstance().monster.statusAffectv1( StatusAffects.Platoon ) === 0 ) {
+			CoC.monster.createStatusAffect( StatusAffects.Platoon, 0, 0, 0, 0 );
+		} else if( CoC.monster.statusAffectv1( StatusAffects.Platoon ) === 0 ) {
 			this.phoenixPlatoonFireBreath();
-			CoC.getInstance().monster.addStatusValue( StatusAffects.Platoon, 1, 1 );
+			CoC.monster.addStatusValue( StatusAffects.Platoon, 1, 1 );
 		} else {
 			this.phoenixPlatoonLustbang();
-			CoC.getInstance().monster.removeStatusAffect( StatusAffects.Platoon );
+			CoC.monster.removeStatusAffect( StatusAffects.Platoon );
 		}
 	};
 	//Phoenix Platoon -- PC is Defeated;
 	DungeonHelSupplimental.prototype.phoenixPlatoonMurdersPC = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You collapse, too ' );
-		if( CoC.getInstance().player.lust > 99 ) {
+		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'turned on' );
 		} else {
 			EngineCore.outputText( 'badly injured' );
 		}
-		EngineCore.outputText( ' to continue the fight.  The platoon of heavy infantry breaks their formation, circling around you with shields still raised, keeping you from making any kind of last-ditch attack.  One prods you with the flat of her blade.  "<i>Is ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' down?</i>"' );
-		EngineCore.outputText( '\n\n"<i>Yeah,</i>" another says. "<i>This one\'s a goner. Let\'s bring ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' up to mom.</i>"' );
+		EngineCore.outputText( ' to continue the fight.  The platoon of heavy infantry breaks their formation, circling around you with shields still raised, keeping you from making any kind of last-ditch attack.  One prods you with the flat of her blade.  "<i>Is ' + CoC.player.mf( 'he', 'she' ) + ' down?</i>"' );
+		EngineCore.outputText( '\n\n"<i>Yeah,</i>" another says. "<i>This one\'s a goner. Let\'s bring ' + CoC.player.mf( 'him', 'her' ) + ' up to mom.</i>"' );
 		//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.harpyQueenBeatsUpPCBadEnd, true );
@@ -716,7 +716,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	DungeonHelSupplimental.prototype.phoenixPlatoonLosesToPC = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'With one final grunt, the last of the phoenixes collapses onto the pile of defeated warriors you\'ve left in your wake.  The once-mighty platoon of soldiers has been reduced to a bruised, lusty heap of flesh, scales and feathers.  Seeing that the battle is won, you lower your [weapon] and take a look around.' );
-		CoC.getInstance().flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ]++;
+		CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ]++;
 		Combat.cleanupAfterCombat();
 	};
 	//[Phoenixes];
@@ -727,19 +727,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		var wanked = null;
 		var rideAnal = null;
 		var rideVaginal = null;
-		if( CoC.getInstance().player.lust > 33 ) {
+		if( CoC.player.lust > 33 ) {
 			EngineCore.outputText( '\n\nYou suppose you could use one of them to get yourself off.' );
 			//(Display Options:;
 			//If Male [Get Wanked] [Ride Anal] (Capacity: 80);
-			if( CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.cockThatFits( 80 ) >= 0 ) {
+			if( CoC.player.hasCock() ) {
+				if( CoC.player.cockThatFits( 80 ) >= 0 ) {
 					missionary = this.phoenixMissionary;
 				} else {
 					EngineCore.outputText( '\n\nYou\'re too big to fuck one of them properly.' );
 				}
 				wanked = this.phoenixWanking;
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				rideVaginal = this.phoenixAginal;
 			}
 			//If Female: [Ride Vaginal] [Ride Anal];
@@ -751,9 +751,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Phoenixes -- [Missionary];
 	DungeonHelSupplimental.prototype.phoenixMissionary = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 80 );
+		var x = CoC.player.cockThatFits( 80 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		var y = x + 1;
 		EngineCore.outputText( 'You grab the healthiest looking phoenix off the top of the pile and throw the hermaphrodite on her back a few feet from her sisters.  She grunts, looking up at you with grim, fierce eyes.  "<i>I\'ll never submit!  I am a proud warrior, not some-</i>" Yeah, whatever.  You rip her chain shirt open, revealing the large, soft globes of her D-cups beneath.  The phoenix gasps at the sudden exposure and turns her head away, fixing her expression in place like chiseled marble, determined not to look you in the eye as you take your pleasure.' );
@@ -763,70 +763,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nOh, really? Is she sure she doesn\'t just want your cock?' );
 		EngineCore.outputText( '\n\n"<i>I... well... maybe...</i>" she admits, and you nod as her once-struggling legs go a bit limp.' );
 		EngineCore.outputText( '\n\nYou return your attention to between her legs.  Getting her fully erect reptilian cock out of the way, you expose your prize - her sodden cunt' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and the tight ring of her pucker' );
 		}
 		EngineCore.outputText( '.  You grasp her wide flanks and, lining your [cock ' + y + ']' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and extra boner up with her holes' );
 		} else {
 			EngineCore.outputText( ' up with her hole' );
 		}
 		EngineCore.outputText( ', push in, penetrating her cunt' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and ass' );
 		}
 		EngineCore.outputText( ' and sliding into her warm, wet channel' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nThe phoenix squirms as you push into her depths, groaning as more and more of your cockmeat pierces her until you finally hilt her.  Gritting her teeth, the phoenix reaches up and grabs your shoulders, holding onto you as your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's drive' );
 		} else {
 			EngineCore.outputText( ' drives' );
 		}
 		EngineCore.outputText( ' into her; you roll your hips back and forth for short but powerful strokes into her blazing hot innards.  As the pace picks up, you pull the phoenix-girl into a long, tender kiss.  The kiss soon turns into her moaning into your mouth as you fuck her cunt ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'and ass ' );
 		}
 		EngineCore.outputText( 'hard, slamming your hips into hers.' );
 		EngineCore.outputText( '\n\nShe cums first' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ', your double penetration too much for her to handle' );
 		}
 		EngineCore.outputText( '.  The phoenix grips your shoulders tight enough for her claws to cut into you as her tight pussy ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'and tighter sphincter spasm' );
 		} else {
 			EngineCore.outputText( 'spasms' );
 		}
 		EngineCore.outputText( ' around your dick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  With her squirming in your embrace and squeezing down so hard, you can\'t help but blow your load.  You press your lips hard into hers and cum, pumping thick ropes of steaming jizz into her wet box' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and hot asshole' );
 		}
 		EngineCore.outputText( '.  As you cum into her, you feel her reptile prick shoot off, squirting a long white rope onto her chest and yours until her tits are soaked with her spunk.' );
 		EngineCore.outputText( '\n\nYou release the phoenix from your embrace, and are pleased to see she\'s passed out from the overwhelming pleasure.  Grinning, you pull your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' out of her ravaged hole' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' and gather your gear.' );
 		//(Return to Mezzanine main menu);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Phoenixes -- [Get Wanked];
 	DungeonHelSupplimental.prototype.phoenixWanking = function() {
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		var y = x + 1;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You grab the healthiest looking phoenix off the top of the pile and throw the hermaphrodite on her back a few feet from her sisters.  She grunts, looking up at you with grim, fierce eyes.  "<i>I\'ll never submit!  I am a proud warrior, not some-</i>"  Yeah, whatever.  You rip her chain shirt open, revealing the large, soft globes of her D-cups beneath.  The phoenix gasps at the sudden exposure and turns her head away, determined not to look you in the eye as you take your pleasure.  You grope one of her breasts roughly, pinching the nipple between your fingers until she\'s whimpering with pain and pleasure.  You let up for just a moment and tell the girl that she\'s going to get you off with her special endowments, or you\'re going to put her in a world of hurt.' );
@@ -835,7 +835,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou notice that by now the phoenix-girl is openly fingering herself.  You continue to run your fingers through her hair, whispering encouragements and sweet nothings at her as she continues to squeeze and gently caress your [cock ' + y + '].  You feel your orgasm coming, and quickly grab the phoenix by the shoulders and push her forward, forcing her to take your cockhead into her mouth as you cum.' );
 		EngineCore.outputText( '\n\nYour [cock ' + y + '] explodes, pumping a thick load into the shocked phoenix\'s mouth.  She gags on your cum, finally swallowing it as the last of your sperm drips into her mouth.  With a grin, you tell her what a good job she did as you withdraw your [cock ' + y + ']  from her grip.  With little rivulets of cum dripping down her face, the half-breed collapses onto her back, rapidly fingering herself.' );
 		//(Return to Mezzanine main menu);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Phoenixes -- [Git Butt-rode];
@@ -847,14 +847,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Uh, well... okay, then. If that\'s what you want....</i>"' );
 		EngineCore.outputText( '\n\nYou quickly discard your [armor] and, pushing the girl back onto her back, squat over your prize.  You wrap your hand around her stiff lizard prick and start to stroke it, running your hand along her bulbous purple shaft.  The phoenix makes a pleasured gasp as you start to jerk her off, idly playing with her lush tits or slick pussy as you stroke her to full hardness.' );
 		EngineCore.outputText( '\n\nOnce you\'re satisfied that she\'s completely rigid, you shift your [hips] so that your [asshole] is hovering over the phoenix\'s thick twelve-incher.  You allow her to put her hands on your hips and guide you down, until you can feel her narrow head pressed against your backdoor.  Biting your lip to stifle a cry of pain and pleasure, you do the honors, guiding her wide prick to slip past your relaxed sphincter and into your bowels.' );
-		CoC.getInstance().player.buttChange( 30, true, true, false );
+		CoC.player.buttChange( 30, true, true, false );
 		EngineCore.outputText( '\n\nYou grunt as she bottoms out inside you, leaving you with a feeling of intense fullness and warmth, grinning down at the phoenix-girl and pleased to see the look of rapture on her face as your ass muscles squeeze down on her stiff lizard-cock.  You feel her hands digging into your [hips], and in return you give her soft breasts a playful squeeze.  You start to rock your hips, letting an inch or two of her dick spill out of you before your stretched [asshole] sucks it back up.' );
 		EngineCore.outputText( '\n\nSurprisingly, the phoenix-girl shifts her hands from your hips to your shoulders and pulls you down on top of her, pushing your face into her pillowy breasts.  Before you can chastise her, your lover slams her cock into you, making you scream with pleasure into her soft flesh.  Grinning, she wraps her wings, legs, and tail around you, completely immobilizing you as she starts to hammer your ass, pistoning her cock in and out of you.' );
 		EngineCore.outputText( '\n\nHelpless under the phoenix\'s surprise attack, you can do little more than grit your teeth and let the pleasure take you.  You return her embrace, taking one of her nipples into your mouth to play with as she fucks you raw.  You can feel an anal orgasm mounting and quickly try to relax yourself, letting in more and more of her cock until she is again hilting you, her hips slamming into your [butt].' );
 		EngineCore.outputText( '\n\nUnable to hold on for long, you bite down on her pink nipple and cum, letting waves of pleasure wash over you from your rectal intruder.  Your sphincter clamps down hard on the lizard prick inside you, milking it just like a pussy would until, spurred on by your orgasm and bite to her most sensitive flesh, the phoenix-girl cums.  You yelp as her burning-hot cum rushes into your ass, scalding your walls until you feel a massive wave of pleasure crash into you - a second orgasm! Your mind goes utterly numb, nearly blacking out as tremors of ecstasy pump into you from her dick.' );
 		EngineCore.outputText( '\n\nWhen you come to your senses a few minutes later, the phoenix-girl is asleep, still holding you tight.  You pull her deflated lizard dick out of your ass and shudder as a torrent of her sizzling hot spunk dribbles out onto her thighs and hips.  You wriggle out of her tight embrace and give her a little kiss on the cheek before collecting your [armor] and heading out.' );
 		//(Return to Mezzanine main menu);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Phoenix -- [Ride Vaginal];
@@ -866,25 +866,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Oh. Well,</i>" she says, smirking slightly.  "<i>If you want a bit of phoenix seed... I guess I wouldn\'t mind a chance at being a daddy.</i>"' );
 		EngineCore.outputText( '\n\n' );
 		//[If Broodmother, not pregnant: ;
-		if( CoC.getInstance().player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
 			EngineCore.outputText( 'You assure her she will be soon' );
 		} else {
 			EngineCore.outputText( 'You grin at her' );
 		}
 		EngineCore.outputText( ' and strip out of your [armor]. The phoenix, a bit more dominant than you might have liked, roughly grabs your [chest], pinching your nipples as she takes over wringing her cock from you. Oh well. You decide to roll with it and slide a hand down to your [vagina], stroking your pussy as your lover warms up.' );
 		EngineCore.outputText( '\n\nWhen she\'s nice and hard, you give the phoenix a little push onto her back and clamber into her lap, lining her lizard prick up with your [vagina].  Before you can get properly situated, though, the girl pulls you down onto her cock, impaling you up to her hilt in one massive thrust.  You roll your head back and scream, a mix of pleasure and burning pain shooting through you as her white-hot rod slams into your innermost depths.' );
-		CoC.getInstance().player.cuntChange( 12, true, true, false );
+		CoC.player.cuntChange( 12, true, true, false );
 		EngineCore.outputText( '\n\nBy the time you\'re somewhat recovered from her surprise attack, the phoenix-girl has started rocking her hips into yours, grinding her long prick into you.  You give her hefty tits a rough squeeze and push her back down, holding her down by her mammaries as you start to ride her cock.  Having gotten her thrill, the phoenix-girl submits to you, only venturing to hold onto your [hips] as you fuck her.  For your part, you bask in the sensation of her thick dick sliding in and out of your well-lubricated depths, rubbing and stroking your sensitive inner walls with its bulbous length.' );
 		EngineCore.outputText( '\n\nNow that you\'re into the swing of things, you give your phoenix lover a hand up, pulling her into a sitting position and burying her face into your [chest].  She struggles for a moment but, after seeing how nice cuddling against your warm flesh is, she relaxes into your embrace.  You start to bounce on her cock, smushing her face into your breasts at the apex of each bounce, and slamming her prick deep inside you as you fall.' );
 		EngineCore.outputText( '\n\nUnable to take the cumulative pleasure, the phoenix cums.  You go wide-eyed as her burning hot cum pours into your waiting womb, scalding your depths with her sizzling, potent seed.  You can only keep riding her, letting her jizz flow into you until the heat and pleasure sends you over the edge too.  You hug the phoenix tight as orgasm hits you, shuddering and gasping as ecstasy threatens to overwhelm you.  Your [vagina] milks your lover for every last drop until, breathless, you release your death-hold on your lover, letting her flop, insensate, to the ground.' );
 		EngineCore.outputText( '\n\nYou stand, a bit bow-legged, and watch as a bucket\'s worth of her extra seed pours out of your sodden twat, pooling on the phoenix\'s breasts and belly.  Giggling, you stumble off her and collect your [armor].' );
-		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.INCUBATION_OVIELIXIR_EGGS + 70, 100 );
+		CoC.player.knockUp( PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.INCUBATION_OVIELIXIR_EGGS + 70, 100 );
 		//v1 = egg type.;
 		//v2 = size - 0 for normal, 1 for large;
 		//v3 = quantity;
-		CoC.getInstance().player.createStatusAffect( StatusAffects.Eggs, Utils.rand( 6 ), 0, (5 + Utils.rand( 3 )), 0 );
+		CoC.player.createStatusAffect( StatusAffects.Eggs, Utils.rand( 6 ), 0, (5 + Utils.rand( 3 )), 0 );
 		//(Return to Mezzanine main menu);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	DungeonHelSupplimental.prototype.harpyQueenAI = function() {
@@ -903,20 +903,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		var damage = 25 + Utils.rand( 10 );
 		damage = Combat.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')' );
-		CoC.getInstance().monster.createStatusAffect( StatusAffects.QueenBind, 0, 0, 0, 0 );
+		CoC.monster.createStatusAffect( StatusAffects.QueenBind, 0, 0, 0, 0 );
 		Combat.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.ropeStruggles = function( wait ) {
 		EngineCore.clearOutput();
 		//Struggle Fail: ;
-		if( Utils.rand( 10 ) > 0 && CoC.getInstance().player.str / 5 + Utils.rand( 20 ) < 23 || wait ) {
+		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 || wait ) {
 			EngineCore.outputText( 'You give a mighty try, but cannot pull free of the magic ropes!  The Harpy Queen laughs uproariously, pulling at your arms harder.' );
 			var damage = 25 + Utils.rand( 10 );
 			damage = Combat.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 		} else {
 			EngineCore.outputText( 'With supreme effort, you pull free of the magic ropes, causing the queen to tumble to her hands and knees.' );
-			CoC.getInstance().monster.removeStatusAffect( StatusAffects.QueenBind );
+			CoC.monster.removeStatusAffect( StatusAffects.QueenBind );
 		}
 		Combat.combatRoundOver();
 	};
@@ -949,7 +949,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Mother!</i>" a harpy calls, stepping up to the throne. Behind her come another dozen sisters, struggling to keep Hel bound between them.  The salamander screams and curses and cries, but it is useless - she cannot escape, any more than you can.  Hel is pushed down onto her knees beside you, still defiant, but, at seeing you already captured... the fight goes completely out of her eyes.' );
 		EngineCore.outputText( '\n\n"<i>Ah, another salamander?  Well well, what a coincidence.  I don\'t believe our other specimen is going to last much longer.  You seem like a healthy girl; with a bit of... modification... you\'d make a fine replacement.</i>"' );
 		EngineCore.outputText( '\n\n"<i>And you,</i>" the queen says, looking back to you.  "<i>I could always use another ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'sperm bank' );
 		} else {
 			EngineCore.outputText( 'incubator' );
@@ -957,7 +957,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( ' in my harem.  Yes, you\'ll do nicely...</i>"' );
 		EngineCore.outputText( '\n\n<b>SIX MONTHS LATER...</b>\n' );
 		EngineCore.outputText( 'You groan, your wrists chafing in the manacles hanging overhead.  The harpy slut riding your huge, engorged dick crosses her eyes, screams, and cums.  Another wave of seed lurches out of your cripplingly-large balls, so massive that they drag on the floor between your [legs].  You shudder slightly, but the act of ejaculation has lost all meaning' );
-		if( !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.hasCock() ) {
 			EngineCore.outputText( ', even if the sudden new sensations nearly broke your mind when the harpies used their magics to grow these huge male implements on your body' );
 		}
 		EngineCore.outputText( '.  Indeed, as soon as that slut\'s gotten her fill, one of her sisters pushes her roughly off your shaft and mounts you, bending over and backing into your massive schlong.  A little shudder of pleasure courses up your body as the twenty-ninth slut you\'ve serviced today starts to milk you for your magically-enhanced seed.  The tubes pumping enchanted drugs directly into the flesh of your testes goes into overtime, flooding your system with lust and the strange concoction that creates the Phoenixes.' );
@@ -975,8 +975,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( 'With a final, loud gasp, the Harpy Queen collapses into her throne, unable to oppose you further.  Seeing their broodmother defeated, the other harpies that had been swarming around the room suddenly break off their attack and retreat, edging back to the fringes of the throne room.  Behind you, Hel stumbles out of the melee, covered in little cuts and bruises, but seeming otherwise unhurt.' );
 		EngineCore.outputText( '\n\n"<i>Y-you\'ll ruin everything,</i>" the Harpy Queen groans, trying futilely to stand.  Before she can recover, Hel walks over and plants her clawed foot right on the bitch\'s chest, pinning her down.  From a small hook on the side of the throne, you take her key-ring for the prisoner down below.' );
 		//(Acquired Key Item: "<i>Harpy Key B</i>");
-		CoC.getInstance().player.createKeyItem( 'Harpy Key B', 0, 0, 0, 0 );
-		CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] = 1;
+		CoC.player.createKeyItem( 'Harpy Key B', 0, 0, 0, 0 );
+		CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] = 1;
 		//(PC moves to Throne Room Main Menu:);
 		Combat.cleanupAfterCombat();
 	};
@@ -989,11 +989,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nShe grins.  "<i>So, what\'s the plan, lover mine?  Teach this bitch a lesson she\'ll never forget?</i>"' );
 		//(Display Options: [Hakon](if PC knows this) [Kiri] [Queen](If not dead/gone));
 		var queen = null;
-		if( CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
 			queen = this.heliaQueenTalk;
 		}
 		var hakon = null;
-		if( CoC.getInstance().flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] > 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] > 0 ) {
 			hakon = this.heliaHakonTalk;
 		}
 		EngineCore.choices( 'Hakon', hakon, 'Kiri', this.heliaKiriTalk, 'Queen', queen, '', null, 'Back', EventParser.playerMenu );
@@ -1005,10 +1005,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Wha... what. No, that\'s not... It can\'t be...</i>"' );
 		EngineCore.outputText( '\n\nYou assure her that it\'s true. The salamander she came here to rescue is none other than father, Hakon.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t believe it,</i>" Hel says, rubbing at the corners of her eyes.  "<i>I thought all these years... I was sure he was dead.  How... No.  It doesn\'t matter,</i>" she says, turning to the broodmother beneath her.' );
-		if( CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
 			EngineCore.outputText( '  "<i>You\'re going to pay for what you did to my father, you bitch.  I promise you that.</i>"' );
 		}
-		CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] = 1;
+		CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Throne Room -- [Helia] -- [Kiri];
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Oh, right.  I met her a couple years back, when she was just a little shit.  Momma bird here hadn\'t quite gotten the phoenix formula down, I guess.  Anyway, some minotaur had gotten a hold of her, was gonna drag her back home and pump her full of minitaurs or whatever.  Probably \'cause she\'s so red, you know?  \'Taurs hate that color for some reason.</i>"' );
 		EngineCore.outputText( '\n\n"<i>So, I bopped the bull on the head and saved her.  More to keep down the \'taur population than actually help her, but hey.  She certainly appreciated it.  Been friends ever since.</i>"' );
 		EngineCore.outputText( '\n\nWith a knowing look, you ask if they\'re more than just friends.' );
-		EngineCore.outputText( '\n\n"<i>' + CoC.getInstance().player.mf( 'Dude', 'Babe' ) + ', come on, you know me.  Give me SOME credit, will ya?  I\'m not letting an ass like that go to waste.</i>"' );
+		EngineCore.outputText( '\n\n"<i>' + CoC.player.mf( 'Dude', 'Babe' ) + ', come on, you know me.  Give me SOME credit, will ya?  I\'m not letting an ass like that go to waste.</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes and laugh with her.' );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -1031,7 +1031,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou ask Hel exactly what she thinks you ought to do with the \'queen cunt.\'' );
 		EngineCore.outputText( '\n\n"<i>Well, we can start by me shoving my tail so far up her twat that she\'ll never have kids again.  That\'s a goddamn start.</i>"' );
 		//[If PC has already told her about Hakon: ;
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( '  "<i>Maybe snap her neck afterwards.</i>"' );
 		}
 		EngineCore.doNext( EventParser.playerMenu );
@@ -1044,7 +1044,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nWhat.' );
 		//(Display Options: [Fuck Her] [Interrogate] [Kill Her] [Let Her Go]);
 		var fuck = null;
-		if( CoC.getInstance().player.lust > 33 && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.lust > 33 && CoC.player.hasCock() ) {
 			fuck = this.fuckHarpyQueen;
 		}
 		EngineCore.choices( 'Fuck Her', fuck, 'Interrogate', this.harpyQueenInterrogate, 'Kill Her', this.killHarpyQueen, 'Let Her Go', this.letHarpyQueenGo, 'Back', EventParser.playerMenu );
@@ -1062,13 +1062,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nYou nod for Hel to get off.  She does so grudgingly, letting the Harpy Queen stand and roll her shoulders, spreading her great wings wide.' );
 		EngineCore.outputText( '\n\n"<i>Hmm. You\'re a fool, Champion,</i>" she says, "<i>But perhaps I was wrong about you.  Come, my children!  We are leaving this place!</i>"' );
 		//[If you told Hel about Hakon:];
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( '\n\nThe harpies beat their wings and croon happily, eager to be away from you.  As the Harpy Queen is ready to take off, she gives you an appreciative nod, with what might have even been a smile.  It looks as though you\'ve made a friend tod-- OH FUCK!' );
 			EngineCore.outputText( '\n\nYou try and yell out, but too late. Hel has lunged forward and, grabbing the broodmother by the neck, spins around.  The sound of neck bones snapping echoes through the tower as the queen falls, hitting the floor with a wet thump.' );
 			EngineCore.outputText( '\n\n"<i>Bullshit,</i>" Hel snaps, wringing the dead queen\'s neck under her arm.  The other harpies around you shriek in outrage, pain, and fear.  "<i>Do you have ANY IDEA what this bitch did?  To my father--to me?  There was no fucking way I was going to just let her walk off.  No, [name]. No way.</i>"' );
 			//(Display Options: [Forgive] [Berate]);
 			EngineCore.choices( 'Forgive', this.harpyQueenLetHerGoForgive, 'Berate', this.harpyQueenLetHerGoBerate, '', null, '', null, '', null );
-			CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
+			CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
 		}
 		//[Else; did not tell about Hakon];
 		else {
@@ -1077,7 +1077,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\nWith that, the harpies take flight.' );
 			//(Return PC to Room Menu);
 			EngineCore.doNext( EventParser.playerMenu );
-			CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = -1;
+			CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = -1;
 		}
 		EngineCore.dynStats( 'cor', -5 );
 	};
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nShe stands up from the body and wraps you in a tight hug. "<i>...Thank you.</i>"' );
 		EngineCore.outputText( '\n\nYou pat Helia on the head and with a shout, tell the harpies to get lost.  They do so reluctantly, too afraid to fight you, but still outraged at the murder.  They take flight, hurtling out the hole in the ceiling crying curses and epitaphs behind them.' );
 		EngineCore.outputText( '\n\n"<i>All right. You\'ve got the key, so go break ' );
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( 'Dad ' );
 		} else {
 			EngineCore.outputText( 'that poor salamander ' );
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nBefore you can say another word, the salamander runs out the door, back downstairs.  Aw, shit.' );
 		EngineCore.outputText( '\n\nYou notice the queen\'s staff has fallen beside her body.' );
 		//(Remove all options but [Go Downstairs]; add [Take Staff]); (Remove Kiri from Stairwell);
-		CoC.getInstance().flags[ kFLAGS.FOUGHT_WITH_HEL_IN_DUNGEON ] = 1;
+		CoC.flags[ kFLAGS.FOUGHT_WITH_HEL_IN_DUNGEON ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Kill Her];
@@ -1122,14 +1122,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>Well then. I guess that\'s that, then,</i>" Hel says, swinging her sword over her shoulder into its sheath.' );
 		EngineCore.outputText( '\n\nYou nod your agreement.' );
 		EngineCore.outputText( '\n\n"<i>All right. You\'ve got the key, so go break ' );
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( 'Dad ' );
 		} else {
 			EngineCore.outputText( 'that poor salamander ' );
 		}
 		EngineCore.outputText( 'out of the dungeon.  I\'ll make sure the phoenixes and harpies don\'t give you two trouble on the way out.</i>"' );
 		EngineCore.outputText( '\n\nWith that, Hel trots out the door and down the stairs, leaving you alone in the room. You notice that the queen\'s staff has fallen beside her body.' );
-		CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
+		CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
 		//(Remove all options but [Go Downstairs]; add [Take Staff]) (Remove Kiri from Stairwell);
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -1140,7 +1140,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(New Weapon: EldritchStaff);
 		SceneLib.inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
 		//Similar stats to the Wizard's Staff, but with a better Fatigue reduction and a bonus to Magic damage/effect.;
-		CoC.getInstance().flags[ kFLAGS.TOOK_QUEEN_STAFF ] = 1;
+		CoC.flags[ kFLAGS.TOOK_QUEEN_STAFF ] = 1;
 	};
 	//Throne Room -- [Harpy Queen] -- [Fuck Her];
 	DungeonHelSupplimental.prototype.fuckHarpyQueen = function() {
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//If Herm: All Above;
 		//If Genderless: "<i>You don't really see how this is going to work out...</i>" (NO SMUT 4 U);
 		var anal = null;
-		if( CoC.getInstance().player.biggestCockArea() > 50 ) {
+		if( CoC.player.biggestCockArea() > 50 ) {
 			anal = this.harpyQueenSexAnal;
 		}
 		EngineCore.choices( 'Anal', anal, 'Vaginal', this.vaginalHarpyQueenSex, '', null, '', null, 'Back', EventParser.playerMenu );
@@ -1161,42 +1161,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Harpy Queen Sex -- [Dick in Anal];
 	DungeonHelSupplimental.prototype.harpyQueenSexAnal = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'Hel grabs the queen bitch by the shoulders and roughly tosses her onto the floor.  The gathered crowd of harpies gasp as Hel shoves the queen onto all fours for you.  You disrobe, tossing your [armor] aside and stroking your ' + CoC.getInstance().player.cockDescript( 0 ) + ' to full hardness.  You kneel down behind the Harpy Queen\'s massive flanks, so wide that you feel you could stuff your torso between her cheeks.  With great effort, you peel her jiggling ass apart, revealing the tight ring of her pucker and her loose, gaping cunt.' );
-		EngineCore.outputText( '\n\nAs you position yourself behind the broodmother, Hel strips out of her skimpy bikini-mail and, grabbing the bitch by her hair, shoves her slick pussy into the harpy\'s face.  The queen struggles against Hel\'s grasp, making her inhuman hips and ass shake and jiggle seductively.  Your cock goes rock hard with the display before you, and you roughly push it into the harpy\'s buttcheeks.  You let her ass go, and shudder as the queen\'s soft flesh wraps around your ' + CoC.getInstance().player.cockDescript( 0 ) + ', as tight as a virgin pussy, but at the same time so soft and giving...' );
+		EngineCore.outputText( 'Hel grabs the queen bitch by the shoulders and roughly tosses her onto the floor.  The gathered crowd of harpies gasp as Hel shoves the queen onto all fours for you.  You disrobe, tossing your [armor] aside and stroking your ' + CoC.player.cockDescript( 0 ) + ' to full hardness.  You kneel down behind the Harpy Queen\'s massive flanks, so wide that you feel you could stuff your torso between her cheeks.  With great effort, you peel her jiggling ass apart, revealing the tight ring of her pucker and her loose, gaping cunt.' );
+		EngineCore.outputText( '\n\nAs you position yourself behind the broodmother, Hel strips out of her skimpy bikini-mail and, grabbing the bitch by her hair, shoves her slick pussy into the harpy\'s face.  The queen struggles against Hel\'s grasp, making her inhuman hips and ass shake and jiggle seductively.  Your cock goes rock hard with the display before you, and you roughly push it into the harpy\'s buttcheeks.  You let her ass go, and shudder as the queen\'s soft flesh wraps around your ' + CoC.player.cockDescript( 0 ) + ', as tight as a virgin pussy, but at the same time so soft and giving...' );
 		EngineCore.outputText( '\n\nYou wrap your arms around her broodmotherly hips and start to thrust into her crack, hotdogging the harpy bitch.  Your dick sinks in and out of her squishy flesh, seeming to swallow your length like quicksand; you feel yourself drawn inexorably inwards, your shaft brushing against her slick pussy and tightly clenched ass.' );
-		EngineCore.outputText( '\n\nYou give Hel a little wink, and though occupied by forcing the harpy to eat her out, she just manages to return it.  With that, you press the head of your ' + CoC.getInstance().player.cockDescript( 0 ) + ' against the harpie\'s sphincter.  Though much of your length is eaten up by her tremendous ass cheeks, her anus still clenches frightfully at your insistent prodding.  Scowling, you rear your hand back and give the harpy bitch a forceful slap on the butt.' );
+		EngineCore.outputText( '\n\nYou give Hel a little wink, and though occupied by forcing the harpy to eat her out, she just manages to return it.  With that, you press the head of your ' + CoC.player.cockDescript( 0 ) + ' against the harpie\'s sphincter.  Though much of your length is eaten up by her tremendous ass cheeks, her anus still clenches frightfully at your insistent prodding.  Scowling, you rear your hand back and give the harpy bitch a forceful slap on the butt.' );
 		EngineCore.outputText( '\n\nThough her pillowy cheeks absorb much of the blow, she still lets out a pitiful yelp into Hel\'s pussy, and loosens up for a split second.  You plunge your shaft in, grunting at the incredible tightness of her anal passage.  She must have been a virgin back here before you took her; she screeches and writhes as your force your cock into her immensely tight bumhole, fighting for every inch you can stuff her with.' );
 		EngineCore.outputText( '\n\nYou swat the harpy again to shut her up, but all that does is make her vice-like ass squeeze on your cock, painfully compressing the head.  You growl in pain, and in revenge slam yourself into her ' );
-		if( CoC.getInstance().player.cockArea( 0 ) < 100 ) {
+		if( CoC.player.cockArea( 0 ) < 100 ) {
 			EngineCore.outputText( 'until your hips sink into her pillowy ass' );
 		} else {
-			EngineCore.outputText( 'until your massive ' + CoC.getInstance().player.cockDescript( 0 ) + ' can go no further inside her' );
+			EngineCore.outputText( 'until your massive ' + CoC.player.cockDescript( 0 ) + ' can go no further inside her' );
 		}
-		EngineCore.outputText( '.  Sunk in as far as you\'ll go, you leave your cock where it is and instead give the broodmother a hard slap.  She screeches and clamps down, wringing your ' + CoC.getInstance().player.cockDescript( 0 ) + ' hard.  But it\'s more pleasurable this time, now that she\'s nice and stretched by your anal intruder.' );
-		EngineCore.outputText( '\n\nYou give her another swat, and another, spanking the harpy bitch until she\'s outright milking your ' + CoC.getInstance().player.cockDescript( 0 ) + ' inside her.  Laughing, Hel starts telling the queen what a good slut she is, taking your ' + CoC.getInstance().player.cockDescript( 0 ) + ' up her ass and squeezing it like a whore as she tongue-fucks another woman.  The queen tries to protest, but you give her another hard slap to teach her some manners.' );
+		EngineCore.outputText( '.  Sunk in as far as you\'ll go, you leave your cock where it is and instead give the broodmother a hard slap.  She screeches and clamps down, wringing your ' + CoC.player.cockDescript( 0 ) + ' hard.  But it\'s more pleasurable this time, now that she\'s nice and stretched by your anal intruder.' );
+		EngineCore.outputText( '\n\nYou give her another swat, and another, spanking the harpy bitch until she\'s outright milking your ' + CoC.player.cockDescript( 0 ) + ' inside her.  Laughing, Hel starts telling the queen what a good slut she is, taking your ' + CoC.player.cockDescript( 0 ) + ' up her ass and squeezing it like a whore as she tongue-fucks another woman.  The queen tries to protest, but you give her another hard slap to teach her some manners.' );
 		EngineCore.outputText( '\n\nShe squeezes down so hard on your cock you feel like it\'s ready to burst.  Instead, though, you feel a sudden surge in your loins.  You have only enough time to sink your hands into the queen\'s cheeks and let out a powerful roar of pleasure as you cum, shooting a great big rope of hot cum right up her ass.  The queen screeches as you unload inside her, and the sudden motion of the queen\'s mouth sets Hel right off.  The salamander grabs the queen\'s head and crushes it against her hips, burying the harpy\'s nose inside her snatch as she cums over the bitch\'s face.' );
 		EngineCore.outputText( '\n\nSpent, you pull out of the broodmother\'s now-gaping asshole.  Her huge asscheeks, however, bottle up your load inside her, preventing it from pooling out.  Laughing, you squeeze her squishy ass one last time before Hel rolls her over and pins her again.' );
 		//(Return to normal room menu);
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Harpy Queen Sex -- [Vaginal];
 	DungeonHelSupplimental.prototype.vaginalHarpyQueenSex = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You roughly toss the harpy queen to the floor and, grinning, tell her that since you\'re wrecking her plans to breed phoenixes, you\'ll just give her a brood of champion-spawn instead.  She gapes at you, wide-eyed in confusion and fear. Hel keeps her pinned down for you as you toss your [armor] aside, revealing your ' + CoC.getInstance().player.cockDescript( 0 ) + '.' );
-		EngineCore.outputText( '\n\nHel swings her leg around, planting herself firmly over the Harpy Queen\'s face. She crouches down, planting her cunt just an inch above the queen\'s nose, her long fiery tail swishing just above her cunt.  "<i>You should feel honored, whore,</i>" Hel growls, grabbing the queen by the hair.  "<i>One egg fathered by my friend\'s seed is worth a thousand of your weakling sluts. Go on, thank ' + CoC.getInstance().player.mf( 'him', 'her' ) + '!</i>"' );
+		EngineCore.outputText( 'You roughly toss the harpy queen to the floor and, grinning, tell her that since you\'re wrecking her plans to breed phoenixes, you\'ll just give her a brood of champion-spawn instead.  She gapes at you, wide-eyed in confusion and fear. Hel keeps her pinned down for you as you toss your [armor] aside, revealing your ' + CoC.player.cockDescript( 0 ) + '.' );
+		EngineCore.outputText( '\n\nHel swings her leg around, planting herself firmly over the Harpy Queen\'s face. She crouches down, planting her cunt just an inch above the queen\'s nose, her long fiery tail swishing just above her cunt.  "<i>You should feel honored, whore,</i>" Hel growls, grabbing the queen by the hair.  "<i>One egg fathered by my friend\'s seed is worth a thousand of your weakling sluts. Go on, thank ' + CoC.player.mf( 'him', 'her' ) + '!</i>"' );
 		EngineCore.outputText( '\n\nThe harpy struggles against Hel\'s firm grasp, until she gets a good slap from the salamander.  "<i>Gah! Thank you!  Thank you for the honor of bearing your eggs!</i>" she pleads, still squirming.  You laugh and grab her massive thighs, pulling them apart to reveal your prize.  Her cunt is a voluminous gash between her legs, gaping and drooling lubricant, stretched beyond human possibility by the dozens - hundreds, even - of eggs she\'s birthed over her long life.' );
-		EngineCore.outputText( '\n\nYou kneel down between her legs and experimentally stick your ' + CoC.getInstance().player.cockDescript( 0 ) + ' into her; she seems to simply suck it up, swallowing your entire shaft in a heartbeat.  Gods, she\'s immense!  You feel like you\'re sticking your shaft into a black hole, a cavern that has no ending.  She groans slightly at the penetration, but has easily taken your entire length with room to spare.  You shift around a bit, pushing her legs together to contract her gaping cunt.' );
-		EngineCore.outputText( '\n\nFinally, you feel her slick walls around your ' + CoC.getInstance().player.cockDescript( 0 ) + '. The queen shudders, but now seeing that you mean to pump her full of your seed, visibly relaxes. Still, she\'s just too loose to give you the pleasure you\'re seeking...' );
-		EngineCore.outputText( '\n\nA wicked grin spreads across your face.  You reach forward and grab Hel\'s tail, wincing at its heat, and drag it back between the Harpy Queen\'s loins.  Hel looks at you over her shoulder and, grinning, takes over for you.  You brace yourself as her prehensile tail slithers back and, curling once around your ' + CoC.getInstance().player.cockDescript( 0 ) + ', slips inside the queen with you.  You and the broodmother both gasp at once as her burning-hot tail crawls along your cock\'s shaft and into her gaping cunt until the harpy lets out a little scream into Hel\'s own crotch.  You guess the salamander found her womb and is wriggling her tail into it.' );
-		if( CoC.getInstance().player.cockArea( 0 ) < 48 ) {
-			EngineCore.outputText( '  Not to be outdone, you slam your hips forward, ramming your ' + CoC.getInstance().player.cockDescript( 0 ) + ' into the queen\'s depths until you catch up with Hel, pounding the entrance to her womb.' );
+		EngineCore.outputText( '\n\nYou kneel down between her legs and experimentally stick your ' + CoC.player.cockDescript( 0 ) + ' into her; she seems to simply suck it up, swallowing your entire shaft in a heartbeat.  Gods, she\'s immense!  You feel like you\'re sticking your shaft into a black hole, a cavern that has no ending.  She groans slightly at the penetration, but has easily taken your entire length with room to spare.  You shift around a bit, pushing her legs together to contract her gaping cunt.' );
+		EngineCore.outputText( '\n\nFinally, you feel her slick walls around your ' + CoC.player.cockDescript( 0 ) + '. The queen shudders, but now seeing that you mean to pump her full of your seed, visibly relaxes. Still, she\'s just too loose to give you the pleasure you\'re seeking...' );
+		EngineCore.outputText( '\n\nA wicked grin spreads across your face.  You reach forward and grab Hel\'s tail, wincing at its heat, and drag it back between the Harpy Queen\'s loins.  Hel looks at you over her shoulder and, grinning, takes over for you.  You brace yourself as her prehensile tail slithers back and, curling once around your ' + CoC.player.cockDescript( 0 ) + ', slips inside the queen with you.  You and the broodmother both gasp at once as her burning-hot tail crawls along your cock\'s shaft and into her gaping cunt until the harpy lets out a little scream into Hel\'s own crotch.  You guess the salamander found her womb and is wriggling her tail into it.' );
+		if( CoC.player.cockArea( 0 ) < 48 ) {
+			EngineCore.outputText( '  Not to be outdone, you slam your hips forward, ramming your ' + CoC.player.cockDescript( 0 ) + ' into the queen\'s depths until you catch up with Hel, pounding the entrance to her womb.' );
 		}
-		EngineCore.outputText( '\n\nNow that you have a second shaft inside the harpy\'s birth canal, it seems a lot less roomy. You start to piston your hips into the queen bitch; your shaft runs along three slick walls and Hel\'s hot tail with each thrust, leaving your ' + CoC.getInstance().player.cockDescript( 0 ) + ' feeling like it\'s in a liquid inferno, and it feels wonderful.  You start to fuck the queen faster, already feeling your own orgasm rising.  Her juices spill freely from her loose cunt, pooling between her thighs as you and Hel fill her utterly, giving her what\'s probably the first satisfying fuck she\'s been able to get in years.' );
-		EngineCore.outputText( '\n\nYou aren\'t surprised when the harpy gets off, rolling her head back and screeching as she climaxes. Laughing, Hel starts to thrash her tail around inside her, nearly managing to wrap it around your ' + CoC.getInstance().player.cockDescript( 0 ) + ' inside her.  With the sudden contractions and extra motion around your cock, you aren\'t able to last any longer; ' );
-		if( CoC.getInstance().player.cumQ() < 300 ) {
+		EngineCore.outputText( '\n\nNow that you have a second shaft inside the harpy\'s birth canal, it seems a lot less roomy. You start to piston your hips into the queen bitch; your shaft runs along three slick walls and Hel\'s hot tail with each thrust, leaving your ' + CoC.player.cockDescript( 0 ) + ' feeling like it\'s in a liquid inferno, and it feels wonderful.  You start to fuck the queen faster, already feeling your own orgasm rising.  Her juices spill freely from her loose cunt, pooling between her thighs as you and Hel fill her utterly, giving her what\'s probably the first satisfying fuck she\'s been able to get in years.' );
+		EngineCore.outputText( '\n\nYou aren\'t surprised when the harpy gets off, rolling her head back and screeching as she climaxes. Laughing, Hel starts to thrash her tail around inside her, nearly managing to wrap it around your ' + CoC.player.cockDescript( 0 ) + ' inside her.  With the sudden contractions and extra motion around your cock, you aren\'t able to last any longer; ' );
+		if( CoC.player.cumQ() < 300 ) {
 			EngineCore.outputText( 'you slam your [hips] into the harpy\'s groin and ejaculate, launching thick, sperm-filled globs right into her waiting womb.\n\nYou cum and cum, filling the queen with all your seed until your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls] feel' );
 			} else {
 				EngineCore.outputText( 'crotch feels' );
@@ -1204,7 +1204,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( ' hollow and empty.  Shuddering, you and Hel both withdraw, your cock and her tail a spunk and juice-covered mess.' );
 		} else {
 			EngineCore.outputText( 'you slam your [hips] into the harpy\'s groin and ejaculate, releasing a massive torrent of spunk deep inside the queen\'s womb, causing the harpy to shudder at the sheer amount of sperm you let out.  You continue to coat the harpy\'s walls for a minute, until your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls] feel' );
 			} else {
 				EngineCore.outputText( 'crotch feels' );
@@ -1212,14 +1212,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( ' hollow and empty.  You and Hel slowly withdraw, causing some of your semen to leak out of the harpy\'s massive canal, leaving your cock and Hel\'s tail a spunk-and-juice-covered mess.' );
 		}
 		EngineCore.outputText( '\n\nAfter a fuck like that, the broodmother will be laying a clutch of your eggs in no time.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Throne Room -- [Harpy Queen] -- [Interrogate];
 	DungeonHelSupplimental.prototype.harpyQueenInterrogate = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Leaning over the defeated Harpy Queen, you decide to get some answers.  First, you ask her why, exactly, she kidnapped a salamander in the first place.  That\'s what brought you here, after all.' );
-		EngineCore.outputText( '\n\nGrunting under Hel\'s foot, the queen spits at you, narrowly missing your face. "<i>What the fuck kind of question is that? I stole him to steal his seed, foolish ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '.</i>"' );
+		EngineCore.outputText( '\n\nGrunting under Hel\'s foot, the queen spits at you, narrowly missing your face. "<i>What the fuck kind of question is that? I stole him to steal his seed, foolish ' + CoC.player.mf( 'boy', 'girl' ) + '.</i>"' );
 		EngineCore.outputText( '\n\nWell, you suppose you had that one coming.  Next.  How did she get the phoenixes in the first place? Harpies usually don\'t birth half-breeds.' );
 		EngineCore.outputText( '\n\n"<i>Ha!  Goblin alchemy.  My true-born daughters brought me all that they could.  I experimented for years trying to get it right.  A bit of this potion and that poison... But I did it.  I created the ultimate race of warriors.  You might kill me, but you cannot erase my creation!</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes. We\'ll see about that.  You ask her why she went to all that trouble of making a race of \'ultimate warriors\' anyway.  Since when did a harpy want to rule the world?' );
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\n"<i>You bitch!</i>" Hel snaps, grinding her foot into the harpy\'s chest.  "<i>What the fuck is wrong with you people?  Did you even think, for one fucking second, actually THINK to maybe ask one of us?  Just fly down and ask any horny salamander boy, \'Wanna fill me with your seed \'til my eggs pop and make an army?\' Guess what - he\'d say yes! Any man in Mareth who\'s still pure at heart would say YES!</i>"' );
 		EngineCore.outputText( '\n\nThe harpy queen turns her gaze toward Hel. "<i>This one did not.</i>"' );
 		//[If PC told Hel about Hakon:;
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>That\'s because he was MARRIED, YOU BITCH!</i>" Hel screams, her tail practically blazing behind her. The queen recoils, but falls silent.' );
 		} else {
 			EngineCore.outputText( '\n\n\Hel scowls, but says nothing. It doesn\'t seem like you\'ll get anything further from the queen.' );
@@ -1243,11 +1243,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//(Play when the PC interacts with Hakon, in the dungeon, while possessing both HARPY KEY key items);
 	DungeonHelSupplimental.prototype.towerOutro = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
+		if( CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
+			CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
 		}
 		//[IF PC DID NOT TELL HEL ABOUT HAKON BEFORE];
-		if( CoC.getInstance().flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_KNOWS_ABOUT_HAKON ] === 0 ) {
 			EngineCore.outputText( 'With Hakon\'s arm slung over your shoulder, you help the long-imprisoned salamander up the stairs and, with great effort, out the ancient doors of the tower.  Outside, you see Helia and her pseudo-phoenix half-sister Kiri.  Hakon recoils as the evening sunlight hits his eyes, his first taste of the sun in years.' );
 			EngineCore.outputText( '\n\nHel and Kiri turn to you, smiling from ear to ear as you bring Hakon outside.' );
 			EngineCore.outputText( '\n\n"<i>Hel,</i>" Kiri says, taking the salamander by the hand.  "<i>I\'ve got someone you might want to meet.</i>"' );
@@ -1258,7 +1258,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\n"<i>Is it... really you? Dad?</i>"' );
 			EngineCore.outputText( '\n\n"<i>It is, little Hel.  And I\'m never leaving you again.</i>"' );
 			EngineCore.outputText( '\n\nYou spend the next few hours sitting on the stoop of the tower, watching as the long-estranged family has a chance to get to know each other again.  You smile the entire time as Hel, Hakon, and Kiri are soon teasing and playing with each other as if they had always been together.' );
-			EngineCore.outputText( '\n\nEventually, it\'s time to go.  With an arm around his daughters, Hakon steps up to you. "<i>' + CoC.getInstance().player.mf( 'Son', 'Sweetheart' ) + ', I can\'t thank you enough.  Not for freeing me, but for... For reintroducing me to my family.  If you ever need anything, you don\'t hesitate to ask.  If by my life or sword I can help you, I will, without hesitation.</i>"' );
+			EngineCore.outputText( '\n\nEventually, it\'s time to go.  With an arm around his daughters, Hakon steps up to you. "<i>' + CoC.player.mf( 'Son', 'Sweetheart' ) + ', I can\'t thank you enough.  Not for freeing me, but for... For reintroducing me to my family.  If you ever need anything, you don\'t hesitate to ask.  If by my life or sword I can help you, I will, without hesitation.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Yeah,</i>" Hel says, grinning.  "<i>You did all right, lover mine.  Don\'t worry, I\'ll drop by soon to show you just how much I appreciate it.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Lover mine?</i>" Hakon says, chuckling. "<i>I think we have a lot to talk about on the way down, little girl.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Well, shit.</i>"' );
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			EngineCore.outputText( '\n\n"<i>Is it.. really you?  Dad?</i>" Hel asks, openly crying.  You don\'t think she\'s ever seen her father before.' );
 			EngineCore.outputText( '\n\n"<i>It is, little Hel.  And I\'m never leaving you again.</i>"' );
 			EngineCore.outputText( '\n\nYou spend the next few hours sitting on the stoop of the tower, watching as the long-estranged family has a chance to get to know each other again.  You smile the entire time as Hel, Hakon, and Kiri are soon teasing and playing with each other as if they had always been together.' );
-			EngineCore.outputText( '\n\nEventually, it\'s time to go.  With an arm around his daughters, Hakon steps up to you. "<i>' + CoC.getInstance().player.mf( 'Son', 'Sweetheart' ) + ', I can\'t thank you enough.  Not for freeing me, but for... For reintroducing me to my family.  If you ever need anything, you don\'t hesitate to ask.  If by my life or sword I can help you, I will, without hesitation.</i>"' );
+			EngineCore.outputText( '\n\nEventually, it\'s time to go.  With an arm around his daughters, Hakon steps up to you. "<i>' + CoC.player.mf( 'Son', 'Sweetheart' ) + ', I can\'t thank you enough.  Not for freeing me, but for... For reintroducing me to my family.  If you ever need anything, you don\'t hesitate to ask.  If by my life or sword I can help you, I will, without hesitation.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Yeah,</i>" Hel says, grinning.  "<i>You did alright, lover mine. Don\'t worry, I\'ll drop by soon to show you just how much I appreciate it.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Lover mine?</i>" Hakon says, chuckling.  "<i>I think we have a lot to talk about on the way down, little girl.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Well, shit.</i>"' );

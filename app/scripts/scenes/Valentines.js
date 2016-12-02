@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 
 	Valentines.prototype.crazyVDayShenanigansByVenithil = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] = OnLoadVariables.date.fullYear;
+		CoC.flags[ kFLAGS.VALENTINES_EVENT_YEAR ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( 'Moving through the streets of Tel\'Adre, you turn your steps towards the Wet Bitch, only to find that there\'s some odd event going on nearby.  Deciding the town is a safe enough place to let yourself be led astray by curiosity, you decide to investigate a bit closer.' );
 		EngineCore.outputText( '\n\nNext to the tavern, there\'s a stall that\'s filled with flowers and many heart-shaped things; there\'s cards, chocolates, boxes of sweets, clothes with hearts sewn into them, mascots with the same, and even a sculpture of a heart and two lockets.  You\'d say this was a shopping booth of sorts, but then, you\'re surprised by the sight of a goblin nearby, looking at you and waving.' );
 		EngineCore.outputText( '\n\nYou come closer.  At first, you\'d only recognize Abylon because she\'s more or less the only goblin one can really see in Tel\'Adre, but only by coming closer are you sure it\'s really her.  She seems oddly annoyed by her situation, and you sure can see why.  She\'s not clad in her usual leather plates; in its place, she has a nice, pink and red dress, with white gloves, frills, and a small belt around her waist, complete with a heart-shaped beltbuckle, accentuating her petite curves.  She appears to flush a bit as she notices you eyeing her up.  "<i>W...what?  The fat cow told us to do this and Can\'t-Hold-Her-Drink was all for it, can you imagine?  I just... just tagged along.  In any case, as you can see, it\'s a disaster.  So much red and pink and whatnot.  I was surprised anybody was even interested.</i>"' );
@@ -35,13 +35,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nAbby just points to the stall, explaining.  "<i>Suck-a-lot claimed that there\'d be some sort of a celebration regarding lovey-dovey stuff where she\'s from sometime around today.  She decided to make it known and popular here in Tel\'Adre and try to get\'em to celebrate said holiday as well.  Hence this little farce.  Me and Pastie are helping her, and surprisingly some people were even interested.</i>"' );
 
 		EngineCore.outputText( '\n\nYou nod to Abby and decide to come closer to the stall.  Pastie, surprisingly sober for once, and only slightly displeased by that fact, it seems, is dancing over the table, also dressed in frilly clothes, apparently meant to act as some sort of cupid, only with fairy wings instead of feathery ones.  You hear the voice of someone pleasantly surprised before you look up to see Scylla smiling at you.  Unlike Abby and Pastie, she kept most of her habit intact, but today, she has forgone her coif and veil, leaving her hair completely exposed, though made up in a way to cover her little horns along with the small embroidery she decided to add.  She has a pink flower in her hair, and also in the space in-between her voluminous chest-mounds, giving you an excuse to glance at it for a moment, and flower-like frills added to the sleeves of her over-filled habit.' );
-		EngineCore.outputText( '\n\n"<i>[name]!  I had hoped to see you here today! It\'s certainly a very nice occasion, you know.  You see, where I come from, it\'s a holiday to celebrate love in all its forms- both for couples and the freshly love-struck.  I\'m hoping, with a little help from our humble demonstration, the people of Mareth will adopt it, in time...</i>" she says, her voice still buoyant with optimism, but a hint of worry in her voice.  It\'s probably not going exactly as well as she had hoped.  "<i>Well, in your case, I\'m sure you\'d have a reason to celebrate it.  Certainly, a brave, valiant ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' like you would have quite a few people interested in them, and maybe someone you\'d see as a special person as well!</i>"  You guess you can see her logic.  After all, it\'s because you\'ve beaten the Omnibus that she\'s here in the first place.  You can\'t say that the random people in Tel\'Adre treat you unpleasantly, so maybe you\'re more popular here than you would\'ve guessed.' );
+		EngineCore.outputText( '\n\n"<i>[name]!  I had hoped to see you here today! It\'s certainly a very nice occasion, you know.  You see, where I come from, it\'s a holiday to celebrate love in all its forms- both for couples and the freshly love-struck.  I\'m hoping, with a little help from our humble demonstration, the people of Mareth will adopt it, in time...</i>" she says, her voice still buoyant with optimism, but a hint of worry in her voice.  It\'s probably not going exactly as well as she had hoped.  "<i>Well, in your case, I\'m sure you\'d have a reason to celebrate it.  Certainly, a brave, valiant ' + CoC.player.mf( 'man', 'woman' ) + ' like you would have quite a few people interested in them, and maybe someone you\'d see as a special person as well!</i>"  You guess you can see her logic.  After all, it\'s because you\'ve beaten the Omnibus that she\'s here in the first place.  You can\'t say that the random people in Tel\'Adre treat you unpleasantly, so maybe you\'re more popular here than you would\'ve guessed.' );
 		//Corruption 0-33 :;
-		if( CoC.getInstance().player.cor <= 33 ) {
+		if( CoC.player.cor <= 33 ) {
 			EngineCore.outputText( '\n\nIt is a rather pleasant thought, that not only a few someones, but a wider public in general appreciates what you\'ve done.' );
 		}
 		//Corruption 34-66 :;
-		else if( CoC.getInstance().player.cor < 66 ) {
+		else if( CoC.player.cor < 66 ) {
 			EngineCore.outputText( '\n\nYou certainly deserve the recognition, and maybe some of the benefits that could\'ve come with it as well.' );
 		}
 		//Corruption 67-100 :;
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Scylla', this.goVisitScyllaVday );
 		EngineCore.addButton( 1, 'Abby', this.goVisitAbbyVday );
-		if( CoC.getInstance().player.cockThatFits( 28 ) >= 0 || CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.cockThatFits( 28 ) >= 0 || CoC.player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Pastie', this.goVisitPastyVDay );
 		}
 		EngineCore.addButton( 4, 'Leave', this.goHomeFromVDay );
@@ -154,11 +154,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nWith a smile, you cuddle up more against Scylla, sharing the bodily warmth between the two of you and snaking an arm around her waist.  "<i>My, my.  I\'m surely being treated appropriately for the occasion.  It\'s a bit embarassing...</i>" she whispers, but leans her head towards you and you feel both her warmth and her gentle fragrance.' );
 		EngineCore.outputText( '\n\nThe two of you spend some time cuddled up like that, watching the sun set.  Scylla\'s soft curves, especially her breasts, are overwhelming; you don\'t even have the willpower to resist copping a few feels, and initially, it\'s hard to stay still, aroused as you are.' );
 		//[if (hasVagina = true)];
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your [vagina] is starting to get moist, making a small mess in your underclothes.' );
 		}
 		//[if (hasCock = true)];
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  You realize it\'d probably be a done deal if you didn\'t resist the pull of your hardening cock towards one of Scylla\'s orifices, but you decide to spare her any temptations and endure yourself.' );
 		}
 		EngineCore.outputText( '  In time, your ignited lust slowly changes to constant arousal, and Scylla just sitting there, watching the sun with a beautiful smile on her face, clearly content to just have someone in her arms on this evening is helping you control yourself a lot better.' );
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 
 		EngineCore.outputText( '\n\nLater, when you move through the desert around Tel\'Adre towards your own camp, looking back at Scylla waving towards you, you\'re somehow glad things turned out that way, and feel more determined than ever to not only defeat the demons, but also spread the good will and positive feelings through any world you may call your own.' );
 		EngineCore.outputText( '\n\n(<b>You have gained the Pure and Loving perk!</b>' );
-		CoC.getInstance().player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
+		CoC.player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Make out];
@@ -178,9 +178,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		//[pg];
 		EngineCore.outputText( '\n\nAfter a longer while, Scylla\'s tongue unwraps from yours and, with a moist slurp, she swallows your mixed drool as your lips break their touch.  You both pant heavily, and ' );
 		//[if (cocks = 1);
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'your [cock] is completely hard and stiff, forming a bulge in your clothing' );
-		} else if( CoC.getInstance().player.cockTotal() > 1 ) {
+		} else if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '[eachCock] is by now completely hard, eager to be touched and wanting to be caressed by the nun you\'re kissing' );
 		}
 		EngineCore.outputText( '.' );
@@ -201,10 +201,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou eagerly make out with her, trying to give as you\'re about to get, while kneading her breast flesh with your own hands, and soon, you arrive at your destination, the crown of your member pressed against her steamy, drooling breast-lips, moistened by her milk as it slurps audibly, first teasingly, but then, drawing you inside.  Your hips buck slightly and you\'re pushed inside her more quickly than she was prepared for.  Scylla\'s entire body shudders, you realize, in orgasm, going a bit slack in your arms.  However, her titflesh never stops to contract around you, the milk-laden folds lapping at your member, pulling you deeper inside and seeking to milk you dry.  You\'re way too turned on and Scylla suddenly recovering to moan into your mouth and press herself closer against you is the last straw when you give in to her breasts\' hunger.' );
 		EngineCore.outputText( '\n\nYou fire off inside Scylla\'s tit, and the remaining lip draws in air eagerly as the two of them suck, one at the air, the other at your [cock]. You shudder in Scylla\'s embrace as you unload your offering into her.' );
 		//[if (cumMedium = true);
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '  It\'s easy to lose yourself into the feeling of Scylla\'s breast drawing from you, and you realize you\'re cumming longer and harder than you should, but soon, the ravenous breast sucks you dry, continuing to milk you aggressively for more.  You moan into Scylla\'s lips, and she pats your head, shuddering as she seems to slowly get off again too from being fed directly....' );
 		}//[if (cumHigh = true) ;
-		else if( CoC.getInstance().player.cumQ() < 1500 ) {
+		else if( CoC.player.cumQ() < 1500 ) {
 			EngineCore.outputText( '  Scylla\'s a blessed cum-milker and she doesn\'t fail this time, either.  Your orgasm and cum output are tremendous, more and more being pulled out of your [cock] and [balls] as Scylla releases a guttural sound, gently inflating her boobs further from draining you and orgasming on her own, milk flowing down her breasts and saliva down her neck as she gives in to the sensations.  Her breast, despite being sated, continues to suckle at you even after your orgasm, almost as if wondering if it could draw out more.  You snuggle up to Scylla, making out with her upper lips, her hands roam over your body in a comforting, pleasant fashion...' );
 		}//[if (cumVeryHigh = true) ;
 		else {
@@ -213,9 +213,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou finally lift yourself off Scylla after your orgasm, and she looks at you with warmth.  "<i>That surprised me...</i>" she claims.  "<i>Not in a way that I\'d mind, though...</i>" she says, her smile widening as she blows you a kiss.  "<i>This is certainly one way to celebrate love, and I must say I\'m glad you gave me your proof of celebration...</i>" she says with a blush, but quickly adds.  "<i>Neither of us should give into desire so easily, though. Today, however, is special, so we should be easy on ourselves and let it slide...</i>"' );
 		EngineCore.outputText( '\n\nAn hour or so later and quite a bit after sunset, you return to your camp, satisfied and pleased with how you celebrated this holiday...' );
 		// Only add the perk if the player doesn't already have it.;
-		if( CoC.getInstance().player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
 			EngineCore.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
-			CoC.getInstance().player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -225,9 +225,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.clearOutput();
 		//{The PC titfucks Scylla again, and then gets her to suck them off, resulting in two quick orgasm and a big nice load of food for Scylla. How far can you fall to get off? On such a nice day, too!};
 		EngineCore.outputText( 'You feed Scylla what feels like a gallon of jizz!' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.outputText( '\n\n(<b>You have gained the One Track Mind perk.</b>' );
-		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
+		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou nod and muse that as a goblin, she\'s not probably used to the notion.  "<i>Damn right I ain\'t!  My crazy bitch of a momma would trade three of me for a four inch dick!  All she cares about is thick cum in her slut-box.  The guys I meet come to me \'cause they figure I\'ll let \'em blow their load inside me an practically cream my brains out \'cause of it,</i>" she answers, somewhat defensively, and you wonder about musing if they were right, but decide against it. You do note, however, that this seems like she\'s not opposed to the notion, more like she was never faced with anybody loving her or anyone she\'d come to love.  "<i>Well... uhhh, look, it\'s all fine and all, the pinkies, reds, hearts and everything.  I just don\'t get it, all right?  It doesn\'t work that way, out there in Mareth.  They fuck you and claim you, or dump you in the dirt, or fuck you again and you possibly die, or fuck you and eat you.  That\'s how things work.  Cuddling up with someone after sex and whispering sweet nothings? Dates?  Gifts?  Weddin\' someone?  Dat kinda shit?  Now, that\'s what\'s kinky and unusual here.</i>"  She nods semi-sagely, and you can\'t help but think she has a point.' );
 		EngineCore.outputText( '\n\nAfter a while of walking in silence, she finally breaks it. "<i>Soo, uhh, what\'s the story with you and Sister Cow-boobs?  You two came \'ere from the same world or somethin\'?</i>" she asks.' );
 		EngineCore.outputText( '\n\nYou explain to her that while you\'ve known Scylla for longer than she has, probably, it\'s a pretty recent acquaintance.  You managed to free her, amongst other slaves, from a demonic factory and found her in Tel\'Adre.  The two of you have... "<i>helped</i>" one another in a few ways after that, and been rather friendly since.  You blush a bit, remembering what the "<i>helping</i>" has sometimes brought.' );
-		EngineCore.outputText( '\n\n"<i>Ahhh, I see.  ' + CoC.getInstance().player.mf( 'He', 'She' ) + ', the hero, saving a nun from the evil clutches of the demonic overlord!  She says thank you through growin\' monstrous curves and providing extra sloppy blowjobs!  Dat right?</i>"  You giggle a bit at that interpretation, and say it\'s not really all that far from the truth, although it is cheapening things... as is her previous interpretation of "<i>Marethian kinkyness</i>" cheapening love somewhat.  Abby brings a hand to her lips.  "<i>Well, she does, at least, LOOK like she could do some... stuff... to a cock.</i>"  She says, blushing, before you detour that train of thought with a question on how she\'s gotten herself here.' );
+		EngineCore.outputText( '\n\n"<i>Ahhh, I see.  ' + CoC.player.mf( 'He', 'She' ) + ', the hero, saving a nun from the evil clutches of the demonic overlord!  She says thank you through growin\' monstrous curves and providing extra sloppy blowjobs!  Dat right?</i>"  You giggle a bit at that interpretation, and say it\'s not really all that far from the truth, although it is cheapening things... as is her previous interpretation of "<i>Marethian kinkyness</i>" cheapening love somewhat.  Abby brings a hand to her lips.  "<i>Well, she does, at least, LOOK like she could do some... stuff... to a cock.</i>"  She says, blushing, before you detour that train of thought with a question on how she\'s gotten herself here.' );
 		EngineCore.outputText( '\n\n"<i>Well, I am the daughter of one of the firstborn corrupt gravidophiliac goblin-sluts of this world, Tamani! As a goblin, I should probably look up to the sluttiness of my mom while hating her guts for stealin\' all that cock, but I simply hate her guts, since she\'s a selfish whore,</i>" she explains.  "<i>Same can be applied to most goblins, I guess.  Chasing after cum and pregnancy more than any real satisfaction, day after day,</i>" she nods to herself.  "<i>I knew something was wrong about it and have managed to fight off the urges somewhat, escaping "<i>mommy\'s</i>" clutches and moving away from the forest.  Saw a few things, even a farm, though there was a mean-looking guy there, so I stayed away.  I\'ve met a few hunter and scout guys, though.  Nice boys.  Understood me and offered some... relief to these sick urges.  Done my best to avoid changing into an incubator permanently.</i>" she says, though the amount of plumpness to her butt and her not completely flat chest may point out she\'s gotten herself pregnant once... or thrice. You don\'t push the issue.' );
 		EngineCore.outputText( '\n\n"<i>And a girl.  Really nice one, that.  With a cock, of course, I ain\'t much for that carpet munchin\' shit, like most goblins.  A hermaphrodite, people would say.  Still, she called herself a girl, makes sense with the boobs, what else would she call herself?  She showed me my way here.  I guess she saw I\'m less crazy than your everyday goblin.  I shagged her and a few guys, but... haven\'t seen her in a while.  Anyway, I...</i>" she goes silent for a moment, looking at you, and then the ground.  She seems to try and weigh her words, or even consider saying them. "<i>... something was a bit wrong about all that.  I mean, sure, getting cock was fun, but... I might\'ve been just like every goblin, just seeing a bit past the get pregnant race and seeking mostly the sexual satisfaction. If that\'s true, I\'m just remotely better than my cumwhore of a mother, so... when a nun invited me to that shitty meeting after seeing me drink my doubts away, I said, what the hell.  You know the rest.</i>"' );
 		EngineCore.outputText( '\n\nYou nod and tell her that, certainly, she seems less crazy and way more reasonable than any goblin you know of so far.  "<i>Uhh, thanks. It\'s... nice to hear you say that.</i>"' );
@@ -257,10 +257,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nShe nods and picks up the pace, and you soon arrive at a rather small, but not bad-looking shack nearby the city\'s walls.  Abylon invites you in, and you ask her if it\'s her house.  "<i>Well... yeah?  I mean... I gotta live somewhere!  Suck-a-lot actually helped me with it, and... Uhh, you see, goblins can have other skills than just suckin\' dick and taking creampies.  I\'m a bit fit, I know a bit of alchemy, so put the two together, do some making, do some delivery, do a mix of both... I\'ve made a small living.</i>"' );
 		EngineCore.outputText( '\n\nNodding, you go in and make yourself at home, before Abylon tugs at your hand and seemingly continues to remove her dress, showing herself to you naked, in all of her small, couple of feet tall "<i>glory</i>". "<i>W-well, time for you to show what you\'re made of, champ,</i>" she says, bending around a small table, wiggling her posh bottom at you with a look of certain hunger and restlessness to her eyes.' );
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
-			var x = CoC.getInstance().player.cockThatFits( 46 );
+		if( CoC.player.hasCock() ) {
+			var x = CoC.player.cockThatFits( 46 );
 			//([If ([cocksmallest] < 46 cockArea) ;
-			if( CoC.getInstance().player.cockArea( x ) < 46 ) {
+			if( CoC.player.cockArea( x ) < 46 ) {
 				EngineCore.outputText( '\n\nYou could certainly go for a dip into that goblin cunt, but, there\'s also the option of forgoing your pleasure on this special day and using other means to show her a good time.' );
 				//<You can both pleasure and fuck her>;
 				EngineCore.addButton( 1, 'Fuck Her', this.fuckAbbyVDay );
@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			}
 		}
 		//[if (hasVagina = false);
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '"<i>Well, that\'s unexpected. I have certain doubts about you showing me such a good time,</i>" she says.  You tell her you don\'t actually require a cock at all to do this, and she seems surprised.' );
 		}
 		EngineCore.addButton( 0, 'PleasureHer', this.pleasureAbbyVDay );
@@ -279,9 +279,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 	//{FUCK HER};
 	Valentines.prototype.fuckAbbyVDay = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 46 );
+		var x = CoC.player.cockThatFits( 46 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'Figuring that the goblin girl\'s felt so out of place amid a celebration of love, you might as well show her a little affection the only way she\'s likely to understand.  Pulling aside your [armor] enough to let [eachCock] spring free, you step up behind the bent-over girl and rest your hands on her thick thighs.  The emerald girl\'s breath quickens as the heat of your manhood presses between the jiggling globes of her ass cheeks and a whimper escapes her throat before she realizes it.  Coughing, in an attempt to cover the moment of weakness, she turns her head to the side to give you a disapproving eye.  “What is this, romance?  Just jam it in, already!” she commands, gruffly.  Her face is flushed a deeper forest hue, pink irises twinkling in the dim light of her spartan home.' );
 		EngineCore.outputText( '\n\nUnintimidated, you take just a moment longer to tease the girl.  With the two of you, alone, in this intimate setting, you\'re given a chance to appreciate the goblin on her own merits.  Unlike most goblins, she doesn\'t  appear to be using hair dye - her vibrant red hue looks natural and matches the small tuft of silky red hair at the top of her jade pussy.  The three-foot braid hanging from her scalp is both thick and lustrous, suggesting that she may have channeled some of her kind\'s cock-hungry energy into an obsession with hair care.  Even her home is curiously devoid of the sexual aids you\'d expect in a goblin\'s residence. She does have her kind\'s affinity for potions and leather, but most of the vials look more like antidotes than poisons and the leather plates she\'s cured are clearly more to protect the body than accentuate any sexuality.  Considering the rest of her race, she must be something of a paladin among them - showing a degree of self-restraint almost unheard of by the common goblin.' );
@@ -289,11 +289,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nTaking your time, you slowly feed inch after inch into your quivering companion, her body remarkably accommodating for one who normally avoids sex.  Her mother\'s legacy, you suppose.  When you finally bottom out inside of her, Abby picks her legs up and hooks her feet around your waist.  With her flat, unremarkable chest laying atop the small table, she begins to rock back and forth, dragging every fold of her pussy across your ' + Descriptors.cockDescript( x ) + '.  You match her motions, thrusting slowly at first, before gradually speeding up. Her tight interior suckles at the rod spearing her while the table beneath her rocks back and forth at the rising tempo.  Shifting one palm from her hip to the distended swell of her belly, you use your other hand to gather up a few feet of her hair and coil it around your arm, pulling her head back just enough to let you see the gathering ecstasy flushing her olive cheeks.' );
 		EngineCore.outputText( '\n\nUnable to hold back any further, you pick up your pace, from tender strokes to urgent thrusts, pounding into the goblin paladin with deep, hard motions.  The force of your efforts sends the table toppling to its side, Abylon suspended in the air by her legs tightly wrapped around your back, your hand on her muscled abdomen, and her burnished crimson braid wrapped around your arm.  Clinging to your ' + Descriptors.cockDescript( x ) + ' with single-minded bliss, the goblin girl doesn\'t even seem to notice the ruckus your love-making is causing.  Impassioned loins united by mutual delight, the cavalier rides her champion until the cold tickle of your climax rushes down your spine and through your core.  With a cry of joy, Abylon tightens the grip of her athletic legs on your [hips] and hugs you close as the first spurt of your cum lances into her belly.  Succumbing to her racial needs, the gallant orgasms from the touch of your seed, her tongue hanging from the side of her mouth as her eyes roll up in her head.  You fill her with your hot loads until the spunk gushes out of her quivering pussy and she weakly mutters a word of thanks to Scylla that you suspect she hadn\'t meant to say aloud.' );
 		EngineCore.outputText( '\n\nSated, you disentangle yourself from the clinging girl and lay her into her bed, with a kiss on her sweat-slick forehead.  She absently strokes between her legs, feeling the oozing jizz dribbling out of her stuffed snatch.  Maybe, for her, this is the meaning of the holiday: not just a casual fuck, but taking the time to really savor the body of someone who\'s important to you.  Even if it isn\'t love, in the strictest sense, being close to the people who impact your life is reason enough to find joy in your days.  You wish the little paladin a good night and, blowing out her candles, you take your leave.' );
-		if( CoC.getInstance().player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
 			EngineCore.outputText( '\n\n(<b>You\'ve received the Sensual Lover Perk!</b>)' );
-			CoC.getInstance().player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -306,11 +306,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nHer pussy gives way and drips onto your [face] and in your mouth richly, and she makes constant mewling sounds.  "<i>C-come on!  Stop teasing me god damn it!  Are you an iii-aahhh-diot?  I\'m go-oh-ohna kick ya out, ya know!?</i>"  You don\'t intend to desist, and you flick her clit with your fingers again, causing her to push her bottom right into your face.  That gives you an idea, as you run your tongue from her pussy, and then, over her crack and soft buttocks, pleasuring her other hole when you\'re at it.  She starts panting and moaning.  "<i>G-goblins don\'t use that hole!  We don\'t!  Don\'t get any crazy ideas you dumb f-fuck!</i>" she says when you run your tongue back all the way to where it came, teasing both of her holes.  You massage her soft rump while you\'re at it, and by now, you\'re pretty sure she\'s rather sensitive all over, especially where her curves are developing...' );
 		EngineCore.outputText( '\n\nAfter a while of doing this, you\'re pretty sure Abylon starts approaching her second orgasm, and you intent to fill her as much as you can for the occasion.' );
 		//([Naga tongue];
-		if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_SNAKE ) {
+		if( CoC.player.tongueType === AppearanceDefs.TONUGE_SNAKE ) {
 			EngineCore.outputText( '  Your fingers make it into her pussy alongside your tongue, and the prehensile thing, longer and more flexible than a human\'s, ravages the insides of her pussy, tasting everywhere as Abby shakes in her orgasm.  Her pussy eagerly tries to milk both your fingers and your tongue, clenching and gripping at them as it drips her pussy juices all over your face.  Abby screams out in a loud, uninhibited orgasm at last, expressing her ecstasy.' );
 		}
 		//([Demon/Dragon Tongue];
-		else if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
+		else if( CoC.player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
 			EngineCore.outputText( '  Abylon shakes in excitement, pleasure, and fear as you extend your inhuman tongue to reach deep into the recesses of her pussy.  She cannot hold out a moment longer, her cunt gripping your inhuman muscle tightly, the hole and muscles inside quivering as you can taster her orgasmic juices with every single point of your tongue.  She screams, shudders and moans, tongue lolling out from the intense pleasure as you force your own tongue to roll around inside her and stretch her in multiple ways. Only you holding her stops Abylon from slumping forward, it seems...' );
 		}
 		//([Human tongue];
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nAbylon blushes the whole time, for once not finding the words to retort or insult you in any way, as you pat her on the head, making your way out.  "<i>Th...thanks,</i>" she says in a stuttering voice, before you close the door behind yourself and leave for your camp.' );
 		EngineCore.outputText( '\n\nAll in all, you\'re pleased that perhaps you\'ve managed to show a goblin that real affection does exist... not to mention get somebody off twice on a new Mareth holiday!' );
 		EngineCore.outputText( '\n\n(<b>You\'ve received the Pure and Loving Perk!</b>)' );
-		CoC.getInstance().player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
+		CoC.player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 80 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -333,18 +333,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\n"<i>Well, I wouldn\'t mind it, but actually getting it probably won\'t happen... everything\'s more or less closed,</i>" she responds, livening up a little at the mention of drinking.  "<i>Although, if you do have something with you, I wouldn\'t mind...</i>"' );
 		//Check inventory for Goblin Ale, Black Cat Beer, Bimbo Champagne; failing this, check if PC has female genitalia.;
 		//[BCBeer] [BimboCham][GoblinAle][vagina];
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOCH ) || CoC.getInstance().player.hasItem( ConsumableLib.BC_BEER ) || CoC.getInstance().player.hasItem( ConsumableLib.GOB_ALE ) || CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) || CoC.player.hasItem( ConsumableLib.BC_BEER ) || CoC.player.hasItem( ConsumableLib.GOB_ALE ) || CoC.player.hasVagina() ) {
 			EngineCore.menu();
-			if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOCH ) ) {
+			if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) ) {
 				EngineCore.addButton( 0, 'BimboCham', this.pastieValentineIntro, ConsumableLib.BIMBOCH.id );
 			}
-			if( CoC.getInstance().player.hasItem( ConsumableLib.BC_BEER ) ) {
+			if( CoC.player.hasItem( ConsumableLib.BC_BEER ) ) {
 				EngineCore.addButton( 1, 'B.Cat Beer ', this.pastieValentineIntro, ConsumableLib.BC_BEER.id );
 			}
-			if( CoC.getInstance().player.hasItem( ConsumableLib.GOB_ALE ) ) {
+			if( CoC.player.hasItem( ConsumableLib.GOB_ALE ) ) {
 				EngineCore.addButton( 2, 'Gob. Ale', this.pastieValentineIntro, ConsumableLib.GOB_ALE.id );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.addButton( 3, 'Pussy', this.pastieValentineIntro, 'vag' );
 			}
 		} else {
@@ -367,7 +367,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		//({Any other drink}. ;
 		else {
 			var itype = ItemType.lookupItem( choice );
-			CoC.getInstance().player.consumeItem( itype, 1 );
+			CoC.player.consumeItem( itype, 1 );
 			EngineCore.outputText( 'You present the drink to Pastie and she flashes you a grin as she flies up and away, leading you into an alley.  "<i>Well, lemme at it!  A drink sure as hell sounds good right now and none of this seems like it\'d be really bad.</i>"' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', Utils.curry( this.valentineDrinkPastie, itype ) );
@@ -378,11 +378,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'One you\'re away from any prying eyes, Pastie turns to you and rubs her little fairy hands together, apparently barely able to hold her enthusiasm to finally get a bit drunk.  You\'re afraid it may not end at one drink, either, and for a moment, wonder about whether this is all right or not...' );
 		//Corruption 0-20] ;
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( '  It probably isn\'t.' );
 		}
 		//[Corruption 21-75];
-		else if( CoC.getInstance().player.cor < 75 ) {
+		else if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '  You guess as long as she\'s fine afterwards, it should be okay.' );
 		}
 		//[Corruption 76-100];
@@ -418,13 +418,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			//{Fuck is only present if a character has a cock under 8 cock area, Rub Dick option is present if a character has a member underneath 28 cock area. Pussy Dive is obviously present if a character has a pussy of any kind.};
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().player.cockThatFits( 8 ) >= 0 ) {
+		if( CoC.player.cockThatFits( 8 ) >= 0 ) {
 			EngineCore.addButton( 0, 'Fuck', this.fuckPastieForVDay );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 1, 'RubOnDick', this.rubPastieOnYourWangDawg );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Go In Pussy', this.goForAPushayDivePasty );
 		}
 	};
@@ -432,24 +432,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 	//[Fuck];
 	Valentines.prototype.fuckPastieForVDay = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		EngineCore.outputText( 'With a semi-sadistic grin, you watch Pastie saunter towards you, clearly allured by the scent of your genitals.  You stroke your ' + Descriptors.cockDescript( x ) + ', quickly bringing it to an erection, imagining how tight even this little thing will feel inside Pastie\'s small, but now unnaturaly stretchable body.' );
 		EngineCore.outputText( '\n\nBeing able to resist no longer, you grab her little bum and direct her towards your cock, not really hearing whether she\'s cheering, complaining, or asking you to stop; honestly, you could care less when you press your ' + Descriptors.cockDescript( x ) + ' against the entrance to her diminutive vagina and start pushing.' );
-		EngineCore.outputText( '\n\nAfter a while of fruitless pressing against her little legs, bum, and clit, Pastie finally gives way. Even your ' + CoC.getInstance().player.cockHead( x ) + ' is enough to stretch her already, but there\'s not much else to do now other than pushing it in deeper.' );
+		EngineCore.outputText( '\n\nAfter a while of fruitless pressing against her little legs, bum, and clit, Pastie finally gives way. Even your ' + CoC.player.cockHead( x ) + ' is enough to stretch her already, but there\'s not much else to do now other than pushing it in deeper.' );
 		EngineCore.outputText( '\n\nThe tightness of Pastie\'s confines is amazing, even as her body balloons out to more than twice its usual thickness, stretching and quivering around you, trying to either accommodate your ' + Descriptors.cockDescript( x ) + ' or push it out completely.  It almost borders on painful, but also feels like a divine cum milking machine meant to draw your seed out of you.  You gently press Pastie down and pull her up your erection, essentially using her body as a masturbation aid, moaning all the while...' );
 		EngineCore.outputText( '\n\nThat tight snatch is definitely made to make your cock spurt, and it won\'t be long, but for now you\'re enjoying the confines and twitches of a body stretched to beyond its limits only so it could accommodate your cock and cum, licking your lips at the thought.  Yes, you\'ll definitely give that little fairy bitch a good "<i>shot</i>".' );
 		EngineCore.outputText( '\n\nNot really caring about whether it\'s premature or whether she\'s already fucked out of her mind, you groan and dump the contents of your [balls] into Pastie\'s overstretched body, feeling her incredible tightness first block it, then give way, then start pulsing and tugging on you as you fill her.' );
 		//if (cumNormal = true);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '  Even your pretty average load is probably a massive amount for Pastie to take inside herself, and you can see it bloating her even further than your cock would do on its own as you slowly start to pull her off it.  Pastie moans and thrashes as you do, but soon, she\'s off, and your load drips from her pussy and onto the ground.  She seems slightly out of it.' );
 		}//[if (cumMedium = true);
-		else if( CoC.getInstance().player.cumQ() < 500 ) {
+		else if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '  Your cumshots are normally pretty big, but for Pastie, it\'s like a flood.  Her tight confines prompt you to shoot out even more, milking you and tugging on your dick as you pump load after load into her little body.  Pastie screams out, moans, thrashes and pants as she\'s bloated further and further, ballooning out from the sheer amount of cum and starting to slide off your dick, but you keep her there until she starts twitching, her tongue lolling and her apparently losing consciousness.  Afterwards, you pull her off her dick, and your load drips from her pussy and onto the ground, her little body more like a ball now. She\'s more or less unconscious...' );
 		}//[if (cumHigh = true);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '  Pastie yells out at the first wave of your cum, and her tongue lolls out as you fill her up.  Her pussy clearly isn\'t meant to take that much and soon, she\'s little more than a balloon of your sperm, filled to the brim and beyond, sliding off your cock and onto the ground.  You tug on your member a few times to add a cum shower onto the effect, wondering how she\'ll react, before noticing she\'s unconscious.  Damn, that pussy clenches TIGHT and milks well.' );
 		}//[if (cumVeryHigh = true);
-		else if( CoC.getInstance().player.cumQ() < 2000 ) {
+		else if( CoC.player.cumQ() < 2000 ) {
 			EngineCore.outputText( '  Pastie yells out at the first wave of your cum, and her tongue lolls out as you fill her up.  Her pussy tugs at you and you comply, filling her up to the brim, making her into a balloon of your cum rather than a little fairy, stretching her body to its absolute limits only gained thanks to her stretchable cunt.  She clearly isn\'t meant to take that much and yet, you pump equally big loads into her.  Pastie can\'t keep being on your cock with that pressure and is shot out, rolling onto the ground a few meters away as the rest of your load splashes onto the ground.  You look at her, and notice she\'s unconscious.' );
 		}//[if (cumExtreme = true);
 		else {
@@ -458,8 +458,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nHaving gotten off so well, you pat the little fairy on the head and leave her on a nearby windowsill so no animal will harm her when she sleeps - and so nobody steps on her by accident.  She\'s out of it, but given that she\'s made such a good cumdump, she deserves a little safety in return.' );
 		EngineCore.outputText( '\n\nYou grin and lick your lips as you return to camp.' );
 		EngineCore.outputText( '\n\n(<b>You have gained the One Track Mind perk!</b>)' );
-		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -475,14 +475,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nWith a grin, you bring the hand holding Pastie to the base of your [cock biggest] and wrap your fingers around the shaft, pinning the girl to your throbbing pole.  With slow, steady motions, you lift her up and down in long strokes, rubbing her warm soft body along your shaft.  She protests, drunkenly, insisting that she\'s more than capable of handling you without the help, but you raise her to the crest of your cockhead and press your thumb against the back of her head, pushing the noisy sylph\'s open mouth against your urethra just as a dollop of pre-cum bubbles out.  Catching the drug-like spunk full-on, she sputters, swallowing and blinking away the miniature facial you\'ve given her.  The effects are immediate, the alcohol-lubricated fairy instantly pliant to your renewed caresses.  You can finally appreciate why she\'s in addiction counseling: a single drop was enough to leave her reeling - and of pre no less!  She\'s even more sensitive than most of her race, which would explain why she dulls the sensations with liquor.' );
 		EngineCore.outputText( '\n\nFlushed and panting, Pastie gives up trying to control your pace and goes along with it, wrapping her arms and legs around your [cock biggest] as best she can.  Grinding her petite pussy against the bumps and swells of your engorged length, you\'re delighted to find that the little lush\'s cunny is drooling a seemingly endless stream of warm, clear fem-cum.  The lubrication saturates your rod in no time and your pumping grip quickly coats the fairy in her own honey, leaving her glistening as if freshly oiled.  You pull her once more to the sensitive tip of your cockhead, though this time she leans in of her own volition, kissing your peak with ditzy relish, even going so far as to slip her tiny, wet tongue into your urethra.  Satisfied with the renewed, crystal flow gushing from between her legs, you rub her along your shaft with even harder strokes, feeling every curve of her wriggling form.' );
 		EngineCore.outputText( '\n\nPolishing your mast with the amorous drunk has been fun, but you think you\'ve teased her enough. Raising the tempo of your fey massage, you can feel your release building up just behind your [cock biggest] in a heavy pressure that floods your loins with urgency.  Gritting your teeth, you wrap your other hand around the first and bounce her faster and faster along your meat.  Eager caresses become frantic friction as Pastie feels your flesh swelling against her.' );
-		if( CoC.getInstance().player.balls > 0 ) {
-			EngineCore.outputText( '  Your [balls] lurch, ' + CoC.getInstance().player.skin() + ' contracting as liquid passion rises within you.' );
+		if( CoC.player.balls > 0 ) {
+			EngineCore.outputText( '  Your [balls] lurch, ' + CoC.player.skin() + ' contracting as liquid passion rises within you.' );
 		}
-		EngineCore.outputText( '  Your [ass] clenches in anticipation, heralding your climax, so you slide the fairy up your shaft, pulling free from the grip of her arms and legs, holding the confused girl directly in front of your ' + CoC.getInstance().player.multiCockDescriptLight() + ' while loosing your grasp to bear her entire, curvaceous form to the open air.  With a shuddering gasp, you erupt your intoxicating cream directly into the fey girl, your orgasm' );
+		EngineCore.outputText( '  Your [ass] clenches in anticipation, heralding your climax, so you slide the fairy up your shaft, pulling free from the grip of her arms and legs, holding the confused girl directly in front of your ' + CoC.player.multiCockDescriptLight() + ' while loosing your grasp to bear her entire, curvaceous form to the open air.  With a shuddering gasp, you erupt your intoxicating cream directly into the fey girl, your orgasm' );
 		//low cum production:;
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( ' easily drenching the tiny fairy, in plump pearls up and down her naked flesh.' );
-		} else if( CoC.getInstance().player.cumQ() < 750 ) {
+		} else if( CoC.player.cumQ() < 750 ) {
 			EngineCore.outputText( ' leaving her and the arm you\'re holding her in dripping with a sticky alabaster lacquer.' );
 		}//high cum production:;
 		else {
@@ -493,8 +493,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou grin and whistle a spritely tune as you return to camp.' );
 		// (You have gained the One Track Mind perk!);
 		EngineCore.outputText( '\n\n(<b>You have gained the One Track Mind perk!</b>)' );
-		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -503,33 +503,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'With a grin and a lick of your lips, you shed your [armor] and spread your legs for the happily drunk fairy, showing her prize: your [vagina] and the [clit] that accompanies it.  It doesn\'t take Pastie even a few moments to fly towards you and then aim for that [vagina] in a small slalom in the air.  The lips of your gash feel the touch of little hands and feet, and you shudder in anticipation.  Pastie takes long licks all over your vagina and rubs her entire little body around, before finally starting to slip one or another of her limbs experimentally into your [vagina].  It feels amazing to have such a pretty little thing moving around in there, and soon, your [clit] is shown some love as well as Pastie rubs herself all over it before stuffing her face into your wet pussy.' );
 		EngineCore.outputText( '\n\nYou raise a hand to your [chest], moaning out loud, ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'your other hand moving downwards to tug on [oneCock], ' );
 		}
 		EngineCore.outputText( 'anticipating the incoming wriggling inside your pussy and an orgasm you\'ll have with an entire fairy buried inside you.' );
 		EngineCore.outputText( '\n\nPastie doesn\'t disappoint and is soon pushing herself all the way to her hips inside you to get as good of a taste as she can. It does feel amazing when her little hands press against your inner walls, spreading you wide, and your [vagina] starts quivering and clenching around her in anticipation.' );
 		//[if (hascock = true);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  All the while, you continue to jerk off [eachCock], preparing yourself for an orgasm on both sides.' );
 		}
 		EngineCore.outputText( '  She finally takes a full dive inside, and you moan out in pleasure, feeling her little body roll and explore in there, her tongue tasting every bit of fluid she can from what\'s moisturizing your inner passage.' );
 		EngineCore.outputText( '\n\nAfter a while, you\'re moaning out loud, rapidly approaching orgasm, when Pastie, struggling against the clenching and unclenching walls of your [vagina], manages to get her head and hands out of you.  She kisses and wraps her hand around your [clit], stimulating you further as you scream out, her lower body still penetrating you and wiggling around.' );
 		EngineCore.outputText( '\n\nYou can take this no more and you shudder in an orgasm, painting Pastie\'s little body with more of your femcum.  She giggles at the sudden intensity of your contractions, and starts trying to slip out slowly.' );
 		//[if (hascock = true)];
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  At the same time, your cock deposits its own load onto the ground as your hermaphrodite genitals achieve a simultaneous orgasm.' );
 		}
 		//[if (isSquirter = true);
-		if( CoC.getInstance().player.wetness() >= 4 ) {
+		if( CoC.player.wetness() >= 4 ) {
 			EngineCore.outputText( '  She doesn\'t have much to say in the matter when your female ejaculation truly shoots in, though, sending her rolling out of your [vagina] and onto the ground.' );
 		}
 		EngineCore.outputText( '\n\nPastie giggles as she flies onto the nearby wall, heavily, completely soaked in your secretions.  As you look to her, she answers.  "<i>I\'m fine!  It\'s all okay.  Justtt.... too much to drink.  Feels gooood, though, hehe!  We should try that again.</i>"  You nod and smile at her, gently wiping her with a finger and letting her taste your pussy juice off it before going back to camp.' );
 		EngineCore.outputText( '\n\nTrue, this might not have been the most romantic sex act, but it was certainly enjoyable for the two of you.' );
-		if( CoC.getInstance().player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
 			EngineCore.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
-			CoC.getInstance().player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
@@ -539,7 +539,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 	 A) Meeting Scylla's Addiction Group (Scylla, Abylon, Patsie) before.
 	 B) One has to have a cock to play with Scylla or Abylon, but not neccessarily Patsie. One has to bring either Black Cat Beer, Bimbo Champagne, or Goblin Ale to play with Patsie.
 	 C) The player meets Scylla's Addiction Group and they hang out as Scylla goes about establishing the holiday in Tel'Adre.
-	 D) Once this is over, CoC.getInstance().player can choose to stay and spend more time with Patsie, Scylla, or Abylon, or leave.
+	 D) Once this is over, CoC.player can choose to stay and spend more time with Patsie, Scylla, or Abylon, or leave.
 	 E) Staying with Patsie requires one of the alcoholic items. If the player has none, re-direct to Abylon, Scylla, or Leave.
 	 F) The encounter can grant one of three PerkLib. Scylla allows all perks, Patsie allows the Tainted or Corrupted perk, and Abylon allows the Pure or Tainted perk.
 	 G) Picking Scylla leads to walking around Tel'Adre before watching sunset on the walls. The PC and Scylla are allowed to do this due to their reputation.

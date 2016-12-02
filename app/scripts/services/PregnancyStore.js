@@ -102,16 +102,16 @@ angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 	var PREG_NOTICE_MASK = 0x7FFF0000; //Use upper half to store the latest stages of pregnancy the player has noticed
 
 	PregnancyStore.prototype.getType = function() {
-		return this._pregnancyTypeFlag === 0 ? 0 : CoC.getInstance().flags[this._pregnancyTypeFlag] & PREG_TYPE_MASK;
+		return this._pregnancyTypeFlag === 0 ? 0 : CoC.flags[this._pregnancyTypeFlag] & PREG_TYPE_MASK;
 	};
 	PregnancyStore.prototype.getIncubation = function() {
-		return this._pregnancyIncubationFlag === 0 ? 0 : CoC.getInstance().flags[this._pregnancyIncubationFlag];
+		return this._pregnancyIncubationFlag === 0 ? 0 : CoC.flags[this._pregnancyIncubationFlag];
 	};
 	PregnancyStore.prototype.getButtType = function() {
-		return this._buttPregnancyTypeFlag === 0 ? 0 : CoC.getInstance().flags[this._buttPregnancyTypeFlag] & PREG_TYPE_MASK;
+		return this._buttPregnancyTypeFlag === 0 ? 0 : CoC.flags[this._buttPregnancyTypeFlag] & PREG_TYPE_MASK;
 	};
 	PregnancyStore.prototype.getButtIncubation = function() {
-		return (this._buttPregnancyIncubationFlag === 0 ? 0 : CoC.getInstance().flags[this._buttPregnancyIncubationFlag]);
+		return (this._buttPregnancyIncubationFlag === 0 ? 0 : CoC.flags[this._buttPregnancyIncubationFlag]);
 	};
 	PregnancyStore.prototype.isPregnant = function() { //At birth the incubation can be zero so a check vs. type is safer
 		return this.getType() !== 0;
@@ -150,10 +150,10 @@ angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 			newPregIncubation = 0;
 		}
 		if (newPregType !== 0) { //If a pregnancy 'continues' an existing pregnancy then do not change the value for last noticed stage
-			newPregType = (CoC.getInstance().flags[this._pregnancyTypeFlag] & PREG_NOTICE_MASK) + newPregType;
+			newPregType = (CoC.flags[this._pregnancyTypeFlag] & PREG_NOTICE_MASK) + newPregType;
 		}
-		CoC.getInstance().flags[this._pregnancyTypeFlag] = newPregType;
-		CoC.getInstance().flags[this._pregnancyIncubationFlag] = (newPregType === 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
+		CoC.flags[this._pregnancyTypeFlag] = newPregType;
+		CoC.flags[this._pregnancyIncubationFlag] = (newPregType === 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
 	};
 
 	PregnancyStore.prototype.buttKnockUp = function(newPregType, newPregIncubation) {
@@ -172,23 +172,23 @@ angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 			return;
 		}
 		if (newPregType !== 0) { //If a pregnancy 'continues' an existing pregnancy then do not change the value for last noticed stage
-			newPregType = (CoC.getInstance().flags[this._buttPregnancyTypeFlag] & PREG_NOTICE_MASK) + newPregType;
+			newPregType = (CoC.flags[this._buttPregnancyTypeFlag] & PREG_NOTICE_MASK) + newPregType;
 		}
-		CoC.getInstance().flags[this._buttPregnancyTypeFlag] = newPregType;
-		CoC.getInstance().flags[this._buttPregnancyIncubationFlag] = (newPregType === 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
+		CoC.flags[this._buttPregnancyTypeFlag] = newPregType;
+		CoC.flags[this._buttPregnancyIncubationFlag] = (newPregType === 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
 	};
 	//The containing class is responsible for calling pregnancyAdvance, usually once per timeChange()
 	PregnancyStore.prototype.pregnancyAdvance = function() { //Separate function so it can be called more often than timeChange if neccessary
 		if (this.getIncubation() !== 0) {
-			CoC.getInstance().flags[this._pregnancyIncubationFlag]--;
-			if (CoC.getInstance().flags[this._pregnancyIncubationFlag] < 0) {
-				CoC.getInstance().flags[this._pregnancyIncubationFlag] = 0;
+			CoC.flags[this._pregnancyIncubationFlag]--;
+			if (CoC.flags[this._pregnancyIncubationFlag] < 0) {
+				CoC.flags[this._pregnancyIncubationFlag] = 0;
 			}
 		}
 		if (this.getButtIncubation() !== 0) {
-			CoC.getInstance().flags[this._buttPregnancyIncubationFlag]--;
-			if (CoC.getInstance().flags[this._buttPregnancyIncubationFlag] < 0) {
-				CoC.getInstance().flags[this._buttPregnancyIncubationFlag] = 0;
+			CoC.flags[this._buttPregnancyIncubationFlag]--;
+			if (CoC.flags[this._buttPregnancyIncubationFlag] < 0) {
+				CoC.flags[this._buttPregnancyIncubationFlag] = 0;
 			}
 		}
 	};
@@ -226,21 +226,21 @@ angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 	//This function updates the noticed pregnancy event, so it only triggers once per event per pregnancy.
 	PregnancyStore.prototype.eventTriggered = function() {
 		var currentStage = this.getEvent();
-		var lastNoticed = CoC.getInstance().flags[this._pregnancyTypeFlag] & PREG_NOTICE_MASK;
+		var lastNoticed = CoC.flags[this._pregnancyTypeFlag] & PREG_NOTICE_MASK;
 		if (currentStage * 65536 === lastNoticed) { //Player has already noticed this stage
 			return 0;
 		}
-		CoC.getInstance().flags[this._pregnancyTypeFlag] = (CoC.getInstance().flags[this._pregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536); //Strip off the old noticed value by ANDing with PREG_TYPE_MASK
+		CoC.flags[this._pregnancyTypeFlag] = (CoC.flags[this._pregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536); //Strip off the old noticed value by ANDing with PREG_TYPE_MASK
 		return currentStage;
 	};
 	//Same as eventTriggered, but for butts
 	PregnancyStore.prototype.buttEventTriggered = function() {
 		var currentStage = this.getButtEvent();
-		var lastNoticed = CoC.getInstance().flags[this._buttPregnancyTypeFlag] & PREG_NOTICE_MASK;
+		var lastNoticed = CoC.flags[this._buttPregnancyTypeFlag] & PREG_NOTICE_MASK;
 		if (currentStage * 65536 === lastNoticed) { //Player has already noticed this stage
 			return 0;
 		}
-		CoC.getInstance().flags[this._buttPregnancyTypeFlag] = (CoC.getInstance().flags[this._buttPregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536); //Strip off the old noticed value by ANDing with PREG_TYPE_MASK
+		CoC.flags[this._buttPregnancyTypeFlag] = (CoC.flags[this._buttPregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536); //Strip off the old noticed value by ANDing with PREG_TYPE_MASK
 		return currentStage;
 	};
 	PregnancyStore.prototype.getSize = function() {

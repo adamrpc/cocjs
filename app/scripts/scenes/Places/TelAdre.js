@@ -36,24 +36,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	//}endregion;
 	TelAdre.prototype.discoverTelAdre = function() {
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
-			EngineCore.outputText( 'The merciless desert sands grind uncomfortably under your ' + CoC.getInstance().player.feet() + ' as you walk the dunes, searching the trackless sands to uncover their mysteries.  All of a sudden, you can see the outline of a small city in the distance, ringed in sandstone walls.  Strangely it wasn\'t there a few moments before.  It\'s probably just a mirage brought on by the heat.  Then again, you don\'t have any specific direction you\'re heading, what could it hurt to go that way?', false );
+		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+			EngineCore.outputText( 'The merciless desert sands grind uncomfortably under your ' + CoC.player.feet() + ' as you walk the dunes, searching the trackless sands to uncover their mysteries.  All of a sudden, you can see the outline of a small city in the distance, ringed in sandstone walls.  Strangely it wasn\'t there a few moments before.  It\'s probably just a mirage brought on by the heat.  Then again, you don\'t have any specific direction you\'re heading, what could it hurt to go that way?', false );
 			EngineCore.outputText( '\n\nDo you investigate the city in the distance?', false );
 		} else {
 			EngineCore.outputText( 'While out prowling the desert dunes you manage to spy the desert city of Tel\'Adre again.  You could hike over to it again, but some part of you fears being rejected for being \'impure\' once again.  Do you try?', false );
 		}
 		EngineCore.doYesNo( this.encounterTelAdre, SceneLib.camp.returnToCampUseOneHour );
 	};
-	//CoC.getInstance().player chose to approach the city in the distance;
+	//CoC.player chose to approach the city in the distance;
 	TelAdre.prototype.encounterTelAdre = function() {
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
 			EngineCore.outputText( 'You slog through the shifting sands for a long time, not really seeming to get that close.  Just when you\'re about to give up, you crest a large dune and come upon the walls of the city you saw before.  It\'s definitely NOT a mirage.  There are sandstone walls at least fifty feet tall ringing the entire settlement, and the only entrance you can see is a huge gate with thick wooden doors.  The entrance appears to be guarded by a female gray fox who\'s more busy sipping on something from a bottle than watching the desert.\n\n', false );
 			EngineCore.outputText( 'As if detecting your thoughts, she drops the bottle and pulls out a halberd much longer than she is tall.\n\n', false );
 			EngineCore.outputText( '"<i>Hold it!</i>" barks the fox, her dark gray fur bristling in suspicion at your sudden appearance, "<i>What\'s your business in the city of Tel\'Adre?</i>"\n\n', false );
 			EngineCore.outputText( 'You shrug and explain that you know nothing about this town, and just found it while exploring the desert.  The girl stares at you skeptically for a moment and then blows a shrill whistle.  She orders, "<i>No sudden moves.</i>"\n\n', false );
 			EngineCore.outputText( 'Deciding you\'ve nothing to lose by complying, you stand there, awaiting whatever reinforcements this cute vulpine-girl has summoned.  Within the minute, a relatively large-chested centauress emerges from a smaller door cut into the gate, holding a massive bow with an arrow already nocked.\n\n', false );
-			EngineCore.outputText( '"<i>What\'s the problem, Urta?  A demon make it through the barrier?</i>" asks the imposing horse-woman.\n\nUrta the fox shakes her head, replying, "<i>I don\'t think so, Edryn.  ' + CoC.getInstance().player.mf( 'He\'s', 'She\'s' ) + ' something else.  We should use the crystal and see if ' + CoC.getInstance().player.mf( 'he', 'she' ) + '\'s fit to be allowed entry to Tel\'Adre.</i>"\n\n', false );
+			EngineCore.outputText( '"<i>What\'s the problem, Urta?  A demon make it through the barrier?</i>" asks the imposing horse-woman.\n\nUrta the fox shakes her head, replying, "<i>I don\'t think so, Edryn.  ' + CoC.player.mf( 'He\'s', 'She\'s' ) + ' something else.  We should use the crystal and see if ' + CoC.player.mf( 'he', 'she' ) + '\'s fit to be allowed entry to Tel\'Adre.</i>"\n\n', false );
 			EngineCore.outputText( 'You watch the big centaur cautiously as she pulls out a pendant, and approaches you.  "<i>Hold still,</i>" she says, "<i>this will do you no harm.</i>"\n\n', false );
 			EngineCore.outputText( 'She places one hand on your shoulder and holds the crystal in the other.  Her eyes close, but her brow knits as she focuses on something.  ', false );
 			this.telAdreCrystal();
@@ -64,22 +64,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	//Alignment crystal goooooo;
 	TelAdre.prototype.telAdreCrystal = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.TelAdre, 0, 0, 0, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+			CoC.player.createStatusAffect( StatusAffects.TelAdre, 0, 0, 0, 0 );
 		}
 		//-70+ corruption, or possessed by exgartuan;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.getInstance().player.cor >= 70 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.player.cor >= 70 ) {
 			EngineCore.outputText( 'The crystal pendant begins to vibrate in the air, swirling around and glowing dangerously black.  Edryn snatches her hand back and says, "<i>I\'m sorry, but you\'re too far gone to step foot into our city.  If by some miracle you can shake the corruption within you, return to us.</i>"\n\n', false );
 			EngineCore.outputText( 'You shrug and step back.  You could probably defeat these two, but you know you\'d have no hope against however many friends they had beyond the walls.  You turn around and leave, a bit disgruntled at their hospitality.  After walking partway down the dune you spare a glance over your shoulder and discover the city has vanished!  Surprised, you dash back up the dune, flinging sand everywhere, but when you crest the apex, the city is gone.', false );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//-50+ corruption or corrupted Jojo;
-		else if( CoC.getInstance().player.cor >= 50 || SceneLib.jojoScene.monk >= 5 ) {
+		else if( CoC.player.cor >= 50 || SceneLib.jojoScene.monk >= 5 ) {
 			EngineCore.outputText( 'The crystal pendant shimmers, vibrating in place and glowing a purple hue.  Edryn steps back, watching you warily, "<i>You\'ve been deeply touched by corruption.  You balance on a razor\'s edge between falling completely and returning to sanity.  You may enter, but we will watch you closely.</i>"\n\n', false );
 		}
 		//-25+ corruption or corrupted Marae;
-		else if( CoC.getInstance().player.cor >= 25 || CoC.getInstance().player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		else if( CoC.player.cor >= 25 || CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
 			EngineCore.outputText( 'The crystal pendant twirls in place, glowing a dull red.  Edryn takes a small step back and murmers, "<i>You\'ve seen the darkness of this land first hand, but its hold on you is not deep.  You\'ll find sanctuary here.  The demons cannot find this place yet, and we promise you safe passage within the walls.</i>"\n\n', false );
 		}
 		//-Low corruption/pure characters;
@@ -91,12 +91,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.doNext( this.telAdreTour );
 	};
 	TelAdre.prototype.telAdreTour = function() {
-		CoC.getInstance().player.changeStatusValue( StatusAffects.TelAdre, 1, 1 );
+		CoC.player.changeStatusValue( StatusAffects.TelAdre, 1, 1 );
 		EngineCore.outputText( '', true );
 		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( 'Urta leads you into the streets of Tel\'Adre, giving you a brief run-down of her and her city, "<i>You see, about two decades back, the demons were chewing their way through every settlement and civilization in Mareth.  The covenant, a group of powerful magic-users, realized direct confrontation was doomed to fail.  They hid us in the desert with their magic, and the demons can\'t corrupt what they can\'t find.  So we\'re safe, for now.</i>"\n\n', false );
 		EngineCore.outputText( 'The two of you find yourselves in the center of a busy intersection.  Urta explains that this is the main square of the city, and that, although the city is large, a goodly portion of it remains empty.  Much of the population left to assist other settlements in resisting the demons and was lost.  She brushes a lock of stray hair from her eye and guides you down the road, making sure to point out her favorite pub - "The Wet Bitch".  You ', false );
-		if( CoC.getInstance().player.cor < 25 ) {
+		if( CoC.player.cor < 25 ) {
 			EngineCore.outputText( 'blush', false );
 		} else {
 			EngineCore.outputText( 'chuckle', false );
@@ -108,11 +108,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.doNext( this.telAdreMenu );
 	};
 	TelAdre.prototype.telAdreMenu = function() {
-		if( CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && SceneLib.valentines.isValentine() ) {
+		if( CoC.flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.player.balls > 0 && CoC.player.hasCock() && CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && SceneLib.valentines.isValentine() ) {
 			SceneLib.valentines.crazyVDayShenanigansByVenithil();
 			return;
 		}
-		if( !SceneLib.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] === 0 && Utils.rand( 15 ) === 0 && CoC.getInstance().time.hours > 15 ) {
+		if( !SceneLib.urtaQuest.urtaBusy() && CoC.flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] === 0 && Utils.rand( 15 ) === 0 && CoC.time.hours > 15 ) {
 			this.urtaIsABadass();
 			return;
 		}
@@ -120,11 +120,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			SceneLib.urtaPregs.urtaIsAPregnantCopScene();
 			return;
 		}
-		switch( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
+		switch( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
 			case -1:
 			case  0: //Still potentially recruitable
-				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_RANDOM_RECRUITMENT_DISABLED ] === 0 && CoC.getInstance().player.gems > 34 && Utils.rand( 25 ) === 0 ) {
-					if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 0 ) {
+				if( CoC.flags[ kFLAGS.KATHERINE_RANDOM_RECRUITMENT_DISABLED ] === 0 && CoC.player.gems > 34 && Utils.rand( 25 ) === 0 ) {
+					if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] === 0 ) {
 						SceneLib.katherine.ambushByVagrantKittyKats();
 					} else {
 						SceneLib.katherine.repeatAmbushKatherineRecruitMent();
@@ -137,22 +137,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			case  3: //You and Urta are training her
 				break;
 			case  4: //Employed
-				if( !SceneLib.katherine.isAt( SceneLib.katherine.KLOC_KATHS_APT ) && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
+				if( !SceneLib.katherine.isAt( SceneLib.katherine.KLOC_KATHS_APT ) && CoC.flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
 					SceneLib.katherineEmployment.katherineGetsEmployed();
 					return;
 				}
-				if( CoC.getInstance().time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
+				if( CoC.time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
 					SceneLib.katherine.katherineOnDuty();
 					return;
 				}
 				break;
 			default: //Has given you a spare key to her apartment
-				if( CoC.getInstance().time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
+				if( CoC.time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
 					SceneLib.katherine.katherineOnDuty();
 					return;
 				}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 0 && CoC.getInstance().player.level >= 4 && Utils.rand( 10 ) === 0 && CoC.getInstance().flags[ kFLAGS.NOT_HELPED_ARIAN_TODAY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 0 && CoC.player.level >= 4 && Utils.rand( 10 ) === 0 && CoC.flags[ kFLAGS.NOT_HELPED_ARIAN_TODAY ] === 0 ) {
 			SceneLib.arianScene.meetArian();
 			return;
 		}
@@ -162,31 +162,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//Must have Urta's Key.;
 		//Urta must be pregnant to trigger this scene.;
 		//Play this scene upon entering Tel'Adre.;
-		if( SceneLib.urta.pregnancy.event > 2 && Utils.rand( 4 ) === 0 && CoC.getInstance().flags[ kFLAGS.URTA_PREGNANT_DELIVERY_SCENE ] === 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
+		if( SceneLib.urta.pregnancy.event > 2 && Utils.rand( 4 ) === 0 && CoC.flags[ kFLAGS.URTA_PREGNANT_DELIVERY_SCENE ] === 0 && CoC.player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
 			SceneLib.urtaPregs.urtaSpecialDeliveries();
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === -1 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === -1 ) {
 			SceneLib.maddie.runAwayMaddieFollowup();
 			return;
 		}
 		EngineCore.spriteSelect( -1 );
 		EngineCore.outputText( 'Tel\'Adre is a massive city, though most of its inhabitants tend to hang around the front few city blocks.  It seems the fall of Mareth did not leave the city of Tel\'Adre totally unscathed.  A massive tower rises up in the center of the city, shimmering oddly.  From what you overhear in the streets, the covenant\'s magic-users slave away in that tower, working to keep the city veiled from outside dangers.  There does not seem to be a way to get into the unused portions of the city, but you\'ll keep your eyes open.\n\n', true );
 		EngineCore.outputText( 'A sign depicting a hermaphroditic centaur covered in piercings hangs in front of one of the sandstone buildings, and bright pink lettering declares it to be the \'Piercing Studio\'.  You glance over and see the wooden facade of Urta\'s favorite bar, \'The Wet Bitch\'.  How strange that those would be what she talks about during a tour.  In any event you can also spot some kind of wolf-man banging away on an anvil in a blacksmith\'s stand, and a foppishly-dressed dog-man with large floppy ears seems to be running some kind of pawnshop in his stand.  Steam boils from the top of a dome-shaped structure near the far end of the street, and simple lettering painted on the dome proclaims it to be a bakery.  Perhaps those shops will be interesting as well.', false );
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && !SceneLib.raphael.RaphaelLikes() ) {
+		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && !SceneLib.raphael.RaphaelLikes() ) {
 			EngineCore.outputText( '\n\nYou remember Raphael\'s offer about the Orphanage, but you might want to see about shaping yourself more to his tastes first.  He is a picky fox, after all, and you doubt he would take well to seeing you in your current state.' );
 		}
 		this.telAdreMenuShow();
 	};
 	TelAdre.prototype.telAdreMenuShow = function() { //Just displays the normal Tel'Adre menu options, no special events, no description. Useful if a special event has already played
 		var homes = false;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && SceneLib.raphael.RaphaelLikes() ) {
+		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && SceneLib.raphael.RaphaelLikes() ) {
 			homes = true;
-		} else if( CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
+		} else if( CoC.player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
 			homes = true;
-		} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
+		} else if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
 			homes = true;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
 			homes = true;
 		}
 		EngineCore.menu();
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		if( homes ) {
 			EngineCore.addButton( 4, 'Homes', this.houses );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] < 4 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_PARK ] > 0 && CoC.flags[ kFLAGS.ARIAN_PARK ] < 4 ) {
 			EngineCore.addButton( 5, 'Park', SceneLib.arianScene.visitThePark );
 		}
 		EngineCore.addButton( 6, 'Pawn', this.oswaldPawn );
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.addButton( 0, 'Blacksmith', this.armorShop );
 		EngineCore.addButton( 1, 'Piercing', this.piercingStudio );
 		EngineCore.addButton( 2, 'Tailor', this.tailorShoppe );
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 1 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 1 ) {
 			EngineCore.addButton( 3, 'Clinic', SceneLib.umasShop.enterClinic );
 		}
 		EngineCore.addButton( 4, 'Back', this.telAdreMenu );
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Whose home will you visit?' );
 		var orphanage = null;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 ) {
+		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 ) {
 			if( SceneLib.raphael.RaphaelLikes() ) {
 				orphanage = SceneLib.raphael.orphanageIntro;
 			} else {
@@ -227,14 +227,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			}
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
+		if( CoC.flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
 			EngineCore.addButton( 0, 'Arian\'s', SceneLib.arianScene.visitAriansHouse );
 		}
 		EngineCore.addButton( 1, 'Orphanage', orphanage );
-		if( SceneLib.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
+		if( SceneLib.urtaPregs.urtaKids() > 0 && CoC.player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
 			EngineCore.addButton( 2, 'Urta\'s House', (SceneLib.katherine.isAt( SceneLib.katherine.KLOC_URTAS_HOME ) ? SceneLib.katherine.katherineAtUrtas : SceneLib.urtaPregs.visitTheHouse) );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
+		if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
 			EngineCore.addButton( 3, 'Kath\'s Apt', SceneLib.katherine.visitAtHome );
 		}
 		EngineCore.addButton( 9, 'Back', this.telAdreMenu );
@@ -242,13 +242,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.piercingStudio = function() {
 		EngineCore.spriteSelect( 63 );
 		var about = null;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Yara ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Yara ) < 0 ) {
 			about = this.aboutYara;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'The interior of the piercing studio is earthy, leaving the stone floors and walls uncovered, though the windows are covered with woven blankets, sewn from multicolored threads.  There are a number of cushy chairs facing a wall of mirrors, along with a shelf covered in needles, piercings, and strong alcohols.  A brunette prowls about the place, tidying it up during a lull in business.  You dully notice that unlike everyone else in this town, she\'s mostly human.  Perhaps she came through a portal as well?  She approaches you, and you see a cat tail waving behind her, and a pair of fuzzy feline ears, both covered in piercings, perched atop her head.  Clearly she\'s been here long enough to pick up some of the local flavor.\n\n', false );
-		EngineCore.outputText( 'She introduces herself, "<i>Hello there ' + CoC.getInstance().player.mf( 'sir', 'cutie' ) + ', my name is Yara.  Would you like to get a piercing?</i>"', false );
-		if( !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
+		EngineCore.outputText( 'She introduces herself, "<i>Hello there ' + CoC.player.mf( 'sir', 'cutie' ) + ', my name is Yara.  Would you like to get a piercing?</i>"', false );
+		if( !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
 			EngineCore.choices( 'Pierce', this.pierceMenu, 'Remove', this.piercingRemove, 'About Her', about, '', null, 'Leave', this.telAdreMenu );
 		} else {
 			EngineCore.outputText( '\n\n(Low Standard mode!)\nAlternatively, she might be open to a quick fuck if you ask.' );
@@ -266,9 +266,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.aboutYara = function() {
 		EngineCore.spriteSelect( 63 );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.Yara, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.Yara, 0, 0, 0, 0 );
 		EngineCore.outputText( 'You introduce yourself and ask Yara about her past, noting that ', true );
-		if( CoC.getInstance().player.humanScore() <= 2 ) {
+		if( CoC.player.humanScore() <= 2 ) {
 			EngineCore.outputText( 'you were once a human too.', false );
 		} else {
 			EngineCore.outputText( 'you haven\'t seen many other humans about.', false );
@@ -281,48 +281,48 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( 63 );
 		EngineCore.hideUpDown();
 		var clit = null;
-		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.vaginas[ 0 ].clitPierced === 0 ) {
+		if( CoC.player.hasVagina() ) {
+			if( CoC.player.vaginas[ 0 ].clitPierced === 0 ) {
 				clit = this.clitPierce;
 			}
 		}
 		var dick = null;
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
-			if( CoC.getInstance().player.cocks[ 0 ].pierced === 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
+			if( CoC.player.cocks[ 0 ].pierced === 0 ) {
 				dick = this.dickPierce;
 			}
 		}
 		var ears = null;
-		if( CoC.getInstance().player.earsPierced === 0 ) {
+		if( CoC.player.earsPierced === 0 ) {
 			ears = this.earPierce;
 		}
 		var eyebrow = null;
-		if( CoC.getInstance().player.eyebrowPierced === 0 ) {
+		if( CoC.player.eyebrowPierced === 0 ) {
 			eyebrow = this.eyebrowPierce;
 		}
 		var lip = null;
-		if( CoC.getInstance().player.lipPierced === 0 ) {
+		if( CoC.player.lipPierced === 0 ) {
 			lip = this.lipPierce;
 		}
 		var nipples = null;
-		if( CoC.getInstance().player.nipplesPierced === 0 ) {
+		if( CoC.player.nipplesPierced === 0 ) {
 			nipples = this.nipplePierce;
 		}
 		var nose = null;
-		if( CoC.getInstance().player.nosePierced === 0 ) {
+		if( CoC.player.nosePierced === 0 ) {
 			nose = this.nosePierce;
 		}
 		var tongue = null;
-		if( CoC.getInstance().player.tonguePierced === 0 ) {
+		if( CoC.player.tonguePierced === 0 ) {
 			tongue = this.tonguePierce;
 		}
 		var vulva = null;
-		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.vaginas[ 0 ].labiaPierced === 0 ) {
+		if( CoC.player.hasVagina() ) {
+			if( CoC.player.vaginas[ 0 ].labiaPierced === 0 ) {
 				vulva = this.vulvaPierce;
 			}
 		}
-		EngineCore.outputText( 'Yara asks, "<i>Ok then, what would you like pierced ' + CoC.getInstance().player.mf( 'sir', 'cutie' ) + '?  Just keep in mind my piercings are special - they\'re permanent and CAN\'T be removed.</i>"', true );
+		EngineCore.outputText( 'Yara asks, "<i>Ok then, what would you like pierced ' + CoC.player.mf( 'sir', 'cutie' ) + '?  Just keep in mind my piercings are special - they\'re permanent and CAN\'T be removed.</i>"', true );
 		if( clit !== null || dick !== null || ears !== null || eyebrow !== null || lip !== null || nipples !== null || nose !== null || tongue !== null || vulva !== null ) {
 			EngineCore.choices( 'Clit', clit, 'Dick', dick, 'Ears', ears, 'Eyebrow', eyebrow, 'Lip', lip, 'Nipples', nipples, 'Nose', nose, 'Tongue', tongue, 'Labia', vulva, 'Back', this.piercingStudio );
 		} else {
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.dickPierce = function() {
 		EngineCore.spriteSelect( 63 );
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( '"<i>Ok, this is gonna hurt a LOT, but I\'ve heard good things about it.  What kind of piercing do you want done?</i>" Yara asks.', true );
 		} else {
 			EngineCore.outputText( 'You realize you don\'t have a dick to pierce.  Whoops!  Better pick something else...', true );
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.clitPierce = function() {
 		EngineCore.spriteSelect( 63 );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '"<i>Ohhh, that\'s going to be suckably cute!</i>" exclaims Yara, blushing more than a little. "<i>What kind of piercing would you like?</i>', true );
 		} else {
 			EngineCore.outputText( 'You realize you don\'t have a clit to pierce.  Whoops!  Better pick something else...', true );
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.vulvaPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		this.piercingLoc = 8;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'Yara explains, "<i>This is gonna hurt a lot, but I think you\'ll love how it feels after.  I know I do!  Now what kind of jewelry do you want down-town?</i>"', true );
 		} else {
 			EngineCore.outputText( 'You realize you don\'t have a pussy to pierce.  Whoops!  Better pick something else...', true );
@@ -425,13 +425,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.chooseMaterials = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gathers up her materials and says, "<i>Ok, now what type of material do you want it made from?  Don\'t worry about price, none of these are that rare, so the piercing will only be 100 gems.  Though I do have some rarer materials; you\'ll need 1,000 gems to spend if you want to check them out.</i>"', true );
-		if( CoC.getInstance().player.gems < 100 ) {
+		if( CoC.player.gems < 100 ) {
 			EngineCore.outputText( '\n\nYou realize you don\'t have enough gems to get a piercing.', false );
 			EngineCore.doNext( this.piercingStudio );
 			return;
 		}
 		var rare = null;
-		if( CoC.getInstance().player.gems >= 1000 ) {
+		if( CoC.player.gems >= 1000 ) {
 			rare = this.chooseAdvancedMaterials;
 		}
 		EngineCore.choices( 'Amethyst', this.chooseAmethyst, 'Diamond', this.chooseDiamond, 'Gold', this.chooseGold, 'Emerald', this.chooseEmerald, 'Jade', this.chooseJade, 'Onyx', this.chooseOnyx, 'Ruby', this.chooseRuby, 'Steel', this.chooseSteel, 'Rare Menu', rare, 'Nevermind', this.piercingStudio );
@@ -523,9 +523,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//var piercingMat:Number = 0;;
 		var shortP = '';
 		var longP = '';
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		if( this.piercingMat > 8 ) {
-			CoC.getInstance().player.gems -= 900;
+			CoC.player.gems -= 900;
 		}
 		EngineCore.statScreenRefresh();
 		//set up material description;
@@ -572,33 +572,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 				break;
 			case 9:
 				shortP += 'lethite ';
-				if( CoC.getInstance().player.findPerk( PerkLib.PiercedLethite ) < 0 ) {
-					CoC.getInstance().player.createPerk( PerkLib.PiercedLethite, 0, 0, 0, 0 );
+				if( CoC.player.findPerk( PerkLib.PiercedLethite ) < 0 ) {
+					CoC.player.createPerk( PerkLib.PiercedLethite, 0, 0, 0, 0 );
 				}
 				longP += 'Lethite ';
 				break;
 			case 10:
 				shortP += 'fertite ';
-				if( CoC.getInstance().player.findPerk( PerkLib.PiercedFertite ) < 0 ) {
-					CoC.getInstance().player.createPerk( PerkLib.PiercedFertite, 5, 0, 0, 0 );
+				if( CoC.player.findPerk( PerkLib.PiercedFertite ) < 0 ) {
+					CoC.player.createPerk( PerkLib.PiercedFertite, 5, 0, 0, 0 );
 				} else {
-					CoC.getInstance().player.addPerkValue( PerkLib.PiercedFertite, 1, 5 );
+					CoC.player.addPerkValue( PerkLib.PiercedFertite, 1, 5 );
 				}
 				longP += 'Fertite ';
 				break;
 			case 11:
 				shortP += 'furrite ';
-				if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) < 0 ) {
-					CoC.getInstance().player.createPerk( PerkLib.PiercedFurrite, 0, 0, 0, 0 );
+				if( CoC.player.findPerk( PerkLib.PiercedFurrite ) < 0 ) {
+					CoC.player.createPerk( PerkLib.PiercedFurrite, 0, 0, 0, 0 );
 				}
 				longP += 'Furrite ';
 				break;
 			case 12:
 				shortP += 'crimstone ';
-				if( CoC.getInstance().player.findPerk( PerkLib.PiercedCrimstone ) < 0 ) {
-					CoC.getInstance().player.createPerk( PerkLib.PiercedCrimstone, 5, 0, 0, 0 );
+				if( CoC.player.findPerk( PerkLib.PiercedCrimstone ) < 0 ) {
+					CoC.player.createPerk( PerkLib.PiercedCrimstone, 5, 0, 0, 0 );
 				} else {
-					CoC.getInstance().player.addPerkValue( PerkLib.PiercedCrimstone, 1, 5 );
+					CoC.player.addPerkValue( PerkLib.PiercedCrimstone, 1, 5 );
 				}
 				longP += 'Crimstone ';
 				break;
@@ -722,49 +722,49 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			 8) **Vulva (+1 sens)*/
 			//var piercingLoc:Number = 0;;
 			case 0:
-				CoC.getInstance().player.vaginas[ 0 ].clitPierced = this.piercingType;
-				CoC.getInstance().player.vaginas[ 0 ].clitPShort = shortP;
-				CoC.getInstance().player.vaginas[ 0 ].clitPLong = longP;
+				CoC.player.vaginas[ 0 ].clitPierced = this.piercingType;
+				CoC.player.vaginas[ 0 ].clitPShort = shortP;
+				CoC.player.vaginas[ 0 ].clitPLong = longP;
 				break;
 			case 1:
-				CoC.getInstance().player.cocks[ 0 ].pierced = this.piercingType;
-				CoC.getInstance().player.cocks[ 0 ].pShortDesc = shortP;
-				CoC.getInstance().player.cocks[ 0 ].pLongDesc = longP;
+				CoC.player.cocks[ 0 ].pierced = this.piercingType;
+				CoC.player.cocks[ 0 ].pShortDesc = shortP;
+				CoC.player.cocks[ 0 ].pLongDesc = longP;
 				break;
 			case 2:
-				CoC.getInstance().player.earsPierced = this.piercingType;
-				CoC.getInstance().player.earsPShort = shortP;
-				CoC.getInstance().player.earsPLong = longP;
+				CoC.player.earsPierced = this.piercingType;
+				CoC.player.earsPShort = shortP;
+				CoC.player.earsPLong = longP;
 				break;
 			case 3:
-				CoC.getInstance().player.eyebrowPierced = this.piercingType;
-				CoC.getInstance().player.eyebrowPShort = shortP;
-				CoC.getInstance().player.eyebrowPLong = longP;
+				CoC.player.eyebrowPierced = this.piercingType;
+				CoC.player.eyebrowPShort = shortP;
+				CoC.player.eyebrowPLong = longP;
 				break;
 			case 4:
-				CoC.getInstance().player.lipPierced = this.piercingType;
-				CoC.getInstance().player.lipPShort = shortP;
-				CoC.getInstance().player.lipPLong = longP;
+				CoC.player.lipPierced = this.piercingType;
+				CoC.player.lipPShort = shortP;
+				CoC.player.lipPLong = longP;
 				break;
 			case 5:
-				CoC.getInstance().player.nipplesPierced = this.piercingType;
-				CoC.getInstance().player.nipplesPShort = shortP;
-				CoC.getInstance().player.nipplesPLong = longP;
+				CoC.player.nipplesPierced = this.piercingType;
+				CoC.player.nipplesPShort = shortP;
+				CoC.player.nipplesPLong = longP;
 				break;
 			case 6:
-				CoC.getInstance().player.nosePierced = this.piercingType;
-				CoC.getInstance().player.nosePShort = shortP;
-				CoC.getInstance().player.nosePLong = longP;
+				CoC.player.nosePierced = this.piercingType;
+				CoC.player.nosePShort = shortP;
+				CoC.player.nosePLong = longP;
 				break;
 			case 7:
-				CoC.getInstance().player.tonguePierced = this.piercingType;
-				CoC.getInstance().player.tonguePShort = shortP;
-				CoC.getInstance().player.tonguePLong = longP;
+				CoC.player.tonguePierced = this.piercingType;
+				CoC.player.tonguePShort = shortP;
+				CoC.player.tonguePLong = longP;
 				break;
 			case 8:
-				CoC.getInstance().player.vaginas[ 0 ].labiaPierced = this.piercingType;
-				CoC.getInstance().player.vaginas[ 0 ].labiaPShort = shortP;
-				CoC.getInstance().player.vaginas[ 0 ].labiaPLong = longP;
+				CoC.player.vaginas[ 0 ].labiaPierced = this.piercingType;
+				CoC.player.vaginas[ 0 ].labiaPShort = shortP;
+				CoC.player.vaginas[ 0 ].labiaPLong = longP;
 				break;
 		}
 		//Girls;
@@ -773,7 +773,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			return;
 		}
 		//Dudes;
-		else if( this.piercingLoc === 1 && (CoC.getInstance().player.cockThatFits( 36 ) >= 0 || CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) {
+		else if( this.piercingLoc === 1 && (CoC.player.cockThatFits( 36 ) >= 0 || CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) {
 			this.yaraSex( false );
 			return;
 		}
@@ -785,44 +785,44 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( 63 );
 		EngineCore.hideUpDown();
 		var clit = null;
-		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.vaginas[ 0 ].clitPierced > 0 ) {
+		if( CoC.player.hasVagina() ) {
+			if( CoC.player.vaginas[ 0 ].clitPierced > 0 ) {
 				clit = this.removeClitPierce;
 			}
 		}
 		var dick = null;
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
-			if( CoC.getInstance().player.cocks[ 0 ].pierced > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
+			if( CoC.player.cocks[ 0 ].pierced > 0 ) {
 				dick = this.removeCockPierce;
 			}
 		}
 		var ears = null;
-		if( CoC.getInstance().player.earsPierced > 0 ) {
+		if( CoC.player.earsPierced > 0 ) {
 			ears = this.removeEarsPierce;
 		}
 		var eyebrow = null;
-		if( CoC.getInstance().player.eyebrowPierced > 0 ) {
+		if( CoC.player.eyebrowPierced > 0 ) {
 			eyebrow = this.removeEyebrowPierce;
 		}
 		var lip = null;
-		if( CoC.getInstance().player.lipPierced > 0 ) {
+		if( CoC.player.lipPierced > 0 ) {
 			lip = this.removeLipPierce;
 		}
 		var nipples = null;
-		if( CoC.getInstance().player.nipplesPierced > 0 ) {
+		if( CoC.player.nipplesPierced > 0 ) {
 			nipples = this.removeNipplesPierce;
 		}
 		var nose = null;
-		if( CoC.getInstance().player.nosePierced > 0 ) {
+		if( CoC.player.nosePierced > 0 ) {
 			nose = this.removeNosePierce;
 		}
 		var tongue = null;
-		if( CoC.getInstance().player.tonguePierced > 0 ) {
+		if( CoC.player.tonguePierced > 0 ) {
 			tongue = this.removeTonguePierce;
 		}
 		var vulva = null;
-		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.vaginas[ 0 ].labiaPierced > 0 ) {
+		if( CoC.player.hasVagina() ) {
+			if( CoC.player.vaginas[ 0 ].labiaPierced > 0 ) {
 				vulva = this.removeVulvaPierce;
 			}
 		}
@@ -832,13 +832,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			return;
 		}
 		EngineCore.outputText( '"<i>Really?</i>" asks Yara, "<i>I told you those piercings are permanent!  Well, I suppose they CAN be removed, but you\'re gonna hurt like hell afterwards.  If you really want me to, I can remove something, but it\'ll cost you 100 gems for the painkillers and labor.</i>"', true );
-		if( CoC.getInstance().player.gems < 100 ) {
+		if( CoC.player.gems < 100 ) {
 			EngineCore.outputText( '\n\n<b>You do not have enough gems.</b>', false );
 			EngineCore.doNext( this.piercingStudio );
 			return;
 		}
-		if( CoC.getInstance().player.tou <= 5.5 ) {
-			EngineCore.outputText( 'Yara looks you up and down before refusing you outright, "<i>You don\'t look so good ' + CoC.getInstance().player.short + '.  I don\'t think your body could handle it right now.</i>"', true );
+		if( CoC.player.tou <= 5.5 ) {
+			EngineCore.outputText( 'Yara looks you up and down before refusing you outright, "<i>You don\'t look so good ' + CoC.player.short + '.  I don\'t think your body could handle it right now.</i>"', true );
 			EngineCore.doNext( this.piercingStudio );
 			return;
 		}
@@ -847,108 +847,108 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.removeClitPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.vaginas[ 0 ].clitPierced = 0;
-		CoC.getInstance().player.vaginas[ 0 ].clitPShort = '';
-		CoC.getInstance().player.vaginas[ 0 ].clitPLong = '';
+		CoC.player.vaginas[ 0 ].clitPierced = 0;
+		CoC.player.vaginas[ 0 ].clitPShort = '';
+		CoC.player.vaginas[ 0 ].clitPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeCockPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.cocks[ 0 ].pierced = 0;
-		CoC.getInstance().player.cocks[ 0 ].pShortDesc = '';
-		CoC.getInstance().player.cocks[ 0 ].pLongDesc = '';
+		CoC.player.cocks[ 0 ].pierced = 0;
+		CoC.player.cocks[ 0 ].pShortDesc = '';
+		CoC.player.cocks[ 0 ].pLongDesc = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeEarsPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.earsPierced = 0;
-		CoC.getInstance().player.earsPShort = '';
-		CoC.getInstance().player.earsPLong = '';
+		CoC.player.earsPierced = 0;
+		CoC.player.earsPShort = '';
+		CoC.player.earsPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeEyebrowPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.eyebrowPierced = 0;
-		CoC.getInstance().player.eyebrowPShort = '';
-		CoC.getInstance().player.eyebrowPLong = '';
+		CoC.player.eyebrowPierced = 0;
+		CoC.player.eyebrowPShort = '';
+		CoC.player.eyebrowPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeLipPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.lipPierced = 0;
-		CoC.getInstance().player.lipPShort = '';
-		CoC.getInstance().player.lipPLong = '';
+		CoC.player.lipPierced = 0;
+		CoC.player.lipPShort = '';
+		CoC.player.lipPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeNipplesPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.nipplesPierced = 0;
-		CoC.getInstance().player.nipplesPShort = '';
-		CoC.getInstance().player.nipplesPLong = '';
+		CoC.player.nipplesPierced = 0;
+		CoC.player.nipplesPShort = '';
+		CoC.player.nipplesPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeNosePierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.nosePierced = 0;
-		CoC.getInstance().player.nosePShort = '';
-		CoC.getInstance().player.nosePLong = '';
+		CoC.player.nosePierced = 0;
+		CoC.player.nosePShort = '';
+		CoC.player.nosePLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeTonguePierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.tonguePierced = 0;
-		CoC.getInstance().player.tonguePShort = '';
-		CoC.getInstance().player.tonguePLong = '';
+		CoC.player.tonguePierced = 0;
+		CoC.player.tonguePShort = '';
+		CoC.player.tonguePLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.removeVulvaPierce = function() {
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
-		CoC.getInstance().player.vaginas[ 0 ].labiaPierced = 0;
-		CoC.getInstance().player.vaginas[ 0 ].labiaPShort = '';
-		CoC.getInstance().player.vaginas[ 0 ].labiaPLong = '';
+		CoC.player.vaginas[ 0 ].labiaPierced = 0;
+		CoC.player.vaginas[ 0 ].labiaPShort = '';
+		CoC.player.vaginas[ 0 ].labiaPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
-		CoC.getInstance().player.gems -= 100;
+		CoC.player.gems -= 100;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.piercingStudio );
 	};
 	TelAdre.prototype.oswaldPawn = function() {
 		EngineCore.spriteSelect( 47 );
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Oswald ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Oswald ) < 0 ) {
 			EngineCore.outputText( 'Upon closer inspection, you realize the pawnbroker appears to be some kind of golden retriever.  He doesn\'t look entirely comfortable and he slouches, but he manages to smile the entire time.  His appearance is otherwise immaculate, including his classy suit-jacket and tie, though he doesn\'t appear to be wearing any pants.  Surprisingly, his man-bits are retracted.  ', false );
-			if( CoC.getInstance().player.cor < 75 ) {
+			if( CoC.player.cor < 75 ) {
 				EngineCore.outputText( 'Who would\'ve thought that seeing someone NOT aroused would ever shock you?', false );
 			} else {
 				EngineCore.outputText( 'What a shame, but maybe you can give him a reason to stand up straight?', false );
@@ -956,14 +956,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			EngineCore.outputText( '  His stand is a disheveled mess, in stark contrast to its well-groomed owner.  He doesn\'t appear to be selling anything at all right now.\n\n', false );
 			EngineCore.outputText( 'The dog introduces himself as Oswald and gives his pitch, "<i>Do you have anything you\'d be interested in selling?  The name\'s Oswald, and I\'m the best trader in Tel\'Adre.</i>"\n\n', false );
 			EngineCore.outputText( '(You can sell an item here, but Oswald will not let you buy them back, so be sure of your sales.)', false );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Oswald, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Oswald, 0, 0, 0, 0 );
 		} else {
-			EngineCore.outputText( 'You see Oswald fiddling with a top hat as you approach his stand again.  He looks up and smiles, padding up to you and rubbing his furry hands together.  He asks, "<i>Have any merchandise for me ' + CoC.getInstance().player.mf( 'sir', 'dear' ) + '?</i>"\n\n', false );
+			EngineCore.outputText( 'You see Oswald fiddling with a top hat as you approach his stand again.  He looks up and smiles, padding up to you and rubbing his furry hands together.  He asks, "<i>Have any merchandise for me ' + CoC.player.mf( 'sir', 'dear' ) + '?</i>"\n\n', false );
 			EngineCore.outputText( '(You can sell an item here, but Oswald will not let you buy them back, so be sure of your sales.)', false );
 		}
-		if( CoC.getInstance().player.hasKeyItem( 'Carrot' ) < 0 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 3 ) {
+		if( CoC.player.hasKeyItem( 'Carrot' ) < 0 && CoC.flags[ kFLAGS.NIEVE_STAGE ] === 3 ) {
 			EngineCore.outputText( '\n\nIn passing, you mention that you\'re looking for a carrot.\n\nOswald\'s tophat tips precariously as his ears perk up, and he gladly announces, "<i>I happen to have come across one recently - something of a rarity in these dark times, you see.  I could let it go for 500 gems, if you\'re interested.</i>"' );
-			if( CoC.getInstance().player.gems < 500 ) {
+			if( CoC.player.gems < 500 ) {
 				EngineCore.outputText( '\n\n<b>You can\'t afford that!</b>' );
 				this.oswaldPawnMenu(); //eventParser(1065);
 			} else {
@@ -976,9 +976,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 	};
 	TelAdre.prototype.buyCarrotFromOswald = function() {
-		CoC.getInstance().player.gems -= 500;
+		CoC.player.gems -= 500;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().player.createKeyItem( 'Carrot', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'Carrot', 0, 0, 0, 0 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Gems change hands in a flash, and you\'re now the proud owner of a bright orange carrot!\n\n(<b>Acquired Key Item: Carrot</b>)' );
 		EngineCore.menu();
@@ -990,16 +990,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.menu();
 		var totalItems = 0;
 		for( var slot = 0; slot < 5; slot++ ) {
-			if( CoC.getInstance().player.itemSlots[ slot ].quantity > 0 && CoC.getInstance().player.itemSlots[ slot ].itype.value >= 1 ) {
-				EngineCore.outputText( '\n' + Math.ceil( CoC.getInstance().player.itemSlots[ slot ].itype.value / 2 ) + ' gems for ' + CoC.getInstance().player.itemSlots[ slot ].itype.longName + '.' );
-				EngineCore.addButton( slot, (CoC.getInstance().player.itemSlots[ slot ].itype.shortName + ' x' + CoC.getInstance().player.itemSlots[ slot ].quantity), this.oswaldPawnSell, slot );
-				totalItems += CoC.getInstance().player.itemSlots[ slot ].quantity;
+			if( CoC.player.itemSlots[ slot ].quantity > 0 && CoC.player.itemSlots[ slot ].itype.value >= 1 ) {
+				EngineCore.outputText( '\n' + Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 ) + ' gems for ' + CoC.player.itemSlots[ slot ].itype.longName + '.' );
+				EngineCore.addButton( slot, (CoC.player.itemSlots[ slot ].itype.shortName + ' x' + CoC.player.itemSlots[ slot ].quantity), this.oswaldPawnSell, slot );
+				totalItems += CoC.player.itemSlots[ slot ].quantity;
 			}
 		}
 		if( totalItems > 1 ) {
 			EngineCore.addButton( 7, 'Sell All', this.oswaldPawnSellAll );
 		}
-		switch( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
+		switch( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
 			case 1:
 			case 2:
 				EngineCore.addButton( 5, 'Kath\'s Alley', SceneLib.katherine.visitKatherine );
@@ -1014,15 +1014,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.oswaldPawnSell = function( slot ) { //Moved here from Inventory.as
 		EngineCore.spriteSelect( 47 );
-		var itemValue = Math.ceil( CoC.getInstance().player.itemSlots[ slot ].itype.value / 2 );
+		var itemValue = Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 );
 		EngineCore.clearOutput();
 		if( itemValue === 0 ) {
-			EngineCore.outputText( 'You hand over ' + CoC.getInstance().player.itemSlots[ slot ].itype.longName + ' to Oswald.  He shrugs and says, “<i>Well ok, it isn\'t worth anything, but I\'ll take it.</i>”' );
+			EngineCore.outputText( 'You hand over ' + CoC.player.itemSlots[ slot ].itype.longName + ' to Oswald.  He shrugs and says, “<i>Well ok, it isn\'t worth anything, but I\'ll take it.</i>”' );
 		} else {
-			EngineCore.outputText( 'You hand over ' + CoC.getInstance().player.itemSlots[ slot ].itype.longName + ' to Oswald.  He nervously pulls out ' + Utils.num2Text( itemValue ) + ' gems and drops them into your waiting hand.' );
+			EngineCore.outputText( 'You hand over ' + CoC.player.itemSlots[ slot ].itype.longName + ' to Oswald.  He nervously pulls out ' + Utils.num2Text( itemValue ) + ' gems and drops them into your waiting hand.' );
 		}
-		CoC.getInstance().player.itemSlots[ slot ].removeOneItem();
-		CoC.getInstance().player.gems += itemValue;
+		CoC.player.itemSlots[ slot ].removeOneItem();
+		CoC.player.gems += itemValue;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.oswaldPawn );
 	};
@@ -1031,13 +1031,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		var itemValue = 0;
 		EngineCore.clearOutput();
 		for( var slot = 0; slot < 5; slot++ ) {
-			if( CoC.getInstance().player.itemSlots[ slot ].quantity > 0 && CoC.getInstance().player.itemSlots[ slot ].itype.value >= 1 ) {
-				itemValue += CoC.getInstance().player.itemSlots[ slot ].quantity * Math.ceil( CoC.getInstance().player.itemSlots[ slot ].itype.value / 2 );
-				CoC.getInstance().player.itemSlots[ slot ].quantity = 0;
+			if( CoC.player.itemSlots[ slot ].quantity > 0 && CoC.player.itemSlots[ slot ].itype.value >= 1 ) {
+				itemValue += CoC.player.itemSlots[ slot ].quantity * Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 );
+				CoC.player.itemSlots[ slot ].quantity = 0;
 			}
 		}
 		EngineCore.outputText( 'You lay out all the items you\'re carrying on the counter in front of Oswald.  He examines them all and nods.  Nervously, he pulls out ' + Utils.num2Text( itemValue ) + ' gems and drops them into your waiting hand.' );
-		CoC.getInstance().player.gems += itemValue;
+		CoC.player.gems += itemValue;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( this.oswaldPawn );
 	};
@@ -1066,12 +1066,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.hideUpDown();
 		var button = 0;
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] === 0 && Utils.rand( 10 ) === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_DISABLED ] === 0 && CoC.flags[ kFLAGS.LOPPE_MET ] === 0 && Utils.rand( 10 ) === 0 ) {
 			SceneLib.loppe.loppeFirstMeeting();
 			return;
 		}
 		EngineCore.outputText( 'The interior of The Wet Bitch is far different than the mental picture its name implied.  It looks like a normal tavern, complete with a large central hearth, numerous tables and chairs, and a polished dark wood bar.  The patrons all seem to be dressed and interacting like normal people, that is if normal people were mostly centaurs and dog-morphs of various sub-species.  The atmosphere is warm and friendly, and ' );
-		if( CoC.getInstance().player.humanScore() <= 3 ) {
+		if( CoC.player.humanScore() <= 3 ) {
 			EngineCore.outputText( 'despite your altered appearance, ' );
 		}
 		EngineCore.outputText( 'you hardly get any odd stares.  There are a number of rooms towards the back, as well as a stairway leading up to an upper level.' );
@@ -1080,11 +1080,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//So it's safe to return to this menu, Helia or Urta can't suddenly disappear or appear just from leaving and re-entering the bar.;
 		EngineCore.menu();
 		//AMILY!;
-		if( CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 ) {
+		if( CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 ) {
 			button = this.anotherButton( button, 'Ask4Amily', SceneLib.followerInteractions.askAboutAmily );
 		}
 		//DOMINIKA;
-		if( CoC.getInstance().time.hours > 17 && CoC.getInstance().time.hours < 20 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] !== -1 ) {
+		if( CoC.time.hours > 17 && CoC.time.hours < 20 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] !== -1 ) {
 			button = this.anotherButton( button, 'Dominika', SceneLib.dominika.fellatrixBarApproach );
 		}
 		//EDRYN!;
@@ -1093,9 +1093,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			}
 			if( SceneLib.edryn.edrynBar() ) {
 				if( SceneLib.edryn.pregnancy.isPregnant ) {
-					if( CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] === 0 ) {
-						CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] = 1;
-						if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] === 0 ) {
+					if( CoC.flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] === 0 ) {
+						CoC.flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] = 1;
+						if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] === 0 ) {
 							{ //Edryn panic appearance! (First time mom)
 							}
 							EngineCore.outputText( '\n\nEdryn smiles when she sees you and beckons you towards her.  Fear and some kind of frantic need are painted across her face, imploring you to come immediately.  Whatever the problem is, it doesn\'t look like it can wait.', false );
@@ -1104,7 +1104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 						} else {
 							{ //Edryn re-preggers appearance!
 							}
-							EngineCore.outputText( '\n\nEdryn smiles at you and yells, "<i>Guess what ' + CoC.getInstance().player.short + '?  I\'m pregnant again!</i>"  There are some hoots and catcalls but things quickly die down.  You wonder if her scent will be as potent as before?', false );
+							EngineCore.outputText( '\n\nEdryn smiles at you and yells, "<i>Guess what ' + CoC.player.short + '?  I\'m pregnant again!</i>"  There are some hoots and catcalls but things quickly die down.  You wonder if her scent will be as potent as before?', false );
 						}
 					} else {
 						{ //Mid-pregnancy appearance
@@ -1113,13 +1113,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 					}
 				}
 				//Edryn just had a kid and hasn't talked about it!;
-				else if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEEDS_TO_TALK_ABOUT_KID ] === 1 ) {
+				else if( CoC.flags[ kFLAGS.EDRYN_NEEDS_TO_TALK_ABOUT_KID ] === 1 ) {
 					EngineCore.outputText( '\n\nEdryn the centaur isn\'t pregnant anymore!  She waves excitedly at you, beckoning you over to see her.  It looks like she\'s already given birth to your child!', false );
 				}
 				//Appearance changes if has had kids;
-				else if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
+				else if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
 					EngineCore.outputText( '\n\nEdryn is seated at her usual place, picking at a plate of greens and sipping a mug of the local mead.  She looks bored until she sees you.  Her expression brightens immediately, and Edryn fiddles with her hair and changes her posture slightly.  You aren\'t sure if she means to, but her cleavage is prominently displayed in an enticing manner.', false );
-				} else if( CoC.getInstance().player.statusAffectv1( StatusAffects.Edryn ) < 3 ) {
+				} else if( CoC.player.statusAffectv1( StatusAffects.Edryn ) < 3 ) {
 					EngineCore.outputText( '\n\nEdryn, the centauress you met at the gate, is here, sitting down at her table alone and sipping on a glass of wine.  You suppose you could go talk to her a bit.', false );
 				} else {
 					EngineCore.outputText( '\n\nEdryn the centauress is here, sipping wine at a table by herself.  She looks up and spots you, her eyes lighting up with happiness.  She gives you a wink and asks if you\'ll join her.', false );
@@ -1127,12 +1127,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 				button = this.anotherButton( button, 'Edryn', SceneLib.edryn.edrynBarTalk );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] === SceneLib.katherine.KLOC_BAR ) {
-			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 4 ) {
+		if( CoC.flags[ kFLAGS.KATHERINE_LOCATION ] === SceneLib.katherine.KLOC_BAR ) {
+			if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] === 4 ) {
 				SceneLib.katherine.barFirstEncounter();
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 31 && SceneLib.urta.urtaAtBar() && !SceneLib.urta.urtaDrunk() && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0 ) {
+			if( CoC.flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 31 && SceneLib.urta.urtaAtBar() && !SceneLib.urta.urtaDrunk() && CoC.flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0 ) {
 				SceneLib.katherine.barKathUrtaLoveAnnounce();
 				return;
 			}
@@ -1147,7 +1147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//NANCY;
 		if( SceneLib.auntNancy.auntNancy( false ) ) {
 			SceneLib.auntNancy.auntNancy( true );
-			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00263 ] > 0 ) {
+			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00263 ] > 0 ) {
 				button = this.anotherButton( button, 'Nancy', SceneLib.auntNancy.interactWithAuntNancy );
 			} else {
 				button = this.anotherButton( button, 'Barkeep', SceneLib.auntNancy.interactWithAuntNancy );
@@ -1157,22 +1157,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 
 		//NIAMH;
-		if( CoC.getInstance().time.hours >= 8 && CoC.getInstance().time.hours <= 16 && CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 0 ) {
+		if( CoC.time.hours >= 8 && CoC.time.hours <= 16 && CoC.flags[ kFLAGS.NIAMH_STATUS ] === 0 ) {
 			SceneLib.niamh.telAdreNiamh();
-			if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MET_NIAMH ] === 0 ) {
 				button = this.anotherButton( button, 'Beer Cat', SceneLib.niamh.approachNiamh );
 			} else {
 				button = this.anotherButton( button, 'Niamh', SceneLib.niamh.approachNiamh );
 			}
 		}
 		//ROGAR #1;
-		if( CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] === 3 && CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ROGAR_PHASE ] === 3 && CoC.flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
 			button = this.anotherButton( button, 'HoodedFig', SceneLib.rogar.rogarThirdPhase );
 			//Wet Bitch screen text when Ro'gar phase = 3:;
 			EngineCore.outputText( '\n\nYou notice a cloaked figure at the bar, though you\'re quite unable to discern anything else as its back is turned to you.', false );
 		}
 		//ROGAR #2;
-		else if( CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] >= 4 && CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
+		else if( CoC.flags[ kFLAGS.ROGAR_PHASE ] >= 4 && CoC.flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
 			button = this.anotherButton( button, 'Rogar', SceneLib.rogar.rogarPhaseFour );
 			//Wet Bitch bar text when Ro'gar phase = 4:;
 			EngineCore.outputText( '\n\nRo\'gar is here with his back turned to the door, wearing his usual obscuring cloak.', false );
@@ -1220,15 +1220,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			}
 			//Urta X Scylla threesome;
 			if( SceneLib.scylla.action === SceneLib.scylla.SCYLLA_ACTION_FUCKING_URTA ) {
-				if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00143 ] === 0 ) {
+				if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00143 ] === 0 ) {
 					EngineCore.outputText( '\n\n<b>Though Urta would normally be here getting sloshed, her usual spot is completely vacant.  You ask around but all you get are shrugs and giggles.  Something isn\'t quite right here.  You see an empty bottle of one of her favorite brands of whiskey still rolling on her table, so she can\'t have been gone long.  Maybe she had guard business, or had to head to the back rooms for something?</b>' );
 				} else {
 					EngineCore.outputText( '\n\nUrta\'s usual place is vacant, though her table still holds a half-drank mug of something potent and alcoholic.  If it\'s anything like the last time this happened, she\'s snuck into a back room with Scylla to relieve some pressure.  It might not hurt to join in...' );
 				}
-				CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 4;
+				CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 4;
 				button = this.anotherButton( button, 'Back Room', SceneLib.urta.scyllaAndUrtaSittingInATree );
 			} else if( SceneLib.urta.urtaBarDescript() ) {
-				if( SceneLib.auntNancy.auntNancy( false ) && CoC.getInstance().flags[ kFLAGS.URTA_INCUBATION_CELEBRATION ] === 0 && SceneLib.urta.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
+				if( SceneLib.auntNancy.auntNancy( false ) && CoC.flags[ kFLAGS.URTA_INCUBATION_CELEBRATION ] === 0 && SceneLib.urta.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
 					SceneLib.urtaPregs.urtaIsHappyAboutPregnancyAtTheBar();
 					return;
 				}
@@ -1245,19 +1245,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 61 );
 		EngineCore.outputText( 'The inside of the tailor\'s shop is far cleaner than anything else you\'ve seen in the city.  The walls are painted muted gray, and the floor is carpeted with a sprawling, royal blue rug.  After glancing around, you realize WHY the walls and floor are so muted – the quiet backdrop makes the merchandise look even more amazing.  There are racks and racks of clothing, but much of it is plain comfortable clothing, and not worth spending much time investigating.  A high-pitched voice pipes up, "<i>Can I help you?</i>"\n\n', false );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Victoria ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Victoria ) < 0 ) {
 			EngineCore.outputText( 'You turn around, ', false );
-			if( CoC.getInstance().player.tallness > 60 ) {
+			if( CoC.player.tallness > 60 ) {
 				EngineCore.outputText( 'looking for the source, eventually looking down and at a short but busty Corgi dog-girl.  ', false );
 			} else {
 				EngineCore.outputText( 'coming face to face with a busty Corgi dog-girl.  ', false );
 			}
 			EngineCore.outputText( 'She\'s clearly the tailor judging by her stylish, low-cut clothing and poofy hat.  A monocle perches on her nose, giving her a rather distinguished appearance.  The fashionable wench arches her back, showing off what she\'s got as she introduces herself, "<i>Ello love, welcome to my shop.  My name\'s Victoria, though if you like, you can call me Vicky.  You\'ll find my clothing to be a cut above the rubbish sold elsewhere.</i>"', false );
 			//Flag as meeting her;
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Victoria, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Victoria, 0, 0, 0, 0 );
 		} else {
 			EngineCore.outputText( 'You turn around to look ', false );
-			if( CoC.getInstance().player.tallness > 60 ) {
+			if( CoC.player.tallness > 60 ) {
 				EngineCore.outputText( 'down ', false );
 			}
 			EngineCore.outputText( 'at Victoria the Corgi Tailor.  As usual, she\'s dressed in a stylish low-cut dress and sporting her feathery hat.', false );
@@ -1279,9 +1279,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 61 );
 		EngineCore.outputText( 'Victoria nods and pulls a measuring tape off her shoulder.  She moves around you with practiced ease, taking measurements from every conceivable angle.  Thanks to her small stature, it\'s quite easy for her to take your inseam measurement, though Vicky manages to ', false );
-		if( CoC.getInstance().player.biggestCockArea() > 30 || CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.biggestCockArea() > 30 || CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 'fondle your bulging package', false );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'rub against your outer lips', false );
 		} else {
 			EngineCore.outputText( 'slip a finger along your crotch', false );
@@ -1289,14 +1289,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( ' more than a few times.  You could swear you catch her licking her lips when she stands up, but she quickly turns away, saying, "<i>I\'ve got one in the back that should fit perfectly!  Be right with you!</i>"\n\n', false );
 		EngineCore.outputText( 'She disappears in the back for a few moments, then returns with ' + itype.longName + ' that looks as if it were tailor-made for you.\n\n', false );
 		EngineCore.outputText( '"<i>' + itype.value + ' gems and it can be yours,</i>" she says.  ', false );
-		if( CoC.getInstance().player.gems < itype.value ) {
+		if( CoC.player.gems < itype.value ) {
 			EngineCore.outputText( 'You count out your gems and realize it\'s beyond your price range.', false );
 			//Goto shop main menu;
 			EngineCore.doNext( this.tailorShoppe );
 			return;
 		}
 		//Go to debit/update function or back to shop window;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			EngineCore.choices( 'Yes', Utils.curry( this.debitClothes, itype ), 'No', this.tailorShoppe, '', null, '', null, 'Flirt', Utils.curry( this.flirtWithVictoria, itype ) );
 		} else {
 			EngineCore.doYesNo( Utils.curry( this.debitClothes, itype ), this.tailorShoppe );
@@ -1304,7 +1304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.debitClothes = function( itype ) {
 		EngineCore.spriteSelect( 61 );
-		CoC.getInstance().player.gems -= itype.value;
+		CoC.player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( itype, this.tailorShoppe );
 	};
@@ -1315,9 +1315,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//EngineCore.outputText('"<i>Vat can Yvonne make for you?  Ze platemail?  Or someting a bit lighter?</i>" she asks you.', false);;
 		EngineCore.outputText( '"<i>What can I make for you?  Platemail?  Or something that breathes a little easier?</i>" Yvonne asks, fanning herself.' );
 		var egg = null;
-		if( CoC.getInstance().player.hasKeyItem( 'Dragon Eggshell' ) >= 0 ) {
+		if( CoC.player.hasKeyItem( 'Dragon Eggshell' ) >= 0 ) {
 			EngineCore.outputText( '\n\nThough the pieces on display have their arguable attractions, none of them really interest you.  Yvonne taps her foot impatiently.  "<i>Well, I could make you something to order... if you have any decent materials, cutie.  200 gems.</i>"' );
-			if( CoC.getInstance().player.gems < 200 ) {
+			if( CoC.player.gems < 200 ) {
 				EngineCore.outputText( '\n\nYou can\'t afford that!' );
 			} else {
 				egg = SceneLib.emberScene.getSomeStuff;
@@ -1350,7 +1350,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 80 );
 		EngineCore.outputText( 'The gruff metal-working husky gives you a slight nod and slams the weapon down on the edge of his stand.  He grunts, "<i>That\'ll be ' + itype.value + ' gems.</i>"', false );
-		if( CoC.getInstance().player.gems < itype.value ) {
+		if( CoC.player.gems < itype.value ) {
 			EngineCore.outputText( '\n\nYou count out your gems and realize it\'s beyond your price range.', false );
 			//Goto shop main menu;
 			EngineCore.doNext( this.weaponShop );
@@ -1363,7 +1363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.debitWeapon = function( itype ) {
 		EngineCore.spriteSelect( 80 );
-		CoC.getInstance().player.gems -= itype.value;
+		CoC.player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( itype, this.weaponShop );
 	};
@@ -1372,7 +1372,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Yvonne gives you a serious look, then nods.  She pulls the armor off a rack and makes a few adjustments, banging away with her massive hammer to ensure a perfect fit.  The entire time, she\'s oblivious to the movements of her massive breasts, accidentally exposing her impressive nipples multiple times.\n\n', false );
 		EngineCore.outputText( 'She finishes and turns to you, smiling broadly, "<i>Now, that will be ' + itype.value + ' gems, unless you want to change your mind?</i>"', false );
-		if( CoC.getInstance().player.gems < itype.value ) {
+		if( CoC.player.gems < itype.value ) {
 			EngineCore.outputText( '\n\nYou count out your gems and realize it\'s beyond your price range.', false );
 			//Goto shop main menu;
 			EngineCore.doNext( this.armorShop );
@@ -1386,12 +1386,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.debitArmor = function( itype ) {
 		EngineCore.spriteSelect( 64 );
 		EngineCore.outputText( '', true );
-		CoC.getInstance().player.gems -= itype.value;
+		CoC.player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( itype, this.armorShop );
 	};
 	TelAdre.prototype.urtaIsABadass = function() {
-		CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] = 1;
+		CoC.flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] = 1;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'There\'s a commotion in the streets of Tel\'Adre.  A dense crowd of onlookers has formed around the center of the street, massed together so tightly that you\'re unable to see much, aside from the backs the other onlookers\' heads.  The sound of blows impacting on flesh can be heard over the crowd\'s murmuring, alerting you of the fight at the gathering\'s core.', false );
 		EngineCore.choices( 'Investigate', this.watchUrtaBeABadass, 'Who cares?', this.telAdreMenu, '', null, '', null, '', null );
@@ -1403,9 +1403,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( 'You shoulder past the bulky centaurs, ignore the rough fur of the nearby wolves and hounds as it brushes against you, and press your way through to the center of the crowd.  Eventually the throng parts, revealing the embattled combatants.  A snarling wolf, nearly eight feet tall, towers over Urta.  The comparatively diminutive fox-woman is girded in light leather armor and dripping with sweat.  The larger wolf-man is staggering about, and his dark brown fur is matted with blood.\n\n', false );
 		EngineCore.outputText( 'The bigger canid charges, snarling, with his claws extended.  Urta sidesteps and pivots, her momentum carrying her foot around in a vicious kick.  Her foot hits the side of the beast\'s knee hard enough to buckle it, and the wolf goes down on his knees with an anguished cry.  Urta slips under his arm and twists, turning his slump into a fall.  A cloud of dust rises from the heavy thud of the beast\'s body as it slams into the cobblestone street.\n\n', false );
 		EngineCore.outputText( 'Now that it\'s immobile, you get can get a better look at the defeated combatant, and you\'re ', false );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.outputText( 'aroused', false );
-		} else if( CoC.getInstance().player.cor < 50 ) {
+		} else if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'horrified', false );
 		} else {
 			EngineCore.outputText( 'confused', false );
@@ -1418,15 +1418,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.gymDesc = function() {
 		//PREGGO ALERT!;
-		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] + CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 && SceneLib.cotton.pregnancy.isPregnant ) {
+		if( CoC.flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] + CoC.flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 && SceneLib.cotton.pregnancy.isPregnant ) {
 			SceneLib.cotton.cottonPregnantAlert();
 			return;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Even though Ingnam, your hometown, was a large, prosperous village, you never saw a gym before coming to Tel\'Adre.  The structure itself has numerous architectural differences from the surrounding buildings: short, waist-high walls, an arched ceiling supported by simple columns, and a sand-covered floor.  Perhaps the only \'normal\' rooms inside are the changing stands and bathrooms, which ', false );
-		if( CoC.getInstance().player.cor < 35 ) {
+		if( CoC.player.cor < 35 ) {
 			EngineCore.outputText( 'thankfully ', false );
-		} else if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 || CoC.getInstance().player.cor > 80 ) {
+		} else if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 || CoC.player.cor > 80 ) {
 			EngineCore.outputText( 'unfortunately ', false );
 		}
 		EngineCore.outputText( 'have full sized walls to protect their users\' privacy.  A breeze blows by, revealing that the open-air design provides great ventilation.  You note a wall of weights of different sizes and shapes, perfect for building muscle and bulking up.  There are also jogging tracks and even a full-sized, grass-covered track out back for centaurs to run on.  Though some of the equipment seems a bit esoteric in nature, you\'re sure you can make use of most of this stuff.\n\n', false );
@@ -1435,23 +1435,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//(An extraordinarily well-muscled centaur male is by the weights, lifting some huge dumbbells and sweating like crazy.  In true centaur fashion, he's not wearing any clothes, but then again, male centaurs don't have much that regular clothes would hide.);
 		//(There's a lizan girl jogging laps on one of the tracks.  She's quite thin, but her muscles have a lean definition to them.  She's wearing a one-piece, spandex leotard that hugs her tight ass and pert, b-cup breasts nicely.);
 		EngineCore.outputText( '  There\'s a centauress in a tank-top just inside the doorway with huge, rounded melons and perky nipples, but she merely coughs to get you to look up and says, "<i>', false );
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( '10 gems an hour to use the facilities here, or 500 for a life-time membership.</i>"  She has her hands on her hips, and it looks you\'ll have to pay ten gems to actually get to use any of this stuff.', false );
 		} else {
-			EngineCore.outputText( 'Oh, welcome back ' + CoC.getInstance().player.short + '.  Have a nice workout!</i>"', false );
+			EngineCore.outputText( 'Oh, welcome back ' + CoC.player.short + '.  Have a nice workout!</i>"', false );
 		}
 
-		if( CoC.getInstance().player.gems < 10 && CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+		if( CoC.player.gems < 10 && CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( '\n\n<b>You reach into your pockets for the fee and come up empty.  It looks like you don\'t have enough money to use the equipment or meet anyone.  Damn!</b>', false );
 			//(back to tel'adre streets);
 			EngineCore.doNext( this.telAdreMenu );
 			return;
 		}
 		SceneLib.lottie.lottieAppearance();
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
 			EngineCore.outputText( '\n\nYou spot Loppe the laquine wandering around, towel slung over her shoulder.  When she sees you, she smiles and waves to you and you wave back.' );
 		}
-		if( CoC.getInstance().time.hours > 9 && CoC.getInstance().time.hours < 14 ) {
+		if( CoC.time.hours > 9 && CoC.time.hours < 14 ) {
 			SceneLib.heckel.heckelAppearance();
 		}
 		this.gymMenu();
@@ -1467,33 +1467,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		var lottie2 = SceneLib.lottie.lottieAppearance( false );
 		var lottieB = 'Pig-Lady';
 		var loppe2 = null;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			lottieB = 'Lottie';
 		}
 		if( SceneLib.ifris.ifrisIntro() ) {
 			ifris2 = SceneLib.ifris.approachIfris;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MET_IFRIS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.MET_IFRIS ] > 0 ) {
 			ifrisB = 'Ifris';
 		}
-		if( CoC.getInstance().time.hours > 9 && CoC.getInstance().time.hours <= 15 ) {
+		if( CoC.time.hours > 9 && CoC.time.hours <= 15 ) {
 			hyena = SceneLib.heckel.greetHeckel;
-			if( CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 ) {
+			if( CoC.flags[ kFLAGS.MET_HECKEL ] > 0 ) {
 				hyenaB = 'Heckel';
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 && CoC.getInstance().player.gems >= 500 ) {
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 && CoC.player.gems >= 500 ) {
 			membership = this.buyGymLifeTimeMembership;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 ) {
 			if( SceneLib.cotton.cottonsIntro() ) {
 				cotton2 = SceneLib.cotton.cottonGreeting;
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] > 0 ) {
 			cottonB = 'Cotton';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
 			loppe2 = SceneLib.loppe.loppeGenericMeetings;
 		}
 		EngineCore.choices( 'ChangeRoom', SceneLib.jasun.changingRoom,
@@ -1511,12 +1511,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '', true );
 		//[Buy LifeTime Membership];
 		EngineCore.outputText( 'You fish into your pouches and pull out 500 gems, dumping them into the centaur\'s hands.  Her eyes widen as she turns and trots towards a counter in the back.  She leans over as she counts, giving you a generous view down her low-cut top at the cleavage she barely bothers to conceal.', false );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  It brings a flush to your face that has nothing to do with exercise.  Maybe you\'ll be able to con her into some alone time later?', false );
-			EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 10) );
+			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 10) );
 		}
-		CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] = 1;
-		CoC.getInstance().player.gems -= 500;
+		CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] = 1;
+		CoC.player.gems -= 500;
 		EngineCore.statScreenRefresh();
 		//[Bring up gym menu];
 		this.gymMenu();
@@ -1524,17 +1524,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.weightLifting = function() {
 		EngineCore.outputText( '', true );
 		//Too tired?  Fuck off.;
-		if( CoC.getInstance().player.fatigue > 75 ) {
+		if( CoC.player.fatigue > 75 ) {
 			EngineCore.outputText( '<b>There\'s no way you could exercise right now - you\'re exhausted!</b>  ', false );
-			if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+			if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 				EngineCore.outputText( 'It\'d be better to save your money and come back after you\'ve rested.', false );
 			}
 			EngineCore.doNext( this.telAdreMenu );
 			return;
 		}
 		//Deduct gems if not a full member.;
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
-			CoC.getInstance().player.gems -= 10;
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+			CoC.player.gems -= 10;
 			EngineCore.statScreenRefresh();
 		}
 		//[Lift Weights] +25 fatigue!;
@@ -1542,23 +1542,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//TEXTS!;
 		EngineCore.outputText( 'You walk up to the weights and begin your workout.  ', false );
 		//(< 25 str);
-		if( CoC.getInstance().player.str < 25 ) {
+		if( CoC.player.str < 25 ) {
 			EngineCore.outputText( 'You have to start out on the smaller weights to the left side of the rack due to your strength, but even so, you manage to work up a good burn and a modest sweat.', false );
 		}
 		//(< 40 str);
-		else if( CoC.getInstance().player.str < 40 ) {
+		else if( CoC.player.str < 40 ) {
 			EngineCore.outputText( 'You heft a few of the weights and select some of the ones just to the left of the middle.  It doesn\'t take you long to work up a sweat, but you push on through a variety of exercises that leave your body feeling sore and exhausted.', false );
 		}
 		//(< 60 str);
-		else if( CoC.getInstance().player.str < 60 ) {
+		else if( CoC.player.str < 60 ) {
 			EngineCore.outputText( 'You smile when you grip a few of the heavier weights on the rack and start to do some lifts.  With a start, you realize you\'re probably stronger now than Ingnam\'s master blacksmith, Ben.  Wow!  This realization fuels you to push yourself even harder, and you spend nearly an hour doing various strength-building exercises with the weights.', false );
 		}
 		//(<80 str);
-		else if( CoC.getInstance().player.str < 80 ) {
+		else if( CoC.player.str < 80 ) {
 			EngineCore.outputText( 'You confidently grab the heaviest dumbbells in the place and heft them.  It doesn\'t take long for you to work up a lather of sweat and feel the burn thrumming through your slowly tiring form.  The workout takes about an hour, but you feel you made some good progress today.', false );
 		}
 		//(<90);
-		else if( CoC.getInstance().player.str < 90 ) {
+		else if( CoC.player.str < 90 ) {
 			EngineCore.outputText( 'You grab the heaviest weights they have and launch into an exercise routine that leaves you panting from exertion.  Setting the weights aside, you flex and marvel at yourself – you could probably arm wrestle a minotaur or two and come out victorious!', false );
 		}
 		//(else);
@@ -1566,17 +1566,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			EngineCore.outputText( 'This place barely has anything left to challenge you, but you take the heaviest weights you can get your mitts on and get to it.  By the time an hour has passed, you\'ve worked up a good sweat, but without heavier weights you probably won\'t get any stronger.', false );
 		}
 		//Stat changes HERE!;
-		if( CoC.getInstance().player.str < 90 ) {
+		if( CoC.player.str < 90 ) {
 			EngineCore.dynStats( 'str', 0.5 );
 		}
-		if( CoC.getInstance().player.tou < 40 ) {
+		if( CoC.player.tou < 40 ) {
 			EngineCore.dynStats( 'tou', 0.3 );
 		}
 		//Body changes here;
 		//Muscleness boost!;
-		EngineCore.outputText( CoC.getInstance().player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
+		EngineCore.outputText( CoC.player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
 		EngineCore.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
-		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] === 1 ) {
+		if( CoC.flags[ kFLAGS.BROOKE_MET ] === 1 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine.exploreShowers );
 			EngineCore.addButton( 1, 'Showers', SceneLib.brooke.repeatChooseShower );
@@ -1588,17 +1588,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.goJogging = function() {
 		EngineCore.outputText( '', true );
 		//Too tired?  Fuck off.;
-		if( CoC.getInstance().player.fatigue > 70 ) {
+		if( CoC.player.fatigue > 70 ) {
 			EngineCore.outputText( '<b>There\'s no way you could exercise right now - you\'re exhausted!</b>  ', false );
-			if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+			if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 				EngineCore.outputText( 'It\'d be better to save your money and come back after you\'ve rested.', false );
 			}
 			EngineCore.doNext( this.telAdreMenu );
 			return;
 		}
 		//Deduct gems if not a full member.;
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
-			CoC.getInstance().player.gems -= 10;
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+			CoC.player.gems -= 10;
 			EngineCore.statScreenRefresh();
 		}
 		//[Jogging] +30 fatigue!;
@@ -1606,23 +1606,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//Text!;
 		EngineCore.outputText( 'You hit the jogging track, ', false );
 		//(<25 tou);
-		if( CoC.getInstance().player.tou < 25 ) {
+		if( CoC.player.tou < 25 ) {
 			EngineCore.outputText( 'but you get so winded you have to stop after a few minutes.  Determined to improve, you force yourself to stay at a fast walk until you can run again.', false );
 		}
 		//(<40 tou);
-		else if( CoC.getInstance().player.tou < 40 ) {
+		else if( CoC.player.tou < 40 ) {
 			EngineCore.outputText( 'but your performance isn\'t that great.  You nearly stop jogging a few times but manage to push through until you\'re completely exhausted.', false );
 		}
 		//(<60 tou);
-		else if( CoC.getInstance().player.tou < 60 ) {
-			EngineCore.outputText( 'and you do quite well.  You jog around for nearly an hour, working up a healthy lather of sweat.  Even your ' + CoC.getInstance().player.legs() + ' tingle and burn with exhaustion.', false );
+		else if( CoC.player.tou < 60 ) {
+			EngineCore.outputText( 'and you do quite well.  You jog around for nearly an hour, working up a healthy lather of sweat.  Even your ' + CoC.player.legs() + ' tingle and burn with exhaustion.', false );
 		}
 		//(<80 tou);
-		else if( CoC.getInstance().player.tou < 80 ) {
+		else if( CoC.player.tou < 80 ) {
 			EngineCore.outputText( 'and it doesn\'t faze you in the slightest.  You run lap after lap at a decent clip, working yourself until you\'re soaked with sweat and fairly tired.', false );
 		}
 		//(<90 tou);
-		else if( CoC.getInstance().player.tou < 90 ) {
+		else if( CoC.player.tou < 90 ) {
 			EngineCore.outputText( 'and you have a terrific time.  You can keep yourself just below your sprinting speed for the entire time, though you work up a huge amount of sweat in the process.', false );
 		}
 		//else);
@@ -1630,50 +1630,50 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			EngineCore.outputText( 'and it barely challenges you.  You run at a sprint half the time and still don\'t feel like you\'re improving in the slightest.  Still, you do manage to burn a lot of calories.', false );
 		}
 		//Stat changes HERE!;
-		if( CoC.getInstance().player.spe < 40 ) {
+		if( CoC.player.spe < 40 ) {
 			EngineCore.dynStats( 'spe', 0.3 );
 		}
-		if( CoC.getInstance().player.tou < 90 ) {
+		if( CoC.player.tou < 90 ) {
 			EngineCore.dynStats( 'tou', 0.5 );
 		}
 
 		//If butt is over 15 guaranteed reduction;
-		if( CoC.getInstance().player.buttRating >= 15 ) {
+		if( CoC.player.buttRating >= 15 ) {
 			EngineCore.outputText( '\n\nAll that running must have done some good, because your ' + Descriptors.buttDescript() + ' feels a little less bouncy.', false );
-			CoC.getInstance().player.buttRating--;
+			CoC.player.buttRating--;
 		} else {
-			if( CoC.getInstance().player.buttRating >= 10 && Utils.rand( 3 ) === 0 ) {
+			if( CoC.player.buttRating >= 10 && Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n\nThe jogging really helped trim up your ' + Descriptors.buttDescript() + '.', false );
-				CoC.getInstance().player.buttRating--;
-			} else if( CoC.getInstance().player.buttRating >= 5 && Utils.rand( 3 ) === 0 ) {
+				CoC.player.buttRating--;
+			} else if( CoC.player.buttRating >= 5 && Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n\nYour ' + Descriptors.buttDescript() + ' seems to have gotten a little bit more compact from the work out.', false );
-				CoC.getInstance().player.buttRating--;
-			} else if( CoC.getInstance().player.buttRating > 1 && Utils.rand( 4 ) === 0 ) {
+				CoC.player.buttRating--;
+			} else if( CoC.player.buttRating > 1 && Utils.rand( 4 ) === 0 ) {
 				EngineCore.outputText( '\n\nYour ' + Descriptors.buttDescript() + ' seems to have gotten a little bit more compact from the work out.', false );
-				CoC.getInstance().player.buttRating--;
+				CoC.player.buttRating--;
 			}
 		}//If hips is over 15 guaranteed reduction
-		if( CoC.getInstance().player.hipRating >= 15 ) {
+		if( CoC.player.hipRating >= 15 ) {
 			EngineCore.outputText( '\n\nIt feels like your ' + Descriptors.hipDescript() + ' have shed some pounds and narrowed.', false );
-			CoC.getInstance().player.hipRating--;
+			CoC.player.hipRating--;
 		} else {
-			if( CoC.getInstance().player.hipRating >= 10 && Utils.rand( 3 ) === 0 ) {
+			if( CoC.player.hipRating >= 10 && Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n\nIt feels like your ' + Descriptors.hipDescript() + ' have shed some pounds and narrowed.', false );
-				CoC.getInstance().player.hipRating--;
-			} else if( CoC.getInstance().player.hipRating >= 5 && Utils.rand( 3 ) === 0 ) {
+				CoC.player.hipRating--;
+			} else if( CoC.player.hipRating >= 5 && Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n\nIt feels like your ' + Descriptors.hipDescript() + ' have shed some pounds and narrowed.', false );
-				CoC.getInstance().player.hipRating--;
-			} else if( CoC.getInstance().player.hipRating > 1 && Utils.rand( 4 ) === 0 ) {
+				CoC.player.hipRating--;
+			} else if( CoC.player.hipRating > 1 && Utils.rand( 4 ) === 0 ) {
 				EngineCore.outputText( '\n\nIt feels like your ' + Descriptors.hipDescript() + ' have shed some pounds and narrowed.', false );
-				CoC.getInstance().player.hipRating--;
+				CoC.player.hipRating--;
 			}
 		}
 		//Thickness decrease!;
-		EngineCore.outputText( CoC.getInstance().player.modThickness( 1, 5 + Utils.rand( 2 ) ), false );
+		EngineCore.outputText( CoC.player.modThickness( 1, 5 + Utils.rand( 2 ) ), false );
 		//Muscleness boost!;
-		EngineCore.outputText( CoC.getInstance().player.modTone( 100, 2 + Utils.rand( 4 ) ), false );
+		EngineCore.outputText( CoC.player.modTone( 100, 2 + Utils.rand( 4 ) ), false );
 		EngineCore.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
-		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] === 1 ) {
+		if( CoC.flags[ kFLAGS.BROOKE_MET ] === 1 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine.exploreShowers );
 			EngineCore.addButton( 1, 'Showers', SceneLib.brooke.repeatChooseShower );
@@ -1686,7 +1686,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Yara makes you comfortable and has you look away while she uses her piercing tools.  It hurts, but she\'s skilled. Before you know it, your piercing is done!  You move to rise, retaining a bit of modesty', false );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( ' despite the guilty thrill', false );
 		}
 		EngineCore.outputText( '.  "<i>Hold it,</i>" Yara commands softly, pressing her hand against your ' + Descriptors.chestDesc() + ' and pushing you back in your chair.  "<i>Do you think I\'ll let you get away without some... field testing?</i>"\n\n', false );
@@ -1704,12 +1704,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 		EngineCore.spriteSelect( 63 );
 		EngineCore.outputText( '', true );
-		var x = CoC.getInstance().player.cockThatFits( 36 );
-		if( CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] ) {
-			x = CoC.getInstance().player.cockThatFits( 50000 );
+		var x = CoC.player.cockThatFits( 36 );
+		if( CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
+			x = CoC.player.cockThatFits( 50000 );
 		} else if( (x === -1) && !girl )  // No cock that fits
 		{
-			if( CoC.getInstance().player.hasVagina() ) // But the PC has a vagoo! Swap over to female mode"
+			if( CoC.player.hasVagina() ) // But the PC has a vagoo! Swap over to female mode"
 			{
 				EngineCore.outputText( '"<i>Oh dear, cutie. There is no way I could take that huge cock of yours!</i>" she says, looking rather crestfallen at your enormous member. "<i>Oh well</i>", she sighs. "<i>I guess I\'ll just have to explore your feminine side instead</i>"\n' );
 				girl = true;
@@ -1719,52 +1719,52 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			}
 		}
 		EngineCore.outputText( 'Her eyes widen as you begin to ', false );
-		if( CoC.getInstance().player.lust < 50 ) {
+		if( CoC.player.lust < 50 ) {
 			EngineCore.outputText( 'protest', false );
 		} else {
 			EngineCore.outputText( 'speak', false );
 		}
 		EngineCore.outputText( ', neatly silencing you with the lust-filled fires simmering in her eyes.  "<i>Call it quality testing,</i>" she purrs.  Her free hand runs up and down your inner thigh, the ticklish teasing nearly making your head spin.  Licking her lips in anticipation, Yara wiggles out of her clothes and clambers onto the chair, kneeling on the armrests.  Due to her awkward posture, you find your gaze drifting to her wide-spread legs.  Nestled there, twinkling with a radiant luster, is a golden ring, looped through her already-throbbing clit.  A blush darkens her cheeks as she notices your stare, but she seems almost empowered by it.\n\n', false );
 		EngineCore.outputText( 'Yara\'s free hand slides down her belly - past the stud in her navel - down to her box.  Using two fingers, she spreads her lips apart, giving you a great view of both her glistening button-piercing and the fleshy recesses past it.  She bites her bottom lip gently', false );
-		if( !girl && CoC.getInstance().player.hasCock() ) {
+		if( !girl && CoC.player.hasCock() ) {
 			EngineCore.outputText( ' as your ' + Descriptors.cockDescript( x ) + ' rises to attention, her eyes fixed upon the stiffened tool.  You resist the urge to grab her thin-yet-girlish hips and power into her right then and there, curious enough to allow her teasing.', false );
 		} else {
 			EngineCore.outputText( ' as a growing puddle of love stains the cushioned chair.  It takes most of your power to not drag her down and force her face into your box.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'She leans forward, planting you with a wet and lingering kiss.  She moves lower, kissing ', false );
-		if( CoC.getInstance().player.biggestTitSize() < 1 ) {
+		if( CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( 'your chest', false );
 		} else {
 			EngineCore.outputText( 'your nipples, one at a time', false );
 		}
 		EngineCore.outputText( ' and smooching your belly.  Even with her racially characteristic flexibility, however, she\'s not able to get any lower from that angle.  "<i>Hold this, dear,</i>" she says somewhat snarkily, pivoting around and resting her ass against your ' + Descriptors.chestDesc() + '.  In this new posture, Yara can easily have her way with your junk, and by the way her wagging tail keeps bopping you in the face you can tell she\'s excited.\n\n', false );
 		EngineCore.outputText( 'Not content with simple penetration, it seems, the cat girl gets to work.', false );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  Her dexterous fingertips brush against your ' + Descriptors.ballsDescriptLight() + ', light and fluttery strokes that send shivers coursing through you.  The near-lack of contact is at least as titillating as the less-subtle Marethians you\'ve come across.', false );
 		}
 		EngineCore.outputText( '  She scoots forward a bit, dragging her soaking cunt down your chest in an effort to reach your crotch.\n\n', false );
 		//male;
-		if( !girl && CoC.getInstance().player.hasCock() ) {
+		if( !girl && CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Yara\'s pursed lips touch down upon your cockhead, her head tilting from side to side as she vexingly and repeatedly kisses your ' + Descriptors.cockDescript( x ) + '.  However, she abruptly pauses, glancing sidelong at you expectantly.  When you don\'t immediately respond, she huffs a sigh - onto your dick - and raises her hips level with your nose.  After momentarily getting lost in the bouncing of her tight-yet-jiggly cheeks, you get the message, leaning forward and giving her puffy sex a long and lingering lick.  You\'re rewarded with a low-pitched and very satisfied groan.  Though you go in for another taste, the shining ring looped through her joy-buzzer attracts your oral attention like a magnet.  Gently as a newborn kitten, your teeth close down on the clit-embedded trinket.  Yara goes absolutely stiff as you begin to softly tug the piercing around, neatly paralyzed by the sensitivity.  Indistinguishable mewling tumbles from her mouth as she attempts to attune herself to your yanking antics.  Her lithe frame spasms in ecstasy, forcing you to release your grip on her, lest something unfortunate happen to her undercarriage.\n\n', false );
-			EngineCore.outputText( 'As soon as you release her from the mind-numbing grasp, she whips her hips forward - spattering your ' + CoC.getInstance().player.armorName + ' with her downpour of girlcum in the process - and leaning back, hastily lining herself up with your ' + Descriptors.cockDescript( x ) + '.  Only hesitating for a second to leak a bit of lubricant onto your eager shaft, she plummets downwards, not stopping until her ass slams against your pelvis.\n\n', false );
+			EngineCore.outputText( 'As soon as you release her from the mind-numbing grasp, she whips her hips forward - spattering your ' + CoC.player.armorName + ' with her downpour of girlcum in the process - and leaning back, hastily lining herself up with your ' + Descriptors.cockDescript( x ) + '.  Only hesitating for a second to leak a bit of lubricant onto your eager shaft, she plummets downwards, not stopping until her ass slams against your pelvis.\n\n', false );
 			EngineCore.outputText( 'Yara takes total control, her death-grip on the armrests giving her full coital maneuverability.  Despite the easy entry, you can\'t believe how well her sopping-wet folds squeeze against you.  For a long while the only sounds heard are the slapping of her cheeks and the studded-up cat girl\'s halting pants of pleasure.  "<i>I wanna say... your new piercing... works like a charm,</i>" she mutters between throaty groans.\n\n', false );
 			EngineCore.outputText( 'Before you\'re even allowed to respond, Yara\'s pace quickens, her finish line in sight.  More than eager to help spur her on, your hands wrap around her slender waist.  She purrs in appreciation of your assistance.  It\'s not long before, with a victorious and primal scream, she throws all her weight downwards, splattering the mixture of pre-cum and femspunk and actually stinging you a bit with the force of her descent.\n\n', false );
 			EngineCore.outputText( 'The powerful motion is all the motivation your body needs.  Before either of you can even consider the ramifications of an internal ejaculation, your bodies seize up, caught in the familiar grasp of orgasmic bliss.  ', false );
 			//([cum quantity time, normal L/M/H/S quantities {IT'S A MARVEL REFERENCE} <no new paragraph>];
 			//light and medium;
-			if( CoC.getInstance().player.cumQ() < 500 ) {
+			if( CoC.player.cumQ() < 500 ) {
 				EngineCore.outputText( 'Yara\'s entire frame spasms as your load paints her private passage with snowy-white seed.  The cat girl writhes happily, arching her spine so far back your eyes nearly meet.\n\nYara dismounts your dick and hops to the ground in one fluid movement.', false );
 			}//heavy;
-			else if( CoC.getInstance().player.cumQ() <= 1500 ) {
-				EngineCore.outputText( 'Yara\'s belly visibly plumps with the quantity of cum you pour into her, the extra weight bending her over to rest heavily against your ' + CoC.getInstance().player.leg() + '.  She purrs happily, patting her distended gut even while the tremors of her own orgasm run through her.\n\nYara lifts herself off you, pressing a hand against her tummy as she somewhat ungracefully steps off the chair.', false );
+			else if( CoC.player.cumQ() <= 1500 ) {
+				EngineCore.outputText( 'Yara\'s belly visibly plumps with the quantity of cum you pour into her, the extra weight bending her over to rest heavily against your ' + CoC.player.leg() + '.  She purrs happily, patting her distended gut even while the tremors of her own orgasm run through her.\n\nYara lifts herself off you, pressing a hand against her tummy as she somewhat ungracefully steps off the chair.', false );
 			}//special (super-big);
 			else {
 				EngineCore.outputText( 'Her low-pitched ecstatic moans swiftly escalate to piercing shrieks as her taut belly quickly balloons to roughly beach ball-sized in moments.  With a huge effort, she manages to haul herself off your semen-pumping staff, falling back against you.  Sighing contentedly, Yara nestles herself into your ' + Descriptors.chestDesc() + ', getting comfortable despite the seed drizzling from her overstuffed nethers.  You just sit there for a few minutes, waiting patiently as your ejaculatory rampage ceases.\n\nYara makes a noble attempt to rise that is ultimately thwarted by her huge fluid-filled belly.  Casting a sidelong sheepish grin at you, she giggles nervously.  "<i>Mind helping me out here, friend?</i>" she says after a moment\'s hesitation.  With your assistance, she rises and stands on wobbling feet.  She tries her best to compose herself with your cum still streaming down her thighs, the flow only intensifying as she impatiently presses against the bloated belly.', false );
 			}
 
 			EngineCore.outputText( '\n\n"<i>Works like a charm,</i>" she concludes as you both redress', false );
-			if( CoC.getInstance().player.cumQ() > 1500 ) {
+			if( CoC.player.cumQ() > 1500 ) {
 				EngineCore.outputText( ', Yara trying her best to fit her clothes over the bump in her midsection', false );
 			}
 			EngineCore.outputText( '.  "<i>Come back whenever, okay?  I\'m sure we can arrange another... appointment!</i>"', false );
@@ -1774,7 +1774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		else {
 			EngineCore.outputText( 'A duo of errant forefingers run along the perimeter of your feminine fortress, your signal to prepare for a siege.  Yara reaches down off the side of your seat, pushing on a lever that sends the back of the chair down to about a 30º angle.  She grasps for the armrests of the chair next, promptly lifting her body up and going into what looks like a forward somersault.  Before you can complement the feat, her legs fly up either side of your head.   The only things to have made contact were her nimble feet, gently stroking their way up from your belly, past your chest, off of your shoulders and soaring beyond the back of the chair.  The feline acrobat calls for you to lay your hands open at the sides of the chair, an order you fulfill with due haste.  She wastes no time in seizing your upper arms, causing her body to slide forward off of you.  You return the favor by clasping onto her as well in the same manner, stopping her descent.\n\n', false );
 			EngineCore.outputText( 'Trying to parse out the scene at play here is a fool\'s errand.  Yara must have done this before as your two sprawled out bodies have stopped in just the right fashion to make both of your fleshy orifices in plain view of one another\'s faces.  Air escapes your pursed lips as the "<i>quality testing</i>" commences on your ' + Descriptors.vaginaDescript() + ', your kitty comrade going in tongue first towards your silken fringes.  ', false );
-			if( CoC.getInstance().player.wetness() >= 3 ) {
+			if( CoC.player.wetness() >= 3 ) {
 				EngineCore.outputText( 'She may as well be licking a melting popsicle with how wet your snatch is.', false );
 			} else {
 				EngineCore.outputText( 'Your relatively dry perimeter makes for an easy target.', false );
@@ -1784,7 +1784,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 			EngineCore.outputText( 'Judging by the contortionist\'s wobbly embrace, you decide it\'s the perfect time to go in for the kill.  Yara stands no chance as you pounce for her pierced clit, your tongue lodging itself between the loop and her love-button.  It takes all of her willpower to maintain the offensive on your nub nexus while standing firm in her grasp on your arms.  Your oral tugging and teasing proves to be the victor, however, marked by the femspunk making its way right onto your face.  The cocktail combined with the orgasmic-enhanced last ditch effort by Yara on your nether regions triggers your own satisfying outburst.  The chain reaction ends in both your couplings faltering, sending the feline sliding headfirst for the floor.\n\n', false );
 			EngineCore.outputText( 'Her head stops short, though.  Through your gasping relief, you managed to lock onto her legs.  "<i>Nice... nice catch,</i>" is about all Yara manages to share before resuming her purring contentment upside down, limp arms spread across the floor.  After a minute or so, the two of you regain some sort of composure, but the spectacular gymnast from before can only bare to slink around on the ground as she reorients herself.  The most you need to do is fix the back of your chair, lifting it to a more comfortable height.  "<i>Can you spare one more helping hand here, friend?</i>" Yara requests, now having at least managed to at least sit up straight.  The two of you exchange a knowing glance as you lift the metal-worker back to her feet.', false );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( this.piercingStudio );
 	};
 
@@ -1794,25 +1794,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You step closer, glancing from her bulging, barely contained tits to her pouting lips and expressive, violet eyes.  A shock of sweat-matted auburn hair obscures part of her face, but the tall, buxom blacksmith nervously brushes it aside as she watches.  Once you\'re close enough to touch, you quietly and sincerely proclaim, "<i>You\'re the most beautiful piece of craftsmanship in this entire store.</i>"' );
 		EngineCore.outputText( '\n\nYvonne steps back, and you swear you can see a blush blooming through her fur, a fiery glow of embarrassment that spreads to the upper curve of her immense mammaries.  She folds her arms over her apron, unintentionally smushing those gigantic tits closer together and deepening her cleavage into a canyon. An immense sigh causes the plush plateau to sway pendulously as Yvonne answers, "<i>' );
-		EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 10) );
+		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 10) );
 		// Brain no want to work out the boolean logic shit here, broken out to ensure it will work as intended.;
-		if( CoC.getInstance().player.cockTotal() === 0 ) {
+		if( CoC.player.cockTotal() === 0 ) {
 			EngineCore.outputText( 'Sorry, but you don\'t look like you\'d be much fun.' );
 			EngineCore.outputText( '</i>"' );
 			EngineCore.doNext( this.armorShop );
 			return;
-		} else if( CoC.getInstance().player.tallness > 65 && !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
+		} else if( CoC.player.tallness > 65 && !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
 			EngineCore.outputText( 'Sorry, but you don\'t look like you\'d be much fun.' );
 			EngineCore.outputText( '</i>"' );
 			EngineCore.doNext( this.armorShop );
 			return;
-		} else if( CoC.getInstance().player.cockThatFits( 75 ) === -1 && !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
+		} else if( CoC.player.cockThatFits( 75 ) === -1 && !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
 			EngineCore.outputText( 'Sorry, but you don\'t look like you\'d be much fun.' );
 			EngineCore.outputText( '</i>"' );
 			EngineCore.doNext( this.armorShop );
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.YVONNE_FUCK_COUNTER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.YVONNE_FUCK_COUNTER ] === 0 ) {
 			EngineCore.outputText( 'Well, I could use a quick fuck.  If you meant what you said, go change the sign to say \'out\' please.' );
 		} else {
 			EngineCore.outputText( 'You want to go again, huh?  I do love working up a sweat...' );
@@ -1833,7 +1833,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( 64 );
 		EngineCore.clearOutput();
 		//X = cock that fits!;
-		var x = CoC.getInstance().player.cockThatFits( 75 );
+		var x = CoC.player.cockThatFits( 75 );
 		if( x < 0 ) {
 			x = 0;
 		}
@@ -1842,14 +1842,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( 'You walk over to the door and find a sign hanging in front of the window.  The side facing indoors has \'out\' on it.  There\'s also a \'closed\' sign hanging to the side of the doorframe.  You take the simple wood plaque in hand and flip it over - can\'t have anybody walking in on your sexual hijinks, can you?' );
 		EngineCore.outputText( '\n\nA fuzzy, calloused hand grabs you by the scuff of the neck, lifts you off the ground and pushes you against the wall, slamming you into it forcefully enough that some weapons hanging nearby rattle dangerously.  A hot puff of breath hits your cheek, Yvonne\'s wet, canine nose bumping against your ear as she pants in your face.  She closes, and you feel her bare, sweat-soaked breasts sliding up and down your back, holding you up as firmly as her iron grip.  Yvonne\'s long, smooth tongue licks you from collarbone to chin, lapping up the sweat that\'s already starting to bead, the heat of the simmering forge-fires and your companion\'s well-warmed, powerful frame long since getting to you.' );
 		EngineCore.outputText( '\n\nA distinctly feminine scent wafts up to your nostrils, intermingled with the blacksmith\'s own pungent body-odor, strong enough to make your head swim.  Yvonne\'s free hand begins removing your [armor], the blacksmith\'s confident motions suggesting she\'s had plenty of experience at this.  The aroma of the super-stacked bitch\'s estrus increases to the point where it nearly overpowers her salty sweat-smell, her nipples pressing hard into your back.  [EachCock] grows hard from the forceful attention, pinned between the wall and your belly.  Finished with your gear, Yvonne nips your neck and says, "<i>Nice package, ' );
-		if( CoC.getInstance().player.cockArea( x ) < 20 ) {
+		if( CoC.player.cockArea( x ) < 20 ) {
 			EngineCore.outputText( 'runt' );
-		} else if( CoC.getInstance().player.cockArea( x ) < 40 ) {
-			EngineCore.outputText( CoC.getInstance().player.mf( 'boy', 'girl' ) );
-		} else if( CoC.getInstance().player.cockArea( x ) < 60 ) {
-			EngineCore.outputText( 'big ' + CoC.getInstance().player.mf( 'boy', 'girl' ) );
+		} else if( CoC.player.cockArea( x ) < 40 ) {
+			EngineCore.outputText( CoC.player.mf( 'boy', 'girl' ) );
+		} else if( CoC.player.cockArea( x ) < 60 ) {
+			EngineCore.outputText( 'big ' + CoC.player.mf( 'boy', 'girl' ) );
 		} else {
-			EngineCore.outputText( CoC.getInstance().player.mf( 'stud', 'breeder' ) );
+			EngineCore.outputText( CoC.player.mf( 'stud', 'breeder' ) );
 		}
 		EngineCore.outputText( '.</i>"' );
 		EngineCore.outputText( '\n\nThe forge-mistress abruptly releases you and steps away, the supporting cushion of her breasts no longer there to help balance you.  After a moment of confused stumbling, you catch yourself and turn around, curious as to just what the buxom bitch is doing.' );
@@ -1857,14 +1857,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( '\n\nYou sidle up to the larger woman and begin aligning [oneCock] with her mammoth buns, the sweltering, pheromone-laced stink pouring from her body making it difficult not to fall on top of her and rut.  Her huge tits are squished against the floor, squeezing out obscenely to either side of the blacksmith\'s lithe, muscular torso.  When you push inside, her slick wet cunt squeezes your [cock ' + y + '] powerfully but affectionately.  Her potent vaginal muscles work your [cock ' + y + '] over, tightly embracing your turgid dickflesh as you begin to fuck her properly, plowing her sweat and love-juice soaked folds even while you struggle to reach up for her incredible breasts.' );
 		EngineCore.outputText( '\n\nYou get a handhold on the soft chest-flesh and begin to massage at what you can find, releasing appreciative moans from your partner.  Unfortunately, her furiously-wagging tail bludgeons you across the nose over and over, and you\'re forced to block it with one arm so that you can ream her snatch unimpeded by the woman\'s canine instincts.  She growls, but doesn\'t stop you.  You can see the muscles in her arms quivering, shaking, struggling to maintain her posture in spite of the overwhelming pleasure your [cock ' + y + '] is inflicting upon her poor womanhood.' );
 		EngineCore.outputText( '\n\nA shiver runs through the dog-morph\'s entire body, culminating in a cock-wringing contraction that ripples through her cunt, milking you with her slippery twat.  It works, and you lean over her prostrate form as you bottom out inside her, her sweat-matted fur smearing your face with her scent as you cum.  ' );
-		if( CoC.getInstance().player.hasKnot( x ) ) {
+		if( CoC.player.hasKnot( x ) ) {
 			EngineCore.outputText( 'Your knot fills, locking you inside her, securely blocking any escape for the jizz you\'re now filling her depths with.  Yvonne sighs dreamily, "<i>Just right...</i>" while spunk slides into her birth canal to infiltrate her womb.[if (cumQuantity > 500) "  The pearly goop spatters into her womb with egg-inseminating force, filling her beyond her wildest expectations."][if (cumQuantity > 1000) "  The blacksmith cries out in pain and pleasure, her belly rounding with your liquid, taking on a more pregnant, stuffed-EngineCore.silly look."][if (cumQuantity > 2000) "  Thanks to your knot, not a single drop escapes, and soon Yvonne\'s belly is as fat as her tits, cum-bloated in the extreme, a sloshing auburn tub packed with ivory sperm."]' );
 		} else {
 			EngineCore.outputText( 'Your jizz bubbles out to fill her depths, the spunk surging through her as it moves towards her womb.  Yvone sighs dreamily, "<i>Ahhhh...</i>" while you empty your [balls] inside her unprotected womanhood.[if (cumQuantity > 500) "  The pearly goop spatters into her uterus with egg-inseminating force, filling the bitch beyond her wildest expectations."][if (cumQuantity > 1000)   The blacksmith cries out in pain and pleasure, her belly rounding with your liquid, looking positively pregnant.  Her twat begins to dribble sperm, creampied beyond belief.][if (cumQuantity > 2000) "  Unfortunately, as your virility makes itself known, Yvonne\'s body hits its limit, and jets of ivory spooge squirt from all sides of her cunny, dribbling into a pearly puddle on the floor."]' );
 		}
 		//still no new pg;
 		EngineCore.outputText( '  With a thoroughly cream-stuffed twat beneath you, you ' );
-		if( CoC.getInstance().player.hasKnot( x ) ) {
+		if( CoC.player.hasKnot( x ) ) {
 			EngineCore.outputText( 'pop' );
 		} else {
 			EngineCore.outputText( 'pull' );
@@ -1872,49 +1872,49 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.outputText( ' out, accompanied by a exhalation of female pleasure.' );
 		EngineCore.outputText( '\n\nYvonne staggers up on her footpaws, groaning the whole time, a trail of white dribbling on the floor behind her.  Her tail wags happily, and she grabs you, pulling you into her sweaty bosom as she affectionately squeezes your [butt].  You aren\'t released until you feel dizzy, half-suffocated by her preponderance of breast-tissues and potent pheromones.' );
 		EngineCore.outputText( '\n\nYvonne tosses you your gear, and you dress in a daze.  Before you\'ve completely finished, she\'s pushing you out into the street, covered in sex-stink and stumbling over your own [feet].  She calls out after you, "<i>Thanks babe, I gotta mop this mess up!</i>"' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().flags[ kFLAGS.YVONNE_FUCK_COUNTER ]++;
+		CoC.flags[ kFLAGS.YVONNE_FUCK_COUNTER ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//*Typical buy text goes here. Options are now Yes/No/Flirt*;
 	//[Flirt];
 	TelAdre.prototype.flirtWithVictoria = function( itype ) {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 70 );
+		var x = CoC.player.cockThatFits( 70 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You take the clothes from her and give them a look over.  Setting them on the counter, you tell her that they\'re quite nice, but if she\'s interested you might have something that could fit her quite nicely as well in the back.' );
 		if( x < 0 ) {
-			EngineCore.outputText( '\n\nVictoria smirks and answers, "<i>I measured your inseam, and what you\'re packing in there won\'t fit anywhere in a girl like me.  Maybe some other time, ' + CoC.getInstance().player.mf( 'studmuffin', 'sweet thing' ) + '.  Did you actually want to buy something?</i>"\n\nDo you still want to buy something?' );
+			EngineCore.outputText( '\n\nVictoria smirks and answers, "<i>I measured your inseam, and what you\'re packing in there won\'t fit anywhere in a girl like me.  Maybe some other time, ' + CoC.player.mf( 'studmuffin', 'sweet thing' ) + '.  Did you actually want to buy something?</i>"\n\nDo you still want to buy something?' );
 			EngineCore.doYesNo( Utils.curry( this.debitClothes, itype ), this.tailorShoppe );
 			return;
 		}
 		EngineCore.outputText( '\n\nIt takes her a moment to realize just what it is you\'re suggesting before her face splits into a wide grin.  <i>"That right?  Well now, you can\'t say things like that without backin\' \'em up, can you?"</i>  she says with a low chuckle, pressing her curvy body into you.  <i>"What do you say I close the shop up quick, and you can show me just \'ow nicely you can fit, mm?"</i>' );
 		EngineCore.outputText( '\n\nGiving your [butt] a squeeze, she hops off to turn the shop\'s open sign around and locks the door before closing all of the curtains.  Turning back to you, she pushes her ample cleavage up into ' );
-		if( CoC.getInstance().player.tallness >= 65 ) {
+		if( CoC.player.tallness >= 65 ) {
 			EngineCore.outputText( 'your stomach.' );
-		} else if( CoC.getInstance().player.tallness >= 55 ) {
+		} else if( CoC.player.tallness >= 55 ) {
 			EngineCore.outputText( 'your chest.' );
 		} else {
 			EngineCore.outputText( 'your face.' );
 		}
 		EngineCore.outputText( '  <i>"Now then,  let\'s see what you\'ve got!"</i>  With practiced ease she works the bottom of your [armor] off, revealing [eachCock].  <i>"Well, well. Looks like I was right about you from the start,"</i> she says, licking her lips again.  <i>"Just a taste first, I think..."</i> Sticking her tongue out once more, she gives your rapidly stiffening dick a long, slow lick from the base up to the tip.  She closes her mouth just around your ' + Descriptors.cockDescript( x ) + ', giving it a few rapid licks before pulling off with a pop.' );
 		EngineCore.outputText( '\n\n<i>"Oh yes,  I think you\'ll do rather nicely.  In fact, I think I\'m going to give you a special treat."</i>  Smirking up at you, the busty dog-girl unbuttons her top just beneath her ample chest.  Before you can puzzle out what it is she\'s doing, she takes your [cock] and stuffs it into the hole and up through her cleavage' );
-		if( CoC.getInstance().player.cocks[ x ].cockLength >= 5 ) {
+		if( CoC.player.cocks[ x ].cockLength >= 5 ) {
 			EngineCore.outputText( ' until the tip is poking out the top' );
 		}
 		EngineCore.outputText( '.' );
-		if( CoC.getInstance().player.cocks[ x ].cockThickness > 3 ) {
+		if( CoC.player.cocks[ x ].cockThickness > 3 ) {
 			EngineCore.outputText( '  Her face scrunches up uncomfortably for a moment, your girth straining the seams of her shirt.  With a series of loud pops, her buttons all go flying in different directions, letting her ample, creamy flesh bounce free with a bountiful jiggle.  <i>"Bloody hell, that was my favorite top..."</i> she whines for a moment before squeezing her chest back together with her hands.' );
 		} else {
 			EngineCore.outputText( '  She presses her arms inward to increase the pressure on your cock even further, and gives you another wide smile.  <i>"Ready for this, love?"</i>' );
 		}
 
 		EngineCore.outputText( '\n\nShe begins to slowly move her disproportionately massive chest up and down your cock, ' );
-		if( CoC.getInstance().player.cocks[ x ].cockLength > 5 ) {
-			EngineCore.outputText( 'making sure to give the ' + CoC.getInstance().player.cockHead( x ) + ' a quick suck every time it breaches her mounds.' );
+		if( CoC.player.cocks[ x ].cockLength > 5 ) {
+			EngineCore.outputText( 'making sure to give the ' + CoC.player.cockHead( x ) + ' a quick suck every time it breaches her mounds.' );
 		} else {
 			EngineCore.outputText( 'pressing her mouth down into her ample cleavage so as to give your hidden tip a quick lick every time it draws near.' );
 		}
@@ -1932,7 +1932,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 
 		EngineCore.outputText( '\n\nFinally, your strength gives out and you fall backwards onto the floor, exhausted.  A few seconds later, Vicky slips backward off of the counter and lands on top of you.  Like you, she\'s completely unable to move, however unlike you it\'s more because she is completely insensate.  Her eyes have rolled back into her head and her tongue hangs out as she occasionally mutters something incoherent.' );
 		EngineCore.outputText( '\n\nA few seconds later your body finally gives out completely and you pass out.  You wake up about an hour later, still on the floor with Vicky on the ground near you, leaning up against the counter with her legs splayed, cum still dripping from her used pussy.  <i>"I uh... s\'pose you wanna leave now?"</i>  She asks, still sounding a bit loopy.  She climbs unsteadily to her feet, and walks, a bit bowlegged to the door, unlocking it before slumping back down the wall.  <i>"Do come back for a visit, love!"</i>  You pull your pants back up and crawl back out into the street.  Climbing back to your feet, you notice a few passersby chuckling at you before you close the door.  Before you leave, you think you can make out Victoria muttering, <i>"Gonna have to clean this place up..."</i>' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

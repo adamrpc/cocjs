@@ -88,8 +88,8 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 		} else {
 			EngineCore.outputText( 'She suddenly starts mauling her shapely breasts, her fingers nearly disappearing briefly in the soft, full flesh, while fingering herself eagerly, emitting a variety of lewd noises.  You are entranced by the scene, the sexual excitement she\'s experiencing penetrating your body in warm waves coming from your groin.', false );
 		}
-		EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 20) + 4 );
-		if( CoC.getInstance().player.lust >= 100 ) {
+		EngineCore.dynStats( 'lus', (CoC.player.lib / 10 + CoC.player.cor / 20) + 4 );
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
 			EngineCore.doNext( Combat.combatMenu );
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 	FetishCultist.prototype.cultistLustTransfer = function() {
 		if( this.lust <= 30 || Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'Her eyes glaze over, ', false );
-			if( CoC.getInstance().player.cor < 40 ) {
+			if( CoC.player.cor < 40 ) {
 				EngineCore.outputText( 'and you\'re almost afraid to know ', false );
 			} else {
 				EngineCore.outputText( 'and you wish you knew ', false );
@@ -107,26 +107,26 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 			this.lust += 10;
 		} else {
 			EngineCore.outputText( 'Her eyes glaze over and you feel your mind suddenly becoming filled with a blur of every sexual perversion you could possibly think of, and then some.', false );
-			if( CoC.getInstance().player.vaginas.length > 0 ) {
+			if( CoC.player.vaginas.length > 0 ) {
 				EngineCore.outputText( '  You feel your ' + Descriptors.vaginaDescript( 0 ) + ' soaking itself in a sudden burst', false );
-				if( CoC.getInstance().player.cockTotal() > 0 ) {
-					EngineCore.outputText( ', while a sudden influx of pre-cum blurts out and streams down your ' + CoC.getInstance().player.multiCockDescriptLight() + ', painfully hardened by a vast amount of blood rushing to your groin', false );
+				if( CoC.player.cockTotal() > 0 ) {
+					EngineCore.outputText( ', while a sudden influx of pre-cum blurts out and streams down your ' + CoC.player.multiCockDescriptLight() + ', painfully hardened by a vast amount of blood rushing to your groin', false );
 				}
 				EngineCore.outputText( '.', false );
-			} else if( CoC.getInstance().player.cockTotal() > 0 ) {
-				EngineCore.outputText( '  A sudden influx of pre-cum blurts out and streams down your ' + CoC.getInstance().player.multiCockDescriptLight() + ', painfully hardened by a vast amount of blood rushing to your groin.', false );
+			} else if( CoC.player.cockTotal() > 0 ) {
+				EngineCore.outputText( '  A sudden influx of pre-cum blurts out and streams down your ' + CoC.player.multiCockDescriptLight() + ', painfully hardened by a vast amount of blood rushing to your groin.', false );
 			}
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( '  Your genderless body is suddenly filled by a perverted warmth.', false );
 			}
 			EngineCore.outputText( '\n\nYou notice that the young woman seems to have calmed down some.', false );
-			EngineCore.dynStats( 'lus', (this.lust / 3 * (1 + CoC.getInstance().player.cor / 300)) );
+			EngineCore.dynStats( 'lus', (this.lust / 3 * (1 + CoC.player.cor / 300)) );
 			this.lust -= 50;
 			if( this.lust < 0 ) {
 				this.lust = 10;
 			}
 		}
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
 			EngineCore.doNext( Combat.combatMenu );
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 
 	FetishCultist.prototype.defeated = function( hpVictory ) {
 		var temp2 = null;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
 			temp2 = SceneLib.fetishCultistScene.fetishCultistHasAMilkFetish;
 		}
 		if( hpVictory ) {
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 		} else {
 			EngineCore.outputText( 'Overwhelmed by her lusts, the cultist loses the ability to control herself and collapses.', true );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  You realize she\'d make a perfect receptacle for your lusts.  Do you have your way with her?', false );
 			EngineCore.choices( 'Sex', SceneLib.fetishCultistScene.playerRapesCultist, '', null, '', null, 'B. Feed', temp2, 'Leave', Combat.cleanupAfterCombat );
 		} else {

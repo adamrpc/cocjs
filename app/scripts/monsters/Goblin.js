@@ -64,27 +64,27 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 			return;
 		}
 		//Dodge chance!;
-		if( (CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.getInstance().player.spe / 5) ) {
+		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			EngineCore.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;
 			if( color === 'red' ) {
 				//Temporary heat;
 				EngineCore.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
-				if( CoC.getInstance().player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
+				if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 				}
 			} else if( color === 'green' ) {
 				//Green poison;
 				EngineCore.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
-				if( CoC.getInstance().player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
+				if( CoC.player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
 				}
 			} else if( color === 'white' ) {
 				//sticky flee prevention;
 				EngineCore.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
-				if( CoC.getInstance().player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
+				if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 				}
 			} else if( color === 'black' ) {
 				//Increase fatigue;
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		if( det === 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' bends over, putting on a show and jiggling her heart-shaped ass at you.  She looks over her shoulder and sucks on her finger, batting her eyelashes.', false );
 		}
-		EngineCore.dynStats( 'lus', Utils.rand( CoC.getInstance().player.lib / 10 ) + 8 );
+		EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 10 ) + 8 );
 		EngineCore.outputText( '  The display distracts you long enough to prevent you from taking advantage of her awkward pose, leaving you more than a little flushed.\n\n', false );
 		Combat.combatRoundOver();
 	};
@@ -117,12 +117,12 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		SceneLib.goblinScene.gobboRapeIntro();
 	};
 	Goblin.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You collapse in front of the goblin, too wounded to fight.  She giggles and takes out a tube of lipstick smearing it whorishly on your face.  You pass into unconsciousness immediately.  It must have been drugged.', false );
 			Combat.cleanupAfterCombat();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe goblin\'s eyes go wide and she turns to leave, no longer interested in you.', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.doNext( Combat.cleanupAfterCombat );
 		} else {
 			SceneLib.goblinScene.goblinRapesPlayer();

@@ -10,16 +10,16 @@ angular.module( 'cocjs' ).factory( 'Spellblade', function( CoC, Weapon, PerkLib 
 	};
 	Spellblade.prototype._superPlayerEquip = Spellblade.prototype.playerEquip;
 	Spellblade.prototype.playerEquip = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.WizardsFocus );
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
-		CoC.getInstance().player.createPerk( PerkLib.WizardsFocus, 0.5, 0, 0, 0 );
+		CoC.player.createPerk( PerkLib.WizardsFocus, 0.5, 0, 0, 0 );
 		return this._superPlayerEquip();
 	};
 	Spellblade.prototype._superPlayerRemove = Spellblade.prototype.playerRemove;
 	Spellblade.prototype.playerRemove = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.WizardsFocus );
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
 		return this._superPlayerRemove();
 	};

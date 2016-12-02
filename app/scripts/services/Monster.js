@@ -99,11 +99,11 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	 * @return randomized damage reduced by player stats
 	 */
 	Monster.prototype.calcDamage = function() {
-		return CoC.getInstance().player.reduceDamage(this.eBaseDamage());
+		return CoC.player.reduceDamage(this.eBaseDamage());
 	};
 	Monster.prototype.totalXP = function(playerLevel) {
 		if( playerLevel === undefined || playerLevel === -1 ) {
-			playerLevel = CoC.getInstance().player.level;
+			playerLevel = CoC.player.level;
 		}
 		//
 		// 1) Nerf xp gains by 20% per level after first two level difference
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 		//Determine damage - str modified by enemy toughness!
 		var damage = this.calcDamage();
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 		return damage;
 	};
@@ -309,7 +309,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	 */
 	Monster.prototype.postAttack = function( damage ) {
 		if( damage > 0 ) {
-			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
 					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
@@ -322,8 +322,8 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	Monster.prototype.outputAttack = function( damage ) {
 		if( damage <= 0 ) {
 			//Due to toughness or amor...
-			if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-				EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.getInstance().player.armorName + '.', false );
+			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+				EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 			} else {
 				if( this.plural ) {
 					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throw at you.', false );
@@ -387,13 +387,13 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	};
 	Monster.prototype.playerDodged = function() {
 		//Determine if dodged!
-		var dodge = CoC.getInstance().player.speedDodge( this );
+		var dodge = CoC.player.speedDodge( this );
 		if( dodge > 0 ) {
 			this.outputPlayerDodged( dodge );
 			return true;
 		}
 		//Determine if evaded
-		if( this.constructor.name !== 'Kiha' && CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( this.constructor.name !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'' );
 			if( !this.plural ) {
 				EngineCore.outputText( 's' );
@@ -402,12 +402,12 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 			return true;
 		}
 		//('Misdirection'
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			return true;
 		}
 		//Determine if cat'ed
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				EngineCore.outputText( '\' attacks.\n', false );
@@ -430,8 +430,8 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 			}
 		}
 		//Exgartuan gets to do stuff!
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.getInstance().player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
-			if( CoC.getInstance().exgartuan.exgartuanCombatUpdate() ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
+			if( CoC.exgartuan.exgartuanCombatUpdate() ) {
 				EngineCore.outputText( '\n\n', false );
 			}
 		}
@@ -521,20 +521,20 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	 */
 	Monster.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
-			CoC.getInstance().player.HP = 1;
+			CoC.player.HP = 1;
 			EngineCore.outputText( 'Your wounds are too great to bear, and you fall unconscious.', true );
 		} else {
 			EngineCore.outputText( 'Your desire reaches uncontrollable levels, and you end up openly masturbating.\n\nThe lust and pleasure cause you to black out for hours on end.', true );
-			CoC.getInstance().player.lust = 0;
+			CoC.player.lust = 0;
 		}
-		CoC.getInstance().setInCombat( false );
+		CoC.setInCombat( false );
 		Combat.clearStatuses( false );
 		var temp = Utils.rand( 10 ) + 1;
-		if( temp > CoC.getInstance().player.gems ) {
-			temp = CoC.getInstance().player.gems;
+		if( temp > CoC.player.gems ) {
+			temp = CoC.player.gems;
 		}
 		EngineCore.outputText( '\n\nYou\'ll probably wake up in eight hours or so, missing ' + temp + ' gems.', false );
-		CoC.getInstance().player.gems -= temp;
+		CoC.player.gems -= temp;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
 	/**
@@ -681,16 +681,16 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 			EngineCore.outputText( '<b>' + this.getCapitalA() + this.short + ' is protected by a shield of rocks!</b>\n\n' );
 		}
 		if( this.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
 				EngineCore.outputText( '<b>You blink the sand from your eyes, but you\'re sure that more will get you if you don\'t end it soon!</b>\n\n' );
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.Blind );
+				CoC.player.removeStatusAffect( StatusAffects.Blind );
 			} else {
 				if( this.statusAffectv1( StatusAffects.Sandstorm ) === 0 || this.statusAffectv1( StatusAffects.Sandstorm ) % 4 === 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.Blind, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.Blind, 0, 0, 0, 0 );
 					EngineCore.outputText( '<b>The sand is in your eyes!  You\'re blinded this turn!</b>\n\n' );
 				} else {
 					EngineCore.outputText( '<b>The grainy mess cuts at any exposed flesh and gets into every crack and crevice of your armor.' );
-					EngineCore.outputText( ' (' + CoC.getInstance().player.takeDamage( 1 + Utils.rand( 2 ) ) + ')' );
+					EngineCore.outputText( ' (' + CoC.player.takeDamage( 1 + Utils.rand( 2 ) ) + ')' );
 					EngineCore.outputText( '</b>\n\n' );
 				}
 			}
@@ -780,42 +780,42 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 			//when Entwined
 			EngineCore.outputText( 'You are bound tightly in the kitsune\'s tails.  <b>The only thing you can do is try to struggle free!</b>\n\n' );
 			EngineCore.outputText( 'Stimulated by the coils of fur, you find yourself growing more and more aroused...\n\n' );
-			EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.sens / 10 );
+			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10 );
 		}
 		if( this.findStatusAffect( StatusAffects.QueenBind ) >= 0 ) {
 			EngineCore.outputText( 'You\'re utterly restrained by the Harpy Queen\'s magical ropes!\n\n' );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
 				EngineCore.dynStats( 'lus', 3 );
 			}
 		}
 		if( this.constructor.name === 'SecretarialSuccubus' || this.constructor.name === 'MilkySuccubus' ) {
-			if( CoC.getInstance().player.lust < 45 ) {
+			if( CoC.player.lust < 45 ) {
 				EngineCore.outputText( 'There is something in the air around your opponent that makes you feel warm.\n\n', false );
 			}
-			if( CoC.getInstance().player.lust >= 45 && CoC.getInstance().player.lust < 70 ) {
+			if( CoC.player.lust >= 45 && CoC.player.lust < 70 ) {
 				EngineCore.outputText( 'You aren\'t sure why but you have difficulty keeping your eyes off your opponent\'s lewd form.\n\n', false );
 			}
-			if( CoC.getInstance().player.lust >= 70 && CoC.getInstance().player.lust < 90 ) {
+			if( CoC.player.lust >= 70 && CoC.player.lust < 90 ) {
 				EngineCore.outputText( 'You blush when you catch yourself staring at your foe\'s rack, watching it wobble with every step she takes.\n\n', false );
 			}
-			if( CoC.getInstance().player.lust >= 90 ) {
+			if( CoC.player.lust >= 90 ) {
 				EngineCore.outputText( 'You have trouble keeping your greedy hands away from your groin.  It would be so easy to just lay down and masturbate to the sight of your curvy enemy.  The succubus looks at you with a sexy, knowing expression.\n\n', false );
 			}
 			EngineCore.dynStats( 'lus', 1 + Utils.rand( 8 ) );
 		}
 		//[LUST GAINED PER ROUND] - Omnibus
 		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
-			if( CoC.getInstance().player.lust < 33 ) {
+			if( CoC.player.lust < 33 ) {
 				EngineCore.outputText( 'Your groin tingles warmly.  The demon\'s aura is starting to get to you.\n\n', false );
 			}
-			if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.lust < 66 ) {
+			if( CoC.player.lust >= 33 && CoC.player.lust < 66 ) {
 				EngineCore.outputText( 'You blush as the demon\'s aura seeps into you, arousing you more and more.\n\n', false );
 			}
-			if( CoC.getInstance().player.lust >= 66 ) {
+			if( CoC.player.lust >= 66 ) {
 				EngineCore.outputText( 'You flush bright red with desire as the lust in the air worms its way inside you.  ', false );
 				EngineCore.outputText( Utils.randomChoice( 'You have a hard time not dropping to your knees to service her right now.\n\n', 'The urge to bury your face in her breasts and suckle her pink nipples nearly overwhelms you.\n\n', 'You swoon and lick your lips, tasting the scent of the demon\'s pussy in the air.\n\n', 'She winks at you and licks her lips, and you can\'t help but imagine her tongue sliding all over your body.  You regain composure moments before throwing yourself at her.  That was close.\n\n'), false );
 			}
-			EngineCore.dynStats( 'lus', (3 + Math.ceil( CoC.getInstance().player.lib / 20 + CoC.getInstance().player.cor / 30 )) );
+			EngineCore.dynStats( 'lus', (3 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 30 )) );
 		}
 	};
 	Monster.prototype.handleAwardItemText = function( itype ) { //New Function, override this function in child classes if you want a monster to output special item drop text
@@ -837,18 +837,18 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 		//This function doesn’t take the gems away from the player, it just provides the output text
 		if( !inDungeon ) {
 			EngineCore.outputText( '\n\nYou\'ll probably come to your senses in eight hours or so' );
-			if( CoC.getInstance().player.gems > 1 ) {
+			if( CoC.player.gems > 1 ) {
 				EngineCore.outputText( ', missing ' + gemsLost + ' gems.' );
-			} else if( CoC.getInstance().player.gems === 1 ) {
+			} else if( CoC.player.gems === 1 ) {
 				EngineCore.outputText( ', missing your only gem.' );
 			} else {
 				EngineCore.outputText( '.' );
 			}
 		} else {
 			EngineCore.outputText( '\n\nSomehow you came out of that alive' );
-			if( CoC.getInstance().player.gems > 1 ) {
+			if( CoC.player.gems > 1 ) {
 				EngineCore.outputText( ', but after checking your gem pouch, you realize you\'re missing ' + gemsLost + ' gems.' );
-			} else if( CoC.getInstance().player.gems === 1 ) {
+			} else if( CoC.player.gems === 1 ) {
 				EngineCore.outputText( ', but after checking your gem pouch, you realize you\'re missing your only gem.' );
 			} else {
 				EngineCore.outputText( '.' );

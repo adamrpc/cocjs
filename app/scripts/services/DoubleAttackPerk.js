@@ -6,10 +6,10 @@ angular.module('cocjs').factory('DoubleAttackPerk', function (PerkType, CoC) {
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if(CoC.getInstance().player.spe < 50) {
+		if(CoC.player.spe < 50) {
 			return '<b>You\'re too slow to double attack!</b>';
 		}
-		if(CoC.getInstance().player.str < 61) {
+		if(CoC.player.str < 61) {
 			return 'Allows you to perform two melee attacks per round.';
 		}
 		return '<b>You are stronger than double attack allows.  To choose between reduced strength double-attacks and a single strong attack, access "Dbl Options" in the perks menu.</b>';

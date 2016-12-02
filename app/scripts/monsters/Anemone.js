@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 		this._superEAttack();
 	};
 	Anemone.prototype.eOneAttack = function() {
-		this.applyVenom( Utils.rand( 4 + CoC.getInstance().player.sens / 20 ) + 1 );
+		this.applyVenom( Utils.rand( 4 + CoC.player.sens / 20 ) + 1 );
 		return 1;
 	};
 	//Apply the effects of AnemoneVenom();
@@ -20,8 +20,8 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 			str = 1;
 		}
 		//First application;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.AnemoneVenom ) < 0 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.AnemoneVenom, 0, 0, 0, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.AnemoneVenom ) < 0 ) {
+			CoC.player.createStatusAffect( StatusAffects.AnemoneVenom, 0, 0, 0, 0 );
 		}
 		//Gain some lust;
 		EngineCore.dynStats( 'lus', (2 * str) );
@@ -29,24 +29,24 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 		while( str > 0 ) {
 			str--;
 			//Str bottommed out, convert to lust;
-			if( CoC.getInstance().player.str < 2 ) {
+			if( CoC.player.str < 2 ) {
 				EngineCore.dynStats( 'lus', 2 );
 			}
 			//Lose a point of str.;
 			else {
 				MainView.statsView.showStatDown( 'str' );
-				CoC.getInstance().player.str--;
-				CoC.getInstance().player.addStatusValue( StatusAffects.AnemoneVenom, 1, 1 );
+				CoC.player.str--;
+				CoC.player.addStatusValue( StatusAffects.AnemoneVenom, 1, 1 );
 			}
 			//Spe bottomed out, convert to lust;
-			if( CoC.getInstance().player.spe < 2 ) {
+			if( CoC.player.spe < 2 ) {
 				EngineCore.dynStats( 'lus', 2 );
 			}
 			//Lose a point of spe.;
 			else {
 				MainView.statsView.showStatDown( 'spe' );
-				CoC.getInstance().player.spe--;
-				CoC.getInstance().player.addStatusValue( StatusAffects.AnemoneVenom, 2, 1 );
+				CoC.player.spe--;
+				CoC.player.addStatusValue( StatusAffects.AnemoneVenom, 2, 1 );
 			}
 		}
 		EngineCore.statScreenRefresh();

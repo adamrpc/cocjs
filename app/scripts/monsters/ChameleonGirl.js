@@ -28,9 +28,9 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 			EngineCore.outputText( 'The chameleon girl\'s claws slash towards you, but you lean away from them and they fly by in a harmless blur.' );
 		}//Get hit
 		else {
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) );
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You wince as they scratch your skin, leaving thin cuts in their wake. (' + damage + ')' );
 			} else {
 				EngineCore.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You defend against the razor sharp attack.' );
@@ -52,9 +52,9 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 		}
 		//Get hit
 		else {
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ) + 25;
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ) + 25;
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( 'The chameleon leaps in your direction, rolls, and kicks you square in the shoulder as she ascends, sending you reeling.  You grunt in pain as a set of sharp claws rake across your chest. (' + damage + ')' );
 			} else {
 				EngineCore.outputText( 'The chameleon rolls in your direction and kicks up at your chest, but you knock her aside without taking any damage..' );

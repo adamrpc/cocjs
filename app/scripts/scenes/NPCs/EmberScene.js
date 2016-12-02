@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	EmberScene.prototype.timeChange = function() {
 		var needNext = false;
 		this.pregnancy.pregnancyAdvance();
-		$log.debug( '\nEmber time change is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
+		$log.debug( '\nEmber time change is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
 		if( this.pregnancy.isPregnant ) {
 			if( this.emberPregUpdate() ) {
 				needNext = true;
@@ -34,58 +34,58 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			}
 		}
 		//Ember fuck cooldown;
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.EmberFuckCooldown ) > 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.EmberFuckCooldown, 1, -1 );
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.EmberFuckCooldown ) < 1 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.EmberFuckCooldown );
+		if( CoC.player.statusAffectv1( StatusAffects.EmberFuckCooldown ) > 0 ) {
+			CoC.player.addStatusValue( StatusAffects.EmberFuckCooldown, 1, -1 );
+			if( CoC.player.statusAffectv1( StatusAffects.EmberFuckCooldown ) < 1 ) {
+				CoC.player.removeStatusAffect( StatusAffects.EmberFuckCooldown );
 			}
 		}
 		//Ember napping;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.EmberNapping ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.EmberNapping, 1, -1 );
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.EmberNapping ) <= 0 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.EmberNapping );
+		if( CoC.player.findStatusAffect( StatusAffects.EmberNapping ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.EmberNapping, 1, -1 );
+			if( CoC.player.statusAffectv1( StatusAffects.EmberNapping ) <= 0 ) {
+				CoC.player.removeStatusAffect( StatusAffects.EmberNapping );
 			}
 		}
-		if( this.followerEmber() && CoC.getInstance().player.findStatusAffect( StatusAffects.EmberNapping ) < 0 ) {
+		if( this.followerEmber() && CoC.player.findStatusAffect( StatusAffects.EmberNapping ) < 0 ) {
 			//Mino cum freakout - PC partly addicted!;
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 1 && CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) < 0 && CoC.getInstance().flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 1 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) < 0 && CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 0 ) {
 				this.minotaurJizzFreakout();
 				needNext = true;
 			}
 			//Ember is freaking out about addiction, but PC no longer addicted!;
-			else if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 0 && CoC.getInstance().flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 1 ) {
+			else if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 0 && CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 1 ) {
 				this.emberGetOverFreakingOutAboutMinoJizz();
 				needNext = true;
 			}
 			//At max lust, count up - if ten hours lusty, ember yells at ya!;
-			if( CoC.getInstance().player.lust >= 100 && CoC.getInstance().player.gender > 0 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ]++;
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] >= 10 ) {
+			if( CoC.player.lust >= 100 && CoC.player.gender > 0 ) {
+				CoC.flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ]++;
+				if( CoC.flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] >= 10 ) {
 					this.emberBitchesAtYouAboutLustiness();
 					needNext = true;
 				}
 			}
 			//Reset lust counter if not max lust'ed;
 			else {
-				CoC.getInstance().flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] = 0;
+				CoC.flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] = 0;
 			}
 		}
-		if( CoC.getInstance().time.hours > 23 ) {
-			if( !CoC.getInstance().player.isPregnant() ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] = 0;
+		if( CoC.time.hours > 23 ) {
+			if( !CoC.player.isPregnant() ) {
+				CoC.flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] = 0;
 			}
-			CoC.getInstance().flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] = 0;
+			CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] = 0;
 		}
 		return needNext;
 	};
 	EmberScene.prototype.timeChangeLarge = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.EmberNapping ) < 0 && this.followerEmber() && CoC.getInstance().player.findStatusAffect( StatusAffects.EmberFuckCooldown ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.EmberNapping ) < 0 && this.followerEmber() && CoC.player.findStatusAffect( StatusAffects.EmberFuckCooldown ) < 0 ) {
 			//Ember get's a whiff of fuckscent and knocks up PC!;
-			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.inHeat && CoC.getInstance().player.pregnancyIncubation === 0 && Utils.rand( 10 ) === 0 && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
+			if( CoC.player.hasVagina() && CoC.player.inHeat && CoC.player.pregnancyIncubation === 0 && Utils.rand( 10 ) === 0 && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
 				this.emberRapesYourHeatness();
 				return true;
-			} else if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.inRut && !this.pregnancy.isPregnant && Utils.rand( 10 ) === 0 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			} else if( CoC.player.hasCock() && CoC.player.inRut && !this.pregnancy.isPregnant && Utils.rand( 10 ) === 0 && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				this.emberRapesYourHeatness();
 				return true;
 			}
@@ -97,31 +97,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		if( changes === undefined ) {
 			changes = 0;
 		}
-		CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ] += changes;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ] > 100 ) {
-			CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ] = 100;
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ] = 0;
+		CoC.flags[ kFLAGS.EMBER_AFFECTION ] += changes;
+		if( CoC.flags[ kFLAGS.EMBER_AFFECTION ] > 100 ) {
+			CoC.flags[ kFLAGS.EMBER_AFFECTION ] = 100;
+		} else if( CoC.flags[ kFLAGS.EMBER_AFFECTION ] < 0 ) {
+			CoC.flags[ kFLAGS.EMBER_AFFECTION ] = 0;
 		}
-		return CoC.getInstance().flags[ kFLAGS.EMBER_AFFECTION ];
+		return CoC.flags[ kFLAGS.EMBER_AFFECTION ];
 	};
 	EmberScene.prototype.emberCorruption = function( changes ) {
 		if( changes === undefined ) {
 			changes = 0;
 		}
-		CoC.getInstance().flags[ kFLAGS.EMBER_COR ] += changes;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] > 100 ) {
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 100;
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 0;
+		CoC.flags[ kFLAGS.EMBER_COR ] += changes;
+		if( CoC.flags[ kFLAGS.EMBER_COR ] > 100 ) {
+			CoC.flags[ kFLAGS.EMBER_COR ] = 100;
+		} else if( CoC.flags[ kFLAGS.EMBER_COR ] < 0 ) {
+			CoC.flags[ kFLAGS.EMBER_COR ] = 0;
 		}
-		return CoC.getInstance().flags[ kFLAGS.EMBER_COR ];
+		return CoC.flags[ kFLAGS.EMBER_COR ];
 	};
 	EmberScene.prototype.followerEmber = function() {
-		return CoC.getInstance().flags[ kFLAGS.EMBER_HATCHED ] > 0;
+		return CoC.flags[ kFLAGS.EMBER_HATCHED ] > 0;
 	};
 	EmberScene.prototype.emberMF = function( man, woman ) {
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			return man;
 		} else {
 			return woman;
@@ -134,13 +134,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		return 60;
 	};
 	EmberScene.prototype.emberHasCock = function() {
-		return (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3);
+		return (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3);
 	};
 	EmberScene.prototype.emberChildren = function() {
-		return (CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_MALES ] + CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] + CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_HERMS ]);
+		return (CoC.flags[ kFLAGS.EMBER_CHILDREN_MALES ] + CoC.flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] + CoC.flags[ kFLAGS.EMBER_CHILDREN_HERMS ]);
 	};
 	EmberScene.prototype.emberInternalDick = function() {
-		return (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0);
+		return (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0);
 	};
 	//Approaching Ember (Z);
 	EmberScene.prototype.emberCampMenu = function() {
@@ -165,10 +165,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		 Spar (fight Ember)*/
 		var egg = null;
 		var milk = null;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && !this.pregnancy.isPregnant ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && !this.pregnancy.isPregnant ) {
 			egg = this.emberIsAnEggFactory;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			milk = this.getMilkFromEmber;
 		}
 		EngineCore.choices( 'Appearance', this.embersAppearance, 'Talk', this.talkToEmber, 'DrinkBlood', this.bloodForTheBloodGod, 'Drink Milk', milk, 'Get Egg', egg,
@@ -202,16 +202,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			}
 
 			EngineCore.outputText( '  ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( this.emberMF( 'His', 'Her' ) + ' cock ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 || CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 					EngineCore.outputText( 'is poking out of ' + this.emberMF( 'his', 'her' ) + ' slit' );
 				} else {
 					EngineCore.outputText( 'is starting to swell with blood' );
 				}
 				EngineCore.outputText( '.  ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'You can see tiny rivulets of moisture starting to run down Ember\'s inner thighs as they rub together, barely hiding her precious treasure from your hungry eyes.  ' );
 			}
 			EngineCore.outputText( 'Well, ' + this.emberMF( 'he', 'she' ) + ' is a sexy beast; you ask what naturally comes to mind.' );
@@ -236,24 +236,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		var getPenetrated = null;
 		//Display Options:[Catch Anal][Pitch Anal][Blow Ember][Get Blown][Eat Ember Out][Get Eaten Out][Penetrate Her][Get Penetrated][Leave];
 		//Scenes that require Ember to have a dick;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			blowEmber = this.suckEmberCock;
 			catchAnal_ = this.catchAnal;
-			if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.lust >= 33 && CoC.player.hasVagina() ) {
 				getPenetrated = this.getPenetratedByEmberLastSexSceneWoooo;
 			}
 		}
 		//scenes that require Ember to have a cunt;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			eatOut = this.slurpDraggieCunnies;
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
+			if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 				penetrateHer = this.penetrateEmbrah;
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
 			getEatenOut = this.getEatenOutByEmbra;
 		}
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			getBlown = this.stickDickInKnifeDrawer;
 			pitchAnal = this.stickItInEmbersButt;
 		}
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.addButton( 5, 'Get Eaten Out', getEatenOut );
 		EngineCore.addButton( 6, 'Penetrate Her', penetrateHer );
 		EngineCore.addButton( 7, 'Get Penetrated', getPenetrated );
-		if( this.emberAffection() >= 95 && CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() ) >= 0 && (CoC.getInstance().player.hasItem( ConsumableLib.L_DRAFT ) || CoC.getInstance().player.lib >= 50 || CoC.getInstance().player.minLust() >= 40) ) {
+		if( this.emberAffection() >= 95 && CoC.player.hasCock() && CoC.player.cockThatFits( this.emberVaginalCapacity() ) >= 0 && (CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.lib >= 50 || CoC.player.minLust() >= 40) ) {
 			EngineCore.addButton( 8, 'LustyFuck', this.highAffectionEmberLustFuck );
 		}
 		EngineCore.addButton( 9, 'Leave', this.emberCampMenu );
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//Triggers randomly on exploration in Swamp;
 	EmberScene.prototype.findEmbersEgg = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_FOUND_EMBERS_EGG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_FOUND_EMBERS_EGG ] === 0 ) {
 			EngineCore.outputText( 'You spot a cave entrance partially hidden behind mossy vegetation and decide to investigate.' );
 			EngineCore.outputText( '\n\nThe cave floor is very damp, and the moss growing along the ground makes it extra slippery.  Unfortunately, squint as you might to see the inside, the almost tractionless ground causes you to lose your balance and you fall back towards the wall.  You try a grab for the solid rock face to steady yourself, but your hands meet only air; the wall dissolves in front of your eyes and you hit the ground with a yelp and a loud thud.' );
 			EngineCore.outputText( '\n\nFortunately, you don\'t seem to be injured, but your curiosity is piqued... was the wall some kind of illusion?  You look ahead and see tiny glowing mushrooms lighting what is obviously a deliberately crafted path.  Since the rest of the cave is too dark, you decide to continue along this path.' );
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( 'You spot a familiar cave partially hidden behind the mossy vegetation and decide to confirm your suspicion.' );
 			EngineCore.outputText( '\n\nTrue enough, after a short trek through familiar tunnels you find yourself once again standing before the alleged \'dragon egg\'.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_FOUND_EMBERS_EGG ]++;
+		CoC.flags[ kFLAGS.TIMES_FOUND_EMBERS_EGG ]++;
 		EngineCore.choices( 'Take It', this.takeEmbersEggHomeInADoggieBag, 'Destroy It', this.destroyBabyEmberYouMonster, '', null, '', null, 'Leave', this.leaveEmbersAssOutToDry );
 	};
 	//[=Leave=] (Z);
@@ -305,10 +305,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//[=Destroy it=] (Z);
 	EmberScene.prototype.destroyBabyEmberYouMonster = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'Raising your [weapon], you rain down blow after blow upon the egg.  The shell is freakishly tough, taking a lot of punishment before it shatters apart to spill a wave of egg white onto your ' + CoC.getInstance().player.feet() + '; a great pulpy mass of weirdly bluish-red yolk remains in the broken shell.' );
+		EngineCore.outputText( 'Raising your [weapon], you rain down blow after blow upon the egg.  The shell is freakishly tough, taking a lot of punishment before it shatters apart to spill a wave of egg white onto your ' + CoC.player.feet() + '; a great pulpy mass of weirdly bluish-red yolk remains in the broken shell.' );
 		EngineCore.outputText( '\n\nYou have sealed the fate of an entire species... you feel guilty, but this was for the best.  There was no way of knowing what this dragon could do once it hatched.' );
 		EngineCore.outputText( '\n\nWith nothing else in the cave, you prepare to leave, but find yourself stopped by a sudden thought.  The egg yolk, though raw, looks strangely appetizing...' );
-		CoC.getInstance().flags[ kFLAGS.EGG_BROKEN ] = 1;
+		CoC.flags[ kFLAGS.EGG_BROKEN ] = 1;
 		//[Eat][Leave];
 		EngineCore.choices( 'Eat It', this.eatEmbersYolkLikeAnEvenBiggerDick, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -320,12 +320,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nBefore you realize it, you have eaten as much of it as is possible to eat and the empty halves of the egg lie before you - as you watch, the leftover albumen wicks into the porous shell, disappearing completely.  You pick up the shell, looking at the underside, but not a drop of fluid seeps out.  Interesting...' );
 		EngineCore.outputText( '\n\nFeeling sated, you get up and prepare to return to your camp, but on a whim, you take the shell with you as a souvenir.' );
 		EngineCore.outputText( '\n\n(<b>Gained Key Item Eggshell</b>)' );
-		CoC.getInstance().player.createKeyItem( 'Dragon Eggshell', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'Dragon Eggshell', 0, 0, 0, 0 );
 		//(+5-10 to strength, toughness, and speed.);
 		//(+20 Corruption);
 		//(also slimefeed!);
 		EngineCore.dynStats( 'str', 5 + Utils.rand( 5 ), 'tou', 5 + Utils.rand( 5 ), 'int', 5 + Utils.rand( 5 ), 'cor', 20 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -338,9 +338,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou tell the armorsmith that a shield will be fine, and she sets to work smoothing the edges.  After nearly an hour of idle browsing through armor you don\'t really care about, she attracts your attention.  "<i>It\'s done, cutie.  Payment up front.</i>"' );
 		EngineCore.outputText( '\n\nHanding over the gems, you take the white shell back from her; true to her word, she\'s rounded it into a proper shield and fitted adjustable straps to the back.  Its hardness is indisputable, but you can only wonder if its liquid absorption properties are still intact.  Worth a test, right?' );
 		//this is where the Dragonshell Shield lives, git you one!;
-		CoC.getInstance().player.gems -= 200;
+		CoC.player.gems -= 200;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().player.removeKeyItem( 'Dragon Eggshell' );
+		CoC.player.removeKeyItem( 'Dragon Eggshell' );
 		SceneLib.inventory.takeItem( WeaponLib.DRGNSHL, SceneLib.telAdre.armorShop );
 	};
 	//Suggested Reward:;
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide to take the egg, figuring that perhaps this dragon could aid you in your quest.' );
 		//(If player is shorter than 7 feet);
-		if( CoC.getInstance().player.tallness < 84 ) {
+		if( CoC.player.tallness < 84 ) {
 			EngineCore.outputText( '  Lifting it isn\'t as much of a problem as you thought; it\'s surprisingly light.  It is, however, very big and very awkward to carry.' );
 		} else {
 			EngineCore.outputText( '  Between the egg\'s surprising lightness, and your own size and wide arms, you can easily carry the egg.' );
@@ -362,12 +362,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nThankfully, it seems to be intact; you put the egg down and try to roll it gently past the open cave mouth.  It bumps something again, something invisible. Then you recall the books\' mention of some sort of ward protecting the egg; when you try to touch and feel the invisible ward however, your hand goes right through.  In fact you can cross this \'ward\' easily, as if it weren\'t even there...  However, if you attempt to carry the egg, there is a solid barrier preventing it from passing through.' );
 		EngineCore.outputText( '\n\nVexed, you decide to look around the egg chamber for another way out.' );
 		//(if PC has >= 50 int);
-		if( CoC.getInstance().player.inte >= 50 ) {
+		if( CoC.player.inte >= 50 ) {
 			EngineCore.outputText( '\n\nYou feel electricity run down your spine as you pass by a far wall in the back of the cave; inspecting the wall, you quickly locate an odd rock.  When you pick it up, you realize it has some sort of inscription drawn all over the underside; figuring it\'s probably the source of the ward, you fling the rock at the far wall, shattering it into many pieces.' );
 			EngineCore.outputText( '\n\nYou feel a small pulse of energy run through the chamber and into the corridor.  Running towards the entrance; you discover that you can easily remove the egg.  It begins to glow softly as you remove it from the cave; at first you take it for a trick of the light, but remember there isn\'t any in this damned dark swamp!' );
 		}
 		//(else if PC has >= 90 str);
-		else if( CoC.getInstance().player.str >= 90 ) {
+		else if( CoC.player.str >= 90 ) {
 			EngineCore.outputText( '\n\nou look around over and over and over... but no matter how much you look, you don\'t see anything at all that could even resemble some kind of magic rune, or activation button, or anything that could disable the ward.  You groan in frustration.' );
 			EngineCore.outputText( '\n\nWell, if there is no way out all you have to do is make one, right?  Using your immense strength, you break off a sturdy-looking stalagmite and begin striking the walls in hopes of breaking through or disabling the barrier.' );
 			EngineCore.outputText( '\n\nIt takes a lot longer than you originally anticipated, but sure enough, soon you feel a small pulse of energy run through the chamber and into the corridor.  Running towards the entrance; you discover that you can easily remove the egg.  It begins to glow softly as you remove it from the cave; at first you take it for a trick of the light, but remember there isn\'t any in this damned dark swamp!' );
@@ -380,16 +380,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\n(<b>You have now begun the Mysterious Egg quest.  The Mysterious Egg is added to the <i>Items</i> at the Camp.</b>)' );
 		//set flags;
-		CoC.getInstance().player.createKeyItem( 'Dragon Egg', 0, 0, 0, 0 );
-		CoC.getInstance().flags[ kFLAGS.TOOK_EMBER_EGG ] = 1;
-		CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 50;
+		CoC.player.createKeyItem( 'Dragon Egg', 0, 0, 0, 0 );
+		CoC.flags[ kFLAGS.TOOK_EMBER_EGG ] = 1;
+		CoC.flags[ kFLAGS.EMBER_COR ] = 50;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Modified Camp Description (Z);
 	EmberScene.prototype.emberCampDesc = function() {
 		//Iz Ember an egg?;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_HATCHED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_HATCHED ] === 0 ) {
 			EngineCore.outputText( '\nThat mysterious egg that you brought back to the camp is sitting in the crude nest you made.\n' );
 		}
 		//NOT AN EGG! HAHA!;
@@ -448,20 +448,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You approach the egg you found in that illusion-concealed cave. Though the light continues to pulse with its heartbeat overtones, it still just sits there, doing nothing.' );
 		//(If the egg Corruption level is 0-25, aka "<i>Pure</i>");
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] <= 25 ) {
+		if( CoC.flags[ kFLAGS.EMBER_COR ] <= 25 ) {
 			EngineCore.outputText( '  As you observe the egg, it glows with soft, metered pulses and you\'re overcome with a sense of calm and peace.  Watching them, you feel serene, as if untouched by this world\'s taint.' );
 		}
 		//(else If the egg Corruption level is 26-74, aka "<i>Tainted</i>");
-		else if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] <= 75 ) {
+		else if( CoC.flags[ kFLAGS.EMBER_COR ] <= 75 ) {
 			EngineCore.outputText( '  As you observe the egg, it glows with bright, gaudy pulses and you\'re overcome with a sense of arrogance and strength.  You feel somehow as if you could do anything, as if you were superior to everything, and no one could dare say otherwise.' );
 		}
 		//(If the egg Corruption level is 75-100, aka "<i>Corrupt</i>");
 		else {
 			EngineCore.outputText( '  As you observe the egg you realize what you had taken for its pulses are actually just its normal color; the egg is actually \'glowing\' with a black light!  As you stare, mesmerized, you begin to consider the pleasing contrast that would result if you covered it in your ' );
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'cum, if you had any... ' );
 			} else {
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( 'white ' );
 				} else {
 					EngineCore.outputText( 'glistening girl-' );
@@ -469,14 +469,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'cum... ' );
 			}
 			EngineCore.outputText( ' You stop yourself and shake your head.  Where did that thought come from?' );
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.cor / 10 );
+			EngineCore.dynStats( 'lus', 10 + CoC.player.cor / 10 );
 		}
 		//(If player has lust >= 33);
-		if( CoC.getInstance().player.lust >= 33 && (CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] < 5 || CoC.getInstance().flags[ kFLAGS.EMBER_JACKED_ON ] === 0) ) {
+		if( CoC.player.lust >= 33 && (CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] < 5 || CoC.flags[ kFLAGS.EMBER_JACKED_ON ] === 0) ) {
 			EngineCore.outputText( '\n\nYou stare at the egg\'s rhythmic pulsations.  As you do, though, you realize the pattern of the pulses is starting to change.  It\'s becoming erratic, as if the egg were excited.  For some reason, you suddenly feel aroused, and the egg looks strangely inviting...' );
 			EngineCore.outputText( '\n\nYou reach out and have the distinct impression of breathing... no, not breathing... panting.  It feels like the egg is panting, eager for something, and you find its eagerness infectious.  Placing a hand on the shell, you lean in and press your cheek to the surface, listening; the egg feels warm and throbs as it pulses... almost like a lover\'s chest just before you consummate your feelings for each other.  You have the strangest urge to do just that with this mysterious egg...' );
 			//(additionally to above, if the egg is about to hatch);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] === 4 ) {
+			if( CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] === 4 ) {
 				EngineCore.outputText( '\n\nA feeling of exasperation fills you as well, as if you were almost finished achieving something, but lacked the last step necessary to complete it.' );
 			}
 			//Do you give in to the urge?;
@@ -491,39 +491,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou stare at the egg\'s pulsations as the rhythm shifts slightly.  You feel a tinge of excitement, a distant expectation not your own.  Though curious about what could be inside, you decide nothing more can be done for now.' );
 		}
 		var fap = null;
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			fap = this.masturbateOntoAnEgg;
 		}
 		var draft = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.INCUBID ) ) {
+		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
 			draft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, false );
 		}
 		var pDraft = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.P_DRAFT ) ) {
+		if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
 			pDraft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, true );
 		}
 		var milk = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) ) {
+		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
 			milk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, false );
 		}
 		var pMilk = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK ) ) {
+		if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) ) {
 			pMilk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, true );
 		}
 		var hair = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.EXTSERM ) ) {
+		if( CoC.player.hasItem( ConsumableLib.EXTSERM ) ) {
 			hair = this.hairExtensionSerum;
 		}
 		var ovi = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
+		if( CoC.player.hasItem( ConsumableLib.OVIELIX ) ) {
 			ovi = this.useOviElixerOnEmber;
 		}
 		var lactaid = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.LACTAID ) ) {
+		if( CoC.player.hasItem( ConsumableLib.LACTAID ) ) {
 			lactaid = this.useLactaidOnEmber;
 		}
 		var hatch = null;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] >= 5 && CoC.getInstance().flags[ kFLAGS.EMBER_JACKED_ON ] > 0 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] >= 5 && CoC.flags[ kFLAGS.EMBER_JACKED_ON ] > 0 && CoC.flags[ kFLAGS.EMBER_GENDER ] > 0 ) {
 			hatch = this.hatchZeMuzzles;
 			EngineCore.outputText( '\n\n<b>The egg is ready to be hatched - if you\'re just as ready.</b>' );
 		}
@@ -542,39 +542,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//If PC picks No and qualifies for item use, display the text below.;
 		//(If player has an item that is valid for application);
 		var fap = null;
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			fap = this.masturbateOntoAnEgg;
 		}
 		var draft = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.INCUBID ) ) {
+		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
 			draft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, false );
 		}
 		var pDraft = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.P_DRAFT ) ) {
+		if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
 			pDraft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, true );
 		}
 		var milk = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) ) {
+		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
 			milk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, false );
 		}
 		var pMilk = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK ) ) {
+		if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) ) {
 			pMilk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, true );
 		}
 		var hair = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.EXTSERM ) ) {
+		if( CoC.player.hasItem( ConsumableLib.EXTSERM ) ) {
 			hair = this.hairExtensionSerum;
 		}
 		var ovi = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
+		if( CoC.player.hasItem( ConsumableLib.OVIELIX ) ) {
 			ovi = this.useOviElixerOnEmber;
 		}
 		var lactaid = null;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.LACTAID ) ) {
+		if( CoC.player.hasItem( ConsumableLib.LACTAID ) ) {
 			lactaid = this.useLactaidOnEmber;
 		}
 		var hatch = null;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] >= 5 && CoC.getInstance().flags[ kFLAGS.EMBER_JACKED_ON ] > 0 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] >= 5 && CoC.flags[ kFLAGS.EMBER_JACKED_ON ] > 0 && CoC.flags[ kFLAGS.EMBER_GENDER ] > 0 ) {
 			hatch = this.hatchZeMuzzles;
 		}
 
@@ -602,94 +602,94 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	EmberScene.prototype.useIncubusDraftOnEmber = function( purified ) {
 		EngineCore.clearOutput();
 		if( purified ) {
-			CoC.getInstance().player.consumeItem( ConsumableLib.P_DRAFT );
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] -= 10;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] < 0 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 0;
+			CoC.player.consumeItem( ConsumableLib.P_DRAFT );
+			CoC.flags[ kFLAGS.EMBER_COR ] -= 10;
+			if( CoC.flags[ kFLAGS.EMBER_COR ] < 0 ) {
+				CoC.flags[ kFLAGS.EMBER_COR ] = 0;
 			}
 		} else {
-			CoC.getInstance().player.consumeItem( ConsumableLib.INCUBID );
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] += 10;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] > 100 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 100;
+			CoC.player.consumeItem( ConsumableLib.INCUBID );
+			CoC.flags[ kFLAGS.EMBER_COR ] += 10;
+			if( CoC.flags[ kFLAGS.EMBER_COR ] > 100 ) {
+				CoC.flags[ kFLAGS.EMBER_COR ] = 100;
 			}
 		}
 		EngineCore.outputText( 'Uncorking the vial, you drizzle the slimy off-white fluid onto the pointed cone of the egg.  It oozes slowly across the surface, then seeps through the shell, leaving not a drop of moisture.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
 			EngineCore.outputText( '  The egg\'s shell slowly changes to a soft, pastel blue.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 1;
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+			CoC.flags[ kFLAGS.EMBER_GENDER ] = 1;
+		} else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 			EngineCore.outputText( '   The egg\'s shell slowly changes to a lavender hue.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 3;
+			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Succubi Milk/Purified Succubi Milk (Z);
 	EmberScene.prototype.useSuccubiMilkOnEmber = function( purified ) {
 		EngineCore.clearOutput();
 		if( purified ) {
-			CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK );
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] -= 10;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] < 0 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 0;
+			CoC.player.consumeItem( ConsumableLib.P_S_MLK );
+			CoC.flags[ kFLAGS.EMBER_COR ] -= 10;
+			if( CoC.flags[ kFLAGS.EMBER_COR ] < 0 ) {
+				CoC.flags[ kFLAGS.EMBER_COR ] = 0;
 			}
 		} else {
-			CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK );
-			CoC.getInstance().flags[ kFLAGS.EMBER_COR ] += 10;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_COR ] > 100 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_COR ] = 100;
+			CoC.player.consumeItem( ConsumableLib.SUCMILK );
+			CoC.flags[ kFLAGS.EMBER_COR ] += 10;
+			if( CoC.flags[ kFLAGS.EMBER_COR ] > 100 ) {
+				CoC.flags[ kFLAGS.EMBER_COR ] = 100;
 			}
 		}
 		EngineCore.outputText( 'Popping the cap off of the milk bottle, you pour the contents onto the egg - the porous shell soaks up the milk as fast as you dump it, spilling not a drop.' );
 		//(If Unsexed or Herm:;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
 			EngineCore.outputText( '  The egg\'s shell slowly changes to a muted pink color.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 2;
+			CoC.flags[ kFLAGS.EMBER_GENDER ] = 2;
 		}
 		//If Male:;
-		else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( '  The egg\'s shell slowly changes to a lavender hue.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 3;
+			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Ovi Elixir (Z);
 	EmberScene.prototype.useOviElixerOnEmber = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
+		CoC.player.consumeItem( ConsumableLib.OVIELIX );
 		//max uses 1;
 		EngineCore.outputText( 'Uncorking the crystalline bottle, you pour the strange green liquid inside onto the egg, briefly wondering what on earth it could want with this stuff, before catching your fallacy.  It\'s an egg, right?  It can\'t want things...  The fluid spills all over the shell, coating it, and then seeps inside, leaving the egg\'s previously pale surface marked with small green splotches.' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] = 1;
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] = 1;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Lactaid (Z);
 	EmberScene.prototype.useLactaidOnEmber = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.LACTAID );
+		CoC.player.consumeItem( ConsumableLib.LACTAID );
 		//max uses 1;
 		EngineCore.outputText( 'Feeling a little bemused, you pour the creamy fluid onto the egg.  It is absorbed through the shell, and a spiderwork of creamy yellow vein-like markings suddenly forms on the shell\'s surface.' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] = 1;
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_MILK ] = 1;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Hair Extension Serum (Z);
 	EmberScene.prototype.hairExtensionSerum = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.EXTSERM );
+		CoC.player.consumeItem( ConsumableLib.EXTSERM );
 		//max uses 2;
 		EngineCore.outputText( 'Wondering at your motivations, you pour the goblin gunk onto the egg.  Most rolls harmlessly off of the shell, leaving you annoyed at the waste... until you see ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 0 ) {
 			EngineCore.outputText( 'a narrow tiger-stripe pattern suddenly develop' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] = 1;
+			CoC.flags[ kFLAGS.EMBER_HAIR ] = 1;
 		} else {
 			EngineCore.outputText( 'the tiger-stripes multiply' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] = 2;
+			CoC.flags[ kFLAGS.EMBER_HAIR ] = 2;
 		}
 		EngineCore.outputText( ' on the egg.' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Your Blood (Z);
@@ -698,45 +698,45 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//max uses 2;
 		EngineCore.outputText( 'Examining your hand and the egg\'s reaction to it, you wonder if this is what the book meant by "<i>sharing your essence</i>".  Could be worth trying.  Wincing in pain as you bite the skin on your thumb, you smear the bloody digit along the surface of the egg, marking its exterior in crimson.  Shortly thereafter the blood is absorbed, leaving only a stain.  You wait expectantly for something else to happen' );
 		//[(0 prior),;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ' but the egg just glows its excitement, as if it wanted still more.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] = 1;
+			CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] = 1;
 		} else {
 			EngineCore.outputText( ', but nothing does.  How disappointing.' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] = 0;
+			CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] = 0;
 		}
-		CoC.getInstance().player.takeDamage( 1 );
-		CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] = 1;
+		CoC.player.takeDamage( 1 );
+		CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] = 1;
 		//(Token HP Loss, can't drop below 1 HP.);
-		CoC.getInstance().player.takeDamage( 10 );
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.player.takeDamage( 10 );
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Masturbate Onto the Egg (Z);
 	//Genderless Version (Z);
 	EmberScene.prototype.masturbateOntoAnEgg = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'The light pulses decrease in speed as you disrobe and expose your bare crotch, leaving you disappointed after summoning your perversity to bring you this far.  You feel as if you\'ve let it down somehow...  This is confusing!  You decide to go away and deal with this fickle egg another time.' );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Nothing changes. PC can go do something else, lose no time.;
 		//Male Version (Z);
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'The light of the egg pulses rapidly, throwing strange illumination and shadow over your form as you hastily peel off your [armor], too far gone to recognize the absurdity.  Your heart is racing so fast with excitement, lust, anticipation... it actually matches the tempo of the pulses from the egg, when you care to notice.' );
 			EngineCore.outputText( '\n\nGrabbing your [cock] in your hands, you stand in front of the egg, ' );
-			if( CoC.getInstance().player.cockTotal() <= 2 ) {
+			if( CoC.player.cockTotal() <= 2 ) {
 				EngineCore.outputText( 'pumping vigorously.' );
 			} else {
 				EngineCore.outputText( 'wrangling all your shafts together into one awkward bouquet of male organs and furiously stroking and squeezing them as best you can manage' );
 			}
 			EngineCore.outputText( '.  The egg\'s pulsations lure you on, coaxing you to squeeze, pull, thrust, and massage ' + Descriptors.sMultiCockDesc() + ' as best you can.  Harder and faster you go, feeling the churning ache from deep inside you.  Finally, with a cry of release, you unleash a ' );
-			if( CoC.getInstance().player.cumQ() < 100 ) {
+			if( CoC.player.cumQ() < 100 ) {
 				EngineCore.outputText( 'trickle' );
-			} else if( CoC.getInstance().player.cumQ() <= 500 ) {
+			} else if( CoC.player.cumQ() <= 500 ) {
 				EngineCore.outputText( 'stream' );
-			} else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+			} else if( CoC.player.cumQ() <= 1000 ) {
 				EngineCore.outputText( 'gout' );
 			} else {
 				EngineCore.outputText( 'wave' );
@@ -744,19 +744,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( ' of cum onto the egg.' );
 			EngineCore.outputText( '\n\nPanting, you stare at what you have unleashed.  Before your eyes, the pulsations come with incredible rapidity as your sexual fluid literally seeps into the egg\'s shell.  Then, when every drop has been drunk, the light resumes its normal rhythm.' );
 			//(If the egg has no sex);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
 				EngineCore.outputText( '\n\nThe egg\'s shell changes color, from white to muted pink.' );
-				CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 2;
+				CoC.flags[ kFLAGS.EMBER_GENDER ] = 2;
 			}
 			EngineCore.outputText( '\n\nYou look at the egg\'s surface in amazement and examine it for any trace of cum; when you touch the shell, you feel a strange feeling emanate from the egg; a feeling of satisfaction and fulfillment.  Whatever life-force exists inside that egg may have been strengthened by your... contribution.  You can\'t help but wonder what the creature inside is.' );
 		}
 		//Female Version (Z);
-		else if( CoC.getInstance().player.gender === 2 ) {
+		else if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( 'The light of the egg pulses rapidly, throwing strange illumination and shadow over your form as you hastily peel off your [armor], too far gone to recognize the absurdity.  Your heart is racing so fast with excitement, lust, anticipation... it actually matches the tempo of the pulses from the egg, when you care to notice.' );
 			EngineCore.outputText( '\n\nUnthinkingly, you walk up the egg; your [vagina] burns to be used.  Wrapping your arms around it and squatting down, you begin to rub your crotch against its warm, hard surface.  The texture is unlike anything you\'ve used before, and you moan with pleasure as your juices begin to flow, slicking the eggshell.  Harder you press against it, grinding into the unyielding surface, up and down, faster and faster.  The sensation of the shell scraping against your needy netherlips only fills you with excitement; this is like no toy you\'ve ever used before.  Briefly you think that may be because it\'s no toy at all, but the thought evaporates as you make your next stroke.  Harder and faster you buck and writhe, screaming your excitement and delight until, finally, your [vagina] spasms and a ' );
-			if( CoC.getInstance().player.wetness() <= 3 ) {
+			if( CoC.player.wetness() <= 3 ) {
 				EngineCore.outputText( 'few drops' );
-			} else if( CoC.getInstance().player.wetness() < 5 ) {
+			} else if( CoC.player.wetness() < 5 ) {
 				EngineCore.outputText( 'squirt' );
 			} else {
 				EngineCore.outputText( 'torrent' );
@@ -764,8 +764,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( ' of girlcum jumps from your pussy onto the egg.' );
 			EngineCore.outputText( '\n\nReleasing its surface and panting with the exertion, you step back, your legs wobbly for a few moments.  You stare at what you have unleashed.  Before your eyes, the pulsations come with incredible rapidity as your sexual fluid literally seeps into the egg\'s shell.  Then, when every drop has been drunk, the light resumes its normal rhythm.' );
 			//(If the egg has no sex);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 1;
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+				CoC.flags[ kFLAGS.EMBER_GENDER ] = 1;
 				EngineCore.outputText( '\n\nYou stare in curiosity as the egg\'s shell changes color, from white to pale blue.' );
 			}
 			EngineCore.outputText( '\n\nYou look at the egg\'s surface in amazement and examine it for any trace of cum; when you touch the shell, you feel a strange feeling emanate from the egg; a feeling of satisfaction and fulfillment.  Whatever life-force exists inside that egg may have been strengthened by your... contribution.  You can\'t help but wonder what the creature inside is.' );
@@ -773,7 +773,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			//Herm Version (Z);
 			EngineCore.outputText( 'The light of the egg pulses rapidly, throwing strange illumination and shadow over your form as you hastily peel off your [armor], too far gone to recognize the absurdity.  Your heart is racing so fast with excitement, lust, anticipation... it actually matches the tempo of the pulses from the egg, when you care to notice.' );
 			EngineCore.outputText( '\n\nTormented by the need in both your ' + Descriptors.multiCockDescriptLight() + ' and your [vagina], you awkwardly straddle the egg\'s upper surface, allowing you to grind your netherlips against its shell and stroke [eachCock] at the same time.  It is an awkward, herky-jerky act, struggling to avoid falling off... but the sensation so makes up for it.  Your [vagina] slides and grinds against the egg\'s hard, unyielding shell as your hand tugs and pulls ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'your [cock]' );
 			} else {
 				EngineCore.outputText( 'as many of your cocks as you can manage to grab without falling off' );
@@ -781,22 +781,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '.  Finally, relentlessly, inexorably, you cum, spraying your semen into the air to spatter back onto the egg, mixing with the girlish juices from your netherlips to soak into the egg\'s surface, leaving it slick with your mixed sexual fluids.' );
 			EngineCore.outputText( '\n\nIt\'s no wonder that you finally lose your battle and slip off, landing hard on your back.  You lay there, gasping for air, and are only just starting to breathe normally again when you see what is happening to the egg.  Before your eyes, the pulsations come with incredible rapidity as your sexual fluid literally seeps into the egg\'s shell.  Then, when every drop has been drunk, the light resumes its normal rhythm.' );
 			//(If the egg has no sex);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] = 3;
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+				CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 				EngineCore.outputText( '\n\nYou stare as the egg\'s shell changes color, from white to lavender.' );
 			}
 			EngineCore.outputText( '\n\nYou look at the egg\'s surface in amazement and examine it for any trace of cum; when you touch the shell, you feel a strange feeling emanate from the egg; a feeling of satisfaction and fulfillment.  Whatever life-force exists inside that egg may have been strengthened by your... contribution.  You can\'t help but wonder what the creature inside is.' );
 		}
 		//(If egg has been fed at least once but not enough);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] < 5 ) {
+		if( CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ] < 5 ) {
 			EngineCore.outputText( '\n\nYou note the egg emanates a feeling of greater satisfaction than before, but still not enough. Maybe it will hatch if you feed it more?' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		//MAKE SURE EMBER HAS BEEN JACKED ON FLAG IS SET TO TRUE;
-		CoC.getInstance().flags[ kFLAGS.EMBER_JACKED_ON ] = 1;
+		CoC.flags[ kFLAGS.EMBER_JACKED_ON ] = 1;
 		//INCREMENT EMBER FEEDINZ;
-		CoC.getInstance().flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//HATCH DAT BITCH;
@@ -804,26 +804,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Resting bonelessly on the ground and re-examining the motivations that led up to cumming on the strange egg, you are startled when it shines brilliantly.  Then just as suddenly, it goes dark.  Unnerved, you creep over to your erstwhile sextoy to examine it.  As you lean in, a very slight trembling manifests itself in the egg.  Cracking, breaking noises fill the air as tiny fractures begin to show across the egg\'s surface.  Warned just in time by them, you turn your face away and cover your head as the shell erupts into a cloud of tiny fragments!  As you huddle against the storm of eggshell shards, you hear a loud roar.' );
 		EngineCore.outputText( '\n\nLifting your head, you find the egg gone; in its place is an unfamiliar figure wrapped in thin wisps of ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 0 ) {
 			EngineCore.outputText( 'white ' );
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'blue ' );
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 			EngineCore.outputText( 'pink ' );
 		} else {
 			EngineCore.outputText( 'purple ' );
 		}
 		EngineCore.outputText( 'dust.' );
 		//FURRAH;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			//Male Anthro (Z);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( '\n\nIt\'s huge, standing 7 feet tall at the very least.  Its build is lean and slender, with powerful arms and legs that end in reptilian claws, complete with splay-toed feet capped by menacing talons.' );
 				EngineCore.outputText( '\n\nLeathery reptilian wings grow from its back, and the creature reveals their impressive span as it tests and stretches them.  The wings are comprised of taut, thin membranes; scaly flesh stretched between prominent bone struts.  A reptilian muzzle replete with sharp teeth fit for a predator graces the world, and a large ebony horn curves around and forward from either temple.' );
 				EngineCore.outputText( '\n\nA long tongue, long as a whip, slips out from within its jaws to lick its clawed hands and then vanishes back into its mouth with lightning speed.  Prideful, fierce eyes stare at you, with slit pupils and burning orange irises that glitter and shine even in the darkness.' );
 				EngineCore.outputText( '\n\nThe creature is covered from head to toe in prominent, shield-shaped scales.  Its dorsal scales are silver and reflect light, while its underbelly is a golden color, giving it a regal appearance.' );
 				//(If Ember lactates);
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 					EngineCore.outputText( '\n\nYour eyes set upon its chest, where perky, dribbling nipples jut from the breasts resting there.  You size the creature as roughly an F-cup.' );
 				}
 				//(Otherwise);
@@ -831,26 +831,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 					EngineCore.outputText( '\n\nYour eyes set upon its chest, where perky nipples jut from between small, aureate ventral scales.' );
 				}
 				//[(libido check);
-				if( CoC.getInstance().player.lib >= 50 ) {
+				if( CoC.player.lib >= 50 ) {
 					EngineCore.outputText( '\n\nUnthinkingly, your eyes wander next to' );
 				} else {
 					EngineCore.outputText( '\n\nSurreptitiously, you sneak a peek at' );
 				}
 				EngineCore.outputText( ' the monster\'s crotch; there, a deceptively small slit in the flesh suddenly disgorges a 16-inch penis unlike anything you\'ve ever seen before, bearing a rounded, elongated head and a series of ridges that give it an almost segmented look.  A pair of apple-sized balls drop into place under it.  He is most definitely male' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 					EngineCore.outputText( ', drooling nipples notwithstanding' );
 				}
 				EngineCore.outputText( '.' );
 			}
 			//Female Anthro (Z);
-			else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+			else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 				EngineCore.outputText( '\n\nIt\'s huge, standing 7 feet tall at the very least.  Its build is lean and slender, with powerful arms and legs that end in reptilian claws, complete with splay-toed feet capped by menacing talons.' );
 				EngineCore.outputText( '\n\nLeathery reptilian wings grow from its back, and the creature reveals their impressive span as it tests and stretches them.  The wings are comprised of taut, thin membranes; scaly flesh stretched between prominent bone struts.  A reptilian muzzle replete with sharp teeth fit for a predator graces the world, and a large ebony horn curves around and forward from either temple.' );
 				EngineCore.outputText( '\n\nA long tongue, long as a whip, slips out from within its jaws to lick its clawed hands and then vanishes back into its mouth with lightning speed.  Prideful, fierce eyes stare at you, with slit pupils and burning orange irises that glitter and shine even in the darkness.' );
 				EngineCore.outputText( '\n\nThe creature is covered from head to toe in prominent, shield-shaped scales.  Its dorsal scales are silver and reflect light, while its underbelly is a golden color, giving it a regal appearance.' );
 				EngineCore.outputText( '\n\nYour eyes set upon its chest, where perky nipples jut from the breasts resting there.  You size the creature as roughly an F-cup.' );
 				//[(libido check);
-				if( CoC.getInstance().player.lib >= 50 ) {
+				if( CoC.player.lib >= 50 ) {
 					EngineCore.outputText( '\n\nUnthinkingly, your eyes wander to' );
 				} else {
 					EngineCore.outputText( '\n\nSurreptitiously, you sneak a peek at' );
@@ -864,7 +864,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( '\n\nA long tongue, long as a whip, slips out from within its jaws to lick its clawed hands and then vanishes back into its mouth with lightning speed.  Prideful, fierce eyes stare at you, with slit pupils and burning orange irises that glitter and shine even in the darkness.' );
 				EngineCore.outputText( '\n\nThe creature is covered from head to toe in prominent, shield-shaped scales.  Its dorsal scales are silver and reflect light, while its underbelly is a golden color, giving it a regal appearance.' );
 				EngineCore.outputText( '\n\nYour eyes set upon its chest, where perky nipples jut from the breasts resting there.  You size the creature as roughly an F-cup.' );
-				if( CoC.getInstance().player.lib >= 50 ) {
+				if( CoC.player.lib >= 50 ) {
 					EngineCore.outputText( '\n\nUnthinkingly, your eyes wander to ' );
 				} else {
 					EngineCore.outputText( '\n\nSurreptitiously, you sneak a peek at ' );
@@ -875,23 +875,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//Boring version;
 		else {
 			//Male Monstergirl (Z);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( '\n\nYour first impression is of a humanoid figure, but a closer look reveals some very non-human traits.  While parts of it are covered in olive-hued skin, the rest glints with silvery, reptilian scales.  It stands taller than any human, easily over 7 feet, and even from here you can see huge draconic wings, a pair of long, ebony-black horns, and a lashing, scaled tail.  Reptilian eyes literally glow a fiery orange as they stare warily at you.' );
 				EngineCore.outputText( '\n\nThe figure is masculine in appearance, with the features of a strong, defined musculature.  There is a certain androgyny in his build' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
 					EngineCore.outputText( ', complete with ' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 					EngineCore.outputText( 'huge breasts, easily F-cups' );
-					if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
+					if( CoC.flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
 						EngineCore.outputText( ' and ' );
 					}
 				}
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
 					EngineCore.outputText( 'long, feminine locks of hair' );
 				}
 				EngineCore.outputText( ', but his maleness is undeniable.  Especially when you spot ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 					EngineCore.outputText( 'the slit in his pelvis that disgorges a foot and a half-long inhuman penis' );
 				} else {
 					EngineCore.outputText( 'a foot and a half long human penis that sways between his legs' );
@@ -899,7 +899,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( ', completed by apple-size nuts held inside a fleshy sack.' );
 			}
 			//Female Monstergirl (Z);
-			else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+			else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 				EngineCore.outputText( '\n\nYour first impression is of a humanoid figure, but a closer look reveals some very non-human traits.  While parts of it are covered in olive-hued skin, the rest glints with silvery, reptilian scales.  It stands taller than any human, easily over 7 feet, and even from here you can see huge draconic wings, a pair of long, ebony-black horns, and a lashing reptilian tail. Reptilian eyes literally glow a fiery orange as they stare warily at you.' );
 				EngineCore.outputText( '\n\nThe figure is feminine in appearance, with graceful, well-toned curves.  Her form is delightful, giving her a silhouette that any woman back in Ingnam would kill for; huge, soft breasts adorn her chest.  Down below you see a taut belly, a handful of rounded butt, and feminine thighs that draw your attention with every move... and in-between those wonderful thighs you see an inviting, human-looking slit; some moisture has gathered, giving it a slick look that just begs for attention.' );
 			}
@@ -907,7 +907,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			else {
 				EngineCore.outputText( '\n\nYour first impression is of a humanoid figure, but a closer look reveals some very non-human traits.  While parts of it are covered in olive-hued skin, the rest glints with silvery, reptilian scales.  It stands taller than any human, easily over 7 feet, and even from here you can see huge draconic wings, a pair of long, ebony-black horns, and a lashing reptilian tail. Reptilian eyes literally glow a fiery orange as they stare warily at you.' );
 				EngineCore.outputText( '\n\nThe figure seems feminine at first glance; beautifully feminine features, a delightfully curvaceous build, and huge breasts atop her chest.  However, looking between her legs reveals a very unladylike extra feature; dangling over a vaginal slit, she has a ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
 					EngineCore.outputText( 'huge, human prick' );
 				} else {
 					EngineCore.outputText( 'huge inhuman cock hanging from some kind of internal sheath' );
@@ -927,8 +927,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nIt relaxes a bit.  "<i>E-Egg?  Oh, yes.  That.  Since you say you helped me, I guess I should introduce myself...</i>\  You wait patiently, but all the creature really does is stare down at the ground, apparently struggling to recall its name.  "<i>The Last Ember of Hope; that\'s what my mind tells me.  I assume your kind, like the others, will have trouble with a name longer than one word, so I shall allow you to address me as \'Ember\'.  As you can see, I am...</i>" it pauses, spreading its arms and wings in a showy flourish.  "<i>... The last of the great dragons!</i>"  It waves you off and starts walking away.  "<i>Now, let\'s see what sort of place I\'ll be calling my own... </i>"' );
 		EngineCore.outputText( '\n\nYou watch the newly hatched dragon, poking its nose into everything that catches its eye, and sigh softly as it starts to burrow into a small elevation in the cracked ground.  Going to be a difficult one, it seems.  Still, it doesn\'t seem to be some kind of sex-crazed monster like the other weird natives you\'ve met thus far.  Maybe the two of you can help each other?' );
 		EngineCore.outputText( '\n\n(<b>Ember has been gained as a follower!</b>)' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_HATCHED ] = 1;
-		CoC.getInstance().player.removeKeyItem( 'Dragon Egg' );
+		CoC.flags[ kFLAGS.EMBER_HATCHED ] = 1;
+		CoC.player.removeKeyItem( 'Dragon Egg' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Appearance (shows Ember's appearance, always available);
@@ -936,18 +936,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'ember-examine-appearance' ) );
 		//Anthro Ember's Appearance (Z);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'Ember is a 7\' 3" tall humanoid dragon, with supple, long limbs and a build that is toned and athletic, with powerful underlying muscles.  ' + this.emberMF( 'He', 'She' ) + ' looks strong and imposing, but ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( ' not overly muscled.' );
 			} else {
 				EngineCore.outputText( ' feminine.' );
 			}
 
 			//(Male);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( '\n\nEmber\'s body is the perfect picture of a healthy male.  Not underweight or overweight, but with just the perfect amount of fat that, excepting the' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 					EngineCore.outputText( ' dribbling breasts,' );
 				}
 				EngineCore.outputText( ' snout, wings, and horns, gives him the silhouette of a prince from your village\'s stories and handsome.' );
@@ -959,8 +959,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nThe dragon scorns clothing and exposes ' + this.emberMF( 'him', 'her' ) + 'self to both you and the elements with equal indifference, claiming ' + this.emberMF( 'his', 'her' ) + ' scales are all the covering ' + this.emberMF( 'he', 'she' ) + ' needs... and yet when you admire ' + this.emberMF( 'his', 'her' ) + ' body, ' + this.emberMF( 'he', 'she' ) + ' is quick to hide it from your wandering gaze.' );
 			EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' head is reptilian, with sharp teeth fit for a predator and strong ridges on the underside of the jaw.  At the sides of ' + this.emberMF( 'his', 'her' ) + ' head are strange, fin-like growths concealing small holes; you presume these to be the dragon equivalent of ears.  Atop ' + this.emberMF( 'his', 'her' ) + ' head sit a pair of ebony horns that curve backwards elegantly; despite being as tough as steel, their shape is not fit for use in combat, instead it is simply aesthetical, giving Ember a majestic look.  A long tongue occasionally slips out, to lick at ' + this.emberMF( 'his', 'her' ) + ' jaws and teeth.  Prideful, fierce eyes, with slit pupils and burning orange irises, glitter even in the darkness.' );
 			//(if Ember has any hair);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 1 ) {
+				if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 					EngineCore.outputText( '  Short ' );
 				} else {
 					EngineCore.outputText( '  Shoulder-length ' );
@@ -968,12 +968,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'steel-gray hair sprouts from ' + this.emberMF( 'his', 'her' ) + ' head.  You\'d think that a dragon with hair would look weird, but it actually compliments Ember\'s looks very well.' );
 			}
 			//(if Ember has a level 2 mane);
-			else if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 2 ) {
+			else if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 2 ) {
 				EngineCore.outputText( '  Tracing ' + this.emberMF( 'his', 'her' ) + ' spine, a mane of hair grows; starting at the base of ' + this.emberMF( 'his', 'her' ) + ' neck and continuing down ' + this.emberMF( 'his', 'her' ) + ' tail, ending on the tip of ' + this.emberMF( 'his', 'her' ) + ' tail in a small tuft.  It is the same color as the hair on ' + this.emberMF( 'his', 'her' ) + ' head, but shorter and denser; it grows in a thick vertical strip, maybe two inches wide.  It reminds you vaguely of a horse\'s mane.' );
 			}
 			EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' back supports a pair of strong, scaly dragon wings, covered in membranous leathery scales.  The muscles are held taut, as though ready to extend and take to the skies at any notice.' );
 			//(Male);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( '\n\nHis hips are normal-looking, not demanding any kind of extra attention.  His butt is taut and firm, lending itself well to balance.' );
 			}
 			//(Female/Herm);
@@ -984,7 +984,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nA long, scaly, flexible tail lashes behind ' + this.emberMF( 'him', 'her' ) + ', its final third adorned with small bumps that can extend into vicious-looking spikes.  ' + this.emberMF( 'His', 'Her' ) + ' legs appear humanoid until the feet, where they end in powerful, taloned reptilian claws meant for gripping at the ground.' );
 			EngineCore.outputText( '\n\nEmber is covered from head to toe in shield-shaped scales.  ' + this.emberMF( 'His', 'Her' ) + ' dorsal scales are silver and reflect the light well, while ' + this.emberMF( 'His', 'Her' ) + ' underbelly is a rich golden color that stands in stark contrast.  These metallic-colored scales are large and prominent on Ember\'s back and the exterior of ' + this.emberMF( 'his', 'her' ) + ' limbs, but, on ' + this.emberMF( 'his', 'her' ) + ' face, the interior of ' + this.emberMF( 'his', 'her' ) + ' limbs and the front of ' + this.emberMF( 'his', 'her' ) + ' body, they are very small and fine, giving them a smooth and silken texture.' );
 			EngineCore.outputText( '  The ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'little ' );
 			}
 			EngineCore.outputText( 'exposed flesh of Ember\'s body is a light shade of pink; but flushes when ' + this.emberMF( 'he', 'she' ) + '\'s aroused, drawing your eyes towards ' + this.emberMF( 'his', 'her' ) + ' most sexual parts.' );
@@ -1003,35 +1003,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 					EngineCore.outputText( '  Her large pregnant belly has forced Ember to change her posture.  It looks like she has a big golden bullseye painted on her stomach.  Ember looks tired but happy.' );
 					break;
 				case 7:
-					EngineCore.outputText( '  Her swollen belly is as large as that of any pregnant woman you can remember from Ingnam and you ' + (CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'can easily make out the egg\'s outline under her golden skin' : 'occasionally see movement as the baby shifts in Ember\'s womb') + '.' );
+					EngineCore.outputText( '  Her swollen belly is as large as that of any pregnant woman you can remember from Ingnam and you ' + (CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'can easily make out the egg\'s outline under her golden skin' : 'occasionally see movement as the baby shifts in Ember\'s womb') + '.' );
 					break;
 				case 8:
 				case 9:
-					EngineCore.outputText( '  Ember\'s golden belly is stretched taut by the large ' + (CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'egg' : 'baby') + ' in her womb.  You\'re sure she\'ll give birth very soon, there just isn\'t room for the ' + (CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'egg' : 'baby') + ' to grow any larger.' );
+					EngineCore.outputText( '  Ember\'s golden belly is stretched taut by the large ' + (CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'egg' : 'baby') + ' in her womb.  You\'re sure she\'ll give birth very soon, there just isn\'t room for the ' + (CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ? 'egg' : 'baby') + ' to grow any larger.' );
 					break;
 				default:
 			}
 			//(Ember breast check);
 			EngineCore.outputText( '\n\nSituated upon ' + this.emberMF( 'his', 'her' ) + ' chest are a pair of ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'F-cup soft, pillowy breasts' );
 			} else {
 				EngineCore.outputText( 'flat manly pecs' );
 			}
 			EngineCore.outputText( ' covered in fine scales excepting ' + this.emberMF( 'his', 'her' ) + ' areolas; 0.5 inch nipples protrude from the center of the ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'generous mounds' );
 			} else {
 				EngineCore.outputText( 'masculine pectorals' );
 			}
 			EngineCore.outputText( '.' );
 			//(If Ember has a penis);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( '\n\nHanging from ' + this.emberMF( 'his', 'her' ) + ' crotch, where it emerges from a slit leading to the interior of ' + this.emberMF( 'his', 'her' ) + 'r pelvic cavity, is a 16 inch-long, two-inch wide penis with a shape unlike any other that you\'ve seen so far in this realm.' );
 				EngineCore.outputText( '\n\nThe head is rounded and elongated, while the shaft has a series of ridges, evenly spaced and so prominent as to give it an almost segmented appearance. When fully extended; a pair of apple-sized testicles drops out of ' + this.emberMF( 'his', 'her' ) + ' genital slit.' );
 			}
 			//(If Ember has a vagina);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( '\n\nThe scales in-between Ember\'s legs are particularly smooth and fine, and part just enough to reveal the insides of her slick pussy; soft, inviting and moist.' );
 			}
 
@@ -1042,9 +1042,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		else {
 			//Credit him with additional scenes.;
 			EngineCore.outputText( 'Ember is a 7\' 3</i>" tall ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( 'male' );
-			} else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+			} else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 				EngineCore.outputText( 'female' );
 			} else {
 				EngineCore.outputText( 'hermaphrodite' );
@@ -1053,14 +1053,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nOn the sides of ' + this.emberMF( 'his', 'her' ) + ' face, you spot an exotic pattern of dragon scales that are intertwined with ' + this.emberMF( 'his', 'her' ) + ' olive, human like skin, which branch down ' + this.emberMF( 'his', 'her' ) + ' neck and shoulders before merging with ' + this.emberMF( 'his', 'her' ) + ' predominantly scaled body.  Like the dragons from your village lore, Ember sports a pair of ebony, draconic horns that emerge from ' + this.emberMF( 'his', 'her' ) + ' temples, boldly curved backwards past ' + this.emberMF( 'his', 'her' ) + ' scalp.  While you aren\'t certain of their rigidity, they look like they could deflect most overhead attacks.  Drawn to ' + this.emberMF( 'his', 'her' ) + ' jaw, you zero in on an attractive pair of pink, human lips.  The calm appearance of ' + this.emberMF( 'his', 'her' ) + ' mouth almost makes you forget the many sharp teeth that Ember sports, which could easily rend flesh from a body if Ember put ' + this.emberMF( 'his', 'her' ) + ' mind to it.' );
 			EngineCore.outputText( '\n\nThe shiny, silver hair that coiffures the dragon\'s head compliments ' + this.emberMF( 'his', 'her' ) + ' facial features well and ' );
 			//Short:;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] < 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_HAIR ] < 1 ) {
 				EngineCore.outputText( 'is quite short, giving ' + this.emberMF( 'him', 'her' ) + ' that definitive ' + this.emberMF( 'masculine', 'tomboy' ) + ' look.' );
 			} else {
 				EngineCore.outputText( 'drops down to ' + this.emberMF( 'his', 'her' ) + ' shoulders, giving ' + this.emberMF( 'him', 'her' ) + ' the look of the ' + this.emberMF( 'handsome', 'beautiful' ) + ' warriors from your village legends.' );
 			}
 
 			EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' chest is also human in appearance and houses a pair of ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 || CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'F-cup breasts that support 0.5 inch nipples and hang heavily; you idly wonder if ' + this.emberMF( 'he', 'she' ) + '\'ll develop lower back problems as she spends more time in Mareth' );
 			} else {
 				EngineCore.outputText( 'manly pectorals with 0.5 inch nipples' );
@@ -1069,15 +1069,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nAs you stare down at Ember\'s stomach, you note that the human-looking layer of flesh ends and the scaly dragon skin begins.  Still humanoid in shape, you can make out the ' + this.emberMF( 'masculine', 'feminine' ) + ' features of Ember\'s belly and lower torso well enough.' );
 			EngineCore.outputText( '\n\nThis layer of scaling extends to ' + this.emberMF( 'his', 'her' ) + ' back as well, albeit without any patches of human skin.  A fine stripe of white mane adorns Ember\'s spine and catches your eye.  The leathery wings that jut out of Ember\'s back around them only add to the fierce appearance of ' + this.emberMF( 'his', 'her' ) + ' body, and look like they could easily propel their owner into the air.' );
 			EngineCore.outputText( '\n\nEmber has, in most respects, a rather human-looking pelvis.' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+				if( CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
 					EngineCore.outputText( '  ' + this.emberMF( 'He', 'She' ) + ' sports a flaccid penis and a pair of apple-sized balls that sit dangerously exposed to the elements, let alone to naked blades or a heavy blow.  Yet ' + this.emberMF( 'he', 'she' ) + ' doesn\'t seem concerned about that in the least, almost daring anyone to focus on them.  While ' + this.emberMF( 'he', 'she' ) + ' isn\'t aroused right now, Ember\'s penis can reach a length of approximately 16 inches, and it looks to be about 2 inches thick.' );
 				} else {
 					EngineCore.outputText( '  ' + this.emberMF( 'He', 'She' ) + ' sports what looks like a protective slit of some sort, protecting ' + this.emberMF( 'his', 'her' ) + ' dick from the elements as well as stray blows.  You can\'t see it right now; but you remember it to be about 16 inches long and 2 inches thick.' );
 				}
 			}
 			//Ember has a pussy:;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( '  The inviting lips of a human-looking pussy purse between her legs; some moisture seems to have gathered on her labia, giving it a slick look that just begs for attention.' );
 			}
 
@@ -1090,24 +1090,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	EmberScene.prototype.talkToEmber = function() {
 		//Checks for special scenes go here!;
 		//If the PC fulfills one of the requirements for the Special Scenes, they occur the moment the player picks the talk option.;
-		if( CoC.getInstance().player.isPregnant() ) { //Extra check might protect against inappropriate Ember complaints
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_OVI_BITCHED_YET ] === 0 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+		if( CoC.player.isPregnant() ) { //Extra check might protect against inappropriate Ember complaints
+			if( CoC.flags[ kFLAGS.EMBER_OVI_BITCHED_YET ] === 0 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 				this.emberBitchesAboutPCBeingFullOfEggs();
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
-			if( CoC.getInstance().player.pregnancyIncubation < 200 && CoC.getInstance().player.pregnancyType !== PregnancyStore.PREGNANCY_EMBER && CoC.getInstance().flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] === 0 ) {
+			if( CoC.player.pregnancyIncubation < 200 && CoC.player.pregnancyType !== PregnancyStore.PREGNANCY_EMBER && CoC.flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] === 0 ) {
 				this.manEmberBitchesAboutPCPregnancy();
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
-			if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_EMBER && CoC.getInstance().player.pregnancyType < 300 && CoC.getInstance().flags[ kFLAGS.EMBER_TALKS_TO_PC_ABOUT_PC_MOTHERING_DRAGONS ] === 0 ) {
+			if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_EMBER && CoC.player.pregnancyType < 300 && CoC.flags[ kFLAGS.EMBER_TALKS_TO_PC_ABOUT_PC_MOTHERING_DRAGONS ] === 0 ) {
 				this.emberTalksToPCAboutPCDragoNPregnancy();
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_PREGNANT_TALK ] === 0 && this.pregnancy.event > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_PREGNANT_TALK ] === 0 && this.pregnancy.event > 1 ) {
 			this.emberIsPregnantFirstTimeTalkScene();
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1143,7 +1143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nThe flower an utter mystery to you, you curiously ask Ember what this "<i>Drake\'s Heart</i>" looks like, and where it grows... or used to grow.' );
 			//Low affection:;
 			if( this.emberAffection() <= 25 ) {
-				EngineCore.outputText( '\n\nSnorting, Ember cracks an amused smile as ' + this.emberMF( 'he', 'she' ) + ' chuckles. "<i>What, does the \'Champion\' think ' + CoC.getInstance().player.mf( 'him', 'her' ) + 'self worthy of courting me?  That\'s a good one!</i>"  ' + this.emberMF( 'He', 'She' ) + ' giggles openly to make ' + this.emberMF( 'his', 'her' ) + ' lack of interest in you known... yet, it seems rather forced.' );
+				EngineCore.outputText( '\n\nSnorting, Ember cracks an amused smile as ' + this.emberMF( 'he', 'she' ) + ' chuckles. "<i>What, does the \'Champion\' think ' + CoC.player.mf( 'him', 'her' ) + 'self worthy of courting me?  That\'s a good one!</i>"  ' + this.emberMF( 'He', 'She' ) + ' giggles openly to make ' + this.emberMF( 'his', 'her' ) + ' lack of interest in you known... yet, it seems rather forced.' );
 			} else if( this.emberAffection() <= 75 ) {
 				EngineCore.outputText( '\n\nYou swear you can see the dragon daydreaming at your words, but it doesn\'t last.  "<i>Look, I don\'t mind some curiosity, but don\'t try and get fresh with me!</i>"  ' + this.emberMF( 'His', 'Her' ) + ' demeanor suggests annoyance, but just maybe it\'s a tough front, and ' + this.emberMF( 'he', 'she' ) + '\'s really waiting for you to show some affection and attention.' );
 			}//High affection:;
@@ -1155,7 +1155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		} else {
 			EngineCore.outputText( '\n\nEmber begins talking about dragon habits, and the cave mouth framing ' + this.emberMF( 'him', 'her' ) + ' makes you wonder why dragons dig such dens.  Ember shrugs.  "<i>It\'s convenient.  The stone is tough and can resist all forms of hazard, plus I\'ll always know I can keep my stuff safe inside.</i>"  ' + this.emberMF( 'he', 'she' ) + ' stares at ' + this.emberMF( 'his', 'her' ) + ' den in deep thought.' );
 			EngineCore.outputText( '\n\n"<i>It\'s kinda small though... I might need a bigger one if...</i>"  Ember stops abruptly' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 				EngineCore.outputText( ', a blush creeping onto ' + this.emberMF( 'his', 'her' ) + ' cheeks' );
 			}
 			EngineCore.outputText( '.' );
@@ -1184,7 +1184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'this... creature... that looked kind of like a human woman, but with a big dick where her clit should be.  She was walking around stark naked, \'cept for a bunch of piercings, and leading this bull-man along like a pet by a chain attached to a ring anchored into his cockhead.' );
 			} else if( subChoice === 4 ) {
 				EngineCore.outputText( 'a couple of goblins sharpening scissors on some rocks outside of a cave with a door on it. Weird. Wonder what they could be doing in there?' );
-			} else if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsOff ) < 0 && Utils.rand( 2 ) === 0 ) {
+			} else if( CoC.player.findStatusAffect( StatusAffects.WormsOff ) < 0 && Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( 'a horrible swarm of slimy white worms, clumped together into a mockery of a human form and squelching along.  It managed to latch onto this two-headed dog-creature and... ugh!  The worms started forcing their way into both of its cocks!  I\'ve never seen anything so disgusting!' );
 			} else if( subChoice === 5 ) {
 				EngineCore.outputText( 'this two-headed dog-morph loping around; it spotted an imp, dropped to all fours, then gave chase. Managed to catch the ugly little demon, whereupon it ass-raped it, then ate it.' );
@@ -1200,9 +1200,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'this strange bee-woman creature... she made this, this music that started messing with my head.  I spat a tongue of flames at her and she flew away in fright, luckily.' );
 			}
 			//(If player has impregnated Tamani);
-			else if( subChoice === 3 && CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
+			else if( subChoice === 3 && CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
 				EngineCore.outputText( 'that green-skinned baby-making whore, Tamani.  She was letting some of her daughters suckle from her and grinning ear to ear as she named the \'prize catch\' she got to father them, exhorting them to hunt him down.' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( '  You should have more pride than to let some brainless cunt like that have her way with you!' );
 				}
 			}
@@ -1211,7 +1211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'one goblin being teased by a bunch of pregnant goblins for not being pregnant yet.  She just spat back that she wanted a \'better catch\' to be her baby-maker than a mere imp and wandered off.' );
 			}
 			//(If Jojo isn't in the camp & not corrupt);
-			else if( Utils.rand( 2 ) === 0 && SceneLib.jojoScene.monk <= 1 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && SceneLib.jojoScene.monk <= 1 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 ) {
 				EngineCore.outputText( 'this mouse-morph monk, sitting in a glade and meditating. A goblin tried to proposition him; he just gave her a lecture and sent her running away in tears.  When an imp tried to attack him, he crushed its skull with a staff he had.  Not bad moves for such a weedy little thing...' );
 			} else {
 				EngineCore.outputText( 'one glade I touched down in to catch myself a nice brace of plump coneys, when all of a sudden this... this thing made out of flailing vines and fruit attacks me.  It went up in a puff of smoke once I torched it, of course.' );
@@ -1221,21 +1221,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\n"<i>In my travels, I found a lake... big and wide and full of fish, but something about the place made me uncomfortable.  The water smelled funny, and the fish had a nasty aftertaste.  Not a lot to see there, but I did find ' );
 			if( subChoice === 0 ) {
 				EngineCore.outputText( 'a pair of shark-women - well, one was a woman, the other had breasts but also had a cock' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+				if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 					EngineCore.outputText( ' like me' );
 				}
 				EngineCore.outputText( '. They were on the beach, fucking each other\'s brains out.' );
 			} else {
 				//(If Whitney's Farm is not yet in the Places menu);
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.statusAffectv1( StatusAffects.MetWhitney ) <= 1 ) {
+				if( Utils.rand( 3 ) === 0 && CoC.player.statusAffectv1( StatusAffects.MetWhitney ) <= 1 ) {
 					EngineCore.outputText( ' a big farm on the shoreline.  I saw some sort of cow-woman tending to fields of peppers, and a dog-woman herding cattle. They looked pretty fat and tasty, too... What?  I meant the cattle, stupid!  And I wouldn\'t have taken them - it\'s no fun snatching up livestock.  I prefer to chase down a deer or a wild auroch or something like that.' );
 				}//(if Fetish Cult is encounterable);
-				else if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.FetishOn ) >= 0 ) {
+				else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.FetishOn ) >= 0 ) {
 					EngineCore.outputText( 'a pair of humans, arguing about sex.  They both wanted it, but the guy said he wanted to do the \'naughty schoolboy and female teacher\' routine, while the girl wanted to do the \'noblewoman and love-servant\' routine.  Weird; their clothes kept changing back and forth as they argued.' );
 				}//(If Beautiful Sword has not been acquired);
-				else if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.TookBlessedSword ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.BSwordBroken ) < 0 ) {
+				else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.TookBlessedSword ) < 0 && CoC.player.findStatusAffect( StatusAffects.BSwordBroken ) < 0 ) {
 					EngineCore.outputText( 'a sword jammed into a tree.  Weird; what kind of idiot would stick a weapon there like that?  And what kind of weakling wouldn\'t be able to take it out?' );
-				} else if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) < 0 ) {
+				} else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) < 0 ) {
 					EngineCore.outputText( 'a smelly rat-man moping around while some weird equipment bubbled and boiled.  I think maybe he was an alchemist.' );
 				} else {
 					EngineCore.outputText( 'a great blob of green goo, sliding along and minding its own business.  I could swear it looked up at me once, and grew a penis... that can\'t be right, though.' );
@@ -1250,11 +1250,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'a whole tribe of demons, lounging around an oasis.  Would have been too much bother to kick the crap out of them, so I left them alone - well, alright, I did buzz them to make them scatter like scared sheep for fun.' );
 			}
 			//(if player hasn't solved Marcus & Lucia's argument);
-			else if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.WandererDemon ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.WandererHuman ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.WandererDemon ) < 0 && CoC.player.findStatusAffect( StatusAffects.WandererHuman ) < 0 ) {
 				EngineCore.outputText( 'a human with balls so big he had to carry them in a wheelbarrow, trundling through the wasteland with a succubus.  They were arguing about whether or not he should become an incubus.' );
 			} else {
 				EngineCore.outputText( 'this strange creature, like a woman with a snake\'s tail for legs, slithering through the sand.  ' );
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( 'She looked a lot like you.' );
 				} else {
 					EngineCore.outputText( 'I\'ve never seen anything like her before.' );
@@ -1279,11 +1279,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(Medium/High Affection);
 		EngineCore.outputText( '\n\nEmber puts a hand on ' + this.emberMF( 'his', 'her' ) + ' chin and looks you over carefully.  ' + this.emberMF( 'He', 'She' ) + ' closes up on you and grips your arms, checking your muscles.' );
 		//(If PC Str < 50);
-		if( CoC.getInstance().player.str < 50 ) {
+		if( CoC.player.str < 50 ) {
 			EngineCore.outputText( '  "<i>You could use more training; you look pretty weak...</i>" Ember says, critically.' );
 		}
 		//(If PC Str < 90);
-		else if( CoC.getInstance().player.str < 90 ) {
+		else if( CoC.player.str < 90 ) {
 			EngineCore.outputText( '  "<i>You\'re well on your way to being as strong as a dragon, but there\'s still room for improvement.</i>" Ember says, pleased.' );
 			//(+1 point);
 			points++;
@@ -1296,11 +1296,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nNext, Ember pokes at your chest and your ribs.  ' );
 		//(If PC Tou < 50);
-		if( CoC.getInstance().player.tou < 50 ) {
+		if( CoC.player.tou < 50 ) {
 			EngineCore.outputText( '"<i>I don\'t know how you could hope to survive out there.  You look like the wind could blow you away.</i>"' );
 		}
 		//(If PC Tou < 90);
-		else if( CoC.getInstance().player.tou < 90 ) {
+		else if( CoC.player.tou < 90 ) {
 			EngineCore.outputText( '"<i>Not bad; some more training and you could be as tough as me!</i>" Ember says, pleased.' );
 			//(+1 point);
 			points++;
@@ -1315,11 +1315,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nThen the dragon looks directly into your eyes.  ' );
 		//(If PC Int < 50);
-		if( CoC.getInstance().player.inte < 50 ) {
+		if( CoC.player.inte < 50 ) {
 			EngineCore.outputText( '"<i>You\'re still very naive... anyone or anything could trick you at any time...</i>"  Ember frowns.' );
 		}
 		//(If PC Int < 90);
-		else if( CoC.getInstance().player.inte < 90 ) {
+		else if( CoC.player.inte < 90 ) {
 			EngineCore.outputText( '"<i>I see wisdom in your eyes, but you could always use more lessons.</i>"' );
 			//(+1 point);
 			points++;
@@ -1332,11 +1332,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nEmber walks away, back turned to you.  Then suddenly ' + this.emberMF( 'he', 'she' ) + ' says "<i>Think fast!</i>" and flicks ' + this.emberMF( 'his', 'her' ) + ' tail, flinging a pebble at you.  ' );
 		//(If PC Spd < 50);
-		if( CoC.getInstance().player.spe < 50 ) {
+		if( CoC.player.spe < 50 ) {
 			EngineCore.outputText( 'You try to block the pebble, but you\'re not quick enough.  It hits your belly, not hard enough to hurt.  "<i>You need to work on your reactions; anything could surprise you out there and you\'d be helpless.</i>"' );
 		}
 		//(If PC Spd < 90);
-		else if( CoC.getInstance().player.spe < 90 ) {
+		else if( CoC.player.spe < 90 ) {
 			EngineCore.outputText( 'You successfully deflect the pebble.  "<i>Not bad!  Next time try to catch it,</i>"  Ember says, pleased.' );
 			//(+1 point);
 			points++;
@@ -1349,7 +1349,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nSatisfied, Ember turns to take another look at you.' );
 		//(If PC has high dragon or lizard score);
-		if( CoC.getInstance().player.nagaScore() >= 3 || CoC.getInstance().player.lizardScore() >= 3 || CoC.getInstance().player.dragonScore() >= 3 ) {
+		if( CoC.player.nagaScore() >= 3 || CoC.player.lizardScore() >= 3 || CoC.player.dragonScore() >= 3 ) {
 			EngineCore.outputText( '  Ember\'s eyes linger on your form.  After a moment of awkward silence, you clear your throat.  ' + this.emberMF( 'he', 'she' ) + ' blinks and says hurriedly.  "<i>Sorry... I was just admiring you-</i>" Realizing what ' + this.emberMF( 'he', 'she' ) + ' was about to say,and quickly blurts out.  "<i>I mean the weather! Yes, nice day today isn\'t it?</i>"  You\'re not convinced, but let it slide. Ember recomposes and clears ' + this.emberMF( 'his', 'her' ) + ' throat before saying.' );
 			//(+1 Affection);
 			points++;
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//To be implimented once preggers is set up.;
 	EmberScene.prototype.manEmberBitchesAboutPCPregnancy = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] = 1;
+		CoC.flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] = 1;
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( 'The two of you talk about nothing in particular.  It\'s light, airy and pointless.  When you finish up, though, you realize something odd; Ember was doing ' + this.emberMF( 'his', 'her' ) + ' best all throughout the conversation to avoid looking at your pregnant belly - almost as if ' + this.emberMF( 'he', 'she' ) + ' were upset by it?' );
@@ -1397,7 +1397,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//To be implimented once preggers is set up.;
 	EmberScene.prototype.emberTalksToPCAboutPCDragoNPregnancy = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.EMBER_TALKS_TO_PC_ABOUT_PC_MOTHERING_DRAGONS ] = 1;
+		CoC.flags[ kFLAGS.EMBER_TALKS_TO_PC_ABOUT_PC_MOTHERING_DRAGONS ] = 1;
 		EngineCore.outputText( 'You notice Ember\'s eyes are fixated on your swollen belly, and cautiously ask what ' + this.emberMF( 'he', 'she' ) + '\'s looking at.' );
 		EngineCore.outputText( '\n\n"<i>I hope this is only the first of many...</i>" Ember mumbles, before realizing you asked a question.  "<i>Huh?  What?</i>"' );
 		EngineCore.outputText( '\n\nCurious, you press ' + this.emberMF( 'him', 'her' ) + ' on what ' + this.emberMF( 'he', 'she' ) + ' means by that - about this being the first of many.' );
@@ -1405,7 +1405,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' that you\'re feeling fine... though you must admit, this baby is getting kind of heavy.  You\'re certain, though, that ' + this.emberMF( 'he', 'she' ) + ' said something else; grinning, you teasingly ask what it was.' );
 		EngineCore.outputText( '\n\nEmber\'s shyness reaches a head, and ' + this.emberMF( 'he', 'she' ) + ' finally caves.  "<i>Fine!  So what if I liked having sex and impregnating you?  And what does it matter that I want to do it again?  Big deal!</i>"  Ember averts ' + this.emberMF( 'his', 'her' ) + ' gaze and crosses ' + this.emberMF( 'his', 'her' ) + ' arms.' );
 		EngineCore.outputText( '\n\nYou ' );
-		if( CoC.getInstance().player.lib < 40 ) {
+		if( CoC.player.lib < 40 ) {
 			EngineCore.outputText( 'start at this revelation, then ' );
 		}
 		EngineCore.outputText( 'give ' + this.emberMF( 'him', 'her' ) + ' a sultry smile and seat yourself in ' + this.emberMF( 'his', 'her' ) + ' lap.  Ember tries to hide any kind of reaction, but ' + this.emberMF( 'his', 'her' ) + ' hardening prick tells you what ' + this.emberMF( 'he', 'she' ) + '\'s really thinking.  ' + this.emberMF( 'He', 'She' ) + ' bites ' + this.emberMF( 'his', 'her' ) + ' lower lip and finally gets up.  "<i>Oh, look at the time; I have to go!</i>"  Ember slides from under you and dashes away in an attempt to further conceal ' + this.emberMF( 'his', 'her' ) + ' arousal.' );
@@ -1416,20 +1416,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//Occurs once during Ember's first pregnancy.;
 	EmberScene.prototype.emberIsPregnantFirstTimeTalkScene = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.EMBER_PREGNANT_TALK ] = 1;
+		CoC.flags[ kFLAGS.EMBER_PREGNANT_TALK ] = 1;
 		EngineCore.outputText( 'You can\'t help but stare at Ember\'s swollen belly; it\'s still so hard to take in that you have actually fathered a child with a creature of legend.  Especially given that there are times when it\'s hard to be entirely certain that Ember genuinely likes you.' );
 		EngineCore.outputText( '\n\nEmber catches you staring' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 			EngineCore.outputText( ' and blushes' );
 		}
 		EngineCore.outputText( ', one of her hands rubbing her belly lovingly and tenderly.  "<i>W-what is it?  Why are you looking at me like that?  Something wrong?</i>"' );
 		EngineCore.outputText( '\n\nYou merely give her a faint smile and tell her that she\'s beautiful when pregnant.' );
-		if( CoC.getInstance().player.cor >= 66 ) {
+		if( CoC.player.cor >= 66 ) {
 			EngineCore.outputText( '  You almost choke on those cheesy words; still, she\'ll never put out for you if you don\'t butter her up.' );
 		}
 		EngineCore.outputText( '\n\n"<i>You... I... do you really think so?</i>" Ember asks, lowering her guard.' );
 		EngineCore.outputText( '\n\nYou nod and assure her that she looks wonderful; she has a truly radiant glow, a maternal beauty that is unique and all her own.  You contemplate telling her that her scales have grown so shiny with her pregnancy, but you aren\'t sure if she\'d take that as a compliment or not.' );
-		if( CoC.getInstance().player.cor >= 66 ) {
+		if( CoC.player.cor >= 66 ) {
 			EngineCore.outputText( '  Is she seriously buying this nonsense?  Your smile would be miles wide if you let your lip curl even a bit, so you keep a straight face with due dilligence.' );
 		}
 		EngineCore.outputText( '\n\nEmber can\'t hide her happiness at your compliments, as she rubs her belly a bit faster, but as if suddenly snapping out of a trance; she looks up to you with a confident stare and says, "<i>Of course I\'m beautiful!  Why else would you throw yourself into my arms and finally do the deed?</i>"' );
@@ -1438,7 +1438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou?  Teasing her?  You don\'t remember that, you tell her, adopting an exaggerated expression of contemplation.' );
 		EngineCore.outputText( '\n\n"<i>Erm... we... you cheated!  I don\'t know how, but you did!</i>"  Ember finally turns on her heels, walking away.' );
 		EngineCore.outputText( '\n\nYou give chase and catch her, apologising for teasing her and telling her to calm down; it\'s not good for her to get so upset in her current state.  She\'s just <i>adorable</i> when she\'s off-balance and flustered.' );
-		if( CoC.getInstance().player.cor < 30 ) {
+		if( CoC.player.cor < 30 ) {
 			EngineCore.outputText( '  Given her attitude and nature, you know how lucky you are to have someone like her want to be your mate.' );
 		}
 
@@ -1455,19 +1455,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou quirk an eyebrow; who said anything about unfertilized eggs?' );
 		EngineCore.outputText( '\n\n"<i>Erk... I... I need to go take a bath!  This idea is so gross I need to wash myself of it!</i>"  Ember quickly runs past you.' );
 		EngineCore.outputText( '\n\nYou watch ' + this.emberMF( 'him', 'her' ) + ' go and shake your head, wondering what that was about.' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_OVI_BITCHED_YET ] = 1;
+		CoC.flags[ kFLAGS.EMBER_OVI_BITCHED_YET ] = 1;
 	};
 	//Occurs if PC spends too much time at 100 Lust.;
 	//counter triggered when PC starts an hour in camp at 100 Lust, output when reaching 10 counters;
 	EmberScene.prototype.emberBitchesAtYouAboutLustiness = function() {
 		EngineCore.outputText( '\nYou strive to keep your mind focused, but... your libido is screaming at you, ' );
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( 'your ' + Utils.num2Text( CoC.getInstance().player.cockTotal() ) + ' stiff as iron' );
-			if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( 'your ' + Utils.num2Text( CoC.player.cockTotal() ) + ' stiff as iron' );
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and ' );
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your ' + Descriptors.vaginaDescript() + ' slick and wet with moisture, ready to fuck' );
 		}
 		EngineCore.outputText( '.  You want sex so bad it almost hurts...' );
@@ -1483,7 +1483,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber plants a kiss on your cheek.  "<i>I could help you with... I-I mean, I suppose I could help you if you get on your knees and ask...</i>"  Judging by ' + this.emberMF( 'his', 'her' ) + ' averted gaze and husky voice, you doubt the request would need to be quite so formal.' );
 		}
 		EngineCore.outputText( '\n' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] = 0;
+		CoC.flags[ kFLAGS.EMBER_LUST_BITCHING_COUNTER ] = 0;
 	};
 	//This scene only appears if the player is suffering from Minotaur Cum addiction, and only before PC develops addicted perk.;
 	//Output automatically when PC enters camp while conditions are met;
@@ -1495,14 +1495,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		if( SceneLib.kihaFollower.followerKiha() ) {
 			EngineCore.outputText( '\n\nKiha saunters up and smirks.  "<i>I thought I had a temper.</i>"' );
 		}
-		CoC.getInstance().flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] = 1;
+		CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] = 1;
 		EngineCore.outputText( '\n' );
 	};
 	//Scene;
 	//This plays automatically when the PC gets over ' + this.emberMF('his','her') + ' temporary addiction to minotaur cum;
 	//Normal note for PC getting over mino cum addiction plays first;
 	EmberScene.prototype.emberGetOverFreakingOutAboutMinoJizz = function() {
-		CoC.getInstance().flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] = 0;
+		CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] = 0;
 		EngineCore.outputText( '\nYou should probably let Ember know that you are no longer plagued by thoughts of minotaurs... if only to prevent ecological collapse.  Fortunately enough, you find ' + this.emberMF( 'him', 'her' ) + ' landing in front of ' + this.emberMF( 'his', 'her' ) + ' den just then.  ' + this.emberMF( 'he', 'she' ) + ' throws another minotaur\'s skull on the smallest pile, then turns to face you.  "<i>What\'s got you so cheerful?</i>" ' + this.emberMF( 'he', 'she' ) + ' asks.' );
 		EngineCore.outputText( '\n\nWhen you explain that you feel like you\'re over your addiction, ' + this.emberMF( 'his', 'her' ) + ' face lights up.  ' + this.emberMF( 'he', 'she' ) + ' gives a roar of delight and then suddenly envelops you in a crushing embrace - only to realize what ' + this.emberMF( 'he', 'she' ) + ' is doing and shortly release you, looking obviously embarrassed.' );
 		EngineCore.outputText( '\n\n"<i>Th-that\'s great to hear.  Nobody should have to put up with something so undignified as an actual craving for sexual fluids, particularly from beasts like that.</i>"' );
@@ -1526,7 +1526,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		else {
 			EngineCore.outputText( '\n\nEmber sighs and turns to look at you.  "<i>I hope you\'ll stay away from those stupid bulls from now on.  Next time you have a craving' );
 			//(Male/HermEmber:;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ', especially for sucking cock,' );
 			}
 			EngineCore.outputText( ' you should come to me instead; I\'ll help you.</i>"  Then as if realising what ' + this.emberMF( 'he', 'she' ) + '\'s just implied, Ember looks away; and hurriedly adds, "<i>But not the way you\'re thinking...</i>"' );
@@ -1546,7 +1546,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ask Ember if ' + this.emberMF( 'he', 'she' ) + ' would be willing to give you a taste of ' + this.emberMF( 'his', 'her' ) + ' blood, desirous of the power that lies within it.' );
 		//(If Ember hasn't recovered from the last time ' + this.emberMF('he','she') + ' shared her blood);
-		if( CoC.getInstance().flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Sorry, but I\'m still recovering from last time, so no blood for you,</i>" Ember states matter-of-factly.' );
 			EngineCore.doNext( EventParser.playerMenu );
 			return;
@@ -1561,7 +1561,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		else if( this.emberAffection() < 75 ) {
 			EngineCore.outputText( '\n\n"<i>Hmm... fine!  If anything, I might rub off on you.  You could stand to be a bit more majestic!</i>"  Ember makes a cut on ' + this.emberMF( 'his', 'her' ) + ' palm with a claw, and presents to you the bleeding hand.' );
 			EngineCore.outputText( '\n\nYou reach out and take it in yours' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( ', expressing your gratitude; gently, you kiss ' + this.emberMF( 'his', 'her' ) + ' fingers, then the cut, letting its cool, iron-tinted tang roll across your lips and tongue.  You carefully lick, trying to avoid causing pain as you drink that which ' + this.emberMF( 'he', 'she' ) + ' has so generously offered you.' );
 			} else {
 				EngineCore.outputText( ', quickly drawing it to your mouth and forming a seal around the cut with your lips, anxious to let not a drop escape.' );
@@ -1582,7 +1582,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.choices( 'Continue', this.drinkDeeplyOfDagronBlud, 'Stop', this.noMoDagronBlud, '', null, '', null, '', null );
 		}
 		//Flag as drinking her blood today!;
-		CoC.getInstance().flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] = 1;
+		CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] = 1;
 		//Medium/high get stat boosts!;
 		var stat = Utils.rand( 4 );
 		if( stat === 0 ) {
@@ -1630,11 +1630,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		var changes = 0;
 		var changeLimit = 2;
 		//Gain Dragon Dick;
-		if( changes < changeLimit && CoC.getInstance().player.dragonCocks() < CoC.getInstance().player.totalCocks() && Utils.rand( 3 ) === 0 ) {
+		if( changes < changeLimit && CoC.player.dragonCocks() < CoC.player.totalCocks() && Utils.rand( 3 ) === 0 ) {
 			var choices = [];
 			var select;
 			//Build an array of all the locations for TF'able cocks.;
-			_.forEach( CoC.getInstance().player.cocks, function( cock, index ) {
+			_.forEach( CoC.player.cocks, function( cock, index ) {
 				if( cock.cockType !== CockTypesEnum.DRAGON ) {
 					choices.push( index );
 				}
@@ -1642,7 +1642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			//Randomly choose one of those locations;
 			select = choices[ Utils.rand( choices.length ) ];
 			EngineCore.outputText( '\n\nYour ' + Descriptors.cockDescript( select ) + ' tingles as pins and needles sweep across it.  You pull open your [armor] to watch as it changes; the tip elongates and tapers, like a spear; a series of ridges form along the shaft, giving it an almost segmented look, and a prominent knot swells at its base.  You can\'t resist stroking it, until it begins dripping pre; ' );
-			if( CoC.getInstance().player.sens >= 50 ) {
+			if( CoC.player.sens >= 50 ) {
 				EngineCore.outputText( 'however, it\'s not until you press on your new, sensitive knot that you manage to blow your load and enjoy the last few spasms of pleasure as it finally finishes changing.' );
 			} else {
 				EngineCore.outputText( 'but you sternly rein in your hands and tuck them into your armpits as the arousing changes run their course.' );
@@ -1652,32 +1652,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.dynStats( 'sen', 10, 'lus', 10 );
 			changes++;
 			//Apply the TF;
-			CoC.getInstance().player.cocks[ select ].cockType = CockTypesEnum.DRAGON;
-			CoC.getInstance().player.cocks[ select ].knotMultiplier = 1.3;
+			CoC.player.cocks[ select ].cockType = CockTypesEnum.DRAGON;
+			CoC.player.cocks[ select ].knotMultiplier = 1.3;
 		}
 		//Gain Dragon Head;
-		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.getInstance().player.faceType !== AppearanceDefs.FACE_DRAGON && CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.player.faceType !== AppearanceDefs.FACE_DRAGON && CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( '\n\nYou scream as your face is suddenly twisted; your facial bones begin rearranging themselves under your skin, restructuring into a long, narrow muzzle.  Spikes of agony rip through your jaws as your teeth are brutally forced from your gums, giving you new rows of fangs - long, narrow and sharp.  Your jawline begins to sprout strange growths; small spikes grow along the underside of your muzzle, giving you an increasingly inhuman visage.\n\nFinally, the pain dies down, and you look for a convenient puddle to examine your changed appearance.\n\nYour head has turned into a reptilian muzzle, with small barbs on the underside of the jaw.  <b>You now have a dragon\'s face.</b>' );
-			CoC.getInstance().player.faceType = AppearanceDefs.FACE_DRAGON;
+			CoC.player.faceType = AppearanceDefs.FACE_DRAGON;
 			changes++;
 		}
 		//-Existing horns become draconic, max of 4, max length of 1';
-		if( CoC.getInstance().player.hornType !== AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG && changes < changeLimit && Utils.rand( 5 ) === 0 ) {
+		if( CoC.player.hornType !== AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG && changes < changeLimit && Utils.rand( 5 ) === 0 ) {
 			//No dragon horns yet.;
-			if( CoC.getInstance().player.hornType !== AppearanceDefs.HORNS_DRACONIC_X2 && CoC.getInstance().player.hornType !== AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG ) {
+			if( CoC.player.hornType !== AppearanceDefs.HORNS_DRACONIC_X2 && CoC.player.hornType !== AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG ) {
 				//Already have horns;
-				if( CoC.getInstance().player.horns > 0 ) {
+				if( CoC.player.horns > 0 ) {
 					//High quantity demon horns;
-					if( CoC.getInstance().player.hornType === AppearanceDefs.HORNS_DEMON && CoC.getInstance().player.horns > 4 ) {
+					if( CoC.player.hornType === AppearanceDefs.HORNS_DEMON && CoC.player.horns > 4 ) {
 						EngineCore.outputText( '\n\nYour horns condense, twisting around each other and merging into larger, pointed protrusions.  By the time they finish you have four draconic-looking horns, each about twelve inches long.', false );
-						CoC.getInstance().player.horns = 12;
-						CoC.getInstance().player.hornType = AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG;
+						CoC.player.horns = 12;
+						CoC.player.hornType = AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG;
 					} else {
 						EngineCore.outputText( '\n\nYou feel your horns changing and warping, and reach back to touch them.  They have a slight curve and a gradual taper.  They must look something like the horns the dragons in your village\'s legends always had.', false );
-						CoC.getInstance().player.hornType = AppearanceDefs.HORNS_DRACONIC_X2;
-						if( CoC.getInstance().player.horns > 13 ) {
+						CoC.player.hornType = AppearanceDefs.HORNS_DRACONIC_X2;
+						if( CoC.player.horns > 13 ) {
 							EngineCore.outputText( '  The change seems to have shrunken the horns, they\'re about a foot long now.', false );
-							CoC.getInstance().player.horns = 12;
+							CoC.player.horns = 12;
 						}
 					}
 					changes++;
@@ -1686,23 +1686,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				else {
 					//-If no horns, grow a pair;
 					EngineCore.outputText( '\n\nWith painful pressure, the skin on the sides of your forehead splits around two tiny nub-like horns.  They\'re angled back in such a way as to resemble those you saw on the dragons in your village\'s legends.  A few inches of horn sprout from your head before stopping.  <b>You have about four inches of dragon-like horn.</b>', false );
-					CoC.getInstance().player.horns = 4;
-					CoC.getInstance().player.hornType = AppearanceDefs.HORNS_DRACONIC_X2;
+					CoC.player.horns = 4;
+					CoC.player.hornType = AppearanceDefs.HORNS_DRACONIC_X2;
 					changes++;
 				}
 			}
 			//ALREADY DRAGON;
 			else {
-				if( CoC.getInstance().player.hornType === AppearanceDefs.HORNS_DRACONIC_X2 ) {
-					if( CoC.getInstance().player.horns < 12 ) {
+				if( CoC.player.hornType === AppearanceDefs.HORNS_DRACONIC_X2 ) {
+					if( CoC.player.horns < 12 ) {
 						if( Utils.rand( 2 ) === 0 ) {
 							EngineCore.outputText( '\n\nYou get a headache as an inch of fresh horn escapes from your pounding skull.', false );
-							CoC.getInstance().player.horns += 1;
+							CoC.player.horns += 1;
 						} else {
 							EngineCore.outputText( '\n\nYour head aches as your horns grow a few inches longer.  They get even thicker about the base, giving you a menacing appearance.', false );
-							CoC.getInstance().player.horns += 2 + Utils.rand( 4 );
+							CoC.player.horns += 2 + Utils.rand( 4 );
 						}
-						if( CoC.getInstance().player.horns >= 12 ) {
+						if( CoC.player.horns >= 12 ) {
 							EngineCore.outputText( '  <b>Your horns settle down quickly, as if they\'re reached their full size.</b>', false );
 						}
 						changes++;
@@ -1711,73 +1711,73 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 					else {
 						//--Next horn growth adds second row and brings length up to 12";
 						EngineCore.outputText( '\n\nA second row of horns erupts under the first, and though they are narrower, they grow nearly as long as your first row before they stop.  A sense of finality settles over you.  <b>You have as many horns as a lizan can grow.</b>', false );
-						CoC.getInstance().player.hornType = AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG;
+						CoC.player.hornType = AppearanceDefs.HORNS_DRACONIC_X4_12_INCH_LONG;
 						changes++;
 					}
 				}
 			}
 		}
 		//Gain Dragon Ears;
-		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.getInstance().player.earType !== AppearanceDefs.EARS_DRAGON ) {
-			CoC.getInstance().player.earType = AppearanceDefs.EARS_DRAGON;
+		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.player.earType !== AppearanceDefs.EARS_DRAGON ) {
+			CoC.player.earType = AppearanceDefs.EARS_DRAGON;
 			EngineCore.outputText( '\n\nA prickling sensation suddenly fills your ears; unpleasant, but hardly painful.  It grows and grows until you can\'t stand it any more, and reach up to scratch at them.  To your surprise, you find them melting away like overheated candles.  You panic as they fade into nothingness, leaving you momentarily deaf and dazed, stumbling around in confusion.  Then, all of a sudden, hearing returns to you.  Gratefully investigating, you find you now have a pair of reptilian ear-holes, one on either side of your head.  A sudden pain strikes your temples, and you feel bony spikes bursting through the sides of your head, three on either side, which are quickly sheathed in folds of skin to resemble fins.  With a little patience, you begin to adjust these fins just like ears to aid your hearing.\n\n<b>You now have dragon ears!</b>' );
 			changes++;
 		}
 		//Gain Dragon Tongue;
-		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.getInstance().player.tongueType !== AppearanceDefs.TONUGE_DRACONIC ) {
+		if( changes < changeLimit && Utils.rand( 3 ) === 0 && CoC.player.tongueType !== AppearanceDefs.TONUGE_DRACONIC ) {
 			EngineCore.outputText( '\n\nYour tongue suddenly falls out of your mouth and begins undulating as it grows longer.  For a moment it swings wildly, completely out of control; but then settles down and you find you can control it at will, almost like a limb.  You\'re able to stretch it to nearly 4 feet and retract it back into your mouth to the point it looks like a normal human tongue.  <b>You now have a draconic tongue.</b>' );
-			CoC.getInstance().player.tongueType = AppearanceDefs.TONUGE_DRACONIC;
+			CoC.player.tongueType = AppearanceDefs.TONUGE_DRACONIC;
 			changes++;
 			//Note: This type of tongue should be eligible for all things you can do with demon tongue... Dunno if it's best attaching a boolean just to change the description or creating a whole new tongue type.;
 		}
 		//(Pending Tongue Masturbation Variants; if we ever get around to doing that.);
 		//Gain Dragon Scales;
-		if( CoC.getInstance().player.skinType !== AppearanceDefs.SKIN_TYPE_SCALES && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
-			EngineCore.outputText( '\n\nPrickling discomfort suddenly erupts all over your body, like every last inch of your skin has suddenly developed pins and needles.  You scratch yourself, hoping for relief; and when you look at your hands you notice small fragments of your ' + CoC.getInstance().player.skinFurScales() + ' hanging from your fingers.  Nevertheless you continue to scratch yourself, and when you\'re finally done, you look yourself over. New shield-like scales have grown to replace your peeled off ' + CoC.getInstance().player.skinFurScales() + '.  They are smooth and look nearly as tough as iron. <b>Your body is now covered in shield-shaped dragon scales.</b>' );
-			CoC.getInstance().player.skinType = AppearanceDefs.SKIN_TYPE_SCALES;
-			CoC.getInstance().player.skinAdj = '';
-			CoC.getInstance().player.skinDesc = 'scales';
+		if( CoC.player.skinType !== AppearanceDefs.SKIN_TYPE_SCALES && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
+			EngineCore.outputText( '\n\nPrickling discomfort suddenly erupts all over your body, like every last inch of your skin has suddenly developed pins and needles.  You scratch yourself, hoping for relief; and when you look at your hands you notice small fragments of your ' + CoC.player.skinFurScales() + ' hanging from your fingers.  Nevertheless you continue to scratch yourself, and when you\'re finally done, you look yourself over. New shield-like scales have grown to replace your peeled off ' + CoC.player.skinFurScales() + '.  They are smooth and look nearly as tough as iron. <b>Your body is now covered in shield-shaped dragon scales.</b>' );
+			CoC.player.skinType = AppearanceDefs.SKIN_TYPE_SCALES;
+			CoC.player.skinAdj = '';
+			CoC.player.skinDesc = 'scales';
 			//def bonus of scales;
 		}
 		//Gain Dragon Legs;
-		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_DRAGON && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_DRAGON && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
 			//(if drider);
-			if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DRIDER_LOWER_BODY ) {
+			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DRIDER_LOWER_BODY ) {
 				EngineCore.outputText( '\n\nA disquieting feeling ripples through your arachnid abdomen, and you find yourself losing control of your body from the waist down.  Your spidery legs flail madly as your abdomen visibly swells, chitin cracking ominously as the pressure builds up inside of you... and then explodes!  You wipe the gore from your face in disgust, wondering why you feel no pain.  Rolling over, you see that, caked with spider-slime, you now have a new pair of legs, human-like save for the scales and the bestial paws that serve as feet.  <b>You now have dragon feet.</b>' );
 			}//(If naga);
-			else if( CoC.getInstance().player.isNaga() ) {
+			else if( CoC.player.isNaga() ) {
 				EngineCore.outputText( '\n\nYou fall on your face to the ground, hissing and screeching in pain - it feels like someone has grabbed the tip of your tail, pulled it viciously straight, and is now splitting it up the middle with a knife!  Paralyzed from the waist down, you claw desperately at the earth to try and alleviate the pain, and can only think to thank your lucky stars when it fades away.  Looking down where your tail was, though the scales remain, you realize you\'ve become a biped again, your new feet sporting bestial claws on their toes.  <b>You now have dragon feet.</b>' );
 			}
 			//(If Goo);
-			else if( CoC.getInstance().player.isGoo() ) {
+			else if( CoC.player.isGoo() ) {
 				EngineCore.outputText( '\n\nA strange tingling sensation fills you, and you watch as your gooey blob of a body begins to ripple and shudder; you try to make it stop, but you can\'t control it.  Before your eyes, it shapes itself into the appearance of legs, the colored slime growing denser and thicker, the surface membrane texturing itself to look like scales.  Before you\'ve quite realized what\'s happened, the slime has set like water freezing, leaving you with humanoid legs once again, though tipped with claws and very reptilian in appearance.  <b>You now have dragon feet.</b>' );
 			}
 			//(If hoofed legs);
-			else if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED ) {
+			else if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED ) {
 				EngineCore.outputText( '\n\nYou bellow in pain as your legs break and reform and your hooves seem to suddenly explode, the bones within twisting themselves into monstrous three-toed appendages, more like those of some terrible lizard-thing than anything else. <b>You now have dragon feet.</b>' );
 			}
 			//(if centaur);
-			else if( CoC.getInstance().player.isTaur() ) {
+			else if( CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nYou cry out as spasms of pain suddenly rip through your quadrupedal body, bringing you crashing onto the ground.  Words cannot define the agony as muscles and bones twist and shift and collapse violently.  When it\'s all over, you stagger upright, finding yourself standing on two legs again.  Though covered in scales and with the paws of some monster lizard instead of feet, they otherwise look like your old human legs.  <b>You now have dragon feet.</b>' );
 			}
 			//(If non-hoofed legs);
 			else {
 				EngineCore.outputText( '\n\nYou scream in agony as you feel the bones in your feet suddenly break and restructure themselves, toes fusing together, bone swelling out of the merged masses of flesh.  When the pain is over, you realize that you still stand atop human-looking legs, but your feet have become like those of some bipedal reptilian killer, with powerful claws meant for gripping the ground. <b>You now have dragon feet.</b>' );
 			}
-			CoC.getInstance().player.lowerBody = AppearanceDefs.LOWER_BODY_TYPE_DRAGON;
+			CoC.player.lowerBody = AppearanceDefs.LOWER_BODY_TYPE_DRAGON;
 			changes++;
 		}
 		//Gain Dragon Tail;
-		if( CoC.getInstance().player.tailType !== AppearanceDefs.TAIL_TYPE_DRACONIC && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_DRACONIC && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
 			//(If no tail);
-			if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+			if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 				EngineCore.outputText( '\n\nA sudden dull, throbbing pain in your ' + Descriptors.buttDescript() + ' forces your hands to it; you can feel an ominous lump over your tail bone, swelling bigger and bigger with every heartbeat.  All of a sudden, it seems to explode, jutting out and around until it hovers near your ankles, the skin under your flesh hard and scaly.  <b>You now have a dragon tail flicking at your back, flexible as a whip.</b>' );
 			}
 			//(If tail);
 			else {
 				EngineCore.outputText( '\n\nAn icy sensation fills your behind as your tail suddenly goes curiously numb.  Twisting your head around, you watch as it melts and transforms into a reptilian appendage, long and flexible, its tip adorned with wicked spikes.  <b>You now have a dragon tail.</b>' );
 			}
-			CoC.getInstance().player.tailType = AppearanceDefs.TAIL_TYPE_DRACONIC;
+			CoC.player.tailType = AppearanceDefs.TAIL_TYPE_DRACONIC;
 			changes++;
 		}
 		/*
@@ -1789,70 +1789,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		 Miss: Unfortunately, you lose your sense of depth as you whirl, and the tip swings harmlessly through the air in front of your target.
 		 */
 		//Grow Dragon Wings;
-		if( CoC.getInstance().player.wingType !== AppearanceDefs.WING_TYPE_DRACONIC_LARGE && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
-			if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_NONE ) {
+		if( CoC.player.wingType !== AppearanceDefs.WING_TYPE_DRACONIC_LARGE && changes < changeLimit && Utils.rand( 3 ) === 0 ) {
+			if( CoC.player.wingType === AppearanceDefs.WING_TYPE_NONE ) {
 				EngineCore.outputText( '\n\nYou double over as waves of pain suddenly fill your shoulderblades; your back feels like it\'s swelling, flesh and muscles ballooning.  A sudden sound of tearing brings with it relief and you straighten up.  Upon your back now sit small, leathery wings, not unlike a bat\'s. <b>You now have small dragon wings.  They\'re not big enough to fly with, but they look adorable.</b>' );
-				CoC.getInstance().player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
-				CoC.getInstance().player.wingDesc = 'small, draconic';
+				CoC.player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
+				CoC.player.wingDesc = 'small, draconic';
 			}
 			//(If Small Dragon Wings Present);
-			else if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_DRACONIC_SMALL ) {
+			else if( CoC.player.wingType === AppearanceDefs.WING_TYPE_DRACONIC_SMALL ) {
 				EngineCore.outputText( '\n\nA not-unpleasant tingling sensation fills your wings, almost but not quite drowning out the odd, tickly feeling as they swell larger and stronger.  You spread them wide - they stretch further than your arms do - and beat them experimentally, the powerful thrusts sending gusts of wind, and almost lifting you off your feet.  <b>You now have fully-grown dragon wings, capable of winging you through the air elegantly!</b>' );
-				CoC.getInstance().player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_LARGE;
-				CoC.getInstance().player.wingDesc = 'large, draconic';
-			} else if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_SHARK_FIN ) {
+				CoC.player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_LARGE;
+				CoC.player.wingDesc = 'large, draconic';
+			} else if( CoC.player.wingType === AppearanceDefs.WING_TYPE_SHARK_FIN ) {
 				EngineCore.outputText( '\n\nA sensation of numbness suddenly fills your fin.  When it does away, it feels... different.  Looking back, you realize that it has been replaced by new, small wings, ones that you can only describe as draconic.  <b>Your shark-like fin has changed into dragon wings.</b>' );
-				CoC.getInstance().player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
-				CoC.getInstance().player.wingDesc = 'small, draconic';
+				CoC.player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
+				CoC.player.wingDesc = 'small, draconic';
 			}
 			//(If other wings present);
 			else {
 				EngineCore.outputText( '\n\nA sensation of numbness suddenly fills your wings.  When it dies away, they feel... different.  Looking back, you realize that they have been replaced by new, small wings, ones that you can only describe as draconic.  <b>Your wings have changed into dragon wings.</b>' );
-				CoC.getInstance().player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
-				CoC.getInstance().player.wingDesc = 'small, draconic';
+				CoC.player.wingType = AppearanceDefs.WING_TYPE_DRACONIC_SMALL;
+				CoC.player.wingDesc = 'small, draconic';
 			}
 			changes++;
 		}
 		//Get Dragon Breath (Tainted version);
 		//Can only be obtained if you are considered a dragon-morph, once you do get it though, it won't just go away even if you aren't a dragon-morph anymore.;
-		if( CoC.getInstance().player.dragonScore() >= 4 && changes < changeLimit && CoC.getInstance().player.findPerk( PerkLib.Dragonfire ) < 0 ) {
+		if( CoC.player.dragonScore() >= 4 && changes < changeLimit && CoC.player.findPerk( PerkLib.Dragonfire ) < 0 ) {
 			EngineCore.outputText( '\n\nYou feel something awakening within you... then a sudden sensation of choking grabs hold of your throat, sending you to your knees as you clutch and gasp for breath.  It feels like there\'s something trapped inside your windpipe, clawing and crawling its way up.  You retch and splutter and then, with a feeling of almost painful relief, you expel a bellowing roar from deep inside of yourself... with enough force that clods of dirt and shattered gravel are sent flying all around.  You look at the small crater you have literally blasted into the landscape with a mixture of awe and surprise.' );
 			EngineCore.outputText( '\n\nIt seems Ember\'s dragon blood has awaked some kind of power within you... your throat and chest feel very sore, however; you doubt you can force out more than one such blast before resting.\n\n(<b>Gained Perk)' );
-			CoC.getInstance().player.createPerk( PerkLib.Dragonfire, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.Dragonfire, 0, 0, 0, 0 );
 			if( this.emberAffection() >= 75 ) {
 				EngineCore.outputText( '\n\nEmber immediately dives back in to soothe your battered throat and mouth with another kiss.' );
 			}
 			changes++;
 		}
-		if( CoC.getInstance().player.dragonScore() >= 4 && Utils.rand( 3 ) === 0 && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.dragonScore() >= 4 && Utils.rand( 3 ) === 0 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '\n\nA sudden swell of lust races through your ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( Descriptors.cockDescript( 0 ) );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( Descriptors.vaginaDescript() );
 			}
 			EngineCore.outputText( ', making you wish Ember hadn\'t run you off.  All you can think about now is fucking ' + this.emberMF( 'his', 'her' ) + '; ' );
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'filling her womb with your seed and fertilizing her eggs' );
-				if( CoC.getInstance().player.hasVagina() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+				if( CoC.player.hasVagina() && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 					EngineCore.outputText( ' even while ' );
 				}
 			}
-			if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
+			if( CoC.player.hasVagina() && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
 				EngineCore.outputText( 'taking that hard, spurting cock inside your own ' + Descriptors.vaginaDescript( 0 ) );
 			}
 			EngineCore.outputText( '... too late, you realize that <b>Ember\'s blood has sent your draconic body into ' );
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'rut' );
-				CoC.getInstance().player.goIntoRut( false );
+				CoC.player.goIntoRut( false );
 				changes++;
 			} else {
 				EngineCore.outputText( 'heat' );
-				CoC.getInstance().player.goIntoHeat( false );
+				CoC.player.goIntoHeat( false );
 				changes++;
 			}
 			EngineCore.outputText( '</b>.' );
@@ -1870,16 +1870,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou apologize, but you really could use one of those blank eggs she lays on your mission... Besides, she needs to lay them and get rid of them anyway, right?  Being blocked up and just letting them multiply inside her belly can\'t be pleasant.' );
 			EngineCore.outputText( '\n\nEmber puffs out a ring of smoke.  "<i>Even if I have no use for it; it\'s still a very personal part of me!</i>" However, she rubs her chin in thought... perhaps weighing whether she should give you the egg or not.  Finally she concedes.  "<i>Fine!  But you\'d better not do anything strange with it!</i>"' );
 			EngineCore.outputText( '\n\nYou assure her that you have nothing weird planned.  A part of you wonders just what you could do with it besides eat it ' );
-			if( CoC.getInstance().player.cor >= 40 ) {
+			if( CoC.player.cor >= 40 ) {
 				EngineCore.outputText( 'or sell it for quick cash ' );
 			}
 			EngineCore.outputText( 'anyway, but you don\'t tell her that.' );
 			EngineCore.outputText( '\n\n"<i>Ok, wait here then.</i>"  Ember ducks off through a few bushes, intent on getting some privacy.' );
 			EngineCore.outputText( '\n\nUnable to resist the temptation, you decide to sneak after her and see how she will coax herself into laying before her body would usually make her pass her unfertilized egg.  You carefully move through the wastes, watching the ground closely to avoid any noises that might give you away.' );
 			EngineCore.outputText( '\n\nEmber is sitting on a rock, legs open' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and her ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 					EngineCore.outputText( 'dragon-dick jutting from its slit,' );
 				} else {
 					EngineCore.outputText( 'veiny, bulbous penis fully' );
@@ -1890,7 +1890,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nHer pace quickens, her moans grow more intense, and you think you can see what looks like the shell of a egg beginning to peek through her netherlips.  Sure enough, Ember holds her pussy open with a hand and cups the egg in the other.  She groans at the effort of pushing, and slowly the egg comes; once the largest part has passed, the egg rapidly slips out of her and plops into her hand.' );
 			EngineCore.outputText( '\n\nShe pants, looking at the slick egg for a bit before licking it clean of her juices, then lays down, clearly intent on waiting until she\'s cooled down a bit' );
 			//[(if Ember has a dick);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and her throbbing cock is soft enough to hide' );
 			}
 			EngineCore.outputText( ' before she presents the egg to you.' );
@@ -1899,13 +1899,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\n"<i>Here\'s your egg.</i>"  Ember holds out the egg for you, averting her eyes.  With a smile, you take it from her hands and thank her for her generosity.' );
 			EngineCore.outputText( '\n\nEmber mumbles quietly, "<i>Next time, fertilize it for me will you?</i>"  You start at that; did she really just say it aloud?  But, knowing her temper, you decide against asking.  ' );
 			//git a dragon egg, small libido-based lust damage;
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 			SceneLib.inventory.takeItem( ConsumableLib.DRGNEGG, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//(Medium Affection);
 		else if( this.emberAffection() < 75 ) {
 			EngineCore.outputText( '\n\nEmber gasps' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 				EngineCore.outputText( ' and her cheeks grow red with embarrassment' );
 			}
 			EngineCore.outputText( '.  "<i>T-This...</i>"  She can\'t quite bring herself to finish the sentence and settles for just looking at the ground.' );
@@ -1921,7 +1921,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nDespite Ember\'s growing embarrassment, she smirks and looks you over.  "<i>F-Fine... but I expect you to help with it.</i>"' );
 			EngineCore.outputText( '\n\nYou ask her what she has in mind.' );
 			EngineCore.outputText( '\n\n"<i>Don\'t be silly!  You know what I mean...</i>"  Ember\'s face looks as pinched as a snake\'s; some moisture runs down her thighs' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ', and her cock points you accusingly' );
 			}
 			EngineCore.outputText( '.' );
@@ -1929,34 +1929,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou tell her that you do, though you can\'t resist commenting that she\'s moving a little faster than usual.  Ember looks at you through half-lidded eyes.  "<i>And you\'re not moving fast enough.</i>"  With a grin at her unusual good humor, you approach her and take up station between her thighs.  You ask if she wants your hands or your tongue to \'help\' her this time.' );
 			EngineCore.outputText( '\n\n"<i>J-just get started... before I change my mind about this...</i>"' );
 			EngineCore.outputText( '\n\nWell, no point leaving her hanging around.  You let your tongue roll out' );
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( ' and out... and out...' );
 			}
 			EngineCore.outputText( ' and then lean forward to give her a great, wet, sloppy lick, straight up the center of her pussy' );
 			//(E.Herm:;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' not stopping until you have slurped your way to the very tip of her cock' );
 			}
 			EngineCore.outputText( ', savoring the unmistakable taste of her intimate juices.' );
 			EngineCore.outputText( '\n\nEmber gasps and moans, leaning back to voice her pleasure to the skies; her legs quiver and her claws dig into the wood; her wings spread, beating gently to help her balance herself.  "<i>D-don\'t stop...</i>" she pleads.' );
 			EngineCore.outputText( '\n\nYou don\'t intend to, and continue to lick, playing your tongue as deeply into her depths as possible, ' );
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( 'which is quite far indeed, ' );
 			}
 			EngineCore.outputText( 'caressing and stroking and playing all the tricks you can possibly think of to orally pleasure your draconic lover.  From the amount of juices beginning to seep onto your lapping tongue' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and dribbling down her painfully stiff dick' );
 			}
 			EngineCore.outputText( ', you think you\'re doing rather well.' );
 			EngineCore.outputText( '\n\nWhen your nose bumps into her little button of pleasure Ember nearly jumps; she closes her thighs around your head, smothering you on her dripping vagina.' );
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( '  Right at this time, you feel something round and smooth on the tip of your tongue, gently spreading Ember\'s walls.  Realizing that this can only be her egg, you start trying to worm your long, sinuous tongue between it and her innermost walls, hoping to coax it out of her.' );
 			}
 			EngineCore.outputText( '\n\n"<i>It\'s coming!  Ah!  I\'m coming!!</i>" Ember screams, shaking with barely contained pleasure.  A flood of juices threaten to drown you, as Ember\'s legs hold you snug.' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( '  Her cock throbs and pumps out long streams of cum to paint the ground around you two; marking it as your special place.' );
 			}
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( '\n\nYou can really feel her egg now, and do your best to wrap it tightly in coils of inhuman tongue.  Gently you pull and slide and wriggle it until it plops wetly out of its mother into your waiting hands; your tongue is strong and flexible, but you don\'t quite trust it to hold your prize aloft on its own.' );
 			} else {
 				EngineCore.outputText( '\n\nYou can feel the shell of Ember\'s egg pressing against your tongue, and you abandon your licking to start probing gently with your fingers.  Under your careful guidance, the egg slips freely from Ember\'s body into your grasp.' );
@@ -1968,7 +1968,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber sighs, realising she\'s fighting a losing battle.  "<i>At least I know what to expect when I\'m finally laying a fertilized one.</i>"  Moments after her comment, her face lights with awareness and embarrassment.  "<i>I... I mean...</i>"' );
 			EngineCore.outputText( '\n\nYou just smile and tell her you understand exactly what she meant.  One quick kiss and you head back to the camp proper, leaving one adorably flustered dragon behind you.  ' );
 			//git a dragon egg, small libido-based lust damage;
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 			SceneLib.inventory.takeItem( ConsumableLib.DRGNEGG, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
@@ -1977,7 +1977,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You take her hand and tell her that you wouldn\'t dream of intruding on her privacy, but ask her to think of you if she needs the inspiration.  She looks away shyly, and the barest hint of a smile breaks on her face.  Seems like she\'s already following your instructions.' );
 		EngineCore.outputText( '\n\nShe sashays off, with a sheen of moisture between her thighs, and you seat yourself on a rock to await the result.  Over thirty minutes later, the panting dragon reappears and hands you an egg, still sticky.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '.. it even drips with some kind of off-white fluid.' );
 		}
 		EngineCore.outputText( '  "<i>H-here\'s your egg.  Use it while it\'s fresh, okay?</i>"  Her eyes glaze over a bit at the suggestion, and she giggles.  ' );
@@ -1989,34 +1989,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Ember fails to hide her arousal when you accept.  "<i>Okay, then follow me.</i>"  The two of you move into a secluded spot.  Once she is certain nobody is around to spy, Ember turns to face you' );
 		//(if Ember has a cock:;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', cock poking straight out' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( ' of its hiding place' );
 		}
 		EngineCore.outputText( '.  "<i>Okay... but you\'re only allowed to watch!  If you do anything weird, I swear I\'ll smack you!</i>"' );
 		EngineCore.outputText( '\n\nYou promise her that you won\'t do anything' );
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( ' she doesn\'t ask you to, beaming a salacious grin' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nEmber sits down atop a rock nearby and spreads her legs, giving you a perfect view of her moist slit, dripping with excitement at the act she\'s about to perform.  Her hands start massaging, slowly tracing the outer labia, evoking soft moans from her with each caress.  With one hand, she slowly spreads her netherlips apart; moisture leaks copiously, giving her pussy and fingers alike a shiny, slick look.' );
 		EngineCore.outputText( '\n\nOnce she\'s fully exposed, you gaze inside her pink vulva as it blooms like a flower; a flower that contracts with each moan of pleasure emanating from Ember, as if inviting you to caress it.' );
 		EngineCore.outputText( '\n\nYour earlier promise to behave yourself gets increasingly harder to keep as Ember\'s show turns you on more and more' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( '; ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'the bulge inside your [armor]' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'wetness gathering in your own pussy' );
 			}
 			EngineCore.outputText( ' more than indicate' );
-			if( !CoC.getInstance().player.hasCock() || !CoC.getInstance().player.hasVagina() ) {
+			if( !CoC.player.hasCock() || !CoC.player.hasVagina() ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' your desire to break your promise.' );
@@ -2024,18 +2024,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nOne of Ember\'s clawed fingers slowly penetrates her depths, sinking in all the way to the knuckle and drawing a long throaty moan from her.  She sets upon a steady pace; humming with each thrust inside.  Soon, you realize her pumps are becoming shallower and more erratic, until she removes her finger; the egg\'s outer shell is visible, coming out of her folds.' );
 		EngineCore.outputText( '\n\nThe pleasure of the act combined with that of exhibiting herself to you in such a vulnerable position nearly disables her, and she groans; feeling too good to simply stop, but too weak to continue. "<i>[name]!  F-Finish me off!</i>" she gasps in the throes of passion.' );
 		EngineCore.outputText( '\n\nHoping she won\'t change her mind about this afterwards, you step forward and begin to stroke and trace your fingers gently across her netherlips, tickling her clit' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and caressing her throbbing cock' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nWith a deep moan, Ember shakes and orgasms.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  Ropes of jism spew out of her cock, arching into the air to hit the ground nearby.' );
 		}
 		EngineCore.outputText( '  The egg plugs her wet pleasure hole, preventing any liquid from escaping, until finally with a wet, squelching pop,it flies out of her pussy and into your waiting hands; releasing a flood of juices.' );
 		EngineCore.outputText( '\n\nWith a final sigh of relief, Ember collapses, sliding off the rock and onto the dry ground beneath.' );
 		EngineCore.outputText( '\n\nYou appraise the egg briefly, then return your attention to the source.  You can hardly believe that your repressed dragon would actually do something like this; looking at her, sprawling there in the grass with her legs splayed' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and her cock hanging out' );
 		}
 		EngineCore.outputText( ', it\'s hard to see her as the same angrily defensive ice queen from before.' );
@@ -2053,7 +2053,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'ember-drink-her-milk' ) );
 		EngineCore.outputText( 'You think for a few moments, then find your gaze drawn to Ember\'s round, firm' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ', scaly' );
 		}
 		EngineCore.outputText( ' breasts, ' + this.emberMF( 'his', 'her' ) + ' perky nipples bare as always and enticing you.  With a repressed smile, you ask if ' + this.emberMF( 'he', 'she' ) + '\'ll let you suckle ' + this.emberMF( 'his', 'her' ) + ' milk.' );
@@ -2070,10 +2070,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber\'s face clouds at your comments.  "<i>They do feel full sometimes... but these are not meant for you!</i>"  ' + this.emberMF( 'His', 'Her' ) + ' hands cover ' + this.emberMF( 'his', 'her' ) + ' breasts protectively.' );
 			EngineCore.outputText( '\n\nYou ask who they are meant for, then - ' + this.emberMF( 'he', 'she' ) + ' can\'t drink from them ' + this.emberMF( 'him', 'her' ) + 'self and ' );
 			//noEmberkids:;
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] === 0 && this.emberChildren() === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_EGGS ] === 0 && this.emberChildren() === 0 ) {
 				EngineCore.outputText( this.emberMF( 'he', 'she' ) + ' has no offspring to feed them with' );
 			}//(1+ EmberEggs:;
-			else if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
+			else if( CoC.flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' children haven\'t hatched yet' );
 			} else {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' children don\'t drink nearly enough to properly empty ' + this.emberMF( 'him', 'her' ) + '), so is ' + this.emberMF( 'he', 'she' ) + ' just going to suffer with ' + this.emberMF( 'his', 'her' ) + ' breasts so full and aching?' );
@@ -2083,7 +2083,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber reclines on a pile of leaves inside her den, back against the wall, then gently drops ' + this.emberMF( 'his', 'her' ) + ' arms to ' + this.emberMF( 'his', 'her' ) + ' side.  ' + this.emberMF( 'His', 'Her' ) + ' distraction deepens as ' + this.emberMF( 'he', 'she' ) + ' says, "<i>Let\'s get this over with, then...</i>"' );
 			EngineCore.outputText( '\n\nYou approach and seat yourself in ' + this.emberMF( 'his', 'her' ) + ' lap, gently reaching up to stroke ' + this.emberMF( 'his', 'her' ) + ' bountiful, milk-filled breasts.' );
 			EngineCore.outputText( '\n\nEmber flinches at the initial contact but remains calm as you continue to touch and caress ' + this.emberMF( 'his', 'her' ) + ' bosom, feeling the weight and the smoothness of the ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'scales' );
 			} else {
 				EngineCore.outputText( 'skin' );
@@ -2093,9 +2093,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\n"<i>Ah!  This feels nice... don\'t you dare stop.</i>"' );
 			EngineCore.outputText( '\n\nYou need no further encouragement to bury your face fully into ' + this.emberMF( 'his', 'her' ) + ' bosom and start suckling in earnest.  Though you can relish the temperature contrast between the two of you with ' + this.emberMF( 'his', 'her' ) + ' flesh being pleasantly cooler than yours, your focus is on the milk.' );
 			//(If Ember is male/herm);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] !== 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] !== 2 ) {
 				EngineCore.outputText( '\n\nYou feel something poking your ' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( 'belly' );
 				} else {
 					EngineCore.outputText( 'back' );
@@ -2111,39 +2111,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber flushes with embarrassment.  "<i>I-I... That\'s it!  No more milk for you!</i>" ' + this.emberMF( 'he', 'she' ) + ' declares, hauling you upright and shooing you out of her den.' );
 			EngineCore.outputText( '\n\nYou shake your head with good temper.  Still, you got your fill of her milk, and you feel refreshed and renewed, new vitality flowing through your veins.' );
 			//(PC's D.Breath timer = not ready: Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!);
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				EngineCore.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}
 			//(no new PG, PC has dragon-morph status and is opposite Ember's sex:;
-			if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.dragonScore() >= 4 && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.gender !== CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] || (CoC.getInstance().player.gender === 3 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
+			if( Utils.rand( 2 ) === 0 && CoC.player.dragonScore() >= 4 && CoC.player.gender > 0 && (CoC.player.gender !== CoC.flags[ kFLAGS.EMBER_GENDER ] || (CoC.player.gender === 3 && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
 				EngineCore.outputText( '  Though, a sudden swell of lust races through your ' );
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( Descriptors.cockDescript( 0 ) );
-					if( CoC.getInstance().player.hasVagina() ) {
+					if( CoC.player.hasVagina() ) {
 						EngineCore.outputText( ' and ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( Descriptors.vaginaDescript() );
 				}
 				EngineCore.outputText( ', making you wish Ember hadn\'t run you off.  All you can think about now is fucking ' + this.emberMF( 'his', 'her' ) + '; ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'filling her womb with your seed and fertilizing her eggs' );
-					if( CoC.getInstance().player.hasVagina() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+					if( CoC.player.hasVagina() && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 						EngineCore.outputText( ' even while ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
+				if( CoC.player.hasVagina() && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
 					EngineCore.outputText( 'taking that hard, spurting cock inside your own ' + Descriptors.vaginaDescript( 0 ) );
 				}
 				EngineCore.outputText( '... too late, you realize that <b>Ember\'s milk has sent your draconic body into ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'rut' );
-					CoC.getInstance().player.goIntoRut( false );
+					CoC.player.goIntoRut( false );
 				} else {
 					EngineCore.outputText( 'heat' );
-					CoC.getInstance().player.goIntoHeat( false );
+					CoC.player.goIntoHeat( false );
 				}
 				EngineCore.outputText( '!</b>' );
 			}
@@ -2156,59 +2156,59 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou apologize... though now that you know ' + this.emberMF( 'he', 'she' ) + ' likes this, you can\'t resist teasing ' + this.emberMF( 'him', 'her' ) + ' by massaging ' + this.emberMF( 'his', 'her' ) + ' breasts and twiddling ' + this.emberMF( 'his', 'her' ) + ' nipples in the most arousing manner you can.' );
 			EngineCore.outputText( '\n\nEmber purrs for most of the treatment, and every time your fingers brush against ' + this.emberMF( 'his', 'her' ) + ' nipples she gasps in pleasure.  "<i>What are you doing?  Ah!  Are you going to get started or not?  If you keep this up...</i>"' );
 			//(if Ember has a dick);
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( '\n\nYou feel a poke; looking down, you spot Ember\'s shaft, poking at you.  When you look up again, ' + this.emberMF( 'his', 'her' ) + ' face goes completely tight with embarrassment.  "<i>This is your fault!</i>" Ember declares dryly, trying to hide the fact that ' + this.emberMF( 'he', 'she' ) + '\'s enjoying this a bit too much.' );
 			} else {
 				EngineCore.outputText( '\n\nEmber groans and squirms, and you feel a bit of wetness underneath you.  Reaching down, you feel the moisture that\'s gathered from her obvious enjoyment of your ministrations.  You look up at her and her face goes tightens with embarrassment.  "<i>This is your fault!</i>" Ember declares dryly, trying to hide the fact that she\'s enjoying this a bit too much.' );
 			}
 			EngineCore.outputText( '\n\nYou smile and tell her that you\'ll take full responsibility.  Deciding you\'ve had enough foreplay for now and seeing that milk has started to seep from ' + this.emberMF( 'his', 'her' ) + ' flush, aroused nipples, you forego any further conversation by leaning in and capturing the nearest one in your mouth.' );
 			EngineCore.outputText( '\n\nEmber\'s rumbling purr as you finally get started on your task vibrates your chosen breast; the yielding ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 				EngineCore.outputText( 'flesh' );
 			} else {
 				EngineCore.outputText( 'scales' );
 			}
 			EngineCore.outputText( ' sloshing with their ever-full load.  It appears that the more you drink, the more milk Ember will produce; you don\'t have time to ponder such things at the moment, though, as the tasty flow of sweet, refreshing dragon milk spilling into your mouth to settle on your hungry belly is all that you can worry about at the moment.' );
-			EngineCore.outputText( '\n\nAt one point Ember\'s arms encircle you, wrapping you in a soft embrace so very unlike ' + this.emberMF( 'his', 'her' ) + ' brash personality.  You almost lose yourself in Ember\'s soft mounds, and from the looks of things; Ember seems to be similarly absorbed in nursing you with ' + this.emberMF( 'his', 'her' ) + ' breast milk.  You happily give yourself over to ' + this.emberMF( 'his', 'her' ) + ' desires, burying your ' + CoC.getInstance().player.face() + ' in the pleasant coolness of ' + this.emberMF( 'his', 'her' ) + ' bosom and glutting yourself.' );
+			EngineCore.outputText( '\n\nAt one point Ember\'s arms encircle you, wrapping you in a soft embrace so very unlike ' + this.emberMF( 'his', 'her' ) + ' brash personality.  You almost lose yourself in Ember\'s soft mounds, and from the looks of things; Ember seems to be similarly absorbed in nursing you with ' + this.emberMF( 'his', 'her' ) + ' breast milk.  You happily give yourself over to ' + this.emberMF( 'his', 'her' ) + ' desires, burying your ' + CoC.player.face() + ' in the pleasant coolness of ' + this.emberMF( 'his', 'her' ) + ' bosom and glutting yourself.' );
 			EngineCore.outputText( '\n\nFinally, however, your appetite dwindles; you have stuffed yourself with as much as you can bear and so you stop suckling, letting ' + this.emberMF( 'his', 'her' ) + ' nipple pop out between your lips to continue dribbling milk down your face and chest, cuddling into the blissed-out dragon while you have the excuse.' );
 			EngineCore.outputText( '\n\nEmber stops ' + this.emberMF( 'his', 'her' ) + ' humming and sighs; part in relief and part in disappointment.  "<i>Done?  Have you had enough?</i>"' );
 			EngineCore.outputText( '\n\nYou admit to ' + this.emberMF( 'him', 'her' ) + ' that you are full, and thank ' + this.emberMF( 'him', 'her' ) + ' for sharing the generous bounty of delicious milk.' );
 			EngineCore.outputText( '\n\nEmber can\'t hide the faintest of smiles that graces ' + this.emberMF( 'his', 'her' ) + ' scaly face.  You yelp softly as you feel a sharp prick against your belly; when you feel it again, you jump out of Ember\'s lap to reveal the clawed finger prodding you.  "<i>Payback for teasing me earlier.  And don\'t think I\'ll be feeding you my milk everytime you ask,</i>" ' + this.emberMF( 'he', 'she' ) + ' finishes, with a small puff of smoke.' );
 			EngineCore.outputText( '\n\nYou can\'t resist pointing out that ' + this.emberMF( 'he', 'she' ) + ' certainly seemed eager to let you drink your fill, and you didn\'t hear any complaining over ' + this.emberMF( 'his', 'her' ) + ' purring.  Before ' + this.emberMF( 'he', 'she' ) + ' can rebut that, you turn and leave the dragon in ' + this.emberMF( 'his', 'her' ) + ' den.' );
 			EngineCore.outputText( '\n\nThe drink you got did you plenty of good; you feel refreshed and renewed, new vitality flowing through your veins.' );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				EngineCore.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}
 			//(no new PG, PC has dragon-morph status and is opposite Ember's sex:;
-			if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.dragonScore() >= 4 && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.gender !== CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] || (CoC.getInstance().player.gender === 3 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
+			if( Utils.rand( 2 ) === 0 && CoC.player.dragonScore() >= 4 && CoC.player.gender > 0 && (CoC.player.gender !== CoC.flags[ kFLAGS.EMBER_GENDER ] || (CoC.player.gender === 3 && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
 				EngineCore.outputText( '  Though, a sudden swell of lust races through your ' );
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( Descriptors.cockDescript( 0 ) );
-					if( CoC.getInstance().player.hasVagina() ) {
+					if( CoC.player.hasVagina() ) {
 						EngineCore.outputText( ' and ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( Descriptors.vaginaDescript() );
 				}
 				EngineCore.outputText( ', making you wish Ember hadn\'t run you off.  All you can think about now is fucking ' + this.emberMF( 'his', 'her' ) + '; ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'filling her womb with your seed and fertilizing her eggs' );
-					if( CoC.getInstance().player.hasVagina() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+					if( CoC.player.hasVagina() && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 						EngineCore.outputText( ' even while ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
+				if( CoC.player.hasVagina() && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
 					EngineCore.outputText( 'taking that hard, spurting cock inside your own ' + Descriptors.vaginaDescript( 0 ) );
 				}
 				EngineCore.outputText( '... too late, you realize that <b>Ember\'s milk has sent your draconic body into ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'rut' );
-					CoC.getInstance().player.goIntoRut( false );
+					CoC.player.goIntoRut( false );
 				} else {
 					EngineCore.outputText( 'heat' );
-					CoC.getInstance().player.goIntoHeat( false );
+					CoC.player.goIntoHeat( false );
 				}
 				EngineCore.outputText( '!</b>' );
 			}
@@ -2216,9 +2216,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(High Affection);
 		else {
 			EngineCore.outputText( '\n\nEmber\'s tail waggles at your request even as she forces a frown, and you swear you can see ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( 'the faintest hint of ' + this.emberMF( 'his', 'her' ) + ' cock ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 					EngineCore.outputText( 'emerging' );
 				} else {
 					EngineCore.outputText( 'hardening' );
@@ -2234,9 +2234,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber blows a puff of smoke in confidence.  "<i>Of course I\'m proud.  Bet you don\'t see girls with breasts as perfect as mine.</i>"' );
 			EngineCore.outputText( '\n\nYou admit you don\'t, then lean in to kiss ' + this.emberMF( 'his', 'her' ) + ' seeping nipple, sucking the teat in between your lips and expertly rolling and sliding it between them, tickling its tip and savoring the hints of ' + this.emberMF( 'his', 'her' ) + ' sweet, cool, naturally-spiced milk.' );
 			EngineCore.outputText( '\n\nBut your focus is on playing with your dragon right now, rather than straightforward drinking, and so one hands creeps purposefully towards ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' erecting dragon-prick, gently stroking its' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 					EngineCore.outputText( ' strangely ridged, almost scaly' );
 				}
 				EngineCore.outputText( ' surface' );
@@ -2246,7 +2246,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nEmber\'s grip on your [butt] tightens sharply.  "<i>What are you - ah! doing?</i>"' );
 			EngineCore.outputText( '\n\nWith an innocent look, you start to suckle in earnest, even as your hand continues to ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( 'stroke ' + this.emberMF( 'his', 'her' ) + ' shaft' );
 			} else {
 				EngineCore.outputText( 'probe gently into her slick depths' );
@@ -2258,18 +2258,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nThis time, you focus on simply drinking from Ember\'s bountiful breast and the wonderful taste of ' + this.emberMF( 'his', 'her' ) + ' milk.  You don\'t think you could ever get tired of this... the milk is sweet, refreshing and just a tad spicy.  You can\'t help but compare how like ' + this.emberMF( 'him', 'her' ) + ' it is.' );
 			EngineCore.outputText( '\n\nThe soft purrs that accompany each suckle and the soft caresses on your body, bringing you ever closer to these two motherlodes of Ember-flavoured treasure, only serve to enhance the whole experience.' );
 			EngineCore.outputText( '\n\nEventually, your swallows of the rich, freely-flowing, creamy dragon-milk cease as your stomach fills up.' );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				EngineCore.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}
 			EngineCore.outputText( '  You tell your dragon that you\'re finished.  You\'re up and turning to leave when a looping tail around your waist stops you.' );
 			EngineCore.outputText( '\n\n"<i>You\'re not going anywhere just yet.  You still have one other breast to empty.</i>"  Ember smiles, despite ' + this.emberMF( 'his', 'her' ) + ' mockingly stern face.' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '\n\nYou look at ' + this.emberMF( 'him', 'her' ) + ' and, despite the faint protests from your stomach, reason that you can\'t disappoint the dragon-' + this.emberMF( 'boy', 'girl' ) + '.  Besides, you know what ' + this.emberMF( 'his', 'her' ) + ' temper is like... you resettle and begin suckling at ' + this.emberMF( 'his', 'her' ) + ' other breast.' );
 				EngineCore.outputText( '\n\n"<i>Ah!  That\'s good...</i>"  Ember embraces you in a tight hug, bringing you as close to ' + this.emberMF( 'him', 'her' ) + ' as possible.  You smile around your nipple and enjoy the sensation, languidly suckling from ' + this.emberMF( 'him', 'her' ) + ' less out of an honest thirst for the milk and more to prolong your excuse to be so close to your strangely fuzzy dragon.' );
 				EngineCore.outputText( '\n\nBy the time you\'re done Ember has melted into a purring pile, content with simply letting you sit on ' + this.emberMF( 'his', 'her' ) + ' lap.  "<i>Don\'t think that just because it felt good, I\'m going to let you do this whenever you feel like.</i>"' );
 				EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' you wouldn\'t dream of thinking that, sneaking an opportunity to kiss ' + this.emberMF( 'him', 'her' ) + ' while ' + this.emberMF( 'his', 'her' ) + ' guard is so lax.  Even as you do, your stomach begins to gripe, trying and failing to digest the slow-to-process milk before it begins to turn.  You\'re going to be sick later, that\'s for sure...' );
-				if( CoC.getInstance().player.tou > 40 ) {
+				if( CoC.player.tou > 40 ) {
 					EngineCore.dynStats( 'tou', -1 );
 				}
 			}
@@ -2285,34 +2285,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber gets so flustered that ' + this.emberMF( 'he', 'she' ) + ' just stares at you in stunned silence, wearing a goofy smile.  "<i>Wha... you know, there\'s no point in saying anything.  I know you\'ll just sneak another opportunity like this in the future... doesn\'t mean I won\'t make you pay for this when I catch you later.</i>"' );
 			EngineCore.outputText( '\n\nYou whisper into her ear that you\'re looking forward to it, and gently raise yourself from ' + this.emberMF( 'his', 'her' ) + ' lap to leave.' );
 			//(no new PG, PC has dragon-morph status and is opposite Ember's sex:;
-			if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.dragonScore() >= 4 && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.gender !== CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] || (CoC.getInstance().player.gender === 3 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
+			if( Utils.rand( 2 ) === 0 && CoC.player.dragonScore() >= 4 && CoC.player.gender > 0 && (CoC.player.gender !== CoC.flags[ kFLAGS.EMBER_GENDER ] || (CoC.player.gender === 3 && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3)) ) {
 				EngineCore.outputText( '  Though, a sudden swell of lust races through your ' );
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( Descriptors.cockDescript( 0 ) );
-					if( CoC.getInstance().player.hasVagina() ) {
+					if( CoC.player.hasVagina() ) {
 						EngineCore.outputText( ' and ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( Descriptors.vaginaDescript() );
 				}
 				EngineCore.outputText( ', making you wish Ember hadn\'t run you off.  All you can think about now is fucking ' + this.emberMF( 'his', 'her' ) + '; ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'filling her womb with your seed and fertilizing her eggs' );
-					if( CoC.getInstance().player.hasVagina() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+					if( CoC.player.hasVagina() && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 						EngineCore.outputText( ' even while ' );
 					}
 				}
-				if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
+				if( CoC.player.hasVagina() && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1) ) {
 					EngineCore.outputText( 'taking that hard, spurting cock inside your own ' + Descriptors.vaginaDescript( 0 ) );
 				}
 				EngineCore.outputText( '... too late, you realize that <b>Ember\'s milk has sent your draconic body into ' );
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+				if( CoC.player.hasCock() && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'rut' );
-					CoC.getInstance().player.goIntoRut( false );
+					CoC.player.goIntoRut( false );
 				} else {
 					EngineCore.outputText( 'heat' );
-					CoC.getInstance().player.goIntoHeat( false );
+					CoC.player.goIntoHeat( false );
 				}
 				EngineCore.outputText( '!</b>' );
 			}
@@ -2324,7 +2324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.dynStats( 'lus', 20 );
 		}
 		EngineCore.fatigue( -50 );
-		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
+		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
 	};
 	//Sparring text outputs (Z) (FENCODED TO HERE);
 	//PC shouldn't get gems for this fight, XP shouldn't be a problem with the new level scaled encounter system.;
@@ -2413,7 +2413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			this.emberAffection( -5 );
 		}
 		Combat.cleanupAfterCombat();
-		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
+		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
 	};
 	//[Catch Anal] - a dragon coq up the date (Z);
 	EmberScene.prototype.catchAnal = function() {
@@ -2429,7 +2429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(Moderate affection);
 		if( this.emberAffection() < 75 ) {
 			EngineCore.outputText( '\n\n"<i>If that\'s what you really have in mind.  Maybe, just maybe... I can do that for you...</i>" Ember replies, as ' + this.emberMF( 'his', 'her' ) + ' cock peeks out' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 || CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( ' of its hiding place' );
 			}
 			EngineCore.outputText( ', growing slowly but steadily.' );
@@ -2442,20 +2442,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nEmber leads you a short distance away from camp, to a small clearing next to a dried river.  ' + this.emberMF( 'He', 'She' ) + ' selects a relatively lush-looking patch of grass and gestures at it.  Eagerly, you disrobe, casually throwing your [armor] aside as you present Ember with an enticing view of your ' + Descriptors.buttDescript() + ',' );
 		//PC has balls:;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' testicles swaying lightly as you arch your backside up at ' + this.emberMF( 'him', 'her' ) );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' while... ' );
 			} else {
 				EngineCore.outputText( '.' );
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' your ' + Descriptors.clitDescript() + ' drips with every passing moment.' );
 		}
 		EngineCore.outputText( '\n\nEmber greedily drinks in every last inch of your naked body, ' + this.emberMF( 'his', 'her' ) + ' long tongue sliding out, already oozing with drool, before noisily being slurped back up.  "<i>Keep in mind, I\'m only doing this because you asked; I feel no pleasure from it,</i>" ' + this.emberMF( 'he', 'she' ) + ' states, despite ' + this.emberMF( 'his', 'her' ) + ' raging erection.  Finally done waiting, ' + this.emberMF( 'he', 'she' ) + ' sashays towards you, tail waving gently behind ' + this.emberMF( 'him', 'her' ) + ', cock bobbing up and down as ' + this.emberMF( 'he', 'she' ) + ' approaches.' );
 		EngineCore.outputText( '\n\nEmber stops right behind you, gently rubbing the ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( 'segmented' );
 		} else {
 			EngineCore.outputText( 'smooth' );
@@ -2464,7 +2464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' hands take hold of your butt, squeezing it slowly and firmly, caressing and massaging it with greedy anticipation.  From where you are you can\'t see what ' + this.emberMF( 'he', 'she' ) + '\'s doing, but you can certainly hear it.  Soft, wet slurps and smacks emanate from behind you, and you realize the dragon must be licking ' + this.emberMF( 'his', 'her' ) + ' own cock until it\'s soaked with gooey dragon-drool.' );
 		EngineCore.outputText( '\n\nYou certainly didn\'t expect that ' + this.emberMF( 'he', 'she' ) + ' would take to lubing ' + this.emberMF( 'his', 'her' ) + ' penis up so... intimately.  Your arousal floods throughout your veins and fills you with giddiness at the thought of being penetrated by ' + this.emberMF( 'his', 'her' ) + ' saliva-coated cock and swallowing it into your depths.' );
 		EngineCore.outputText( '\n\n"<i>I guess I can work with it now,</i>" Ember croons, after slurping the long tongue back into ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( 'mouth' );
 		} else {
 			EngineCore.outputText( 'maw' );
@@ -2472,13 +2472,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ' and sliding ' + this.emberMF( 'his', 'her' ) + ' cock meaningfully against your pucker.  "<i>You sure you want this?  Last chance to back out.</i>"  As if you\'re going to turn away now, so close to filling that hunger for a nice, hot cock in your ass.  Rearing your rump up, you show ' + this.emberMF( 'him', 'her' ) + ' that you\'re ready if ' + this.emberMF( 'he', 'she' ) + ' is.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'He', 'She' ) + ' growls hungrily, and wastes no more time.  Fingers digging deeply into your [butt], ' + this.emberMF( 'he', 'she' ) + ' forces the glans of ' + this.emberMF( 'his', 'her' ) + ' shaft through your [asshole] and begins pushing past the opening ' );
 		//(PC has a virgin/tight asshole:);
-		if( CoC.getInstance().player.ass.analLooseness === 0 || CoC.getInstance().player.analCapacity() < 25 ) {
+		if( CoC.player.ass.analLooseness === 0 || CoC.player.analCapacity() < 25 ) {
 			EngineCore.outputText( ', leaving both of you wincing as the sensitive head of ' + this.emberMF( 'his', 'her' ) + ' cock struggles to make room for its insertion.  "<i>I can\'t believe you really want me to put it here... you\'re so tight it almost hurts,</i>" ' + this.emberMF( 'he', 'she' ) + ' whimpers.' );
 		}
 		//(PC has a loose asshole:);
-		if( CoC.getInstance().player.analCapacity() < 50 ) {
+		if( CoC.player.analCapacity() < 50 ) {
 			EngineCore.outputText( ', causing you to gasp as ' + this.emberMF( 'his', 'her' ) + ' ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 				EngineCore.outputText( 'draconic ' );
 			}
 			EngineCore.outputText( 'dick slips inside of you; stretching you and making you wince a bit in pain as ' + this.emberMF( 'his', 'her' ) + ' spit rubs off along the interior of your anus.  "<i>It feels pretty snug... good thing I prepared for this,</i>" ' + this.emberMF( 'he', 'she' ) + ' remarks with a gasp of pleasure.' );
@@ -2487,32 +2487,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		else {
 			EngineCore.outputText( '; the looseness of your ' + Descriptors.assholeDescript() + ' gives ' + this.emberMF( 'him', 'her' ) + ' no resistance whatsoever as ' + this.emberMF( 'he', 'she' ) + ' glides in without trouble.  "<i>Huh... that was easier than I expected,</i>" ' + this.emberMF( 'he', 'she' ) + ' remarks in surprise.  "<i>What have you been getting yourself into?</i>"' );
 		}
-		CoC.getInstance().player.buttChange( 32, true, true, false );
+		CoC.player.buttChange( 32, true, true, false );
 		EngineCore.outputText( '\n\nEmber settles for a slow rhythm, pumping with slow strokes; gently guiding ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 			EngineCore.outputText( 'draconic ' );
 		}
 		EngineCore.outputText( 'prick in and out, reaching for your deepest recesses to rub on the right spots.' );
 		EngineCore.outputText( '\n\nYou gasp and moan as Ember works into you, feeling ' + this.emberMF( 'him', 'her' ) + ' extending ' + this.emberMF( 'his', 'her' ) + ' prick to its full length and using that as a way to push ' + this.emberMF( 'himself', 'herself' ) + ' ever deeper into your bowels.' );
 		//(PC has prick:;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  You can feel the dragon\'s member rubbing against your prostate, making ' + Descriptors.sMultiCockDesc() + ' jump to painful erectness, bubble pre-cum, and drool it down the shaft to pool on the ground.' );
 		}
 		//(PC has cunt:;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  The stimulus is starting to make you wet as well, your [vagina] drooling feminine lubricant ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'over your [balls]' );
 			}
 			EngineCore.outputText( ' to puddle underneath you' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', mingling with your pre to form an ever-growing pool of mixed sexual fluids.' );
 			}
 		}
 		EngineCore.outputText( '\n\n"<i>Oh!  I\'m going to start moving now...</i>" Ember says, beginning to pick up the pace and gently rock you with ' + this.emberMF( 'his', 'her' ) + ' increasingly faster thrusts.  Fuck, wasn\'t ' + this.emberMF( 'he', 'she' ) + ' already?  You groan, long and hollow, deep in your throat, savoring the deep probes.  You try to enjoy yourself, to fully immerse yourself in the sensations, but find yourself dissatisfied.  The dragon just can\'t seem to pick up a proper tempo, and you beg ' + this.emberMF( 'him', 'her' ) + ' to speed things up, to start really giving it to you... you\'re not made of glass, and you won\'t break.' );
 		EngineCore.outputText( '\n\nEmber furrows ' + this.emberMF( 'his', 'her' ) + ' brows.  "<i>You want it?  Okay, I\'ll give it to you...</i>"  ' + this.emberMF( 'He', 'She' ) + ' growls - or perhaps purrs?  Finally, you\'re going to get what you want; you can feel it as Ember rears ' + this.emberMF( 'his', 'her' ) + ' hips in preparation for ' + this.emberMF( 'his', 'her' ) + ' brutal assault on you, and true to ' + this.emberMF( 'his', 'her' ) + ' word, the dragon finally begins pistoning into you, slapping against your butt in a lewd sonata of raw pleasure and ferocious sex.' );
 		//(if PC has balls:;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  ' + this.emberMF( 'His', 'Her' ) + ' own balls swing into yours, and every time they connect a shrill wave of pleasure flows through you.' );
 		}
 
@@ -2528,7 +2528,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '  Bunching your muscles, you push up off the ground and against ' + this.emberMF( 'him', 'her' ) + ', trying to knock the dragon over onto ' + this.emberMF( 'his', 'her' ) + ' back.  As lost in pleasure as ' + this.emberMF( 'he', 'she' ) + ' is, Ember doesn\'t even try to fight back, going down with a heavy <i>thud</i>.  "<i>Ah!  Going to take my little dragon for a ride?</i>" ' + this.emberMF( 'he', 'she' ) + ' gasps at you, too excited to care that ' + this.emberMF( 'he', 'she' ) + ' isn\'t the one in charge anymore.' );
 		EngineCore.outputText( '\n\nWith a smirk you swivel in Ember\'s lap, shuddering in delight at the sensations of Ember\'s dick sliding round inside your depths, until you are face to face with the bucking, writhing dragon.  You reach out and pinch ' + this.emberMF( 'his', 'her' ) + ' nipples, trailing your fingers enticingly down ' + this.emberMF( 'his', 'her' ) + ' ' );
 		if( this.pregnancy.event > 3 ) {
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 				EngineCore.outputText( 'swollen ' );
 			} else {
 				EngineCore.outputText( 'egg-laden ' );
@@ -2543,20 +2543,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou bend down and kiss ' + this.emberMF( 'him', 'her' ) + ' as deeply as you can, flicking your tongue against ' + this.emberMF( 'his', 'her' ) + ' lips and inviting ' + this.emberMF( 'him', 'her' ) + ' to put ' + this.emberMF( 'his', 'her' ) + ' own tongue to use.  And all the while, you continue to flex your internal muscles, massaging ' + this.emberMF( 'him', 'her' ) + ' until ' + this.emberMF( 'he', 'she' ) + ' has no choice but to release...' );
 		EngineCore.outputText( '\n\nYou can see that perfect moment when Ember finally pops; ' + this.emberMF( 'his', 'her' ) + ' eyes roll back and ' + this.emberMF( 'he', 'she' ) + ' purrs in joy, sending little vibrations along your throat.  ' + this.emberMF( 'His', 'Her' ) + ' cock twitches once, twice and then finally distends as it unleashes all of Ember\'s pent-up seed inside your bowels.  You can even feel ' + this.emberMF( 'his', 'her' ) + ' balls shrinking with each gob of cum ' + this.emberMF( 'he', 'she' ) + ' pumps into you, flooding you with ' + this.emberMF( 'his', 'her' ) + ' enjoyment.' );
 		EngineCore.outputText( '\n\nYou moan and heave at the feeling of dragon spooge surging into you, swelling your belly with Ember\'s rich, virile load.  The sensation is incredible, and you can\'t help but orgasm in turn' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( ', ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your cunt gushing feminine lubricant to glaze Ember\'s belly' );
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'your cock ' );
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( 'spurting gouts of cum onto Ember\'s upper torso' );
-			} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			} else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( 'raining spunk across the supine dragon' );
 			} else {
 				EngineCore.outputText( 'cascading your man-cream across your blissed-out lover until ' + this.emberMF( 'he', 'she' ) + ' is completely glazed in a sperm coating' );
@@ -2564,7 +2564,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nEmber hugs you close, enjoying the afterglow' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( ' and rubbing the results of your own orgasm against you' );
 		}
 		EngineCore.outputText( '.  You sink readily into the dragon\'s embrace, rubbing against ' + this.emberMF( 'him', 'her' ) + ', feeling sleepy and blissful after a good, hard fuck.  Sadly, this moment of respite doesn\'t last long; you feel a certain discomfort as Ember\'s body heats up.  Looking up, you see ' + this.emberMF( 'his', 'her' ) + ' eyes are wide open.  Before you can ask ' + this.emberMF( 'him', 'her' ) + ' what\'s wrong, ' + this.emberMF( 'he', 'she' ) + ' knocks you off with a start.' );
@@ -2573,9 +2573,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEmber makes the best face of disgust ' + this.emberMF( 'he', 'she' ) + ' can manage.  "<i>Argh!  I need a bath!  Now!</i>"  And with a quick spin, ' + this.emberMF( 'he', 'she' ) + ' dashes off to find a stream.  You watch ' + this.emberMF( 'him', 'her' ) + ' go and smile bitterly; you\'ve grown used to how the dragon behaves and you know ' + this.emberMF( 'he', 'she' ) + ' really did enjoy ' + this.emberMF( 'him', 'her' ) + 'self, but the act might be getting a bit tiresome.  Grabbing a handful of dried grass, you wipe the worst smears of sexual fluids from your body, redress yourself, and head lazily back to the camp.' );
 		//(+Affection, minus lust, reset hours since cum, slimefeed);
 		this.emberAffection( 6 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Blow Ember] - your shipment of dragon dildoes has arrived;
@@ -2596,42 +2596,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 
 		EngineCore.outputText( '\n\nYou follow your draconic lover, waiting to see where ' + this.emberMF( 'he', 'she' ) + ' will take you, which turns out to be a simple, dried-up clearing, dominated by a large, lichen-carpeted stump in its center.  Ember releases your hand and heads to the stump, seating ' + this.emberMF( 'him', 'her' ) + 'self on it as imperiously as any ' + this.emberMF( 'emperor', 'empress' ) + ' on ' + this.emberMF( 'his', 'her' ) + ' throne.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'He', 'She' ) + ' spreads ' + this.emberMF( 'his', 'her' ) + ' legs wide, revealing ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 				EngineCore.outputText( 'his single genital slit' );
 			} else {
 				EngineCore.outputText( 'his genitals' );
 			}
 		} else {
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 				EngineCore.outputText( 'her twin genital slits' );
 			} else {
 				EngineCore.outputText( 'her genitals' );
 			}
 		}
 		EngineCore.outputText( ', ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 			EngineCore.outputText( 'draconic ' );
 		}
 		EngineCore.outputText( 'prick already hard and throbbing.  The dragon taps a clawed finger idly on the stump, awaiting your attention.' );
 		EngineCore.outputText( '\n\nYou swiftly strip off your [armor], lest they be dirtied by what you are about to do, approach, and kneel before ' + this.emberMF( 'him', 'her' ) + ', reaching out to gently grasp the erect shaft of ' + this.emberMF( 'his', 'her' ) + ' cock.  The lewdness of what you\'re about to do makes a perverse thrill run through you.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  [EachCock] hardens, spearing aimlessly into the ground in your arousal.' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your [vagina] starts to seep with feminine juices, your [clit] hardening in anticipation as your excitement dribbles down onto the thirsty ground.' );
 		}
 		EngineCore.outputText( '\n\n"<i>J-just get started with it,</i>" Ember stammers, opening ' + this.emberMF( 'his', 'her' ) + ' legs wider and breathing heavily.' );
 		EngineCore.outputText( '\n\nYou smile affectionately up at your lover and reach out to stroke the shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 			EngineCore.outputText( ' that is even now springing forth from ' + this.emberMF( 'his', 'her' ) + ' ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( 'first ' );
 			}
 			EngineCore.outputText( 'genital slit' );
 		}
 		EngineCore.outputText( '.  Up and up it rises, until all 16 inches of ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 			EngineCore.outputText( 'dragon ' );
 		}
 		EngineCore.outputText( 'dick are proudly lancing towards your face, pre-cum gently bubbling from the tip and flowing down its length as you massage and lubricate it for ease of swallowing.  You cast a coy look at the dragon, who is shivering from your ministrations, but stoically refuses to show how much you are affecting ' + this.emberMF( 'him', 'her' ) + '.  Not willing to play any more if ' + this.emberMF( 'he', 'she' ) + ' isn\'t willing to cooperate, you open your mouth and start to swallow ' + this.emberMF( 'his', 'her' ) + ' cock.' );
@@ -2640,7 +2640,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEnthused by ' + this.emberMF( 'his', 'her' ) + ' obvious enjoyment, you continue, swallowing as much as you can.  At around the six-inch mark, though, you find yourself forced to a halt; Ember\'s cock is jabbing against the back of your throat and triggering your gag reflex.  You try to calm yourself and breathe deeply, seeing that at least half ' + this.emberMF( 'his', 'her' ) + ' length is still outside your mouth.' );
 		EngineCore.outputText( '\n\n"<i>D-don\'t force yourself.  Don\'t want you choking on my dick,</i>" Ember pants, starting to lose ' + this.emberMF( 'his', 'her' ) + ' cool as the pleasure escalates.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' words merely spark an ember of pride in your heart; you won\'t be beaten, not by this dick!  There are monster cocks out there much larger than your little dragon\'s, after all.  Inhaling as much as you can fit in your lungs, you thrust your head forward, straining to pierce your closing throat until, at last, it pops wetly through into your gullet.  With the head of the shaft already inside your throat, it\'s easier to continue sliding it in.  Inch by inch you push forward, feeling it stretching out your neck and plunging down, down inside you.  Finally, you find your nose pressed gently into Ember\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'scaly' );
 		} else {
 			EngineCore.outputText( 'soft-skinned' );
@@ -2652,16 +2652,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ', and discover a surge of pride in you that you got all sixteen inches of it down.' );
 		EngineCore.outputText( '\n\nLooking up to see Ember\'s reaction, what greets your straining eyes is a slack-jawed, panting dragon, and ' + this.emberMF( 'he', 'she' ) + '\'s looking straight at you.  "<i>You don\'t know how sexy you look like this...</i>"' );
 		EngineCore.outputText( '\n\nYou weakly grin around ' + this.emberMF( 'his', 'her' ) + ' jaw-stretcher of a cock and start to bob your head back and forth as much as you can.  You can feel ' + this.emberMF( 'his', 'her' ) + ' tip jabbing into what feels like your belly and you try to clench your throat around the inhumanly-long tool, sucking madly on the part still inside your actual mouth.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 && (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0) ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 && (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0) ) {
 			EngineCore.outputText( '  Struck by perverse inspiration, you manage to wriggle your tongue under the base of ' + this.emberMF( 'his', 'her' ) + ' cock and thrust it into ' + this.emberMF( 'his', 'her' ) + ' genital slit.  You guide it as deep into the strangely pussy-like orifice as you can, tickling and caressing.' );
 			//(DemonTongue:;
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( '  Your inhuman length slithers deeper and deeper inside, and you realize you can feel two rounded objects; ' + this.emberMF( 'his', 'her' ) + ' balls! You\'re actually touching the testicles that are normally locked away inside ' + this.emberMF( 'his', 'her' ) + ' body, except when ' + this.emberMF( 'he', 'she' ) + ' reaches ' + this.emberMF( 'his', 'her' ) + ' most aroused states...' );
 			}
 		}
 		EngineCore.outputText( '\n\n"<i>Ah!  M-more... touch me more...</i>" Ember pleads, surrendering to pleasure at your hands.' );
 		EngineCore.outputText( '\n\nYou bob and swallow, slurping on ' + this.emberMF( 'his', 'her' ) + ' cock and massaging it' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', your tongue wriggling around in ' + this.emberMF( 'his', 'her' ) + ' slit' );
 		}
 		EngineCore.outputText( ', all for the purpose of having ' + this.emberMF( 'him', 'her' ) + ' deliver that creamy dragon spunk directly into your hungry belly.  You do what you can, but you\'re not certain how else you can please ' + this.emberMF( 'him', 'her' ) + ' with ' + this.emberMF( 'his', 'her' ) + ' entire length buried in your throat.  You look up at the dragon with a pleading expression, silently begging ' + this.emberMF( 'him', 'her' ) + ' to take an active hand in matters, or else ' + this.emberMF( 'he', 'she' ) + '\'ll never get off!' );
@@ -2671,21 +2671,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nGushes of spooge flow into your midriff, which you can feel growing heavier and heavier with the accumulation, your skin stretching into a pregnancy-mocking bulge.  Suddenly Ember pulls you away from ' + this.emberMF( 'him', 'her' ) + ', giving you a mouthful of cum; you do your best to swallow, but can\'t help but let some of it escape.  Not that it would matter much anyway, because shortly after Ember extracts ' + this.emberMF( 'his', 'her' ) + ' spewing member from your mouth and paints your face with the last few jets of jism.' );
 		EngineCore.outputText( '\n\nYou simply kneel there and take it, too full and out of breath to do anything about the cum-bath you\'re getting.  Finally, though, the dragon\'s overstimulated dick belches its last few blasts of frothy spunk, which land on your face as Ember slumps into ' + this.emberMF( 'his', 'her' ) + ' seat, panting with exhaustion.  You heave and gasp for air, cum escaping your mouth, sighing in relief as you finally fill your lungs, then cradle your gurgling, sloshing belly, a grimace of discomfort crossing your face at the pressure before you expel a spunk-scented belch.  That feels better.' );
 		EngineCore.outputText( '\n\nYour relief is short-lived, because Ember takes your head in ' + this.emberMF( 'his', 'her' ) + ' hands and delivers a passionate kiss to your lips, tasting ' + this.emberMF( 'him', 'her' ) + 'self and you as ' + this.emberMF( 'he', 'she' ) + ' licks the stray gobs of cum that remain.  ' + this.emberMF( 'He', 'She' ) + ' releases you with a wet smack, strands of saliva linking your mouth to ' + this.emberMF( 'his', 'hers' ) + ', while ' + this.emberMF( 'he', 'she' ) + ' begins licking your face clean of the mess ' + this.emberMF( 'he', 'she' ) + ' made earlier.' );
-		EngineCore.outputText( '\n\nYou close your eyes and submit to the dragon\'s gentle ministrations, savoring the close contact as ' + this.emberMF( 'his', 'her' ) + ' cool tongue glides across your ' + CoC.getInstance().player.skinFurScales() + '.  Ember takes ' + this.emberMF( 'his', 'her' ) + ' time, making sure you\'re absolutely spotless.  Once you\'ve been cleaned and licked to ' + this.emberMF( 'his', 'her' ) + ' satisfaction, ' + this.emberMF( 'he', 'she' ) + ' finally settles down; getting off the stump to lay on the floor and pull you atop ' + this.emberMF( 'him', 'her' ) + '; hugging you close.' );
+		EngineCore.outputText( '\n\nYou close your eyes and submit to the dragon\'s gentle ministrations, savoring the close contact as ' + this.emberMF( 'his', 'her' ) + ' cool tongue glides across your ' + CoC.player.skinFurScales() + '.  Ember takes ' + this.emberMF( 'his', 'her' ) + ' time, making sure you\'re absolutely spotless.  Once you\'ve been cleaned and licked to ' + this.emberMF( 'his', 'her' ) + ' satisfaction, ' + this.emberMF( 'he', 'she' ) + ' finally settles down; getting off the stump to lay on the floor and pull you atop ' + this.emberMF( 'him', 'her' ) + '; hugging you close.' );
 		EngineCore.outputText( '\n\nYou don\'t quite know why ' + this.emberMF( 'he', 'she' ) + ' feels like cuddling you after just feeding you ' + this.emberMF( 'his', 'her' ) + ' cum, but you aren\'t too inclined to complain.  Still, eventually you realize time is slipping away and so gently try to wriggle out of ' + this.emberMF( 'his', 'her' ) + ' embrace, playfully telling ' + this.emberMF( 'him', 'her' ) + ' that as much as you like being close to ' + this.emberMF( 'him', 'her' ) + ', you have other things to do.' );
 		EngineCore.outputText( '\n\nEmber opens ' + this.emberMF( 'his', 'her' ) + ' eyes wide open, and roughly pushes you to the side and off ' + this.emberMF( 'him', 'her' ) + '.  "<i>W-what did you make me do... my cum... the kiss...  you... you made me lick my own cum off your face!</i>"' );
 		EngineCore.outputText( '\n\nYou point out that ' + this.emberMF( 'he', 'she' ) + ' kissed you, not the other way around.  You certainly didn\'t make ' + this.emberMF( 'him', 'her' ) + ' lick you.  Besides, why should you be the only one who gets to enjoy how ' + this.emberMF( 'he', 'she' ) + ' tastes?' );
 		EngineCore.outputText( '\n\n"<i>I need a bath!</i>" ' + this.emberMF( 'he', 'she' ) + ' declares hurriedly and dashes off.  You watch the dragon go, ' );
-		if( CoC.getInstance().player.cor < 80 ) {
+		if( CoC.player.cor < 80 ) {
 			EngineCore.outputText( 'amused' );
 		} else {
 			EngineCore.outputText( 'increasingly leery of ' + this.emberMF( 'his', 'her' ) + ' batty behavior' );
 		}
 		EngineCore.outputText( ', then pick yourself up to head back to the camp.' );
 		//(+Affection, lust, reset hours since cum, slimefeed);
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		this.emberAffection( 6 );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Blown - put your dick in the knife drawer, it'll be fun! (Z, with reservation);
@@ -2711,61 +2711,61 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nEmber looks at your crotch, then back at you; ' + this.emberMF( 'his', 'her' ) + ' eyes glitter conspiratorially. "<i>Ok... but only this once!</i>"' );
 		}
 		EngineCore.outputText( '\n\nRealising ' + this.emberMF( 'he', 'she' ) + ' is looking at you to lead, you indicate ' + this.emberMF( 'he', 'she' ) + ' should follow you and start heading for the outskirts of camp.  Once you trust you are a safe distance away, you ' );
-		if( !CoC.getInstance().player.isNaga() ) {
+		if( !CoC.player.isNaga() ) {
 			EngineCore.outputText( 'seat yourself on a conveniently lichen-covered boulder.' );
 		} else {
 			EngineCore.outputText( 'coil up on your serpentine tail) and start peeling off the clothes on your lower half, exposing [eachCock] to the air and awaiting Ember\'s response.' );
 		}
 
 		EngineCore.outputText( '\n\nEmber\'s eyes glow when ' + this.emberMF( 'his', 'her' ) + ' gaze sets on your dick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.' );
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		var y = x + 1;
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '  ' + this.emberMF( 'He', 'She' ) + ' selects the biggest cock and gives it a gentle stroke,' );
 		} else {
 			EngineCore.outputText( '  ' + this.emberMF( 'He', 'She' ) + ' takes your [cock ' + y + '] in hand and begins gently stroking it,' );
 		}
 		EngineCore.outputText( ' sniffing your musk with obvious delight.' );
 		//(if Ember chose a dragon cock);
-		if( CoC.getInstance().player.cocks[ x ].cockType === CockTypesEnum.DRAGON ) {
+		if( CoC.player.cocks[ x ].cockType === CockTypesEnum.DRAGON ) {
 			EngineCore.outputText( '\n\n"<i>Such a magnificent, beautiful cock... it feels powerful... and familiar.</i>"' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>T-this isn\'t something that I know how to work... but I suppose I could try it... for you.</i>"' );
 		}
 
 		EngineCore.outputText( '\n\nYou shiver at the sensations of ' + this.emberMF( 'his', 'her' ) + ' hands on your cock' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ', the scales on ' + this.emberMF( 'his', 'her' ) + ' palms producing an indescribable feeling as they slide across your sensitive flesh,' );
 		}
 		EngineCore.outputText( ' and unthinkingly blurt out your understanding.' );
 		EngineCore.outputText( '\n\nSatisfied at that, Ember extends ' + this.emberMF( 'his', 'her' ) + ' tongue, slowly wrapping it around your ' + Descriptors.cockDescript( x ) + ', an act that makes you shiver as the inhumanly long, prehensile appendage twines around your member like a slick-skinned snake.  ' + this.emberMF( 'He', 'She' ) + ' coils it around your shaft expertly, gripping you into a makeshift cock-sleeve.' );
-		EngineCore.outputText( '\n\nLooking down at Ember, you see the dragon wreathed in happiness; ' + this.emberMF( 'he', 'she' ) + '\'s so focused on ' + this.emberMF( 'his', 'her' ) + ' task that ' + this.emberMF( 'he', 'she' ) + ' doesn\'t even notice you staring.  Using ' + this.emberMF( 'his', 'her' ) + ' coiled tongue ' + this.emberMF( 'he', 'she' ) + ' begins jerking you off; the sensation is familiar and yet so alien... it only takes a few strokes before your ' + Descriptors.cockDescript( x ) + ' is glistening with Ember\'s saliva, and in a particularly pleasurable tug, you moan.  A bead of pre escapes your ' + CoC.getInstance().player.cockHead( x ) + ' and slowly slides down your shaft, until it makes contact with Ember\'s tongue.' );
+		EngineCore.outputText( '\n\nLooking down at Ember, you see the dragon wreathed in happiness; ' + this.emberMF( 'he', 'she' ) + '\'s so focused on ' + this.emberMF( 'his', 'her' ) + ' task that ' + this.emberMF( 'he', 'she' ) + ' doesn\'t even notice you staring.  Using ' + this.emberMF( 'his', 'her' ) + ' coiled tongue ' + this.emberMF( 'he', 'she' ) + ' begins jerking you off; the sensation is familiar and yet so alien... it only takes a few strokes before your ' + Descriptors.cockDescript( x ) + ' is glistening with Ember\'s saliva, and in a particularly pleasurable tug, you moan.  A bead of pre escapes your ' + CoC.player.cockHead( x ) + ' and slowly slides down your shaft, until it makes contact with Ember\'s tongue.' );
 		EngineCore.outputText( '\n\nThe moment ' + this.emberMF( 'he', 'she' ) + ' tastes you, ' + this.emberMF( 'his', 'her' ) + ' eyes seem to glow.  In a whip-like motion, Ember pulls ' + this.emberMF( 'his', 'her' ) + ' tongue back into ' + this.emberMF( 'his', 'her' ) + ' awaiting mouth, engulfing your ' + Descriptors.cockDescript( x ) + '.  You gasp as the cool, slick flesh surrounds you, heedless of the sharp teeth whose hard surfaces you can occasionally feel grazing you.  You trust your dragon too much to believe ' + this.emberMF( 'he', 'she' ) + ' would hurt you.' );
 		EngineCore.outputText( '\n\nEmber sucks you hard, slurping around your shaft with ' + this.emberMF( 'his', 'her' ) + ' prehensile tongue and cooing with pleasure.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
-			EngineCore.outputText( '  ' + this.emberMF( 'His', 'Her' ) + ' shaft is already hard as rock, and sometimes you can feel it poke your ' + CoC.getInstance().player.feet() + ', smearing small beads of Ember\'s barely contained pleasure on your ' + CoC.getInstance().player.skinFurScales() + '.' );
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			EngineCore.outputText( '  ' + this.emberMF( 'His', 'Her' ) + ' shaft is already hard as rock, and sometimes you can feel it poke your ' + CoC.player.feet() + ', smearing small beads of Ember\'s barely contained pleasure on your ' + CoC.player.skinFurScales() + '.' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( '  Looking behind her, you see a small pool of her feminine juices has formed; pheromones fly through the air and hit you like a wave, spurring you on, making you feed Ember more of your delicious pre.' );
 		}
 
 		EngineCore.outputText( '\n\nIn a swift move, Ember sucks you as hard as ' + this.emberMF( 'he', 'she' ) + ' can and releases you with a resounding lip-smack.  You cry out, unsure of what\'s going on, wordlessly looking towards the dragon and pleading with ' + this.emberMF( 'him', 'her' ) + ' to finish you off; you were just starting to get into things!' );
 		EngineCore.outputText( '\n\n"<i>Don\'t worry, [name].  I have no intention of letting you put away this delicious, juicy cock of yours.  I just want to enjoy it to the fullest,</i>" Ember says dreamily, nuzzling your sensitive member with a lusty grin.' );
 		EngineCore.outputText( '\n\nYou watch with a smile at once aroused and amused, and can\'t resist stroking ' + this.emberMF( 'him', 'her' ) + ' gently on ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 0 && CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 0 && CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'scaly pate' );
 		} else {
 			EngineCore.outputText( 'hair' );
 		}
 		EngineCore.outputText( ', telling ' + this.emberMF( 'him', 'her' ) + ' that ' + this.emberMF( 'he', 'she' ) + ' certainly has your attention and you\'re looking forward to finding out what ' + this.emberMF( 'he', 'she' ) + ' has in mind.' );
 		EngineCore.outputText( '\n\nEmber flicks ' + this.emberMF( 'his', 'her' ) + ' tongue against your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'balls' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( Descriptors.vaginaDescript() );
 		} else {
 			EngineCore.outputText( '[cock ' + y + ']' );
@@ -2775,9 +2775,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nClawed hands grab at your waist for support as ' + this.emberMF( 'he', 'she' ) + ' finally begins bobbing ' + this.emberMF( 'his', 'her' ) + ' head with abandon, intent on milking you of every single drop you\'re worth.  Your own hands unthinkingly latch onto ' + this.emberMF( 'his', 'her' ) + ' horns, using them to help pin ' + this.emberMF( 'his', 'her' ) + ' head in place, thrusting your cock obligingly into Ember\'s jaws as ' + this.emberMF( 'his', 'her' ) + ' lips and long, prehensile tongue send ecstasy coursing through you from their efforts to wring you of your seed.' );
 		EngineCore.outputText( '\n\nYou don\'t have long to wait, and with a wordless cry, you unleash yourself into Ember\'s thirsty mouth.  As the first jet hits Ember\'s tongue, ' + this.emberMF( 'he', 'she' ) + ' cries out in bliss and buries your erupting [cock ' + y + '] as far into ' + this.emberMF( 'him', 'her' ) + 'self as far as ' + this.emberMF( 'he', 'she' ) + ' can.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nEmber sucks every single drop of cum out of you, taking you for everything you\'re worth, drinking it like a thirsty person in the desert.  Even when you feel you\'ve given ' + this.emberMF( 'him', 'her' ) + ' all you can, Ember inserts ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'a finger' );
 			} else {
 				EngineCore.outputText( 'the thumb of her wing' );
@@ -2785,13 +2785,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( ' into your ass to tickle your prostate, drawing a few last drops out of you.' );
 		}
 		//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nEmber drinks all you have to offer with a smile.  Once you\'ve given all you can, Ember lets go of you, licking ' + this.emberMF( 'his', 'her' ) + ' lips as if ' + this.emberMF( 'he', 'she' ) + '\'d just been fed a treat.  ' + this.emberMF( 'His', 'Her' ) + ' belly is visibly bulging by the time you have finished.' );
 		}
 		//(High Cum Amount);
 		else {
 			EngineCore.outputText( '\n\nEmber insists on drinking every single drop, even though ' + this.emberMF( 'he', 'she' ) + ' can barely contain the amazing amount of cum you\'re pumping into ' + this.emberMF( 'his', 'her' ) + ' eager ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( 'mouth' );
 			} else {
 				EngineCore.outputText( 'maw' );
@@ -2802,14 +2802,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou cast ' + this.emberMF( 'him', 'her' ) + ' an idle look, gently pointing out you didn\'t make ' + this.emberMF( 'him', 'her' ) + ' drink it.  The thought does cross your mind that it was swallow or let it splatter all over ' + this.emberMF( 'his', 'her' ) + ' face, but you decide to keep that to yourself.' );
 		EngineCore.outputText( '\n\n"<i>I-I would never do something like that!</i>" Ember protests.  "<i>Never!  I wouldn\'t be caught dead drinking your tas... I mean, terrible cum!  I can\'t believe you did that to me!  I need to wash my mouth off!</i>"   ' + this.emberMF( 'He', 'She' ) + ' gets up and dashes away towards the nearest stream.' );
 		EngineCore.outputText( '\n\nYou watch ' + this.emberMF( 'him', 'her' ) + ' go' );
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( ' and chuckle; you know ' + this.emberMF( 'he', 'she' ) + ' loves you, really.' );
 		} else {
 			EngineCore.outputText( ', folding your arms; ' + this.emberMF( 'his', 'her' ) + ' dementia is getting worse...' );
 		}
 
 		//lose lust, reset hours since cum;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2835,51 +2835,51 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(High Affection);
 		else {
 			EngineCore.outputText( '\n\n"<i>I would, b-but it would never fit... and... and... well, it just won\'t fit!</i>" Ember\'s eyes lock onto your crotch; ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' stiffening cock' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+				if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 				EngineCore.outputText( 'her ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'dripping pussy' );
 			}
 			EngineCore.outputText( ' make it obvious that the idea is at least partially arousing.' );
 		}
 		//(first time and corr < 40);
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ] === 0 ) {
 			EngineCore.outputText( '\n\nYou ask if ' + this.emberMF( 'he', 'she' ) + '\'s really so certain that it won\'t fit; you\'re eager to give it a try if ' + this.emberMF( 'he', 'she' ) + ' is, but you won\'t push if ' + this.emberMF( 'he', 'she' ) + '\'s really that scared of the idea...' );
 		} else {
 			EngineCore.outputText( '\n\nYou ask how ' + this.emberMF( 'he', 'she' ) + ' can be so certain... could it be ' + this.emberMF( 'he', 'she' ) + '\'s scared? Because if ' + this.emberMF( 'he', 'she' ) + ' is, you won\'t push the issue...' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ]++;
+		CoC.flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ]++;
 		EngineCore.outputText( '\n\nAt the mention of the word \'scared\', Ember stares at you with renewed fire in ' + this.emberMF( 'his', 'her' ) + ' eyes.  "<i>Scared!?  I\'m not scared of anything!  Bring it on!</i>" ' + this.emberMF( 'he', 'she' ) + ' proudly declares, grabbing your hand and leading you away towards a small clearing nearby.  "<i>Strip!</i>" Ember demands, hurriedly.' );
 		EngineCore.outputText( '\n\nYou quickly hasten to obey, undressing yourself and exposing [eachCock] ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'and [vagina] ' );
 		}
 		EngineCore.outputText( 'to the dragon.  Once you\'re fully undressed, you turn to look at Ember, to see ' + this.emberMF( 'him', 'her' ) + ' openly masturbating; ' + this.emberMF( 'he', 'she' ) + ' pants as ' + this.emberMF( 'he', 'she' ) + ' strokes ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( 'cock ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( 'and ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'pussy ' );
 		}
 		EngineCore.outputText( 'with a hand, while ' + this.emberMF( 'he', 'she' ) + ' suckles on the fingers of the other.' );
-		var x = CoC.getInstance().player.cockThatFits( this.emberAnalCapacity() );
+		var x = CoC.player.cockThatFits( this.emberAnalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 
 		EngineCore.outputText( '\n\nOnce ' + this.emberMF( 'he', 'she' ) + ' sees you\'re fully stripped, ' + this.emberMF( 'he', 'she' ) + ' walks over to you and pushes you on the grassy ground with a growl of lust.  The slick digits of one hand find themselves wrapped around your erect ' + Descriptors.cockDescript( x ) + ', while the others press into Ember\'s tight pucker, slowly stretching it to accommodate you.' );
 		//First Time;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_BUTTFUCKED_EMBER ] === 1 ) {
 			EngineCore.outputText( '\n\nThe dragon moans softly and growls with more than a hint of nervousness tinged pain; ' + this.emberMF( 'he', 'she' ) + ' is giving up ' + this.emberMF( 'his', 'her' ) + ' black cherry to you, after all, so ' + this.emberMF( 'he', 'she' ) + ' has all the tightness and fear of a virgin.  You promise the dragon that you\'ll be slow and gentle.' );
 			EngineCore.outputText( '\n\nEmber shoots you a nervous glare, before demanding, "<i>You won\'t do anything!  Just sit there and let me handle this!</i>"  Not keen on starting an argument, you decide to do as ' + this.emberMF( 'he', 'she' ) + ' says.' );
 			EngineCore.outputText( '\n\n"<i>I can\'t believe I have to do this... to do something some humiliating... so weird...</i>"  With a sigh, you tell Ember that\'s enough; ' + this.emberMF( 'he', 'she' ) + ' doesn\'t have to do anything ' + this.emberMF( 'he', 'she' ) + ' doesn\'t want to, you didn\'t mean to tease ' + this.emberMF( 'him', 'her' ) + ' about being scared.  Ember interrupts you with a clawed finger.  "<i>Just be quiet.  I... I want to do this... no one tells me what to do!  So if I\'m doing this... it\'s because I want to!</i>"' );
@@ -2895,7 +2895,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\n"<i>Listen up.  You only do what I tell you.  I want to be in complete control of this.  If you try or do anything that makes me hurt later, I swear I\'ll smack you.  Understood?</i>"' );
 		EngineCore.outputText( '\n\nYou ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'promise the dragon you understand, and insist you wouldn\'t dream of doing otherwise; you want this to be good for ' + this.emberMF( 'him', 'her' ) + ', not to cause ' + this.emberMF( 'him', 'her' ) + ' pain.' );
 		} else {
 			EngineCore.outputText( 'nod.' );
@@ -2905,22 +2905,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou moan softly as Ember\'s back passage opens up and swallows you.  Just like the rest of ' + this.emberMF( 'him', 'her' ) + ', it\'s cooler than it would be for a human, but not so cold as to be unpleasant. It\'s a kind of peppery, refreshing chill that makes you shudder with delight. You squeeze Ember\'s ass, gripping tightly and pulling ' + this.emberMF( 'him', 'her' ) + ' fully down your length, struggling to keep from pushing the dragon faster than ' + this.emberMF( 'he', 'she' ) + ' is comfortable with.' );
 		EngineCore.outputText( '\n\n"<i>H-hey!  Ah!  I didn\'t tell you to pull me down!</i>" Ember protests.' );
 		EngineCore.outputText( '\n\nYou tell the dragon you\'re sorry, but you can\'t help it; ' + this.emberMF( 'his', 'her' ) + ' ass is just so full and round, so deliciously cool and tight - it\'s utterly irresistible.  You thrust into ' + this.emberMF( 'his', 'her' ) + ' ass for emphasis, roughly squeezing ' + this.emberMF( 'his', 'her' ) + ' luscious ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'scaly ' );
 		}
 		EngineCore.outputText( 'cheeks and rubbing the base of ' + this.emberMF( 'his', 'her' ) + ' long, flexible tail to try and convey just how wild ' + this.emberMF( 'his', 'her' ) + ' ass is driving you.' );
 		EngineCore.outputText( '\n\n"<i>Ow!  Okay, okay!  Just stop and give me a moment to adjust at least,</i>" Ember replies' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ', panting with lust' );
 		} else {
 			EngineCore.outputText( ', a blush adorning ' + this.emberMF( 'his', 'her' ) + ' face' );
 		}
 		EngineCore.outputText( '.  You force yourself to remain still, giving the horny dragon a chance to recover from your ' + Descriptors.cockDescript( x ) + ' impaling ' + this.emberMF( 'his', 'her' ) + ' back passage, savoring the feeling of ' + this.emberMF( 'his', 'her' ) + ' cool muscles squeezing and rippling around your shaft.' );
 		EngineCore.outputText( '\n\nAfter a few minutes, Ember finally starts to move, stroking you with ' + this.emberMF( 'his', 'her' ) + ' inner muscles.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( 'Droplets of pre slide along ' + this.emberMF( 'his', 'her' ) + ' own shaft and down ' + this.emberMF( 'his', 'her' ) + ' balls to gather at your belly.  ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'Her slick pussy drips rhythmically, wetting your lower body with slick dragon juice.  ' );
 		}
 		EngineCore.outputText( this.emberMF( 'His', 'Her' ) + ' lusty moans each time ' + this.emberMF( 'he', 'she' ) + ' comes down on your ' + Descriptors.cockDescript( x ) + ' send a thrill up your spine, and the deep purring emanating from ' + this.emberMF( 'his', 'her' ) + ' chest is audible enough to give you an idea of how much Ember is enjoying this, despite ' + this.emberMF( 'his', 'her' ) + ' initial reluctance.' );
@@ -2929,7 +2929,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou ask if ' + this.emberMF( 'he', 'she' ) + ' really wants you to stop now, making one last forceful thrust and then slowly, languidly drawing yourself out for emphasis.  You give ' + this.emberMF( 'his', 'her' ) + ' rump a playful spank; you\'d thought that both of you were almost done.  Still, if ' + this.emberMF( 'he', 'she' ) + ' really wants to stop now...' );
 		EngineCore.outputText( '\n\n"<i>No!  Don\'t you dare stop!  Pound my ass raw!  Ah!  I need you!</i>"' );
 		EngineCore.outputText( '\n\nYou thought that\'s what ' + this.emberMF( 'he', 'she' ) + ' would say, and you proceed to give it to ' + this.emberMF( 'him', 'her' ) + ' with everything you have.  You can feel that oh-so-familiar, oh-so-wonderful tightness coiling in ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'your [balls]' );
 		} else {
 			EngineCore.outputText( 'the base of your spine' );
@@ -2937,18 +2937,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ', and you groan to Ember that you\'re going to cum, soon.' );
 		EngineCore.outputText( '\n\n"<i>Yes!  Cum with me!  Fill me with your hot white seed!  Mark me as yours!</i>" Ember screams in bliss.' );
 		EngineCore.outputText( '\n\nWell, if that\'s what ' + this.emberMF( 'he', 'she' ) + ' wants... with a gasp and a cry, you give in to the feeling, letting the waves of pleasure roll through you and send your cum cascading forth into Ember\'s waiting bowels.  Your orgasm triggers ' + this.emberMF( 'his', 'her' ) + ' own and with a roar ' + this.emberMF( 'he', 'she' ) + ' cums' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', jet upon jet of spunk arcing over ' + this.emberMF( 'his', 'her' ) + ' head to paint the ground below' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( '; a veritable gush of juices spews forth from her forgotten love-hole to splash against your lower body and over herself' );
 		}
 		EngineCore.outputText( '.  The force of ' + this.emberMF( 'his', 'her' ) + ' orgasm makes the dragon clench ' + this.emberMF( 'his', 'her' ) + ' ass, sending waves of renewed pleasure through you.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nAll too soon you\'re spent, but even so you came far more than usual, leaving Ember with a slick, squelching, cum filled rosebud.' );
 		}//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYour orgasm lasts far longer than usual, filling Ember\'s tight little hole to the brim, even to the point of slightly distending ' + this.emberMF( 'his', 'her' ) + ' belly.' );
 		}//(High Cum Amount);
 		else {
@@ -2963,7 +2963,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou point out you\'re not saying that, just that Ember also has responsibility here.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t need to hear any more!</i>"  Ember gets up and pushes you with ' + this.emberMF( 'his', 'her' ) + ' tail, hefting a pile of folded clothes.  In fact... that pile is quite familiar... actually... that\'s your [armor].' );
 		EngineCore.outputText( '\n\n"<i>And I even picked these up for you... Well, you can do it yourself!</i>"  Ember begins tossing your clothes around in random directions, you ' );
-		if( CoC.getInstance().player.str < 70 ) {
+		if( CoC.player.str < 70 ) {
 			EngineCore.outputText( 'desperately try to grab any of the flying pieces, but Ember keeps you pinned with ' + this.emberMF( 'his', 'her' ) + ' tail' );
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\n"<i>That ought to teach you!</i>" ' + this.emberMF( 'he', 'she' ) + ' declares with a confident puff of smoke, turning on ' + this.emberMF( 'his', 'her' ) + ' heels and walking away... rather awkwardly at that.  You feel like you should point out that the results of your earlier activities are still dripping out of ' + this.emberMF( 'his', 'her' ) + ' ass as ' + this.emberMF( 'he', 'she' ) + ' heads back to the camp, but figure you\'ll stay quiet lest you aggravate the matter.  Plus, it\'s payback for tossing your clothes.' );
@@ -2983,7 +2983,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou sigh softly and nod your head; it\'s not much, but with as proud as ' + this.emberMF( 'he', 'she' ) + ' is, that\'s quite an admission. You tell ' + this.emberMF( 'him', 'her' ) + ' it\'s alright, but ' + this.emberMF( 'he', 'she' ) + ' still shouldn\'t get so upset when ' + this.emberMF( 'he', 'she' ) + ' enjoyed it as much as you did.' );
 			EngineCore.outputText( '\n\nEmber shudders as you finish talking and blows a puff of smoke, then turns around and hurries away to the nearest stream. You just watch ' + this.emberMF( 'him', 'her' ) + ' go, plugging ' + this.emberMF( 'his', 'her' ) + ' used rosebud with a finger, you make note of ' + this.emberMF( 'his', 'her' ) + ' awkward stride, somehow... ' + this.emberMF( 'he', 'she' ) + ' didn\'t seem that angry as ' + this.emberMF( 'he', 'she' ) + ' left...' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -3005,7 +3005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(Medium Affection);
 		else if( this.emberAffection() < 75 ) {
 			EngineCore.outputText( '\n\nEmber\'s claws move to tease at her netherlips, as she imagines you kneeling in front of her, pleasuring her.  "<i>F-fine, if you really want to do that...</i>" Ember replies, trying to sound casual despite her moistening honeypot' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and slowly hardening shaft' );
 			}
 			EngineCore.outputText( '.' );
@@ -3013,7 +3013,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(High Affection);
 		else {
 			EngineCore.outputText( '\n\nThe mere suggestion of what you\'re offering is enough to make Ember nearly juice herself with anticipation.  Ember quickly covers her nethers, trying to hide her dripping love hole' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and shaft' );
 			}
 			EngineCore.outputText( '.  "<i>Ok... I suppose I would like that,</i>" Ember replies, trying to calm herself down, lest she seem too excited by the idea.' );
@@ -3021,35 +3021,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEmber takes your hand in hers and leads you away to a secluded spot beyond the bushes; once she\'s sure you\'re both alone, Ember leans back against a nearby tree for support, and opens her legs to give you access to her blooming, moist flower.' );
 		EngineCore.outputText( '\n\n"<i>A-alright... I\'m ready,</i>" Ember says, tail swinging like a pendulum behind her as she awaits your next move.' );
 		EngineCore.outputText( '\n\nYou settle in between her legs, and bend in to reach her folds.  From here, you are in a great position to gently swish your tongue up the length of her slit, starting from way back between her legs and then trailing gently forward to caress her joy-buzzer, pushing up between her lips to tickle the interior of her womanhood.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  With Ember\'s cock jutting out above your head, you can\'t resist sliding your tongue along the underside of her shaft, just for an extra teasing motion.' );
 		}
 
 		EngineCore.outputText( '\n\nEmber gasps in pleasure and her legs buckle for a moment, though she quickly recovers by digging her claws into the tree bark.  "<i>Y-you could have at least warned me you were going to start!</i>" Ember says, ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( 'blushing all the while and ' );
 		}
 		EngineCore.outputText( 'panting from the stimulation.' );
 		EngineCore.outputText( '\n\nYou look up at her as best you can around her heaving bosom and give her an innocent smile, then turn right back to the task at tongue.  This bitch is yours now.  You slide across her folds, caressing her with all the oral skill you can muster; her juices are starting to flow now, allowing you to catch them and savor them with each lick.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  You think droplets of pre are starting to slide down her girl-cock and drip onto your head... but that\'s part and parcel of loving a herm, so you pay it no attention.' );
 		}
 
 		EngineCore.outputText( '\n\nEmber\'s enjoyment is very apparent, as each time you even breathe over her little pleasure bud, Ember bucks against you; her vaginal walls contract in hopes of gripping your tongue and pulling it deeper inside her, but your saliva combined with the ever-flowing dragon juice keeps it slick enough that Ember doesn\'t have a chance in heaven of holding your tongue back.  "<i>Hmm... Ah!  A little more to the left...</i>" Ember directs you.' );
 		EngineCore.outputText( '\n\nYour tongue bends with all of the ' );
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( 'inhuman ' );
 		}
 		EngineCore.outputText( 'flexibility you can muster, wriggling into the dragon\'s depths and trying to caress and stroke every last one of her most intimate places.  At one point in your exploration of Ember\'s quivering depths, you discover a special spot, and every time you make contact with that little spongy spot Ember rewards you with a buck and renewed gush of fluids.' );
 		EngineCore.outputText( '\n\n"<i>Ah!  If you keep doing this I\'m going to- Oh!</i>" Ember gasps, tongue lolling out as she loses herself in the pleasurable sensations you\'re oh-so-responsible for.  You continue to wriggle and undulate your tongue, stroking that special point with as much care as you can manage' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', heedless of the steady rain of pre dribbling into your ' + Descriptors.hairDescript() + '.  You\'re confident she\'ll crack soon...' );
 		}
 
 		EngineCore.outputText( '\n\nEmber suddenly grabs your head and pushes you away, stumbling on shaky legs as she turns to brace herself against the tree, her tail missing your head by a couple inches.  "<i>G-give me a moment to catch my breath... if you keep that up I\'ll... I\'ll...</i>"  Ember doesn\'t finish her thought and just stays there, with her tail aloft, giving you a wonderful vision of her sopping wet pussy, just begging for another lick.' );
 		EngineCore.outputText( '\n\nYou can\'t resist.  Even as Ember\'s tail flicks back and forth overhead, you sneak up behind her, reaching up with your hands to caress her shapely handful of asscheeks even as you plunge your tongue straight into her honey-dripping flower.' );
 		EngineCore.outputText( '\n\nEmber\'s throaty moan devolves into a roar of intense pleasure as her tail loops around your neck, not constricting nor choking you, just helping the dragon stabilize herself as she is rocked by her intense orgasm and rewards you with a bountiful helping of sweet dragon juice.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  Her throbbing shaft, not intending to be left out of the fun, records the event by marking the tree bark with white dragon spooge.' );
 		}
 
@@ -3062,23 +3062,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '</i>"' );
 		EngineCore.outputText( '\n\nYou ask if she\'s the only one who gets to initiate the kiss.  Realization dawns on the dragon\'s face when she recalls the earlier kiss.  "<i>That... that was... you!  You tricked me!  H-how could you do that?  I\'m leaving!</i>" Ember blurts out, rushing off.' );
 		EngineCore.outputText( '\n\nYou watch her go and smile, licking your lips to savor the last few drops of her nectar.  She really should learn to relax; it would make things much more enjoyable all around.  Idly rubbing your own ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'stiffened shaft' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'moist cunt' );
 		}
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'empty crotch' );
 		}
 		EngineCore.outputText( ' in sympathy, you head back to camp.' );
 		//Moderate lust gain and slimefeed, ala blowing Urta or drinking Lover Urta's fluids at Tel'Adre*/;
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		this.emberAffection( 6 );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Eaten Out - actually halfway likeable;
@@ -3108,23 +3108,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou decide to play along and politely ask if ' + this.emberMF( 'he', 'she' ) + ' will pleasure your womanly flower with ' + this.emberMF( 'his', 'her' ) + ' long, nimble, draconic tongue, giving ' + this.emberMF( 'him', 'her' ) + ' a smouldering look and a flirtatious wriggle of your [hips].  Ember swallows nervously as ' + this.emberMF( 'he', 'she' ) + ' looks at your teasing form.  "<i>Since you asked so nicely... okay then... come with me.</i>"  ' + this.emberMF( 'He', 'She' ) + ' grabs one of your hands and drags you away hurriedly to a more private setting.' );
 		EngineCore.outputText( '\n\nOnce Ember is satisfied you won\'t be spied on, ' + this.emberMF( 'he', 'she' ) + ' turns to look at you, drinking in your body, appraising you with a mixture of reverence and desire.  Ember opens ' + this.emberMF( 'his', 'her' ) + ' mouth to say something, but words fail the dragon and ' + this.emberMF( 'he', 'she' ) + ' ends up just breathing airily.  Closing the distance between the two of you, Ember kneels before you and begins undoing your [armor], peeling the lower parts off your body with shaky hands.' );
 		EngineCore.outputText( '\n\nYou watch ' + this.emberMF( 'him', 'her' ) + ', visibly shivering with excitement, and spare the dragon a predatory grin, thinking to yourself that this is certainly not how the tales of dragons and maidens went back in the village.  Confidently, you strut towards a tree and position yourself before it, leaning back against it for support' );
-		if( !CoC.getInstance().player.isNaga() ) {
+		if( !CoC.player.isNaga() ) {
 			EngineCore.outputText( ' with your [legs] spread wide' );
 		}
 		EngineCore.outputText( ', displaying your [vagina].  You tell Ember that ' + this.emberMF( 'he', 'she' ) + '\'ll need to make the next move from here, smiling as you do so.' );
 		EngineCore.outputText( '\n\nThe dragon crawls towards you and gently brings ' + this.emberMF( 'his', 'her' ) + ' nose closer to your moistening snatch, catching a whiff of your feminine scent' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', as well as the musk emanating from your drooling cock' );
 		}
 		EngineCore.outputText( '.  Ember\'s eyes close as ' + this.emberMF( 'he', 'she' ) + ' savors your scent, committing it to memory and licking ' + this.emberMF( 'his', 'her' ) + ' lips in preparation for the task ahead.' );
 		EngineCore.outputText( '\n\nFinally deciding to get about ' + this.emberMF( 'his', 'her' ) + ' task, the dragon licks your moist slit from top to bottom, stopping briefly to kiss your [clit].  "<i>So good...</i>" you hear Ember whisper, before ' + this.emberMF( 'he', 'she' ) + ' suddenly plunges ' + this.emberMF( 'his', 'her' ) + ' tongue inside your warm depths, exploring every nook and cranny, much to your pleasure.' );
 		EngineCore.outputText( '\n\nYou shudder and moan, feeling your juices dribble from your womanhood onto the dragon\'s tongue' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', and pre-cum beginning to bubble out of ' + Descriptors.sMultiCockDesc() );
 		}
 		EngineCore.outputText( '.  You wriggle in delight, praising Ember\'s skill with ' + this.emberMF( 'his', 'her' ) + ' tongue and begging ' + this.emberMF( 'him', 'her' ) + ' to keep going.' );
 		EngineCore.outputText( '\n\nEmber presses on, nudging your pleasure button with ' + this.emberMF( 'his', 'her' ) + ' nose and wrapping your [vagina] with ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'maw' );
 		} else {
 			EngineCore.outputText( 'mouth' );
@@ -3132,18 +3132,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ', kissing your contracting box as if it were a long-lost lover, pushing ' + this.emberMF( 'his', 'her' ) + ' tongue ever deeper inside you, as if intent on reaching your womb.' );
 		EngineCore.outputText( '\n\nYou howl and cry, writhing as your dragon busily devours your womanhood, and find yourself sliding to the ground so you can wrap your [legs] around Ember\'s neck and pull ' + this.emberMF( 'his', 'her' ) + ' face right up against your cunt.  Desirous as you are to feel the dragon fill you with that long, squirmy wet tongue of ' + this.emberMF( 'his', 'hers' ) + ', you command ' + this.emberMF( 'him', 'her' ) + ' to lick deeper.' );
 		EngineCore.outputText( '\n\nThere is no protest, only compliance as Ember\'s tongue begins batting against your cervix, demanding entrance into your innermost sanctuary.  You try to hold out, but it\'s a losing battle; Ember\'s tongue is like a wonderfully long, thin cock, prehensile and with its own natural lube to boot.  You cry out as orgasm rocks you, ' );
-		if( CoC.getInstance().player.wetness() >= 4 ) {
+		if( CoC.player.wetness() >= 4 ) {
 			EngineCore.outputText( 'spattering' );
 		} else {
 			EngineCore.outputText( 'drenching' );
 		}
 		EngineCore.outputText( ' Ember\'s face with your feminine honey' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' even as ' + Descriptors.sMultiCockDesc() + ' belches cum all over the preoccupied dragon' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nYour juices flow into Ember\'s waiting mouth, guided by the dragon\'s tongue, and ' + this.emberMF( 'he', 'she' ) + ' is only too happy to drink, trying ' + this.emberMF( 'his', 'her' ) + ' best not to waste even a single drop.' );
-		if( CoC.getInstance().player.wetness() >= 4 ) {
+		if( CoC.player.wetness() >= 4 ) {
 			EngineCore.outputText( '  However, your squirting spatters make this an impossible task.  Ember doesn\'t seem to care, even as ' + this.emberMF( 'his', 'her' ) + ' face is completely covered in femcum.' );
 		}
 		EngineCore.outputText( '\n\nFinally, with a few last groans and hollow moans, you slump down, completely spent.  Your [legs] release Ember\'s neck as your muscles are overwhelmed by the glorious numbness that comes of being very well fucked.  Weakly, you compliment Ember on ' + this.emberMF( 'his', 'her' ) + ' skills at eating pussy.' );
@@ -3151,7 +3151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou idly tell ' + this.emberMF( 'him', 'her' ) + ' that you certainly hope not to get used to it; it wouldn\'t be fun any more if you did.  Ember turns around to snort a puff of smoke in your direction indignantly before continuing on ' + this.emberMF( 'his', 'her' ) + ' way.' );
 		EngineCore.outputText( '\n\nYou smile, hating to see ' + this.emberMF( 'him', 'her' ) + ' go, but so loving to watch ' + this.emberMF( 'him', 'her' ) + ' leave.  Shaking off your pleasurable fantasies, you manage to pull yourself back upright, redress yourself, and return to camp.' );
 		//minus some fukkin' lust, reset hours since cum;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Penetrate Her - seems not to accommodate centaurs, more's the pity (Z);
@@ -3174,8 +3174,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(High Affection);
 		else {
 			EngineCore.outputText( '\n\nYou can see Ember\'s vagina moisten' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 					EngineCore.outputText( ' and her cock peek out of its protective slit' );
 				} else {
 					EngineCore.outputText( ' and her cock begin hardening' );
@@ -3184,16 +3184,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( ' in anticipation.  "<i>Yeah... maybe... why do you ask?</i>"' );
 		}
 		//(First Time);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0 ) {
 			EngineCore.outputText( '\n\nEmber\'s tail slips into her hands, and she twists it nervously.  "<i>I can\'t... I mean, I\'ve never... and you...</i>"  Ember seems at a loss for words; could she have been holding onto her virginity?' );
 			EngineCore.outputText( '\n\nJudging by her reaction, it\'s clear you\'re spot on.  "<i>S-so what if I am!?</i>"  You sigh.  Some nervousness is to be expected if that\'s the case, but Ember\'s temperament only makes things harder... looking at her, it\'s clear she wants this, judging by the behavior of her nethers.' );
 			EngineCore.outputText( '\n\nYou take Ember\'s hand in yours and promise her that you will be gentle; that she has nothing to fear.  Sure, it might hurt a bit at first, but after you get started it will be great.  Ember looks deeply into your eyes.  "<i>You promise?</i>"  You assure her again.  "<i>O-ok then... I guess I can give you my... maidenhead.</i>"' );
 			EngineCore.outputText( '\n\nSadly, it doesn\'t take long for her deranged temperament to take over.  "<i>B-but I\'m not doing this because you\'re special... or sexy... and I haven\'t dreamed about this!  Not even once!</i>"  You roll your eyes as Ember goes on.' );
-			if( CoC.getInstance().player.cor > 75 ) {
+			if( CoC.player.cor > 75 ) {
 				EngineCore.outputText( '  As if bitches like her could qualify as maidens in any but the most literal sense.' );
 			}
 			EngineCore.outputText( '\n\n"<i>I hope you understand the honor you\'re being given.  To take my maidenhead... you\'re lucky you happened to be near when I was in the mood.</i>"  This side of Ember is ' );
-			if( CoC.getInstance().player.cor <= 75 ) {
+			if( CoC.player.cor <= 75 ) {
 				EngineCore.outputText( 'cute... but very troublesome' );
 			} else {
 				EngineCore.outputText( 'irritating as hell' );
@@ -3204,7 +3204,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou smile at her, waiting for her initiative. "<i>Ok, then. Let\'s not waste any more time!</i>"  Ember grabs your hand and leads you away.' );
 		EngineCore.outputText( '\n\nWhen you arrive at your destination you realize you\'re in a small clearing; there doesn\'t appear to be any creature nearby and the only sound you hear is the faint splashing of a nearby stream.  Ember turns to you and quickly looks you over.  "<i>C\'mon, why are you still dressed!?  I thought you wanted to have sex; don\'t make me wait!</i>" Ember demands impatiently.' );
 		EngineCore.outputText( '\n\nYou ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'hasten to undress yourself for the impatient dragoness, quickly pulling' );
 		} else {
 			EngineCore.outputText( 'languidly denude yourself, making sure to exaggerate every movement as you pull' );
@@ -3212,9 +3212,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ' off your [armor] until you are standing naked before her, letting her see what you have to offer in terms of phallic delights.' );
 		var x;
 		//If the PC is too big;
-		if( CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() ) === -1 ) {
+		if( CoC.player.cockThatFits( this.emberVaginalCapacity() ) === -1 ) {
 			EngineCore.outputText( '\n\nEmber looks at your ' + Descriptors.multiCockDescriptLight() + ', then touches her pussy in thought.  Finally, she growls in exasperation.  "<i>' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'It doesn\'t ' );
 			} else {
 				EngineCore.outputText( 'None of them ' );
@@ -3222,14 +3222,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( 'fit!</i>"' );
 			EngineCore.outputText( '\n\nYou ask if she\'s certain that it\'s too big. Shouldn\'t you at least try?' );
 			EngineCore.outputText( '\n\n"<i>I know my body better than anyone else... and if you put ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'that... that... monster inside me,' );
 			} else {
 				EngineCore.outputText( 'any of those... those... monsters inside me,' );
 			}
 			EngineCore.outputText( ' you\'ll tear me apart!</i>"  Ember finishes by exhaling a puff of smoke in frustration... clearly she wants this as much as you.' );
 			EngineCore.outputText( '"<i>Find some way to shrink ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'that' );
 			} else {
 				EngineCore.outputText( 'those' );
@@ -3241,15 +3241,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(else if PC has multiple fit cocks) {;
 		//as usual take the biggest one that fits, unless...;
 		//If the PC has a fit dragon cock, always take that one!;
-		x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
-		if( CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() ) >= 0 && CoC.getInstance().player.cockThatFits2( this.emberVaginalCapacity() ) >= 0 ) {
+		if( CoC.player.cockThatFits( this.emberVaginalCapacity() ) >= 0 && CoC.player.cockThatFits2( this.emberVaginalCapacity() ) >= 0 ) {
 			EngineCore.outputText( '\n\n"<i>You have quite a selection, but I only need one... this one!</i>" Ember says, taking your ' + Descriptors.cockDescript( x ) + ' in her hand and stroking it into a full erection.' );
 		}
 		//(if PC has a dragon cock);
-		if( CoC.getInstance().player.cocks[ x ].cockType === CockTypesEnum.DRAGON ) {
+		if( CoC.player.cocks[ x ].cockType === CockTypesEnum.DRAGON ) {
 			EngineCore.outputText( '\n\n"<i>What a wonderful tool you have... I guess this might just be good enough to make me orgasm,</i>" Ember remarks, admiring your dick.' );
 			EngineCore.outputText( '\n\nYou can\'t resist smiling and noting that Ember always seems to like that one best.  Perhaps because of the familiarity.' );
 			EngineCore.outputText( '\n\n"<i>Actually I\'d be fine with anything you... no wait, I mean...  Of course!  It\'s only right for a dragon to like a dragon\'s cock!</i>"  Ember replies.' );
@@ -3263,15 +3263,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( 'gently lay yourself down, spreading your limbs and making it clear you\'re ready for whatever she has in mind.' );
 		EngineCore.outputText( '\n\nEmber can\'t resist licking ' + this.emberMF( 'his', 'her' ) + ' lips as she straddles you, aligning your ' + Descriptors.cockDescript( x ) + ' with her dripping pussy; then finally, with a sigh, letting gravity help your erect shaft inside her inviting depths.  You grit your teeth as her walls close around your prick, the firm muscles inside hungrily swallowing your length and starting to instinctively ripple and surge around it, beginning to milk you.  Your own instincts in turn compel you to buck and thrust, striving to bury yourself further into Ember\'s eager depths.' );
 		//(First time);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0 ) {
 			EngineCore.outputText( '\n\nEmber hisses in pain as you tear her hymen apart; scolding yourself for your carelessness, you stop and begin to withdraw.  Ember opens ' + this.emberMF( 'his', 'her' ) + ' mouth, as if to protest, but to your surprise all that comes out of her is a moan of pleasure.  Startled, you immediately switch directions, thrusting back into her depths; once again Ember hisses, but this time, in pleasure rather than pain.  You quickly realize that Ember is as ready for this as she\'ll ever be, and so you continue to pump yourself into her, losing yourself in the act.' );
 		}
 		EngineCore.outputText( '\n\nEmber gasps and moans as you hilt yourself within her.  "<i>H-hey!  I\'m supposed to be in control here!</i>" the dragon protests, despite her enjoyment of your initiative.' );
 		EngineCore.outputText( '\n\nYou are too caught up in your thrusting to reply for a moment, but manage to snatch back enough of your wits to tell her that if she wants to be in control, she\'ll need to act like the one in control.  You then resume plunging your hips up into hers, sheathing and unsheathing your ' + Descriptors.cockDescript( x ) + ' with each powerful, anxious thrust.' );
 		EngineCore.outputText( '\n\nEmber growls and pins you under her by your shoulders, then begins moving her hips up and down' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '; her ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 				EngineCore.outputText( 'draconic' );
 			} else {
 				EngineCore.outputText( 'humanoid' );
@@ -3281,13 +3281,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nShe moans with each insertion and purrs with each retraction, panting visibly from the pleasure you\'re inflicting on her sex-addled mind.  "<i>T-there.  I\'m in charge now, so you have to do what I say,</i>" Ember states, before leaning down to kiss you on the lips.  You moan throatily into her mouth and kiss her back; you can\'t move your hands to try and embrace or caress her, so instead you hungrily grind your body against hers, rubbing your chest against her pillowy breasts and writhing back and forth, even as you continue thrusting into her ravenous dragon-cunt.' );
 		EngineCore.outputText( '\n\n"<i>S-stop thrusting!  If you keep doing this, I\'m- Ah!</i>"  Ember gasps as a particularly strong push rubs right on her special spot, rewarding you with a sudden rush of fluids that only help you increase your pace' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '; her own erect cock spurts a small jet of pre' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nYou can feel her inner walls squeezing and massaging your inflamed cock, their cool, wet surfaces a wonderful contrast against your own blood-boiled organ.  You feel like a mindless animal; only the imminent prospect of release matters, driving you to buck and thrash and writhe, spearing yourself into the dragon seated atop you over and over again.  Almost there...' );
 		EngineCore.outputText( '\n\nOverwhelmed by the pleasure, Ember sits atop you and stops moving, going limp and panting in exertion, "<i>C-can\'t move my hips anymore...</i>"' );
-		if( CoC.getInstance().player.cor >= 80 ) {
+		if( CoC.player.cor >= 80 ) {
 			EngineCore.outputText( '\n\nNoisy, weak, and now helpless too... you wonder if you shouldn\'t have adopted a kitten instead of a dragon, for the peace and quiet.' );
 		} else {
 			EngineCore.outputText( '\n\nYou can\'t accept that - you <b>won\'t</b> accept that!' );
@@ -3295,10 +3295,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '  With a surge of lust-inflamed strength, you thrust yourself forward, knocking the unprepared Ember over.  You roll her over so that you are on top and spread her legs, draping them casually around your hips and then resume thrusting with ever-increasing force.  Like some sex-starved animal you thrust and rut, pounding the now-helpless dragon raw in pursuit of the tantalizing imminent release that haunts you.' );
 		EngineCore.outputText( '\n\n"<i>Ah!  Don\'t stop!  F-fuck me!  Deeper!  Ha-harder!</i>" Ember pleads, not caring that you seem to be taking charge.  You eagerly obey, fucking her with everything you have - but your orgasm is here, and, with a cry, you release yourself into her waiting depths.  Ember screams in delight as you fill her up.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nHer throbbing pussy milks you dry, seemingly sucking the jism out of you like a thirsty mouth slurping a drink through a straw.' );
 		}//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nHer vaginal walls work in tandem with your powerful throbs to bring your spunk deep into her womb, filling her until you\'ve been drained dry and she\'s sporting a small pot-belly.' );
 		}//(Large Cum Amount);
 		else {
@@ -3306,48 +3306,48 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 
 		EngineCore.outputText( '\n\nYou groan deep and low in your throat in satisfaction.  Taking the dragon\'s legs in your hands, you pull yourself free of her, letting your cum ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'dribble' );
-		} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		} else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'flow' );
 		} else {
 			EngineCore.outputText( 'gush' );
 		}
 		EngineCore.outputText( ' from her used cunt and you sit on the ground, while Ember remains limp on the ground, panting. Still suffering from the afterglow of your recent orgasm, you dimly realize that Ember herself doesn\'t seem to have cum yet; the only fluids dripping from her pussy are yours' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', and her cock, while engorged and swollen, hasn\'t poured forth yet' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nYou meet Ember\'s gaze through half-lidded eyes.  Slowly she rolls over and gets up on all fours, lifting her tail to give you a perfect sight of her cum-painted, dripping, used cunny.  "<i>Ha... haha... that\'s all you\'ve got?  C-couldn\'t even make me... cum...</i>" Ember teases you, swaying her hips side to side enticingly.' );
 		//[(corr >= 60);
-		if( CoC.getInstance().player.cor >= 66 ) {
+		if( CoC.player.cor >= 66 ) {
 			EngineCore.outputText( '\n\n"<i>Nor you, me,</i>" you say, folding your arms.  "<i>You were the one in charge, so the failure is all yours... luckily, my stamina was enough to finish, even though you became useless halfway through.</i>"  Picking up your gear, you leave the dragon behind you; she hurls breathless insults at you, but you only answer with a negligent wave.' );
 			//end scene, reset hours since cum, Ember preg check, minus some fuckin Ember affection;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -2 );
 			this.emberAffection( -5 );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-			CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
+			CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
 			return;
 		}
 		//else;
 		EngineCore.outputText( '\n\nShe has a point... furthermore, you can\'t resist the golden opportunity before you, as the sight manages to stir a brief flush of second life into your loins.  You pounce on the startled dragon, pulling her tail out of the way and roughly grabbing at her generous mounds, before thrusting yourself once more into her cum-slickened pussy.  You begin to pound her, slowly and deliberately, draping her tail carelessly over your shoulder and doing your best to lean over her as you do her doggy-style.' );
 		EngineCore.outputText( '\n\nEmber roars as your sudden penetration drives her over the edge; her wet dragon juices spill all over your crotch, mixing with the fruits of your recent deposit' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '; her cock jumps and unloads on the ground below, marking this as the spot of your lovemaking' );
 		}
 		EngineCore.outputText( '.  Her pussy grabs at you like a vice, constricting you with such pressure that you have trouble moving, even though her cunt is well-lubed from your mixed fluids.' );
 		EngineCore.outputText( '\n\nUnable to move, you push yourself as deep into her as you can, and her quivering fuck-hole is only too happy to accept a few extra inches, sucking your shaft deep inside her and holding it there as her muscles massage you in ways you didn\'t think possible.  Ember looks back at you, with a lusty gaze of deep pleasure as she works to bring you to your second orgasm.  You groan and gasp as you find yourself releasing yourself into her depths again, dredging up reserves you didn\'t even know you had.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nYou work overtime to push the last of your seed past her cervix to settle into her belly, and don\'t stop until she has developed a bit of a bulge.' );
 		}//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYour addition to her womb inflates her until she\'s sporting a pregnant-looking belly; with all the cum you\'ve just given her, she might as well be.' );
 		}//(High Cum Amount);
 		else {
 			EngineCore.outputText( '\n\nBy the time your overworked ' );
-			if( CoC.getInstance().player.balls === 0 ) {
+			if( CoC.player.balls === 0 ) {
 				EngineCore.outputText( 'prick is ' );
 			} else {
 				EngineCore.outputText( '[balls] are ' );
@@ -3356,7 +3356,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nPanting, you slump onto Ember\'s back, your strength as drained and spent as your cock.  You ask if she\'s satisfied.' );
 		EngineCore.outputText( '\n\n"<i>Yes... let\'s go again...</i>" she responds tiredly, before slumping down for a quick nap.  Beyond satisfied yourself, you settle on top of her with a sigh and a groan, repositioning yourself for greater comfort as you join her in sleep.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -2 );
 		EngineCore.doNext( this.penetrateEmbrahPartII );
 	};
@@ -3371,9 +3371,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\n"<i>You... y-you...</i>" Ember growls at you lowly.  "<i>You made me...  Bah!</i>"  Ember gives up on trying to say anything back and darts away before you can say anything else.  Somehow you get the idea that she wasn\'t all that upset about being reminded; and the brief glance you got of her moist pussy as she turned to leave you only confirms your suspicion.' );
 		EngineCore.outputText( '\n\nYou smile to yourself and start re-dressing, wincing at a deep aching sensation in [balls]; Ember gave you quite a workout.' );
 		//(if PC gained increased cum output);
-		if( CoC.getInstance().player.cumQ() < 1000 ) {
+		if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYou wouldn\'t be surprised if you\'ll make even more cum than before when you\'re fully recovered.' );
-			CoC.getInstance().player.cumMultiplier += 1 + Utils.rand( 3 );
+			CoC.player.cumMultiplier += 1 + Utils.rand( 3 );
 		}
 		//(else if already at Ember-given ceiling);
 		else {
@@ -3381,7 +3381,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 
 		EngineCore.outputText( '\n\nYour decency restored, you return to camp.' );
-		CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
+		CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Get Penetrated - also horse-proof, sorry folks! (Z);
@@ -3389,7 +3389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'ember-sticks-her-penor-in-your-vagoo' ) );
 		EngineCore.outputText( 'Your eyes are drawn to the 16 inches of cool, throbbing ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( 'dragon' );
 		} else {
 			EngineCore.outputText( 'human' );
@@ -3408,7 +3408,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(High Affection);
 		else {
 			EngineCore.outputText( 'Ember\'s cock jumps ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 && CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 && CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
 				EngineCore.outputText( 'to attention' );
 			} else {
 				EngineCore.outputText( 'out of its protective slit' );
@@ -3419,54 +3419,54 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\n"<i>Fine, come here!</i>"  Ember grasps your arm and leads you away towards the wastes and beyond.  Once you arrive at a small clearing on the outskirts of your camp, Ember turns to look at you. "<i>W-why are you still dressed?</i>" Ember asks, crossing ' + this.emberMF( 'his', 'her' ) + ' arms and tapping ' + this.emberMF( 'his', 'her' ) + ' foot impatiently.' );
 		EngineCore.outputText( '\n\nYou strip down until you are unabashedly naked, drinking in the look of stunned rapturous lust that Ember is giving you.  Playing your fingers gently across your upper arms, you pout and ask if ' + this.emberMF( 'he', 'she' ) + '\'s going to keep you waiting, enjoying your emotional control over the horny dragon.' );
 		EngineCore.outputText( '\n\nEmber flinches, ' + this.emberMF( 'his', 'her' ) + ' trance broken.  "<i>I... umm... fine!  Come here!</i>"  Ember steps toward you.  You open your arms, ready to wrap ' + this.emberMF( 'him', 'her' ) + ' in a hug, but instead find yourself swept off of your feet.  The dragon grins wickedly at you before suddenly plunging into a ferocious kiss, ' + this.emberMF( 'his', 'her' ) + ' long tongue worming its way around ' );
-		if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType === AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( 'yours ' );
 		} else {
 			EngineCore.outputText( 'your own inhumanly sinuous muscle ' );
 		}
 		EngineCore.outputText( 'and slithering almost into your throat.  ' + this.emberMF( 'He', 'She' ) + ' kisses you madly, even as ' + this.emberMF( 'he', 'she' ) + ' sinks to ' + this.emberMF( 'his', 'her' ) + ' knees and gently lays you out on the ground, clearly ready to start the sexing.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  As if ' + this.emberMF( 'his', 'her' ) + ' hands caressing your cock weren\'t evidence of that.' );
 		}
 		EngineCore.outputText( '\n\nEmber begins by gently probing your [vagina] with ' + this.emberMF( 'his', 'her' ) + ' tip, savoring the heat emanating from your oozing cock-sleeve.  "<i>Ready for this?</i>" Ember asks, trembling in barely contained anticipation.  You groan throatily and try to wrap your [legs] around ' + this.emberMF( 'his', 'her' ) + ' hips in hopes of pulling ' + this.emberMF( 'him', 'her' ) + ' into connection with you.  Catching the hint, Ember begins ' + this.emberMF( 'his', 'her' ) + ' slow plunge into your depths.' );
 		EngineCore.outputText( '\n\nYou gasp and then moan in pleasure as Ember\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( 'draconic ' );
 		} else {
 			EngineCore.outputText( 'human-like ' );
 		}
 		EngineCore.outputText( 'cock begins making its way past your labia.' );
 		//(if Ember has a dragon cock);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( '\n\nFirst comes the tapered spear-like head of Ember\'s penis; it slowly stretches you, sliding into you without resistance.  Then comes ' + this.emberMF( 'his', 'her' ) + ' ridged shaft; each ridge driven inside feels like a milestone being conquered.  ' );
-			CoC.getInstance().player.cuntChange( 32, true, false, true );
+			CoC.player.cuntChange( 32, true, false, true );
 			EngineCore.outputText( 'Finally you arrive at the base of ' + this.emberMF( 'his', 'her' ) + ' cock where a bulbous knot sits; thankfully it hasn\'t inflated yet, but still, you can\'t help but groan as you are stretched even more by its entrance.' );
 		}
 		//else;
 		else {
 			EngineCore.outputText( '\n\nEmber\'s member drives itself inside you, tamping down your heat with its surprisingly cool flesh.' );
-			CoC.getInstance().player.cuntChange( 32, true, true, false );
+			CoC.player.cuntChange( 32, true, true, false );
 			EngineCore.outputText( '  It\'s not as if it isn\'t still warm... but its lower temperature feels relieving and exciting all the same.' );
 		}
 		EngineCore.outputText( '\n\n"<i>I-it\'s in!</i>" Ember remarks happily as ' + this.emberMF( 'his', 'her' ) + ' hips make contact with yours.  "<i>I\'m going to start moving now.</i>"  You nod your permission.' );
 		//(if Ember has a dragon cock);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] > 0 ) {
 			EngineCore.outputText( '\n\nThe way back as Ember slowly pulls ' + this.emberMF( 'his', 'her' ) + ' cock out of your dripping pussy is as pleasurable as ' + this.emberMF( 'his', 'her' ) + ' entrance was.  First the knot tugs at your insides, drawing a sigh of relief as it slips out of your stretched netherlips.  Then come the oh-so-delicious ridges, tugging and massing your passage with small ripples of pleasure that rock you to your core.  Finally comes the tip... the stubborn tip that tugs at your pussy lips, refusing to leave its warm confines, pulling at your labia until Ember decides to plunge back.' );
 		} else {
 			EngineCore.outputText( '\n\nYou almost feel like moaning in agony as Ember\'s flesh leaves your love-hole empty, to grow back into its unbearable heat... and then cry out in joy as Ember begins to thrust back inside you, once again quenching the flames of your lust.' );
 		}
 		EngineCore.outputText( '\n\nYou delight in Ember\'s motions; insecure ' + this.emberMF( 'he', 'she' ) + ' may be when it comes to showing feelings, but get ' + this.emberMF( 'him', 'her' ) + ' into the actual act of lovemaking and ' + this.emberMF( 'he', 'she' ) + ' really starts to show what ' + this.emberMF( 'he', 'she' ) + '\'s made of!  You wrap Ember tighter in your [legs] and begin to buck and thrust, repeatedly impaling yourself on ' + this.emberMF( 'his', 'her' ) + ' delicious manhood, savoring the feeling of being stretched and filled, scraping your [clit] up and down ' + this.emberMF( 'his', 'her' ) + ' cock in order to heighten the sensations of your lovemaking.' );
-		EngineCore.outputText( '\n\nEmber leans over you, panting, ' + this.emberMF( 'his', 'her' ) + ' hot breath mere inches from your ' + CoC.getInstance().player.face() + ', gazing at you through half-lidded, lust-addled eyes.  "<i>You feel so good... so hot... so sexy...</i>" Ember says mid-pant.  You pant right back, reaching up and wrapping your arms around ' + this.emberMF( 'his', 'her' ) + ' neck, staring back at ' + this.emberMF( 'him', 'her' ) + ' with the same expression and telling ' + this.emberMF( 'him', 'her' ) + ' you think ' + this.emberMF( 'he', 'she' ) + ' feels just as good.' );
+		EngineCore.outputText( '\n\nEmber leans over you, panting, ' + this.emberMF( 'his', 'her' ) + ' hot breath mere inches from your ' + CoC.player.face() + ', gazing at you through half-lidded, lust-addled eyes.  "<i>You feel so good... so hot... so sexy...</i>" Ember says mid-pant.  You pant right back, reaching up and wrapping your arms around ' + this.emberMF( 'his', 'her' ) + ' neck, staring back at ' + this.emberMF( 'him', 'her' ) + ' with the same expression and telling ' + this.emberMF( 'him', 'her' ) + ' you think ' + this.emberMF( 'he', 'she' ) + ' feels just as good.' );
 		EngineCore.outputText( '\n\nEmber thrusts deeply into you and gasps; pre shoots out of ' + this.emberMF( 'his', 'her' ) + ' cock into your well lubed tunnel and ' + this.emberMF( 'he', 'she' ) + ' stops moving.  "<i>I-I\'m getting close...</i>" Ember warns, trembling in pleasure as your walls constrict and grab at ' + this.emberMF( 'his', 'her' ) + ' shaft, eager for the friction that sets your nerves alight with pleasure.' );
 		EngineCore.outputText( '\n\nYou snarl back softly through your teeth; you\'re not ready yet!  Well, if ' + this.emberMF( 'he', 'she' ) + '\'s close, then ' + this.emberMF( 'he', 'she' ) + ' needs to go faster, so you can cum too!  You wrap your arms and [legs] jealously around ' + this.emberMF( 'him', 'her' ) + ', pistoning back and forth with all the speed and force you can muster, using every muscle you can control in your [vagina] to milk and squeeze your draconic lover... yes, yes, just a little more... Ember groans at your sudden movements, faltering and crashing atop you limply as the overwhelming pleasure saps ' + this.emberMF( 'him', 'her' ) + ' of all ' + this.emberMF( 'his', 'her' ) + ' strength.' );
 		EngineCore.outputText( '\n\nFrustrated, horny, and almost there, you roll ' + this.emberMF( 'him', 'her' ) + ' over onto ' + this.emberMF( 'his', 'her' ) + ' back and continue to buck... yes, yes, here it is!  You cry out in ecstasy as the waves of pleasure rock and surge through your body; orgasm hits you like a tidal wave, cascading through your nerves and driving you into welcome, blissful release.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Your cock explodes, belching cum to ' );
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( 'spatter' );
-			} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			} else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( 'drench' );
-			} else if( CoC.getInstance().player.cumQ() < 2000 ) {
+			} else if( CoC.player.cumQ() < 2000 ) {
 				EngineCore.outputText( 'completely cover' );
 			} else {
 				EngineCore.outputText( 'utterly soak' );
@@ -3481,17 +3481,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEmber groans as ' + this.emberMF( 'he', 'she' ) + ' grows hard once more, sensitive and throbbing as ' + this.emberMF( 'his', 'her' ) + ' shaft slowly fills you with its increasing girth.  You begin to buck your hips back and forth; you wonder how many orgasms you can coax from your helpless draconic lover...  "<i>C-cumming!!</i>" Ember roars as ' + this.emberMF( 'he', 'she' ) + ' shoots a few more jets inside you.' );
 		EngineCore.outputText( '\n\n"<i>I-I can\'t keep doing this... you\'re going to dry me out...</i>" Ember says, panting in exhaustion, although from ' + this.emberMF( 'his', 'her' ) + ' expression you\'d have a hard time believing ' + this.emberMF( 'he', 'she' ) + ' isn\'t enjoying it.  You give ' + this.emberMF( 'him', 'her' ) + ' an exaggerated pout and tell ' + this.emberMF( 'him', 'her' ) + ' you\'re not quite done yet.  Surely, just one or two more...?' );
 		//[(has History: Slut or Whore);
-		if( CoC.getInstance().player.findPerk( PerkLib.HistoryWhore ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.HistorySlut ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.HistoryWhore ) >= 0 || CoC.player.findPerk( PerkLib.HistorySlut ) >= 0 ) {
 			EngineCore.outputText( '  Using the skills you\'ve honed, you make the muscles in your vagina ripple and wrinkle, teasing the cock caught inside you in a way few women can.' );
 		}
 		EngineCore.outputText( '  Mmm... you can feel your own second orgasm coming in hot.  Maybe after another 4 or 5, you\'ll let the dragon go...' );
 		EngineCore.outputText( '\n\nEventually, exhausted, belly stuffed with dragon-spunk to the point you look ready to birth a pair of dragon toddlers, and feeling incredibly well-sated, you lay on Ember\'s chest, cuddling your limp, utterly drained lover.  The dragon is fast asleep, having passed out from exhaustion, and you amuse yourself by listening to ' + this.emberMF( 'his', 'her' ) + ' heart beating as ' + this.emberMF( 'he', 'she' ) + ' inhales and exhales softly in ' + this.emberMF( 'his', 'her' ) + ' sleep.  To be honest, you could use a nap too, and you pass out atop ' + this.emberMF( 'him', 'her' ) + '.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		if( CoC.getInstance().player.lib > 50 ) {
+		if( CoC.player.lib > 50 ) {
 			EngineCore.dynStats( 'lib', -3 );
 		}
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.doNext( this.getPenetratedByEmberLastSexSceneWooooPartII );
 	};
 	//Part II;
@@ -3499,7 +3499,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You manage to wake up before your sleeping draconic lover; it seems at some point in ' + this.emberMF( 'his', 'her' ) + ' sleep Ember saw it fit to wrap you tightly in ' + this.emberMF( 'his', 'her' ) + ' arms, tail and even legs.  You snuggle deeper into the dragon\'s embrace and enjoy it; ' + this.emberMF( 'he', 'she' ) + '\'s usually too emotionally cowardly to treat you like this.  Unfortunately the embrace doesn\'t last long... Ember soon wakes up, yawning groggily and slowly disentangling ' + this.emberMF( 'him', 'her' ) + 'self in order to stretch.  The dragon\'s face lights in pain and ' + this.emberMF( 'he', 'she' ) + ' quickly moves ' + this.emberMF( 'his', 'her' ) + ' hand to hold ' + this.emberMF( 'his', 'her' ) + ' crotch.' );
 		EngineCore.outputText( '\n\n"<i>Ow...</i>"  Ember looks at you accusingly.  "<i>I feel sore all over... especially down here...</i>" Ember says, massaging ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 			EngineCore.outputText( 'protective slit' );
 		} else {
 			EngineCore.outputText( 'limp cock and balls' );
@@ -3534,20 +3534,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	EmberScene.prototype.emberRapesYourHeatness = function() {
 		EngineCore.outputText( '\nA pair of scaly, clawed hands suddenly grab your [hips] and you feel Ember take a big whiff of your scent. "<i>So good... you smell so good, y\'know [name]?</i>"' );
 		EngineCore.outputText( '\n\nYou don\'t even start at ' + this.emberMF( 'his', 'her' ) + ' actions; all you can think of is the deep need burning in your crotch, ' );
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.inHeat && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
+		if( CoC.player.hasVagina() && CoC.player.inHeat && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
 			EngineCore.outputText( 'your [vagina] aching to be filled and your womb put to its proper purpose' );
 		} else {
 			EngineCore.outputText( '[eachCock] burning to be seeding ripe, ready wombs' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nEmber responds by ' );
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.inHeat && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
+		if( CoC.player.hasVagina() && CoC.player.inHeat && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
 			EngineCore.outputText( 'humping against you, smearing your thigh with dragon pre.' );
 		} else {
 			EngineCore.outputText( 'tightly pressing her drooling, puffy netherlips on your thighs.' );
 		}
 		EngineCore.outputText( '  "<i>I need you, [name].  I need you so badly... can you see how badly I need you?</i>" Ember asks, panting in barely contained lust.  "<i>I want to fuck you so badly... Let\'s make a baby now!</i>"' );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.outputText( '\n\nWhat do you say?' );
 		//[Accept] [Deny];
 		EngineCore.choices( 'Accept', this.timeToPuffTheMagicDragon, 'Deny', this.fuckOffEmberIWantANap, '', null, '', null, '', null );
@@ -3555,38 +3555,38 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//[=Deny=];
 	EmberScene.prototype.fuckOffEmberIWantANap = function() {
 		EngineCore.clearOutput();
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.outputText( 'Oh, your ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '[vagina]' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[eachCock]' );
 		}
 		EngineCore.outputText( ' so yearn' );
-		if( CoC.getInstance().player.gender === 1 || CoC.getInstance().player.gender === 2 ) {
+		if( CoC.player.gender === 1 || CoC.player.gender === 2 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' to take Ember up on ' + this.emberMF( 'his', 'her' ) + ' offer! 0...But you are better than this; you are not some mindless animal, a slave to your lusts.  You fight down the arousal gnawing at you and tell Ember you don\'t want to fuck ' + this.emberMF( 'him', 'her' ) + '.' );
 		EngineCore.outputText( '\n\nEmber whimpers at your words.  "<i>C-can\'t you see what you\'re doing to me? C\'mon [name], just a quick romp!</i>" Ember pleads.' );
 		EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' that you\'re sorry, but you don\'t want to have children - at least, not yet.  And if you have sex in your state, that\'s what will happen.' );
 		EngineCore.outputText( '\n\nEmber growls, spins you around and steals a kiss right out of your mouth.  "<i>I hate you... you... you sexy beast!</i>"  Having said that ' + this.emberMF( 'he', 'she' ) + ' unfurls her wings and flies off into the sky, barely managing to fly straight due to ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( 'protruding prick' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'creaming wet vagina' );
 		}
 		EngineCore.outputText( '.  No doubt ' + this.emberMF( 'he', 'she' ) + '\'s off to take care of ' + this.emberMF( 'his', 'her' ) + ' needs by ' + this.emberMF( 'him', 'her' ) + 'self.  You doubt ' + this.emberMF( 'he', 'she' ) + '\'s going to be happy once ' + this.emberMF( 'his', 'her' ) + ' head is clear... still, ' + this.emberMF( 'he', 'she' ) + '\'ll get over it.' );
 		this.emberAffection( -10 );
 		//Set some cooldown so this doesn't proc all the goddamn time!;
-		CoC.getInstance().player.createStatusAffect( StatusAffects.EmberFuckCooldown, 12, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 12, 0, 0, 0 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//[=Accept=];
@@ -3598,7 +3598,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nSomehow you manage to avoid ' + this.emberMF( 'his', 'her' ) + ' clinging claws and strip off to your undergarments, which Ember promptly bites into, nearly ripping them off your [legs].  Ember flops down on your bedroll, chewing on your undies.  ' + this.emberMF( 'He', 'She' ) + ' spreads her legs invitingly and spits out your - now soaked - underpants.  "<i>Let\'s do it on your bed!  It smells so much like you...  Did I say how good you smell?  C\'mon, [name]; fuck me dammit!</i>"' );
 		EngineCore.outputText( '\n\nYou can\'t take it anymore and throw yourself at ' + this.emberMF( 'him', 'her' ) + '; ' + this.emberMF( 'he', 'she' ) + ' wants you so bad?  Well, you want ' + this.emberMF( 'him', 'her' ) + ' just as bad; let\'s see what ' + this.emberMF( 'he', 'she' ) + '\'ll do with you!' );
 		//(if PC and Ember are herms AND not pregnant) {;
-		if( CoC.getInstance().player.pregnancyIncubation === 0 && !this.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 && CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.pregnancyIncubation === 0 && !this.pregnancy.isPregnant && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 && CoC.player.gender === 3 ) {
 			EngineCore.outputText( '\n\n(Who should bear the kids?)' );
 			//[Ember] [You];
 			EngineCore.choices( 'Ember', this.breedEmberPregnantAsIfThereWasAnyOtherKindOfBreeding, 'You', this.getKnockedUpByEmbrahBroBaby, '', null, '', null, '', null );
@@ -3606,7 +3606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//[Play appropriate breeding scene.];
 		//Female Breeding Scene:;
 		//PC not pregnant, Ember has dick, PC is in heat.;
-		else if( CoC.getInstance().player.pregnancyIncubation === 0 && (CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3) && CoC.getInstance().player.inHeat ) {
+		else if( CoC.player.pregnancyIncubation === 0 && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3) && CoC.player.inHeat ) {
 			this.getKnockedUpByEmbrahBroBaby();
 		}
 		//Male scene;
@@ -3623,28 +3623,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	EmberScene.prototype.getKnockedUpByEmbrahBroBaby = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Ember grabs you and rolls you around, pinning you under ' + this.emberMF( 'his', 'her' ) + ' weight, whilst kissing you.  You allow the dragon to press you into the ground, rubbing your hands across ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 && CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 && CoC.flags[ kFLAGS.EMBER_MILK ] === 0 ) {
 			EngineCore.outputText( 'his flat, muscular chest' );
 		} else {
 			EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' soft, squeezable boobs' );
 		}
 		EngineCore.outputText( ' and savoring the kiss.  Emboldened, you poke your tongue into ' + this.emberMF( 'his', 'her' ) + ' mouth, to see how ' + this.emberMF( 'he', 'she' ) + ' will react.' );
 		EngineCore.outputText( '\n\nEmber shows no resistance, pushing ' + this.emberMF( 'his', 'her' ) + ' chest out into your hands and using ' + this.emberMF( 'his', 'her' ) + ' own tongue to draw yours in, while simultaneously probing your mouth.  With a wet <b>smack</b> Ember breaks the kiss.  "<i>Don\'t worry about anything... I\'ll make sure to make this enjoyable for both of us, and by the end, you\'ll be full of ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 			EngineCore.outputText( 'little dragons' );
 		} else {
 			EngineCore.outputText( 'dragon eggs' );
 		}
 		EngineCore.outputText( ', my beautiful.</i>"  Ember resumes ' + this.emberMF( 'his', 'her' ) + ' kissing; ' + this.emberMF( 'his', 'her' ) + ' own hands roaming all over your body, as if mapping you out through touch, looking for the best places to touch and tease.' );
 		EngineCore.outputText( '\n\nYou try to hold your own against your overly affectionate draconic lover, stroking ' + this.emberMF( 'his', 'her' ) + ' scaly limbs and trying to discover where ' + this.emberMF( 'his', 'her' ) + ' erogenous zones are so that you can show ' + this.emberMF( 'him', 'her' ) + ' what it\'s like to be ready to beg and plead for sex.  You can feel the heat burning in your loins, a wet, ready fire in your [vagina]; you\'re ready to be bred, to have your gut filled with Ember\'s seed until your womb is jam-packed with ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 			EngineCore.outputText( 'dragonlings' );
 		} else {
 			EngineCore.outputText( 'dragon eggs' );
 		}
 		EngineCore.outputText( '.  You want to breed!' );
 		//(if PC has a dick);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nOne of Ember\'s roaming hands find your erect [cock biggest] and begins stroking, not caring that you\'re smearing ' + this.emberMF( 'his', 'her' ) + ' body with pre.  While Ember\'s other hand settles on stroking your thighs, coaxing you to open your legs before aligning ' + this.emberMF( 'his', 'her' ) + ' rock hard shaft with your waiting [vagina].' );
 		} else {
 			EngineCore.outputText( '\n\nEmber\'s roaming hands settle on your thighs, coaxing you to open your legs before aligning ' + this.emberMF( 'his', 'her' ) + ' rock hard shaft with your waiting [vagina].' );
@@ -3652,15 +3652,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '  You groan throatily, your need burning through you, and start trying to grind yourself against Ember\'s shaft.  ' + this.emberMF( 'He', 'She' ) + ' pins you down, though, making it impossible for you to actually do anything more than rub ' + this.emberMF( 'his', 'her' ) + ' glans against your needy netherlips.' );
 		EngineCore.outputText( '\n\nFortunately, the dragon ' + this.emberMF( 'himself', 'herself' ) + ' seems just as turned on and ready as you are.  "<i>You\'re so hot I can feel your flesh burning against mine.  I-I can\'t hold back!</i>" ' + this.emberMF( 'he', 'she' ) + ' growls deep in ' + this.emberMF( 'his', 'her' ) + ' throat.' );
 		EngineCore.outputText( '\n\nEmber first thrust is awkward, missing its target and instead grinding against your netherlips; you almost curse the dragon\'s lousy aim, but fortunately ' + this.emberMF( 'his', 'her' ) + ' second thrust hits true and you sigh in relief as you feel Ember\'s tapered shaft settle inside your contracting walls, pulsing, massaging your insides as much you work to massage ' + this.emberMF( 'his', 'her' ) + ' own shaft.  You exchange moans of pleasure between kisses, Ember\'s rumbling purr massages your [chest] as ' + this.emberMF( 'he', 'she' ) + ' grinds ' + this.emberMF( 'his', 'her' ) + ' whole body against you.  Briefly, you open your eyes to gaze into ' + this.emberMF( 'his', 'hers' ) + '; you almost cum at the sight. Ember\'s eyes are set aglow with lust, burning with a primal, instinctual need...' );
-		CoC.getInstance().player.cuntChange( 20, true, true, false );
+		CoC.player.cuntChange( 20, true, true, false );
 		//(if Ember has a vagina);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '\n\nYour bedroll is growing slick underneath you as lubricant drools from the herm dragon\'s neglected cunt, her tail thrashing around madly before sliding into the wet orifice to help goad her on in her goal to breed you.  ' );
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
 		EngineCore.outputText( 'You growl throatily, feeling that same need burning inside you. You clutch and claw against the dragon, fingers grasping deeply into ' + this.emberMF( 'his', 'her' ) + ' scaly limbs as you drag, scrape, and thrust yourself against ' + this.emberMF( 'him', 'her' ) );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', your neglected [cock] drooling pre-cum that is being smeared all across your belly and ' + this.emberMF( 'his', 'hers' ) + ' with every move you make' );
 		}
 		EngineCore.outputText( '.  Gods, you can feel ' + this.emberMF( 'him', 'her' ) + ' filling you...' );
@@ -3670,12 +3670,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou find yourself snarling in frustration, displaying your teeth - a few minutes isn\'t good enough!  You need more, and you need it now!  With a sudden thrust of motion you slam into the dragon, striving to push ' + this.emberMF( 'him', 'her' ) + ' over so you can mount ' + this.emberMF( 'him', 'her' ) + ' instead.' );
 		EngineCore.outputText( '\n\nStartled and caught off-guard, you are soon straddling the bewildered dragon.  With a lustful sneer you tell ' + this.emberMF( 'him', 'her' ) + ' that you want ' + this.emberMF( 'him', 'her' ) + ' now, not in a few minutes, and start to buck and thrust your hips to make it clear you\'re getting what you want, even if it means taking Ember along for the ride instead.' );
 		EngineCore.outputText( '\n\n"<i>Ah! Taking charge, are you?  Oh!  Okay, but... Ah!... only this time.</i>"  Ember lays back, thrusting lightly to meet your own bucks into ' + this.emberMF( 'his', 'her' ) + ' dick, panting and moaning as the sound of wet slapping fills the tent.' );
-		EngineCore.outputText( '\n\nYou don\'t dignify that with a response, instead savoring the sensation of feeling ' + this.emberMF( 'his', 'her' ) + ' long, thick cock in your needy cunt, squeezing and clenching with all the instinctual knowledge and practice this world has given you.  Mmm... the segment-like ridges stroke your inner walls in the most delicious ways...  You moan throatily, needily, riding the dragon with fervor of a ' + CoC.getInstance().player.mf( 'herm', 'woman' ) + ' possessed; you want to get pregnant... you <b>have</b> to get pregnant!' );
+		EngineCore.outputText( '\n\nYou don\'t dignify that with a response, instead savoring the sensation of feeling ' + this.emberMF( 'his', 'her' ) + ' long, thick cock in your needy cunt, squeezing and clenching with all the instinctual knowledge and practice this world has given you.  Mmm... the segment-like ridges stroke your inner walls in the most delicious ways...  You moan throatily, needily, riding the dragon with fervor of a ' + CoC.player.mf( 'herm', 'woman' ) + ' possessed; you want to get pregnant... you <b>have</b> to get pregnant!' );
 		EngineCore.outputText( '\n\nDriven by the most primal of instincts, you start trying to coax Ember into doing you harder; doesn\'t ' + this.emberMF( 'he', 'she' ) + ' want to be a father?  Doesn\'t ' + this.emberMF( 'he', 'she' ) + ' want you to bear ' + this.emberMF( 'his', 'her' ) + ' offspring?  Or would ' + this.emberMF( 'he', 'she' ) + ' rather you go out into the wilderness and risk letting some degenerate monster take advantage of your ripe, ready womb instead?  See you wandering around camp with your belly distended with a litter of imps or a bestial minotaur\'s calf instead of a new dragon, Ember\'s own blood-child?' );
 		EngineCore.outputText( '\n\nYour words seem to have the desired effect; because shortly after you\'re done Ember lifts you off along with ' + this.emberMF( 'him', 'her' ) + ' into ' + this.emberMF( 'his', 'her' ) + ' arms.  ' + this.emberMF( 'He', 'She' ) + ' looks deeply into your eyes with renewed fire.  "<i>Never,</i>" Ember says, kissing you deeply and beginning to pump into you with abandon.  This is what you were waiting for.  Finally!' );
 		EngineCore.outputText( '\n\nEmber\'s brutal thrusts rock you to the core, sending rippling waves of pleasure through you.  ' + this.emberMF( 'He', 'She' ) + ' kisses you passionately, slurping and suckling on your tongue, savoring your taste.  You gasp and shudder, thrusting back just as brutally, striving to grapple and suckle the dragon\'s inhumanly long and nimble tongue so that you can savor ' + this.emberMF( 'his', 'her' ) + ' taste as well.' );
 		//(if Ember has a pussy);
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 			EngineCore.outputText( '\n\nYou hear the wet splattering of femcum on your wet bedroll; Ember\'s orgasm ressurging with renewed vigor.  ' );
 		} else {
 			EngineCore.outputText( '\n\n' );
@@ -3683,7 +3683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( 'A fresh batch of dragon cum blasts its way into your overfilled insides, splattering about inside your tent; and to your surprise Ember continues thrusting into you without ever slowing down.  Even as you moan into the kiss, a third orgasm blasts its way into you, inflating your belly with fertile dragon seed.' );
 		EngineCore.outputText( '\n\nYou are so close now... so close!  Your hands unthinkingly reach out for Ember\'s, seeking to entwine your fingers with those of the ' + this.emberMF( 'male', 'herm' ) + ' that you know is about to father your child.  You break the kiss, throwing your head back to moan towards the sky as you finally achieve orgasm.' );
 		//(if PC has a dick);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYou cum into your chests and bellies, glueing you to the dragon with your thick spunk.  ' );
 		} else {
 			EngineCore.outputText( '\n\n' );
@@ -3693,43 +3693,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou can feel it.  Ember continues to fill you with a slower but steady trickles of seed.  You briefly wonder how the dragon can hold so much cum inside ' + this.emberMF( 'him', 'her' ) + ', but ultimately you decide that doesn\'t matter and relax on top of the spent dragon, enjoying your closeness while it lasts.' );
 		EngineCore.outputText( '\n\nEmber sighs, rubbing your back with a hand while hugging you close with the other.' );
 		EngineCore.outputText( '\n\n"<i>Don\'t you just assume this makes us official mates,</i>" Ember murmurs into your ear.  You lift your head to look into ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 			EngineCore.outputText( 'blushing ' );
 		}
 		EngineCore.outputText( 'face.  "<i>But if you must know, I do love you.</i>"   With a final sigh Ember sets down on your bedroll for a quick nap.' );
 		EngineCore.outputText( '\n\nFeeling ' + this.emberMF( 'his', 'her' ) + ' knot still swollen and anchoring you together, you sigh softly and settle down with the dragon to recover, figuring you\'ll be free in about an hour\'s time.  In the meantime, you\'re content to just cuddle ' + this.emberMF( 'him', 'her' ) + ' close, one hand going to your cum-inflated belly.  You\'d almost swear you can feel the draconic virility cream at work, the cool fluid of life drowning your burning need to breed and already beginning to brew what will be a new ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 			EngineCore.outputText( 'baby dragon' );
 		} else {
 			EngineCore.outputText( 'dragon egg' );
 		}
 		EngineCore.outputText( '.  Yawning, you curl up to the dragon for a quick nap of your own.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		//Preg shit goez hurdur;
-		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_EMBER, PregnancyStore.INCUBATION_EMBER, 0 ); //Will always impregnate unless contraceptives are in use
-		CoC.getInstance().player.createStatusAffect( StatusAffects.EmberFuckCooldown, 36, 0, 0, 0 );
+		CoC.player.knockUp( PregnancyStore.PREGNANCY_EMBER, PregnancyStore.INCUBATION_EMBER, 0 ); //Will always impregnate unless contraceptives are in use
+		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 36, 0, 0, 0 );
 		EngineCore.doNext( EngineCore.createCallBackFunction( this.emberBreedingAfterMathWatchOutForRadioactiveFallout, false ) );
 	};
 	//Breeding Ember;
 	EmberScene.prototype.breedEmberPregnantAsIfThereWasAnyOtherKindOfBreeding = function() {
 		EngineCore.clearOutput();
 		//Silently steal her virginity.;
-		CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
-		var x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
+		var x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'Ember catches you and rolls you around, pinning you to the ground under her.  She smiles at you seductively and reaches down to stroke your ' + Descriptors.cockDescript( x ) + '.' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  She then reaches down lower to rub at your cum filled orbs.' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  The tip of her tail gently teases your slick [vagina] with tiny strokes.' );
 		}
 		EngineCore.outputText( '  You shudder and instinctively thrust towards her, letting her feel your needy cock, full and aching to father young.' );
 		EngineCore.outputText( '\n\n"<i>You\'re so sexy...  You have no idea,</i>" Ember purrs dreamily.  With a soft smile, you tell her that she\'s quite sexy herself - maybe not the smartest thing to say, but all that comes to mind with your brain befuddled by your surging hormones, bewitched by the delicious smells that are rolling off of her now that she\'s so close, so ripe, so ready...' );
-		EngineCore.outputText( '\n\nEmber jumps off you momentarily to inhale your musk, stroking you until a bead of pre forms on your ' + CoC.getInstance().player.cockHead( x ) + '.  Ember\'s eyes grow wide, as if she had spotted a pearl; and she wastes no time in extending her tongue to lick the bead away.  "<i>Hmm, delicious...  You\'re ready, and so am I!</i>"' );
+		EngineCore.outputText( '\n\nEmber jumps off you momentarily to inhale your musk, stroking you until a bead of pre forms on your ' + CoC.player.cockHead( x ) + '.  Ember\'s eyes grow wide, as if she had spotted a pearl; and she wastes no time in extending her tongue to lick the bead away.  "<i>Hmm, delicious...  You\'re ready, and so am I!</i>"' );
 		EngineCore.outputText( '\n\nAiming your cock upwards; Ember straddles you and lowers herself on your pulsing ' + Descriptors.cockDescript( x ) + ', hissing in pleasure as your hot flesh finally makes contact with her drooling fuckhole' );
 		if( this.emberHasCock() ) {
 			EngineCore.outputText( ', her own cock springing up and throbbing with the electric contact.' );
@@ -3740,21 +3740,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nYou hiss back to her at the sensations that fill you with such pleasure, your yearning breeding rod finally slotted into a ripe, ready breeding hole, her deliciously cool inner walls enveloping your burning hot flesh.' );
 		EngineCore.outputText( '\n\nYou take hold of her shoulders, feeling the scales and the steely muscles underneath, and start to thrust yourself into her, bucking and pistoning your hips, driving yourself into that cool, wet hole, giving yourself over to the need to impregnate her.' );
 		EngineCore.outputText( '\n\n"<i>Ah!  Yes!  M-my breasts!  Uh!  Please!</i>" Ember begs, holding your shoulders for support; her glazed eyes looking deep into yours, overpowered by her need to breed with you.  You dimly manage to latch onto her plea and begin to caress and grope the great, heavy bosom of your draconic lover, feeling the ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'scale-covered ' );
 		}
 		EngineCore.outputText( 'orbs gently squish ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( 'and leak milk ' );
 		}
 		EngineCore.outputText( 'under your grasp.' );
 		EngineCore.outputText( '\n\nEmber moans, pushing her chest out into your hands, allowing you to twiddle her nipples (and isn\'t that an odd thing?  A reptilian girl-thing with breasts and nipples? A part of your mind dimly notes), but ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( 'the slowly trickling rivulets of milk along with ' );
 		}
 		EngineCore.outputText( 'Ember\'s pleased moans are enough to make you push away such thoughts, you\'re glad she has those!' );
 		EngineCore.outputText( '\n\nYou hungrily kiss her ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'draconic ' );
 		} else {
 			EngineCore.outputText( 'oh-so-human ' );
@@ -3763,7 +3763,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//(if Ember has a dick);
 		if( this.emberHasCock() ) {
 			EngineCore.outputText( '\n\nYou feel something poke your [chest] and look down to see Ember\'s painfully erect ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 || CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 1 ) {
 				EngineCore.outputText( 'dragon ' );
 			}
 			EngineCore.outputText( 'prick.  With a mischievous curl of your lips, you pull Ember deeper into your kiss and grab her cock, stroking it vigorously.' );
@@ -3793,16 +3793,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\n"<i>Okay, I\'ll try,</i>" Ember replies tiredly, but all she manages to do is bounce atop you a few more times before slumping and nearly falling off.  You are too driven to let this stop you; you roll her onto the bedroll and take your place atop her, continuing to thrust with mindless instinct.' );
 		EngineCore.outputText( '\n\nEmber doesn\'t even protest, she just moans and wraps as much of herself around you as she can, holding onto you like her life depended on it.' );
 		EngineCore.outputText( '\n\nThen, finally, you feel yourself drive over the edge and release all your pent up cum; ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your neglected cunt splashing fluid down your [legs] and ' );
 		}
 		EngineCore.outputText( 'your ' + Descriptors.cockDescript( x ) + ' gushing into the dragon\'s ready womb.' );
 		EngineCore.outputText( '\n\nEmber growls and purrs as she feels your hot seed drive itself into her womb, looking for her fertile eggs to impregnate.  Her pussy lips clamp down on your shaft, holding it in place with a watertight seal to prevent any of your seed from spilling as her walls work to milk you.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '  Though you usually don\'t cum that much, Ember\'s contracting walls literally suck the cum out of you; forcing you to give up more than you usually would... something you\'re quite glad to do!' );
 		}//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '  Your generous helping of cum works its way towards her awaiting womb.  In fact, due to the delicious massage your shaft is receiving from Ember\'s contracting, almost sucking vaginal walls, you find yourself pumping out even more cum that you would usually have, quickly filling her to the brim and beyond.  It\'s not until Ember\'s belly is slightly distended that you stop.' );
 		}//(High Cum Amount);
 		else {
@@ -3823,9 +3823,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nFiguring you\'ll still have some time before Ember\'s constricting nether lips feel like letting you go, you snuggle close to her for a quick nap of your own...' );
 		//knock dat phat bitch up.;
 		this.pregnancy.knockUp( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_EMBER );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.EmberFuckCooldown, 36, 0, 0, 0 );
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.Rut );
-		CoC.getInstance().player.orgasm();
+		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 36, 0, 0, 0 );
+		CoC.player.removeStatusAffect( StatusAffects.Rut );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( EngineCore.createCallBackFunction( this.emberBreedingAfterMathWatchOutForRadioactiveFallout, true ) );
 	};
@@ -3835,16 +3835,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			emberPregged = true;
 		}
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		var x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You wake up, feeling replenished after your exhausting mating session with your draconic lover, and stretch the last few kinks out.  As you do, you realize you\'re in still in your tent, which is perfectly clean, with no trace of the copious sexual fluids that you and Ember were splattering everywhere before you took your impromptu nap.' );
 		EngineCore.outputText( '\n\nLooking around for the dragon, you spot ' + this.emberMF( 'him', 'her' ) + ' seated in a cross-legged position halfway in and out of the tent\'s door.  Was ' + this.emberMF( 'he', 'she' ) + ' guarding you while you slept?' );
 		EngineCore.outputText( '\n\nEmber takes a happy glance in your direction, when ' + this.emberMF( 'he', 'she' ) + ' notices you\'re awake.  "<i>So you finally woke up, huh?  Good, I was getting tired of sitting here...</i>"' );
 		EngineCore.outputText( '\n\nYou thank ' + this.emberMF( 'him', 'her' ) + ' for cleaning the place up, and tell ' + this.emberMF( 'him', 'her' ) + ' that you appreciate it.  ' + this.emberMF( 'He', 'She' ) + '\'s actually quite good at doing that kind of thing.' );
 		EngineCore.outputText( '\n\nEmber\'s cheeks ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ' are probably blushing under ' + this.emberMF( 'his', 'her' ) + ' scales.' );
 		} else {
 			EngineCore.outputText( 'blush.' );
@@ -3872,7 +3872,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ', as if remembering the intense sex session you two just had.' );
 		EngineCore.outputText( '\n\nYou can\'t resist pointing out that ' + this.emberMF( 'he', 'she' ) + ' wore out first; you were the one who had to make ' + this.emberMF( 'him', 'her' ) + ' keep on going...  So doesn\'t that make you more virile than ' + this.emberMF( 'him', 'her' ) + '?' );
 		EngineCore.outputText( '\n\nEmber\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 			EngineCore.outputText( 'blush' );
 		} else {
 			EngineCore.outputText( 'discomfort' );
@@ -3882,7 +3882,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEmber blows an indignant puff of smoke.  "<i>Yes, like I said.  I\'m pretty sure it took...  I mean...  We were tied, and when dragons are tied, we are sure to get pregnant.</i>"' );
 		EngineCore.outputText( '\n\nYou nod in understanding, and then innocently comment that if it didn\'t take, well, maybe you\'ll need to try that again.' );
 		EngineCore.outputText( '\n\nEmber ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
 			EngineCore.outputText( 'blushes' );
 		} else {
 			EngineCore.outputText( 'frowns' );
@@ -3900,47 +3900,47 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( '\nEmber\'s belly seems to be swelling; it looks like your seed took after all.  The dragon makes no obvious sign that she\'s noticed the weight she\'s putting on, and you don\'t think it would be wise to draw attention to it, even if it is "<i>only</i>" a pregnancy bulge.\n' );
 				return true;
 			case 2:
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
 					EngineCore.outputText( '\nEmber\'s belly grows ever bigger, making her pregnancy noticeable.  She looks very sexy knocked up like that...  You shake your stray thoughts away.\n' );
 				} else {
 					EngineCore.outputText( '\nEmber\'s belly grows ever bigger, making her pregnancy noticeable.  Her swollen midriff suits her well; to be honest she looks pretty sexy like that.\n' );
 				}
-				EngineCore.dynStats( 'lus', (5 + CoC.getInstance().player.lib / 20) );
+				EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 20) );
 				return true;
 			case 4:
 				EngineCore.outputText( '\nEmber\'s belly has grown quite a bit.  Anyone can tell she\'s pregnant with a single glance.  ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
 					EngineCore.outputText( 'Ember notices you looking.  "<i>W-what? Never seen a pregnant woman before?</i>" she asks indignantly, although she can\'t hide her smile as you continue to look.\n' );
 				} else {
-					EngineCore.outputText( 'Ember catches you looking' + (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ? ' and blushes' : '') + '.  "<i>W-what is it?</i>"  You reply merely that she carries a baby bump very well; she looks good pregnant.  "<i>Oh, uh...  Thanks I guess?</i>" she replies, looking away and flicking her tongue out nervously.\n' );
+					EngineCore.outputText( 'Ember catches you looking' + (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ? ' and blushes' : '') + '.  "<i>W-what is it?</i>"  You reply merely that she carries a baby bump very well; she looks good pregnant.  "<i>Oh, uh...  Thanks I guess?</i>" she replies, looking away and flicking her tongue out nervously.\n' );
 				}
 				return true;
 			case 5:
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
 					EngineCore.outputText( '\nYou hear Ember groan, then sit down.  You rush to her side, asking if she\'s all right.  "<i>Yes, I\'m fine. Just a bit tired.</i>"  She reassures you; then takes your hand and presses it against her belly.  You feel something hard and slightly round inside.  "<i>Can you feel it?  This egg is already much larger than the others.  Proof that your seed took.</i>" she says, smiling.  You smile back, then excuse yourself.\n' );
 				} else {
-					EngineCore.outputText( '\nEmber is sitting down with a smile, rubbing her belly; you approach and ask if she\'s feeling well.\n\n"<i>Yes, both of us are.  I can already feel our baby starting to move.  Do you want to feel it too?</i>"  You respond that you do, and gently approach her, reaching out to stroke her gravid stomach, feeling the ' + (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ? 'scales' : 'skin') + ' already stretched taut over her burgeoning womb.\n\nYou feel what seems to be a small kick under your hand.  A faint hint of paternal pride fills you, and you can\'t resist rubbing the spot where the baby kicked.  Ember sighs and lets you rub her belly to your heart\'s content.  Unfortunately duty calls, so you bid Ember farewell and return to your duties.\n' );
+					EngineCore.outputText( '\nEmber is sitting down with a smile, rubbing her belly; you approach and ask if she\'s feeling well.\n\n"<i>Yes, both of us are.  I can already feel our baby starting to move.  Do you want to feel it too?</i>"  You respond that you do, and gently approach her, reaching out to stroke her gravid stomach, feeling the ' + (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ? 'scales' : 'skin') + ' already stretched taut over her burgeoning womb.\n\nYou feel what seems to be a small kick under your hand.  A faint hint of paternal pride fills you, and you can\'t resist rubbing the spot where the baby kicked.  Ember sighs and lets you rub her belly to your heart\'s content.  Unfortunately duty calls, so you bid Ember farewell and return to your duties.\n' );
 				}
 				return true;
 			case 6:
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
 					EngineCore.outputText( '\nEmber just doesn\'t seem to stop growing.  You approach her and lay a hand on her belly, feeling the ever growing egg inside.  "<i>This is going to be a pain to pass,</i>" she says, dreading the task ahead.  "<i>This is your fault... so I expect you to be here to help me.</i>" Ember says.  "<i>Now I need something to eat, I\'m hungry.</i>" Ember says, walking away to feed herself.\n' );
 				} else {
 					EngineCore.outputText( '\nEmber\'s been getting as moody as her belly is big lately.  She constantly growls at anyone and anything that may approach her, even harmless bugs.  You decide to watch your step around her - pregnant women were scary enough back in Ingnam, and they didn\'t have razor-sharp teeth or the ability to breathe fire.\n\n"<i>Something wrong!?</i>" Ember questions you, glaring at you.  Your point proven, you tell her it\'s nothing, you were merely thinking of your former home.\n\n"<i>Well if you have enough time to be reminiscing your past, how about you get over here and give me a hand instead!?  You\'re responsible for this, after all.</i>"\n\nYou hasten to help her with whatever minor tasks she thinks she needs you for, until she promptly dismisses you.\n' );
 				}
 				return true;
 			case 7:
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
 					EngineCore.outputText( '\nEmber looks very tired; you\'re surprised she\'s been so active thus far with such a heavy belly.  You approach her, asking her if she needs anything.  "<i>Yes... Umm, could you...</i>" she replies, blushing.  "<i>Could you rub my belly?  It would help me relax,</i>" Ember asks.\n\nYou smile and begin rubbing her belly; while doing so you can feel the egg\'s hard shell stretching Ember.  Ember gives a sigh of relief and begins purring. "<i>Ah, this feels great,</i>" she says, happily.  You continue rubbing her belly, until she closes her eyes and begins snoring lightly.  Upon realizing Ember fell asleep you stop and walk away.  Ember must\'ve been really tired...\n' );
 				} else {
 					EngineCore.outputText( '\nEmber\'s been much less active nowadays, and a single look at her heavily pregnant belly lets you know why.  She is huge!  You\'re surprised she can even move about with a belly as big as that.  Upon closer inspection you\'re pretty sure you can see it squirm as the little dragonling explores its limited territory.\n\n"<i>Hey, [name]. Fetch me some water will you?</i>"\n\nYou decide to be generous and fetch it for her - you wouldn\'t be surprised if she\'s too heavy to get to the stream by herself.  You promptly return with a full skin and present it to her so that she can slake her thirst.\n\nEmber swipes the skin off your hands and chugs it down unceremoniously, sighing in relief once she\'s done.  "<i>Ahhh, that hit the spot, thanks.</i>"  You check to see if there\'s anything else she needs, but when she confirms she\'s fine, you nod your head, sneak a quick caress of her swollen stomach, then leave her alone.\n' );
 				}
 				return true;
 			case 8:
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
-					EngineCore.outputText( '\n\nHer breasts look bloated, and you think you can see a drop of milk leaking from one of her perky nubs.  "<i>Help me drain these,</i>" she says, lifting her milky jugs and letting them fall.\n\nYou ask her if she\'ll have enough for the baby.  "<i>Of course I will, it won\'t need any milk.  At least not until it hatches.  It\'ll take some time until then, and my breasts feel so uncomfortable.  So don\'t question me, just drink it!</i>" she demands' + (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ? ', a blush forming on her cheeks at her request' : '') + '.\n\nYou nod and lay down beside her, gently taking one of her nubs inside your mouth; then you begin suckling.  "<i>Ooooh, yes...  Keep going...  This feels so good,</i>" she moans in equal parts pleasure and relief.\n\nYou\'re happy to oblige, and begin drinking without stopping.  Ember\'s nutritious milk fills you.  ' );
-					if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
-						EngineCore.outputText( 'Her breasts have always been full, but this time there\'s an incredible amount coming out.  She must\'ve been really uncomfortable, and each suckle earns you a jet of milk and a moan of relief from Ember.  You keep at it for a long time; until you\'ve drained one of Ember\'s ripe tits.\n\nThen you move to the other, intent on doing the same, however you feel very full already; you don\'t think you\'ll manage to empty this one.  Ember\'s moans of pleasure and relief push you on. You keep drinking regardless, and before you realize it, her other breast has been drained.\n\n"<i>Ahhh, that feels much better.  I guess you\'re not too bad at making this feel good.</i>" she admits' + (CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ? ', blushing softly' : '') + '. You stifle a burp and smile, then return to your duties.\n' );
+				if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] > 0 ) {
+					EngineCore.outputText( '\n\nHer breasts look bloated, and you think you can see a drop of milk leaking from one of her perky nubs.  "<i>Help me drain these,</i>" she says, lifting her milky jugs and letting them fall.\n\nYou ask her if she\'ll have enough for the baby.  "<i>Of course I will, it won\'t need any milk.  At least not until it hatches.  It\'ll take some time until then, and my breasts feel so uncomfortable.  So don\'t question me, just drink it!</i>" she demands' + (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ? ', a blush forming on her cheeks at her request' : '') + '.\n\nYou nod and lay down beside her, gently taking one of her nubs inside your mouth; then you begin suckling.  "<i>Ooooh, yes...  Keep going...  This feels so good,</i>" she moans in equal parts pleasure and relief.\n\nYou\'re happy to oblige, and begin drinking without stopping.  Ember\'s nutritious milk fills you.  ' );
+					if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+						EngineCore.outputText( 'Her breasts have always been full, but this time there\'s an incredible amount coming out.  She must\'ve been really uncomfortable, and each suckle earns you a jet of milk and a moan of relief from Ember.  You keep at it for a long time; until you\'ve drained one of Ember\'s ripe tits.\n\nThen you move to the other, intent on doing the same, however you feel very full already; you don\'t think you\'ll manage to empty this one.  Ember\'s moans of pleasure and relief push you on. You keep drinking regardless, and before you realize it, her other breast has been drained.\n\n"<i>Ahhh, that feels much better.  I guess you\'re not too bad at making this feel good.</i>" she admits' + (CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ? ', blushing softly' : '') + '. You stifle a burp and smile, then return to your duties.\n' );
 					} else {
 						EngineCore.outputText( 'Soon, you\'ve exhausted one of ther breasts, then you move to the other intent on doing the same; however all too soon she\'s drained and you\'re left wanting more.\n\n"<i>Ahhh, that feels much better.  Good job,</i>" she comments.  You smile back, then return to your duties.\n' );
 					}
@@ -3956,20 +3956,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 
 	EmberScene.prototype.emberGivesBirth = function() {
 		//Ember Gives Live Birth;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 			EngineCore.outputText( '\nA roar interrupts your daily routine and you quickly run to check its source.  You see Ember doubling over and sitting inside her den, her face twisted in pain. She suddenly looks up at you.' );
 			EngineCore.outputText( '\n\n"<i>Great, you\'re here.  It\'s time!  The baby is coming.</i>"' );
 			EngineCore.outputText( '\n\nInstinctively, you try to grab her hand, reassuring her that you\'re here for her and you will do your best to help her.  Ember screams as another contraction hits her and she grips your hand so powerfully you feel like she\'s about to crush it.  You grimace in pain, but do your best to squeeze back just as hard - if only to keep her from breaking your hand.' );
 			EngineCore.outputText( '\n\n"<i>D-don\'t just hold my hand... do something, anything!  This hurts!</i>" Ember yells at you in obvious pain.' );
 			EngineCore.outputText( '\n\nWrenching your hand free of Ember\'s grasp, you take up a position squatting before her.  You can practically see her steely abdominal muscles rippling under her ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'scales' );
 			} else {
 				EngineCore.outputText( 'skin' );
 			}
 			EngineCore.outputText( ' as her womb works to expel its long-time occupant.  You place a hand on either side of the distended orb and begin to massage it, trying to help soothe the strained, aching muscles.  Your eyes go from her stomach to her crotch; her vagina is opened wide as the infant inside her begins making its way into the world.' );
 			if( this.emberHasCock() ) {
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 && CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 && CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
 					EngineCore.outputText( '  Her human-like cock dangles heavily in front of her pussy, partially erect from the muscular spasms.' );
 				} else {
 					EngineCore.outputText( '  Her draconic cock has been pushed from its internal sheathe by the pressure, but it\'s too painful for her to be erect.' );
@@ -3980,14 +3980,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\n"<i>I can feel it... moving... [name]... get a towel ready, it\'s coming!</i>"  Ember roars in pain as the bulge inside her belly makes its way down.  You try to quickly scramble up from your position and run to grab a towel, but Ember has you in a death-grip and won\'t let you go, forcing you to point out you can\'t get a towel while you\'re as tangled as you are.' );
 			EngineCore.outputText( '\n\n"<i>It hurts! Do something [name]!</i>" Ember yells, oblivious to your current state.' );
 			EngineCore.outputText( '\n\nYou struggle and wrestle, but put the thought out of your mind; you can see the ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( 'head crowning' );
 			} else {
 				EngineCore.outputText( 'tip of the muzzle jutting out' );
 			}
 			EngineCore.outputText( ', and you know you won\'t have time.  Instead, you gently reach into Ember\'s pussy, giving her a hand stretching and positioning yourself to catch your baby.  With a rock-rattling roar, Ember\'s final push sends her offspring out of her overstretched snatch and into your hands; a veritable fountain of juices follows suit, painting your hands, arm and face in leftover amniotic fluid.' );
 			EngineCore.outputText( '\n\nHer strength depleted, Ember collapses into a panting heap and you\'re finally free to move.  You wrap your arms around your wriggling offspring, listening to it wail in protest, just like a human infant.  You look down at the fruit of your union and smile; it looks just like its mother, a' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'n anthro dragon' );
 			} else {
 				EngineCore.outputText( ' hybrid of human and dragon' );
@@ -4042,11 +4042,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			}
 			EngineCore.outputText( ' to get some rest, leaving the den.\n' );
 			if( roll < 40 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_MALES ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_MALES ]++;
 			} else if( roll < 80 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_FEMALES ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_FEMALES ]++;
 			} else {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_HERMS ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_HERMS ]++;
 			}
 		}
 		//Ember Lays Egg;
@@ -4057,14 +4057,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nInstinctively, you try to grab her hand, reassuring her that you\'re here for her and you will do your best to help her.  Ember screams as another contraction hits her and she grips your hand so powerfully you feel like she\'s about to crush it.  You grimace in pain, but do your best to squeeze back just as hard - if only to keep her from breaking your hand.' );
 			EngineCore.outputText( '\n\n"<i>D-don\'t just hold my hand... do something, anything!  This hurts!</i>" Ember yells at you in obvious pain.' );
 			EngineCore.outputText( '\n\nWrenching your hand free of Ember\'s grasp, you take up a position squatting before her.  You can practically see her steely abdominal muscles rippling under her ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'scales' );
 			} else {
 				EngineCore.outputText( 'skin' );
 			}
 			EngineCore.outputText( ' as her womb works to expel its long-time occupant.  You place a hand on either side of the distended orb and begin to massage it, trying to help soothe the strained, aching muscles.  Your eyes go from her stomach to her crotch; her vagina is opened wide as the globular egg inside her begins dropping its way into the world.' );
 			if( this.emberHasCock() ) {
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 && CoC.getInstance().flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
+				if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 && CoC.flags[ kFLAGS.EMBER_INTERNAL_DICK ] === 0 ) {
 					EngineCore.outputText( '  Her human cock dangles heavily in front of her pussy, partially erect from the muscular spasms.' );
 				} else {
 					EngineCore.outputText( '  Her draconic cock has been pushed from its internal sheathe by the pressure, but it\'s too painful for her to be erect.' );
@@ -4077,12 +4077,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou struggle and wrestle, but put the thought out of your mind; you can see the rounded shell of the egg poking out of Ember\'s netherlips, and you know you won\'t have time.  Instead, you gently reach into Ember\'s pussy, giving her a hand stretching and positioning yourself to catch your baby.  With a rock-rattling roar, Ember\'s final push sends the egg out of her overstretched snatch and into your hands; a veritable fountain of juices follows suit, painting your hands, arm and face in leftover amniotic fluid.' );
 			EngineCore.outputText( '\n\nYou can\'t pay any attention to the deluge of fluids that has just splattered all over you, though; you\'re trying to cradle the egg without dropping it.  It\'s huge, far bigger than any other egg you\'ve ever seen, and easily comparable in weight to a good-sized toddler.  No wonder Ember was sluggish with this rattling in her belly.  Finally, though, you feel you have comfortably taken hold of it and you stand up, cradling the hard-shelled egg from which, eventually, your offspring will hatch.' );
 			EngineCore.outputText( '\n\nEmber pants, tired from her recent ordeal; and when she\'s had a moment to recover she gazes at you.  Her eyes open wide in admiration of the egg she just laid.  "<i>It\'s beautiful,</i>" Ember says lovingly.  You nod your agreement and place it gently in a nook at a sheltered side of the den' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
 				EngineCore.outputText( ', along with the ' );
-				if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] === 1 ) {
+				if( CoC.flags[ kFLAGS.EMBER_EGGS ] === 1 ) {
 					EngineCore.outputText( 'other' );
 				} else {
-					EngineCore.outputText( Utils.num2Text( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] ) + ' others' );
+					EngineCore.outputText( Utils.num2Text( CoC.flags[ kFLAGS.EMBER_EGGS ] ) + ' others' );
 				}
 			}
 			EngineCore.outputText( ', before telling her that she\'s beautiful too, and your daughters will certainly hatch and grow up to be just as gorgeous as she.' );
@@ -4092,41 +4092,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou allow her to do as she wishes, being sure not to press on her midriff too much; after all, she did just give birth.  You nuzzle affectionately against your dragon lover, glad to take advantage of her willingness to be open with you.  Usually Ember would say something in denial and sprint away.  It\'s quite a relief actually, spending time like this, especially in a world like Mareth.' );
 			EngineCore.outputText( '\n\nYou continue drinking, draining Ember\'s bloated breasts, the cool nutritious milk helps you relax for a spell and forget about your troubles.  Your ordeals are forgotten for the moments you find yourself drifting off, guided into the land of dreams by Ember\'s soft purring - or is it snoring?  You can\'t tell, and it doesn\'t matter right now...' );
 			EngineCore.outputText( '\n\nYou wake up a short while later.  Ember\'s breasts are completely drained of their milk, and your belly is bulging a bit from the amount you\'ve drank.  Ember sleeps softly under you.  Gently you extract yourself from Ember\'s embrace - a difficult task, considering Ember\'s tail is intent on holding you like a boa constrictor.  Eventually though, you manage to withdraw yourself from its insistent grip and slowly sneak out of the den.\n' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ]++;
+			CoC.flags[ kFLAGS.EMBER_EGGS ]++;
 		}
-		CoC.getInstance().player.createStatusAffect( StatusAffects.EmberNapping, 12, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.EmberNapping, 12, 0, 0, 0 );
 	};
 
 	EmberScene.prototype.giveBirthToEmberKids = function() {
 		var roll = Utils.rand( 100 );
 		EngineCore.outputText( '\n' );
 		//PC Gives Live Birth;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] === 0 ) {
 			//40% chance of boy, 40% chance of girl and 20% chance of both;
 			//(If the PC has no pussy);
-			if( !CoC.getInstance().player.hasVagina() ) {
+			if( !CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'A terribly painful ripping feeling comes from your crotch. Reaching down to touch the tender spot you feel a spike of pleasure and moistness.  <b>You\'ve grown a vagina!</b>\n\n' );
-				CoC.getInstance().player.createVagina();
+				CoC.player.createVagina();
 			}
 			EngineCore.outputText( 'You find yourself doubling over - well, as far as you can given your hugely gravid stomach, letting out a hollow cry of pain.  You can feel the muscles in your midriff starting to squeeze and ripple in a fashion you just know signifies the onset of labor.  You cry out for Ember to come and attend you.  Ember rushes towards you in a blur, stopping mere inches from you, panting.  "<i>What is it?  Is it time!?  Are you in labor!?</i>" ' + this.emberMF( 'he', 'she' ) + ' asks in a hurry.  You nod and tell ' + this.emberMF( 'him', 'her' ) + ' that you are.' );
 			EngineCore.outputText( '\n\nEmber wastes no time, ' + this.emberMF( 'he', 'she' ) + ' hefts you into ' + this.emberMF( 'his', 'her' ) + ' arms and takes you to ' + this.emberMF( 'his', 'her' ) + ' den, gently setting you down on the soft leaves; then ' + this.emberMF( 'he', 'she' ) + ' starts undressing you, stripping your [armor] as quickly as ' + this.emberMF( 'he', 'she' ) + ' can.  "<i>Okay, Okay...  What do you need?  W-what should I do!?  Do you need anything!?  How are you feeling!?</i>" Ember asks in panic, the excitement of what\'s about to happen too much to bear for the dragon' + this.emberMF( '-boy', '-girl' ) + '.' );
 			EngineCore.outputText( '\n\nYou grit out between your teeth that you are feeling very sore, and what you want is for ' + this.emberMF( 'him', 'her' ) + ' to help you somewhere comfortable so you can get this slithering snake of a baby out of your guts - preferably before he or she kicks his-her way out straight through your belly rather than coming down the birth canal!' );
 			EngineCore.outputText( '\n\n"<i>Okay!  Right!</i>" Ember hurries off to fetch a bunch of clean cloths, then spreads them all over the leafy grass of ' + this.emberMF( 'his', 'her' ) + ' den.  ' + this.emberMF( 'He', 'She' ) + ' carefully helps you onto them and spreads your legs, kneeling between them.  "<i>I\'m going to try something... tell me how you\'re feeling.</i>"' );
 			EngineCore.outputText( '\n\nEmber lowers ' + this.emberMF( 'his', 'her' ) + ' head towards your quivering vagina, ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'slowly pushing your [balls]' );
-			} else if( CoC.getInstance().player.hasCock() ) {
+			} else if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'slowly pushing your ' + Descriptors.multiCockDescriptLight() );
 			}
-			if( CoC.getInstance().player.balls > 0 || CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.balls > 0 || CoC.player.hasCock() ) {
 				EngineCore.outputText( ' out of ' + this.emberMF( 'his', 'her' ) + ' way, ' );
 			}
 			EngineCore.outputText( 'then ' + this.emberMF( 'he', 'she' ) + ' blows softly on your contracting love-hole, slowly extending ' + this.emberMF( 'his', 'her' ) + ' tongue to penetrate you.' );
 			EngineCore.outputText( '\n\nYou moan in equal parts pleasure and pain, telling ' + this.emberMF( 'him', 'her' ) + ' that ' + this.emberMF( 'his', 'her' ) + ' treatment feels good and is soothing.  "<i>Please, keep going,</i>" you plead.  You ask if ' + this.emberMF( 'he', 'she' ) + ' can try to massage your stomach as well, to help relax the tension in your muscles.' );
 			EngineCore.outputText( '\n\nEmber complies, digging deeper into your searing hot canal.  One of ' + this.emberMF( 'his', 'her' ) + ' clawed hands gently reaches out to touch the slithering bulge within your belly, massaging you as best as ' + this.emberMF( 'he', 'she' ) + ' can.  Slowly but steadily, the baby dragon within you starts making its way down your birth canal, stretching you out as it seeks freedom.' );
-			CoC.getInstance().player.cuntChange( 80, true, true, false );
+			CoC.player.cuntChange( 80, true, true, false );
 			EngineCore.outputText( '\n\nYou strain with all your might, drawing on wells of inner strength you weren\'t even sure you had, hovering ' );
-			if( CoC.getInstance().player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
 				EngineCore.outputText( 'deliciously ' );
 			}
 			EngineCore.outputText( 'on the boundary between pleasure and pain.  You aren\'t sure how much more you can take.' );
@@ -4141,7 +4141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'She' );
 			}
 			EngineCore.outputText( ' was getting hungry and I didn\'t know what to do,</i>" Ember explains.' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 				EngineCore.outputText( '  "<i>I tried to feed ' );
 				if( roll < 40 ) {
 					EngineCore.outputText( 'him' );
@@ -4205,70 +4205,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( ' coos, giggles and nuzzles into your neck, clearly happy to be here in the real world at last.' );
 			EngineCore.outputText( '\n\n"<i>I\'ll tend to the little one, you can just rest for a while longer,</i>" Ember offers, taking the cute little dragon up in ' + this.emberMF( 'his', 'her' ) + ' arms.  You sigh and nod your head gratefully, then lay back down to get some more rest.\n' );
 			if( roll < 40 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_MALES ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_MALES ]++;
 			} else if( roll < 80 ) {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_FEMALES ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_FEMALES ]++;
 			} else {
-				CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_HERMS ]++;
+				CoC.flags[ kFLAGS.EMBER_CHILDREN_HERMS ]++;
 			}
 		}
 		//PC Lays Egg;
 		else {
 			//(If the PC has no pussy);
-			if( !CoC.getInstance().player.hasVagina() ) {
+			if( !CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'A terribly painful ripping feeling comes from your crotch. Reaching down to touch the tender spot you feel a spike of pleasure and moistness.  <b>You\'ve grown a vagina!</b>\n\n' );
-				CoC.getInstance().player.createVagina();
+				CoC.player.createVagina();
 			}
 			EngineCore.outputText( 'You find yourself doubling over - well, as far as you can given your hugely gravid stomach, letting out a hollow cry of pain.  You can feel the muscles in your midriff starting to squeeze and ripple in a fashion you just know signifies the onset of labor.  You cry out for Ember to come and attend you.  Ember rushes towards you in a blur, stopping mere inches from you, panting.  "<i>What is it? Is it time!? Are you ready to lay!?</i>" ' + this.emberMF( 'he', 'she' ) + ' asks in a hurry.  You nod and tell ' + this.emberMF( 'him', 'her' ) + ' that you are.' );
 			EngineCore.outputText( '\n\nEmber wastes no time - ' + this.emberMF( 'he', 'she' ) + ' hefts you into ' + this.emberMF( 'his', 'her' ) + ' arms and takes you to ' + this.emberMF( 'his', 'her' ) + ' den, gently setting you down on the soft leaves.  Then ' + this.emberMF( 'he', 'she' ) + ' starts undressing you, stripping your [armor] as quickly as ' + this.emberMF( 'he', 'she' ) + ' can.  "<i>Okay, Okay...  What do you need?  W-what should I do!?  Do you need anything!?  How are you feeling!?</i>" Ember asks in panic, the excitement of what\'s about to happen too much to bear for the dragon' + this.emberMF( '-boy', '-girl' ) + '.' );
 			EngineCore.outputText( '\n\nYou grit out between your teeth that you are feeling very sore, and what you want is for ' + this.emberMF( 'him', 'her' ) + ' to help you somewhere comfortable so you can get this huge damn egg out of you.' );
 			EngineCore.outputText( '\n\n"<i>Okay! Right!</i>" Ember hurries off to fetch a bunch of clean cloths; then spreads them all over the leafy grass of ' + this.emberMF( 'his', 'her' ) + ' den.  Carefully, ' + this.emberMF( 'he', 'she' ) + ' helps you on them and spreads your [legs], kneeling between them.  "<i>I\'m going to try something...  Tell me how you\'re feeling.</i>"' );
 			EngineCore.outputText( '\n\nEmber lowers ' + this.emberMF( 'his', 'her' ) + ' head towards your quivering [vagina], ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'slowly pushing your [balls]' );
-			} else if( CoC.getInstance().player.hasCock() ) {
+			} else if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'slowly pushing your ' + Descriptors.multiCockDescriptLight() );
 			}
-			if( CoC.getInstance().player.balls > 0 || CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.balls > 0 || CoC.player.hasCock() ) {
 				EngineCore.outputText( ' out of ' + this.emberMF( 'his', 'her' ) + ' way, ' );
 			}
 			EngineCore.outputText( 'then ' + this.emberMF( 'he', 'she' ) + ' blows softly on your contracting love-hole, slowly extending ' + this.emberMF( 'his', 'her' ) + ' tongue to penetrate you.' );
 			EngineCore.outputText( '\n\nYou moan in equal parts pleasure and pain, telling ' + this.emberMF( 'him', 'her' ) + ' that ' + this.emberMF( 'his', 'her' ) + ' treatment feels good and is soothing. "<i>Please, keep going,</i>" you plead.  You ask if ' + this.emberMF( 'he', 'she' ) + ' can try to massage your stomach as well, to help relax the tension in your muscles.' );
 			EngineCore.outputText( '\n\nEmber complies, digging deeper into your searing hot canal; one of ' + this.emberMF( 'his', 'her' ) + ' clawed hands, gently reach out to the protruding bulge within your belly, massaging you as best as ' + this.emberMF( 'he', 'she' ) + ' can.  Slowly but steadily, the draconic egg within you starts making its way down your birth canal, stretching you out as it seeks freedom.' );
 			EngineCore.outputText( '\n\nYou strain with all your might, drawing on wells of inner strength you weren\'t even sure you had, hovering ' );
-			if( CoC.getInstance().player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
 				EngineCore.outputText( 'deliciously ' );
 			}
 			EngineCore.outputText( 'on the boundary between pleasure and pain.  You aren\'t sure how much more you can take.' );
 			EngineCore.outputText( '\n\nEmber suddenly withdraws ' + this.emberMF( 'his', 'her' ) + ' tongue and screams in joy, "<i>I can see it! Push [name]!  You\'re almost done!</i>"' );
 			EngineCore.outputText( '\n\nWith one last hollow groan, you push as hard as you can, desperate to be free of the burdensome egg.  There is a sudden sensation as though you are being turned inside out, and then a wonderfully, blissfully numb sensation.  You slump down, drained and exhausted.' );
-			CoC.getInstance().player.cuntChange( 80, true, true, false );
+			CoC.player.cuntChange( 80, true, true, false );
 			EngineCore.outputText( '\n\n"<i>...you... all right?...</i>" You faintly hear Ember asking you.  You look into ' + this.emberMF( 'his', 'her' ) + ' eyes and manage to nod weakly.  Ember\'s worried face turns to one of relief, ' + this.emberMF( 'he', 'she' ) + ' calmly tends to the egg while waiting for you to rest for a little while, licking it over to clean it from the fluids that came with and on the egg.' );
 			EngineCore.outputText( '\n\nYou watch ' + this.emberMF( 'him', 'her' ) + ' as ' + this.emberMF( 'he', 'she' ) + ' tends to it, and faintly ask who\'ll be responsible for keeping it safe until it hatches.  "<i>Don\'t worry about that, [name].  I\'ll care for the egg.  For now, just rest,</i>" Ember replies, leaning down to give you a little peck on the forehead.' );
 			EngineCore.outputText( '\n\nYou nod wearily, lie back and close your eyes, letting yourself drift off into slumber to escape the weariness of your worn, ravaged body.' );
 			EngineCore.outputText( '\n\nYou\'re not certain how long you were sleeping for when you finally regain consciousness.  You wake, though, to the most wonderful sensations emanating from your ' + Descriptors.nippleDescript( 0 ) + ', and the feel of soft hands caressing and squeezing your [chest].  You open your eyes and find Ember leaning over you, greedily nursing ' + this.emberMF( 'himself', 'herself' ) + ' from your milk.  You can\'t resist asking what ' + this.emberMF( 'he', 'she' ) + '\'s doing.' );
 			EngineCore.outputText( '\n\nEmber ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( 'blushes and ' );
 			}
 			EngineCore.outputText( 'withdraws, licking ' + this.emberMF( 'his', 'her' ) + ' lips of a stray droplet of milk.  "<i>Sorry, it\'s just that you looked so full, and all that milk would\'ve been wasted...  So, I thought I could help myself, not that I\'ve been wanting to drink your milk or anything like that.</i>"' );
 			EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' that it\'s only polite to ask first.  Still, you\'re happy to let ' + this.emberMF( 'him', 'her' ) + ' drink ' + this.emberMF( 'his', 'her' ) + ' fill.  It does make your breasts feel so much better.  Ember slowly makes ' + this.emberMF( 'his', 'her' ) + ' way back to your awaiting nipples to resume ' + this.emberMF( 'his', 'her' ) + ' drinking.' );
 			EngineCore.outputText( '\n\nYou lay back and enjoy it, waiting for ' + this.emberMF( 'him', 'her' ) + ' to drink ' + this.emberMF( 'his', 'her' ) + ' fill.  When ' + this.emberMF( 'he', 'she' ) + ' is finally done, Ember gives you a small peck on the cheek and says, "<i>Thanks for the milk.  You should rest a while longer, and I\'m sorry I woke you up.</i>"' );
 			EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' that it\'s fine.  Then, you give ' + this.emberMF( 'him', 'her' ) + ' a wry grin and tell ' + this.emberMF( 'him', 'her' ) + ' it\'s probably good practice for when the egg' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
 				EngineCore.outputText( 's hatch' );
 			} else {
 				EngineCore.outputText( ' hatches' );
 			}
 			EngineCore.outputText( ', anyway.  The dragon ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( 'blushes and then ' );
 			}
 			EngineCore.outputText( 'scurries away, even as you pull yourself upright and get ready to go about your business.\n' );
-			CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ]++;
+			CoC.flags[ kFLAGS.EMBER_EGGS ]++;
 		}
-		CoC.getInstance().player.createStatusAffect( StatusAffects.EmberNapping, 5, 0, 0, 0 );
-		CoC.getInstance().player.genderCheck();
+		CoC.player.createStatusAffect( StatusAffects.EmberNapping, 5, 0, 0, 0 );
+		CoC.player.genderCheck();
 	};
 	//Requirements (Either);
 	//1 Lust Draft,;
@@ -4280,12 +4280,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//Note: This scene is meant for Tainted Ember after you've been through the lost dragon city dungeon. While we do not have the dungeon and post-quest Ember, this scene may be accessed from regular Ember's pool of scenes if her affection is High.;
 	EmberScene.prototype.highAffectionEmberLustFuck = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		var x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You strip your [armor] and watch Ember as ' + this.emberMF( 'he', 'she' ) + ' appraises your naked body.  You can see ' + this.emberMF( 'his', 'her' ) );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' dragon cock ' );
 			if( this.emberInternalDick() ) {
 				EngineCore.outputText( 'poking out of ' + this.emberMF( 'his', 'her' ) + ' protective slit' );
@@ -4293,15 +4293,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 				EngineCore.outputText( 'growing erect' );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( ' her pussy beginning to drip in excitement' );
 		}
 		EngineCore.outputText( '.' );
-		EngineCore.outputText( '\n\n"<i>Mmm... now that\'s a view and a half; just look at you... what a gorgeous ' + CoC.getInstance().player.mf( 'man', 'girl' ) + ', with such ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		EngineCore.outputText( '\n\n"<i>Mmm... now that\'s a view and a half; just look at you... what a gorgeous ' + CoC.player.mf( 'man', 'girl' ) + ', with such ' );
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'a wonderful ' + Descriptors.cockDescript( 0 ) );
 		} else {
 			EngineCore.outputText( ' wonderful cocks' );
@@ -4309,54 +4309,54 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '... and you\'re all mine, here and now,</i>" ' + this.emberMF( 'he', 'she' ) + ' croons appreciatively, giving you a lewd wink and flick of ' + this.emberMF( 'his', 'her' ) + ' tongue.  "<i>Still, while I\'m enjoying the view, don\'t keep a ' + this.emberMF( 'guy', 'girl' ) + ' in suspense; what do you have planned?</i>" ' + this.emberMF( 'he', 'she' ) + ' asks, tail flicking from side to side in an amused manner.' );
 		EngineCore.outputText( '\n\nYou tell ' + this.emberMF( 'him', 'her' ) + ' you were thinking of giving your dragon mate a proper fucking.  Maybe the two of you could use that book ' + this.emberMF( 'he', 'she' ) + ' picked up from the library.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'He', 'She' ) + ' stares at you, clearly dumbstruck.  If it was possible for a dragon to blush, ' + this.emberMF( 'he\'d', 'she\'d' ) + ' be blushing, but the ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( 'stiffness of ' + this.emberMF( 'his', 'her' ) + ' cock' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'the slickness of her pussy' );
 		}
 		EngineCore.outputText( ', combined with ' + this.emberMF( 'his', 'her' ) + ' general body language, makes it quite clear ' + this.emberMF( 'he', 'she' ) + ' likes what you\'re saying.  Spinning on ' + this.emberMF( 'his', 'her' ) + ' heel, ' + this.emberMF( 'he', 'she' ) + ' walks away, waggling that ass of ' + this.emberMF( 'his', 'hers' ) + ' as ' + this.emberMF( 'he', 'she' ) + ' goes for your appreciation.  As quickly as possible without actually running, ' + this.emberMF( 'he', 'she' ) + ' returns with the book in question and holds it up.  "<i>So... what poses do you have in mind?</i>" ' + this.emberMF( 'he', 'she' ) + ' trills, anxious to hear what\'s on your mind.' );
 		//1st time:;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_EMBER_LUSTY_FUCKED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_EMBER_LUSTY_FUCKED ] === 0 ) {
 			EngineCore.outputText( '\n\nYou smile and take the offered book, flipping through a few pages and showing the ones that you like the most to Ember.' );
 			EngineCore.outputText( '\n\n"<i>Little more specific, please, my mate; I can see that you favor those, but you still haven\'t told me which one we\'re doing,</i>" ' + this.emberMF( 'he', 'she' ) + ' says, playfully rolling her eyes at your silliness.' );
 			EngineCore.outputText( '"<i>All of them,</i>" you state.' );
 			EngineCore.outputText( '\n\nAn incredulous stare greets you.  Eventually, Ember manages to pick ' + this.emberMF( 'his', 'her' ) + ' jaw off the ground.  "<i>A-all of them!?</i>" ' + this.emberMF( 'he', 'she' ) + ' blurts.  You simply nod.' );
 			EngineCore.outputText( '\n\n"<i>Well, I\'m all for it, but are you <b>sure</b> you have what it takes to perform all of these, one after the other, hmm?</i>" Ember says, rolling ' + this.emberMF( 'his', 'her' ) + ' eyes in good-natured exasperation.' );
 			//if PC has Libido or Min Lust requirements fulfilled:;
-			if( CoC.getInstance().player.lib >= 50 || CoC.getInstance().player.minLust() >= 40 ) {
+			if( CoC.player.lib >= 50 || CoC.player.minLust() >= 40 ) {
 				EngineCore.outputText( '\n\nYou\'re pretty confident in your libido, the real question is if ' + this.emberMF( 'he', 'she' ) + '\'ll have what it takes.' );
 			} else {
 				EngineCore.outputText( '\n\nEven if you can\'t, stamina won\'t be a problem.  You casually rummage through your pouches and fetch a vial of Lust Draft, displaying it to the dragon.' );
-				CoC.getInstance().player.consumeItem( ConsumableLib.L_DRAFT );
+				CoC.player.consumeItem( ConsumableLib.L_DRAFT );
 			}
 		} else {
 			EngineCore.outputText( '\n\n"<i>I\'m guessing somebody wants to try and handle all of the poses in one session again, hmm?</i>" ' + this.emberMF( 'he', 'she' ) + ' laughs, looking quite pleased at the prospect.' );
 			EngineCore.outputText( '\n\nYou nod' );
-			if( CoC.getInstance().player.lib < 50 && CoC.getInstance().player.minLust() < 40 ) {
+			if( CoC.player.lib < 50 && CoC.player.minLust() < 40 ) {
 				EngineCore.outputText( ', grabbing a vial of Lust Draft from your pouches' );
-				CoC.getInstance().player.consumeItem( ConsumableLib.L_DRAFT );
+				CoC.player.consumeItem( ConsumableLib.L_DRAFT );
 			}
 			EngineCore.outputText( '.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_EMBER_LUSTY_FUCKED ]++;
+		CoC.flags[ kFLAGS.TIMES_EMBER_LUSTY_FUCKED ]++;
 		EngineCore.outputText( '\n\n"<i>Well, it\'s a dragon\'s duty to sate each and every need ' + this.emberMF( 'his', 'her' ) + ' mate may have... Not that I\'m not going to be enjoying every minute of it,</i>" ' + this.emberMF( 'he', 'she' ) + ' croons, long tongue slithering into the air in a lewd slurping gesture.  ' + this.emberMF( 'He', 'She' ) + ' turns and starts walking towards ' + this.emberMF( 'his', 'her' ) + ' den, the tip of ' + this.emberMF( 'his', 'her' ) + ' long, prehensile tail running its sensitive underside teasingly under your chin, slowly sliding off of you as ' + this.emberMF( 'he', 'she' ) + ' walks away and disappears into the opening.' );
 		EngineCore.outputText( '\n\nYou follow after ' + this.emberMF( 'his', 'her' ) + ', feeling yourself get even harder at what you\'re about to do.' );
 		EngineCore.outputText( '\n\nEmber has already made ' + this.emberMF( 'him', 'her' ) + 'self comfortable, laying flat on ' + this.emberMF( 'his', 'her' ) + ' back, ' + this.emberMF( 'his', 'her' ) + ' wings outspread amidst the leaves for stability, ' + this.emberMF( 'his', 'her' ) + ' legs lifted up in front of ' + this.emberMF( 'him', 'her' ) + ' with hands wrapped around the curled crooks of ' + this.emberMF( 'his', 'her' ) + ' knees to hold them out of the way.' );
 		//If Ember is male:;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>I... um... well, the postures you\'ve shown me are kind of meant more for a female dragon in the receiving position, but since I\'m a boy you\'ll kind of have to... er... use what I do have,</i>" he looks away in shame, though whether it\'s due to what he\'s trying to say or at the fact he lacks the parts that the poses are for is hard to say.  He swivels one arm to use his hand to spread apart his ass-cheeks, letting you get a clear look at his anus; the invitation is obvious.' );
 			EngineCore.outputText( '\n\nYou lean over beside the embarrassed dragon and put a hand over his shoulder, then promise him to make him feel good and that you\'ll be gentle.' );
 			EngineCore.outputText( '\n\nEmber looks embarrassed as he can get without blushing, then smiles happily and stares up at you with a doting smile.  His tongue slicks out to lick your cheek in an affectionate gesture.' );
-			EngineCore.outputText( '\n\nYou get yourself in position and align your shaft with the dragon\'s puckered hole.  You hump a few times experimentally; each time your ' + CoC.getInstance().player.cockHead( x ) + ' bumps against his tight ass and threatens to push past his sphincter, the dragon gasps.  You would be worried if his gaze wasn\'t so lusty and expectant.' );
+			EngineCore.outputText( '\n\nYou get yourself in position and align your shaft with the dragon\'s puckered hole.  You hump a few times experimentally; each time your ' + CoC.player.cockHead( x ) + ' bumps against his tight ass and threatens to push past his sphincter, the dragon gasps.  You would be worried if his gaze wasn\'t so lusty and expectant.' );
 			EngineCore.outputText( '\n\n"<i>P-please, stop teasing; go on.  Oh, I want you inside me so badly...</i>" he tells you in a stage-whisper, his voice husky with want.' );
 			EngineCore.outputText( '\n\nYou look into his eyes and smile, slowly pressing into his tight boy-pussy and spreading his cheeks with your girth.  Ember moans, arches his back and growls with delight, ass already clenching eagerly around your invading ' + Descriptors.cockDescript( x ) + '.  A few more humps and you feel yourself go as far inside his ass as possible.' );
 			EngineCore.outputText( '\n\n"<i>Oh... oh, Marae, I feel so full, so stuffed with my mate\'s cock... it feels great,</i>" he moans, though you\'re well aware of the tinge of pain in his voice, the grimace of discomfort on his face.' );
 			EngineCore.outputText( '\n\nConsidering what he has ahead of himself, you hope he won\'t be too sore by the time you\'re done.' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Alright, my mate; I hope you\'ll find my body as pleasing as I\'ll find yours - use me until we\'re both as sated as we can be,</i>" she says, giggling and giving you a girlish pout at her words.' );
 			EngineCore.outputText( '\n\nThat\'s exactly what you intend to do.  You run a hand over her ass, gently fingering her wet pussy with your thumb.  She lets out a humming noise of appreciation, shivering gently, but stays quiet and still, brushing your [leg] with her long, smooth tail.' );
 			EngineCore.outputText( '\n\nYou remove your thumb and show it to her.  It is dripping wet, much like her love-hole.  A small droplet falls from your thumb to hit her on her clit, causing the wet lake held within her nethers to finally flood with her arousal, leaking all over the grass inside her den.' );
@@ -4364,7 +4364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nYou chuckle at her reaction and align yourself with her entrance, then begin pushing yourself in.  You moan, her depths are so hot... even though her body temperature is usually slightly lower than yours.  She must\'ve been really turned on.  She moans ecstatically, and her legs quiver as she fights the urge to wrap them around you and squeeze you tightly between them, trapping you into sliding your cock into her to the very hilt.' );
 			EngineCore.outputText( '\n\nYou slide inch after inch inside her pussy with deliberate slowness, trying to savor every second of the journey down her depths.  It\'s not until you cannot go any further that you stop.' );
 			EngineCore.outputText( '\n\nYour ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'she-dragon' );
 			} else {
 				EngineCore.outputText( 'dragon-girl' );
@@ -4375,7 +4375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//else if Ember has a pussy and the PC more than one cock:;
 		else {
 			EngineCore.outputText( '\n\nEmber\'s eyes are fixated on [eachCock], and she swallows softly.  Embarrassed, she says, "<i>P-perhaps you\'d like to use ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'both' );
 			} else {
 				EngineCore.outputText( 'two' );
@@ -4386,25 +4386,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.outputText( '\n\nIt is kind of funny, seeing the dragon\'s attempt at giving you pleading eyes... but also undeniably cute.  How could you refuse such a request!' );
 			EngineCore.outputText( '\n\nYou lean over, giving her a quick peck on her lips and then look down at her wet pussy.  Slowly you run a hand over her ass, pressing a teasing finger into her opening.  She croons and swishes her tail appreciatively at the attention.  A thin stream of juice runs down her succulent netherlips and down her crack, over her ass.  You finger her a little more and pull out to probe her little pucker.  At this she makes a quiet little noise, wriggling at the pressure, but otherwise doesn\'t complain.' );
 			EngineCore.outputText( '\n\nYour slick fingers push inside her without trouble, despite her involuntary attempts at resisting.  Slowly you finger her ass, making sure she\'s nice and slick for your shafts.  A lewd moan crawls up from the depths of her throat, the dampness of her cunt as it dribbles lubricants down her crack' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ', not to mention the stiffness of her dick' );
 			}
 			EngineCore.outputText( ', making it obvious she\'s ready.  "<i>Oh, my mate... Please, fill me now!  Quit teasing me and just shove your cocks up your dragon\'s ready holes, jam them in as far as they can fit!</i>" she pleads, but unable to meet your eyes in her embarrassment at her dirty talk.' );
 			EngineCore.outputText( '\n\nYou have the urge to do just that, but you\'d also like to savor it.  You align your shafts with her ready holes and begin pushing in.  It\'s a strange, but pleasant, feeling.  Her ass tries to reject the intruding advances of your ' + Descriptors.cockDescript( x ) + ', while her pussy seems intent on pulling your other ' + Descriptors.cockDescript( x ) + ' in.  It only takes a couple insistent humps before you pierce the barrier formed by her sphincter and penetrate her ass.' );
 			EngineCore.outputText( '\n\nEmber cries out, her whole body quivering in delight, both holes squeezing and clenching as they try to suck you inside' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ', cock dribbling precum onto her belly' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nThe feeling of having ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'both ' );
 			} else {
 				EngineCore.outputText( 'two of ' );
 			}
 			EngineCore.outputText( 'your cocks enveloped in slick tightness and warmth is almost enough to make you fill her up with your seed right then and there, but somehow you manage to hold on.' );
 			EngineCore.outputText( '\n\nYour ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'she-dragon' );
 			} else {
 				EngineCore.outputText( 'dragon-girl' );
@@ -4413,16 +4413,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( '\n\nYou take Ember\'s legs and support them over your shoulders.  This allows you to hug around them and slide your hips even closer to ' + this.emberMF( 'him', 'her' ) + '.  Eyes glittering with wanton lust, unabashed in ' + this.emberMF( 'his', 'her' ) + ' naked desire for you, the dragon braces ' + this.emberMF( 'him', 'her' ) + 'self against the leafy bedding of ' + this.emberMF( 'his', 'her' ) + ' den and waits for you to begin, fingers rustling through the leaves and grass.' );
 		EngineCore.outputText( '\n\nYou begin humping away, slowly at first, but quickly speeding your tempo until the cave is flooded with the noise of your crotch slapping against ' + this.emberMF( 'his butt', 'her soft folds' ) + '.  Ember groans and gasps, thrusting ' + this.emberMF( 'his', 'her' ) + ' ass back against you, ' + this.emberMF( 'his ass', 'her cunt' ) );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and ass' );
 		}
 		EngineCore.outputText( ' rippling and squeezing your intruding member' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nHearing your dragon mate\'s moans of approval you redouble your efforts at pistoning into ' + this.emberMF( 'him', 'her' ) + ', giving that tight ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'vagina' );
 		} else {
 			EngineCore.outputText( 'ass' );
@@ -4430,9 +4430,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ' of ' + this.emberMF( 'his', 'hers' ) + ' the pounding it deserves.' );
 		EngineCore.outputText( '\n\n"<i>C-come on... cum into me, please!  Fill me with your seed!</i>" Ember gasps, pleading with you.' );
 		EngineCore.outputText( '\n\nYou penetrate ' + this.emberMF( 'him', 'her' ) + ' once, twice and finally hilt as much of your ' + Descriptors.cockDescript( x ) + ' as you can inside ' + this.emberMF( 'his', 'her' ) );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( ' slick pussy' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' and tight ass' );
 			}
 		} else {
@@ -4440,32 +4440,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		}
 		EngineCore.outputText( ' and blow your load.' );
 		EngineCore.outputText( '\n\nEmber howls exultantly as your steaming load gushes inside of ' + this.emberMF( 'him', 'her' ) + '.  ' + this.emberMF( 'His', 'Her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'cunt shudders, splashing femcum all over your intruding shaft' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ', and her ' );
 			} else {
 				EngineCore.outputText( ', ' );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'cock erupts, spraying draconic cum up into the air to rain back down upon ' + this.emberMF( 'his', 'her' ) + ' body, spattering ' + this.emberMF( 'him', 'her' ) + ' in ' + this.emberMF( 'his', 'her' ) + ' own juices and ' );
 		}
 		EngineCore.outputText( 'leaving ' + this.emberMF( 'him', 'her' ) + ' gasping for breath as the climax ebbs away.' );
 		EngineCore.outputText( '\n\nThe two of you pant in unison, it takes only a few moments of getting your breath back before you pull out of ' + this.emberMF( 'his', 'her' ) + ' hole' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', letting a satisfying stream of white mat the leaves below.  You smile at Ember, shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' still flagging above ' + this.emberMF( 'him', 'her' ) + '.' );
 		EngineCore.outputText( '\n\n"<i>Still not satisfied?</i>" ' + this.emberMF( 'he', 'she' ) + ' croons, tenderly brushing your cheek.  Then ' + this.emberMF( 'his', 'her' ) + ' lips curl into a wicked, fang-baring grin.  "<i>Good.  Neither am I.  Time for round two...</i>"  ' + this.emberMF( 'He', 'She' ) + ' wriggles about under you, repositioning ' + this.emberMF( 'him', 'her' ) + 'self so that ' + this.emberMF( 'he', 'she' ) + ' is on ' + this.emberMF( 'his', 'her' ) + ' hands and knees, tail curled back out of the way and looking over ' + this.emberMF( 'his', 'her' ) + ' shoulder under ' + this.emberMF( 'his', 'her' ) + ' wing at you.  "<i>Well?  What are you waiting for, an engraved invitation?</i>" ' + this.emberMF( 'he', 'she' ) + ' teases you.  A shake of the hips makes it quite clear ' + this.emberMF( 'he', 'she' ) + ' is expecting you to take ' + this.emberMF( 'him', 'her' ) + ' from behind, now.' );
 		EngineCore.outputText( '\n\nYou caress ' + this.emberMF( 'his', 'her' ) + ' tail, as ' + this.emberMF( 'he', 'she' ) + ' wraps it lovingly around you, and then unceremoniously drive yourself back into ' + this.emberMF( 'his', 'her' ) + ' still loose ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'ass' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'pussy' );
 		} else {
 			EngineCore.outputText( 'holes' );
@@ -4473,9 +4473,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ' with a squelch.  It feels so good... taking ' + this.emberMF( 'him', 'her' ) + ' one time after the other.' );
 		EngineCore.outputText( '\n\n"<i>Ughhh... lean over, grab hold of me around the belly,</i>" the dragon instructs you, groaning in desire at being filled so.  You do as ' + this.emberMF( 'he', 'she' ) + ' tells you, squeezing with all your strength.  "<i>Not that tight, dummy!</i>" ' + this.emberMF( 'he', 'she' ) + ' snaps back, tail lightly slapping against your forehead in chastisement.  You utter an apology and loosen your grip.  "<i>Oh, yeah, that\'s much better... now, hump away, or I\'m going to start humping you myself,</i>" ' + this.emberMF( 'he', 'she' ) + ' says, ' + this.emberMF( 'his', 'her' ) + ' smirk blatant in ' + this.emberMF( 'his', 'her' ) + ' voice.' );
 		EngineCore.outputText( '\n\nYou start at a steady rhythm.  Ember moans below you, ' + this.emberMF( 'his', 'her' ) + ' chest vibrating with ' + this.emberMF( 'his', 'her' ) + ' rumbling purr.  ' + this.emberMF( 'He', 'She' ) + ' moves in tandem with your own thrusts, helping you drive in and out of ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'ass' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'pussy' );
 		} else {
 			EngineCore.outputText( 'holes' );
@@ -4483,44 +4483,44 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '.  The wet squelching of your hips slapping against each other resounds in the den, much to your enjoyment.  "<i>Mmm, so good... but, can\'t you go any harder?  Come on, my mate; I\'m a dragon, not some powderpuff princess type - this is one ' + this.emberMF( 'guy', 'princess' ) + ' who can most definitely take it,</i>" ' + this.emberMF( 'he', 'she' ) + ' growls to you in ' + this.emberMF( 'his', 'her' ) + ' pleasure, moaning lewdly and clenching you with each stroke inside of ' + this.emberMF( 'him', 'her' ) + '.' );
 		EngineCore.outputText( '\n\nYou do as ' + this.emberMF( 'he', 'she' ) + ' suggests and begin driving yourself in and out of ' + this.emberMF( 'him', 'her' ) + ' with more intensity.  "<i>Harder!  Give it to me harder!</i>" ' + this.emberMF( 'he', 'she' ) + ' snaps.  You redouble your efforts, huffing with each hip-shaking thrust into your dragon mate.  "<i>Ah!  Just like that.  Show me that you own me, just like I own you.  Ugh!  Show me what a powerful champion you are.  Hmm!  So powerful that you can bend over a dragon like me and fuck me silly.  [name], I love you so much...</i>" ' + this.emberMF( 'he', 'she' ) + ' trails off into a rumbling purr.  Enflamed by ' + this.emberMF( 'his', 'her' ) + ' encouraging words you grip ' + this.emberMF( 'him', 'her' ) + ' with all your might and thrust into ' + this.emberMF( 'him', 'her' ) + '.  You\'d be worried about hurting ' + this.emberMF( 'him', 'her' ) + ' if it weren\'t for ' + this.emberMF( 'his', 'her' ) + ' lewd moans at your roughness as ' + this.emberMF( 'he', 'she' ) + ' does ' + this.emberMF( 'his', 'her' ) + ' best to push back against you.' );
 		EngineCore.outputText( '\n\nYou feel something pop inside you, and you lean over the moaning dragon below, biting ' + this.emberMF( 'his', 'her' ) + ' back as you ejaculate inside once more.  Spurt after spurt of cum jets inside ' + this.emberMF( 'his', 'her' ) + ' willing hole' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 1 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 1 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  The dragon lets out an exultant cry as ' + this.emberMF( 'his', 'her' ) + ' cum-slimed ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'ass squeezes' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'pussy squeezes' );
 		} else {
 			EngineCore.outputText( 'holes squeeze' );
 		}
 		EngineCore.outputText( ' you, milking your ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'shaft as his cock spurts dragon-seed onto the leaves below him, filling the air with the scent of spunk and matting them into a steaming morass.' );
 		}
 		//{twin shafts} as {her cunt spasms wetly, drenching your lap with fresh femcum} {and/or} {[her] cock spurts dragon-seed onto the leaves below {her}, filling the air with the scent of spunk and matting them into a steaming morass};
 		else {
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'shaft as her cunt spasms wetly, drenching your lap with fresh femcum' );
 			} else {
 				EngineCore.outputText( 'twin shafts as her cunt spasms wetly, drenching your lap with fresh femcum' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and her cock spurts dragon seed onto the leaves below her, filling the air with the scent of spunk and matting them into a steaming morass' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '  Groaning and moaning like a whore, the dragon\'s wings beat, sending  cool air wafting over your overheating bodies before ' + this.emberMF( 'he', 'she' ) + ' slumps onto the ground, barely able to hold ' + this.emberMF( 'him', 'her' ) + 'self upright.  "<i>...So good...</i>"  Ember pants.  "<i>I... uh... are you sure you want... round three?</i>" ' + this.emberMF( 'he', 'she' ) + ' asks, sounding a little tired as ' + this.emberMF( 'he', 'she' ) + ' does, obviously not sure if you\'ll manage it.' );
 		//if PC has libido/lust:;
-		if( CoC.getInstance().player.lib >= 50 || CoC.getInstance().player.minLust() >= 40 ) {
+		if( CoC.player.lib >= 50 || CoC.player.minLust() >= 40 ) {
 			EngineCore.outputText( '\n\nYou\'re not quite satisfied yet.  You look down at [oneCock], watching it throb, still as hard as when you first started fucking Ember.  "<i>You-you\'re not sated yet?</i>" Ember asks in awe, ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her cunt starting to drip' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' cock growing hard again' );
 			}
 			EngineCore.outputText( ' at the sight, equally impressed and aroused by your prodigious appetite for sex.  You did say you were going to give ' + this.emberMF( 'him', 'her' ) + ' the fucking ' + this.emberMF( 'he', 'she' ) + ' deserves.  Ember smiles tenderly at hearing that, then growls throatily as ' + this.emberMF( 'he', 'she' ) + ' stares at you with both parts adoration and lust.  "<i>Well, in that case...</i>"' );
@@ -4528,43 +4528,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		//Else:;
 		else {
 			EngineCore.outputText( '\n\nWell, you don\'t feel like ' + this.emberMF( 'he', 'she' ) + '\'s gotten the fucking ' + this.emberMF( 'he', 'she' ) + ' deserves just yet.  Besides, you did come prepared.  You take hold of your vial.  Ember smiles tenderly at you.  "<i>You don\'t have to go to such lengths for me, you know?  Still, I\'m glad you like fucking me so much.</i>"  You smile back and pop the cork, downing the draft in one big chug.  Ember watches in amazement as [eachCock] goes back into a raging erection.  As the dragon watches, ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her cunt starts to drip with moisture' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 				EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' cock begins to grow erect again' );
 			}
 			EngineCore.outputText( ', amazement giving way to arousal.  ' + this.emberMF( 'He', 'She' ) + ' licks ' + this.emberMF( 'his', 'her' ) + ' lips with ' + this.emberMF( 'his', 'her' ) + ' inhuman tongue, clearly eager to begin again.' );
 		}
 		EngineCore.outputText( '\n\nEmber crawls over towards you, gripping the base of your shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.player.cockTotal() > 1 && CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' tenderly yet firmly, stroking you slowly.  "<i>I can\'t believe how hot I get when I see you sporting ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'this' );
 		} else {
 			EngineCore.outputText( 'these' );
 		}
 		EngineCore.outputText( '.  It\'s just so... intoxicating... your scent, the way you look at me, everything really.</i>"  You pat Ember\'s head' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 || CoC.flags[ kFLAGS.EMBER_HAIR ] > 0 ) {
 			EngineCore.outputText( ', ruffling ' + this.emberMF( 'his ', 'her ' ) );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.EMBER_HAIR ] >= 2 ) {
 				EngineCore.outputText( 'mane' );
 			} else {
 				EngineCore.outputText( 'hair' );
 			}
 		}
 		EngineCore.outputText( '.  ' + this.emberMF( 'He', 'She' ) + ' leans against your hand, hugging your midriff and letting your shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' brush against ' + this.emberMF( 'his', 'her' ) + ' cheek.' );
 		EngineCore.outputText( '\n\nThe dragon smiles at you, and then Ember opens ' + this.emberMF( 'his', 'her' ) + ' mouth, letting ' + this.emberMF( 'his', 'her' ) + ' inhuman tongue slither out and out.  With lovingly lavish strokes it slides up and down your [cock biggest]\'s length, cleaning it of your ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 0 ) {
 			EngineCore.outputText( 'mingled ' );
 		}
 		EngineCore.outputText( 'fluids before sinuously coiling around it like a snake, surrounding you in cool, slick, velvet.  Insistently it begins to slide back into ' + this.emberMF( 'his', 'her' ) + ' mouth, taking your cock along for the ride until the dragon closes ' + this.emberMF( 'his', 'her' ) + ' mouth, enveloping your shaft in the process, and starts to suckle eagerly, ' + this.emberMF( 'his', 'her' ) + ' tongue caressing and squeezing inside as ' + this.emberMF( 'he', 'she' ) + ' does so.' );
@@ -4572,71 +4572,71 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( '\n\nEmber slurps and sucks loudly and lewdly, her tongue continuing its dance around your dick, but then it uncoils and ' + this.emberMF( 'he', 'she' ) + ' pulls off with a wet pop, her fingers gently stroking the sensitive flesh, blowing a ticklish breeze over it with ' + this.emberMF( 'his', 'her' ) + ' lips.' );
 		EngineCore.outputText( '\n\n"<i>Do you like it?  When I blow you?</i>" ' + this.emberMF( 'he', 'she' ) + ' looks up at you expectantly.  It\'s hard not to like it when ' + this.emberMF( 'he', 'she' ) + ' does such a fine job.  At this ' + this.emberMF( 'he', 'she' ) + ' smiles.  "<i>I\'m glad you like it.  I really like your taste, you know?</i>"  Ember gets up and walks towards the far wall of the den, sticking ' + this.emberMF( 'his', 'her' ) + ' ass out and swaying ' + this.emberMF( 'his', 'her' ) + ' tail enticingly.  ' + this.emberMF( 'He', 'She' ) + ' looks back lovingly at you and blows you a ring of smoke, blowing a straight line through its center shortly after.  "<i>I\'m ready...</i>" ' + this.emberMF( 'he', 'she' ) + ' whispers.' );
 		EngineCore.outputText( '\n\nYou advance on ' + this.emberMF( 'him', 'her' ) + ', roughly gripping ' + this.emberMF( 'his', 'her' ) + ' butt and spreading ' + this.emberMF( 'his', 'her' ) + ' cheeks, as you plunge yourself back into ' + this.emberMF( 'his', 'her' ) + ' ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'depths' );
 		} else {
 			EngineCore.outputText( 'nethers' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and depths' );
 		}
 		EngineCore.outputText( '.  "<i>Ahn.  D-deeper...</i>"  You hook your arm under ' + this.emberMF( 'his', 'her' ) + ' knee and pull ' + this.emberMF( 'his', 'her' ) + ' leg up, nearly throwing the dragon off balance.  "<i>Ah!  D-do you like it when I let you take charge?  Ugh- oh!  Well, I think maybe I kind of like letting you be in charge, too...</i>"  You barely pay attention to ' + this.emberMF( 'his', 'her' ) + ' teasing remarks, instead focusing on exploring ' + this.emberMF( 'his', 'her' ) + ' cummy ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'ass' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'pussy' );
 		} else {
 			EngineCore.outputText( 'love-holes' );
 		}
 		EngineCore.outputText( '.  "<i>Uhn... yes...  take me again.</i>"  ' + this.emberMF( 'He', 'She' ) + ' lets ' + this.emberMF( 'his', 'her' ) + ' tongue loll out as ' + this.emberMF( 'he', 'she' ) + ' pants in pleasure.' );
 		EngineCore.outputText( '\n\nMoans fit to make a whore blush spill from Ember\'s throat as ' + this.emberMF( 'he', 'she' ) + ' eagerly grinds and thrusts against you.  ' + this.emberMF( 'His', 'Her' ) + ' inner walls grip and squeeze around ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'both of your dicks' );
 		} else {
 			EngineCore.outputText( 'your dick' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( ', moisture drenching the cock buried in her cunt as it slobbers greedily across your burning flesh.' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  ' + this.emberMF( 'His', 'Her' ) + ' cock throbs and pulsates, ripples of arousal giving way to cumvein-bulging jets that shoot from ' + this.emberMF( 'his', 'her' ) + ' prick to splatter wetly against the wall.' );
 		}
 		EngineCore.outputText( '  Wobbling unsteadily, the dragon becomes increasingly dependent on you to hold ' + this.emberMF( 'him', 'her' ) + ' upright - a climax is coming, and it looks like it\'s going to be big...' );
 		EngineCore.outputText( '\n\nYou release ' + this.emberMF( 'his', 'her' ) + ' leg and grab ' + this.emberMF( 'him', 'her' ) + ' by ' + this.emberMF( 'his', 'her' ) + ' midriff, pulling ' + this.emberMF( 'him', 'her' ) + ' against you and letting ' + this.emberMF( 'him', 'her' ) + ' literally fall into your arms, penetrating your dragon mate deeper than ever.  With a thunderous roar that rattles off of the walls of ' + this.emberMF( 'his', 'her' ) + ' den, Ember cums, ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( this.emberMF( 'his', 'her' ) + ' cock fountaining seed across the wall, practically whitewashing it in steaming hot dragon-spunk' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her cunt gushing female ejaculate, almost soaking you with the cascade of feminine fluids and puddling wetly against your [feet]' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nEmber\'s orgasm forces your own.  You spew wave after wave of liquid love into ' + this.emberMF( 'his', 'her' ) + ' used ' );
 
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( 'ass' );
-		} else if( CoC.getInstance().player.cockTotal() === 1 ) {
+		} else if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'pussy' );
 		} else {
 			EngineCore.outputText( 'love-holes' );
 		}
 		EngineCore.outputText( ', feeling the excess slide out around your cock' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  "<i>Ahh... more seed from my lover...</i>" ' + this.emberMF( 'he', 'she' ) + ' whispers, nearly passing out from the pleasure.  You feel yourself grow dizzy with pleasure and tumble onto the soft grass covering the den\'s floor, bringing Ember along.  Your dick' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 && CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' slide' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' out of ' + this.emberMF( 'his', 'her' ) + ' with a wet slurp, allowing your deposit to leak its way under your prone forms.' );
 		EngineCore.outputText( '\n\nYou both take a few moments to catch your breath, before Ember rolls over to look at you.  ' + this.emberMF( 'He', 'She' ) + ' extends a clawed hand to lightly brush your cheek.  "<i>[name]... you really know how to make a dragon feel loved...</i>"  You return the gesture, telling ' + this.emberMF( 'him', 'her' ) + ' it\'s easy when a dragon seems to love you just as much.  Ember smiles adoringly at you.  "<i>Hey, can I ask you something, [name]?</i>"  You indicate that it\'s okay.  "<i>I want to be with you... hold you for a little while... is it okay if we do that?</i>"' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -5 );
 		//[Yes] [No];
 		EngineCore.menu();
@@ -4650,7 +4650,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Ember that you can\'t stay, you have to get going now.  ' + this.emberMF( 'He', 'She' ) + ' looks a bit disappointed, but forces ' + this.emberMF( 'him', 'her' ) + 'self to smile all the same.  "<i>I understand, you have other things to do... just know that I\'ll always be here for you, for better or worse.</i>"  You ' );
 		//50 or less Corruption:;
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'thank her for being so understanding' );
 		} else {
 			EngineCore.outputText( 'grunt an acknowledgement' );
@@ -4661,27 +4661,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	//[=Yes=];
 	EmberScene.prototype.stayWithEmberAfterLustFuck = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		var x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'With a smile, you tell ' + this.emberMF( 'him', 'her' ) + ' that you\'d be happy to.  "<i>Great, come here...</i>" ' + this.emberMF( 'he', 'she' ) + ' croons, scooting over towards you.  You open your arms and allow the dragon to snuggle up against you, folding your arms comfortably under ' + this.emberMF( 'his', 'her' ) + ' wings.' );
 		//If Ember is male:;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
-			EngineCore.outputText( '\n\nAs you embrace each other, you feel something stirring against your ' + CoC.getInstance().player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>" he states, quite flustered at his reaction.  [OneCock] growing erect, brushing against his, serves as your answer.' );
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+			EngineCore.outputText( '\n\nAs you embrace each other, you feel something stirring against your ' + CoC.player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>" he states, quite flustered at his reaction.  [OneCock] growing erect, brushing against his, serves as your answer.' );
 			EngineCore.outputText( '\n\nEmber trembles at the contact, electrical waves of pleasure coursing through his body as your members touch.  "<i>T-That felt good!</i>" he exclaims, humping slightly to rub your shafts together once more.  "<i>Yes...  [name], how about we rub one off together this time?  I like how naughty this feels; besides my ass is still pretty sore and I can\'t hold you if you take me from behind...</i>"' );
 			EngineCore.outputText( '\n\nYou can\'t see any reason not to, and tell him so.' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.frottingWithEmber );
 		}
 		//else if Ember is female:;
-		else if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
 			EngineCore.outputText( '\n\nEmber hugs you tightly, pressing you against her bosom.  You enjoy the feel of the dragon\'s ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 				EngineCore.outputText( 'milk-filled ' );
 			}
 			EngineCore.outputText( 'breasts against you, soft, smooth, and slightly cooler than you are.  You just enjoy each other for awhile, until you feel your shaft stir once more.  Ember\'s nostrils flare for a moment and she smiles knowingly at you.  "<i>Haven\'t had enough of me yet?</i>"  You turn the question back on her, asking if she\'s saying she\'s had enough of you.  "<i>I can safely say that I can never have enough of you... I\'m soaking wet already.</i>"  The dragon' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( '-girl' );
 			}
 			EngineCore.outputText( ' takes your hand and presses it against her wet quim.  Your fingers instinctively move, sliding themselves over and slightly into the damp netherlips.  "<i>Ooh... that feels nice... but know what would feel even better?</i>" she asks teasingly as she strokes your side.  Playfully, you ask her what that might be.' );
@@ -4690,10 +4690,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.penetrateWithEmber );
 		} else {
-			{  //if Ember is herm you embrace each other, you feel something stirring against your ' + CoC.getInstance().player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>"  She states, quite flustered at her reaction.  Your own [cock biggest] growing erect, brushing against hers, serves as your answer.");
+			{  //if Ember is herm you embrace each other, you feel something stirring against your ' + CoC.player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>"  She states, quite flustered at her reaction.  Your own [cock biggest] growing erect, brushing against hers, serves as your answer.");
 			}
 			EngineCore.outputText( '\n\nEmber trembles at the contact, electrical waves of pleasure coursing through her body as your members touch.  "<i>T-That felt good!</i>" she exclaims humping slightly to rub your shafts together once more.  "<i>This feels so good I\'m getting even wetter down there,</i>"  The herm dragon' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 				EngineCore.outputText( '-girl' );
 			}
 			EngineCore.outputText( ' states, idly rubbing your cocks together.  One of your hands slips down between the two of you, sliding over the ridged surface of the herm dragon\'s cock before pressing itself against her well-used quim; sure enough, it\'s already drooling eagerly at the prospect of being filled again.' );
@@ -4718,7 +4718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 	};
 	//Frotting:;
 	EmberScene.prototype.frottingWithEmber = function( clear ) {
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		if( clear === undefined || clear ) {
 			EngineCore.clearOutput();
 		} else {
@@ -4727,43 +4727,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( 'Ember thrusts against your shaft; the ridges of ' + this.emberMF( 'his', 'her' ) + ' dick stimulate your ' + Descriptors.cockDescript( x ) + ' and you moan at the feeling.  "<i>Come on, [name].  Are you going to make me do all the work?</i>" ' + this.emberMF( 'he', 'she' ) + ' teases you.  You slowly stroke your shaft against ' + this.emberMF( 'his', 'hers' ) + ', asking just what ' + this.emberMF( 'he', 'she' ) + ' has in mind; wasn\'t ' + this.emberMF( 'he', 'she' ) + ' planning on taking a breather?' );
 		EngineCore.outputText( '\n\n"<i>I\'m always ready to pleasure my mate... besides, I can still hug you while we hump each other,</i>" Ember says, grabbing you into a hug and pulling you tightly against ' + this.emberMF( 'his', 'her' ) + 'self, mashing your shafts together.' );
 		//if PC and Ember are male:;
-		if( CoC.getInstance().player.gender === 1 && CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
+		if( CoC.player.gender === 1 && CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Sometimes I wonder what other dragons would say... I\'m supposed to breed and birth a new generation of dragons into Mareth.  Yet here am I fooling around with a guy...</i>" he smirks at you.  "<i>But heck if I care, I love you too much to let this bother me anymore... besides maybe if we try real hard you can still get me pregnant?  Or maybe you\'d prefer I got you pregnant?</i>"  You roll your eyes and kiss him, though it fails to wipe the smirk from his face.' );
 		}
 
 		EngineCore.outputText( '\n\nHaving your shaft pressed so tightly between the two of you stimulates your sensitive member enough that you can\'t help but drool pre on both your bellies.  Ember is much ahead of you, however.  ' + this.emberMF( 'His', 'Her' ) + ' cock dribbles slickness, lubing your bellies up and easing the contact between your shafts, making it even easier to hump against ' + this.emberMF( 'his', 'her' ) + '.' );
 		EngineCore.outputText( '\n\n"<i>Hmm... yeah... use my shaft to get yourself off.  And get me off too, you sexy beast, you.</i>"  The dragon' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( this.emberMF( '-boy', '-girl' ) );
 		}
 		EngineCore.outputText( '\'s overly long tongue sticks out as pleasure overrides ' + this.emberMF( 'his', 'her' ) + ' senses.  You groan as you slide your cock against Ember\'s, the thought occurring to you that this is going to be pretty messy when the inevitable comes, but you are too overwhelmed to actually say so.' );
 		EngineCore.outputText( '\n\nAs if reading your mind, Ember says, "<i>Just enjoy yourself and don\'t worry about any mess.  I\'ll clean everything up later.  Ah!  Besides, it\'s a dragon\'s duty to clean after their mate.</i>"  Plus a dragon\'s pleasure to enjoy making the mess, you suggest.' );
 		EngineCore.outputText( '\n\nEmber doesn\'t bother wasting time with idle chatter anymore, ' + this.emberMF( 'he', 'she' ) + ' embraces you tightly against ' + this.emberMF( 'him', 'her' ) + 'self and begins truly thrusting against your slickened belly, not caring that ' + this.emberMF( 'his', 'her' ) + ' pre seems to be pooling between the two of you.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( '  Her moist dragon pussy is not helping the mess in the least.  You can smell her femcum pooling along with her pre.' );
 		}
 
 		EngineCore.outputText( '\n\nYou match the dragon thrust for thrust and hump for hump, mewling softly; it\'s not like fucking a hole, but it\'s certainly not without its charms.  You can feel that wonderful pressure building inside you for the fourth time, and gasp to Ember that climax is close.  "<i>Don\'t hold anything back...</i>" ' + this.emberMF( 'he', 'she' ) + ' whispers, kissing you deeply.' );
 		EngineCore.outputText( '\n\nWith a moan and a gasp, you do as ' + this.emberMF( 'he', 'she' ) + ' says, letting the pleasure wash over you and spilling seed over the dragon\'s belly, twitching as the sparks fly through your nerves.  Ember breaks the kiss and roars as ' + this.emberMF( 'his', 'her' ) + ' own shaft joins yours in making a mess of both your bellies.  Sighing with relief as the last of it ebbs out of you, instinctively you snuggle against the slimy form of your draconic lover, holding ' + this.emberMF( 'his', 'her' ) + ' closer as the last of your orgasm seeps out of you and smears you both in semen.' );
 		EngineCore.outputText( '\n\nEmber breaks the hug and scoots back, sitting against the den\'s wall.  You keep watching ' + this.emberMF( 'him', 'her' ) + ' as ' + this.emberMF( 'his', 'she' ) + ' scoops some of your cum from ' + this.emberMF( 'his', 'her' ) + ' own body and uses it to stroke ' + this.emberMF( 'him', 'her' ) + 'self into another, weaker, climax.  A couple of weak ropes of jism spurt from ' + this.emberMF( 'his', 'her' ) + ' tapered tip to fall weakly on the ground before ' + this.emberMF( 'him', 'her' ) + '.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] >= 2 ) {
 			EngineCore.outputText( '  Her other hand frigs her pussy as she comes down from her orgasm, gushing female juices and leaking some of the cum you\'ve pumped into her earlier.' );
 		}
 
 		EngineCore.outputText( '\n\nThe dragon' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( this.emberMF( '-boy', '-girl' ) );
 		}
 		EngineCore.outputText( ' uses what strength ' + this.emberMF( 'he', 'she' ) + ' still has to crawl over to you and slide back between your arms.  "<i>Sorry, just had to get that last bit out of my system.</i>"  ' + this.emberMF( 'He', 'She' ) + ' yawns lowdly.  "<i>[name]?  How about a quick nap?</i>"  ' + this.emberMF( 'He', 'She' ) + ' asks not even bothering to hear your reply before exhaustion gets ' + this.emberMF( 'his', 'her' ) + ' and ' + this.emberMF( 'he', 'she' ) + ' falls asleep, snoring lightly.  You smile at ' + this.emberMF( 'him', 'her' ) + ' and stroke ' + this.emberMF( 'his', 'her' ) );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 0 && CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 0 && CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( ' head' );
-		} else if( CoC.getInstance().flags[ kFLAGS.EMBER_HAIR ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.EMBER_HAIR ] === 2 ) {
 			EngineCore.outputText( ' mane' );
 		} else {
 			EngineCore.outputText( ' hair' );
 		}
 		EngineCore.outputText( ' before allowing yourself to also fall asleep.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		//EngineCore.doNext(14);;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.emberJizzbangbangEnding );
@@ -4775,87 +4775,87 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
-		var x = CoC.getInstance().player.cockThatFits( this.emberVaginalCapacity() );
+		var x = CoC.player.cockThatFits( this.emberVaginalCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( '"<i>Go on.</i>"  She moves her arms around you and into a hug.  "<i>Enter me.</i>"  With no further prelude needed, you slide yourself into the damp interior of her cunt, the organ eagerly accepting you back for the fourth time.' );
 		EngineCore.outputText( '\n\nEmber embraces you tightly, caressing your sides with her clawed hand, always careful not to hurt you.  "<i>This feels so right... but do try to be gentle, I\'m still a bit sore from earlier,</i>" she croons, kissing your cheek.  You gently play with her breasts' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( ', milk seeping across your fingers,' );
 		}
 		EngineCore.outputText( ' and promise you will, sliding slowly in until you have hilted yourself yet again.' );
 		EngineCore.outputText( '\n\nThe dragon' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( '-girl' );
 		}
 		EngineCore.outputText( ' moans at your ministrations' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( ', her draconic prick pressing tightly against you as it leaks a steady stream of pre, matting ' );
-			if( CoC.getInstance().player.biggestTitSize() > 1 ) {
+			if( CoC.player.biggestTitSize() > 1 ) {
 				EngineCore.outputText( 'your [chest], ' );
 			}
 			EngineCore.outputText( 'your belly' );
-			if( CoC.getInstance().player.biggestTitSize() > 1 ) {
+			if( CoC.player.biggestTitSize() > 1 ) {
 				EngineCore.outputText( ',' );
 			}
 			EngineCore.outputText( ' and Ember\'s own.' );
 		}
 		EngineCore.outputText( '  "<i>Do you like playing with my body?</i>"  Ember asks, gazing at you through half-lidded eyes.  You give her a playful smirk and run your fingers expertly over her nipples, making her moan and mewl at the stimulation and saying more than mere words could on the matter.' );
 		EngineCore.outputText( '\n\n"<i>I\'m happy you enjoy my body... but did you know I enjoy yours too?  And I enjoy it a... lot...</i>"  She whispers into your ear, licking around it with her elongated tongue.  Her roaming hands find ' );
-		if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( 'the base of your tail, tugging lightly on it and stroking it for a moment, then her hands move on to ' );
 		}
 		EngineCore.outputText( 'your [butt], grabbing the ' );
 		EngineCore.outputText( 'cheeks.  You wriggle appreciatively under her grip, making it clear she\'s not half bad at this herself.  The she-dragon giggles at your compliment, coiling her tail around your [legs].  "<i>I haven\'t even started playing with you properly yet, my mate, and you\'re already excited...</i>"  She clicks her tongue in mock reproval.  "<i>You\'re such a pervert aren\'t you, [name]?  Lucky for us, you are <b>my</b> pervert, and I enjoy being played with a lot... so go ahead and toy with my body as much as you want.  I\'ll make sure to return the favor,</i>" she purrs lovingly, sliding her hands back up your back, ' );
-		if( CoC.getInstance().player.wingType > AppearanceDefs.WING_TYPE_NONE ) {
-			EngineCore.outputText( 'stopping momentarily to stroke along your ' + CoC.getInstance().player.wingDesc + ' wings before continuing up and ' );
+		if( CoC.player.wingType > AppearanceDefs.WING_TYPE_NONE ) {
+			EngineCore.outputText( 'stopping momentarily to stroke along your ' + CoC.player.wingDesc + ' wings before continuing up and ' );
 		}
 		EngineCore.outputText( 'stopping at the back of your head.' );
 		EngineCore.outputText( '\n\nSlowly she guides you towards one of her erect nipples.  "<i>' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( 'Drink my milk, I\'ve been saving it up specially for you,' );
 		} else {
 			EngineCore.outputText( 'I may not have any milk in my breasts right now, but maybe if you keep suckling I\'ll be able to make you some,' );
 		}
 		EngineCore.outputText( '</i>" Ember teases you.  You smile at her and accept the nipple, rolling it between your lips and exerting gentle, teasing pressure with your teeth.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( '  You savor the resultant gush of sweet dragon\'s milk as it squirts obediently down your throat.' );
 		}
 
 		EngineCore.outputText( '\n\n"<i>Hmm... that feels nice.  Just... don\'t forget what\'s the priority here.</i>"  She bucks against your cock, still firmly lodged inside her.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  A small dollop of pre escapes Ember\'s dragon-dick at the pleasure of the movement.' );
 		}
 		EngineCore.outputText( '  "<i>And don\'t forget about my other breast either.</i>"  She takes your hand in her own and guide it to her other mound, helping you knead it.' );
 		EngineCore.outputText( '\n\nYou squeeze her tit as she clearly wants you to, caressing the firm-yet-soft flesh.  As you do so, you suckle teasingly at her other nipple, ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( 'allowing milk to spill into your mouth and gulp down sweet load after load, ' );
 		}
 		EngineCore.outputText( 'listening to her moan softly in pleasure from your actions, feeling her netherlips rippling around your ' + Descriptors.cockDescript( x ) + '.  Your nursing is suddenly interrupted when you\'re pulled off Ember\'s breasts and into a deep kiss.  The dragon-girl shoves her tongue inside your mouth, exploring it in detail' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			EngineCore.outputText( ', not even caring that she\'s tasting her own milk as you finish gulping it down' );
 		}
 		EngineCore.outputText( '.  You kiss her back as eagerly as you can until lack of air forces you to break the kiss and catch your breath.' );
 		EngineCore.outputText( '\n\n"<i>I love you so much, [name].  Cum for me...</i>" she nuzzles you.  You couldn\'t resist her even if you wanted to, your over-sensitive dick spasming as you empty yourself for the third time into her well-used pussy.  Your climax triggers Ember\'s own, the dragon' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 			EngineCore.outputText( '-girl' );
 		}
 		EngineCore.outputText( ' roaring towards the ceiling, then turning to look at you as her pussy constricts and milks you for all you\'re worth.  Already spent from your past three orgasms, you just sit back and enjoy yourself being milked by her strong vaginal muscles one last time.' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nA mere trickle is all that leaves you, having already exhausted your supply from the last two climaxes' );
-		} else if( CoC.getInstance().player.cumQ() < 500 ) {
+		} else if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nAlthough already well-milked by this point, your load is still big enough to compare to a normal climax, adding a few more good-sized jets to the cock-cream already stretching her belly into a slight paunch' );
 		} else {
 			EngineCore.outputText( '\n\nWith your prodigious output, whilst your load is vastly smaller than normal, it\'s still much bigger than any normal man\'s first time, leaving Ember moaning as her already swollen belly gains another couple of inches, looking well and truly "ready to pop any day now"-pregnant' );
 		}
 		EngineCore.outputText( '.' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '  Her draconic cock throbs all the way through your orgasm, shooting blanks a few times before spurting a couple ropes of pre onto her belly.' );
 		}
 
 		EngineCore.outputText( '\n\nThe two of you collapse into each other\'s arms.  You move to pull out, but Ember stops you by holding your hips in place.  "<i>Leave it inside... that\'s where it belongs.</i>"  She smiles at you, panting a bit.  Too tired and happy to argue, you simply nod your head, rest against her, and allow sleep to claim you. You\'re dimly aware of Ember doing the same thing before you fade.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		//EngineCore.doNext(14);;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.emberJizzbangbangEnding );
@@ -4865,7 +4865,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You moan as consciousness returns, dimly aware of something wet and cool wrapped around your dick, something firm and muscular wrapped around and squeezing you in the most pleasant of ways.  You open your eyes and sit up, allowing you to see Ember kneeling before you, mouth wrapped eagerly around your cock.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'He', 'She' ) + ' looks up and smiles as well as ' + this.emberMF( 'he', 'she' ) + ' can around your cock.  Inside ' + this.emberMF( 'his', 'her' ) + ' mouth you can feel ' + this.emberMF( 'his', 'her' ) + ' tongue wrapping tightly around you, like a snake, then ' + this.emberMF( 'he', 'she' ) + ' sucks sharply, slurping on your dick like a fancy treat.  Any thoughts you might have had about speaking to ' + this.emberMF( 'him', 'her' ) + ' are lost as you gasp and spasm, firing a last sizable spurt of cum into the dragon\'s sucking mouth.  Ember is surprised at first, but quickly takes you in as far as ' + this.emberMF( 'he', 'she' ) + ' can and lets you shoot straight into ' + this.emberMF( 'his', 'her' ) + ' throat.  ' + this.emberMF( 'His', 'Her' ) + ' tongue laps around your shaft, tasting you before ' + this.emberMF( 'he', 'she' ) + ' pulls off slowly, letting some of your seed gather in ' + this.emberMF( 'his', 'her' ) + ' mouth.  You moan when ' + this.emberMF( 'he', 'she' ) + ' moves away, letting the cold wind bat against your sensitive shaft.  ' + this.emberMF( 'He', 'She' ) + ' opens her ' );
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 			EngineCore.outputText( 'maw' );
 		} else {
 			EngineCore.outputText( 'mouth' );
@@ -4873,10 +4873,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancySto
 		EngineCore.outputText( ', letting you see the whiteness on ' + this.emberMF( 'his', 'her' ) + ' tongue, before tipping ' + this.emberMF( 'his', 'her' ) + ' head back and gulping it down, licking ' + this.emberMF( 'his', 'her' ) + ' lips and moaning as if ' + this.emberMF( 'he', 'she' ) + ' was tasting a fine wine.  "<i>Thanks for the snack, my mate.</i>" ' + this.emberMF( 'He', 'She' ) + ' croons at you, a teasing expression on ' + this.emberMF( 'his', 'her' ) + ' face.' );
 		EngineCore.outputText( '\n\n' + this.emberMF( 'He', 'She' ) + ' really does enjoy ' + this.emberMF( 'his', 'her' ) + ' sessions with you, doesn\'t ' + this.emberMF( 'he', 'she' ) + '?  "<i>What do you think?</i>"  ' + this.emberMF( 'He', 'She' ) + ' grins.  "<i>Still, I can see I picked quite a virile mate.  To be able to cum after all the sex we had previously?  You really are something else, my mate...</i>"  ' + this.emberMF( 'He', 'She' ) + ' licks ' + this.emberMF( 'his', 'her' ) + ' lips and gets up.' );
 		//if Ember has a dick (male/herm):;
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
+		if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 ) {
 			EngineCore.outputText( '\n\n"<i>I doubt I\'d be able to even get an erection after the last session.</i>"  Then what\'s that bobbing between ' + this.emberMF( 'his', 'her' ) + ' legs, you note sarcastically, pointing at the erection Ember is most definitely sporting of ' + this.emberMF( 'his', 'her' ) + ' own accord.' );
 			EngineCore.outputText( '\n\n"<i>Umm... okay, maybe I can still get hard, but I surely can\'t cum anymore.</i>"  You look at the dragon and tap your fingers, waiting for the sheepish ' );
-			if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.EMBER_ROUNDFACE ] === 0 ) {
 				EngineCore.outputText( 'anthro' );
 			} else {
 				EngineCore.outputText( 'monster-' + this.emberMF( 'boy', 'girl' ) );

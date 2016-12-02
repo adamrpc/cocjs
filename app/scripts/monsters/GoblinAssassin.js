@@ -38,29 +38,29 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 			}
 		}
 		//Dodge chance!;
-		if( (CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.getInstance().player.spe / 5) ) {
+		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			EngineCore.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		}
 		//Get hit!;
 		//Temporary heat;
 		if( color === 'red' ) {
 			EngineCore.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
+			if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 			}
 		}
 		//Green poison;
 		if( color === 'green' ) {
 			EngineCore.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
+			if( CoC.player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
 			}
 		}
 		//sticky flee prevention;
 		if( color === 'white' ) {
 			EngineCore.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
+			if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 			}
 		}
 		//Increase fatigue;
@@ -78,12 +78,12 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		if( Combat.combatMiss() || Combat.combatEvade() ) {
 			//Miss: ;
 			EngineCore.outputText( '\nYou’ve already prepared, however, as you hold your breath and grab the goblin by her sides. Unhindered by her advance, you take the opportunity to move backwards, throwing the goblin off balance and leaving you only faintly smelling of her pussy.' );
-			EngineCore.dynStats( 'lus', Utils.rand( CoC.getInstance().player.lib / 10 ) + 4 );
+			EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 10 ) + 4 );
 		}
 		//Hit: ;
 		else {
 			EngineCore.outputText( '\nYou’re far too distracted to notice the needle injected into the back of your neck, but by the time she flips back into her original position you already feel the contents of the syringe beginning to take effect.' );
-			EngineCore.dynStats( 'lus', Utils.rand( CoC.getInstance().player.lib / 4 ) + 20 );
+			EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 4 ) + 20 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -98,8 +98,8 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		else {
 			EngineCore.outputText( '\nBefore you can do anything to stop her, she lifts her head and takes a swift lick of your crotch, taking a small moan from you and giving her enough time to stab into the back of your knees. She rolls out of the way just as you pluck the two needles out and throw them back to the ground. They didn’t seem to have anything in them, but the pain is enough to make you stagger.' );
 			//(Medium HP loss, small lust gain);
-			var damage = Math.ceil( (this.str + this.weaponAttack + 40) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			var damage = Math.ceil( (this.str + this.weaponAttack + 40) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 		}
 		Combat.combatRoundOver();
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		EngineCore.outputText( '\nYou shield yourself from the explosion, though the goblin has already lit a second needle which she throws behind you, launching your body forwards as it explodes behind your back. ' );
 		//(High HP loss, no lust gain);
 		var damage = 25 + Utils.rand( 75 );
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		SceneLib.goblinAssassinScene.gobboAssassinRapeIntro();
 	};
 	GoblinAssassin.prototype.won = function() {
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You collapse in front of the goblin, too wounded to fight.  She growls and kicks you in the head, making your vision swim. As your sight fades, you hear her murmur, "<i>Fucking dicks can\'t even bother to grow a dick or cunt.</i>"', false );
 			Combat.cleanupAfterCombat();
 		} else {

@@ -7,16 +7,16 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	angular.extend(Doppleganger.prototype, Monster.prototype);
 	Doppleganger.prototype.mirrorAttack = function( damage ) {
 		this.createStatusAffect( StatusAffects.MirroredAttack, 0, 0, 0, 0 );
-		EngineCore.outputText( 'As you swing your [weapon] at the doppleganger, ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' smiles mockingly, and mirrors your move exactly, lunging forward with ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' duplicate ' + this.weaponName + '.' );
+		EngineCore.outputText( 'As you swing your [weapon] at the doppleganger, ' + CoC.player.mf( 'he', 'she' ) + ' smiles mockingly, and mirrors your move exactly, lunging forward with ' + CoC.player.mf( 'his', 'her' ) + ' duplicate ' + this.weaponName + '.' );
 		// Cribbing from combat mechanics - if the number we got here is <= 0, it was deflected, blocked or otherwise missed.;
 		// We'll use this as our primary failure to hit, and then mix in a bit of random.;
 		// tl;dr this avoids a bunch of weapon effects and perks, but given the specific means of attack, I think it actually makes sense overall. (Basically having to pull back from what you would normally do mid-attack to successfully land any kind of hit).;
 		if( damage > 0 && Utils.rand( 8 ) < 6 ) {
-			EngineCore.outputText( '  At the very last moment, you twist downwards and strike into your opponent’s trunk, drawing a gasp of pain from ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' clumsily lashes ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' own ' + this.weaponName + ' over you. It’s your turn to mirror ' + CoC.getInstance().player.mf( 'him', 'her' ) + ', smiling mockingly at ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' rabid snarls as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' resets ' + CoC.getInstance().player.mf( 'him', 'her' ) + 'self, ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' voice bubbling and flickering for a moment as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' tries to maintain control. (' + damage + ')' );
+			EngineCore.outputText( '  At the very last moment, you twist downwards and strike into your opponent’s trunk, drawing a gasp of pain from ' + CoC.player.mf( 'him', 'her' ) + ' as ' + CoC.player.mf( 'he', 'she' ) + ' clumsily lashes ' + CoC.player.mf( 'his', 'her' ) + ' own ' + this.weaponName + ' over you. It’s your turn to mirror ' + CoC.player.mf( 'him', 'her' ) + ', smiling mockingly at ' + CoC.player.mf( 'his', 'her' ) + ' rabid snarls as ' + CoC.player.mf( 'he', 'she' ) + ' resets ' + CoC.player.mf( 'him', 'her' ) + 'self, ' + CoC.player.mf( 'his', 'her' ) + ' voice bubbling and flickering for a moment as ' + CoC.player.mf( 'he', 'she' ) + ' tries to maintain control. (' + damage + ')' );
 			this.HP -= damage;
 		} else {
 			EngineCore.outputText( '  Your' );
-			if( CoC.getInstance().player.weaponName === 'fists' ) {
+			if( CoC.player.weaponName === 'fists' ) {
 				EngineCore.outputText( ' [weapon]' );
 			} else {
 				EngineCore.outputText( ' [weapon]s' );
@@ -28,14 +28,14 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	};
 	Doppleganger.prototype.mirrorTease = function( damage, successful ) {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You move your hands seductively over your body, and - you stop. The doppelganger stops too, staring at you with wicked coyness, ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' hands frozen on ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' form exactly where yours are. Glaring back, you begin your slow, lustful motions again, as your reflection does the exact same thing. It’s a lust off!' );
+		EngineCore.outputText( 'You move your hands seductively over your body, and - you stop. The doppelganger stops too, staring at you with wicked coyness, ' + CoC.player.mf( 'his', 'her' ) + ' hands frozen on ' + CoC.player.mf( 'his', 'her' ) + ' form exactly where yours are. Glaring back, you begin your slow, lustful motions again, as your reflection does the exact same thing. It’s a lust off!' );
 		if( damage > 0 && successful ) {
-			EngineCore.outputText( '\n\nYou determinedly display and twist your carnality to what you know are its best advantages, ignoring what the doppelganger is doing- you’re extremely familiar with it, after all. After a few slow seconds crawl past a blush settles upon your reflection’s face, and ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' hands falter and stop being able to follow yours as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' stares at what you’re doing.' );
-			EngineCore.outputText( '\n\n“<i>It’s- it’s been so long,</i>” ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' groans, managing to break away to stare into your smirking, smouldering eyes with lust-filled rage. “<i>But I’ll have that, I’ll have everything soon enough!</i>”' );
+			EngineCore.outputText( '\n\nYou determinedly display and twist your carnality to what you know are its best advantages, ignoring what the doppelganger is doing- you’re extremely familiar with it, after all. After a few slow seconds crawl past a blush settles upon your reflection’s face, and ' + CoC.player.mf( 'he', 'she' ) + ' hands falter and stop being able to follow yours as ' + CoC.player.mf( 'he', 'she' ) + ' stares at what you’re doing.' );
+			EngineCore.outputText( '\n\n“<i>It’s- it’s been so long,</i>” ' + CoC.player.mf( 'he', 'she' ) + ' groans, managing to break away to stare into your smirking, smouldering eyes with lust-filled rage. “<i>But I’ll have that, I’ll have everything soon enough!</i>”' );
 			this.applyTease( damage );
 		} else {
-			EngineCore.outputText( 'You keep moving and displaying your body as best you can, but an overwhelming amount of self-awareness creeps in as your doppelganger mockingly copies you. Is that really what you look like when you do this? It looks so cheap, so clumsy, so desperate. As a blush climbs onto your face you feel a vague sense of vertigo as control of the situation shifts- you copy the doppelganger as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' cruelly continues to slide ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' hands over ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' body exaggeratedly.' );
-			EngineCore.outputText( '\n\n“<i>What’s the matter, [name]?</i>” ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' breathes, staring lustfully into your eyes as ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' sinks both hands into ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' crotch and bends forward, forcing you close to ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' face. “<i>Never tried it in front of a mirror? You were missing out on the nasty little tramp you are.</i>”' );
+			EngineCore.outputText( 'You keep moving and displaying your body as best you can, but an overwhelming amount of self-awareness creeps in as your doppelganger mockingly copies you. Is that really what you look like when you do this? It looks so cheap, so clumsy, so desperate. As a blush climbs onto your face you feel a vague sense of vertigo as control of the situation shifts- you copy the doppelganger as ' + CoC.player.mf( 'he', 'she' ) + ' cruelly continues to slide ' + CoC.player.mf( 'his', 'her' ) + ' hands over ' + CoC.player.mf( 'his', 'her' ) + ' body exaggeratedly.' );
+			EngineCore.outputText( '\n\n“<i>What’s the matter, [name]?</i>” ' + CoC.player.mf( 'he', 'she' ) + ' breathes, staring lustfully into your eyes as ' + CoC.player.mf( 'he', 'she' ) + ' sinks both hands into ' + CoC.player.mf( 'his', 'her' ) + ' crotch and bends forward, forcing you close to ' + CoC.player.mf( 'his', 'her' ) + ' face. “<i>Never tried it in front of a mirror? You were missing out on the nasty little tramp you are.</i>”' );
 			EngineCore.dynStats( 'lus', damage + (Utils.rand( 7 ) - 3) );
 		}
 		this.addTalkShit();
@@ -50,11 +50,11 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 			EngineCore.doNext( Combat.endLustVictory );
 			return;
 		}
-		if( CoC.getInstance().player.HP < 1 ) {
+		if( CoC.player.HP < 1 ) {
 			EngineCore.doNext( Combat.endHpLoss );
 			return;
 		}
-		if( CoC.getInstance().player.lust > 99 ) {
+		if( CoC.player.lust > 99 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 			return;
 		}
@@ -70,9 +70,9 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 				break;
 			case 2:
 				EngineCore.outputText( '\n\n“<i>This, though... this I like, [name].</i>” [He] closes [his] eyes and' );
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( ' strokes [his] [cock]' );
-				} else if( CoC.getInstance().player.hasVagina() ) {
+				} else if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( ' slides two fingers into [his] [vagina] and gently frigs [himself]' );
 				} else {
 					EngineCore.outputText( ' slips a hand ' );
@@ -101,18 +101,18 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 		Combat.combatRoundOver();
 	};
 	Doppleganger.prototype.defeated = function() {
-		CoC.getInstance().dopplegangerScenes.punchYourselfInTheBalls();
+		CoC.dopplegangerScenes.punchYourselfInTheBalls();
 	};
 	Doppleganger.prototype.won = function() {
-		CoC.getInstance().dopplegangerScenes.inSovietCoCSelfFucksYou();
+		CoC.dopplegangerScenes.inSovietCoCSelfFucksYou();
 	};
 	Doppleganger.prototype.handleSpellResistance = function( spell ) {
 		EngineCore.outputText( 'The mirror demon barely even flinches as your fierce, puissant fire washes over [him].' );
 		EngineCore.outputText( '\n\n“<i>Picked up a few things since you’ve been here, then?</i>” [he] yawns. Flickers of flame cling to [his] fingers, its radiance sputtering and burning away, replaced by a livid black color. “<i>Serf magic. Easy to pick up, easy to use, difficult to impress with. Let me show you how it’s really done!</i>” [He] thrusts [his] hands out and hurls a pitiless black fireball straight at you, a negative replica of the one you just shot at [him].' );
 		if( spell === 'fireball' ) {
-			EngineCore.outputText( ' (' + CoC.getInstance().player.takeDamage( CoC.getInstance().player.level * 10 + 45 + Utils.rand( 10 ) ) + ')' );
+			EngineCore.outputText( ' (' + CoC.player.takeDamage( CoC.player.level * 10 + 45 + Utils.rand( 10 ) ) + ')' );
 		} else if( spell === 'whitefire' ) {
-			EngineCore.outputText( ' (' + CoC.getInstance().player.takeDamage( 10 + (CoC.getInstance().player.inte / 3 + Utils.rand( CoC.getInstance().player.inte / 2 )) ) + ')' );
+			EngineCore.outputText( ' (' + CoC.player.takeDamage( 10 + (CoC.player.inte / 3 + Utils.rand( CoC.player.inte / 2 )) ) + ')' );
 		}
 		this.addTalkShit();
 	};
@@ -132,50 +132,50 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 		that.long = ''; // Needs to be set to supress validation errors, but is handled by an accessor override.
 		that.imageName = 'doppleganger';
 		that.plural = false;
-		that.tallness = CoC.getInstance().player.tallness;
-		if( CoC.getInstance().player.balls > 0 ) {
-			that.balls = CoC.getInstance().player.balls;
-			that.ballSize = CoC.getInstance().player.ballSize;
+		that.tallness = CoC.player.tallness;
+		if( CoC.player.balls > 0 ) {
+			that.balls = CoC.player.balls;
+			that.ballSize = CoC.player.ballSize;
 		} else {
 			that.balls = 0;
 			that.ballSize = 0;
 		}
-		that.hoursSinceCum = CoC.getInstance().player.hoursSinceCum;
-		that.hipRating = CoC.getInstance().player.hipRating;
-		that.buttRating = CoC.getInstance().player.buttRating;
-		that.lowerBody = CoC.getInstance().player.lowerBody;
-		that.skinDesc = CoC.getInstance().player.skinDesc;
-		that.initStrTouSpeInte( CoC.getInstance().player.str, CoC.getInstance().player.tou, CoC.getInstance().player.spe, CoC.getInstance().player.inte );
-		that.initLibSensCor( CoC.getInstance().player.lib, CoC.getInstance().player.sens, CoC.getInstance().player.cor );
-		that.faceType = CoC.getInstance().player.faceType;
-		that.skinType = CoC.getInstance().player.skinType;
+		that.hoursSinceCum = CoC.player.hoursSinceCum;
+		that.hipRating = CoC.player.hipRating;
+		that.buttRating = CoC.player.buttRating;
+		that.lowerBody = CoC.player.lowerBody;
+		that.skinDesc = CoC.player.skinDesc;
+		that.initStrTouSpeInte( CoC.player.str, CoC.player.tou, CoC.player.spe, CoC.player.inte );
+		that.initLibSensCor( CoC.player.lib, CoC.player.sens, CoC.player.cor );
+		that.faceType = CoC.player.faceType;
+		that.skinType = CoC.player.skinType;
 		that.bonusHP = 250;
-		that.weaponName = CoC.getInstance().player.weaponName;
-		that.weaponAttack = CoC.getInstance().player.weaponAttack;
-		that.weaponVerb = CoC.getInstance().player.weaponVerb;
-		that.armorDef = CoC.getInstance().player.armorDef;
-		that.armorName = CoC.getInstance().player.armorName;
-		that.level = CoC.getInstance().player.level;
-		that.ass.analLooseness = CoC.getInstance().player.ass.analLooseness;
-		that.ass.analWetness = CoC.getInstance().player.ass.analWetness;
-		_.forEach(CoC.getInstance().player.cocks, function(cock) {
+		that.weaponName = CoC.player.weaponName;
+		that.weaponAttack = CoC.player.weaponAttack;
+		that.weaponVerb = CoC.player.weaponVerb;
+		that.armorDef = CoC.player.armorDef;
+		that.armorName = CoC.player.armorName;
+		that.level = CoC.player.level;
+		that.ass.analLooseness = CoC.player.ass.analLooseness;
+		that.ass.analWetness = CoC.player.ass.analWetness;
+		_.forEach(CoC.player.cocks, function(cock) {
 			that.createCock( cock.cockLength, cock.cockThickness, cock.cockType );
 		});
-		if( CoC.getInstance().player.vaginas.length > 0 ) {
+		if( CoC.player.vaginas.length > 0 ) {
 			that.createVagina();
-			that.vaginas[ 0 ].vaginalLooseness = CoC.getInstance().player.vaginas[ 0 ].vaginalLooseness;
-			that.vaginas[ 0 ].vaginalWetness = CoC.getInstance().player.vaginas[ 0 ].vaginalWetness;
-			that.vaginas[ 0 ].virgin = CoC.getInstance().player.vaginas[ 0 ].virgin;
+			that.vaginas[ 0 ].vaginalLooseness = CoC.player.vaginas[ 0 ].vaginalLooseness;
+			that.vaginas[ 0 ].vaginalWetness = CoC.player.vaginas[ 0 ].vaginalWetness;
+			that.vaginas[ 0 ].virgin = CoC.player.vaginas[ 0 ].virgin;
 		}
 		//Genderless get forced to have a cunny;
-		if( CoC.getInstance().player.vaginas.length === 0 && CoC.getInstance().player.cocks.length === 0 ) {
+		if( CoC.player.vaginas.length === 0 && CoC.player.cocks.length === 0 ) {
 			that.createVagina();
 			that.vaginas[ 0 ].vaginalLooseness = 2;
 			that.vaginas[ 0 ].vaginalWetness = 6;
 			that.vaginas[ 0 ].virgin = false;
 		}
 		that.breastRows = [];
-		_.forEach(CoC.getInstance().breastRows.cocks, function(breastRows) {
+		_.forEach(CoC.breastRows.cocks, function(breastRows) {
 			that.createBreastRow();
 			var tbr = that.breastRows[ that.breastRows.length ];
 			tbr.breastRating = breastRows.breastRating;
@@ -190,12 +190,12 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	};
 	Doppleganger.prototype._getLong = function() {
 		var str = '';
-		str += 'You are fighting the doppelganger. ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' is a ';
-		str += String( Math.floor( CoC.getInstance().player.tallness / 12 ) + ' foot ' + CoC.getInstance().player.tallness % 12 + ' inch tall ' );
-		str += CoC.getInstance().player.race() + ', with ' + CoC.getInstance().player.bodyType() + '. ';
-		str += CoC.getInstance().player.mf( 'His', 'Her' ) + ' face is ' + CoC.getInstance().player.faceDesc() + '.';
-		str += ' ' + CoC.getInstance().player.mf( 'His', 'Her' ) + ' ' + CoC.getInstance().player.hairDescript() + ' is parted by';
-		switch( CoC.getInstance().player.earType ) {
+		str += 'You are fighting the doppelganger. ' + CoC.player.mf( 'He', 'She' ) + ' is a ';
+		str += String( Math.floor( CoC.player.tallness / 12 ) + ' foot ' + CoC.player.tallness % 12 + ' inch tall ' );
+		str += CoC.player.race() + ', with ' + CoC.player.bodyType() + '. ';
+		str += CoC.player.mf( 'His', 'Her' ) + ' face is ' + CoC.player.faceDesc() + '.';
+		str += ' ' + CoC.player.mf( 'His', 'Her' ) + ' ' + CoC.player.hairDescript() + ' is parted by';
+		switch( CoC.player.earType ) {
 			case AppearanceDefs.EARS_HORSE:
 				str += ' a pair of horse-like ears';
 				break;
@@ -234,14 +234,14 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 				str += ' a pair of non-descript ears';
 				break;
 		}
-		str += '. ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' keeps exploring the area around ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' mouth with ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' tongue with a horribly acquisitive, sensual interest.';
-		str += ' ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' moves around on ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' ' + CoC.getInstance().player.legs() + ' with a twitchy jerkiness, ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' ' + Descriptors.hipDescript() + ' swinging and tightening.';
-		if( CoC.getInstance().player.tailType !== 0 ) {
-			str += ' ' + CoC.getInstance().player.mf( 'His', 'Her' ) + ' tail flicks this way and that.';
+		str += '. ' + CoC.player.mf( 'He', 'She' ) + ' keeps exploring the area around ' + CoC.player.mf( 'his', 'her' ) + ' mouth with ' + CoC.player.mf( 'his', 'her' ) + ' tongue with a horribly acquisitive, sensual interest.';
+		str += ' ' + CoC.player.mf( 'He', 'She' ) + ' moves around on ' + CoC.player.mf( 'his', 'her' ) + ' ' + CoC.player.legs() + ' with a twitchy jerkiness, ' + CoC.player.mf( 'his', 'her' ) + ' ' + Descriptors.hipDescript() + ' swinging and tightening.';
+		if( CoC.player.tailType !== 0 ) {
+			str += ' ' + CoC.player.mf( 'His', 'Her' ) + ' tail flicks this way and that.';
 		}
-		str += ' ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' wields the exact same ' + CoC.getInstance().player.weaponName + ' you do, and is dressed in the mirror image of your ' + CoC.getInstance().player.armorName + '. ';
-		if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
-			str += 'It’s difficult not to notice the way the mirror image of your ' + CoC.getInstance().player.breastDescript( CoC.getInstance().player.biggestTitRow() ) + ' ebbs and heaves within it.';
+		str += ' ' + CoC.player.mf( 'He', 'She' ) + ' wields the exact same ' + CoC.player.weaponName + ' you do, and is dressed in the mirror image of your ' + CoC.player.armorName + '. ';
+		if( CoC.player.biggestTitSize() >= 2 ) {
+			str += 'It’s difficult not to notice the way the mirror image of your ' + CoC.player.breastDescript( CoC.player.biggestTitRow() ) + ' ebbs and heaves within it.';
 		}
 		return str;
 	};

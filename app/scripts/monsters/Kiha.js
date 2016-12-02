@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'Before you can stop to think, the dragon-woman steps back - throwing her axe into the air before she starts sprinting towards you. In seconds she\'s reached a hair\'s distance between her lithe form and your own, her fist recoiling and time seemingly stopping to allow you to note the powerful energy seeping from her arms.  ', false );
 		//Miss:;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'You take the opportunity to walk away, watching the slow-motion attack unravel before you; the fire bursts from her knuckle in the shape of a bird in flight, wings unfurled.  ', false );
 			if( Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( 'You only owned an XJasun back home, so you don\'t really understand the reference.', false );
@@ -25,9 +25,9 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 			}
 		} else {
 			//Determine damage - str modified by enemy toughness!;
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			damage += 5;
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( 'A torrent of heat bursts from between her fingertips as she thrusts her clenched fist forward, the ball of intense flame writhing and burning with a fury unknown to mankind. With one fell swoop, the combined power of her love, anger, and sorrow pushes you backward, launching you out of the swamp and into Marble\'s pillowy chest. "<i>Ara ara,</i>" she begins, but you\'ve already pushed yourself away from the milky hell-prison as you run back towards ' );
 			if( !SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( 'the swamp' );
@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 				EngineCore.outputText( 'the fight' );
 			}
 			EngineCore.outputText( '. (' + damage + ')\n', false );
-			if( CoC.getInstance().player.HP >= 1 ) {
+			if( CoC.player.HP >= 1 ) {
 				EngineCore.outputText( 'You follow the shrill cry of "<i>B-BAKA!</i>" in the distance until you reach the exact location you were in a few seconds earlier, prepared to fight again.', false );
 			}
 		}
@@ -45,25 +45,25 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'The draconic girl throws her trusty weapon into the sodden ground, using the distraction to build up balls of flame around her fists.  She runs towards you, launching herself in your direction with a flurry of punches.\n', false );
 		//Dodged;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'You manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evasion, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//('Misdirection';
-		else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using your skills at misdirection, you manage to make Kiha think you\'re going to dodge one way before stepping in the other direction.  You turn back, finding she has her axe in hand and looks rather steamed.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'Using your cat-like reflexes, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//HIT!;
 		else {
-			var damage = Math.ceil( this.str - (CoC.getInstance().player.armorDef) );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			var damage = Math.ceil( this.str - (CoC.player.armorDef) );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( 'Before you can react, you\'re struck by the power of her blows, feeling an intense pain in your chest as each fist makes contact.  With a final thrust, you\'re pushed backwards onto the ground; the dragoness smiles as she pulls her axe out of the ground, her hands still steaming from the fingertips. (' + damage + ')\n', false );
 		}
 		Combat.combatRoundOver();
@@ -75,19 +75,19 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 		EngineCore.outputText( 'Kiha throws her arms back and roars, exhaling a swirling tornado of fire directly at you!\n', false );
 		//Miss:;
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your talent for evasion, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//('Misdirection';
-		else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using your talent for misdirection, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'Using your cat-like flexibility, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		} else {
 			var damage = Math.round( 90 + Utils.rand( 10 ) );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( 'You try to avoid the flames, but you\'re too slow!  The inferno slams into you, setting you alight!  You drop and roll on the ground, putting out the fires as fast as you can.  As soon as the flames are out, you climb back up, smelling of smoke and soot. (' + damage + ')\n', false );
 		}
 		Combat.combatRoundOver();
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 	Kiha.prototype._superPostAttack = Kiha.prototype.postAttack;
 	Kiha.prototype.postAttack = function( damage ) {
 		this._superPostAttack( damage );
-		var flame = CoC.getInstance().player.takeDamage( 15 + Utils.rand( 6 ) );
+		var flame = CoC.player.takeDamage( 15 + Utils.rand( 6 ) );
 		EngineCore.outputText( '\nAn afterwash of flames trails behind her blow, immolating you! (' + flame + ')', false );
 	};
 	Kiha.prototype.performCombatAction = function() {

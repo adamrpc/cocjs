@@ -5,40 +5,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	}
 	//Explore High Mountain
 	HighMountains.prototype.exploreHighMountain = function() {
-		CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
+		CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 		if( SceneLib.d3.discoverD3() === true ) {
 			return;
 		}
 		var chooser = Utils.rand( 4 );
 		//Boosts mino and hellhound rates!
-		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) === 0 ) {
 			chooser = 1;
 		}
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+		if( CoC.flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.player.gender > 0 && !SceneLib.helScene.followerHel() ) {
 			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		//Gats xmas adventure!
-		if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && SceneLib.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 || CoC.getInstance().player.hasKeyItem( 'North Star Key' ) >= 0) ) {
+		if( Utils.rand( 5 ) === 0 && CoC.player.gender > 0 && SceneLib.xmasBitch.isHolidays() && CoC.flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 || CoC.player.hasKeyItem( 'North Star Key' ) >= 0) ) {
 			SceneLib.xmasGatsNotAnAngel.gatsSpectacularRouter();
 			return;
 		}
 		//Minerva
-		if( CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] % 8 === 0 && CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] < 4 ) {
+		if( CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] % 8 === 0 && CoC.flags[ kFLAGS.MET_MINERVA ] < 4 ) {
 			SceneLib.minervaScene.encounterMinerva();
 			return;
 		}
 		//25% minotaur sons!
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] >= 3 && Utils.rand( 4 ) === 0 && CoC.getInstance().player.hasVagina() ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] >= 3 && Utils.rand( 4 ) === 0 && CoC.player.hasVagina() ) {
 			EngineCore.spriteSelect( 44 );
 			SceneLib.minotaurMobScene.meetMinotaurSons();
 			return;
 		}
 		//Harpy odds!
-		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
+		if( CoC.player.hasItem( ConsumableLib.OVIELIX ) ) {
+			if( CoC.player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
 				if( Utils.rand( 4 ) === 0 ) {
 					this.chickenHarpy();
 					return;
@@ -51,11 +51,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			}
 		}
 		//10% chance to mino encounter rate if addicted
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 && Utils.rand( 10 ) === 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 && Utils.rand( 10 ) === 0 ) {
 			EngineCore.spriteSelect( 44 );
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
 			//Withdrawl auto-fuck!
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
 				SceneLib.minotaurScene.minoAddictionFuck();
 				return;
 			}
@@ -78,13 +78,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 		//Sophie
 		if( chooser === 2 ) {
-			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ||
+			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ||
 				SceneLib.sophieFollowerScene.sophieFollower() ) {
 				EngineCore.outputText( 'A harpy wings out of the sky and attacks!', true );
 				Combat.startCombat( new Harpy() );
 				EngineCore.spriteSelect( 26 );
 			} else {
-				if( CoC.getInstance().flags[ kFLAGS.MET_SOPHIE_COUNTER ] === 0 ) {
+				if( CoC.flags[ kFLAGS.MET_SOPHIE_COUNTER ] === 0 ) {
 					SceneLib.sophieScene.meetSophie();
 				} else {
 					SceneLib.sophieScene.meetSophieRepeat();
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	HighMountains.prototype.chickenHarpy = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 90 );
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ] === 0 ) {
 			EngineCore.outputText( 'Taking a stroll along the mountains, you come across a peculiar-looking harpy wandering around with a large wooden cart in tow.  She\'s far shorter and bustier than any regular harpy you\'ve seen before, reaching barely 4\' in height but managing to retain some semblance of their thick feminine asses.  In addition to the fluffy white feathers decorating her body, the bird-woman sports about three more combed back upon her forehead like a quiff, vividly red in color.' );
 			EngineCore.outputText( '\n\nHaving a long, hard think at the person you\'re currently making uncomfortable with your observational glare, you\'ve come to a conclusion - she must be a chicken harpy!' );
 			EngineCore.outputText( '\n\nAs you take a look inside of the cart you immediately spot a large hoard of eggs stacked clumsily in a pile.  The curious collection of eggs come in many colors and sizes, protected by a sheet of strong canvas to keep it all together.' );
@@ -118,13 +118,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			EngineCore.outputText( '\n\n"<i>Hey sunshine, do y\'have any elixirs you can give me today?</i>"' );
 			//[Give Two][Give Three]	[No, I Must Now Return To My People]
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ]++;
+		CoC.flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ]++;
 		//[Give Two][Give Three]		[Not Really, No]
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
+		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
 			EngineCore.addButton( 0, 'Give Two', this.giveTwoOviElix );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX, 3 ) ) {
+		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 3 ) ) {
 			EngineCore.addButton( 1, 'Give Three', this.giveThreeOviElix );
 		}
 		EngineCore.addButton( 4, 'Leave', this.leaveChickenx );
@@ -133,8 +133,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	HighMountains.prototype.giveTwoOviElix = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 90 );
-		CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
-		CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
+		CoC.player.consumeItem( ConsumableLib.OVIELIX );
+		CoC.player.consumeItem( ConsumableLib.OVIELIX );
 		EngineCore.outputText( 'You hand over two elixirs, the harpy more than happy to take them from you.  In return, she unties a corner of the sheet atop the cart, allowing you to take a look at her collection of eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
 		EngineCore.menu();
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	HighMountains.prototype.giveThreeOviElix = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 90 );
-		CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX, 3 );
+		CoC.player.consumeItem( ConsumableLib.OVIELIX, 3 );
 		EngineCore.outputText( 'You hand over three elixirs, the harpy ecstatic over the fact that you\'re willing to part with them.  In return, she unties a side of the sheet atop the cart, allowing you to take a look at a large collection of her eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
 		EngineCore.menu();
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	HighMountains.prototype.getHarpyEgg = function( itype ) {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 90 );
-		CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ]++;
+		CoC.flags[ kFLAGS.EGGS_BOUGHT ]++;
 		EngineCore.outputText( 'You take ' + itype.longName + ', and the harpy nods in regards to your decision.  Prepping her cart back up for the road, she gives you a final wave goodbye before heading back down through the mountains.\n\n' );
 		SceneLib.inventory.takeItem( itype, this.chickenHarpy );
 	};

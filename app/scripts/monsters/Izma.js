@@ -13,22 +13,22 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Izma attempts to get close, but you put Raphael\'s teachings to use and side-step the sharkgirl, confusing her with your movements.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
@@ -43,36 +43,36 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'Izma tries to clinch you, but you use your speed to keep just out of reach.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Izma tries to clinch you, but she didn\'t count on your skills in evasion.  You manage to sidestep her at the last second.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Izma ducks and weaves forward to clinch you, but thanks to Raphael\'s teachings, you\'re easily able to misguide her and avoid the clumsy grab.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'Izma tries to lock you in a clinch, but your cat-like flexibility makes it easy to twist away from her grab.\n', false );
 			return;
 		}
 		var damage = 0;
-		damage = Math.round( 130 - Utils.rand( CoC.getInstance().player.tou + CoC.getInstance().player.armorDef ) );
+		damage = Math.round( 130 - Utils.rand( CoC.player.tou + CoC.player.armorDef ) );
 		if( damage < 0 ) {
 			damage = 0;
 		}
 		EngineCore.outputText( 'Izma ducks and jinks, working to close quarters, and clinches you. Unable to get your weapon into play, you can only ', false );
-		if( CoC.getInstance().player.armorDef >= 10 || damage === 0 ) {
+		if( CoC.player.armorDef >= 10 || damage === 0 ) {
 			//(armor-dependent Health damage, fullplate, chain, scale, and bee chitin armor are unaffected, has a chance to inflict 'Bleed' damage which removes 2-5% of health for the next three turns if successful);
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( 'writhe as she painfully drags the blades of her glove down your back', false );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.IzmaBleed, 3, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.IzmaBleed, 3, 0, 0, 0 );
 		} else {
 			EngineCore.outputText( 'laugh as her blades scape uselessly at your armor-clad back', false );
 		}
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 	Izma.prototype.IzmaSpecials3 = function() {
 		EngineCore.outputText( 'Rather than move to attack you, Izma grins at you and grabs her breasts, massaging them as she caresses her long penis with one knee. Her tail thrashes and thumps the sand heavily behind her as she simulates an orgasm, moaning loudly into the air. The whole display leaves you more aroused than before.', false );
 		//(lust gain);
-		EngineCore.dynStats( 'lus', (20 + CoC.getInstance().player.lib / 5) );
+		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5) );
 	};
 	Izma.prototype.IzmaAI = function() {
 		var choice = Utils.rand( 5 );
@@ -89,14 +89,14 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 			this.eAttack();
 		}
 		if( choice === 2 ) {
-			if( CoC.getInstance().player.fatigue >= 80 ) {
+			if( CoC.player.fatigue >= 80 ) {
 				choice = 3;
 			} else {
 				this.IzmaSpecials1();
 			}
 		}
 		if( choice === 3 ) {
-			if( CoC.getInstance().player.armorDef >= 10 && Utils.rand( 3 ) === 0 ) {
+			if( CoC.player.armorDef >= 10 && Utils.rand( 3 ) === 0 ) {
 				this.IzmaSpecials2();
 			} else {
 				choice = 4;
@@ -118,14 +118,14 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 			this.eAttack();
 		}
 		if( choice === 2 ) {
-			if( CoC.getInstance().player.fatigue >= 80 ) {
+			if( CoC.player.fatigue >= 80 ) {
 				choice = 3;
 			} else {
 				this.IzmaSpecials1();
 			}
 		}
 		if( choice === 3 ) {
-			if( CoC.getInstance().player.armorDef >= 10 && Utils.rand( 3 ) === 0 ) {
+			if( CoC.player.armorDef >= 10 && Utils.rand( 3 ) === 0 ) {
 				this.IzmaSpecials2();
 			} else {
 				choice = 4;

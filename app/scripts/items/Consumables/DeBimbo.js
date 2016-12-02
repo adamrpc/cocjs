@@ -9,19 +9,19 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 		Consumable.prototype.init( that, [ 'Debimbo', 'Debimbo', 'a bottle marked as \'Debimbo\'', 250 ] );
 	};
 	DeBimbo.prototype.canUse = function() {
-		if( CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 			return true;
 		}
 		EngineCore.outputText( 'You can\'t use this right now, and it\'s too expensive to waste!\n\n' );
 		return false;
 	};
 	DeBimbo.prototype.useItem = function() {
-		if( CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 ) {
 			EngineCore.outputText( '\n\n(<b>Perk Removed:  Bimbo Brains - Your intelligence and speech patterns are no longer limited to that of a bimbo.</b>)' );
-			CoC.getInstance().player.removePerk( PerkLib.BimboBrains );
-		} else if( CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.BimboBrains );
+		} else if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 			EngineCore.outputText( '\n\n(<b>Perk Removed:  Futa Faculties - Your intelligence and speech patterns are no longer limited to that of a futanari bimbo.</b>)' );
-			CoC.getInstance().player.removePerk( PerkLib.FutaFaculties );
+			CoC.player.removePerk( PerkLib.FutaFaculties );
 		}
 		return (false);
 	};
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 			return new Proxy( target, {
 				get: function( target, name ) {
 					if( name === 'description' ) {
-						if( CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+						if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 							return 'This should totally like, fix your brain and stuff.  You don\'t really think anything is wrong with your head - it feels all pink and giggly all the time.';
 						} else {
 							return 'This draft is concocted from five scholar\'s teas and who knows what else.  Supposedly it will correct the stupifying effects of Bimbo Liqueur.';

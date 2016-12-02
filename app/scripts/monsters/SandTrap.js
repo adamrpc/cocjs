@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Mo
 			EngineCore.outputText( '\n\nYou eye the ground above you.  The edge of the pit is too sheer, the ground too unstable... although it looks like you can fight against the currents carrying you further down, it seems impossible to gain freedom with the sand under the monster\'s spell.' );
 		} else {
 			//Strength check success: [Player goes up one level, does not go down a level this turn]
-			if( CoC.getInstance().player.str / 10 + Utils.rand( 20 ) > 10 ) {
+			if( CoC.player.str / 10 + Utils.rand( 20 ) > 10 ) {
 				EngineCore.outputText( '\n\nSweat beads your forehead - trying to clamber out of this pit is like running against the softest treadmill imaginable.  Nonetheless, through considerable effort you see you\'ve managed to pull further clear of the sandtrap\'s grasp.  "<i>Watching you squirm around like that gets me so hot,</i>" it calls up to you.  Turning around you see that the creature is rubbing its hands all over its lean body whilst watching you struggle.  "<i>Such an energetic little mating dance, just for me... mmm, prey who do that are always the best!</i>"' );
 				this.trapLevel( 2 );
 			} else {
@@ -50,10 +50,10 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Mo
 	SandTrap.prototype.sandTrapPheremones = function() {
 		EngineCore.spriteSelect( 97 );
 		EngineCore.outputText( 'The sandtrap puckers its lips.  For one crazed moment you think it\'s going to blow you a kiss... but instead it spits clear fluid at you!   You desperately try to avoid it, even as your lower half is mired in sand.' );
-		if( CoC.getInstance().player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
+		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
 			EngineCore.outputText( '  Moving artfully with the flow rather than against it, you are able to avoid the trap\'s fluids, which splash harmlessly into the dune.' );
 		} else {
-			var damage = (10 + CoC.getInstance().player.lib / 10);
+			var damage = (10 + CoC.player.lib / 10);
 			EngineCore.outputText( '  Despite ducking away from the jet of fluid as best you can, you cannot avoid some of the stuff splashing upon your arms and face.  The substance feels oddly warm and oily, and though you quickly try to wipe it off it sticks resolutely to your skin and the smell hits your nose.  Your heart begins to beat faster as warmth radiates out from it; you feel languid, light-headed and sensual, eager to be touched and led by the hand to a sandy bed...  Shaking your head, you try to stifle what the foreign pheromones are making you feel.' );
 			EngineCore.dynStats( 'lus', damage );
 			damage = Math.round( damage * EngineCore.lustPercent() / 10 ) / 10;
@@ -65,13 +65,13 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Mo
 		EngineCore.spriteSelect( 97 );
 		EngineCore.outputText( 'The sandtrap smiles at you winningly as it thrusts its hands into the sifting granules.  The sand beneath you suddenly seems to lose even more of its density; you\'re sinking up to your thighs!' );
 		//Quicksand attack fail:
-		if( CoC.getInstance().player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
+		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
 			EngineCore.outputText( '  Acting with alacrity, you manage to haul yourself free of the area affected by the sandtrap\'s spell, and set yourself anew.' );
 		}
 		//Quicksand attack success: (Speed and Strength loss, ability to fly free lost)
 		else {
 			EngineCore.outputText( '  You can\'t get free in time and in a panic you realize you are now practically wading in sand.  Attempting to climb free now is going to be very difficult.' );
-			if( CoC.getInstance().player.canFly() ) {
+			if( CoC.player.canFly() ) {
 				EngineCore.outputText( '  You try to wrench yourself free by flapping your wings, but it is hopeless.  You are well and truly snared.' );
 			}
 			this.trapLevel( -1 );

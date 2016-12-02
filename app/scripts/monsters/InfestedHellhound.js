@@ -11,20 +11,20 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 		EngineCore.outputText( '\n', false );
 		if( Utils.rand( 2 ) === 0 ) {
 			//Get hit – 10+ lust
-			EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 			EngineCore.outputText( 'Taken off-guard by the unexpected sexual display, you fail to move out of the way, and the wormy jism splatters you from the chest down.', false );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.getInstance().player.totalCocks() > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.player.totalCocks() > 0 ) {
 				EngineCore.outputText( '  The worms inside you begin moving and squirming. A few of your cum-soaked parasites crawl out from your shivering ' + Descriptors.multiCockDescriptLight() + ' as if attempting to meet the new arrivals.  You desperately want to brush them away, but the pleasure in your crotch is too good to fight, and you find yourself staying your hand as each and every one of the new worms makes it way into your ' + Descriptors.multiCockDescriptLight() + '.', false );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( '  Your ' + Descriptors.ballsDescriptLight() + ' grow weightier as the worms settle into their new home, arousing you beyond measure.', false );
 				} else {
 					EngineCore.outputText( '  You can feel them shifting around inside you as they adjust to their new home, arousing you beyond measure.', false );
 				}
 				EngineCore.dynStats( 'lus', 10 );
-			} else if( CoC.getInstance().player.totalCocks() > 0 ) {
+			} else if( CoC.player.totalCocks() > 0 ) {
 				EngineCore.outputText( '  The worms wriggle and squirm all over you, working their way towards your groin.  It tickles pleasantly, but you brush them away before they can get inside you.  The thought of being turned into a worm-dispensing cum fountain is horrifying, but it leaves you hard.', false );
-				EngineCore.dynStats( 'lus', (5 + Math.round( CoC.getInstance().player.cor / 20 )) );
-			} else if( CoC.getInstance().player.hasVagina() ) {
+				EngineCore.dynStats( 'lus', (5 + Math.round( CoC.player.cor / 20 )) );
+			} else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Thankfully, the worms don\'t seem to want anything to do with you, and rapidly drop down to the ground.', false );
 			}
 		}
@@ -32,16 +32,16 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 		else {
 			EngineCore.outputText( 'You sidestep the gush of wormy fluid, letting it splatter against the rocks behind you.', false );
 			//(If infested +10 lust:
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( '  Despite avoiding the torrent of infected seed, your own wormy ', false );
-					if( CoC.getInstance().player.balls > 0 ) {
+					if( CoC.player.balls > 0 ) {
 						EngineCore.outputText( Descriptors.ballsDescriptLight(), false );
 					} else {
 						EngineCore.outputText( Descriptors.multiCockDescriptLight(), false );
 					}
 					EngineCore.outputText( ' wriggle', false );
-					if( CoC.getInstance().player.balls === 0 && CoC.getInstance().player.cockTotal() === 1 ) {
+					if( CoC.player.balls === 0 && CoC.player.cockTotal() === 1 ) {
 						EngineCore.outputText( 's', false );
 					}
 					EngineCore.outputText( ' hotly, expelling a few of your own worms in response along with a dribble of thick pre-cum.   You wonder what it would feel like to let his worms crawl inside you...', false );
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 				}
 			}
 			//if aroused by worms +5 lust:
-			else if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.WormsHalf ) < 0 ) {
+			else if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && CoC.player.findStatusAffect( StatusAffects.WormsHalf ) < 0 ) {
 				EngineCore.dynStats( 'lus', 5 );
 				EngineCore.outputText( '  The idea of being covered in the beast\'s infested seed arouses you slightly, but you shake your head violently and clear away the unwelcome thought.', false );
 			}
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( 'Unable to bear its unnatural arousal, the infested hellhound\'s flames dim as he stops his attack. The two heads look at you, whining plaintively.  The hellhound slowly pads over to you and nudges its noses at your crotch.  It seems he wishes to pleasure you.\n\n', true );
-			if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.lust >= 33 ) {
+			if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 				EngineCore.outputText( 'You realize your desires aren\'t quite sated.  You could let it please you.  Do you?', false );
 				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene.hellHoundGetsRaped, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 			} else {

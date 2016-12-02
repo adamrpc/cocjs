@@ -19,10 +19,10 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 			EngineCore.outputText( 'Her body quivering from your flames, the goo-girl ', false );
 		} else {
-			EngineCore.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.getInstance().player.weaponName + '.  Happily, she swings at you', false );
+			EngineCore.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.player.weaponName + '.  Happily, she swings at you', false );
 		}
 		//Determine if dodged!
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				EngineCore.outputText( 'tries to slap you, but you dodge her attack.', false );
 			} else {
@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 			return;
 		}
 		//Determine if evaded
-		if( this.short !== 'Kiha' && CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( this.short !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				EngineCore.outputText( 'tries to slap you, but you evade her attack.', false );
 			} else {
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 			return;
 		}
 		//('Misdirection'
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				EngineCore.outputText( 'tries to slap you.  You misdirect her, avoiding the hit.', false );
 			} else {
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 			return;
 		}
 		//Determine if cat'ed
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				EngineCore.outputText( 'tries to slap you, but misses due to your cat-like evasion.', false );
 			} else {
@@ -59,25 +59,25 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 		}
 		//Determine damage - str modified by enemy toughness!
 		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-			damage = Math.ceil( (this.str + 10 + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + 10 + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		} else {
-			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		}
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 		if( damage <= 0 ) {
 			damage = 0;
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( 'tries to slap you, but the acid-bearing slap spatters weakly off your ' + CoC.getInstance().player.armorName + '.', false );
+				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( 'tries to slap you, but the acid-bearing slap spatters weakly off your ' + CoC.player.armorName + '.', false );
 				} else {
 					EngineCore.outputText( 'tries to slap you with an acid-loaded hand, but it splatters off you ineffectually.', false );
 				}
 			} else {
 				//Due to toughness or amor...
-				if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( ', her attack slapping fruitlessly against your ' + CoC.getInstance().player.armorName + '.', false );
+				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( ', her attack slapping fruitlessly against your ' + CoC.player.armorName + '.', false );
 				} else {
 					EngineCore.outputText( ', her attack splattering ineffectually against you.', false );
 				}
@@ -87,16 +87,16 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 		else {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				EngineCore.outputText( 'delivers a painful slap across your cheek.  You gasp when the light stinging becomes a searing burn that seems to get worse as time goes on!', false );
-				if( CoC.getInstance().player.findStatusAffect( StatusAffects.AcidSlap ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.AcidSlap, 0, 0, 0, 0 );
+				if( CoC.player.findStatusAffect( StatusAffects.AcidSlap ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.AcidSlap, 0, 0, 0, 0 );
 				}
 			} else {
-				EngineCore.outputText( ', painfully smacking her gooey limbs against your head.  You shake your ' + CoC.getInstance().player.hairDescript() + ', clearing your head of the dazing slap.', false );
+				EngineCore.outputText( ', painfully smacking her gooey limbs against your head.  You shake your ' + CoC.player.hairDescript() + ', clearing your head of the dazing slap.', false );
 			}
 			EngineCore.outputText( ' (' + damage + ')', false );
 		}
 		if( damage > 0 ) {
-			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
 					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
@@ -112,22 +112,22 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 	//Play –
 	GooGirl.prototype.gooPlay = function() {
 		EngineCore.outputText( 'The goo-girl lunges, wrapping her slimy arms around your waist in a happy hug, hot muck quivering excitedly against you. She looks up, empty eyes confused by your lack of enthusiasm and forms her mouth into a petulant pout before letting go.  You shiver in the cold air, regretting the loss of her embrace.', false );
-		EngineCore.dynStats( 'lus', 3 + Utils.rand( 3 ) + CoC.getInstance().player.sens / 10 );
+		EngineCore.dynStats( 'lus', 3 + Utils.rand( 3 ) + CoC.player.sens / 10 );
 		Combat.combatRoundOver();
 	};
 	//Throw –
 	GooGirl.prototype.gooThrow = function() {
-		EngineCore.outputText( 'The girl reaches into her torso, pulls a large clump of goo out, and chucks it at you like a child throwing mud. The slime splatters on your chest and creeps under your ' + CoC.getInstance().player.armorName + ', tickling your skin like fingers dancing across your body.', false );
+		EngineCore.outputText( 'The girl reaches into her torso, pulls a large clump of goo out, and chucks it at you like a child throwing mud. The slime splatters on your chest and creeps under your ' + CoC.player.armorName + ', tickling your skin like fingers dancing across your body.', false );
 		var damage = 1;
-		CoC.getInstance().player.takeDamage( damage );
-		EngineCore.dynStats( 'lus', 5 + Utils.rand( 3 ) + CoC.getInstance().player.sens / 10 );
+		CoC.player.takeDamage( damage );
+		EngineCore.dynStats( 'lus', 5 + Utils.rand( 3 ) + CoC.player.sens / 10 );
 		Combat.combatRoundOver();
 	};
 	//Engulf –
 	GooGirl.prototype.gooEngulph = function() {
 		EngineCore.outputText( 'The goo-girl gleefully throws her entire body at you and, before you can get out of the way, she has engulfed you in her oozing form! Tendrils of ' + this.skinTone + ' slime slide up your nostrils and through your lips, filling your lungs with the girl\'s muck. You begin suffocating!', false );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.GooBind ) < 0 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.GooBind, 0, 0, 0, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.GooBind ) < 0 ) {
+			CoC.player.createStatusAffect( StatusAffects.GooBind, 0, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -173,14 +173,14 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 		if( !args[ 0 ] ) {
 			return;
 		}
-		var playerHasBigBoobs = CoC.getInstance().player.biggestTitSize() >= 3;
+		var playerHasBigBoobs = CoC.player.biggestTitSize() >= 3;
 		that.a = 'the ';
 		that.short = 'goo-girl';
 		that.imageName = 'googirl';
-		that.long = 'The goo-girl has a curious expression on her youthful, shimmering face. Her body is slender and globs of slime regularly drip from her limbs, splattering into the goo puddle pooling beneath her hips. A small, heart-shaped nucleus pulses in her chest with a red glow.' + (playerHasBigBoobs ? ('  She has apparently made herself a bit more like you, as her chest appears to be a perfect copy of your ' + CoC.getInstance().player.chestDesc() + '.') : '');
+		that.long = 'The goo-girl has a curious expression on her youthful, shimmering face. Her body is slender and globs of slime regularly drip from her limbs, splattering into the goo puddle pooling beneath her hips. A small, heart-shaped nucleus pulses in her chest with a red glow.' + (playerHasBigBoobs ? ('  She has apparently made herself a bit more like you, as her chest appears to be a perfect copy of your ' + CoC.player.chestDesc() + '.') : '');
 		that.createVagina( false, AppearanceDefs.VAGINA_WETNESS_SLAVERING, AppearanceDefs.VAGINA_LOOSENESS_NORMAL );
 		that.createStatusAffect( StatusAffects.BonusVCapacity, 9001, 0, 0, 0 );
-		that.createBreastRow( playerHasBigBoobs ? CoC.getInstance().player.biggestTitSize() : 3 );
+		that.createBreastRow( playerHasBigBoobs ? CoC.player.biggestTitSize() : 3 );
 		that.ass.analLooseness = AppearanceDefs.ANAL_LOOSENESS_TIGHT;
 		that.ass.analWetness = AppearanceDefs.ANAL_WETNESS_SLIME_DROOLING;
 		that.createStatusAffect( StatusAffects.BonusACapacity, 9001, 0, 0, 0 );

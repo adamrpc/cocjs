@@ -30,23 +30,23 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			dodged = 1;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			dodged = 2;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			dodged = 3;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			dodged = 4;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou + CoC.getInstance().player.armorDef) );
+		damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
 		//Dodged;
 		if( dodged > 0 ) {
 			EngineCore.outputText( 'Amily dashes at you and swipes her knife, but you quickly sidestep the blow.', false );
@@ -74,19 +74,19 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 		else if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
-			if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-				EngineCore.outputText( 'Your ' + CoC.getInstance().player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
+			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+				EngineCore.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
 			} else {
 				EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 			}
 		}
 		//Got hit!;
 		else {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( 'Amily dashes at you and swipes her knife, cutting you (' + damage + ').', false );
 		}
 		if( damage > 0 ) {
-			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
 					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
@@ -111,25 +111,25 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 			dodged++;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			dodged++;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			dodged++;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			dodged++;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			dodged++;
 		}
 		//Get hit!;
 		if( dodged < 2 ) {
 			//Determine damage - str modified by enemy toughness!;
-			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou + CoC.getInstance().player.armorDef) );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
 			//Double damage if no dodge.;
 			if( dodged === 0 ) {
 				damage *= 2;
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 			}
 			//NOT BLOCKED!;
 			else {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				if( dodged > 0 ) {
 					EngineCore.outputText( 'Amily dashes at you and quickly slashes you twice; you manage to avoid the first blow, but the second one hits home, cutting you', false );
 				} else {
@@ -166,19 +166,19 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			dodged = 1;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			dodged = 2;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 15 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			dodged = 3;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 15 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 15 ) {
 			dodged = 4;
 		}
 		//Dodged;
@@ -208,27 +208,27 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 		else {
 			EngineCore.outputText( 'Amily dashes at you and swipes her knife at you, surprisingly slowly.  You easily dodge the attack; but it was a feint - her other hand tries to strike at you with a poisoned dart. However, she only manages to scratch you, only causing your muscles to grow slightly numb.', false );
 			//Set status;
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.AmilyVenom ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.AmilyVenom, 0, 0, 0, 0 );
+			if( CoC.player.findStatusAffect( StatusAffects.AmilyVenom ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.AmilyVenom, 0, 0, 0, 0 );
 			}
 			var poison = 2 + Utils.rand( 5 );
 			while( poison > 0 ) {
 				poison--;
-				if( CoC.getInstance().player.str >= 2 ) {
-					CoC.getInstance().player.str--;
+				if( CoC.player.str >= 2 ) {
+					CoC.player.str--;
 					MainView.statsView.showStatDown( 'str' );
-					CoC.getInstance().player.addStatusValue( StatusAffects.AmilyVenom, 1, 1 );
+					CoC.player.addStatusValue( StatusAffects.AmilyVenom, 1, 1 );
 				}
-				if( CoC.getInstance().player.spe >= 2 ) {
-					CoC.getInstance().player.spe--;
+				if( CoC.player.spe >= 2 ) {
+					CoC.player.spe--;
 					MainView.statsView.showStatDown( 'spe' );
-					CoC.getInstance().player.addStatusValue( StatusAffects.AmilyVenom, 2, 1 );
+					CoC.player.addStatusValue( StatusAffects.AmilyVenom, 2, 1 );
 				}
 			}
 			//If PC is reduced to 0 Speed and Strength, normal defeat by HP plays.;
-			if( CoC.getInstance().player.spe <= 2 && CoC.getInstance().player.str <= 2 ) {
+			if( CoC.player.spe <= 2 && CoC.player.str <= 2 ) {
 				EngineCore.outputText( '  You\'ve become so weakened that you can\'t even make an attempt to defend yourself, and Amily rains blow after blow down upon your helpless form.', false );
-				CoC.getInstance().player.takeDamage( 8999 );
+				CoC.player.takeDamage( 8999 );
 			}
 		}
 		Combat.combatRoundOver();

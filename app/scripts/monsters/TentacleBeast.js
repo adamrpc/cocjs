@@ -7,17 +7,17 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	angular.extend(TentacleBeast.prototype, Monster.prototype);
 	TentacleBeast.prototype.tentaclePhysicalAttack = function() {
 		EngineCore.outputText( 'The shambling horror throws its tentacles at you with a murderous force.\n', false );
-		var temp = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		var temp = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( temp < 0 ) {
 			temp = 0;
 		}
 		//Miss
-		if( temp === 0 || (CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80) ) {
+		if( temp === 0 || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
 			EngineCore.outputText( 'However, you quickly evade the clumsy efforts of the abomination to strike you.', false );
 		}
 		//Hit
 		else {
-			temp = CoC.getInstance().player.takeDamage( temp );
+			temp = CoC.player.takeDamage( temp );
 			EngineCore.outputText( 'The tentacles crash upon your body mercilessly for ' + temp + ' damage.', false );
 		}
 		Combat.combatRoundOver();
@@ -25,26 +25,26 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	TentacleBeast.prototype.tentacleEntwine = function() {
 		EngineCore.outputText( 'The beast lunges its tentacles at you from all directions in an attempt to immobilize you.\n', false );
 		//Not Trapped yet
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TentacleBind ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.TentacleBind ) < 0 ) {
 			//Success
-			if( Math.ceil( Math.random() * (((CoC.getInstance().player.spe) / 2)) ) > 15 || (CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe) / 2)) ) > 15) ) {
+			if( Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15 || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15) ) {
 				EngineCore.outputText( 'In an impressive display of gymnastics, you dodge, duck, dip, dive, and roll away from the shower of grab-happy arms trying to hold you. Your instincts tell you that this was a GOOD thing.\n', false );
 			}
 			//Fail
 			else {
-				EngineCore.outputText( 'While you attempt to avoid the onslaught of pseudopods, one catches you around your ' + CoC.getInstance().player.foot() + ' and drags you to the ground. You attempt to reach for it to pull it off only to have all of the other tentacles grab you in various places and immobilize you in the air. You are trapped and helpless!!!\n\n', false );
+				EngineCore.outputText( 'While you attempt to avoid the onslaught of pseudopods, one catches you around your ' + CoC.player.foot() + ' and drags you to the ground. You attempt to reach for it to pull it off only to have all of the other tentacles grab you in various places and immobilize you in the air. You are trapped and helpless!!!\n\n', false );
 				//Male/Herm Version:
-				if( CoC.getInstance().player.hasCock() ) {
-					EngineCore.outputText( 'The creature, having immobilized you, coils a long tendril about your penis. You shudder as the creature begins stroking your cock like a maid at a dairy farm in an attempt to provoke a response from you. Unable to resist, your ' + CoC.getInstance().player.cockDescript( 0 ) + ' easily becomes erect, signaling to the creature that you are responsive to harsher stimulation.\n', false );
+				if( CoC.player.hasCock() ) {
+					EngineCore.outputText( 'The creature, having immobilized you, coils a long tendril about your penis. You shudder as the creature begins stroking your cock like a maid at a dairy farm in an attempt to provoke a response from you. Unable to resist, your ' + CoC.player.cockDescript( 0 ) + ' easily becomes erect, signaling to the creature that you are responsive to harsher stimulation.\n', false );
 				}//Female Version:
-				else if( CoC.getInstance().player.hasVagina() ) {
-					EngineCore.outputText( 'The creature quickly positions a long tentacle with a single sucker over your clitoris. You feel the power of the suction on you, and your body quickly heats up.  Your clit engorges, prompting the beast to latch the sucker onto your ' + CoC.getInstance().player.clitDescript() + '.\n', false );
+				else if( CoC.player.hasVagina() ) {
+					EngineCore.outputText( 'The creature quickly positions a long tentacle with a single sucker over your clitoris. You feel the power of the suction on you, and your body quickly heats up.  Your clit engorges, prompting the beast to latch the sucker onto your ' + CoC.player.clitDescript() + '.\n', false );
 				}//Genderless
 				else {
 					EngineCore.outputText( 'The creature quickly positions a long tentacle against your ' + Descriptors.assholeDescript() + '. It circles your pucker with slow, delicate strokes that bring unexpected warmth to your body.\n', false );
 				}
-				EngineCore.dynStats( 'lus', (8 + CoC.getInstance().player.sens / 20) );
-				CoC.getInstance().player.createStatusAffect( StatusAffects.TentacleBind, 0, 0, 0, 0 );
+				EngineCore.dynStats( 'lus', (8 + CoC.player.sens / 20) );
+				CoC.player.createStatusAffect( StatusAffects.TentacleBind, 0, 0, 0, 0 );
 			}
 		}
 		Combat.combatRoundOver();
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaTentacleDefeat();
 		} else {
-			if( !hpVictory && CoC.getInstance().player.gender > 0 ) {
+			if( !hpVictory && CoC.player.gender > 0 ) {
 				EngineCore.outputText( '  Perhaps you could use it to sate yourself?', true );
 				EngineCore.doYesNo( SceneLib.tentacleBeastScene.tentacleVictoryRape, Combat.cleanupAfterCombat );
 			} else {

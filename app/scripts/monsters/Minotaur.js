@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 		that.hasAxe = args[ 0 ] || Utils.rand( 3 ) === 0;
 		var furColor = Utils.randomChoice( 'black', 'brown' );
 		$log.debug( 'Minotaur Constructor!' );
-		$log.debug( CoC.getInstance().flags );
+		$log.debug( CoC.flags );
 		that.a = 'the ';
 		that.short = 'minotaur';
 		that.imageName = 'minotaur';

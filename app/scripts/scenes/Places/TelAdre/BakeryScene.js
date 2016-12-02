@@ -6,31 +6,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 
 	//[First time approach];
 	BakeryScene.prototype.bakeryuuuuuu = function() {
-		if( CoC.getInstance().isEaster() && CoC.getInstance().player.hasCock() && (CoC.getInstance().flags[ kFLAGS.LAST_EASTER_YEAR ] < OnLoadVariables.date.fullYear || Utils.rand( 20 ) === 0) ) {
-			CoC.getInstance().flags[ kFLAGS.LAST_EASTER_YEAR ] = OnLoadVariables.date.fullYear;
+		if( CoC.isEaster() && CoC.player.hasCock() && (CoC.flags[ kFLAGS.LAST_EASTER_YEAR ] < OnLoadVariables.date.fullYear || Utils.rand( 20 ) === 0) ) {
+			CoC.flags[ kFLAGS.LAST_EASTER_YEAR ] = OnLoadVariables.date.fullYear;
 			this.easterBakeSale();
 			return;
 		}
-		if( Utils.rand( 10 ) <= 1 && SceneLib.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 4 ) {
+		if( Utils.rand( 10 ) <= 1 && SceneLib.shouldraFollower.followerShouldra() && CoC.player.gender > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 4 ) {
 			SceneLib.shouldraFollower.shouldraBakeryIntro();
 			return;
 		}
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ]++;
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] = Math.round( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] );
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ]++;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] = Math.round( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] );
 		//Chef meetings;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] % 8 === 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] % 8 === 0 ) {
 			SceneLib.maddie.procMaddieOneIntro();
 			return;
 		}
 		//Maddie Epilogue trigger!;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 3 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 3 ) {
 			SceneLib.maddie.bakeryEpilogue();
 			return;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.menu();
 		//First time;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_VISITED_BAKERY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_VISITED_BAKERY ] === 0 ) {
 			EngineCore.outputText( 'You approach the bakery, but it appears to be sunk below the street level.  The entrance isn\'t even a set of doors – it\'s a double-wide ramp that takes you below ground level.  The passage leads directly into the bakery\'s interior, allowing unobstructed traffic to flow in and out from the cozy, underground building. The smell of yeasty bread, sweet treats, and fluffy snacks seems to even permeate the bricks of this place.  If it were shut down, you have no doubt it would smell delicious for weeks if not months.  You get in line and look at the menu while you wait.\n\n', false );
 		}
 		//[Repeat approach];
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			//Kanga christmas!;
 			if( SceneLib.xmasMisc.nieveHoliday() ) {
 				SceneLib.xmasMisc.encounterKamiTheChristmasRoo();
-				if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] === 1 ) {
+				if( CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] === 1 ) {
 					EngineCore.addButton( 3, 'Pudding', SceneLib.xmasMisc.getWinterPudding );
 				}
 			}
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			}
 		}
 		//Times visited!;
-		CoC.getInstance().flags[ kFLAGS.TIMES_VISITED_BAKERY ]++;
+		CoC.flags[ kFLAGS.TIMES_VISITED_BAKERY ]++;
 		EngineCore.outputText( 'What do you do?' );
 		EngineCore.addButton( 0, 'Check Menu', this.checkBakeryMenu );
 		EngineCore.addButton( 1, 'Talk', this.talkBakeryMenu );
@@ -60,8 +60,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		var minoCum = null;
 		var gcupcake = null;
 		//Turn on cum eclairs if PC is an addict!;
-		if( CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 && CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ]++;
+		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 && CoC.flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] === 0 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ]++;
 			EngineCore.outputText( 'While you\'re in line, a shaking centauress glances at you and whispers, "<i>You need some too, don\'t ya hun?</i>"  You look on in confusion, not really sure what she\'s insinuating.  Her eyes widen and she asks, "<i>Aren\'t you addicted?</i>" You nod, dumbly, and she smiles knowingly.  "<i>There\'s a minotaur that works here with a bit of a fetish... just order a special eclair and he\'ll fix you right up.  Just keep it on the hush hush and hope there\'s some left after I get my dozen.</i>"  The centaur licks her lips and prances around impatiently.\n\n', false );
 		}
 		//(display menu);
@@ -70,11 +70,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'Berry Cupcakes - 3 gems.\n', false );
 		EngineCore.outputText( 'Doughnuts - 5 gems.\n', false );
 		EngineCore.outputText( 'Pound Cake - 4 gems.\n', false );
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] > 0 ) {
 			EngineCore.outputText( '\'Special\' Eclair - 10 gems.\n', false );
 			minoCum = EngineCore.createCallBackFunction2( this.nomnomnom, 'eclair', 10 );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
 			EngineCore.outputText( 'Giant Chocolate Cupcake - 500 gems.\n', false );
 			gcupcake = this.buySlutCake;
 		}
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The minotaur snorts as you approach him, but waves you into the kitchen.  "<i>What?</i>" he asks, patiently watching you.  "<i>Want to hear about baking?' );
 		//(Maddie 1 completed);
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
 			EngineCore.outputText( '  Or you want special order?' );
 		}
 		EngineCore.outputText( '</i>"' );
@@ -213,40 +213,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 	};
 	BakeryScene.prototype.buyCocoa = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gems < 10 ) {
+		if( CoC.player.gems < 10 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay ten gems for some cocoa.  ' );
-		CoC.getInstance().player.gems -= 10;
+		CoC.player.gems -= 10;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( ConsumableLib.MOUSECO, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFerretFruit = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gems < 20 ) {
+		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay twenty gems for a single ferret fruit.  ' );
-		CoC.getInstance().player.gems -= 20;
+		CoC.player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( ConsumableLib.FRRTFRT, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFig = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gems < 5 ) {
+		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay five gems for a fig.  ' );
-		CoC.getInstance().player.gems -= 5;
+		CoC.player.gems -= 5;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( ConsumableLib.RINGFIG, this.ingredientsMenu );
 	};
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Who will you talk to?\n' );
 		var rubiT = 'Waitress';
-		if( CoC.getInstance().flags[ kFLAGS.RUBI_INTRODUCED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.RUBI_INTRODUCED ] > 0 ) {
 			rubiT = 'Rubi';
 		}
 		EngineCore.menu();
@@ -266,13 +266,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		// I guess it just wouldn't do anything?;
 		// FWIW, the flag that has to be set to get rubiIntros to return zero is set in a function that has the comment:;
 		//(Will no longer encounter Rubi at the bakery.);
-		var rubiB = CoC.getInstance().telAdre.rubi.rubiIntros();
+		var rubiB = CoC.telAdre.rubi.rubiIntros();
 		if( rubiB !== null ) {
 			EngineCore.addButton( 1, rubiT, rubiB );
 		}
 
 		if( SceneLib.xmasMisc.nieveHoliday() ) {
-			if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] > 0 ) {
 				EngineCore.outputText( '\nYou could \'burn off some steam\' with Kami during her lunch break, since you already know how that\'ll end up!\n' );
 				EngineCore.addButton( 2, 'Kami', SceneLib.xmasMisc.approachKamiTheChristmasRoo );
 			} else {
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			}
 		}
 		EngineCore.outputText( '\nYou see a bubblegum-pink girl at the bakery, walking around and eagerly trying to hand out fliers to people. Her “uniform” is more like a yellow bikini with frills circling the waist of the bottom half. If this didn’t make her stand out from the crowd then her hair certainly would; it’s a big, poofy, curly, dark pink mess that reaches down to her ass with a huge cupcake hat sitting on top.\n' );
-		if( CoC.getInstance().flags[ kFLAGS.MET_FROSTY ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.MET_FROSTY ] !== 0 ) {
 			EngineCore.addButton( 3, 'Frosty', SceneLib.frosty.approachFrosty );
 		} else {
 			EngineCore.addButton( 3, 'PinkGirl', SceneLib.frosty.approachFrosty );
@@ -289,78 +289,78 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.addButton( 9, 'Leave', this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.nomnomnom = function( name, price ) {
-		CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] = name;
-		CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] = price;
+		CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] = name;
+		CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] = price;
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.gems < CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] ) {
+		if( CoC.player.gems < CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] ) {
 			EngineCore.outputText( 'You don\'t have enough gems to order that!', false );
 			//EngineCore.doNext(this.bakeryuuuuuu);;
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.checkBakeryMenu );
 			return;
 		}
-		CoC.getInstance().player.gems -= CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ];
+		CoC.player.gems -= CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ];
 		EngineCore.statScreenRefresh();
-		if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'eclair' ) {
+		if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'eclair' ) {
 			EngineCore.outputText( 'You hand over 10 gems and ask for the \'special eclair\'.  The centaur working the counter smirks ', false );
-			if( CoC.getInstance().player.tallness <= 52 ) {
+			if( CoC.player.tallness <= 52 ) {
 				EngineCore.outputText( 'down ', false );
-			} else if( CoC.getInstance().player.tallness >= 84 ) {
+			} else if( CoC.player.tallness >= 84 ) {
 				EngineCore.outputText( 'up ', false );
 			}
 			EngineCore.outputText( 'at you gives pulls a cream-filled pastry from a box concealed behind the counter.  It\'s warm... so very warm, and you try to steady your hands as you walk off to towards a table, sniffing in deep lungfuls of its \'special\' scent.  The first bite is heaven, sating a craving you didn\'t even know you had.  You can\'t stop yourself from moaning with delight as you drain every drop and finish off the sweet doughnut shell.  The minotaur goo is all over your fingers, but you don\'t mind licking them all clean.  With the lust now you now feel burning inside you, you even try to make a show of it.  Though you make a few ', false );
-			if( CoC.getInstance().player.femininity >= 75 ) {
+			if( CoC.player.femininity >= 75 ) {
 				EngineCore.outputText( 'males fill their pants', false );
-			} else if( CoC.getInstance().player.femininity <= 25 ) {
+			} else if( CoC.player.femininity <= 25 ) {
 				EngineCore.outputText( 'females squirm', false );
 			} else {
 				EngineCore.outputText( 'other patrons squirm and fill out their pants', false );
 			}
 			EngineCore.outputText( ', none of them tries to make a move.  Pity.', false );
-			EngineCore.dynStats( 'lus', (20 + CoC.getInstance().player.lib / 10) );
-			CoC.getInstance().player.minoCumAddiction( 10 );
+			EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 10) );
+			CoC.player.minoCumAddiction( 10 );
 		} else {
-			EngineCore.outputText( 'You hand over ' + Utils.num2Text( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] ) + ' gems and get your ' + CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] + '.  A moment later you\'re at a table, licking the sugary residue from your fingertips and wondering just how they make the food so damned good.', false );
-			if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'doughnuts' ) {
-				EngineCore.outputText( CoC.getInstance().player.modTone( 0, 2 ), false );
-				EngineCore.outputText( CoC.getInstance().player.modThickness( 100, 1 ), false );
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.buttRating < 15 ) {
+			EngineCore.outputText( 'You hand over ' + Utils.num2Text( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] ) + ' gems and get your ' + CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] + '.  A moment later you\'re at a table, licking the sugary residue from your fingertips and wondering just how they make the food so damned good.', false );
+			if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'doughnuts' ) {
+				EngineCore.outputText( CoC.player.modTone( 0, 2 ), false );
+				EngineCore.outputText( CoC.player.modThickness( 100, 1 ), false );
+				if( Utils.rand( 3 ) === 0 && CoC.player.buttRating < 15 ) {
 					EngineCore.outputText( '\n\nWhen you stand back up your ' + Descriptors.buttDescript() + ' jiggles a little bit more than you\'d expect.', false );
-					CoC.getInstance().player.buttRating++;
+					CoC.player.buttRating++;
 				}
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.hipRating < 15 ) {
+				if( Utils.rand( 3 ) === 0 && CoC.player.hipRating < 15 ) {
 					EngineCore.outputText( '\n\nAfter finishing, you find your gait has changed.  Did your hips widen?', false );
-					CoC.getInstance().player.hipRating++;
+					CoC.player.hipRating++;
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'cookies' ) {
-				EngineCore.outputText( CoC.getInstance().player.modTone( 0, 1 ), false );
-				EngineCore.outputText( CoC.getInstance().player.modThickness( 100, 2 ), false );
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.hipRating < 20 ) {
+			} else if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'cookies' ) {
+				EngineCore.outputText( CoC.player.modTone( 0, 1 ), false );
+				EngineCore.outputText( CoC.player.modThickness( 100, 2 ), false );
+				if( Utils.rand( 3 ) === 0 && CoC.player.hipRating < 20 ) {
 					EngineCore.outputText( '\n\nAfter finishing, you find your gait has changed.  Did your hips widen?', false );
-					CoC.getInstance().player.hipRating++;
+					CoC.player.hipRating++;
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'brownies' ) {
-				EngineCore.outputText( CoC.getInstance().player.modThickness( 100, 4 ), false );
-				if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.hipRating < 30 ) {
+			} else if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'brownies' ) {
+				EngineCore.outputText( CoC.player.modThickness( 100, 4 ), false );
+				if( Utils.rand( 2 ) === 0 && CoC.player.hipRating < 30 ) {
 					EngineCore.outputText( '\n\nAfter finishing, you find your gait has changed.  Your ' + Descriptors.hipDescript() + ' definitely got wider.', false );
-					CoC.getInstance().player.hipRating += 2;
+					CoC.player.hipRating += 2;
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'cupcakes' ) {
-				EngineCore.outputText( CoC.getInstance().player.modTone( 0, 4 ), false );
-				if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.buttRating < 30 ) {
+			} else if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'cupcakes' ) {
+				EngineCore.outputText( CoC.player.modTone( 0, 4 ), false );
+				if( Utils.rand( 2 ) === 0 && CoC.player.buttRating < 30 ) {
 					EngineCore.outputText( '\n\nWhen you stand back up your ' + Descriptors.buttDescript() + ' jiggles with a good bit of extra weight.', false );
-					CoC.getInstance().player.buttRating += 2;
+					CoC.player.buttRating += 2;
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'pound cake' ) {
-				EngineCore.outputText( CoC.getInstance().player.modTone( 0, 2 ), false );
-				EngineCore.outputText( CoC.getInstance().player.modThickness( 100, 2 ), false );
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.buttRating < 25 ) {
+			} else if( CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] === 'pound cake' ) {
+				EngineCore.outputText( CoC.player.modTone( 0, 2 ), false );
+				EngineCore.outputText( CoC.player.modThickness( 100, 2 ), false );
+				if( Utils.rand( 3 ) === 0 && CoC.player.buttRating < 25 ) {
 					EngineCore.outputText( '\n\nWhen you stand back up your ' + Descriptors.buttDescript() + ' jiggles a little bit more than you\'d expect.', false );
-					CoC.getInstance().player.buttRating++;
+					CoC.player.buttRating++;
 				}
-				if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.hipRating < 25 ) {
+				if( Utils.rand( 3 ) === 0 && CoC.player.hipRating < 25 ) {
 					EngineCore.outputText( '\n\nAfter finishing, you find your gait has changed.  Did your ' + Descriptors.hipDescript() + ' widen?', false );
-					CoC.getInstance().player.hipRating++;
+					CoC.player.hipRating++;
 				}
 			}
 		}
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 	 [mino cum eclair] – helps your cravings and – tone!, LUST!*/
 	BakeryScene.prototype.buySlutCake = function() {
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.gems < 500 ) {
+		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( 'You don\'t have enough gems for one of those!', false );
 			//EngineCore.doNext(this.bakeryuuuuuu);;
 			EngineCore.menu();
@@ -384,20 +384,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			return;
 		}
 		EngineCore.outputText( 'The minotaur chef emerges from the backroom bearing a box that contains your cupcake.  It\'s too big to scarf down immediately.\n\n', false );
-		CoC.getInstance().player.gems -= 500;
+		CoC.player.gems -= 500;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( ConsumableLib.CCUPCAK, this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.buyFoxBerry = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gems < 5 ) {
+		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay five gems for a fox berry.  ' );
-		CoC.getInstance().player.gems -= 5;
+		CoC.player.gems -= 5;
 		EngineCore.statScreenRefresh();
 		SceneLib.inventory.takeItem( ConsumableLib.FOXBERY, this.ingredientsMenu );
 	};
@@ -425,17 +425,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '\n\nStill unsure exactly what to do, you sit where you are in disbelief at your situation before your curiosity gets the better of you, deciding you must examine these eggs for yourself.  Walking over to one of the few that are left in the back, you pick it up to find it is innately warm.  It takes all your composure not to drop it at this, but you press onwards.  Not only does it feel warm, it seems to be taking the heat out of your hands.  A lewd thought passes in your mind, imagining a chocolate person coming out of the egg, tendrils dripping off of them like sticky aftersex.  Surprised at your own audacity, you put the egg down again wondering where the thought came from.  Remembering why you are back here, your dilemma returns to the forefront of your mind with pressing urgency.  You walk over and pick up the jar of blue liquid; it is far more viscous than you imagined.  Taking everything into consideration, you\'re helping out here.  There would be no reason for the minotaur to give you something with hostile intent, so you decide to trust your gut and to drink the strange elixir.  Not wanting to down the whole thing, you quickly find a measuring cup to use for your drink and pour yourself some.  Bottoms up...' );
 		EngineCore.outputText( '\n\nA euphoric wave passes through you, emanating from the drink slowly filling your stomach.  The drink fills you with, if nothing else, the newfound fury of a madman for solving your problem.  Lurching forward, you are certain that if nothing else, the solution to your impasse must be contained within.  ' );
 		//(If the player has tits);
-		if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+		if( CoC.player.biggestTitSize() >= 1 ) {
 			EngineCore.outputText( 'Your [fullChest] bounce at the vigor of your movement.  ' );
 		}
 		EngineCore.outputText( 'Going over the egg like an elaborate puzzle with its secrets only limited by your ability to unlock them, you are delighted to feel a stir of movement from within.  The heat is leaving not only your hands, but the entire room now, bringing the bristling heat down until you\'re sure it\'s cooler in here than outside with the swarm of customers.' );
 		EngineCore.outputText( '\n\nThe egg you\'ve been holding in your hands begins to almost shake; you set it down to avoid the risk of you dropping it.  It turns out you put it down just in time, as a chocolate eruption sprays out of the egg towards the ceiling with more force than a geyser.  Climbing from the remains of the egg, a voluptuously bodied chocolate herm emerges, intents obvious from the equipment already erect and slavering.  You can\'t help but size her up, noting her full DD cup breasts and a dick you judge to be about 14 inches.  Her sensual gait as she makes her way over to you is nothing short of evil in the way it brings heat to your crotch, ' );
 		//(if the pc is male);
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( '[eachCock] jumps to full hardness.' );
 		}
 		//(if the pc is female);
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your nipples stiffening noticeably, while your [vagina] prepares for what\'s to come.' );
 		}//(if the pc is a herm);
 		else {
@@ -449,7 +449,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 	BakeryScene.prototype.malesHelpOutWithEaster = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'A idea crosses your mind; why not have the molten girl help you with your problem?  As if reading your mind, the girl continues her way to you, making her way with her eyes locked on your [cock biggest].  She is upon you now, flaccid streams drooling off her hand as she makes to grab your cock.  A heated pressure envelopes your shaft' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ', sticky drops of chocolate trailing down your [balls]' );
 		}
 		EngineCore.outputText( ', each movement a not unpleasant sensation as the warmth infuses you.  The center of the pressure loosens, and your chocolate partner takes it upon herself to pin you to the floor, her warmness surrounding you.  Almost immediately you feel a similar pressure to the previous upon your groin, pulsating now as if stroking your cock in earnest.  You work out that she has enveloped your rod in what you assume is a vagina.  As if to confirm your suspicions, your captor lets out a small moan, increasing the fervor with which she rings out your dong.' );
@@ -462,16 +462,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		}
 		EngineCore.outputText( 'Her rod is only seconds behind, emitting a stream of what appears to be white chocolate at least three feet into the air, sputtering three or four strands before calming down.  The girl collapses in a heap, bringing your conjoined genitals down as well.  You are not quite done, your own rod deep into her folds, quickly bringing yourself to your own orgasm.' );
 		//(small cum vol);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nYour cock spits out a few streams into her expanse, thick cords of aftersex connecting you and your partner even as you pull away.' );
 		}//(med cum vol);
-		else if( CoC.getInstance().player.cumQ() < 500 ) {
+		else if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nYour cock shoots out several significant streams of seed, filling your partner\'s deepness while a small amount dribbles out.' );
 		}//(large cum vol);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'Your cock spews out a significant amount of seed, filling your partners deepness quickly while a small volume shoots out with some force.  You are happy to see that she seems to have gained a little weight from your baby-batter.' );
 		}//(very large cum vol);
-		else if( CoC.getInstance().player.cumQ() < 5000 ) {
+		else if( CoC.player.cumQ() < 5000 ) {
 			EngineCore.outputText( 'Your cock spews into your partner\'s deepness, filling it almost instantly while a significant volume splatters out.  You are happy to see she seems to have gained a little weight from your baby-batter.' );
 		} else {
 			EngineCore.outputText( 'Your cock opens like a river, streaming into your partner with such force that her belly distends.  A spew begins to erupt from her vagina, empting the significant amount she could not take on to the floor.  You are happy to see she has gained some weight from your baby-batter.' );
@@ -479,9 +479,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '  It\'s about all you can do to get to the floor before passing out.  So much for helping.  In the back of your mind you picture the minotaur with a smug grin as your consciousness fades.' );
 		EngineCore.outputText( '\n\n<b>Later...</b>' );
 		EngineCore.outputText( '\nYou stumble back to camp, still somewhat out of it from your experience.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
-		CoC.getInstance().player.cumMultiplier += 2;
+		CoC.player.cumMultiplier += 2;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'bakeryScene', new BakeryScene() );

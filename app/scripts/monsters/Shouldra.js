@@ -10,30 +10,30 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, 
 		//return to combat menu when finished;
 		EngineCore.doNext( EventParser.playerMenu );
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'The girl wades in for a swing, but you deftly dodge to the side. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'The girl wades in for a swing, but you deftly misdirect her and avoid the attack. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'The girl wades in for a swing, but you deftly twist your flexible body out of the way. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 		if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
-			if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-				EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.getInstance().player.armorName + '.', false );
+			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+				EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 			} else {
 				EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 			}
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, 
 			EngineCore.outputText( ' (' + damage + ')', false );
 		}
 		if( damage > 0 ) {
-			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				this.lust += 5 * this.lustVuln;
 			}
@@ -72,12 +72,12 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, 
 		} else {
 			EngineCore.outputText( 'The girl\'s feet get tangled on each other and she tumbles to the ground. Before you can capitalize on her slip, she rolls with the impact and comes up smoothly. As she rises, however, you reel back and raise an eyebrow in confusion; are her breasts FILLING the normally-loose tunic? She notices your gaze and smiles, performing a small pirouette on her heel before squaring up to you again. Your confusion only heightens when her torso comes back into view, her breasts back to their normal proportions. A trick of the light, perhaps? You shake your head and try to fall into the rhythm of the fight.\n', false );
 		}
-		EngineCore.dynStats( 'lus', (8 + CoC.getInstance().player.lib / 10) );
+		EngineCore.dynStats( 'lus', (8 + CoC.player.lib / 10) );
 		Combat.combatRoundOver();
 	};
 	//(magic attack);
 	Shouldra.prototype.shouldraMagicLazers = function() {
-		var damage = CoC.getInstance().player.takeDamage( 20 + Utils.rand( 10 ) );
+		var damage = CoC.player.takeDamage( 20 + Utils.rand( 10 ) );
 		EngineCore.outputText( 'Falling back a step, the girl raises a hand and casts a small spell. From her fingertips shoot four magic missiles that slam against your skin and cause a surprising amount of discomfort. (' + damage + ')\n', false );
 		Combat.combatRoundOver();
 	};

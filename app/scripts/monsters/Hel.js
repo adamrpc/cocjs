@@ -14,33 +14,33 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'You nimbly dodge the salamander\'s massive sword thrust!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
 		else {
-			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou / 2 ) - CoC.getInstance().player.armorDef / 2 );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou / 2 ) - CoC.player.armorDef / 2 );
 			if( damage > 0 ) {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 			}
 			//No damage;
 			if( damage <= 0 ) {
 				damage = 0;
 				//Due to toughness or amor...;
-				if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.getInstance().player.armorName + '.', false );
+				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 				} else {
 					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 				EngineCore.outputText( 'The salamander lunges at you, sword swinging in a high, savage arc.  You attempt to duck her attack, but she suddenly spins about mid-swing, bringing the sword around on a completely different path.  It bites deep into your flesh, sending you stumbling back. (' + damage + ')', false );
 			}
 			if( damage > 0 ) {
-				if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+				if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 					this.lust += 5 * this.lustVuln;
 				}
@@ -72,35 +72,35 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 83 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 83 ) {
 			EngineCore.outputText( 'The salamander rushes at you, knocking aside your defensive feint and trying to close the distance between you.  She lashes out at your feet with her tail, and you\'re only just able to dodge the surprise attack.', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 5 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 5 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s tail-swipe.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 5 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 5 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' tail-swipe.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 3 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 3 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of a tail-swipe!', false );
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( this.str - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( this.str - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 		//No damage;
 		if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
-			if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
+			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
 				EngineCore.outputText( 'The salamander\'s tail-swipe harmlessly deflects off your armor!', false );
 			} else {
 				EngineCore.outputText( 'The salamander\'s tail-swipe hits you but fails to move or damage you.', false );
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 			EngineCore.outputText( 'The salamander rushes at you, knocking aside your defensive feint and sliding in past your guard.  She lashes out at your feet with her tail, and you can feel the heated wake of the fiery appendage on your ensuing fall toward the now-smouldering grass. (' + damage + ')', false );
 		}
 		if( damage > 0 ) {
-			if( this.lustVuln > 0 && CoC.getInstance().player.armorName === 'barely-decent bondage straps' ) {
+			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				this.lust += 5 * this.lustVuln;
 			}
@@ -122,13 +122,13 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 	};
 	Hel.prototype.helCleavage = function() {
 		//FAIL;
-		if( (CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6) || (CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10) || (CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80) ) {
+		if( (CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6) || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10) || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
 			EngineCore.outputText( 'To your surprise, the salamander suddenly pulls up her top, letting her hefty breasts hang free in the air; her small, bright pink nipples quickly harden from either arousal or temperature.  Before you can take your eyes off her impressive rack, she jumps at you.  One of her scaled arms reaches around your waist, and the other toward your head, but you roll away from her grip and push her bodily away.  She staggers a moment, but then quickly yanks the jangling bikini top back down with a glare.\n', false );
 		}
 		//Attack 3 – Lust – Cleavage (Failure);
 		else {
 			EngineCore.outputText( 'To your surprise, the salamander suddenly yanks up her top, letting her hefty breasts hang free in the air; her small, bright pink nipples quickly harden from either arousal or temperature.  Before you can take your eyes off her impressive rack, she jumps at you.  One of her scaled arms encircles your waist, and the other forcefully shoves your face into her cleavage.  She jiggles her tits around your face for a moment before you\'re able to break free, though you can feel a distinct heat rising in your loins.  As quickly as they were revealed, the breasts are concealed again and your opponent is ready for more combat!', false );
-			var lust = 20 + Utils.rand( 10 ) + CoC.getInstance().player.sens / 10 + Utils.rand( CoC.getInstance().player.lib / 20 );
+			var lust = 20 + Utils.rand( 10 ) + CoC.player.sens / 10 + Utils.rand( CoC.player.lib / 20 );
 			EngineCore.dynStats( 'lus', lust );
 			//Apply resistance;
 			lust *= EngineCore.lustPercent() / 100;
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 	};
 	Hel.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
-		if( CoC.getInstance().flags[ kFLAGS.HEL_TALKED_ABOUT_HER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_HER ] === 1 ) {
 			that.a = '';
 			that.short = 'Hel';
 		} else {

@@ -18,25 +18,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.spriteSelect( 75 );
 		EngineCore.outputText( '', true );
 		//First encounter:
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ] === 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ] === 0 ) {
 			EngineCore.outputText( 'You are carefully trailblazing up a steep pass in the jagged mountain peaks when a furious screech from high above you makes you start.\n\n', false );
 			EngineCore.outputText( '"<i>Thiieeeeeeeeef, filthy thieeeeeeeeef!</i>"  A harpy flaps into view over the ridge, her face a picture of rage.  You hastily assume a fighting stance- but the harpy completely ignores you, her gaze sliding over you and onto the rock wall behind you.  "<i>You can hide but you can\'t run, sneak thiieeeeeeeef!  When I find you, I\'m going to tear your naaaaaaaaasty little eyes out!</i>"  She flies on, screaming with anger, her head moving back and forth in jerky movements, scrying the landscape. You stare blankly in bafflement at this display, but are glad that a harpy\'s attention is on someone else for a change. Marveling at your fortune, you decide to press on.\n\n', false );
 			EngineCore.outputText( 'At the top of the pass you take a moment to catch your breath, and notice something white lying on the ground, sheltered by a rock formation.  Is that a harpy egg?  What is it doing away from a nest?  Something on the rocks catches your eye tiny pool of grey, split by a vertical black slit.  You look closer at it to try to make sense of it.  It\'s part of something bigger... but that\'s not important.  What is important is that you keep staring into that depthless pool of grey.  If you keep looking into it, you are quite sure you will be able to see forever; like two mirrors held up against each other, it\'s just a case of looking hard enough.  Is there even anything outside of the grey pool?  You don\'t think there is, and why would you even want to find out?  Everything to be seen and known is there, in those bottomless depths...\n\n', false );
 			EngineCore.outputText( 'Using every vestige of your willpower, you tear your gaze away from the terrible, paralyzing sight.  Panting and feeling groggy, you desperately hold the rock formation in the corner of your eye. A tall, thin bipedal shape disengages from the stone against which it had been camouflaging itself, and stalks predatorily towards you.  With small, quick glances you glean fleeting impressions of grey-green scales, a tightly muscled yellow underbelly, cruelly curved index claws, a whip like tail. The creature moves its snub head towards yours suddenly, trying to catch your gaze with its deadly grey eyes again.  You recoil and ready yourself to fight it as best you can.\n\n', false );
 			var basilisk = new Basilisk();
 			//(spd loss)
-			Basilisk.basiliskSpeed( CoC.getInstance().player, 5 );
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
+			Basilisk.basiliskSpeed( CoC.player, 5 );
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
 			Combat.startCombat( basilisk );
 		}
 		//Standard encounter:
 		else {
 			EngineCore.outputText( 'You notice a large boulder ahead.  There is something curiously shaped about it. A small, wet grey shape on it catches your eye...\n\n', false );
 			EngineCore.outputText( 'You look away in the nick of time, and ready yourself to fight as the basilisk slides from its hiding place and advances upon you, its deadly eyes and sharp claws glinting coldly in the sunlight.\n\n', false );
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
 			Combat.startCombat( new Basilisk() );
 		}
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
 		EngineCore.spriteSelect( 75 );
 	};
 
@@ -46,24 +46,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( '', true );
 		var evil = null;
 		var eggs = null;
-		if( CoC.getInstance().player.canOvipositSpider() ) {
+		if( CoC.player.canOvipositSpider() ) {
 			eggs = this.driderPCEggLaysBasilisk;
 		}
-		if( CoC.getInstance().player.canOvipositBee() && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.canOvipositBee() && CoC.player.gender > 0 ) {
 			eggs = this.layBeeEggsInABasilisk;
 		}
-		if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() ) >= 0 && CoC.getInstance().player.cor >= 66 ) {
+		if( CoC.player.cockThatFits( CoC.monster.analCapacity() ) >= 0 && CoC.player.cor >= 66 ) {
 			evil = this.defeatBasiliskAndAnal;
 		}
 		//Player HP victory:
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'Unable to stand anymore, the basilisk shakily sinks down on one knee, drops its head and looks at the ground, evidently demonstrating submission.', false );
 		}//Player Lust victory:
 		else {
 			EngineCore.outputText( 'No longer able to control its raging erection, the basilisk closes its eyes and sinks to one knee.  It would probably be attempting to signal its submission to you if it weren\'t furiously masturbating its long, purple cock, which has emerged straining from the creature\'s genital slit.', false );
 		}
 		//If victory and Player Lust above 30:
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Certain that the creature won\'t dare try and turn its eyes on you again, you take your time to look the tall reptile over directly for the first time.  Perhaps you could use it to satisfy your baser urges. If so, what part of it do you choose?', false );
 			//[Tongue][Ass]
 			EngineCore.choices( 'Tongue', this.tongueBasiliskSmex, 'Ass', evil, '', null, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
@@ -77,13 +77,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.spriteSelect( 75 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tap your jaw as you stare down at the defeated reptile, smiling at its oddly formal gesture of surrender.  You\'d very much like to take some satisfaction from the basilisk, extract a bit of pleasurable payment for what it tried to do to you the more you get to look at it properly, the more difficult doing that seems. The tall, thin creature is all angles, tough scales and pointed edges. You don\'t like the thought of putting your genitals anywhere near its sickle claws or curved fangs.\n\n', false );
-		EngineCore.outputText( 'It is as you are taking in this latter article that the basilisk swallows nervously, and you get a glimpse inside its mouth at a long, sticky, pale purple tongue, another gift of its reptilian ancestors. It\'s the only part you\'ve seen of it so far which looks... soft.  Pliable.  Your smile widens and you step forward, slowly loosening your ' + CoC.getInstance().player.armorName + '.\n\n', false );
+		EngineCore.outputText( 'It is as you are taking in this latter article that the basilisk swallows nervously, and you get a glimpse inside its mouth at a long, sticky, pale purple tongue, another gift of its reptilian ancestors. It\'s the only part you\'ve seen of it so far which looks... soft.  Pliable.  Your smile widens and you step forward, slowly loosening your ' + CoC.player.armorName + '.\n\n', false );
 		EngineCore.outputText( '<i>First things first</i>, you think.  <i>Better put some protection on.</i>  You take a long rag out of your pocket and, after considering the oblong shape of the basilisk\'s head, tie it vertically around its eyes, tying the blindfold under its chin like a headscarf.  "<i>I\'m not saying I don\'t trust you,</i>" you tell it as you work, "<i>but... I don\'t trust you.</i>" The creature accepts this treatment quite meekly.  All of its fight and cunning seem to have completely run out of it now that you\'ve established your superiority, and the feeling of power this gives you sends blood rushing eagerly towards your crotch.  "<i>Now...put your claws behind your back and open your mouth,</i>" you breathe.  "<i>I want to see that nice soft tongue of yours, worm.</i>" You can\'t understand it, but apparently it can understand you, and it slowly complies.  It kneels in front of you, blindfolded with its long, wet tongue lolling out, as you tear away your undergarments.\n\n', false );
 		//Male/Herm:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '"<i>Wrap it around me,</i>" you demand gruffly, poking your ' + Descriptors.cockDescript( 0 ) + ' lightly against the end of its tongue.  Slowly, the basilisk does as you ask.  It is clumsy at first, taking time to get a sense of your girth and hardness as it tastes and licks blindly, but it quickly grows into the task.  Starting from just above your head, it curls its tongue right around your prick and then inches its way upwards, spiraling its long, incredibly flexible organ around you.  The more you feel this thing\'s tongue, the more you know you made the right choice here; the shifting, wet sensation as it snakes its way upwards towards your base is incredible, and gets better the more of your ' + Descriptors.cockDescript( 0 ) + ' is swathed in mouth muscle.  It is unlike any tongue you\'ve felt before... there is some kind of adhesive property in the basilisk\'s saliva which makes its soft flesh stick like a leech once it is on you.\n\n', false );
 			//Single cock:
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'Once it has wrapped around as much of your cock as it can, you take a moment to control yourself in this dizzying, soft yet tight vice grip your serpent sub now has you in.  "<i>Squeeze.  Work it, nice and slow,</i>" you say huskily.  The basilisk\'s tongue slides up and down your length, its saliva slathering every inch, the sticky, sucking sensation encompassing your cock on all sides.  It squeezes you softly and then relaxes... squeezes you, then relaxes, as it continues to spiral around and around.  It is everything you can do not to go over the edge straight away; you hold back desperately, staring upwards.  To blow your load before properly enjoying what is turning out to be a truly unbelievable suck would be a terrible crime.  You look downwards and manage to pull yourself back a bit by laughing hugely at the sight.  With the basilisk\'s tongue spiralled around you, your ' + Descriptors.cockDescript( 0 ) + ' looks like nothing so much as an obscene candy cane.  The basilisk seems to take your hysterical laughter for anger or contempt, because it hastily increases its pace, forcing its sticky muscle up and down as fast as it can.  You lean back and lose yourself in the blissful, sucking, enveloping sensation.\n\n', false );
 				EngineCore.outputText( 'You last for as long as you can before, with a euphoric sigh, you reach your peak.  Your ' + Descriptors.cockDescript( 0 ) + ' bulges and then rockets out stream after stream of jizz.  Directly in the line of fire, the blind basilisk takes its minute-long facial with as much dignity as it can muster- which is to say, none at all.\n\n', false );
 			}
@@ -96,14 +96,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( 'You look beatifically down at it when you are finished and notice that despite itself the basilisk has got more than a bit turned on by your fairly callous treatment of it; the creature is finding it difficult to kneel properly with its long, purple erection poking against the ground.  You smile with satisfaction at how successfully you\'ve managed to paint its face white with your seed.  "<i>That\'s a good look for you.  We really must do this again,</i>" you say as you loosen its blindfold just a little before taking your leave.  You chance a look back.  The creature is staggering in the opposite direction, wiping its face with a claw and trying not to bump its cock into anything, looking very dazed indeed.  You grin and make your way back to camp.', false );
 		}
 		//Female:
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '"<i>Lick me,</i>" you tell the basilisk brusquely, as you push your hips out and present your ' + Descriptors.vaginaDescript( 0 ) + ' to its tongue.  You decide you\'ll take your reward standing up; the sight of the beast on its knees in front of you is quite pleasing.\n\n', false );
 			EngineCore.outputText( 'The basilisk slowly does as you ask, leaning forward and pushing its long, slick tongue against your lips.  It is clumsy at first; unable to see, it has to feel with its slick mouth muscle, licking around the limits of your ' + Descriptors.vaginaDescript( 0 ) + ' before pushing inside.  The creature inadvertently frustrates you, and so when it finally finds your hole it is welcoming and wet.\n\n', false );
 			EngineCore.outputText( 'The basilisk finds your ' + Descriptors.clitDescript() + ' and, after circling it slowly and thoughtfully for a while, pushes its tongue into your wet vagina.  You gasp as it inches itself further up you, bending its face in.  The creature\'s tongue isn\'t like any you ever felt before; longer than a human cock and infinitely more flexible, it is able to caress you at a depth you didn\'t think possible.  It pulls itself out a little and you discover another positive to it seems to be an adhesive quality to its saliva which causes it to stick to flesh it is attached to.  As it withdraws slightly, your tender inner walls go with it before parting from its tongue slowly and luxuriantly.  The sensation makes you gasp as you spasm and orgasm on the spot.  The basilisk is treated to a gush of a girlcum straight down its nostrils and it coughs dryly, withdrawing itself intuitively.  Immediately you grind your ' + Descriptors.vaginaDescript( 0 ) + ' right into its face, bending over it and gripping its head spines, denying it air.  "<i>You stop when I say you can, not before,</i>" you growl at it.  Quickly, submissively, the lizard applies itself to you again.  You smile with great pleasure.  There is no way you\'re letting a tongue as fantastic as this go easily.\n\n', false );
 			EngineCore.outputText( 'You make the basilisk pleasure you for what seems like hours.  It lavishes attention on your deepest, most sensitive spots with its incredibly long and flexible tongue, its sticky saliva pushing and pulling you to astonishing, mind blowing heights.  The creature is able to hunch its tongue up against your ' + Descriptors.clitDescript() + ' whilst still inside you, brushing over and around it, giving it just enough attention to tease you to madness; it drives you to orgasm after orgasm.  "<i>You\'ve done this before, haven\'t you?</i>" you pant as you begin to flagrantly grind yourself against the basilisk\'s scaly snout.  "<i>You must have.  How can a fucking lizard be an expert at cunn- ahhhhh!</i>"  You spasm wildly, once again drowning the blindfolded reptile with your juices.  With a hugely satisfied sigh, you finally step away from the creature.\n\n', false );
 			EngineCore.outputText( 'You look beatifically down at it and notice that despite itself the basilisk has got more than a bit turned on by your fairly callous treatment of it; the creature is finding it difficult to kneel properly with its long, purple erection poking against the ground.  Its tongue flops weakly out of its girl-cum-spattered mouth, evidently too weak to even curl back up, and you grin as you imagine how much it must ache from the workout you gave it.  "<i>That\'s a good look for you.  We really must do this again,</i>" you say breezily as you loosen its blindfold just a little before taking your leave, shaking the weariness out of your knees as you go.  You chance a look back; the creature is staggering in the opposite direction, wiping its face with a claw and trying not to bump its cock into anything, looking very dazed indeed. You grin and make your way back to camp.', false );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib-', 1 );
 		Combat.cleanupAfterCombat();
 	};
@@ -114,17 +114,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		//Requires: Corruption 70 or more, cock (for now)
 		//Prelude:
 		EngineCore.outputText( 'You stand over the kneeling basilisk, your mind boiling with lust and anger.  You want to really punish this loathsome lizard for daring to mess with you, for daring to try to force its unsettling, paralyzing magic on you.  As you weigh up your options, the tall reptile slides an eye open and chances a look upwards.  Whatever it sees in your face causes it to flinch and immediately close it again, but even this tiny show of defiance enrages you.  "<i>Open them again and I will close them.  Permanently,</i>" you snarl.  The creature has given you a stroke of inspiration, though.  If only there was something... you look around you, and a gleam of light catches your eye; a somewhat clear, still pool of water lies about two dozen yards away.  A cruel grin splits your face: <i>providence</i>.\n\n', false );
-		EngineCore.outputText( 'You slap a hand on the scruff of the basilisk\'s neck, gripping as much of its leathery hide as you can.  "<i>Crawl,</i>" you snap, tugging it in the direction you want it to go.  The basilisk meekly does as it is told at first, feeling out in front of it with its claws blindly and following your lead.  It must take another peep at where it is being taken about two thirds of the way there however, because judging by the way it starts thrashing its limbs and tail around in protest, it guesses what you have in mind.  You have already broken its physical resistance though and you are able to ignore its pathetic pawing at your ' + CoC.getInstance().player.armorName + ', dragging the defeated reptile by the back of its neck the rest of the way.  You push your ' + CoC.getInstance().player.leg() + ' savagely into its back and grip its spines as you position its head over the smooth, liquid mirror of the pool.  "<i>Open your eyes,</i>" you command.  The basilisk clenches them tighter.  You sigh and shove its head under the cold water, holding it there until its struggles grow weak and spasmodic before finally releasing.  You hum and examine your nails as the reptile heaves for air and coughs miserably, waiting patiently for the ripples on the pool\'s surface to subside.  "<i>Open your eyes,</i>" you say again, in exactly the same tone.  This time, the basilisk does as you say.  A smile curves your lips as you feel the creature tense and then freeze under you.  Staring at its reflection, it falls helplessly under its own spell.\n\n', false );
+		EngineCore.outputText( 'You slap a hand on the scruff of the basilisk\'s neck, gripping as much of its leathery hide as you can.  "<i>Crawl,</i>" you snap, tugging it in the direction you want it to go.  The basilisk meekly does as it is told at first, feeling out in front of it with its claws blindly and following your lead.  It must take another peep at where it is being taken about two thirds of the way there however, because judging by the way it starts thrashing its limbs and tail around in protest, it guesses what you have in mind.  You have already broken its physical resistance though and you are able to ignore its pathetic pawing at your ' + CoC.player.armorName + ', dragging the defeated reptile by the back of its neck the rest of the way.  You push your ' + CoC.player.leg() + ' savagely into its back and grip its spines as you position its head over the smooth, liquid mirror of the pool.  "<i>Open your eyes,</i>" you command.  The basilisk clenches them tighter.  You sigh and shove its head under the cold water, holding it there until its struggles grow weak and spasmodic before finally releasing.  You hum and examine your nails as the reptile heaves for air and coughs miserably, waiting patiently for the ripples on the pool\'s surface to subside.  "<i>Open your eyes,</i>" you say again, in exactly the same tone.  This time, the basilisk does as you say.  A smile curves your lips as you feel the creature tense and then freeze under you.  Staring at its reflection, it falls helplessly under its own spell.\n\n', false );
 		//Male/Herm:
-		if( CoC.getInstance().player.hasCock() ) {
-			var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() );
+		if( CoC.player.hasCock() ) {
+			var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 			EngineCore.outputText( 'You get off the basilisk and walk around it, giving it a cautious tap in the flank.  No response; the creature is well and truly paralyzed.  Knowing your prey is going nowhere, you undress at leisure, allowing your ' + Descriptors.cockDescript( x ) + ' to slide out and feel the fresh air.  You kneel over the creature\'s hindquarters and rub yourself back and forth along its scales, hardening as you enjoy the warm, leathery sensation.  As the need to fuck takes hold of you, you try to get at the basilisk\'s tight, muscled ass, but its long tail, frozen in place, is in the way.  You pull at it, but the paralyzed flesh is impossible to move.  "<i>Lift your tail!</i>" you snap in frustration.  Immediately the tail lifts, raising up and back over the basilisk until its behind is unprotected, before freezing into place again. Your eyes widen ever so slightly as you realize how much power you have given yourself over the reptile; caught in a feedback loop of its own hypnosis, mind emptied, it is helplessly deferential to whatever anyone says to it.  A mad yet oddly tempting image of a dancing basilisk flits through your head... but no, your straining cock reminds you that there are more important matters at hand.  Without preamble, you grasp the creature\'s hindquarters and push your ' + Descriptors.cockDescript( x ) + ' against its tight anus.\n\n', false );
 			EngineCore.outputText( 'The going is tough at first, even if your fuck toy is incapable of tensing itself.  You push past its sphincter slowly, working its passage, feeding more of yourself in bit by bit.  Without lubrication the sensation is incredibly tight for you and undoubtedly not very pleasurable for your partner... not that you care.  It emits a dry moan through its still mouth as you slowly begin to buck against it more roughly.  "<i>Relax,</i>" you hiss; it is not a suggestion.  The creature\'s back passage eases, allowing you to slip further in suddenly.  This delightful sensation makes you drool pre-cum, lubricating the basilisk\'s hole and breaking the friction, allowing you to begin to thrust against the creature.\n\n', false );
 			EngineCore.outputText( 'The basilisk is clearly something of a novice when it comes to anal rape; its passage is incredibly tight and grips you like a fist, forcing more pre-cum out of you, making your efforts easier and more pleasurable as you begin to roughly fuck your paralyzed victim harder and harder, losing yourself in that clenchingly tight ass.  ', false );
 			//[(13 inches or less:)
-			if( CoC.getInstance().player.cocks[ x ].cockLength <= 13 ) {
+			if( CoC.player.cocks[ x ].cockLength <= 13 ) {
 				EngineCore.outputText( 'Soon your ' + Descriptors.hipDescript() + ' are clapping a staccato rhythm against its warm, muscly butt,', false );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( ' your ' + Descriptors.ballsDescriptLight() + ' slapping against it,', false );
 				}
 				EngineCore.outputText( ' the creature taking every inch of your length before you pull out and thrust all the way in again, forcing ragged gasps from the reptile\'s still throat.\n\n', false );
@@ -133,14 +133,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			else {
 				EngineCore.outputText( 'You force as much of your huge member as you can into the creature\'s anus, clutching onto the creature\'s warm, muscly butt as you pull out and thrust yourself in again, brutally driving a bit more of yourself in each time, forcing ragged gasps from the reptile\'s still throat.  ', false );
 				//[(if balls)
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'Your ' + Descriptors.ballsDescriptLight() + ' swing heavily underneath your shaft, swelling as your rhythm picks up.  ', false );
 				}
 				EngineCore.outputText( 'At the end of your reach you push against something spongy and yielding.  The basilisk emits a dry moan and underneath it you see that you have forced its long, thin, shining cock from its genital slit.  With a cruel smile you thrust into it again and again, holding onto your depth at the height of your thrust just a little each time to put pressure on the helpless basilisk\'s prostate, forcing the creature into an involuntary, straining erection.  You slip one hand under its frozen legs and begin to pump the creature in time with your rhythm, leaning over it as you do, whispering every dark thought that bubbles up through your corrupt mind into its ear; telling it what a pathetic slutty little fuck toy it is, how turned on it is by your assault on it, how grateful it should be that you have deigned to give it your cock, knowing your words are sinking into its hypnotically stilled and pliable mind as easily as your ' + Descriptors.cockDescript( x ) + ' is into its cum-oiled hole.\n\n', false );
 			}
 			EngineCore.outputText( 'It has to accept your every word as it has to accept your dick, and it isn\'t long before with a ragged moan it cums, not a muscle moving except its desperately spasming cock, its jizz spattering into the pool and onto its arms as you slam into it with everything you\'ve got. You last a little longer, continuing to mercilessly milk the basilisk until you see its purple cock is straining without producing anything before ', false );
 			//<(13 inches or less:)
-			if( CoC.getInstance().player.cocks[ x ].cockLength <= 13 ) {
+			if( CoC.player.cocks[ x ].cockLength <= 13 ) {
 				EngineCore.outputText( 'gripping its hips and pushing every inch of yourself in and reaching a glorious, skin tingling peak.', false );
 			}//(More than 13 inches:)
 			else {
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( '  You continue to fuck the creature as you ejaculate, forcing your tainted jizz deep inside it, glorying in how the spurting lubricant allows you to fuck its hole even better.  Eventually, after a series of orgasms which feel like the sky is falling, you finally pull out of the basilisk\'s ravaged anus with a deeply satisfied sigh.  Your cum dribbles out of the creature\'s gaping butt; the only regret you feel in your deep haze is that there is nothing at hand to plug it in with.  You sit back and allow yourself to bask in the afterglow, safe in the knowledge that there will be no retaliation forthcoming from your partner.\n\n', false );
 		}
 		EngineCore.outputText( 'You are shaken out of it by an urgent, rasping moan from the basilisk. You sense movement overhead and look up. The lizard has seen in the water\'s reflection what you can take in with your own eyes; several harpies circling overhead like vultures, waiting patiently for you to leave.  The smiles which plaster their faces are possibly the least kindly you have ever seen.  The basilisk whines again, this time with a desperate pleading edge.  You kneel down and comfortingly stroke your victim\'s scaled head, glorying in the moment of false hope you give it.  "<i>Get hard,</i>" you whisper.  The creature clenches as its no doubt aching cock strains to attention again.  "<i>Don\'t worry,</i>" you murmur into its ear. "<i>I\'m sure the nice birdies will shake you out of it.  Eventually.</i>"  You get up, dress yourself, and leave.  A pitiless grin slowly spreads across your face as behind you, the opening strains of what promises to be a very long, violent, and feathery rape reach your ears...', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		Combat.cleanupAfterCombat();
 	};
@@ -158,11 +158,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.spriteSelect( 75 );
 		EngineCore.outputText( '', true );
 		//Speed 0 loss:
-		if( CoC.getInstance().player.spe <= 1 ) {
+		if( CoC.player.spe <= 1 ) {
 			EngineCore.outputText( 'Moving has become intensely difficult.  You cannot explain why something that came naturally to you ten minutes ago is now like wading neck deep through quicksand, but that is what moving your limbs now feels like. With a huge, straining amount of effort, you desperately raise your arms and crane your neck away from the basilisk as it approaches you, but with a pathetic amount of ease the creature slides through your guard, grabs you by the chin and looks directly into your eyes.  Your reactions are so slow your mind\'s screaming order for your eyelids to close takes several seconds for your nerves to compute, by which time it is far too late.\n\n', false );
 		}
 		//HP loss:
-		else if( CoC.getInstance().player.HP < 1 ) {
+		else if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'You fall to your hands and knees, battered and broken.  You can\'t summon the strength or willpower to struggle as the basilisk strides towards you, roughly pulls you to your feet, grabs your chin and forces you to look directly into its face.  With one last show of defiance you close your eyes, to which the basilisk responds by backhanding you with increasing force. It is a lost battle and, afraid that it will start using its claws instead, you meekly open your eyes to stare into depthless, watery grey.\n\n', false );
 		}//Lust loss:
 		else {
@@ -171,21 +171,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'You stare deep into the creature\'s eyes.  There really is an infinity in there, a grey fractal abyss which spirals upwards and downwards forever.  You want nothing more than to spend the rest of your life following it... when the basilisk\'s pupils dilate, and you feel its hypnotic compulsion press upon your mind, it is as if the universe itself is speaking to you, and you can no sooner resist it than a tadpole can an endless, grey waterfall.\n\n', false );
 		EngineCore.outputText( 'It takes several moments for you to realize it when the basilisk steps away from you.  You are free of its spell!  Except... you can\'t move.  You are standing there, gazing into nothing, and you can\'t move.  You can feel your arms and legs and the breeze on your skin, but the ability to do anything with them is simply not there; it\'s as if the nerve connections have been severed, leaving you utterly paralyzed.  The most you can manage is a raspy half-moan through your still throat. You can\'t even follow the basilisk with your eyes; although you can feel it; it gives you cause to moan again.\n\n', false );
 		//Undo slow to determine if bad end time
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
-			CoC.getInstance().player.spe += CoC.getInstance().player.statusAffectv1( StatusAffects.BasiliskSlow );
+		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+			CoC.player.spe += CoC.player.statusAffectv1( StatusAffects.BasiliskSlow );
 			MainView.statsView.showStatUp( 'spe' );
 			// speUp.visible = true;
 			// speDown.visible = false;
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.BasiliskSlow );
+			CoC.player.removeStatusAffect( StatusAffects.BasiliskSlow );
 		}
 		EngineCore.dynStats( 'spe', -3, 'lus', 399 );
 		//Bad end
-		if( CoC.getInstance().player.spe < 5 ) {
+		if( CoC.player.spe < 5 ) {
 			this.basiliskBadEnd();
 			return;
 		}
 		//choose between loss rapes
-		if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().player.inHeat || CoC.getInstance().player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
+		if( CoC.player.hasVagina() && (CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
 			this.basiliskHasVagEggStuff();
 		} else {
 			this.defaultBasiliskRape();
@@ -193,17 +193,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Loss, vag rape conditions not met:
 	BasiliskScene.prototype.defaultBasiliskRape = function() {
-		EngineCore.outputText( 'Working briskly, the basilisk tears off your ' + CoC.getInstance().player.armorName + ' until you are entirely naked.  It then rummages through your pockets; it carelessly discards everything it finds without apparent interest.  It grabs a handful of gems from your purse and then prowls back to you.\n\n', false );
+		EngineCore.outputText( 'Working briskly, the basilisk tears off your ' + CoC.player.armorName + ' until you are entirely naked.  It then rummages through your pockets; it carelessly discards everything it finds without apparent interest.  It grabs a handful of gems from your purse and then prowls back to you.\n\n', false );
 		//Male/Herm:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'With surprising gentleness and deftness, the basilisk rubs your ' + Descriptors.cockDescript( 0 ) + ' with one palm', false );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and sticks some of the smaller fingers of its other hand in your ' + Descriptors.vaginaDescript( 0 ), false );
 			}
 			EngineCore.outputText( ', thankfully angling its sickle claw away.  You can\'t do anything against it, and some of its mental compulsion remains; a backwash of erotic images from your past fill your head, and you can\'t even grit your teeth as the gentle, insistent pressure brushing your prick makes you rock hard.  It stops when you are erect and then, with the very faintest of smiles playing over its cruel mouth, leaves. You\'re naked, your ' + Descriptors.cockDescript( 0 ) + ' is begging for release; you\'re utterly helpless... you can only hope that the spell will wear off, and before anything else in the mountain finds you.\n\n', false );
 		}
 		//Female:
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'With surprising gentleness and deftness, the basilisk slips the smaller fingers of one hand into your ' + Descriptors.vaginaDescript( 0 ) + ', and carefully flicks at your ' + Descriptors.clitDescript() + ' with the other, thankfully holding its sickle claws away from you.  You can\'t do anything against it, and some of its mental compulsion remains; a backwash of erotic images from your past fill your head, and you can\'t even grit your teeth as the gentle, insistent caresses make you wet.  It stops when you are beading moisture involuntarily onto its hand and then, with the very faintest of smiles playing over its cruel mouth, leaves. You\'re naked, your ' + Descriptors.vaginaDescript( 0 ) + ' begs to be filled; you\'re utterly helpless. You can only hope that its spell will wear off, and before anything else in the mountain finds you...\n\n', false );
 		}
 		//Genderless:
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			this.basiliskAdvantageMinotaur();
 		}
 		//INSERT OPTIONAL OTHER MONSTER FINDINGS!
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		Combat.cleanupAfterCombat();
 	};
@@ -232,29 +232,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	//Requires: Player has vag and is in heat, currently has egg pregnancy, or has oviposition perk
 	BasiliskScene.prototype.basiliskHasVagEggStuff = function() {
 		EngineCore.spriteSelect( 75 );
-		CoC.getInstance().player.slimeFeed();
-		EngineCore.outputText( 'The basilisk is breathing heavily as it tears your ' + CoC.getInstance().player.armorName + ' from your body, its warm exhalations rolling over your naked flesh.  It seems to be having difficulty controlling itself; from your frozen gaze you can see it constantly shifting its dreadful slit eyes back to your frame as it searches through your pockets with claws that tremble.  Eventually it throws down your attire and stares back into your eyes.  There is something else in there now; a pulsing lust, hints of red at the edges of that great, grey sea, a rapacious tide gathering.  You wish you could look away but there is more chance of you moving mountains.', false );
+		CoC.player.slimeFeed();
+		EngineCore.outputText( 'The basilisk is breathing heavily as it tears your ' + CoC.player.armorName + ' from your body, its warm exhalations rolling over your naked flesh.  It seems to be having difficulty controlling itself; from your frozen gaze you can see it constantly shifting its dreadful slit eyes back to your frame as it searches through your pockets with claws that tremble.  Eventually it throws down your attire and stares back into your eyes.  There is something else in there now; a pulsing lust, hints of red at the edges of that great, grey sea, a rapacious tide gathering.  You wish you could look away but there is more chance of you moving mountains.', false );
 		//(Heat:
-		if( CoC.getInstance().player.inHeat ) {
+		if( CoC.player.inHeat ) {
 			EngineCore.outputText( '  You are more aware than ever of an invisible scent simmering off you, of your wet vagina clenching and wetting itself in anticipation, your body begging this male creature to fulfil its genetic objective upon you.  Your eyes have betrayed you, your body is betraying you, and whatever else you are is a tiny, ignored voice screaming in between.', false );
 		}
 		EngineCore.outputText( '  The basilisk suddenly breaks away and kneels down in front of you.  Out of sight of your petrified eyes you cannot see what it is doing; however a moment later, you can feel, as a warm, sticky sensation slavers over your abdomen.', false );
 		//(egg preg:
-		if( CoC.getInstance().player.pregnancyIncubation > 1 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+		if( CoC.player.pregnancyIncubation > 1 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			EngineCore.outputText( '  The basilisk licks your bulging belly hungrily, pushing against and testing for the eggs you are carrying.  Your sensitive cargo shifts around under its hungry attention; you\'d squirm, but that is, of course, impossible.', false );
 		}
 		//(heat or perk:
-		if( CoC.getInstance().player.inHeat || CoC.getInstance().player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
 			EngineCore.outputText( '  The basilisk licks your belly hungrily, its sticky tongue crawling like a warm tentacle across your sensitive underside.  You\'d squirm, but that is impossible.  The creature is making you feel everything it is forcing upon you.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'The basilisk gets up and again stares back into your eyes and you feel its will press indomitably against your pliable mind.  At the very edge of your vision, underneath the creature you can see a hint of shiny purple; the creature\'s cock has slid out of its genital slit.  How long it is and what it looks like you cannot see, but as with another raspy moan you finally accept what is about to happen, there is no doubt you are going to get to know about it very personally.\n\n', false );
 		EngineCore.outputText( 'The creature suddenly raps something out in its strange, dry tongue, and you feel something - something deep and red - flinch in your mind.  Suddenly, you are wet, wetter than you\'ve ever been, your pussy slavering so badly you can hear the pitter-patter of your juices hitting the ground beneath you.  The basilisk says something else, more softly this time as it slides in close, its long claws reaching around to clutch your ' + Descriptors.buttDescript() + '.  With a kind of horror you feel your limbs move involuntarily, your arms reaching around the thing\'s thin, muscled back, your bottom half slackening until you are supported entirely by the wiry strength of the lizard.  You expose your crotch in complete submission as the basilisk walks forward, and you feel the head of its cock teasingly touch your dripping, treasonous cunt.  As soon as your limbs are where it wants them to be, they lock in position again; you heave at them desperately, but once again your ability to do anything with your own body is simply not there.  You are less of a statue and more of a fuck toy, an extension of the basilisk\'s lust-maddened will.  Your jailer keeps walking until you feel the rough surface of a boulder against your back, and using this support the basilisk pushes itself straight into your ' + Descriptors.vaginaDescript( 0 ) + '.', false );
-		CoC.getInstance().player.cuntChange( CoC.getInstance().monster.cockArea( 0 ), true, true, false );
+		CoC.player.cuntChange( CoC.monster.cockArea( 0 ), true, true, false );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Once it has you pinioned, the uncontrollable rut your body has instilled in the basilisk really takes hold and it begins thrusting against you with abandon, its long, thin reptilian cock sliding in and out of your eager, slavering cunt, its hot breath pushing against your face and shoulders.  ', false );
 		//<(Tight:
-		if( CoC.getInstance().player.looseness() < 4 ) {
+		if( CoC.player.looseness() < 4 ) {
 			EngineCore.outputText( 'Though it is not girthy, it is a perfect fit for your tight hole, and its long length coupled with your drawn up position has you panting as it touches your deepest, most sensitive depths.', false );
 		}//(Loose:
 		else {
@@ -266,43 +266,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'Finally, it whispers something dryly.  You were very much hoping that it would let you go once it had taken its pleasure, but that is evidently not the case.  It makes you stand still, as you were before; you feel its seed trickle down your leg as your body is guided to attention.  It hisses one final afterthought to you, and then leaves, a certain swagger in its stalking gait.  Once again, you are petrified, naked, utterly helpless. A backwash of erotic images from your past involuntarily rise up and assault your senses...\n\n', false );
 		EngineCore.outputText( 'After about an hour of being forced to stand still and savor your own shameful memories, you find with great relief you can begin to move your toe again.  Hard part\'s over, now.  Eventually with some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you rub the remnants of sticky saliva off your face and redress before anything else finds you, before groggily picking your way back to camp.  The cum still oozing from your quim and the occasional twinging memory mean that you aren\'t going to be able to shake free of the experience as easily as you\'d like.', false );
 		//(preg check, or change preg to basilisk if egg)
-		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_BASILISK, PregnancyStore.INCUBATION_BASILISK );
+		CoC.player.knockUp( PregnancyStore.PREGNANCY_BASILISK, PregnancyStore.INCUBATION_BASILISK );
 		//Egg change - 100% chance
-		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			EngineCore.outputText( '\n\nYour womb gurgles and you instinctively put a hand on your belly. It seems larger than it usually is, and you feel oddly more tender and motherly than normal.  You shake your head at the thought.  Damn hormones.', false );
-			CoC.getInstance().player.knockUpForce( PregnancyStore.PREGNANCY_BASILISK, PregnancyStore.INCUBATION_BASILISK - 150 ); //Convert Ovi Elixir eggs to Basilisk eggs
+			CoC.player.knockUpForce( PregnancyStore.PREGNANCY_BASILISK, PregnancyStore.INCUBATION_BASILISK - 150 ); //Convert Ovi Elixir eggs to Basilisk eggs
 		}
 		//Eggs fertilised (Ovi Potion/Oviposition only. Eggs take a few days
 		//longer to be laid than usual):
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		Combat.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.basiliskBirth = function() {
 		EngineCore.spriteSelect( 75 );
 		EngineCore.outputText( '\n' );
-		if( CoC.getInstance().player.vaginas.length === 0 ) {
+		if( CoC.player.vaginas.length === 0 ) {
 			EngineCore.outputText( 'You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n\n', false );
-			CoC.getInstance().player.createVagina();
-			CoC.getInstance().player.genderCheck();
+			CoC.player.createVagina();
+			CoC.player.genderCheck();
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
 			EngineCore.outputText( '\nA sudden pressure in your belly wakes you, making you moan softly in pain as you feel your womb rippling and squeezing, the walls contracting around the ripe eggs inside you.  You drag yourself from your bedding, divesting yourself of your lower clothes and staggering out into the middle of the camp. Squatting upright, you inhale deeply and start to concentrate.' );
 			EngineCore.outputText( '\n\nA thick, green slime begins to flow from your stretched netherlips, splatting wetly onto the ground below you and quickly soaking into the dry earth. You settle easily into the rhythm of oushing with your contractions and breathing deeply when they ebb.  The eggs inside you move quickly, lubricated by the strange slime that cushioned them in your womb, sized and shaped just right the pressure of their passage stretches you in the most delightful way, your [clit] growing erect' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ' and [eachCock] starting to leak pre-cum' );
 			}
 			EngineCore.outputText( ' as you find yourself being moved to climax by the birthing.  You see no point in resisting and reach down to begin fiddling with yourself, moaning in pain-spiked pleasure as the stimulus overwhelms you. With an orgasmic cry, you release your eggs into the world amidst a gush of femcum' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ' and a downpour of hermcum' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nWhen you find yourself able to stand, you examine what it is you have birthed; ' );
 			//(eggNumber)
-			EngineCore.outputText( Utils.num2Text( Math.floor( CoC.getInstance().player.totalFertility() / 10 ) ) );
+			EngineCore.outputText( Utils.num2Text( Math.floor( CoC.player.totalFertility() / 10 ) ) );
 			EngineCore.outputText( ' large, jade-colored eggs, the unmistakable shape of reptile eggs. You pick up one and hold it gently against your ear; inside, you can hear a little heart, beating strong and quick.  You put it down carefully with its fellows and stare at your clutch, a queasy tangle of emotions tugging at you.' );
 			//First time:
-			if( CoC.getInstance().flags[ kFLAGS.BENOIT_EGGS ] + CoC.getInstance().flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.BENOIT_EGGS ] + CoC.flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
 				//[Have not laid generic basilisk eggs before, have not laid Benoit's eggs:
 				EngineCore.outputText( '\n\nThe seconds drag by and the eggs remain still- the vague hope you harbor that they will immediately hatch, mature and get out of your life slowly vanishes.  What are you going to do with them? The only thing you can think of is to take them to Benoit.  Although you feel a slight tingle of shame for approaching him like this, you can\'t think of anyone else who would know what to do with these odd, unborn children of yours.' );
 			}
@@ -312,17 +312,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 				EngineCore.outputText( '\n\nYou place the egg back down and gather them all up, moving them closer to the campfire to stay warm while you recover from your exertions.' );
 			}
 			EngineCore.outputText( '\n\nThere is nothing else to be done will have to take this batch to Benoit' );
-			if( CoC.getInstance().flags[ kFLAGS.BENOIT_EGGS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.BENOIT_EGGS ] > 0 ) {
 				EngineCore.outputText( ' as well' );
 			}
 			EngineCore.outputText( '.  You place the egg back down and gather them all up, moving them closer to the campfire to stay warm while you recover from your exertions.' );
 			EngineCore.outputText( '\n\nWhen the light of day breaks, you gather your newly laid clutch and set off for Benoit\'s shop. The blind basilisk is asleep when you arrive, forcing you to bang loudly on his door to wake him up.' );
 			EngineCore.outputText( '\n\n"<i>What is it?!</i>" He snarls, displaying his fangs when he pops his head irritably out of the door. He stops and inhales through his nose, blushing faintly when he recognizes your scent.  "<i>Oops! [name], I am zo sorry, I did not think it would be you. But why are you here at such an early hour?</i>"' );
 			//First Time:
-			if( CoC.getInstance().flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
 				EngineCore.outputText( '\n\nApprehensively, you explain the situation - you were caught unawares by a basilisk in the mountains, and then... you put an egg into his hand to feel.  Benoit is silent for a time, his claws rubbing pensively over the smooth surface.' );
 				EngineCore.outputText( '\n\n“I see,” he says heavily.  "<i>No, you were right to bring zem ere.  Zey will be safe with me and \'ell knows I will need all ze eggs I can get if I am to make zis work.</i>"  You breathe an inward sigh of relief and follow him into his shop.' );
-				if( CoC.getInstance().flags[ kFLAGS.BENOIT_EGGS ] + CoC.getInstance().flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
+				if( CoC.flags[ kFLAGS.BENOIT_EGGS ] + CoC.flags[ kFLAGS.BENOIT_GENERIC_EGGS ] === 0 ) {
 					EngineCore.outputText( '\n\nHe feels around the clutter of his store room until he finds what he\'s looking for battered old basket stuffed with a soft pillow.  You raise an eyebrow at the liberal amounts of dog hair the pillow is covered with and Benoit coughs apologetically.' );
 					EngineCore.outputText( '\n\n“E isn\'t \'appy about me taking is bed, but to \'ell wizzim; e always gets is \'air on everysing anyway.” You spend some time arranging the eggs where they will be safe and warm.  Although you know they can\'t be, Benoit\'s blind eyes seem to be fixed upon the brood when you have finished.' );
 					EngineCore.outputText( '\n\n“And zese eggs are different?” he says hesitantly.  “Zere will be...little girls?”  You shrug and say even if they aren\'t female, at least he\'ll have some sons he can keep away from the mountain.  He sets his jaw and nods.' );
@@ -340,19 +340,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 				EngineCore.outputText( '\n\nHe puts your latest batch with the others and then shares breakfast with you.  You leave with his final words lingering in your ears eggs is always good [name], but for ze Gods sake  More.  Careful.”' );
 			}
 			EngineCore.outputText( '\n' );
-			CoC.getInstance().flags[ kFLAGS.BENOIT_GENERIC_EGGS ] += Math.floor( CoC.getInstance().player.totalFertility() / 10 );
+			CoC.flags[ kFLAGS.BENOIT_GENERIC_EGGS ] += Math.floor( CoC.player.totalFertility() / 10 );
 		} else {
-			EngineCore.outputText( 'A sudden shift in the weight of your pregnant belly staggers you, dropping you to your knees.  You realize something is about to be birthed, and you shed your ' + CoC.getInstance().player.armorName + ' before it can be ruined by what\'s coming.  A contraction pushes violently through your midsection, stretching your ' + Descriptors.vaginaDescript() + ' painfully, the lips opening wide as something begins sliding down your passage.  A burst of green slime soaks the ground below as the birthing begins in earnest, and the rounded surface of a strangely colored egg peaks between your lips.  You push hard and the large egg pops free at last, making you sigh with relief as it drops into the pool of slime.', false );
-			CoC.getInstance().player.cuntChange( 20, true, true, false );
+			EngineCore.outputText( 'A sudden shift in the weight of your pregnant belly staggers you, dropping you to your knees.  You realize something is about to be birthed, and you shed your ' + CoC.player.armorName + ' before it can be ruined by what\'s coming.  A contraction pushes violently through your midsection, stretching your ' + Descriptors.vaginaDescript() + ' painfully, the lips opening wide as something begins sliding down your passage.  A burst of green slime soaks the ground below as the birthing begins in earnest, and the rounded surface of a strangely colored egg peaks between your lips.  You push hard and the large egg pops free at last, making you sigh with relief as it drops into the pool of slime.', false );
+			CoC.player.cuntChange( 20, true, true, false );
 			EngineCore.outputText( '  The experience definitely turns you on, and you feel your clit growing free of its hood as another big egg starts working its way down your birth canal, rubbing your sensitive vaginal walls pleasurably.  You pant and moan as the contractions stretch you tightly around the next, slowly forcing it out between your nether-lips.  The sound of a gasp startles you as it pops free, until you realize it was your own voice responding to the sudden pressure and pleasure.  Aroused beyond reasonable measure, you begin to masturbate your clit, stroking it up and down between your slime-lubed thumb and fore-finger.  It twitches and pulses with your heartbeats, the incredible sensitivity of it overloading your fragile mind with waves of pleasure.  You cum hard, the big eggs each making your cunt gape wide just before popping free.  You slump down, nervous and barely conscious from the force of the orgasm.\n\n', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', 2 );
 			EngineCore.outputText( 'You slowly drag yourself into a sitting position, mind still simmering with bliss, and take in the clutch that you have laid.  They seem taller and more oblong than other eggs you\'ve seen and they are a strange color mottled grey-green. Where have you seen that shade of green before...?  A memory rises unbidden to you and you put your hand to your mouth.  At the same moment as realization takes hold, a thin papercut line appears in the largest of your eggs.  You hunch yourself up and watch in wonder as the cracks spread until, with a final, insistent push, a tiny reptilian face pops out of the shell.  It blinks albumen from its rheumy eyes and then, with an infant\'s awkward industriousness, begins to peel and push its way out of its shell.  It trails slime as it crawls forward like a salamander, blinking its big, wide eyes uncertainly, attempting to take in the very large world it has found itself in.  Behind it a small cacophony of cracking and wet splintering fills the air as your other children begin to tentatively push their way into existence.\n\n', false );
 			EngineCore.outputText( 'In front of you finally are a dozen newly hatched basilisks, crawling around on all fours, the wetness of their eggs slowly drying on their scales, licking each other, flicking their long tails around and blinking at their surroundings with eyes huge in their tiny heads as interest in the wider world takes hold.  You can\'t say whether you find the sight insanely cute or utterly disgusting, and you don\'t know whether the reason you can\'t look away is because you are fascinated by the creatures you have brought into this world, or because of the effect of twenty four baby basilisk eyes on you.  You suspect in either case the answer is a bit of both.\n\n', false );
 			EngineCore.outputText( 'They seem to quickly adapt to where they have found themselves, running around each other with increasing confidence, and you can see even in the short time you have been watching they have grown, their tender scales hardening as the sun and air beats down on them.  One of them suddenly scuttles like the lizard it is for cover, and you lose it from view underneath a rock.  They are quickly all at it, one after the other dashing and slipping from view.  The last to go is the largest, the first to hatch fixes you with its stare before slowly turning and following suit.  You could swear it gives you the smallest of smiles, a child\'s eager grin, before it goes.  The only evidence you have left of what just happened is a slimy pile of discarded egg shells.\n\n', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'You find yourself shaken by the experience, and deeply disquieted by the thought of the clutch of monsters you have unleashed on this world.  You pick yourself up, rub yourself down and leave, promising yourself fervently you\'ll be more careful around basilisks in the future.\n\n', false );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'You pick yourself up, rub yourself down and leave.  You feel conflicted about what just happened; on the one hand you feel disquieted about the dozen monsters you just unleashed on this world, on the other you cannot help feel oddly proud of them and yourself.\n\n', false );
 			} else {
 				EngineCore.outputText( 'With a soft smile, you get up and leave, enjoying the sensation of green slime trickling down your legs.  You cannot wait to get pregnant again, for your stomach to bulge with eggs, to release more delightful creatures into this world which can grow up to fuck you and everyone else in turn, so everyone can enjoy life as much as you do.', false );
@@ -367,13 +367,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Moving has become intensely difficult.  You cannot explain why something that came naturally to you ten minutes ago is now like wading neck deep through quicksand, but that is what moving your limbs now feels like.  With a huge, straining amount of effort, you desperately raise your arms and crane your neck away from the basilisk as it now approaches you, but with a pathetic amount of ease the creature slides through your guard, grabs you by the chin and looks directly into your eyes.  Your reactions are so slow your mind\'s screaming order for your eyelids to close takes several seconds for your nerves to compute, by which time it is far too late.\n\n', false );
 		EngineCore.outputText( 'You stare deep into the creature\'s eyes.  There really is an infinity in there, a grey fractal abyss which spirals upwards and downwards forever.  You want nothing more than to spend the rest of your life following it... you fall into that endless abyss for what seems like years, decades, uncharted aeons.  You lose all sense of yourself, your situation, your purpose; you do not feel the tips of your fingers slowly turning cold and grey, rivulets of the texture advancing slowly up your hand, any more than you notice the turn of a planet a thousand light years away.  There is only the wet grey, and you, an infinitesimally tiny speck lost in a universe, a universe that knows, sees, and controls.  When the basilisk\'s pupils dilate, and you feel its hypnotic compulsion press upon your mind, you can no sooner resist it than a tadpole can an endless, grey waterfall.  When it demands that you be horny, you cannot disobey it any more than you can disobey gravity.  You are submerged in a sea of sex.', false );
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( '  You moan through your still throat as you feel blood rushing to your groin, your ' + Descriptors.multiCockDescriptLight() + ' stiffening and your ' + Descriptors.vaginaDescript( 0 ) + ' beginning to drip.', false );
 		}
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( '  You moan through your still throat as you feel blood rushing to your groin, your ' + Descriptors.multiCockDescriptLight() + ' stiffening.', false );
 		}
-		if( CoC.getInstance().player.gender === 2 ) {
+		if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( '  You moan through your still throat as you feel blood rushing to your groin, your ' + Descriptors.vaginaDescript( 0 ) + ' beginning to drip.', false );
 		}
 		EngineCore.outputText( '  Every erotic thing that has ever happened to you crowds your head, a dozen sexual sensations are forced upon your senses, and you feel yourself helplessly pushed, fucked, inundated towards an incredible, glorious orgasm...\n\n', false );
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'After what seems like many hours later, you find with a sense of overwhelming relief you can move one of your little fingers again.  Concentrating hard, you move backwards from there until you can move your hand, your other fingers, your arm, and then, with a creaking finality, you break entirely free of the paralyzing spell.  The first thing you do is wipe the cum off your face and body and urgently wash your mouth out with a nearby spring; but you can feel the creature\'s warm jizz sloshing deep within you and you know the damage is done.  You woozily put your clothes back on and stagger back towards camp.', false );
 		//(standard imp cum corruption gain, set lust to 100)
 		EngineCore.dynStats( 'cor', 1 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 	};
 	//Defeated, Taken Advantage of: harpy
 	BasiliskScene.prototype.basiliskAdvantageHarpy = function() {
@@ -407,27 +407,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.  Coupled with the unscratchable itches and the aching in your limbs the experience is one of sensational hell.\n\n', false );
 		EngineCore.outputText( 'You hear a shrill cry from above you, half eagle scream and half mocking, female laughter.  With a fluttering flap of feathers, a harpy lands at your side before proceeding to stalk around you, taking in your helpless, frozen form with stiff, jerky movements.  You reflect bitterly that if the big bottomed bird woman had turned up fifteen minutes ago she would probably have scared the basilisk off.  As it is, you are going to have to take whatever she can throw at you... with a stiff upper lip, as it were.\n\n', false );
 		//Male/Herm:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'The harpy\'s eyes zero in on your erect cock greedily.  Stepping back from you she raises her head and lets out a screech which echoes around the mountains; as answering calls roll back to her she closes in, threads her arms around your neck and scalp and kisses you roughly. She pushes her golden lips against yours and squeezes her rough bird tongue into your mouth.  You feel your lips tingle and you raggedly moan against the savage frenching, her hot breath pushing down your throat as she circles your still tongue with her own, before exploring further down towards your tonsils.  By the time she has finished with you your whole body feels like it is glowing red from the effect of her lipstick, ' + Descriptors.sMultiCockDesc() + ' straining.\n\n', false );
 			EngineCore.outputText( 'You wonder vaguely how she and her no-doubt-soon-to-arrive sisters are going to take advantage of you as you are; you find out a moment later when with no preamble whatsoever the harpy shoves you roughly in the chest.  ', false );
-			if( CoC.getInstance().player.isBiped() ) {
+			if( CoC.player.isBiped() ) {
 				EngineCore.outputText( 'You teeter horribly on your frozen heels for a moment and then fall onto your back like a collapsing statue.  ', false );
 			} else {
 				EngineCore.outputText( 'You feel yourself slowly and horribly lose your balance before flopping onto your side like a collapsing statue.  ', false );
 			}
 			EngineCore.outputText( 'Unable to brace yourself, you bang your head painfully; as you are lying there dazed, you feel something build at the back of your mind.  Involuntary sensations prickle your skin and groin as, once again, the intermittent mental backwash that the basilisk\'s hypnosis has forced upon your mind hits you.  Memory after memory of sexually-charged encounters, daydreams or fantasies crowd your consciousness.  It is made worse, much worse by the pheromones the harpy has pushed into your mouth; your body rides the chemical glow at the same time as imaginings of soft skin, tight muscle and musk overload your senses.  You groan raggedly as ' + Descriptors.sMultiCockDesc() + ' bulges and leaks pre-cum, almost screaming for attention.  When you finally, woozily come to your senses, you find that all vision has been blotted out by a big, wobbly harpy bum, her moistening lips rubbing impatiently against your mouth.\n\n', false );
 			EngineCore.outputText( 'The bang on the head you took, the harpy lipsticks trilling in your bloodstream and the involuntary tide of erotic memories which ebbs and flows over you mean the next couple of hours goes by for you in a haze of forceful sex.  You can\'t control your cock', false );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ', your sex drive or what you are thinking about; you are a prisoner of lust and you quickly subside under the sexual concussion, hoping eventually the harpies and your own body will stop fucking you.  It does sink in around your second involuntary orgasm, your aching ' + Descriptors.cockDescript( 0 ) + ' spurting ribbon after ribbon of jizz into a harpy\'s clenching warmth, that the two arriving harpies are not happy with the first one; with your mouth and hands frozen you can\'t pleasure them with anything but your manhood, which leaves two of them fighting each other for time with your groin whilst a third grinds frustratedly at your face, mainly using your nose to rub at her inner walls and clit, forcing her juices down your nostrils and making you cough raggedly, struggling to breathe.\n\n', false );
 			//Single cock:
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'Their inability to properly satisfy themselves on your frame raises their tempers and frustration to the point where the three of them are physically fighting each other, treading all over you as they scream, bite and tear, their feathers flying all over the place.  Eventually the biggest of the trio drives the other two off, flapping and screeching into the mountains, before throwing herself onto her scratched and battered prize, her eyes lit up and wild.  She fucks you with a gusto born of bloodlust, her petit breasts bouncing up and down as she slams her powerful thighs into your ' + Descriptors.hipDescript() + ', picking up the pace.  She quickly forces you to another achingly pleasurable peak, your ' + Descriptors.cockDescript( 0 ) + ' spurting more of your seed deep into her, and then just keeps on working you. Your cock seems incapable of going soft.  You feel the involuntary erotic backwash build in your skull again...\n\n', false );
 			}//Multicock:
 			else {
 				EngineCore.outputText( 'The three of them do eventually work out a compromise however, once they discover you have more than one manpole to your name.  One pulls your ' + Descriptors.cockDescript( 0 ) + ' forwards painfully until it is almost pointing towards your face before squatting over it, whilst another clutches at your ' + Descriptors.cockDescript( 1 ) + ' as she spreads her legs and works her way inwards until she is spearing herself on you. You can\'t see them - you can\'t see anything except pink wobbly flesh and lavender feathers - but you can hear them shift impatiently around each other as they find a position which is comfortable to them both, their inner walls rubbing you from every direction as they move.  The third continues to thrust her needy sex into your face as best she can', false );
-				if( CoC.getInstance().player.cockTotal() >= 3 ) {
+				if( CoC.player.cockTotal() >= 3 ) {
 					EngineCore.outputText( ', crowded out by the bodies of the others despite her transparent desire for the unoccupied man meat flopping against them,', false );
 				}
 				EngineCore.outputText( ' as the other two begin to push and pull your cocks into them, their overcharged libidos taking hold.  Your first cock feels like it is being pulled off your body at the same time as its end is being pumped; the sensation of being doubly and brutally fucked like this is unbearably pleasurable and with a series of ragged gasps you tumble helplessly over a sweat-beading peak, your two cocks spurting jizz deep into the two harpies.  The third harpy coos as she feels your hot breath on her gaping vagina, and she begins to buck her frustrated sex against your face faster.  Trapped in the harpies\' clenching holes and incapable of going soft, your cocks continue to get worked as if nothing happened.  You feel the involuntary erotic backwash build in your skull again and with a lost moan you fall comatose, incapable of even computing how fucked you are anymore.\n\n', false );
@@ -436,10 +436,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			//(add harpy lipstick effect, add 20 fatigue and lose 100 lust if M/H, or add 100 lust if F/U)
 			EngineCore.fatigue( 20 );
 			SceneLib.sophieScene.luststickApplication( 20 );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		}
 		//Female:
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.spriteSelect( 75 );
 			EngineCore.outputText( 'The harpy comes to a halt behind you and begins to eagerly run her cold but soft hands over your bottom half, stroking your thighs and squeezing your ' + Descriptors.buttDescript() + ' as if appraising a piece of meat.  Whilst caressing your neck she runs her hands between your legs and grabs around your moistened delta impatiently, searching for something that isn\'t there.  She lets loose a squawk of pure frustration and wheels around you to glare in your eyes angrily.  The sex-crazed harridan is clearly deeply pissed off with you for lacking a cock she can abuse.  She shifts her eyes to your mouth, but quickly arrives at the same conclusion you\'ve already come to to move your mouth, you can\'t even be forced to give oral pleasure.  You feel a bizarre sense of triumph over the creature; you stare into space smugly as the harpy paces in front of you, glaring, thwarted but unwilling to give up her prize.  Perhaps eventually she will leave you alone...?\n\n', false );
 			EngineCore.outputText( 'The harpy suddenly closes in, threads her arms around your neck and scalp and kisses you roughly.  She pushes her golden lips against yours and squeezes her rough bird tongue into your mouth.  You feel your lips tingle and you raggedly moan against the savage frenching, her hot breath pushing down your throat as she circles your still tongue with her own, before exploring further down towards your tonsils.  By the time she has finished with you your whole body feels like it is glowing red from the effect of her lipstick, and your ' + Descriptors.vaginaDescript( 0 ) + ' is leaking moisture down your thigh.  Maddeningly, the harpy ignores your needy sex and continues to stalk around you, a vengeful smirk changing to a thoughtful frown on her ferociously beautiful face.  You wish you could thrust your vagina towards her, make her heed the plight of your lust-racked body; hell, you are even beginning to wish you could give her head so she would at least consider rewarding you...\n\n', false );
@@ -465,18 +465,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.spriteSelect( 75 );
 		EngineCore.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.\n\n', false );
 		//Male/Herm:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'At the corner of your vision, you see a small, familiar green shape hover into view.  The goblin is so busy sorting through her inventory of drugs that you actually manage to see her before she sees you.  When she does lift her head up and notices the petrified, naked individual in front of her, she is so surprised she drops her satchel.\n\n', false );
-			EngineCore.outputText( '"<i>A ' + CoC.getInstance().player.race() + '!</i>" she yelps.  Then, after shifting her startled attention downwards, "<i>A cock!</i>"  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
+			EngineCore.outputText( '"<i>A ' + CoC.player.race() + '!</i>" she yelps.  Then, after shifting her startled attention downwards, "<i>A cock!</i>"  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
 			EngineCore.outputText( '"<i>Get caught with our pants down by a basilisk, did we, stud?</i>" she purrs.  "<i>Well, not to worry.  I\'ll take good care of you.</i>"  You somehow doubt her good intentions, and your suspicions are confirmed when, after completing her sauntering circumference of you, she shoves your bottom half as hard as she can. You fall slowly like a wooden board; being unable to brace yourself, the sensation of dropping is horrible, and, once your skull connects with the ground, painful.  Before you can clear your swimming vision you feel the goblin\'s soft, dense weight on your chest, and then her eager lips upon yours, sucking and lavishing every inch of your frozen mouth that her tongue can reach.  A tingling sensation spreads from your mouth downwards as her drug-laced lipstick takes effect.  By the time she has finished with your mouth and worked her way downwards, your ' + Descriptors.cockDescript( 0 ) + ' is bulging with need and springs readily into her warm hands like a loyal pet.\n\n', false );
-			EngineCore.outputText( 'The goblin is in no hurry- it\'s not as if you can stop her- and spends time teasing your cock, working her fingers up and down your length and trailing her tongue around your head, slowly lapping up the pre-cum you inevitably ooze.  You don\'t want to give the miniature rapist the slightest bit of satisfaction but her drugged lips have made your cock incredibly sensitive and needy, and soon you are gasping and panting through your still mouth with each soft, masterful touch.  You try and peak as quickly as you can but the goblin knows exactly what she\'s doing- any time you get close she squeezes near the bottom of your shaft, agonizingly prolonging your arousal.  You try and channel your lust into moving your limbs or even just into your abdomen to shake her off, but the basilisk\'s spell holds; you are a fallen flesh statue, or as far as the goblin is concerned, a giant dildo with some fun extras attached.  You force air through your throat to groan wordlessly, trying to plead the goblin to stop, in reply to which she giggles maliciously.  "<i>You like that do you, ' + CoC.getInstance().player.mf( 'stud', 'bitch' ) + '?  I guess you\'re ready.</i>"\n\n', false );
+			EngineCore.outputText( 'The goblin is in no hurry- it\'s not as if you can stop her- and spends time teasing your cock, working her fingers up and down your length and trailing her tongue around your head, slowly lapping up the pre-cum you inevitably ooze.  You don\'t want to give the miniature rapist the slightest bit of satisfaction but her drugged lips have made your cock incredibly sensitive and needy, and soon you are gasping and panting through your still mouth with each soft, masterful touch.  You try and peak as quickly as you can but the goblin knows exactly what she\'s doing- any time you get close she squeezes near the bottom of your shaft, agonizingly prolonging your arousal.  You try and channel your lust into moving your limbs or even just into your abdomen to shake her off, but the basilisk\'s spell holds; you are a fallen flesh statue, or as far as the goblin is concerned, a giant dildo with some fun extras attached.  You force air through your throat to groan wordlessly, trying to plead the goblin to stop, in reply to which she giggles maliciously.  "<i>You like that do you, ' + CoC.player.mf( 'stud', 'bitch' ) + '?  I guess you\'re ready.</i>"\n\n', false );
 			EngineCore.outputText( 'You feel her pick herself up and then begin to work her sopping vagina down onto your head.  ', false );
-			var x = CoC.getInstance().player.cockThatFits( 60 );
+			var x = CoC.player.cockThatFits( 60 );
 			if( x < 0 ) {
 				x = 0;
 			}
 			//(more than goblin vag capacity:
-			if( CoC.getInstance().player.cockArea( x ) >= 60 ) {
+			if( CoC.player.cockArea( x ) >= 60 ) {
 				EngineCore.outputText( '"<i>Ooh, you tease,</i>" she coos as her wet warmth nuzzles the tip of your member. "<i>Not just a stud ready and waiting for me to ride, but one with a cock so big I can\'t even use it!  I\'m half tempted to leave and come back with something to shrink this down!</i>" Even a goblin\'s elastic twat can\'t take this much of you, and she rocks atop your straining, sensitized dick.  She begins to slide herself around the crown, moaning shamelessly as she reaches her limit each time.', false );
 			}//less than goblin vag capacity:
 			else {
@@ -485,17 +485,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( '  You cannot last long in the rut the goblin has chemically induced in you and against her thrusting and milking twat you quickly ejaculate, endless hot fluid spurting out of your cock into her welcoming sex.  Unable to move a muscle except for your eager, flexing penis, you feel like your body is being pressed to the ground by an invisible wall, with your cock trapped by a mercilessly loving, milking hole, a prisoner of sex.  The goblin continues to thrust away even as your seed dribbles out of her snatch and onto your body, and you groan as it sinks in that your hypersensitive throbbing cock is still rock hard.\n\n', false );
 			EngineCore.outputText( '"<i>That was good for a first effort, stud,</i>" the goblin\'s giggling voice reaches your ears.  "<i>But you\'ve got lots more man sauce locked up inside of you, don\'t you?  Yes you do.  And you\'re going to give me it all.</i>"  As the insatiable little green monster picks up the pace, her juices mingling with yours as they trickle onto the ground beneath you, you feel the erotic mental backwash build again, and you go comatose under the overwhelming, uncontrolled rush of sexual sensation...\n\n', false );
 			EngineCore.outputText( 'Eventually, after what seems like hours of forcible ejaculation, you notice that your dick is no longer trapped in sucking wet.  You come out of your daze you find that the goblin has left, leaving your petrified form in a mingled pool of her juices and your own jizz. After another ten or twenty minutes of being forced to lie there and marinate in your own shameful memories, you find with great relief you can begin to move your fingers again.  Eventually with some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you pick yourself up and redress before anything else finds you and woozily begin to make your way back down the mountain.  The smell of horny goblin on you is a lingering reminder of what just happened to you.', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		}
 		//Unsexed:
-		else if( !CoC.getInstance().player.hasVagina() ) {
+		else if( !CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'At the corner of your vision, you see a small, familiar green shape hover into view.  The goblin is so busy sorting through her inventory of drugs that you actually manage to see her before she sees you.  When she does lift her head up and notices the petrified, naked individual in front of her, she is so surprised she drops her satchel.\n\n', false );
-			EngineCore.outputText( '"<i>A ' + CoC.getInstance().player.race() + '!</i>" she yelps.  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
-			EngineCore.outputText( '"<i>Get caught with our pants down by a basilisk, did we?</i>" the goblin purrs.  "<i>Well, not to worry. I\'ll take good c- hey, what gives?!</i>" From behind you, you feel her hands thread their way around your ' + CoC.getInstance().player.legs() + ' before feeling and slapping all around your featureless groin.  "<i>This is fucking bullshit!</i>" she howls.  "<i>I get a toy that can\'t stop me all to my lonesome, and it\'s some colossal jerkoff who thinks it\'s funny to have no sex!</i>"  She stomps around to your front and glares at you, simmering with rage.  "<i>I bet you think you\'re a real smartass, you bastard... you bitch... you... whatever!  Ooh, I\'ll fix you!</i>"  With a look of complete disgust she storms off.  Having faced down this bizarre rant, you allow yourself to feel a tiny bit of relief.  You were worried for a moment there she\'d go for your ass... a short distance away, you hear the goblin calling to someone.\n\n', false );
+			EngineCore.outputText( '"<i>A ' + CoC.player.race() + '!</i>" she yelps.  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
+			EngineCore.outputText( '"<i>Get caught with our pants down by a basilisk, did we?</i>" the goblin purrs.  "<i>Well, not to worry. I\'ll take good c- hey, what gives?!</i>" From behind you, you feel her hands thread their way around your ' + CoC.player.legs() + ' before feeling and slapping all around your featureless groin.  "<i>This is fucking bullshit!</i>" she howls.  "<i>I get a toy that can\'t stop me all to my lonesome, and it\'s some colossal jerkoff who thinks it\'s funny to have no sex!</i>"  She stomps around to your front and glares at you, simmering with rage.  "<i>I bet you think you\'re a real smartass, you bastard... you bitch... you... whatever!  Ooh, I\'ll fix you!</i>"  With a look of complete disgust she storms off.  Having faced down this bizarre rant, you allow yourself to feel a tiny bit of relief.  You were worried for a moment there she\'d go for your ass... a short distance away, you hear the goblin calling to someone.\n\n', false );
 			EngineCore.outputText( '"<i>Hey you!  Yeah you, shit-for-brains!  Wanna free assfuck?  Come and get it then, you ugly, dumb muscle-bound moron!</i>"  A moment later you feel a slap on your calf as the goblin runs past you, giggling.  "<i>Have fun, smartass!</i>"  A huge, angry bellow vibrates the air around you and the earth shakes as something big approaches you from behind.  You strain with every sinew of your being to escape, but you are, as ever, glued in place.  You manage a raspy moan as the enraged minotaur grasps you roughly by both arms, his animal musk filling your nostrils. <i>Fucking goblins.</i>\n\n', false );
 			EngineCore.outputText( 'The huge bull-man is not one to look a gift fuck in the mouth.  Without bothering to take you in, bar a long wet sniff of your ' + Descriptors.hairDescript() + ', he sticks his cock between your ass cheeks.  He grunts as he forces his head past your sphincter, squirting pre-cum into your passage as he does so.  Your body is incapable of clenching instinctively against the invasion, but there is no escaping how huge the dong feels as he impatiently forces your ass open.', false );
-			CoC.getInstance().player.buttChange( 60, true, true, false );
-			if( CoC.getInstance().player.analCapacity() < 60 ) {
+			CoC.player.buttChange( 60, true, true, false );
+			if( CoC.player.analCapacity() < 60 ) {
 				EngineCore.outputText( '  The giant cock stretches you out painfully, and everything else blots out as your body attempts to accommodate the beast.  As he begins to thrust more of his length up you, he grunts and beads more of his drugged pre-cum, lubricating your anus.  This thankfully makes his cock easier to take, but also increases the pace of his thrusting as your hole becomes more receptive to it.', false );
 			}//V loose/Buttslut:
 			else {
@@ -505,23 +505,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( 'Eventually the minotaur\'s balls swell against your ' + Descriptors.buttDescript() + ' and with a long, satisfied moo, he reaches his peak, holding you down so his cum jets forth deep inside you.  The sensual high it has already instilled in you amplifies by tenfold as the warm, oozing fluid finds its mark and you moan as you spontaneously orgasm, your anus helplessly milking the creature for all it can get.\n\n', false );
 			EngineCore.outputText( 'The minotaur holds onto you until he has finished spurting his last into you, before abruptly setting you back down on your frozen feet, pulling his slimy, receding member out of your abused anus and with a satisfied snort, takes his leave.  You feel his cum drooling out of you and down your ' + Descriptors.hipDescript() + ', but in your hazy, druggy state the feeling is almost sensual.', false );
 			//(Addict:
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
 				EngineCore.outputText( '  You\'re incredibly frustrated that you can\'t clench yourself and hold the magical substance deep inside you, so you can savor the wonderful, soft elation it blossoms inside of you for as long as you can.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
-			EngineCore.outputText( 'Eventually, after another thirty or so minutes of being forced to stand there and savor the cum trickling down your legs, you find with great relief you can begin to move your fingers again. With some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you shake the aching out of your ' + CoC.getInstance().player.legs() + ' and re-dress before anything else finds you and woozily begin to make your way back down the mountain, trying to ignore the feeling of ooze dripping out of you.', false );
-			CoC.getInstance().player.orgasm();
-			CoC.getInstance().player.slimeFeed();
+			EngineCore.outputText( 'Eventually, after another thirty or so minutes of being forced to stand there and savor the cum trickling down your legs, you find with great relief you can begin to move your fingers again. With some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you shake the aching out of your ' + CoC.player.legs() + ' and re-dress before anything else finds you and woozily begin to make your way back down the mountain, trying to ignore the feeling of ooze dripping out of you.', false );
+			CoC.player.orgasm();
+			CoC.player.slimeFeed();
 		}
 		//Female:
 		else {
 			EngineCore.outputText( 'At the corner of your vision, you see a small, familiar green shape hover into view.  The goblin is so busy sorting through her inventory of drugs that you actually manage to see her before she sees you.  When she does lift her head up and notices the petrified, naked individual in front of her, she is so surprised she drops her satchel.\n\n', false );
-			EngineCore.outputText( '"<i>A ' + CoC.getInstance().player.race() + '!</i>" she yelps.  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
+			EngineCore.outputText( '"<i>A ' + CoC.player.race() + '!</i>" she yelps.  Hesitantly at first, then with increasing confidence as how vulnerable you are sinks in, she does a round circuit of you, taking in every angle of your frozen, helpless flesh.\n\n', false );
 			EngineCore.outputText( '"<i>Get caught with our pants down by a basilisk, did we slut?</i>" she purrs.  "<i>Well, not to worry.  I\'ll take good care of you.</i>"  You somehow doubt her good intentions, and your suspicions are confirmed when, after completing her sauntering circumference of you, she shoves your bottom half as hard as she can. You fall slowly like a wooden board; being unable to brace yourself, the sensation of dropping is horrible, and, once your skull connects with the ground, painful.  Before you can clear your swimming vision you feel the goblin\'s soft, dense weight on your chest, and then her eager lips upon yours, sucking and tonguing every inch of your frozen mouth that she can reach.  A tingling sensation spreads from your mouth downwards as her pheromone-laced lipstick takes effect.  By the time she has finished with your mouth and worked her way downwards, your paralyzed body feels warm and receptive, and your ' + Descriptors.vaginaDescript( 0 ) + ' is wet with need.  You feel small fingers caressing your mons before slipping their way inside, circling your ' + Descriptors.clitDescript() + ' before testing your depths.  You wish you could cringe away or even thrust yourself forward to try and make the goblin better address your growing need, but that is impossible; you stare in front of you, petrified, as the fingers continue their lazy tour of your sex until your juices are running like a river in spring.\n\n', false );
 			EngineCore.outputText( '"<i>You are well up for this, aren\'t you hun?</i>" coos the goblin as she begins to flick your sopping clit, sounding delighted with the involuntary heat she has stoked within you.  "<i>It\'s such a shame that I don\'t have the big cock you obviously want and need.  Don\'t worry though; I\'ve got the next best thing!</i>"  You hear her rummage around in her satchel, which is followed by the sounds of her wetly sucking on something with obvious enthusiasm.  You shrink inwardly as you make a strong guess as to what she\'s holding and what she intends to do with it.  Sure enough, a moment later you feel a dildo pushing unceremoniously into your ' + Descriptors.vaginaDescript( 0 ) + '.', false );
-			CoC.getInstance().player.cuntChange( 30, true, true, false );
+			CoC.player.cuntChange( 30, true, true, false );
 			//[(tight)
-			if( CoC.getInstance().player.vaginalCapacity() < 30 ) {
+			if( CoC.player.vaginalCapacity() < 30 ) {
 				EngineCore.outputText( '  You didn\'t get the wet end, and you groan as you feel the thing begin to puff up as it reacts with your eager juices until it is pushing almost painfully against your inner walls.', false );
 			} else {
 				EngineCore.outputText( '  You didn\'t get the wet end, and you groan as you feel the thing begin to puff up as it reacts with your eager juices until it fills your well-used passage almost perfectly.', false );
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( '  You feel the goblin crawl on top of you, pulling the dildo upwards so it rubs against your ' + Descriptors.clitDescript() + ' and then with a squealing giggle impales herself on the other end.  Her lustful movements translate through the artificial cock buried in your dripping sex, sending tremors and waves of pleasure to your very core.  A gush of female fluid splatters over your own sex as the goblin works herself right down the shaft connecting you until she is squelching against you wetly.  The goblin twists, grinding and scissoring her thighs, the hard bud of her clit rubbing back and forth over your own.  By now your passage feels as stuffed as it ever has been, crammed totally full of the squishy expanded double-dong.  Every motion the tiny slut makes is amplified directly into the fuck-stick plugging your ' + Descriptors.vaginaDescript( 0 ) + '.  Judging by how wonderful it feels rubbing and twisting against your sensitive walls, the aphrodisiac it is leaking into you is definitely having an effect.  You whine at the goblin twists herself and her dildo around, rubbing and riding you so effectively, the involuntary tide of erotic memories building again...\n\n', false );
 			EngineCore.outputText( 'After cumming over and over again in tandem with the dominant little slut she eventually takes mercy upon you, leaving you lying in a pool of mingled girl cum, dazed by the hypnotic backwash and the drugs which have left you so hazy and sensitive.  After another ten or twenty minutes of being forced to lie there and marinate in your own shameful memories, you find with great relief you can begin to move your fingers again.  Eventually with some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you pick yourself up and redress before anything else finds you and woozily begin to make your way back down the mountain.  The smell of horny goblin on you is a lingering reminder of what just happened to you.\n\n', false );
 			//(lose 100 lust, stretch vagina according to d.dildo rules if F, stretch anus according to minotaur and increment addiction if U)
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		}
 	};
 	//Defeated, Taken Advantage of: minotaur
@@ -538,9 +538,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.\n\n', false );
 		EngineCore.outputText( 'You hear a deep, rumbling, snuffling sound from behind you, and the earth shakes as something big approaches you from behind.  <i>Please not a minotaur,</i> you think.  <i>Anything but a minotaur.  Please not a minotaur...</i>  Hands roughly grab your sides and a brutally powerful musk fills your nostrils as you groan in despair.\n\n', false );
 		EngineCore.outputText( 'The huge bull-man is not one to look a gift fuck in the mouth.  Without bothering to take you in, bar a long wet sniff of your ' + Descriptors.hairDescript() + ', he sticks his cock between your ass cheeks.  He grunts as he forces his head past your sphincter, squirting pre-cum into your passage as he does so.  Your body is incapable of clenching instinctively against the invasion, but there is no escaping how huge the dong feels as he impatiently forces your ass open.', false );
-		CoC.getInstance().player.buttChange( 60, true, true, false );
+		CoC.player.buttChange( 60, true, true, false );
 		//(Tight:
-		if( CoC.getInstance().player.analCapacity() < 60 ) {
+		if( CoC.player.analCapacity() < 60 ) {
 			EngineCore.outputText( '  The giant cock stretches you out painfully, and everything else blots out as your body attempts to accommodate the beast.  As he begins to thrust more of his length up you, he grunts and beads more of his drugged pre-cum, lubricating your anus.  This thankfully makes his cock easier to take, but also increases the pace of his thrusting as your hole becomes more receptive to it.', false );
 		}//V loose/Buttslut:
 		else {
@@ -548,11 +548,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		}
 		EngineCore.outputText( '  You begin to pant from exertion and the overpowering sensation of the fuck as you feel first one ring and then a second push past your sphincter, then out again, then in and out as the minotaur picks up the pace.  As rut takes hold of him, he picks you up by your arms and uses his strength to force you up and down his dick, using you as a cocksleeve to sate his animalistic desires.  Your ass is slick with his pre-cum by now however, and the drugged slime has bumped you upwards into a hazy high; only the height of his downward thrust when his dick is almost completely buried in your bowels brings you out of it, the painful intensity of it dragging you down of your cloud with a gasp.\n\n', false );
 		EngineCore.outputText( 'Eventually the minotaur\'s balls swell against your ' + Descriptors.buttDescript() + ' and with a long, satisfied moo, it reaches its peak, holding you down so its cum jets forth deep inside you.  ', false );
-		if( CoC.getInstance().player.gender === 1 ) {
-			EngineCore.outputText( 'The sensual high it has already instilled in you amplifies by tenfold; the warm, oozing fluid finds its mark and you moan as you spontaneously ejaculate, ropes of your own cum spattering on the ground and your own nerveless ' + CoC.getInstance().player.feet() + '.', false );
-		} else if( CoC.getInstance().player.gender === 2 ) {
+		if( CoC.player.gender === 1 ) {
+			EngineCore.outputText( 'The sensual high it has already instilled in you amplifies by tenfold; the warm, oozing fluid finds its mark and you moan as you spontaneously ejaculate, ropes of your own cum spattering on the ground and your own nerveless ' + CoC.player.feet() + '.', false );
+		} else if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( 'The sensual high it has already instilled in you amplifies by tenfold; the warm, oozing fluid finds its mark and you moan as you spontaneously orgasm, your juices spattering your thighs and calves.', false );
-		} else if( CoC.getInstance().player.gender === 3 ) {
+		} else if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'The sensual high it has already instilled in you amplifies by tenfold; the warm, oozing fluid finds its mark and you moan as you spontaneously orgasm, ropes of your own jizz spattering on the ground and girl cum dripping down your thighs.', false );
 		} else {
 			EngineCore.outputText( 'The sensual high it has already instilled in you amplifies by tenfold as the warm, oozing fluid finds its mark and you moan as you spontaneously orgasm, your anus helplessly milking the creature for all it can get.', false );
@@ -560,21 +560,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'The minotaur holds onto you until he has finished spurting his last into you, before abruptly setting you back down on your frozen feet, pulling his slimy, receding member out of your abused anus and with a satisfied snort, takes his leave.  You feel his cum drooling out of you and down your ' + Descriptors.hipDescript() + ', but in your hazy, druggy state the feeling is almost sensual.', false );
 		//(Addict:
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
 			EngineCore.outputText( '  You\'re incredibly frustrated that you can\'t clench yourself and hold the magical substance deep inside you, so you can savor the wonderful, soft elation it blossoms inside of you for as long as you can.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Eventually, after another thirty or so minutes of being forced to stand there and savor the cum trickling down your legs, you find with great relief you can begin to move your fingers again. With some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you shake the aching out of your knees and redress before anything else finds you and woozily begin to make your way back down the mountain, trying to ignore the feeling of ooze dripping out of you.', false );
 		//(lose 100 lust, stretch anus according to minotaur, increment mino addiction)*/
-		CoC.getInstance().player.orgasm();
-		CoC.getInstance().player.minoCumAddiction( 10 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.orgasm();
+		CoC.player.minoCumAddiction( 10 );
+		CoC.player.slimeFeed();
 	};
 	BasiliskScene.prototype.driderPCEggLaysBasilisk = function() {
 		EngineCore.spriteSelect( 75 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Leaning back on your carapace-clad abdomen, you try and look over your defeated opponent.  Even slumped over in ' );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'exhaustion' );
 		} else {
 			EngineCore.outputText( 'arousal' );
@@ -587,49 +587,49 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'Shoving him up against the cool stone, ' );
 		EngineCore.outputText( 'you plaster the web across his face, neatly blindfolding the irritating lizard.  The creature lets out a frightened hiss, which you completely ignore as you bodily toss him atop the rock before clambering after him, your spider limbs allowing you to easily traverse the stone.  A bit of artful rearrangement and a lot of webbing sees the creature spread-eagled across the boulder, limbs pulled taut by the thick, sticky strings.' );
 		EngineCore.outputText( '\n\nYou feel your breath quicken and your cheeks flush as your ovipositor slides free, dripping lube, leaving trails across the stone as you ready yourself to give the egg-thief what he wanted.  Maybe not <i>exactly</i>, but you have no intention of allowing him to complain, in any case.  Spreading your eight legs wide, you lower yourself down until your ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'already-dripping pussy' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[eachCock]' );
 		}
 		EngineCore.outputText( ' hangs' );
-		//if(CoC.getInstance().player.gender !== 3) EngineCore.outputText('s');
+		//if(CoC.player.gender !== 3) EngineCore.outputText('s');
 		EngineCore.outputText( ' just over his mouth.' );
 		//[(if PC has eggs in vag or Oviposition)
-		if( CoC.getInstance().player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			EngineCore.outputText( '  You watch with idle amusement as the scent of your excitement perks up the basilisk\'s reptilian member, rising until it reaches its impressive full length.  <i>Maybe some other time</i>, you think to yourself, as you set about the business of unloading your overfull abdomen.' );
 		}
 		EngineCore.outputText( 'You can feel the eggs sliding into position, weighing down your extended ovipositor as you slide it up the bound basilisk\'s thigh, prodding at his taut backdoor.  The sensation of the heavy organ forcing open his tight hole sends a shiver through his body, and it isn\'t long before the lube-drooling appendage forces its way in; you sink down further, practically resting your body atop him as you release a happy sigh.' );
 		EngineCore.outputText( '\n\nThe segmented shaft works forward, driving in up to its second ring, wiggling and thrusting in an attempt to slide even deeper into your bound slut.  The anal stimulation proves to be too much for the tied lizard, and with another hiss he blows his load beneath you, spraying his seed across your chitin undercarriage.  It\'s utterly unacceptable that he\'s enjoying this more than you, and you glare down at him before shoving your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cock' );
 		} else {
 			EngineCore.outputText( 'cunt' );
 		}
 		EngineCore.outputText( ' up against his half-open mouth, smearing your free-running juices across his scaled face.  You wait a few seconds, just enjoying the feeling of his hot breath against your oversensitive sex, before you state your intentions in an imperious tone.  "<i>Lick.</i>"' );
 		EngineCore.outputText( '\n\nThe creature hesitates below you, and you take the opportunity to inch your ovipositor even further, burying nearly the entire organ into the basilisk\'s warm clenching hole.  Another spurt of your thick lube proves to be all the encouragement he needs, and his lengthy tongue extends to ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'wrap tightly around your waiting prick' );
 		} else {
 			EngineCore.outputText( 'burrow deep into your needy slit' );
 		}
 		EngineCore.outputText( '.  You coo in delight at the sensation, and begin to grind yourself against his face as you wait for your egg-laying to begin.' );
 		EngineCore.outputText( '\n\nThe monster\'s stomach bloats as a final rush of goo fills his bowels in preparation for your ' );
-		if( CoC.getInstance().player.fertilizedEggs() === 0 ) {
+		if( CoC.player.fertilizedEggs() === 0 ) {
 			EngineCore.outputText( 'un' );
 		}
 		EngineCore.outputText( 'fertilized orbs, providing you with a moment\'s warning before the ecstasy-inducing ripple of an egg sliding deep into him rolls your eyes backwards in pleasure.  You twitch and squirm atop the bound basilisk, mashing your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'dick' );
 		} else {
 			EngineCore.outputText( 'cunt' );
 		}
 		EngineCore.outputText( ' against his face while your egg-laden tube pumps away, each pulse forcing another egg through his squeezing ring and sending trills of intoxicating euphoria up your spine.  You lose yourself in the act, your heartbeat racing in time with contractions of your ovipositor, spraying ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'semen' );
 		} else {
 			EngineCore.outputText( 'femcum' );
@@ -637,41 +637,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( ' across your partner\'s face and neck.' );
 		EngineCore.outputText( '\n\nYou feel his stomach beneath you, bloated so far as to scrape at your chitinous underside, and you nearly collapse on top of him as your thick spider-tube frees itself with an audible pop. Green slime leaks down the side of the boulder from his gaping ass, and his tongue hangs idle at the corner of his mouth, both of you panting heavily as you attempt to regain your breath.  You catch yours first, and skitter off the boulder to the ground below, pausing to glance back at the tied beast' );
 		//(if corruption >= 50
-		if( CoC.getInstance().player.cor >= 50 ) {
+		if( CoC.player.cor >= 50 ) {
 			EngineCore.outputText( ' before heading off towards your camp. The harpies will probably free him from your webs... eventually.' );
 		} else {
 			EngineCore.outputText( '.  You reach up and slice him free from the webbing, carefully placing him on the ground below.  The blindfold stays, though.  You\'re kind, not stupid.  With your good deed for the day complete, you gather yourself up and head back to camp.' );
 		}
-		CoC.getInstance().player.dumpEggs();
-		CoC.getInstance().player.orgasm();
+		CoC.player.dumpEggs();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.layBeeEggsInABasilisk = function() {
 		EngineCore.spriteSelect( 75 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Completely destroyed, the basilisk lays face down on the ground, struggling pathetically to get up.  You giggle at the attempt as you ' );
-		if( CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_SMALL || CoC.getInstance().player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_LARGE ) {
+		if( CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_SMALL || CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_LARGE ) {
 			EngineCore.outputText( 'buzz lightly over to the basilisk\'s writhing body' );
 		} else {
 			EngineCore.outputText( 'saunter arrogantly over to the basilisk\'s crumpled up figure' );
 		}
 		EngineCore.outputText( ' and lightly nudge him in his ribs with your [foot].  His eyes are closed from to the ' );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'pain' );
 		} else {
 			EngineCore.outputText( 'arousal' );
 		}
 		EngineCore.outputText( ' he\'s currently suffering through, but you know they won\'t stay that way for long.  You zealously search through your bags for some extra undergarments and wrap them around the lizard beast\'s scaly visage; with a quick afterthought, you reach for his talons and tie them to his face, atop his eyes in mock mourning for what is about to happen.  You let out another perverse giggle and wonder vaguely if there is anything more you can do to make this situation more humiliating for the beast.' );
 		//[(if pc is horse or unsexed)
-		if( CoC.getInstance().player.isTaur() || CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.isTaur() || CoC.player.gender === 0 ) {
 			EngineCore.outputText( '\n\nYou drool messily on your hand and cup it to the basilisk\'s hole; he hisses in displeasure - though he must have had an inkling of what was coming, the visceral sensation of having his asshole lubed for entry is probably sending his imagination careening off in reckless, tormenting anticipation.' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYou remove just enough of your [armor] to expose yourself and grab hold of your increasing length' );
-			if( CoC.getInstance().player.totalCocks() ) {
+			if( CoC.player.totalCocks() ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '; rubbing enthusiastically, you start at the base but end in a gentle stroke at the sensitive tip.  With you doing your best to milk as much pre as you can, the viscous ooze that dribbles out of your dong' );
-			if( CoC.getInstance().player.totalCocks() ) {
+			if( CoC.player.totalCocks() ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' lands with soft pitters on the overgrown lizard\'s back, the intense mountain sun baking the gunk onto the scales.  You sigh in languor, but remember you\'re doing this for a reason.' );
@@ -681,13 +681,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( '\n\nYou tap a finger against your cheek, then have an idea.  Making quick work of your [armor] you dip your fingers into your personal honey jar, flicking the contents enticingly but quickly, to get some lube to dribble out onto your hands.  Once a decent amount has been deposited into your waiting palm, you slap the viscous concoction under the basilisk\'s nostrils and smear it lasciviously all around.  The basilisk coughs as his way of breathing is momentarily interrupted, but you ignore it in favor of reaching for more honey to rub.' );
 		}
 		EngineCore.outputText( '\n\nYour victim squirms at the sensations forced upon him, but as weak as he is, another firm [foot] to his ribs makes him rethink his resistance.  Your overburdened abdomen throbs, reminding you of your purpose, and you tilt the basilisk\'s hips up toward the sky for a better angle to insert yourself; a sigh of relief escapes your lips as you release your ovipositor from your bee abdomen.  You take your time arranging yourself ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'above' );
 		} else {
 			EngineCore.outputText( 'behind' );
 		}
 		EngineCore.outputText( ' the desperately-squirming lizard, delighting in the fear-scented air around the beast as your ovipositor slaps his cheeks in search of his tight little black hole.  Aside from the difference in feel, you know once you hit the sweet spot by the rigid jolt from the basilisk as his worst fear is confirmed.  You openly laugh this time, and enjoy the feel of the lizard squirming under you as your bulbous appendage painstakingly, slowly works its way inside his anus.  Dry and tight, you really have to force your way, but the feeling is amazing, and it just keeps getting better.  It probably doesn\'t feel too great for the basilisk, but that\'s not exactly your problem.  The slit at the end of your ovipositor widens, leaking golden liquid, and the squirming basilisk halts its struggles and relaxes as the narcotics in the slime work their way into the bloodstream.  You begin humming in a fashion similar to the giant bees you now resemble as you enjoy the blissful sensation of the eggs progressing through the long tubular organ, stretching the reptile\'s pucker to accommodate your ' );
-		if( CoC.getInstance().player.fertilizedEggs() ) {
+		if( CoC.player.fertilizedEggs() ) {
 			EngineCore.outputText( 'fertilized offspring' );
 		} else {
 			EngineCore.outputText( 'burdensome load' );
@@ -695,37 +695,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nThe basilisk twitches each time an egg runs over his prostate, and his purple prick jolts in time.  The mind-numbing ooze paired with the sensation of the eggs is clearly no longer seen as unpleasant by the beast; his tongue has even begun to dangle and drool.  The seemingly endless mixture of eggs and slime continues to work its way into the basilisk\'s intestines; you yourself have been enjoying the sensation too.' );
 		//[(female or small-dicked horse, or unsexed)
-		if( CoC.getInstance().player.isTaur() || CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.isTaur() || CoC.player.gender === 0 ) {
 			EngineCore.outputText( '\n\nThere\'s nothing to distract you from the pleasure; ' );
 			//[(U)
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'no needy cock or cunt demanding a caress - except the basilisk\'s, and you care not a bit about that one.' );
-			} else if( CoC.getInstance().player.isTaur() ) {
+			} else if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'even if you wanted to reach your genitals, your arms resolutely refuse to bend that way, so you focus on the slippery, silky feelings travelling along your ovipositor.' );
 			}
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYour seeping member' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' demand' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' attention, and you don\'t deny them, as you resume the pleasurable stroking you started earlier.  More white cream leaks out, landing on the earth and the basilisk\'s back.  The combined titillation of your ovipositor massaging the overgrown lizard\'s anus from the inside out and the stroking of ' + Descriptors.sMultiCockDesc() + '  is more than your overly-sensitised body can handle for long.  Soon, the tell-tale feeling at the base of your spine ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'and inside your balls ' );
 			}
 			EngineCore.outputText( 'is more than you can take, and ropes of thick semen coat the basilisk from the cheeks of its ass to the back of its head.  You give a guttural groan as your orgasm hurries the last of your eggs up the long black organ that is your ovipositor to be deposited into the tightly packed cavern that you\'ve made the basilisk\'s intestines into.' );
 		}
 		//(no-horse vag:
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nYour body demanding more feeling to push it over the edge, you begin simultaneously massaging your [nipple] and frigging your [clit] joy buzzer.  More of your juices drip out and leak down your thighs; the basilisk shudders again and you imagine how bizarre it must feel for the beast to be invaded in such a way.  You lick your lower lip before biting into it gently, then pinch and tug at your hardened nipples, moaning as you climb higher and higher towards your peak.  Your lower lips try to clench around empty air, wanting fulfillment.  Today\'s orgasm is meant for something else though, and you let out a cry as you forcefully jam shut the basilisk\'s back door and leak girl cum all over the floor.' );
 		}
 		EngineCore.outputText( '\n\nAs you remove your depleted appendage from the violated basilisk\'s ass, he falls to the side, no longer able to keep himself upright.  Laying like this, you can see the beast\'s horribly-distended stomach, almost able to make out the outline of each individual egg but for the scales in the way. You nod approvingly and bend down to give to the lizard a quick kiss on the cheek for being such a good sport about the whole thing - though, not being an idiot, you don\'t untie him.  After that, you buzz away contentedly, idly thinking about returning the next time you\'ll need a receptacle for your eggs.' );
-		CoC.getInstance().player.dumpEggs();
-		CoC.getInstance().player.orgasm();
+		CoC.player.dumpEggs();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'basiliskScene', new BasiliskScene() );

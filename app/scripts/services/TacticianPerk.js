@@ -6,7 +6,7 @@ angular.module('cocjs').factory('TacticianPerk', function (PerkType, CoC) {
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if(CoC.getInstance().player.inte >= 50) {
+		if(CoC.player.inte >= 50) {
 			return '<b>Increases critical hit chance by up to 10% (Intelligence-based).</b>';
 		}
 		return '<b>You are too dumb to gain benefit from this perk.</b>';

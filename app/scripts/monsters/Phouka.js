@@ -11,34 +11,34 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you due to his blindness!\n', false );
 		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
-			damage = Math.round( (60 + 30 + 10) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ); //60 === Bunny Strength, 30 === Bunny Weapon Attack
+			damage = Math.round( (60 + 30 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //60 === Bunny Strength, 30 === Bunny Weapon Attack
 			EngineCore.outputText( 'The bunny morph hops towards you.  At the last second he changes direction and throws a kick toward you with his powerful hind legs.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 				EngineCore.outputText( '\nThrowing yourself out of the way, you manage to avoid the kick.  The ' + this.short + ' hops out of reach and prepares for another attack.' );
 			} else if( damage <= 0 ) {
 				EngineCore.outputText( '\nYou block his attack by moving your shoulder in close, absorbing the energy of the kick harmlessly.' );
 			} else {
-				CoC.getInstance().player.takeDamage( damage );
+				CoC.player.takeDamage( damage );
 				EngineCore.outputText( '\nThe kick connects and leaves you reeling.' );
 			}
 		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
-			damage = Math.round( (80 + 40 + 10) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ); //80 === Goat Strength, 40 === Goat Weapon Attack
+			damage = Math.round( (80 + 40 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //80 === Goat Strength, 40 === Goat Weapon Attack
 			EngineCore.outputText( 'The goat morph races toward you, head down.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 				EngineCore.outputText( '\nThrowing yourself out of the way, you manage to keep from getting skewered.' );
 			} else if( damage <= 0 ) {
 				EngineCore.outputText( '\nYou manage to smack the goat morph in the side of the head.  The horns pass you by harmlessly.' );
 			} else {
-				CoC.getInstance().player.takeDamage( damage );
+				CoC.player.takeDamage( damage );
 				EngineCore.outputText( '\nIts head and horns crash into you, leaving you winded and bruised.' );
 			}
 		} else { //HORSE
-			damage = Math.round( (95 + 55 + 10) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef ); //95 === Horse Strength, 55 === Horse Weapon Attack
+			damage = Math.round( (95 + 55 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //95 === Horse Strength, 55 === Horse Weapon Attack
 			EngineCore.outputText( 'The stallion charges you, clearly intending to trample you under its hooves.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() || (damage <= 0) ) {
 				EngineCore.outputText( '\nAs the stallion passes you twist in place and manage to stay clear of its legs.' );
 			} else {
-				CoC.getInstance().player.takeDamage( damage );
+				CoC.player.takeDamage( damage );
 				EngineCore.outputText( '\nYou get clipped by the stallion\'s legs and hooves as he charges. As he comes around for another pass you check over your body, amazed none of your bones are broken after that.' );
 			}
 		}
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 			} else {
 				EngineCore.outputText( 'You are hypnotized by the equine cock jabbing at the air.  Then the ' + this.short + ' charges past you and you can taste the musk in the air.' );
 			}
-			EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 5 + Utils.rand( 10 ) );
+			EngineCore.dynStats( 'lus', 15 + CoC.player.lib / 10 + CoC.player.cor / 5 + Utils.rand( 10 ) );
 		}
 		Combat.combatRoundOver();
 	};
@@ -84,13 +84,13 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 			EngineCore.outputText( 'As the ball leaves his fingers you throw yourself back, your spine bending in an inhuman way.  You feel the ball sail past, inches above your chest.' );
 		} else {
 			EngineCore.outputText( 'The ball smacks into your face like a wet snowball.  It covers most of your nose and mouth with a layer of sticky, salty mud which makes it hard to breathe.  You\'ll be unable to use your magic while you\'re struggling for breath!\n' );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 ); //Probably safe to reuse the same status affect as for the spider morphs
+			CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 ); //Probably safe to reuse the same status affect as for the spider morphs
 		}
 		Combat.combatRoundOver();
 	};
 	Phouka.prototype.performCombatAction = function() {
 		var blinded = this.findStatusAffect( StatusAffects.Blind ) >= 0;
-		if( (!blinded) && CoC.getInstance().player.findStatusAffect( StatusAffects.WebSilence ) < 0 && Utils.rand( 4 ) === 0 ) {
+		if( (!blinded) && CoC.player.findStatusAffect( StatusAffects.WebSilence ) < 0 && Utils.rand( 4 ) === 0 ) {
 			this.phoukaTransformToPhouka(); //Change to faerie form so that it can lob the ball of muck at you
 			this.phoukaFightSilence();
 		} else {
@@ -143,15 +143,15 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 	Phouka.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe ' + this.short + ' looks on, amused. <i>“Kinky! But those wee things can\'t handle whiskey, so I’m safe from ‘em. Now be a good ' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'lass and spread yer legs for me.”</i>\n\n' );
 			} else {
 				EngineCore.outputText( 'lad and spread yer asscheeks for me.”</i>\n\n' );
 			}
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			if( CoC.getInstance().player.hasVagina() ) { //Phouka prefer vaginal if they can get it
-				if( CoC.getInstance().player.isTaur() || Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.hasVagina() ) { //Phouka prefer vaginal if they can get it
+				if( CoC.player.isTaur() || Utils.rand( 2 ) === 0 ) {
 					SceneLib.phoukaScene.phoukaSexHorse( true, !hpVictory );
 				}//And they love mating with female or herm centaurs in their horse form
 				else {
@@ -238,9 +238,9 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		//Talk about gems and XP when the player looks in the hollow of the tree instead of here
 	};
 	Phouka.prototype.handleCombatLossText = function( inDungeon, gemsLost ) {
-		if( CoC.getInstance().player.gems > 1 ) {
+		if( CoC.player.gems > 1 ) {
 			EngineCore.outputText( '  Once free you check your gem pouch and realize the ' + this.short + ' took ' + gemsLost + ' of your gems.' );
-		} else if( CoC.getInstance().player.gems === 1 ) {
+		} else if( CoC.player.gems === 1 ) {
 			EngineCore.outputText( '  Once free you check your gem pouch and realize the ' + this.short + ' took your only gem.' );
 		}
 		return 1; //Only use up one hour after combat loss

@@ -6,7 +6,7 @@ angular.module('cocjs').factory('ControlledBreathPerk', function (PerkType, CoC)
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if (CoC.getInstance().player.cor >= 30) {
+		if (CoC.player.cor >= 30) {
 			return "<b>DISABLED</b> - Corruption too high!";
 		}
 		return this.desc;

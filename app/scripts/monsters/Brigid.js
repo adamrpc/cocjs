@@ -7,13 +7,13 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appear
 	angular.extend(Brigid.prototype, Monster.prototype);
 	//Attack One: Hot Poker, Right Up Your Ass!;
 	Brigid.prototype.brigidPoke = function() {
-		EngineCore.outputText( 'Brigid stalks forward with confidence, her shield absorbing your defensive blows until she\'s right on top of you. She bats your [weapon] aside and thrashes you with her hot poker, scalding your ' + CoC.getInstance().player.skin() + ' and sending you reeling.' );
+		EngineCore.outputText( 'Brigid stalks forward with confidence, her shield absorbing your defensive blows until she\'s right on top of you. She bats your [weapon] aside and thrashes you with her hot poker, scalding your ' + CoC.player.skin() + ' and sending you reeling.' );
 		//(Effect: Heavy Damage);
-		var damage = Math.round( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		var damage = Math.round( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage < 30 ) {
 			damage = 30;
 		}
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
@@ -22,12 +22,12 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appear
 		EngineCore.outputText( 'The harpy feints at you with her poker; you dodge the blow, but you leave yourself vulnerable as she spins around and slams her heavy shield into you, knocking you off balance.' );
 		//(Effect: Stagger/Stun);
 		var damage = 5;
-		damage = CoC.getInstance().player.takeDamage( 5 );
+		damage = CoC.player.takeDamage( 5 );
 		EngineCore.outputText( ' (' + damage + ')' );
-		if( CoC.getInstance().player.findPerk( PerkLib.Resolute ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 ) {
 			EngineCore.outputText( '  Of course, your resolute posture prevents her from accomplishing much.' );
 		} else {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -38,8 +38,8 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appear
 		Combat.combatRoundOver();
 	};
 	Brigid.prototype.performCombatAction = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.Stunned );
+		if( CoC.player.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+			CoC.player.removeStatusAffect( StatusAffects.Stunned );
 			if( Utils.rand( 2 ) === 0 ) {
 				this.BrigidAssGrind();
 			} else {

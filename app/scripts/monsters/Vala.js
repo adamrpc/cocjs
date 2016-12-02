@@ -12,13 +12,13 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 		//Lightly wounded.;
 		if( this.HPRatio() > 0.7 ) {
 			EngineCore.outputText( '  The sweet-smelling cloud rapidly fills the room, but the volume of mist is low enough that you don\'t end up breathing in that much of it.  It does make your pulse quicken in the most pleasant way though...', false );
-			EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 		} else if( this.HPRatio() > 0.4 ) {
 			EngineCore.outputText( '  The rose-colored vapor spreads throughout the room, forcing you to breathe it in or pass out from lack of air.  It smells sweet and makes your head swim with sensual promises and your crotch tingle with desire.  Panicked by the knowledge that you\'re being drugged, you gasp, but it only draws more of the rapidly disappating cloud into your lungs, fueling your lust.', false );
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
 		} else {
 			EngineCore.outputText( '  The cloying, thick cloud of pink spools out from her mouth and fills the room with a haze of bubblegum-pink sweetness.  Even the shallowest, most experimental breath makes your heart pound and your crotch thrum with excitement.  You gasp in another quick breath and sway back and forth on your feet, already on the edge of giving in to the faerie.', false );
-			EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10 );
+			EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -29,18 +29,18 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 		EngineCore.outputText( '\nVala says, "<i>Now you can be sexy like Vala!</i>"\n', false );
 		if( this.findStatusAffect( StatusAffects.Milk ) >= 0 ) {
 			this.addStatusValue( StatusAffects.Milk, 1, 5 );
-			EngineCore.outputText( 'Your ' + CoC.getInstance().player.skinDesc + ' tingles pleasantly, making you feel sexy and exposed.  Oh no!  It seems each coating of milk and glitter is stronger than the last!', false );
+			EngineCore.outputText( 'Your ' + CoC.player.skinDesc + ' tingles pleasantly, making you feel sexy and exposed.  Oh no!  It seems each coating of milk and glitter is stronger than the last!', false );
 		} else {
 			this.createStatusAffect( StatusAffects.Milk, 5, 0, 0, 0 );
 			EngineCore.outputText( 'You aren\'t sure if there\'s something in her milk, the dust, or just watching her squirt and shake for you, but it\'s turning you on.', false );
 		}
-		EngineCore.dynStats( 'lus', this.statusAffectv1( StatusAffects.Milk ) + CoC.getInstance().player.lib / 20 );
+		EngineCore.dynStats( 'lus', this.statusAffectv1( StatusAffects.Milk ) + CoC.player.lib / 20 );
 		Combat.combatRoundOver();
 	};
 	//Masturbation;
 	Vala.prototype.valaMasturbate = function() {
 		EngineCore.outputText( 'The mind-fucked faerie spreads her alabaster thighs and dips a finger into the glistening slit between her legs, sliding in and out, only pausing to circle her clit.  She brazenly masturbates, putting on quite the show.  Vala slides another two fingers inside herself and finger-fucks herself hard, moaning and panting lewdly.  Then she pulls them out and asks, "<i>Did you like that?  Will you fuck Vala now?</i>"', false );
-		EngineCore.dynStats( 'lus', 4 + CoC.getInstance().player.cor / 10 );
+		EngineCore.dynStats( 'lus', 4 + CoC.player.cor / 10 );
 		Combat.combatRoundOver();
 	};
 
@@ -117,13 +117,13 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 		that.weaponVerb = 'caresses';
 		that.armorName = 'skin';
 		var lustVuln = 0.5;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 0 ) {
 			lustVuln += 0.25;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 2 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 2 ) {
 			lustVuln += 0.5;
 		}
-		var lust = 30 + CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] * 10;
+		var lust = 30 + CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] * 10;
 		if( lust > 80 ) {
 			lust = 80;
 		}
@@ -134,17 +134,17 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 		that.level = 11;
 		that.gems = 1;
 		that.additionalXP = 50;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 0 ) {
 			that.XP = 5;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 2 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] > 2 ) {
 			that.XP = 1;
 		}
 		that.special1 = null;
 		that.special2 = null;
 		that.special3 = null;
 		var wingDesc = 'shimmering wings';
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] === 0 ) {
 			that.drop = new WeightedDrop( ConsumableLib.NUMBROX );
 		} else {
 			that.drop = Monster.NO_DROP;

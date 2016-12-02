@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 	angular.extend(Tamani.prototype, Goblin.prototype);
 	Tamani.prototype.Goblin_goblinTeaseAttack = Tamani.prototype.goblinTeaseAttack;
 	Tamani.prototype.goblinTeaseAttack = function() {
-		if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 0 ) {
 			this.tamaniHypnoTease();
 			return;
 		}
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 		}
 		//REACTIONS
 		//LOW HYPNO VALUE:
-		if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] < 5 ) {
+		if( CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] < 5 ) {
 			selector = Utils.rand( 3 );
 			if( selector === 0 ) {
 				EngineCore.outputText( 'You reluctantly pull your stare away from the heavenly entrance between her legs.  There\'s an urge to walk over to her and plunge yourself inside her over and over, but you dismiss it.', false );
@@ -41,42 +41,42 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 			}
 		}
 		//MEDIUM HYPNO VALUE:
-		else if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] < 10 ) {
+		else if( CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] < 10 ) {
 			selector = Utils.rand( 2 );
 			if( selector === 0 ) {
 				EngineCore.outputText( 'With effort you manage to wrench your eyes away from the inviting folds of Tamani\'s vagina.  ', false );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( 'Each of y', false );
 				} else {
 					EngineCore.outputText( 'Y', false );
 				}
 				EngineCore.outputText( 'our ' + Descriptors.multiCockDescriptLight(), false );
-				if( CoC.getInstance().player.lust > 80 ) {
+				if( CoC.player.lust > 80 ) {
 					EngineCore.outputText( ' drips pre-cum', false );
-				} else if( CoC.getInstance().player.lust > 40 ) {
+				} else if( CoC.player.lust > 40 ) {
 					EngineCore.outputText( ' grows harder', false );
 				} else {
 					EngineCore.outputText( ' hardens', false );
 				}
 				EngineCore.outputText( ' from the sexual sight, and you feel a compulsion to rush to your wife and take her on the spot.  Obviously she\'s not really your wife, but after so many fuckings it kind of makes sense to think of her that way.', false );
-				if( CoC.getInstance().player.lust < 70 ) {
+				if( CoC.player.lust < 70 ) {
 					EngineCore.outputText( '  Still, you don\'t want to fuck her right now!', false );
 				}
 			} else {
 				EngineCore.outputText( 'Struggling, you pull your eyes back into your head and away from Tamani\'s gorgeous slit.  You shudder, feeling ', false );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( 'each of ', false );
 				}
-				EngineCore.outputText( 'your ' + CoC.getInstance().player.multiCockDescriptLight(), false );
-				if( CoC.getInstance().player.lust <= 41 ) {
+				EngineCore.outputText( 'your ' + CoC.player.multiCockDescriptLight(), false );
+				if( CoC.player.lust <= 41 ) {
 					EngineCore.outputText( ' thicken perceptibly', false );
-				} else if( CoC.getInstance().player.lust <= 81 ) {
+				} else if( CoC.player.lust <= 81 ) {
 					EngineCore.outputText( ' twitch eagerly', false );
 				} else {
 					EngineCore.outputText( 'drip pre-cum', false );
 				}
 				EngineCore.outputText( ', responding to the overly sensual goblin\'s body.  You start to approach her, but stop yourself, realizing you were about to pick up your wife and fuck her on the spot.  You know she\'s not really your wife, but you have a hard time thinking of her as anything else, save for maybe your mistress.', false );
-				if( CoC.getInstance().player.lust < 70 ) {
+				if( CoC.player.lust < 70 ) {
 					EngineCore.outputText( '  Regardless, you\'re resolute in your desire not to fuck her right now!', false );
 				}
 			}
@@ -86,21 +86,21 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 			selector = Utils.rand( 2 );
 			if( selector === 0 ) {
 				EngineCore.outputText( 'You barely manage to step yourself from lunging forward to bury your mouth between your mistress\'s legs.  Hard and trembling between your legs, ', false );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( 'each of ', false );
 				}
-				EngineCore.outputText( 'your ' + CoC.getInstance().player.multiCockDescriptLight() + ' aches with need.  You battle with the compulsion to kneel before your short, stacked mistress and perform your duties as her breeder husband.', false );
+				EngineCore.outputText( 'your ' + CoC.player.multiCockDescriptLight() + ' aches with need.  You battle with the compulsion to kneel before your short, stacked mistress and perform your duties as her breeder husband.', false );
 			} else {
 				EngineCore.outputText( 'You wrench your gaze from the juicy mound before you with great difficulty.  The desire to submit to your wife and fuck her on the spot rages through your body, melting your resistance into liquid lust and pooling it in your groin.  ', false );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( 'Each of y', false );
 				} else {
 					EngineCore.outputText( 'Y', false );
 				}
-				EngineCore.outputText( 'our ' + CoC.getInstance().player.multiCockDescriptLight() + ' pulses and dribbles pre-cum, aching to do its duty and fire load after load into Tamani\'s perfect pussy.', false );
+				EngineCore.outputText( 'our ' + CoC.player.multiCockDescriptLight() + ' pulses and dribbles pre-cum, aching to do its duty and fire load after load into Tamani\'s perfect pussy.', false );
 			}
 		}
-		EngineCore.dynStats( 'lus', (Utils.rand( CoC.getInstance().player.lib / 5 ) + 3 + (CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ])) );
+		EngineCore.dynStats( 'lus', (Utils.rand( CoC.player.lib / 5 ) + 3 + (CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ])) );
 		Combat.combatRoundOver();
 	};
 	Tamani.prototype.defeated = function( hpVictory ) {
@@ -109,15 +109,15 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 		} else {
 			EngineCore.outputText( 'Tamani gives up on defeating you and starts masturbating!', true );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.lust >= 33 && CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( '  You could fuck her, but if that\'s the case why did you bother fighting her?\n\nWhat do you do to her?', false );
 			var temp = null;
 			var temp2 = null;
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.analCapacity() ) >= 0 ) {
+			if( CoC.player.hasCock() && CoC.player.cockThatFits( this.analCapacity() ) >= 0 ) {
 				temp = SceneLib.tamaniScene.tamaniAnalShits;
 			}
 			//NOT PREGGERS
-			if( !SceneLib.tamaniScene.pregnancy.isPregnant && CoC.getInstance().player.canOvipositSpider() ) {
+			if( !SceneLib.tamaniScene.pregnancy.isPregnant && CoC.player.canOvipositSpider() ) {
 				temp2 = SceneLib.tamaniScene.tamaniBeaten;
 			}
 			EngineCore.choices( 'Fuck', SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', temp, '', null, 'Lay Eggs', temp2, 'Leave', Combat.cleanupAfterCombat );
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 	};
 	Tamani.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
-			if( CoC.getInstance().player.totalCocks() > 0 ) {
+			if( CoC.player.totalCocks() > 0 ) {
 				if( Utils.rand( 2 ) === 0 ) {
 					SceneLib.tamaniScene.tamaniSexLost();
 				} else {
@@ -138,9 +138,9 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 				Combat.cleanupAfterCombat();
 			}
 		} else {
-			if( CoC.getInstance().player.totalCocks() > 0 ) {
+			if( CoC.player.totalCocks() > 0 ) {
 				//hypnoslut loss scene
-				if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 19 && Utils.rand( 2 ) === 0 ) {
+				if( CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 19 && Utils.rand( 2 ) === 0 ) {
 					SceneLib.tamaniScene.getRapedByTamaniYouHypnoSlut();
 				} else if( Utils.rand( 2 ) === 0 ) {
 					SceneLib.tamaniScene.tamaniSexLost();
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 				}
 			} else {
 				EngineCore.outputText( 'You give into your lusts and masturbate, but Tamani doesn\'t seem to care.  She kicks and punches you over and over, screaming, "<i>You dummy, why\'d you get rid of the fun parts?</i>"', true );
-				CoC.getInstance().player.takeDamage( 10000 );
+				CoC.player.takeDamage( 10000 );
 				Combat.cleanupAfterCombat();
 			}
 		}

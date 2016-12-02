@@ -12,23 +12,23 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCo
 		EngineCore.outputText( 'With an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );
 		EngineCore.outputText( '\n\nBefore she can get too excited, you remind the goo that she\'s supposed to be your armor right about now.  Clasping her hands over her mouth in embarrassment, she utters a muted apology and urges you to just "<i>put me on!</i>"  Awkwardly, you strip out of your gear and open up the platemail armor and clamber in.  It\'s wet and squishy, making you shudder and squirm as you squash your new friend flat against the metal armor.' );
 		EngineCore.outputText( '\n\nEventually, the two of you get situated. The goo-girl slips around your body inside the heavy armor, maneuvering so that your face is unobstructed and your joints, not protected by the armor, are soundly clad in squishy goo.  She even forms a gooey beaver on your new helm, allowing you to open and close her like a visor in battle.  Eventually, her goo settles around your ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '[vagina]' );
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight() );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( CoC.player.multiCockDescriptLight() );
 		}
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'groin' );
 		}
 		EngineCore.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
 		EngineCore.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.' );
-		if( CoC.getInstance().flags[ kFLAGS.MET_VALERIA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_VALERIA ] === 0 ) {
 			EngineCore.outputText( '  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, EngineCore.silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
-			CoC.getInstance().flags[ kFLAGS.MET_VALERIA ]++;
+			CoC.flags[ kFLAGS.MET_VALERIA ]++;
 		}
 		EngineCore.outputText( '\n\n"<i>Well alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"\n\n' );
 	};
@@ -37,11 +37,11 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCo
 	};
 	GooArmor.prototype._superPlayerEquip = GooArmor.prototype.playerEquip;
 	GooArmor.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc.
-		CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] = 0;
+		CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] = 0;
 		return this._superPlayerEquip();
 	};
 	GooArmor.prototype.playerRemove = function() { //This item is being removed by the player. Remove any perks, etc.
-		CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;
+		CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;
 		return null; //Can't put Valaria in your inventory
 	};
 	return GooArmor;

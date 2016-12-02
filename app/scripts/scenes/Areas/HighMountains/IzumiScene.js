@@ -15,20 +15,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		if( Utils.rand( 4 ) !== 0 ) {
 			return 'kid';
 		} else {
-			if( CoC.getInstance().player.tallness < 60 ) {
+			if( CoC.player.tallness < 60 ) {
 				return 'pint-size';
 			}
-			if( CoC.getInstance().player.tallness < 72 ) {
+			if( CoC.player.tallness < 72 ) {
 				return 'short-stuff';
 			}
-			if( CoC.getInstance().player.tallness < 84 ) {
+			if( CoC.player.tallness < 84 ) {
 				return 'shorty';
 			}
-			if( CoC.getInstance().player.tallness < 96 ) {
+			if( CoC.player.tallness < 96 ) {
 				return 'kid';
 			} else {
 				if( doName ) {
-					return CoC.getInstance().player.short;
+					return CoC.player.short;
 				} else {
 					return 'kid';
 				}
@@ -41,13 +41,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	};
 	// Bundle of logic to determine if a player might 'act' like a minotaur, based off of a couple of related statusAffects
 	IzumiScene.prototype.actsLikeACow = function() {
-		if( CoC.getInstance().player.inHeat ) {
+		if( CoC.player.inHeat ) {
 			return true;
 		}
-		if( CoC.getInstance().player.inRut ) {
+		if( CoC.player.inRut ) {
 			return true;
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Dysfunction ) ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) ) {
 			return true;
 		}
 		return false;
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		// Tested
 	IzumiScene.prototype.encounter = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_MET ] === 0 ) {
+		if( CoC.flags[ kFLAGS.IZUMI_MET ] === 0 ) {
 			EngineCore.outputText( 'As you wander the wasted landscape searching for anything of interest, you come across a large rock blocking what appears to be the entrance to a cave.  Wondering about how to best get around it, you suddenly become aware of a strange sound on the edge of your hearing.\n\n' );
 			EngineCore.outputText( 'Flattening yourself against the stone in case of danger, you strain your ears and scan the horizon, searching for the source of the noise.  The volume gradually increases, and eventually you realize what it is that you’re hearing; someone nearby is loudly humming, a lively tune echoing off the rocks and cliffs.  As best you can tell, it seems to be coming from the other side of the enormous stone blocking your path.\n\n' );
 			EngineCore.outputText( 'Your curiosity piqued, you search around the obstruction for a way inside, and finally manage to find a slim gap between the bottom of the rock and the cliff face.  Kneeling down, you peer inside and can make out the distinct glowing embers of a campfire.  You’re pretty sure you can make it inside, but it might be difficult to get away if danger threatens.  On the other hand, wild animals don’t light campfires, and a lust-crazed demon probably wouldn’t bother to hide itself so effectively....\n\n' );
@@ -77,16 +77,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// Repeat encounters with Izumi after having met in the past
 	IzumiScene.prototype.enterAfterMet = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 2;
+		if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 0 ) {
+			CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 2;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 1 ) {
 			EngineCore.outputText( 'Remembering the outcome of your last visit, you peer cautiously around the mouth of the cave.  Izumi, as before, is seated by the fire, happily puffing away at whatever bizarre narcotic she keeps in her pipe.  She sees you almost immediately, raising a hand cheerfully and beckoning for you to enter.\n\n' );
 			EngineCore.outputText( '“<i>Hey, it’s you! How’s it going, ' + this.heightDesc() + '? Killed any demon kings yet?</i>” Izumi ribs. “<i>Let me guess.. You’re here to take revenge on the big bad Oni, grr argh, right? Or...</i>”  She pauses for a second to shift around into a more comfortable position that - completely inadvertently, you’re sure - ends up with her showing off much more of her thighs and impressive bust.  “<i>Could it be you just came back to ask for another turn, hmm?</i>”\n\n' );
-		} else if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 2 ) {
 			EngineCore.outputText( 'Remembering your last visit, you peer cautiously around the mouth of the cave.  Izumi, as before, is seated by the fire, happily puffing away at whatever bizarre narcotic she keeps in her pipe.  She sees you almost immediately, raising a hand cheerfully and beckoning for you to enter.\n\n' );
 			EngineCore.outputText( '“<i>Oh hey, you came back!</i>”  She announces.  “<i>That’s good, ‘cause for a while there I thought you were a wuss.  Crazy idea, right?  So, did you decide to try your luck, or are you just gonna give up and let me have some fun?</i>”\n\n' );
-		} else if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 3 ) {
+		} else if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 3 ) {
 			EngineCore.outputText( 'Ranging through mountains and valleys, you find yourself back at Izumi’s camp.  Remembering the outcome of your last visit, you peer cautiously around the mouth of the cave.  Izumi, as before, is seated by the fire, puffing away at whatever bizarre narcotic she keeps in her pipe.  She catches sight of you almost immediately, frowns slightly, then raises a hand in a hesitant greeting.  There’s an awkward silence for a moment, during which Izumi avoids your gaze.\n\n' );
 			EngineCore.outputText( '“<i>So, uh...</i>” she begins.  Then she scowls, blushing slightly.  “<i>So, you came back to apologize, right?  You damn well better have!  In fact, I’m not forgiving you until I’ve made you feel as humiliated as I did, so just give in already, okay?!</i>”\n\n' );
 		} else {
@@ -115,15 +115,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// Short: Tested
 	IzumiScene.prototype.enterFirstTime = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.IZUMI_MET ] = 1;
+		CoC.flags[ kFLAGS.IZUMI_MET ] = 1;
 		// TRIAL BY FIRE FOR THE PARSER, LETS GO
 		// Fire won, parser is being thrown out of the window. I'll let you have at the original docs Fake-Name so you can figure out wtf.
 		// Trying to code this + figure out the parser + make sure I've not fucked up the logic + how difficult it is to debug issues
 		// in the parsed strings === noplz :(
 		// PC is > 9’ Tall
-		if( CoC.getInstance().player.tallness >= 108 ) {
+		if( CoC.player.tallness >= 108 ) {
 			// High strength variant
-			if( CoC.getInstance().player.str >= 75 ) {
+			if( CoC.player.str >= 75 ) {
 				EngineCore.outputText( 'Putting your shoulder to the stone, you push with all your might, trying to roll it out of the way.  It resists for a moment, then gives, slowly but surely rattling and scraping across the uneven ground.\n\n' );
 			}
 			// Low strength variant
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			// Shared
 			EngineCore.outputText( 'The humming stops almost instantly, and moments later a hand suddenly rests itself on the rock in front of you.  Looking up from your exertions, you find yourself face to face with a woman.  It takes a moment, but then you realize, you really are actually face to face with her - she’s as tall as you are!' );
 			// Catch logic shit that we just broke
-			if( CoC.getInstance().player.str < 75 ) {
+			if( CoC.player.str < 75 ) {
 				EngineCore.outputText( '  She gives the boulder a shove - with just one hand - and it starts to give, scraping across the uneven ground.\n\n' );
 			} else {
 				EngineCore.outputText( '\n\n' );
@@ -141,13 +141,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'The woman stares at you in suspicion for a moment, giving you the opportunity to study her in return.  She wears a silken kimono, embroidered with stars, dragons and flowers, which you can’t help but notice is of a truly scandalous cut – your eye is inevitably drawn to her enormous breasts, bulging dangerously against the fabric as though straining to escape.  If she were human-sized and remained in proportion, they would probably be around a DD, but at her size, you honestly have no idea.  Not only is she just as tall as you, she’s pretty built physically as well, at least from what you can see of her thighs and arms thanks to her figure-hugging outfit.\n\n' );
 			EngineCore.outputText( 'When you finally manage to drag your eyes back to her face, her expression is quite different. Instead of suspicion, she treats you to a sly smile.\n\n' );
 			EngineCore.outputText( '“<i>Well now,</i>” she drawls in a syrupy, seductive tone, twirling an errant lock of her hair thoughtfully in her fingers.  “<i>You’re a </i>big<i> one, aren’t you?  And here you are,' );
-			if( CoC.getInstance().player.str >= 75 ) {
+			if( CoC.player.str >= 75 ) {
 				EngineCore.outputText( ' forcing' );
 			} else {
 				EngineCore.outputText( ' trying to force' );
 			}
 			EngineCore.outputText( ' your way through little Izumi’s door uninvited.  I’d tell you off, but I’ve got to admit, I don’t get many visitors of your... </i>stature.<i>' );
-			if( CoC.getInstance().player.hornType !== AppearanceDefs.HORNS_COW_MINOTAUR ) {
+			if( CoC.player.hornType !== AppearanceDefs.HORNS_COW_MINOTAUR ) {
 				EngineCore.outputText( '  Or at least, ones without a pair of bulls horns' );
 				if( this.actsLikeACow() === true ) {
 					EngineCore.outputText( ' - and the temperament to match - ' );
@@ -167,24 +167,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'You squeeze through the gap, entering the cave.  Almost immediately, a palpable wave of heat rushes over you, sweat already starting to bead on your brow; it’s <i>stuffy</i> in here!\n\n' );
 		}
 		EngineCore.outputText( 'Now that you’ve made it inside, you can see that the cave is dimly lit by two burning braziers on either side of what appears to be a large tent of some sort.  In front of the tent, the fire smolders gently.  It’s difficult to make out details, as the lighting is pretty poor, wreathing everything in strange, animated shadows.  To make matters worse, the entire place is permeated by a thick veil of smoke that makes your eyes sting' );
-		if( CoC.getInstance().player.tou <= 75 ) {
+		if( CoC.player.tou <= 75 ) {
 			EngineCore.outputText( ' and of course, that obnoxiously endurance-sapping heat' );
 		}
 		EngineCore.outputText( '.\n\n' );
-		if( CoC.getInstance().player.tallness < 108 ) {
+		if( CoC.player.tallness < 108 ) {
 			EngineCore.outputText( 'You can still hear the humming, but at first, there doesn’t seem to be anyone around.  You creep closer to the tent, until suddenly, a huge shadow at the front of the tent shifts.  You freeze, straining your eyes through the darkness, as you suddenly realize that’s not a shadow at all - it’s an enormous figure!  You must have gasped, as without warning the humming stops.\n\n' );
 			EngineCore.outputText( '“<i>Hm?</i>” the shadow grunts, then speaks.  “<i>Oh?  Now how did you find your way in here, I wonder?</i>”  The voice is deep, rich and undeniably female, but has a gravelly edge to it like a cross between magma and molten chocolate.  You hear the hiss of indrawn breath and a small light flares up briefly in the darkness, then the shadow speaks again.  “<i>Well, whatever. It’s been a while since I had company, ' );
-			if( CoC.getInstance().player.minoScore() > 3 ) {
+			if( CoC.player.minoScore() > 3 ) {
 				EngineCore.outputText( 'plus it looks like you\'re thinking with the head on top of your neck, rather than the head between your legs, unlike the stupid brutes who usually wander around these parts.  ' );
-			} else if( CoC.getInstance().player.dogScore() > 3 ) {
+			} else if( CoC.player.dogScore() > 3 ) {
 				EngineCore.outputText( 'plus it looks like you\'d actually be able to resist chasing down a stick, if I threw one outta\' the cave.  ' );
-			} else if( CoC.getInstance().player.goblinScore() > 3 ) {
+			} else if( CoC.player.goblinScore() > 3 ) {
 				EngineCore.outputText( 'plus you don\'t seem to be as insufferable as the rest of those little green whores who trollop around these parts, hunting their next lay.  ' );
-			} else if( CoC.getInstance().player.demonScore() > 3 ) {
+			} else if( CoC.player.demonScore() > 3 ) {
 				EngineCore.outputText( 'plus you\'re not forever going on about corruption this, enslavement that, demonic taint the other, unlike the insufferable clods who usually wander around these parts.  ' );
-			} else if( CoC.getInstance().player.harpyScore() > 3 ) {
+			} else if( CoC.player.harpyScore() > 3 ) {
 				EngineCore.outputText( 'plus you\'re not screeching incessantly, like the feathery sluts who usually flap their way around these parts.  They\'re lucky they </i>can<i> fly, \'cause I\'d give them something to really squawk about if I could get my hands on them.  ' );
-			} else if( CoC.getInstance().player.lizardScore() > 3 ) {
+			} else if( CoC.player.lizardScore() > 3 ) {
 				EngineCore.outputText( 'plus, you don\'t have the same creepy eyes that the scaley idiots from around these parts keep trying to use on me.  ' );
 			} else {
 				EngineCore.outputText( 'plus you don’t look like the troglodytes who usually wander around these parts.  ' );
@@ -192,26 +192,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Sit down, sit down!</i>”\n\n' );
 		}
 		EngineCore.outputText( 'Cautiously, you edge towards the lip of the fire, and' );
-		if( CoC.getInstance().player.tallness >= 108 ) {
+		if( CoC.player.tallness >= 108 ) {
 			EngineCore.outputText( ' a' );
 		} else {
 			EngineCore.outputText( ' the' );
 		}
 		EngineCore.outputText( ' shadow leans forward, finally becoming visible.' );
-		if( CoC.getInstance().player.tallness < 108 ) {
+		if( CoC.player.tallness < 108 ) {
 			EngineCore.outputText( '  For a moment, you’re stunned into silence; the figure looks completely human, aside from two important factors.  The first, her size; she looks as though someone had tried to build a human but got the scale wrong.  By the looks of her, if she was standing upright she would tower at least around eight or nine feet in height, and she looks broad enough to carry a horse on her back.' );
 		} else {
 			EngineCore.outputText( '  With the opportunity to finally study the strange woman in detail, you’re stunned into silence.  She looks completely human, aside from two important factors.  The first, her size; she looks as though someone had tried to build a human but got the scale wrong.  A fact you’re made aware of every time you venture from camp; it’s not every day you meet somebody just as tall as yourself.' );
 		}
 		EngineCore.outputText( '  The second factor, of course, would be the enormous curved horn of red, rock-like bone that juts proudly from her forehead.  Still, they’re no less inhuman than some of the other creatures you’ve encountered since arriving....\n\n' );
 		EngineCore.outputText( '“<i>Hmm?</i>”  She looks blankly at you.  The sudden realisation that you’ve been staring at her horn for an uncomfortably long time hits you.  “<i>What?  Is there something on my face?</i>”  Blushing, you open your mouth to answer, but as you breathe in, a rush of coarse smoke down your throat' );
-		if( CoC.getInstance().player.tou < 60 ) {
+		if( CoC.player.tou < 60 ) {
 			EngineCore.outputText( ' causes you to cough and splutter.\n\n' );
 		} else {
 			EngineCore.outputText( ' momentarily steals your voice, having been ill-prepared for the sudden burn.\n\n' );
 		}
 		EngineCore.outputText( 'The strange woman blinks at you in confusion for a moment, then her face cracks into a grin.  “<i>Oh, right, I forgot people like you tend to be pretty fragile.  Hold on' );
-		if( CoC.getInstance().player.tou < 60 ) {
+		if( CoC.player.tou < 60 ) {
 			EngineCore.outputText( ', kid. Let' );
 		} else {
 			EngineCore.outputText( ', let' );
@@ -223,33 +223,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	IzumiScene.prototype.enterFirstTimePartII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Still' );
-		if( CoC.getInstance().player.tou < 60 ) {
+		if( CoC.player.tou < 60 ) {
 			EngineCore.outputText( ' struggling with' );
 		} else {
 			EngineCore.outputText( ' distracted by' );
 		}
 		EngineCore.outputText( ' the smoke, you turn to see her, only barely through the gloom, at the boulder blocking entry to the cave.' );
-		if( CoC.getInstance().player.str <= 75 ) {
+		if( CoC.player.str <= 75 ) {
 			EngineCore.outputText( '  To your amazement, the boulder begins to move, and as more light - along with a much-needed rush of fresh air - floods into the smoky cavern, you see she’s actually rolling it aside with her <i> bare hands </i>.  Even given her great size, this woman’s strength must be immense!\n\n' );
 		} else {
 			EngineCore.outputText( '  The boulder begins to move, and as more light - along with a welcome rush of fresh air - floods into the smoky cavern, you see she’s rolling it aside with nothing more than her bare hands with graceful, if unnerving, ease.\n\n' );
 		}
 		EngineCore.outputText( 'Finally, the boulder is pushed far enough that about half of the cave mouth is now open to the air. It’s still dark, but at least now you are able to see well enough to make out actual details as the woman strides casually back to you to retake her seat.  She smiles again, her features broad and honest, framed by an enormous chaotic mass of shaggy golden hair, looking for all the world like the mane of some great lion.\n\n' );
 		// Catch describing her in detail to short players
-		if( CoC.getInstance().player.tallness < 108 ) {
+		if( CoC.player.tallness < 108 ) {
 			EngineCore.outputText( 'She wears a silken kimono, embroidered with stars, dragons and flowers, which you can’t help but notice is of a truly scandalous cut – your eye is inevitably drawn to her enormous breasts, bulging dangerously against the fabric as though straining to escape.  If she were human-sized and remained in proportion, they would probably be around a DD, but at her size, you honestly have no idea.\n\n' );
 		}
 		EngineCore.outputText( 'She sits, right knee raised so she can rest her arm on it, her left foot tucked behind the right.  As she does so, her kimono slides aside,' );
-		if( CoC.getInstance().player.cor <= 33 ) {
+		if( CoC.player.cor <= 33 ) {
 			EngineCore.outputText( ' exposing an uncomfortable amount of creamy-white thigh flesh.' );
-		} else if( CoC.getInstance().player.cor > 33 && CoC.getInstance().player.cor < 66 ) {
+		} else if( CoC.player.cor > 33 && CoC.player.cor < 66 ) {
 			EngineCore.outputText( ' exposing a tantalising view of creamy-white thigh flesh.' );
 		} else {
 			EngineCore.outputText( ' exposing a delicious view of her thigh, the creamy-white flesh almost screaming out for your caresses.' );
 		}
 		EngineCore.outputText( '  If she notices, then she doesn’t seem to care.\n\n' );
 		EngineCore.outputText( '“<i>Better, right?</i>” she asks, and you nod.  “<i>Sorry, I didn’t realize the smoke was getting to you at first.  It’s been a while since I’ve seen anything but a minotaur or a demon, at least ones that seem more interested in polite conversation than reaming everything in sight.</i>”  She grimaces, briefly.  “<i>So, what’s your story, ' + this.heightDesc( false ) + '?</i>”  Whoever she is, she seems friendly enough' );
-		if( CoC.getInstance().player.tallness <= 96 ) {
+		if( CoC.player.tallness <= 96 ) {
 			EngineCore.outputText( ' - if a little... imposing -' );
 		} else {
 			EngineCore.outputText( ',' );
@@ -257,12 +257,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' so you give her your name, and, hesitant to discuss your true quest in any depth, detail some of your past encounters in this strange world.  Nodding encouragingly, she raises a long, elaborately carved pipe to her lips, puffing away as you tell your story....\n\n' );
 		EngineCore.outputText( '“<i>Oh, so you’re the heroic type, yeah?  So, I guess it’s my turn now, huh?</i>” She sighs and closes her eyes, reclining and crossing her legs.  You can’t help but notice the way her kimono slithers around her legs, mere inches from becoming truly indecent, nor the way her breasts threaten to burst free of their confinement as she stretches.\n\n' );
 		EngineCore.outputText( '“<i>Ah, but where to begin?  My clan calls me ‘Izumi, <b>The Font Of All Strength’</b>.</i>”  She snorts in amusement at your reaction to her name.  “<i>I know, it’s a little pompous, right?  Just use Izumi, I always do.  Either way, I’m a traveller from another world.' );
-		if( CoC.getInstance().player.humanScore() > 3 ) {
+		if( CoC.player.humanScore() > 3 ) {
 			EngineCore.outputText( '  I’ve met humans before a few times.  Back home, my people like to play games with them to see how they’ll react; show up, scare the locals, steal a sheep and run off giggling to yourself, that kind of thing.  Sometimes one of them is actually brave enough to come after us.  Sometimes we even slap ‘em on the back, give ‘em the sheep and then drink them under the table.</i>” \n\n' );
 			EngineCore.outputText( 'She takes a long, powerful drag on her pipe, her lips locked tight around the mouthpiece.  “<i>It was fun for a while, but bothering goatherds for the next thousand years wasn’t my scene, frankly, so I left.  Bailed.  Disappeared.' );
 		}
 		EngineCore.outputText( '  I didn’t come here to fight demons or any of that nonsense, though.  I’m just looking for something <b>fun</b> to do, you know?  Something to keep my interest for a while.</i>”  She opens her eyes again, two enormous amber irises staring thoughtfully down at you.  For some reason, you find something very uncomfortable about her gaze....' );
-		if( CoC.getInstance().player.str <= 75 || CoC.getInstance().player.tallness < 96 ) {
+		if( CoC.player.str <= 75 || CoC.player.tallness < 96 ) {
 			EngineCore.outputText( ' You can’t help but feel like a sheep yourself - one who’s just noticed the wolf is staring it down.\n\n' );
 		}
 		EngineCore.outputText( '“<i>My mistake coming here, though.  There’s no conversationalists, no challenges, nothing fun. The only other conversations I’ve had since coming here have all gone more or less the same way, you know?  ‘Harharhar, I shall turn you into my slave!  How dare you pick me up, I shall destroy you!  Why are we heading towards that cliff!’  and so on.</i>”\n\n' );
@@ -279,9 +279,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	var SMOKE_DURATION = 24;
 	// Applies the smokeeffect to a player, based on if they used the pipe directly or not
 	IzumiScene.prototype.smokeEffect = function( smokedPipe ) {
-		var deltaSpd = CoC.getInstance().player.spe - (CoC.getInstance().player.spe * SMOKE_SPEED_REDUCE);
-		var deltaSns = (CoC.getInstance().player.sens * SMOKE_SENS_BOOST) - CoC.getInstance().player.sens;
-		var deltaLib = (CoC.getInstance().player.lib * SMOKE_LIBIDO_BOOST) - CoC.getInstance().player.lib;
+		var deltaSpd = CoC.player.spe - (CoC.player.spe * SMOKE_SPEED_REDUCE);
+		var deltaSns = (CoC.player.sens * SMOKE_SENS_BOOST) - CoC.player.sens;
+		var deltaLib = (CoC.player.lib * SMOKE_LIBIDO_BOOST) - CoC.player.lib;
 		var lustMod = 7;
 		// Double effect for directly smokin da pipe
 		if( smokedPipe ) {
@@ -290,19 +290,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			deltaLib *= 2;
 			lustMod *= 2;
 		}
-		CoC.getInstance().player.createStatusAffect( StatusAffects.IzumisPipeSmoke, SMOKE_DURATION, deltaSpd, deltaSns, deltaLib );
+		CoC.player.createStatusAffect( StatusAffects.IzumisPipeSmoke, SMOKE_DURATION, deltaSpd, deltaSns, deltaLib );
 		// Can't use dynStats for this, because stats() has a chained modifier to incoming sens changes that could turn this value into 8x what we expected it to be
-		CoC.getInstance().player.spe += deltaSpd;
-		CoC.getInstance().player.sens += deltaSns;
-		CoC.getInstance().player.lib += deltaLib;
-		if( CoC.getInstance().player.spe <= 0 ) {
-			CoC.getInstance().player.spe = 1;
+		CoC.player.spe += deltaSpd;
+		CoC.player.sens += deltaSns;
+		CoC.player.lib += deltaLib;
+		if( CoC.player.spe <= 0 ) {
+			CoC.player.spe = 1;
 		}
-		if( CoC.getInstance().player.sens >= 100 ) {
-			CoC.getInstance().player.sens = 100;
+		if( CoC.player.sens >= 100 ) {
+			CoC.player.sens = 100;
 		}
-		if( CoC.getInstance().player.lib >= 100 ) {
-			CoC.getInstance().player.lib = 100;
+		if( CoC.player.lib >= 100 ) {
+			CoC.player.lib = 100;
 		}
 		MainView.statsView.showStatDown( 'spe' );
 		MainView.statsView.showStatUp( 'sens' );
@@ -311,50 +311,50 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	};
 	// Update the duration of the pipe smoke effect
 	IzumiScene.prototype.updateSmokeDuration = function( hours ) {
-		var affectIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
+		var affectIndex = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
 		if( affectIndex >= 0 ) {
-			CoC.getInstance().player.statusAffect( affectIndex ).value1 -= hours;
-			if( CoC.getInstance().player.statusAffect( affectIndex ).value1 <= 0 ) {
+			CoC.player.statusAffect( affectIndex ).value1 -= hours;
+			if( CoC.player.statusAffect( affectIndex ).value1 <= 0 ) {
 				this.smokeEffectWearsOff();
 			}
 		}
 	};
 	// Method to contain removal mechanics + scene text to spit out
 	IzumiScene.prototype.smokeEffectWearsOff = function() {
-		var affectIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
+		var affectIndex = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
 		if( affectIndex >= 0 ) {
-			CoC.getInstance().player.spe += Math.abs( CoC.getInstance().player.statusAffect( affectIndex ).value2 );
-			CoC.getInstance().player.sens -= CoC.getInstance().player.statusAffect( affectIndex ).value3;
-			CoC.getInstance().player.lib -= CoC.getInstance().player.statusAffect( affectIndex ).value4;
-			if( CoC.getInstance().player.sens > 100 ) {
-				CoC.getInstance().player.sens = 100;
+			CoC.player.spe += Math.abs( CoC.player.statusAffect( affectIndex ).value2 );
+			CoC.player.sens -= CoC.player.statusAffect( affectIndex ).value3;
+			CoC.player.lib -= CoC.player.statusAffect( affectIndex ).value4;
+			if( CoC.player.sens > 100 ) {
+				CoC.player.sens = 100;
 			}
-			if( CoC.getInstance().player.spe > 100 ) {
-				CoC.getInstance().player.spe = 100;
+			if( CoC.player.spe > 100 ) {
+				CoC.player.spe = 100;
 			}
-			if( CoC.getInstance().player.lib <= 0 ) {
-				CoC.getInstance().player.lib = 1;
+			if( CoC.player.lib <= 0 ) {
+				CoC.player.lib = 1;
 			}
 			MainView.statsView.showStatUp( 'spe' );
 			MainView.statsView.showStatDown( 'sens' );
 			MainView.statsView.showStatDown( 'lib' );
 			EngineCore.outputText( '\n<b>You groan softly as your thoughts begin to clear somewhat.  It looks like the effects of Izumi\'s pipe smoke have worn off.</b>\n' );
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.IzumisPipeSmoke );
+			CoC.player.removeStatusAffect( StatusAffects.IzumisPipeSmoke );
 		}
 	};
 	// Actual introduction scene content for pipesmokin
 	IzumiScene.prototype.smokeThePipe = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Whatever it is she has in there, the smoke is thick and cloying and even the smallest puff makes' );
-		if( CoC.getInstance().player.tou <= 60 ) {
+		if( CoC.player.tou <= 60 ) {
 			EngineCore.outputText( ' you cough and splutter' );
-		} else if( CoC.getInstance().player.tou < 75 ) {
+		} else if( CoC.player.tou < 75 ) {
 			EngineCore.outputText( ' you flinch, holding back a cough' );
 		} else {
 			EngineCore.outputText( ' your eyes water' );
 		}
 		EngineCore.outputText( ' - much to your mutual amusement.  You talk and joke for a while longer, the smoke making you feel incredibly relaxed, as though all the tension were simply melting from your body.' );
-		if( CoC.getInstance().player.tou <= 80 ) {
+		if( CoC.player.tou <= 80 ) {
 			EngineCore.outputText( '  After a while, you find it hard to even raise your arms to reach for the pipe again.\n\n' );
 		} else {
 			EngineCore.outputText( '\n\n' );
@@ -373,11 +373,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	IzumiScene.prototype.smokeJoins = function() {
 		EngineCore.outputText( 'Finally, the two of you seem to run out of things to speak about and the conversation dies down.  Izumi puffs on her pipe and lets out a long column of smoke, still gazing at you speculatively.  “<i>Hmm.  You’ve been pretty interesting, I didn’t expect to meet anyone who might be </i>fun<i> out here.</i>”  She mutters.  “<i>If you </i>are<i> going to keep going with this whole heroic deeds thing, try not to die, okay?  You’re the only halfway entertaining person I’ve met on this rock, and I’d hate to imagine you winding up as some imp’s body pillow, or whatever....</i>”\n\n' );
 		EngineCore.outputText( 'You hear Izumi let out a quiet giggle.  Looking up, you see she’s shifted closer to you, edging right up to the fire.  She makes a show of appraising you physically, her golden-amber eyes sparkling in the dancing firelight as her gaze roams over your body, from head to [foot].' );
-		if( CoC.getInstance().player.str <= 75 || CoC.getInstance().player.tou <= 75 || CoC.getInstance().player.tallness <= 96 ) {
+		if( CoC.player.str <= 75 || CoC.player.tou <= 75 || CoC.player.tallness <= 96 ) {
 			EngineCore.outputText( '  You swallow, hard, suddenly feeling oddly nervous.' );
 		}
 		EngineCore.outputText( '  She’s even larger up close, and you can clearly see the solid, capable looking muscle that makes up her frame....\n\n' );
-		if( CoC.getInstance().player.tallness < 108 ) {
+		if( CoC.player.tallness < 108 ) {
 			EngineCore.outputText( '“<i>You know, you’re pretty cute.  Did I already say that?  Well even if I did, it’s true.  I like brave people.  I like people who challenge themselves.  You’re pretty brave, surviving in a place like this all alone, you know?</i>”  Without warning, she leans forwards over the dying fire, the ruddy light from the coals illuminates her face from below, giving her a decidedly sinister air.\n\n' );
 			EngineCore.outputText( '“<i>I think it’s about time you repaid me for my hospitality.</i>”  She says, her eyes glittering dangerously in the firelight.  “<i>After all, you came into my camp uninvited... that’s pretty rude, you know?  I think I might take offence to that.</i>”  As she speaks, she slinks closer to you on all fours like some kind of predatory cat, about to make the final killing leap upon its helpless prey... Her personality has changed completely from the gentle giant you were speaking with a second ago.  You suddenly wonder if perhaps the smoke is somehow affecting her.\n\n' );
 			EngineCore.outputText( '“<i>I think you’d better make it up to me, yeah?</i>”  She continues, slurring her words slightly as she reaches out with one hammer-like hand, then seizes hold of your [armor].  “<i>Otherwise I might get nasty.  And you don’t want me to get <i>nasty</i> with ya’, do ya’?</i>”\n\n' );
@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// TODO: Bulk this up some, its way short.
 	IzumiScene.prototype.fuckinChegIt = function() {
 		EngineCore.hideUpDown();
-		CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 2;
+		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 2;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Spotting an opening, you decide to beat a hasty retreat, as far away from the immense woman as possible.\n\n' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -406,31 +406,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.hideUpDown();
 		EngineCore.clearOutput();
 		// First time
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 0 ) {
 			EngineCore.outputText( 'You don’t know what Izumi is thinking, but there’s no way you’re just going to lie back and let some strange woman walk all over you, metaphorically <b>or</b> literally - and you tell her exactly that.  To your surprise, rather than lunging forwards to attack or flying off the handle, she actually beams at you.\n\n' );
 			EngineCore.outputText( '“<i>Oh, you think you can take me?  That’s cute, ' + this.heightDesc() + '.  That’s real cute,</i>” Izumi says, breaking off the conversation.  She picks herself up from the floor, abruptly breaking off the conversation to wander around the cave, flexing her muscles and rotating her joints as though preparing to exercise - all the while, her grin growing increasingly confident, more... ravenous.\n\n' );
-			if( CoC.getInstance().player.tone <= 75 ) {
+			if( CoC.player.tone <= 75 ) {
 				EngineCore.outputText( '“<i>Alright!  I’ll tell you what I’ll do... I’ll give myself a handicap.</i>”  Izumi turns to face you, cracks her neck, then extends a hand, folding the other arm behind her back.  “<i>I’ll only use one arm.  I wouldn’t want to put you in your place </i>too<i> quickly.  Where would be the fun in that?</i>”  She leers.\n\n' );
 			}
 			EngineCore.outputText( '“<i>If you can beat me, I’ll let you go.  If not, well... to the victor go the spoils.  Know what I mean?</i>”  She says, her smirk somehow growing perceptibly wider.\n\n' );
-			if( CoC.getInstance().player.tone <= 75 ) {
+			if( CoC.player.tone <= 75 ) {
 				EngineCore.outputText( 'The idea that she thinks she can beat you with one hand behind her back is insulting to say the least, but on the other hand, her overconfidence could be her downfall.\n\n' );
 			}
 			EngineCore.outputText( 'You nod, rising to your [feet] and dropping into a fighting stance. Izumi grins.  “<i>Let me just say this to start... I am </i>quite<i> strong.</i>”\n\n' );
 		}
 		// PC won last fight
-		else if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 3 ) {
+		else if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 3 ) {
 			EngineCore.outputText( '“<i>So, you’re not gonna apologize?!</i>” Izumi scowls at you, blushing slightly. “<i>You’re a real jerk, you know that?  Fine then, I’ll just have to spank some manners into you!  Don’t cry!</i>”\n\n' );
 			EngineCore.outputText( 'She drops into a fighting stance once again, but this time, instead of bending one arm behind her back, she hesitantly holds it up in front of her horn.  Her blush deepens as you stare at her.  “<i>Y-You cheat! I’m not falling for that kind of thing again!</i>” she explains hotly.\n\n' );
 		}
 		// PC lost last fight
-		else if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 1 ) {
+		else if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 1 ) {
 			EngineCore.outputText( 'There’s no way you’re just going to lie back and let Izumi walk all over you again; at least, not without resistance.\n\n' );
 			EngineCore.outputText( '“<i>Alright! I’ll tell you what I’ll do... I’ll give myself a handicap.</i>”  Izumi turns to face you, cracks her neck, then extends a hand, folding the other arm behind her back.  “<i>I’ll only use one arm.  I wouldn’t want to put you in your place </i>too<i> quickly.  Where would be the fun in that?</i>”  She leers, “<i>If you can beat me, I’ll let you go.  If not, well... to the victor go the spoils.  Know what I mean?</i>”\n\n' );
 			EngineCore.outputText( 'You nod, rising to your feet and dropping into a fighting stance.\n\n' );
 		}
 		// PC ran away
-		else if( CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] === 2 ) {
 			EngineCore.outputText( 'Sooner or later, you’re going to have to face up to the large Oni.  No time like the present, right?\n\n' );
 			EngineCore.outputText( 'Izumi can clearly tell that you have no intentions of running away on her... again.  To your surpise, rather than lunging forwards to attack or flying off the handle, she beams at you.  “<i>Alright! I’ll tell you what I’ll do... I’ll give myself a handicap.</i>”  Izumi turns to face you, cracks her neck, then extends a hand, folding the other arm behind her back.  “<i>I’ll only use one arm.  I wouldn’t want to put you in your place </i>too<i> quickly.  Where would be the fun in that?”  She leers, “<i>If you can beat me, I’ll let you go.  If not, well... to the victor go the spoils.  Know what I mean?</i>”\n\n' );
 		} else {
@@ -445,70 +445,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.hideUpDown();
 		EngineCore.clearOutput();
 		// Male/Herms
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'You swallow your pride and shake your head, signalling Izumi that you don’t intend to resist.  Her face splits into a truly lascivious grin and she licks her lips, hungrily.\n\n' );
 			EngineCore.outputText( '“<i>Yeah, that’s what I thought.</i>”  She smirks.  “<i>You just do exactly what I say, when I say, and nothing bad will happen to you.  Well... Nothing <i>too</i> bad, anyway.</i>”\n\n' );
 			EngineCore.outputText( 'Suddenly, she lunges forwards, one enormous hand planting itself onto your' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' flank and forcing you sideways onto the ground.' );
 			} else {
 				EngineCore.outputText( ' chest and forcing you backwards onto the ground.' );
 			}
 			EngineCore.outputText( '  You grunt from the impact and try to sit up, but Izumi easily restrains you with a single well-muscled arm.  “<i>Well now, let’s see what we’re workin’ with here, shall we?</i>” she announces casually, as she pulls aside your [armor] to reveal your cock.\n\n' );
-			if( CoC.getInstance().player.biggestCockLength() <= 6 ) {
+			if( CoC.player.biggestCockLength() <= 6 ) {
 				this.surrenderSmallCock();
-			} else if( CoC.getInstance().player.biggestCockLength() <= 14 ) {
+			} else if( CoC.player.biggestCockLength() <= 14 ) {
 				this.surrenderMediumCock();
 			} else {
 				this.surrenderLargeCock();
 			}
 		}
 		// Female
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			this.surrenderOhGodTheFemaleSurrenderContentIsFuckingHugeSendHelp();
 		}
 		// Genderless
 		else {
 			this.noDickNoVagNoService();
 		}
-		CoC.getInstance().flags[ kFLAGS.IZUMI_TIMES_SUBMITTED ]++;
-		CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
-		CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.getInstance().player.gender;
+		CoC.flags[ kFLAGS.IZUMI_TIMES_SUBMITTED ]++;
+		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
+		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
 	};
 	// Male/Herm scene for cocks <= 4'
 	IzumiScene.prototype.surrenderSmallCock = function() {
 		EngineCore.outputText( '“<i>Ohhh!</i>”  She positively purrs as her eyes fall upon your naked [cock biggest] for the first time.  “<i>What’s this?</i>”  She leans forwards to stare at your genitals with undisguised interest.  “<i>Well, now... I figured you [race]s would be pretty' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' big' );
 		} else {
 			EngineCore.outputText( ' small' );
 		}
 		EngineCore.outputText( ', but this isn’t what I was expecting at all.  Hmm... I </i>was<i> planning on giving you a handjob, but, uh... I guess this’ll have to do, huh?</i>”  She gives you an almost apologetic smile as she holds up her hand, thumb and forefinger curled into a ring as though to show you what she has planned, before reaching back down to your groin. Her fingers slide over your stiffening flesh and you realize in a flood of soul - crushing embarrassment that she’s right.  You’re so small, she actually can’t fit more than two fingers around your cock at a time.\n\n' );
 		EngineCore.outputText( 'You try to look away, blushing crimson, but the weight on your' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' flank' );
 		} else {
 			EngineCore.outputText( ' chest' );
 		}
 		EngineCore.outputText( ' suddenly disappears as Izumi grips your chin with her free hand, forcing you to lock gazes with her.  “<i>Hey, don’t look away!</i>”  She chides.  “<i>Seeing your face during all this is the best part... aw, hey, are you embarrassed?  You’re blushing!  That’s so </i > cute !” She trills.  “<i> Here, look.  I know what’ll make ya feel better....</i>”  Before you can respond, the domineering Oni woman' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' perches her muscular ass on your flank, your body making for a suitable seat.' );
 		} else {
 			EngineCore.outputText( ' drops to the floor, laying next to you on her side.' );
 		}
 		EngineCore.outputText( '  She releases your chin, but her hand snakes around behind your head to your other cheek, pulling you in towards her.  You can’t help but grunt in surprise as the side of your head is forcibly pushed up against one massive, pillowy-soft breast' );
-		if( CoC.getInstance().player.biggestTitSize() >= 1 && CoC.getInstance().player.biggestTitSize() < 3 ) {
+		if( CoC.player.biggestTitSize() >= 1 && CoC.player.biggestTitSize() < 3 ) {
 			EngineCore.outputText( ', your [chest] dwarfed by the larger womans own pair.' );
-		} else if( CoC.getInstance().player.biggestTitSize() >= 3 && CoC.getInstance().player.biggestTitSize() < 5 ) {
+		} else if( CoC.player.biggestTitSize() >= 3 && CoC.player.biggestTitSize() < 5 ) {
 			EngineCore.outputText( ', your [chest] moulding themselves against the underside of the Oni’s larger pair.' );
-		} else if( CoC.getInstance().player.biggestTitSize() >= 5 && CoC.getInstance().player.biggestTitSize() <= 8 ) {
+		} else if( CoC.player.biggestTitSize() >= 5 && CoC.player.biggestTitSize() <= 8 ) {
 			EngineCore.outputText( ', your [chest] compressing against the Oni’s larger pair, forming a delicious valley of flesh between your bodies.' );
 		} else {
 			EngineCore.outputText( ', your [chest] dwarfing the larger womans own pair.' );
 		}
 		EngineCore.outputText( '  “<i>There.</i>”  She announces happily, softly stroking your cheek as though to reassure you.  “<i>All better now, right?  Good.</i>”  She doesn’t even wait for a response before turning her attention back to your [cock biggest]....\n\n' );
 		EngineCore.outputText( 'Izumi holds you there easily, pinned against her chest as she slowly coaxes your stiffening erection to life, and you finally realize that you’re completely trapped.  If there ever was a chance for you to slip free and escape from this situation you must have missed it, because now you’re locked in the embrace of those strong, iron-muscled arms, all you can do is feel intimidated.  As Izumi casually molests you, you can’t help but realize how much more powerful than you she seems - how much stronger and more confident in everything she does.  At this moment, you feel as though if she desired, she could do anything she wanted to you' );
-		if( CoC.getInstance().player.str <= 75 ) {
+		if( CoC.player.str <= 75 ) {
 			EngineCore.outputText( ' and you would be powerless to resist...' );
 		} else {
 			EngineCore.outputText( ' and you would struggle to deny her will...' );
@@ -517,53 +517,53 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'With the realisation that you’re completely under her control, something inside you simply switches off and your resistance vanishes entirely.  You decide to just let Izumi do as she wills with you; after all, she’s so much stronger than you, how could you oppose her?  Nuzzling your face into Izumi’s breast, you squirm and wriggle under her touch as your [cock biggest] reaches it’s full - if it could even be called such - hardness.  Hopefully, if you just go with whatever she wants to hear, this won’t be so bad.\n\n' );
 		EngineCore.outputText( '“<i>So, you’re ashamed of this, are you?</i>”  Izumi suddenly asks.  You don’t respond, so she stares down at you.  “<i>Answer.</i>”  She commands, her tone imperious.  You can’t bring yourself to speak, so you simply nod, burying your face in her silk-covered bust.  “<i>Good.  You answer when I ask you something, ' + this.heightDesc() + '</i>”  She nods approvingly and resumes her slow, gentle strokes.  The casual, unhurried pace of her handjob is beginning to drive you insane; it’s certainly pleasurable, but it’s also agonizingly slow, and you long for her to just speed up even the tiniest bit...\n\n' );
 		EngineCore.outputText( '“<i>Well, I can certainly see why you </i>would<i> be ashamed of it.  It’s pretty tiny, you know?  In fact, I think this is probably the smallest I’ve </i>ever<i> seen.</i>”  She announces, and you wince. Part of you wishes she would just shut up, but somewhere deep inside you, another part of you feels almost... curious?  Part of you, some dark, treacherous part, wants her to continue.  Part of you wants to know more' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', sticky moisture dribbling across your thigh, your [vagina] clenching in lust - fueled harmony with your cock' );
 		}
 		EngineCore.outputText( '... “<i>Hey, don’t get upset.  After all, </i>” She pauses for a moment, her hand lingering in place.  “<i>Some women </i>like<i> ‘em small...</i>”\n\n' );
 		EngineCore.outputText( '“<i>So, let me guess.  In a place like this, it’s gotta be weird having something this small, right?  I mean, it’s a pretty unique trait, given the circumstances.</i>”  She continues.  “<i>Hey, tell me something.  Do the harpies leave you alone?  Are you so small that they think you’re ' );
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ' just a regular' );
 		} else {
 			EngineCore.outputText( ' a' );
 		}
 		EngineCore.outputText( ' girl?</i>”  Suddenly, her hand bottoms out around your [cock biggest]' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and her free fingers reach out to gently stroke against your [balls].' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' and her free fingers reach out to gently stroke against your [vag].' );
 		} else {
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '  At the same time, she leans in close to your ear.  “<i>Do the </i>Minotaurs?”  She hisses suggestively, eyes flashing.\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1 ) {
 			EngineCore.outputText( 'The moment the word ‘Minotaur’ enters your lust-addled brain, your body shifts over to automatic. Your [cock biggest] twitches painfully, loins longing for the release that can only come from being filled full of gallons of hot Minotaur cream, and you let out a distinctly feminine sounding moan as depraved fantasies of being roughly taken by the bull-men rush through your head.\n\n' );
 			EngineCore.outputText( 'Izumi leers shamelessly at your reddening face, then whispers, softly into your ear.  “<i>Dirty [boy]....</i>”  You realize that she knows exactly what you’ve been doing - or rather, what’s been repeatedly doing <i>you</i> - and that shameful revelation combined with the burning arousal you feel from the very thought of minotaur cum is more than enough to force you over the edge into a sudden orgasm.  Far from being upset, Izumi seems positively overjoyed at your premature ejaculation.\n\n' );
 			EngineCore.outputText( '“<i>Ahaha, well now, look at that!</i>”  She cries, beaming.  “<i>I guess I called it right, hmm?  Geez, did the minotaurs do something to you, or were you always this perverted?</i>”  Izumi snickers.  You can’t even muster up the energy to respond, you’re so drained from your sudden orgasm.\n\n' );
 		} else {
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'As you squirm in her arms, she releases your head from her grip, instead pushing you up into a seated position.' );
 			}
 			EngineCore.outputText( '“<i>Hold on, I want to watch this.</i>”  She says, shifting position until her head is placed on one side of your hip, staring at your [cock biggest]' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' as one arm reaches around to continue the handjob from the other side' );
 			}
 			EngineCore.outputText( '.  She stares intently at your cock, an expectant smirk plastered over her face, her free hand working' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' over your flank' );
 			} else {
 				EngineCore.outputText( ' you over with increased vigour' );
 			}
 			EngineCore.outputText( '.  Before you know it the combination of her skilled fingers and the bizarre, embarrassing sensation of being so carefully observed are pushing you over the edge.  Rather than leaving off as you cum, Izumi’s handjob actually speeds up, her eyes widening in excitement as your orgasm floods through you.  The sensation is much more powerful than you usually experience, perhaps due to Izumi’s extensive teasing, and you can only sit and shudder, staring down at yourself in shock as your [cock biggest]' );
-			if( CoC.getInstance().player.cumQ() <= 100 ) {
+			if( CoC.player.cumQ() <= 100 ) {
 				EngineCore.outputText( ' dribbles a hot, sticky mess onto the cold cavern floor.' );
-			} else if( CoC.getInstance().player.cumQ() > 100 && CoC.getInstance().player.cumQ() <= 250 ) {
+			} else if( CoC.player.cumQ() > 100 && CoC.player.cumQ() <= 250 ) {
 				EngineCore.outputText( ' spurts and splutters a hot, sticky mess onto the cold cavern floor.' );
-			} else if( CoC.getInstance().player.cumQ() > 250 ) {
+			} else if( CoC.player.cumQ() > 250 ) {
 				EngineCore.outputText( ' shoots out rope after rope of hot, sticky cum across the cold cavern floor' );
-				if( CoC.getInstance().player.cumQ() > 500 ) {
+				if( CoC.player.cumQ() > 500 ) {
 					EngineCore.outputText( ', a small puddle of creamy-white forming between you and the cavern wall' );
-					if( CoC.getInstance().player.cumQ() > 1000 ) {
+					if( CoC.player.cumQ() > 1000 ) {
 						EngineCore.outputText( ', slowly expanding into a small lake....\n\n' );
 					}
 				} else {
@@ -573,27 +573,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '“<i>Hah!  Oh yeah, thar she blows!</i>”  Izumi crows, staring fixatedly at your spasming dick like a woman possessed.  “<i>Now ain’t that a pretty sight... Yeesh, and you just keep cumming and cumming.  Did being teased feel that good, ' + this.heightDesc() + '?</i>”  She grins. You can’t seem to find the energy to respond, panting for breath as you stare in confusion at your already-deflated cock, your balls aching from the strain of such a forceful ejaculation.\n\n' );
 		}
 		EngineCore.outputText( '“<i>Well, that was fun.</i>”  Izumi says, sitting up and dusting off her palms, dismissively.  “<i>I’m assuming you’re not up to a rematch just yet from the way you’re shaking.</i>”  She picks up her pipe and takes a drag, shooting you a knowing grin.  “<i>Feel free to drop by again, though.  You know, in case you wanted to tell me off... or maybe if you just want me to bully you some more.</i>” \n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Male/Herm scene for cocks <= 10'
 	IzumiScene.prototype.surrenderMediumCock = function() {
 		EngineCore.outputText( '“<i>Huh.  Not bad, ' + this.heightDesc() + '; I gotta say, I thought you people’d be' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' bigger' );
 		} else {
 			EngineCore.outputText( ' smaller' );
 		}
 		EngineCore.outputText( ' down here... or are you just a little ‘gifted’?</i>”  She says, giving you a lopsided grin.  You attempt to stammer out a reply, but she ignores you, instead focusing her attention completely on your [cock biggest].  Still restraining you with one hand, her other hand glides across your cock, easily bringing it to hardness.  You can’t help but gasp as you feel her talented fingers playing across your flesh; from the way she seems to naturally gravitate to all of your most sensitive spots in turn, you can’t help but think she must have done this kind of thing before.\n\n' );
 		EngineCore.outputText( 'In mere moments, you’re fully erect, as hard as you’ve ever been' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', your [vagina]' );
-			if( CoC.getInstance().player.wetness() === 0 ) {
+			if( CoC.player.wetness() === 0 ) {
 				EngineCore.outputText( ' moistening' );
-			} else if( CoC.getInstance().player.wetness() === 1 ) {
+			} else if( CoC.player.wetness() === 1 ) {
 				EngineCore.outputText( ' dribbling runnels of sticky fem-juice' );
-			} else if( CoC.getInstance().player.wetness() === 2 ) {
+			} else if( CoC.player.wetness() === 2 ) {
 				EngineCore.outputText( ' constantly oozing feminine arousal' );
 			} else {
 				EngineCore.outputText( ' a soppy mess, gushing a veritable lake of fem-slime' );
@@ -604,13 +604,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.outputText( '  Izumi looks down at you and flashes you an indulgent smile.' );
 		EngineCore.outputText( '“<i>So, I guess we can start now.</i>”  Says the Oni as she drops into position,' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' perching her muscular ass on your flank, your lower body offering a comfortable seat for Izumi.' );
 		} else {
 			EngineCore.outputText( ' laying on her side next to you.' );
 		}
 		EngineCore.outputText( '  She releases your' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' flank' );
 		} else {
 			EngineCore.outputText( ' chest' );
@@ -618,7 +618,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' and instead leans on her elbow, leaving you uncomfortably free and completely unsure of what to do with yourself as she wraps her hand around your [cock biggest] and slowly begins to stroke you.  Her palms are warm and pleasingly soft, something you didn’t expect from the well-muscled Oni woman.\n\n' );
 		EngineCore.outputText( 'Her pace is glacially slow, but as her hand rolls gently up and down your length, she somehow manages to find each and every secret spot, every sensitive place, causing you to flinch and quiver under her grasp.  You grit your teeth and squirm in discomfort as Izumi teases your cock in an entirely new way.  Already, you can feel your body rebelling at the bizarre, paradoxical sensations.  Unable to comprehend what is happening, every fiber in your body screams a single thought in unison; <b>faster</b>.\n\n' );
 		EngineCore.outputText( 'Without warning, your hips spasm and buck' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' upwards' );
 		}
 		EngineCore.outputText( ' almost of their own accord.  Izumi’s fingers tighten a little, just enough to keep her grip, but her gentle motions stop completely.  She simply holds on, grinning slyly at you as you desperately hump into the air.  Izumi’s amber eyes glitter in the gloom as she leans in closer to you, whispering into your ear.\n\n' );
@@ -630,7 +630,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// Male/Herm play along scene split
 	IzumiScene.prototype.surrenderMediumCockObey = function() {
 		EngineCore.outputText( 'Taking a deep breath, you grit your teeth and force yourself to calm down.' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '  Y' );
 		} else {
 			EngineCore.outputText( '  Lowering your shaking hips, y' );
@@ -639,19 +639,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>That’s better.</i>”  Izumi says approvingly.  “<i>Now, since you played nice...</i>” She trails off dangerously, but before you can try to figure out what she has planned, she hits you with it - her handjob resumes, but much, much faster than before.  Despite her increased speed, she still manages to hit every single spot she was hitting before, causing a whirlwind of pleasure to rush through you.\n\n' );
 		EngineCore.outputText( 'Almost immediately, you feel your orgasm starting to rise within you.  You try to stammer out a warning, but Izumi’s pace continues unabated.\n\n' );
 		EngineCore.outputText( '“<i>It’s fine.  Just cum as much as you like.</i>”  She announces casually.  A few seconds later, your orgasm hits, exploding forcefully out of your [cockhead biggest].  Even once she sees the burning juice begin to erupt from your cock, Izumi doesn’t slow down - on the contrary, she actually accelerates her pace!  As she extends your orgasm over and over again, all you can do is writhe around, drumming your feet against the floor and groaning in ecstasy as the massive Oni woman vigorously milks you, draining your aching' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' balls' );
 		}
 		EngineCore.outputText( 'cock' );
 		EngineCore.outputText( ' to the very last drop.\n\n' );
 		EngineCore.outputText( 'Finally, she relents, and your extended orgasm mercifully subsides.  Izumi stares indulgently down at your shivering form for a moment, before muttering a quiet “<i>Heh,</i>” and wandering back over to her tent.  You can only manage to rest there, laid prone in a' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' mixed puddle of your own fem-slime and' );
 		} else {
 			EngineCore.outputText( ' puddle of your own' );
 		}
 		EngineCore.outputText( ' cum, staring at the cavern roof and panting madly for a good few minutes afterwards.  Once you regain the use of your legs, you retrieve your clothes and wander back to camp in a daze.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -663,24 +663,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>All done?</i>”  She asks.  You glare at her, and her grin widens.  “<i>So, you wanna cum, huh?  Well then, let’s do that.</i>”  She announces, happily.  Suddenly, she begins stroking you again - this time at a speed far beyond her previous unhurried pace.  Her hand flies up and down your shaft, stimulating you just as much as before, but at easily three times the speed!  It is, without a doubt, the most amazing handjob you’ve ever experienced.\n\n' );
 		EngineCore.outputText( 'The insane feeling is just too much, and you feel your orgasm boiling up within you.  Just as you feel yourself rising to crest the orgamsic wave and hit sweet release... Izumi lets go.\n\n' );
 		EngineCore.outputText( 'You cry out in anger and pain as you find your impending orgasm so cruelly denied, your [cock biggest] twitching and throbbing painfully' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', [vagina] spasming in sympathy' );
 		}
 		EngineCore.outputText( ', desperate for release.  Somehow, she could sense you were on the verge of orgasm, and she chose to deny you that pleasure, you just <b>know</b> it.  You shoot Izumi a vicious, hateful glare, only to see her laying there quite calmly, her expression blank.\n\n' );
 		EngineCore.outputText( '“<i>Hm?</i>”  She grunts, looking surprised.  “<i>Oh, do you want some help?  Sure; here, let me handle this for you.</i>”  She says, her tone even.  She reaches out and, very deliberately, softly flicks your [cockhead] with a single finger.\n\n' );
 		EngineCore.outputText( 'The sensation is almost nothing, but as close as you are, it’s just enough.  You groan in a mix of pleasure and heartbroken anguish as the tiny amount of contact forces you over the edge, your load forcing its way up through your cock with agonizing slowness until finally' );
-		if( CoC.getInstance().player.cumQ() <= 250 ) {
+		if( CoC.player.cumQ() <= 250 ) {
 			EngineCore.outputText( ' spurting free, spattering down randomly over you as Izumi watches, happily observing the effects of your ruined orgasm.' );
-		} else if( CoC.getInstance().player.cumQ() <= 500 ) {
+		} else if( CoC.player.cumQ() <= 500 ) {
 			EngineCore.outputText( ' sputtering freely from your [cock], glob after glob of thick jizz showering down randomly over you as Izumi watches, mildly amused with the results of your ruined orgasm.' );
-		} else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+		} else if( CoC.player.cumQ() <= 1000 ) {
 			EngineCore.outputText( ' a torrent of fertile spunk rushes forth from your [cock], glob after glob of thick jizz showering down randomly over you, covering you from head to toe.  Izumi simply watches, amused with the results of your ruined orgasm.' );
 		} else {
 			EngineCore.outputText( 'a torrent of fertile spunk rushes forth from your [cock], rope after rope of the thick cum launching into the air and splattering down over you.  Your orgasm continues unabated as you slowly paint yourself in a creamy white layer, Izumi giggling quietly, evidently quite proud of herself.' );
 		}
 		EngineCore.outputText( '  Finally, you finish cumming, and as you lay panting in the results of her handiwork, Izumi gently pats you on the head.\n\n' );
 		EngineCore.outputText( '“<i>So, you learned something today, right?  Next time, just do what I say, and the results are much more... fun.</i>” She smiles, then turns away.  Retrieving your clothes, you drag yourself back to camp, feeling decidedly shaky.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -689,18 +689,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Izumi grunts in surprise as your [cock biggest] flops free of its confinement.  “<i>Damn.  This is pretty impressive, you know?</i>”  She frowns, running an exploratory hand across the length of your flesh.  “<i>Let me guess, you got a bit too frisky with one of the natives?  Maybe didn’t think to boil the water before you drank it?  Look, no offence, but there is no way this thing is legit, ' + this.heightDesc() + '.</i>”\n\n' );
 		EngineCore.outputText( 'Izumi continues to frown as she inspects you, turning your stiffening cock this way and that in her hands, apparently indifferent to the way her touch has begun to coax you towards full hardness.  She murmurs to herself under her breath, tapping a finger to her lips whilst absentmindedly wringing your cock with her other hand.  Eventually, she appears to reach a decision.  “<i>Alright!</i>”  She announces, loudly.  “<i>Let’s try it like this, shall we?!</i>”\n\n' );
 		EngineCore.outputText( 'Izumi releases you from the floor, allowing you to sit' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' back on your haunches, front end raised' );
 		}
 		EngineCore.outputText( ' up as she makes her way around to sit cross-legged between your legs.  Once settled into position, she smirks suggestively at you around the throbbing meat now standing at insistent attention between the two of you.  “<i>Get ready,</i>” She warns, “<i>because this is going to be a hell of a ride... and you wouldn’t want to disappoint me now, would you?</i>”\n\n' );
 		EngineCore.outputText( '“<i>Six!</i>”  She shouts, suddenly, making you flinch in surprise as her right hand snaps out and latches onto your cock, just below the sensitive [cockHead biggest].  Izumi grins, slowly rotating her wrist and wringing her hand around in place, but she doesn’t start up any kind of up-and-down motion - yet.\n\n' );
 		EngineCore.outputText( '“<i>Five!</i>”  She yells, and her left hand joins the first in gripping your cock, this time about halfway down your shaft.  Again, her wrist rotates gently as she massages the area, but her hand doesn’t actually go anywhere.  Her grin widens into a truly ominous smile as she leans forwards conspiratorially.\n\n' );
 		EngineCore.outputText( '“<i>Four.</i>”  She whispers, and without warning her legs unfold, both feet flying out from beneath her and latching onto the [sheath] of your [cock biggest]!  Izumi leers at you with undisguised amusement as she watches your reaction to the sensation of her bare soles rolling over the [sheath] of your shaft' );
-		if( CoC.getInstance().player.balls > 0 && !CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.balls > 0 && !CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', occasionally sliding down to massage your [balls] before returning to your cock.' );
-		} else if( CoC.getInstance().player.balls === 0 && CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.balls === 0 && CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', occasionally sliding down to tease at the lips of your [vagina].' );
-		} else if( CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.balls > 0 && CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', occasionally sliding down, alternating between a gentle massage of your [balls] and teasing caresses of your [vagina].' );
 		}
 		EngineCore.outputText( '\n\n' );
@@ -709,16 +709,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>It’s good, right?</i>”  Izumi’s voice penetrates your thoughts, and you open your eyes to see her gazing up at you, amber irises glittering in the half-light of the fire.  “<i>You know, there’s one more level to this... but looking at the state you’re in, there’s no way you could endure it for long.  In terms of pleasure, it outclasses what I’ve been doing up to now completely. Do you want to see it?</i>”  You don’t even have to think about it.  You nod your head, unsure if you can manage the difficult task of speaking, and Izumi giggles.  “<i>Alright, ' + this.heightDesc() + ', but don’t say I didn’t warn you.  Here we go...</i>”\n\n' );
 		EngineCore.outputText( '“<i>Two.</i>”  She teases, her technique changing completely.  Rather than just running her hands and feet gently over your flesh, she grips on tightly, her hands clenching around your [cock biggest] like vices.  Her movements change completely, instead of the simple, slow up-and-down motion she had been using, she begins to alternate the motions of her left and right angles of attack - while her left hand rolls up your shaft, the right slides down to meet it.  Even her feet seem to somehow press in tighter against your flesh, mirroring her hands; the strange technique creating a unique wave-like rolling sensation that feels quite unlike anything you’ve experienced on Mareth before. You wonder briefly if there might be a little bit of magic involved here before your thoughts are obliterated by an avalanche of pleasure - Izumi has begun to speed up.\n\n' );
 		EngineCore.outputText( 'You can only grunt and shiver under the onslaught as Izumi works you over with this bizarre new approach.  There’s no gentleness here, you realize; no playful teasing or long, drawn out pauses.  This move is designed for one thing, and one thing only - to force you to cum.' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  You groan, your aching balls coming to the same conclusion as you have, twitching under a passing stroke from one of Izumi’s soles and tensing up in readiness.' );
 		}
 		EngineCore.outputText( '  You understand now why Izumi warned you about this technique; you are no longer being teased, gently coaxed towards the edge and then pulled back at the last minute.  As of now, you are being milked.\n\n' );
 		EngineCore.outputText( '“<i>One.</i>”  She commands, her tone demanding.  After only a few moments, you throw back your head and let out a long, ecstatic moan as you cum, your orgasm fountaining up through you and exploding free of your [cockhead biggest].  As the first jet of semen surges free of your cock and thrusts up into the air, Izumi gasps.  A split second later, she releases you and launches herself backwards in a powerful roll that catapults her across the cave. Your first load splatters explosively down where she had been sitting moments ago, but you’re too busy firing off a second to care.\n\n' );
-		if( CoC.getInstance().player.cumQ() > 500 ) {
+		if( CoC.player.cumQ() > 500 ) {
 			EngineCore.outputText( 'You remain sat there for a crippling eternity, unable to do anything but moan as you inexplicably continue to cum, your aching erection firing out shot after shot of hot, dripping goo as Izumi watches you from the safety of the shadows, grinning happily like the cat that got the cream.  ' );
 		}
 		EngineCore.outputText( 'Eventually, your orgasm subsides, and you collapse' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' sideways' );
 		} else {
 			EngineCore.outputText( ' backwards' );
@@ -726,28 +726,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' onto the ground, staring up at the roof of the cave in a daze.  After a few seconds, Izumi’s face appears in your field of vision, albeit upside down.\n\n' );
 		EngineCore.outputText( '“<i>Haha... Sorry about that, but I didn’t want you to ruin my clothes, you know?</i>”  She half-apologizes, giggling.  “<i>Hmm... maybe that move was a little much to try on a [race].  I just thought that since you were a little more... <i>robust</i> than most others of your kind that I’ve met, you’d be able to take it.  I did try to warn you, although... It seems like you enjoyed yourself anyway, hmm?</i>”  She beams.  You can barely find the energy to blink, let alone to muster a response.\n\n' );
 		EngineCore.outputText( 'Izumi returns to her tent and lights up her pipe, unceremoniously abandoning you there on the cave floor, apparently done with you for now.  Still, it’s some time before you are able to drag yourself to your feet and stumble home to your camp, wondering how long it’ll be before you can see straight again...\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzumiScene.prototype.surrenderOhGodTheFemaleSurrenderContentIsFuckingHugeSendHelp = function() {
 		EngineCore.outputText( 'You resign yourself to letting Izumi do as she wills with you, and hesitantly reach to start undressing.' );
 		// First time addition to the start of the scene
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_TIMES_SUBMITTED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.IZUMI_TIMES_SUBMITTED ] === 0 ) {
 			EngineCore.outputText( '  Before you can remove your clothes, however, Izumi grabs a hold of your wrist.\n\n' );
 			EngineCore.outputText( '“<i>Not so fast, I’ve never really had a chance to play with a girl before.  I wanna take my time on this one...</i>” She says.  Smiling suggestively, she reaches out and slowly divests you of your [armorname].' );
-			if( CoC.getInstance().player.cor <= 33 ) {
+			if( CoC.player.cor <= 33 ) {
 				EngineCore.outputText( '  You can’t help but feel a crippling sense of embarrassment as the strange woman undresses you, and you look away, embarrassed, while Izumi’s hands explore your body.' );
-			} else if( CoC.getInstance().player.cor >= 66 ) {
+			} else if( CoC.player.cor >= 66 ) {
 				EngineCore.outputText( '  As Izumi slowly reveals your naked body to the world, you begin to feel an oh-so-familiar heat building up inside of you.  You look down at Izumi with pride as she inspects your body, running a skillful hand over your chest with a thoughtful look on her face.' );
 			}
 			EngineCore.outputText( '\n\n' );
 			// Big knockers!
-			if( CoC.getInstance().player.biggestTitSize() >= 15 ) {
+			if( CoC.player.biggestTitSize() >= 15 ) {
 				EngineCore.outputText( 'Izumi’s eyes widen in surprise as she pulls aside your clothing to reveal your impressive bust, your [chest] finally free.\n\n' );
 				EngineCore.outputText( '“<i>Wha- Wait, these are real?!</i>”  she exclaims, loudly.' );
 				// Low corruption
-				if( CoC.getInstance().player.cor < 50 ) {
+				if( CoC.player.cor < 50 ) {
 					EngineCore.outputText( 'Sheepishly, you nod as Izumi manhandles your massive mammaries as though looking for evidence of their falseness.  She bites her bottom lip, glaring intently at you as she roughly runs her hands over your breasts.  Although the Oni woman’s palms are surprisingly soft, her treatment of your breasts is not - she practically mauls you, squeezing, groping, even pinching the soft flesh.\n\n' );
 					EngineCore.outputText( '“<i>Unbelievable...</i>” She mutters to herself, bitterly.  She looks up at you, confusion still plain upon your face, then scowls.  “<i>You don’t even know why I’m annoyed, do you?  Does having a chest THIS huge,</i>” she reaches out and pinches one of your [nipples] between her thumb and forefinger, causing you to yelp in surprise and pain.  “<i>Just seem normal to you?!</i>”  She grumbles in frustration before giving the nipple a sharp tug, causing you to cry out once again.  “<i>Forget it.</i>”\n\n' );
 				}
@@ -764,32 +764,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Before you can finish removing your clothes, Izumi grabs a hold of your wrist.  She takes over, placing herself firmly in charge of your state of dress.\n\n' );
 		}
 		// PC is an exhibitionist!
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( 'While Izumi takes her time freeing you of your [armor], you experience a little familiar thrill as Ceraph’s cursed piercings start to work their magic.  Every inch of your skin from head to foot tingles with excitement as you relish the prospect of finding yourself on display once again, naked and defenceless for the whole world to stare, or scowl, or leer - it makes your nipples harden just thinking about it.\n\n' );
 			EngineCore.outputText( 'Looking up at you with a superior smirk, Izumi continues to run her hands over your body, clearly more interested in stealthily groping you to check out the goods than actually undressing you. The tortuous anticipation just makes everything feel that much better though - soon, you’re going to find yourself completely naked in front of this strange woman. Not just yet, but <i>soon</i>, oh so soon....  It’s hard to believe how erotic the idea now seems to you.  Like a child the night before a birthday, you’re equal parts excited and desperate - and before long you’re practically screaming internally for Izumi to hurry up, rip off the rest of your clothes and just strip you <i>bare</i> already.  By the time she gets round to removing the bottom half of your clothing, you’re positively soaking wet.\n\n' );
 			EngineCore.outputText( 'Izumi grunts in surprise as she surveys your dripping folds' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', your [cock] slowly thickening under her scrutiny' );
 			}
 			EngineCore.outputText( '.  You shift in place,' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' wriggling atop your [legs]' );
 			} else {
 				EngineCore.outputText( ' subtly parting your [legs] and even ' );
 			}
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' rolling your butt upward' );
 			} else {
 				EngineCore.outputText(' tilting your hips forwards');
 			}
 			EngineCore.outputText( ' a little, to ensure that Izumi gets a really <b>good</b> look at you down there.  The shameless act sends a flush of embarrassed warmth through you, making you tremble in pleasure.  You’re unable to keep yourself from smiling a little - you can barely manage to stop yourself from moaning aloud.  You place your hands above your breasts, hoping that Izumi will stop to look at them... which she does, looking up a moment later to say something, then pausing as her eyes linger at the sight of your [chest].\n\n' );
-			if( !CoC.getInstance().player.isNaga() ) {
+			if( !CoC.player.isNaga() ) {
 				EngineCore.outputText( 'You rub your thighs together in delight' );
 			} else {
 				EngineCore.outputText( 'You wriggle and writhe in delight' );
 			}
 			EngineCore.outputText( ' as Izumi stares at your proudly displayed chest, enjoying the sensation of being watched and idly wishing you had something to fill the aching void' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' deep within your [vagina].  You slither around in place, your [leg] shifting and weaving around, moving and undulating... b' );
 			} else {
 				EngineCore.outputText( ' between your [legs] as well.  As you move your weight repeatedly from one [foot] to the other, you shiver in enjoyment.  B' );
@@ -801,16 +801,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		// Scentime!
 		// Non-Taurs
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Without warning, Izumi violently lunges forward, grabbing at you.  You are only able to let out a surprised yelp before she grips onto your arms, pulling you towards her and spinning you around.' );
-			if( !CoC.getInstance().player.isNaga() ) {
+			if( !CoC.player.isNaga() ) {
 				EngineCore.outputText( '  Before you know it, she has you down on your knees, the cold stone of the floor digging into your [skinfurscales] a little as she circles behind you, smirking cruelly.' );
 			} else {
 				EngineCore.outputText( '  She takes hold of your shoulders and forces you lower to the ground, forced to slither more and more of your tail out from under yourself, until Izumi towers over you.  She circles behind you, a cruel smirk the only hint of her intentions.' );
 			}
 			EngineCore.outputText( '\n\n' );
 			EngineCore.outputText( 'Izumi reaches around from behind you and you half turn to look at her, but she grips you by the chin and firmly turns your head away from her.  Your gaze flits nervously around the cave at random as you feel Izumi’s other hand glide slowly across your [skinfurscales], running along your stomach and down towards your' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' [leg]' );
 			} else {
 				EngineCore.outputText( ' thighs' );
@@ -832,7 +832,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.outputText( '“<i>Well, well. Look at that,</i>” She whispers into your ear conspiratorially. “<i>It seems you’re already drawing an audience.</i>”  It takes a moment, but her words finally filter through your lust-fogged consciousness, jerking back to reality.  Your eyes snap open in surprise, just in time to see a flicker of movement among the rocks nearby.  Then another, and another.  Imps, goblins, even one or two harpies slowly start to congregate around you, affording you brief glimpses at them as they take up vantage points in preparation for what is about to come.  Several of them are already clearly aroused, and your eyes widen at the sight of an imp’s wagging erection as he scampers between a pair of nearby boulders.  It slowly dawns on you that in a place as remote and empty as this, the sight of someone like you being toyed with - maybe even raped if the situation weren’t voluntary - is probably quite the rare spectacle.  And here Izumi is, displaying you like some kind of rare prize for every perverted beast on the mountain to gawk at.\n\n' );
 		// More exhibitionist shit (!)
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'ShowMeOff', this.surrenderFemaleExhibitionVariant );
 			EngineCore.addButton( 1, 'HideMe', this.surrenderFemaleNonExhibitionVariant );
@@ -846,12 +846,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You squirm desperately, the feeling of a dozen pairs of eyes leering at you making you feel decidedly uncomfortable.  Izumi apparently notices your distress, however, as a few seconds later you hear a thunderous crack as she reaches out to a nearby outcropping of jagged rock, snapping it off with one massive hand.\n\n' );
 		EngineCore.outputText( '“<i>Get lost, ya scummy vultures!</i>” She yells,' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' sitting upright on your back and' );
 		}
 		EngineCore.outputText( ' hurling the rock forcefully at the circle of watchers. It shatters harmlessly on a boulder, but the crowd gets the message, disappearing in a flurry of angry squawks and howls. “<i>Sorry,</i>” Izumi adds apologetically as you twist your neck around to stare at her in confusion. “<i>Like I said, this neighbourhood’s full of trash like that, you know? I didn’t realize they’d upset you.</i>” She smiles - a friendly, honest smile, bereft of guile or malice.\n\n' );
 		EngineCore.outputText( 'Despite your uncomfortable situation, you can’t help but feel kind of... reassured.  The smile soon becomes something more than friendly though, and suddenly Izumi’s head darts forwards and she forces her tongue into your surprised' );
-		if( CoC.getInstance().player.hasMuzzle() ) {
+		if( CoC.player.hasMuzzle() ) {
 			EngineCore.outputText( ' maw' );
 		} else {
 			EngineCore.outputText( ' mouth' );
@@ -859,13 +859,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ', stunning you as she launches into a powerful french kiss.  Her tongue wraps effortlessly around your own, leaving you breathless and unable to help but wonder how dextrous it could be.  Izumi assaults your mouth, forcefully, leaving no doubt as to who is in control of the situation - it’s all you can do to keep up with the insistent, probing kiss.  Finally, she breaks off, leaving you gasping for breath after your extended tongue-grappling session.  For her part, Izumi seems to be none the worse for wear, wiping her mouth with a satisfied expression.\n\n' );
 		EngineCore.outputText( '“<i>Now, where were we?</i>” Izumi murmurs.  You look down as she gently rolls a hand around to cup one of your breasts. “<i>Oh yeah,</i>” She adds, playfully. “I<i> remember...</i>” Izumi gropes at your chest experimentally, stroking, fondling, squeezing, molesting your bust as she gauges it for firmness.\n\n' );
 		// Itty-bitty-titties
-		if( CoC.getInstance().player.biggestTitSize() <= 2 ) {
+		if( CoC.player.biggestTitSize() <= 2 ) {
 			EngineCore.outputText( '“<i>Haha... You’re pretty cute, you know?</i>” Izumi whispers into your ear, idly twiddling one of your nipples between thumb and forefinger as though this were a perfectly natural conversation. “<i>Funny, I was going to play with your breasts a little, get you nice and warmed up... but I can’t seem to find ‘em.  That’s not right, is it?  Girls have boobs, big, pillowy things to show off in front of the fellas... but you don’t.  Completely flat, aren’t ya? Almost like you were a boy.  That’s gotta be embarrassing, right?</i>”  You look down at your chest, blushing furiously.  You’d never really thought about it before, but now that Izumi mentions it....  Plus, with Izumi leaning in and gripping you from behind, those strong, muscled arms caging you in as her enormous breasts press inescapably against your spine, you have to admit you do feel kind of inadequate... as well as strangely aroused.\n\n' );
 			EngineCore.outputText( '“<i>Well, it’s pretty sad, but don’t be too upset,</i>” Izumi continues, reaching around with her other hand to play with the other nipple.  She pointedly avoids so much as stroking against the unimpressive mounds that make up your sub-average titflesh, solely concerned with molesting your now diamond-hard nipples, heightening both your sense of arousal and your rising shame at your small size.  “<i>I’m sure someone, somewhere, will still want to take you.  Of course, they’ll probably be the kinky type.  Who else would want someone as flat as you?  There isn’t even enough here to rub up against.  But hey, some guys are into that.  You might have to pretend to be a schoolgirl for ‘em, but they’re into it...</i>”  Without warning, Izumi shifts up her game, pinching your [nipples] painfully and pulling on them slightly, forcing you to let out a moan of confusion; half pleasure, half pain.\n\n' );
 			EngineCore.outputText( '“<i>Or is that what </i>you’re<i> into?</i>”  She hisses, suddenly intense.  “<i>Admit it, there’s no way anyone could really have breasts this small.  You did this on purpose, right?  Wanted to make yourself as flat and unappealing as possible, so only the </i>real<i> deviants would want you.  Is that it, is that what makes you tick?  You want to find some sick perv who can only get off by fucking someone as flat as you?! Someone with a body that looks more like it belongs to a little girl?!</i>”  She squeezes down on your long-suffering nipples, causing you to cry out again, then relents just a little.  “<i>Well?  Answer me.  Do you want to be the little girl?</i>”\n\n' );
 			EngineCore.outputText( 'You stammer some form of response, feeling hot, and trapped, and confused, and wanting to get out but also desperate to stay and find out what happens <i>next</i>.  Why <i>did</i> you do this to yourself, anyway?  <i>Did</i> you even do it, or was it done to you... or is this just how you’ve always been?  You’re so confused, the smoke drifting from the cave combining with the heat and the oppressive bear hug from Izumi to leave you feeling muggy and unfocused.  It must be having some kind of aphrodisiac effect on you, or something. Suddenly, Izumi chuckles, gentle and soft, mere inches from your ear.\n\n' );
 			EngineCore.outputText( '“<i>It’s fine.  Relax, kitten; I don’t care what kind of crazy kinks you think you need to get yourself off,</i>” She murmurs, reassuringly. Then you feel her hand take gentle hold of your wrist. “<i>But I </i>do<i> want to see it happen...</i>” She adds' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ', guiding your hand down to your own nethers, which you’re shocked - in a foggy, distant kind of way - to discover are sopping wet' );
 			}
 			EngineCore.outputText( '.\n\n' );
@@ -881,15 +881,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		else {
 			EngineCore.outputText( '“<i>Hrm.. Not bad, I guess. Not bad at all,</i>”  Izumi grunts, somewhat appreciatively, as she manhandles your rack with skilled, articulate fingers. “<i>Yeah, I’d say you’re just about the right size here.</i>”  Her hands glide over your ample bust, examining it in detail, the soft sensation of her palms gliding over your bare skin, coaxing your nipples to hardness, gently squeezing or massaging the flesh, all of it feeling decidedly good.\n\n' );
 			EngineCore.outputText( 'Satisfied with her inspection, one giant hand slides' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' over your [hip].' );
-			} else if( CoC.getInstance().player.isDrider() ) {
+			} else if( CoC.player.isDrider() ) {
 				EngineCore.outputText( ' between your spindly legs, slapping them lightly to force you to spread them wider.' );
 			} else {
 				EngineCore.outputText( ' between your thighs, slapping them lightly to force you to open them wider.' );
 			}
 			EngineCore.outputText( '  The pressure of her breasts pushing into your back increases as she draws you into a one armed hug, resting her chin on your shoulder and nuzzling her face into your neck.  “<i>Let’s play!</i>”  She announces in a cheery, sing-song voice.  Then her tongue snakes out, feeling inhumanly long as it slides across your flesh from the base of your neck to your cheek.  “<i>Well, I say ‘let’s’... don’t worry, kitten. I’m just gonna mess your head up for a little while, that’s all.  I’ll try not to make you swear off men for good, though...</i>”  She chuckles breathily into your ear as her questing hand snakes' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' along' );
 			} else {
 				EngineCore.outputText( ' between' );
@@ -898,21 +898,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Perhaps the worst - or possibly the best - part is that it’s working.  The soft, whispery sensation of Izumi’s fingers dancing <i>just</i> close enough for you to feel them but never actually close enough to make full contact is beginning to work its frustrating magic on you, leaving you feeling increasingly hot and needy.  Your discomfort is clearly obvious to Izumi, judging by the obscene leer on her face.\n\n' );
 			EngineCore.outputText( '“<i>Aw, whassamatter?</i>”  She purrs, “<i>You want me to quit playing around? Haha, geez, you’re such a dyke!</i>”  Izumi laughs again, pressing her cheek affectionately against your neck as she peers down at your dampening crotch.  “<i>Alright, alright,</i>”  She smirks, giving one of your breasts a quick, chastising squeeze.  “<i>I’m gonna start with the real thing now, okay?</i>”  You feel one oversized finger suddenly slide between your lips as Izumi prepares to slip it inside you.  You nod your head, eagerly, feeling glad of the chance for some real stimulation as opposed to the mean-spirited teasing of earlier.\n\n' );
 			EngineCore.outputText( 'Izumi’s finger is naturally much larger than your own, so thick that it feels almost like an actual cock, rather than just a probing digit... but the way it flexes and bends within you, slowly worming its way in deeper to gently probe at your most sensitive spots, is distinctly different.' );
-			if( CoC.getInstance().player.looseness() <= AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
+			if( CoC.player.looseness() <= AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
 				EngineCore.outputText( '  She takes it slowly, pushing into you with agonizing care so as not to cause you any distress.  Inch by inch, centimeter by centimeter, she slides her finger into your pussy, finally bottoming out down to the knuckle.  You let out a little gasp of surprise and alarm as she gives her finger a sudden quick, tickling twitch, as though tickling a pet under its chin, then grins savagely at your reaction.\n\n' );
-			} else if( CoC.getInstance().player.looseness() >= AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
+			} else if( CoC.player.looseness() >= AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
 				EngineCore.outputText( '  Izumi’s finger slips between your cavernous walls with ease, quickly bottoming out inside you.  She lets out an amused grunt of surprise at the ease with which she’s able to fit her finger inside you.\n\n' );
 			}
 			EngineCore.outputText( '“<i>I guess someone’s been busy, huh? And here was me thinking you were a nice girl.</i>”  Izumi teases.  “<i>Well, I guess we can skip the foreplay then....</i>”\n\n' );
 			EngineCore.outputText( 'One hand now actively engaged in exploring your nethers, Izumi begins to grope your [chest] in earnest, nibbling on your neck as she grips a nipple between thumb and forefinger and squeezes, almost painfully tweaking and pulling at the sensitive flesh.  She pulls gently but insistently at your [nipple] in a rhythmic motion.  “Haha, say... you ever been milked, ' + this.heightDesc() + '?”  She murmurs, ominously. \n\n' );
-			if( CoC.getInstance().player.lactationQ() > 0 ) {
+			if( CoC.player.lactationQ() > 0 ) {
 				EngineCore.outputText( 'You let out a moan of pleasure as a sudden jet of milk spurts from your heavy breasts, splattering across the rocky ground.  Izumi doesn’t let up though, instead working your nipple even harder, almost feverishly pinching and squeezing away, forcing more and more of the warm liquid to be coaxed free of your bust.\n\n' );
 			}
-			if( (CoC.getInstance().player.findStatusAffect( StatusAffects.BreastsMilked ) > 0) && (CoC.getInstance().player.lactationQ() > 750) ) {
+			if( (CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) > 0) && (CoC.player.lactationQ() > 750) ) {
 				EngineCore.outputText( 'You instinctively relax and lean back into the cushioned softness of Izumi’s breasts as the familiar sensation of being milked washes over you.  Your breasts respond readily to the repeated stimulation, great jets of milk answering the insistent urging of Izumi’s fingers.  Her other hand detaches itself from your groin temporarily to begin cupping and squeezing at your bust as well, much to your enjoyment.  You lay there in her arms, gazing down at your [chest] as you are being milked, and you can’t help but think to yourself' );
-				if( CoC.getInstance().player.cor < 40 ) {
+				if( CoC.player.cor < 40 ) {
 					EngineCore.outputText( ' ‘How did this happen?‘  How did you get into this bizarre state, this weird situation?  It seems so strange, and yet, you can’t seem to summon up the energy to object or resist at all.  Perhaps, you wonder briefly, it has something to do with that damned smoke.  Izumi <i>was</i> smoking something, after all, and if it’s strong enough to affect a person as huge as her....\n\n' );
-				} else if( CoC.getInstance().player.cor >= 40 && CoC.getInstance().player.cor <= 90 ) {
+				} else if( CoC.player.cor >= 40 && CoC.player.cor <= 90 ) {
 					EngineCore.outputText( ' how surprisingly pleasant this is.  Izumi’s treatment of your nipples is getting a little rough, but you can’t deny that it does feel good to be milked so intimately, your breasts being emptied, spurt by spurt.  You smile, dully, and resolve to just enjoy the sensation while you can.  After all, it isn’t like enjoying yourself once in a while is going to lead to anything bad.\n\n' );
 				} else {
 					EngineCore.outputText( ' how good it feels to be milked again.  How <i>hot</i> it feels, having someone work over your body like this, manipulating your swollen teats until they give up their cargo of your precious milk.  Izumi’s hands are rough and methodical, squeezing out an dribbling arc from one breast, then the other; left, right, left, right, left, right, an endless, mechanical rhythm, by this point completely bereft of sensuality.\n\n' );
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'The thought sticks in your brain, and you find it quite an enjoyable little fantasy; the idea of being reduced to something so basic, so animalistic, is kind of a turn-on.  Even the movement of Izumi’s hands, first one teat, then the other, seems reminiscent of the act of milking a cow.  No, not teat, you correct yourself with a giggle - <i>udder.</i> Cows have <i>udders,</i> don’t they?\n\n' );
 			EngineCore.outputText( 'Enraptured by the concept, you submerge yourself in fantasy as Izumi drains your fat, eager udders.  Your eyes roll back into your head as you daydream of rough hands, methodical inspections of your swollen breast-udders, and finally the chilling thrill of being guided towards the cold embrace of those steely, sucking tubes for another day’s ‘work’.  You’re not entirely sure through your lust-addled haze, but you think you might even have heard yourself murmur out a little ‘moo’ once or twice...\n\n' );
 			EngineCore.outputText( 'Finally, you realize - with a slight note of disappointment - that Izumi has finished, her hand snaking back down' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' to' );
 			} else {
 				EngineCore.outputText( ' between' );
@@ -932,7 +932,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'You open your mouth to gasp for air, Izumi’s head darts forwards and she locks her lips to yours, pulling you into a sudden french kiss.  Her tongue wraps around your own, bizarrely flexible as it invades your mouth, forcing you to surrender to her embrace.  She runs her hands over your body and you can only moan feebly into her mouth as your orgasm begins to rise within you, suffusing your entire being as you flex and strain inside Izumi’s iron grip.  You squirm and buck your hips desperately and Izumi pins you down, riding out your orgasm as she strums away at your desperate nethers, your juices splattering wetly across the cave floor.\n\n' );
 			EngineCore.outputText( 'Izumi releases you, a trail of saliva hanging between your exhausted mouths for a moment before she gives you an indulgent pat on the behind and rises to her feet, licking suggestively at her fingers.  You shakily pull your clothes towards you and redress, while Izumi settles back down to take a long drag from her pipe, eyeing you with clear amusement as you attempt to cover yourself.  You decide to make your escape before the big woman decides to rope you into another, more strenuous round of sexual wrestling...\n\n' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -940,7 +940,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	IzumiScene.prototype.surrenderFemaleExhibitionVariant = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'For some reason, you find that idea to be quite possibly the hottest thought you’ve ever had.  You’re surrounded by a ring of barely-unseen onlookers, all waiting to see you get fucked, many of them already masturbating just at the sight of your naked form.  Without a moment’s hesitation' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( ', you spread your legs a little wider,' );
 		}
 		EngineCore.outputText( ' you' );
@@ -957,20 +957,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>Hey out there!  Turns out my friend here is just too big a slut to resist the smell of some juicy cock, and you got her all riled up.  So, with that in mind,</i>” She announces, loudly.  “<i>She’s up for public use.  Who’s first?</i>”\n\n' );
 		EngineCore.outputText( 'There’s a moment of deathly silence that seems to stretch for minutes.  Then, suddenly, an imp comes hurtling out of cover, already reaching for his loincloth, casting a wary glance at Izumi.  She gives him a winning smile, like a shopkeeper welcoming a client.  You realize that would make you the merchandise in this situation, and for some reason it just turns you on even more.\n\n' );
 		EngineCore.outputText( '“<i>Lucky number one!</i>”  Izumi extends a hand towards you in an expansive gesture.  “<i>She’s all yours.  Pick any hole, she’s too cockhungry to care.</i>”  The imp eyes you up for a moment, then steps onto your' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( ' thighs' );
 		} else {
 			EngineCore.outputText( ' [legs]' );
 		}
 		EngineCore.outputText( ', pulling aside his loincloth to reveal his raging erection.  It bobs up and down, the bulbous head mere inches from your face.  “<i>Well?</i>”  Izumi asks.  “<i>What are you waiting for?  Get started, slut!</i>”\n\n' );
 		EngineCore.outputText( 'Hesitantly, you lean forwards and envelop the imp’s waiting cock into your mouth.  You struggle not to think about the taste as you submissively service the imp, but then you notice from the corner of your eye that the ring of observers have crept a little closer, leaving the safety of their rocky hiding spots to get a better view...  a better view of you.  A better view of you, naked' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( ' and on your knees' );
 		}
 		EngineCore.outputText( ', sucking on an imp’s cock like it was candy.  Suddenly, it doesn’t seem nearly so bad.\n\n' );
 		EngineCore.outputText( '“<i>You wanted to give them a show, right?</i>”  Izumi whispers to you, still grinning.  You nod your head as best you can around the stiff phallus invading your mouth.  “<i>Well then, in that case...  do it right, you stupid slut!</i>”  She roars suddenly, grabbing you by the back of the neck and forcing your face down onto the imp’s cock.  You gag and squeak in surprise as you find your nose suddenly pressed up against his stomach, his thick meat invading your throat, cutting off your air.\n\n' );
 		EngineCore.outputText( '“<i>This crowd came here to see a whore getting fucked, not to see some amateur try her best.  If you aren’t gonna try, I’ll do it for you.</i>”  Izumi’s expression is almost feral with lust as she forces you into a brutal' );
-		if( CoC.getInstance().player.hasMuzzle() ) {
+		if( CoC.player.hasMuzzle() ) {
 			EngineCore.outputText( ' muzzle' );
 		} else {
 			EngineCore.outputText( ' face' );
@@ -982,7 +982,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>Well, that was certainly quite the performance,</i>” she says, archly. “<i>I kinda wish I’d just kept you to myself now.</i>”  She tuts, then shakes her head again.  “<i>Geez, you’re in no condition to be walking around alone.  I’d feel pretty bad if I let you wander off like this and let something happen to you, so I guess...</i>”  She reaches down and grips you by the wrist, pulling you to your feet and wrapping an arm around your waist to support you. “I’ll<i> have to take you home.</i>”\n\n' );
 		EngineCore.outputText( 'You’re in no position to resist as Izumi casually marches off into the cave, dragging you along.  The best you can do is stumble along next to her, even a journey as short as heading back into the gloomy cave difficult after such an extensive public performance.  She bundles you inside of her tent tenderly, and you quickly surrender to exhaustion...\n\n' );
 		EngineCore.outputText( 'You jerk upright with a start, warm bedding falling away from your body, the last few hours slowly beginning to filter through the sleepy haze clouding your thoughts.  Izumi seems to have worn herself out too, splayed out across the floor beside you.  You look around, gathering your bearings before deciding a sneaky exit from the Oni’s home is your best course of action...\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -990,60 +990,60 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	 * LOSS SCENES
 	 */
 	IzumiScene.prototype.fuckedUpByAFuckhugeOni = function() {
-		CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
-		CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.getInstance().player.gender;
+		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
+		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.HP <= 0 ) {
+		if( CoC.player.HP <= 0 ) {
 			EngineCore.outputText( 'You fall to the ground, reeling from Izumi’s iron-hard muscles - and other parts besides.  Grinning widely, Izumi visibly relaxes, satisfied that you’re in no fit state to continue fighting.\n\n' );
-		} else if( CoC.getInstance().player.lust >= 100 ) {
+		} else if( CoC.player.lust >= 100 ) {
 			EngineCore.outputText( 'You fall to the ground, too horny to resist further against the Oni’s iron-hard muscles - and other parts beside.  Grinning widely, Izumi visibly relaxes, satisfied that you’re in no fit state to continue fighting.\n\n' );
 		}
 		EngineCore.outputText( '“<i>So, it’s my win!</i>”  She announces, gleefully.  “<i>And you know what that means, right? It’s </i>playtime....”  The enormous woman looms over you, and you suddenly find yourself feeling distinctly nervous...  without warning, Izumi drops to her hands and knees and leans forwards, her leering face inches from your own.  With her arms on either side of you and her face filling your vision, you can’t help but feel a little enclosed. “<i>Let’s have sex!</i>”  She cries, then looks down towards your crotch, raising a hand threateningly.\n\n' );
 		EngineCore.outputText( 'Reflexively, you' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( ' slither' );
-		} else if( CoC.getInstance().player.isDrider() ) {
+		} else if( CoC.player.isDrider() ) {
 			EngineCore.outputText( ' scuttle' );
 		} else {
 			EngineCore.outputText( ' scurry' );
 		}
 		EngineCore.outputText( ' backwards, self-preservation instincts kicking in, intent on escaping the deranged Oni.  To your surprise, rather than snatching or leaping at you, she just blinks and looks at you in confusion.\n\n' );
 		EngineCore.outputText( '“<i>Huh?  What’s the matter?</i>”  She asks, looking genuinely nonplussed.  She reaches out towards you and you shuffle away again, putting a little more distance between the two of you.' );
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.outputText( '  Despite how much the fight with the enormous Oni has turned you on, you’re still hesitant to capitulate to her will entirely.' );
 		}
 		EngineCore.outputText( '  Izumi actually looks a little hurt.  “<i>You... you really don’t want to do it?</i>”  You can only stare at the oversized giantess in utter confusion as she stammers awkwardly.  “<i>D-Did I do something wrong? I was only playing around, so... we can do it now, right?  What’s wrong?!</i>”  Against all your expectations, Izumi actually backs down, settling back into a seated position on her knees, her expression visibly deflating.\n\n' );
 		EngineCore.outputText( '“<i>Oh, I get it.  It’s me, right?  You don’t find a girl like me attractive.</i>”  Her face falls as she stares at the floor, looking positively morose.  “<i>It’s okay, I don’t blame you.  This whole situation probably seems pretty weird, right?  One minute I’m smacking you around, the next I’m trying to jump you... I forget sometimes that not everyone acts the way Oni do when it comes to stuff like this.</i>”  She sniffs, rubbing one massive palm into her eye and scowling.\n\n' );
 		EngineCore.outputText( '“<i>Ah, stupid.  Don’t mind me, really. You can leave if you want, it’s okay; I won’t chase you or anythin’.  I just got over excited since I don’t get to talk to people very often, but I can’t expect you to want to bang someone who just tried to clean the floor with ya.</i>”  Izumi raises her head and gives you a wavering smile.  “<i>Really.  It’s fine! Oni get a little <b>heated</b> after a good fight, you know?  So, I did a dumb thing and figured you were feelin’ the same.  I shoulda known that ‘no’ doesn’t mean ‘only if you beat me’ to a human, right?!  Ahaha, ah... I’m an idiot.</i>”  She droops her head again.\n\n' );
 		EngineCore.outputText( 'You hesitate.  It seems like she’s being honest about letting you go, which is unexpected to say the least.  If you wanted to, you’re pretty sure you could just get up and' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( ' slither' );
 		} else {
 			EngineCore.outputText( ' walk' );
 		}
 		EngineCore.outputText( ' out of the cave without any trouble.  On the other hand...' );
-		if( CoC.getInstance().player.lust >= 75 ) {
+		if( CoC.player.lust >= 75 ) {
 			EngineCore.outputText( ' the idea of sex with Izumi <i>is</i> quite a tantalizing prospect.  F' );
 		} else {
 			EngineCore.outputText( ' f' );
 		}
 		EngineCore.outputText( 'rom your position, you can clearly make out how tightly her kimono clings to her substantial assets, how only a thin scrap of material dangling between those powerful thighs - not even reaching low enough to touch the floor - obscures your vision and prevents you from seeing <i>everything</i>.' );
-		if( CoC.getInstance().player.lust >= 75 ) {
+		if( CoC.player.lust >= 75 ) {
 			EngineCore.outputText( '  Despite yourself, you have to wonder exactly what it would feel like to slide between those giant sweat-slicked thighs, bury your face into Izumi’s mountainous bust, and just let your libido run wild.' );
 		}
 		EngineCore.outputText( '\n\n' );
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Anal', this.cowedIntoPuttingItInIntoHerGiantOniButt );
 			EngineCore.addButton( 1, 'Vaginal', this.fuckhugeOniWantsYourBabiesOrSomeShit );
 		}
-		if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.addButton( 2, '69', this.littleChampLittleChampFuckhugeOniIsCominTaEatcha );
 		}
-		if( !CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( !CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			EngineCore.addButton( 0, 'Next', this.noDickNoVagNoService );
 		}
-		if( CoC.getInstance().player.hasVagina() || CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() || CoC.player.hasCock() ) {
 			EngineCore.addButton( 9, 'Leave', this.lossSceneLeave );
 		}
 
@@ -1061,14 +1061,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your mind made up, you lean forwards, reach out your hands and firmly grasp one of Izumi’s sizeable breasts.\n\n' );
 		EngineCore.outputText( '“<i>Oh!</i>”  Izumi yelps, surprised, her head snapping up as you grope at her soft flesh.  “<i>Oh.  </i>Oh...<i></i>”  She repeats as comprehension slowly dawns.  “<i>So, wait, you decided you actually </i>do<i> want to...</i>”  She trails off as you nod, and a sly smile begins to spread across her face.  “<i>I guess there’s a little Oni in you after all, huh?</i>”  She says, leaning in closer to you to draw you into a hug - which you use as an opportunity to enjoy the better access to her breasts.\n\n' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '“<i>Or maybe,</i>”  She whispers seductively into your ear, “<i>You wanna bury that little Oni of yours in </i>me<i>.  Hmmmm?</i>”  You shudder as you feel her hand snake into your underwear and run sinuously across your crotch, readying you for the ordeal ahead...\n\n' );
 		}
 	};
 	// Special loss scene if the player loses whilst being titsmothered by izumi
 	IzumiScene.prototype.deathBySnuSnuIMeanGiantOniTits = function() {
-		CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
-		if( CoC.getInstance().player.isTaur() || CoC.getInstance().player.isDrider() || !CoC.getInstance().player.hasCock() ) {
+		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 1;
+		if( CoC.player.isTaur() || CoC.player.isDrider() || !CoC.player.hasCock() ) {
 			this.fuckedUpByAFuckhugeOni( true );
 			return;
 		}
@@ -1079,28 +1079,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>Hey, what are you...</i>”  Izumi’s confused murmur drags you back to reality.  Groggily, you raise your head to find her looking down at you with a concerned expression.  One look at your panting, reddened face however, and her face quickly splits into a familiar smirk.  “<i>Oh.  Oh, I see.</i>”  She murmurs. The arm inexpertly pulling you towards her slackens, giving you a little more room to breathe. Meanwhile, her other hand appears from behind her back as she drums her fingers on her cheek, smiling indulgently down at you as though confronted with an errant child.  “<i>You’re kind of a strange one, you know that?  Well, if that’s what you want, I suppose it can’t be helped....  Go ahead kid, I won’t stop you.</i>”  The arm that was previously attempting to choke you slips down to grip your waist, supporting you and hugging you closer to her, causing you to shiver as your erection is pressed ever harder into her flesh.\n\n' );
 		EngineCore.outputText( 'Gratefully, you nod, too aroused to care about Izumi’s dismissive attitude.  Right now, all you care about is how close this weird new form of stimulation is to helping you get off, and she’s just given you the green light to explore that feeling.  Returning your attention to Izumi’s breasts, you take advantage of the increased support from the arm around your waist to slip your arms inside the upper portion of Izumi’s kimono, running your hands across the expansive breasts within.  Izumi rumbles appreciatively as your hands stumble over her nipples, stroking the hardening flesh, tweaking and gently twisting them until they are hard enough to stand out against the silken fabric of her clothing. Finally, you can’t stand it anymore.  With a powerful gesture, you push both sides of Izumi’s kimono aside at once, exposing her breasts completely and causing them to bounce and jiggle with the force of the motion.\n\n' );
 		EngineCore.outputText( '“<i>Ah!</i>”  Izumi yelps. “<i>Greedy!</i>”  She chides, grinning down at you as you simultaneously grope both of her breasts.  You couldn’t care less though, you’re so enflamed by lust at this point that all you can think about is enjoying yourself as much as possible; bringing one of Izumi’s nipples to your mouth, you latch onto her breast and suck powerfully, eliciting a hiss of pleasure from Izumi.  Judging by how Izumi’s breasts begin to heave and shiver under you as her breathing quickens, she seems to be enjoying this almost as much as you are.  Sure enough, after only a few moments, Izumi’s hand snakes down to stroke through your hair, gently but insistently holding you over her breast to continue your oral assault.\n\n' );
-		if( CoC.getInstance().player.tallness <= 60 ) {
+		if( CoC.player.tallness <= 60 ) {
 			EngineCore.outputText( 'At the same time, the arm gripping your waist slides downwards too, hooking under your [butt] almost like some kind of seat, freeing you to keep grinding your needy cock' );
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' into her midsection while you suck at her teat.' );
-			if( CoC.getInstance().player.biggestCockLength() <= 5 ) {
+			if( CoC.player.biggestCockLength() <= 5 ) {
 				EngineCore.outputText( '  “<i>Hmph.</i>” Izumi grunts, smirking as she cups your balls.  “<i>Just like a baby... in more ways than one, am I right?</i>”  She continues, extending her middle finger to stroke the entirety of the underside of' );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( ' one of your' );
 				} else {
 					EngineCore.outputText( ' your' );
 				}
 				EngineCore.outputText( ' trembling, undersized prick' );
-				if( CoC.getInstance().player.totalCocks() > 1 ) {
+				if( CoC.player.totalCocks() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ', from tip to base, as your hips roll into your backstroke.  You shiver in embarrassment, causing Izumi to snort with amusement.\n\n' );
 			}
 		}
 		EngineCore.outputText( 'The thought of Izumi getting turned on too just makes your lust burn even hotter and you renew your efforts, grinding and humping into Izumi’s stomach, running your tongue over the soft skin of her breasts as she strokes your hair indulgently.  The climbing heat of your bodies conspires to melt your thoughts away, your poor dick' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' trapped in the hottest point of all - directly between you.  Assaulted on all sides by the rising heat and the increasingly slippery sensation of rubbing against Izumi’s sweat-soaked body, your cock feels as though it has been transformed into a supernova of arousal, burning with desire and incredibly sensitive.\n\n' );
@@ -1108,30 +1108,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Finally, you start to feel an ominous pressure building up in your groin, your breathing growing laboured and desperate.  Izumi clearly notices your animalistic intent, as she looks down at you and speaks, massaging the back of your neck vigorously as you suck forcefully at her breast.\n\n' );
 		EngineCore.outputText( '“<i>Hey, you’re getting close, right?</i>”  She asks. You nod vigorously, but she continues anyway. “<i>You’re gonna do it, right?  You’re gonna cum, just from this, just from rubbing up against me.</i>” You nod even more desperately, feeling your orgasm already starting to rise up inside you.  Izumi actually pants, looking almost as aroused as you feel.  “<i>That’s okay... that’s good.  Go ahead and cum, okay?  I want to see if you can really blow your load just from a little frottage...</i>” Frottage.  You make a mental note to remember that word.  If that’s the name for this, it might be worth knowing, you think.  Then, at long last, your orgasm hits.\n\n' );
 		EngineCore.outputText( 'You positively explode, throwing open your mouth and howling in ecstasy as your long-awaited orgasm bursts out of you.  You feel a jet of hot, warm goo pulse free from' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( ' each of' );
 		}
 		EngineCore.outputText( ' your iron-hard cock' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '... only to splatter instantly against the insides of your [armor].  Your eyes go wide as you realize in a rush of embarrassment that you forgot to even so much as slip your cock' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' free before humping yourself to a climax against Izumi’s stomach.  The realisation does nothing to hinder your orgasm, however - and may even have heightened it - as surge after surge of baby batter explodes free from your erection' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', coating the insides of your underwear with thick, sticky goo.\n\n' );
 		EngineCore.outputText( 'Your underwear thoroughly decorated, your cock' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's relent' );
 		} else {
 			EngineCore.outputText( ' relents' );
 		}
 		EngineCore.outputText( ', deflating and ceasing' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( ' their' );
 		} else {
 			EngineCore.outputText( ' it’s' );
@@ -1139,7 +1139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' relentless demands.  Puffing and panting, you manage to raise your head enough to look up at Izumi, still wearing that everpresent smirk.\n\n' );
 		EngineCore.outputText( '“<i>Aw, what’s the matter?</i>”  She says, reaching down and gripping at your aching bulge.  You groan at the sensation of your own slime being used as lubricant to wring a couple more drops from your aching body.  “<i>Couldn’t even wait to get your clothes off?</i>” She laughs, but there’s no malice there.  Izumi lowers you gently back down until you’re standing on the floor once again, on somewhat unsteady legs.  \n\n' );
 		EngineCore.outputText( '“<i>Well, I gotta admit, that wasn’t exactly how I was expecting the fight to end,</i>” she says, scratching the back of her neck in a manner that seems almost coquettish. “<i>But it was pretty fun all the same. Next time you’re in the neighborhood, let me know if you’re up for a rematch, or... whatever.  Okay?</i>” She asks, retaking her seat by the fire and retrieving her pipe.  You nod, absently, still kind of dazed after the abortive end to the fight, and wander off to find somewhere to wash the increasingly unpleasant feeling contents of your underclothing away.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Loss scene for buttstuffins
@@ -1147,21 +1147,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		this.lossSceneStay();
 		EngineCore.outputText( '“<i>Hey,</i>”  Izumi whispers, fingers rolling tantalizingly over [eachCock].  “<i>Let’s try something dirty...</i>”\n\n' );
 		EngineCore.outputText( 'She pushes you gently onto your back, pulling your clothes aside and freeing your erection' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' to the air.  Her grin widens as she stands, removing her clothing - such as it is - and hurling it across the cave.  She stands there for a moment, hands on her hips, eyeing up your' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( ' [multicock]' );
 		} else {
 			EngineCore.outputText( ' [cock biggest]' );
 		}
 		EngineCore.outputText( ' with a hungry smile.  In turn, you take the opportunity to survey Izumi’s naked body in detail.  The light from the smouldering campfire licks hungrily across her skin, illuminating her skin in warm, flickering gold as you size her up. Her muscles are well toned but not obtrusively so, her frame still distinctly feminine.  She stands there completely unabashed, displaying every inch of herself to you, and you feel your cock' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' twitch in response to the sight.' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( '  They' );
 		} else {
 			EngineCore.outputText( '  It' );
@@ -1178,9 +1178,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>Haha, hah..</i>” She half-pants, half laughs. “<i>It’s been a while since I’ve had the chance to do </i>this<i> kind of workout. I’m surprised you can keep up, you know?</i>”  You merely grunt in response; as much as you hate to admit it, Izumi is not exactly light, and you’re beginning to worry about the possibility of permanent damage....  Granted, her ass does have some natural ‘padding’, but the sheer force behind her bouncing is taking it’s toll.\n\n' );
 		EngineCore.outputText( '“<i>Ohh, enjoying yourself too much to respond, huh?</i>”  Izumi grins lazily, completely misconstruing your silence. Her arousal is written clear across her face, and her transparently lewd expression causes your already strained erection to ache urgently.  With herculean effort, you slam your waist upwards with renewed vigour, hammering home with punishing force as you feel your orgasm begin to rise up within you.  Your fingers clench tighter, digging into the yielding softness of Izumi’s hips, while she grunts and pants in equal parts surprise and arousal at your sudden enthusiasm.\n\n' );
 		EngineCore.outputText( 'With a primal roar, you bury yourself to the hilt in the Oni girl’s backside as your orgasm explodes out of you.  Izumi lets out a triumphant laugh, arching her back in pleasure at the sensation of your cum flooding her insides' );
-		if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 1 ) {
 			EngineCore.outputText( ', the cock' );
-			if( CoC.getInstance().player.totalCocks() > 2 ) {
+			if( CoC.player.totalCocks() > 2 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' not buried to the root in Izumi’s butt erupting in concert, splattering the joining between you with musky jizz.' );
@@ -1193,7 +1193,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Izumi stands there with her hands on her hips, apparently unconcerned about being naked as she rolls her neck to relieve some of the stiffness built up there.  Despite having only just cum, the sight of the leonine woman standing so unabashedly naked before you, stretching out her body without a care in the world is undeniably arousing.  Even as the thought hits you, though, the dull ache in your hips reminds you that you had probably better not push your luck.\n\n' );
 		EngineCore.outputText( '“<i>Hmm? Aw, you’re leaving already?</i>” Izumi notices you pulling yourself unsteadily to your feet and turns. “<i>I figured we could go again... ah, crap, I guess I got a little overenthusiastic, didn’t I?  You’re okay, right?</i>” Izumi actually blushes, pressing a hand to her cheek in embarrassment at her behaviour. It’s actually kind of cute, in a weird way.\n\n' );
 		EngineCore.outputText( 'Either way, after assuring Izumi that you’ll survive, you stagger out of the cave and begin to make your decidedly wobbly way back to camp.  Hopefully, your bruises won’t keep you awake....\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Super Ordinary Regular Missionary Sexy Time, honest
@@ -1207,7 +1207,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'On top of all that, there’s her smile; no longer the leering, suggestive grin or the cocky, confident smirk, Izumi’s smile now is warm and genuine.  She’s happy.  Bereft of guile, the true scale of Izumi’s loneliness suddenly shines through; wandering the stars, without a home or a family to return to.  The thought makes you feel momentarily sad - the portal at your camp is a constant reminder of all the people you have praying and hoping for you, but Izumi has no such luxury.\n\n' );
 		EngineCore.outputText( 'You smile to yourself, dispelling the gloomy notion.  Izumi may be a little lonely, but you can think of one way to take her mind off it - at least for a while.  Leaning forwards suddenly, you pull Izumi’s other breast free of her kimono and bring her nipple to your mouth.  You run your teeth gently over the sensitive flesh and Izumi groans in response, running her hand through your hair encouragingly.\n\n' );
 		EngineCore.outputText( 'You thrust up into her enthusiastically, her soft walls tensing and flexing around you in response.  You cling to her, tightly, and she returns the affection in equal measure.  The heat from her body suffuses you, heightening your arousal and leaving both of you panting and sweating.  Your whole body trembles with the effort of holding back your orgasm as you pound into Izumi’s nethers, the burning heat from her crotch driving you wild with desire.  All too soon though, you find yourself pushed to the brink, and as your orgasm crashes over you, you suddenly reach up and pull Izumi down into a powerful french kiss.  Izumi’s eyes go wide and she reflexively tries to jerk back, but the shock of your dual assault seems to have robbed her of her strength, and she shudderingly relaxes.  You hold her there for the duration of your orgasm, exploring her unresisting mouth as you empty your' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' balls' );
 		} else {
 			EngineCore.outputText( ' load' );
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'When you finally release her, the two of you can only gasp for breath as you sag back onto the ground.  Izumi avoids your gaze, blushing furiously as she absently wipes her mouth with the back of her hand.\n\n' );
 		EngineCore.outputText( '“<i>Well...</i>”  She mumbles.  “<i>I guess we both got a little carried away, huh?</i>”  She smiles again, a little awkwardly.  For a moment, you think about saying something, but before you can, Izumi releases you from her embrace and almost instantly she’s back to her regular carefree self.  “<i>Geez, don’t you know it’s impolite to kiss a girl without asking? Although I guess you figured consent was implied, huh?</i>”  She grins.  “<i>Don’t worry about it.  Just try and remember next time, huh?</i>”\n\n' );
 		EngineCore.outputText( 'You nod, pulling yourself to your feet and after exchanging a hasty goodbye with Izumi, you stumble towards the exit.  You’re not quite sure about ‘next time’, but you have to admit that really could have gone worse....\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// No bits, no scenes. Izumi had no scenes written for genderless players. In some cases, other scenes would do a p. reasonable job with some reformatting.
@@ -1226,17 +1226,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// Eatin the oni; might as well put your mouf to work rite?
 	IzumiScene.prototype.noDickNoVagNoService = function() {
 		this.lossSceneStay();
-		CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.getInstance().player.gender;
+		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
 		EngineCore.outputText( 'Izumi’s fingers stroke questingly over your groin for a moment, then she frowns, confused.\n\n' );
 		EngineCore.outputText( '“<i>Huh. You, uh... you actually </i>don’t<i> have a dick.</i>” She says, sounding a little taken aback. “<i>You know, I gotta say, I think you’re the first person I’ve met on this rock without a wang?  Seriously.  I just kind of assumed you had one.  Kinda lost track of my gameplan here, ‘cause I was really expecting something to grab onto down here.</i>”  She taps her lip with her free hand while you stare at her, bemused.  Then an ominous, toothy grin spreads slowly across her face.  “<i>Okay, new plan.</i>”  She announces, then her hand staps out to snatch hold of your ankle in an iron grip.  “<i>I guess I’ll just have to eat ya.</i>”\n\n' );
 		EngineCore.outputText( 'Before you can protest, you find yourself being spun effortlessly upside down by the oversized Oni, suspended by your' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( ' tail' );
 		} else {
 			EngineCore.outputText( ' ankle' );
 		}
 		EngineCore.outputText( ') in an extremely uncomfortable position.  Izumi’s grin becomes positively feral as she tears your clothing free' );
-		if( !CoC.getInstance().player.isNaga() ) {
+		if( !CoC.player.isNaga() ) {
 			EngineCore.outputText( 'before grabbing onto your other ankle, forcibly spreading your legs apart and leaving you creating a very undignified Y-shape' );
 		}
 		EngineCore.outputText( '.\n\n' );
@@ -1247,26 +1247,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	// Big bad oni gonna eatcha
 	IzumiScene.prototype.littleChampLittleChampFuckhugeOniIsCominTaEatcha = function() {
 		this.lossSceneStay();
-		if( CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] !== 2 && !CoC.getInstance().player.hasCock() ) {
+		if( CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] !== 2 && !CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Izumi’s fingers stroke questingly over your slit for a moment, then she frowns, confused.\n\n' );
 			EngineCore.outputText( '“<i>Huh. You, uh.. You actually </i>don’t<i> have a dick.</i>”  She says, sounding a little taken aback.  “<i>You know, I gotta say, I think you’re the first person I’ve met on this rock without a wang? Seriously. I just kind of assumed you had one. Kinda lost track of my gameplan here, ‘cause I was really expecting something to grab onto down here.</i>”  She taps her lip with her free hand while you stare at her, bemused.  Then an ominous, toothy grin spreads slowly across her face.  “<i>Okay, new plan.</i>” She announces, then her hand snaps out to snatch hold of your' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' tail' );
 			} else {
 				EngineCore.outputText( ' ankle' );
 			}
 			EngineCore.outputText( ' with an iron grip.  “<i>I guess I’ll just have to eat ya.</i>”\n\n' );
 		}
-		CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.getInstance().player.gender;
+		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
 		// TODO: Theres some logical holes with where/what Izumi can know about the players actual gender (A Standard Problem I guess)
 		EngineCore.outputText( 'Before you can protest, you find yourself being spun effortlessly upside down by the oversized Oni, suspended by your' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( ' tail' );
 		} else {
 			EngineCore.outputText( ' ankle' );
 		}
 		EngineCore.outputText( ' in an extremely uncomfortable position.  Izumi’s grin becomes positively feral as she tears your clothing free before' );
-		if( !CoC.getInstance().player.isNaga() ) {
+		if( !CoC.player.isNaga() ) {
 			EngineCore.outputText( ' grabbing onto your other ankle, forcibly spreading your legs apart and leaving you creating a very undignified Y-shape' );
 		}
 		EngineCore.outputText( '.\n\n' );
@@ -1278,7 +1278,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Detaching her mouth from your crotch with a wet gasp, Izumi chuckles to herself as she lowers you gently to the floor.\n\n' );
 		EngineCore.outputText( '“<i>That’s what it means to be eaten alive by an Oni!</i>”  She pants, grinning.  While you’re glad - in a kind of dim, distant way - that the endeavour apparently took some sort of toll on her as well, you’re honestly more concerned with the pounding headache and the pins and needles prickling your arms to muster up any kind of response.  “<i>Oh geez, did I go too far? Hey, you’re okay, aren’t ya?</i>”  Izumi stoops next to you, her face radiating concern.  You manage a feeble nod, and she smiles apologetically.  “<i>Sorry, I guess I can get kinda rough when it comes to girls... I dunno why, but hey, you’re okay, so it’s all good, right?!</i>”  She beams.\n\n' );
 		EngineCore.outputText( 'Izumi is gracious or wracked by her guilty conscious enough to let you rest up quietly in her cave without further molestation until the pounding in your head fades away.  As you carefully pick your way back down the mountain, you muster up a half-hearted wave of goodbye back to the cheerfully waving giantess.  While you’re not sure if you’d exactly describe what you just experienced as fun... at the very least, you’re glad she didn’t <i>actually</i> try to eat you.  Deep down though, part of you can’t help wondering if she really would...\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	/**
@@ -1287,13 +1287,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		// touch the horn. TOUCH IT
 		// Entry to VICTORRRYYYY scenes
 	IzumiScene.prototype.touchThatFluffyHorn = function() {
-		CoC.getInstance().flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 3;
-		CoC.getInstance().flags[ kFLAGS.IZUMI_TIMES_GRABBED_THE_HORN ]++;
+		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 3;
+		CoC.flags[ kFLAGS.IZUMI_TIMES_GRABBED_THE_HORN ]++;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Izumi slips backwards onto one knee and holds up a hand for pause,' );
-		if( (CoC.getInstance().player.HP / CoC.getInstance().player.maxHP()) <= 0.1 ) {
+		if( (CoC.player.HP / CoC.player.maxHP()) <= 0.1 ) {
 			EngineCore.outputText( ' the brief reprieve giving both of you a moment to recover.\n\n' );
-		} else if( CoC.getInstance().monster.lust >= 100 ) {
+		} else if( CoC.monster.lust >= 100 ) {
 			EngineCore.outputText( ' the Oni’s cheeks tinged a rosy peach in contrast to her alabaster skin.\n\n' );
 		} else {
 			EngineCore.outputText( ' momentarily staggered by your furious onslaught.\n\n' );
@@ -1303,7 +1303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'But you don’t.  After her performance in the last fight, you’re pretty sure you can take her – and besides, her smug attitude is beginning to get on your nerves.  You stand your ground, glaring daggers at the busty giantess.  Izumi’s smirk widens slowly into a full-force leer as she realizes you’re not just going to cut and run.\n\n' );
 		EngineCore.outputText( '“<i>You’re really gonna try your luck, aren’t ya?</i>”  Izumi asks. When you nod in response, she throws back her head and lets out a booming, uproarious laugh.  “<i>I love it! I </i>love<i> this attitude!  Fighting you is more exciting than anything else I’ve encountered on this godawful rock!  Alright, here – I’ll give you a gift! A glimpse of my full strength, no gimmicks, no holding back. And remember, you asked for this, so I don’t want to see you crying when you lose!</i>” \n\n' );
 		// Original version of the scene for seeleey modes
-		if( CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === true ) {
+		if( CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === true ) {
 			EngineCore.outputText( 'Without warning, Izumi suddenly brings one leg up, swings it wide and smashes it back down onto the ground.  A second later, she does the same with her other leg, assuming some kind of strange, half-crouching stance.  You ready yourself for an attack, but instead Izumi takes a deep breath, clenches her fists, and then....\n\n' );
 			EngineCore.outputText( '“<i><b>Tooooooooohhhhhhhhhhh!</b></i>” She roars, her voice only a low rumble at first but quickly growing to a thunderous crescendo.  You can only watch, astounded at the bizarre spectacle, as Izumi’s roar starts to cause tiny tremors to run through the cave, knocking over several small objects strewn around her camp.  Izumi continues to bellow the strange war-cry, cords of muscle visible against her neck from the strain of... whatever it is she’s doing.\n\n' );
 			EngineCore.outputText( 'And then you feel it.  Weakly at first, but growing in strength with every passing moment; waves of energy start rolling off of Izumi, each stronger than the last, making your hair stand on end.  Somehow, the oni’s roar is causing her to positively <i>radiate</i> power – and that power is growing stronger every second.  You begin to worry that you might actually be in real danger here.  Izumi was pretty strong when she claimed to be just playing around and using only a single hand to fight you, but there’s nothing playful about her appearance now.  In fact, in her strange, crouched stance, muscles straining against some invisible force, snarling and roaring at the empty air as she stares into nothing, you can’t help but feel she looks like nothing more than a crazed monster...  a demon, straight out of a story made to scare wayward children.  You have to do something, you realize.  You have to interrupt her, before she finishes whatever it is she’s doing!\n\n' );
@@ -1320,7 +1320,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '“<i><b>Tooooooooohhhhhhhhhhh!</b></i>” She roars, her voice only a low rumble at first but quickly growing to a thunderous crescendo.  You can only watch, astounded at the bizarre spectacle, as Izumi’s roar starts to reverberate within the cave.  Izumi continues to bellow the strange warcry, cords of muscle visible against her neck from the strain of her warcry.\n\n' );
 			EngineCore.outputText( 'Izumi was pretty strong when she claimed to be just playing around and using only a single hand to fight you, but there’s nothing playful about her appearance now.  In fact, in her strange, crouched stance, muscles straining against some invisible force, snarling and roaring at the empty air as she stares into nothing, you can’t help but feel she looks like nothing more than a crazed monster...  a demon, straight out of a story made to scare wayward children. You have to do something, you realize.  You have to interrupt her, before she finishes whatever it is she’s doing!\n\n' );
 			// Tease victory
-			if( CoC.getInstance().monster.lust >= 100 )
+			if( CoC.monster.lust >= 100 )
 			// I assume LustMax is always presumed to be 100?
 			{
 				// Gonna refactor the tease attack code to seperate out the display elements from the action elements, so I we can grab a player-appropriate text blurb
@@ -1330,17 +1330,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 				EngineCore.outputText( 'You dart forwards, hoping to catch Izumi off-guard while she’s distracted, but ' );
 			}
 			EngineCore.outputText( 'as soon as you get close, those crazed, staring eyes lock onto yours - ' );
-			if( CoC.getInstance().player.spe >= 90 ) {
+			if( CoC.player.spe >= 90 ) {
 				EngineCore.outputText( 'her arm lunges out in an uppercutting grab, but your reflexes are faster, managing to dodge out of the way at the last moment.  Sensing an opportunity with the Oni suddenly off-balance, you make for a grab of your own - reaching out for the bright red curve of Izumi’s horn.\n\n' );
-			} else if( CoC.getInstance().player.str >= 90 ) {
+			} else if( CoC.player.str >= 90 ) {
 				EngineCore.outputText( 'and before you can react, her arm lunges out in an uppercutting grab, her fist latching around your throat and wrenching you from the floor.  You lash out, swinging for Izumi’s arm, managing to pound against the iron-hard limb with enough force to dislodge the choking collar of fingers from your neck.  Sensing an opportunity with the Oni momentarily recovering, you make for a grab of your own - reaching out for the bright red curve of Izumi’s horn.\n\n' );
-			} else if( CoC.getInstance().player.inte >= 75 ) {
+			} else if( CoC.player.inte >= 75 ) {
 				EngineCore.outputText( 'her arm lunges out in an uppercutting grab, her fist latching around your throat and wrenching you from the floor.  Izumi is far too strong to best directly; leverage, you realize, is what you need to free yourself.  You reach out for the bright red curve of Izumi’s horn. \n\n' );
-			} else if( CoC.getInstance().player.tou >= 90 ) {
+			} else if( CoC.player.tou >= 90 ) {
 				EngineCore.outputText( 'her arm lunges out in an uppercutting grab, her fist latching around your throat and lifting you from the floor.  Her grip is crushingly tight, but you can endure it... for now, at least.  Looking to respond in kind, you reach out for the bright red curve of Izumi’s horn.\n\n' );
-			} else if( CoC.getInstance().player.lib >= 40 && (CoC.getInstance().player.biggestTitSize() >= 2 || CoC.getInstance().player.biggestCockLength() >= 5) ) {
+			} else if( CoC.player.lib >= 40 && (CoC.player.biggestTitSize() >= 2 || CoC.player.biggestCockLength() >= 5) ) {
 				EngineCore.outputText( 'her arm lunges out in an uppercutting grab, her fist latching around your throat and wrenching you from the floor.  You struggle, helplessly, against her arm for a moment before an idea strikes; \n\n' );
-				if( CoC.getInstance().player.biggestTitSize() > 2 ) {
+				if( CoC.player.biggestTitSize() > 2 ) {
 					EngineCore.outputText( 'maybe giving her face a little personal time nestled between your [chest] will finally distract the Oni enough.  You reach out for the bright red curve of Izumi’s horn, ' );
 				} else {
 					EngineCore.outputText( 'thinking quickly, you slip open your [armor] with one hand, bearing your [cock] to the world, your other hand reaching for the bright red curve of Izumi’s horn, ' );
@@ -1352,7 +1352,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'As soon as your fingers wrap around it, however, Izumi’s brutal, victorious expression changes.  Specifically, it gets a whole lot redder.\n\n' );
 			EngineCore.outputText( 'Izumi blinks once, twice, as the hair-raising visage she was maintaining drops almost immediately.\n\n' );
 			EngineCore.outputText( '“<i>Um,</i>”  She says, surprisingly quietly given her formerly berserk appearance.' );
-			if( CoC.getInstance().player.spe < 90 || CoC.getInstance().player.str < 90 ) {
+			if( CoC.player.spe < 90 || CoC.player.str < 90 ) {
 				EngineCore.outputText( '“<i>C-Could you please let go of that?</i>” She asks, slowly sinking to her knees.  Your feet touch solid ground again, Izumi’s hand still wrapped limply around your neck, apparently forgotten.\n\n' );
 				EngineCore.outputText( '“<i>Really. Um. Please let go.</i>”' );
 			} else {
@@ -1364,15 +1364,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You could play nice and let the Oni go free... she is asking nicely, after all.  On the other hand, after the way she tried to ravage you earlier, you figure Izumi’s arrogant attitude could use being taken down a notch or two.  The only question is, what exactly are you going to do?\n\n' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Let Go', this.letGoAndLeaveYouSillyFuck );
-		CoC.getInstance().flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.getInstance().player.gender;
-		if( CoC.getInstance().player.hasVagina() ) {
+		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 1, 'TribHorn', this.tribThatRockyHornGirl );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 2, 'LetsFuck', this.letGoAndFuck );
 			EngineCore.addButton( 3, 'RevengeAnal', this.gonnaGetMeSomeRevengeButtsexin );
 			EngineCore.addButton( 4, 'RevengeOral', this.sayThatsAPrettyFaceBeAShameIfSomebodyJizzedAllOverIt );
-			if( CoC.getInstance().player.tentacleCocks() >= 8 ) {
+			if( CoC.player.tentacleCocks() >= 8 ) {
 				EngineCore.addButton( 5, 'Tentacruel', this.tentacruelRevengeFux );
 			}
 		}
@@ -1393,16 +1393,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You decide to let Izumi off the hook - up to a point.  You release her horn, soliciting a relieved gasp from Izumi, then take a step back.  The Oni woman straightens hastily and shoots you a grateful look before turning back to her tent.\n\n' );
 		EngineCore.outputText( '“<i>I’ve got some gems back here somewhere...</i>” she says, but you interrupt, grabbing her sleeve and pulling her back towards you.  Deciding to take the direct route, you surprise Izumi by ambushing her with a sudden hug, burying your [face] in her expansive bust.  “<i>Huh?! I- What are you- Oh. </i>Oh!<i></i>”  She says as comprehension dawns.  “<i>You want to, uh...?</i>” she trails off, staring at you as you look up at her from your comfortable position sandwiched between her breasts - got it in one.\n\n' );
 		EngineCore.outputText( '“<i>Huh,</i>”  Izumi murmurs, rubbing her chin thoughtfully.  “<i>So you get the best of me, get me in a compromising position, then just let me go ‘cause I ask... But you still wanna fuck?</i>”  You nod emphatically, causing Izumi to chuckle.  “<i>You’re pretty unusual, kid, you know that? It’s not often I run into the chivalrous type. I gotta admit, it’s a refreshing change from the ‘a penis in every hole’ crowd. Hmm...</i>”  She eyes you thoughtfully for a moment, then gives a defeated shrug, smiling broadly.  “<i>Well, ya beat me, so it looks like ya get to do whatever ya want. I’m completely at your mercy, so if you were gonna do something lewd, I guess I’d have no choice but to go along with it.</i>”  The burly woman grins' );
-		if( CoC.getInstance().player.tallness < 80 ) {
+		if( CoC.player.tallness < 80 ) {
 			EngineCore.outputText( ' down' );
-		} else if( CoC.getInstance().player.tallness > 108 ) {
+		} else if( CoC.player.tallness > 108 ) {
 			EngineCore.outputText( ' up' );
 		}
 		EngineCore.outputText( ' at you, planting her hands on her hips.  “<i>So, what are ya gonna do to me now you’ve won, hotshot?</i>”\n\n' );
 		EngineCore.outputText( 'Izumi rolls her eyes indulgently as your hand slips under the silken folds of her kimono to grope and grasp at her breast.  You roughly pull the soft fabric aside, exposing one half of Izumi’s considerable bust to the air.  You run your hands over the glorious expanse of titflesh, luxuriating in the sensation of warmth flowing up into your palms as Izumi smirks appreciatively' );
-		if( CoC.getInstance().player.tallness < 80 ) {
+		if( CoC.player.tallness < 80 ) {
 			EngineCore.outputText( ' from above' );
-		} else if( CoC.getInstance().player.tallness > 108 ) {
+		} else if( CoC.player.tallness > 108 ) {
 			EngineCore.outputText( ' from below' );
 		}
 		EngineCore.outputText( '.\n\n' );
@@ -1414,13 +1414,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You advance on Izumi, noting the hungry light in her eyes as you remove your [armor].  Her half-discarded kimono acts as a sort of blanket, softening the ground as you crawl in between the enormous woman’s thighs, positioning yourself to thrust into your new conquest.  “<i>Yeah, let’s do it, ' + this.heightDesc() + '... I’m ready, so show me what you’ve got.</i>”  She murmurs, half to herself, and you’re only too happy to oblige.\n\n' );
 		EngineCore.outputText( 'In one smooth movement, you thrust your [cock biggest] into Izumi’s waiting pussy.  She grunts appreciatively as you hilt yourself inside her, but the sensation on your end is perhaps far more impressive; whether consciously or unconsciously, the muscles inside Izumi begin to gently stroke and massage you, pushing back in soft protest against the intrusion of your cock.\n\n' );
 		EngineCore.outputText( '“<i>Ahahh, hey now... not bad, kid.  Not bad at all.</i>”  Izumi leans back, allowing you to lay across her stomach while she relaxes, resting her back against the cave wall and smiling at you encouragingly.  You take the time to adjust to the new sensations enveloping your cock, steeling yourself to give Izumi the fucking of a lifetime.  Satisfied that you’re ready, you begin to move, thrusting your hips - slowly at first - into Izumi.  She wets her lips a little, one arm snaking over your back to draw you into a gentle hug,' );
-		if( CoC.getInstance().player.biggestTitSize() >= 1 && CoC.getInstance().player.biggestTitSize() < 3 ) {
+		if( CoC.player.biggestTitSize() >= 1 && CoC.player.biggestTitSize() < 3 ) {
 			EngineCore.outputText( ' smothering your [chest] with her own, much larger, pair.\n\n' );
-		} else if( CoC.getInstance().player.biggestTitSize() >= 3 && CoC.getInstance().player.biggestTitSize() < 5 ) {
+		} else if( CoC.player.biggestTitSize() >= 3 && CoC.player.biggestTitSize() < 5 ) {
 			EngineCore.outputText( ' your [chest] moulding themselves against the Oni’s larger pair.\n\n' );
-		} else if( CoC.getInstance().player.biggestTitSize() >= 5 && CoC.getInstance().player.biggestTitSize() <= 8 ) {
+		} else if( CoC.player.biggestTitSize() >= 5 && CoC.player.biggestTitSize() <= 8 ) {
 			EngineCore.outputText( ' your [chest] compressing against the Oni’s larger pair, forming a delicious valley of flesh.\n\n' );
-		} else if( CoC.getInstance().player.biggestTitSize() > 8 ) {
+		} else if( CoC.player.biggestTitSize() > 8 ) {
 			EngineCore.outputText( ' your [chest] dominating the Oni’s own in the battle for space between the two of you.\n\n' );
 		} else {
 			EngineCore.outputText( ' pressing you into her chest.\n\n' );
@@ -1434,7 +1434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'She looks back, clocking your expression, then bites her lip.  “<i>M-My horn. Since we’re already, you know... gettin’ intimate anyway, it’s okay, so...</i>”  She trails off, clearly embarrassed beyond belief.  Feeling a little bemused, but willing to oblige, you steady yourself on one hand and reach up to gently grip Izumi’s horn with the other.\n\n' );
 		EngineCore.outputText( 'The effect is instantaneous; Izumi screws her eyes shut, cramming a knuckle into her mouth.  You’re momentarily worried she might be in pain, but then she gives you a short, sharp nod of the head.  Izumi’s grip tightens around you, drawing you into an even closer hug, the contours of her body rubbing against your skin, heat rising as your bodies rub slickly against one another.  Her free hand rests demurely at the base of her neck, twitching occasionally as your probing fingers run across a sensitive ridge or bump on her horn.\n\n' );
 		EngineCore.outputText( 'The moment your hand touches her horn, Izumi’s pussy clamps down around your cock, slowly relaxing into an awkward rhythm of irregular twitches, periodically clenching around your length as you stimulate her horn.  Surprisingly quickly, she’s reduced to visibly panting with arousal, her bust heaving' );
-		if( CoC.getInstance().player.biggestTitSize() > 0 ) {
+		if( CoC.player.biggestTitSize() > 0 ) {
 			EngineCore.outputText( ' against your own' );
 		}
 		EngineCore.outputText( ' as she gasps for air.\n\n' );
@@ -1446,7 +1446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>U-Um. Thanks, but p-please don’t do things like that again,</i>” she stammers. “<i>Not that I hate you for it, or anything!  It was nice, it’s just, I-I don’t, uh... I don’t really know what to, uh, you know...</i>”  She sees your expression and sighs, apologetically.  “<i>Sorry, I just never know how to react to stuff like this. Don’t worry about it, okay?</i>”  She smiles, stroking your hair lovingly.\n\n' );
 		EngineCore.outputText( 'You decide not to make an issue of it, since Izumi is clearly embarrassed.  The two of you redress, and as you make to leave, Izumi whistles for your attention.  You turn, and she throws you a small leather bag, which you open to discover a handful of gems inside.\n\n' );
 		EngineCore.outputText( '“<i>It’s just a little thank you gift. You know, for uh...</i>”  She winks, provocatively.  “<i>Services rendered?</i>”  Smiling, you make your way back to camp, feeling decidedly good about yourself.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Fuck dat giant oni butt
@@ -1462,7 +1462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Finally, you lean in close to her ear, running your fingers up and down her horn, causing her to whimper and moan as she struggles to remain in her assigned position, and then you make her the offer she swears to do everything you want, you’ll let go of the horn - just this once.  But if she disobeys or makes any kind of move against you? You’ll torture that horn for hours, until she’s nothing but a snivelling, mind-broken wreck, wallowing in the cooling proof of her own shameless orgasms.\n\n' );
 		EngineCore.outputText( 'She goes very quiet for a moment, then practically spits out a “<i>Fine.</i>”  Grinning, you slowly, tentatively release your grip on her horn.  True to her word, she doesn’t budge, glaring at the wall so hard you’d think she was trying to bore a hole through it.  You give her a congratulatory pat on the butt for obeying so reliably as you return to your position behind her, Izumi turning her head to stare furiously as you unfasten your clothing...\n\n' );
 		// Small cocks
-		if( CoC.getInstance().player.biggestCockLength() <= 4 ) {
+		if( CoC.player.biggestCockLength() <= 4 ) {
 			EngineCore.outputText( 'There’s a moment of silence as you unveil yourself to the captive Oni, your [cock biggest] on full display.  She stares at your crotch blankly, then her eyes flick up to meet your own.\n\n' );
 			EngineCore.outputText( '“<i>Are you serious?</i>”  She says, flatly.  “<i>You are, aren’t you?  You’re actually going to try and rape me with... </i>that.<i>  Seriously kid, I hate to break it to you, but most women prefer dicks they can actually, you know, feel. Or </i>see.”  You scowl at her in response and step up to her backside; she can talk trash all she wants for now, but she’s going to be the one begging for another taste of your dick by the end of the time you’re through with her.\n\n' );
 			EngineCore.outputText( 'However, once you’re in position, Izumi’s plentiful ass spread out before you, you can’t help but feel a little intimidated.  Was she always this big?  Well, at least you were already planning to use the tighter hole anyway.  You grip your meat in one hand and line up to enter her asshole, then plunge home, slipping easily into the warm, welcoming hole.  The penetration is so easy, in fact, that you’re able to slide all the way inside in a single stroke, your [hips] bumping against the soft cushion of Izumi’s buttcheeks.\n\n' );
@@ -1482,13 +1482,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '“<i>Yeah, keep going, I get it you little pervert...</i>”  Izumi grumbles under her breath, then speaks up, listing off your supposed amazing attributes in the same tone one might discuss the weather. “<i>You’re hung like a monster.  Okay?  I’ve never seen a dick as big and beautiful as yours.  It’s...</i>”  She grits her teeth.  “<i>It’s amazing. I’ve never felt this much pleasure from a single cock before. Uhn. Ahn.</i>”\n\n' );
 			EngineCore.outputText( 'The fake groans were a nice little touch, you think, pumping happily away at Izumi’s ring while she verbally fellates your imaginary megacock.  It seems that your new plan is working much better than the old one; if Izumi is going to shoot down your every attempt to make this pleasurable for her, you may as well get your jollies by humiliating her instead.  Occasionally you pull back a little too far and accidentally slip out, meaning she has to wait for a few seconds for you to awkwardly replace your cock, but that just seems to add to her discomfort and embarrassment - much to your amusement.\n\n' );
 			EngineCore.outputText( '“<i>Ahhn.  Nooo.  If you keep this up, I’ll become your slave.</i>”  She sighs, her voice monotone.' );
-			if( CoC.getInstance().player.cor >= 50 ) {
+			if( CoC.player.cor >= 50 ) {
 				EngineCore.outputText( '  You hate to admit it, but in a messed up way, her apathy is beginning to turn you on a bit by itself.  You knew you weren’t the most well-endowed adventurer in the first place, and to someone physically huge like Izumi the problem must be magnified.  For some reason, you find that idea hot as hell....\n\n' );
 			}
 			EngineCore.outputText( 'You lean forwards, layering yourself over the broad expanse of Izumi’s back as you reach forwards to grope and massage the vast globes of her tits.  Izumi growls and grumbles in annoyance, but makes no attempt to stop you.  Your questing fingers manage to locate her nipples, which harden swiftly under your tender caress.  You pinch and pull at them, teasing the sensitive nubs, indifferent to Izumi’s grunting protests.\n\n' );
 			EngineCore.outputText( 'From your new position draped lazily over her back, you’re free to pound your hips against the soft cushion of Izumi’s backside as though you really were a rabbit in heat, hunched over her and humping relentlessly away with a constant barrage of sharp, swift, and above all <i>short</i> strokes.  This time, though, you’re too lost in the heat of the moment to care, as a familiar tingling readiness spreads through you, the heat from Izumi’s body and the bizarrely arousing situation making up for the lack of stimulation from your clearly inadequate cock.\n\n' );
 			EngineCore.outputText( '“Oh, getting close, huh?”  She snarls.  “You gonna blow already?  Not much for stamina either, are ya?  Ugh, just hurry up...”  You answer her with only a long, drawn out moan as your orgasm hits, burying yourself - for whatever that’s worth - balls deep in her ass as your first load boils free of your diminutive, spasming cocklet.' );
-			if( CoC.getInstance().player.cumQ() >= 200 ) {
+			if( CoC.player.cumQ() >= 200 ) {
 				EngineCore.outputText( 'In contrast to your disappointing erection, your orgasm is actually quite large; rope after steaming rope of hot, gooey cum jetting out from your undersized equipment, your clenching balls working overtime as though in futile defiance of your small size. If it were actually visible, the spectacle of your pathetically tiny cock disgorging such huge amounts of jizz would probably look positively absurd, firing out a load that seems quite impossible to have fit inside it in the first place.' );
 			}
 			EngineCore.outputText( '\n\n' );
@@ -1498,12 +1498,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Shrugging to yourself, you snatch up a purse full of gems from next to the Oni’s campfire - payment for the insult - then wander off back to camp.\n\n' );
 		}
 		// Regular dicks
-		else if( CoC.getInstance().player.biggestCockLength() > 4 && CoC.getInstance().player.biggestCockLength() <= 12 ) {
+		else if( CoC.player.biggestCockLength() > 4 && CoC.player.biggestCockLength() <= 12 ) {
 			EngineCore.outputText( '“<i>Tch, I should have known...</i>”  Izumi grumbles.  “<i>Well, whatever.  Just just hurry up and blow your load before- H-Hey wait, what are you doing back there?!</i>”  She raises her voice in alarm as your intent becomes clear, lining your [cock biggest] up not with her obediently displayed pussy, but with her asshole.\n\n' );
 			EngineCore.outputText( '“<i>Hey!  W-Who said you could use that hole?!</i>” she yells.  You just flash her a charming smile, then return to the much more interesting business of getting ready to fuck her ass raw.  She glares at you for a moment, then turns back to the wall with a snort.  “<i>Whatever.  I won’t lose,</i>”  she growls.\n\n' );
 			EngineCore.outputText( 'Ignoring her, you begin to force your aching erection into the tight hole below you.  It’s a surprisingly snug fit, given how huge Izumi is, something you’re only too happy to enjoy as you sink your turgid dick into her bowels.  Whether it’s because of her species or simply something to do with the muscles covering her frame you’re not sure, but as you slide inside of her, every inch of your cock seems to be being gripped by the Oni girl’s bountiful ass, massaged on all sides by coaxing, undulating muscle.  It’s simply too much to bear; with one powerful thrust, you bury yourself up to the [sheath], actually forcing Izumi to grunt in surprise and discomfort.\n\n' );
 			EngineCore.outputText( '“<i>Oh, just going all the way' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ' balls' );
 			} else {
 				EngineCore.outputText( ' hilt' );
@@ -1516,7 +1516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Izumi coughs and splutters in surprise as your sudden onslaught hits her right as you also start yanking away at her hair, forcing her head upwards like some kind of perverse pony.  Her asshole tightens up around you too, clenching almost hellishly tight around your cock as you begin to make use of your new fucktoy’s dirty hole in earnest.\n\n' );
 			EngineCore.outputText( 'You can see beads of sweat beginning to form on Izumi’s bare flesh, hear her increasingly ragged breathing.  You brutally punish her anus, thumping home into her ring with repeated, almost painful impacts.  As intense and exhausting as your rutting is for you, it must be twice as bad for Izumi; her splayed fingers have long since clenched into fists, her knuckles white with the strain, clearly unwilling to give you the satisfaction of crying out.\n\n' );
 			EngineCore.outputText( 'But you get your satisfaction regardless, as you bury yourself as deeply as you possibly can into Izumi, impaling her ass with your cock as you finally start to blow your load, flooding her passageway with your steaming cum.  Izumi shudders, groaning at the feeling of your seed painting her innards a sticky, goopy white.\n\n' );
-			if( CoC.getInstance().player.cumQ() < 1500 ) {
+			if( CoC.player.cumQ() < 1500 ) {
 				EngineCore.outputText( 'You relax as your orgasms subsides, content that you’ve now thoroughly shown Izumi who’s the boss.  You slip free of her abused ass, a small trickle of cum dripping out after you, and you’re surprised to notice that Izumi seems to be a hell of a lot wetter than she was when you first started.  You raise an eyebrow at her as she stares backwards over her shoulder.\n\n' );
 				EngineCore.outputText( '“<i>What?  It’s a natural thing, asshole,</i>” she snarls.  “<i>It’s not like I liked it. What kind of person would get off from that?  I’m not one of those freaks!</i>”  You shake your head at her in amusement, then motion for her to turn around and face the wall again.  She pales slightly, clearly worried you’re about to try for a second round, but quietly does as she’s told.\n\n' );
 				EngineCore.outputText( 'You don’t quite have the energy for that just now though, so instead, you pick up your clothes and make for the exit.  As you walk past Izumi’s discarded clothing, you spy a small pouch full of gems that you hadn’t noticed before.  You snatch that too, making a speedy escape before the Oni girl realizes she could probably make it to her feet before you got her horn by this point....\n\n' );
@@ -1551,7 +1551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '“<i>I’m just... going to stay here for a while,</i>”  Izumi mumbles drowsily, leaning against the wall. “<i>I, uh, don’t really feel like movin’ about too much right now.</i>”  She adds, looking absolutely exhausted.  Satisfied that she’s been thoroughly shown who’s the boss, you re-dress, feeling pretty tired yourself - and that’s when you notice the pouch sitting amongst Izumi’s discarded possessions.  Picking it up, you discover it to be full of gems; a fitting reward for your gentlemanly behaviour, you think.  \n\n' );
 			EngineCore.outputText( 'You turn to say something to Izumi, but to your surprise you discover she’s actually fallen asleep.  Shaking your head in amusement at the Oni girl’s inferior stamina, you make your way out of the cave and back to camp, counting the gems as you go. \n\n' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Huehue, Tentacruel!
@@ -1568,7 +1568,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'With the danger averted, you’re free to enjoy yourself and waste no time in enthusiastically beginning to fuck Izumi’s throat.  She gags and splutters around your invading member, the rumbling of her muffled, mumbling protests adding a fun extra degree of sensation to the facefuck.\n\n' );
 		EngineCore.outputText( 'You’re not satisfied just with that though, particularly when the main event is displayed so tantalizingly before you.  Raising yet another tentacle, you plunge forwards and force yourself into Izumi’s pussy, penetrating her fully.  Despite her increased size, she’s surprisingly tight, but you’re still able to comfortably push in deeper than you’d probably be able to with a smaller partner.  Izumi grunts and sways in the impromptu sling you’ve set up, rocking backwards and forwards as you pump into her from two different angles.  It’s an interesting experience to say the least, double-dicking an amazonian monster-woman while simultaneously ensuring she can’t fight back by molesting her magical horn.  For good measure, you give the horn another quick squeeze and roll the coiled tentacle wrapping it around a little, eliciting a high pitched squeal from Izumi, her entire body going momentarily tense.\n\n' );
 		EngineCore.outputText( 'When she relaxes, her face is completely flushed, her eyes looking distinctly fogged with arousal.  She isn’t struggling or resisting anymore; in fact, you realize, she’s even begun to roll her hips in time with your thrusts, helping you to penetrate her deeper, harder, stronger.  She seems to be functioning almost on automatic, stretching her neck forwards to accept more of your length as you thrust into her mouth, then twisting her head to the side as you pull out, stimulating more of your member than your previous thrusting.  Even her moaning seems quieter, more submissive, as though she’s accepted her role in the proceedings - or at least blocked out everything but the sensations she’s feeling enough to enjoy them.' );
-		if( CoC.getInstance().player.tentacleCocks() >= 10 ) {
+		if( CoC.player.tentacleCocks() >= 10 ) {
 			EngineCore.outputText( '  You decide to test the theory, snaking another prehensile appendage into each of her open, outstretched palms.  Sure enough, after a few fumbling attempts, Izumi manages to grasp the concept of a handjob and awkwardly starts to jerk them off.' );
 		}
 		EngineCore.outputText( '\n\nRegardless, you’re still not finished.  After all, there’s still one hole left unaccounted for, and after all the trouble she’s given you, it hardly seems fair that she should just get to check out and enjoy the ride.  Izumi’s eyes widen as she feels your final tentacock slide between her buttcheeks, rubbing against the slick flesh, tracing an ominous ring around her hole before prodding demandingly at the entrance to her ass.\n\n' );
@@ -1577,7 +1577,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Izumi arches her back powerfully as you bury yourself deep inside each of her holes and begin to flood her with your thick, scalding spooge.  After filling her innards from as many angles as seem to be available, you pull out for a few more spurts, ensuring that you thoroughly coat Izumi’s face, her still-twitching ab muscles and the vast landscape of her bust.  For good measure, you finally release her horn, eliciting a decidedly girly whimper, and let your final tentacle release itself all over the rocky protrusion.  Izumi can only shiver and pant as you defile her horn on a whim, evidently completely exhausted at this point.\n\n' );
 		EngineCore.outputText( 'By the time your orgasm finally subsides, Izumi has been reduced to a cummy, sticky mess, laying on her back panting for breath, her entire body liberally coated with your seed.  Your tentacles snake out again, and her eyes widen slightly in fear, but she doesn’t need to worry; you’re just wiping yourself off on her hair, after all.  As she realizes that, she relaxes, apparently falling asleep.  With a smug smile, you redress and decide to take a poke around her camp for a while. \n\n' );
 		EngineCore.outputText( 'Amidst some miscellaneous junk that you cannot for the life of you figure out, you find a small pile of gems.  You help yourself to them as payment for the good time you just showed the uppity Oni, stow them safely away and wander back to camp, whistling happily to yourself.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Facefuck
@@ -1588,10 +1588,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You smile, and on a whim, you decide to start stroking Izumi’s horn in the same way, matching stroke for stroke.  She flinches again and her hands reach up to grip weakly at your wrist.  “<i>Hands down!</i>” you bark, and they fall away instantly to rest on her knees, her hands clenching and unclenching repeatedly as she grits her teeth against the feeling of you rubbing at her horn.\n\n' );
 		EngineCore.outputText( 'Finally, you’re fully erect, Izumi’s occasionally-wincing gaze locked on the [cockhead biggest] of your [cock biggest], bobbing in the air in front of her.  Your smile widens into a leer as you put phase two of your ingenious plan into action.\n\n' );
 		EngineCore.outputText( '“<i>Kiss it,</i>” you order. Izumi’s eyes flicker briefly to look up at your face, but by this point she knows better than to attempt disobedience.  Leaning hesitantly forwards, Izumi purses her lips as she moves in for the kiss.' );
-		var cockIndex = CoC.getInstance().player.biggestCockIndex();
-		if( CoC.getInstance().player.cocks[ cockIndex ].cockType === CockTypesEnum.HORSE ) {
+		var cockIndex = CoC.player.biggestCockIndex();
+		if( CoC.player.cocks[ cockIndex ].cockType === CockTypesEnum.HORSE ) {
 			EngineCore.outputText( '  Visibly unsure of where to put herself, Izumi finally settles for brushing her lips against the exact center of the flared mass that makes up the head of your stallion-prick.' );
-		} else if( CoC.getInstance().player.cocks[ cockIndex ].cockType === CockTypesEnum.DOG ) {
+		} else if( CoC.player.cocks[ cockIndex ].cockType === CockTypesEnum.DOG ) {
 			EngineCore.outputText( '  Her eyes darting nervously from side to side, Izumi leans forwards and takes the very tip of your dogcock into her mouth, pressing her lips against the main bulk of what passes for your head.' );
 		} else {
 			EngineCore.outputText( '  You feel the soft, warm sensation of Izumi’s lips brushing against the sensitive head of your cock for a moment, then the process repeats itself as Izumi actually darts in again, unbidden, for a second smooch.' );
@@ -1606,24 +1606,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Satisfied that she’s had enough time to soak in the idea of being subservient and powerless, you get back to the business at hand; getting yourself off with the convenient aid of Izumi’s face.  You push her back, still gripping her horn as her lips slip free of your erection, leaving little trails of saliva dangling between your cock and her abused throat.\n\n' );
 		EngineCore.outputText( '“<i>Wha-</i>” she stammers hazily, but you jerk her horn powerfully upwards, causing her face to freeze up in an agonized grimace as you force her down onto her back.  Repositioning yourself, you forcibly insert your cock once again into the warm, welcoming confines of Izumi’s throat.  Unfortunately, you still can’t really get into it from this angle, but then an idea hits you.  Still buried in Izumi’s mouth, you suddenly spin around to rest one leg on either side of her face - and causing Izumi to let out an incensed squeak as your [cock biggest] swirls around inside her mouth.  You lean back, grabbing her horn with a fresh hand before releasing the by now quite awkward grip you had before.\n\n' );
 		EngineCore.outputText( 'From this angle, you have a much better line of approach to Izumi’s throat, giving you a far deeper maximum thrust - something you happily take advantage of almost immediately in order to fuck Izumi’s mouth in earnest.' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  As an amusing added bonus to your new angle, Izumi’s face actually provides a comfortable little platform for you to rest your [balls] on. You can’t help but smile when she lets out an aggravated little growl as your balls come to rest on her face for the first time, the warm air rushing in and out of her nose as she tries - and fails - not to breathe <i>too</i> deeply, providing a surprisingly pleasant sensation.\n\n' );
 		}
 		EngineCore.outputText( 'With your new position now secured, you get back to the task at hand with renewed vigour.  You slam into Izumi’s throat with gusto, causing her to cough and gag around your length, squirming in discomfort as you ride her face in your new, bizarre inverse-reverse-cowgirl position.  At the same time, you relentlessly tease her horn, running your hand across it, tweaking the tip, searching for the most sensitive spots - something that has a clear and noticeable effect on the poor Oni girl.\n\n' );
 		EngineCore.outputText( 'At first it’s pretty minor; a twitch here, a muffled yelp there, but before too long Izumi is visibly shaking, tears of exertion staining her face as her eyes roll back in her head and she, somewhat bizarrely, begins to randomly jerk and thrust her hips impotently toward a phantom lover.  Despite being incredibly strange, the sight is also somehow incredibly arousing.\n\n' );
 		EngineCore.outputText( 'Leaning back slightly to take a look at Izumi’s face, you’re surprised to see just how effective your treatment of her horn has turned out to be; her face is flushed bright red, her eyes screwed tight shut as the combination of horn-play and her difficulty breathing around your cock clouds her mind, leaving her hopelessly bouncing her hips, instinctively searching for the release of a penetration that will never come.\n\n' );
 		EngineCore.outputText( 'The sight of the bullish Oni girl reduced to mindlessly humping the air with your cock still buried deep inside her hot, clinging throat is just too much for you, though.  You feel the familiar sense of your orgasm rising and decide to make the most of it, returning your attention to Izumi’s throat and hammering into her with powerful strokes.  You manage to hit with one, two, three juddering impacts before your orgasm finally arrives, with gusto, and you bury yourself in the surprised Oni’s face, spraying your cum down her throat.' );
-		if( CoC.getInstance().player.cumQ() > 500 ) {
+		if( CoC.player.cumQ() > 500 ) {
 			EngineCore.outputText( '  Her surprise only deepens when you simply keep cumming, your prolonged orgasm flooding her mouth faster than she can swallow, forcing her cheeks to bulge out and tiny rivulets of cum to occasionally slip free of the tight seal her lips have formed around your cock.\n\n' );
 		}
-		if( CoC.getInstance().player.cumQ() > 100 ) {
+		if( CoC.player.cumQ() > 100 ) {
 			EngineCore.outputText( 'Her hips shoot up and <i>stay</i> up this time, her lips and tongue working on overdrive to milk your shuddering cock for as much of its thick, creamy goo as she possibly can.  At first you’re more than content to just stay hilted inside her mouth and enjoy the incredible sensations, but then another idea penetrates your lust-fogged brain.  Pulling free of Izumi’s mouth, despite her best efforts to the contrary, judging by how she latches onto you and starts suckling desperately like her life depended on it, you spin around, jerking your cock a few times to coax one final powerful explosion from your aching erection.\n\n' );
 			EngineCore.outputText( 'It goes exactly how you’d hoped it would, and you paint Izumi’s leonine features with your seed, laying thick ropes of jism across her face; lips, eyes, even her nose and horn.  The last couple of jets go a little wild, ending up landing in the tangled mess of her hair, spread out beneath her on the cave floor. You collapse, panting, into a seated position on Izumi’s breasts.  After a few seconds, and with some effort, Izumi manages to raise her head and you snap back to reality as you feel your cock once again enveloped in the heat of her mouth, drawn back inside for her to suck the last few drops of cum from your deflating member.\n\n' );
 		}
 		EngineCore.outputText( 'Finally, it becomes apparent that you’re now completely done...  as is Izumi.  The two of you remain where you are, panting, for a few moments.  You’re the first to regain your feet, while Izumi burbles to herself, unable to even muster up the energy to even wipe her face.\n\n' );
 		EngineCore.outputText( '“<i>Oh man, and I was so...</i>” she mutters, her hands clenching and unclenching just above her waist. Then she drags herself to her feet and stumbles away towards her tent, rubbing her forearm absently.  “<i>I uh, I gotta, gotta go do a thing for a sec...</i>” she mumbles, disappearing inside the tent.  For your part, you’re left completely alone, exhausted, inside the big woman’s cave.  You decide that now might be a good time to take your leave.\n\n' );
 		EngineCore.outputText( 'On the way out, you notice a small leather bag just laying out in the open.  Inspecting it, you discover it to be filled with a small fortune in gems!  You decide to take it with you - after all, it’s not like Izumi seems to need the money, plus she <i>did</i> try to rape you, so it’s technically a trophy.  Feeling decidedly more light hearted about your situation, you leave the cave and make your way back to camp, happily inspecting the gems as you go.\n\n' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	// Nice horn, be a shame if somebody got it all sticky, huh?
@@ -1641,7 +1641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You let out an amused laugh.  You have to admit, it’s pretty funny that the big bad muscle-girl couldn’t manage to control herself even while she’s technically being raped.\n\n' );
 		EngineCore.outputText( '“<i>Having fun?</i>”  You ask, smiling to yourself.  Izumi’s eyes snap open, her face turning an even deeper shade of crimson than before as her eyes flicker down to her crotch.  Poor girl, you think; she might not even have fully realized what she was doing.  Well, she does now...\n\n' );
 		EngineCore.outputText( '“<i>I-It’s... it’s not... s-shut up!</i>” She stammers, adding “<i>It’s not my f-fault if you keep t-touching me in weird places and I get... distracted!  </i>You’re<i> the perverted one here, not me!</i>”\n\n' );
-		if( CoC.getInstance().player.cor > 80 ) {
+		if( CoC.player.cor > 80 ) {
 			EngineCore.outputText( '“<i>Whatever.  Just try not to cum too hard while I’m making you my bitch, you little slut.</i>” You shoot back, returning' );
 		} else {
 			EngineCore.outputText( 'Ignoring her protests entirely, you return' );
@@ -1656,7 +1656,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>..’es,</i>”  She croaks, almost inaudibly.  She sounds as though she’s on the verge of tears, presumably from embarrassment - you’re pretty certain you haven’t actually done anything that could hurt her.  You shake your head, chuckling to yourself as you redress and rummage through Izumi’s belongings for a trophy.\n\n' );
 		EngineCore.outputText( '“<i>I’m taking this,</i>” You announce cheerfully, hefting a small bag of gems in one hand.  “<i>‘Kay.</i>” Izumi’s approval doesn’t matter to you either way, but your smile widens at her submissive, exhausted tone.\n\n' );
 		EngineCore.outputText( 'By the time you get back to camp, you’re almost feeling good enough to whistle.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'izumiScene', new IzumiScene() );

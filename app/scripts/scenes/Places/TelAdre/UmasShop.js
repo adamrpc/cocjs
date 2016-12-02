@@ -49,9 +49,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You make your way to Uma\'s shop.  It\'s close to Loppe\'s house' );
 		// Added some shit for variance if the players not (presumably) sexed up Loppe too much in the past.;
-		if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] <= 3 ) {
+		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] <= 3 ) {
 			EngineCore.outputText( ' but you\'ve never noticed the quaint storefront before.  ' );
-		} else if( CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ] <= 8 ) {
+		} else if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] <= 8 ) {
 			EngineCore.outputText( ' and the homely building has caught your eye once or twice in the past.  ' );
 		} else {
 			EngineCore.outputText( ' and from there you\'ve seen the humble exterior many times.  ' );
@@ -63,9 +63,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'Loppe giggles and gives you an "I told you so" look.\n\n' );
 		EngineCore.outputText( 'Before you can think to respond to her, the beads part and a new figure emerges.  She\'s one of the many anthropomorphs who inhabit this city, a bipedal humanoid horse with unmistakable human features.  She\'s huge, easily seven feet tall, certainly far bigger than the half-horse who brought you here, with full, round breasts and wide womanly hips clearly delineated by the strange dress that she wears, a rich blue with a pattern of white snowflakes on it.  She looks ' );
 		// Assuming Uma is ~7' tall === 84'. 6' leeway for the variants or more? PAGING FENOXO!;
-		if( CoC.getInstance().player.tallness < 78 ) {
+		if( CoC.player.tallness < 78 ) {
 			EngineCore.outputText( 'down at you ' );
-		} else if( CoC.getInstance().player.tallness < 90 ) {
+		} else if( CoC.player.tallness < 90 ) {
 			EngineCore.outputText( 'straight at you ' );
 		} else {
 			EngineCore.outputText( 'up at you ' );
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 
 		// Flag the shop visit;
 		// There's still a flag left over from Loppe's initial content that I dont' think is actually used.;
-		CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] = 1;
+		CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] = 1;
 		// Player returns to Camp;
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -130,11 +130,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( 'The interior of Uma\'s clinic is as calm and quiet as usual.  There don\'t seem to be any customers present at this moment, and you announce your presence by knocking gently on a counter.  The tall horse-woman walks softly out through the beaded curtain, giving you a friendly smile.\n\n' );
 			EngineCore.outputText( '"<i>Why, if it isn\'t my little girl\'s special someone.  What brings you here, hmm?  Wanted to try my services?  A friendly little chat?  Or...</i>" She saunters confidently over to you and gives you a knowing grin.  "<i>I bet my loose-lipped little Loppe has hinted that I\'m not currently seeing anybody, hmm?  Is that why you\'re here - you wanted to see how the mother measures up to the daughter?</i>"\n\n' );
 			// ima change this to the minvalue required for sex scenes to be available methinks, or atleast lower it to around that bracket;
-			if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_FEM ) {
+			if( CoC.player.femininity >= UMA_CONSIDER_PC_FEM ) {
 				EngineCore.outputText( 'You notice her appraising your form as you stand before her, Uma\'s approval of your appearance clear.' );
 			}
 		} else {
-			if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_FEM ) {
+			if( CoC.player.femininity >= UMA_CONSIDER_PC_FEM ) {
 				EngineCore.outputText( '"<i>So then, [name], what can I do you for?</i>"  She flashes you a knowing grin, the innuendo clearly intended.' );
 			} else {
 				EngineCore.outputText( '"<i>So then, [name], what can I do for you?</i>"  She flashes you a friendly smile, her professionalism ever present.' );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Uma that you\'re interested in the attractiveness-boosting massage.\n\n' );
 		// Not too sure where 'androgynous < female' falls on the official scale~ PAGING FENOXO!;
-		if( CoC.getInstance().player.femininity <= 60 ) {
+		if( CoC.player.femininity <= 60 ) {
 			EngineCore.outputText( '"<i>I can see why you want this one, you could use a few touches to make you cuter, dear.</i>"\n\n' );
 		} else {
 			EngineCore.outputText( '"<i>Personally I think you\'re pretty enough as you are, but a few extra touches can\'t hurt, right dear?</i>"\n\n' );
@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You tell her that\'s alright, fishing in your belongings for the gems that the mare masseur needs for this particular service... which you remember she hasn\'t told you yet?\n\n' );
 		EngineCore.outputText( 'Uma slaps her forehead.  "<i>Sorry about that, dear.  Usually I charge 100 gems for this kind of service, but since you\'re my little horsey-hopper\'s [boyfriend], I\'ll give you a discount... how about 75 gems instead?</i>"\n\n' );
 		// Not enough cashmonies to pay for massage;
-		if( CoC.getInstance().player.gems < 75 ) {
+		if( CoC.player.gems < 75 ) {
 			EngineCore.outputText( 'You tell her that you don\'t have that many gems on you right now.\n\n' );
 			EngineCore.outputText( 'Uma sighs and shakes her head.  "<i>Sorry dear, but if you can\'t pay I can\'t treat you.</i>"\n\n' );
 			EngineCore.outputText( 'You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n' );
@@ -306,11 +306,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			return;
 		}
 		EngineCore.outputText( 'You tell her that sounds fair, withdrawing the gems and handing them to her.\n\n' );
-		CoC.getInstance().player.gems -= 75;
+		CoC.player.gems -= 75;
 		EngineCore.outputText( '"<i>Thanks, dear,</i>" Uma  beams, pocketing the gems and walking towards the table.  "<i>Okay, get yourself stripped naked and lay down on the table, face up for me dear.</i>"\n\n' );
 		EngineCore.outputText( 'You promptly set about removing your [armorname], ' );
 		// If player is Exhibitionist;
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( ' flushing with arousal at the idea of being naked before the mare, ' );
 		}
 		EngineCore.outputText( 'and move over to lay yourself on the table.  You get yourself comfortable and tell Uma that you\'re ready.\n\n' );
@@ -327,22 +327,22 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '"<i>Very well, dear.</i>"  She cracks her knuckles ominously, "<i>This might hurt a bit, but bear with it,</i>" she adds, rolling up the sleeves of her kimono.\n\n' );
 		EngineCore.outputText( 'You swallow audibly and brace yourself for what\'s to come.\n\n' );
 		EngineCore.outputText( 'Uma presses her elbow against your chest ' );
-		if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+		if( CoC.player.biggestTitSize() >= 1 ) {
 			EngineCore.outputText( 'between your [chest] ' );
 		}
 		EngineCore.outputText( 'and pushes hard.  You can\'t help but scream at the initial bout of pain.  "<i>Relax dear.  It will only hurt for a little while.</i>"  You squirm at the pain but slowly it begins to dissipate... you\'re pretty sure Uma is pressing against your chest even harder than before, yet the pain is quickly ebbing away...\n\n' );
 		EngineCore.outputText( 'Uma chuckles.  "<i>See dear?  I told you it would get better, but I\'m afraid it will hurt a bit more later... I have other spots to take care of,</i>" she warns, removing her elbow and moving away, only to return shortly with a small metal stick prominently featuring a rounded tip.  "<i>Get ready, dear.</i>"  You brace yourself for the next part of the treatment.\n\n' );
 		EngineCore.outputText( 'The treatment on your front is painful, but at the same time it gets easier and easier to relax as it goes on... and it hurts less and less, until by the time Uma is finished it just doesn\'t hurt anymore...\n\n' );
 		EngineCore.outputText( '"<i>Very good, dear.  Now flip yourself over, it\'s time to take care of your back,</i>" she informs you' );
-		if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_FEM ) {
+		if( CoC.player.femininity >= UMA_CONSIDER_PC_FEM ) {
 			EngineCore.outputText( ', her hand gently caressing your [hips] absent-mindedly' );
-		} else if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_AND ) {
+		} else if( CoC.player.femininity >= UMA_CONSIDER_PC_AND ) {
 			EngineCore.outputText( ', her hand lightly touching your [hips] absend-mindedly' );
 		}
 		EngineCore.outputText( '.\n\n' );
 		// Refactor to say something about nipples against the table?;
 		EngineCore.outputText( 'You move to do as she asks; it\'s a little awkward adjusting to having your face in the - thankfully cushioned - hole.  You wriggle about to settle yourself comfortably on the table, [nipples] squashing into the surface, but you manage to make yourself relaxed and tell Uma that you\'re ready once more.\n\n' );
-		EngineCore.outputText( 'You yelp as Uma presses the metal rod ' + ((CoC.getInstance().player.tailType > 0) ? 'to the base of your tail' : 'to your lower back') + '.  "<i>I\'m going to have to trace a few spots on your back dear, to ensure your flow of chi is not obstructed.  It might hurt again, but be brave, ok?</i>"  You nod as best as you can and prepare yourself.\n\n' );
+		EngineCore.outputText( 'You yelp as Uma presses the metal rod ' + ((CoC.player.tailType > 0) ? 'to the base of your tail' : 'to your lower back') + '.  "<i>I\'m going to have to trace a few spots on your back dear, to ensure your flow of chi is not obstructed.  It might hurt again, but be brave, ok?</i>"  You nod as best as you can and prepare yourself.\n\n' );
 		EngineCore.outputText( 'By the time Uma is finished you feel sore all over, the pain on your back seemingly bringing back the pain on your front.\n\n' );
 		EngineCore.outputText( '"<i>It will be a little while before the flow of chi inside your body stabilizes, dear.  But by the time you\'re out of this clinic, you should feel much better,</i>" Uma explains.\n\n' );
 		EngineCore.outputText( 'You thank the mare and get dressed, bidding her farewell before you exit the clinic. Once outside, true to her words, you start to feel better... in fact you feel amazing!  It\'s no wonder her treatment is expensive, you feel just... amazing!\n\n' );
@@ -361,11 +361,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		if( selectedMassage < 0 || selectedMassage > 4 ) {
 			EngineCore.outputText( '<b>Invalid massage bonus ID! Welp!</b>' );
 		} else {
-			var statIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage );
+			var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
 			var bonusValue;
 			// Remove the old massage bonus if present;
 			if( statIndex >= 0 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.UmasMassage );
+				CoC.player.removeStatusAffect( StatusAffects.UmasMassage );
 			}
 			if( selectedMassage === UmasShop.MASSAGE_RELIEF ) {
 				EngineCore.outputText( '<b>You feel so relaxed and mellow... you don\'t think you\'ll be able to get in the mood for sex while you feel this blissed out.</b> ' + MASSAGE_RELIEF_BONUS_TEXT );
@@ -384,8 +384,8 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 				bonusValue = UmasShop.MASSAGE_POWER_BONUS;
 			}
 			if( bonusValue !== 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.UmasMassage, selectedMassage, bonusValue, UmasShop.MAX_MASSAGE_BONUS_DURATION, 0 );
-				CoC.getInstance().flags[ kFLAGS.UMA_TIMES_MASSAGED ]++;
+				CoC.player.createStatusAffect( StatusAffects.UmasMassage, selectedMassage, bonusValue, UmasShop.MAX_MASSAGE_BONUS_DURATION, 0 );
+				CoC.flags[ kFLAGS.UMA_TIMES_MASSAGED ]++;
 			}
 		}
 	};
@@ -394,10 +394,10 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 * When expired, remove and include a message to the effect.
 	 */
 	UmasShop.prototype.updateBonusDuration = function( hours ) {
-		var statIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage );
+		var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			CoC.getInstance().player.statusAffect( statIndex ).value3 -= hours;
-			if( CoC.getInstance().player.statusAffect( statIndex ).value3 <= 0 ) {
+			CoC.player.statusAffect( statIndex ).value3 -= hours;
+			if( CoC.player.statusAffect( statIndex ).value3 <= 0 ) {
 				this.bonusExpired();
 			}
 		}
@@ -407,7 +407,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.bonusExpired = function() {
 		EngineCore.outputText( '\n<b>You groan softly as a feeling of increased tension washes over you, no longer as loose as you were before.  It looks like the effects of Uma\'s massage have worn off.</b>\n' );
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.UmasMassage );
+		CoC.player.removeStatusAffect( StatusAffects.UmasMassage );
 	};
 	/**
 	 * ACUPUNCTURO
@@ -493,9 +493,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.needleworkUndoCost = function() {
 		var baseCost = 125;
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ] !== 0 ) {
 			// 25 per undo?;
-			baseCost += (25 * CoC.getInstance().flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ]);
+			baseCost += (25 * CoC.flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ]);
 		}
 		return baseCost;
 	};
@@ -517,7 +517,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.getNeedleworkPerk = function() {
 		return _.find( [ PerkLib.ChiReflowAttack, PerkLib.ChiReflowDefense, PerkLib.ChiReflowLust, PerkLib.ChiReflowMagic, PerkLib.ChiReflowSpeed ], function( perk ) {
-			return CoC.getInstance().player.findPerk( perk ) >= 0;
+			return CoC.player.findPerk( perk ) >= 0;
 		} );
 	};
 	/**
@@ -528,22 +528,22 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.applyNeedlework = function( selectedSession ) {
 		if( selectedSession === UmasShop.NEEDLEWORK_UNDO ) {
-			CoC.getInstance().player.removePerk( this.getNeedleworkPerk() );
-			CoC.getInstance().flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ]++;
+			CoC.player.removePerk( this.getNeedleworkPerk() );
+			CoC.flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ]++;
 		} else if( selectedSession === UmasShop.NEEDLEWORK_SPEED ) {
-			CoC.getInstance().player.createPerk( PerkLib.ChiReflowSpeed, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.ChiReflowSpeed, 0, 0, 0, 0 );
 			EngineCore.outputText( '<b>' + UmasShop.NEEDLEWORK_SPEED_PERK_DESC + '</b>' );
 		} else if( selectedSession === UmasShop.NEEDLEWORK_LUST ) {
-			CoC.getInstance().player.createPerk( PerkLib.ChiReflowLust, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.ChiReflowLust, 0, 0, 0, 0 );
 			EngineCore.outputText( '<b>' + UmasShop.NEEDLEWORK_LUST_PERK_DESC + '</b>' );
 		} else if( selectedSession === UmasShop.NEEDLEWORK_DEFENSE ) {
-			CoC.getInstance().player.createPerk( PerkLib.ChiReflowDefense, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.ChiReflowDefense, 0, 0, 0, 0 );
 			EngineCore.outputText( '<b>' + UmasShop.NEEDLEWORK_DEFENSE_PERK_DESC + '</b>' );
 		} else if( selectedSession === UmasShop.NEEDLEWORK_MAGIC ) {
-			CoC.getInstance().player.createPerk( PerkLib.ChiReflowMagic, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.ChiReflowMagic, 0, 0, 0, 0 );
 			EngineCore.outputText( '<b>' + UmasShop.NEEDLEWORK_MAGIC_PERK_DESC + '</b>' );
 		} else if( selectedSession === UmasShop.NEEDLEWORK_ATTACK ) {
-			CoC.getInstance().player.createPerk( PerkLib.ChiReflowAttack, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.ChiReflowAttack, 0, 0, 0, 0 );
 			EngineCore.outputText( '<b>' + UmasShop.NEEDLEWORK_ATTACK_PERK_DESC + '</b>' );
 		}
 	};
@@ -585,7 +585,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		// Add a leave button for both;
 		EngineCore.addButton( 9, 'No Thanks', this.needleworkTurnDown );
 		// Cashmonies time;
-		if( CoC.getInstance().player.gems < sessionCost ) {
+		if( CoC.player.gems < sessionCost ) {
 			EngineCore.outputText( 'You click your tongue and apologize to Uma, but you don\'t have enough gems to pay for your treatment...\n\n' );
 			EngineCore.outputText( 'Uma sighs, "It\'s okay, dear.  Just come back when you do, my doors are always open."' );
 			EngineCore.menu();
@@ -622,11 +622,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		if( selectedSession === UmasShop.NEEDLEWORK_UNDO ) {
 			EngineCore.outputText( 'You tell Uma that you\'d like her to remove the effects of your last acupuncture session from your body.  Then hand over the gems.\n\n' );
 			EngineCore.outputText( '"<i>Alright, dear,</i>" Uma replies, pocketing the gems.  "<i>It might take some time, but I think I can help you with that... follow me.</i>"\n\n' );
-			CoC.getInstance().player.gems -= this.needleworkUndoCost();
+			CoC.player.gems -= this.needleworkUndoCost();
 		} else {
 			EngineCore.outputText( 'You tell Uma that you would like her to give you the ' + this.needleworkString( selectedSession ) + ' acupuncture session, please. Then hand over the gems.\n\n' );
 			EngineCore.outputText( '"<i>Alright dear,</i>" Uma replies, pocketing the gems.  "<i>Let\'s go then.</i>"  She motions for you to follow her.' );
-			CoC.getInstance().player.gems -= 125;
+			CoC.player.gems -= 125;
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.doNeedleworkSession, selectedSession );
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'The room is light, but not overwhelmingly bright, with cool breezes gently wafting through, tingling deliciously on your exposed [skin] and setting the chimes hanging from the rafters gently a-tinkle. A number of large potted plants occupy the corners of the room, and there\'s even a tiny fountain with stones in it, the tumble of water over rocks creating a strangely soothing melody.  A small brazier produces a sweet, calming smell from incense burning in it.  The pride of the room is a sizable table, made from bamboo; it\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.\n\n' );
 		EngineCore.outputText( '"<i>I want you to strip and lay face down on my table, while I go fetch my needles and some numbing cream.  Unless you\'d like me to stick needles in your body without anything to dull the pain?"</i>  Uma asks jokingly.\n\n' );
 		EngineCore.outputText( 'You quickly shake your head, and indicate she should go, promising to be properly undressed and ready by the time she gets back.  As the mare heads off to fetch her things, you do as you were instructed; you quickly slip out of your [armorname] and position yourself on the table.  Sticking your head in the table\'s hole is a little awkward, and makes you feel rather vulnerable... which is natural, given what Uma mentioned about needles' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( ', although there\'s a certain thrill running through your body, the thought of being naked in front of Uma.  Your [nipples] respond in kind, squashed into the table beneath your [chest]' );
 		}
 		EngineCore.outputText( '.\n\n' );
@@ -816,15 +816,15 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You cluck your tongue; how did the two of them manage to put up with Loppe\'s puberty?\n\n' );
 		EngineCore.outputText( '"<i>With lots of patience, love and a helping hand.</i>"  Uma giggles, making a small pumping motion with her hand, as if stroking an invisible cock.\n\n' );
 		EngineCore.outputText( 'You chuckle at Uma\'s sense of humor; she\'s so proud to be a dirty old mare now, isn\'t she?\n\n' );
-		if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_FEM ) {
+		if( CoC.player.femininity >= UMA_CONSIDER_PC_FEM ) {
 			EngineCore.outputText( '"<i>Old? Why you... take off your clothes and hop on my table, I\'ll show you old!</i>"  Uma replies with indignation.  "<i>I promise you that by the time I\'m done with you, you won\'t be able to stand on your own two feet, ' );
-			if( CoC.getInstance().player.feet() !== 'feet' ) {
+			if( CoC.player.feet() !== 'feet' ) {
 				EngineCore.outputText( 'or whatever the term is for you, ' );
 			}
 			EngineCore.outputText( 'then we\'ll see who is old!</i>"\n\n' );
 		} else {
 			EngineCore.outputText( '"<i>Old? Why you... if you were girly enough to be my type I would show you who\'s old!</i>"  Uma replies indignantly.  "<i>I promise you wouldn\'t be able to stand on your own two feet, ' );
-			if( CoC.getInstance().player.feet() !== 'feet' ) {
+			if( CoC.player.feet() !== 'feet' ) {
 				EngineCore.outputText( 'or whatever the term is for you, ' );
 			}
 			EngineCore.outputText( 'then we\'ll see who is old!</i>"\n\n' );
@@ -1144,36 +1144,36 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.sexMenu = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You are about to ask if Uma would be willing to have sex with you, but then stop and think. Given you have no genitalia, and she\'s a lesbian woman, you can\'t really think of anything the two of you could do together that would be good for both of you.  You decide to ask her something else instead.\n\n' );
 			this.buildCoreMenu( true );
 			return;
 		}
 		EngineCore.outputText( 'You tell Uma that, if it\'s alright with her, you\'d like to have sex with her.  Uma looks you over appraisingly.\n\n' );
 		// Check femininity;
-		if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_FEM ) {
+		if( CoC.player.femininity >= UMA_CONSIDER_PC_FEM ) {
 			EngineCore.outputText( '"<i>Aren\'t you cute!  Such curves, such full lips!  Oh girl, you have just what it takes to get an old mare going, don\'t you?</i>" Uma grins at you.  "<i>Now, I know better than to just assume, so I have to ask... what are you packing inside that [armorname] of yours?</i>"\n\n' );
-			if( CoC.getInstance().player.gender === 1 ) {
+			if( CoC.player.gender === 1 ) {
 				EngineCore.outputText( 'You admit that, despite the girliness of your appearance, you\'re actually male.\n\n' );
 				EngineCore.outputText( 'Uma smirks mischievously at you.  "<i>Oh, so we\'ve got a pretty femboy here, huh?  Do you like feeling pretty?  Because if you do, I\'ll make you feel truly beautiful.  All you have to do is get in my office,</i>" she points beyond the curtains.\n\n' );
-			} else if( CoC.getInstance().player.gender === 2 ) {
+			} else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( 'You smirk and tell her that you\'re just what lesbians love; a girl who knows the loveliness of other women.\n\n' );
 				EngineCore.outputText( 'Uma grins at you. "<i>Oh, goodie.  Then you must know what a skilled tongue or a soft caress can do, don\'t you honey?  All we have to do is get in my office, and I\'ll show you a good time,</i>" she points beyond the curtains.\n\n' );
-			} else if( CoC.getInstance().player.gender === 3 ) {
+			} else if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( 'You shrug carelessly and tell her that you are a girl, for all that you\'re packing a cock of your own. From what Loppe\'s said, though, you don\'t think that\'s a deal-breaker for Uma, is it?\n\n' );
 				EngineCore.outputText( 'Uma smiles at you.  "<i>Of course not.  Just because you have a pecker, doesn\'t mean you aren\'t a girl now, does it?  Get in my office and we\'ll have some fun!</i>"  She points beyond the curtains.\n\n' );
 			}
-		} else if( CoC.getInstance().player.femininity >= UMA_CONSIDER_PC_AND ) {
+		} else if( CoC.player.femininity >= UMA_CONSIDER_PC_AND ) {
 			EngineCore.outputText( '"<i>I don\'t know [name].  I\'m pretty sure my little Loppe already told you, but I\'m a lesbian, so it all depends on what you\'re packing inside that [armorname] of yours, dear.</i>"\n\n' );
-			if( CoC.getInstance().player.gender === 1 ) {
+			if( CoC.player.gender === 1 ) {
 				EngineCore.outputText( 'You confess that you\'re actually a male, even if you can pass for a girl with a little work.\n\n' );
 				EngineCore.outputText( 'Uma looks at you in disappointment.  "<i>Well then, I\'m sorry... but I\'m not interested.  While I don\'t exactly mind the occasional boy I happen to like mine a little prettier than you are,</i>"  Uma shrugs.\n\n' );
 				this.buildCoreMenu( true );
 				return;
-			} else if( CoC.getInstance().player.gender === 2 ) {
+			} else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( 'You\'re kind of boyish, you admit, but you\'re all girl, you declare.\n\n' );
 				EngineCore.outputText( 'Uma claps her hands and smiles at you.  "<i>Good, let me show you why men have nothing on us girls.  Step into my office dear,</i>" she points beyond the curtains.\n\n' );
-			} else if( CoC.getInstance().player.gender === 3 ) {
+			} else if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( 'Yeah, you know people get confused by which you are. You\'re actually both, with pussy and dick.\n\n' );
 				EngineCore.outputText( 'Uma looks at you in thought.  "<i>To be honest, I don\'t mind herms but I usually like mine a bit more on the girly side, you know?  I think we can make an exception for you though!  Go to my office,</i>" she points beyond the curtains.\n\n' );
 			}
@@ -1191,11 +1191,11 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'EroMassage', this.sexEroticMassage );
 		EngineCore.addButton( 1, 'Eat Her Out', this.sexEatHerOut );
-		if( CoC.getInstance().player.gender >= 2 && CoC.getInstance().player.lowerBody !== 4 ) 
+		if( CoC.player.gender >= 2 && CoC.player.lowerBody !== 4 ) 
 		{
 			EngineCore.addButton( 2, 'Fingerbang', this.sexGetFingered );
 		}
-		if( CoC.getInstance().player.hasCock() ) // Has a dick
+		if( CoC.player.hasCock() ) // Has a dick
 		{
 			EngineCore.addButton( 3, 'Handjob', this.sexHandjob );
 			EngineCore.addButton( 4, 'Get Blown', this.sexGetABJFromDisMilfyLesboSlut );
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'and a sizable table, made from bamboo. It\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
 		EngineCore.outputText( 'Clearing her throat to get your attention the mare chuckles.  "<i>If you\'re done examining your surroundings, you\'d better get those [armorname] off, unless you want them to get dirty dear,</i>" Uma says, pointing at your garments.  "<i>You can put them inside the cupboard,</i>" she motions over to the cupboard and begins undoing her kimono, with practiced moves and elegant grace, careful not to wrinkle the fabric and ensuring it\'s all neatly folded.\n\n' );
 		EngineCore.outputText( 'You nod your head in understanding and promptly strip down, ' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( 'unable to resist either the tingle of lust that runs through you at being naked in front of Uma, nor the urge to flaunt your feminine physique for her own gratification, ' );
 		}
 
@@ -1226,37 +1226,37 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '"<i>Just get on my table, belly up, and we can get started,</i>" she pats her table, waiting patiently.  You nod your head in understanding, approach and position yourself on the table as she instructed, bare [skin] prickling with anticipation at what\'s to come.  The mare cracks her knuckles and positions her hands over your body.  "<i>Now, just sit back and enjoy dear.  Let my nimble hands care for this beautiful body of yours.</i>"  \n\n' );
 		EngineCore.outputText( 'You smile at her and let her know you\'re ready to start whenever she is.  The mare starts out by caressing your whole body, over your belly, your [chest], your arms and your [legs].  Then she begins pressing a few spots, searching for knots in your muscles and quickly treating those with her expert fingers.  "<i>Seems like you\'re enjoying it so far,</i>" the mare chuckles.\n\n' );
 		EngineCore.outputText( 'Even as Uma says this, you realize just how incredibly ' );
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'hard ' );
-		} else if( CoC.getInstance().player.gender === 2 ) {
+		} else if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( 'wet ' );
-		} else if( CoC.getInstance().player.gender === 3 ) {
+		} else if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'hard and wet ' );
 		}
 
 		EngineCore.outputText( 'you are.  Sparks dance across your skin and you shiver, asking just how Uma can get you so turned on with just a few touches?  "<i>That\'s a trade secret, dear.  Now let\'s get rid of all your tension,</i>" the mare\'s hands slide around your body, caressing, touching and pinching, and somehow you feel yourself getting ever closer to the edge of climax.  You moan and whimper in pleasure, reduced to blissed-out putty in the mare\'s skillful hands, and unthinkingly blurt out she\'s a beautiful minx.  "<i>Why... thank you dear,</i>"  she smiles happily, even as she moves her hand to one last spot on your body, right above your crotch.  "<i>Now cum.</i>"  She presses the spot and you gasp.\n\n' );
 		EngineCore.outputText( 'You groan deep in your throat and obey Uma\'s commands explicitly, shuddering as the waves of climax rip through your body and culminate in your loins, ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cum ' );
-			if( CoC.getInstance().player.cumQ() < 50 ) {
+			if( CoC.player.cumQ() < 50 ) {
 				EngineCore.outputText( 'dribbling ' );
-			} else if( CoC.getInstance().player.cumQ() < 250 ) {
+			} else if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( 'pouring ' );
-			} else if( CoC.getInstance().player.cumQ() < 500 ) {
+			} else if( CoC.player.cumQ() < 500 ) {
 				EngineCore.outputText( 'spurting ' );
 			} else {
 				EngineCore.outputText( 'fountaining ' );
 			}
 			EngineCore.outputText( 'from [eachcock] ' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'and ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'femcum ' );
-			if( CoC.getInstance().player.wetness() <= 2 ) {
+			if( CoC.player.wetness() <= 2 ) {
 				EngineCore.outputText( 'dripping ' );
-			} else if( CoC.getInstance().player.wetness() <= 4 ) {
+			} else if( CoC.player.wetness() <= 4 ) {
 				EngineCore.outputText( 'streaming ' );
 			} else {
 				EngineCore.outputText( 'gushing ' );
@@ -1264,13 +1264,13 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( 'from your [vagina]. ' );
 		}
 		EngineCore.outputText( 'You writhe in pleasure, twisting yourself on the table as an explosive orgasm rocks you to the core.  You nearly pass out from the ordeal and when you\'re finally done you slump on the table nervelessly panting and satisfied.  Taking a deep breath, you turn to look a Uma, pretty sure you must\'ve covered her body with your explosive discharge, but to your surprise she only has a bit of ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cum ' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'and ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'juices ' );
 		}
 		EngineCore.outputText( 'covering her hand and arm.  She smiles knowingly.\n\n' );
@@ -1280,9 +1280,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You nod absently at her departure and settle down to regain your strength.  Once you feel recovered from your earth-shaking orgasm, you pick yourself up, redress, and quietly make your way back to camp; Uma\'s already busy with another client as you go.\n\n' );
 		// DONT CARE HAD SEX;
 		// Scene says we've only cum a little so err I guess store the players hoursSinceCum, do statmod, then reset it to a smaller value?;
-		var hoursSinceCum = CoC.getInstance().player.hoursSinceCum;
+		var hoursSinceCum = CoC.player.hoursSinceCum;
 		EngineCore.dynStats( 'lust=', 0 );
-		CoC.getInstance().player.hoursSinceCum = Math.ceil( hoursSinceCum * 0.75 );
+		CoC.player.hoursSinceCum = Math.ceil( hoursSinceCum * 0.75 );
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1296,17 +1296,17 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo. It\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
 		EngineCore.outputText( 'Clearing her throat to get your attention the mare chuckles.  "<i>Now, dear.  I can\'t quite get my hands where they need to be if you\'re still wearing your [armorname].  So why don\'t you strip down and put them in the cupboard over in the corner,</i>"  she instructs, beginning to strip herself.  You nod your head in understanding and promptly strip down, ' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( 'unable to resist either the tingle of lust that runs through you at being naked in front of Uma, nor the urge to flaunt your feminine physique for her own gratification, ' );
 		}
 
 		EngineCore.outputText( 'and gather your [armorname] up in your arms as you do so. Walking over to the cupboard, you find a couple of folded towels and ample space to store your clothes, which is exactly what you do.\n\n' );
 		EngineCore.outputText( 'Uma stands just behind you, her own clothes neatly folded.  "<i>Excuse me.</i>"  You politely step aside, and reach out to take Uma\'s clothes from her so that you can put them in the cupboard for her.  "<i>Thanks, dear.  Now come here,</i>" the mare says, sitting up on the table and tapping her thighs.  "<i>Come sit on my lap.</i>"\n\n' );
 		EngineCore.outputText( 'You look at her with a slightly puzzled expression, but then smile, nod your head and approach.  You gently sit yourself down in the milf mare\'s lap.  ' );
-		if( CoC.getInstance().player.tallness < 60 ) {
+		if( CoC.player.tallness < 60 ) {
 			EngineCore.outputText( 'feeling very much like a child sat on the lap of her mother.  ' );
 		}
-		if( CoC.getInstance().player.tallness > 84 ) {
+		if( CoC.player.tallness > 84 ) {
 			EngineCore.outputText( 'carefully settling down for fear of squashing her.  ' );
 		}
 
@@ -1314,22 +1314,22 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '"<i>Just relax,</i>" the mare prompts as she runs her hands over your body.  She gently teases your [nipples] with soft fingers, kneading your [chest] with smooth touches; her delicate grasp gradually increasing in force until she\'s pawing at your sensitive tit-flesh with authority.\n\n' );
 		EngineCore.outputText( 'With your attention focused on your chest, you don\'t notice one of the mares hands ceasing its sensual massage of a breast, ' );
 
-		if( CoC.getInstance().player.thickness < 10 && CoC.getInstance().player.tone > 90 ) {
+		if( CoC.player.thickness < 10 && CoC.player.tone > 90 ) {
 			EngineCore.outputText( 'her fingertips trailing against your chiseled, muscular abdomen, ' );
-		} else if( CoC.getInstance().player.thickness < 30 && CoC.getInstance().player.tone > 70 ) {
+		} else if( CoC.player.thickness < 30 && CoC.player.tone > 70 ) {
 			EngineCore.outputText( 'her fingertips gliding across your toned midriff, ' );
-		} else if( CoC.getInstance().player.thickness > 90 && CoC.getInstance().player.tone < 10 ) {
+		} else if( CoC.player.thickness > 90 && CoC.player.tone < 10 ) {
 			EngineCore.outputText( 'her fingertips stealing a grope of your chubby belly as they travel lower, ' );
-		} else if( CoC.getInstance().player.thickness > 70 && CoC.getInstance().player.tone < 30 ) {
+		} else if( CoC.player.thickness > 70 && CoC.player.tone < 30 ) {
 			EngineCore.outputText( 'her fingertips sinking into paunch of your belly, ' );
 		}
 
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'past [eachCock], and ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'down towards the honeypot ' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( 'on your [legs].  ' );
 			} else {
 				EngineCore.outputText( 'nestled between your [legs].  ' );
@@ -1342,7 +1342,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 
 		EngineCore.outputText( 'You moan, already shivering in anticipation, waiting to see what a skilled lesbian can do with your most precious feminine treasure.  "<i>Just a heads up, dear.  I\'m pretty confident no one can hear what takes place here, and I\'m not above getting myself a little dirty, so feel free to let loose and enjoy it as much and as loudly as you want, okay?</i>"\n\n' );
 		EngineCore.outputText( 'The mare\'s hands gently circle your netherlips, sometimes brushing against your [clit], but only enough to send small jolts of electric pleasure running up your spine.  Slowly one questing finger begins prodding your entrance, before driving itself in.\n\n' );
-		if( CoC.getInstance().player.hasVirginVagina() ) {
+		if( CoC.player.hasVirginVagina() ) {
 			EngineCore.outputText( '"<i>Oh, so tight!  Tell me something, dear.  Are you, perhaps, a virgin?  No, wait!  Don\'t tell me.  I\'ll just find out myself,</i>"  wiggling her finger to slowly inch her way inside, Uma explores your nethers as deep as she can, deep enough to reach your hymen.  "<i>Oh!  So you are!  How rare!  I don\'t even remember how long it\'s been since I last had the pleasure of helping a virgin, ah, Nothing quite like it,</i>"  the milf mare chuckles, reminiscing over old times.  "<i>Oh, dear, just thinking about it makes me wet.  A pussy that\'s never known the pleasure of a cock, ripe to be plumbed by my fingers.  I can\'t grant you the same pleasure as a skilled lover can dear,  but I assure you that by the time I\'m finished with you, you will be as sated as you can be,</i>" the mare delivers a gentle kiss to your neck.\n\n' );
 			EngineCore.outputText( 'You murmur and wriggle in your seat, telling her that you don\'t doubt her in the slightest.  "<i>Good, now let\'s make some room for me to work with,</i>" she replies, gently thrusting her finger in and out of you in a circular motion, hoping to loosen you so she can add more digits.\n\n' );
 			EngineCore.outputText( 'You cry out - that feels wonderful, you tell her.  Uma chuckles, "<i>But we haven\'t even gotten started, dear,</i>" she says melodically, slowly working another finger against your passage, wiggling it until it slips in with a wet squelch.  You buck back against her with a cry of delight; this feels so good!  "<i>Now, now, don\'t get too excited dear.  I still haven\'t even found your special place,</i>" Uma laughs.  She begins probing your depths, pressing against key spots, searching for something.\n\n' );
@@ -1350,23 +1350,23 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( '"<i>How cute.  If you weren\'t dating my daughter I might even have considered keeping you for myself.  But I\'m glad you\'re with her, and I hope you won\'t deny an old mare her indulgences once in a while,</i>" Uma adds another finger to your pussy, pumping them inside you and brushing against your spot with each insertion.\n\n' );
 			EngineCore.outputText( 'You moan and babble, vaguely spitting out something about definitely promising to come back to her in the future.  Waves of pleasure wash through you, rippling through your clenching, squeezing netherwalls, building a strange tightness in your belly. Oh - you\'re going to - going to...\n\n' );
 			EngineCore.outputText( 'With an ecstatic cry, you orgasm, your virginal cunt spasming as it ' );
-			if( CoC.getInstance().player.wetness() <= 2 ) {
+			if( CoC.player.wetness() <= 2 ) {
 				EngineCore.outputText( 'spatters ' );
-			} else if( CoC.getInstance().player.wetness() <= 4 ) {
+			} else if( CoC.player.wetness() <= 4 ) {
 				EngineCore.outputText( 'soaks ' );
 			} else {
 				EngineCore.outputText( 'drenches ' );
 			}
 
 			EngineCore.outputText( ' Uma\'s probing hand in your female juices' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', your forgotten cock spraying cum in a pearlescent arc to splatter onto the floor' );
 			}
 			EngineCore.outputText( '.\n\n' );
 			EngineCore.outputText( '"<i>Oh, deary.  You\'re so cute I could just squeeze you all day!</i>"  Uma laughs happily as she pumps her fingers inside you one more time, drawing one last discharge before you finally slump on the older mare\'s lap.  The mare removes her hand from your sensitive pussy and brings it close to her mouth, promptly licking your juices off her hand, close to your ear to ensure you hear every single lewd sound she makes as she cleans your orgasm from her hand.  "<i>Hmm, virgins definitely have the best taste.  Sweet, slick and unclaimed.  Be sure to warn Loppe to go easy on you when you finally decide to work with her equine pride, though I wonder if she\'ll be able to restrain herself with such a cutie like you,</i>" Uma says as she kisses the back of your neck once more before returning to her cleaning duty.\n\n' );
 			EngineCore.outputText( 'You take a few moments to regain control of your [legs], but get up and start helping to clean up the mess - after all, you made it.  Once it\'s all clean, you kiss Uma on the cheek as a thank you before saying you have to be going.  "<i>See you soon, dear.  I\'d love to have given you more of an workout, but I think my daughter will appreciate your inexperience.  So make sure you come prepared next time, so we can have some more fun.</i>" she informs you, as her fingers begin to prod at her own snatch.\n\n' );
 			EngineCore.outputText( 'You can\'t resist a smile as you promise to remember that, redress yourself, and head back to camp.\n\n' );
-		} else if( CoC.getInstance().player.looseness() === 0 ) // Tight
+		} else if( CoC.player.looseness() === 0 ) // Tight
 		{
 			EngineCore.outputText( '"<i>Hmm tight!  I wonder how long you can keep yourself like that while dating my little Loppe,</i>" the mare says teasingly.\n\n' );
 			EngineCore.outputText( 'Loppe isn\'t that bad, you find yourself saying - and doesn\'t it feel so weird to be talking about Uma\'s daughter when you\'re letting Uma herself do you, you privately note.\n\n' );
@@ -1409,7 +1409,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo; it\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
 		EngineCore.outputText( 'She starts stripping and motions for you to do the same.  "<i>As talented as I am with my hands, I still haven\'t figured a way to properly take care of you while dressed, dear,</i>" she giggles.  You nod your head in understanding and promptly strip down, ' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( 'unable to resist either the tingle of lust that runs through you at being naked in front of Uma, nor the urge to flaunt your feminine physique for her own gratification, ' );
 		}
 
@@ -1426,22 +1426,22 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '"<i>Is that so?  In that case, let\'s try this!</i>"  She twists her hand around your shaft, stroking in a corkscrew-like motion, while her other hand continues to massage your [cockHead biggest] and strokes the underside of your strained fuck-pole.\n\n' );
 		EngineCore.outputText( 'That\'s the last straw for you and you promptly explode in her hands.\n\n' );
 		// Normal CumQ;
-		if( CoC.getInstance().player.cumQ() <= 250 ) {
+		if( CoC.player.cumQ() <= 250 ) {
 			EngineCore.outputText( 'Your cum spurts and spatters onto Uma\'s hands, getting them nice and sticky with your fluids.  "<i>There we go, dear.  How are you feeling now?</i>" the mare asks with a smug smile.\n\n' );
 			EngineCore.outputText( 'You heave in a relieved breath of air and tell her that you feel wonderful; she truly has magic fingers.  The mare giggles.  "<i>Thank you, dear.</i>"\n\n' );
 		}
 		// Medium CumQ;
-		else if( CoC.getInstance().player.cumQ() <= 500 ) {
+		else if( CoC.player.cumQ() <= 500 ) {
 			EngineCore.outputText( 'The great gush of seed soaks Uma\'s hands beyond their capacity to hold it, dripping messily onto the floor and forming a noticeable puddle underneath where you are.  "<i>Hmm that was plenty, dear.  You shouldn\'t let yourself build up so much cum, you know?  That isn\'t healthy. So, how are you feeling now?</i>" she asks with a smile.\n\n' );
 			EngineCore.outputText( 'Much better you say, once you can speak again, and you thank her for being willing to attend to your little problem.  The mare giggles, "<i>It was no problem, dear.</i>"\n\n' );
 		}
 		// High CumQ;
-		else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+		else if( CoC.player.cumQ() <= 1000 ) {
 			EngineCore.outputText( 'A torrent of spunk surges from within your [cock], and Uma narrowly avoids getting splashed by the narrowest of margins, though you paint her hands and arms white with it.  A great puddle of cum splashes into being, one jet even hitting the wall on the other side of the room and trickling sloppily down its surface.  The seductive mare chuckles.  "<i>Oh, dear.  That\'s quite a bit you had built up. You should relieve your tension more often, you know?  Now, how do you feel?</i>" she asks smiling.\n\n' );
 			EngineCore.outputText( 'You tell her that you feel wonderful, wondering how she will react to your nearly hitting her.  "<i>That\'s good.  And don\'t worry about splashing me, I had to endure much worse when Loppe was going through puberty,</i>" Uma responds. You privately note to yourself that Uma\'s comment makes sense, given what you know of Loppe.\n\n' );
 		}
 		// VHigh CumQ;
-		else if( CoC.getInstance().player.cumQ() <= 2500 ) {
+		else if( CoC.player.cumQ() <= 2500 ) {
 			EngineCore.outputText( 'Uma yelps in shock as you explode into an orgasm of considerably greater output than she was expecting; cum spatters onto her belly and even her face as veritable tidal waves of cum ripple out of your distending shaft, slopping wetly across the floor in a huge puddle that stretches until it hits the first sink and starts quietly oozing down.  Uma wipes your cum off her face casually.  "<i>My, my, that\'s quite a bit.  Makes me wonder who\'s messier, you, or my little Loppe,</i>" she laughs.  "<i>Oh, who am I kidding.  Knowing Loppe as well as I do, she\'s definitely much messier than that.  So, dear, how are you feeling now?</i>" she asks with a smile.\n\n' );
 			EngineCore.outputText( 'Greatly relieved, you reply, but you cast a curious glance at the mess you made, wondering how long it will take her to clean this place up.  "<i>Good. Hmm, I\'ll have to give this place a thorough cleaning later. I don\'t usually bring people here capable of making such a mess.  Anyway, I\'m glad you\'re relieved, dear.</i>"\n\n' );
 		}
@@ -1451,15 +1451,15 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( 'Incredible, is all you can say, and even that is a breathy sigh of a word.  You take in the cum-soaked form of Loppe\'s mother, and the state of the room, and wonder how Loppe would react to seeing you do this.  "<i>That was quite a mess you made dear,</i>" she giggles.  "<i>I\'m glad Loppe isn\'t here, she\'d probably be trying to outcum you, and we both know how capable she is,</i>" the mare laughs before continuing,  "<i>Anyway, it\'s good that it felt great for you, dear.</i>"\n\n' );
 		}
 		EngineCore.outputText( 'Once you can stand up again, you get off the table and make your way to the cupboard' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( ', audibly sloshing through the cum covering the floor, ' );
 		}
 		EngineCore.outputText( ' to get both your own clothes and Uma\'s.  You pull yours on' );
-		if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( ', careful to avoid getting them soaked in your prodigious quantity of spunk' );
 		}
 		EngineCore.outputText( ' and offer Uma\'s to her, thanking her once again for helping you with your relief.  "<i>Don\'t worry about any mess, dear.  I\'m just going to need a moment to sort myself out' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( ', as well as the room' );
 		}
 		EngineCore.outputText( '.  See you later, dear.  And don\'t be a stranger,</i>" the mare tells you as she waves you goodbye.\n\n' );
@@ -1470,23 +1470,23 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	//Needs Cock.;
 	UmasShop.prototype.sexGetABJFromDisMilfyLesboSlut = function() {
 		//Aim for something right around the biggest she can take, otherwise just take smallest.;
-		var x = CoC.getInstance().player.cockThatFits( 25 );
+		var x = CoC.player.cockThatFits( 25 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Fidgeting in place, very much aware of the cum-filled cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' in your pants, you ask whether Uma would be willing to give you a little intimate release.' );
 		EngineCore.outputText( '\n\nUma arches an eyebrow, "<i>Sorry, [name], but when it comes to cocks, my pussy and ass are both off-limits... I suppose that, for you, though, I could give you a blowjob - just because you’re my little Loppe’s special someone, though.</i>"' );
 		EngineCore.outputText( '\n\nYou ' );
-		if( CoC.getInstance().player.lust >= 75 ) {
+		if( CoC.player.lust >= 75 ) {
 			EngineCore.outputText( 'eagerly ' );
 		}
 		EngineCore.outputText( 'tell her that would be plenty, and thank her for her consideration.  "<i>Okay, follow me then.</i>"  The mare leads you away, out her office and down the corridor towards the far back of the clinic. Her enticing equine tail swishes lazily side to side the entire way, an organic magnet for your roving eyes.  You follow closely in her wake, looking forward to her “special treatment” with such ardor that you give up on concealing the tenting mass under your [armor]. It makes walking a little more difficult, but the feeling of your length' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' grinding and growing is well-worth the obvious discomfort.' );
@@ -1496,9 +1496,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		EngineCore.outputText( 'and a sizable bamboo table.  It\'s covered in a white cloth and has an upraised board with a hole in it that looks like it’s big enough to fit your head through.  It is the only piece of furniture in the room apart from a small cupboard in the corner. Though spartan in its layout, this odd chamber is quite comfortably warm.' );
 		EngineCore.outputText( '\n\n"<i>Strip, dear,</i>" Uma says cheerfully while beginning to strip herself.  You need no further encouragement, eagerly getting naked ' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( ', unable to resist either the tingle of lust that runs through you at being naked in front of Uma or the urge to flaunt your feminine physique for her own gratification.  Gathering your clothes up is a bit of an afterthought, but you make sure to bend over and proudly present your [butt]' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ' and [balls]' );
 			}
 			EngineCore.outputText( '.' );
@@ -1510,15 +1510,15 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '\n\nYou eagerly settle yourself onto her table as instructed, placing your head through the hole, [eachCock] jutting into the air and awaiting Uma’s mouth with anxious twitches.  You idly wonder how she’ll go about this...' );
 		EngineCore.outputText( '\n\nThe motherly mare kneels before you, examining your shaft.  ' );
 		//VARIANTS NEEDED;
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
 			EngineCore.outputText( 'It’s clear that she doesn’t really enjoy the notion that much, considering the way she’s looking at you.  "<i>All right, let’s get this over with.</i>"  ' );
-		} else if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
+		} else if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
 			EngineCore.outputText( 'She actually seems to be smiling a little as she looks at you.  "<i>All right, time to see if I can handle this brutish thing.</i>"  ' );
 		} else {
 			EngineCore.outputText( 'It\'s clear that she doesn\'t mind doing this for you at all. In fact, she\'s even smiling down at you as she fondles you one-handed.  "<i>Time to see if I can make you squirm as hard as Loppe does.</i>"  ' );
 		}
 		EngineCore.outputText( 'She opens her mouth wide and takes ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'your' );
 		} else {
 			EngineCore.outputText( 'a single' );
@@ -1526,84 +1526,84 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( ' dick into her mouth, slurping on it.' );
 
 		EngineCore.outputText( '\n\nIt\'s immediately apparent how her longer, equine-style face affords many advantages when it comes to oral pleasure.  Her capacitive mouth takes inch after inch after inch, long past when you would be normally threatening a gag-reflex, sliding you along her long, flat tongue as she goes.  Her efforts are far from expert, and you can tell that her heart isn\'t truly in this.  She stops her ministrations, adjusting her hair and saying, "<i>Sorry dear.  I haven\'t gotten much practice at these.  They\'re not really my thing, normally' );
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] >= 2 ) {
 			EngineCore.outputText( ', but I guess you\'re changing that, aren\'t you?' );
 		} else {
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '</i>"  Then, she playfully licks along the underside of your cock, putting that lengthy tongue to work. "<i>' );
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
 			EngineCore.outputText( 'You don\'t taste bad, all things considered.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
+		} else if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
 			EngineCore.outputText( 'I think I\'m starting to get used to your taste, [name].' );
 		} else {
 			EngineCore.outputText( 'Mmmm...  Don\'t tell anyone, but I think I\'m starting to like helping you like this.' );
 		}
 		EngineCore.outputText( '</i>"' );
-		EngineCore.outputText( '\n\nGrunting softly at her ministrations, you let your [hips] shiver as she passes over your ' + CoC.getInstance().player.cockHead( x ) + ' once more.  Her tightly sealed lips glide over your spit-slicked length at an even, nerve-tickling pace' );
-		if( CoC.getInstance().player.cocks[ x ].cockLength < 9 ) {
+		EngineCore.outputText( '\n\nGrunting softly at her ministrations, you let your [hips] shiver as she passes over your ' + CoC.player.cockHead( x ) + ' once more.  Her tightly sealed lips glide over your spit-slicked length at an even, nerve-tickling pace' );
+		if( CoC.player.cocks[ x ].cockLength < 9 ) {
 			EngineCore.outputText( ' until she hits your [sheath]' );
 		} else {
 			EngineCore.outputText( ' until she has her mouth as full as she can handle' );
 		}
 		EngineCore.outputText( '.  She holds you like that, letting you feel her hot breath wash over the [skinFurScales] of your crotch.  Her tongue wags back and forth underneath you, slipping and sliding against you. Inside her mouth, your ' + Descriptors.cockDescript( x ) + ' twitches and jumps in her maw.  Beads of pre-cum are beading and dripping out onto her busy organ.' );
 		EngineCore.outputText( '\n\nUma\'s shaft-muffled voice mumbles, "<i>' );
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
 			EngineCore.outputText( 'Girls taste better.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
+		} else if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
 			EngineCore.outputText( 'Not too bad.' );
 		} else {
 			EngineCore.outputText( 'Hmmm, give me more, [name].' );
 		}
 		EngineCore.outputText( '</i>"' );
 		//Bonus handjobbies?;
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '\n\nYou politely suggest she put ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'one of ' );
 			}
 			EngineCore.outputText( 'her hands to work on your spare prick' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  The curvacious mare hums at the thought, inadvertently sending pleasant shockwaves through your length as she considers.  Making up her mind, ' );
-			if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 3 ) {
+			if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 3 ) {
 				EngineCore.outputText( 'perhaps thinking it will end this sooner' );
 			} else {
 				EngineCore.outputText( 'perhaps encouraged by the way you swell in her mouth' );
 			}
 			EngineCore.outputText( ', she wraps ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'one hand around your girthy tool and starts pumping' );
 			} else {
 				EngineCore.outputText( 'both hands around your girthy tools and starts pumping' );
 			}
 			EngineCore.outputText( ', stroking up and down with firm twists of her practiced hand' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  Her soft palm' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's are' );
 			} else {
 				EngineCore.outputText( ' is' );
 			}
 			EngineCore.outputText( ' the perfect mate to your spare length' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ', and soon you are dribbling and dripping from all of your ' + Descriptors.multiCockDescriptLight() + '.' );
 		}
 		EngineCore.outputText( '\n\nWhile the steady pleasure her mouth and tongue gives you has you feeling very, very good, it isn\'t quite bringing you towards the orgasm you came here craving.  You suggest she begin to bob up and down on you. "<i>Cocks need to feel like they\'re fucking something,</i>" you ' );
-		if( CoC.getInstance().player.cor <= 33 ) {
+		if( CoC.player.cor <= 33 ) {
 			EngineCore.outputText( 'pleasantly explain' );
-		} else if( CoC.getInstance().player.cor <= 66 ) {
+		} else if( CoC.player.cor <= 66 ) {
 			EngineCore.outputText( 'explain' );
 		} else {
 			EngineCore.outputText( 'harshly explain' );
 		}
 		EngineCore.outputText( '.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
 			EngineCore.outputText( 'You can feel her nod in agreement through your pole, and soon after, she\'s plunging rhythmically up and down.' );
 		} else {
 			EngineCore.outputText( 'Before you can even finish, she\'s plunging up and down along your length, letting you know that she\'s learned this particular song and dance quite well under your tutelage.' );
@@ -1611,38 +1611,38 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 
 		EngineCore.outputText( '\n\nYou give up a moan of pleasure as your [hips] lift off the table\'s coverings.  The building ecstasy within you is rolling around your abdomen like an ingot of molten metal, bubbling and ready to explode.  It\'s all you can do to stop yourself from thrashing against Uma\'s tongue in an effort to bring that release on as quickly as possible.  You steady yourself, and with a gasp of pleasure, feel [eachCock] swell, as big and hard as it can get without exploding from the pressure.  Uma slows her fucking motions and starts to suck with the languid blowjob, getting more and more pre-cum on her tongue with each slide down.  Quiet, excited noises slip out of your throat, one after another as you come to the very edge of orgasm.' );
 		//{Less than five blowjobs};
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
 			EngineCore.outputText( '\n\nUma pulls off just as your flow of juices goes white and salty, the inevitable prelude to the first discharge of an orgasm.  A slightly sour expression is painted across her face from the sudden change and she looks on in shock as your length' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's erupt' );
 			} else {
 				EngineCore.outputText( ' erupts' );
 			}
 			EngineCore.outputText( '.  Even though you are no longer enclosed in that wonderfully warm, wet hole, you still shoot long, powerful lances of cum.  Uma catches the first across her face before she can move. The second splatters across the breasts that once nursed Loppe, some even falling into the valley of her cleavage.' );
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( '  She gets out of the way after that, leaving you to lie there, spraying your seed like a perverted sprinkler.' );
 			}
-			if( CoC.getInstance().player.cumQ() >= 1500 ) {
+			if( CoC.player.cumQ() >= 1500 ) {
 				EngineCore.outputText( '  The massive cumsprays that land on you slowly slough off down towards the drains.  It\'s hard not to bliss at the sound of your loud noisily draining away.' );
 			}
 		}
 		//{More than five blowjobs!};
 		else {
 			EngineCore.outputText( '\n\nUma valiantly holds herself in place on your ' + Descriptors.cockDescript( x ) + ', just in time for the flow of your juices to turn white and salty, an inevitable prelude to the coming discharge of your orgasm.  She noisily slurps, emptying her mouth of precum to make room, and in the process, inadvertently provides you with even more impetus to unload.  ' );
-			if( CoC.getInstance().player.cumQ() <= 25 ) {
+			if( CoC.player.cumQ() <= 25 ) {
 				EngineCore.outputText( 'She dutifully swallows every drop of your average-sized load, her long tongue slipping and sliding around your shaft as she ensures it is completely cleaned.' );
-			} else if( CoC.getInstance().player.cumQ() <= 100 ) {
+			} else if( CoC.player.cumQ() <= 100 ) {
 				EngineCore.outputText( 'She dutifully attempts to swallow every drop, but your load is a little bigger than average, and she\'s forced to let some of the frothy spit and jizz mixture wash back out over your length.' );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( '  It rolls down to your [sack], coating it in warm, wet cum-shine.' );
 				}
 			} else {
 				EngineCore.outputText( 'She dutifully attempts to swallow, but your load is so massive that the first shot has her cheeks bulging.  She\'s used to dealing with you, though.  The canny mother relaxes the seal of her lips and begins to stroke you with her tongue once more, using your massive ejaculations as lubrication.  She pumps up and down, faster and faster, letting your jizz wash back out her lips and over your crotch, making this orgasm one of the biggest and messiest you\'ve had in a while.' );
-				if( CoC.getInstance().player.cumQ() >= 1000 ) {
+				if( CoC.player.cumQ() >= 1000 ) {
 					EngineCore.outputText( '  By the time you finish shooting, the drains are noisily gurging as they struggle to handle the ' );
-					if( CoC.getInstance().player.cumQ() <= 2000 ) {
+					if( CoC.player.cumQ() <= 2000 ) {
 						EngineCore.outputText( 'pool' );
-					} else if( CoC.getInstance().player.cumQ() <= 30000 ) {
+					} else if( CoC.player.cumQ() <= 30000 ) {
 						EngineCore.outputText( 'bathtub worth' );
 					} else {
 						EngineCore.outputText( 'lake' );
@@ -1652,25 +1652,25 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 				EngineCore.outputText( '  Your crotch is absolutely glazed with the stuff.' );
 			}
 			//Bonus dicks;
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nAngled off to the side' );
-				if( CoC.getInstance().player.cockTotal() > 2 ) {
+				if( CoC.player.cockTotal() > 2 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ', your other erection' );
-				if( CoC.getInstance().player.cockTotal() > 2 ) {
+				if( CoC.player.cockTotal() > 2 ) {
 					EngineCore.outputText( 's release' );
 				} else {
 					EngineCore.outputText( ' releases' );
 				}
 				EngineCore.outputText( ' all over the floor, fitfully sagging, then thickening with each shot.  ' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'Its ' );
 				} else {
 					EngineCore.outputText( 'Their ' );
 				}
 				EngineCore.outputText( 'lewd dance continues on in imitation of your main member\'s pleasure.  ' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'It\'s ropes' );
 				} else {
 					EngineCore.outputText( 'Their ropes' );
@@ -1680,16 +1680,16 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		//epilogue;
 		//Came on her face;
-		if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
+		if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 2 ) {
 			EngineCore.outputText( '\n\nUma wipes her face off some of your seed.  "<i>I’m fine.  Sorry about that, dear... but blowing is not really my thing, you know?  The only other person I did this for was Loppe’s father, and even then I didn’t like it so much... maybe you should have gone to Loppe instead?</i>"' );
 			EngineCore.outputText( '\n\nYou tell her you’ll remember that, ' );
-			if( CoC.getInstance().player.cor <= 40 ) {
+			if( CoC.player.cor <= 40 ) {
 				EngineCore.outputText( ' apologize, and ' );
 			}
 			EngineCore.outputText( 'get up to start getting dressed before quietly heading back to camp.' );
 		}
 		//Came on her face after second time:;
-		else if( CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
+		else if( CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ] < 5 ) {
 			EngineCore.outputText( '\n\nUma wipes her face off some of your seed.  "<i>I’m fine.  Sorry about that, dear... I\'m trying but to be honest, the idea of having a male member go off in my mouth like that startles me.  The gush of a wet pussy on your lips is just so much more understandable.  I bet Loppe wouldn\'t mind doing this for you, you know.</i>"  She suddenly smirks, "<i>Unless you\'ve got some kind of fetish for letting older mares milk you?</i>"' );
 			EngineCore.outputText( '\n\nYou give her a wink and a smile as you depart.  She\'s getting better at this.' );
 		}
@@ -1697,7 +1697,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		else {
 			EngineCore.outputText( '\n\nUma slowly licks your cockslime from her lips and swallows, opening up her mouth to show you just how good she\'s getting at swallowing your goo.  "<i>I never would have thought that I\'d be looking forward to bending over and taking a penis in my mouth, but... there\'s something special about you, [name].  I can see why Loppe fell for you so quickly.</i>"  She licks her lips once more, this time running her tongue along her teeth to collect every little drop of your jism.  "<i>It\'s just nice, feeling you twitch inside me like that, trusting my mouth to please you so.  It\'s so different from a massage or a handjob - more intimate I suppose.</i>"  The smell of feminine arousal is faint in the air under the musky aroma of your spunk.' );
 			//Higher cum quantity epilogue.;
-			if( CoC.getInstance().player.cumQ() > 25 ) {
+			if( CoC.player.cumQ() > 25 ) {
 				EngineCore.outputText( '\n\nShe extends a towel to you.  "<i>Just because your cum is starting to taste okay doesn\'t mean I\'m licking all that up.  Get clean, dear.</i>"' );
 				EngineCore.outputText( '\n\nYou wipe up with a rueful smile while Uma gets dressed.  She comes back with your clothes and helps you into them, giving your package an appreciative squeeze "to make sure it emptied" before sending you on your way to camp.' );
 			}
@@ -1707,7 +1707,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			}
 		}
 		EngineCore.dynStats( 'lust=', 0 );
-		CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ]++;
+		CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ]++;
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1726,10 +1726,10 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'Uma begins stripping while you watch the older mare\'s beautifully sculpted body.  You wonder how old she is?  With a body like hers, she could probably pass for Loppe\'s sister, although she does have a few signs of being more mature.  Rather than making her look less beautiful, they make her even more stunning.  "<i>Dear?  Hello, dear?</i>" Uma waves a hand in front of you,  "<i>Still there, dear?</i>"  You shake your wandering thoughts out of your head and turn to look at her.  The seductive mare giggles.  "<i>You should undress.  That is, unless you want your [armorname] to smell like horny mare.</i>"  You nod in understanding, stripping yourself down and storing your things carefully in the nearby cupboard, beside Uma\'s own clothing.\n\n' );
 		EngineCore.outputText( 'As you\'re busying yourself with your things, Uma struts with quiet confidence over to the table and seats herself on it, hands at her sides and gripping the edges for extra support, legs spread and smiling knowingly, as if anticipating your approval.   "<i>Well, dear?  I\'m ready if you are,</i>" she laughs softly, one hand lifting off the table to caress her breasts, as much to start honing her arousal as to entice you to approach.\n\n' );
 		EngineCore.outputText( 'You approach the mare and kneel before her, inhaling her scent as you do so.  It smells sweet, enticing and arousing, a fragrance that sends your head reeling with Uma\'s arousal.  You find the fires of your arousal burn even hotter now.  ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Blood engorges [eachCock],  ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'moisture gathers on your netherlips, drops of your arousal sliding out of your [pussy] and down towards your [feet].  ' );
 		}
 		EngineCore.outputText( 'You gaze up at Uma, silently asking for permission.\n\n' );
@@ -1738,24 +1738,24 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'She moans appreciatively, thighs gently wrapping themselves around your neck.  "<i>Mmm my dear, you are such an eager little thing, aren\'t you?  No need to rush, I\'m not going to run away,</i>" she teases, leaving the obvious add-on hanging in the air.\n\n' );
 		EngineCore.outputText( 'You respond by eagerly digging your mouth even deeper into the soft folds of Uma\'s sex, extending your tongue to reach even deeper inside the pretty filly.  Her taste is wonderful. Familiar and yet distinct, with a spice you attribute to being the mare\'s personal taste.  So intent you are on eating her out, that you\'re almost like a horse, eager to taste the dewy grass of the morning pasture.\n\n' );
 		EngineCore.outputText( 'Uma moans and groans appreciatively, one hand reaching down to rub your head ' );
-		if( CoC.getInstance().player.earType === 2 || CoC.getInstance().player.earType === 9 || CoC.getInstance().player.earType === 5 || CoC.getInstance().player.earType === 7 ) {
+		if( CoC.player.earType === 2 || CoC.player.earType === 9 || CoC.player.earType === 5 || CoC.player.earType === 7 ) {
 			EngineCore.outputText( 'between your ' );
 		}
 
-		if( CoC.getInstance().player.earType === 2 ) {
+		if( CoC.player.earType === 2 ) {
 			EngineCore.outputText( 'canine ' );
 		}
-		if( CoC.getInstance().player.earType === 9 ) {
+		if( CoC.player.earType === 9 ) {
 			EngineCore.outputText( 'vulpine ' );
 		}
-		if( CoC.getInstance().player.earType === 5 ) {
+		if( CoC.player.earType === 5 ) {
 			EngineCore.outputText( 'feline ' );
 		}
-		if( CoC.getInstance().player.earType === 7 ) {
+		if( CoC.player.earType === 7 ) {
 			EngineCore.outputText( 'loporid ' );
 		}
 
-		if( CoC.getInstance().player.earType === 2 || CoC.getInstance().player.earType === 9 || CoC.getInstance().player.earType === 5 || CoC.getInstance().player.earType === 7 ) {
+		if( CoC.player.earType === 2 || CoC.player.earType === 9 || CoC.player.earType === 5 || CoC.player.earType === 7 ) {
 			EngineCore.outputText( 'ears.  ' );
 		}
 

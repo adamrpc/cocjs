@@ -6,7 +6,7 @@ angular.module('cocjs').factory('ResolutePerk', function (PerkType, CoC) {
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if(CoC.getInstance().player.tou >= 75) {
+		if(CoC.player.tou >= 75) {
 			return '<b>Grants immunity to stuns and some statuses.</b>';
 		}
 		return '<b>You aren\'t tough enough to benefit from this anymore.</b>';

@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 		Consumable.prototype.init( that, [ 'P_Whsky', 'Ph. Whiskey', 'a small bottle of whiskey', 20, 'A small, corked glass bottle with a dark amber liquid inside.  The whiskey smells strongly of peat.' ] );
 	};
 	PhoukaWhiskey.prototype.canUse = function() {
-		switch( this.phoukaWhiskeyAcceptable( CoC.getInstance().player ) ) {
+		switch( this.phoukaWhiskeyAcceptable( CoC.player ) ) {
 			case -4:
 				EngineCore.outputText( 'You stare at the bottle for a moment, but decide not to risk harming one of the children growing inside you.\n\n' );
 				return false;
@@ -28,8 +28,8 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 		return true; //Zero and up will return true
 	};
 	PhoukaWhiskey.prototype.useItem = function() {
-		CoC.getInstance().player.slimeFeed();
-		switch( this.phoukaWhiskeyDrink( CoC.getInstance().player ) ) {
+		CoC.player.slimeFeed();
+		switch( this.phoukaWhiskeyDrink( CoC.player ) ) {
 			case 0: //Player isn't pregnant
 				EngineCore.outputText( 'You uncork the bottle and drink some whiskey, hoping it will let you relax for a while.\n\nIt\'s strong stuff and afterwards you worry a bit less about the future.  Surely things will right themselves in the end.' );
 				EngineCore.dynStats( 'cor', Utils.rand( 2 ) + 1, 'lus', Utils.rand( 8 ) + 1 ); //These gains are permanent
@@ -43,8 +43,8 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 			case 3: //Child is a faerie, hates phouka whiskey
 				EngineCore.outputText( 'You feel queasy and want to throw up.  There\'s a pain in your belly and you realize the baby you\'re carrying didn\'t like that at all.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.PREGNANCY_CORRUPTION ]++; //Faerie or phouka babies become more corrupted, no effect if the player is not pregnant or on other types of babies
-		this.phoukaWhiskeyAddStatus( CoC.getInstance().player );
+		CoC.flags[ kFLAGS.PREGNANCY_CORRUPTION ]++; //Faerie or phouka babies become more corrupted, no effect if the player is not pregnant or on other types of babies
+		this.phoukaWhiskeyAddStatus( CoC.player );
 		return (false);
 	};
 	PhoukaWhiskey.prototype.phoukaWhiskeyAcceptable = function( player ) { //This function provides a single common test that can be used both by this class and the PhoukaScene class
@@ -88,10 +88,10 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 			return 0;
 		}
 		if( player.pregnancyType === PregnancyStore.PREGNANCY_FAERIE ) {
-			if( CoC.getInstance().flags[ kFLAGS.PREGNANCY_CORRUPTION ] === 0 ) {
+			if( CoC.flags[ kFLAGS.PREGNANCY_CORRUPTION ] === 0 ) {
 				return 2;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.PREGNANCY_CORRUPTION ] < 0 ) {
+			if( CoC.flags[ kFLAGS.PREGNANCY_CORRUPTION ] < 0 ) {
 				return 3;
 			}
 		}

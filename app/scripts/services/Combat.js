@@ -3,21 +3,21 @@
 angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusAffects, kFLAGS, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
-		CoC.getInstance().monster.defeated_(true);
+		CoC.monster.defeated_(true);
 	};
 	Combat.endLustVictory = function() {
-		CoC.getInstance().monster.defeated_(false);
+		CoC.monster.defeated_(false);
 	};
 	Combat.endHpLoss = function() {
-		CoC.getInstance().monster.won_(true, false);
+		CoC.monster.won_(true, false);
 	};
 	Combat.endLustLoss = function() {
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.getInstance().flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] === 0) {
-			CoC.getInstance().flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] = 1;
+		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] === 0) {
+			CoC.flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] = 1;
 			SceneLib.worms.infestOrgasm();
-			CoC.getInstance().monster.won_(false,true);
+			CoC.monster.won_(false,true);
 		} else {
-			CoC.getInstance().monster.won_(false,false);
+			CoC.monster.won_(false,false);
 		}
 	};
 	//combat is over. Clear shit out and go to main
@@ -25,56 +25,56 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (!nextFunc) {
 			nextFunc = SceneLib.camp.returnToCampUseOneHour;
 		}
-		if (CoC.getInstance().isInCombat()) {
+		if (CoC.isInCombat()) {
 			//clear status
 			Combat.clearStatuses(false);
 			//Clear itemswapping in case it hung somehow
-			if(CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) { //Player won
+			if(CoC.monster.HP < 1 || CoC.monster.lust > 99) { //Player won
 				Combat.awardPlayer();
 			} else { //Player lost
-				if(CoC.getInstance().monster.statusAffectv1(StatusAffects.Sparring) === 2) {
+				if(CoC.monster.statusAffectv1(StatusAffects.Sparring) === 2) {
 					EngineCore.outputText("The cow-girl has defeated you in a practice fight!", true);
 					EngineCore.outputText("\n\nYou have to lean on Isabella's shoulder while the two of your hike back to camp.  She clearly won.", false);
-					CoC.getInstance().setInCombat(false);
-					CoC.getInstance().player.HP = 1;
+					CoC.setInCombat(false);
+					CoC.player.HP = 1;
 					EngineCore.statScreenRefresh();
 					EngineCore.doNext(nextFunc);
 					return;
 				}
 				//Next button is handled within the minerva loss function
-				if(CoC.getInstance().monster.findStatusAffect(StatusAffects.PeachLootLoss) >= 0) {
-					CoC.getInstance().setInCombat(false);
-					CoC.getInstance().player.HP = 1;
+				if(CoC.monster.findStatusAffect(StatusAffects.PeachLootLoss) >= 0) {
+					CoC.setInCombat(false);
+					CoC.player.HP = 1;
 					EngineCore.statScreenRefresh();
 					return;
 				}
-				if(CoC.getInstance().monster.short === "Ember") {
-					CoC.getInstance().setInCombat(false);
-					CoC.getInstance().player.HP = 1;
+				if(CoC.monster.short === "Ember") {
+					CoC.setInCombat(false);
+					CoC.player.HP = 1;
 					EngineCore.statScreenRefresh();
 					EngineCore.doNext(nextFunc);
 					return;
 				}
-				var temp = Utils.rand(10) + 1 + Math.round(CoC.getInstance().monster.level / 2);
+				var temp = Utils.rand(10) + 1 + Math.round(CoC.monster.level / 2);
 				if (SceneLib.dungeonCore.isInDungeon()) {
-					temp += 20 + CoC.getInstance().monster.level * 2;
+					temp += 20 + CoC.monster.level * 2;
 				}
-				if (temp > CoC.getInstance().player.gems) {
-					temp = CoC.getInstance().player.gems;
+				if (temp > CoC.player.gems) {
+					temp = CoC.player.gems;
 				}
-				var timePasses = CoC.getInstance().monster.handleCombatLossText(SceneLib.dungeonCore.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
-				CoC.getInstance().player.gems -= temp;
-				CoC.getInstance().setInCombat(false);
+				var timePasses = CoC.monster.handleCombatLossText(SceneLib.dungeonCore.isInDungeon(), temp); //Allows monsters to customize the loss text and the amount of time lost
+				CoC.player.gems -= temp;
+				CoC.setInCombat(false);
 				//BUNUS XPZ
-				if(CoC.getInstance().flags[kFLAGS.COMBAT_BONUS_XP_VALUE] > 0) {
-					CoC.getInstance().player.XP += CoC.getInstance().flags[kFLAGS.COMBAT_BONUS_XP_VALUE];
-					EngineCore.outputText("  Somehow you managed to gain " + CoC.getInstance().flags[kFLAGS.COMBAT_BONUS_XP_VALUE] + " XP from the situation.");
-					CoC.getInstance().flags[kFLAGS.COMBAT_BONUS_XP_VALUE] = 0;
+				if(CoC.flags[kFLAGS.COMBAT_BONUS_XP_VALUE] > 0) {
+					CoC.player.XP += CoC.flags[kFLAGS.COMBAT_BONUS_XP_VALUE];
+					EngineCore.outputText("  Somehow you managed to gain " + CoC.flags[kFLAGS.COMBAT_BONUS_XP_VALUE] + " XP from the situation.");
+					CoC.flags[kFLAGS.COMBAT_BONUS_XP_VALUE] = 0;
 				}
 				//Bonus lewts
-				if (CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
-					EngineCore.outputText("  Somehow you came away from the encounter with " + ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]).longName + ".\n\n");
-					SceneLib.inventory.takeItem(ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(SceneLib.camp.returnToCamp, timePasses));
+				if (CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
+					EngineCore.outputText("  Somehow you came away from the encounter with " + ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]).longName + ".\n\n");
+					SceneLib.inventory.takeItem(ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(SceneLib.camp.returnToCamp, timePasses));
 				} else {
 					EngineCore.doNext(EngineCore.createCallBackFunction(SceneLib.camp.returnToCamp, timePasses));
 				}
@@ -85,20 +85,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.approachAfterKnockback = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText("You close the distance between you and " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " as quickly as possible.\n\n");
-		CoC.getInstance().player.removeStatusAffect(StatusAffects.KnockedBack);
+		EngineCore.outputText("You close the distance between you and " + CoC.monster.a + CoC.monster.short + " as quickly as possible.\n\n");
+		CoC.player.removeStatusAffect(StatusAffects.KnockedBack);
 		Combat.enemyAI();
 		return;
 	};
 	Combat.canUseMagic = function() {
-		return CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) < 0 && CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) < 0 && CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) < 0;
+		return CoC.player.findStatusAffect(StatusAffects.ThroatPunch) < 0 && CoC.player.findStatusAffect(StatusAffects.WebSilence) < 0 && CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) < 0;
 	};
 	Combat.combatMenu = function(newRound) { //If returning from a sub menu set newRound to false
 		if(newRound === undefined) {
 			newRound = true;
 		}
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 0;
+		CoC.flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 0;
 		MainView.hideMenuButton(MainView.MENU_DATA);
 		MainView.hideMenuButton(MainView.MENU_APPEARANCE);
 		MainView.hideMenuButton(MainView.MENU_PERKS);
@@ -116,63 +116,63 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		var magic = (Combat.canUseMagic() ? Combat.magicMenu : null);
 		var pSpecials = Combat.physicalSpecials;
 		
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.AttackDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.AttackDisabled) >= 0) {
 			EngineCore.outputText("\n<b>Chained up as you are, you can't manage any real physical attacks!</b>");
 			attacks = null;
 		}
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.PhysicalDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.PhysicalDisabled) >= 0) {
 			EngineCore.outputText("<b>  Even physical special attacks are out of the question.</b>");
 			pSpecials = null;
 		}
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnockedBack) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.KnockedBack) >= 0) {
 			EngineCore.outputText("\n<b>You'll need to close some distance before you can use any physical attacks!</b>");
 			EngineCore.addButton(0, "Approach", Combat.approachAfterKnockback);
 			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
 			EngineCore.addButton(2, "Spells", Combat.magic);
 			EngineCore.addButton(3, "Items", SceneLib.inventory.inventoryMenu);
 			EngineCore.addButton(4, "Run", Combat.runAway);
-			if (CoC.getInstance().player.hasKeyItem("Bow") >= 0) {
+			if (CoC.player.hasKeyItem("Bow") >= 0) {
 				EngineCore.addButton(5, "Bow", Combat.fireBow);
 			}
 			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
 			EngineCore.addButton(7, "Wait", Combat.wait);
 			EngineCore.addButton(8, "Fantasize", Combat.fantasize);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.Stunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0 || CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
 			EngineCore.outputText("\n<b>You're too stunned to attack!</b>  All you can do is wait and try to recover!");
 			EngineCore.addButton(0, "Recover", Combat.wait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Whispered) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered) >= 0) {
 			EngineCore.outputText("\n<b>Your mind is too addled to focus on combat!</b>  All you can do is try and recover!");
 			EngineCore.addButton(0, "Recover", Combat.wait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Confusion) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion) >= 0) {
 			EngineCore.outputText("\nYou're too confused about who you are to try to attack!");
 			EngineCore.addButton(0, "Recover", Combat.wait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.TentacleBind) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.NagaBind) >= 0 || CoC.getInstance().monster.findStatusAffect(StatusAffects.QueenBind) >= 0 || CoC.getInstance().monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.HolliConstrict) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0 || CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
 			EngineCore.addButton(0, "Struggle", Combat.struggle);
 			EngineCore.addButton(5, "Wait", Combat.wait);
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
 			EngineCore.addButton(0, "Squeeze", SceneLib.nagaScene.naggaSqueeze);
 			EngineCore.addButton(1, "Tease", SceneLib.nagaScene.naggaTease);
 			EngineCore.addButton(4, "Release", SceneLib.nagaScene.nagaLeggoMyEggo);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Bound) >= 0) {
-			EngineCore.addButton(0, "Struggle", CoC.getInstance().monster.ceraphBindingStruggle);
-			EngineCore.addButton(5, "Wait", CoC.getInstance().monster.ceraphBoundWait);
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Bound) >= 0) {
+			EngineCore.addButton(0, "Struggle", CoC.monster.ceraphBindingStruggle);
+			EngineCore.addButton(5, "Wait", CoC.monster.ceraphBoundWait);
+		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
 			EngineCore.outputText("\n<b>You're bound up in the minotaur lord's chains!  All you can do is try to struggle free!</b>");
 			EngineCore.addButton(0, "Struggle", Combat.struggle);
 			EngineCore.addButton(5, "Wait", Combat.wait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
 			EngineCore.addButton(0, "Struggle", Combat.struggle);
 			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Chokeslam) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.CoC.getInstance().monster.chokeSlamStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.getInstance().monster.chokeSlamWait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Titsmother) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.CoC.getInstance().monster.titSmotherStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.getInstance().monster.titSmotherWait);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Tentagrappled) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Chokeslam) >= 0) {
+			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.chokeSlamStruggle);
+			EngineCore.addButton(5, "Wait", Combat.CoC.monster.chokeSlamWait);
+		} else if (CoC.player.findStatusAffect(StatusAffects.Titsmother) >= 0) {
+			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.titSmotherStruggle);
+			EngineCore.addButton(5, "Wait", Combat.CoC.monster.titSmotherWait);
+		} else if (CoC.player.findStatusAffect(StatusAffects.Tentagrappled) >= 0) {
 			EngineCore.outputText("\n<b>The demonesses tentacles are constricting your limbs!</b>");
-			EngineCore.addButton(0, "Struggle", Combat.CoC.getInstance().monster.grappleStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.getInstance().monster.grappleWait);
+			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.grappleStruggle);
+			EngineCore.addButton(5, "Wait", Combat.CoC.monster.grappleWait);
 		} else { //REGULAR MENU
 			EngineCore.addButton(0, "Attack", Combat.attacks);
 			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
@@ -181,16 +181,16 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(4, "Run", Combat.runAway);
 			EngineCore.addButton(5, "P. Specials", pSpecials);
 			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
-			EngineCore.addButton(7, (CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), Combat.wait);
+			EngineCore.addButton(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), Combat.wait);
 			EngineCore.addButton(8, "Fantasize", Combat.fantasize);
 		}
 	};
 	Combat.teaseAttack = function() {
-		if (CoC.getInstance().monster.lustVuln === 0) {
+		if (CoC.monster.lustVuln === 0) {
 			EngineCore.clearOutput();
-			EngineCore.outputText("You try to tease " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with your body, but it doesn't have any effect on " + CoC.getInstance().monster.pronoun2 + ".\n\n");
+			EngineCore.outputText("You try to tease " + CoC.monster.a + CoC.monster.short + " with your body, but it doesn't have any effect on " + CoC.monster.pronoun2 + ".\n\n");
 			Combat.enemyAI();
-		} else if (CoC.getInstance().monster.short === "worms") { //Worms are immune!
+		} else if (CoC.monster.short === "worms") { //Worms are immune!
 			EngineCore.clearOutput();
 			EngineCore.outputText("Thinking to take advantage of its humanoid form, you wave your cock and slap your ass in a rather lewd manner. However, the creature fails to react to your suggestive actions.\n\n");
 			Combat.enemyAI();
@@ -206,33 +206,33 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		Combat.attack();
 	};
 	Combat.packAttack = function() {
-		if (CoC.getInstance().player.spe - CoC.getInstance().monster.spe > 0 && Math.floor(Math.random() * (((CoC.getInstance().player.spe - CoC.getInstance().monster.spe) / 4) + 80)) > 80) { //Determine if dodged!
+		if (CoC.player.spe - CoC.monster.spe > 0 && Math.floor(Math.random() * (((CoC.player.spe - CoC.monster.spe) / 4) + 80)) > 80) { //Determine if dodged!
 			EngineCore.outputText("You duck, weave, and dodge.  Despite their best efforts, the throng of demons only hit the air and each other.");
-		} else if (CoC.getInstance().player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10) { //Determine if evaded
-			EngineCore.outputText("Using your skills at evading attacks, you anticipate and sidestep " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "' attacks.");
-		} else if (CoC.getInstance().player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 15 && CoC.getInstance().player.armorName === "red, high-society bodysuit") { //("Misdirection"
-			EngineCore.outputText("Using Raphael's teachings, you anticipate and sidestep " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "' attacks.");
-		} else if (CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6) { //Determine if cat'ed
-			EngineCore.outputText("With your incredible flexibility, you squeeze out of the way of " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "' attacks.");
+		} else if (CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10) { //Determine if evaded
+			EngineCore.outputText("Using your skills at evading attacks, you anticipate and sidestep " + CoC.monster.a + CoC.monster.short + "' attacks.");
+		} else if (CoC.player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 15 && CoC.player.armorName === "red, high-society bodysuit") { //("Misdirection"
+			EngineCore.outputText("Using Raphael's teachings, you anticipate and sidestep " + CoC.monster.a + CoC.monster.short + "' attacks.");
+		} else if (CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6) { //Determine if cat'ed
+			EngineCore.outputText("With your incredible flexibility, you squeeze out of the way of " + CoC.monster.a + CoC.monster.short + "' attacks.");
 		} else {
-			var temp = Math.round((CoC.getInstance().monster.str + CoC.getInstance().monster.weaponAttack) - Utils.rand(CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef); //Determine damage - str modified by enemy toughness!
+			var temp = Math.round((CoC.monster.str + CoC.monster.weaponAttack) - Utils.rand(CoC.player.tou) - CoC.player.armorDef); //Determine damage - str modified by enemy toughness!
 			if (temp <= 0) {
 				temp = 0;
-				if (!CoC.getInstance().monster.plural) {
-					EngineCore.outputText("You deflect and block every " + CoC.getInstance().monster.weaponVerb + " " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " throw at you.");
+				if (!CoC.monster.plural) {
+					EngineCore.outputText("You deflect and block every " + CoC.monster.weaponVerb + " " + CoC.monster.a + CoC.monster.short + " throw at you.");
 				} else {
-					EngineCore.outputText("You deflect " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " " + CoC.getInstance().monster.weaponVerb + ".");
+					EngineCore.outputText("You deflect " + CoC.monster.a + CoC.monster.short + " " + CoC.monster.weaponVerb + ".");
 				}
 			} else {
 				temp = Combat.takeDamage(temp);
 				if (temp <= 5) {
-					EngineCore.outputText("You are struck a glancing blow by " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "! (" + temp + ")");
+					EngineCore.outputText("You are struck a glancing blow by " + CoC.monster.a + CoC.monster.short + "! (" + temp + ")");
 				} else if (temp <= 10) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " wound you! (" + temp + ")");
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " wound you! (" + temp + ")");
 				} else if (temp <= 20) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " stagger you with the force of " + CoC.getInstance().monster.pronoun3 + " " + CoC.getInstance().monster.weaponVerb + "s! (" + temp + ")");
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " stagger you with the force of " + CoC.monster.pronoun3 + " " + CoC.monster.weaponVerb + "s! (" + temp + ")");
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " <b>mutilates</b> you with powerful fists and " + CoC.getInstance().monster.weaponVerb + "s! (" + temp + ")");
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " <b>mutilates</b> you with powerful fists and " + CoC.monster.weaponVerb + "s! (" + temp + ")");
 				}
 			}
 			EngineCore.statScreenRefresh();
@@ -241,75 +241,75 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		Combat.combatRoundOver();
 	};
 	Combat.lustAttack = function() {
-		if (CoC.getInstance().player.lust < 35) {
-			EngineCore.outputText("The " + CoC.getInstance().monster.short + " press in close against you and although they fail to hit you with an attack, the sensation of their skin rubbing against yours feels highly erotic.");
-		} else if (CoC.getInstance().player.lust < 65) {
-			EngineCore.outputText("The push of the " + CoC.getInstance().monster.short + "' sweaty, seductive bodies sliding over yours is deliciously arousing and you feel your ");
-			if (CoC.getInstance().player.cocks.length > 0) {
-				EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight() + " hardening ");
-			} else if (CoC.getInstance().player.vaginas.length > 0) {
+		if (CoC.player.lust < 35) {
+			EngineCore.outputText("The " + CoC.monster.short + " press in close against you and although they fail to hit you with an attack, the sensation of their skin rubbing against yours feels highly erotic.");
+		} else if (CoC.player.lust < 65) {
+			EngineCore.outputText("The push of the " + CoC.monster.short + "' sweaty, seductive bodies sliding over yours is deliciously arousing and you feel your ");
+			if (CoC.player.cocks.length > 0) {
+				EngineCore.outputText(CoC.player.multiCockDescriptLight() + " hardening ");
+			} else if (CoC.player.vaginas.length > 0) {
 				EngineCore.outputText(Descriptors.vaginaDescript(0) + " get wetter ");
 			}
 			EngineCore.outputText("in response to all the friction.");
 		} else {
-			EngineCore.outputText("As the " + CoC.getInstance().monster.short + " mill around you, their bodies rub constantly over yours, and it becomes harder and harder to keep your thoughts on the fight or resist reaching out to touch a well lubricated cock or pussy as it slips past.  You keep subconsciously moving your ");
-			if (CoC.getInstance().player.gender === 1) {
-				EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight() + " towards the nearest inviting hole.");
+			EngineCore.outputText("As the " + CoC.monster.short + " mill around you, their bodies rub constantly over yours, and it becomes harder and harder to keep your thoughts on the fight or resist reaching out to touch a well lubricated cock or pussy as it slips past.  You keep subconsciously moving your ");
+			if (CoC.player.gender === 1) {
+				EngineCore.outputText(CoC.player.multiCockDescriptLight() + " towards the nearest inviting hole.");
 			}
-			if (CoC.getInstance().player.gender === 2) {
+			if (CoC.player.gender === 2) {
 				EngineCore.outputText(Descriptors.vaginaDescript(0) + " towards the nearest swinging cock.");
 			}
-			if (CoC.getInstance().player.gender === 3) {
+			if (CoC.player.gender === 3) {
 				EngineCore.outputText("aching cock and thirsty pussy towards the nearest thing willing to fuck it.");
 			}
-			if (CoC.getInstance().player.gender === 0) {
+			if (CoC.player.gender === 0) {
 				EngineCore.outputText("groin, before remember there is nothing there to caress.");
 			}
 		}
-		EngineCore.dynStats("lus", 10 + CoC.getInstance().player.sens / 10);
+		EngineCore.dynStats("lus", 10 + CoC.player.sens / 10);
 		Combat.combatRoundOver();
 	};
 	Combat.wait = function() {
 		//Gain fatigue if not fighting sand tarps
 		var damage = 0;
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) < 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.Level) < 0) {
 			EngineCore.fatigue(-5);
 		}
-		CoC.getInstance().flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 1;
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
-			CoC.getInstance().monster.kitsuneWait();
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0) {
-			CoC.getInstance().monster.sandTrapWait();
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		CoC.flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 1;
+		if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
+			CoC.monster.kitsuneWait();
+		} else if (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+			CoC.monster.sandTrapWait();
+		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You sigh and relax in the chains, eying the well-endowed minotaur as you await whatever rough treatment he desires to give.  His musky, utterly male scent wafts your way on the wind, and you feel droplets of your lust dripping down your thighs.  You lick your lips as you watch the pre-cum drip from his balls, eager to get down there and worship them.  Why did you ever try to struggle against this fate?\n\n");
 			EngineCore.dynStats("lus", 30 + Utils.rand(5), "resisted", false);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Whispered) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You shake off the mental compulsions and ready yourself to fight!\n\n");
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.Whispered);
+			CoC.player.removeStatusAffect(StatusAffects.Whispered);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
 			EngineCore.clearOutput();
 			damage = 80 + Utils.rand(40);
 			damage = Combat.takeDamage(damage);
 			EngineCore.outputText("The brood continues to hammer away at your defenseless self. (" + damage + ")");
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
 			SceneLib.dungeonHelSupplimental.ropeStruggles(true);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-			damage = Combat.takeDamage(0.35 * CoC.getInstance().player.maxHP());
+			damage = Combat.takeDamage(0.35 * CoC.player.maxHP());
 			EngineCore.outputText(" (" + damage + ")");
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("Suddenly, the goo-girl leaks half-way out of her heavy armor and lunges at you. You attempt to dodge her attack, but she doesn't try and hit you - instead, she wraps around you, pinning your arms to your chest. More and more goo latches onto you - you'll have to fight to get out of this.");
-			CoC.getInstance().player.addStatusValue(StatusAffects.GooArmorBind, 1, 1);
-			if (CoC.getInstance().player.statusAffectv1(StatusAffects.GooArmorBind) >= 5) {
-				if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Spar) >= 0) {
+			CoC.player.addStatusValue(StatusAffects.GooArmorBind, 1, 1);
+			if (CoC.player.statusAffectv1(StatusAffects.GooArmorBind) >= 5) {
+				if (CoC.monster.findStatusAffect(StatusAffects.Spar) >= 0) {
 					SceneLib.valeria.pcWinsValeriaSparDefeat();
 				} else {
 					SceneLib.dungeonHelSupplimental.gooArmorBeatsUpPC();
@@ -317,44 +317,44 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				return;
 			}
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("The naga's grip on you tightens as you relax into the stimulating pressure.");
-			EngineCore.dynStats("lus", CoC.getInstance().player.sens / 5 + 5);
+			EngineCore.dynStats("lus", CoC.player.sens / 5 + 5);
 			Combat.takeDamage(5 + Utils.rand(5));
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
-			CoC.getInstance().monster.waitForHolliConstrict(true);
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+			CoC.monster.waitForHolliConstrict(true);
+		} else if (CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
 			EngineCore.clearOutput();
-			if (CoC.getInstance().player.cocks.length > 0) {
+			if (CoC.player.cocks.length > 0) {
 				EngineCore.outputText("The creature continues spiraling around your cock, sending shivers up and down your body. You must escape or this creature will overwhelm you!");
-			} else if (CoC.getInstance().player.hasVagina()) {
+			} else if (CoC.player.hasVagina()) {
 				EngineCore.outputText("The creature continues sucking your clit and now has latched two more suckers on your nipples, amplifying your growing lust. You must escape or you will become a mere toy to this thing!");
 			} else {
-				EngineCore.outputText("The creature continues probing at your asshole and has now latched " + Utils.num2Text(CoC.getInstance().player.totalNipples()) + " more suckers onto your nipples, amplifying your growing lust.  You must escape or you will become a mere toy to this thing!");
+				EngineCore.outputText("The creature continues probing at your asshole and has now latched " + Utils.num2Text(CoC.player.totalNipples()) + " more suckers onto your nipples, amplifying your growing lust.  You must escape or you will become a mere toy to this thing!");
 			}
-			EngineCore.dynStats("lus", (8 + CoC.getInstance().player.sens / 10));
+			EngineCore.dynStats("lus", (8 + CoC.player.sens / 10));
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You wobble about for some time but manage to recover. Isabella capitalizes on your wasted time to act again.\n\n");
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.IsabellaStunned);
+			CoC.player.removeStatusAffect(StatusAffects.IsabellaStunned);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Stunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You wobble about, stunned for a moment.  After shaking your head, you clear the stars from your vision, but by then you've squandered your chance to act.\n\n");
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.Stunned);
+			CoC.player.removeStatusAffect(StatusAffects.Stunned);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.Confusion) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You shake your head and file your memories in the past, where they belong.  It's time to fight!\n\n");
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.Confusion);
+			CoC.player.removeStatusAffect(StatusAffects.Confusion);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().monster instanceof Doppleganger) {
+		} else if (CoC.monster instanceof Doppleganger) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You decide not to take any action this round.\n\n");
-			CoC.getInstance().monster.handlePlayerWait();
+			CoC.monster.handlePlayerWait();
 			Combat.enemyAI();
 		} else {
 			EngineCore.clearOutput();
@@ -363,51 +363,51 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.struggle = function() {
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
 			EngineCore.clearOutput();
-			if (CoC.getInstance().player.str / 9 + Utils.rand(20) + 1 >= 15) {
+			if (CoC.player.str / 9 + Utils.rand(20) + 1 >= 15) {
 				EngineCore.outputText("Utilizing every ounce of your strength and cunning, you squirm wildly, shrugging through weak spots in the chain's grip to free yourself!  Success!");
-				CoC.getInstance().monster.removeStatusAffect(StatusAffects.MinotaurEntangled);
+				CoC.monster.removeStatusAffect(StatusAffects.MinotaurEntangled);
 				EngineCore.outputText("\n\n\"<i>No!  You fool!  You let her get away!  Hurry up and finish her up!  I need my serving!</i>\"  The succubus spits out angrily.\n\n");
 				Combat.combatRoundOver();
 			} else { //Struggle Free Fail*
 				EngineCore.outputText("You wiggle and struggle with all your might, but the chains remain stubbornly tight, binding you in place.  Damnit!  You can't lose like this!\n\n");
 				Combat.enemyAI();
 			}
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
-			CoC.getInstance().monster.kitsuneStruggle();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
-			CoC.getInstance().monster.struggleOutOfHolli();
-		} else if (CoC.getInstance().monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
+			CoC.monster.kitsuneStruggle();
+		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+			CoC.monster.struggleOutOfHolli();
+		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
 			SceneLib.dungeonHelSupplimental.ropeStruggles();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0) {
 			EngineCore.clearOutput();
 			//[Struggle](successful) :
-			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.getInstance().player.str) {
+			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.player.str) {
 				EngineCore.outputText("You claw your fingers wildly within the slime and manage to brush against her heart-shaped nucleus. The girl silently gasps and loses cohesion, allowing you to pull yourself free while she attempts to solidify.");
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.GooBind);
+				CoC.player.removeStatusAffect(StatusAffects.GooBind);
 			} else { //Failed struggle
 				EngineCore.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-				EngineCore.outputText(" (" + Combat.takeDamage(0.15 * CoC.getInstance().player.maxHP()) + ")", false);
+				EngineCore.outputText(" (" + Combat.takeDamage(0.15 * CoC.player.maxHP()) + ")", false);
 			}
 			Combat.combatRoundOver();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
 			SceneLib.dungeonHelSupplimental.harpyHordeGangBangStruggle();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
 			SceneLib.dungeonHelSupplimental.struggleAtGooBind();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You claw your way out of the webbing while Kiha does her best to handle the spiders single-handedly!\n\n");
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.UBERWEB);
+			CoC.player.removeStatusAffect(StatusAffects.UBERWEB);
 			Combat.enemyAI();
-		} else if (CoC.getInstance().player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
 			EngineCore.clearOutput();
-			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.getInstance().player.str / 1.5) {
+			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.player.str / 1.5) {
 				EngineCore.outputText("You wriggle and squirm violently, tearing yourself out from within the naga's coils.");
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.NagaBind);
+				CoC.player.removeStatusAffect(StatusAffects.NagaBind);
 			} else {
 				EngineCore.outputText("The naga's grip on you tightens as you struggle to break free from the stimulating pressure.");
-				EngineCore.dynStats("lus", CoC.getInstance().player.sens / 10 + 2);
+				EngineCore.dynStats("lus", CoC.player.sens / 10 + 2);
 				Combat.takeDamage(7 + Utils.rand(5));
 			}
 			Combat.combatRoundOver();
@@ -415,35 +415,35 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.clearOutput();
 			EngineCore.outputText("You struggle with all of your might to free yourself from the tentacles before the creature can fulfill whatever unholy desire it has for you.\n");
 			//33% chance to break free + up to 50% chance for strength
-			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.getInstance().player.str / 2) {
-				EngineCore.outputText("As the creature attempts to adjust your position in its grip, you free one of your " + CoC.getInstance().player.legs() + " and hit the beast in its beak, causing it to let out an inhuman cry and drop you to the ground smartly.\n\n");
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.TentacleBind);
-				CoC.getInstance().monster.createStatusAffect(StatusAffects.TentacleCoolDown, 3, 0, 0, 0);
+			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.player.str / 2) {
+				EngineCore.outputText("As the creature attempts to adjust your position in its grip, you free one of your " + CoC.player.legs() + " and hit the beast in its beak, causing it to let out an inhuman cry and drop you to the ground smartly.\n\n");
+				CoC.player.removeStatusAffect(StatusAffects.TentacleBind);
+				CoC.monster.createStatusAffect(StatusAffects.TentacleCoolDown, 3, 0, 0, 0);
 				Combat.enemyAI();
 			} else { //Fail to break free
 				EngineCore.outputText("Despite trying to escape, the creature only tightens its grip, making it difficult to breathe.\n\n");
 				Combat.takeDamage(5);
-				if (CoC.getInstance().player.cocks.length > 0) {
+				if (CoC.player.cocks.length > 0) {
 					EngineCore.outputText("The creature continues spiraling around your cock, sending shivers up and down your body. You must escape or this creature will overwhelm you!");
-				} else if (CoC.getInstance().player.hasVagina()) {
+				} else if (CoC.player.hasVagina()) {
 					EngineCore.outputText("The creature continues sucking your clit and now has latched two more suckers on your nipples, amplifying your growing lust. You must escape or you will become a mere toy to this thing!");
 				} else {
-					EngineCore.outputText("The creature continues probing at your asshole and has now latched " + Utils.num2Text(CoC.getInstance().player.totalNipples()) + " more suckers onto your nipples, amplifying your growing lust.  You must escape or you will become a mere toy to this thing!");
+					EngineCore.outputText("The creature continues probing at your asshole and has now latched " + Utils.num2Text(CoC.player.totalNipples()) + " more suckers onto your nipples, amplifying your growing lust.  You must escape or you will become a mere toy to this thing!");
 				}
-				EngineCore.dynStats("lus", (3 + CoC.getInstance().player.sens / 10 + CoC.getInstance().player.lib / 20));
+				EngineCore.dynStats("lus", (3 + CoC.player.sens / 10 + CoC.player.lib / 20));
 				Combat.combatRoundOver();
 			}
 		}
 	};
 	Combat.fireBow = function() {
 		EngineCore.clearOutput();
-		if (CoC.getInstance().player.fatigue + EngineCore.physicalCost(25) > 100) {
+		if (CoC.player.fatigue + EngineCore.physicalCost(25) > 100) {
 			EngineCore.outputText("You're too fatigued to fire the bow!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.BowDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.BowDisabled) >= 0) {
 			EngineCore.outputText("You can't use your bow right now!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -452,33 +452,33 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(25, 2);
 		//Keep logic sane if this attack brings victory
 		//Amily!
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Prep messages vary by skill.
-		if (CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) < 30) {
+		if (CoC.player.statusAffectv1(StatusAffects.Kelt) < 30) {
 			EngineCore.outputText("Fumbling a bit, you nock an arrow and fire!\n");
-		} else if (CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) < 50) {
-			EngineCore.outputText("You pull an arrow and fire it at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "!\n");
-		} else if (CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) < 80) {
+		} else if (CoC.player.statusAffectv1(StatusAffects.Kelt) < 50) {
+			EngineCore.outputText("You pull an arrow and fire it at " + CoC.monster.a + CoC.monster.short + "!\n");
+		} else if (CoC.player.statusAffectv1(StatusAffects.Kelt) < 80) {
 			EngineCore.outputText("With one smooth motion you draw, nock, and fire your deadly arrow at your opponent!\n");
-		} else if (CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) <= 99) {
-			EngineCore.outputText("In the blink of an eye you draw and fire your bow directly at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".\n");
+		} else if (CoC.player.statusAffectv1(StatusAffects.Kelt) <= 99) {
+			EngineCore.outputText("In the blink of an eye you draw and fire your bow directly at " + CoC.monster.a + CoC.monster.short + ".\n");
 		} else {
-			EngineCore.outputText("You casually fire an arrow at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with supreme skill.\n");
+			EngineCore.outputText("You casually fire an arrow at " + CoC.monster.a + CoC.monster.short + " with supreme skill.\n");
 			//Keep it from going over 100
-			CoC.getInstance().player.changeStatusValue(StatusAffects.Kelt, 1, 100);
+			CoC.player.changeStatusValue(StatusAffects.Kelt, 1, 100);
 		}
-		if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Sandstorm) >= 0 && Utils.rand(10) > 1) {
+		if (CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0 && Utils.rand(10) > 1) {
 			EngineCore.outputText("Your shot is blown off target by the tornado of sand and wind.  Damn!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//[Bow Response]
-		if (CoC.getInstance().monster.short === "Isabella") {
-			if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if (CoC.monster.short === "Isabella") {
+			if (CoC.monster.findStatusAffect(StatusAffects.Blind) >= 0) {
 				EngineCore.outputText("Isabella hears the shot and turns her shield towards it, completely blocking it with her wall of steel.\n\n");
 			} else {
 				EngineCore.outputText("You arrow thunks into Isabella's shield, completely blocked by the wall of steel.\n\n");
@@ -492,65 +492,65 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//worms are immune
-		if (CoC.getInstance().monster.short === "worms") {
+		if (CoC.monster.short === "worms") {
 			EngineCore.outputText("The arrow slips between the worms, sticking into the ground.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Vala miss chance!
-		if (CoC.getInstance().monster.short === "Vala" && Utils.rand(10) < 7) {
+		if (CoC.monster.short === "Vala" && Utils.rand(10) < 7) {
 			EngineCore.outputText("Vala flaps her wings and twists her body. Between the sudden gust of wind and her shifting of position, the arrow goes wide.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Blind miss chance
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("The arrow hits something, but blind as you are, you don't have a chance in hell of hitting anything with a bow.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Miss chance 10% based on speed + 10% based on int + 20% based on skill
-		if (CoC.getInstance().monster.short !== "pod" && CoC.getInstance().player.spe / 10 + CoC.getInstance().player.inte / 10 + CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) / 5 + 60 < Utils.rand(101)) {
+		if (CoC.monster.short !== "pod" && CoC.player.spe / 10 + CoC.player.inte / 10 + CoC.player.statusAffectv1(StatusAffects.Kelt) / 5 + 60 < Utils.rand(101)) {
 			EngineCore.outputText("The arrow goes wide, disappearing behind your foe.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Hit!  Damage calc! 20 +
-		var damage = Math.floor((20 + CoC.getInstance().player.str / 3 + CoC.getInstance().player.statusAffectv1(StatusAffects.Kelt) / 1.2) + CoC.getInstance().player.spe / 3 - Utils.rand(CoC.getInstance().monster.tou) - CoC.getInstance().monster.armorDef);
+		var damage = Math.floor((20 + CoC.player.str / 3 + CoC.player.statusAffectv1(StatusAffects.Kelt) / 1.2) + CoC.player.spe / 3 - Utils.rand(CoC.monster.tou) - CoC.monster.armorDef);
 		if (damage < 0) {
 			damage = 0;
 		}
 		if (damage === 0) {
-			if (CoC.getInstance().monster.inte > 0) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shrugs as the arrow bounces off them harmlessly.\n\n");
+			if (CoC.monster.inte > 0) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " shrugs as the arrow bounces off them harmlessly.\n\n");
 			} else {
-				EngineCore.outputText("The arrow bounces harmlessly off " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".\n\n");
+				EngineCore.outputText("The arrow bounces harmlessly off " + CoC.monster.a + CoC.monster.short + ".\n\n");
 			}
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster.short === "pod") {
+		if (CoC.monster.short === "pod") {
 			EngineCore.outputText("The arrow lodges deep into the pod's fleshy wall");
-		} else if (CoC.getInstance().monster.plural) {
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " look down at the arrow that now protrudes from one of " + CoC.getInstance().monster.pronoun3 + " bodies");
+		} else if (CoC.monster.plural) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " look down at the arrow that now protrudes from one of " + CoC.monster.pronoun3 + " bodies");
 		} else {
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " looks down at the arrow that now protrudes from " + CoC.getInstance().monster.pronoun3 + " body");
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " looks down at the arrow that now protrudes from " + CoC.monster.pronoun3 + " body");
 		}
-		if (CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+		if (CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 			damage *= 1.1;
 		}
 		damage = Combat.doDamage(damage);
-		CoC.getInstance().monster.lust -= 20;
-		if (CoC.getInstance().monster.lust < 0) {
-			CoC.getInstance().monster.lust = 0;
+		CoC.monster.lust -= 20;
+		if (CoC.monster.lust < 0) {
+			CoC.monster.lust = 0;
 		}
-		if (CoC.getInstance().monster.HP <= 0) {
-			if (CoC.getInstance().monster.short === "pod") {
+		if (CoC.monster.HP <= 0) {
+			if (CoC.monster.short === "pod") {
 				EngineCore.outputText(". (" + damage + ")\n\n");
-			} else if (CoC.getInstance().monster.plural) {
-				EngineCore.outputText(" and stagger, collapsing onto each other from the wounds you've inflicted on " + CoC.getInstance().monster.pronoun2 + ".  (" + damage + ")\n\n");
+			} else if (CoC.monster.plural) {
+				EngineCore.outputText(" and stagger, collapsing onto each other from the wounds you've inflicted on " + CoC.monster.pronoun2 + ".  (" + damage + ")\n\n");
 			} else {
-				EngineCore.outputText(" and staggers, collapsing from the wounds you've inflicted on " + CoC.getInstance().monster.pronoun2 + ".  (" + damage + ")\n\n");
+				EngineCore.outputText(" and staggers, collapsing from the wounds you've inflicted on " + CoC.monster.pronoun2 + ".  (" + damage + ")\n\n");
 			}
 			EngineCore.doNext(Combat.endHpVictory);
 			return;
@@ -569,38 +569,38 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		var temp2 = 0;
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().player.armorName === "goo armor") {
+		if(CoC.player.armorName === "goo armor") {
 			EngineCore.outputText("As you fantasize, you feel Valeria rubbing her gooey body all across your sensitive skin");
-			if(CoC.getInstance().player.gender > 0) {
+			if(CoC.player.gender > 0) {
 				EngineCore.outputText(" and genitals");
 			}
 			EngineCore.outputText(", arousing you even further.\n");
-			temp2 = 25 + Utils.rand(CoC.getInstance().player.lib / 8 + CoC.getInstance().player.cor / 8);
-		} else if(CoC.getInstance().player.balls > 0 && CoC.getInstance().player.ballSize >= 10 && Utils.rand(2) === 0) {
-			EngineCore.outputText("You daydream about fucking " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", feeling your balls swell with seed as you prepare to fuck " + CoC.getInstance().monster.pronoun2 + " full of cum.\n", false);
-			temp2 = 5 + Utils.rand(CoC.getInstance().player.lib / 8 + CoC.getInstance().player.cor / 8);
+			temp2 = 25 + Utils.rand(CoC.player.lib / 8 + CoC.player.cor / 8);
+		} else if(CoC.player.balls > 0 && CoC.player.ballSize >= 10 && Utils.rand(2) === 0) {
+			EngineCore.outputText("You daydream about fucking " + CoC.monster.a + CoC.monster.short + ", feeling your balls swell with seed as you prepare to fuck " + CoC.monster.pronoun2 + " full of cum.\n", false);
+			temp2 = 5 + Utils.rand(CoC.player.lib / 8 + CoC.player.cor / 8);
 			EngineCore.outputText("You aren't sure if it's just the fantasy, but your " + Descriptors.ballsDescriptLight() + " do feel fuller than before...\n", false);
-			CoC.getInstance().player.hoursSinceCum += 50;
-		} else if(CoC.getInstance().player.biggestTitSize() >= 6 && Utils.rand(2) === 0) {
-			EngineCore.outputText("You fantasize about grabbing " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and shoving " + CoC.getInstance().monster.pronoun2 + " in between your jiggling mammaries, nearly suffocating " + CoC.getInstance().monster.pronoun2 + " as you have your way.\n", false);
-			temp2 = 5 + Utils.rand(CoC.getInstance().player.lib / 8 + CoC.getInstance().player.cor / 8);
-		} else if(CoC.getInstance().player.biggestLactation() >= 6 && Utils.rand(2) === 0) {
-			EngineCore.outputText("You fantasize about grabbing " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and forcing " + CoC.getInstance().monster.pronoun2 + " against a " + Descriptors.nippleDescript(0) + ", and feeling your milk let down.  The desire to forcefeed SOMETHING makes your nipples hard and moist with milk.\n", false);
-			temp2 = 5 + Utils.rand(CoC.getInstance().player.lib / 8 + CoC.getInstance().player.cor / 8);
+			CoC.player.hoursSinceCum += 50;
+		} else if(CoC.player.biggestTitSize() >= 6 && Utils.rand(2) === 0) {
+			EngineCore.outputText("You fantasize about grabbing " + CoC.monster.a + CoC.monster.short + " and shoving " + CoC.monster.pronoun2 + " in between your jiggling mammaries, nearly suffocating " + CoC.monster.pronoun2 + " as you have your way.\n", false);
+			temp2 = 5 + Utils.rand(CoC.player.lib / 8 + CoC.player.cor / 8);
+		} else if(CoC.player.biggestLactation() >= 6 && Utils.rand(2) === 0) {
+			EngineCore.outputText("You fantasize about grabbing " + CoC.monster.a + CoC.monster.short + " and forcing " + CoC.monster.pronoun2 + " against a " + Descriptors.nippleDescript(0) + ", and feeling your milk let down.  The desire to forcefeed SOMETHING makes your nipples hard and moist with milk.\n", false);
+			temp2 = 5 + Utils.rand(CoC.player.lib / 8 + CoC.player.cor / 8);
 		} else {
-			EngineCore.outputText("You fill your mind with perverted thoughts about " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", picturing " + CoC.getInstance().monster.pronoun2 + " in all kinds of perverse situations with you.\n", true);	
-			temp2 = 10 + Utils.rand(CoC.getInstance().player.lib / 5 + CoC.getInstance().player.cor / 8);
+			EngineCore.outputText("You fill your mind with perverted thoughts about " + CoC.monster.a + CoC.monster.short + ", picturing " + CoC.monster.pronoun2 + " in all kinds of perverse situations with you.\n", true);	
+			temp2 = 10 + Utils.rand(CoC.player.lib / 5 + CoC.player.cor / 8);
 		}
 		if(temp2 >= 20) {
-			EngineCore.outputText("The fantasy is so vivid and pleasurable you wish it was happening now.  You wonder if " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " can tell what you were thinking.\n\n", false);
+			EngineCore.outputText("The fantasy is so vivid and pleasurable you wish it was happening now.  You wonder if " + CoC.monster.a + CoC.monster.short + " can tell what you were thinking.\n\n", false);
 		} else {
 			EngineCore.outputText("\n", false);
 		}
 		EngineCore.dynStats("lus", temp2, "resisted", false);
-		if(CoC.getInstance().player.lust > 99) {
-			if(CoC.getInstance().monster.short === "pod") {
+		if(CoC.player.lust > 99) {
+			if(CoC.monster.short === "pod") {
 				EngineCore.outputText("<b>You nearly orgasm, but the terror of the situation reasserts itself, muting your body's need for release.  If you don't escape soon, you have no doubt you'll be too fucked up to ever try again!</b>\n\n", false);
-				CoC.getInstance().player.lust = 99;
+				CoC.player.lust = 99;
 				EngineCore.dynStats("lus", -25);
 			} else {
 				EngineCore.doNext(Combat.endLustLoss);
@@ -612,14 +612,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Mouf Attack
 	// (Similar to the bow attack, high damage but it raises your fatigue).
 	Combat.bite = function() {
-		if(CoC.getInstance().player.fatigue + EngineCore.physicalCost(25) > 100) {
+		if(CoC.player.fatigue + EngineCore.physicalCost(25) > 100) {
 			EngineCore.outputText("You're too fatigued to use your shark-like jaws!", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
 		//Worms are special
-		if(CoC.getInstance().monster.short === "worms") {
+		if(CoC.monster.short === "worms") {
 			EngineCore.outputText("There is no way those are going anywhere near your mouth!\n\n", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -627,59 +627,59 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(25,2);
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		EngineCore.outputText("You open your mouth wide, your shark teeth extending out. Snarling with hunger, you lunge at your opponent, set to bite right into them!  ", true);
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("In hindsight, trying to bite someone while blind was probably a bad idea... ", false);
 		}
 		var damage = 0;
 		//Determine if dodged!
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(3) !== 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Math.floor(Math.random()*(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe)/4)+80)) > 80)) {
-			if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " narrowly avoids your attack!", false);
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(3) !== 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
+			if(CoC.monster.spe - CoC.player.spe < 8) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " narrowly avoids your attack!", false);
 			}
-			if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 8 && CoC.getInstance().monster.spe-CoC.getInstance().player.spe < 20) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " dodges your attack with superior quickness!", false);
+			if(CoC.monster.spe - CoC.player.spe >= 8 && CoC.monster.spe-CoC.player.spe < 20) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " dodges your attack with superior quickness!", false);
 			}
-			if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe >= 20) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " deftly avoids your slow attack.", false);
+			if(CoC.monster.spe - CoC.player.spe >= 20) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " deftly avoids your slow attack.", false);
 			}
 			EngineCore.outputText("\n\n", false);
 			Combat.enemyAI();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!
-		damage = Math.floor((CoC.getInstance().player.str + 45) - Utils.rand(CoC.getInstance().monster.tou) - CoC.getInstance().monster.armorDef);
+		damage = Math.floor((CoC.player.str + 45) - Utils.rand(CoC.monster.tou) - CoC.monster.armorDef);
 		
 		//Deal damage and update based on perks
 		if(damage > 0) {
-			if(CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage(damage);
 		}
 		if(damage <= 0) {
 			damage = 0;
-			EngineCore.outputText("Your bite is deflected or blocked by " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+			EngineCore.outputText("Your bite is deflected or blocked by " + CoC.monster.a + CoC.monster.short + ".", false);
 		} else if(damage < 10) {
-			EngineCore.outputText("You bite doesn't do much damage to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "! (" + damage + ")", false);
+			EngineCore.outputText("You bite doesn't do much damage to " + CoC.monster.a + CoC.monster.short + "! (" + damage + ")", false);
 		} else if(damage < 20) {
-			EngineCore.outputText("You seriously wound " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with your bite! (" + damage + ")", false);
+			EngineCore.outputText("You seriously wound " + CoC.monster.a + CoC.monster.short + " with your bite! (" + damage + ")", false);
 		} else if(damage < 30) {
-			EngineCore.outputText("Your bite staggers " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with its force. (" + damage + ")", false);
+			EngineCore.outputText("Your bite staggers " + CoC.monster.a + CoC.monster.short + " with its force. (" + damage + ")", false);
 		} else {
-			EngineCore.outputText("Your powerful bite <b>mutilates</b> " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "! (" + damage + ")", false);
+			EngineCore.outputText("Your powerful bite <b>mutilates</b> " + CoC.monster.a + CoC.monster.short + "! (" + damage + ")", false);
 		}
 		EngineCore.outputText("\n\n", false);
 		//Kick back to main if no damage occured!
-		if(CoC.getInstance().monster.HP > 0 && CoC.getInstance().monster.lust < 100) {
+		if(CoC.monster.HP > 0 && CoC.monster.lust < 100) {
 			Combat.enemyAI();
 		} else {
-			if(CoC.getInstance().monster.HP <= 0) {
+			if(CoC.monster.HP <= 0) {
 				EngineCore.doNext(Combat.endHpVictory);
 			} else {
 				EngineCore.doNext(Combat.endLustVictory);
@@ -688,90 +688,90 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.fatigueRecovery = function() {
 		EngineCore.fatigue(-1);
-		if(CoC.getInstance().player.findPerk(PerkLib.EnlightenedNinetails) >= 0 || CoC.getInstance().player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) >= 0 || CoC.player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
 			EngineCore.fatigue(-(1 + Utils.rand(3)));
 		}
 	};
 	//ATTACK
 	Combat.attack = function() {
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
 			EngineCore.outputText("", true);
 			Combat.fatigueRecovery();
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 0) {
 			EngineCore.outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  The kitsune's seals have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 3 && !SceneLib.urtaQuest.isUrta()) {
+		if(CoC.flags[kFLAGS.PC_FETISH] >= 3 && !SceneLib.urtaQuest.isUrta()) {
 			EngineCore.outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  Ceraph's piercings have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
 			EngineCore.outputText("It's all or nothing!  With a bellowing cry you charge down the treacherous slope and smite the sandtrap as hard as you can!  ");
-			CoC.getInstance().monster.trapLevel(-4);
+			CoC.monster.trapLevel(-4);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.getInstance().player.spe >= 50 && CoC.getInstance().flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.FirstAttack);
+		if(CoC.player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.player.spe >= 50 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 			} else {
-				if(CoC.getInstance().flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) { //Always!
-					CoC.getInstance().player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
-				} else if(CoC.getInstance().player.str < 61 && CoC.getInstance().flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 1) { //Alternate!
-					CoC.getInstance().player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
+				if(CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) { //Always!
+					CoC.player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
+				} else if(CoC.player.str < 61 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 1) { //Alternate!
+					CoC.player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
 				}
 			}
 		} else if(SceneLib.urtaQuest.isUrta()) { //"Brawler perk". Urta only. Thanks to Fenoxo for pointing this out... Even though that should have been obvious :<
 			//Urta has fists and the Brawler perk. Don't check for that because Urta can't drop her fists or lose the perk!
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.FirstAttack);
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 			} else {
-				CoC.getInstance().player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
+				CoC.player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
 				EngineCore.outputText("Utilizing your skills as a bareknuckle brawler, you make two attacks!\n");
 			}
 		}
 		//Blind
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
-		if(CoC.getInstance().monster instanceof Basilisk) {
+		if(CoC.monster instanceof Basilisk) {
 			//basilisk counter attack (block attack, significant speed loss): 
-			if(CoC.getInstance().player.inte / 5 + Utils.rand(20) < 25) {
+			if(CoC.player.inte / 5 + Utils.rand(20) < 25) {
 				EngineCore.outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You find yourself staring directly into the basilisk's face!  Quickly you snap your eyes shut and recoil backwards, swinging madly at the lizard to force it back, but the damage has been done; you can see the terrible grey eyes behind your closed lids, and you feel a great weight settle on your bones as it becomes harder to move.", false);
-				Basilisk.basiliskSpeed(CoC.getInstance().player,20);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.FirstAttack);
+				Basilisk.basiliskSpeed(CoC.player,20);
+				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 				Combat.combatRoundOver();
 				return;
 			} else { //Counter attack fails: (random chance if PC int > 50 spd > 60; PC takes small physical damage but no block or spd penalty)
-				EngineCore.outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You twist unexpectedly, bringing your " + CoC.getInstance().player.weaponName + " up at an oblique angle; the basilisk doesn't anticipate this attack!  ", false);
+				EngineCore.outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You twist unexpectedly, bringing your " + CoC.player.weaponName + " up at an oblique angle; the basilisk doesn't anticipate this attack!  ", false);
 			}
 		}
 		var damage = 0;
 		//Worms are special
-		if(CoC.getInstance().monster.short === "worms") {
+		if(CoC.monster.short === "worms") {
 			//50% chance of hit (int boost)
-			if( Utils.rand(100) + CoC.getInstance().player.inte/3 >= 50) {
-				damage = Math.floor(CoC.getInstance().player.str/5 - Utils.rand(5));
+			if( Utils.rand(100) + CoC.player.inte/3 >= 50) {
+				damage = Math.floor(CoC.player.str/5 - Utils.rand(5));
 				if(damage === 0) {
 					damage = 1;
 				}
 				EngineCore.outputText("You strike at the amalgamation, crushing countless worms into goo, dealing " + damage + " damage.\n\n", false);
-				CoC.getInstance().monster.HP -= damage;
-				if(CoC.getInstance().monster.HP <= 0) {
+				CoC.monster.HP -= damage;
+				if(CoC.monster.HP <= 0) {
 					EngineCore.doNext(Combat.endHpVictory);
 					return;
 				}
 			} else { //Fail
 				EngineCore.outputText("You attempt to crush the worms with your reprisal, only to have the collective move its individual members, creating a void at the point of impact, leaving you to attack only empty air.\n\n", false);
 			}
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 				Combat.attack();
 				return;
 			}
@@ -780,25 +780,25 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		
 		//Determine if dodged!
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Math.floor(Math.random()*(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe)/4)+80)) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
 			//Akbal dodges special education
-			if(CoC.getInstance().monster.short === "Akbal") {
+			if(CoC.monster.short === "Akbal") {
 				EngineCore.outputText("Akbal moves like lightning, weaving in and out of your furious strikes with the speed and grace befitting his jaguar body.\n", false);
-			} else if(CoC.getInstance().monster.short === "plain girl") {
-				EngineCore.outputText("You wait patiently for your opponent to drop her guard. She ducks in and throws a right cross, which you roll away from before smacking your " + CoC.getInstance().player.weaponName + " against her side. Astonishingly, the attack appears to phase right through her, not affecting her in the slightest. You glance down to your " + CoC.getInstance().player.weaponName + " as if betrayed.\n", false);
-			} else if(CoC.getInstance().monster.short === "kitsune") {
+			} else if(CoC.monster.short === "plain girl") {
+				EngineCore.outputText("You wait patiently for your opponent to drop her guard. She ducks in and throws a right cross, which you roll away from before smacking your " + CoC.player.weaponName + " against her side. Astonishingly, the attack appears to phase right through her, not affecting her in the slightest. You glance down to your " + CoC.player.weaponName + " as if betrayed.\n", false);
+			} else if(CoC.monster.short === "kitsune") {
 				//Player Miss:
 				EngineCore.outputText("You swing your [weapon] ferociously, confident that you can strike a crushing blow.  To your surprise, you stumble awkwardly as the attack passes straight through her - a mirage!  You curse as you hear a giggle behind you, turning to face her once again.\n\n");
 			} else {
-				if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " narrowly avoids your attack!", false);
-				} else if(CoC.getInstance().monster.spe-CoC.getInstance().player.spe < 20) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " dodges your attack with superior quickness!", false);
+				if(CoC.monster.spe - CoC.player.spe < 8) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " narrowly avoids your attack!", false);
+				} else if(CoC.monster.spe-CoC.player.spe < 20) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " dodges your attack with superior quickness!", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " deftly avoids your slow attack.", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " deftly avoids your slow attack.", false);
 				}
 				EngineCore.outputText("\n", false);
-				if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+				if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 					Combat.attack();
 					return;
 				} else {
@@ -809,9 +809,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//BLOCKED ATTACK:
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Earthshield) >= 0 && Utils.rand(4) === 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Earthshield) >= 0 && Utils.rand(4) === 0) {
 			EngineCore.outputText("Your strike is deflected by the wall of sand, dirt, and rock!  Damn!\n");
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 				Combat.attack();
 				return;
 			} else {
@@ -822,53 +822,53 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//BASIC DAMAGE STUFF
 		//Double Attack Hybrid Reductions
-		if(CoC.getInstance().player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.getInstance().player.spe >= 50 && CoC.getInstance().player.str > 61 && CoC.getInstance().flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) {
+		if(CoC.player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.player.spe >= 50 && CoC.player.str > 61 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) {
 			damage = 60.5;
 		} else {
-			damage = CoC.getInstance().player.str;
+			damage = CoC.player.str;
 		}
 		//Weapon addition!
-		damage += CoC.getInstance().player.weaponAttack;
+		damage += CoC.player.weaponAttack;
 		//Bonus sand trap damage!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
 			damage = Math.round(damage * 1.75);
 		}
 		//Determine if critical hit!
 		var crit = false;
-		if( Utils.rand(100) <= 4 || (CoC.getInstance().player.findPerk(PerkLib.Tactician) >= 0 && CoC.getInstance().player.inte >= 50 && (CoC.getInstance().player.inte - 50)/5 > Utils.rand(100))) {
+		if( Utils.rand(100) <= 4 || (CoC.player.findPerk(PerkLib.Tactician) >= 0 && CoC.player.inte >= 50 && (CoC.player.inte - 50)/5 > Utils.rand(100))) {
 			crit = true;
 			damage *= 1.75;
 		}
 		//Start figuring enemy damage resistance
-		var reduction = Utils.rand(CoC.getInstance().monster.tou);
+		var reduction = Utils.rand(CoC.monster.tou);
 		//Add in enemy armor if needed
-		if(CoC.getInstance().player.weaponName !== "jeweled rapier" && CoC.getInstance().player.weaponName !== "deadly spear") {
-			reduction += CoC.getInstance().monster.armorDef;
+		if(CoC.player.weaponName !== "jeweled rapier" && CoC.player.weaponName !== "deadly spear") {
+			reduction += CoC.monster.armorDef;
 			//Remove half armor for lunging strikes
-			if(CoC.getInstance().player.findPerk(PerkLib.LungingAttacks) >= 0) {
-				reduction -= CoC.getInstance().monster.armorDef/2;
+			if(CoC.player.findPerk(PerkLib.LungingAttacks) >= 0) {
+				reduction -= CoC.monster.armorDef/2;
 			}
 		}
 		//Take 5 off enemy armor for katana
-		if(CoC.getInstance().player.weaponName === "katana") {
-			if(CoC.getInstance().monster.armorDef >= 5) { //Knock off 5
+		if(CoC.player.weaponName === "katana") {
+			if(CoC.monster.armorDef >= 5) { //Knock off 5
 				reduction -= 5;
 			} else { //Less than 5 armor?  TAKE IT ALL!
-				reduction -= CoC.getInstance().monster.armorDef;
+				reduction -= CoC.monster.armorDef;
 			}
 		}
 		//Apply AND DONE!
 		damage -= reduction;
 		//Damage post processing!
 		//Thunderous Strikes
-		if(CoC.getInstance().player.findPerk(PerkLib.ThunderousStrikes) >= 0 && CoC.getInstance().player.str >= 80) {
+		if(CoC.player.findPerk(PerkLib.ThunderousStrikes) >= 0 && CoC.player.str >= 80) {
 			damage *= 1.2;
 		}
 			
-		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
 			damage *= SceneLib.umasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
 		}
-		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowAttack) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowAttack) >= 0) {
 			damage *= SceneLib.umasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
 		}
 		
@@ -876,23 +876,23 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		damage = Math.round(damage);
 		
 		//ANEMONE SHIT
-		if(CoC.getInstance().monster.short === "anemone") {
+		if(CoC.monster.short === "anemone") {
 			//hit successful:
 			//special event, block (no more than 10-20% of turns, also fails if PC has >75 corruption):
 			if( Utils.rand(10) <= 1) {
-				EngineCore.outputText("Seeing your " + CoC.getInstance().player.weaponName + " raised, the anemone looks down at the water, angles her eyes up at you, and puts out a trembling lip.  ", false);
-				if(CoC.getInstance().player.cor < 75) {
+				EngineCore.outputText("Seeing your " + CoC.player.weaponName + " raised, the anemone looks down at the water, angles her eyes up at you, and puts out a trembling lip.  ", false);
+				if(CoC.player.cor < 75) {
 					EngineCore.outputText("You stare into her hangdog expression and lose most of the killing intensity you had summoned up for your attack, stopping a few feet short of hitting her.\n", false);
 					damage = 0;
 					//Kick back to main if no damage occured!
-					if(CoC.getInstance().monster.HP > 0 && CoC.getInstance().monster.lust < 100) {
-						if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+					if(CoC.monster.HP > 0 && CoC.monster.lust < 100) {
+						if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 							Combat.attack();
 							return;
 						}
 						Combat.enemyAI();
 					} else {
-						if(CoC.getInstance().monster.HP <= 0) {
+						if(CoC.monster.HP <= 0) {
 							EngineCore.doNext(Combat.endHpVictory);
 						} else {
 							EngineCore.doNext(Combat.endLustVictory);
@@ -905,75 +905,75 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		// Have to put it before doDamage, because doDamage applies the change, as well as status effects and shit.
-		if (CoC.getInstance().monster instanceof Doppleganger) {
-			if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Stunned) < 0) {
-				if (damage > 0 && CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+		if (CoC.monster instanceof Doppleganger) {
+			if (CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
+				if (damage > 0 && CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 					damage *= 1.1;
 				}
 				if (damage > 0) {
 					damage = Combat.doDamage(damage, false);
 				}
-				CoC.getInstance().monster.mirrorAttack(damage);
+				CoC.monster.mirrorAttack(damage);
 				return;
 			}
 			// Stunning the doppleganger should now "buy" you another round.
 		}
 		
 		if(damage > 0) {
-			if(CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage(damage);
 		}
 		if(damage <= 0) {
 			damage = 0;
-			EngineCore.outputText("Your attacks are deflected or blocked by " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+			EngineCore.outputText("Your attacks are deflected or blocked by " + CoC.monster.a + CoC.monster.short + ".", false);
 		} else {
-			EngineCore.outputText("You hit " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "! (" + damage + ")", false);
+			EngineCore.outputText("You hit " + CoC.monster.a + CoC.monster.short + "! (" + damage + ")", false);
 			if (crit) {
 				EngineCore.outputText(" <b>*CRIT*</b>");
 			}
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.BrutalBlows) >= 0 && CoC.getInstance().player.str > 75) {
-			if(CoC.getInstance().monster.armorDef > 0) {
-				EngineCore.outputText("\nYour hits are so brutal that you damage " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s defenses!");
+		if(CoC.player.findPerk(PerkLib.BrutalBlows) >= 0 && CoC.player.str > 75) {
+			if(CoC.monster.armorDef > 0) {
+				EngineCore.outputText("\nYour hits are so brutal that you damage " + CoC.monster.a + CoC.monster.short + "'s defenses!");
 			}
-			if(CoC.getInstance().monster.armorDef - 10 > 0) {
-				CoC.getInstance().monster.armorDef -= 10;
+			if(CoC.monster.armorDef - 10 > 0) {
+				CoC.monster.armorDef -= 10;
 			} else {
-				CoC.getInstance().monster.armorDef = 0;
+				CoC.monster.armorDef = 0;
 			}
 		}
 		if(damage > 0) {
 			//Lust raised by anemone contact!
-			if(CoC.getInstance().monster.short === "anemone") {
+			if(CoC.monster.short === "anemone") {
 				EngineCore.outputText("\nThough you managed to hit the anemone, several of the tentacles surrounding her body sent home jolts of venom when your swing brushed past them.", false);
 				//(gain lust, temp lose str/spd)
-				CoC.getInstance().monster.applyVenom(1 + Utils.rand(2));
+				CoC.monster.applyVenom(1 + Utils.rand(2));
 			}
 			//Lust raising weapon bonuses
-			if(CoC.getInstance().monster.lustVuln > 0) {
-				if(CoC.getInstance().player.weaponPerk === "Aphrodisiac Weapon") {
-					CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * (5 + CoC.getInstance().player.cor/10);
-					EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shivers as your weapon's 'poison' goes to work.", false);
+			if(CoC.monster.lustVuln > 0) {
+				if(CoC.player.weaponPerk === "Aphrodisiac Weapon") {
+					CoC.monster.lust += CoC.monster.lustVuln * (5 + CoC.player.cor/10);
+					EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " shivers as your weapon's 'poison' goes to work.", false);
 				}
-				if(CoC.getInstance().player.weaponName === "coiled whip" && Utils.rand(2) === 0) {
-					CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * (5 + CoC.getInstance().player.cor/12);			
-					if(!CoC.getInstance().monster.plural) {
-						EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shivers and gets turned on from the whipping.", false);
+				if(CoC.player.weaponName === "coiled whip" && Utils.rand(2) === 0) {
+					CoC.monster.lust += CoC.monster.lustVuln * (5 + CoC.player.cor/12);			
+					if(!CoC.monster.plural) {
+						EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " shivers and gets turned on from the whipping.", false);
 					} else {
-						EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shiver and get turned on from the whipping.", false);
+						EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " shiver and get turned on from the whipping.", false);
 					}
 				}
-				if(CoC.getInstance().player.weaponName === "succubi whip") {
-					CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * (20 + CoC.getInstance().player.cor/15);
-					if(CoC.getInstance().player.cor < 90) {
+				if(CoC.player.weaponName === "succubi whip") {
+					CoC.monster.lust += CoC.monster.lustVuln * (20 + CoC.player.cor/15);
+					if(CoC.player.cor < 90) {
 						EngineCore.dynStats("cor", 0.3);
 					}
-					if(!CoC.getInstance().monster.plural) {
-						EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shivers and moans involuntarily from the whip's touches.", false);
+					if(!CoC.monster.plural) {
+						EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " shivers and moans involuntarily from the whip's touches.", false);
 					} else {
-						EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " shiver and moan involuntarily from the whip's touches.", false);
+						EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " shiver and moan involuntarily from the whip's touches.", false);
 					}
 					if( Utils.rand(2) === 0) {
 						EngineCore.outputText("  You get a sexual thrill from it.", false);
@@ -982,39 +982,39 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				}
 			}
 			//Weapon Procs!
-			if(CoC.getInstance().player.weaponName === "huge warhammer" || CoC.getInstance().player.weaponName === "spiked gauntlet" || CoC.getInstance().player.weaponName === "hooked gauntlets") {
+			if(CoC.player.weaponName === "huge warhammer" || CoC.player.weaponName === "spiked gauntlet" || CoC.player.weaponName === "hooked gauntlets") {
 				//10% chance
-				if( Utils.rand(10) === 0 && CoC.getInstance().monster.findPerk(PerkLib.Resolute) < 0) {
-					EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " reels from the brutal blow, stunned.", false);
-					CoC.getInstance().monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
+				if( Utils.rand(10) === 0 && CoC.monster.findPerk(PerkLib.Resolute) < 0) {
+					EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " reels from the brutal blow, stunned.", false);
+					CoC.monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
 				}
 				//50% Bleed chance
-				if (CoC.getInstance().player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.getInstance().monster.armorDef < 10 && CoC.getInstance().monster.findStatusAffect(StatusAffects.IzmaBleed) < 0) {
-					if (CoC.getInstance().monster instanceof LivingStatue) {
+				if (CoC.player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.monster.armorDef < 10 && CoC.monster.findStatusAffect(StatusAffects.IzmaBleed) < 0) {
+					if (CoC.monster instanceof LivingStatue) {
 						EngineCore.outputText("Despite the rents you've torn in its stony exterior, the statue does not bleed.");
 					} else {
-						CoC.getInstance().monster.createStatusAffect(StatusAffects.IzmaBleed,3,0,0,0);
-						if(CoC.getInstance().monster.plural) {
-							EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " bleed profusely from the many bloody gashes your hooked gauntlets leave behind.", false);
+						CoC.monster.createStatusAffect(StatusAffects.IzmaBleed,3,0,0,0);
+						if(CoC.monster.plural) {
+							EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " bleed profusely from the many bloody gashes your hooked gauntlets leave behind.", false);
 						} else {
-							EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " bleeds profusely from the many bloody gashes your hooked gauntlets leave behind.", false);
+							EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " bleeds profusely from the many bloody gashes your hooked gauntlets leave behind.", false);
 						}
 					}
 				}
 			}
 			
 		}
-		if (CoC.getInstance().monster instanceof JeanClaude && CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
-			if (CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) {
+		if (CoC.monster instanceof JeanClaude && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+			if (CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 				// noop
 			}
-			if (CoC.getInstance().player.lust <= 30) {
+			if (CoC.player.lust <= 30) {
 				EngineCore.outputText("\n\nJean-Claude doesn’t even budge when you wade into him with your [weapon].");
 				EngineCore.outputText("\n\n“<i>Why are you attacking me, slave?</i>” he says. The basilisk rex sounds genuinely confused. His eyes pulse with hot, yellow light, reaching into you as he opens his arms, staring around as if begging the crowd for an explanation. “<i>You seem lost, unable to understand, lashing out at those who take care of you. Don’t you know who you are? Where you are?</i>” That compulsion in his eyes, that never-ending heat, it’s... it’s changing things. You need to finish this as fast as you can.");
-			} else if (CoC.getInstance().player.lust <= 50) {
+			} else if (CoC.player.lust <= 50) {
 				EngineCore.outputText("\n\nAgain your [weapon] thumps into Jean-Claude. Again it feels wrong. Again it sends an aching chime through you, that you are doing something that revolts your nature.");
 				EngineCore.outputText("\n\n“<i>Why are you fighting your master, slave?</i>” he says. He is bigger than he was before. Or maybe you are smaller. “<i>You are confused. Put your weapon down- you are no warrior, you only hurt yourself when you flail around with it. You have forgotten what you were trained to be. Put it down, and let me help you.</i>” He’s right. It does hurt. Your body murmurs that it would feel so much better to open up and bask in the golden eyes fully, let it move you and penetrate you as it may. You grit your teeth and grip your [weapon] harder, but you can’t stop the warmth the hypnotic compulsion is building within you.");
-			} else if (CoC.getInstance().player.lust <= 80) {
+			} else if (CoC.player.lust <= 80) {
 				EngineCore.outputText("\n\n“<i>Do you think I will be angry at you?</i>” growls Jean-Claude lowly. Your senses feel intensified, his wild, musky scent rich in your nose. It’s hard to concentrate... or rather it’s hard not to concentrate on the sweat which runs down his hard, defined frame, the thickness of his bulging cocks, the assured movement of his powerful legs and tail, and the glow, that tantalizing, golden glow, which pulls you in and pushes so much delicious thought and sensation into your head…  “<i>I am not angry. You will have to be punished, yes, but you know that is only right, that in the end you will accept and enjoy being corrected. Come now, slave. You only increase the size of the punishment with this silliness.</i>”");
 			} else {
 				EngineCore.outputText("\n\nYou can’t... there is a reason why you keep raising your weapon against your master, but what was it? It can’t be that you think you can defeat such a powerful, godly alpha male as him. And it would feel so much better to supplicate yourself before the glow, lose yourself in it forever, serve it with your horny slut body, the only thing someone as low and helpless as you could possibly offer him. Master’s mouth is moving but you can no longer tell where his voice ends and the one in your head begins... only there is a reason you cling to like you cling onto your [weapon], whatever it is, however stupid and distant it now seems, a reason to keep fighting...");
@@ -1023,15 +1023,15 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.outputText("\n", false);
 		//Kick back to main if no damage occured!
-		if(CoC.getInstance().monster.HP >= 1 && CoC.getInstance().monster.lust <= 99) {
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+		if(CoC.monster.HP >= 1 && CoC.monster.lust <= 99) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 				Combat.attack();
 				return;
 			}
 			EngineCore.outputText("\n", false);
 			Combat.enemyAI();
 		} else {
-			if(CoC.getInstance().monster.HP <= 0) {
+			if(CoC.monster.HP <= 0) {
 				EngineCore.doNext(Combat.endHpVictory);
 			} else {
 				EngineCore.doNext(Combat.endLustVictory);
@@ -1041,12 +1041,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Gore Attack - uses 15 fatigue!
 	Combat.goreAttack = function() {
 		EngineCore.clearOutput();
-		if (CoC.getInstance().monster.short === "worms") {
+		if (CoC.monster.short === "worms") {
 			EngineCore.outputText("Taking advantage of your new natural weapons, you quickly charge at the freak of nature. Sensing impending danger, the creature willingly drops its cohesion, causing the mass of worms to fall to the ground with a sick, wet 'thud', leaving your horns to stab only at air.\n\n");
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().player.fatigue + EngineCore.physicalCost(15) > 100) {
+		if(CoC.player.fatigue + EngineCore.physicalCost(15) > 100) {
 			EngineCore.outputText("You're too fatigued to use a charge attack!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -1055,7 +1055,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(15,2);
 		var damage = 0;
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
@@ -1063,55 +1063,55 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Bigger horns = better success chance.
 		//Small horns - 60% hit
 		var hit = 0;
-		if(CoC.getInstance().player.horns >= 6 && CoC.getInstance().player.horns < 12) {
+		if(CoC.player.horns >= 6 && CoC.player.horns < 12) {
 			hit = 60;
-		} else if(CoC.getInstance().player.horns < 20) { //bigger horns - 75% hit
+		} else if(CoC.player.horns < 20) { //bigger horns - 75% hit
 			hit = 75;
 		} else { //huge horns - 90% hit
 			hit = 80;
 		}
 		//Vala dodgy bitch!
-		if(CoC.getInstance().monster.short === "Vala") {
+		if(CoC.monster.short === "Vala") {
 			hit = 20;
 		}
 		//Account for monster speed - up to -50%.
-		hit -= CoC.getInstance().monster.spe / 2;
+		hit -= CoC.monster.spe / 2;
 		//Account for player speed - up to +50%
-		hit += CoC.getInstance().player.spe / 2;
+		hit += CoC.player.spe / 2;
 		//Hit & calculation
 		if(hit >= Utils.rand(100)) {
-			var horns = CoC.getInstance().player.horns;
-			if(CoC.getInstance().player.horns > 40) {
-				CoC.getInstance().player.horns = 40;
+			var horns = CoC.player.horns;
+			if(CoC.player.horns > 40) {
+				CoC.player.horns = 40;
 			}
 			//normal
 			if( Utils.rand(4) > 0) {
-				EngineCore.outputText("You lower your head and charge, skewering " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " on one of your bullhorns!  ");
+				EngineCore.outputText("You lower your head and charge, skewering " + CoC.monster.a + CoC.monster.short + " on one of your bullhorns!  ");
 				//As normal attack + horn length bonus
-				damage = Math.floor(CoC.getInstance().player.str + horns * 2 - Utils.rand(CoC.getInstance().monster.tou) - CoC.getInstance().monster.armorDef);
+				damage = Math.floor(CoC.player.str + horns * 2 - Utils.rand(CoC.monster.tou) - CoC.monster.armorDef);
 			} else { //CRIT
 				//doubles horn bonus damage
-				damage = Math.floor(CoC.getInstance().player.str + horns * 4 - Utils.rand(CoC.getInstance().monster.tou) - CoC.getInstance().monster.armorDef);
-				EngineCore.outputText("You lower your head and charge, slamming into " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and burying both your horns into " + CoC.getInstance().monster.pronoun2 + "!  ");
+				damage = Math.floor(CoC.player.str + horns * 4 - Utils.rand(CoC.monster.tou) - CoC.monster.armorDef);
+				EngineCore.outputText("You lower your head and charge, slamming into " + CoC.monster.a + CoC.monster.short + " and burying both your horns into " + CoC.monster.pronoun2 + "!  ");
 			}
 			//Bonus damage for rut!
-			if(CoC.getInstance().player.inRut && CoC.getInstance().monster.cockTotal() > 0) {
+			if(CoC.player.inRut && CoC.monster.cockTotal() > 0) {
 				EngineCore.outputText("The fury of your rut lent you strength, increasing the damage!  ");
 				damage += 5;
 			}
 			//Bonus per level damage
-			damage += CoC.getInstance().player.level * 2;
+			damage += CoC.player.level * 2;
 			//Reduced by armor
-			damage -= CoC.getInstance().monster.armorDef;
+			damage -= CoC.monster.armorDef;
 			if(damage < 0) {
 				damage = 5;
 			}
 			//CAP 'DAT SHIT
-			if(damage > CoC.getInstance().player.level * 10 + 100) {
-				damage = CoC.getInstance().player.level * 10 + 100;
+			if(damage > CoC.player.level * 10 + 100) {
+				damage = CoC.player.level * 10 + 100;
 			}
 			if(damage > 0) {
-				if(CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+				if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 					damage *= 1.1;
 				}
 				damage = Combat.doDamage(damage);
@@ -1126,19 +1126,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		} else { //Miss
 			//Special vala changes
-			if(CoC.getInstance().monster.short === "Vala") {
+			if(CoC.monster.short === "Vala") {
 				EngineCore.outputText("You lower your head and charge Vala, but she just flutters up higher, grabs hold of your horns as you close the distance, and smears her juicy, fragrant cunt against your nose.  The sensual smell and her excited moans stun you for a second, allowing her to continue to use you as a masturbation aid, but she quickly tires of such foreplay and flutters back with a wink.\n\n");
 				EngineCore.dynStats("lus", 5);
 			} else {
-				EngineCore.outputText("You lower your head and charge " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", only to be sidestepped at the last moment!");
+				EngineCore.outputText("You lower your head and charge " + CoC.monster.a + CoC.monster.short + ", only to be sidestepped at the last moment!");
 			}
 		}
 		//New line before monster attack
 		EngineCore.outputText("\n\n");
 		//Victory ORRRRR enemy turn.
-		if(CoC.getInstance().monster.HP <= 0) {
+		if(CoC.monster.HP <= 0) {
 			EngineCore.doNext(Combat.endHpVictory);
-		} else if(CoC.getInstance().monster.lust >= 100) {
+		} else if(CoC.monster.lust >= 100) {
 			EngineCore.doNext(Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
@@ -1148,102 +1148,102 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.playerStinger = function() {
 		EngineCore.clearOutput();
 		//Keep logic sane if this attack brings victory
-		if (CoC.getInstance().player.tailVenom < 33) {
+		if (CoC.player.tailVenom < 33) {
 			EngineCore.outputText("You do not have enough venom to sting right now!");
 			EngineCore.doNext(Combat.physicalSpecials);
 			return;
 		}
 		//Worms are immune!
-		if (CoC.getInstance().monster.short === "worms") {
+		if (CoC.monster.short === "worms") {
 			EngineCore.outputText("Taking advantage of your new natural weapons, you quickly thrust your stinger at the freak of nature. Sensing impending danger, the creature willingly drops its cohesion, causing the mass of worms to fall to the ground with a sick, wet 'thud', leaving you to stab only at air.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Determine if dodged!
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe - CoC.getInstance().player.spe) / 4)+80) > 80) {
-			if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe < 8) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " narrowly avoids your stinger!\n\n");
-			} else if(CoC.getInstance().monster.spe-CoC.getInstance().player.spe < 20) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " dodges your stinger with superior quickness!\n\n");
+		if(CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe - CoC.player.spe) / 4)+80) > 80) {
+			if(CoC.monster.spe - CoC.player.spe < 8) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " narrowly avoids your stinger!\n\n");
+			} else if(CoC.monster.spe-CoC.player.spe < 20) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " dodges your stinger with superior quickness!\n\n");
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " deftly avoids your slow attempts to sting " + CoC.getInstance().monster.pronoun2 + ".\n\n");
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " deftly avoids your slow attempts to sting " + CoC.monster.pronoun2 + ".\n\n");
 			}
 			Combat.enemyAI();
 			return;
 		}
 		//determine if avoided with armor.
-		if(CoC.getInstance().monster.armorDef - CoC.getInstance().player.level >= 10 && Utils.rand(4) > 0) {
-			EngineCore.outputText("Despite your best efforts, your sting attack can't penetrate " +  CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s defenses.\n\n");
+		if(CoC.monster.armorDef - CoC.player.level >= 10 && Utils.rand(4) > 0) {
+			EngineCore.outputText("Despite your best efforts, your sting attack can't penetrate " +  CoC.monster.a + CoC.monster.short + "'s defenses.\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Sting successful!
-		EngineCore.outputText("Searing pain lances through " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " as you manage to sting " + CoC.getInstance().monster.pronoun2 + "!  ");
-		if(CoC.getInstance().monster.plural) {
-			EngineCore.outputText("You watch as " + CoC.getInstance().monster.pronoun1 + " stagger back a step and nearly trip, flushing hotly.");
+		EngineCore.outputText("Searing pain lances through " + CoC.monster.a + CoC.monster.short + " as you manage to sting " + CoC.monster.pronoun2 + "!  ");
+		if(CoC.monster.plural) {
+			EngineCore.outputText("You watch as " + CoC.monster.pronoun1 + " stagger back a step and nearly trip, flushing hotly.");
 		} else {
-			EngineCore.outputText("You watch as " + CoC.getInstance().monster.pronoun1 + " staggers back a step and nearly trips, flushing hotly.");
+			EngineCore.outputText("You watch as " + CoC.monster.pronoun1 + " staggers back a step and nearly trips, flushing hotly.");
 		}
 		//Tabulate damage!
-		var damage = 35 + Utils.rand(CoC.getInstance().player.lib/10);
+		var damage = 35 + Utils.rand(CoC.player.lib/10);
 		//Level adds more damage up to a point (level 20)
-		if(CoC.getInstance().player.level < 10) {
-			damage += CoC.getInstance().player.level * 3;
-		} else if(CoC.getInstance().player.level < 20) {
-			damage += 30 + (CoC.getInstance().player.level-10) * 2;
+		if(CoC.player.level < 10) {
+			damage += CoC.player.level * 3;
+		} else if(CoC.player.level < 20) {
+			damage += 30 + (CoC.player.level-10) * 2;
 		} else {
 			damage += 50;
 		}
-		CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * damage;
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.lustvenom) < 0) {
-			CoC.getInstance().monster.createStatusAffect(StatusAffects.lustvenom, 0, 0, 0, 0);
+		CoC.monster.lust += CoC.monster.lustVuln * damage;
+		if(CoC.monster.findStatusAffect(StatusAffects.lustvenom) < 0) {
+			CoC.monster.createStatusAffect(StatusAffects.lustvenom, 0, 0, 0, 0);
 		}
 		//New line before monster attack
 		EngineCore.outputText("\n\n");
 		//Use tail mp
-		CoC.getInstance().player.tailVenom -= 25;
+		CoC.player.tailVenom -= 25;
 		//Kick back to main if no damage occured!
-		if(CoC.getInstance().monster.HP > 0 && CoC.getInstance().monster.lust < 100) {
+		if(CoC.monster.HP > 0 && CoC.monster.lust < 100) {
 			Combat.enemyAI();
 		} else {
 			EngineCore.doNext(Combat.endLustVictory);
 		}
 	};
 	Combat.combatMiss = function() {
-		return CoC.getInstance().player.spe - CoC.getInstance().monster.spe > 0 && Utils.rand(((CoC.getInstance().player.spe - CoC.getInstance().monster.spe) / 4) + 80) > 80;
+		return CoC.player.spe - CoC.monster.spe > 0 && Utils.rand(((CoC.player.spe - CoC.monster.spe) / 4) + 80) > 80;
 	};
 	Combat.combatEvade = function() {
-		return CoC.getInstance().monster.short !== "Kiha" && CoC.getInstance().player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10;
+		return CoC.monster.short !== "Kiha" && CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10;
 	};
 	Combat.combatFlexibility = function() {
-		return CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6;
+		return CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6;
 	};
 	Combat.combatMisdirect = function() {
-		return CoC.getInstance().player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 10 && CoC.getInstance().player.armorName === "red, high-society bodysuit";
+		return CoC.player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 10 && CoC.player.armorName === "red, high-society bodysuit";
 	};
 	//DEAL DAMAGE
 	Combat.doDamage = function(damage, apply) {
 		if(apply === undefined) {
 			apply = true;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Sadist) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Sadist) >= 0) {
 			damage *= 1.2;
 			EngineCore.dynStats("lus", 3);
 		}
-		if (CoC.getInstance().monster.HP - damage <= 0) {
+		if (CoC.monster.HP - damage <= 0) {
 			EngineCore.doNext(Combat.endHpVictory);
 		}
 		// Uma's Massage Bonuses
-		var statIndex = CoC.getInstance().player.findStatusAffect(StatusAffects.UmasMassage);
+		var statIndex = CoC.player.findStatusAffect(StatusAffects.UmasMassage);
 		if (statIndex >= 0) {
-			if (CoC.getInstance().player.statusAffect(statIndex).value1 === SceneLib.umasShop.MASSAGE_POWER) {
-				damage *= CoC.getInstance().player.statusAffect(statIndex).value2;
+			if (CoC.player.statusAffect(statIndex).value1 === SceneLib.umasShop.MASSAGE_POWER) {
+				damage *= CoC.player.statusAffect(statIndex).value2;
 			}
 		}
 		damage = Math.round(damage);
@@ -1251,39 +1251,39 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			damage = 1;
 		}
 		if(apply) {
-			CoC.getInstance().monster.HP -= damage;
+			CoC.monster.HP -= damage;
 		}
 		//Isabella gets mad
-		if(CoC.getInstance().monster.short === "Isabella") {
-			CoC.getInstance().flags[kFLAGS.ISABELLA_AFFECTION]--;
+		if(CoC.monster.short === "Isabella") {
+			CoC.flags[kFLAGS.ISABELLA_AFFECTION]--;
 			//Keep in bounds
-			if(CoC.getInstance().flags[kFLAGS.ISABELLA_AFFECTION] < 0) {
-				CoC.getInstance().flags[kFLAGS.ISABELLA_AFFECTION] = 0;
+			if(CoC.flags[kFLAGS.ISABELLA_AFFECTION] < 0) {
+				CoC.flags[kFLAGS.ISABELLA_AFFECTION] = 0;
 			}
 		}
 		//Interrupt gigaflare if necessary.
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Gigafire) >= 0) {
-			CoC.getInstance().monster.addStatusValue(StatusAffects.Gigafire,1,damage);
+		if(CoC.monster.findStatusAffect(StatusAffects.Gigafire) >= 0) {
+			CoC.monster.addStatusValue(StatusAffects.Gigafire,1,damage);
 		}
 		//Keep shit in bounds.
-		if(CoC.getInstance().monster.HP < 0) {
-			CoC.getInstance().monster.HP = 0;
+		if(CoC.monster.HP < 0) {
+			CoC.monster.HP = 0;
 		}
 		return damage;
 	};
 	Combat.takeDamage = function(damage) {
-		return CoC.getInstance().player.Combat.takeDamage(damage);
+		return CoC.player.Combat.takeDamage(damage);
 	};
 	//ENEMYAI!
 	Combat.enemyAI = function() {
-		CoC.getInstance().monster.doAI();
+		CoC.monster.doAI();
 	};
 	Combat.finishCombat = function() {
-		var hpVictory = CoC.getInstance().monster.HP < 1;
+		var hpVictory = CoC.monster.HP < 1;
 		if (hpVictory) {
-			EngineCore.outputText("You defeat " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".\n", true);
+			EngineCore.outputText("You defeat " + CoC.monster.a + CoC.monster.short + ".\n", true);
 		} else {
-			EngineCore.outputText("You smile as " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " collapses and begins masturbating feverishly.", true);
+			EngineCore.outputText("You smile as " + CoC.monster.a + CoC.monster.short + " collapses and begins masturbating feverishly.", true);
 		}
 		Combat.awardPlayer();
 	};
@@ -1300,7 +1300,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				//50% breakage!
 				if( Utils.rand(2) === 0) {
 					itype = WeaponLib.L__AXE;
-					if(CoC.getInstance().player.tallness < 78) {
+					if(CoC.player.tallness < 78) {
 						EngineCore.outputText("\nYou find a large axe on the minotaur, but it is too big for a person of your stature to comfortably carry.  ", false);
 						if( Utils.rand(2) === 0) {
 							itype = null;
@@ -1319,9 +1319,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(monster instanceof BeeGirl) {
 			//force honey drop if milked
-			if(CoC.getInstance().flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] === 1) {
+			if(CoC.flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] === 1) {
 				itype = Utils.randomChoice(ConsumableLib.BEEHONY, ConsumableLib.PURHONY);
-				CoC.getInstance().flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] = 0;
+				CoC.flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] = 0;
 			}
 		}
 		if(monster instanceof Jojo && SceneLib.jojoScene.monk > 4) {
@@ -1330,24 +1330,24 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(monster instanceof Harpy || monster instanceof Sophie) {
 			if( Utils.rand(10) === 0) {
 				itype = ArmorLib.W_ROBES;
-			} else if( Utils.rand(3) === 0 && CoC.getInstance().player.findPerk(PerkLib.LuststickAdapted) >= 0) {
+			} else if( Utils.rand(3) === 0 && CoC.player.findPerk(PerkLib.LuststickAdapted) >= 0) {
 				itype = ConsumableLib.LUSTSTK;
 			} else {
 				itype = ConsumableLib.GLDSEED;
 			}
 		}
 		//Chance of armor if at level 1 pierce fetish
-		if(!OnLoadVariables.plotFight && !(monster instanceof Ember) && !(monster instanceof Kiha) && !(monster instanceof Hel) && !(monster instanceof Isabella) && CoC.getInstance().flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.getInstance().player.hasItem(ArmorLib.SEDUCTA, 1) && !SceneLib.ceraphFollowerScene.ceraphIsFollower()) {
+		if(!OnLoadVariables.plotFight && !(monster instanceof Ember) && !(monster instanceof Kiha) && !(monster instanceof Hel) && !(monster instanceof Isabella) && CoC.flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.player.hasItem(ArmorLib.SEDUCTA, 1) && !SceneLib.ceraphFollowerScene.ceraphIsFollower()) {
 			itype = ArmorLib.SEDUCTA;
 		}
-		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.getInstance().player.level >= 7) {
+		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.player.level >= 7) {
 			itype = ConsumableLib.BROBREW;
 		}
-		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.getInstance().player.level >= 7) {
+		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.player.level >= 7) {
 			itype = ConsumableLib.BIMBOLQ;
 		}
 		//Chance of eggs if Easter!
-		if(!OnLoadVariables.plotFight && Utils.rand(6) === 0 && CoC.getInstance().isEaster()) {
+		if(!OnLoadVariables.plotFight && Utils.rand(6) === 0 && CoC.isEaster()) {
 			itype = Utils.randomChoice(
 				ConsumableLib.BROWNEG,
 				ConsumableLib.L_BRNEG,
@@ -1365,8 +1365,8 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			);
 		}
 		//Bonus loot overrides others
-		if (CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
-			itype = ItemType.lookupItem(CoC.getInstance().flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]);
+		if (CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
+			itype = ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]);
 		}
 		monster.handleAwardItemText(itype); //Each monster can now override the default award text
 		if (itype !== null) {
@@ -1378,196 +1378,196 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.awardPlayer = function() {
-		if (CoC.getInstance().player.countCockSocks("gilded") > 0) {
-			var bonusGems = CoC.getInstance().monster.gems * 0.15 + 5 * CoC.getInstance().player.countCockSocks("gilded"); // int so AS rounds to whole numbers
-			CoC.getInstance().monster.gems += bonusGems;
+		if (CoC.player.countCockSocks("gilded") > 0) {
+			var bonusGems = CoC.monster.gems * 0.15 + 5 * CoC.player.countCockSocks("gilded"); // int so AS rounds to whole numbers
+			CoC.monster.gems += bonusGems;
 		}
-		CoC.getInstance().monster.handleAwardText(); //Each monster can now override the default award text
+		CoC.monster.handleAwardText(); //Each monster can now override the default award text
 		if (!SceneLib.dungeonCore.isInDungeon() && !OnLoadVariables.inRoomedDungeon) {
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 		} else {
 			EngineCore.doNext(EventParser.playerMenu);
 		}
-		Combat.dropItem(CoC.getInstance().monster);
-		CoC.getInstance().setInCombat(false);
-		CoC.getInstance().player.gems += CoC.getInstance().monster.gems;
-		CoC.getInstance().player.XP += CoC.getInstance().monster.XP;
+		Combat.dropItem(CoC.monster);
+		CoC.setInCombat(false);
+		CoC.player.gems += CoC.monster.gems;
+		CoC.player.XP += CoC.monster.XP;
 	};
 	//Clear statuses
 	Combat.clearStatuses = function(visibility) {
-		CoC.getInstance().player.clearStatuses(visibility);
+		CoC.player.clearStatuses(visibility);
 	};
 	//Update combat status effects
 	Combat.combatStatusesUpdate = function() {
 		//Reset menuloc
 		EngineCore.hideUpDown();
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0) {
 			//Countdown and remove as necessary
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.Sealed) > 0) {
-				CoC.getInstance().player.addStatusValue(StatusAffects.Sealed,1,-1);
-				if(CoC.getInstance().player.statusAffectv1(StatusAffects.Sealed) <= 0) {
-					CoC.getInstance().player.removeStatusAffect(StatusAffects.Sealed);
+			if(CoC.player.statusAffectv1(StatusAffects.Sealed) > 0) {
+				CoC.player.addStatusValue(StatusAffects.Sealed,1,-1);
+				if(CoC.player.statusAffectv1(StatusAffects.Sealed) <= 0) {
+					CoC.player.removeStatusAffect(StatusAffects.Sealed);
 				} else {
 					EngineCore.outputText("<b>One of your combat abilities is currently sealed by magic!</b>\n\n");
 				}
 			}
 		}
-		CoC.getInstance().monster.combatRoundUpdate();
+		CoC.monster.combatRoundUpdate();
 		//[Silence warning]
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0) {
-			CoC.getInstance().player.addStatusValue(StatusAffects.ThroatPunch,1,-1);
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.ThroatPunch) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0) {
+			CoC.player.addStatusValue(StatusAffects.ThroatPunch,1,-1);
+			if(CoC.player.statusAffectv1(StatusAffects.ThroatPunch) >= 0) {
 				EngineCore.outputText("Thanks to Isabella's wind-pipe crushing hit, you're having trouble breathing and are <b>unable to cast spells as a consequence.</b>\n\n", false);
 			} else {
 				EngineCore.outputText("Your wind-pipe recovers from Isabella's brutal hit.  You'll be able to focus to cast spells again!\n\n", false);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.ThroatPunch);
+				CoC.player.removeStatusAffect(StatusAffects.ThroatPunch);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.GooArmorSilence) >= 2 || Utils.rand(20) + 1 + CoC.getInstance().player.str / 10 >= 15) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+			if(CoC.player.statusAffectv1(StatusAffects.GooArmorSilence) >= 2 || Utils.rand(20) + 1 + CoC.player.str / 10 >= 15) {
 				//if passing str check, output at beginning of turn
 				EngineCore.outputText("<b>The sticky slop covering your mouth pulls away reluctantly, taking more force than you would expect, but you've managed to free your mouth enough to speak!</b>\n\n");
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.GooArmorSilence);
+				CoC.player.removeStatusAffect(StatusAffects.GooArmorSilence);
 			} else {
 				EngineCore.outputText("<b>Your mouth is obstructed by sticky goo!  You are silenced!</b>\n\n", false);
-				CoC.getInstance().player.addStatusValue(StatusAffects.GooArmorSilence,1,1);
+				CoC.player.addStatusValue(StatusAffects.GooArmorSilence,1,1);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.LustStones) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.LustStones) >= 0) {
 			//[When witches activate the stones for goo bodies]
-			if(CoC.getInstance().player.isGoo()) {
+			if(CoC.player.isGoo()) {
 				EngineCore.outputText("<b>The stones start vibrating again, making your liquid body ripple with pleasure.  The witches snicker at the odd sight you are right now.\n\n</b>");
 			} else { //[When witches activate the stones for solid bodies]
 				EngineCore.outputText("<b>The smooth stones start vibrating again, sending another wave of teasing bliss throughout your body.  The witches snicker at you as you try to withstand their attack.\n\n</b>");
 			}
-			EngineCore.dynStats("lus", CoC.getInstance().player.statusAffectv1(StatusAffects.LustStones) + 4);
+			EngineCore.dynStats("lus", CoC.player.statusAffectv1(StatusAffects.LustStones) + 4);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.WebSilence) >= 2 || Utils.rand(20) + 1 + CoC.getInstance().player.str/10 >= 15) {
+		if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+			if(CoC.player.statusAffectv1(StatusAffects.WebSilence) >= 2 || Utils.rand(20) + 1 + CoC.player.str/10 >= 15) {
 				EngineCore.outputText("You rip off the webbing that covers your mouth with a cry of pain, finally able to breathe normally again!  Now you can cast spells!\n\n", false);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.WebSilence);
+				CoC.player.removeStatusAffect(StatusAffects.WebSilence);
 			} else {
 				EngineCore.outputText("<b>Your mouth and nose are obstructed by sticky webbing, making it difficult to breathe and impossible to focus on casting spells.  You try to pull it off, but it just won't work!</b>\n\n", false);
-				CoC.getInstance().player.addStatusValue(StatusAffects.WebSilence,1,1);
+				CoC.player.addStatusValue(StatusAffects.WebSilence,1,1);
 			}
 		}		
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
 			EngineCore.outputText("<b>You're tangled up in Holli's verdant limbs!  All you can do is try to struggle free...</b>\n\n");
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
 			EngineCore.outputText("<b>You're pinned under a pile of webbing!  You should probably struggle out of it and get back in the fight!</b>\n\n", false);
 		}
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && CoC.getInstance().monster.findStatusAffect(StatusAffects.Sandstorm) < 0) {
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.SheilaOil) >= 0) {
-				if(CoC.getInstance().player.statusAffectv1(StatusAffects.Blind) <= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && CoC.monster.findStatusAffect(StatusAffects.Sandstorm) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.SheilaOil) >= 0) {
+				if(CoC.player.statusAffectv1(StatusAffects.Blind) <= 0) {
 					EngineCore.outputText("<b>You finish wiping the demon's tainted oils away from your eyes; though the smell lingers, you can at least see.  Sheila actually seems happy to once again be under your gaze.</b>\n\n", false);
-					CoC.getInstance().player.removeStatusAffect(StatusAffects.Blind);
+					CoC.player.removeStatusAffect(StatusAffects.Blind);
 				} else {
 					EngineCore.outputText("<b>You scrub at the oily secretion with the back of your hand and wipe some of it away, but only smear the remainder out more thinly.  You can hear the demon giggling at your discomfort.</b>\n\n", false);
-					CoC.getInstance().player.addStatusValue(StatusAffects.Blind,1,-1);
+					CoC.player.addStatusValue(StatusAffects.Blind,1,-1);
 				}
 			} else {
 				//Remove blind if countdown to 0
-				if (CoC.getInstance().player.statusAffectv1(StatusAffects.Blind) === 0) {
-					CoC.getInstance().player.removeStatusAffect(StatusAffects.Blind);
+				if (CoC.player.statusAffectv1(StatusAffects.Blind) === 0) {
+					CoC.player.removeStatusAffect(StatusAffects.Blind);
 					//Alert PC that blind is gone if no more stacks are there.
-					if (CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) < 0) {
+					if (CoC.player.findStatusAffect(StatusAffects.Blind) < 0) {
 						EngineCore.outputText("<b>Your eyes have cleared and you are no longer blind!</b>\n\n", false);
 					} else {
 						EngineCore.outputText("<b>You are blind, and many physical attacks will miss much more often.</b>\n\n", false);
 					}
 				} else {
-					CoC.getInstance().player.addStatusValue(StatusAffects.Blind,1,-1);
+					CoC.player.addStatusValue(StatusAffects.Blind,1,-1);
 					EngineCore.outputText("<b>You are blind, and many physical attacks will miss much more often.</b>\n\n", false);
 				}
 			}
 		}
 		//Basilisk compulsion
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.BasiliskCompulsion) >= 0) {
-			Basilisk.basiliskSpeed(CoC.getInstance().player,15);
+		if(CoC.player.findStatusAffect(StatusAffects.BasiliskCompulsion) >= 0) {
+			Basilisk.basiliskSpeed(CoC.player,15);
 			//Continuing effect text: 
 			EngineCore.outputText("<b>You still feel the spell of those grey eyes, making your movements slow and difficult, the remembered words tempting you to look into its eyes again. You need to finish this fight as fast as your heavy limbs will allow.</b>\n\n", false);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.IzmaBleed) >= 0) {
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.IzmaBleed) <= 0) {
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.IzmaBleed);
+		if(CoC.player.findStatusAffect(StatusAffects.IzmaBleed) >= 0) {
+			if(CoC.player.statusAffectv1(StatusAffects.IzmaBleed) <= 0) {
+				CoC.player.removeStatusAffect(StatusAffects.IzmaBleed);
 				EngineCore.outputText("<b>You sigh with relief; your bleeding has slowed considerably.</b>\n\n", false);
 			} else { //Bleed effect:
 				var bleed = (2 + Utils.rand(4)) / 100;
-				bleed *= CoC.getInstance().player.HP;
+				bleed *= CoC.player.HP;
 				bleed = Combat.takeDamage(bleed);
 				EngineCore.outputText("<b>You gasp and wince in pain, feeling fresh blood pump from your wounds. (" + bleed + ")</b>\n\n", false);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.AcidSlap) >= 0) {
-			var slap = 3 + (CoC.getInstance().player.maxHP() * 0.02);
+		if(CoC.player.findStatusAffect(StatusAffects.AcidSlap) >= 0) {
+			var slap = 3 + (CoC.player.maxHP() * 0.02);
 			EngineCore.outputText("<b>Your muscles twitch in agony as the acid keeps burning you. (" + slap + ")</b>\n\n", false);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.ArousingAura) >= 0 && CoC.getInstance().monster.lustVuln > 0 && CoC.getInstance().player.cor >= 70) {
-			if(CoC.getInstance().monster.lust < 50) {
-				EngineCore.outputText("Your aura seeps into " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " but does not have any visible effects just yet.\n\n", false);
-			} else if(CoC.getInstance().monster.lust < 60) {
-				if(!CoC.getInstance().monster.plural) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " starts to squirm a little from your unholy presence.\n\n", false);
+		if(CoC.player.findPerk(PerkLib.ArousingAura) >= 0 && CoC.monster.lustVuln > 0 && CoC.player.cor >= 70) {
+			if(CoC.monster.lust < 50) {
+				EngineCore.outputText("Your aura seeps into " + CoC.monster.a + CoC.monster.short + " but does not have any visible effects just yet.\n\n", false);
+			} else if(CoC.monster.lust < 60) {
+				if(!CoC.monster.plural) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " starts to squirm a little from your unholy presence.\n\n", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " start to squirm a little from your unholy presence.\n\n", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " start to squirm a little from your unholy presence.\n\n", false);
 				}
-			} else if(CoC.getInstance().monster.lust < 75) {
-				EngineCore.outputText("Your arousing aura seems to be visibly affecting " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", making " + CoC.getInstance().monster.pronoun2 + " squirm uncomfortably.\n\n", false);
-			} else if(CoC.getInstance().monster.lust < 85) {
-				if(!CoC.getInstance().monster.plural) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s skin colors red as " + CoC.getInstance().monster.pronoun1 + " inadvertantly basks in your presence.\n\n", false);
+			} else if(CoC.monster.lust < 75) {
+				EngineCore.outputText("Your arousing aura seems to be visibly affecting " + CoC.monster.a + CoC.monster.short + ", making " + CoC.monster.pronoun2 + " squirm uncomfortably.\n\n", false);
+			} else if(CoC.monster.lust < 85) {
+				if(!CoC.monster.plural) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s skin colors red as " + CoC.monster.pronoun1 + " inadvertantly basks in your presence.\n\n", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "' skin colors red as " + CoC.getInstance().monster.pronoun1 + " inadvertantly bask in your presence.\n\n", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' skin colors red as " + CoC.monster.pronoun1 + " inadvertantly bask in your presence.\n\n", false);
 				}
 			} else {
-				if(!CoC.getInstance().monster.plural) {
-					EngineCore.outputText("The effects of your aura are quite pronounced on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " as " + CoC.getInstance().monster.pronoun1 + " begins to shake and steal glances at your body.\n\n", false);
+				if(!CoC.monster.plural) {
+					EngineCore.outputText("The effects of your aura are quite pronounced on " + CoC.monster.a + CoC.monster.short + " as " + CoC.monster.pronoun1 + " begins to shake and steal glances at your body.\n\n", false);
 				} else {
-					EngineCore.outputText("The effects of your aura are quite pronounced on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " as " + CoC.getInstance().monster.pronoun1 + " begin to shake and steal glances at your body.\n\n", false);
+					EngineCore.outputText("The effects of your aura are quite pronounced on " + CoC.monster.a + CoC.monster.short + " as " + CoC.monster.pronoun1 + " begin to shake and steal glances at your body.\n\n", false);
 				}
 			}
-			CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * (2 + Utils.rand(4));
+			CoC.monster.lust += CoC.monster.lustVuln * (2 + Utils.rand(4));
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Bound) >= 0 && CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.Bound) >= 0 && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 			EngineCore.outputText("The feel of tight leather completely immobilizing you turns you on more and more.  Would it be so bad to just wait and let her play with you like this?\n\n", false);
 			EngineCore.dynStats("lus", 3);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
-			if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				EngineCore.outputText("The feel of the all-encapsulating goo immobilizing your helpless body turns you on more and more.  Maybe you should just wait for it to completely immobilize you and have you at its mercy.\n\n");
 				EngineCore.dynStats("lus", 3);
 			} else {
 				EngineCore.outputText("You're utterly immobilized by the goo flowing around you.  You'll have to struggle free!\n\n");
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
-			if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				EngineCore.outputText("The harpies are holding you down and restraining you, making the struggle all the sweeter!\n\n");
 				EngineCore.dynStats("lus", 3);
 			} else {
 				EngineCore.outputText("You're restrained by the harpies so that they can beat on you with impunity.  You'll need to struggle to break free!\n\n");
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.NagaBind) >= 0 && CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 			EngineCore.outputText("Coiled tightly by the naga and utterly immobilized, you can't help but become aroused thanks to your bondage fetish.\n\n", false);
 			EngineCore.dynStats("lus", 5);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
 			EngineCore.outputText("You are firmly trapped in the tentacle's coils.  <b>The only thing you can try to do is struggle free!</b>\n\n", false);
-			if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2) {
+			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				EngineCore.outputText("Wrapped tightly in the tentacles, you find it hard to resist becoming more and more aroused...\n\n", false);
 				EngineCore.dynStats("lus", 3);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.DriderKiss) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DriderKiss) >= 0) {
 			//(VENOM OVER TIME: WEAK)
-			if(CoC.getInstance().player.statusAffectv1(StatusAffects.DriderKiss) === 0) {
+			if(CoC.player.statusAffectv1(StatusAffects.DriderKiss) === 0) {
 				EngineCore.outputText("Your heart hammers a little faster as a vision of the drider's nude, exotic body on top of you assails you.  It'll only get worse if she kisses you again...\n\n", false);
 				EngineCore.dynStats("lus", 8);
-			} else if(CoC.getInstance().player.statusAffectv1(StatusAffects.DriderKiss) === 1) { //(VENOM OVER TIME: MEDIUM)
+			} else if(CoC.player.statusAffectv1(StatusAffects.DriderKiss) === 1) { //(VENOM OVER TIME: MEDIUM)
 				EngineCore.outputText("You shudder and moan, nearly touching yourself as your ", false);
-				if(CoC.getInstance().player.gender > 0) {
+				if(CoC.player.gender > 0) {
 					EngineCore.outputText("loins tingle and leak, hungry for the drider's every touch.", false);
 				} else {
 					EngineCore.outputText("asshole tingles and twitches, aching to be penetrated.", false);
@@ -1580,27 +1580,27 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Harpy lip gloss
-		if(CoC.getInstance().player.hasCock() && CoC.getInstance().player.findStatusAffect(StatusAffects.Luststick) >= 0 && (CoC.getInstance().monster.short === "harpy" || CoC.getInstance().monster.short === "Sophie")) {
+		if(CoC.player.hasCock() && CoC.player.findStatusAffect(StatusAffects.Luststick) >= 0 && (CoC.monster.short === "harpy" || CoC.monster.short === "Sophie")) {
 			//Chance to cleanse!
-			if(CoC.getInstance().player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
 				EngineCore.outputText("You manage to cleanse the harpy lip-gloss from your system with your knowledge of medicine!\n\n", false);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.Luststick);
+				CoC.player.removeStatusAffect(StatusAffects.Luststick);
 			} else if( Utils.rand(5) === 0) {
 				if( Utils.rand(2) === 0) {
-					EngineCore.outputText("A fantasy springs up from nowhere, dominating your thoughts for a few moments.  In it, you're lying down in a soft nest.  Gold-rimmed lips are noisily slurping around your " + CoC.getInstance().player.cockDescript(0) + ", smearing it with her messy aphrodisiac until you're completely coated in it.  She looks up at you knowingly as the two of you get ready to breed the night away...\n\n", false);		
+					EngineCore.outputText("A fantasy springs up from nowhere, dominating your thoughts for a few moments.  In it, you're lying down in a soft nest.  Gold-rimmed lips are noisily slurping around your " + CoC.player.cockDescript(0) + ", smearing it with her messy aphrodisiac until you're completely coated in it.  She looks up at you knowingly as the two of you get ready to breed the night away...\n\n", false);		
 				} else {
-					EngineCore.outputText("An idle daydream flutters into your mind.  In it, you're fucking a harpy's asshole, clutching tightly to her wide, feathery flanks as the tight ring of her pucker massages your " + CoC.getInstance().player.cockDescript(0) + ".  She moans and turns around to kiss you on the lips, ensuring your hardness.  Before long her feverish grunts of pleasure intensify, and you feel the egg she's birthing squeezing against you through her internal walls...\n\n", false);
+					EngineCore.outputText("An idle daydream flutters into your mind.  In it, you're fucking a harpy's asshole, clutching tightly to her wide, feathery flanks as the tight ring of her pucker massages your " + CoC.player.cockDescript(0) + ".  She moans and turns around to kiss you on the lips, ensuring your hardness.  Before long her feverish grunts of pleasure intensify, and you feel the egg she's birthing squeezing against you through her internal walls...\n\n", false);
 				}
 				EngineCore.dynStats("lus", 20);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.StoneLust) >= 0) {
-			if(CoC.getInstance().player.vaginas.length > 0) {
-				if(CoC.getInstance().player.lust < 40) {
+		if(CoC.player.findStatusAffect(StatusAffects.StoneLust) >= 0) {
+			if(CoC.player.vaginas.length > 0) {
+				if(CoC.player.lust < 40) {
 					EngineCore.outputText("You squirm as the smooth stone orb vibrates within you.\n\n", false);
-				} else if(CoC.getInstance().player.lust < 70) {
+				} else if(CoC.player.lust < 70) {
 					EngineCore.outputText("You involuntarily clench around the magical stone in your twat, in response to the constant erotic vibrations.\n\n", false);
-				} else if(CoC.getInstance().player.lust < 85) {
+				} else if(CoC.player.lust < 85) {
 					EngineCore.outputText("You stagger in surprise as a particularly pleasant burst of vibrations erupt from the smooth stone sphere in your " + Descriptors.vaginaDescript(0) + ".\n\n", false);
 				} else {
 					EngineCore.outputText("The magical orb inside of you is making it VERY difficult to keep your focus on combat, white-hot lust suffusing your body with each new motion.\n\n", false);
@@ -1608,89 +1608,89 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			} else {
 				EngineCore.outputText("The orb continues vibrating in your ass, doing its best to arouse you.\n\n", false);
 			}
-			EngineCore.dynStats("lus", 7 + Math.floor(CoC.getInstance().player.sens)/10);
+			EngineCore.dynStats("lus", 7 + Math.floor(CoC.player.sens)/10);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.KissOfDeath) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.KissOfDeath) >= 0) {
 			//Effect 
 			EngineCore.outputText("Your lips burn with an unexpected flash of heat.  They sting and burn with unholy energies as a puff of ectoplasmic gas escapes your lips.  That puff must be a part of your soul!  It darts through the air to the succubus, who slurps it down like a delicious snack.  You feel feverishly hot and exhausted...\n\n", false);
 			EngineCore.dynStats("lus", 5);
 			Combat.takeDamage(15);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.DemonSeed) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DemonSeed) >= 0) {
 			EngineCore.outputText("You feel something shift inside you, making you feel warm.  Finding the desire to fight this... hunk gets harder and harder.\n\n", false);
-			EngineCore.dynStats("lus", (CoC.getInstance().player.statusAffectv1(StatusAffects.DemonSeed) + Math.floor(CoC.getInstance().player.sens/30) + Math.floor(CoC.getInstance().player.lib/30) + Math.floor(CoC.getInstance().player.cor/30)));
+			EngineCore.dynStats("lus", (CoC.player.statusAffectv1(StatusAffects.DemonSeed) + Math.floor(CoC.player.sens/30) + Math.floor(CoC.player.lib/30) + Math.floor(CoC.player.cor/30)));
 		}
-		if(CoC.getInstance().player.inHeat && CoC.getInstance().player.vaginas.length > 0 && CoC.getInstance().monster.totalCocks() > 0) {
-			EngineCore.dynStats("lus", ( Utils.rand(CoC.getInstance().player.lib/5) + 3 + Utils.rand(5)));
+		if(CoC.player.inHeat && CoC.player.vaginas.length > 0 && CoC.monster.totalCocks() > 0) {
+			EngineCore.dynStats("lus", ( Utils.rand(CoC.player.lib/5) + 3 + Utils.rand(5)));
 			EngineCore.outputText("Your " + Descriptors.vaginaDescript(0) + " clenches with an instinctual desire to be touched and filled.  ", false);
 			EngineCore.outputText("If you don't end this quickly you'll give in to your heat.\n\n", false);
 		}
-		if(CoC.getInstance().player.inRut && CoC.getInstance().player.totalCocks() > 0 && CoC.getInstance().monster.hasVagina()) {
-			EngineCore.dynStats("lus", ( Utils.rand(CoC.getInstance().player.lib/5) + 3 + Utils.rand(5)));
-			if(CoC.getInstance().player.totalCocks() > 1) {
+		if(CoC.player.inRut && CoC.player.totalCocks() > 0 && CoC.monster.hasVagina()) {
+			EngineCore.dynStats("lus", ( Utils.rand(CoC.player.lib/5) + 3 + Utils.rand(5)));
+			if(CoC.player.totalCocks() > 1) {
 				EngineCore.outputText("Each of y", false);
 			} else {
 				EngineCore.outputText("Y", false);
 			}
-			if(CoC.getInstance().monster.plural) {
-				EngineCore.outputText("our " + CoC.getInstance().player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " right here and now, fucking " + CoC.getInstance().monster.pronoun3 + " " + CoC.getInstance().monster.Descriptors.vaginaDescript() + "s until they're totally fertilized and pregnant.\n\n", false);
+			if(CoC.monster.plural) {
+				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.Descriptors.vaginaDescript() + "s until they're totally fertilized and pregnant.\n\n", false);
 			} else {
-				EngineCore.outputText("our " + CoC.getInstance().player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " right here and now, fucking " + CoC.getInstance().monster.pronoun3 + " " + CoC.getInstance().monster.Descriptors.vaginaDescript() + " until it's totally fertilized and pregnant.\n\n", false);
+				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.Descriptors.vaginaDescript() + " until it's totally fertilized and pregnant.\n\n", false);
 			}
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
 			//Chance to cleanse!
-			if(CoC.getInstance().player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
 				EngineCore.outputText("You manage to cleanse the naga venom from your system with your knowledge of medicine!\n\n", false);
-				CoC.getInstance().player.spe += CoC.getInstance().player.statusAffectv1(StatusAffects.NagaVenom);
+				CoC.player.spe += CoC.player.statusAffectv1(StatusAffects.NagaVenom);
 				MainView.statsView.showStatUp( 'spe' );
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.NagaVenom);
-			} else if(CoC.getInstance().player.spe > 3) {
-				CoC.getInstance().player.addStatusValue(StatusAffects.NagaVenom,1,2);
-				CoC.getInstance().player.spe -= 2;
+				CoC.player.removeStatusAffect(StatusAffects.NagaVenom);
+			} else if(CoC.player.spe > 3) {
+				CoC.player.addStatusValue(StatusAffects.NagaVenom,1,2);
+				CoC.player.spe -= 2;
 			} else {
 				Combat.takeDamage(5);
 			}
 			EngineCore.outputText("You wince in pain and try to collect yourself, the naga's venom still plaguing you.\n\n", false);
 			Combat.takeDamage(2);
-		} else if(CoC.getInstance().player.findStatusAffect(StatusAffects.TemporaryHeat) >= 0) {
+		} else if(CoC.player.findStatusAffect(StatusAffects.TemporaryHeat) >= 0) {
 			//Chance to cleanse!
-			if(CoC.getInstance().player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
 				EngineCore.outputText("You manage to cleanse the heat and rut drug from your system with your knowledge of medicine!\n\n", false);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.TemporaryHeat);
+				CoC.player.removeStatusAffect(StatusAffects.TemporaryHeat);
 			} else {
-				EngineCore.dynStats("lus", (CoC.getInstance().player.lib/12 + 5 + Utils.rand(5)));
-				if(CoC.getInstance().player.hasVagina()) {
+				EngineCore.dynStats("lus", (CoC.player.lib/12 + 5 + Utils.rand(5)));
+				if(CoC.player.hasVagina()) {
 					EngineCore.outputText("Your " + Descriptors.vaginaDescript(0) + " clenches with an instinctual desire to be touched and filled.  ", false);
-				} else if(CoC.getInstance().player.totalCocks() > 0) {
-					EngineCore.outputText("Your " + CoC.getInstance().player.cockDescript(0) + " pulses and twitches, overwhelmed with the desire to breed.  ", false);
+				} else if(CoC.player.totalCocks() > 0) {
+					EngineCore.outputText("Your " + CoC.player.cockDescript(0) + " pulses and twitches, overwhelmed with the desire to breed.  ", false);
 				}
-				if(CoC.getInstance().player.gender === 0) {
+				if(CoC.player.gender === 0) {
 					EngineCore.outputText("You feel a tingle in your " + Descriptors.assholeDescript() + ", and the need to touch and fill it nearly overwhelms you.  ", false);
 				}
 				EngineCore.outputText("If you don't finish this soon you'll give in to this potent drug!\n\n", false);
 			}
 		}
 		//Poison
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Poison) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Poison) >= 0) {
 			//Chance to cleanse!
-			if(CoC.getInstance().player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
 				EngineCore.outputText("You manage to cleanse the poison from your system with your knowledge of medicine!\n\n", false);
-				CoC.getInstance().player.removeStatusAffect(StatusAffects.Poison);
+				CoC.player.removeStatusAffect(StatusAffects.Poison);
 			} else {
 				EngineCore.outputText("The poison continues to work on your body, wracking you with pain!\n\n", false);
-				Combat.takeDamage( 8 + Utils.rand(CoC.getInstance().player.maxHP()/20));
+				Combat.takeDamage( 8 + Utils.rand(CoC.player.maxHP()/20));
 			}
 		}
 		//Bondage straps + bondage fetish
-		if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 2 && CoC.getInstance().player.armorName === "barely-decent bondage straps") {
+		if(CoC.flags[kFLAGS.PC_FETISH] >= 2 && CoC.player.armorName === "barely-decent bondage straps") {
 			EngineCore.outputText("The feeling of the tight, leather straps holding tightly to your body while exposing so much of it turns you on a little bit more.\n\n", false);
 			EngineCore.dynStats("lus", 2);
 		}
 		Combat.regeneration(true);
-		if(CoC.getInstance().player.lust >= 100) {
+		if(CoC.player.lust >= 100) {
 			EngineCore.doNext(Combat.endLustLoss);
-		}else if(CoC.getInstance().player.HP <= 0) {
+		}else if(CoC.player.HP <= 0) {
 			EngineCore.doNext(Combat.endHpLoss);
 		}
 	};
@@ -1700,24 +1700,24 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		var healingPercent = 0;
 		//Regeneration
-		if(CoC.getInstance().player.findPerk(PerkLib.Regeneration) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Regeneration) >= 0) {
 			healingPercent += combat ? 1 : 2;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Regeneration2) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Regeneration2) >= 0) {
 			healingPercent += combat ? 2 : 4;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.LustyRegeneration) >= 0) {
+		if(CoC.player.findPerk(PerkLib.LustyRegeneration) >= 0) {
 			healingPercent += combat ? 1 : 2;
 		}
-		if(CoC.getInstance().player.armorName === "skimpy nurse's outfit") {
+		if(CoC.player.armorName === "skimpy nurse's outfit") {
 			healingPercent += 2;
-		}else if(CoC.getInstance().player.armorName === "goo armor") {
+		}else if(CoC.player.armorName === "goo armor") {
 			healingPercent += combat ? 2 : 3;
 		}
 		if(healingPercent > (combat ? 5 : 10)) {
 			healingPercent = 5;
 		}
-		EngineCore.HPChange(Math.round(CoC.getInstance().player.maxHP() * healingPercent / 100), false);
+		EngineCore.HPChange(Math.round(CoC.player.maxHP() * healingPercent / 100), false);
 	};
 	Combat.startCombat = function(monster,plotFight) {
 		OnLoadVariables.plotFight = plotFight;
@@ -1726,19 +1726,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.hideMenuButton( MainView.MENU_LEVEL );
 		MainView.hideMenuButton( MainView.MENU_PERKS );
 		//Flag the game as being "in combat"
-		CoC.getInstance().setInCombat(true);
-		CoC.getInstance().monster = monster;
-		if(CoC.getInstance().monster.short === "Ember") {
-			CoC.getInstance().monster.pronoun1 = SceneLib.emberScene.emberMF("he","she");
-			CoC.getInstance().monster.pronoun2 = SceneLib.emberScene.emberMF("him","her");
-			CoC.getInstance().monster.pronoun3 = SceneLib.emberScene.emberMF("his","her");
+		CoC.setInCombat(true);
+		CoC.monster = monster;
+		if(CoC.monster.short === "Ember") {
+			CoC.monster.pronoun1 = SceneLib.emberScene.emberMF("he","she");
+			CoC.monster.pronoun2 = SceneLib.emberScene.emberMF("him","her");
+			CoC.monster.pronoun3 = SceneLib.emberScene.emberMF("his","her");
 		}
 		//Reduce enemy def if player has precision!
-		if(CoC.getInstance().player.findPerk(PerkLib.Precision) >= 0 && CoC.getInstance().player.inte >= 25) {
-			if(CoC.getInstance().monster.armorDef <= 10) {
-				CoC.getInstance().monster.armorDef = 0;
+		if(CoC.player.findPerk(PerkLib.Precision) >= 0 && CoC.player.inte >= 25) {
+			if(CoC.monster.armorDef <= 10) {
+				CoC.monster.armorDef = 0;
 			} else {
-				CoC.getInstance().monster.armorDef -= 10;
+				CoC.monster.armorDef -= 10;
 			}
 		}
 		EngineCore.doNext(EventParser.playerMenu);
@@ -1747,28 +1747,28 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		Combat.startCombat(monster, plotFight);
 	};
 	Combat.display = function() {
-		if (!CoC.getInstance().monster.checkCalled){
+		if (!CoC.monster.checkCalled){
 			EngineCore.outputText("<B>/!\\BUG! Monster.checkMonster() is not called! Calling it now...</B>\n");
-			CoC.getInstance().monster.checkMonster();
+			CoC.monster.checkMonster();
 		}
-		if (CoC.getInstance().monster.checkError !== ""){
-			EngineCore.outputText("<B>/!\\BUG! Monster is not correctly initialized! <u>" + CoC.getInstance().monster.checkError+"</u></b>\n");
+		if (CoC.monster.checkError !== ""){
+			EngineCore.outputText("<B>/!\\BUG! Monster is not correctly initialized! <u>" + CoC.monster.checkError+"</u></b>\n");
 		}
-		var math = CoC.getInstance().monster.HPRatio();
+		var math = CoC.monster.HPRatio();
 		var percent = "(<b>" + (Math.floor(math * 1000) / 10) + "% HP</b>)";
-		if (CoC.getInstance().monster.imageName !== "") {
-			var monsterName = "monster-" + CoC.getInstance().monster.imageName;
+		if (CoC.monster.imageName !== "") {
+			var monsterName = "monster-" + CoC.monster.imageName;
 			EngineCore.outputText(ImageManager.showImage(monsterName), false,false);
 		}
 		EngineCore.outputText("<b>You are fighting ", false);
-		EngineCore.outputText(CoC.getInstance().monster.a + CoC.getInstance().monster.short + ":</b> (Level: " + CoC.getInstance().monster.level + ")\n");
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		EngineCore.outputText(CoC.monster.a + CoC.monster.short + ":</b> (Level: " + CoC.monster.level + ")\n");
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("It's impossible to see anything!\n");
 		} else {
-			EngineCore.outputText(CoC.getInstance().monster.long + "\n", false);
+			EngineCore.outputText(CoC.monster.long + "\n", false);
 			//Bonus sand trap stuff
-			if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0) {
-				var status = CoC.getInstance().monster.statusAffectv1(StatusAffects.Level);
+			if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+				var status = CoC.monster.statusAffectv1(StatusAffects.Level);
 				//[(new PG for PC height levels)PC level 4: 
 				EngineCore.outputText("\n");
 				if(status === 4) {
@@ -1779,203 +1779,203 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					EngineCore.outputText("The dunes tower above you and the hissing of sand fills your ears.  <b>The leering sandtrap is almost on top of you!</b>");
 				}
 				//no new PG)
-				EngineCore.outputText("  You could try attacking it with your " + CoC.getInstance().player.weaponName + ", but that will carry you straight to the bottom.  Alternately, you could try to tease it or hit it at range, or wait and maintain your footing until you can clamber up higher.");
+				EngineCore.outputText("  You could try attacking it with your " + CoC.player.weaponName + ", but that will carry you straight to the bottom.  Alternately, you could try to tease it or hit it at range, or wait and maintain your footing until you can clamber up higher.");
 				EngineCore.outputText("\n");
 			}
-			if(CoC.getInstance().monster.plural) {
+			if(CoC.monster.plural) {
 				if(math >= 1) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " are in perfect health.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " are in perfect health.", false);
 				} else if(math > 0.75) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " aren't very hurt.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " aren't very hurt.", false);
 				} else if(math > 0.5) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " are slightly wounded.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " are slightly wounded.", false);
 				} else if(math > 0.25) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " are seriously hurt.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " are seriously hurt.", false);
 				} else {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " are unsteady and close to death.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " are unsteady and close to death.", false);
 				}
 			} else {
 				if(math >= 1) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " is in perfect health.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " is in perfect health.", false);
 				} else if(math > 0.75) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " isn't very hurt.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " isn't very hurt.", false);
 				} else if(math > 0.5) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " is slightly wounded.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " is slightly wounded.", false);
 				} else if(math > 0.25) {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " is seriously hurt.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " is seriously hurt.", false);
 				} else {
-					EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun1 + " is unsteady and close to death.", false);
+					EngineCore.outputText("You see " + CoC.monster.pronoun1 + " is unsteady and close to death.", false);
 				}
 			}
 			EngineCore.outputText("  " + percent + "\n", false);
 			Combat.showMonsterLust();
 		}
-		$log.debug(CoC.getInstance().monster);
+		$log.debug(CoC.monster);
 	};
 	Combat.showMonsterLust = function() {
 		//Entrapped
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is currently wrapped up in your tail-coils!  ", false);
+		if(CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is currently wrapped up in your tail-coils!  ", false);
 		}
 		//Venom stuff!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
-			if(CoC.getInstance().monster.plural) {
-				if(CoC.getInstance().monster.statusAffectv1(StatusAffects.NagaVenom) <= 1) {
-					EngineCore.outputText("You notice " + CoC.getInstance().monster.pronoun1 + " are beginning to show signs of weakening, but there still appears to be plenty of fight left in " + CoC.getInstance().monster.pronoun2 + ".  ", false);
+		if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+			if(CoC.monster.plural) {
+				if(CoC.monster.statusAffectv1(StatusAffects.NagaVenom) <= 1) {
+					EngineCore.outputText("You notice " + CoC.monster.pronoun1 + " are beginning to show signs of weakening, but there still appears to be plenty of fight left in " + CoC.monster.pronoun2 + ".  ", false);
 				} else {
-					EngineCore.outputText("You notice " + CoC.getInstance().monster.pronoun1 + " are obviously affected by your venom, " + CoC.getInstance().monster.pronoun3 + " movements become unsure, and " + CoC.getInstance().monster.pronoun3 + " balance begins to fade. Sweat begins to roll on " + CoC.getInstance().monster.pronoun3 + " skin. You wager " + CoC.getInstance().monster.pronoun1 + " are probably beginning to regret provoking you.  ", false);
+					EngineCore.outputText("You notice " + CoC.monster.pronoun1 + " are obviously affected by your venom, " + CoC.monster.pronoun3 + " movements become unsure, and " + CoC.monster.pronoun3 + " balance begins to fade. Sweat begins to roll on " + CoC.monster.pronoun3 + " skin. You wager " + CoC.monster.pronoun1 + " are probably beginning to regret provoking you.  ", false);
 				}
 			} else { //Not plural
-				if(CoC.getInstance().monster.statusAffectv1(StatusAffects.NagaVenom) <= 1) {
-					EngineCore.outputText("You notice " + CoC.getInstance().monster.pronoun1 + " is beginning to show signs of weakening, but there still appears to be plenty of fight left in " + CoC.getInstance().monster.pronoun2 + ".  ", false);
+				if(CoC.monster.statusAffectv1(StatusAffects.NagaVenom) <= 1) {
+					EngineCore.outputText("You notice " + CoC.monster.pronoun1 + " is beginning to show signs of weakening, but there still appears to be plenty of fight left in " + CoC.monster.pronoun2 + ".  ", false);
 				} else {
-					EngineCore.outputText("You notice " + CoC.getInstance().monster.pronoun1 + " is obviously affected by your venom, " + CoC.getInstance().monster.pronoun3 + " movements become unsure, and " + CoC.getInstance().monster.pronoun3 + " balance begins to fade. Sweat is beginning to roll on " + CoC.getInstance().monster.pronoun3 + " skin. You wager " + CoC.getInstance().monster.pronoun1 + " is probably beginning to regret provoking you.  ", false);
+					EngineCore.outputText("You notice " + CoC.monster.pronoun1 + " is obviously affected by your venom, " + CoC.monster.pronoun3 + " movements become unsure, and " + CoC.monster.pronoun3 + " balance begins to fade. Sweat is beginning to roll on " + CoC.monster.pronoun3 + " skin. You wager " + CoC.monster.pronoun1 + " is probably beginning to regret provoking you.  ", false);
 				}
 			}
-			CoC.getInstance().monster.spe -= CoC.getInstance().monster.statusAffectv1(StatusAffects.NagaVenom);
-			CoC.getInstance().monster.str -= CoC.getInstance().monster.statusAffectv1(StatusAffects.NagaVenom);
-			if(CoC.getInstance().monster.spe < 1) {
-				CoC.getInstance().monster.spe = 1;
+			CoC.monster.spe -= CoC.monster.statusAffectv1(StatusAffects.NagaVenom);
+			CoC.monster.str -= CoC.monster.statusAffectv1(StatusAffects.NagaVenom);
+			if(CoC.monster.spe < 1) {
+				CoC.monster.spe = 1;
 			}
-			if(CoC.getInstance().monster.str < 1) {
-				CoC.getInstance().monster.str = 1;
+			if(CoC.monster.str < 1) {
+				CoC.monster.str = 1;
 			}
 		}
-		if(CoC.getInstance().monster.short === "harpy") {
+		if(CoC.monster.short === "harpy") {
 			//(Enemy slightly aroused) 
-			if(CoC.getInstance().monster.lust >= 45 && CoC.getInstance().monster.lust < 70) {
+			if(CoC.monster.lust >= 45 && CoC.monster.lust < 70) {
 				EngineCore.outputText("The harpy's actions are becoming more and more erratic as she runs her mad-looking eyes over your body, her chest jiggling, clearly aroused.  ", false);
-			} else if(CoC.getInstance().monster.lust >= 70 && CoC.getInstance().monster.lust < 90) { //(Enemy moderately aroused) 
+			} else if(CoC.monster.lust >= 70 && CoC.monster.lust < 90) { //(Enemy moderately aroused) 
 				EngineCore.outputText("She stops flapping quite so frantically and instead gently sways from side to side, showing her soft, feathery body to you, even twirling and raising her tail feathers, giving you a glimpse of her plush pussy, glistening with fluids.", false);
-			}else if(CoC.getInstance().monster.lust >= 90) { //(Enemy dangerously aroused)
+			}else if(CoC.monster.lust >= 90) { //(Enemy dangerously aroused)
 				EngineCore.outputText("You can see her thighs coated with clear fluids, the feathers matted and sticky as she struggles to contain her lust.", false);
 			}
-		} else if(CoC.getInstance().monster instanceof Clara) {
+		} else if(CoC.monster instanceof Clara) {
 			//Clara is becoming aroused
-			if(CoC.getInstance().monster.lust > 40 && CoC.getInstance().monster.lust <= 65) {
+			if(CoC.monster.lust > 40 && CoC.monster.lust <= 65) {
 				EngineCore.outputText("The anger in her motions is weakening.");
-			} else if(CoC.getInstance().monster.lust <= 75) { //Clara is somewhat aroused
+			} else if(CoC.monster.lust <= 75) { //Clara is somewhat aroused
 				EngineCore.outputText("Clara seems to be becoming more aroused than angry now.");
-			} else if(CoC.getInstance().monster.lust <= 85) { //Clara is very aroused
+			} else if(CoC.monster.lust <= 85) { //Clara is very aroused
 				EngineCore.outputText("Clara is breathing heavily now, the signs of her arousal becoming quite visible now.");
 			} else { //Clara is about to give in
 				EngineCore.outputText("It looks like Clara is on the verge of having her anger overwhelmed by her lusts.");
 			}
-		} else if(CoC.getInstance().monster.short === "Minerva") {
-			if(CoC.getInstance().monster.lust >= 40 && CoC.getInstance().monster.lust < 60) {
+		} else if(CoC.monster.short === "Minerva") {
+			if(CoC.monster.lust >= 40 && CoC.monster.lust < 60) {
 				EngineCore.outputText("Letting out a groan Minerva shakes her head, focusing on the fight at hand.  The bulge in her short is getting larger, but the siren ignores her growing hard-on and continues fighting.  ");
-			} else if(CoC.getInstance().monster.lust < 80) {
+			} else if(CoC.monster.lust < 80) {
 				EngineCore.outputText("Tentacles are squirming out from the crotch of her shorts as the throbbing bulge grows bigger and bigger, becoming harder and harder... for Minerva to ignore.  A damp spot has formed just below the bulge.  ");
 			} else {
 				EngineCore.outputText("She's holding onto her weapon for support as her face is flushed and pain-stricken.  Her tiny, short shorts are painfully holding back her quaking bulge, making the back of the fabric act like a thong as they ride up her ass and struggle against her cock.  Her cock-tentacles are lashing out in every direction.  The dampness has grown and is leaking down her leg.");
 			}
-		} else if(CoC.getInstance().monster.short === "Cum Witch") {
-			if(CoC.getInstance().monster.lust >= 40 && CoC.getInstance().monster.lust < 50) {
+		} else if(CoC.monster.short === "Cum Witch") {
+			if(CoC.monster.lust >= 40 && CoC.monster.lust < 50) {
 				EngineCore.outputText("Her nipples are hard, and poke two visible tents into the robe draped across her mountainous melons.  ");
-			} else if(CoC.getInstance().monster.lust < 75) {
+			} else if(CoC.monster.lust < 75) {
 				EngineCore.outputText("Wobbling dangerously, you can see her semi-hard shaft rustling the fabric as she moves, evidence of her growing needs.  ");
 			} else {
 				EngineCore.outputText("Swelling obscenely, the Cum Witch's thick cock stands out hard and proud, its bulbous tip rustling through the folds of her fabric as she moves and leaving dark smears in its wake.  ");
 			}
-			if(CoC.getInstance().monster.lust >= 85) {
+			if(CoC.monster.lust >= 85) {
 				EngineCore.outputText("Every time she takes a step, those dark patches seem to double in size.  ");
 			}
-			if(CoC.getInstance().monster.lust >= 93) {
+			if(CoC.monster.lust >= 93) {
 				EngineCore.outputText("There's no doubt about it, the Cum Witch is dripping with pre-cum and so close to caving in.  Hell, the lower half of her robes are slowly becoming a seed-stained mess.  ");
 			}
-			if(CoC.getInstance().monster.lust >= 70) {
+			if(CoC.monster.lust >= 70) {
 				EngineCore.outputText("She keeps licking her lips whenever she has a moment, and she seems to be breathing awfully hard.  ");
 			}
-		} else if(CoC.getInstance().monster.short === "Kelt") {
-			if(CoC.getInstance().monster.lust < 50) {
+		} else if(CoC.monster.short === "Kelt") {
+			if(CoC.monster.lust < 50) {
 				EngineCore.outputText("Kelt actually seems to be turned off for once in his miserable life.  His maleness is fairly flaccid and droopy.  ");
-			} else if(CoC.getInstance().monster.lust < 60) {
+			} else if(CoC.monster.lust < 60) {
 				EngineCore.outputText("Kelt's gotten a little stiff down below, but he still seems focused on taking you down.  ");
-			} else if(CoC.getInstance().monster.lust < 70) {
+			} else if(CoC.monster.lust < 70) {
 				EngineCore.outputText("Kelt's member has grown to its full size and even flared a little at the tip.  It bobs and sways with every movement he makes, reminding him how aroused you get him.  ");
-			} else if(CoC.getInstance().monster.lust < 80) {
+			} else if(CoC.monster.lust < 80) {
 				EngineCore.outputText("Kelt is unabashedly aroused at this point.  His skin is flushed, his manhood is erect, and a thin bead of pre has begun to bead underneath.  ");
-			} else if(CoC.getInstance().monster.lust < 90) {
+			} else if(CoC.monster.lust < 90) {
 				EngineCore.outputText("Kelt seems to be having trouble focusing.  He keeps pausing and flexing his muscles, slapping his cock against his belly and moaning when it smears his pre-cum over his equine underside.  ");
 			} else {
 				EngineCore.outputText("There can be no doubt that you're having quite the effect on Kelt.  He keeps fidgeting, dripping pre-cum everywhere as he tries to keep up the facade of fighting you.  His maleness is continually twitching and bobbing, dripping messily.  He's so close to giving in...");
 			}
-		} else if(CoC.getInstance().monster.short === "green slime") {
-			if(CoC.getInstance().monster.lust >= 45 && CoC.getInstance().monster.lust < 65) {
+		} else if(CoC.monster.short === "green slime") {
+			if(CoC.monster.lust >= 45 && CoC.monster.lust < 65) {
 				EngineCore.outputText("A lump begins to form at the base of the figure's torso, where its crotch would be.  ", false); 
-			} else if(CoC.getInstance().monster.lust < 85) {
+			} else if(CoC.monster.lust < 85) {
 				EngineCore.outputText("A distinct lump pulses at the base of the slime's torso, as if something inside the creature were trying to escape.  ", false);
-			} else if(CoC.getInstance().monster.lust < 93) {
+			} else if(CoC.monster.lust < 93) {
 				EngineCore.outputText("A long, thick pillar like a small arm protrudes from the base of the slime's torso.  ", false);
 			} else {
 				EngineCore.outputText("A long, thick pillar like a small arm protrudes from the base of the slime's torso.  Its entire body pulses, and it is clearly beginning to lose its cohesion.  ", false);
 			}
-		} else if(CoC.getInstance().monster.short === "Sirius, a naga hypnotist") {
-			if(CoC.getInstance().monster.lust >= 40 && CoC.getInstance().monster.lust >= 40) {
+		} else if(CoC.monster.short === "Sirius, a naga hypnotist") {
+			if(CoC.monster.lust >= 40 && CoC.monster.lust >= 40) {
 				EngineCore.outputText("You can see the tip of his reptilian member poking out of its protective slit. ");
-			} else if(CoC.getInstance().monster.lust >= 60) {
+			} else if(CoC.monster.lust >= 60) {
 				EngineCore.outputText("His cock is now completely exposed and half-erect, yet somehow he still stays focused on your eyes and his face is inexpressive.  ");
 			} else {
 				EngineCore.outputText("His cock is throbbing hard, you don't think it will take much longer for him to pop.   Yet his face still looks inexpressive... despite the beads of sweat forming on his brow.  ");
 			}
-		} else if(CoC.getInstance().monster.short === "kitsune") {
-			if(CoC.getInstance().monster.lust > 30 && CoC.getInstance().monster.lust < 50) {
+		} else if(CoC.monster.short === "kitsune") {
+			if(CoC.monster.lust > 30 && CoC.monster.lust < 50) {
 				EngineCore.outputText("The kitsune's face is slightly flushed.  She fans herself with her hand, watching you closely.");
-			} else if(CoC.getInstance().monster.lust > 30 && CoC.getInstance().monster.lust < 75) {
+			} else if(CoC.monster.lust > 30 && CoC.monster.lust < 75) {
 				EngineCore.outputText("The kitsune's cheeks are bright pink, and you can see her rubbing her thighs together and squirming with lust.");
-			} else if(CoC.getInstance().monster.lust > 30) {
-				if(CoC.getInstance().monster.hairColor === "red") {
+			} else if(CoC.monster.lust > 30) {
+				if(CoC.monster.hairColor === "red") {
 					EngineCore.outputText("The kitsune is openly aroused, unable to hide the obvious bulge in her robes as she seems to be struggling not to stroke it right here and now.");
 				} else {
 					EngineCore.outputText("The kitsune is openly aroused, licking her lips frequently and desperately trying to hide the trail of fluids dripping down her leg.");
 				}
 			}
-		} else if(CoC.getInstance().monster.short === "demons") {
-			if(CoC.getInstance().monster.lust > 30 && CoC.getInstance().monster.lust < 60) {
+		} else if(CoC.monster.short === "demons") {
+			if(CoC.monster.lust > 30 && CoC.monster.lust < 60) {
 				EngineCore.outputText("The demons lessen somewhat in the intensity of their attack, and some even eye up your assets as they strike at you.", false);
-			} else if(CoC.getInstance().monster.lust < 80) {
+			} else if(CoC.monster.lust < 80) {
 				EngineCore.outputText("The demons are obviously steering clear from damaging anything you might use to fuck and they're starting to leave their hands on you just a little longer after each blow. Some are starting to cop quick feels with their other hands and you can smell the demonic lust of a dozen bodies on the air.", false);
 			} else {
 				EngineCore.outputText(" The demons are less and less willing to hit you and more and more willing to just stroke their hands sensuously over you. The smell of demonic lust is thick on the air and part of the group just stands there stroking themselves openly.", false);
 			}
-		} else if(CoC.getInstance().monster.plural) {
-			if(CoC.getInstance().monster.lust > 50 && CoC.getInstance().monster.lust < 60) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "' skin remains flushed with the beginnings of arousal.  ", false);
-			} else if(CoC.getInstance().monster.lust < 70) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "' eyes constantly dart over your most sexual parts, betraying " + CoC.getInstance().monster.pronoun3 + " lust.  ", false);
+		} else if(CoC.monster.plural) {
+			if(CoC.monster.lust > 50 && CoC.monster.lust < 60) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' skin remains flushed with the beginnings of arousal.  ", false);
+			} else if(CoC.monster.lust < 70) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' eyes constantly dart over your most sexual parts, betraying " + CoC.monster.pronoun3 + " lust.  ", false);
 			}
-			if(CoC.getInstance().monster.cocks.length > 0) {
-				if(CoC.getInstance().monster.lust >= 70 && CoC.getInstance().monster.lust < 85) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " are having trouble moving due to the rigid protrusion in " + CoC.getInstance().monster.pronoun3 + " groins.  ", false);
+			if(CoC.monster.cocks.length > 0) {
+				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " are having trouble moving due to the rigid protrusion in " + CoC.monster.pronoun3 + " groins.  ", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " are panting and softly whining, each movement seeming to make " + CoC.getInstance().monster.pronoun3 + " bulges more pronounced.  You don't think " + CoC.getInstance().monster.pronoun1 + " can hold out much longer.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " are panting and softly whining, each movement seeming to make " + CoC.monster.pronoun3 + " bulges more pronounced.  You don't think " + CoC.monster.pronoun1 + " can hold out much longer.  ", false);
 				}
 			}
-			if(CoC.getInstance().monster.vaginas.length > 0) {
-				if(CoC.getInstance().monster.lust >= 70 && CoC.getInstance().monster.lust < 85) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " are obviously turned on, you can smell " + CoC.getInstance().monster.pronoun3 + " arousal in the air.  ", false);
+			if(CoC.monster.vaginas.length > 0) {
+				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " are obviously turned on, you can smell " + CoC.monster.pronoun3 + " arousal in the air.  ", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "' " + CoC.getInstance().monster.Descriptors.vaginaDescript() + "s are practically soaked with their lustful secretions.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' " + CoC.monster.Descriptors.vaginaDescript() + "s are practically soaked with their lustful secretions.  ", false);
 				}
 			}
 		} else {
-			if(CoC.getInstance().monster.lust > 50 && CoC.getInstance().monster.lust < 60) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s skin remains flushed with the beginnings of arousal.  ", false);
-			} else if(CoC.getInstance().monster.lust < 70) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s eyes constantly dart over your most sexual parts, betraying " + CoC.getInstance().monster.pronoun3 + " lust.  ", false);
+			if(CoC.monster.lust > 50 && CoC.monster.lust < 60) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s skin remains flushed with the beginnings of arousal.  ", false);
+			} else if(CoC.monster.lust < 70) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s eyes constantly dart over your most sexual parts, betraying " + CoC.monster.pronoun3 + " lust.  ", false);
 			}
-			if(CoC.getInstance().monster.cocks.length > 0) {
-				if(CoC.getInstance().monster.lust >= 70 && CoC.getInstance().monster.lust < 85) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is having trouble moving due to the rigid protrusion in " + CoC.getInstance().monster.pronoun3 + " groin.  ", false);
+			if(CoC.monster.cocks.length > 0) {
+				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is having trouble moving due to the rigid protrusion in " + CoC.monster.pronoun3 + " groin.  ", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is panting and softly whining, each movement seeming to make " + CoC.getInstance().monster.pronoun3 + " bulge more pronounced.  You don't think " + CoC.getInstance().monster.pronoun1 + " can hold out much longer.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is panting and softly whining, each movement seeming to make " + CoC.monster.pronoun3 + " bulge more pronounced.  You don't think " + CoC.monster.pronoun1 + " can hold out much longer.  ", false);
 				}
 			}
-			if(CoC.getInstance().monster.vaginas.length > 0) {
-				if(CoC.getInstance().monster.lust >= 70 && CoC.getInstance().monster.lust < 85) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is obviously turned on, you can smell " + CoC.getInstance().monster.pronoun3 + " arousal in the air.  ", false);
+			if(CoC.monster.vaginas.length > 0) {
+				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is obviously turned on, you can smell " + CoC.monster.pronoun3 + " arousal in the air.  ", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + " is practically soaked with her lustful secretions.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " is practically soaked with her lustful secretions.  ", false);
 				}
 			}
 		}
@@ -1991,15 +1991,15 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("", true);
 		}
 		//You cant tease a blind guy!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Blind) >= 0) {
-			EngineCore.outputText("You do your best to tease " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with your body.  It doesn't work - you blinded " + CoC.getInstance().monster.pronoun2 + ", remember?\n\n", true);
+		if(CoC.monster.findStatusAffect(StatusAffects.Blind) >= 0) {
+			EngineCore.outputText("You do your best to tease " + CoC.monster.a + CoC.monster.short + " with your body.  It doesn't work - you blinded " + CoC.monster.pronoun2 + ", remember?\n\n", true);
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 1) {
-			EngineCore.outputText("You do your best to tease " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with your body.  Your artless twirls have no effect, as <b>your ability to tease is sealed.</b>\n\n", true);
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 1) {
+			EngineCore.outputText("You do your best to tease " + CoC.monster.a + CoC.monster.short + " with your body.  Your artless twirls have no effect, as <b>your ability to tease is sealed.</b>\n\n", true);
 			return;
 		}	
-		if(CoC.getInstance().monster.short === "Sirius, a naga hypnotist") {
+		if(CoC.monster.short === "Sirius, a naga hypnotist") {
 			EngineCore.outputText("He is too focused on your eyes to pay any attention to your teasing moves, <b>looks like you'll have to beat him up.</b>\n\n");
 			return;
 		}
@@ -2022,56 +2022,56 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//==============================
 		var chance = 60;
 		//5% chance for each tease level.
-		chance += CoC.getInstance().player.teaseLevel * 5;
+		chance += CoC.player.teaseLevel * 5;
 		//10% for seduction perk
-		if(CoC.getInstance().player.findPerk(PerkLib.Seduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Seduction) >= 0) {
 			chance += 10;
 		}
 		//10% for sexy armor types
-		if(CoC.getInstance().player.findPerk(PerkLib.SluttySeduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SluttySeduction) >= 0) {
 			chance += 10;
 		}
 		//10% for bimbo shits
-		if(CoC.getInstance().player.findPerk(PerkLib.BimboBody) >= 0) {
+		if(CoC.player.findPerk(PerkLib.BimboBody) >= 0) {
 			chance += 10;
 			bimbo = true;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.BroBody) >= 0) {
+		if(CoC.player.findPerk(PerkLib.BroBody) >= 0) {
 			chance += 10;
 			bro = true;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.FutaForm) >= 0) {
+		if(CoC.player.findPerk(PerkLib.FutaForm) >= 0) {
 			chance += 10;
 			futa = true;
 		}
 		//2 & 2 for seductive valentines!
-		if(CoC.getInstance().player.findPerk(PerkLib.SensualLover) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SensualLover) >= 0) {
 			chance += 2;
 		}
-		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowLust) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowLust) >= 0) {
 			chance += SceneLib.umasShop.NEEDLEWORK_LUST_TEASE_MULTI;
 		}
 		//==============================
 		//Determine basic damage.
 		//==============================
 		var damage = 6 + Utils.rand(3);
-		if(CoC.getInstance().player.findPerk(PerkLib.SensualLover) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SensualLover) >= 0) {
 			damage += 2;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Seduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Seduction) >= 0) {
 			damage += 5;
 		}
 		//+ slutty armor bonus
-		if(CoC.getInstance().player.findPerk(PerkLib.SluttySeduction) >= 0) {
-			damage += CoC.getInstance().player.perkv1(PerkLib.SluttySeduction);
+		if(CoC.player.findPerk(PerkLib.SluttySeduction) >= 0) {
+			damage += CoC.player.perkv1(PerkLib.SluttySeduction);
 		}
 		//10% for bimbo shits
 		if(bimbo || bro || futa) {
 			damage += 5;
 			bimbo = true;
 		}
-		damage += CoC.getInstance().player.level;
-		damage += CoC.getInstance().player.teaseLevel*2;
+		damage += CoC.player.level;
+		damage += CoC.player.teaseLevel*2;
 		//==============================
 		//TEASE SELECT CHOICES
 		//==BASICS========
@@ -2127,164 +2127,164 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//BUILD UP LIST OF TEASE CHOICES!
 		//==============================
 		//Futas!
-		if((futa || bimbo) && CoC.getInstance().player.gender === 3) {
+		if((futa || bimbo) && CoC.player.gender === 3) {
 			//Once chance of butt.
 			choices.push(4);
 			//Big butts get more butt
-			if(CoC.getInstance().player.buttRating >= 7) {
+			if(CoC.player.buttRating >= 7) {
 				choices.push(4);
 			}
-			if(CoC.getInstance().player.buttRating >= 10) {
+			if(CoC.player.buttRating >= 10) {
 				choices.push(4);
 			}
-			if(CoC.getInstance().player.buttRating >= 14) {
+			if(CoC.player.buttRating >= 14) {
 				choices.push(4);
 			}
-			if(CoC.getInstance().player.buttRating >= 20) {
+			if(CoC.player.buttRating >= 20) {
 				choices.push(4);
 			}
-			if(CoC.getInstance().player.buttRating >= 25) {
+			if(CoC.player.buttRating >= 25) {
 				choices.push(4);
 			}
 			//Breast jiggle!
-			if(CoC.getInstance().player.biggestTitSize() >= 2) {
+			if(CoC.player.biggestTitSize() >= 2) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 4) {
+			if(CoC.player.biggestTitSize() >= 4) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 8) {
+			if(CoC.player.biggestTitSize() >= 8) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 15) {
+			if(CoC.player.biggestTitSize() >= 15) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 30) {
+			if(CoC.player.biggestTitSize() >= 30) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 50) {
+			if(CoC.player.biggestTitSize() >= 50) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 75) {
+			if(CoC.player.biggestTitSize() >= 75) {
 				choices.push(5);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 100) {
+			if(CoC.player.biggestTitSize() >= 100) {
 				choices.push(5);
 			}
 			//Pussy Flash!
-			if(CoC.getInstance().player.hasVagina()) {
+			if(CoC.player.hasVagina()) {
 				choices.push(2);
-				if(CoC.getInstance().player.wetness() >= 3) {
+				if(CoC.player.wetness() >= 3) {
 					choices.push(6);
 				}
-				if(CoC.getInstance().player.wetness() >= 5) {
+				if(CoC.player.wetness() >= 5) {
 					choices.push(6);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 30) {
+				if(CoC.player.vaginalCapacity() >= 30) {
 					choices.push(6);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 60) {
+				if(CoC.player.vaginalCapacity() >= 60) {
 					choices.push(6);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 75) {
+				if(CoC.player.vaginalCapacity() >= 75) {
 					choices.push(6);
 				}
 			}
 			//Adj special!
-			if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.buttRating >= 8 && CoC.getInstance().player.hipRating >= 6 && CoC.getInstance().player.biggestTitSize() >= 4) {
+			if(CoC.player.hasVagina() && CoC.player.buttRating >= 8 && CoC.player.hipRating >= 6 && CoC.player.biggestTitSize() >= 4) {
 				choices.push(7);
 				choices.push(7);
 				choices.push(7);
 				choices.push(7);
 			}
 			//Cock flash!
-			if(futa && CoC.getInstance().player.hasCock()) {
+			if(futa && CoC.player.hasCock()) {
 				choices.push(10);
 				choices.push(11);
-				if(CoC.getInstance().player.cockTotal() > 1) {
+				if(CoC.player.cockTotal() > 1) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.cockTotal() >= 2) {
+				if(CoC.player.cockTotal() >= 2) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 10) {
+				if(CoC.player.biggestCockArea() >= 10) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 25) {
+				if(CoC.player.biggestCockArea() >= 25) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 50) {
+				if(CoC.player.biggestCockArea() >= 50) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 75) {
+				if(CoC.player.biggestCockArea() >= 75) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 100) {
+				if(CoC.player.biggestCockArea() >= 100) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 300) {
+				if(CoC.player.biggestCockArea() >= 300) {
 					choices.push(10);
 				}
 			}
 		} else if(bro) {
 			//8 Pec Dance
-			if(CoC.getInstance().player.biggestTitSize() < 1 && CoC.getInstance().player.tone >= 60) {
+			if(CoC.player.biggestTitSize() < 1 && CoC.player.tone >= 60) {
 				choices.push(8);
-				if(CoC.getInstance().player.tone >= 70) {
+				if(CoC.player.tone >= 70) {
 					choices.push(8);
 				}
-				if(CoC.getInstance().player.tone >= 80) {
+				if(CoC.player.tone >= 80) {
 					choices.push(8);
 				}
-				if(CoC.getInstance().player.tone >= 90) {
+				if(CoC.player.tone >= 90) {
 					choices.push(8);
 				}
-				if(CoC.getInstance().player.tone === 100) {
+				if(CoC.player.tone === 100) {
 					choices.push(8);
 				}
 			}
 			//9 Heroic Pose
-			if(CoC.getInstance().player.tone >= 60 && CoC.getInstance().player.str >= 50) {
+			if(CoC.player.tone >= 60 && CoC.player.str >= 50) {
 				choices.push(9);
-				if(CoC.getInstance().player.tone >= 80) {
+				if(CoC.player.tone >= 80) {
 					choices.push(9);
 				}
-				if(CoC.getInstance().player.str >= 70) {
+				if(CoC.player.str >= 70) {
 					choices.push(9);
 				}
-				if(CoC.getInstance().player.tone >= 90) {
+				if(CoC.player.tone >= 90) {
 					choices.push(9);
 				}
-				if(CoC.getInstance().player.str >= 80) {
+				if(CoC.player.str >= 80) {
 					choices.push(9);
 				}
 			}	
 			//Cock flash!
-			if(CoC.getInstance().player.hasCock()) {
+			if(CoC.player.hasCock()) {
 				choices.push(10);
 				choices.push(11);
-				if(CoC.getInstance().player.cockTotal() > 1) {
+				if(CoC.player.cockTotal() > 1) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.cockTotal() >= 2) {
+				if(CoC.player.cockTotal() >= 2) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 10) {
+				if(CoC.player.biggestCockArea() >= 10) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 25) {
+				if(CoC.player.biggestCockArea() >= 25) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 50) {
+				if(CoC.player.biggestCockArea() >= 50) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 75) {
+				if(CoC.player.biggestCockArea() >= 75) {
 					choices.push(10);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 100) {
+				if(CoC.player.biggestCockArea() >= 100) {
 					choices.push(11);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 300) {
+				if(CoC.player.biggestCockArea() >= 300) {
 					choices.push(10);
 				}
 			}
@@ -2292,128 +2292,128 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//Once chance of butt.
 			choices.push(0);
 			//Big butts get more butt
-			if(CoC.getInstance().player.buttRating >= 7) {
+			if(CoC.player.buttRating >= 7) {
 				choices.push(0);
 			}
-			if(CoC.getInstance().player.buttRating >= 10) {
+			if(CoC.player.buttRating >= 10) {
 				choices.push(0);
 			}
-			if(CoC.getInstance().player.buttRating >= 14) {
+			if(CoC.player.buttRating >= 14) {
 				choices.push(0);
 			}
-			if(CoC.getInstance().player.buttRating >= 20) {
+			if(CoC.player.buttRating >= 20) {
 				choices.push(0);
 			}
-			if(CoC.getInstance().player.buttRating >= 25) {
+			if(CoC.player.buttRating >= 25) {
 				choices.push(0);
 			}
 			//Breast jiggle!
-			if(CoC.getInstance().player.biggestTitSize() >= 2) {
+			if(CoC.player.biggestTitSize() >= 2) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 4) {
+			if(CoC.player.biggestTitSize() >= 4) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 8) {
+			if(CoC.player.biggestTitSize() >= 8) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 15) {
+			if(CoC.player.biggestTitSize() >= 15) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 30) {
+			if(CoC.player.biggestTitSize() >= 30) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 50) {
+			if(CoC.player.biggestTitSize() >= 50) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 75) {
+			if(CoC.player.biggestTitSize() >= 75) {
 				choices.push(1);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 100) {
+			if(CoC.player.biggestTitSize() >= 100) {
 				choices.push(1);
 			}
 			//Pussy Flash!
-			if(CoC.getInstance().player.hasVagina()) {
+			if(CoC.player.hasVagina()) {
 				choices.push(2);
-				if(CoC.getInstance().player.wetness() >= 3) {
+				if(CoC.player.wetness() >= 3) {
 					choices.push(2);
 				}
-				if(CoC.getInstance().player.wetness() >= 5) {
+				if(CoC.player.wetness() >= 5) {
 					choices.push(2);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 30) {
+				if(CoC.player.vaginalCapacity() >= 30) {
 					choices.push(2);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 60) {
+				if(CoC.player.vaginalCapacity() >= 60) {
 					choices.push(2);
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 75) {
+				if(CoC.player.vaginalCapacity() >= 75) {
 					choices.push(2);
 				}
 			}
 			//Cock flash!
-			if(CoC.getInstance().player.hasCock()) {
+			if(CoC.player.hasCock()) {
 				choices.push(3);
-				if(CoC.getInstance().player.cockTotal() > 1) {
+				if(CoC.player.cockTotal() > 1) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.cockTotal() >= 2) {
+				if(CoC.player.cockTotal() >= 2) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 10) {
+				if(CoC.player.biggestCockArea() >= 10) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 25) {
+				if(CoC.player.biggestCockArea() >= 25) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 50) {
+				if(CoC.player.biggestCockArea() >= 50) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 75) {
+				if(CoC.player.biggestCockArea() >= 75) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 100) {
+				if(CoC.player.biggestCockArea() >= 100) {
 					choices.push(3);
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 300) {
+				if(CoC.player.biggestCockArea() >= 300) {
 					choices.push(3);
 				}
 			}
 		}
 		//==EXTRAS========
 		//12 Cat flexibility.
-		if(CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && CoC.getInstance().player.isBiped() && CoC.getInstance().player.hasVagina()) {
+		if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && CoC.player.isBiped() && CoC.player.hasVagina()) {
 			choices.push(12);
 			choices.push(12);
-			if(CoC.getInstance().player.wetness() >= 3) {
+			if(CoC.player.wetness() >= 3) {
 				choices.push(12);
 			}
-			if(CoC.getInstance().player.wetness() >= 5) {
+			if(CoC.player.wetness() >= 5) {
 				choices.push(12);
 			}
-			if(CoC.getInstance().player.vaginalCapacity() >= 30) {
+			if(CoC.player.vaginalCapacity() >= 30) {
 				choices.push(12);
 			}
 		}
 		//13 Pregnant
-		if(CoC.getInstance().player.pregnancyIncubation <= 216 && CoC.getInstance().player.pregnancyIncubation > 0) {
+		if(CoC.player.pregnancyIncubation <= 216 && CoC.player.pregnancyIncubation > 0) {
 			choices.push(13);
-			if(CoC.getInstance().player.biggestLactation() >= 1) {
+			if(CoC.player.biggestLactation() >= 1) {
 				choices.push(13);
 			}
-			if(CoC.getInstance().player.pregnancyIncubation <= 180) {
+			if(CoC.player.pregnancyIncubation <= 180) {
 				choices.push(13);
 			}
-			if(CoC.getInstance().player.pregnancyIncubation <= 120) {
+			if(CoC.player.pregnancyIncubation <= 120) {
 				choices.push(13);
 			}
-			if(CoC.getInstance().player.pregnancyIncubation <= 100) {
+			if(CoC.player.pregnancyIncubation <= 100) {
 				choices.push(13);
 			}
-			if(CoC.getInstance().player.pregnancyIncubation <= 50) {
+			if(CoC.player.pregnancyIncubation <= 50) {
 				choices.push(13);
 			}
-			if(CoC.getInstance().player.pregnancyIncubation <= 24) {
+			if(CoC.player.pregnancyIncubation <= 24) {
 				choices.push(13);
 				choices.push(13);
 				choices.push(13);
@@ -2421,11 +2421,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//14 Brood Mother
-		if(CoC.getInstance().monster.hasCock() && CoC.getInstance().player.hasVagina() && CoC.getInstance().player.findPerk(PerkLib.BroodMother) >= 0 && (CoC.getInstance().player.pregnancyIncubation <= 0 || CoC.getInstance().player.pregnancyIncubation > 216)) {
+		if(CoC.monster.hasCock() && CoC.player.hasVagina() && CoC.player.findPerk(PerkLib.BroodMother) >= 0 && (CoC.player.pregnancyIncubation <= 0 || CoC.player.pregnancyIncubation > 216)) {
 			choices.push(14);
 			choices.push(14);
 			choices.push(14);
-			if(CoC.getInstance().player.inHeat) {
+			if(CoC.player.inHeat) {
 				choices.push(14);
 				choices.push(14);
 				choices.push(14);
@@ -2436,75 +2436,75 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//15 Nipplecunts
-		if(CoC.getInstance().player.hasFuckableNipples()) {
+		if(CoC.player.hasFuckableNipples()) {
 			choices.push(15);
 			choices.push(15);
-			if(CoC.getInstance().player.hasVagina()) {
+			if(CoC.player.hasVagina()) {
 				choices.push(15);
 				choices.push(15);
 				choices.push(15);
 			}
-			if(CoC.getInstance().player.wetness() >= 3) {
+			if(CoC.player.wetness() >= 3) {
 				choices.push(15);
 			}
-			if(CoC.getInstance().player.wetness() >= 5) {
+			if(CoC.player.wetness() >= 5) {
 				choices.push(15);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 3) {
+			if(CoC.player.biggestTitSize() >= 3) {
 				choices.push(15);
 			}
-			if(CoC.getInstance().player.nippleLength >= 3) {
+			if(CoC.player.nippleLength >= 3) {
 				choices.push(15);
 			}
 		}
 		//16 Anal gape
-		if(CoC.getInstance().player.ass.analLooseness >= 4) {
+		if(CoC.player.ass.analLooseness >= 4) {
 			choices.push(16);
-			if(CoC.getInstance().player.ass.analLooseness >= 5) {
+			if(CoC.player.ass.analLooseness >= 5) {
 				choices.push(16);
 			}
 		}		
 		//17 Bee abdomen tease
-		if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN) {
+		if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN) {
 			choices.push(17);
 			choices.push(17);
 		}
 		//18 DOG TEASE
-		if(CoC.getInstance().player.dogScore() >= 4 && CoC.getInstance().player.hasVagina() && CoC.getInstance().player.isBiped()) {
+		if(CoC.player.dogScore() >= 4 && CoC.player.hasVagina() && CoC.player.isBiped()) {
 			choices.push(18);
 			choices.push(18);
 		}
 		//19 Maximum Femininity:
-		if(CoC.getInstance().player.femininity >= 100) {
+		if(CoC.player.femininity >= 100) {
 			choices.push(19);
 			choices.push(19);
 			choices.push(19);
 		}
 		//20 Maximum MAN:
-		if(CoC.getInstance().player.femininity <= 0) {
+		if(CoC.player.femininity <= 0) {
 			choices.push(20);
 			choices.push(20);
 			choices.push(20);
 		}
 		//21 Perfect Androgyny:
-		if(CoC.getInstance().player.femininity === 50) {
+		if(CoC.player.femininity === 50) {
 			choices.push(21);
 			choices.push(21);
 			choices.push(21);
 		}
 		//22 SPOIDAH SILK
-		if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN) {
+		if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN) {
 			choices.push(22);
 			choices.push(22);
 			choices.push(22);
-			if(CoC.getInstance().player.spiderScore() >= 4) {
+			if(CoC.player.spiderScore() >= 4) {
 				choices.push(22);
 				choices.push(22);
 				choices.push(22);
 			}
 		}
 		//23 RUT
-		if(CoC.getInstance().player.inRut && CoC.getInstance().monster.hasVagina() && CoC.getInstance().player.hasCock()) {
+		if(CoC.player.inRut && CoC.monster.hasVagina() && CoC.player.hasCock()) {
 			choices.push(23);
 			choices.push(23);
 			choices.push(23);
@@ -2512,7 +2512,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(23);
 		}
 		//24 Poledance - req's staff! - Req's gender!  Req's TITS!
-		if(CoC.getInstance().player.weaponName === "wizard's staff" && CoC.getInstance().player.biggestTitSize() >= 1 && CoC.getInstance().player.gender > 0) {
+		if(CoC.player.weaponName === "wizard's staff" && CoC.player.biggestTitSize() >= 1 && CoC.player.gender > 0) {
 			choices.push(24);
 			choices.push(24);
 			choices.push(24);
@@ -2520,7 +2520,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(24);
 		}
 		//25 Tall Tease! - Reqs 2+ feet & PC Cunt!
-		if(CoC.getInstance().player.tallness - CoC.getInstance().monster.tallness >= 24 && CoC.getInstance().player.biggestTitSize() >= 4) {
+		if(CoC.player.tallness - CoC.monster.tallness >= 24 && CoC.player.biggestTitSize() >= 4) {
 			choices.push(25);
 			choices.push(25);
 			choices.push(25);
@@ -2528,93 +2528,93 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(25);
 		}
 		//26 SMART PEEPS! 70+ int, arouse spell!
-		if(CoC.getInstance().player.inte >= 70 && CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
+		if(CoC.player.inte >= 70 && CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
 			choices.push(26);
 			choices.push(26);
 			choices.push(26);
 		}
 		//27 FEEDER
-		if(CoC.getInstance().player.findPerk(PerkLib.Feeder) >= 0 && CoC.getInstance().player.biggestTitSize() >= 4) {
+		if(CoC.player.findPerk(PerkLib.Feeder) >= 0 && CoC.player.biggestTitSize() >= 4) {
 			choices.push(27);
 			choices.push(27);
 			choices.push(27);
-			if(CoC.getInstance().player.biggestTitSize() >= 10) {
+			if(CoC.player.biggestTitSize() >= 10) {
 				choices.push(27);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 15) {
+			if(CoC.player.biggestTitSize() >= 15) {
 				choices.push(27);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 25) {
+			if(CoC.player.biggestTitSize() >= 25) {
 				choices.push(27);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 40) {
+			if(CoC.player.biggestTitSize() >= 40) {
 				choices.push(27);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 60) {
+			if(CoC.player.biggestTitSize() >= 60) {
 				choices.push(27);
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 80) {
+			if(CoC.player.biggestTitSize() >= 80) {
 				choices.push(27);
 			}
 		}
 		//28 FEMALE TEACHER COSTUME TEASE
-		if(CoC.getInstance().player.armorName === "backless female teacher's clothes" && CoC.getInstance().player.gender === 2) {
+		if(CoC.player.armorName === "backless female teacher's clothes" && CoC.player.gender === 2) {
 			choices.push(28);
 			choices.push(28);
 			choices.push(28);
 			choices.push(28);
 		}
 		//29 Male Teacher Outfit Tease
-		if(CoC.getInstance().player.armorName === "formal vest, tie, and crotchless pants" && CoC.getInstance().player.gender === 1) {
+		if(CoC.player.armorName === "formal vest, tie, and crotchless pants" && CoC.player.gender === 1) {
 			choices.push(29);
 			choices.push(29);
 			choices.push(29);
 			choices.push(29);
 		}
 		//30 Naga Fetish Clothes
-		if(CoC.getInstance().player.armorName === "headdress, necklaces, and many body-chains") {
+		if(CoC.player.armorName === "headdress, necklaces, and many body-chains") {
 			choices.push(30);
 			choices.push(30);
 			choices.push(30);
 			choices.push(30);
 		}
 		//31 Centaur harness clothes
-		if(CoC.getInstance().player.armorName === "bridle bit and saddle set") {
+		if(CoC.player.armorName === "bridle bit and saddle set") {
 			choices.push(31);
 			choices.push(31);
 			choices.push(31);
 			choices.push(31);
 		}
 		//32 Genderless servant clothes
-		if(CoC.getInstance().player.armorName === "servant's clothes" && CoC.getInstance().player.gender === 0) {
+		if(CoC.player.armorName === "servant's clothes" && CoC.player.gender === 0) {
 			choices.push(32);
 			choices.push(32);
 			choices.push(32);
 			choices.push(32);
 		}
 		//33 Crotch Revealing Clothes (herm only?)
-		if(CoC.getInstance().player.armorName === "crotch-revealing clothes" && CoC.getInstance().player.gender === 3) {
+		if(CoC.player.armorName === "crotch-revealing clothes" && CoC.player.gender === 3) {
 			choices.push(33);
 			choices.push(33);
 			choices.push(33);
 			choices.push(33);
 		}
 		//34 Maid Costume (female only):
-		if(CoC.getInstance().player.armorName === "maid's clothes" && CoC.getInstance().player.hasVagina()) {
+		if(CoC.player.armorName === "maid's clothes" && CoC.player.hasVagina()) {
 			choices.push(34);
 			choices.push(34);
 			choices.push(34);
 			choices.push(34);
 		}
 		//35 Servant Boy Clothes (male only)
-		if(CoC.getInstance().player.armorName === "cute servant's clothes" && CoC.getInstance().player.hasCock()) {
+		if(CoC.player.armorName === "cute servant's clothes" && CoC.player.hasCock()) {
 			choices.push(35);
 			choices.push(35);
 			choices.push(35);
 			choices.push(35);
 		}
 		//36 Bondage Patient Clothes 
-		if(CoC.getInstance().player.armorName === "bondage patient clothes") {
+		if(CoC.player.armorName === "bondage patient clothes") {
 			choices.push(36);
 			choices.push(36);
 			choices.push(36);
@@ -2624,7 +2624,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//38 Kitsune Tease
 		//39 Kitsune Tease
 		//40 Kitsune Tease
-		if(CoC.getInstance().player.kitsuneScore() >= 2 && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_FOX) {
+		if(CoC.player.kitsuneScore() >= 2 && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_FOX) {
 			choices.push(37);
 			choices.push(37);
 			choices.push(37);
@@ -2643,7 +2643,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(40);
 		}
 		//41 Kitsune Gendered Tease
-		if(CoC.getInstance().player.kitsuneScore() >= 2 && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_FOX) {
+		if(CoC.player.kitsuneScore() >= 2 && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_FOX) {
 			choices.push(41);
 			choices.push(41);
 			choices.push(41);
@@ -2662,7 +2662,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(42);
 		}
 		//43 - special mino + cowgirls
-		if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lactationQ() >= 500 && CoC.getInstance().player.biggestTitSize() >= 6 && CoC.getInstance().player.cowScore() >= 3 && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_COW) {
+		if(CoC.player.hasVagina() && CoC.player.lactationQ() >= 500 && CoC.player.biggestTitSize() >= 6 && CoC.player.cowScore() >= 3 && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_COW) {
 			choices.push(43);
 			choices.push(43);
 			choices.push(43);
@@ -2674,7 +2674,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(43);
 		}
 		//44 - Bikini Mail Teases!
-		if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.biggestTitSize() >= 4 && CoC.getInstance().player.armorName === "lusty maiden's armor") {
+		if(CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === "lusty maiden's armor") {
 			choices.push(44);
 			choices.push(44);
 			choices.push(44);
@@ -2695,7 +2695,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//    CHOOSE YOUR TEASE AND DISPLAY IT!
 		//=======================================================
 		var select = Utils.randomChoice(choices);
-		if(CoC.getInstance().monster.short.indexOf("minotaur") !== -1 && CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lactationQ() >= 500 && CoC.getInstance().player.biggestTitSize() >= 6 && CoC.getInstance().player.cowScore() >= 3 && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_COW) {
+		if(CoC.monster.short.indexOf("minotaur") !== -1 && CoC.player.hasVagina() && CoC.player.lactationQ() >= 500 && CoC.player.biggestTitSize() >= 6 && CoC.player.cowScore() >= 3 && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_COW) {
 			select = 43;
 		}
 		//Lets do zis!
@@ -2704,7 +2704,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			case 0:
 				//Display
 				EngineCore.outputText("You slap your " + Descriptors.buttDescript(), false);
-				if(CoC.getInstance().player.buttRating >= 10 && CoC.getInstance().player.tone < 60) {
+				if(CoC.player.buttRating >= 10 && CoC.player.tone < 60) {
 					EngineCore.outputText(", making it jiggle delightfully.", false);
 				} else {
 					EngineCore.outputText(".", false);
@@ -2715,18 +2715,18 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//1 BREAST JIGGLIN'
 			case 1:
 				//Single breast row
-				if(CoC.getInstance().player.breastRows.length === 1) {
+				if(CoC.player.breastRows.length === 1) {
 					//50+ breastsize% success rate
-					EngineCore.outputText("Your lift your top, exposing your " + Descriptors.breastDescript(0) + " to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".  You shake them from side to side enticingly.", false);
-					if(CoC.getInstance().player.lust >= 50) {
-						EngineCore.outputText("  Your " + Descriptors.nippleDescript(0) + "s seem to demand " + CoC.getInstance().monster.pronoun3 + " attention.", false);
+					EngineCore.outputText("Your lift your top, exposing your " + Descriptors.breastDescript(0) + " to " + CoC.monster.a + CoC.monster.short + ".  You shake them from side to side enticingly.", false);
+					if(CoC.player.lust >= 50) {
+						EngineCore.outputText("  Your " + Descriptors.nippleDescript(0) + "s seem to demand " + CoC.monster.pronoun3 + " attention.", false);
 					}
 				}
 				//Multirow
-				if(CoC.getInstance().player.breastRows.length > 1) {
+				if(CoC.player.breastRows.length > 1) {
 					//50 + 10% per breastRow + breastSize%
 					EngineCore.outputText("You lift your top, freeing your rows of " + Descriptors.breastDescript(0) + " to jiggle freely.  You shake them from side to side enticingly", false);
-					if(CoC.getInstance().player.lust >= 50) {
+					if(CoC.player.lust >= 50) {
 						EngineCore.outputText(", your " + Descriptors.nippleDescript(0) + "s painfully visible.", false);
 					} else {
 						EngineCore.outputText(".", false);
@@ -2737,23 +2737,23 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//2 PUSSAH FLASHIN'
 			case 2:
-				if(CoC.getInstance().player.isTaur()) {
-					EngineCore.outputText("You gallop toward your unsuspecting enemy, dodging their defenses and knocking them to the ground.  Before they can recover, you slam your massive centaur ass down upon them, stopping just short of using crushing force to pin them underneath you.  In this position, your opponent's face is buried right in your girthy horsecunt.  You grind your cunt into " + CoC.getInstance().monster.pronoun3 + " face for a moment before standing.  When you do, you're gratified to see your enemy covered in your lubricant and smelling powerfully of horsecunt.", false);
+				if(CoC.player.isTaur()) {
+					EngineCore.outputText("You gallop toward your unsuspecting enemy, dodging their defenses and knocking them to the ground.  Before they can recover, you slam your massive centaur ass down upon them, stopping just short of using crushing force to pin them underneath you.  In this position, your opponent's face is buried right in your girthy horsecunt.  You grind your cunt into " + CoC.monster.pronoun3 + " face for a moment before standing.  When you do, you're gratified to see your enemy covered in your lubricant and smelling powerfully of horsecunt.", false);
 					chance += 2;
 					damage += 4;
 				} else {
-					EngineCore.outputText("You open your " + CoC.getInstance().player.armorName + ", revealing your ", false);
-					if(CoC.getInstance().player.cocks.length > 0) {
+					EngineCore.outputText("You open your " + CoC.player.armorName + ", revealing your ", false);
+					if(CoC.player.cocks.length > 0) {
 						chance++;
 						damage++;
-						if(CoC.getInstance().player.cocks.length === 1) {
-							EngineCore.outputText(CoC.getInstance().player.cockDescript(0), false);
+						if(CoC.player.cocks.length === 1) {
+							EngineCore.outputText(CoC.player.cockDescript(0), false);
 						}
-						if(CoC.getInstance().player.cocks.length > 1) {
-							EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight(), false);
+						if(CoC.player.cocks.length > 1) {
+							EngineCore.outputText(CoC.player.multiCockDescriptLight(), false);
 						}
 						EngineCore.outputText(" and ", false);
-						if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+						if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 							damage += 5;
 						}
 						penis = true;
@@ -2765,28 +2765,28 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//3 cock flash
 			case 3:
-				if(CoC.getInstance().player.isTaur() && CoC.getInstance().player.horseCocks() > 0) {
+				if(CoC.player.isTaur() && CoC.player.horseCocks() > 0) {
 					EngineCore.outputText("You let out a bestial whinny and stomp your hooves at your enemy.  They prepare for an attack, but instead you kick your front hooves off the ground, revealing the hefty horsecock hanging beneath your belly.  You let it flop around, quickly getting rigid and to its full erect length.  You buck your hips as if you were fucking a mare in heat, letting your opponent know just what's in store for them if they surrender to pleasure...", false);
-					if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 						damage += 5;
 					}
 				} else {
-					EngineCore.outputText("You open your " + CoC.getInstance().player.armorName + ", revealing your ", false);
-					if(CoC.getInstance().player.cocks.length === 1) {
-						EngineCore.outputText(CoC.getInstance().player.cockDescript(0), false);
+					EngineCore.outputText("You open your " + CoC.player.armorName + ", revealing your ", false);
+					if(CoC.player.cocks.length === 1) {
+						EngineCore.outputText(CoC.player.cockDescript(0), false);
 					}
-					if(CoC.getInstance().player.cocks.length > 1) {
-						EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight(), false);
+					if(CoC.player.cocks.length > 1) {
+						EngineCore.outputText(CoC.player.multiCockDescriptLight(), false);
 					}
-					if(CoC.getInstance().player.hasVagina()) {
+					if(CoC.player.hasVagina()) {
 						EngineCore.outputText(" and ", false);
 					}
 					//Bulgy bonus!
-					if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 						damage += 5;
 						chance++;
 					}
-					if(CoC.getInstance().player.vaginas.length > 0) {
+					if(CoC.player.vaginas.length > 0) {
 						EngineCore.outputText(Descriptors.vaginaDescript(0), false);
 						vagina = true;
 					}
@@ -2799,13 +2799,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			case 4:
 				EngineCore.outputText("You turn away and bounce your " + Descriptors.buttDescript() + " up and down hypnotically", false);
 				//Big butts = extra text + higher success
-				if(CoC.getInstance().player.buttRating >= 10) {
-					EngineCore.outputText(", making it jiggle delightfully.  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " even gets a few glimpses of the " + Descriptors.assholeDescript() + " between your cheeks.", false);
+				if(CoC.player.buttRating >= 10) {
+					EngineCore.outputText(", making it jiggle delightfully.  " + CoC.monster.getCapitalA() + CoC.monster.short + " even gets a few glimpses of the " + Descriptors.assholeDescript() + " between your cheeks.", false);
 					chance += 3;
 				}
 				//Small butts = less damage, still high success
 				else {
-					EngineCore.outputText(", letting " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " get a good look at your " + Descriptors.assholeDescript() + " and " + Descriptors.vaginaDescript(0) + ".", false);
+					EngineCore.outputText(", letting " + CoC.monster.a + CoC.monster.short + " get a good look at your " + Descriptors.assholeDescript() + " and " + Descriptors.vaginaDescript(0) + ".", false);
 					chance += 1;
 					vagina = true;
 				}
@@ -2814,14 +2814,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//5 breast jiggle
 			case 5:
-				EngineCore.outputText("You lean forward, letting the well-rounded curves of your " + Descriptors.allBreastsDescript() + " show to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
-				EngineCore.outputText("  You cup them in your palms and lewdly bounce them, putting on a show and giggling the entire time.  An inch at a time, your " + CoC.getInstance().player.armorName + " starts to come down, dropping tantalizingly slowly until your " + Descriptors.nippleDescript(0) + "s pop free.", false);
-				if(CoC.getInstance().player.lust >= 50) {
-					if(CoC.getInstance().player.hasFuckableNipples()) {
+				EngineCore.outputText("You lean forward, letting the well-rounded curves of your " + Descriptors.allBreastsDescript() + " show to " + CoC.monster.a + CoC.monster.short + ".", false);
+				EngineCore.outputText("  You cup them in your palms and lewdly bounce them, putting on a show and giggling the entire time.  An inch at a time, your " + CoC.player.armorName + " starts to come down, dropping tantalizingly slowly until your " + Descriptors.nippleDescript(0) + "s pop free.", false);
+				if(CoC.player.lust >= 50) {
+					if(CoC.player.hasFuckableNipples()) {
 						chance++;
 						EngineCore.outputText("  Clear slime leaks from them, making it quite clear that they're more than just nipples.", false);
 					} else {
-						EngineCore.outputText("  Your hard nipples seem to demand " + CoC.getInstance().monster.pronoun3 + " attention.", false);
+						EngineCore.outputText("  Your hard nipples seem to demand " + CoC.monster.pronoun3 + " attention.", false);
 					}
 					chance += 1;
 					damage += 2;
@@ -2831,35 +2831,35 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//6 pussy flash
 			case 6:
-				if (CoC.getInstance().player.findPerk(PerkLib.BimboBrains) >= 0 || CoC.getInstance().player.findPerk(PerkLib.FutaFaculties) >= 0) {
-					EngineCore.outputText("You coyly open your " + CoC.getInstance().player.armorName + " and giggle, \"<i>Is this, like, what you wanted to see?</i>\"  ", false);
+				if (CoC.player.findPerk(PerkLib.BimboBrains) >= 0 || CoC.player.findPerk(PerkLib.FutaFaculties) >= 0) {
+					EngineCore.outputText("You coyly open your " + CoC.player.armorName + " and giggle, \"<i>Is this, like, what you wanted to see?</i>\"  ", false);
 				} else {
-					EngineCore.outputText("You coyly open your " + CoC.getInstance().player.armorName + " and purr, \"<i>Does the thought of a hot, ", false);
+					EngineCore.outputText("You coyly open your " + CoC.player.armorName + " and purr, \"<i>Does the thought of a hot, ", false);
 					if(futa) {
 						EngineCore.outputText("futanari ", false);
-					} else if(CoC.getInstance().player.findPerk(PerkLib.BimboBody) >= 0) {
+					} else if(CoC.player.findPerk(PerkLib.BimboBody) >= 0) {
 						EngineCore.outputText("bimbo ", false);
 					} else {
 						EngineCore.outputText("sexy ");
 					}
 					EngineCore.outputText("body turn you on?</i>\"  ", false);
 				}
-				if(CoC.getInstance().monster.plural) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "' gazes are riveted on your groin as you run your fingers up and down your folds seductively.", false);
+				if(CoC.monster.plural) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' gazes are riveted on your groin as you run your fingers up and down your folds seductively.", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s gaze is riveted on your groin as you run your fingers up and down your folds seductively.", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s gaze is riveted on your groin as you run your fingers up and down your folds seductively.", false);
 				}
-				if(CoC.getInstance().player.clitLength > 3) {
+				if(CoC.player.clitLength > 3) {
 					EngineCore.outputText("  You smile as your " + Descriptors.clitDescript() + " swells out from the folds and stands proudly, begging to be touched.", false);
 				} else {
 					EngineCore.outputText("  You smile and pull apart your lower-lips to expose your " + Descriptors.clitDescript() + ", giving the perfect view.", false);
 				}
-				if(CoC.getInstance().player.cockTotal() > 0) {
-					EngineCore.outputText("  Meanwhile, " + CoC.getInstance().player.sMultiCockDesc() + " bobs back and forth with your gyrating hips, adding to the display.", false);
+				if(CoC.player.cockTotal() > 0) {
+					EngineCore.outputText("  Meanwhile, " + CoC.player.sMultiCockDesc() + " bobs back and forth with your gyrating hips, adding to the display.", false);
 				}
 				//BONUSES!
-				if(CoC.getInstance().player.hasCock()) {
-					if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+				if(CoC.player.hasCock()) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 						damage += 5;
 					}
 					penis = true;
@@ -2868,8 +2868,8 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//7 special Adjatha-crafted bend over bimbo times
 			case 7:
-				EngineCore.outputText("The glinting of light catches your eye and you whip around to inspect the glittering object, turning your back on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".  Locking your knees, you bend waaaaay over, " + Descriptors.chestDesc() + " swinging in the open air while your " + Descriptors.buttDescript() + " juts out at the " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".  Your plump cheeks and " + Descriptors.hipDescript() + " form a jiggling heart-shape as you eagerly rub your thighs together.\n\n", false);
-				EngineCore.outputText("The clear, warm fluid of your happy excitement trickles down from your loins, polishing your " + CoC.getInstance().player.skin() + " to a glossy, inviting shine.  Retrieving the useless, though shiny, bauble, you hold your pose for just a moment longer, a sly little smile playing across your lips as you wiggle your cheeks one more time before straightening up and turning back around.", false);
+				EngineCore.outputText("The glinting of light catches your eye and you whip around to inspect the glittering object, turning your back on " + CoC.monster.a + CoC.monster.short + ".  Locking your knees, you bend waaaaay over, " + Descriptors.chestDesc() + " swinging in the open air while your " + Descriptors.buttDescript() + " juts out at the " + CoC.monster.a + CoC.monster.short + ".  Your plump cheeks and " + Descriptors.hipDescript() + " form a jiggling heart-shape as you eagerly rub your thighs together.\n\n", false);
+				EngineCore.outputText("The clear, warm fluid of your happy excitement trickles down from your loins, polishing your " + CoC.player.skin() + " to a glossy, inviting shine.  Retrieving the useless, though shiny, bauble, you hold your pose for just a moment longer, a sly little smile playing across your lips as you wiggle your cheeks one more time before straightening up and turning back around.", false);
 				vagina = true;
 				chance++;
 				damage += 2;
@@ -2878,39 +2878,39 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//8 Pec Dance
 			case 8:
 				EngineCore.outputText("You place your hands on your hips and flex repeatedly, skillfully making your pecs alternatively bounce in a muscular dance.  ", false);
-				if(CoC.getInstance().player.findPerk(PerkLib.BroBrains) >= 0) {
-					EngineCore.outputText("Damn, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " has got to love this!", false);
+				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+					EngineCore.outputText("Damn, " + CoC.monster.a + CoC.monster.short + " has got to love this!", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " will probably enjoy the show, but you feel a bit silly doing this.", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " will probably enjoy the show, but you feel a bit silly doing this.", false);
 				}
-				chance += (CoC.getInstance().player.tone - 75)/5;
-				damage += (CoC.getInstance().player.tone - 70)/5;
+				chance += (CoC.player.tone - 75)/5;
+				damage += (CoC.player.tone - 70)/5;
 				auto = false;
 				break;
 			//9 Heroic Pose
 			case 9:
 				EngineCore.outputText("You lift your arms and flex your incredibly muscular arms while flashing your most disarming smile.  ", false);
-				if(CoC.getInstance().player.findPerk(PerkLib.BroBrains) >= 0) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " can't resist such a heroic pose!", false);
+				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " can't resist such a heroic pose!", false);
 				} else {
 					EngineCore.outputText("At least the physical changes to your body are proving useful!", false);
 				}
-				chance += (CoC.getInstance().player.tone - 75)/5;
-				damage += (CoC.getInstance().player.tone - 70)/5;
+				chance += (CoC.player.tone - 75)/5;
+				damage += (CoC.player.tone - 70)/5;
 				auto = false;
 				break;
 			//10 Bulgy groin thrust
 			case 10:
-				EngineCore.outputText("You lean back and pump your hips at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " in an incredibly vulgar display.  The bulging, barely-contained outline of your " + CoC.getInstance().player.cockDescript(0) + " presses hard into your gear.  ", false);
-				if(CoC.getInstance().player.findPerk(PerkLib.BroBrains) >= 0) {
-					EngineCore.outputText("No way could " + CoC.getInstance().monster.pronoun1 + " resist your huge cock!", false);
+				EngineCore.outputText("You lean back and pump your hips at " + CoC.monster.a + CoC.monster.short + " in an incredibly vulgar display.  The bulging, barely-contained outline of your " + CoC.player.cockDescript(0) + " presses hard into your gear.  ", false);
+				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+					EngineCore.outputText("No way could " + CoC.monster.pronoun1 + " resist your huge cock!", false);
 				} else {
 					EngineCore.outputText("This is so crude, but at the same time, you know it'll likely be effective.", false);
 				}
 				EngineCore.outputText("  You go on like that, humping the air for your foe", false);
 				EngineCore.outputText("'s", false);
 				EngineCore.outputText(" benefit, trying to entice them with your man-meat.", false);
-				if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 					damage += 5;
 				}
 				penis = true;
@@ -2918,16 +2918,16 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//11 Show off dick
 			case 11:
 				if(EngineCore.silly() && Utils.rand(2) === 0) {
-					EngineCore.outputText("You strike a herculean pose and flex, whispering, \"<i>Do you even lift?</i>\" to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+					EngineCore.outputText("You strike a herculean pose and flex, whispering, \"<i>Do you even lift?</i>\" to " + CoC.monster.a + CoC.monster.short + ".", false);
 				} else {
-					EngineCore.outputText("You open your " + CoC.getInstance().player.armorName + " just enough to let your " + CoC.getInstance().player.cockDescript(0) + " and " + Descriptors.ballsDescriptLight() + " dangle free.  A shiny rope of pre-cum dangles from your cock, showing that your reproductive system is every bit as fit as the rest of you.  ", false);
-					if(CoC.getInstance().player.findPerk(PerkLib.BroBrains) >= 0) {
+					EngineCore.outputText("You open your " + CoC.player.armorName + " just enough to let your " + CoC.player.cockDescript(0) + " and " + Descriptors.ballsDescriptLight() + " dangle free.  A shiny rope of pre-cum dangles from your cock, showing that your reproductive system is every bit as fit as the rest of you.  ", false);
+					if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
 						EngineCore.outputText("Bitches love a cum-leaking cock.", false);
 					} else {
 						EngineCore.outputText("You've got to admit, you look pretty good down there.", false);
 					}
 				}
-				if(CoC.getInstance().player.findPerk(PerkLib.BulgeArmor) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
 					damage += 5;
 				}
 				penis = true;
@@ -2936,30 +2936,30 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//12 Cat flexibility.
 			case 12:
 				//CAT TEASE MOTHERFUCK (requires flexibility and legs [maybe can't do it with armor?])
-				EngineCore.outputText("Reaching down, you grab an ankle and pull it backwards, looping it up and over to touch the foot to your " + Descriptors.hairDescript() + ".  You bring the leg out to the side, showing off your " + Descriptors.vaginaDescript(0) + " through your " + CoC.getInstance().player.armorName + ".  The combination of the lack of discomfort on your face and the ease of which you're able to pose shows " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " how good of a time they're in for with you.", false);
+				EngineCore.outputText("Reaching down, you grab an ankle and pull it backwards, looping it up and over to touch the foot to your " + Descriptors.hairDescript() + ".  You bring the leg out to the side, showing off your " + Descriptors.vaginaDescript(0) + " through your " + CoC.player.armorName + ".  The combination of the lack of discomfort on your face and the ease of which you're able to pose shows " + CoC.monster.a + CoC.monster.short + " how good of a time they're in for with you.", false);
 				vagina = true;
-				if(CoC.getInstance().player.thickness < 33) {
+				if(CoC.player.thickness < 33) {
 					chance++;
-				} else if(CoC.getInstance().player.thickness >= 66) {
+				} else if(CoC.player.thickness >= 66) {
 					chance--;
 				}
-				damage += (CoC.getInstance().player.thickness - 50)/10;
+				damage += (CoC.player.thickness - 50)/10;
 				break;
 			//13 Pregnant
 			case 13:
 				//PREG
-				EngineCore.outputText("You lean back, feigning a swoon while pressing a hand on the small of your back.  The pose juts your huge, pregnant belly forward and makes the shiny spherical stomach look even bigger.  With a teasing groan, you rub the protruding tummy gently, biting your lip gently as you stare at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " through heavily lidded eyes.  \"<i>All of this estrogen is making me frisky,</i>\" you moan, stroking hand gradually shifting to the southern hemisphere of your big baby-bump.", false);
+				EngineCore.outputText("You lean back, feigning a swoon while pressing a hand on the small of your back.  The pose juts your huge, pregnant belly forward and makes the shiny spherical stomach look even bigger.  With a teasing groan, you rub the protruding tummy gently, biting your lip gently as you stare at " + CoC.monster.a + CoC.monster.short + " through heavily lidded eyes.  \"<i>All of this estrogen is making me frisky,</i>\" you moan, stroking hand gradually shifting to the southern hemisphere of your big baby-bump.", false);
 				//if lactating] 
-				if(CoC.getInstance().player.biggestLactation() >= 1) {
-					EngineCore.outputText("  Your other hand moves to expose your " + Descriptors.chestDesc() + ", cupping and squeezing a stream of milk to leak down the front of your " + CoC.getInstance().player.armorName + ".  \"<i>Help a mommy out.</i>\"\n\n", false);
+				if(CoC.player.biggestLactation() >= 1) {
+					EngineCore.outputText("  Your other hand moves to expose your " + Descriptors.chestDesc() + ", cupping and squeezing a stream of milk to leak down the front of your " + CoC.player.armorName + ".  \"<i>Help a mommy out.</i>\"\n\n", false);
 					chance += 2;
 					damage += 4;
 				}
-				if(CoC.getInstance().player.pregnancyIncubation < 100) {
+				if(CoC.player.pregnancyIncubation < 100) {
 					chance++;
 					damage += 2;
 				}
-				if(CoC.getInstance().player.pregnancyIncubation < 50) {
+				if(CoC.player.pregnancyIncubation < 50) {
 					chance++;
 					damage += 2;
 				}
@@ -2967,13 +2967,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//14 Brood Mother
 			case 14:
 				if( Utils.rand(2) === 0) {
-					EngineCore.outputText("You tear open your " + CoC.getInstance().player.armorName + " and slip a few fingers into your well-used birth canal, giving your opponent a good look at what they're missing.  \"<i>C'mon stud,</i>\" you say, voice dripping with lust and desire, \"<i>Come to mama " + CoC.getInstance().player.short + " and fuck my pussy 'til your baby batter just POURS out.  I want your children inside of me, I want your spawn crawling out of this cunt and begging for my milk.  Come on, FUCK ME PREGNANT!</i>\"", false);
+					EngineCore.outputText("You tear open your " + CoC.player.armorName + " and slip a few fingers into your well-used birth canal, giving your opponent a good look at what they're missing.  \"<i>C'mon stud,</i>\" you say, voice dripping with lust and desire, \"<i>Come to mama " + CoC.player.short + " and fuck my pussy 'til your baby batter just POURS out.  I want your children inside of me, I want your spawn crawling out of this cunt and begging for my milk.  Come on, FUCK ME PREGNANT!</i>\"", false);
 				} else {
 					EngineCore.outputText("You wiggle your " + Descriptors.hipDescript() + " at your enemy, giving them a long, tantalizing look at the hips that have passed so very many offspring.  \"<i>Oh, like what you see, bad boy?  Well why don't you just come on over and stuff that cock inside me?  Give me your seed, and I'll give you suuuuch beautiful offspring.  Oh?  Does that turn you on?  It does!  Come on, just let loose and fuck me full of your babies!</i>\"", false);
 				}
 				chance += 2;
 				damage += 4;
-				if(CoC.getInstance().player.inHeat) {
+				if(CoC.player.inHeat) {
 					chance += 2;
 					damage += 4;
 				}
@@ -2982,30 +2982,30 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//15 Nipplecunts
 			case 15:
 				//Req's tits & Pussy
-				if(CoC.getInstance().player.biggestTitSize() > 1 && CoC.getInstance().player.hasVagina() && Utils.rand(2) === 0) {
-					EngineCore.outputText("Closing your eyes, you lean forward and slip a hand under your " + CoC.getInstance().player.armorName + ".  You let out the slightest of gasps as your fingers find your drooling honeypot, warm tips poking, one after another between your engorged lips.  When you withdraw your hand, your fingers have been soaked in the dripping passion of your cunny, translucent beads rolling down to wet your palm.  With your other hand, you pull down the top of your " + CoC.getInstance().player.armorName + " and bare your " + Descriptors.chestDesc() + " to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".\n\n", false);
+				if(CoC.player.biggestTitSize() > 1 && CoC.player.hasVagina() && Utils.rand(2) === 0) {
+					EngineCore.outputText("Closing your eyes, you lean forward and slip a hand under your " + CoC.player.armorName + ".  You let out the slightest of gasps as your fingers find your drooling honeypot, warm tips poking, one after another between your engorged lips.  When you withdraw your hand, your fingers have been soaked in the dripping passion of your cunny, translucent beads rolling down to wet your palm.  With your other hand, you pull down the top of your " + CoC.player.armorName + " and bare your " + Descriptors.chestDesc() + " to " + CoC.monster.a + CoC.monster.short + ".\n\n", false);
 					EngineCore.outputText("Drawing your lust-slick hand to your " + Descriptors.nippleDescript(0) + "s, the yielding flesh of your cunt-like nipples parts before the teasing digits.  Using your own girl cum as added lubrication, you pump your fingers in and out of your nipples, moaning as you add progressively more digits until only your thumb remains to stroke the inflamed flesh of your over-stimulated chest.  Your throat releases the faintest squeak of your near-orgasmic delight and you pant, withdrawing your hands and readjusting your armor.\n\n", false);
-					EngineCore.outputText("Despite how quiet you were, it's clear that every lewd, desperate noise you made was heard by " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+					EngineCore.outputText("Despite how quiet you were, it's clear that every lewd, desperate noise you made was heard by " + CoC.monster.a + CoC.monster.short + ".", false);
 					chance += 2;
 					damage += 4;
-				} else if(CoC.getInstance().player.biggestTitSize() > 1 && Utils.rand(2) === 0) {
-					EngineCore.outputText("You yank off the top of your " + CoC.getInstance().player.armorName + ", revealing your " + Descriptors.chestDesc() + " and the gaping nipplecunts on each.  With a lusty smirk, you slip a pair of fingers into the nipples of your " + Descriptors.chestDesc() + ", pulling the nipplecunt lips wide, revealing the lengthy, tight passage within.  You fingerfuck your nipplecunts, giving your enemy a good show before pulling your armor back on, leaving the tantalizing image of your gaping titpussies to linger in your foe's mind.", false);
+				} else if(CoC.player.biggestTitSize() > 1 && Utils.rand(2) === 0) {
+					EngineCore.outputText("You yank off the top of your " + CoC.player.armorName + ", revealing your " + Descriptors.chestDesc() + " and the gaping nipplecunts on each.  With a lusty smirk, you slip a pair of fingers into the nipples of your " + Descriptors.chestDesc() + ", pulling the nipplecunt lips wide, revealing the lengthy, tight passage within.  You fingerfuck your nipplecunts, giving your enemy a good show before pulling your armor back on, leaving the tantalizing image of your gaping titpussies to linger in your foe's mind.", false);
 					chance += 1;
 					damage += 2;
 				} else {
-					EngineCore.outputText("You remove the front of your " + CoC.getInstance().player.armorName + " exposing your " + Descriptors.chestDesc() + ".  Using both of your hands, you thrust two fingers into your nipple cunts, milky girl cum soaking your hands and fingers.  \"<i>Wouldn't you like to try out these holes too?</i>\"", false);
+					EngineCore.outputText("You remove the front of your " + CoC.player.armorName + " exposing your " + Descriptors.chestDesc() + ".  Using both of your hands, you thrust two fingers into your nipple cunts, milky girl cum soaking your hands and fingers.  \"<i>Wouldn't you like to try out these holes too?</i>\"", false);
 				}
 				breasts = true;
 				break;
 			//16 Anal gape
 			case 16:
-				EngineCore.outputText("You quickly strip out of your " + CoC.getInstance().player.armorName + " and turn around, giving your " + Descriptors.buttDescript() + " a hard slap and showing your enemy the real prize: your " + Descriptors.assholeDescript() + ".  With a smirk, you easily plunge your hand inside, burying yourself up to the wrist inside your anus.  You give yourself a quick fisting, watching the enemy over your shoulder while you moan lustily, sure to give them a good show.  You withdraw your hand and give your ass another sexy spank before readying for combat again.", false);
+				EngineCore.outputText("You quickly strip out of your " + CoC.player.armorName + " and turn around, giving your " + Descriptors.buttDescript() + " a hard slap and showing your enemy the real prize: your " + Descriptors.assholeDescript() + ".  With a smirk, you easily plunge your hand inside, burying yourself up to the wrist inside your anus.  You give yourself a quick fisting, watching the enemy over your shoulder while you moan lustily, sure to give them a good show.  You withdraw your hand and give your ass another sexy spank before readying for combat again.", false);
 				anus = true;
 				ass = true;
 				break;
 			//17 Bee abdomen tease
 			case 17:
-				EngineCore.outputText("You swing around, shedding the " + CoC.getInstance().player.armorName + " around your waist to expose your " + Descriptors.buttDescript() + " to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".  Taking up your oversized bee abdomen in both hands, you heft the thing and wave it about teasingly.  Drops of venom drip to and fro, a few coming dangerously close to " + CoC.getInstance().monster.pronoun2 + ".  \"<i>Maybe if you behave well enough, I'll even drop a few eggs into your belly,</i>\" you say softly, dropping the abdomen back to dangle above your butt and redressing.", false);
+				EngineCore.outputText("You swing around, shedding the " + CoC.player.armorName + " around your waist to expose your " + Descriptors.buttDescript() + " to " + CoC.monster.a + CoC.monster.short + ".  Taking up your oversized bee abdomen in both hands, you heft the thing and wave it about teasingly.  Drops of venom drip to and fro, a few coming dangerously close to " + CoC.monster.pronoun2 + ".  \"<i>Maybe if you behave well enough, I'll even drop a few eggs into your belly,</i>\" you say softly, dropping the abdomen back to dangle above your butt and redressing.", false);
 				ass = true;
 				chance += 0.5;
 				damage += 0.5;
@@ -3013,7 +3013,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//18 DOG TEASE
 			case 18:
 				EngineCore.outputText("You sit down like a dog, your [legs] are spread apart, showing your ", false);
-				if(CoC.getInstance().player.hasVagina()) {
+				if(CoC.player.hasVagina()) {
 					EngineCore.outputText("parted cunt-lips", false);
 				} else {
 					EngineCore.outputText("puckered asshole, hanging, erect maleness,", false);
@@ -3042,59 +3042,59 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//22 SPOIDAH SILK
 			case 22:
-				EngineCore.outputText("Reaching back, you milk some wet silk from your spider-y abdomen and present it to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", molding the sticky substance as " + CoC.getInstance().monster.pronoun1 + " looks on curiously.  Within moments, you hold up a silken heart scuplture, and with a wink, you toss it at " + CoC.getInstance().monster.pronoun2 + ". It sticks to " + CoC.getInstance().monster.pronoun3 + " body, the sensation causing " + CoC.getInstance().monster.pronoun2 + " to hastily slap the heart off.  " + CoC.getInstance().monster.mf("He","She") + " returns " + CoC.getInstance().monster.pronoun3 + " gaze to you to find you turned around, " + Descriptors.buttDescript() + " bared and abdomen bouncing lazily.  \"<i>I wonder what would happen if I webbed up your hole after I dropped some eggs inside?</i>\" you hiss mischievously.  " + CoC.getInstance().monster.mf("He","She") + " gulps.", false);
+				EngineCore.outputText("Reaching back, you milk some wet silk from your spider-y abdomen and present it to " + CoC.monster.a + CoC.monster.short + ", molding the sticky substance as " + CoC.monster.pronoun1 + " looks on curiously.  Within moments, you hold up a silken heart scuplture, and with a wink, you toss it at " + CoC.monster.pronoun2 + ". It sticks to " + CoC.monster.pronoun3 + " body, the sensation causing " + CoC.monster.pronoun2 + " to hastily slap the heart off.  " + CoC.monster.mf("He","She") + " returns " + CoC.monster.pronoun3 + " gaze to you to find you turned around, " + Descriptors.buttDescript() + " bared and abdomen bouncing lazily.  \"<i>I wonder what would happen if I webbed up your hole after I dropped some eggs inside?</i>\" you hiss mischievously.  " + CoC.monster.mf("He","She") + " gulps.", false);
 				ass = true;
 				break;
 			//23 RUT TEASE
 			case 23:
-				if(CoC.getInstance().player.horseCocks() > 0 && CoC.getInstance().player.longestHorseCockLength() >= 12) {
+				if(CoC.player.horseCocks() > 0 && CoC.player.longestHorseCockLength() >= 12) {
 					EngineCore.outputText("You whip out your massive horsecock, and are immediately surrounded by a massive, heady musk.  Your enemy swoons, nearly falling to her knees under your oderous assault.  Grinning, you grab her shoulders and force her to her knees.  Before she can defend herself, you slam your horsecock onto her head, running it up and down on her face, her nose acting like a sexy bump in an onahole.  You fuck her face -- literally -- for a moment before throwing her back and sheathing your cock.", false);
 				} else {
-					EngineCore.outputText("Panting with your unstoppable lust for the delicious, impregnable cunt before you, you yank off your " + CoC.getInstance().player.armorName + " with strength born of your inhuman rut, and quickly wave your fully erect cock at your enemy.  She flashes with lust, quickly feeling the heady effect of your man-musk.  You rush up, taking advantage of her aroused state and grab her shoulders.  ", false);
+					EngineCore.outputText("Panting with your unstoppable lust for the delicious, impregnable cunt before you, you yank off your " + CoC.player.armorName + " with strength born of your inhuman rut, and quickly wave your fully erect cock at your enemy.  She flashes with lust, quickly feeling the heady effect of your man-musk.  You rush up, taking advantage of her aroused state and grab her shoulders.  ", false);
 					EngineCore.outputText("Before she can react, you push her down until she's level with your cock, and start to spin it in a circle, slapping her right in the face with your musky man-meat.  Her eyes swim, trying to follow your meatspin as you swat her in the face with your cock!  Satisfied, you release her and prepare to fight!", false);
 				}
 				penis = true;
 				break;
 			//24 STAFF POLEDANCE
 			case 24:
-				EngineCore.outputText("You run your tongue across your lips as you plant your staff into the ground.  Before your enemy can react, you spin onto the long, wooden shaft, using it like an impromptu pole.  You lean back against the planted staff, giving your enemy a good look at your body.  You stretch backwards like a cat, nearly touching your fingertips to the ground beneath you, now holding onto the staff with only one leg.  You pull yourself upright and give your " + Descriptors.buttDescript() + " a little slap and your " + Descriptors.chestDesc() + " a wiggle before pulling open your " + CoC.getInstance().player.armorName + " and sliding the pole between your tits.  You drop down to a low crouch, only just covering your genitals with your hand as you shake your " + Descriptors.buttDescript() + " playfully.  You give the enemy a little smirk as you slip your " + CoC.getInstance().player.armorName + " back on and pick up your staff.", false);
+				EngineCore.outputText("You run your tongue across your lips as you plant your staff into the ground.  Before your enemy can react, you spin onto the long, wooden shaft, using it like an impromptu pole.  You lean back against the planted staff, giving your enemy a good look at your body.  You stretch backwards like a cat, nearly touching your fingertips to the ground beneath you, now holding onto the staff with only one leg.  You pull yourself upright and give your " + Descriptors.buttDescript() + " a little slap and your " + Descriptors.chestDesc() + " a wiggle before pulling open your " + CoC.player.armorName + " and sliding the pole between your tits.  You drop down to a low crouch, only just covering your genitals with your hand as you shake your " + Descriptors.buttDescript() + " playfully.  You give the enemy a little smirk as you slip your " + CoC.player.armorName + " back on and pick up your staff.", false);
 				ass = true;
 				breasts = true;
 				break;
 			//TALL WOMAN TEASE
 			case 25:
-				EngineCore.outputText("You move close to your enemy, handily stepping over " + CoC.getInstance().monster.pronoun3 + " defensive strike before leaning right down in " + CoC.getInstance().monster.pronoun3 + " face, giving " + CoC.getInstance().monster.pronoun2 + " a good long view at your cleavage.  \"<i>Hey, there, little " + CoC.getInstance().monster.mf("guy","girl") + ",</i>\" you smile.  Before " + CoC.getInstance().monster.pronoun1 + " can react, you grab " + CoC.getInstance().monster.pronoun2 + " and smoosh " + CoC.getInstance().monster.pronoun3 + " face into your " + CoC.getInstance().player.allChestDesc() + ", nearly choking " + CoC.getInstance().monster.pronoun2 + " in the canyon of your cleavage.  " + CoC.getInstance().monster.mf("He","She") + " struggles for a moment.  You give " + CoC.getInstance().monster.pronoun2 + " a little kiss on the head and step back, ready for combat.", false);
+				EngineCore.outputText("You move close to your enemy, handily stepping over " + CoC.monster.pronoun3 + " defensive strike before leaning right down in " + CoC.monster.pronoun3 + " face, giving " + CoC.monster.pronoun2 + " a good long view at your cleavage.  \"<i>Hey, there, little " + CoC.monster.mf("guy","girl") + ",</i>\" you smile.  Before " + CoC.monster.pronoun1 + " can react, you grab " + CoC.monster.pronoun2 + " and smoosh " + CoC.monster.pronoun3 + " face into your " + CoC.player.allChestDesc() + ", nearly choking " + CoC.monster.pronoun2 + " in the canyon of your cleavage.  " + CoC.monster.mf("He","She") + " struggles for a moment.  You give " + CoC.monster.pronoun2 + " a little kiss on the head and step back, ready for combat.", false);
 				breasts = true;
 				chance += 2;
 				damage += 4;
 				break;
 			//Magic Tease
 			case 26:
-				EngineCore.outputText("Seeing a lull in the battle, you plant your " + CoC.getInstance().player.weaponName + " on the ground and let your magic flow through you.  You summon a trickle of magic into a thick, slowly growing black ball of lust.  You wave the ball in front of you, making a little dance and striptease out of the affair as you slowly saturate the area with latent sexual magics.", false);
+				EngineCore.outputText("Seeing a lull in the battle, you plant your " + CoC.player.weaponName + " on the ground and let your magic flow through you.  You summon a trickle of magic into a thick, slowly growing black ball of lust.  You wave the ball in front of you, making a little dance and striptease out of the affair as you slowly saturate the area with latent sexual magics.", false);
 				chance++;
 				damage += 2;
 				break;
 			//Feeder
 			case 27:
-				EngineCore.outputText("You present your swollen breasts full of milk to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and say \"<i>Wouldn't you just love to lie back in my arms and enjoy what I have to offer you?</i>\"", false);
+				EngineCore.outputText("You present your swollen breasts full of milk to " + CoC.monster.a + CoC.monster.short + " and say \"<i>Wouldn't you just love to lie back in my arms and enjoy what I have to offer you?</i>\"", false);
 				breasts = true;
 				chance ++;
 				damage++;
 				break;
 			//28 FEMALE TEACHER COSTUME TEASE
 			case 28:
-				EngineCore.outputText("You turn to the side and give " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " a full view of your body.  You ask them if they're in need of a private lesson in lovemaking after class.", false);
+				EngineCore.outputText("You turn to the side and give " + CoC.monster.a + CoC.monster.short + " a full view of your body.  You ask them if they're in need of a private lesson in lovemaking after class.", false);
 				ass = true;
 				break;
 			//29 Male Teacher Outfit Tease
 			case 29:
-				EngineCore.outputText("You play with the strings on your outfit a bit and ask " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " just how much do they want to see their teacher pull them off?", false);
+				EngineCore.outputText("You play with the strings on your outfit a bit and ask " + CoC.monster.a + CoC.monster.short + " just how much do they want to see their teacher pull them off?", false);
 				chance++;
 				damage += 3;
 				break;
 			//30 Naga Fetish Clothes
 			case 30:
-				EngineCore.outputText("You sway your body back and forth, and do an erotic dance for " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+				EngineCore.outputText("You sway your body back and forth, and do an erotic dance for " + CoC.monster.a + CoC.monster.short + ".", false);
 				chance += 2;
 				damage += 4;
 				break;
@@ -3113,20 +3113,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//33 Crotch Revealing Clothes (herm only?)
 			case 33:
-				EngineCore.outputText("You do a series of poses to accentuate what you've got on display with your crotch revealing clothes, while asking if your " + CoC.getInstance().player.mf("master","mistress") + " is looking to sample what is on display.", false);
+				EngineCore.outputText("You do a series of poses to accentuate what you've got on display with your crotch revealing clothes, while asking if your " + CoC.player.mf("master","mistress") + " is looking to sample what is on display.", false);
 				chance += 2;
 				damage += 4;
 				break;
 			//34 Maid Costume (female only)
 			case 34:
-				EngineCore.outputText("You give a rather explicit curtsey towards " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and ask them if your " + CoC.getInstance().player.mf("master","mistress") + " is interested in other services today.", false);
+				EngineCore.outputText("You give a rather explicit curtsey towards " + CoC.monster.a + CoC.monster.short + " and ask them if your " + CoC.player.mf("master","mistress") + " is interested in other services today.", false);
 				chance ++;
 				damage += 2;
 				breasts = true;
 				break;
 			//35 Servant Boy Clothes (male only)
 			case 35:
-				EngineCore.outputText("You brush aside your crotch flap for a moment, then ask " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " if, " + CoC.getInstance().player.mf("Master","Mistress") + " would like you to use your " + CoC.getInstance().player.multiCockDescriptLight() + " on them?", false);
+				EngineCore.outputText("You brush aside your crotch flap for a moment, then ask " + CoC.monster.a + CoC.monster.short + " if, " + CoC.player.mf("Master","Mistress") + " would like you to use your " + CoC.player.multiCockDescriptLight() + " on them?", false);
 				penis = true;
 				chance++;
 				damage += 2;
@@ -3141,53 +3141,53 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("You shimmy and shake sensually. (An error occurred.)", false);
 				break;
 			case 37:
-				EngineCore.outputText("You purse your lips coyly, narrowing your eyes mischievously and beckoning to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with a burning come-hither glare.  Sauntering forward, you pop your hip to the side and strike a coquettish pose, running " + ((CoC.getInstance().player.tailVenom > 1) ? "one of your tails" : "your tail") + " up and down " + CoC.getInstance().monster.pronoun3 + " body sensually.");
+				EngineCore.outputText("You purse your lips coyly, narrowing your eyes mischievously and beckoning to " + CoC.monster.a + CoC.monster.short + " with a burning come-hither glare.  Sauntering forward, you pop your hip to the side and strike a coquettish pose, running " + ((CoC.player.tailVenom > 1) ? "one of your tails" : "your tail") + " up and down " + CoC.monster.pronoun3 + " body sensually.");
 				chance+= 6;
 				damage+= 3;
 				break;
 			case 38:
-				EngineCore.outputText( "You wet your lips, narrowing your eyes into a smoldering, hungry gaze.  Licking the tip of your index finger, you trail it slowly and sensually down the front of your " + CoC.getInstance().player.armorName + ", following the line of your " + Descriptors.chestDesc() + " teasingly.  You hook your thumbs into your top and shimmy it downward at an agonizingly slow pace.  The very instant that your [nipples] pop free, your tail crosses in front, obscuring " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s view.");
+				EngineCore.outputText( "You wet your lips, narrowing your eyes into a smoldering, hungry gaze.  Licking the tip of your index finger, you trail it slowly and sensually down the front of your " + CoC.player.armorName + ", following the line of your " + Descriptors.chestDesc() + " teasingly.  You hook your thumbs into your top and shimmy it downward at an agonizingly slow pace.  The very instant that your [nipples] pop free, your tail crosses in front, obscuring " + CoC.monster.a + CoC.monster.short + "'s view.");
 				breasts = true;
 				chance++;
 				damage++;
 				break;
 			case 39:
-				EngineCore.outputText( "Leaning forward, you bow down low, raising a hand up to your lips and blowing " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " a kiss.  You stand straight, wiggling your " + Descriptors.hipDescript() + " back and forth seductively while trailing your fingers down your front slowly, pouting demurely.  The tip of ");
-				if(CoC.getInstance().player.tailVenom === 1) {
+				EngineCore.outputText( "Leaning forward, you bow down low, raising a hand up to your lips and blowing " + CoC.monster.a + CoC.monster.short + " a kiss.  You stand straight, wiggling your " + Descriptors.hipDescript() + " back and forth seductively while trailing your fingers down your front slowly, pouting demurely.  The tip of ");
+				if(CoC.player.tailVenom === 1) {
 					EngineCore.outputText("your");
 				} else {
 					EngineCore.outputText("a");
 				}
-				EngineCore.outputText(" bushy tail curls up around your " + CoC.getInstance().player.leg() + ", uncoiling with a whipping motion that makes an audible crack in the air.");
+				EngineCore.outputText(" bushy tail curls up around your " + CoC.player.leg() + ", uncoiling with a whipping motion that makes an audible crack in the air.");
 				ass = true;
 				chance++;
 				damage += 1;
 				break;
 			case 40:
-				EngineCore.outputText("Turning around, you stare demurely over your shoulder at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", batting your eyelashes amorously.");
-				if(CoC.getInstance().player.tailVenom === 1) {
-					EngineCore.outputText("  Your tail twists and whips about, sliding around your " + Descriptors.hipDescript() + " in a slow arc and framing your rear nicely as you slowly lift your " + CoC.getInstance().player.armorName + ".");
+				EngineCore.outputText("Turning around, you stare demurely over your shoulder at " + CoC.monster.a + CoC.monster.short + ", batting your eyelashes amorously.");
+				if(CoC.player.tailVenom === 1) {
+					EngineCore.outputText("  Your tail twists and whips about, sliding around your " + Descriptors.hipDescript() + " in a slow arc and framing your rear nicely as you slowly lift your " + CoC.player.armorName + ".");
 				} else {
-					EngineCore.outputText("  Your tails fan out, twisting and whipping sensually, sliding up and down your " + CoC.getInstance().player.legs() + " and framing your rear nicely as you slowly lift your " + CoC.getInstance().player.armorName + ".");
+					EngineCore.outputText("  Your tails fan out, twisting and whipping sensually, sliding up and down your " + CoC.player.legs() + " and framing your rear nicely as you slowly lift your " + CoC.player.armorName + ".");
 				}
-				EngineCore.outputText("  As your [butt] comes into view, you brush your tail" + ((CoC.getInstance().player.tailVenom > 1) ? "s" : "" ) + " across it, partially obscuring the view in a tantalizingly teasing display.");
+				EngineCore.outputText("  As your [butt] comes into view, you brush your tail" + ((CoC.player.tailVenom > 1) ? "s" : "" ) + " across it, partially obscuring the view in a tantalizingly teasing display.");
 				ass = true;
 				anus = true;
 				chance++;
 				damage += 2;
 				break;
 			case 41:
-				EngineCore.outputText( "Smirking coyly, you sway from side to side, running your tongue along your upper teeth seductively.  You hook your thumbs into your " + CoC.getInstance().player.armorName + " and pull them away to partially reveal ");
-				if(CoC.getInstance().player.cockTotal() > 0) {
-					EngineCore.outputText(CoC.getInstance().player.sMultiCockDesc());
+				EngineCore.outputText( "Smirking coyly, you sway from side to side, running your tongue along your upper teeth seductively.  You hook your thumbs into your " + CoC.player.armorName + " and pull them away to partially reveal ");
+				if(CoC.player.cockTotal() > 0) {
+					EngineCore.outputText(CoC.player.sMultiCockDesc());
 				}
-				if(CoC.getInstance().player.gender === 3) {
+				if(CoC.player.gender === 3) {
 					EngineCore.outputText(" and ");
 				}
-				if(CoC.getInstance().player.gender >= 2) {
+				if(CoC.player.gender >= 2) {
 					EngineCore.outputText("your " + Descriptors.vaginaDescript(0));
 				}
-				EngineCore.outputText(".  Your bushy tail" + ((CoC.getInstance().player.tailVenom > 1) ? "s" : "" ) + " cross" + ((CoC.getInstance().player.tailVenom > 1) ? "": "es") + " in front, wrapping around your genitals and obscuring the view teasingly.");
+				EngineCore.outputText(".  Your bushy tail" + ((CoC.player.tailVenom > 1) ? "s" : "" ) + " cross" + ((CoC.player.tailVenom > 1) ? "": "es") + " in front, wrapping around your genitals and obscuring the view teasingly.");
 				vagina = true;
 				penis = true;
 				damage += 2;
@@ -3223,7 +3223,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					damage += 2;
 				} else if(cows === 2) {
 					EngineCore.outputText("You tuck a finger to your lips, blinking innocently, then flick your tail, wafting the scent of your ");
-					if(CoC.getInstance().player.wetness() >= 3) {
+					if(CoC.player.wetness() >= 3) {
 						EngineCore.outputText("dripping ");
 					}
 					EngineCore.outputText("sex through the air.");
@@ -3251,7 +3251,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					breasts = true;
 					damage += 2;
 				}
-				if(CoC.getInstance().monster.short.indexOf("minotaur") !== -1) {
+				if(CoC.monster.short.indexOf("minotaur") !== -1) {
 					damage += 6;
 					chance += 3;
 				}
@@ -3265,12 +3265,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					EngineCore.outputText("Confidently sauntering forward, you thrust your chest out with your back arched in order to enhance your [chest].  You slowly begin to shake your torso back and forth, slapping your chain-clad breasts against each other again and again.  One of your hands finds its way to one of the pillowy expanses and grabs hold, fingers sinking into the soft tit through the fine, mail covering.  You stop your shaking to trace a finger down through the exposed center of your cleavage, asking, \"<i>Don't you just want to snuggle inside?</i>\"");
 					breasts = true;
 				} else if(maiden === 1) {
-					EngineCore.outputText("You skip up to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and spin around to rub your barely-covered butt up against " + CoC.getInstance().monster.pronoun2 + ".  Before " + CoC.getInstance().monster.pronoun1 + " can react, you're slowly bouncing your [butt] up and down against " + CoC.getInstance().monster.pronoun3 + " groin.  When " + CoC.getInstance().monster.pronoun1 + " reaches down, you grab " + CoC.getInstance().monster.pronoun3 + " hand and press it up, under your skirt, right against the steamy seal on your sex.  The simmering heat of your overwhelming lust burns hot enough for " + CoC.getInstance().monster.pronoun2 + " to feel even through the contoured leather, and you let " + CoC.getInstance().monster.pronoun2 + " trace the inside of your [leg] for a moment before moving away, laughing playfully.");
+					EngineCore.outputText("You skip up to " + CoC.monster.a + CoC.monster.short + " and spin around to rub your barely-covered butt up against " + CoC.monster.pronoun2 + ".  Before " + CoC.monster.pronoun1 + " can react, you're slowly bouncing your [butt] up and down against " + CoC.monster.pronoun3 + " groin.  When " + CoC.monster.pronoun1 + " reaches down, you grab " + CoC.monster.pronoun3 + " hand and press it up, under your skirt, right against the steamy seal on your sex.  The simmering heat of your overwhelming lust burns hot enough for " + CoC.monster.pronoun2 + " to feel even through the contoured leather, and you let " + CoC.monster.pronoun2 + " trace the inside of your [leg] for a moment before moving away, laughing playfully.");
 					ass = true;
 					vagina = true;
 				} else if(maiden === 2) {
-					EngineCore.outputText("You flip up the barely-modest chain you call a skirt and expose your g-string to " +  CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".  Slowly swaying your [hips], you press a finger down on the creased crotch plate and exaggerate a lascivious moan into a throaty purr of enticing, sexual bliss.  Your eyes meet " + CoC.getInstance().monster.pronoun3 + ", and you throatily whisper, \"<i>");
-					if(CoC.getInstance().player.hasVirginVagina()) {
+					EngineCore.outputText("You flip up the barely-modest chain you call a skirt and expose your g-string to " +  CoC.monster.a + CoC.monster.short + ".  Slowly swaying your [hips], you press a finger down on the creased crotch plate and exaggerate a lascivious moan into a throaty purr of enticing, sexual bliss.  Your eyes meet " + CoC.monster.pronoun3 + ", and you throatily whisper, \"<i>");
+					if(CoC.player.hasVirginVagina()) {
 						EngineCore.outputText("Think you can handle a virgin's infinite lust?");
 					} else {
 						EngineCore.outputText("Think you have what it takes to satisfy this perfect pussy?");
@@ -3279,10 +3279,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					vagina = true;
 					damage += 3;
 				} else if(maiden === 3) {
-					EngineCore.outputText("You seductively wiggle your way up to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", and before " + CoC.getInstance().monster.pronoun1 + " can react to your salacious advance, you snap a [leg] up in what would be a vicious kick, if you weren't simply raising it to rest your [foot] on " + CoC.getInstance().monster.pronoun3 + " shoulder.  With your thighs so perfectly spready, your skirt is lifted, and " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " is given a perfect view of your thong-enhanced cameltoe and the moisture that beads at the edges of your not-so-modest covering.");
+					EngineCore.outputText("You seductively wiggle your way up to " + CoC.monster.a + CoC.monster.short + ", and before " + CoC.monster.pronoun1 + " can react to your salacious advance, you snap a [leg] up in what would be a vicious kick, if you weren't simply raising it to rest your [foot] on " + CoC.monster.pronoun3 + " shoulder.  With your thighs so perfectly spready, your skirt is lifted, and " + CoC.monster.a + CoC.monster.short + " is given a perfect view of your thong-enhanced cameltoe and the moisture that beads at the edges of your not-so-modest covering.");
 					vagina = true;
 				} else {
-					EngineCore.outputText("Bending over, you lift your [butt] high in the air.  Most of your barely-covered tush is exposed, but the hem of your chainmail skirt still protects some of your anal modesty.  That doesn't last long.  You start shaking your [butt] up, down, back, and forth to an unheard rhythm, flipping the pointless covering out of the way so that " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " can gaze upon your curvy behind in it all its splendid detail.  A part of you hopes that " + CoC.getInstance().monster.pronoun1 + " takes in the intricate filigree on the back of your thong, though to " + CoC.getInstance().monster.pronoun2 + " it looks like a bunch of glittering arrows on an alabaster background, all pointing squarely at your [asshole].");
+					EngineCore.outputText("Bending over, you lift your [butt] high in the air.  Most of your barely-covered tush is exposed, but the hem of your chainmail skirt still protects some of your anal modesty.  That doesn't last long.  You start shaking your [butt] up, down, back, and forth to an unheard rhythm, flipping the pointless covering out of the way so that " + CoC.monster.a + CoC.monster.short + " can gaze upon your curvy behind in it all its splendid detail.  A part of you hopes that " + CoC.monster.pronoun1 + " takes in the intricate filigree on the back of your thong, though to " + CoC.monster.pronoun2 + " it looks like a bunch of glittering arrows on an alabaster background, all pointing squarely at your [asshole].");
 					ass = true;
 					chance += 2;
 				}
@@ -3296,243 +3296,243 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(auto) {
 			//TIT BONUSES
 			if(breasts) {
-				if(CoC.getInstance().player.bRows() > 1) {
+				if(CoC.player.bRows() > 1) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.bRows() > 2) {
+				if(CoC.player.bRows() > 2) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.bRows() > 4) {
+				if(CoC.player.bRows() > 4) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestLactation() >= 2) {
+				if(CoC.player.biggestLactation() >= 2) {
 					bonusChance++;
 					bonusDamage += 2;
 				}
-				if(CoC.getInstance().player.biggestLactation() >= 3) {
+				if(CoC.player.biggestLactation() >= 3) {
 					bonusChance++;
 					bonusDamage += 2;
 				}
-				if(CoC.getInstance().player.biggestTitSize() >= 4) {
+				if(CoC.player.biggestTitSize() >= 4) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestTitSize() >= 7) {
+				if(CoC.player.biggestTitSize() >= 7) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestTitSize() >= 12) {
+				if(CoC.player.biggestTitSize() >= 12) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestTitSize() >= 25) {
+				if(CoC.player.biggestTitSize() >= 25) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestTitSize() >= 50) {
+				if(CoC.player.biggestTitSize() >= 50) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hasFuckableNipples()) {
+				if(CoC.player.hasFuckableNipples()) {
 					bonusChance++;
 					bonusDamage += 2;
 				}
-				if(CoC.getInstance().player.averageNipplesPerBreast() > 1) {
+				if(CoC.player.averageNipplesPerBreast() > 1) {
 					bonusChance++;
 					bonusDamage += 2;
 				}
 			}
 			//PUSSY BONUSES
 			if(vagina) {
-				if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.wetness() >= 2) {
+				if(CoC.player.hasVagina() && CoC.player.wetness() >= 2) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.wetness() >= 3) {
+				if(CoC.player.hasVagina() && CoC.player.wetness() >= 3) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.wetness() >= 4) {
+				if(CoC.player.hasVagina() && CoC.player.wetness() >= 4) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hasVagina() && CoC.getInstance().player.wetness() >= 5) {
+				if(CoC.player.hasVagina() && CoC.player.wetness() >= 5) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.clitLength > 1.5) {
+				if(CoC.player.clitLength > 1.5) {
 					bonusChance += 0.5;
 					bonusDamage++;
 				}
-				if(CoC.getInstance().player.clitLength > 3.5) {
+				if(CoC.player.clitLength > 3.5) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.clitLength > 7) {
+				if(CoC.player.clitLength > 7) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.clitLength > 12) {
+				if(CoC.player.clitLength > 12) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 30) {
+				if(CoC.player.vaginalCapacity() >= 30) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 70) {
+				if(CoC.player.vaginalCapacity() >= 70) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 120) {
+				if(CoC.player.vaginalCapacity() >= 120) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.vaginalCapacity() >= 200) {
+				if(CoC.player.vaginalCapacity() >= 200) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
 			}
 			//Penis bonuses!
 			if(penis) {
-				if(CoC.getInstance().player.cockTotal() > 1) {
+				if(CoC.player.cockTotal() > 1) {
 					bonusChance += 1;
 					bonusDamage += 2;
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 15) {
+				if(CoC.player.biggestCockArea() >= 15) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 30) {
+				if(CoC.player.biggestCockArea() >= 30) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 60) {
+				if(CoC.player.biggestCockArea() >= 60) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.biggestCockArea() >= 120) {
+				if(CoC.player.biggestCockArea() >= 120) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.cumQ() >= 50) {
+				if(CoC.player.cumQ() >= 50) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.cumQ() >= 150) {
+				if(CoC.player.cumQ() >= 150) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.cumQ() >= 300) {
+				if(CoC.player.cumQ() >= 300) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.cumQ() >= 1000) {
+				if(CoC.player.cumQ() >= 1000) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
 				if(balls > 0) {
-					if(CoC.getInstance().player.balls > 2) {
+					if(CoC.player.balls > 2) {
 						bonusChance += 1;
 						bonusDamage += 2;
 					}
-					if(CoC.getInstance().player.ballSize > 3) {
+					if(CoC.player.ballSize > 3) {
 						bonusChance += 0.5;
 						bonusDamage += 1;
 					}
-					if(CoC.getInstance().player.ballSize > 7) {
+					if(CoC.player.ballSize > 7) {
 						bonusChance += 0.5;
 						bonusDamage += 1;
 					}
-					if(CoC.getInstance().player.ballSize > 12) {
+					if(CoC.player.ballSize > 12) {
 						bonusChance += 0.5;
 						bonusDamage += 1;
 					}
 				}
-				if(CoC.getInstance().player.biggestCockArea() < 8) {
+				if(CoC.player.biggestCockArea() < 8) {
 					bonusChance--;
 					bonusDamage-=2;
-					if(CoC.getInstance().player.biggestCockArea() < 5) {
+					if(CoC.player.biggestCockArea() < 5) {
 						bonusChance--;
 						bonusDamage-=2;
 					}
 				}
 			}
 			if(ass) {
-				if(CoC.getInstance().player.buttRating >= 6) {
+				if(CoC.player.buttRating >= 6) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.buttRating >= 10) {
+				if(CoC.player.buttRating >= 10) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.buttRating >= 13) {
+				if(CoC.player.buttRating >= 13) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.buttRating >= 16) {
+				if(CoC.player.buttRating >= 16) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.buttRating >= 20) {
+				if(CoC.player.buttRating >= 20) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hipRating >= 6) {
+				if(CoC.player.hipRating >= 6) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hipRating >= 10) {
+				if(CoC.player.hipRating >= 10) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hipRating >= 13) {
+				if(CoC.player.hipRating >= 13) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hipRating >= 16) {
+				if(CoC.player.hipRating >= 16) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.hipRating >= 20) {
+				if(CoC.player.hipRating >= 20) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
 			}
 			if(anus) {
-				if(CoC.getInstance().player.ass.analLooseness === 0) {
+				if(CoC.player.ass.analLooseness === 0) {
 					bonusChance += 1.5;
 					bonusDamage += 3;
 				}
-				if(CoC.getInstance().player.ass.analWetness > 0) {
+				if(CoC.player.ass.analWetness > 0) {
 					bonusChance += 1;
 					bonusDamage += 2;
 				}
-				if(CoC.getInstance().player.analCapacity() >= 30) {
+				if(CoC.player.analCapacity() >= 30) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.analCapacity() >= 70) {
+				if(CoC.player.analCapacity() >= 70) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.analCapacity() >= 120) {
+				if(CoC.player.analCapacity() >= 120) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.analCapacity() >= 200) {
+				if(CoC.player.analCapacity() >= 200) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.ass.analLooseness === 4) {
+				if(CoC.player.ass.analLooseness === 4) {
 					bonusChance += 0.5;
 					bonusDamage += 1;
 				}
-				if(CoC.getInstance().player.ass.analLooseness === 5) {
+				if(CoC.player.ass.analLooseness === 5) {
 					bonusChance += 1.5;
 					bonusDamage += 3;
 				}
@@ -3550,27 +3550,27 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//NERF TEASE DAMAGE
 			damage *= 0.7;
 			bonusDamage *= 0.7;
-			if(CoC.getInstance().player.findPerk(PerkLib.HistoryWhore) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryWhore) >= 0) {
 				damage *= 1.15;
 				bonusDamage *= 1.15;
 			}
-			if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowLust) >= 0) {
+			if (CoC.player.findPerk(PerkLib.ChiReflowLust) >= 0) {
 				damage *= SceneLib.umasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
 			}
-			if(CoC.getInstance().monster.plural) {
+			if(CoC.monster.plural) {
 				damage *= 1.3;
 			}
-			damage = (damage + Utils.rand(bonusDamage)) * CoC.getInstance().monster.lustVuln;
+			damage = (damage + Utils.rand(bonusDamage)) * CoC.monster.lustVuln;
 			
-			if (CoC.getInstance().monster instanceof JeanClaude) {
-				CoC.getInstance().monster.handleTease(damage, true);
-			} else if (CoC.getInstance().monster instanceof Doppleganger && CoC.getInstance().monster.findStatusAffect(StatusAffects.Stunned) < 0) {
-				CoC.getInstance().monster.mirrorTease(damage, true);
+			if (CoC.monster instanceof JeanClaude) {
+				CoC.monster.handleTease(damage, true);
+			} else if (CoC.monster instanceof Doppleganger && CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
+				CoC.monster.mirrorTease(damage, true);
 			} else if (!justText) {
-				CoC.getInstance().monster.teased(damage);
+				CoC.monster.teased(damage);
 			}
-			if (CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 1 && !SceneLib.urtaQuest.isUrta()) {
-				if(CoC.getInstance().player.lust < 75) {
+			if (CoC.flags[kFLAGS.PC_FETISH] >= 1 && !SceneLib.urtaQuest.isUrta()) {
+				if(CoC.player.lust < 75) {
 					EngineCore.outputText("\nFlaunting your body in such a way gets you a little hot and bothered.", false);
 				} else {
 					EngineCore.outputText("\nIf you keep exposing yourself you're going to get too horny to fight back.  This exhibitionism fetish makes it hard to resist just stripping naked and giving up.", false);
@@ -3587,12 +3587,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			if (!justText && !SceneLib.urtaQuest.isUrta()) {
 				Combat.teaseXP(5);
 			}
-			if (CoC.getInstance().monster instanceof JeanClaude) {
-				CoC.getInstance().monster.handleTease(0, false);
-			} else if (CoC.getInstance().monster instanceof Doppleganger) {
-				CoC.getInstance().monster.mirrorTease(0, false);
+			if (CoC.monster instanceof JeanClaude) {
+				CoC.monster.handleTease(0, false);
+			} else if (CoC.monster instanceof Doppleganger) {
+				CoC.monster.mirrorTease(0, false);
 			} else if (!justText) {
-				EngineCore.outputText("\n" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " seems unimpressed.", false);
+				EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " seems unimpressed.", false);
 			}
 		}
 		EngineCore.outputText("\n\n", false);
@@ -3603,44 +3603,44 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		while(XP > 0) {
 			XP--;
-			CoC.getInstance().player.teaseXP++;
+			CoC.player.teaseXP++;
 			//Level dat shit up!
-			if(CoC.getInstance().player.teaseLevel < 5 && CoC.getInstance().player.teaseXP >= 10 + (CoC.getInstance().player.teaseLevel + 1) * 5 * (CoC.getInstance().player.teaseLevel + 1)) {
-				EngineCore.outputText("\n<b>Tease skill leveled up to " + (CoC.getInstance().player.teaseLevel + 1) + "!</b>", false);
-				CoC.getInstance().player.teaseLevel++;
-				CoC.getInstance().player.teaseXP = 0;
+			if(CoC.player.teaseLevel < 5 && CoC.player.teaseXP >= 10 + (CoC.player.teaseLevel + 1) * 5 * (CoC.player.teaseLevel + 1)) {
+				EngineCore.outputText("\n<b>Tease skill leveled up to " + (CoC.player.teaseLevel + 1) + "!</b>", false);
+				CoC.player.teaseLevel++;
+				CoC.player.teaseXP = 0;
 			}
 		}
 	};
 	//VICTORY OR DEATH?
 	Combat.combatRoundOver = function() { //Called after the monster's action
 		EngineCore.statScreenRefresh();
-		if (!CoC.getInstance().isInCombat()) {
+		if (!CoC.isInCombat()) {
 			return false;
 		}
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 			return true;
 		}
-		if(CoC.getInstance().monster.lust > 99) {
+		if(CoC.monster.lust > 99) {
 			EngineCore.doNext(Combat.endLustVictory);
 			return true;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0) {
-			if(CoC.getInstance().monster.trapLevel() <= 1) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+			if(CoC.monster.trapLevel() <= 1) {
 				SceneLib.sandTrapScene.sandtrapmentLoss();
 				return true;
 			}
 		}
-		if(CoC.getInstance().monster.short === "basilisk" && CoC.getInstance().player.spe <= 1) {
+		if(CoC.monster.short === "basilisk" && CoC.player.spe <= 1) {
 			EngineCore.doNext(Combat.endHpLoss);
 			return true;
 		}
-		if(CoC.getInstance().player.HP < 1) {
+		if(CoC.player.HP < 1) {
 			EngineCore.doNext(Combat.endHpLoss);
 			return true;
 		}
-		if(CoC.getInstance().player.lust > 99) {
+		if(CoC.player.lust > 99) {
 			EngineCore.doNext(Combat.endLustLoss);
 			return true;
 		}
@@ -3648,13 +3648,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return false;
 	};
 	Combat.hasSpells = function() {
-		return CoC.getInstance().player.hasSpells();
+		return CoC.player.hasSpells();
 	};
 	Combat.spellCount = function() {
-		return CoC.getInstance().player.spellCount();
+		return CoC.player.spellCount();
 	};
 	Combat.magicMenu = function() {
-		if (CoC.getInstance().isInCombat() && CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 2) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 2) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You reach for your magic, but you just can't manage the focus necessary.  <b>Your ability to use magic was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -3665,42 +3665,42 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("What spell will you use?\n\n");
 		//WHITE SHITZ
 		var whiteLustCap = 75;
-		if (CoC.getInstance().player.findPerk(PerkLib.Enlightened) >= 0 && CoC.getInstance().player.cor < 10) {
+		if (CoC.player.findPerk(PerkLib.Enlightened) >= 0 && CoC.player.cor < 10) {
 			whiteLustCap += 10;
 		}
-		if (CoC.getInstance().player.lust >= whiteLustCap) {
+		if (CoC.player.lust >= whiteLustCap) {
 			EngineCore.outputText("You are far too aroused to focus on white magic.\n\n");
 		} else {
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsCharge) >= 0) {
-				if (CoC.getInstance().player.findStatusAffect(StatusAffects.ChargeWeapon) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsCharge) >= 0) {
+				if (CoC.player.findStatusAffect(StatusAffects.ChargeWeapon) < 0) {
 					EngineCore.addButton(0, "Charge W.", Combat.spellChargeWeapon);
 				} else {
 					EngineCore.outputText("<b>Charge weapon is already active and cannot be cast again.</b>\n\n");
 				}
 			}
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsBlind) >= 0) {
-				if (CoC.getInstance().monster.findStatusAffect(StatusAffects.Blind) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsBlind) >= 0) {
+				if (CoC.monster.findStatusAffect(StatusAffects.Blind) < 0) {
 					EngineCore.addButton(1, "Blind", Combat.spellBlind);
 				} else {
-					EngineCore.outputText("<b>" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is already affected by blind.</b>\n\n");
+					EngineCore.outputText("<b>" + CoC.monster.getCapitalA() + CoC.monster.short + " is already affected by blind.</b>\n\n");
 				}
 			}
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsWhitefire) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsWhitefire) >= 0) {
 				EngineCore.addButton(2, "Whitefire", Combat.spellWhitefire);
 			}
 		}
 		//BLACK MAGICSKS
-		if (CoC.getInstance().player.lust < 50) {
+		if (CoC.player.lust < 50) {
 			EngineCore.outputText("You aren't turned on enough to use any black magics.\n\n");
 		} else {
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
 				EngineCore.addButton(5, "Arouse", Combat.spellArouse);
 			}
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsHeal) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsHeal) >= 0) {
 				EngineCore.addButton(6, "Heal", Combat.spellHeal);
 			}
-			if (CoC.getInstance().player.findStatusAffect(StatusAffects.KnowsMight) >= 0) {
-				if (CoC.getInstance().player.findStatusAffect(StatusAffects.Might) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsMight) >= 0) {
+				if (CoC.player.findStatusAffect(StatusAffects.Might) < 0) {
 					EngineCore.addButton(7, "Might", Combat.spellMight);
 				} else {
 					EngineCore.outputText("<b>You are already under the effects of Might and cannot cast it again.</b>\n\n");
@@ -3708,35 +3708,35 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		// JOJO ABILITIES -- kind makes sense to stuff it in here along side the white magic shit (also because it can't fit into M. Specials :|
-		if (CoC.getInstance().player.findPerk(PerkLib.CleansingPalm) >= 0 && CoC.getInstance().player.cor < 10) {
+		if (CoC.player.findPerk(PerkLib.CleansingPalm) >= 0 && CoC.player.cor < 10) {
 			EngineCore.addButton(3, "C.Palm", Combat.spellCleansingPalm);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
 	};
 	Combat.spellMod = function() {
 		var mod = 1;
-		if(CoC.getInstance().player.findPerk(PerkLib.Archmage) >= 0 && CoC.getInstance().player.inte >= 75) {
+		if(CoC.player.findPerk(PerkLib.Archmage) >= 0 && CoC.player.inte >= 75) {
 			mod += 0.5;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Channeling) >= 0 && CoC.getInstance().player.inte >= 60) {
+		if(CoC.player.findPerk(PerkLib.Channeling) >= 0 && CoC.player.inte >= 60) {
 			mod += 0.5;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Mage) >= 0 && CoC.getInstance().player.inte >= 50) {
+		if(CoC.player.findPerk(PerkLib.Mage) >= 0 && CoC.player.inte >= 50) {
 			mod += 0.5;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Spellpower) >= 0 && CoC.getInstance().player.inte >= 50) {
+		if(CoC.player.findPerk(PerkLib.Spellpower) >= 0 && CoC.player.inte >= 50) {
 			mod += 0.5;
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.WizardsFocus) >= 0) {
-			mod += CoC.getInstance().player.perkv1(PerkLib.WizardsFocus);
+		if(CoC.player.findPerk(PerkLib.WizardsFocus) >= 0) {
+			mod += CoC.player.perkv1(PerkLib.WizardsFocus);
 		}
-		if (CoC.getInstance().player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
 			mod += SceneLib.umasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
 		}
 		return mod;
 	};
 	Combat.spellArouse = function() {
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(15) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
@@ -3744,92 +3744,92 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(15,1);
 		EngineCore.statScreenRefresh();
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
 		EngineCore.outputText("You make a series of arcane gestures, drawing on your own lust to inflict it upon your foe!\n", true);
 		//Worms be immune
-		if(CoC.getInstance().monster.short === "worms") {
+		if(CoC.monster.short === "worms") {
 			EngineCore.outputText("The worms appear to be unaffected by your magic!", false);
 			EngineCore.outputText("\n\n", false);
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			EngineCore.doNext(EventParser.playerMenu);
-			if(CoC.getInstance().monster.lust >= 100) {
+			if(CoC.monster.lust >= 100) {
 				EngineCore.doNext(Combat.endLustVictory);
 			} else {
 				Combat.enemyAI();
 			}
 			return;
 		}
-		if(CoC.getInstance().monster.lustVuln === 0) {
+		if(CoC.monster.lustVuln === 0) {
 			EngineCore.outputText("It has no effect!  Your foe clearly does not experience lust in the same way as you.\n\n", false);
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
-		CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * (CoC.getInstance().player.inte/5*Combat.spellMod() + Utils.rand(CoC.getInstance().monster.lib - CoC.getInstance().monster.inte*2 + CoC.getInstance().monster.cor)/5);
-		if(CoC.getInstance().monster.lust < 30) {
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " squirms as the magic affects " + CoC.getInstance().monster.pronoun2 + ".  ", false);
-		}else if(CoC.getInstance().monster.lust < 60) {
-			if(CoC.getInstance().monster.plural) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " stagger, suddenly weak and having trouble focusing on staying upright.  ", false);
+		CoC.monster.lust += CoC.monster.lustVuln * (CoC.player.inte/5*Combat.spellMod() + Utils.rand(CoC.monster.lib - CoC.monster.inte*2 + CoC.monster.cor)/5);
+		if(CoC.monster.lust < 30) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " squirms as the magic affects " + CoC.monster.pronoun2 + ".  ", false);
+		}else if(CoC.monster.lust < 60) {
+			if(CoC.monster.plural) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " stagger, suddenly weak and having trouble focusing on staying upright.  ", false);
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " staggers, suddenly weak and having trouble focusing on staying upright.  ", false);
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " staggers, suddenly weak and having trouble focusing on staying upright.  ", false);
 			}
 		} else {
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'");
-			if(!CoC.getInstance().monster.plural) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'");
+			if(!CoC.monster.plural) {
 				EngineCore.outputText("s");
 			}
 			EngineCore.outputText(" eyes glaze over with desire for a moment.  ", false);
 		}
-		if(CoC.getInstance().monster.cocks.length > 0) {
-			if(CoC.getInstance().monster.lust >= 60) {
-				EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun3 + " " + CoC.getInstance().monster.multiCockDescriptLight() + " dribble pre-cum.  ", false);
-			} else if(CoC.getInstance().monster.lust >= 30 && CoC.getInstance().monster.cocks.length === 1) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.cockDescriptShort(0) + " hardens, distracting " + CoC.getInstance().monster.pronoun2 + " further.  ", false);
-			} else if(CoC.getInstance().monster.lust >= 30 && CoC.getInstance().monster.cocks.length > 1) {
-				EngineCore.outputText("You see " + CoC.getInstance().monster.pronoun3 + " " + CoC.getInstance().monster.multiCockDescriptLight() + " harden uncomfortably.  ", false);
+		if(CoC.monster.cocks.length > 0) {
+			if(CoC.monster.lust >= 60) {
+				EngineCore.outputText("You see " + CoC.monster.pronoun3 + " " + CoC.monster.multiCockDescriptLight() + " dribble pre-cum.  ", false);
+			} else if(CoC.monster.lust >= 30 && CoC.monster.cocks.length === 1) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.cockDescriptShort(0) + " hardens, distracting " + CoC.monster.pronoun2 + " further.  ", false);
+			} else if(CoC.monster.lust >= 30 && CoC.monster.cocks.length > 1) {
+				EngineCore.outputText("You see " + CoC.monster.pronoun3 + " " + CoC.monster.multiCockDescriptLight() + " harden uncomfortably.  ", false);
 			}
 		}
-		if(CoC.getInstance().monster.vaginas.length > 0 && CoC.getInstance().monster.lust >= 60) {
-			if(CoC.getInstance().monster.plural) {
-				if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + "s dampen perceptibly.  ", false);
-				}else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s crotches become sticky with girl-lust.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + "s become sloppy and wet.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
-					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s thighs.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + "s instantly soak " + CoC.getInstance().monster.pronoun2 + " groin.  ", false);
+		if(CoC.monster.vaginas.length > 0 && CoC.monster.lust >= 60) {
+			if(CoC.monster.plural) {
+				if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s dampen perceptibly.  ", false);
+				}else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s crotches become sticky with girl-lust.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s become sloppy and wet.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
+					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.monster.a + CoC.monster.short + "'s thighs.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s instantly soak " + CoC.monster.pronoun2 + " groin.  ", false);
 				}
 			} else {
-				if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + " dampens perceptibly.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s crotch becomes sticky with girl-lust.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + " becomes sloppy and wet.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
-					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s thighs.  ", false);
-				} else if(CoC.getInstance().monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + "'s " + CoC.getInstance().monster.Descriptors.vaginaDescript() + " instantly soaks her groin.  ", false);
+				if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " dampens perceptibly.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s crotch becomes sticky with girl-lust.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " becomes sloppy and wet.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
+					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.monster.a + CoC.monster.short + "'s thighs.  ", false);
+				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " instantly soaks her groin.  ", false);
 				}
 			}
 		}
 		EngineCore.outputText("\n\n", false);
 		EngineCore.doNext(EventParser.playerMenu);
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		if(CoC.getInstance().monster.lust >= 100) {
+		if(CoC.monster.lust >= 100) {
 			EngineCore.doNext(Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
@@ -3837,7 +3837,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return;
 	};
 	Combat.spellHeal = function() {
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
@@ -3848,26 +3848,26 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//25% backfire!
 		if( Utils.rand(4) === 0) {
 			EngineCore.outputText("An errant sexual thought crosses your mind, and you lose control of the spell!  Your ", false);
-			if(CoC.getInstance().player.gender === 0) {
+			if(CoC.player.gender === 0) {
 				EngineCore.outputText(Descriptors.assholeDescript() + " tingles with a desire to be filled as your libido spins out of control.", false);
 			}
-			if(CoC.getInstance().player.gender === 1) {
-				if(CoC.getInstance().player.cockTotal() === 1) {
-					EngineCore.outputText(CoC.getInstance().player.cockDescript(0) + " twitches obscenely and drips with pre-cum as your libido spins out of control.", false);
+			if(CoC.player.gender === 1) {
+				if(CoC.player.cockTotal() === 1) {
+					EngineCore.outputText(CoC.player.cockDescript(0) + " twitches obscenely and drips with pre-cum as your libido spins out of control.", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight() + " twitch obscenely and drip with pre-cum as your libido spins out of control.", false);
+					EngineCore.outputText(CoC.player.multiCockDescriptLight() + " twitch obscenely and drip with pre-cum as your libido spins out of control.", false);
 				}
 			}
-			if(CoC.getInstance().player.gender === 2) {
+			if(CoC.player.gender === 2) {
 				EngineCore.outputText(Descriptors.vaginaDescript(0) + " becomes puffy, hot, and ready to be touched as the magic diverts into it.", false);
 			}
-			if(CoC.getInstance().player.gender === 3) {
-				EngineCore.outputText(Descriptors.vaginaDescript(0) + " and " + CoC.getInstance().player.multiCockDescriptLight() + " overfill with blood, becoming puffy and incredibly sensitive as the magic focuses on them.", false);
+			if(CoC.player.gender === 3) {
+				EngineCore.outputText(Descriptors.vaginaDescript(0) + " and " + CoC.player.multiCockDescriptLight() + " overfill with blood, becoming puffy and incredibly sensitive as the magic focuses on them.", false);
 			}
 			EngineCore.dynStats("lib", 0.25, "lus", 15);
 		} else {
-			var heal = Math.floor((CoC.getInstance().player.inte/(2 + Utils.rand(3)) * Combat.spellMod()) * (CoC.getInstance().player.maxHP()/150));
-			if(CoC.getInstance().player.armorName === "skimpy nurse's outfit") {
+			var heal = Math.floor((CoC.player.inte/(2 + Utils.rand(3)) * Combat.spellMod()) * (CoC.player.maxHP()/150));
+			if(CoC.player.armorName === "skimpy nurse's outfit") {
 				heal *= 1.2;
 			}
 			EngineCore.outputText("You flush with success as your wounds begin to knit (+" + heal + ").", false);
@@ -3875,9 +3875,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.outputText("\n\n", false);
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		if(CoC.getInstance().player.lust >= 100) {
+		if(CoC.player.lust >= 100) {
 			EngineCore.doNext(Combat.endLustLoss);
 		} else {
 			Combat.enemyAI();
@@ -3888,7 +3888,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//maximum of 15, allows it to exceed the maximum.  Chance of backfiring 
 	//and increasing lust by 15.
 	Combat.spellMight = function() {
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(25) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
@@ -3901,49 +3901,49 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//25% backfire!
 		if( Utils.rand(4) === 0) {
 			EngineCore.outputText("An errant sexual thought crosses your mind, and you lose control of the spell!  Your ", false);
-			if(CoC.getInstance().player.gender === 0) {
+			if(CoC.player.gender === 0) {
 				EngineCore.outputText(Descriptors.assholeDescript() + " tingles with a desire to be filled as your libido spins out of control.", false);
 			}
-			if(CoC.getInstance().player.gender === 1) {
-				if(CoC.getInstance().player.cockTotal() === 1) {
-					EngineCore.outputText(CoC.getInstance().player.cockDescript(0) + " twitches obscenely and drips with pre-cum as your libido spins out of control.", false);
+			if(CoC.player.gender === 1) {
+				if(CoC.player.cockTotal() === 1) {
+					EngineCore.outputText(CoC.player.cockDescript(0) + " twitches obscenely and drips with pre-cum as your libido spins out of control.", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().player.multiCockDescriptLight() + " twitch obscenely and drip with pre-cum as your libido spins out of control.", false);
+					EngineCore.outputText(CoC.player.multiCockDescriptLight() + " twitch obscenely and drip with pre-cum as your libido spins out of control.", false);
 				}
 			}
-			if(CoC.getInstance().player.gender === 2) {
+			if(CoC.player.gender === 2) {
 				EngineCore.outputText(Descriptors.vaginaDescript(0) + " becomes puffy, hot, and ready to be touched as the magic diverts into it.", false);
 			}
-			if(CoC.getInstance().player.gender === 3) {
-				EngineCore.outputText(Descriptors.vaginaDescript(0) + " and " + CoC.getInstance().player.multiCockDescriptLight() + " overfill with blood, becoming puffy and incredibly sensitive as the magic focuses on them.", false);
+			if(CoC.player.gender === 3) {
+				EngineCore.outputText(Descriptors.vaginaDescript(0) + " and " + CoC.player.multiCockDescriptLight() + " overfill with blood, becoming puffy and incredibly sensitive as the magic focuses on them.", false);
 			}
 			EngineCore.dynStats("lib", 0.25, "lus", 15);
 		} else {
 			EngineCore.outputText("The rush of success and power flows through your body.  You feel like you can do anything!", false);
-			CoC.getInstance().player.createStatusAffect(StatusAffects.Might,0,0,0,0);
+			CoC.player.createStatusAffect(StatusAffects.Might,0,0,0,0);
 			var might = 5 * Combat.spellMod();
 			tempStr = might;
 			tempTou = might;
-			if(CoC.getInstance().player.str + might > 100) {
-				tempStr = 100 - CoC.getInstance().player.str;
+			if(CoC.player.str + might > 100) {
+				tempStr = 100 - CoC.player.str;
 			}
-			if(CoC.getInstance().player.tou + might > 100) {
-				tempTou = 100 - CoC.getInstance().player.tou;
+			if(CoC.player.tou + might > 100) {
+				tempTou = 100 - CoC.player.tou;
 			}
-			CoC.getInstance().player.changeStatusValue(StatusAffects.Might,1,tempStr);
-			CoC.getInstance().player.changeStatusValue(StatusAffects.Might,2,tempTou);
-			if(CoC.getInstance().player.str < 100) {
+			CoC.player.changeStatusValue(StatusAffects.Might,1,tempStr);
+			CoC.player.changeStatusValue(StatusAffects.Might,2,tempTou);
+			if(CoC.player.str < 100) {
 				MainView.statsView.showStatUp( 'str' );
 				MainView.statsView.showStatUp( 'tou' );
 			}
-			CoC.getInstance().player.str += CoC.getInstance().player.statusAffectv1(StatusAffects.Might);
-			CoC.getInstance().player.tou += CoC.getInstance().player.statusAffectv2(StatusAffects.Might);
+			CoC.player.str += CoC.player.statusAffectv1(StatusAffects.Might);
+			CoC.player.tou += CoC.player.statusAffectv2(StatusAffects.Might);
 		}
 		EngineCore.outputText("\n\n", false);
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		if(CoC.getInstance().player.lust >= 100) {
+		if(CoC.player.lust >= 100) {
 			EngineCore.doNext(Combat.endLustLoss);
 		} else {
 			Combat.enemyAI();
@@ -3952,88 +3952,88 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	//(15) Charge Weapon – boosts your weapon attack value by 10 * SpellMod till the end of combat.
 	Combat.spellChargeWeapon = function() {
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(15) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
 		}
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(15,1);
-		EngineCore.outputText("You utter words of power, summoning an electrical charge around your " + CoC.getInstance().player.weaponName + ".  It crackles loudly, ensuring you'll do more damage with it for the rest of the fight.\n\n", true);
-		CoC.getInstance().player.createStatusAffect(StatusAffects.ChargeWeapon,10*Combat.spellMod(),0,0,0);
+		EngineCore.outputText("You utter words of power, summoning an electrical charge around your " + CoC.player.weaponName + ".  It crackles loudly, ensuring you'll do more damage with it for the rest of the fight.\n\n", true);
+		CoC.player.createStatusAffect(StatusAffects.ChargeWeapon,10*Combat.spellMod(),0,0,0);
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		Combat.enemyAI();
 	};
 	//(20) Blind – reduces your opponent's accuracy, giving an additional 50% miss chance to physical attacks.
 	Combat.spellBlind = function() {
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
 		}
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(20,1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof JeanClaude) {
+		if (CoC.monster instanceof JeanClaude) {
 			EngineCore.outputText("Jean-Claude howls, reeling backwards before turning back to you, rage clenching his dragon-like face and enflaming his eyes. Your spell seemed to cause him physical pain, but did nothing to blind his lidless sight.");
 			EngineCore.outputText("\n\n“<i>You think your hedge magic will work on me, intrus?</i>” he snarls. “<i>Here- let me show you how it’s really done.</i>” The light of anger in his eyes intensifies, burning a retina-frying white as it demands you stare into it...");
-			if ( Utils.rand(CoC.getInstance().player.spe) >= 50 || Utils.rand(CoC.getInstance().player.inte) >= 50) {
+			if ( Utils.rand(CoC.player.spe) >= 50 || Utils.rand(CoC.player.inte) >= 50) {
 				EngineCore.outputText("\n\nThe light sears into your eyes, but with the discipline of conscious effort you escape the hypnotic pull before it can mesmerize you, before Jean-Claude can blind you.");
 				EngineCore.outputText("\n\n“<i>You fight dirty,</i>” the monster snaps. He sounds genuinely outraged. “<i>I was told the interloper was a dangerous warrior, not a little [boy] who accepts duels of honour and then throws sand into his opponent’s eyes. Look into my eyes, little [boy]. Fair is fair.</i>”");
-				CoC.getInstance().monster.HP -= Math.floor(10+(CoC.getInstance().player.inte/3 + Utils.rand(CoC.getInstance().player.inte/2)) * Combat.spellMod());
+				CoC.monster.HP -= Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
 			} else {
 				EngineCore.outputText("\n\nThe light sears into your eyes and mind as you stare into it. It’s so powerful, so infinite, so exquisitely painful that you wonder why you’d ever want to look at anything else, at anything at- with a mighty effort, you tear yourself away from it, gasping. All you can see is the afterimages, blaring white and yellow across your vision. You swipe around you blindly as you hear Jean-Claude bark with laughter, trying to keep the monster at arm’s length.");
 				EngineCore.outputText("\n\n“<i>The taste of your own medicine, it is not so nice, eh? I will show you much nicer things in there in time intrus, don’t worry. Once you have learnt your place.</i>”");
-				CoC.getInstance().player.createStatusAffect(StatusAffects.Blind, Utils.rand(4) + 1, 0, 0, 0);
+				CoC.player.createStatusAffect(StatusAffects.Blind, Utils.rand(4) + 1, 0, 0, 0);
 			}
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
-			if(CoC.getInstance().monster.HP < 1) {
+			if(CoC.monster.HP < 1) {
 				EngineCore.doNext(Combat.endHpVictory);
 			} else {
 				Combat.enemyAI();
 			}
 			return;
 		}
-		EngineCore.outputText("You glare at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and point at " + CoC.getInstance().monster.pronoun2 + ".  A bright flash erupts before " + CoC.getInstance().monster.pronoun2 + "!\n", true);
-		if (!(CoC.getInstance().monster instanceof LivingStatue)) {
+		EngineCore.outputText("You glare at " + CoC.monster.a + CoC.monster.short + " and point at " + CoC.monster.pronoun2 + ".  A bright flash erupts before " + CoC.monster.pronoun2 + "!\n", true);
+		if (!(CoC.monster instanceof LivingStatue)) {
 			if( Utils.rand(3) !== 0) {
-				EngineCore.outputText(" <b>" + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " ", false);
-				if(CoC.getInstance().monster.plural && CoC.getInstance().monster.short !== "imp horde") {
+				EngineCore.outputText(" <b>" + CoC.monster.getCapitalA() + CoC.monster.short + " ", false);
+				if(CoC.monster.plural && CoC.monster.short !== "imp horde") {
 					EngineCore.outputText("are blinded!</b>", false);
 				} else {
 					EngineCore.outputText("is blinded!</b>", false);
 				}
-				CoC.getInstance().monster.createStatusAffect(StatusAffects.Blind,5*Combat.spellMod(),0,0,0);
-				if(CoC.getInstance().monster.short === "Isabella") {
+				CoC.monster.createStatusAffect(StatusAffects.Blind,5*Combat.spellMod(),0,0,0);
+				if(CoC.monster.short === "Isabella") {
 					if (SceneLib.isabellaFollowerScene.isabellaAccent()) {
 						EngineCore.outputText("\n\n\"<i>Nein! I cannot see!</i>\" cries Isabella.", false);
 					} else {
 						EngineCore.outputText("\n\n\"<i>No! I cannot see!</i>\" cries Isabella.", false);
 					}
 				}
-				if(CoC.getInstance().monster.short === "Kiha") {
+				if(CoC.monster.short === "Kiha") {
 					EngineCore.outputText("\n\n\"<i>You think blindness will slow me down?  Attacks like that are only effective on those who don't know how to see with their other senses!</i>\" Kiha cries defiantly.", false);
 				}
-				if(CoC.getInstance().monster.short === "plain girl") {
+				if(CoC.monster.short === "plain girl") {
 					EngineCore.outputText("  Remarkably, it seems as if your spell has had no effect on her, and you nearly get clipped by a roundhouse as you stand, confused. The girl flashes a radiant smile at you, and the battle continues.", false);
-					CoC.getInstance().monster.removeStatusAffect(StatusAffects.Blind);
+					CoC.monster.removeStatusAffect(StatusAffects.Blind);
 				}
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " blinked!", false);
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " blinked!", false);
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		EngineCore.statScreenRefresh();
 		Combat.enemyAI();
@@ -4041,46 +4041,46 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//(30) Whitefire – burns the enemy for 10 + int/3 + Utils.rand(int/2) * spellMod.
 	Combat.spellWhitefire = function() {
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(30) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
 		}
 		EngineCore.doNext(Combat.combatMenu);
 		EngineCore.fatigue(30,1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof Doppleganger) {
-			CoC.getInstance().monster.handleSpellResistance("whitefire");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if (CoC.monster instanceof Doppleganger) {
+			CoC.monster.handleSpellResistance("whitefire");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			return;
 		}
-		EngineCore.outputText("You narrow your eyes, focusing your mind with deadly intent.  You snap your fingers and " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " is enveloped in a flash of white flames!\n", true);
-		var wound = Math.floor(10+(CoC.getInstance().player.inte/3 + Utils.rand(CoC.getInstance().player.inte/2)) * Combat.spellMod());
+		EngineCore.outputText("You narrow your eyes, focusing your mind with deadly intent.  You snap your fingers and " + CoC.monster.a + CoC.monster.short + " is enveloped in a flash of white flames!\n", true);
+		var wound = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
 		//High damage to goes.
-		if(CoC.getInstance().monster.short === "goo-girl") {
+		if(CoC.monster.short === "goo-girl") {
 			wound = Math.round(wound * 1.5);
 		}
-		EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " takes " + wound + " damage.", false);
+		EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " takes " + wound + " damage.", false);
 		//Using fire attacks on the goo]
-		if(CoC.getInstance().monster.short === "goo-girl") {
-			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.getInstance().monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.getInstance().monster.findPerk(PerkLib.Acid) < 0) {
-				CoC.getInstance().monster.createPerk(PerkLib.Acid,0,0,0,0);
+		if(CoC.monster.short === "goo-girl") {
+			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
+			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		CoC.getInstance().monster.HP -= wound;
+		CoC.monster.HP -= wound;
 		EngineCore.statScreenRefresh();
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
@@ -4088,7 +4088,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.spellCleansingPalm = function() {
 		EngineCore.clearOutput();
-		if (CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(30) > 100) {
+		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext(Combat.magicMenu);
 			return;
@@ -4096,71 +4096,71 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.doNext(Combat.combatMenu);
 	//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
 		EngineCore.fatigue(30,1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster.short === "Jojo") {
+		if (CoC.monster.short === "Jojo") {
 			// Not a completely corrupted monkmouse
 			if (SceneLib.jojoScene.monk < 2) {
 				EngineCore.outputText("You thrust your palm forward, sending a blast of pure energy towards Jojo. At the last second he sends a blast of his own against yours canceling it out\n\n");
-				CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+				CoC.flags[kFLAGS.SPELLS_CAST]++;
 				Combat.spellPerkUnlock();
 				Combat.enemyAI();
 				return;
 			}
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against the giant stone statue- to no effect!");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			Combat.enemyAI();
 			return;
 		}
-		var corruptionMulti = (CoC.getInstance().monster.cor - 20) / 25;
+		var corruptionMulti = (CoC.monster.cor - 20) / 25;
 		if (corruptionMulti > 1.5) {
 			corruptionMulti = 1.5;
 		}
-		var wound = Math.floor((CoC.getInstance().player.inte / 4 + Utils.rand(CoC.getInstance().player.inte / 3)) * (Combat.spellMod() * corruptionMulti));
+		var wound = Math.floor((CoC.player.inte / 4 + Utils.rand(CoC.player.inte / 3)) * (Combat.spellMod() * corruptionMulti));
 		
 		if (wound > 0) {
-			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", tossing");
-			if (CoC.getInstance().monster.plural === true) {
+			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against " + CoC.monster.a + CoC.monster.short + ", tossing");
+			if (CoC.monster.plural === true) {
 				EngineCore.outputText(" them");
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.mfn(" him", " her", " it"));
+				EngineCore.outputText(CoC.monster.mfn(" him", " her", " it"));
 			}
 			EngineCore.outputText(" back a few feet.\n\n");
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " takes " + wound + " damage.\n\n");
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " takes " + wound + " damage.\n\n");
 		} else {
 			wound = 0;
-			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", which they ignore. It is probably best you don’t use this technique against the pure.\n\n");
+			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against " + CoC.monster.a + CoC.monster.short + ", which they ignore. It is probably best you don’t use this technique against the pure.\n\n");
 		}
-		CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
-		CoC.getInstance().monster.HP -= wound;
+		CoC.monster.HP -= wound;
 		EngineCore.statScreenRefresh();
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
 	};
 	Combat.spellPerkUnlock = function() {
-		if(CoC.getInstance().flags[kFLAGS.SPELLS_CAST] >= 5 && CoC.getInstance().player.findPerk(PerkLib.SpellcastingAffinity) < 0) {
+		if(CoC.flags[kFLAGS.SPELLS_CAST] >= 5 && CoC.player.findPerk(PerkLib.SpellcastingAffinity) < 0) {
 			EngineCore.outputText("<b>You've become more comfortable with your spells, unlocking the Spellcasting Affinity perk and reducing fatigue cost of spells by 20%!</b>\n\n");
-			CoC.getInstance().player.createPerk(PerkLib.SpellcastingAffinity,20,0,0,0);
+			CoC.player.createPerk(PerkLib.SpellcastingAffinity,20,0,0,0);
 		}
-		if(CoC.getInstance().flags[kFLAGS.SPELLS_CAST] >= 15 && CoC.getInstance().player.perkv1(PerkLib.SpellcastingAffinity) < 35) {
+		if(CoC.flags[kFLAGS.SPELLS_CAST] >= 15 && CoC.player.perkv1(PerkLib.SpellcastingAffinity) < 35) {
 			EngineCore.outputText("<b>You've become more comfortable with your spells, further reducing your spell costs by an additional 15%!</b>\n\n");
-			CoC.getInstance().player.setPerkValue(PerkLib.SpellcastingAffinity,1,35);
+			CoC.player.setPerkValue(PerkLib.SpellcastingAffinity,1,35);
 		}
-		if(CoC.getInstance().flags[kFLAGS.SPELLS_CAST] >= 45 && CoC.getInstance().player.perkv1(PerkLib.SpellcastingAffinity) < 50) {
+		if(CoC.flags[kFLAGS.SPELLS_CAST] >= 45 && CoC.player.perkv1(PerkLib.SpellcastingAffinity) < 50) {
 			EngineCore.outputText("<b>You've become more comfortable with your spells, further reducing your spell costs by an additional 15%!</b>\n\n");
-			CoC.getInstance().player.setPerkValue(PerkLib.SpellcastingAffinity,1,50);
+			CoC.player.setPerkValue(PerkLib.SpellcastingAffinity,1,50);
 		}
 	};
 	//player gains hellfire perk.  
@@ -4168,37 +4168,37 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//lust damage to completely corrupt foes, and a mix for those in between.  Its power is based on the PC's corruption and level.  Appearance is slightly changed to mention that the PC's eyes and mouth occasionally show flicks of fire from within them, text could possibly vary based on corruption.
 	Combat.hellFire = function() {
 		EngineCore.outputText("", true);
-		if (CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(20) > 100) {
+		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.\n", true);
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
 		EngineCore.fatigue(20, 1);
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("The fire courses over the stone behemoths skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
 		}
-		var damage = (CoC.getInstance().player.level * 8 + Utils.rand(10) + CoC.getInstance().player.cor/5);
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) < 0) {
+		var damage = (CoC.player.level * 8 + Utils.rand(10) + CoC.player.cor/5);
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) < 0) {
 			EngineCore.outputText("You take in a deep breath and unleash a wave of corrupt red flames from deep within.", false);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("  <b>The fire burns through the webs blocking your mouth!</b>", false);
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.WebSilence);
+			CoC.player.removeStatusAffect(StatusAffects.WebSilence);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
 			EngineCore.outputText("  <b>A growl rumbles from deep within as you charge the terrestrial fire, and you force it from your chest and into the slime.  The goop bubbles and steams as it evaporates, drawing a curious look from your foe, who pauses in her onslaught to lean in and watch.  While the tension around your mouth lessens and your opponent forgets herself more and more, you bide your time.  When you can finally work your jaw enough to open your mouth, you expel the lion's - or jaguar's? share of the flame, inflating an enormous bubble of fire and evaporated slime that thins and finally pops to release a superheated cloud.  The armored girl screams and recoils as she's enveloped, flailing her arms.</b>", false);
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.GooArmorSilence);
+			CoC.player.removeStatusAffect(StatusAffects.GooArmorSilence);
 			damage += 25;
 		}
-		if(CoC.getInstance().monster.short === "Isabella") {
+		if(CoC.monster.short === "Isabella") {
 			EngineCore.outputText("  Isabella shoulders her shield into the path of the crimson flames.  They burst over the wall of steel, splitting around the impenetrable obstruction and washing out harmlessly to the sides.\n\n", false);
 			if (SceneLib.isabellaFollowerScene.isabellaAccent()) {
 				EngineCore.outputText("\"<i>Is zat all you've got?  It'll take more than a flashy magic trick to beat Izabella!</i>\" taunts the cow-girl.\n\n", false);
@@ -4207,11 +4207,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			Combat.enemyAI();
 			return;
-		} else if(CoC.getInstance().monster.short === "Vala") {
+		} else if(CoC.monster.short === "Vala") {
 			EngineCore.outputText("  Vala beats her wings with surprising strength, blowing the fireball back at you!  ", false);
-			if(CoC.getInstance().player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
 				EngineCore.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
 				EngineCore.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				damage = Math.floor(damage / 6);
@@ -4220,28 +4220,28 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			EngineCore.outputText("\n", false);
 		} else {
-			if(CoC.getInstance().monster.inte < 10) {
+			if(CoC.monster.inte < 10) {
 				EngineCore.outputText("  Your foe lets out a shriek as their form is engulfed in the blistering flames.", false);
 				damage = Math.floor(damage);
 				EngineCore.outputText("(" + damage + ")\n", false);
-				CoC.getInstance().monster.HP -= damage;
+				CoC.monster.HP -= damage;
 			} else {
-				if(CoC.getInstance().monster.lustVuln > 0) {
+				if(CoC.monster.lustVuln > 0) {
 					EngineCore.outputText("  Your foe cries out in surprise and then gives a sensual moan as the flames of your passion surround them and fill their body with unnatural lust.\n", false);
-					CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * damage/6;
+					CoC.monster.lust += CoC.monster.lustVuln * damage/6;
 				} else {
-					EngineCore.outputText("  The corrupted fire doesn't seem to have affect on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "!\n", false);
+					EngineCore.outputText("  The corrupted fire doesn't seem to have affect on " + CoC.monster.a + CoC.monster.short + "!\n", false);
 				}
 			}
 		}
 		EngineCore.outputText("\n", false);
-		if(CoC.getInstance().monster.short === "Holli" && CoC.getInstance().monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
-			CoC.getInstance().monster.lightHolliOnFireMagically();
+		if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+			CoC.monster.lightHolliOnFireMagically();
 		}
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		}
-		else if(CoC.getInstance().monster.lust >= 99) {
+		else if(CoC.monster.lust >= 99) {
 			EngineCore.doNext(Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
@@ -4249,7 +4249,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.kick = function() {
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().player.fatigue + EngineCore.physicalCost(15) > 100) {
+		if(CoC.player.fatigue + EngineCore.physicalCost(15) > 100) {
 			EngineCore.outputText("You're too fatigued to use a charge attack!", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -4257,47 +4257,47 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(15,2);
 		//Variant start messages!
-		if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
+		if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
 			//(tail)
-			if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_KANGAROO) {
+			if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_KANGAROO) {
 				EngineCore.outputText("You balance on your flexible kangaroo-tail, pulling both legs up before slamming them forward simultaneously in a brutal kick.  ", false);
 			} else { //(no tail)
 				EngineCore.outputText("You balance on one leg and cock your powerful, kangaroo-like leg before you slam it forward in a kick.  ", false);
 			}
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY) { //(bunbun kick)
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY) { //(bunbun kick)
 			EngineCore.outputText("You leap straight into the air and lash out with both your furred feet simultaneously, slamming forward in a strong kick.  ", false);
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR) { //(centaur kick)
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR) { //(centaur kick)
 			EngineCore.outputText("You lurch up onto your backlegs, lifting your forelegs from the ground a split-second before you lash them out in a vicious kick.  ", false);
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED) { //(bipedal hoof-kick)
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED) { //(bipedal hoof-kick)
 			EngineCore.outputText("You twist and lurch as you raise a leg and slam your hoof forward in a kick.  ", false);
 		}
-		if(CoC.getInstance().flags[kFLAGS.PC_FETISH] >= 3) {
+		if(CoC.flags[kFLAGS.PC_FETISH] >= 3) {
 			EngineCore.outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  Ceraph's piercings have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		//Blind
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
 		var damage = 0;
 		//Worms are special
-		if(CoC.getInstance().monster.short === "worms") {
+		if(CoC.monster.short === "worms") {
 			//50% chance of hit (int boost)
-			if( Utils.rand(100) + CoC.getInstance().player.inte/3 >= 50) {
-				damage = Math.floor(CoC.getInstance().player.str/5 - Utils.rand(5));
+			if( Utils.rand(100) + CoC.player.inte/3 >= 50) {
+				damage = Math.floor(CoC.player.str/5 - Utils.rand(5));
 				if(damage === 0) {
 					damage = 1;
 				}
 				EngineCore.outputText("You strike at the amalgamation, crushing countless worms into goo, dealing " + damage + " damage.\n\n", false);
-				CoC.getInstance().monster.HP -= damage;
-				if(CoC.getInstance().monster.HP <= 0) {
+				CoC.monster.HP -= damage;
+				if(CoC.monster.HP <= 0) {
 					EngineCore.doNext(Combat.endHpVictory);
 					return;
 				}
@@ -4308,13 +4308,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Determine if dodged!
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe)/4)+80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
 			//Akbal dodges special education
-			if(CoC.getInstance().monster.short === "Akbal") {
+			if(CoC.monster.short === "Akbal") {
 				EngineCore.outputText("Akbal moves like lightning, weaving in and out of your furious attack with the speed and grace befitting his jaguar body.\n", false);
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " manage", false);
-				if(!CoC.getInstance().monster.plural) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " manage", false);
+				if(!CoC.monster.plural) {
 					EngineCore.outputText("s", false);
 				}
 				EngineCore.outputText(" to dodge your kick!", false);
@@ -4325,26 +4325,26 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Determine damage
 		//Base:
-		damage = CoC.getInstance().player.str;
+		damage = CoC.player.str;
 		//Leg bonus
 		//Bunny - 20, Kangaroo - 35, 1 hoof = 30, 2 hooves = 40
-		if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR) {
+		if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR) {
 			damage += 40;
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED) {
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED) {
 			damage += 30;
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY) {
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY) {
 			damage += 20;
-		} else if(CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
+		} else if(CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
 			damage += 35;
 		}
 		//Start figuring enemy damage resistance
-		var reduction = Utils.rand(CoC.getInstance().monster.tou);
+		var reduction = Utils.rand(CoC.monster.tou);
 		//Add in enemy armor if needed
-		reduction += CoC.getInstance().monster.armorDef;
+		reduction += CoC.monster.armorDef;
 		//Apply AND DONE!
 		damage -= reduction;
 		//Damage post processing!
-		if(CoC.getInstance().player.findPerk(PerkLib.HistoryFighter) >= 0) {
+		if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 			damage *= 1.1;
 		}
 		//(None yet!)
@@ -4354,16 +4354,16 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//BLOCKED
 		if(damage <= 0) {
 			damage = 0;
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short, false);
-			if(CoC.getInstance().monster.plural) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short, false);
+			if(CoC.monster.plural) {
 				EngineCore.outputText("'", false);
 			} else {
 				EngineCore.outputText("s", false);
 			}
 			EngineCore.outputText(" defenses are too tough for your kick to penetrate!", false);
 		} else { //LAND A HIT!
-			EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short, false);
-			if(!CoC.getInstance().monster.plural) {
+			EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short, false);
+			if(!CoC.monster.plural) {
 				EngineCore.outputText(" reels from the damaging impact! (" + damage + ")", false);
 			} else {
 				EngineCore.outputText(" reel from the damaging impact! (" + damage + ")", false);
@@ -4371,14 +4371,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(damage > 0) {
 			//Lust raised by anemone contact!
-			if(CoC.getInstance().monster.short === "anemone") {
+			if(CoC.monster.short === "anemone") {
 				EngineCore.outputText("\nThough you managed to hit the anemone, several of the tentacles surrounding her body sent home jolts of venom when your swing brushed past them.", false);
 				//(gain lust, temp lose str/spd)
-				CoC.getInstance().monster.applyVenom(1 + Utils.rand(2));
+				CoC.monster.applyVenom(1 + Utils.rand(2));
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		if(CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) {
+		if(CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 			Combat.combatRoundOver();
 		} else {
 			Combat.enemyAI();
@@ -4387,55 +4387,55 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.PCWebAttack = function() {
 		EngineCore.outputText("", true);
 		//Keep logic sane if this attack brings victory
-		if(CoC.getInstance().player.tailVenom < 33) {
+		if(CoC.player.tailVenom < 33) {
 			EngineCore.outputText("You do not have enough webbing to shoot right now!", true);
 			EngineCore.doNext(Combat.physicalSpecials);
 			return;
 		}
-		CoC.getInstance().player.tailVenom-= 33;
+		CoC.player.tailVenom-= 33;
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		//Blind
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		} else {
-			EngineCore.outputText("Turning and clenching muscles that no human should have, you expel a spray of sticky webs at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "!  ", false);
+			EngineCore.outputText("Turning and clenching muscles that no human should have, you expel a spray of sticky webs at " + CoC.monster.a + CoC.monster.short + "!  ", false);
 		}
 		//Determine if dodged!
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe) / 4) + 80) > 80)) {
-			EngineCore.outputText("You miss " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " completely - ", false);
-			if(CoC.getInstance().monster.plural) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe) / 4) + 80) > 80)) {
+			EngineCore.outputText("You miss " + CoC.monster.a + CoC.monster.short + " completely - ", false);
+			if(CoC.monster.plural) {
 				EngineCore.outputText("they", false);
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.mf("he","she") + " moved out of the way!\n\n", false);
+				EngineCore.outputText(CoC.monster.mf("he","she") + " moved out of the way!\n\n", false);
 			}
 			Combat.enemyAI();
 			return;
 		}
 		//Over-webbed
-		if(CoC.getInstance().monster.spe < 1) {
-			if(!CoC.getInstance().monster.plural) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is completely covered in webbing, but you hose " + CoC.getInstance().monster.mf("him","her") + " down again anyway.", false);
+		if(CoC.monster.spe < 1) {
+			if(!CoC.monster.plural) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is completely covered in webbing, but you hose " + CoC.monster.mf("him","her") + " down again anyway.", false);
 			} else {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " are completely covered in webbing, but you hose them down again anyway.", false);
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " are completely covered in webbing, but you hose them down again anyway.", false);
 			}
 		} else { //LAND A HIT!
-			if(!CoC.getInstance().monster.plural) {
-				EngineCore.outputText("The adhesive strands cover " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with restrictive webbing, greatly slowing " + CoC.getInstance().monster.mf("him","her") + ".", false);
+			if(!CoC.monster.plural) {
+				EngineCore.outputText("The adhesive strands cover " + CoC.monster.a + CoC.monster.short + " with restrictive webbing, greatly slowing " + CoC.monster.mf("him","her") + ".", false);
 			} else {
-				EngineCore.outputText("The adhesive strands cover " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with restrictive webbing, greatly slowing " + CoC.getInstance().monster.mf("him","her") + ".", false);
+				EngineCore.outputText("The adhesive strands cover " + CoC.monster.a + CoC.monster.short + " with restrictive webbing, greatly slowing " + CoC.monster.mf("him","her") + ".", false);
 			}
-			CoC.getInstance().monster.spe -= 45;
-			if(CoC.getInstance().monster.spe < 0) {
-				CoC.getInstance().monster.spe = 0;
+			CoC.monster.spe -= 45;
+			if(CoC.monster.spe < 0) {
+				CoC.monster.spe = 0;
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		if(CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) {
+		if(CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 			Combat.combatRoundOver();
 		} else {
 			Combat.enemyAI();
@@ -4444,7 +4444,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.nagaBiteAttack = function() {
 		EngineCore.outputText("", true);
 		//FATIIIIGUE
-		if(CoC.getInstance().player.fatigue + EngineCore.physicalCost(10) > 100) {
+		if(CoC.player.fatigue + EngineCore.physicalCost(10) > 100) {
 			EngineCore.outputText("You just don't have the energy to bite something right now...", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -4452,43 +4452,43 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(10,2);
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("Your fangs can't even penetrate the giant's flesh.");
 			Combat.enemyAI();
 			return;
 		}
 		//Works similar to bee stinger, must be regenerated over time. Shares the same poison-meter
-		if( Utils.rand(CoC.getInstance().player.spe/2 + 40) + 20 > CoC.getInstance().monster.spe/1.5) {
+		if( Utils.rand(CoC.player.spe/2 + 40) + 20 > CoC.monster.spe/1.5) {
 			//(if monster = demons)
-			if(CoC.getInstance().monster.short === "demons") {
+			if(CoC.monster.short === "demons") {
 				EngineCore.outputText("You look at the crowd for a moment, wondering which of their number you should bite. Your glance lands upon the leader of the group, easily spotted due to his snakeskin cloak. You quickly dart through the demon crowd as it closes in around you and lunge towards the broad form of the leader. You catch the demon off guard and sink your needle-like fangs deep into his flesh. You quickly release your venom and retreat before he, or the rest of the group manage to react.", false);
 			} else { //(Otherwise)
-				EngineCore.outputText("You lunge at the foe headfirst, fangs bared. You manage to catch " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.getInstance().monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.getInstance().monster.pronoun1 + " manages to react.", false);
+				EngineCore.outputText("You lunge at the foe headfirst, fangs bared. You manage to catch " + CoC.monster.a + CoC.monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.monster.pronoun1 + " manages to react.", false);
 			}
 	        //The following is how the enemy reacts over time to poison. It is displayed after the description paragraph,instead of lust
-	        CoC.getInstance().monster.str -= 5 + Utils.rand(5);
-			CoC.getInstance().monster.spe -= 5 + Utils.rand(5);
-			if(CoC.getInstance().monster.str < 1) {
-				CoC.getInstance().monster.str = 1;
+	        CoC.monster.str -= 5 + Utils.rand(5);
+			CoC.monster.spe -= 5 + Utils.rand(5);
+			if(CoC.monster.str < 1) {
+				CoC.monster.str = 1;
 			}
-			if(CoC.getInstance().monster.spe < 1) {
-				CoC.getInstance().monster.spe = 1;
+			if(CoC.monster.spe < 1) {
+				CoC.monster.spe = 1;
 			}
-			if(CoC.getInstance().monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
-				CoC.getInstance().monster.addStatusValue(StatusAffects.NagaVenom,1,1);
+			if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+				CoC.monster.addStatusValue(StatusAffects.NagaVenom,1,1);
 			} else {
-				CoC.getInstance().monster.createStatusAffect(StatusAffects.NagaVenom,1,0,0,0);
+				CoC.monster.createStatusAffect(StatusAffects.NagaVenom,1,0,0,0);
 			}
 		} else {
-	       EngineCore.outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " manages to counter your lunge, knocking your head away with enough force to make your ears ring.", false);
+	       EngineCore.outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + CoC.monster.a + CoC.monster.short + " manages to counter your lunge, knocking your head away with enough force to make your ears ring.", false);
 		}
 		EngineCore.outputText("\n\n", false);
-		if(CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) {
+		if(CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 			Combat.combatRoundOver();
 		} else {
 			Combat.enemyAI();
@@ -4497,7 +4497,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.spiderBiteAttack = function() {
 		EngineCore.outputText("", true);
 		//FATIIIIGUE
-		if(CoC.getInstance().player.fatigue + EngineCore.physicalCost(10) > 100) {
+		if(CoC.player.fatigue + EngineCore.physicalCost(10) > 100) {
 			EngineCore.outputText("You just don't have the energy to bite something right now...", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -4505,47 +4505,47 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(10,2);
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("Your fangs can't even penetrate the giant's flesh.");
 			Combat.enemyAI();
 			return;
 		}
 		//Works similar to bee stinger, must be regenerated over time. Shares the same poison-meter
-		if( Utils.rand(CoC.getInstance().player.spe/2 + 40) + 20 > CoC.getInstance().monster.spe/1.5) {
+		if( Utils.rand(CoC.player.spe/2 + 40) + 20 > CoC.monster.spe/1.5) {
 			//(if monster = demons)
-			if(CoC.getInstance().monster.short === "demons") {
+			if(CoC.monster.short === "demons") {
 				EngineCore.outputText("You look at the crowd for a moment, wondering which of their number you should bite. Your glance lands upon the leader of the group, easily spotted due to his snakeskin cloak. You quickly dart through the demon crowd as it closes in around you and lunge towards the broad form of the leader. You catch the demon off guard and sink your needle-like fangs deep into his flesh. You quickly release your venom and retreat before he, or the rest of the group manage to react.", false);
 			} else { //(Otherwise)
-				if(!CoC.getInstance().monster.plural) {
-					EngineCore.outputText("You lunge at the foe headfirst, fangs bared. You manage to catch " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.getInstance().monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.getInstance().monster.a + CoC.getInstance().monster.pronoun1 + " manages to react.", false);
+				if(!CoC.monster.plural) {
+					EngineCore.outputText("You lunge at the foe headfirst, fangs bared. You manage to catch " + CoC.monster.a + CoC.monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.monster.a + CoC.monster.pronoun1 + " manages to react.", false);
 				} else {
-					EngineCore.outputText("You lunge at the foes headfirst, fangs bared. You manage to catch one of " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.getInstance().monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.getInstance().monster.a + CoC.getInstance().monster.pronoun1 + " manage to react.", false);
+					EngineCore.outputText("You lunge at the foes headfirst, fangs bared. You manage to catch one of " + CoC.monster.a + CoC.monster.short + " off guard, your needle-like fangs penetrating deep into " + CoC.monster.pronoun3 + " body. You quickly release your venom, and retreat before " + CoC.monster.a + CoC.monster.pronoun1 + " manage to react.", false);
 				}
 			}
 			//React
-			if(CoC.getInstance().monster.lustVuln === 0) {
+			if(CoC.monster.lustVuln === 0) {
 				EngineCore.outputText("  Your aphrodisiac toxin has no effect!", false);
 			} else {
-				if(CoC.getInstance().monster.plural) {
+				if(CoC.monster.plural) {
 					EngineCore.outputText("  The one you bit flushes hotly, though the entire group seems to become more aroused in sympathy to their now-lusty compatriot.", false);
 				} else {
-					EngineCore.outputText("  " + CoC.getInstance().monster.mf("He","She") + " flushes hotly and " + CoC.getInstance().monster.mf("touches his suddenly-stiff member, moaning lewdly for a moment.","touches a suddenly stiff nipple, moaning lewdly.  You can smell her arousal in the air."), false);
+					EngineCore.outputText("  " + CoC.monster.mf("He","She") + " flushes hotly and " + CoC.monster.mf("touches his suddenly-stiff member, moaning lewdly for a moment.","touches a suddenly stiff nipple, moaning lewdly.  You can smell her arousal in the air."), false);
 				}
-				CoC.getInstance().monster.lust += 25 * CoC.getInstance().monster.lustVuln;
+				CoC.monster.lust += 25 * CoC.monster.lustVuln;
 				if( Utils.rand(5) === 0) {
-					CoC.getInstance().monster.lust += 25 * CoC.getInstance().monster.lustVuln;
+					CoC.monster.lust += 25 * CoC.monster.lustVuln;
 				}
 			}
 		} else {
-	       EngineCore.outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " manages to counter your lunge, pushing you back out of range.", false);
+	       EngineCore.outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + CoC.monster.a + CoC.monster.short + " manages to counter your lunge, pushing you back out of range.", false);
 		}
 		EngineCore.outputText("\n\n", false);
-		if(CoC.getInstance().monster.HP < 1 || CoC.getInstance().monster.lust > 99) {
+		if(CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 			Combat.combatRoundOver();
 		} else {
 			Combat.enemyAI();
@@ -4556,43 +4556,43 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Whisper 
 	Combat.superWhisperAttack = function() {
 		EngineCore.outputText("", true);
-		if (CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(10) > 100) {
+		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(10) > 100) {
 			EngineCore.outputText("You are too tired to focus this ability.", true);
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
-		if(CoC.getInstance().monster.short === "pod" || CoC.getInstance().monster.inte === 0) {
+		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			EngineCore.outputText("You reach for the enemy's mind, but cannot find anything.  You frantically search around, but there is no consciousness as you know it in the room.\n\n", true);
 			EngineCore.changeFatigue(1);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("There is nothing inside the golem to whisper to.");
 			EngineCore.changeFatigue(1);
 			Combat.enemyAI();
 			return;
 		}
 		EngineCore.fatigue(10, 1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().monster.findPerk(PerkLib.Focused) >= 0) {
-			if(!CoC.getInstance().monster.plural) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is too focused for your whispers to influence!\n\n");
+		if(CoC.monster.findPerk(PerkLib.Focused) >= 0) {
+			if(!CoC.monster.plural) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is too focused for your whispers to influence!\n\n");
 			}
 			Combat.enemyAI();
 			return;
 		}
 		//Enemy too strong or multiplesI think you 
-		if(CoC.getInstance().player.inte < CoC.getInstance().monster.inte || CoC.getInstance().monster.plural) {
+		if(CoC.player.inte < CoC.monster.inte || CoC.monster.plural) {
 			EngineCore.outputText("You reach for your enemy's mind, but can't break through.\n", false);
 			EngineCore.changeFatigue(10);
 			Combat.enemyAI();
@@ -4606,7 +4606,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		EngineCore.outputText("You reach for your enemy's mind, watching as its sudden fear petrifies your foe.\n\n", false);
-		CoC.getInstance().monster.createStatusAffect(StatusAffects.Fear,1,0,0,0);
+		CoC.monster.createStatusAffect(StatusAffects.Fear,1,0,0,0);
 		Combat.enemyAI();
 	};
 	//Attack used:
@@ -4615,77 +4615,77 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Effect of attack: Damages and stuns the enemy for the turn you used this attack on, plus 2 more turns. High chance of success.
 	Combat.dragonBreath = function() {
 		EngineCore.clearOutput();
-		if (CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(20) > 100) {
+		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.", true);
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
 		//Not Ready Yet:
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
 			EngineCore.outputText("You try to tap into the power within you, but your burning throat reminds you that you're not yet ready to unleash it again...");
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
 	//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
 		EngineCore.fatigue(20, 1);
-		CoC.getInstance().player.createStatusAffect(StatusAffects.DragonBreathCooldown,0,0,0,0);
-		var damage = Math.floor(CoC.getInstance().player.level * 8 + 25 + Utils.rand(10));
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.DragonBreathBoost) >= 0) {
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.DragonBreathBoost);
+		CoC.player.createStatusAffect(StatusAffects.DragonBreathCooldown,0,0,0,0);
+		var damage = Math.floor(CoC.player.level * 8 + 25 + Utils.rand(10));
+		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathBoost) >= 0) {
+			CoC.player.removeStatusAffect(StatusAffects.DragonBreathBoost);
 			damage *= 1.5;
 		}
 		//Shell
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("The fire courses by the stone skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
 		}
-		EngineCore.outputText("Tapping into the power deep within you, you let loose a bellowing roar at your enemy, so forceful that even the environs crumble around " + CoC.getInstance().monster.pronoun2 + ".  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " does " + CoC.getInstance().monster.pronoun3 + " best to avoid it, but the wave of force is too fast.");
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
+		EngineCore.outputText("Tapping into the power deep within you, you let loose a bellowing roar at your enemy, so forceful that even the environs crumble around " + CoC.monster.pronoun2 + ".  " + CoC.monster.getCapitalA() + CoC.monster.short + " does " + CoC.monster.pronoun3 + " best to avoid it, but the wave of force is too fast.");
+		if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
 			EngineCore.outputText("  <b>Your breath is massively dissipated by the swirling vortex, causing it to hit with far less force!</b>");
 			damage = Math.round(0.2 * damage);
 		}
 		//Miss: 
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe)/4)+80) > 80)) {
-			EngineCore.outputText("  Despite the heavy impact caused by your roar, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " manages to take it at an angle and remain on " + CoC.getInstance().monster.pronoun3 + " feet and focuses on you, ready to keep fighting.");
-		} else if(CoC.getInstance().monster.short === "Vala") { //Special enemy avoidances
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
+			EngineCore.outputText("  Despite the heavy impact caused by your roar, " + CoC.monster.a + CoC.monster.short + " manages to take it at an angle and remain on " + CoC.monster.pronoun3 + " feet and focuses on you, ready to keep fighting.");
+		} else if(CoC.monster.short === "Vala") { //Special enemy avoidances
 			EngineCore.outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ", false);
-			if(CoC.getInstance().player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
 				EngineCore.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
 				EngineCore.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				damage = Combat.takeDamage(damage);
 				EngineCore.outputText("Your own fire smacks into your face! (" + damage + ")", false);
 			}
 			EngineCore.outputText("\n\n", false);
-		} else if(CoC.getInstance().monster.short === "goo-girl") { //Goos burn
-			EngineCore.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.getInstance().monster.skinTone + " skin has lost some of its shimmer. ", false);
-			if(CoC.getInstance().monster.findPerk(PerkLib.Acid) < 0) {
-				CoC.getInstance().monster.createPerk(PerkLib.Acid,0,0,0,0);
+		} else if(CoC.monster.short === "goo-girl") { //Goos burn
+			EngineCore.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer. ", false);
+			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 			damage = Math.round(damage * 1.5);
 			damage = Combat.doDamage(damage);
-			CoC.getInstance().monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
+			CoC.monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
 			EngineCore.outputText("(" + damage + ")\n\n", false);
 		} else {
-			if(CoC.getInstance().monster.findPerk(PerkLib.Resolute) < 0) {
-				EngineCore.outputText("  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " reels as your wave of force slams into " + CoC.getInstance().monster.pronoun2 + " like a ton of rock!  The impact sends " + CoC.getInstance().monster.pronoun2 + " crashing to the ground, too dazed to strike back.");
-				CoC.getInstance().monster.createStatusAffect(StatusAffects.Stunned,1,0,0,0);
+			if(CoC.monster.findPerk(PerkLib.Resolute) < 0) {
+				EngineCore.outputText("  " + CoC.monster.getCapitalA() + CoC.monster.short + " reels as your wave of force slams into " + CoC.monster.pronoun2 + " like a ton of rock!  The impact sends " + CoC.monster.pronoun2 + " crashing to the ground, too dazed to strike back.");
+				CoC.monster.createStatusAffect(StatusAffects.Stunned,1,0,0,0);
 			} else {
-				EngineCore.outputText("  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " reels as your wave of force slams into " + CoC.getInstance().monster.pronoun2 + " like a ton of rock!  The impact sends " + CoC.getInstance().monster.pronoun2 + " staggering back, but <b>" + CoC.getInstance().monster.pronoun1 + " ");
-				if(!CoC.getInstance().monster.plural) {
+				EngineCore.outputText("  " + CoC.monster.getCapitalA() + CoC.monster.short + " reels as your wave of force slams into " + CoC.monster.pronoun2 + " like a ton of rock!  The impact sends " + CoC.monster.pronoun2 + " staggering back, but <b>" + CoC.monster.pronoun1 + " ");
+				if(!CoC.monster.plural) {
 					EngineCore.outputText("is ");
 				} else {
 					EngineCore.outputText("are");
@@ -4696,42 +4696,42 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText(" (" + damage + ")");
 		}
 		EngineCore.outputText("\n\n");
-		if(CoC.getInstance().monster.short === "Holli" && CoC.getInstance().monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
-			CoC.getInstance().monster.lightHolliOnFireMagically();
+		if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+			CoC.monster.lightHolliOnFireMagically();
 		}
 		Combat.combatRoundOver();
 	};
 	//* Terrestrial Fire
 	Combat.fireballuuuuu = function() {
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().player.fatigue + 20 > 100) {
+		if(CoC.player.fatigue + 20 > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.", true);
 			EngineCore.doNext(Combat.combatMenu);
 			return;
 		}
 		EngineCore.changeFatigue(20);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
 			EngineCore.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof LivingStatue) {
+		if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("The fire courses by the stone skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
 		}
 		//[Failure]
 		//(high damage to self, +20 fatigue)
-		if( Utils.rand(5) === 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if( Utils.rand(5) === 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 				EngineCore.outputText("You reach for the terrestrial fire, but as you ready to release a torrent of flame, it backs up in your throat, blocked by the webbing across your mouth.  It causes you to cry out as the sudden, heated force explodes in your own throat.\n\n", false);
-			} else if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+			} else if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
 				EngineCore.outputText("You reach for the terrestrial fire but as you ready the torrent, it erupts prematurely, causing you to cry out as the sudden heated force explodes in your own throat.  The slime covering your mouth bubbles and pops, boiling away where the escaping flame opens small rents in it.  That wasn't as effective as you'd hoped, but you can at least speak now.");
 			} else {
 				EngineCore.outputText("You reach for the terrestrial fire, but as you ready to release a torrent of flame, the fire inside erupts prematurely, causing you to cry out as the sudden heated force explodes in your own throat.\n\n", false);
@@ -4741,22 +4741,22 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.getInstance().monster instanceof Doppleganger) {
-			CoC.getInstance().monster.handleSpellResistance("fireball");
-			CoC.getInstance().flags[kFLAGS.SPELLS_CAST]++;
+		if (CoC.monster instanceof Doppleganger) {
+			CoC.monster.handleSpellResistance("fireball");
+			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			return;
 		}
-		var damage = Math.floor(CoC.getInstance().player.level * 10 + 45 + Utils.rand(10));
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+		var damage = Math.floor(CoC.player.level * 10 + 45 + Utils.rand(10));
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
 			EngineCore.outputText("<b>A growl rumbles from deep within as you charge the terrestrial fire, and you force it from your chest and into the slime.  The goop bubbles and steams as it evaporates, drawing a curious look from your foe, who pauses in her onslaught to lean in and watch.  While the tension around your mouth lessens and your opponent forgets herself more and more, you bide your time.  When you can finally work your jaw enough to open your mouth, you expel the lion's - or jaguar's? share of the flame, inflating an enormous bubble of fire and evaporated slime that thins and finally pops to release a superheated cloud.  The armored girl screams and recoils as she's enveloped, flailing her arms.</b> ", false);
-			CoC.getInstance().player.removeStatusAffect(StatusAffects.GooArmorSilence);
+			CoC.player.removeStatusAffect(StatusAffects.GooArmorSilence);
 			damage += 25;
 		} else {
 			EngineCore.outputText("A growl rumbles deep with your chest as you charge the terrestrial fire.  When you can hold it no longer, you release an ear splitting roar and hurl a giant green conflagration at your enemy. ", false);
 		}
 
-		if(CoC.getInstance().monster.short === "Isabella") {
+		if(CoC.monster.short === "Isabella") {
 			EngineCore.outputText("Isabella shoulders her shield into the path of the emerald flames.  They burst over the wall of steel, splitting around the impenetrable obstruction and washing out harmlessly to the sides.\n\n", false);
 			if (SceneLib.isabellaFollowerScene.isabellaAccent()) {
 				EngineCore.outputText("\"<i>Is zat all you've got?  It'll take more than a flashy magic trick to beat Izabella!</i>\" taunts the cow-girl.\n\n", false);
@@ -4765,11 +4765,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			Combat.enemyAI();
 			return;
-		} else if(CoC.getInstance().monster.short === "Vala") {
+		} else if(CoC.monster.short === "Vala") {
 			EngineCore.outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ", false);		
-			if(CoC.getInstance().player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
 				EngineCore.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.getInstance().player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
 				EngineCore.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				EngineCore.outputText("Your own fire smacks into your face! (" + damage + ")", false);
@@ -4778,31 +4778,31 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("\n\n", false);
 		} else {
 			//Using fire attacks on the goo]
-			if(CoC.getInstance().monster.short === "goo-girl") {
-				EngineCore.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.getInstance().monster.skinTone + " skin has lost some of its shimmer. ", false);
-				if(CoC.getInstance().monster.findPerk(PerkLib.Acid) < 0) {
-					CoC.getInstance().monster.createPerk(PerkLib.Acid,0,0,0,0);
+			if(CoC.monster.short === "goo-girl") {
+				EngineCore.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer. ", false);
+				if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+					CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 				}
 				damage = Math.round(damage * 1.5);
 			}
-			if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
+			if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
 				EngineCore.outputText("<b>Your breath is massively dissipated by the swirling vortex, causing it to hit with far less force!</b>  ");
 				damage = Math.round(0.2 * damage);
 			}
 			EngineCore.outputText("(" + damage + ")\n\n", false);
-			CoC.getInstance().monster.HP -= damage;
-			if(CoC.getInstance().monster.short === "Holli" && CoC.getInstance().monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
-				CoC.getInstance().monster.lightHolliOnFireMagically();
+			CoC.monster.HP -= damage;
+			if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+				CoC.monster.lightHolliOnFireMagically();
 			}
 		}
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
 	};
 	Combat.kissAttack = function() {
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("There's no way you'd be able to find their lips while you're blind!", true);
 			EngineCore.doNext(Combat.physicalSpecials);
 			return;
@@ -4812,7 +4812,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		switch(attack) {
 			case 1:
 				//Attack text 1:
-				EngineCore.outputText("You hop up to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and attempt to plant a kiss on " + CoC.getInstance().monster.pronoun3 + ".", false);
+				EngineCore.outputText("You hop up to " + CoC.monster.a + CoC.monster.short + " and attempt to plant a kiss on " + CoC.monster.pronoun3 + ".", false);
 				break;
 			//Attack text 2:
 			case 2:
@@ -4820,45 +4820,45 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//Attack text 3: 
 			case 3:
-				EngineCore.outputText("Swaying sensually, you wiggle up to " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and attempt to plant a nice wet kiss on " + CoC.getInstance().monster.pronoun2 + ".", false);
+				EngineCore.outputText("Swaying sensually, you wiggle up to " + CoC.monster.a + CoC.monster.short + " and attempt to plant a nice wet kiss on " + CoC.monster.pronoun2 + ".", false);
 				break;
 			//Attack text 4:
 			case 4:
-				EngineCore.outputText("Lunging forward, you fly through the air at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with your lips puckered and ready to smear drugs all over " + CoC.getInstance().monster.pronoun2 + ".", false);
+				EngineCore.outputText("Lunging forward, you fly through the air at " + CoC.monster.a + CoC.monster.short + " with your lips puckered and ready to smear drugs all over " + CoC.monster.pronoun2 + ".", false);
 				break;
 			//Attack text 5:
 			case 5:
-				EngineCore.outputText("You lean over, your lips swollen with lust, wet with your wanting slobber as you close in on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ".", false);
+				EngineCore.outputText("You lean over, your lips swollen with lust, wet with your wanting slobber as you close in on " + CoC.monster.a + CoC.monster.short + ".", false);
 				break;
 			//Attack text 6:
 			default:
-				EngineCore.outputText("Pursing your drug-laced lips, you close on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and try to plant a nice, wet kiss on " + CoC.getInstance().monster.pronoun2 + ".", false);
+				EngineCore.outputText("Pursing your drug-laced lips, you close on " + CoC.monster.a + CoC.monster.short + " and try to plant a nice, wet kiss on " + CoC.monster.pronoun2 + ".", false);
 				break;
 		}
 		//Dodged!
-		if(CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe - CoC.getInstance().player.spe)/4)+80) > 80) {
+		if(CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe - CoC.player.spe)/4)+80) > 80) {
 			attack = Utils.rand(3);
 			switch(attack) {
 				//Dodge 1:
 				case 1:
-					if(CoC.getInstance().monster.plural) {
-						EngineCore.outputText("  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " sees it coming and moves out of the way in the nick of time!\n\n", false);
+					if(CoC.monster.plural) {
+						EngineCore.outputText("  " + CoC.monster.getCapitalA() + CoC.monster.short + " sees it coming and moves out of the way in the nick of time!\n\n", false);
 					}
 					break;
 				//Dodge 2:
 				case 2:
-					if(CoC.getInstance().monster.plural) {
-						EngineCore.outputText("  Unfortunately, you're too slow, and " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " slips out of the way before you can lay a wet one on one of them.\n\n", false);
+					if(CoC.monster.plural) {
+						EngineCore.outputText("  Unfortunately, you're too slow, and " + CoC.monster.a + CoC.monster.short + " slips out of the way before you can lay a wet one on one of them.\n\n", false);
 					} else {
-						EngineCore.outputText("  Unfortunately, you're too slow, and " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " slips out of the way before you can lay a wet one on " + CoC.getInstance().monster.pronoun2 + ".\n\n", false);
+						EngineCore.outputText("  Unfortunately, you're too slow, and " + CoC.monster.a + CoC.monster.short + " slips out of the way before you can lay a wet one on " + CoC.monster.pronoun2 + ".\n\n", false);
 					}
 					break;
 				//Dodge 3:
 				default:
-					if(CoC.getInstance().monster.plural) {
-						EngineCore.outputText("  Sadly, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " moves aside, denying you the chance to give one of them a smooch.\n\n", false);
+					if(CoC.monster.plural) {
+						EngineCore.outputText("  Sadly, " + CoC.monster.a + CoC.monster.short + " moves aside, denying you the chance to give one of them a smooch.\n\n", false);
 					} else {
-						EngineCore.outputText("  Sadly, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " moves aside, denying you the chance to give " + CoC.getInstance().monster.pronoun2 + " a smooch.\n\n", false);
+						EngineCore.outputText("  Sadly, " + CoC.monster.a + CoC.monster.short + " moves aside, denying you the chance to give " + CoC.monster.pronoun2 + " a smooch.\n\n", false);
 					}
 					break;
 			}
@@ -4866,11 +4866,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Success but no effect:
-		if(CoC.getInstance().monster.lustVuln <= 0 || !CoC.getInstance().monster.hasCock()) {
-			if(CoC.getInstance().monster.plural) {
-				EngineCore.outputText("  Mouth presses against mouth, and you allow your tongue to stick out to taste the saliva of one of their number, making sure to give them a big dose.  Pulling back, you look at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and immediately regret wasting the time on the kiss.  It had no effect!\n\n", false);
+		if(CoC.monster.lustVuln <= 0 || !CoC.monster.hasCock()) {
+			if(CoC.monster.plural) {
+				EngineCore.outputText("  Mouth presses against mouth, and you allow your tongue to stick out to taste the saliva of one of their number, making sure to give them a big dose.  Pulling back, you look at " + CoC.monster.a + CoC.monster.short + " and immediately regret wasting the time on the kiss.  It had no effect!\n\n", false);
 			} else {
-				EngineCore.outputText("  Mouth presses against mouth, and you allow your tongue to stick to taste " + CoC.getInstance().monster.pronoun3 + "'s saliva as you make sure to give them a big dose.  Pulling back, you look at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " and immediately regret wasting the time on the kiss.  It had no effect!\n\n", false);
+				EngineCore.outputText("  Mouth presses against mouth, and you allow your tongue to stick to taste " + CoC.monster.pronoun3 + "'s saliva as you make sure to give them a big dose.  Pulling back, you look at " + CoC.monster.a + CoC.monster.short + " and immediately regret wasting the time on the kiss.  It had no effect!\n\n", false);
 			}
 			Combat.enemyAI();
 			return;
@@ -4880,28 +4880,28 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		switch(attack) {
 			//Success 1:
 			case 1:
-				if(CoC.getInstance().monster.plural) {
+				if(CoC.monster.plural) {
 					EngineCore.outputText("  Success!  A spit-soaked kiss lands right on one of their mouths.  The victim quickly melts into your embrace, allowing you to give them a nice, heavy dose of sloppy oral aphrodisiacs.\n\n", false);
 				} else {
-					EngineCore.outputText("  Success!  A spit-soaked kiss lands right on " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s mouth.  " + CoC.getInstance().monster.mf("He","She") + " quickly melts into your embrace, allowing you to give them a nice, heavy dose of sloppy oral aphrodisiacs.\n\n", false);
+					EngineCore.outputText("  Success!  A spit-soaked kiss lands right on " + CoC.monster.a + CoC.monster.short + "'s mouth.  " + CoC.monster.mf("He","She") + " quickly melts into your embrace, allowing you to give them a nice, heavy dose of sloppy oral aphrodisiacs.\n\n", false);
 				}
 				damage = 15;
 				break;
 			//Success 2:
 			case 2:
-				if(CoC.getInstance().monster.plural) {
+				if(CoC.monster.plural) {
 					EngineCore.outputText("  Gold-gilt lips press into one of their mouths, the victim's lips melding with yours.  You take your time with your suddenly cooperative captive and make sure to cover every bit of their mouth with your lipstick before you let them go.\n\n", false);
 				} else {
-					EngineCore.outputText("  Gold-gilt lips press into " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", " + CoC.getInstance().monster.pronoun3 + " mouth melding with yours.  You take your time with your suddenly cooperative captive and make sure to cover every inch of " + CoC.getInstance().monster.pronoun3 + " with your lipstick before you let " + CoC.getInstance().monster.pronoun2 + " go.\n\n", false);
+					EngineCore.outputText("  Gold-gilt lips press into " + CoC.monster.a + CoC.monster.short + ", " + CoC.monster.pronoun3 + " mouth melding with yours.  You take your time with your suddenly cooperative captive and make sure to cover every inch of " + CoC.monster.pronoun3 + " with your lipstick before you let " + CoC.monster.pronoun2 + " go.\n\n", false);
 				}
 				damage = 20;
 				break;
 			//CRITICAL SUCCESS (3)
 			case 3:
-				if(CoC.getInstance().monster.plural) {
-					EngineCore.outputText("  You slip past " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s guard and press your lips against one of them.  " + CoC.getInstance().monster.mf("He","She") + " melts against you, " + CoC.getInstance().monster.mf("his","her") + " tongue sliding into your mouth as " + CoC.getInstance().monster.mf("he","she") + " quickly succumbs to the fiery, cock-swelling kiss.  It goes on for quite some time.  Once you're sure you've given a full dose to " + CoC.getInstance().monster.mf("his","her") + " mouth, you break back and observe your handwork.  One of " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " is still standing there, licking " + CoC.getInstance().monster.mf("his","her") + " his lips while " + CoC.getInstance().monster.mf("his","her") + " dick is standing out, iron hard.  You feel a little daring and give the swollen meat another moist peck, glossing the tip in gold.  There's no way " + CoC.getInstance().monster.mf("he","she") + " will go soft now.  Though you didn't drug the rest, they're probably a little 'heated up' from the show.\n\n", false);
+				if(CoC.monster.plural) {
+					EngineCore.outputText("  You slip past " + CoC.monster.a + CoC.monster.short + "'s guard and press your lips against one of them.  " + CoC.monster.mf("He","She") + " melts against you, " + CoC.monster.mf("his","her") + " tongue sliding into your mouth as " + CoC.monster.mf("he","she") + " quickly succumbs to the fiery, cock-swelling kiss.  It goes on for quite some time.  Once you're sure you've given a full dose to " + CoC.monster.mf("his","her") + " mouth, you break back and observe your handwork.  One of " + CoC.monster.a + CoC.monster.short + " is still standing there, licking " + CoC.monster.mf("his","her") + " his lips while " + CoC.monster.mf("his","her") + " dick is standing out, iron hard.  You feel a little daring and give the swollen meat another moist peck, glossing the tip in gold.  There's no way " + CoC.monster.mf("he","she") + " will go soft now.  Though you didn't drug the rest, they're probably a little 'heated up' from the show.\n\n", false);
 				} else {
-					EngineCore.outputText("  You slip past " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s guard and press your lips against " + CoC.getInstance().monster.pronoun3 + ".  " + CoC.getInstance().monster.mf("He","She") + " melts against you, " + CoC.getInstance().monster.pronoun3 + " tongue sliding into your mouth as " + CoC.getInstance().monster.pronoun1 + " quickly succumbs to the fiery, cock-swelling kiss.  It goes on for quite some time.  Once you're sure you've given a full dose to " + CoC.getInstance().monster.pronoun3 + " mouth, you break back and observe your handwork.  " + CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " is still standing there, licking " + CoC.getInstance().monster.pronoun3 + " lips while " + CoC.getInstance().monster.pronoun3 + " dick is standing out, iron hard.  You feel a little daring and give the swollen meat another moist peck, glossing the tip in gold.  There's no way " + CoC.getInstance().monster.pronoun1 + " will go soft now.\n\n", false);
+					EngineCore.outputText("  You slip past " + CoC.monster.a + CoC.monster.short + "'s guard and press your lips against " + CoC.monster.pronoun3 + ".  " + CoC.monster.mf("He","She") + " melts against you, " + CoC.monster.pronoun3 + " tongue sliding into your mouth as " + CoC.monster.pronoun1 + " quickly succumbs to the fiery, cock-swelling kiss.  It goes on for quite some time.  Once you're sure you've given a full dose to " + CoC.monster.pronoun3 + " mouth, you break back and observe your handwork.  " + CoC.monster.getCapitalA() + CoC.monster.short + " is still standing there, licking " + CoC.monster.pronoun3 + " lips while " + CoC.monster.pronoun3 + " dick is standing out, iron hard.  You feel a little daring and give the swollen meat another moist peck, glossing the tip in gold.  There's no way " + CoC.monster.pronoun1 + " will go soft now.\n\n", false);
 				}
 				damage = 30;
 				break;
@@ -4912,13 +4912,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 		}
 		//Add status if not already drugged
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.LustStick) < 0) {
-			CoC.getInstance().monster.createStatusAffect(StatusAffects.LustStick,0,0,0,0);
+		if(CoC.monster.findStatusAffect(StatusAffects.LustStick) < 0) {
+			CoC.monster.createStatusAffect(StatusAffects.LustStick,0,0,0,0);
 		} else { //Else add bonus to round damage
-			CoC.getInstance().monster.addStatusValue(StatusAffects.LustStick,2,Math.round(damage/10));
+			CoC.monster.addStatusValue(StatusAffects.LustStick,2,Math.round(damage/10));
 		}
 		//Deal damage
-		CoC.getInstance().monster.lust += Math.round(CoC.getInstance().monster.lustVuln * damage);
+		CoC.monster.lust += Math.round(CoC.monster.lustVuln * damage);
 		//Sets up for end of combat, and if not, goes to AI.
 		if(!Combat.combatRoundOver()) {
 			Combat.enemyAI();
@@ -4926,21 +4926,21 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.possess = function() {
 		EngineCore.outputText("", true);
-		if(CoC.getInstance().monster.short === "plain girl" || CoC.getInstance().monster.findPerk(PerkLib.Incorporeality) >= 0) {
+		if(CoC.monster.short === "plain girl" || CoC.monster.findPerk(PerkLib.Incorporeality) >= 0) {
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself toward the opponent's frame.  Sadly, it was doomed to fail, as you bounce right off your foe's ghostly form.", false);
-		} else if (CoC.getInstance().monster instanceof LivingStatue) {
+		} else if (CoC.monster instanceof LivingStatue) {
 			EngineCore.outputText("There is nothing to possess inside the golem.");
-		} else if((!CoC.getInstance().monster.hasCock() && !CoC.getInstance().monster.hasVagina()) || CoC.getInstance().monster.lustVuln === 0 || CoC.getInstance().monster.inte === 0 || CoC.getInstance().monster.inte > 100) { //Sample possession text (>79 int, perhaps?):
+		} else if((!CoC.monster.hasCock() && !CoC.monster.hasVagina()) || CoC.monster.lustVuln === 0 || CoC.monster.inte === 0 || CoC.monster.inte > 100) { //Sample possession text (>79 int, perhaps?):
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into the opponent's frame.  Unfortunately, it seems ", false);
-			if(CoC.getInstance().monster.inte > 100) {
+			if(CoC.monster.inte > 100) {
 				EngineCore.outputText("they were FAR more mentally prepared than anything you can handle, and you're summarily thrown out of their body before you're even able to have fun with them.  Darn, you muse.\n\n", false);
 			} else {
 				EngineCore.outputText("they have a body that's incompatible with any kind of possession.\n\n", false);
 			}
-		} else if(CoC.getInstance().player.inte >= (CoC.getInstance().monster.inte - 10) + Utils.rand(21)) { //Success!
+		} else if(CoC.player.inte >= (CoC.monster.inte - 10) + Utils.rand(21)) { //Success!
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into your opponent's frame. Before they can regain the initiative, you take control of one of their arms, vigorously masturbating for several seconds before you're finally thrown out. Recorporealizing, you notice your enemy's blush, and know your efforts were somewhat successful.\n\n", false);
-			var damage = Math.round(CoC.getInstance().player.inte/5) + Utils.rand(CoC.getInstance().player.level) + CoC.getInstance().player.level;
-			CoC.getInstance().monster.lust += CoC.getInstance().monster.lustVuln * damage;
+			var damage = Math.round(CoC.player.inte/5) + Utils.rand(CoC.player.level) + CoC.player.level;
+			CoC.monster.lust += CoC.monster.lustVuln * damage;
 		} else { //Fail
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into the opponent's frame. Unfortunately, it seems they were more mentally prepared than you hoped, and you're summarily thrown out of their body before you're even able to have fun with them. Darn, you muse. Gotta get smarter.\n\n", false);
 		}
@@ -4952,59 +4952,59 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(callHook === undefined) {
 			callHook = true;
 		}
-		if (callHook && CoC.getInstance().monster.onPcRunAttempt !== null){
-			CoC.getInstance().monster.onPcRunAttempt();
+		if (callHook && CoC.monster.onPcRunAttempt !== null){
+			CoC.monster.onPcRunAttempt();
 			return;
 		}
 		EngineCore.outputText("", true);
-		if (CoC.getInstance().isInCombat() && CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 4) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 4) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You try to run, but you just can't seem to escape.  <b>Your ability to run was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Rut doesnt let you run from dicks.
-		if(CoC.getInstance().player.inRut && CoC.getInstance().monster.totalCocks() > 0) {
+		if(CoC.player.inRut && CoC.monster.totalCocks() > 0) {
 			EngineCore.outputText("The thought of another male in your area competing for all the pussy infuriates you!  No way will you run!", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.getInstance().player.canFly()) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.player.canFly()) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You flex the muscles in your back and, shaking clear of the sand, burst into the air!  Wasting no time you fly free of the sandtrap and its treacherous pit.  \"One day your wings will fall off, little ant,\" the snarling voice of the thwarted androgyne carries up to you as you make your escape.  \"And I will be waiting for you when they do!\"");
-			CoC.getInstance().setInCombat(false);
+			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.GenericRunDisabled) >= 0 || SceneLib.urtaQuest.isUrta()) {
+		if(CoC.monster.findStatusAffect(StatusAffects.GenericRunDisabled) >= 0 || SceneLib.urtaQuest.isUrta()) {
 			EngineCore.outputText("You can't escape from this fight!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.getInstance().monster.statusAffectv1(StatusAffects.Level) < 4) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.monster.statusAffectv1(StatusAffects.Level) < 4) {
 			EngineCore.outputText("You're too deeply mired to escape!  You'll have to <b>climb</b> some first!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.RunDisabled) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.RunDisabled) >= 0) {
 			EngineCore.outputText("You'd like to run, but you can't scale the walls of the pit with so many demonic hands pulling you down!");
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.getInstance().flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00329] === 1 && (CoC.getInstance().monster.short === "minotaur gang" || CoC.getInstance().monster.short === "minotaur tribe")) {
-			CoC.getInstance().flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00329] = 0;
+		if(CoC.flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00329] === 1 && (CoC.monster.short === "minotaur gang" || CoC.monster.short === "minotaur tribe")) {
+			CoC.flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00329] = 0;
 			//(Free run away) 
 			EngineCore.outputText("You slink away while the pack of brutes is arguing.  Once they finish that argument, they'll be sorely disappointed!", true);
-			CoC.getInstance().setInCombat(false);
+			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 			return;
-		} else if(CoC.getInstance().monster.short === "minotaur tribe" && CoC.getInstance().monster.HPRatio() >= 0.75) {
+		} else if(CoC.monster.short === "minotaur tribe" && CoC.monster.HPRatio() >= 0.75) {
 			EngineCore.outputText("There's too many of them surrounding you to run!", true);
 			EngineCore.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -5016,20 +5016,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Attempt texts!
-		if(CoC.getInstance().monster.short === "Ember") {
+		if(CoC.monster.short === "Ember") {
 			EngineCore.outputText("You take off");
-			if(!CoC.getInstance().player.canFly()) {
+			if(!CoC.player.canFly()) {
 				EngineCore.outputText(" running");
 			} else {
 				EngineCore.outputText(", flapping as hard as you can");
 			}
 			EngineCore.outputText(", and Ember, caught up in the moment, gives chase.  ");
-		} else if(CoC.getInstance().player.canFly()) {
+		} else if(CoC.player.canFly()) {
 			EngineCore.outputText("Gritting your teeth with effort, you beat your wings quickly and lift off!  ", false);
 		} else { //Nonflying PCs
 			//Stuck!
-			if(CoC.getInstance().player.findStatusAffect(StatusAffects.NoFlee) >= 0) {
-				if(CoC.getInstance().monster.short === "goblin") {
+			if(CoC.player.findStatusAffect(StatusAffects.NoFlee) >= 0) {
+				if(CoC.monster.short === "goblin") {
 					EngineCore.outputText("You try to flee but get stuck in the sticky white goop surrounding you.\n\n", true);
 				} else {
 					EngineCore.outputText("You put all your skills at running to work and make a supreme effort to escape, but are unable to get away!\n\n", true);
@@ -5041,73 +5041,73 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Calculations
-		var escapeMod = 20 + CoC.getInstance().monster.level * 3;
-		if(CoC.getInstance().player.canFly()) {
+		var escapeMod = 20 + CoC.monster.level * 3;
+		if(CoC.player.canFly()) {
 			escapeMod -= 20;
 		}
-		if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.getInstance().player.earType === AppearanceDefs.EARS_RACCOON && CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0) {
+		if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) {
 			escapeMod -= 25;
 		} else { //Big tits doesn't matter as much if ya can fly!
-			if(CoC.getInstance().player.biggestTitSize() >= 35) {
+			if(CoC.player.biggestTitSize() >= 35) {
 				escapeMod += 5;
 			}
-			if(CoC.getInstance().player.biggestTitSize() >= 66) {
+			if(CoC.player.biggestTitSize() >= 66) {
 				escapeMod += 10;
 			}
-			if(CoC.getInstance().player.hipRating >= 20) {
+			if(CoC.player.hipRating >= 20) {
 				escapeMod += 5;
 			}
-			if(CoC.getInstance().player.buttRating >= 20) {
+			if(CoC.player.buttRating >= 20) {
 				escapeMod += 5;
 			}
-			if(CoC.getInstance().player.ballSize >= 24 && CoC.getInstance().player.balls > 0) {
+			if(CoC.player.ballSize >= 24 && CoC.player.balls > 0) {
 				escapeMod += 5;
 			}
-			if(CoC.getInstance().player.ballSize >= 48 && CoC.getInstance().player.balls > 0) {
+			if(CoC.player.ballSize >= 48 && CoC.player.balls > 0) {
 				escapeMod += 10;
 			}
-			if(CoC.getInstance().player.ballSize >= 120 && CoC.getInstance().player.balls > 0) {
+			if(CoC.player.ballSize >= 120 && CoC.player.balls > 0) {
 				escapeMod += 10;
 			}
 		}
 		//ANEMONE OVERRULES NORMAL RUN
-		if(CoC.getInstance().monster.short === "anemone") {
+		if(CoC.monster.short === "anemone") {
 			//Autosuccess - less than 60 lust
-			if(CoC.getInstance().player.lust < 60) {
+			if(CoC.player.lust < 60) {
 				EngineCore.outputText("Marshalling your thoughts, you frown at the strange girl and turn to march up the beach.  After twenty paces inshore you turn back to look at her again.  The anemone is clearly crestfallen by your departure, pouting heavily as she sinks beneath the water's surface.", true);
-				CoC.getInstance().setInCombat(false);
+				CoC.setInCombat(false);
 				Combat.clearStatuses(false);
 				EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 				return;
 			} else { //Speed dependent
 				//Success
-				if(CoC.getInstance().player.spe > Utils.rand(CoC.getInstance().monster.spe + escapeMod)) {
-					CoC.getInstance().setInCombat(false);
+				if(CoC.player.spe > Utils.rand(CoC.monster.spe + escapeMod)) {
+					CoC.setInCombat(false);
 					Combat.clearStatuses(false);
 					EngineCore.outputText("Marshalling your thoughts, you frown at the strange girl and turn to march up the beach.  After twenty paces inshore you turn back to look at her again.  The anemone is clearly crestfallen by your departure, pouting heavily as she sinks beneath the water's surface.", true);
 					EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 					return;
 				} else { //Run failed:
-					EngineCore.outputText("You try to shake off the fog and run but the anemone slinks over to you and her tentacles wrap around your waist.  <i>\"Stay?\"</i> she asks, pressing her small breasts into you as a tentacle slides inside your " + CoC.getInstance().player.armorName + " and down to your nethers.  The combined stimulation of the rubbing and the tingling venom causes your knees to buckle, hampering your resolve and ending your escape attempt.", false);
+					EngineCore.outputText("You try to shake off the fog and run but the anemone slinks over to you and her tentacles wrap around your waist.  <i>\"Stay?\"</i> she asks, pressing her small breasts into you as a tentacle slides inside your " + CoC.player.armorName + " and down to your nethers.  The combined stimulation of the rubbing and the tingling venom causes your knees to buckle, hampering your resolve and ending your escape attempt.", false);
 					//(gain lust, temp lose spd/str)
-					CoC.getInstance().monster.applyVenom(4 + CoC.getInstance().player.sens / 20);
+					CoC.monster.applyVenom(4 + CoC.player.sens / 20);
 					Combat.combatRoundOver();
 					return;
 				}
 			}
 		}
 		//Ember is SPUCIAL
-		if(CoC.getInstance().monster.short === "Ember") {
+		if(CoC.monster.short === "Ember") {
 			//GET AWAY
-			if(CoC.getInstance().player.spe > Utils.rand(CoC.getInstance().monster.spe + escapeMod) || (CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50)) {
-				if(CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0) {
+			if(CoC.player.spe > Utils.rand(CoC.monster.spe + escapeMod) || (CoC.player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50)) {
+				if(CoC.player.findPerk(PerkLib.Runner) >= 0) {
 					EngineCore.outputText("Using your skill at running, y");
 				} else {
 					EngineCore.outputText("Y");
 				}
 				EngineCore.outputText("ou easily outpace the dragon, who begins hurling imprecations at you.  \"What the hell, [name], you weenie; are you so scared that you can't even stick out your punishment?\"");
 				EngineCore.outputText("\n\nNot to be outdone, you call back, \"Sucks to you!  If even the mighty Last Ember of Hope can't catch me, why do I need to train?  Later, little bird!\"");
-				CoC.getInstance().setInCombat(false);
+				CoC.setInCombat(false);
 				Combat.clearStatuses(false);
 				EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 			} else { //Fail: 
@@ -5117,94 +5117,94 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//SUCCESSFUL FLEE
-		if(CoC.getInstance().player.spe > Utils.rand(CoC.getInstance().monster.spe + escapeMod)) {
+		if(CoC.player.spe > Utils.rand(CoC.monster.spe + escapeMod)) {
 			//Fliers flee!
-			if(CoC.getInstance().player.canFly()) {
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " can't catch you.", false);
-			} else if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.getInstance().player.earType === AppearanceDefs.EARS_RACCOON && CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0) { //sekrit benefit: if you have coon ears, coon tail, and Runner perk, change normal Runner escape to flight-type escape
-				EngineCore.outputText("Using your running skill, you build up a head of steam and jump, then spread your arms and flail your tail wildly; your opponent dogs you as best " + CoC.getInstance().monster.pronoun1 + " can, but stops and stares dumbly as your spastic tail slowly propels you several meters into the air!  You leave " + CoC.getInstance().monster.pronoun2 + " behind with your clumsy, jerky, short-range flight.");
+			if(CoC.player.canFly()) {
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " can't catch you.", false);
+			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) { //sekrit benefit: if you have coon ears, coon tail, and Runner perk, change normal Runner escape to flight-type escape
+				EngineCore.outputText("Using your running skill, you build up a head of steam and jump, then spread your arms and flail your tail wildly; your opponent dogs you as best " + CoC.monster.pronoun1 + " can, but stops and stares dumbly as your spastic tail slowly propels you several meters into the air!  You leave " + CoC.monster.pronoun2 + " behind with your clumsy, jerky, short-range flight.");
 			} else { //Non-fliers flee
-				EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " rapidly disappears into the shifting landscape behind you.", false);
+				EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " rapidly disappears into the shifting landscape behind you.", false);
 			}
-			if(CoC.getInstance().monster.short === "Izma") {
+			if(CoC.monster.short === "Izma") {
 				EngineCore.outputText("\n\nAs you leave the tigershark behind, her taunting voice rings out after you.  \"<i>Oooh, look at that fine backside!  Are you running or trying to entice me?  Haha, looks like we know who's the superior specimen now!  Remember: next time we meet, you owe me that ass!</i>\"  Your cheek tingles in shame at her catcalls.", false);
 			}
-			CoC.getInstance().setInCombat(false);
+			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 			return;
-		} else if(CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50) { //Runner perk chance
-			CoC.getInstance().setInCombat(false);
+		} else if(CoC.player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50) { //Runner perk chance
+			CoC.setInCombat(false);
 			EngineCore.outputText("Thanks to your talent for running, you manage to escape.", false);
-			if(CoC.getInstance().monster.short === "Izma") {
+			if(CoC.monster.short === "Izma") {
 				EngineCore.outputText("\n\nAs you leave the tigershark behind, her taunting voice rings out after you.  \"<i>Oooh, look at that fine backside!  Are you running or trying to entice me?  Haha, looks like we know who's the superior specimen now!  Remember: next time we meet, you owe me that ass!</i>\"  Your cheek tingles in shame at her catcalls.", false);
 			}
 			Combat.clearStatuses(false);
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 			return;
 		} else { //FAIL FLEE
-			if(CoC.getInstance().monster.short === "Holli") {
-				CoC.getInstance().monster.escapeFailWithHolli();
+			if(CoC.monster.short === "Holli") {
+				CoC.monster.escapeFailWithHolli();
 				return;
 			}
 			//Flyers get special failure message.
-			if(CoC.getInstance().player.canFly()) {
-				if(CoC.getInstance().monster.plural) {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " manage to grab your " + CoC.getInstance().player.legs() + " and drag you back to the ground before you can fly away!", false);
+			if(CoC.player.canFly()) {
+				if(CoC.monster.plural) {
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " manage to grab your " + CoC.player.legs() + " and drag you back to the ground before you can fly away!", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " manages to grab your " + CoC.getInstance().player.legs() + " and drag you back to the ground before you can fly away!", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " manages to grab your " + CoC.player.legs() + " and drag you back to the ground before you can fly away!", false);
 				}
-			} else if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.getInstance().player.earType === AppearanceDefs.EARS_RACCOON && CoC.getInstance().player.findPerk(PerkLib.Runner) >= 0) { //fail
+			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) { //fail
 				EngineCore.outputText("Using your running skill, you build up a head of steam and jump, but before you can clear the ground more than a foot, your opponent latches onto you and drags you back down with a thud!");
 			} else { //Nonflyer messages
 				//Huge balls messages
-				if(CoC.getInstance().player.balls > 0 && CoC.getInstance().player.ballSize >= 24) {
-					if(CoC.getInstance().player.ballSize < 48) {
+				if(CoC.player.balls > 0 && CoC.player.ballSize >= 24) {
+					if(CoC.player.ballSize < 48) {
 						EngineCore.outputText("With your " + Descriptors.ballsDescriptLight() + " swinging ponderously beneath you, getting away is far harder than it should be.  ", false);
 					} else {
 						EngineCore.outputText("With your " + Descriptors.ballsDescriptLight() + " dragging along the ground, getting away is far harder than it should be.  ", false);
 					}
 				}
 				//FATASS BODY MESSAGES
-				if(CoC.getInstance().player.biggestTitSize() >= 35 || CoC.getInstance().player.buttRating >= 20 || CoC.getInstance().player.hipRating >= 20) {
+				if(CoC.player.biggestTitSize() >= 35 || CoC.player.buttRating >= 20 || CoC.player.hipRating >= 20) {
 					//FOR PLAYERS WITH GIANT BREASTS
-					if(CoC.getInstance().player.biggestTitSize() >= 35 && CoC.getInstance().player.biggestTitSize() < 66) {
-						if(CoC.getInstance().player.hipRating >= 20) {
-							EngineCore.outputText("Your " + Descriptors.hipDescript() + " forces your gait to lurch slightly side to side, which causes the fat of your " + CoC.getInstance().player.skinTone + " ", false);
-							if(CoC.getInstance().player.buttRating >= 20) {
+					if(CoC.player.biggestTitSize() >= 35 && CoC.player.biggestTitSize() < 66) {
+						if(CoC.player.hipRating >= 20) {
+							EngineCore.outputText("Your " + Descriptors.hipDescript() + " forces your gait to lurch slightly side to side, which causes the fat of your " + CoC.player.skinTone + " ", false);
+							if(CoC.player.buttRating >= 20) {
 								EngineCore.outputText(Descriptors.buttDescript() + " and ", false);
 							}
 							EngineCore.outputText(Descriptors.chestDesc() + " to wobble immensely, throwing you off balance and preventing you from moving quick enough to escape.", false);
-						} else if(CoC.getInstance().player.buttRating >= 20) {
-							EngineCore.outputText("Your " + CoC.getInstance().player.skinTone + Descriptors.buttDescript() + " and " + Descriptors.chestDesc() + " wobble and bounce heavily, throwing you off balance and preventing you from moving quick enough to escape.", false);
+						} else if(CoC.player.buttRating >= 20) {
+							EngineCore.outputText("Your " + CoC.player.skinTone + Descriptors.buttDescript() + " and " + Descriptors.chestDesc() + " wobble and bounce heavily, throwing you off balance and preventing you from moving quick enough to escape.", false);
 						} else {
-							EngineCore.outputText("Your " + Descriptors.chestDesc() + " jiggle and wobble side to side like the " + CoC.getInstance().player.skinTone + " sacks of milky fat they are, with such force as to constantly throw you off balance, preventing you from moving quick enough to escape.", false);
+							EngineCore.outputText("Your " + Descriptors.chestDesc() + " jiggle and wobble side to side like the " + CoC.player.skinTone + " sacks of milky fat they are, with such force as to constantly throw you off balance, preventing you from moving quick enough to escape.", false);
 						}
-					} else if(CoC.getInstance().player.biggestTitSize() >= 66) { //FOR PLAYERS WITH MASSIVE BREASTS
-						if(CoC.getInstance().player.hipRating >= 20) {
+					} else if(CoC.player.biggestTitSize() >= 66) { //FOR PLAYERS WITH MASSIVE BREASTS
+						if(CoC.player.hipRating >= 20) {
 							EngineCore.outputText("Your " + Descriptors.chestDesc() + " nearly drag along the ground while your " + Descriptors.hipDescript() + " swing side to side ", false);
-							if(CoC.getInstance().player.buttRating >= 20) {
-								EngineCore.outputText("causing the fat of your " + CoC.getInstance().player.skinTone + Descriptors.buttDescript() + " to wobble heavily, ", false);
+							if(CoC.player.buttRating >= 20) {
+								EngineCore.outputText("causing the fat of your " + CoC.player.skinTone + Descriptors.buttDescript() + " to wobble heavily, ", false);
 							}
 							EngineCore.outputText("forcing your body off balance and preventing you from moving quick enough to get escape.", false);
-						} else if(CoC.getInstance().player.buttRating >= 20) {
-							EngineCore.outputText("Your " + Descriptors.chestDesc() + " nearly drag along the ground while the fat of your " + CoC.getInstance().player.skinTone + Descriptors.buttDescript() + " wobbles heavily from side to side, forcing your body off balance and preventing you from moving quick enough to escape.", false);
+						} else if(CoC.player.buttRating >= 20) {
+							EngineCore.outputText("Your " + Descriptors.chestDesc() + " nearly drag along the ground while the fat of your " + CoC.player.skinTone + Descriptors.buttDescript() + " wobbles heavily from side to side, forcing your body off balance and preventing you from moving quick enough to escape.", false);
 						} else {
 							EngineCore.outputText("Your " + Descriptors.chestDesc() + " nearly drag along the ground, preventing you from moving quick enough to get escape.", false);
 						}
-					} else if(CoC.getInstance().player.hipRating >= 20) { //FOR PLAYERS WITH EITHER GIANT HIPS OR BUTT BUT NOT THE BREASTS
+					} else if(CoC.player.hipRating >= 20) { //FOR PLAYERS WITH EITHER GIANT HIPS OR BUTT BUT NOT THE BREASTS
 						EngineCore.outputText("Your " + Descriptors.hipDescript() + " swing heavily from side to side ", false);
-						if(CoC.getInstance().player.buttRating >= 20) {
-							EngineCore.outputText("causing your " + CoC.getInstance().player.skinTone + Descriptors.buttDescript() + " to wobble obscenely ", false);
+						if(CoC.player.buttRating >= 20) {
+							EngineCore.outputText("causing your " + CoC.player.skinTone + Descriptors.buttDescript() + " to wobble obscenely ", false);
 						}
 						EngineCore.outputText("and forcing your body into an awkward gait that slows you down, preventing you from escaping.", false);
-					} else if(CoC.getInstance().player.buttRating >= 20) { //JUST DA BOOTAH
-						EngineCore.outputText("Your " + CoC.getInstance().player.skinTone + Descriptors.buttDescript() + " wobbles so heavily that you're unable to move quick enough to escape.", false);
+					} else if(CoC.player.buttRating >= 20) { //JUST DA BOOTAH
+						EngineCore.outputText("Your " + CoC.player.skinTone + Descriptors.buttDescript() + " wobbles so heavily that you're unable to move quick enough to escape.", false);
 					}
-				} else if(CoC.getInstance().monster.plural) { //NORMAL RUN FAIL MESSAGES
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " stay hot on your heels, denying you a chance at escape!", false);
+				} else if(CoC.monster.plural) { //NORMAL RUN FAIL MESSAGES
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " stay hot on your heels, denying you a chance at escape!", false);
 				} else {
-					EngineCore.outputText(CoC.getInstance().monster.getCapitalA() + CoC.getInstance().monster.short + " stays hot on your heels, denying you a chance at escape!", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " stays hot on your heels, denying you a chance at escape!", false);
 				}
 			}
 		}
@@ -5219,47 +5219,47 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Increased by 1% for every point over PC's speed
 		//Decreased by 1% for every inch of hair the PC has
 		var prob = 70;
-		if(CoC.getInstance().monster.spe > CoC.getInstance().player.spe) {
-			prob -= CoC.getInstance().monster.spe - CoC.getInstance().player.spe;
+		if(CoC.monster.spe > CoC.player.spe) {
+			prob -= CoC.monster.spe - CoC.player.spe;
 		}
-		prob += CoC.getInstance().player.hairLength;
+		prob += CoC.player.hairLength;
 		if(prob <= Utils.rand(101)) {
 			//-miss a sting
-			if(CoC.getInstance().monster.plural) {
-				EngineCore.outputText("You rush " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", whipping your hair around to catch them with your tentacles, but " + CoC.getInstance().monster.pronoun1 + " easily dodge.  Oy, you hope you didn't just give yourself whiplash.", false);
+			if(CoC.monster.plural) {
+				EngineCore.outputText("You rush " + CoC.monster.a + CoC.monster.short + ", whipping your hair around to catch them with your tentacles, but " + CoC.monster.pronoun1 + " easily dodge.  Oy, you hope you didn't just give yourself whiplash.", false);
 			} else {
-				EngineCore.outputText("You rush " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", whipping your hair around to catch it with your tentacles, but " + CoC.getInstance().monster.pronoun1 + " easily dodges.  Oy, you hope you didn't just give yourself whiplash.", false);
+				EngineCore.outputText("You rush " + CoC.monster.a + CoC.monster.short + ", whipping your hair around to catch it with your tentacles, but " + CoC.monster.pronoun1 + " easily dodges.  Oy, you hope you didn't just give yourself whiplash.", false);
 			}
 		} else { //Success!
-			EngineCore.outputText("You rush " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", whipping your hair around like a genie", false);
+			EngineCore.outputText("You rush " + CoC.monster.a + CoC.monster.short + ", whipping your hair around like a genie", false);
 			EngineCore.outputText(", and manage to land a few swipes with your tentacles.  ", false);
-			if(CoC.getInstance().monster.plural) {
-				EngineCore.outputText("As the venom infiltrates " + CoC.getInstance().monster.pronoun3 + " bodies, " + CoC.getInstance().monster.pronoun1 + " twitch and begin to move more slowly, hampered half by paralysis and half by arousal.", false);
+			if(CoC.monster.plural) {
+				EngineCore.outputText("As the venom infiltrates " + CoC.monster.pronoun3 + " bodies, " + CoC.monster.pronoun1 + " twitch and begin to move more slowly, hampered half by paralysis and half by arousal.", false);
 			} else {
-				EngineCore.outputText("As the venom infiltrates " + CoC.getInstance().monster.pronoun3 + " body, " + CoC.getInstance().monster.pronoun1 + " twitches and begins to move more slowly, hampered half by paralysis and half by arousal.", false);
+				EngineCore.outputText("As the venom infiltrates " + CoC.monster.pronoun3 + " body, " + CoC.monster.pronoun1 + " twitches and begins to move more slowly, hampered half by paralysis and half by arousal.", false);
 			}
 			//(decrease speed/str, increase lust)
 			//-venom capacity determined by hair length, 2-3 stings per level of length
 			//Each sting does 5-10 lust damage and 2.5-5 speed damage
 			var damage = 0;
 			var temp = 1 + Utils.rand(2);
-			if(CoC.getInstance().player.hairLength >= 12) {
+			if(CoC.player.hairLength >= 12) {
 				temp += 1 + Utils.rand(2);
 			}
-			if(CoC.getInstance().player.hairLength >= 24) {
+			if(CoC.player.hairLength >= 24) {
 				temp += 1 + Utils.rand(2);
 			}
-			if(CoC.getInstance().player.hairLength >= 36) {
+			if(CoC.player.hairLength >= 36) {
 				temp += 1;
 			}
 			while(temp > 0) {
 				temp--;
 				damage += 5 + Utils.rand(6);
 			}
-			damage += CoC.getInstance().player.level * 1.5;
-			CoC.getInstance().monster.spe -= damage/2;
-			damage = CoC.getInstance().monster.lustVuln * damage;
-			CoC.getInstance().monster.lust += damage;
+			damage += CoC.player.level * 1.5;
+			CoC.monster.spe -= damage/2;
+			damage = CoC.monster.lustVuln * damage;
+			CoC.monster.lust += damage;
 			//Clean up down to 1 decimal point
 			damage = Math.round(damage*10)/10;		
 			EngineCore.outputText(" (" + damage + ")", false);
@@ -5272,7 +5272,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.magicalSpecials = function() {
-		if (CoC.getInstance().isInCombat() && CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 6) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 6) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You try to ready a special ability, but wind up stumbling dizzily instead.  <b>Your ability to use magical special attacks was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -5280,37 +5280,37 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.menu();
 		//Berserk
-		if(CoC.getInstance().player.findPerk(PerkLib.Berzerker) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Berzerker) >= 0) {
 			EngineCore.addButton(0,"Berzerk",Combat.berzerk);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Dragonfire) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Dragonfire) >= 0) {
 			EngineCore.addButton(1,"DragonFire",Combat.dragonBreath);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.FireLord) >= 0) {
+		if(CoC.player.findPerk(PerkLib.FireLord) >= 0) {
 			EngineCore.addButton(2,"Fire Breath",Combat.fireballuuuuu);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Hellfire) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Hellfire) >= 0) {
 			EngineCore.addButton(3,"Hellfire",Combat.hellFire);
 		}
 		//Possess ability.
-		if(CoC.getInstance().player.findPerk(PerkLib.Incorporeality) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Incorporeality) >= 0) {
 			EngineCore.addButton(4,"Possess",Combat.possess);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.Whispered) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Whispered) >= 0) {
 			EngineCore.addButton(5,"Whisper",Combat.superWhisperAttack);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
 			EngineCore.addButton(6,"C.FoxFire",Combat.corruptedFoxFire);
 			EngineCore.addButton(7,"Terror",Combat.kitsuneTerror);
 		}
-		if(CoC.getInstance().player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
 			EngineCore.addButton(6,"FoxFire",Combat.foxFire);
 			EngineCore.addButton(7,"Illusion",Combat.kitsuneIllusion);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ShieldingSpell) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ShieldingSpell) >= 0) {
 			EngineCore.addButton(8,"Shielding",Combat.shieldingSpell);
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ImmolationSpell) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ImmolationSpell) >= 0) {
 			EngineCore.addButton(8,"Immolation",Combat.immolationSpell);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
@@ -5321,51 +5321,51 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 	//Pass false to combatMenu instead:	menuLoc = 3;
-		if (CoC.getInstance().isInCombat() && CoC.getInstance().player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.getInstance().player.statusAffectv2(StatusAffects.Sealed) === 5) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 5) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		EngineCore.menu();
-		if (CoC.getInstance().player.hairType === 4) {
+		if (CoC.player.hairType === 4) {
 			EngineCore.addButton(0, "AnemoneSting", Combat.anemoneSting);
 		}
 		//Bitez
-		if (CoC.getInstance().player.faceType === AppearanceDefs.FACE_SHARK_TEETH) {
+		if (CoC.player.faceType === AppearanceDefs.FACE_SHARK_TEETH) {
 			EngineCore.addButton(1, "Bite", Combat.bite);
 		}
-		else if (CoC.getInstance().player.faceType === AppearanceDefs.FACE_SNAKE_FANGS) {
+		else if (CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS) {
 			EngineCore.addButton(1, "Bite", Combat.nagaBiteAttack);
 		}
-		else if (CoC.getInstance().player.faceType === AppearanceDefs.FACE_SPIDER_FANGS) {
+		else if (CoC.player.faceType === AppearanceDefs.FACE_SPIDER_FANGS) {
 			EngineCore.addButton(1, "Bite", Combat.spiderBiteAttack);
 		}
 		//Bow attack
-		if (CoC.getInstance().player.hasKeyItem("Bow") >= 0) {
+		if (CoC.player.hasKeyItem("Bow") >= 0) {
 			EngineCore.addButton(2, "Bow", Combat.fireBow);
 		}
 		//Constrict
-		if (CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA) {
+		if (CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA) {
 			EngineCore.addButton(3, "Constrict", SceneLib.nagaScene.nagaPlayerConstrict);
 		}
 		//Kick attackuuuu
-		else if (CoC.getInstance().player.isTaur() || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
+		else if (CoC.player.isTaur() || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
 			EngineCore.addButton(3, "Kick", Combat.kick);
 		}
 		//Gore if mino horns
-		if (CoC.getInstance().player.hornType === AppearanceDefs.HORNS_COW_MINOTAUR && CoC.getInstance().player.horns >= 6) {
+		if (CoC.player.hornType === AppearanceDefs.HORNS_COW_MINOTAUR && CoC.player.horns >= 6) {
 			EngineCore.addButton(4, "Gore", Combat.goreAttack);
 		}
 		//Infest if infested
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.getInstance().player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.getInstance().player.hasCock()) {
+		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.player.hasCock()) {
 			EngineCore.addButton(5, "Infest", Combat.playerInfest);
 		}
 		//Kiss supercedes bite.
-		if (CoC.getInstance().player.findStatusAffect(StatusAffects.LustStickApplied) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.LustStickApplied) >= 0) {
 			EngineCore.addButton(6, "Kiss", Combat.kissAttack);
 		}
-		switch (CoC.getInstance().player.tailType) {
+		switch (CoC.player.tailType) {
 			case AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN:
 				EngineCore.addButton(7, "Sting", Combat.playerStinger);
 				break;
@@ -5383,48 +5383,48 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.berzerk = function() {
 		EngineCore.clearOutput();
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.Berzerking) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Berzerking) >= 0) {
 			EngineCore.outputText("You're already pretty goddamn mad!", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.outputText("You roar and unleash your savage fury, forgetting about defense in order to destroy your foe!\n\n", true);
-		CoC.getInstance().player.createStatusAffect(StatusAffects.Berzerking,0,0,0,0);
+		CoC.player.createStatusAffect(StatusAffects.Berzerking,0,0,0,0);
 		Combat.enemyAI();
 	};
 	//Corrupted Fox Fire
 	Combat.corruptedFoxFire = function() {
 		EngineCore.clearOutput();
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(35) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.fatigue(35,1);
 		//Deals direct damage and lust regardless of enemy defenses.  Especially effective against non-corrupted targets.
-		EngineCore.outputText("Holding out your palm, you conjure corrupted purple flame that dances across your fingertips.  You launch it at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling lavender sparks everywhere.");
-		var dmg = Math.floor(10+(CoC.getInstance().player.inte/3 + Utils.rand(CoC.getInstance().player.inte/2)) * Combat.spellMod());
-		if(CoC.getInstance().monster.cor >= 66) {
+		EngineCore.outputText("Holding out your palm, you conjure corrupted purple flame that dances across your fingertips.  You launch it at " + CoC.monster.a + CoC.monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling lavender sparks everywhere.");
+		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		if(CoC.monster.cor >= 66) {
 			dmg = Math.round(dmg * 0.66);
-		} else if(CoC.getInstance().monster.cor >= 50) {
+		} else if(CoC.monster.cor >= 50) {
 			dmg = Math.round(dmg * 0.8);
 		}
 		//Using fire attacks on the goo]
-		if(CoC.getInstance().monster.short === "goo-girl") {
-			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.getInstance().monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.getInstance().monster.findPerk(PerkLib.Acid) < 0) {
-				CoC.getInstance().monster.createPerk(PerkLib.Acid,0,0,0,0);
+		if(CoC.monster.short === "goo-girl") {
+			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
+			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
 		dmg = Combat.doDamage(dmg);
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
 		EngineCore.statScreenRefresh();
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
@@ -5433,41 +5433,41 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Fox Fire
 	Combat.foxFire = function() {
 		EngineCore.clearOutput();
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(35) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.fatigue(35,1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Deals direct damage and lust regardless of enemy defenses.  Especially effective against corrupted targets.
-		EngineCore.outputText("Holding out your palm, you conjure an ethereal blue flame that dances across your fingertips.  You launch it at " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling azure sparks everywhere.");
-		var dmg = Math.floor(10+(CoC.getInstance().player.inte/3 + Utils.rand(CoC.getInstance().player.inte/2)) * Combat.spellMod());
-		if(CoC.getInstance().monster.cor < 33) {
+		EngineCore.outputText("Holding out your palm, you conjure an ethereal blue flame that dances across your fingertips.  You launch it at " + CoC.monster.a + CoC.monster.short + " with a ferocious throw, and it bursts on impact, showering dazzling azure sparks everywhere.");
+		var dmg = Math.floor(10+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
+		if(CoC.monster.cor < 33) {
 			dmg = Math.round(dmg * 0.66);
-		} else if(CoC.getInstance().monster.cor < 50) {
+		} else if(CoC.monster.cor < 50) {
 			dmg = Math.round(dmg * 0.8);
 		}
 		//Using fire attacks on the goo]
-		if(CoC.getInstance().monster.short === "goo-girl") {
-			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.getInstance().monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.getInstance().monster.findPerk(PerkLib.Acid) < 0) {
-				CoC.getInstance().monster.createPerk(PerkLib.Acid,0,0,0,0);
+		if(CoC.monster.short === "goo-girl") {
+			EngineCore.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
+			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
 		dmg = Combat.doDamage(dmg);
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
 		EngineCore.statScreenRefresh();
-		if(CoC.getInstance().monster.HP < 1) {
+		if(CoC.monster.HP < 1) {
 			EngineCore.doNext(Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
@@ -5477,22 +5477,22 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.kitsuneTerror = function() {
 		EngineCore.clearOutput();
 		//Fatigue Cost: 25
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().monster.short === "pod" || CoC.getInstance().monster.inte === 0) {
+		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			EngineCore.outputText("You reach for the enemy's mind, but cannot find anything.  You frantically search around, but there is no consciousness as you know it in the room.\n\n", true);
 			EngineCore.changeFatigue(1);
 			Combat.enemyAI();
@@ -5500,14 +5500,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(20,1);
 		//Inflicts fear and reduces enemy SPD.
-		EngineCore.outputText("The world goes dark, an inky shadow blanketing everything in sight as you fill " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s mind with visions of otherworldly terror that defy description.");
+		EngineCore.outputText("The world goes dark, an inky shadow blanketing everything in sight as you fill " + CoC.monster.a + CoC.monster.short + "'s mind with visions of otherworldly terror that defy description.");
 		//(succeed)
-		if(CoC.getInstance().player.inte/10 + Utils.rand(20) + 1 > CoC.getInstance().monster.inte/10 + 10) {
+		if(CoC.player.inte/10 + Utils.rand(20) + 1 > CoC.monster.inte/10 + 10) {
 			EngineCore.outputText("  They cower in horror as they succumb to your illusion, believing themselves beset by eldritch horrors beyond their wildest nightmares.\n\n");
-			CoC.getInstance().monster.createStatusAffect(StatusAffects.Fear,1,0,0,0);
-			CoC.getInstance().monster.spe -= 5;
-			if(CoC.getInstance().monster.spe < 1) {
-				CoC.getInstance().monster.spe = 1;
+			CoC.monster.createStatusAffect(StatusAffects.Fear,1,0,0,0);
+			CoC.monster.spe -= 5;
+			if(CoC.monster.spe < 1) {
+				CoC.monster.spe = 1;
 			}
 		} else {
 			EngineCore.outputText("  The dark fog recedes as quickly as it rolled in as they push back your illusions, resisting your hypnotic influence.\n\n");
@@ -5518,39 +5518,39 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.kitsuneIllusion = function() {
 		EngineCore.clearOutput();
 		//Fatigue Cost: 25
-		if(CoC.getInstance().player.findPerk(PerkLib.BloodMage) < 0 && CoC.getInstance().player.fatigue + EngineCore.spellCost(25) > 100) {
+		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.getInstance().player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext(Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.getInstance().monster.short === "pod" || CoC.getInstance().monster.inte === 0) {
+		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			EngineCore.outputText("In the tight confines of this pod, there's no use making such an attack!\n\n", true);
 			EngineCore.changeFatigue(1);
 			Combat.enemyAI();
 			return;
 		}
 		EngineCore.fatigue(25,1);
-		if(CoC.getInstance().monster.findStatusAffect(StatusAffects.Shell) >= 0) {
-			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Decrease enemy speed and increase their susceptibility to lust attacks if already 110% or more
-		EngineCore.outputText("The world begins to twist and distort around you as reality bends to your will, " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + "'s mind blanketed in the thick fog of your illusions.");
+		EngineCore.outputText("The world begins to twist and distort around you as reality bends to your will, " + CoC.monster.a + CoC.monster.short + "'s mind blanketed in the thick fog of your illusions.");
 		//Check for success rate. Maximum 100% with over 90 Intelligence difference between PC and monster.
-		if(CoC.getInstance().player.inte/10 + Utils.rand(20) > CoC.getInstance().monster.inte / 10 + 9) {
+		if(CoC.player.inte/10 + Utils.rand(20) > CoC.monster.inte / 10 + 9) {
 			//Reduce speed down to -20. Um, are there many monsters with 110% lust vulnerability?
 			EngineCore.outputText("  They stumble humorously to and fro, unable to keep pace with the shifting illusions that cloud their perceptions.\n\n");
-			if(CoC.getInstance().monster.spe >= 0) {
-				CoC.getInstance().monster.spe -= 20;
+			if(CoC.monster.spe >= 0) {
+				CoC.monster.spe -= 20;
 			}
-			if(CoC.getInstance().monster.lustVuln >= 1.1) {
-				CoC.getInstance().monster.lustVuln += 0.1;
+			if(CoC.monster.lustVuln >= 1.1) {
+				CoC.monster.lustVuln += 0.1;
 			}
 		} else {
 			EngineCore.outputText("  Like the snapping of a rubber band, reality falls back into its rightful place as they resist your illusory conjurations.\n\n");
@@ -5563,26 +5563,26 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.tailWhipAttack = function() {
 		EngineCore.clearOutput();
 		//miss
-		if((CoC.getInstance().player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.getInstance().monster.spe - CoC.getInstance().player.spe > 0 && Utils.rand(((CoC.getInstance().monster.spe-CoC.getInstance().player.spe)/4)+80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
 			EngineCore.outputText("Twirling like a top, you swing your tail, but connect with only empty air.");
 		} else {
-			if(!CoC.getInstance().monster.plural) {
-				EngineCore.outputText("Twirling like a top, you bat your opponent with your tail.  For a moment, " + CoC.getInstance().monster.pronoun1 + " looks disbelieving, as if " + CoC.getInstance().monster.pronoun3 + " world turned upside down, but " + CoC.getInstance().monster.pronoun1 + " soon becomes irate and redoubles " + CoC.getInstance().monster.pronoun3 + " offense, leaving large holes in " + CoC.getInstance().monster.pronoun3 + " guard.  If you're going to take advantage, it had better be right away; " + CoC.getInstance().monster.pronoun1 + "'ll probably cool off very quickly.");
+			if(!CoC.monster.plural) {
+				EngineCore.outputText("Twirling like a top, you bat your opponent with your tail.  For a moment, " + CoC.monster.pronoun1 + " looks disbelieving, as if " + CoC.monster.pronoun3 + " world turned upside down, but " + CoC.monster.pronoun1 + " soon becomes irate and redoubles " + CoC.monster.pronoun3 + " offense, leaving large holes in " + CoC.monster.pronoun3 + " guard.  If you're going to take advantage, it had better be right away; " + CoC.monster.pronoun1 + "'ll probably cool off very quickly.");
 			} else {
-				EngineCore.outputText("Twirling like a top, you bat your opponent with your tail.  For a moment, " + CoC.getInstance().monster.pronoun1 + " look disbelieving, as if " + CoC.getInstance().monster.pronoun3 + " world turned upside down, but " + CoC.getInstance().monster.pronoun1 + " soon become irate and redouble " + CoC.getInstance().monster.pronoun3 + " offense, leaving large holes in " + CoC.getInstance().monster.pronoun3 + " guard.  If you're going to take advantage, it had better be right away; " + CoC.getInstance().monster.pronoun1 + "'ll probably cool off very quickly.");
+				EngineCore.outputText("Twirling like a top, you bat your opponent with your tail.  For a moment, " + CoC.monster.pronoun1 + " look disbelieving, as if " + CoC.monster.pronoun3 + " world turned upside down, but " + CoC.monster.pronoun1 + " soon become irate and redouble " + CoC.monster.pronoun3 + " offense, leaving large holes in " + CoC.monster.pronoun3 + " guard.  If you're going to take advantage, it had better be right away; " + CoC.monster.pronoun1 + "'ll probably cool off very quickly.");
 			}
-			if(CoC.getInstance().monster.findStatusAffect(StatusAffects.CoonWhip) < 0) {
-				CoC.getInstance().monster.createStatusAffect(StatusAffects.CoonWhip,0,0,0,0);
+			if(CoC.monster.findStatusAffect(StatusAffects.CoonWhip) < 0) {
+				CoC.monster.createStatusAffect(StatusAffects.CoonWhip,0,0,0,0);
 			}
-			var temp = Math.round(CoC.getInstance().monster.armorDef * 0.75);
-			while(temp > 0 && CoC.getInstance().monster.armorDef >= 1) {
-				CoC.getInstance().monster.armorDef--;
-				CoC.getInstance().monster.addStatusValue(StatusAffects.CoonWhip,1,1);
+			var temp = Math.round(CoC.monster.armorDef * 0.75);
+			while(temp > 0 && CoC.monster.armorDef >= 1) {
+				CoC.monster.armorDef--;
+				CoC.monster.addStatusValue(StatusAffects.CoonWhip,1,1);
 				temp--;
 			}
-			CoC.getInstance().monster.addStatusValue(StatusAffects.CoonWhip,2,2);
-			if(CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON) {
-				CoC.getInstance().monster.addStatusValue(StatusAffects.CoonWhip,2,2);
+			CoC.monster.addStatusValue(StatusAffects.CoonWhip,2,2);
+			if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON) {
+				CoC.monster.addStatusValue(StatusAffects.CoonWhip,2,2);
 			}
 		}
 		EngineCore.outputText("\n\n");
@@ -5592,19 +5592,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Using the Talisman in combat
 	Combat.immolationSpell = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText("You gather energy in your Talisman and unleash the spell contained within.  A wave of burning flames gathers around " + CoC.getInstance().monster.a + CoC.getInstance().monster.short + ", slowly burning " + CoC.getInstance().monster.pronoun2 + ".");
-		var temp = Math.floor(75+(CoC.getInstance().player.inte/3 + Utils.rand(CoC.getInstance().player.inte/2)) * Combat.spellMod());
+		EngineCore.outputText("You gather energy in your Talisman and unleash the spell contained within.  A wave of burning flames gathers around " + CoC.monster.a + CoC.monster.short + ", slowly burning " + CoC.monster.pronoun2 + ".");
+		var temp = Math.floor(75+(CoC.player.inte/3 + Utils.rand(CoC.player.inte/2)) * Combat.spellMod());
 		temp = Combat.doDamage(temp);
 		EngineCore.outputText(" (" + temp + ")\n\n");
-		CoC.getInstance().player.removeStatusAffect(StatusAffects.ImmolationSpell);
+		CoC.player.removeStatusAffect(StatusAffects.ImmolationSpell);
 		SceneLib.arianScene.clearTalisman();
 		Combat.enemyAI();
 	};
 	Combat.shieldingSpell = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText("You gather energy in your Talisman and unleash the spell contained within.  A barrier of light engulfs you, before turning completely transparent.  Your defense has been increased.\n\n");
-		CoC.getInstance().player.createStatusAffect(StatusAffects.Shielding,0,0,0,0);
-		CoC.getInstance().player.removeStatusAffect(StatusAffects.ShieldingSpell);
+		CoC.player.createStatusAffect(StatusAffects.Shielding,0,0,0,0);
+		CoC.player.removeStatusAffect(StatusAffects.ShieldingSpell);
 		SceneLib.arianScene.clearTalisman();
 		Combat.enemyAI();
 	};

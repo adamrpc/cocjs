@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( SceneLib, $log, EventParser
 			that.lust += 30;
 			that.cocks[ 0 ].cockThickness += 0.2;
 			that.cocks[ 0 ].cockLength += 1.5;
-			if( CoC.getInstance().player.gender === 1 || CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 1 || CoC.player.gender === 3 ) {
 				that.ass.analLooseness = 2;
 			}
 		}
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( SceneLib, $log, EventParser
 			that.lust += 40;
 			that.cocks[ 0 ].cockThickness += 0.5;
 			that.cocks[ 0 ].cockLength += 3.5;
-			if( CoC.getInstance().player.gender === 1 || CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 1 || CoC.player.gender === 3 ) {
 				that.ass.analLooseness = 3;
 			}
 		}
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( SceneLib, $log, EventParser
 			that.str -= 20;
 			that.tou += 30;
 			that.HP += 60;
-			if( CoC.getInstance().player.gender === 1 || CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 1 || CoC.player.gender === 3 ) {
 				that.ass.analLooseness = 4;
 			}
 			that.long = 'Jojo is an anthropomorphic mouse with immaculate white fur.  Though he stands only four feet tall, he is covered in lean muscle and moves with incredible speed.  He\'s naked, with a large tainted throbbing member bouncing at attention.  A fuzzy sack with painfully large looking balls dangles between his legs.';

@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		return 100;
 	};
 	MinervaScene.prototype.minervaRomanced = function() {
-		return (CoC.getInstance().flags[ kFLAGS.MINERVA_LOVE ] === 1);
+		return (CoC.flags[ kFLAGS.MINERVA_LOVE ] === 1);
 	};
 	//All readers, please read the actual scenes before judging this work. Notes may be rough but the scenes aren't
 	//LOCATION
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.menu();
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 1, 'Talk', this.minervaTalkSelect );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'Sex', this.minervaSexMenu );
 		}
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
@@ -50,14 +50,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	MinervaScene.prototype.encounterMinerva = function() {
-		if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] > 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MET_MINERVA ]++;
+		if( CoC.flags[ kFLAGS.MET_MINERVA ] > 0 ) {
+			CoC.flags[ kFLAGS.MET_MINERVA ]++;
 		} //Increment counter by 1 if previously met Minerva.
-		if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_MINERVA ] === 0 ) {
 			this.firstMinervaEncounter();
-		} else if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] === 3 ) {
+		} else if( CoC.flags[ kFLAGS.MET_MINERVA ] === 3 ) {
 			this.minervaThirdPlusEncounter();
-		} else if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] > 0 && CoC.getInstance().player.gender > 0 && CoC.getInstance().flags[ kFLAGS.MINERVA_LOVE ] === 0 && Utils.rand( 2 ) === 0 ) {
+		} else if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] > 0 && CoC.player.gender > 0 && CoC.flags[ kFLAGS.MINERVA_LOVE ] === 0 && Utils.rand( 2 ) === 0 ) {
 			this.minervaAfterFiveTalksRomancing();
 		} else {
 			if( Utils.rand( 2 ) === 0 ) {
@@ -73,14 +73,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Returning to the mountains, you begin to climb; the usual search for loot and, perhaps, some harpies driving your upward efforts.  Perhaps you\'ll run into' );
 		//If Sophie Bimbo=0:
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && !SceneLib.sophieFollowerScene.sophieFollower() ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && !SceneLib.sophieFollowerScene.sophieFollower() ) {
 			EngineCore.outputText( ' that matronly harpy, Sophie' );
 		} else {
 			EngineCore.outputText( ' something interesting' );
 		}
 		EngineCore.outputText( ', or get some good plunder from some of the local beasts' );
 		//if minotaur cum addict:
-		if( CoC.getInstance().player.minotaurAddicted() ) {
+		if( CoC.player.minotaurAddicted() ) {
 			EngineCore.outputText( '.  With any luck, you might even find a hunky minotaur to scratch that burning itch in your mind' );
 		}
 		EngineCore.outputText( '.  Trudging on, you make your way up and up the mountain, passing the occasional harpy nest as you climb and traverse along the mountain paths.  Just when it looks like you\'re going to hit the clouds, you catch sight of a trail that you had never really noticed before.' );
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYour eyes widen in surprise when you see what\'s inside.  You certainly didn\'t expect to see anything like this!  The huge ruin seems to have been built to completely enclose and protect some kind of mountain oasis.  What lies inside is not stone tiling or boulders, but rich, natural soil with leafy shrubs, blooming fruit trees, and even soft mosses growing from the fertile ground.' );
 		EngineCore.outputText( '\n\nCloser inspection reveals that the clean and fertile soil has been spread in a deep pit dug into the rock.  A lush place like this certainly contrasts with the rather barren mountains surrounding it and must be very special, indeed. You\'re surprised that the demons missed such a tranquil place.  A pool of crystal clear, clean water acts as the centerpiece of this lovely location, feeding all the plants here and radiating a calming aura, making you feel at peace just by being around it.' );
 		EngineCore.outputText( '\n\nThe longer you look around the hidden oasis, the more you can\'t help but feel that someone, or something, must live up here.  As if sensing your thoughts, a large shadow darkens the ground around you, prompting you to look up at the broken ceiling.  ' );
-		if( !CoC.getInstance().player.isTaur() && !CoC.getInstance().player.isDrider() ) {
+		if( !CoC.player.isTaur() && !CoC.player.isDrider() ) {
 			EngineCore.outputText( 'The shadow reveals itself to be a huge, winged being, something that becomes painfully obvious as it slams into you and picks you up off the ground.  You can\'t help but look down as you\'re flown up through the roof and away from the oasis, your assailant carrying you out over the cliffs.  A fall from this height could surely mean your death.' );
 			EngineCore.outputText( '\n\nAt first, you think your attacker is just another harpy, but now that you can get a better look at it, you notice a bizarre mix of shark and harpy features.  Whatever the creature is, it has quite clear feminine traits breasts, wide hips and a beautiful face mark her as a woman.  However, the unmistakable bulge in her shorts suggests her to be a hermaphrodite.  Your eyes make out several finer details blue skin, contrasted by white and orange stripes and pulled taut against toned, muscular limbs; and bright, almost flaming, red-orange hair and feathered wings.  Whoever this is, it seems hostile.  You desperately struggle against the clawed grip of this huge shark... harpy... thing.' );
 			EngineCore.outputText( '\n\nYour thrashing loosens the grip of your captor, but instead of simply dropping you to your doom, it flies near the cliffs and drops you on your [ass] to the solid ground.' );
@@ -117,35 +117,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '\n\nAt first, you think your attacker is just another harpy, but now that you get a better look at it, you notice a bizarre mix of shark and harpy features.  Whatever the creature is, it quite clearly has feminine traits breasts, wide hips and a beautiful face mark her as a woman.  However, the unmistakable bulge in her shorts suggests her to be a hermaphrodite.  Your eyes make out several finer details blue skin, contrasted by white and orange stripes, pulled tautly against toned, muscular limbs; and bright, almost flaming, red-orange hair and feathered wings.  Whoever this is, it seems hostile, or, at the very least, like someone trying to protect their home from an unknown intruder.' );
 		}
 		EngineCore.outputText( '\n\nBefore you can get up however, you\'re attacked again.  The shark-harpy creature lifts you off the ground with' );
-		if( CoC.getInstance().player.tallness <= 96 ) {
+		if( CoC.player.tallness <= 96 ) {
 			EngineCore.outputText( ' one hand' );
 		} else {
 			EngineCore.outputText( ' both hands' );
 		}
 		EngineCore.outputText( ', bodily swinging you out over the abyss, with only her grip keeping you from plunging back down the mountainside.' );
 		//Low corruption:
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  "<i>All right, you!  Who are you and what are you doing here?!  I don\'t get any visitors besides those horny harpies, so what are you after?  Hm?' );
 		}//High corruption:
 		else {
 			EngineCore.outputText( '  "<i>All right, you corrupted beast!  Who are you and what are you doing here?  Your presence is not welcome in this sanctuary... answer quickly or I\'ll drop you to your death!' );
 		}
 		//Demon Score=3>:
-		if( CoC.getInstance().player.demonScore() >= 3 ) {
+		if( CoC.player.demonScore() >= 3 ) {
 			EngineCore.outputText( '  Filthy demon!  Come to finish your work, have you?!  You won\'t take me without a fight!  Maybe if you beg for your life I\'ll give you a chance. Speak!  Convince me to not simply kill you here and now!' );
 		}
 		EngineCore.outputText( '</i>" the creature demands, clearly threatening to drop you if you don\'t answer to her liking.' );
 		//Goo:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '\n\nNuts to this, you think to yourself.  Your goopy form is more than capable of surviving an impact with the ground, you tell the bizarre creature as you swallow her legs into your mass, something that her own form can\'t do.  You could envelop her body and force her into the unyielding ground if you wanted to.  But you decide against it... for now.  You chide the mysterious creature and tell her that you don\'t wish to cause her harm' );
 			//Corruption=75>:
-			if( CoC.getInstance().player.cor >= 75 ) {
+			if( CoC.player.cor >= 75 ) {
 				EngineCore.outputText( '... "<i>yet</i>", you think to yourself.' );
 			}
 			EngineCore.outputText( '\n\nIf she feels set on conflict, however, you are more than willing to help calm such aggressive intentions.  Realizing the position she\'s in, the feminine beast sighs and asks what you want.' );
 		}
 		//Wings:
-		else if( CoC.getInstance().player.canFly() ) {
+		else if( CoC.player.canFly() ) {
 			EngineCore.outputText( '\n\nYou\'re sure you could fly to safety if she released you, but you figure there\'d be more to gain by answering her.' );
 		} else {
 			EngineCore.outputText( '' );
@@ -153,11 +153,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nHastily, you explain that you didn\'t mean to intrude, that you were just exploring the mountain and stumbled upon her "nest" by accident.  The shark-like harpy looks at you with suspicion, oddly wary for someone who lives in such safety.  After all, thanks to the harpies as a deterrent, and being so out of the way, it\'s highly unlikely anything hostile comes out this way.' );
 		EngineCore.outputText( '\n\nShe analyzes you and your words, her bright electric blue eyes scrutinizing every inch of you.  "<i>I sense no lies in your voice, but make no mistake, I don\'t trust you yet,</i>" the strange harpy says, setting you back down on the relative safety of the rocky edge.' );
 		//High corruption:
-		if( CoC.getInstance().player.cor > 66 ) {
+		if( CoC.player.cor > 66 ) {
 			EngineCore.outputText( '  She is wise not to fully trust you.' );
 		}
 		EngineCore.outputText( '\n\nWith' );
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( ' your own' );
 		} else {
 			EngineCore.outputText( ' a' );
@@ -167,7 +167,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nThe, as yet unnamed, shark-harpy is wearing a tight white tube top that squeezes her DD-cup breasts tightly enough that a pair of stud-like piercings can be seen poking out from the fabric.  A pair of dark blue short shorts hugs her hips snugly and contains the hefty, seam-straining bulge of her male endowment.' );
 		EngineCore.outputText( '\n\nThe unusual creature taps one of her demonic-looking clawed feet, the hard black talons clicking against the stone of the mountain, and looks rather annoyed over how long you\'ve been eyeing her.  "<i>Enough, already!  You said you\'re not here to cause trouble!  What do you want?</i>"  Just as you are about to speak, the odd being sighs before shaking her head.  "<i>I apologize for my rudeness, I\'m just not used to visitors.  The only ones that bother to come here are some of the harpies that just try and get me to fertilize them,</i>" she explains.  "<i>Allow me to introduce myself, my name is Minerva.  This place is my home... as for what I am - you\'re obviously curious - you could call me a \'siren\'. Sorry for interrupting you by the way</i>"' );
 		EngineCore.outputText( '\n\nLooking at her curiously, you admit that you had a different name in mind for what she is, you would perhaps have called her a \'sharpy,\' since she is part shark and part harpy, though her choice has a pleasant ring to it.  Hearing your name for her actually seems to amuse her.  "<i>Ah, an apt name for sure, but I like to call myself a siren.  It\'s something from my homeland, you see.  Where I\'m from, it was a name for these mythical half-fish, half-bird girls that would lure men into traps with their songs.  And since I\'m... well, this,</i>" she states while gesturing to herself, "<i>I thought I would use that name for what I am now.  And not because I like to sing, though I do... It\'s just... I\'m part girl, part bird, part fish and part... never mind... just call me a siren... I guess you can come inside if you want.</i>"  Minerva turns around and heads toward her tower.' );
-		CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] = 1;
+		CoC.flags[ kFLAGS.MET_MINERVA ] = 1;
 		//[Follow] [Leave]
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Follow', this.followMinerva );
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Appearance', this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this.minervaTalkSelect );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'Sex', this.minervaSexMenu );
 		}
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere in the thick mountain mists.  After a tedious amount of time spent searching, you finally locate the path and start your journey toward the oasis.  The promise of a respite from your climb, along with food and company, compels you to continue until you finally reach the oasis tower.  Thankfully, you don\'t have to search long before you promptly catch sight of the crumbling tower.  Panting from your long trek, you enter the tower through a rusted, creaky door.' );
-		if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] === 4 ) {
+		if( CoC.flags[ kFLAGS.MET_MINERVA ] === 4 ) {
 			EngineCore.outputText( '\n\n<b>(You have visited the tower enough times to be able to remember where to go. Unlocked Oasis Tower in Places menu!)</b>' );
 		} //Unlock Minerva's tower from Places menu.
 		EngineCore.outputText( '\n\nSurprisingly, you don\'t see Minerva anywhere.  The shark-harpy isn\'t lounging in the water, or doing her usual calming exercises.  After a moment, though, a familiar shadow passes over you, and the siren in question lands nearby, smiling at you, looking blissfully happy to finally have some company.' );
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 0, 'Appearance', this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this.minervaTalkSelect );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'Sex', this.minervaSexMenu );
 		}
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
@@ -251,9 +251,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	MinervaScene.prototype.minervaAfterFiveTalksRomancing = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		CoC.getInstance().flags[ kFLAGS.MET_MINERVA ]++;
+		CoC.flags[ kFLAGS.MET_MINERVA ]++;
 		EngineCore.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere.  With a bit of searching, you locate the right path and head for the tower.  The promise of a respite from your climb, along with food and company, impels you to continue until you reach the oasis tower.  Thankfully, you don\'t have to search for long, promptly catching sight of the crumbling tower.  Taking in the sights, you look around, assessing the state of the oasis.  The usual fruit trees remain, and the clean pond is still here, but you don\'t see Minerva anywhere.' );
-		if( !CoC.getInstance().player.isTaur() && !CoC.getInstance().player.isDrider() ) {
+		if( !CoC.player.isTaur() && !CoC.player.isDrider() ) {
 			EngineCore.outputText( '\n\nYou\'re about to turn around and head off when you\'re suddenly grabbed and lifted into the air.' );
 			EngineCore.outputText( '  Looking up, you see the grinning face of Minerva, clearly playing with you.  "<i>Well, hello there, [name]!  I was wondering when you would come and visit me.  I can be away from the oasis for a little while, so... want to go for a flight, or are you scared of heights?</i>"  she asks playfully.' );
 			//[Flight] [Land]
@@ -274,25 +274,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You grin with excitement and' );
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( ' cling' );
 		} else {
 			EngineCore.outputText( ' hold' );
 		}
 		EngineCore.outputText( ' onto the large shark-harpy, telling her that you don\'t mind flying with her.' );
 		//No or small wings:
-		if( !CoC.getInstance().player.canFly() ) {
+		if( !CoC.player.canFly() ) {
 			EngineCore.outputText( '  Minerva seems quite pleased when you accept her offer, her arms hugging you against her and resting your head on her soft chest as she beats her wings harder.  With each pump of Minerva\'s wings, you ascend higher into the tower, and through the huge opening at the top.  Both of you keep going higher and higher until you finally breach the clouds.  As soon as you get above the clouds, the siren suddenly does a spin midair, positioning the two of you so that her back is turned to the distant ground, and you\'re lying atop her body with the heavens behind your back.  The two of you seem to float there for a moment before gravity kicks in and you both plummet back down through the clouds.' );
 		}//Large wings:
 		else {
 			EngineCore.outputText( '  Minerva seems quite pleased that you accepted her offer.  Seeing you have powerful wings of your own, she slowly lets go, allowing your wings to spread out and beat as you hover next to her.  The pair of you fly out of the tower together, streaking through the air as you both zoom around the mountain, and it becomes almost like a playful race between you.' );
-			EngineCore.outputText( '\n\nThe sound of powerful wing beats and the rushing of air mixes with the sound of joyful laughter as you race and play with the flying siren.  Reaching out to you with a hand, Minerva decides to put on a show for you.  Beating her wings harder, she pushes ahead of you, twisting and twirling as she rolls above you, your eyes locking with hers for a fleeting moment and catching the look of joy in them.  Not one to be outdone in a race, you flap your ' + CoC.getInstance().player.wingDesc + ' wings harder and harder, speeding ahead on the final turn as you both rush toward the tower.' );
+			EngineCore.outputText( '\n\nThe sound of powerful wing beats and the rushing of air mixes with the sound of joyful laughter as you race and play with the flying siren.  Reaching out to you with a hand, Minerva decides to put on a show for you.  Beating her wings harder, she pushes ahead of you, twisting and twirling as she rolls above you, your eyes locking with hers for a fleeting moment and catching the look of joy in them.  Not one to be outdone in a race, you flap your ' + CoC.player.wingDesc + ' wings harder and harder, speeding ahead on the final turn as you both rush toward the tower.' );
 			EngineCore.outputText( '\n\nSeeing you getting ahead brings a grin to Minerva\'s face.  Gritting her teeth, she pushes herself to catch up with you, her arms reaching out and grabbing you in a playful air tackle.' );
 		}
 		//Lead in for Minerva opening her heart (All body types except Centaur and Drider)
 		EngineCore.outputText( '\n\nThe two of you dive faster and faster, screaming toward the ground' );
 		//Goo:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( ' while you\'re barely able to maintain your slimy cohesion' );
 		}
 		EngineCore.outputText( '.  You almost think that this is going to be the end of you, only for Minerva to roll you both around in the air and spread her wings, slowing down the rapid descent.  The pair of you rocket in through the crumbling entrance of the tower and crash into the steaming spring, the cleansing waters spraying out from the impact, splashing across the surrounding plants and slowly running back toward the spring.  As you and Minerva come up for air, the tall shark-harpy pulls you back into her arms and holds you close to her chest.  "<i>This was so much fun!  It means a lot to me, you know, that you actually want to help get this thing out of me and put an end to its vile presence,</i>"  the redheaded siren says warmly,  hugging you close as you sit together in the water.' );
@@ -319,12 +319,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You already know your answer.  Smiling, you lean in and kiss the siren\'s glossy black lips, an act which prolongs the blush on her face, though it doesn\'t take long for Minerva to recover.  She pushes you off of her and tackles you into the pool.  Sitting on top of you, the redhead smirks down at you before grabbing onto your shoulder and forcing you into a welcome kiss, her long, demonic tongue quickly snaking into your mouth to deepen the passionate smooch.' );
 		EngineCore.outputText( '\n\nYou can\'t help but return her grasp when Minerva starts to kiss you again.  Your hands slowly move over her smooth, wet skin, and touch every part of her you can reach, feeling her curves, her firm, gently toned muscles, down her thin waspish waist that flows out into her generous hips, and her ample, squeezable ass.  As soon as you reach her butt, your hands squeeze her, eliciting a gasp from your new lover and making her break the kiss.  "<i>Why, you... not satisfied with a kiss, are you?</i>" your siren asks with a toothy grin.' );
-		CoC.getInstance().flags[ kFLAGS.MINERVA_LOVE ] = 1;
+		CoC.flags[ kFLAGS.MINERVA_LOVE ] = 1;
 		EngineCore.menu();
 		//{Male: [NEXT] / Female/Herm: [NEXT]}
 		//Sex Menu
-		if( CoC.getInstance().player.gender === 1 ) {
-			if( CoC.getInstance().player.cockThatFits( this.minervaVCapacity() ) >= 0 ) {
+		if( CoC.player.gender === 1 ) {
+			if( CoC.player.cockThatFits( this.minervaVCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Next', this.minervaCowgirlSex );
 			} else {
 				EngineCore.addButton( 0, 'Next', this.letMinervaSuckYouOff );
@@ -338,7 +338,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You stare at Minerva awkwardly as she waits for your response, her electric blue eyes looking at you with hope.  ' );
-		if( CoC.getInstance().player.cor < 45 ) {
+		if( CoC.player.cor < 45 ) {
 			EngineCore.outputText( 'The look in the siren\'s eyes only makes this harder for you as you look into them; you can\'t help but feel bad that you really don\'t feel anything special for her.' );
 		} else {
 			EngineCore.outputText( 'You can tell she really wants this - the siren is almost desperate for your attention.  Unfortunately for the love starved herm, she won\'t find the love she craves with you.' );
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nAs you speak, you see the hope she had fade, and her face droops in sadness as you reject her feelings.  "<i>I-I see... I thought that...</i>" she stops and looks away, before moving away from you and stepping out of the cleansing waters.  The tall, red-headed shark-harpy keeps her back to you, her tail curled around her legs protectively.  "<i>I\'m sorry, I shouldn\'t have gotten my hopes up.  Can you... maybe you should go, I want to be alone for a bit... but... I... just make sure to come back, please. I would like to still see you around,</i>" she requests sullenly as she stands by the pool.  Keeping her back to you she looks over her shoulder, a sad smile on her face, it\'s clear she\'s trying to be strong and hold back her feelings.  "<i>I guess love just isn\'t in the cards for me.</i>"' );
 		EngineCore.outputText( '\n\nSlowly, you get up, looking away from the curvy siren as you step out of the pool and leaving Minerva\'s tower.  Hopefully she won\'t be upset for too long, it would be best to check up on her later.  As you go, you swear you hear her let out a sob, the pain of your rejection clear as the mist that floats around the mountain.' );
 		// PC returns to camp.
-		CoC.getInstance().flags[ kFLAGS.MINERVA_LOVE ] = -1;
+		CoC.flags[ kFLAGS.MINERVA_LOVE ] = -1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Appearance', this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this.minervaTalkSelect );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'Sex', this.minervaSexMenu );
 		}
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
@@ -385,7 +385,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 0, 'Appearance', this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this.minervaTalkSelect );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 2, 'Sex', this.minervaSexMenu );
 		}
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
@@ -399,9 +399,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			bath = true;
 		}
 		var choices = [ this.talkingToMinervaAboutBackstory ];
-		if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 0 ) {
 			//Force first time to talk about her early backstory!
-			if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] === 0 ) {
 				this.talkingToMinervaAboutBackstory();
 				return;
 			}
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//- requires that backstory has been told
 		//- if already romanced Minerva shamefully confesses she may have fathered a granddaughter with her first daughter -repeatable
 		//3-3 Talking Scene 3 - talks about her shark girl daughter
-		if( this.minervaRomanced() && CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 1 ) {
+		if( this.minervaRomanced() && CoC.flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 1 ) {
 			choices[ choices.length ] = this.talkWithMinervaAboutSharkGirlDaughter;
 		}
 		//3-4 Talk Scene 4 - talks about her corruption
@@ -443,8 +443,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//PART 1
-		if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] = 1;
+		if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] === 0 ) {
+			CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] = 1;
 			EngineCore.outputText( 'Telling Minerva that you want to sit down and talk seems to surprise her.  She certainly didn\'t expect you to come all this way, simply desiring mere conversation.  After her initial surprise, she smiles pleasantly.  "<i>Really?  You want to talk to me?  All right, well, what do you want to know?</i>" she asks, sitting cross-legged on the soft, pillowy moss across from you.  Joining her, you dive into questions concerning her past; how did she come to be what she is?  How did she come to find this place?' );
 			EngineCore.outputText( '\n\nUpon asking about Minerva\'s past, she flinches.  "<i>That kind of stuff... there... aren\'t a lot of good memories down that road.  There were plenty of painful times... but... holding onto painful memories like that isn\'t good for you, right?</i>" the siren gives in with a sigh before coming back up to meet your expectant gaze.' );
 			EngineCore.outputText( '\n\n"<i>Well, I suppose I could start with how I got here.  I guess I\'m like you, someone from the other side of one of those portals.  I was a sacrifice of some kind.  There was an ambush waiting for me on the other side.  Even though it was very close, I managed to slip away, but... not without being scathed,</i>" she notes, gesturing to the long scar on her stomach.  Thinking of that monstrosity of a scar and how large it is, you can\'t help but wonder how she survived a wound like that.  "<i>I know that I should have been killed by the blow, but... let\'s just say that what hit me... also closed the wound.</i>"  You can\'t imagine what would have left a scar as terrible-looking as that, and to believe the blow not only inflicted the damage, but cauterized itself as well.  There\'s clearly something missing from this story.' );
@@ -454,8 +454,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			// PC returns to camp.
 		}
 		//PART 2
-		else if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] === 1 ) {
-			CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] = 2;
+		else if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] === 1 ) {
+			CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] = 2;
 			EngineCore.outputText( 'Telling Minerva that you want to sit down and talk seems to surprise her, she certainly didn\'t expect you to come all this way just looking for a conversation.  Getting over her initial surprise, she smiles pleasantly.  "<i>Really?  You want to talk to me?  Well, all right, what do you want to know?</i>" she asks as she sits down cross-legged on the soft, pillowy moss across from you.' );
 			EngineCore.outputText( '\n\nTaking a seat, you ask her if she would continue talking about her past.  The shark-harpy purses her lips and seems lost in thought for a moment, unsure if she wants to keep going.  "<i>Well... I suppose it would be all right to tell you more, if you really want to know,</i>" Minerva says, running a hand through her red hair.' );
 			EngineCore.outputText( '\n\nThe redheaded siren begins her story again, picking up where she left off, "<i>I think I was at the part with that anemone...  hm... that was the start of some bad times in my life... so... after the incident with that anemone and getting my... well, after I became more than just female... I fled from the lake, I didn\'t want to run into any more of the creatures there, so I tried to survive further inland.</i>"' );
@@ -476,7 +476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		//PART 3
 		else {
-			CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY ] = 0;
+			CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] = 0;
 			EngineCore.outputText( 'Telling Minerva that you want to sit down and talk with her seems to surprise her, she certainly didn\'t expect you to come all this way simply want to chat with her.  Getting over her initial surprise, she smiles pleasantly.  "<i>Really?  You want to talk?  All right, well, what do you want to know this time?</i>" she asks as she sits down cross-legged on the soft, pillowy moss across from you.' );
 			EngineCore.outputText( '\n\nSitting down, as well, you ask about her and if she would continue telling you about her past.  The shark-harpy purses her lips and seems to think about it for a moment, unsure if she wants to keep going. "<i>Well... I suppose it would be all right to tell you more, if you really want to know,</i>" Minerva says, running a hand through her red hair, remembering where she stopped last.' );
 			EngineCore.outputText( '\n\nThe redheaded siren begins her story again, picking up where she left off, smiling this time, "<i>I remember we stopped right after I had my daughter.</i>"  Already, Minerva seems a bit happier, though her smile looks bittersweet.  "<i>I miss her... my darling daughter, my little girl...</i>" she says, shaking her head and continuing her story.  "<i>When I was about to give birth, my new instincts told me to seek out water.  I didn\'t want to go back to the lake again, so I managed to find a river and ended up giving birth to my daughter there.  With her born and so young, I didn\'t want to just travel around.  So we stayed at the stream for a while.</i>"  Minerva stops for a moment, closing her eyes as if she\'s picturing it in her head, reliving the time spent with her daughter.' );
@@ -497,7 +497,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 				EngineCore.outputText( '  "<i>You\'re a wonderful lover, you know.  I couldn\'t be happier that you found me.</i>"' );
 			}
 			// PC returns to camp.
-			CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] = 1;
+			CoC.flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] = 1;
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nThe two of you rest for a while, and can\'t help but enjoy each other\'s company.  You idly make small talk before deciding that it\'s time to take your leave.  Putting your [armor] back on, you gather your things with Minerva watching, mildly upset that you have to leave so soon.  "<i>Thank you so much for coming to visit!  I had a lot of fun.  Now, don\'t be a stranger, you hear?  Come back and visit again soon!</i>"  she says, before sitting up and tossing you one last smile.' );
 		EngineCore.outputText( '\n\nReturning her shining smile, you promise to come back and visit soon, then head out and start the hike back toward your camp.' );
 		// PC returns to camp.
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//3-3 Talking Scene 3 - talks about her shark girl daughter
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\n"<i>There is something inside me.  I told you how I came to be here, about how the demons attacked me.  Well, it\'s obvious I didn\'t escape unharmed.  There was this little demonic creature that attached itself to me.  It  burrowed inside me.  It\'s in here right now,</i>" she finishes, tapping her midriff, above her stomach and under her breasts.  "<i>Sometimes, I can feel it... squirming...  It\'s the reason for my corruption and why it won\'t just go away.  This thing just keeps pumping its corrupting influence into my body; it\'s probably doing all kinds of other stuff I don\'t know about, too...</i>"' );
 		EngineCore.outputText( '\n\nYou look at her with wide eyes, your gaze automatically shifting to her chest where her hand is.  Quickly noticing your look, she turns away, a little embarrassed that you\'re just staring at her chest.  "<i>Anyway.  It\'s this thing that binds me here; it\'s why I need to consume the blessed water and fruit of this grove.  At one point, this corruption made me do things I feel great shame for...' );
 		//PC told about shark daughter:
-		if( CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 1 ) {
+		if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] === 1 ) {
 			EngineCore.outputText( '  You remember my firstborn, the shark girl I had?  Well... not long after she reached maturity, she... well, she got a bit amorous...  She seduced me and I... I mated with her.  I mated with her over and over that night.  I enjoyed it... it was like I couldn\'t get enough...  I probably got her pregnant...  So shameful...  I impregnated my own daughter and made her bear my grandchild,' );
 		}
 		EngineCore.outputText( '</i>" she declares sourly as she stares into the pure waters of the spring.' );
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ', you can\'t help but notice how she becomes utterly entranced, how she seems to be clinging hungrily to every word of your story.  With such an attentive audience, it would be a shame not to embellish the truth, just a little.  And so, you begin weaving a story of how you once fought six minotaurs at the same time, each of them twelve feet tall and carrying huge axes.  It was a hard fight, most of your clothes were shredded from the fierce battle, and your body glistened with sweat as you stood over your fallen bestial foes.' );
 		EngineCore.outputText( '\n\nWith your foes beaten, you saved a group of scantily clad damsels, a pair of goblins, a harpy, a shark girl, and even a busty cowgirl, each of them eager to thank their hero for saving them from the mean minotaurs that only wanted to rape them.  The silly story of your own bravado draws giggles and snickers from Minerva, completely absorbed with your fabrication, but whether she knows you\'re lying, you can\'t tell.  It\'s clear she is enjoying your story about bringing the thankful ladies back to your camp for a long night of impassioned loving, though.' );
 		//PC vagina:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nNot wanting to disappoint, you quickly think of another story to tell your ' );
 			//friend/lover
 			if( !this.minervaRomanced() ) {
@@ -591,18 +591,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '.  Without further ado, you weave a tale of how you saved a nice herm bee-girl from several of those nasty imps.  The little buggers were trying to rape the nice girl, and you couldn\'t just stand there and do nothing.  Taking it upon yourself, you beat those smelly imps into a pulp before carrying the grateful herm away.  To find a bee-girl that was a herm is a rare thing, indeed, and this one was just as pretty as her sisters.  She was so grateful for being saved from those little monsters that she gave you a mass of her honey and explained that she only wanted to find someone to have her eggs with.  Being the generous champion you are, you offered to help her out, flirtatiously pulling the curvy girl to you before kissing her.  That night, you spent your time with your grateful damsel, making love and having your womb and rear filled with sticky eggs and bearing the bee-girl\'s eggy babies for her.' );
 		}
 		//PC cock:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nRolling right into another story, you begin to tell Minerva about the time you fought three hundred goblins, yet another fierce battle, with them tearing your clothes off and trying to rape you for your seed.  They would cry, "<i>We claim this pole for the horde,</i>" but you wouldn\'t let them have it without a fight, raising your spear of impregnation, you thrust deep into their ranks, activating your mighty spear\'s life-giving magics, and flooding the enemy lines with rich, potent streams of power.  Your attack was successful, the thick goopy mess defeating the goblin horde temporarily; they always came back each time though, with greater numbers.' );
 		}
 		EngineCore.outputText( '\n\nWith your tale over, your audience claps excitedly, the lonely siren quite happy to hear such silly stories.  "<i>Oh, that was wonderful!  You tell such great stories!</i>" she says happily, her tail swaying between her legs.  "<i>It was a lot of fun to listen to, even if it got a bit silly,</i>" she says with a bright smile before looking down, and putting a hand on her toned, flat stomach.  "<i>Those damsels' );
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( ' and those goblins' );
 		}//PC vagina:
-		else if( CoC.getInstance().player.gender === 2 ) {
+		else if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( ' and that bee-girl' );
 		}
 		//PC herm:
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ', goblins and that bee-girl' );
 		}
 		EngineCore.outputText( ', if the stories were real, I\'m sure you gave them plenty of children.  I wish to one day have kids... to have a great, loving family to call my own.</i>"' );
@@ -651,7 +651,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nEventually though, the heat fades and it\'s time for both of you to get out of the spring.  The affectionate siren helps you out of the warm water, even going to get you something to dry off with and helping dry you off.  As soon as you\'re dry, you find yourself wrapped up in a tight, squeezing hug, the blue and gray siren cuddling you tightly.  "<i>That was nice, my love... really, it was wonderful,</i>" she says as she looks at you, eyes locked on yours, clearly very happy to have shared that tender moment with you.' );
 		EngineCore.outputText( '\n\nLeaning in, she gives you a gentle kiss on the lips before finally letting go of you.  "<i>I wish you didn\'t have to go, but I understand that you must.  I\'ll miss you, you know?  Make sure you come back soon, all right?</i>"  she asks, a sparkle of hope in her eyes.  Smiling back at the happy siren, you nod, reassuring the herm that you will come back as soon as you can, returning her embrace for a moment before turning and heading back for your camp.' );
 		// PC returns to camp.
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.fatigue( -30 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -664,26 +664,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.spriteSelect( 95 );
 			EngineCore.outputText( 'You tell Minerva that, this time, you\'d like to have sex with her.' );
 			//Default, first time:
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ] === 0 ) {
 				EngineCore.outputText( '\n\n\Minerva blushes and looks you up and down, looking a little nervous.  "<i>Well... it\'s been a long time since I have been with someone, let alone someone who wasn\'t some domineering beast...  I guess it would be all right, some companionship would be nice...' );
 				//PC cock, add:
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( ' just... not in my vagina, all right?  That\'s... special.' );
 				}
 				EngineCore.outputText( '  Did you have anything specific in mind?' );
 				//PC female, add: '
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  Would you mind how we do it?  You\'re the one asking, so... would you want me to fuck your ass?  Or... do you want me to try to fit between those sexy hips of yours?' );
 				}
 				EngineCore.outputText( '</i>"' );
 			}
 			//Dick Too Big - PC exceed capacity
-			else if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.minervaACapacity() ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && CoC.player.hasCock() && CoC.player.cockThatFits( this.minervaACapacity() ) < 0 ) {
 				EngineCore.outputText( 'Looking at the monstrous mass of your mammoth member, Minerva blushes hard and stares at it with wide eyes.  "<i>Oh... oh my, that... that\'s </i>big</i>... I\'m sorry, I don\'t think that\'s going to fit inside me, how about we try something else?  I\'m sure we can come up with something!</i>"  Minerva says with confidence.' );
 			}//{Repeated/No romance:
 			else if( !this.minervaRomanced() ) {
 				EngineCore.outputText( '\n\nMinerva blushes and looks you up and down, looking a little nervous to have sex, but seemingly more comfortable with the idea.  "<i>Well, I suppose... last time was fun and felt really good, so why not?  Was there anything specific you wanted to do?' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  Since you don\'t seem to mind... would you like me to fuck your ass or to squeeze into your cute cunny?' );
 				}
 				EngineCore.outputText( '</i>"' );
@@ -692,11 +692,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			else {
 				EngineCore.outputText( '\n\nMinerva blushes and smiles at you, looking pleased that you\'re eager to spend some quality time with her.  "<i>Sure, love!  I always have fun when we lie together, and I could use some of our quality time.' );
 				//PC cock, add:
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( '  Since we\'re together, I\'ll even let you have my pussy, I bet you like the sound of that!' );
 				}
 				//PC female, add:
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  I\'d be happy to pound that cute butt of yours and stuff your hot pussy - which would you rather have, my dear?' );
 				}
 				EngineCore.outputText( '</i>"' );
@@ -704,18 +704,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.menu();
 		var btnIdx = 0;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.minervaACapacity() ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.minervaACapacity() ) >= 0 ) {
 			EngineCore.addButton( btnIdx++, 'FuckHerButt', this.fuckMinervasAsshole );
 		}
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.minervaVCapacity() ) >= 0 && this.minervaRomanced() ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.minervaVCapacity() ) >= 0 && this.minervaRomanced() ) {
 			EngineCore.addButton( btnIdx++, 'FuckCowgirl', this.minervaCowgirlSex );
 			EngineCore.addButton( btnIdx++, 'RestrainFuck', this.fuckMinervaWithHerHandsBehindHerBack );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( btnIdx++, 'TakeHerDick', this.minervaLapSex );
 		}
 		EngineCore.addButton( btnIdx++, 'EatHerOut', this.goDownOnAHermAndLoveItYouDirtySlutYou );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( btnIdx++, 'Get BJ', this.letMinervaSuckYouOff );
 		}
 		EngineCore.addButton( 9, 'Leave', this.repeatEncounterMinerva );
@@ -725,27 +725,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	MinervaScene.prototype.fuckMinervasAsshole = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		var x = CoC.getInstance().player.cockThatFits( this.minervaACapacity() );
+		var x = CoC.player.cockThatFits( this.minervaACapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'You give her a smile and place a hand on Minerva\'s thigh, gently pushing to indicate she should get down on all fours.  The redheaded siren looks at you for a moment before nodding.  Slipping her tight, short shorts down her legs and tossing them aside, she gets down onto her hands and knees, as it is obvious what your intentions are.  Spreading her knees apart, Minerva lowers her chest and pushes her curvy rump up, presenting herself to you.' );
 		EngineCore.outputText( '\n\nYou smirk and step forward, reaching out to appreciatively squeeze her firm, plump ass, then draw back a hand and give a playful slap to the nearest of her spankable cheeks, the sudden spank drawing a sharp squeak of surprise from the shark-like harpy, looking back at you with a blush on her face, a little embarrassed, but appreciative of the sentiment.  Lifting her long, sharky tail out of the way, she sways it from side to side before curling it gently around your back.  Pushing her rear back and bumping her ass against your hips, she\'s giving you a clear sign that she\'s ready.' );
 		EngineCore.outputText( '\n\nUnfortunately for her, you\'re not yet ready.  Wanting to tease the herm a little more, you run a hand between her legs, feeling the slipperiness of her arousal, and her cool, wet sex spreading to your fingers.  Your touch sends shivers of pleasure through the waiting siren.  "<i>Mm... teasing me still?  So mean... are you going to make me beg for it?</i>" she asks with a heavy blush on her face, her tone clearly playful.  Bringing your hands up, you grab the lovely blue and gray cheeks of her ass.  If you\'re going to be fucking her butt, you want to get it good and sensitive.  Squeezing and kneading the firm rear, your hands work it like stubborn dough, getting it ready for the next stage.  You let go and you raise one of your hands above her blue rump before coming down on it, spanking her hard and drawing out a loud squeak of pain and kinky arousal.  You keep spanking the herm over and over, painting hand print after hand print across the firm round cheeks, each naughty hit making Minerva more aroused, more ready for you to take her.  "<i>P-please... I can\'t take it!  I feel like I\'m going to burst!</i>" she howls, almost pleading for you to finally take her.' );
 		EngineCore.outputText( '\n\nWell, no sense in keeping a lady waiting, right?  You slip down the lower parts of your [armor] until your crotch is bare, exposing [eachCock]' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' and your [vagina]' );
 		}
 		EngineCore.outputText( ' to the open air.' );
 		EngineCore.outputText( '\n\nFeeling Minerva\'s bare ass rubbing against you helps coax your ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'shafts' );
 		} else {
 			EngineCore.outputText( 'shaft' );
 		}
 		EngineCore.outputText( ' to erectness, and you begin to teasingly drag [oneCock] through the crack of her curvy, spankable ass, hesitating to actually penetrate her until you\'re ready.  Your vexation brings a brighter blush to her cheeks, her tail squirming gently against you as she takes the hint.  Her hips start pushing back and forth, using her soft rounded rump to massage [eachCock], wanting to get you just as needy as she is.' );
-		EngineCore.outputText( '\n\nDeciding that you\'ve finally teased her quite enough, you drag your ' + Descriptors.cockDescript( x ) + ' down through the crack of her ass one last time, then align your ' + CoC.getInstance().player.cockHead( x ) + ' with her tight, puckered asshole.  You ask her if she\'s ready for this, if she\'s ready to have her ass filled by your throbbing cock.  She nods her head, looking back at you with her bright, blushing face, her eyes locking onto yours as she spreads her knees a little further apart.  "<i>I... yes, I\'m ready, don\'t be too rough, all right?</i>"' );
+		EngineCore.outputText( '\n\nDeciding that you\'ve finally teased her quite enough, you drag your ' + Descriptors.cockDescript( x ) + ' down through the crack of her ass one last time, then align your ' + CoC.player.cockHead( x ) + ' with her tight, puckered asshole.  You ask her if she\'s ready for this, if she\'s ready to have her ass filled by your throbbing cock.  She nods her head, looking back at you with her bright, blushing face, her eyes locking onto yours as she spreads her knees a little further apart.  "<i>I... yes, I\'m ready, don\'t be too rough, all right?</i>"' );
 		EngineCore.outputText( '\n\nDrawing your [hips] back and sinking your fingers into her squeezable butt, you begin to push forward into her back passage.  It\'s surprisingly cool, perhaps because of the shark essence in her blood.  Her throbbing anal walls are slick enough to let you slip in easily, but grip tightly around your ' + Descriptors.cockDescript( x ) + '.  The inner muscles tighten around you and let you feel dozens of tiny, smooth bumps lining the passage inside.  Minerva\'s walls ripple and massage you as you finally bury yourself to the hilt inside her, groaning in pleasure at her tight anal embrace.' );
 		EngineCore.outputText( '\n\nMinerva bites her lip and pushes her hips back as you push in, doing her best to keep her body relaxed until you\'re all the way inside before clenching her muscles around you rhythmically.  The siren slowly starts shifting her hips around, trying to make it feel better for you as you slowly stretch her unused anal passage.  "<i>Nnn... it feels good, so good.  I\'m... not used to this, so I should be pretty tight for you,</i>" she playfully says before pushing back and grinding her hips against yours, while squeezing her tight ass muscles around your cock.  Between her legs, Minerva\'s tentacled dick rises to attention, its thick length throbbing with her arousal.' );
 		EngineCore.outputText( '\n\nYou draw yourself back, dragging your ' + Descriptors.cockDescript( x ) + ' inch by inch through her grinding, squeezing walls, then thrust yourself firmly back inside her.  You repeat the process again, and then again, picking up speed as you pull and push.  The siren\'s lyrical moans slowly start to fill the air, her body rocking with your thrusts, pressing and grinding her pierced nipples against the ground as you pound her slick rear.  The longest of her cock tentacles manage to reach back and grabs hold of your ' + Descriptors.cockDescript( x ) + ', feverishly stroking you as you thrust into her.  The naughty little things sting you hard, oozing their aphrodisiac venom into your ' + Descriptors.cockDescript( x ) + ' instinctively.  You cry out, shivering as the potent venom immediately streams through your body, setting your blood aboil with lust, and causing you to piston into her ass with ever-increasing speeds.  More and more toxin floods you, combining with the incredible sensations of her anal walls gripping and squeezing you to turn you into a mindlessly rutting beast.' );
@@ -754,18 +754,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//Moderate cum or less:
 		EngineCore.outputText( '\n\nYou keep gushing into her until totally spent, her innards swallowing your load without the slightest effort.  "<i>Ahhh... please, let it all out, give me every drop you can muster!</i>" she groans loudly as her tail squeezes around you, not wanting you to leave her body, her tight anal muscles squeezing you so tightly, trying to suck everything she can from your cock.' );
 		//High cum:
-		if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( '  Your unnatural orgasm keeps pouring into her guts, flooding her interior with sticky cum.  By the time you give out with a gasp of effort, her stomach is visibly bulging, swollen from the amount of cum you have filled her with.  "<i>Ooohhh... fuck... so much...  It looks like I have a baby in there,</i>" Minerva says with a long, drawn out groan, unused to the feeling of having her guts filled up by such hot, thick stuff.' );
 		}
 		//Very High cum:
-		if( CoC.getInstance().player.cumQ() >= 5000 ) {
+		if( CoC.player.cumQ() >= 5000 ) {
 			EngineCore.outputText( '  Your freakish orgasm continues seemingly without end, cascades of jizz pouring into her bowels and through them to her stomach, "<i>Oh gods... oh gods...  S-so much... how are you cumming this much!?</i>"  You keep cumming though, the sheer quantity resulting in a buildup of pressure that sends yet more of your spunk spurting out from her curvy backside.  Finally, when you have finished, Minerva\'s belly is so swollen that she looks like she could give birth any moment, the creamy sperm inside her softly sloshing around.  "<i>Fu... fuck... h-how... s-so much cum...</i>" Minerva babbles as a trail of white slowly drips from her drooling mouth before she swallows it back, "<i>I-I think I can taste it.  I\'ve never felt so full in my life...</i>"' );
 		}
 		//Low to moderate cum volume:
-		if( CoC.getInstance().player.cumQ() < 1000 ) {
+		if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nPanting from the rough ass fucking she just received, Minerva slumps forward and sighs, her tail pulling you down on top of her smooth, sweaty body.  "<i>That... that was good, it felt really good...  You know, we could do that again sometime, if you want to,</i>" she says before slowly moving and pulling her hips away from yours so she can turn to face you, putting her arms around you for some after-sex cuddling, the blue and gray siren nuzzling your neck gently before giving you a peck on the neck.' );
 		}//{High to moderate cum volume:
-		else if( CoC.getInstance().player.cumQ() < 5000 ) {
+		else if( CoC.player.cumQ() < 5000 ) {
 			EngineCore.outputText( '\n\nGroaning from being filled so much, Minerva puts a hand on her now swollen belly and pushes, clearly feeling the thick stuff sloshing around inside, her belly giving a soft gurgle from being so stuffed.  Sighing, she props herself up before slowly pulling her hips forward to get you out, then turning and pulling you close for some after-sex cuddling, the sweet blue siren nuzzling your neck before giving you a little peck.  Now that you\'re not plugging her up, your copious load gushes from her stretched rear, oozing down her round ass and pooling under her flared thighs.' );
 		}//Very high cum volume:
 		else {
@@ -774,7 +774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYou allow Minerva to hold you against her toned body, recovering your strength from the draining sex.  Eventually, though, your strength returns and you gently pry yourself free of her, telling her that the sex and her company was wonderful, but that you need to return to camp.' );
 		if( !this.minervaRomanced() ) {
 			//First time ending:
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_BUTTFUCKED_MINERVA ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_BUTTFUCKED_MINERVA ] === 0 ) {
 				EngineCore.outputText( '\n\nMinerva actually seems a little sad that you\'re leaving.  "<i>I guess you are a busy person.  But I\'m glad we did this; it was a lot of fun.  And... you know... I wouldn\'t mind if we did this again soon...</i>" she says with a small, hopeful smile on her face.  You promise her that you\'ll try to come back again soon.  Though looking nervous, Minerva approaches you and pulls you into a hug, happy that you at least say that you will return to visit.' );
 			}
 			//Repeated ending:
@@ -785,10 +785,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '\n\nThe lovestruck siren sighs and sits up, looking up at you with affection clearly written on her face.  "<i>I hope you\'ll come back soon, I always feel so much happier when you\'re around,</i>" she says as she brings a hand to her chest, holding it over her heart.  The gentle herm pulls you into a deep hug before engaging you in a tongue-tangling kiss.  Grinning ear to ear, Minerva finally lets you go, albeit reluctantly, allowing you to leave her tower and return to your camp.' );
 		}
 		//PC returns to main camp menu
-		CoC.getInstance().flags[ kFLAGS.TIMES_BUTTFUCKED_MINERVA ]++;
-		CoC.getInstance().player.orgasm();
+		CoC.flags[ kFLAGS.TIMES_BUTTFUCKED_MINERVA ]++;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -799,18 +799,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	MinervaScene.prototype.minervaCowgirlSex = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		var x = CoC.getInstance().player.cockThatFits( this.minervaVCapacity() );
+		var x = CoC.player.cockThatFits( this.minervaVCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'You look the attractive siren up and down and' );
-		if( CoC.getInstance().player.tallness <= 60 ) {
+		if( CoC.player.tallness <= 60 ) {
 			EngineCore.outputText( ', with some trepidation, given the difference in size,' );
 		}
 		EngineCore.outputText( ' ask if Minerva would like to give her female parts some pleasure, promising to allow her control of the pace.' );
 		//First time:
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ] === 0 ) {
 			EngineCore.outputText( '  Minerva looks unsure, the siren biting her lip and looking a little away from you, "<i>I don\'t know.  That\'s... special...  After the things I have been through, I don\'t want to just do it with anyone.  You... </i>have<i> been really nice to me though... I guess I can trust you.</i>"' );
 		}
 		//Repeated:
@@ -820,9 +820,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nWith a smile, you gently remove your clothes and put them aside, giving Minerva a chance to see your naked body.  Your ' + Descriptors.cockDescript( x ) + ' already starting to stiffen, you lie back down on the ground, patiently waiting for the siren to make the first move.  You don\'t have to do so for long, as soon, Minerva\'s tight tube-top and short shorts are pulled off, her firm, pierced DD\'s bouncing free of their fabric prison.  Clearly excited by the thrill of actually having regular sex, you can see her male endowment quickly growing hard between her legs, the forearm-length appendage ready to go despite the fact it won\'t be used for the main event.  Looking down at you, Minerva approaches, swaying her hips to and fro.  She kneels down, crawling over you like some predator, one of her hands briefly stroking your ' + Descriptors.cockDescript( x ) + ' before sliding up to feel your [chest].  "<i>I promise not to get too excited,</i>" she says before grabbing hold of your maleness and stroking it again.  Bringing her own male organ up against yours, her tentacles encircle your ' + Descriptors.cockDescript( x ) + ', stinging it with her potent venom to really get you fired up as she teases you.  "<i>This stuff is always floating around in me - that\'s why I get so damn hard so fast...  I hope you like my special venom.</i>"' );
 		EngineCore.outputText( '\n\nYou groan softly, feeling the venom already coursing through you.  Your ' + Descriptors.cockDescript( x ) + ' surges erect, the venom-induced lust making you swell larger than usual, ready for her to do with as she pleases, your limbs numb and useless from the lust-inducing toxins coursing through your body.  You are completely helpless and at her mercy...  And part of you seems to like that.' );
 		EngineCore.outputText( '\n\nMinerva seems to enjoy seeing you helpless like this, as her dick seems to just get harder and harder while her tentacles caress your member, though they no longer sting; instead, they just tease you with their slick and gentle touch.  "<i>You like that, don\'t you?  You\'re so hard I can feel your need growing more and more.  You want my tight pussy so badly,</i>" she says with a lecherous grin before rising her body up and pressing against your ' + Descriptors.cockDescript( x ) + ' with her surprisingly cool cunt.  Already her lips are soaked, her slick juices running down your dick as she teases you even further.' );
-		EngineCore.outputText( '\n\nFinally, she ends your torment and brings your ' + CoC.getInstance().player.cockHead( x ) + ' to her refreshingly wet entrance before pushing down, letting you penetrate her with agonizing slowness, her longer tentacles still stroking and caressing your length as she pulls you into the vicelike grip of her snatch.  Inside, you can feel smaller tendrils starting to caress and squeeze you, clearly another trait she was gifted with from the shark girls.' );
+		EngineCore.outputText( '\n\nFinally, she ends your torment and brings your ' + CoC.player.cockHead( x ) + ' to her refreshingly wet entrance before pushing down, letting you penetrate her with agonizing slowness, her longer tentacles still stroking and caressing your length as she pulls you into the vicelike grip of her snatch.  Inside, you can feel smaller tendrils starting to caress and squeeze you, clearly another trait she was gifted with from the shark girls.' );
 		EngineCore.outputText( '\n\nYou moan in delight, shivering from the sensations and the lingering effects of her toxin, and unconsciously start to thrust your hips up, trying to push yourself deeper inside her wriggling depths.  Minerva, however, will have none of that and promptly pushes you back down, using the advantage of her position and strength' );
-		if( CoC.getInstance().player.tallness < 96 ) {
+		if( CoC.player.tallness < 96 ) {
 			EngineCore.outputText( ', as well as her superior size,' );
 		}
 		EngineCore.outputText( ' to keep you pinned under her.  "<i>Oh, no you don\'t, this is my time... and you seem to be in no position to stop me from making this last.  Don\'t worry, though, I\'ll make you feel so good,</i>" she says as her groin and vaginal tentacles caress and tease you.  She starts slowly pushing her temperate cunt down, the hundreds of little cilia squirming around your shaft as her tight inner muscles squeeze down on you like a cool, silken vice.  Her inner cilia only help to tease and pleasure your lust-fueled cock even more as the surprisingly dominant siren slowly eases herself down your swollen, venom-bloated dick.' );
@@ -831,41 +831,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nBiting her lip, she pushes down harder, sinking her soothingly cool pussy down until your whole cock is engulfed in her tight, cilia-filled snatch.  "<i>Mmm, oh yesss... don\'t you just love how your ' + Descriptors.cockDescript( x ) + ' stretches me... and all those little things in there, stroking you like little tongues.  Tell me how much you need to cum.  Tell me and I\'ll let you blow your pent-up load deep inside me.  I doubt you could get me pregnant, I\'m probably too unstable to breed with someone like you.  Or maybe you\'d like to take a gamble and try?  Do it, fill my pussy with your cum!</i>"' );
 		EngineCore.outputText( '\n\nYou plead with her, begging her to let you cum.  You NEED to cum, you feel like you\'re going to burst!  You ache for relief.  "<i>Please, let me release myself into your womb!</i>" you cry out to her.  Licking her lips in anticipation, Minerva lets go of your dick, her cum-blocking tentacles relaxing around you and letting the pressure off of your swollen prick.  With a hollow groan of release, you unleash everything you have into her, flooding her waiting womb with your spooge.' );
 		//Low-moderate cum:
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nMinerva shivers in delight as your seed bursts into her tight, hungry cunt, the tightness of her walls making sure not a drop is wasted.  The hundreds of cilia squirm around,  drawing your cum up and into her waiting womb, "<i>Yesss... let it all out, let me feel your warmth in my belly.</i>"' );
 		}
 		//Moderate-high cum:
-		else if( CoC.getInstance().player.cumQ() < 4000 ) {
+		else if( CoC.player.cumQ() < 4000 ) {
 			EngineCore.outputText( '\n\nYour blissful release surges from you like froth from an over-shaken champagne bottle, gushing into Minerva\'s cunt with such eagerness that it barely needs her threshing cilia to draw it up into her belly, which becomes visibly bloated after your deposit.  "<i>Oh!  Oh!  W-wow!  That... that\'s a lot.  So warm... I feel... so heavy now.  If I could, I bet you would have gotten me pregnant with all that,</i>" she croons as she strokes her rounded, swollen tummy.' );
 		}//Very high cum:
 		else {
 			EngineCore.outputText( '\n\nThe idle thought that Minerva may have bitten off more than she can chew by holding back your orgasm races across your brain, but is scattered like dust on the wind by the bliss of release.  Minerva\'s belly explosively inflates as gush after frothy gush of copious spunk floods her womb, making it balloon out until it is lying on your own belly, heavy and full.  Minerva\'s eyes widen as her belly swells bigger and bigger, her trim, firm stomach soon appearing like she was carrying a whole litter of baby shark girls inside her.  Her hands gently stroke her huge, drum-tight belly, the massive load gently sloshing around in her womb.  "<i>G-geez... how can you let out so much...  Oh gods... so much...  You could knock up a whole village with all this stuff.</i>"' );
 		}
 		//Moderate-very high only:
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( '\n\nNot nearly done, but needing to let off a bit of your load so the fun can continue, Minerva slowly rises from your ' + Descriptors.cockDescript( x ) + ', grinning as her tentacles make sure to sting you again, wanting to keep you hard and aroused so she can play some more.  The perky, cum-filled siren doesn\'t bother moving off of your body before pressing on her tummy and making a veritable flood of hot, thick cum pour from her tight, sharky cunt and splatter across you; she is going to be very well-lubed for the next stage of fun.  Squatting back down, she slowly licks her lips before sliding back down onto your, once again, venom-bloated dick, her tentacles getting ready to sting you some more for good measure.' );
 		} else {
 			EngineCore.outputText( '\n\nNot nearly done with you yet, Minerva squeezes down on you tightly with her exquisite cunt, her tentacles may have let go, but they are still squirming around, the playful things preparing a second dose of their potent payload.  "<i>I\'m </i>so<i> not done with you yet, I want this to be memorable.</i>"' );
 			EngineCore.outputText( '\n\nHeaving gasps of breath, you ask her what she has in mind.  "<i>Mmm... well, I don\'t want you getting tired, so I\'m going to go first...</i>" she says with a grin as she runs her hands up your [chest].  The siren\'s tentacles slither over' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ' your balls and' );
 			}
 			EngineCore.outputText( ' the base of your ' + Descriptors.cockDescript( x ) + ', stinging you again and again like an overzealous jellyfish, pumping more of her aphrodisiac venom into your genitals in mind-numbing quantities.' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  A few even slither down into your [vagina] to sting you there as well, making sure you are, at least temporarily, turned into a sex-hungry beast.' );
 			}
 		}
 		EngineCore.outputText( '\n\nYou gasp and writhe, casting a desperate, pleading look at your lover to end your torment and let you be released at last.  With that predatory look in her eyes again, Minerva clenches her strong cunt-muscles around you once more, biting her lip and pressing against you as hard as she can.  Holding you down, she starts to raise her curvy hips and ass up and down, her round butt bouncing against you as she grips your dick tightly, her squirming cilia teasing you even as you\'re ridden by the lusty, dominant herm.' );
 		EngineCore.outputText( '\n\nYou cry out and shake with the effort as your body dredges up a second violent eruption of spunk' );
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( ', Minerva\'s belly visibly bloated by the time you are finished' );
 		}
 		EngineCore.outputText( '.' );
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nUndeterred by your orgasm, Minerva continues to bounce up and down, biting her lip as she hugs you tightly.  Curling her legs under you as she slams her hips down in her own orgasm.  She shudders as her climax fills her, her own forearm-length cock swelling and pulsing, a cool stream of siren sperm lancing out, flying well over you and splattering against moss and stone.  Panting and groaning, Minerva holds her swelling stomach, her hands running over the smooth, taut flesh and feeling how your creamy cum swirls inside her.  "<i>Ooohh... you let out so much... Look at my belly all swollen... looks a bit like I\'m pregnant,</i>" she states with a soft, hopeful tone in her voice.' );
 		}
 		//High:
-		if( CoC.getInstance().player.cumQ() >= 500 && CoC.getInstance().player.cumQ() < 4000 ) {
+		if( CoC.player.cumQ() >= 500 && CoC.player.cumQ() < 4000 ) {
 			EngineCore.outputText( '\n\nMinerva\'s belly almost doubles in size as your massive load adds itself to that which remained from the last orgasm.  Gritting her teeth, she groans as her middle is stretched by your huge sperm-filled load, "<i>Oh gods, I feel so full.  You can really let it out, can\'t you?</i>"' );
 			EngineCore.outputText( '\n\nUndeterred by your orgasm, Minerva continues to bounce up and down, biting her lip as she hugs you tightly.  Curling her legs under you as she slams her hips down in her own orgasm.  She shudders as her climax fills her, her own forearm-length cock swelling and pulsing.  The cool stream of siren sperm lancing out, flying well over you and splattering against moss and stone.  Panting and groaning, Minerva holds her swelling stomach, her hands running over the smooth, taut flesh and feeling how your creamy cum swirls inside her. The thick viral load pooling in her swollen womb and making her bloated belly look positively pregnant. "<i>Ohhh... Just look at how big you\'ve made me, my belly so round, it\'s like i have a baby in my tummy... </i>" she says with a gentle tone, clearly enjoying the fantasy of being pregnant' );
 			if( this.minervaRomanced() ) {
@@ -874,7 +874,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '.' );
 		}
 		//Very High:
-		if( CoC.getInstance().player.cumQ() >= 4000 ) {
+		if( CoC.player.cumQ() >= 4000 ) {
 			EngineCore.outputText( '\n\nYou don\'t know if Minerva could have safely held the entire contents of both this orgasm and the last.  Luckily, this time, she releases most of it to splash back down onto you, but even so, her belly swells rounder and fuller than before, reaching the bloated state of your last orgasm and then some.  Minerva gasps and groans in some discomfort as her belly swells more and more from your torrential flood of jizz, her tummy taut under the sheer amount of cum crammed into her womb.  Finally, to her palpable relief, her swelling stops as a pool of slick spooge forms underneath your bodies, "<i>Ooohh...  How... how did you cum even more this time?  I gotta lay off the venom...</i>"' );
 			EngineCore.outputText( '\n\nUndeterred by your orgasm, Minerva continues to bounce up and down, biting her lip as she hugs you tightly.  Curling her legs under you as she slams her hips down in her own orgasm.  She shudders as her climax fills her, her own forearm-length cock swelling and pulsing.  The cool stream of siren sperm lancing out, flying well over you and splattering against moss and stone.  Panting and groaning, Minerva holds her swelling stomach, her hands running over the smooth, taut flesh and feeling how your creamy cum swirls inside her. Despite her eagerness and accommodating body, you just keep cumming inside her.  Your thick creamy seed fills her womb, forcing the poor baby breeder to swell larger under the pressure of your orgasm.  Your lusty lover groans and moans under the impossibly filling sensation of being stuffed so full of cum.  Thick rivulets ooze out from around your tight fleshy connection to pool around your ass and hips.  Despite her large bodies considerable capacity, you are simply too virile for her body to contain it all.  Even as your tremendous climax tapers off, both your\'s and Minerva\'s hips are soaked in your creamy baby batter.  The poor cum stuffed herm groans and slides her hands over her hugely swollen belly.  Her bright eyes looking down at her gravid form as she continues to stroke herself.  She seems to be lost in a rush of sudden maternal feelings at the sight of how big she\'s gotten.' );
 			if( !this.minervaRomanced() ) {
@@ -884,10 +884,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			}
 		}
 		//Low-to-moderate:
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( '\n\nSighing with satisfaction, Minerva leans down, her sperm-swollen tummy pressing against you and squishing her dick against your body.  It\'s easy to tell she very much enjoyed the sexual union you just shared.  Not yet pulling out, her tight cunt rhythmically squeezes you as she lies on top of you, her fingers tenderly stroking you.  The siren simply basks in the afterglow of sex.' );
 		}//High:
-		else if( CoC.getInstance().player.cumQ() < 4000 ) {
+		else if( CoC.player.cumQ() < 4000 ) {
 			EngineCore.outputText( '\n\nSighing and panting, Minerva rubs her jizz-bloated belly, looking positively pregnant.  She leans down, lying over you and caresses her belly against you.  It\'s easy to tell she very much enjoyed the sexual union you just shared, despite being so full of your cum.  Not yet pulling out, her tight cunt gently squeezes you while she lies on top of you, her fingers tenderly stroking you as she cuddles your body.  The siren simply basks in the afterglow of sex.' );
 		}//Very high:
 		else {
@@ -896,7 +896,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYou let Minerva hold you against her soft, curvy body, recovering your strength from the draining sex you just had.  Eventually, though, your strength returns and you gently pry yourself free of her, telling her that the sex and her company was wonderful and that, despite still being very aroused from all the venom she stung you with, you need to return to camp.' );
 		if( !this.minervaRomanced() ) {
 			//Default, first time ending:
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ] === 0 ) {
 				EngineCore.outputText( '\n\nMinerva actually seems a little sad that you\'re leaving.  "<i>I guess you are a busy person.  But I\'m glad we did this; it was a lot of fun.  And... you know...  I wouldn\'t mind if we did this again soon,</i>" she suggests with a small, hopeful smile on her face.  You promise her that you\'ll try to come back again soon.' );
 			}//Repeated ending:
 			else {
@@ -907,10 +907,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		else {
 			EngineCore.outputText( '\n\nThe lovestruck siren sighs and sits up, looking up at you with affection clearly written on her face.  "<i>I hope you\'ll come back soon; I always feel so much happier when you\'re around,</i>" she says as she brings a hand to her chest, holding it over her heart.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ]++;
-		CoC.getInstance().player.orgasm();
+		CoC.flags[ kFLAGS.TIMES_MINERVA_COWGIRLED ]++;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -919,13 +919,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	//SEX SCENE 2.5 female/herm: LAP SEX
 	//PC in Minerva's lap getting fucked by Minerva:
 	MinervaScene.prototype.minervaLapSex = function() {
-		var x = CoC.getInstance().player.cockThatFits( this.minervaACapacity() );
+		var x = CoC.player.cockThatFits( this.minervaACapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features.  Her legs, her curvy hips... your eyes travel past the thick growing bulge in her shorts, up past her scarred, toned belly and to the siren\'s large, luscious breasts before finally reaching her face.  Grinning to the blue and gray herm, you decide what you want from her.' );
 		EngineCore.outputText( '\n\nWithout a second thought, you approach Minerva and slide an arm around her bare back, your other hand reaching for her shorts, slowly giving the tight bulge a squeeze and rubbing it, the tentacled organ starting to swell almost instantly.  "<i>Ooohh!  Someone knows what they want!</i>"  She grins and puts an arm around you, pulling you against her, "<i>How about we get started and have some fun?</i>"' );
 		EngineCore.outputText( '\n\nGently pushing you back, Minerva slides her hands up and down her body erotically, her hands touching her bulging shorts before undoing them and stripping them off, her swollen, anemone-like cock nearly bursting out as soon as it is free from its tight prison.  Now that her more male organ is free of its confines, it rapidly swells to its full, throbbing sixteen inches.  Your eyes can\'t help but be drawn to the tentacle-endowed flesh, Minerva\'s tentacles squirming with her obvious excitement.  Moving up, she lifts her tube top, releasing her breasts for your enjoyment.' );
@@ -933,7 +933,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYou\'re about to ask what Minerva is up to when you suddenly feel something squirming against your [vagina], teasing your nethers with gentle slithering touches.  "<i>Having tentacles down there really comes in handy, don\'t you think?</i>" the siren questions with a playful smirk, her dick tentacles squirming their way into your body.  They tease and slowly sting you with her aphrodisiac venom, the potent poison injecting right into your sensitive vaginal walls.  As soon as your lover\'s toxins seep into your body, your face and body flush, heating up more and more as the tentacles tease and pleasure you, your feminine sex starting to ooze and dampen with your swelling arousal.' );
 		EngineCore.outputText( '\n\nMinerva\'s hands slide down to grope and squeeze your ass tightly, kneading your [butt] with aggressive fingers.  "<i>You\'re so damn sexy, you know that?</i>" she compliments, as her tentacles squirm around inside your body, teasing and stinging you further to help your arousal.  The venom inside you, and the feeling of her tentacles, leave you panting and groaning, all the while, her hands explore your body, touching you teasingly.' );
 		//PC herm:
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( '  One of her hands trail down to your hard herm ' + Descriptors.cockDescript( x ) + ', stroking you softly.' );
 		}
 		EngineCore.outputText( '\n\nMinerva\'s hands grope and squeeze your [fullChest], tweaking your nipples between her fingers.  "<i>Well, now that you\'re nice and ready, how about we start the main event,</i>" Minerva whispers into your ear before nibbling it gently.' );
@@ -941,14 +941,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nShifting your hips back and forth, you tease her tentacled dick, barely keeping yourself from being penetrated, your wet entrance rubbing across the bloated swollen head of Minerva\'s fuckstick.  Finally, you decide it\'s time to get that thick, venom-packed cock into you.  Biting your lip, you start to sink down onto your siren lover\'s thick, throbbing dick, her hands sliding to your hips and grabbing hold of your ass tightly.  Minerva\'s fat anemone dick stretches your [vagina] wide around its girth as you slowly sink down more and more onto Minerva\'s cock, your hips getting further into her lap with every inch you take inside you.  The siren\'s hands grope your rump tighter, kneading your [butt] as if to express her need for you.' );
 		EngineCore.outputText( '\n\nLetting out a groan, your lover can\'t seem to take it any longer and pulls you down into her lap.' );
 		//Nonvirgin:
-		if( !CoC.getInstance().player.hasVirginVagina() ) {
+		if( !CoC.player.hasVirginVagina() ) {
 			EngineCore.outputText( '  The thick siren prick plunges into your soaked cunt and fills your sweltering hole with her oddly cool cock, both of you groaning in delightful pleasure.' );
 		}//Virgin:
 		else {
 			EngineCore.outputText( '  The thick siren prick plunges into your soaked cunt, filling your sweltering pussy with her oddly cool cock, in the process tearing right through your hymen, claiming your first fuck for herself as you bite back a pained yelp, though it is quickly displaced by the pleasure from the stimulation and venom.' );
 		}
 		EngineCore.outputText( '  Minerva basks in the feeling of being balls deep in you, and you revel in the feeling of being so filled and stretched while little tentacles squirm inside you and gently sting you with aphrodisiac venom.  The build-up of all the arousal enhancing toxins running through your body and the pleasure of the pussy-packing cock squeezed into your twat becomes too much to bear.  Your vision explodes with stars and your cunt clenches as you reach an orgasm.  Your body shudders and quivers with spine-tingling ecstasy, your nerves alight with furious sensation while your back arches and presses your [chest] against your siren lover.' );
-		CoC.getInstance().player.cuntChange( 32, true, true, false );
+		CoC.player.cuntChange( 32, true, true, false );
 		EngineCore.outputText( '\n\nLetting out a gasp at the sudden tightness, Minerva grits her sharky teeth and grips your rear harder, clearly trying to hold back her own orgasm.  You could swear you could feel her sizable balls swell in preparation only to be denied.  "<i>Nnnh!  That was close... almost blew my load right there!  You feel so good around me... so warm around my cock.  How do those tentacles feel, hm?  The stinging must feel good,</i>" she says teasingly as she grinds against you, using her grip on you to shift you back and forth slowly and twist her cock inside you.' );
 		EngineCore.outputText( '\n\nGrinning to you, she leans in and nibbles your ear gently before licking the outside playfully.  Just as your orgasm is ending, your siren lover decides that it\'s time to get things moving.  Gripping you tightly, she starts to pull you off her fat length before slamming you back down hard, the forceful action making your [fullChest] bounce and your [vagina] clench in sudden pleasure.  With hard, slow pulls and humps Minerva yanks you up and down, slowly bouncing you in her lap and filling you each time with the squirming, throbbing fullness of her cock.' );
 		EngineCore.outputText( '\n\nIt doesn\'t take long for the sound of wet flesh squishing together to pervade the air, the slapping of skin coming together with each hard, fast impact when your hips collide with Minerva\'s.  Both of you gasp and groan with pleasure as your pace increases.  Leaning you down, Minerva takes a more dominant role, pushing you against the ground without missing a beat, her hips now working against yours as she thrusts into you over and over.  Looking up at your siren lover, you can\'t help but let out a long moan as another dose of her venom is injected into you.  With so much inside you, coursing through your blood and making you more sensitive than ever, each hard thrust of Minerva\'s hips, each grope and touch of her hands across your body, sends shocks of spine-tingling pleasure through your body.' );
@@ -956,17 +956,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '"<i>So good, so good.  Yes, yes, yes, how do you like this?  Getting fucked so good... mmm... getting your pussy pounded so hard...  Nnnngh!  Oh gods... here it comes, hun, I\'m gonna fuck you s-so full of cum,</i>" Minerva says to you as she pulls back from the kiss, the need in her voice quite clear.  Your lover only lasts a few more hard, powerful thrusts before she gasps, her eyes rolling back into her head as she grips you hard, slamming into you and hilting herself, even as her sizable balls clench and swell again, her thick throbbing cock pulsing inside you, signaling her orgasm.  The thick anemone dick seems to bulge with each fat ejaculation, her pent-up balls blowing an immense load inside you, each gush erupting from her tentacle-endowed dick splattering deep inside you, very quickly pooling in your womb and bloating it as more and more fills you.' );
 		EngineCore.outputText( '\n\nThe feeling of being stuffed by such a cool, thick, and sticky fluid sends you spiraling over the edge in a mind-blowing orgasm.  Back arching and hands gripping the ground as you let out a piercing cry, your [vagina] clenches tightly and quivers around the invading member' );
 		//PC herm:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', your own throbbing phallus' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'es' );
 			}
 			EngineCore.outputText( ' cumming alongside,' );
 			//{Low-moderate cum:
-			if( CoC.getInstance().player.cumQ() < 500 ) {
+			if( CoC.player.cumQ() < 500 ) {
 				EngineCore.outputText( ' gushing your cum all over both of your bellies' );
 			}//High cum volume:
-			else if( CoC.getInstance().player.cumQ() < 4000 ) {
+			else if( CoC.player.cumQ() < 4000 ) {
 				EngineCore.outputText( ' splattering thick splooge all over you and Minerva, caking your torsos in fertile jizz' );
 			}//Very high cum:
 			else {
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYou allow Minerva to hold you against her soft body, recovering your strength from the sex you just had.  Eventually, though, your strength returns and you gently pry yourself free.  Telling her that the sex and her company was wonderful and, despite still being very aroused due to all the venom she stung you with, you need to return to camp.' );
 		if( !this.minervaRomanced() ) {
 			//Default, first time:
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_LAPSEXED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_MINERVA_LAPSEXED ] === 0 ) {
 				EngineCore.outputText( '\n\nMinerva actually seems a little sad that you\'re leaving.  "<i>I guess you are a busy person.  But I\'m glad we did this, it was a lot of fun.  And... you know...  I wouldn\'t mind if we did this again, soon,</i>" She suggests with a small, hopeful smile on her face.  You promise her that you\'ll try to come back again soon.' );
 			}
 			//Default, repeated:
@@ -992,11 +992,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		else {
 			EngineCore.outputText( '\n\nThe lovestruck siren sighs and sits up, looking up at you with affection clearly written on her face.  "<i>I hope you\'ll come back soon, I always feel so much happier when you\'re around,</i>" she says as she brings a hand to her chest, holding it over her heart.' );
 		}
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_LAPSEXED ]++;
-		CoC.getInstance().player.orgasm();
+		CoC.player.slimeFeed();
+		CoC.flags[ kFLAGS.TIMES_MINERVA_LAPSEXED ]++;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1008,7 +1008,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	MinervaScene.prototype.goDownOnAHermAndLoveItYouDirtySlutYou = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features, starting with her long legs, and her wide, flared hips.  Your eyes travel past the thick bulge in her shorts, going up her scarred toned belly and up to the siren\'s perky DD-cup breasts before finally reaching her face.  Grinning to the blue and grey herm, you tell her you want to give her some pleasure for a change, your words bringing some surprise to her face.  "<i>R-really?  You want to focus on me and my pleasure?</i>" she asks, pleasantly surprised that you want her to be the focus of pleasure this time, a smile full of shark-like teeth soon spreading across her face, "<i>Well, if you\'re sure, how could I reject such an offer?</i>"' );
 		EngineCore.outputText( '\n\nLicking your lips in anticipation of the tongue-tingling sexual act you\'re about to perform on the shark-like herm, you can\'t help but look forward to tasting the siren\'s unique flavor.  Guiding your lover, you lead her over to the mossy ground that surrounds the pure spring, and help Minerva into the best possible position.  The lovely siren moves to her hands and knees, pushing her round, firm ass out for you and spreading her legs as she looks back at you with a violet blush clearly staining her cheeks.  "<i>It\'s a bit embarrassing with you looking at my ass like that,</i>" she says as a playful grin slips into her dark glossy lips.  You snicker and reach out, grabbing her tight shorts and pulling them down her hips to reveal her shapely blue and white rump, your hands sliding over the firm round cheeks before giving her a squeeze, your touch drawing a mewl from your lover.' );
 		EngineCore.outputText( '\n\nLooking up from her delightful rear, you catch a glimpse of the bright blush on her cheeks.  "<i>Is my butt that attractive to you?</i>" she asks before gently shaking her rear and drawing up her shark tail to wrap around your neck, her actions beckoning you to go through with your lustful plans.  To answer her question, you raise a hand and bring it down on her, spanking her ample cheeks and drawing a surprised squeak from her.  Not at all finished with her, you grope her rear and kneel down, spreading her knees a little more to give you room to work.' );
@@ -1016,7 +1016,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\n"<i>H-hey, what are you doing back there?  Having you stare at my junk like that is embarrassing,</i>" Minerva says.  You can\'t see it, but you\'re sure she\'s blushing heavily now.  Deciding to put an end to her embarrassment, you slide your hands down from her butt and spread her nethers with your thumbs to get at the soft pink flesh of her inner walls.  Leaning in close, you catch the scent of her arousal, and you could swear it smelt a little bit like the peaches that grow from the trees here.  The soft scent draws you in, making you wonder if she tastes as good as she smells.  You slide your tongue out, drawing it slowly across her spread wet cunt, your tongue pulling a shudder from your shark-like lover as you taste her and discover that she does, indeed, taste a bit like the fruit she consumes so often.' );
 		EngineCore.outputText( '\n\nWith her tasting so good, you could really get into this.  Your hands take hold of her hips as you dig in, your tongue eagerly lapping up her arousal, each lick sending shocks of sweet delight through her body.  Minerva\'s tail tightens around you, clearly not wanting you to stop your tantalizing tonguing.  Her gentle moans reach your ears, telling you how much she is enjoying your attention.  Opening your mouth wider, you draw your teeth up, lightly dragging them over her clitoris and eliciting a sharp gasp from your siren lover, all the while licking and teasing her with your tongue.' );
 		EngineCore.outputText( '\n\nNot wanting to leave it unattended, your hands drift down, taking hold of her big dick and stroking it, ' );
-		if( CoC.getInstance().player.tallness < 96 ) {
+		if( CoC.player.tallness < 96 ) {
 			EngineCore.outputText( 'your fingers not even able to fit around the herm\'s hefty girth' );
 		} else {
 			EngineCore.outputText( 'your fingers barely wrapping around the meaty member, the fat thing throbbing gently' );
@@ -1024,7 +1024,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' as you stroke it slowly.  Your touches are clearly adding to your partner\'s pleasure, her thick masculinity pulsating under your grip, her tentacles reacting to your presence, the dexterous things curling around your hands and fingers, touching you gently, but not stinging you.' );
 		EngineCore.outputText( '\n\nNow ready to give her your full attention, you dive in, your lips pressing against her nethers as your tongue slides in, giving her a perverted tongue filled kiss.  Your teasing tongue slides in deep and pleasures her inner walls, licking and lapping at every sensitive surface it can reach.  As you lick, you can clearly feel the squirming cilia that cover the quivering depths of her cunt, the little squirming things tickling your tongue as you lick.  ' );
 		//Dragon/Demon tongue
-		if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_DEMONIC || CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_DRACONIC ) {
+		if( CoC.player.tongueType === AppearanceDefs.TONUGE_DEMONIC || CoC.player.tongueType === AppearanceDefs.TONUGE_DRACONIC ) {
 			EngineCore.outputText( 'Your deliciously long tongue slithers deeper and deeper, reaching sensitive walls and nerves that only the deepest penetrations would reach.  The deep licking makes Minerva shudder and let out a long drawn out moan, "<i>O-oh!  Your tongue is so... licking me so deep...</i>"' );
 		}
 		EngineCore.outputText( '  The intimate vaginal kiss is working wonders for the siren.  Her sweet, slick juices leak over your tongue, giving you plenty of the peachy flavor that you crave.  As you tongue your lover\'s pussy and tease her clit, your hands work her thick, pulsating cock, pre-cum slowly coating your hands and making it easy for you to squeeze tighter and stroke her faster.' );
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nYour lover\'s shuddering, lyrical cries of utter delight echo through the tower as she cums mind-blowingly hard, your attention to both her genitals giving her two potent orgasms simultaneously.  After nearly a minute of constant delight, her climax finally comes to an end.' );
 		EngineCore.outputText( '\n\nThe intense sexual crescendo leaves her panting and sweaty as she struggles to stay up, her entire body shaking like jelly.  "<i>Oh... oh, [name], that was amazing.  Gods... I came so hard, from both my dick and cunt...  You\'re amazing, you know that, hun?  Look at all that seed you made me waste,</i>" she says, looking back at you with a playful grin.  Minerva loosens the hold her tail has on you, giving you the chance to pull back from her juicy nethers' );
 		//if demonic tongue:
-		if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
+		if( CoC.player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
 			EngineCore.outputText( ', your perversely prehensile tongue slowly retracting from her quivering quim, rubbing and teasing as it comes out and nearly sending the overly sensitive herm into another climax' );
 		}
 		EngineCore.outputText( '.' );
@@ -1070,7 +1070,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nThe siren\'s arms wrap around you and hugs you against her, with the clear intent on cuddling for a while.  "<i>That was lovely, I\'m </i>so<i> glad to have someone that doesn\'t mind taking care of my needs.  Now, how about we cuddle for a bit, we can just lay here together, your head resting at my breast as I cuddle my thoughtful lover,</i>" she whispers to you softly, and with an invitation like that, how can you say no?  Settling into her grasp, you nuzzle her soft cleavage and relax against your siren lover\'s cool body.' );
 		EngineCore.outputText( '\n\nFor a long while, you just lay there, cuddled up with the mostly naked siren, the two of you idly chatting about various things that come to mind.  Eventually, you must leave the gentle embrace and return to your duties as a Champion.  Disentangling yourself from Minerva, you straighten your clothes out and, with a smile, tell her you had a wonderful time.  Grinning up at you, Minerva climbs back onto her feet and pulls you into a deep, tongue-tangling goodbye kiss.  "<i>It was amazing, we have to do this again.  Perhaps next time, I can do you, hmm?</i>" she suggests, not wanting to be greedy and get all the pleasure.  Giving you another peck on the cheek, the siren sends you on your way after telling you to come back and visit soon.' );
 		EngineCore.dynStats( 'lus', 20 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1079,82 +1079,82 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	//4-6= sex scene 6: Blow job!
 	//any - Minerva sucks off male/herm = needs penis
 	MinervaScene.prototype.letMinervaSuckYouOff = function() {
-		var x = CoC.getInstance().player.cockThatFits( this.minervaVCapacity() );
+		var x = CoC.player.cockThatFits( this.minervaVCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features.  Starting with her long legs, and moving up to her wide, flared hips, your eyes travel past the thick bulge in her shorts, going up her scarred belly to the siren\'s perky DD-cup breasts before finally reaching her face.' );
 		EngineCore.outputText( '\n\nGrinning to the blue and grey herm you decide what you want from her, your eyes soon falling onto her succulent, glossy black lips, and the long demonic tongue that you know is hidden inside.  Grinning and thinking of all the things that tongue could do, you decide you want some nice oral pleasure.' );
 		EngineCore.outputText( '\n\nHearing your request brings an unsure look to Minerva\'s face.  "<i>You want me to suck you off?  Well, I guess that wouldn\'t be so bad...  You\'re sure about this?  I mean, aren\'t you a bit freaked out by my teeth?  I promise I would never bite, but still...</i>"  Undeterred by her sharky features, you answer her.  You know she would not harm you like that.  Guiding her over to one of the fallen pieces of stone, you' );
 		//If naga:
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( ' lounge against the rock, spreading open your protective slit and letting your ' + Descriptors.cockDescript( x ) + ' hang free.' );
 		} else {
 			EngineCore.outputText( ' sit down, spreading your [legs] and opening up the crotch of your [armor] to the air, letting your ' + Descriptors.cockDescript( x ) + ' hang free.' );
 		}
 		EngineCore.outputText( '\n\nAnxious and ready, Minerva looks down at you before kneeling, placing a hand on your [hips] as she takes hold of your ' + Descriptors.cockDescript( x ) + ' and slowly starts to stroke it.  Her eyes looking up at you, she leans in and starts to gently lick your hardening flesh with the tip of her tongue.  Under her careful, deliberate attentions your manhood is quickly brought to full attention.' );
 		//if cock area 21+:
-		if( CoC.getInstance().player.cockArea( x ) < 21 ) {
-		} else if( CoC.getInstance().player.cockArea( x ) < 34 ) {
+		if( CoC.player.cockArea( x ) < 21 ) {
+		} else if( CoC.player.cockArea( x ) < 34 ) {
 			EngineCore.outputText( '\n\nMinerva\'s eyes widen as your dick grows before her eyes.  "<i>Goodness, you have a pretty good size, don\'t you?  I\'m going to make you feel really good.</i>"' );
 		}
 		//if cock area 34+:
-		else if( CoC.getInstance().player.cockArea( x ) < 60 ) {
+		else if( CoC.player.cockArea( x ) < 60 ) {
 			EngineCore.outputText( '\n\nMinerva\'s eyes widen as your dick grows and grows, quickly growing almost as large as her own sizable package.  "<i>Wow, you\'re hung, aren\'t you?  I\'ll do my best to take everything... wow,</i>" she says with a blush on her face.' );
 		}//if cock area 60+:
 		else {
 			EngineCore.outputText( '\n\nMinerva\'s eyes widen and her mouth opens in shock as your dick grows and grows... and grows, quickly dwarfing her own sizable package.  "<i>G-geez, what a huge dick, it\'s enormous...</i>" she says with wonder in her voice.  Gulping, she licks her lips.  "<i>W-well... I\'ll do my best to take all of it...</i>"  A little nervousness is mixed into her voice, but with how tall she is, you\'re sure she could take it all.' );
 		}
-		EngineCore.outputText( '\n\nTaking a relaxing breath, Minerva dives right into it, her long tongue slithering out to lick your hard, sensitive flesh, wrapping around the tip and giving the most sensitive part of your dick a good squeeze.  The heat-quenching chill of her wet tongue feels remarkable on your hard prick, the tight squeeze pulling a gasp from your mouth.  Your hands move over her head and into her dark red hair, and you\'re suddenly relieved that she can\'t envenom you this way.  Wanting to show you what she\'s made of, your siren leans in, dragging her cool wet tongue up your ' + Descriptors.cockDescript( x ) + ' from base to tip before planting a kiss right on the ' + CoC.getInstance().player.cockHead( x ) + ' of your throbbing, needy dick.' );
+		EngineCore.outputText( '\n\nTaking a relaxing breath, Minerva dives right into it, her long tongue slithering out to lick your hard, sensitive flesh, wrapping around the tip and giving the most sensitive part of your dick a good squeeze.  The heat-quenching chill of her wet tongue feels remarkable on your hard prick, the tight squeeze pulling a gasp from your mouth.  Your hands move over her head and into her dark red hair, and you\'re suddenly relieved that she can\'t envenom you this way.  Wanting to show you what she\'s made of, your siren leans in, dragging her cool wet tongue up your ' + Descriptors.cockDescript( x ) + ' from base to tip before planting a kiss right on the ' + CoC.player.cockHead( x ) + ' of your throbbing, needy dick.' );
 		//If balls:
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  Her hand on your hip moves down between your legs, sliding inwards to gently caress and massage your cum-filled [balls] to increase your pleasure even more, her hands trying their best to get your nuts worked up and prepare a good load for her at the end.' );
 		}
 		EngineCore.outputText( '\n\nHolding the kiss for a moment, your siren lover slides her tongue out, slowly teasing around the tip.  She look up at you briefly, before a playful smirk slips across her face, her tongue extending from her mouth like a snake, the long appendage coiling around your length and constricting around you tightly, sending shudders of pleasure through your body.  The oral embrace feels tight, wet and cool around your comparatively hot dick, the tip of her tongue teasing the underside of your hard flesh' );
 		//If balls:
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' before licking and teasing your [balls]' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nWith your ' + Descriptors.cockDescript( x ) + ' firmly captured by her tongue, Minerva leans down, opening her mouth wide and taking you inside its cool, wet confines, even as her tongue squeezes you and slides around your warm, sensitive flesh.  Looking up at you with a playful twinkle in her eyes, she starts to suck and squirm her tongue around on you, the long, prehensile appendage switching between licking over your throbbing cockmeat and squeezing it in a snakelike embrace.' );
 		EngineCore.outputText( '\n\nPuckering her glossy black lips, Minerva starts to bob her head, taking in more and more of you with each downwards motion' );
 		//If cockarea 50+:
-		if( CoC.getInstance().player.cockArea( x ) >= 50 ) {
+		if( CoC.player.cockArea( x ) >= 50 ) {
 			EngineCore.outputText( ', your huge cock deep inside her mouth, and soon far down her throat.  With some difficulty, her slightly angular nose presses down against your crotch, every inch of your ' + Descriptors.cockDescript( x ) + ' trapped inside her cool, wet mouth and throat' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nSlurping and licking your package, she continues to bob her head up and down, working your length with everything she can.  Looking down behind her, you can clearly see her shapely rump swaying back and forth, she\'s clearly not minding the sexual act.' );
 		EngineCore.outputText( '\n\nThe furiously teasing tongue-action, coupled with the powerful sucking, leaves you braced against the rock, groaning in sweet pleasure as Minerva works your dick, practically worshiping your manhood, her tongue licking and wrapping around you as she sucks and pulls you deep inside.  With how good her mouth is, you\'re glad she can\'t sting you with her aphrodisiac in this situation, or she would surely reduce you to a quivering pile of lust.' );
 		//If vagina:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nExtending her tongue as far as she can, Minerva slithers it further from her mouth and down to your womanhood, her demonic tongue licking around your puffy lips before snaking its way inside to cause you more pleasure, licking and squirming against your walls and making you gasp and quiver under her attentions.' );
 		}
 		EngineCore.outputText( '\n\nPanting and groaning, you know you can\'t hold out for long, and you slide your hands into your lover\'s hair.  Your sudden gasping and grabbing hold of her head warn her of your impending orgasm' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ', while your [balls] lurch and swell, rising up as you reach your climactic explosion' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nGripping Minerva\'s head tightly, you let out a long deep moan, your ' + Descriptors.cockDescript( x ) + ' bloating with each ejaculation.  Eager to please, Minerva does her best to drink down every drop you give her, her hands gripping your [hips] and pressing her nose against your crotch, puckering her full black lips around your [sheath].' );
 		//Low cum:
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nFeeling your orgasm burst inside her, Minerva\'s long tongue licks up every drop as she keeps sucking you hard, determined to milk as much as she can from you.  Not lasting very long, your climax dies down, leaving you panting as Minerva slowly pulls her tongue off of you and licks her lips, leaning back from your saliva-soaked cock.  "<i>Mmm, did you like that?  I didn\'t do too bad, did I?  And, you know, you don\'t taste too bad, either,</i>" she says with a shark-like grin before licking your tip.  "<i>I wouldn\'t mind doing this again with you.</i>"' );
 		}//Moderate cum:
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nFeeling your orgasm burst inside her, Minerva\'s long tongue licks up every drop as she keeps sucking you hard, your load slightly bigger than she had thought, your warm seed filling her mouth and completely drenching her tongue in the sticky stuff.  Lasting about a minute, your powerful, breathtaking climax dies down as your siren lover swallows one last time, her tongue licking you a bit longer just to make sure, before popping off your saliva-drenched dick.  "<i>Mmm, that was pretty good, and you let out more than I expected!  I didn\'t do too bad, did I?  You don\'t taste too bad either, either, you know</i>" she says with a shark-like grin before licking your tip.  "<i>I wouldn\'t mind doing this again with you.</i>"' );
 		}//High cum:
-		else if( CoC.getInstance().player.cumQ() < 4000 ) {
+		else if( CoC.player.cumQ() < 4000 ) {
 			EngineCore.outputText( '\n\nFeeling your orgasm suddenly burst inside her, Minerva\'s long tongue licks up every drop as she keeps sucking you hard, your load notably bigger than she thought it would be, flooding her mouth and puffing out her cheeks, forcing her to struggle to swallow and gulp down your thick, copious load.  Lasting well over a minute, your stomach-filling ejaculations finally end, and Minerva pops off your cum hose with a deep sigh, some of your pearly cream running down her chin before being licked up by that delightfully long tongue of hers.  "<i>W-wow... that was quite the load.  I\'m impressed, I wasn\'t expecting to get such a... filling meal like this, but you taste pretty good.  And I don\'t think I\'m too bad at giving head, either, considering how much I made you cum,</i>" she says with a shark-like grin and a gentle pat on her slightly swollen tummy.  "<i>I wouldn\'t mind doing this again with you.</i>"' );
 		}//holy shit cum volume:
 		else {
-			EngineCore.outputText( '\n\nFeeling your orgasm suddenly burst inside her, Minerva\'s long tongue licks up every drop as she keeps sucking you hard, your colossal load far more than she was expecting.  Like a great flood, your sperm gushes into her sucking mouth, quickly overflowing Minerva despite her constant swallowing and attempts to contain it, her stomach rapidly bloating under the intense flow.  Choking and gagging on the thick cream filling her throat, Minerva squeezes her eyes shut, not about to give up and pull away.  She swallows great gulps of your thick, hot cum, but can\'t catch it all and some begins to gush from her nose and the seal of her lips.\n\nWith your orgasm lasting for what has to be several minutes, you let out a long, satisfied groan as your sperm fountain of a cock is finally released from Minerva\'s sucking mouth.  The filled up siren groans and leans back, a hand on her bloated, cum-stuffed belly, her chest and face plastered with your thick, white cream.  Coughing a couple of times to free her throat and sinuses from your jizz, she stares up at you with shock and awe.  "<i>Gods... I had no idea you could cum so much, I\'ve never seen such a potent ' + CoC.getInstance().player.mf( 'male', 'herm' ) + ' before...</i>" she chuckles, before coughing some more, "<i> I don\'t think I\'m going to have to eat dinner tonight, that\'s for sure...</i>" she says with a bit of a laugh as she pats her tummy.  "<i>Despite almost drowning me in your cum, I wouldn\'t mind doing this again with you, you\'re surprisingly delicious!</i>"' );
+			EngineCore.outputText( '\n\nFeeling your orgasm suddenly burst inside her, Minerva\'s long tongue licks up every drop as she keeps sucking you hard, your colossal load far more than she was expecting.  Like a great flood, your sperm gushes into her sucking mouth, quickly overflowing Minerva despite her constant swallowing and attempts to contain it, her stomach rapidly bloating under the intense flow.  Choking and gagging on the thick cream filling her throat, Minerva squeezes her eyes shut, not about to give up and pull away.  She swallows great gulps of your thick, hot cum, but can\'t catch it all and some begins to gush from her nose and the seal of her lips.\n\nWith your orgasm lasting for what has to be several minutes, you let out a long, satisfied groan as your sperm fountain of a cock is finally released from Minerva\'s sucking mouth.  The filled up siren groans and leans back, a hand on her bloated, cum-stuffed belly, her chest and face plastered with your thick, white cream.  Coughing a couple of times to free her throat and sinuses from your jizz, she stares up at you with shock and awe.  "<i>Gods... I had no idea you could cum so much, I\'ve never seen such a potent ' + CoC.player.mf( 'male', 'herm' ) + ' before...</i>" she chuckles, before coughing some more, "<i> I don\'t think I\'m going to have to eat dinner tonight, that\'s for sure...</i>" she says with a bit of a laugh as she pats her tummy.  "<i>Despite almost drowning me in your cum, I wouldn\'t mind doing this again with you, you\'re surprisingly delicious!</i>"' );
 		}
 		EngineCore.outputText( '\n\nDeciding to relax for a while after your sexual exertion, you curl up on the soft moss with Minerva, both of you just basking in the warmth that the spring gives off, and the softness of the moss, content with each other\'s presence.  Unfortunately, you know you have to go; the call of your duty to this land is too great, and despite the comfort of this place, you must go.  Pulling away from the siren you promise to return and visit her soon.' );
 		//PC returns to camp.
-		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.player.orgasm();
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1163,23 +1163,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	//4-4= sex scene 4:  hand held behind
 	//any- pc fucks Minerva, holding min's wrists from behind
 	MinervaScene.prototype.fuckMinervaWithHerHandsBehindHerBack = function() {
-		var x = CoC.getInstance().player.cockThatFits( this.minervaVCapacity() );
+		var x = CoC.player.cockThatFits( this.minervaVCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
-		CoC.getInstance().flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
+		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Looking the lean, toned herm up and down, your eyes trail over her every curve as you think over your options, figuring out what kind of sexual adventure you\'d like to go on with the redheaded siren.  Your eyes undressing what little clothes she has on as you visually molest the sharky herm.  Your intense gaze is drawing a blush from the herm, her eyes looking away shyly.  "<i>Hey... you know how it makes me feel when you look at me like that... but I am glad you like how I look,</i>" the bashful herm admits before grinning, thrusting her hip out, posing for you and showing off her body.' );
 		EngineCore.outputText( '\n\nWith her posing like this, it\'s easy to get a good look at the teasing siren.  Wanting to get a closer look, you start to walk around her, your eyes running over every inch of her, inspecting her form.  Finally, your eyes come to a rest on Minerva\'s full, perky rump and the tight pink pussy that rests between her legs.  Licking your lips, you approach her from behind, your hands grabbing handfuls of her tight, short-clad rump and squeeze, drawing a sharp gasp and small jump from Minerva before she looks back at you with a blush.  "<i>Getting a bit grabby, are we?  Well, guess someone knows what they want,</i>" she says with a grin before pushing her butt back at you and grinding it against your hands.' );
 		EngineCore.outputText( '\n\nReaching back, the siren slips an arm around you and leans back, smiling to you.  "<i>So, how about you show me just what you want?</i>"  she asks, letting out a throaty coo as if to entice you.  With such an invitation, how could you not?  You know just what to do with her.  Leaning closer, you whisper to her, telling her to trust you just before smirking and pushing her forward.  The herm tumbles onto one of the fallen stones that she likes to use as a seat, letting out a squawk of surprise as she falls.  The siren thankfully catches herself on the stone, her body now fully bent over the rocks with that tight, round ass sticking up, just asking for your attentions, begging to be played with.  Looking back at you, Minerva smiles before grinning and wiggling her hips at you.  "<i>So, you wanted me bent over a barrel for you, huh?  Shame I don\'t have any, but this will do,</i>" she says with a giggle before flicking her sharktail at you.' );
 		EngineCore.outputText( '\n\nWith her so eagerly shaking her hips like that, what could you do but give the siren just what you both want.  Grabbing hold of her hips, you reach down, quickly undoing her skin-tight shorts and yanking them down.  Tossing the garments aside as you slip a hand between Minerva\'s toned thighs and feel up her cool, pink pussy.  The tight entrance to her body is damp from her strong libido, your soft, teasing touch on such a sensitive part of her is pulling shivers and small croons from her black glossy lips.  Your fingers stroke and caress the soft pink folds nestled between her legs, slowly becoming wet with Minerva\'s growing arousal.' );
 		EngineCore.outputText( '\n\nNot yet ready to get down and dirty with the sexy siren, you continue your teasing touches, wanting the herm to beg you to take her.  Knowing how sensitive Minerva\'s round, curvy rear is, you decide to give it your special treatment before spearing your length into her tight depths.  Sliding your hands from the cool wet opening between her legs, you grab hold of the toned cheeks on either side of her tail, kneading the firm, round ass before taking your teasing a step further.  Your hand raises slowly, drawing out the moment and anticipation before bringing it down and spanking the siren like you know she loves.' );
 		EngineCore.outputText( '\n\nYour hands hit again and again, each hard spank rippling the luscious blue and grey rump, and drawing groans and gasps from Minerva every time you plant a new handprint on her round, toned butt.  Your kinky siren is loving the teasing spanking, as her tight pink snatch grows wetter and wetter, and her thick, tentacled cock grows harder and harder, sure signs of her greater arousal.  "<i>H-hey!  Ahh... how... how long are you going to... ooohh... tease me like this?</i>" she asks between spanks and moans of delight from the rough teasing.' );
-		EngineCore.outputText( '\n\nWith her so wet now, it\'s the perfect time to strike!  Deftly pulling your [armor] from your body, you toss the useless pieces away and expose [eachCock] to the air.  Taking hold of [oneCock], you drag its length across Minerva\'s thighs and rump just to tease her a little more before giving the horny herm the hard dicking she craves.  Reaching down, you lift and spread her curvy rear before aligning yourself, your ' + CoC.getInstance().player.cockHead( x ) + ' pressing and kissing her netherlips for a moment, drawing a lusty whimper from the siren before tensing your hips and plowing your iron-hard breeding meat into her with body-jerking power.' );
+		EngineCore.outputText( '\n\nWith her so wet now, it\'s the perfect time to strike!  Deftly pulling your [armor] from your body, you toss the useless pieces away and expose [eachCock] to the air.  Taking hold of [oneCock], you drag its length across Minerva\'s thighs and rump just to tease her a little more before giving the horny herm the hard dicking she craves.  Reaching down, you lift and spread her curvy rear before aligning yourself, your ' + CoC.player.cockHead( x ) + ' pressing and kissing her netherlips for a moment, drawing a lusty whimper from the siren before tensing your hips and plowing your iron-hard breeding meat into her with body-jerking power.' );
 		EngineCore.outputText( '\n\nDespite your brutal thrust, you slide in with ease, Minerva\'s tight walls so slickened with her arousal.  You squeeze into the deliciously tight herm like butter, easily ramming every inch of your ' + Descriptors.cockDescript( x ) + ' into her with only a few hard, deep thrusts.  With your hips pressed against Minerva\'s accepting body, you grind against her, making sure she can feel every inch moving inside her clinging cunt.' );
 		//If balls:
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  As you continue to pound the siren, your [balls] swing between your legs, the sperm-filled orbs churning with your fertility, preparing to fill the needy siren with every drop you can muster when you let loose your eventual orgasm.' );
 		}
 		EngineCore.outputText( '\n\nYou give the quivering form under you a gentle pat on the rump, appreciating its feel one last time before you take her.  Your hips drive you into Minerva\'s tight, contracting sex over and over, her tail thrashing with the pleasure she feels for a moment before tightly wrapping around you, not wanting you to pull out of her or even stop your pistoning hips.  Your usual teasing and foreplay have done their jobs well, getting the herm so ready for you, so sensitive to your touches that you have her moaning you a serenade, your slippery connection squishing audibly with each heavy thrust.' );
@@ -1190,17 +1190,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nMinerva\'s need and lust comes to an explosive end as she arches her back, her perky breasts thrusting forward as she lets out a musical cry of delight and cums around you.  The siren\'s cilia-covered walls clench and squeeze, the hundreds of little feelers lining the inside of her cool, slippery snatch writhing and stroking you through her orgasm, trying to milk you for the cum her body knows you have.  Between her legs, her tentacle-endowed dick pulsates and bulges as she cums, her male genitalia gushing in unison with her tightly constricting cunt.  Her crotch tentacles eagerly go to town on her own dick, stroking and jerking it off as if to milk her own load from her.  The thick siren cum splatters, like the thickest of cream, across the rocks.' );
 		EngineCore.outputText( '\n\nWith your body so stimulated, so aroused by the tight, passionate fuck, and the potent anemone venom coursing through you, you can\'t hold out a minute longer under the siren\'s orgasmic assault.  Letting out what can only be described as a primal roar of dominance, you ram your hips against Minerva, letting go of her wrists and grabbing her flanks tightly, spearing your throbbing cockmeat into her desperately quivering quim and let loose your hot, frothy load into her belly.' );
 		//Low-moderate cum:
-		if( CoC.getInstance().player.cumQ() < 500 ) {
+		if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( '\n\nMinerva groans in delight as your seed bursts into her tight, hungry cunt, the tightness of her walls making sure not a drop is wasted, while hundreds of cilia squirm and draw your cum up and into her waiting womb.  "<i>Yesss... let it all out, let me feel your warmth in my belly,</i>" she demands before her eyes roll back, clearly enjoying the wet heat spreading through her clinging cunt and cum craving womb.' );
 		}
 		//Moderate-high cum:
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYour blissful release surges from you like froth from an over-shaken champagne bottle, gushing into Minerva\'s cunt with such eagerness that it barely needs her thrashing cilia to draw it up into her belly, which becomes visibly bloated after your deposit.  "<i>O-oh!  Oh gods!  F-fuuuck!  That... that\'s sooo, so much.  So hot... so full...</i>" she babbles, letting out a long satisfied sigh before looking down at her sperm-bloated belly.  "<i>Oh gods... what if... you get me pregnant with all that?</i>" she croons as she gulps and looks down, a surprisingly happy look on her face.  Perhaps she wants you to knock her up?' );
 		}
 		//Holy shit!:
 		else {
 			EngineCore.outputText( '\n\nYour inhuman load fills the siren\'s accepting belly with what can only be described as a flood, as gallons of your hot spooge instantly bloat her belly, swelling her womb like a balloon of raw fertility.' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '  Minerva groans and lets out mindless gurgles as you unload your overproductive balls into her.' );
 			}
 			EngineCore.outputText( '  To even your amazement, her hungry womb is able to contain much of your sperm before she can take no more, each blast of potent cum now gushing from between your bodies, the floor soon looking like someone dumped a barrel full of raw milk on the ground before you\'re finally done.' );
@@ -1211,8 +1211,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nWith an amused grin, you give the sharky herm a pat on the rump before heading out, your hand sliding along that sexy tail of hers as you let the well-fucked woman rest.' );
 		//PC returns to camp
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.player.orgasm();
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1228,22 +1228,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nHearing that you want her to put her tongue and mouth to work for some sapphic fun brings a playful grin to Minerva\'s black lips.  "<i>Oh really?  You want to see my oral skills, huh?  Well, I\'m not too shabby, if I have to say,</i>" the sharky herm claims with a smirk before sticking her long demonic tongue out, the far-reaching, saliva-damped organ sliding down between her own breasts and giving a wiggle for emphasis.' );
 		EngineCore.outputText( '\n\nPulling her tongue back in, she gives you another grin and approaches, slipping a hand around and grabbing hold of your [butt] before leading you to the mossy base of one of her fruit trees so you can get comfortable.' );
 		EngineCore.outputText( '\n\nSitting you down with your back against the tree, Minerva kneels her tall body down, looking up at you as she crawls toward you.  Smirking at her attitude, you spread your legs, spreading them wide and opening up the crotch of your [armor] so that Minerva can have her way with your feminine bits' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ', and, perhaps, your more male parts while she\'s down there' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nLicking her lips, the blue and grey herm moves in closer as you free your genitalia and present yourself to her, eager to see what she can do with that mouth of hers.  Grabbing hold of your thighs, Minerva  leans in' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ', one of her hands lifting your [balls] up before giving each of the fertile nuts a kiss' );
 		}
 		EngineCore.outputText( ' and moving down to your sweet cunt, just waiting for her attentions.' );
 		EngineCore.outputText( '\n\nWith a lick of her lips, the siren starts her sexual stimulation.  Leaning in, she plants a kiss on your [vagina], giving your womanly flower a long, slow kiss before sliding her tongue out and licking you, her tongue dragging across your pussy from bottom to top, teasing you as shivers of sweet pleasure run through your body.  As her long tongue teases you, the tip dancing along the outside of your sex, yet never sliding inside.  Her fingers gently caress your vulva, rubbing and stroking you as her perverse oral appendage plays with your entrance.' );
 		//If herm:
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( '\n\nLicking her way up, she drags her tongue up to your hardening maleness, her perversely prehensile tongue coiling around your growing cock and, like a snake, squeezing down around the swelling mass, drawing a gasp of delight from your lips as the long demonic tongue slowly slithers off you, squeezing you even as it uncoils from you and slides back down.' );
 		}
 		//If balls:
-		if( CoC.getInstance().player.balls === 0 ) {
+		if( CoC.player.balls === 0 ) {
 			EngineCore.outputText( '\n\nThe siren\'s tongue proceeds to slither around your spunk-filled nuts, slapping them with her tongue before opening her maw and sucking on one of the fertile orbs, nearly sucking it into her mouth, before moving back to down to your quivering cunt.' );
 		}
 		EngineCore.outputText( '\n\nMinerva plants a kiss on your [clit], her black lips seeming to pucker up and suck on the sensitive bundle of nerves as her tongue flicks and plays with you.  The teasing and toying on such a sensitive part of you rip encouraging gasps from you, your back arching, your hands sliding through the redhead\'s hair, desperate to keep her head right where she is, where she belongs for the moment, between your legs.' );
@@ -1257,14 +1257,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nGrinning at her work, the siren\'s eyes move up and down your sweaty, heavily panting form, a distant lusty look in your eyes as your body continues to twitch from jolts of sweet pleasure.  "<i>Mmm... don\'t go passing out now, cutie.  You wanted me to use my mouth on you, so that\'s just what you\'re getting.</i>"' );
 		EngineCore.outputText( '\n\nUnfortunately... or perhaps fortunately, Minerva is not yet done with you.  Licking her lips clean from your juices, she leans back in and draws her tongue up your still quivering cunt.  The slow, teasing touch on your freshly orgasmic flesh feels even better than before, your eyes snapping wide open as you gasp from the sensation.  Grinning her sharky grin, Minerva digs in again, her hands reaching around and grabbing hold of your [butt] before opening her mouth wide and clamping down on you, enclosing your feminine sex inside her cool, wet mouth, her tongue lashing out and spearing into you again, delving deeper then ever before, licking walls that had been left untouched by the siren.' );
 		//If dick:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nOne of her hands slides back from your rear and across your flesh to your swollen, untouched cock, her soft hand closing around your member and stroking you as she works to send you plummeting back into that ocean of heavenly delights.' );
 		}
 		EngineCore.outputText( '\n\nWith how sensitive you are from your recent orgasms, and the skillful tongue probing your depths like a squirming eel sending jolts of electric pleasure through your quivering depths, it\'s not long before you\'re gasping and panting once again, drool slipping down your chin, your hands gripping both the tree and your sharky lover\'s body.  Deeper and deeper her wriggling tongue slithers, teasing and worming its way inside you until it even reaches your cervix, the tip of Minerva\'s tongue licking all around the edge of your sacred entrance, teasing it tenderly even as she licks every wall inside you.' );
 		EngineCore.outputText( '\n\nUnder the siren\'s renewed relentless assault, it\'s not long before she has you cumming again, your body quaking and shaking like a leaf in the wind.  Mouth open wide, your cries of star seeing splendor fill the tower as your pussy explodes into another orgasm.  Slick juices gush out over your lover\'s tongue, even as she continues to lick up everything you give her.' );
 		EngineCore.outputText( '\n\n' );
 		//If dick:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'Thanks to her handy stimulation, your musky maleness throbs and dilates along your femininity, the thick cockvein feeding your bloating member as your seed rushes out, splattering up and onto Minerva\'s back, defiling her smooth skin with your fertility.  ' );
 		}
 		EngineCore.outputText( 'Her mouth is closed over your hot quaking cunt, catching every drop and sucking hard on you as she slowly retracts her perversely prehensile tongue.  Minerva\'s mind wanders as she muses your unique flavors, her tongue still squirming inside you, making sure to lick up as much of your feminine juices as she can before finally pulling out from your body and letting go of you.' );
@@ -1272,7 +1272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\nNearly an hour goes by as you rest from your orgasms at the hands of Minerva\'s skilled mouth and tongue.  Stirring softly, you feel the siren cuddled up next to you, her bright, electric blue eyes looking at you tenderly as you awaken, perhaps even watching you as you slept.  Slowly sitting up, you stretch and yawn, feeling somewhat rejuvenated from the pleasurable sex and brief nap.  You let out a content sigh and look around for your clothes, only to remember that you never took them off in the first place, though it seems they have been fixed up by the dutiful siren.  Though you had a wonderful time with the scantily clad hermaphrodite, you must return to your duties as a Champion.' );
 		if( !this.minervaRomanced() ) {
 			//First time ending:
-			if( CoC.getInstance().flags[ kFLAGS.MINERVA_LEZZES_OUT ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MINERVA_LEZZES_OUT ] === 0 ) {
 				EngineCore.outputText( '\n\nMinerva actually seems a little sad that you\'re leaving.  "<i>Well, I guess you are a busy person.  But I\'m glad we did this though, it was a lot of fun.  And, you know... I wouldn\'t mind if maybe we could do this again, soon,</i>"  she says with a small, hopeful smile on her face.  You promise her that you\'ll try to come back again soon.' );
 			} else {
 				EngineCore.outputText( '\n\nSeeing that you have to leave again draws a disappointed sigh from the lonely siren.  "<i>Well, if you have to go... come back soon, we can do this again, if you want...  I know I\'ve enjoyed our encounters,</i>" she says with a genuine smile on her slightly angular face.  You promise her that you\'ll try to come back again soon.' );
@@ -1283,11 +1283,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( '\n\nThe lovestruck siren sighs and sits up, looking up at you with affection clearly written on her face.  "<i>I hope you\'ll come back soon, I always feel so much happier when you\'re around,</i>" she says as she brings a hand to her chest, holding it over her heart.  Smiling down at the tender woman, you promise her that you\'ll try to come back again soon and visit her.' );
 		}
 		EngineCore.outputText( '\n\nWith that, you turn and start the long hike back to camp.' );
-		CoC.getInstance().flags[ kFLAGS.MINERVA_LEZZES_OUT ]++;
+		CoC.flags[ kFLAGS.MINERVA_LEZZES_OUT ]++;
 		// PC returns to camp
 		EngineCore.dynStats( 'sen', -2 );
-		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.player.orgasm();
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1298,12 +1298,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//PC loss by physical
-		if( CoC.getInstance().player.HP < 1 ) {
+		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'Falling back from the siren\'s final strike, the blow sends you on your back as you drop your [weapon] in exhaustion.  Thankfully, the soft, pillow-like moss covering the ground softens your fall.  As you lay there, panting and exhausted from the fierce spar you had with the halberd-wielding siren, you hear her approach, laying her weapon on the ground and beginning to tend to your wounds.  "<i>Are you all right, [name]?  Was I too rough on you?</i>" she says with a worried tone in her voice.' );
 			EngineCore.outputText( '\n\nThe friendly siren smiles down at you as she cares for you.  "<i>I thought you did well!  You put up a real fight, but looks like Minerva came out on top this time!</i>" she chirps happily with a proud look on her face.  After healing your wounds, Minerva helps you up and holds toward you a freshly picked peach.  "<i>Here, eat this.  It will help you recover your strength.</i>" she says, sending you on your way.  ' );
 			// return PC to options- no combat option
 			// PC gains 1 Purity peach
-			CoC.getInstance().monster.createStatusAffect( StatusAffects.PeachLootLoss, 0, 0, 0, 0 );
+			CoC.monster.createStatusAffect( StatusAffects.PeachLootLoss, 0, 0, 0, 0 );
 			SceneLib.inventory.takeItem( ConsumableLib.PURPEAC, SceneLib.camp.returnToCampUseOneHour );
 			Combat.cleanupAfterCombat();
 		}
@@ -1321,7 +1321,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//Win by damage
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'With your final blow against the siren, you send her silver halberd flying from her hands.  The metal weapon skitters across the ground as Minerva herself falls to the soft moss, her sharky skin covered in sweat and bruises as she sits her butt down, letting out a sigh.  "<i>Wow... you sure are something, aren\'t you...  I\'m glad this was just a friendly spar and not a real fight,</i>" she says with a content smile on her face as she looks up at you.  You could swear that she is even blushing a little.  "<i>Such a big strong warrior you are.</i>"' );
 			EngineCore.outputText( '\n\nAfter a moment, the siren manages to get up before presenting you with a freshly picked peach and a small sack.  "<i>I get these gems from the harpies, they seem to like shiny things, but I have no use for them... though I could do with some decorations I guess.  And here\'s a peach, as well, it\'ll help you regain your strength... not that you need it with how strong you are...</i>" she says with a coy chuckle.\n\n' );
 			//PC gains 1 purity peach
@@ -1363,10 +1363,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//[Drink]
 		EngineCore.outputText( '\n\nApproaching the pristine pond, you kneel on the shore and dip your hands into the water, cupping them together and lifting them out to scoop up a decent drink.  The water is cool and sweet to the taste, and every swallow makes you feel calmer, cleaner, and refreshed.  You drink until your thirst is quenched, feeling purer in both mind and body.' );
 		EngineCore.dynStats( 'lus', -25, 'cor', -0.5, 'resisted', false );
-		if( CoC.getInstance().player.cor > 50 ) {
+		if( CoC.player.cor > 50 ) {
 			EngineCore.dynStats( 'cor', -1 );
 		}
-		if( CoC.getInstance().player.cor > 75 ) {
+		if( CoC.player.cor > 75 ) {
 			EngineCore.dynStats( 'cor', -1 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );

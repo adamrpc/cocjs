@@ -31,12 +31,12 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			exploreLoc = 0;
 		}
 		//Set 'PC met Sharkgirls' for Izma stuff;
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] = 1;
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] === 0 ) {
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] = 1;
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.SharkGirl ) < 0 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.SharkGirl, 0, 0, 0, 0 );
-		} else if( CoC.getInstance().player.statusAffectv1( StatusAffects.SharkGirl ) >= 7 && CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SharkGirl ) < 0 ) {
+			CoC.player.createStatusAffect( StatusAffects.SharkGirl, 0, 0, 0, 0 );
+		} else if( CoC.player.statusAffectv1( StatusAffects.SharkGirl ) >= 7 && CoC.player.totalCocks() > 0 ) {
 			EngineCore.spriteSelect( 70 );
 			this.sharkBadEnd();
 			return;
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 	SharkGirlScene.prototype.sharkWinChoices = function() {
 		EngineCore.spriteSelect( 70 );
 		//HP Win;
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'The shark-girl falls, clearly defeated.', true );
 		}
 		//Lust win;
@@ -71,15 +71,15 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			EngineCore.outputText( 'The shark-girl begins masturbating, giving up on dominating you.  The sight is truly entrancing.', true );
 			EngineCore.dynStats( 'lus', 15 );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Do you have your way with her or leave?', false );
-			var dildo = (CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.tamaniDildo.sharkGirlGetsDildoed : null);
-			if( CoC.getInstance().player.gender === 1 ) {
+			var dildo = (CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.tamaniDildo.sharkGirlGetsDildoed : null);
+			if( CoC.player.gender === 1 ) {
 				EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy w/69', null, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
-			} else if( CoC.getInstance().player.gender === 2 ) {
+			} else if( CoC.player.gender === 2 ) {
 				EngineCore.choices( 'Yes', this.sharkgirlSixtyNine, '', null, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
-			} else if( CoC.getInstance().player.gender === 3 ) {
-				if( CoC.getInstance().player.isNaga() ) {
+			} else if( CoC.player.gender === 3 ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy Oral', this.sharkgirlSixtyNine, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
 				} else {
 					EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy w/69', this.sharkgirlSixtyNine, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
@@ -91,17 +91,17 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 	};
 	//Male and Herm: ;
 	SharkGirlScene.prototype.sharkgirlDickFuck = function() {
-		CoC.getInstance().player.addStatusValue( StatusAffects.SharkGirl, 1, 1 );
+		CoC.player.addStatusValue( StatusAffects.SharkGirl, 1, 1 );
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 70 );
 		//Naga get a different version of this scene.;
-		if( CoC.getInstance().player.isNaga() ) {
-			var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() );
+		if( CoC.player.isNaga() ) {
+			var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 			if( x < 0 ) {
-				x = CoC.getInstance().player.smallestCockIndex();
+				x = CoC.player.smallestCockIndex();
 			}
-			//[if(CoC.getInstance().monster.lust > 99);
-			if( CoC.getInstance().monster.lust > 99 ) {
+			//[if(CoC.monster.lust > 99);
+			if( CoC.monster.lust > 99 ) {
 				EngineCore.outputText( 'You slither towards the furiously masturbating shark-girl. She lies on her back, desperately trying to relieve herself of her lust. She eyes you for a second, but her focus quickly returns to your own sex, moaning and sighing loudly. You admire the scene for a moment, but decide that she must be punished for her attempt to rape you.\n\n', false );
 			} else {
 				EngineCore.outputText( 'You slither towards the defeated shark-girl. She lies on her back, clearly weakend and in pain from the fight. You pity the poor girl for a moment, but you quickly remember that she just tried to rape you. Overcome by the need for revenge and the need to sate your lusts, you decide to punish her for her painful advances on you.\n\n', false );
@@ -115,21 +115,21 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 		else {
 			EngineCore.outputText( 'You sneer at the fallen shark girl, making up your mind to have your way with her. You tear her bikini off as you whip out your ' + Descriptors.cockDescript( 0 ) + ' and start to order, "<i>Get to i--!</i>" But you\'re cut short by the shark girl suddenly taking the entirety of your cock into her mouth, forcing it as deep into her mouth as possible. Quite a slutty creature, that\'s for sure. What surprises you more is that those sharp fangs of hers appear to be retractable, and she has a more human-like set hidden behind them.\n\n', false );
 			//[if herm] ;
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( 'While sucking you off, her hand steadily snakes its way between your legs. Without warning, she shoves three fingers into your ' + Descriptors.vaginaDescript( 0 ) + ', pushing in and stretching the moist passage out.\n\n', false );
 			}
 			EngineCore.outputText( 'You abruptly pull your cock from her mouth, causing the shark girl to gasp in surprise. She looks up at you, tears welling up in her eyes, "<i>Please let me finish! I need this!</i>" You smirk and order the shark girl onto her hands and knees. Her expression brightens and she obediently complies, getting down and raising her ass towards you. Taking a firm grip on her well-toned buttocks, you quickly shove your ' + Descriptors.cockDescript( 0 ) + ' into her damp pussy and the shark girl squeals in excitement. You find yourself surprised by its texture; while it looks human enough on the outside, the inside is actually filled with strange feeler-like structures that wriggle and massage your cock as it pushes through.', false );
 			//[if herm];
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '  The sensation is incredible, and you find yourself massaging your ' + Appearance.biggestBreastSizeDescript() + ' and tweaking your ' + Descriptors.nippleDescript( 0 ) + 's in an attempt to bring your pleasure to even greater heights.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'The shark girl cries out in orgasm, her pussy tightening as the feelers wrap around your cock. The pleasure drives you over the edge, and you pump your load of cum into her needy pussy, the feelers milking you for every drop you have. You pull out, satisfied, and as you turn to leave you see the shark girl rubbing cum into her cunt and winking at you.', false );
 		}
 		Combat.cleanupAfterCombat();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.dynStats( 'cor', 1 );
 		}
 	};
@@ -137,26 +137,26 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 70 );
 		//Nagas don't actually get to 69!;
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'The shark-girl reels and trips, falling onto her back.  You slide quickly towards her as she sits up, bringing a look of sheer terror to her face.  Clearly she is not accustomed to being \'prey\' in any sense of the word.  You decide to change that.  Grabbing her by the shoulders, you push her back down a bit.  Clearly weakened by the fight, she goes limp in your hands, still scared and shaking ever so slightly with fear, but unable to resist.  You take a moment to admire the smooth curves of her body and meditate on how fine a catch you have before you.\n\n', false );
 			EngineCore.outputText( 'The shark-girl begins to stir slightly under you, and you hear a slight annoyance with the delay beneath the obvious fear as she stammers out, "<i>W-what are you waiting for?</i>"  A smile nearly creeps to your face as you muse over her demanding attitude toward someone who just defeated her. Instead, you snap your head up and lock your gaze to her eyes, maintaining a fearsomely expressionless look.  She quickly winces back, clearly expecting something painful to come from you.  After a moment of being frozen in terror, she slowly turns her head back to you.  Her anger is more palpable this time as she says, "<i>Well, get on with whatever it is you\'re doing!</i>"  She opens her eyes, and looks to yours expectantly.  You enjoy the show of her face turning strangely from an expression of anger and fear to one of total confusion as her thoughts begin to cloud, draining as your hypnotizing gaze affects her mind.  She weakly begins, "<i>Why... what are you...</i>" but she\'s unable to complete her sentence or break your spell over her.  Her questions trail off quietly, and her face loses expression, but maintains a blank, slack-jawed stare back at you.  Her muscles relax and you see her limbs slowly go limp as her body seems to forget the situation it\'s in.\n\n', false );
 			EngineCore.outputText( 'You lower her gently back down to the ground, keeping up your expressionless, insistent stare.  You slowly move your hand towards her breasts along her rough skin, and trace one of her nipples lightly with your outstretched finger.  Every bit of her face save for her empty eyes betray the lust building within her body, though she makes no move to relieve herself of it.  You lean down and grab her arm by the wrist, and are glad to see her eyes following yours on their own.  Placing her hand beneath her bikini on her own quickly slickening sex, you slip a few of her fingers inside and guide her hand into a slow rocking motion.  As you begin to speed up the pace, her body seems to take note and moves on its own.  You remove your hand, and she is very soon sighing and moaning with uninhibited pleasure.  You watch her as her masturbation grows less and less mechanical and her hand grows swifter.  Pleased to be the one to cause her vocalizations, you find your own hands parting the folds of your ' + Descriptors.vaginaDescript( 0 ) + '. You slowly slide up her side, your ' + Descriptors.allBreastsDescript() + ' rubbing against her body, stimulated by her rough skin.  Eventually your head is over and slightly behind hers, forcing her to tilt her own head back to maintain your mutual stare.  All the while, she has been pumping more and more of her hand into her loose cunt and moaning rather loudly.  This, along with her blank stare, makes for an odd but arousing sight.\n\n', false );
 			EngineCore.outputText( 'You raise up from her and move your ' + Descriptors.vaginaDescript( 0 ) + ' close to her face.  She doesn\'t appear to notice this or take the hint.  At first you are angered by her thoughtless insolence, but you then remember that you are the one bringing that about.  You point towards your vagina with one hand and reach close to her ear with the other.  As you snap your fingers, she immediately acts as you wish, pushing her face roughly into your crotch and rolling her eyes up in their sockets to maintain eye contact.  Her long tongue slips inside your ' + Descriptors.vaginaDescript( 0 ) + ', the sensation of it pushing far into your depths arousing you and making the pleasurable heat in your sex grow almost unbearable.  You reach behind her head and grind her face into you hard, muffling her moans, though they are soon replaced by your own.  You push her into you, thinking only of how deeply she is able to stimulate you and the pleasure the mindless shark-girl is bringing you.  You feel almost as though you are floating, and you want to stay like this forever, wishing the heat inside you would never stop building.  As you approach your climax, her moans into you grow louder, signaling hers.  The thought is too much and it pushes you over the edge; clenching the shark-girl\'s face into your ' + Descriptors.vaginaDescript( 0 ) + ' you are drawn to orgasm as she is beneath you.  You cry out loudly and she gives a final grunt into your scaly tail.\n\n', false );
 			EngineCore.outputText( 'Pleasure robbing you of thought, you look up, breaking your spell over the shark-girl.  Quickly realizing your mistake, you glance back down to see her paralyzed with confusion, apparently having been dropped back into her own body during her orgasm.  She doesn\'t dare to move a muscle, her hand still inside her bikini and her mouth still pressed to your ' + Descriptors.vaginaDescript( 0 ) + '.  You smile down at her, and she smiles a shier, more confused smile back at you for a moment before shaking her head and pulling her hand out.  You giggle as she struggles awkwardly to get out from beneath your coils.  She finally does, and begins to stagger back towards the water.  You head back to camp, feeling satisfied with the encounter.', false );
 		} else {
-			EngineCore.outputText( 'Making up your mind to rape the shark girl, you remove your ' + CoC.getInstance().player.armorName + ' and approach the slut before taking a firm grip on her silver hair. "<i>You know what to do, bitch,</i>" you sneer, pulling her head into your damp cunt. The shark girl needs no encouragement, eagerly probing your pussy with her long tongue', false );
+			EngineCore.outputText( 'Making up your mind to rape the shark girl, you remove your ' + CoC.player.armorName + ' and approach the slut before taking a firm grip on her silver hair. "<i>You know what to do, bitch,</i>" you sneer, pulling her head into your damp cunt. The shark girl needs no encouragement, eagerly probing your pussy with her long tongue', false );
 			//[if female] ;
-			if( CoC.getInstance().player.gender === 2 ) {
+			if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( ', pulling out every few minutes to lick your ' + Descriptors.clitDescript() + '.', false );
 			}
 			//[if herm];
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '. You remind her not to neglect your ' + Descriptors.cockDescript( 0 ) + ', and the shark girl responds by thoroughly licking your hard erection and sucking at your ' + Descriptors.ballsDescriptLight() + '.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You shove the shark girl down onto the ground and quickly plant your crotch on her face, ordering the shark girl to continue. She complies enthusiastically, licking with a greater intensity and clearly loving the sensation of being dominated. You have to admit, you are enjoying your role as master.\n\n', false );
 			EngineCore.outputText( 'To reward your little slut for her efforts, your hand reaches back between her legs and slips under her skimpy black thong. You get to work fingering her moist cunt and you soon hear a series of muffled moans coming from beneath your legs. But she\'s smart enough to know not to stop licking, and you smirk at the effect you\'re having on the shark girl.  A cute little cry escapes from your little slave\'s mouth, and you pull your hand from her cunt before licking her sweet juices from your fingers. Shortly after, you cry out in orgasm', false );
-			if( CoC.getInstance().player.gender === 2 ) {
+			if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( ', juices spraying from your sex and coating the girl\'s face.', false );
 			}
 			//[if herm]  ;
@@ -167,9 +167,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			EngineCore.outputText( 'Thoroughly satisfied, you leave the shark girl on the ground covered in your fluids and depart for your camp.', false );
 		}
 		Combat.cleanupAfterCombat();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.dynStats( 'cor', 1 );
 		}
 	};
@@ -237,33 +237,33 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 70 );
 		//Genderless:;
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You slump down in defeat, too ', false );
-			if( CoC.getInstance().player.HP < 1 ) {
+			if( CoC.player.HP < 1 ) {
 				EngineCore.outputText( 'hurt ', false );
 			} else {
 				EngineCore.outputText( 'horny ', false );
 			}
 			EngineCore.outputText( 'to fight on.\n\n', false );
-			EngineCore.outputText( 'The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your ' + CoC.getInstance().player.armorName + ', but her smile fades to a blank expression when she notices you lack any genitalia. "<i>What the...</i>" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.', false );
+			EngineCore.outputText( 'The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your ' + CoC.player.armorName + ', but her smile fades to a blank expression when she notices you lack any genitalia. "<i>What the...</i>" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.', false );
 			Combat.cleanupAfterCombat();
 			EngineCore.dynStats( 'tou', -2 );
 			return;
 		}
 		//Female:;
-		if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().player.totalCocks() === 0 || Utils.rand( 2 ) === 0) ) {
+		if( CoC.player.hasVagina() && (CoC.player.totalCocks() === 0 || Utils.rand( 2 ) === 0) ) {
 			EngineCore.outputText( 'You slump down in defeat, too ', false );
 			//[defeat via HP] ;
-			if( CoC.getInstance().player.HP < 1 ) {
+			if( CoC.player.HP < 1 ) {
 				EngineCore.outputText( 'hurt ', false );
 			} else {
 				EngineCore.outputText( 'horny ', false );
 			}
 			EngineCore.outputText( 'to fight on.\n\n', false );
-			EngineCore.outputText( 'The shark girl giggles and moves over to you, tugging at your ' + CoC.getInstance().player.armorName + '  impatiently. Her tail swishes around and smacks your ' + Descriptors.assDescript() + '. "<i>You\'re gonna make me very happy, you hear? Otherwise...</i>" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n', false );
+			EngineCore.outputText( 'The shark girl giggles and moves over to you, tugging at your ' + CoC.player.armorName + '  impatiently. Her tail swishes around and smacks your ' + Descriptors.assDescript() + '. "<i>You\'re gonna make me very happy, you hear? Otherwise...</i>" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n', false );
 			EngineCore.outputText( 'Wasting no time, she removes her skimpy swimwear and your own gear.  ', false );
 			//[if herm];
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( 'Seeing your ' + Descriptors.cockDescript( 0 ) + ' puts a smile on the shark girl\'s face as she takes a firm grip on your erection. "<i>Well, you\'re just full of surprises, aren\'t you? Maybe I\'ll give this bad boy a whirl sometime. For now though...</i>"  ', false );
 			}
 			EngineCore.outputText( 'Her gaze drifts over to your ' + Descriptors.vaginaDescript( 0 ) + ' and she licks her lips in delight. "<i>Now that\'s what I\'m looking for! Tell you what dear, you get me wet and I might just give you some pleasure too.</i>"\n\n', false );
@@ -271,8 +271,8 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			EngineCore.outputText( 'The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. "<i>Not bad bitch, not bad. Now get on your back.</i>" You obey your mistress\'s command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It\'s not too long before the two of you orgasm, spraying girl-cum onto each other\'s faces.\n\n', false );
 			EngineCore.outputText( 'The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.', false );
 			//(Corruption +2, Intelligence -4);
-			CoC.getInstance().player.orgasm();
-			if( CoC.getInstance().player.cor < 30 ) {
+			CoC.player.orgasm();
+			if( CoC.player.cor < 30 ) {
 				EngineCore.dynStats( 'cor', 1 );
 			}
 			Combat.cleanupAfterCombat();
@@ -282,7 +282,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 		else {
 			EngineCore.outputText( 'You slump down in defeat, too ', false );
 			//[defeat via HP] ;
-			if( CoC.getInstance().player.HP < 1 ) {
+			if( CoC.player.HP < 1 ) {
 				EngineCore.outputText( 'hurt ', false );
 			} else {
 				EngineCore.outputText( 'horny ', false );
@@ -292,9 +292,9 @@ angular.module( 'cocjs' ).run( function( StatusAffects, Combat, SharkGirl, Appea
 			EngineCore.outputText( 'But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your ' + Descriptors.cockDescript( 0 ) + '. The shark girl quickly maneuvers herself so that she\'s straddling your cock and presses herself down, the two of you gasping sharply from the sensation. "<i>Hmm, good boy... You make me cum first, and I won\'t bite you. Deal?</i>" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don\'t know how long you can really hold out.\n\n', false );
 			EngineCore.outputText( 'The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your ' + Descriptors.cockDescript( 0 ) + ' with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You\'ll be walking funny for a while after this, that\'s for sure.\n\n', false );
 			EngineCore.outputText( 'Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. "<i>Good boy. I\'ll be sure to see you again</i>". She gets up again and you watch her re-enter the water before you pass out.', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', 1 );
-			if( CoC.getInstance().player.cor < 30 ) {
+			if( CoC.player.cor < 30 ) {
 				EngineCore.dynStats( 'cor', 1 );
 			}
 			Combat.cleanupAfterCombat();

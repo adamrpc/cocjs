@@ -17,37 +17,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 	//Implementation of TimeAwareInterface;
 	Raphael.prototype.timeChange = function() {
 		this.checkedRussetRogue = 0; //Make sure we test just once in timeChangeLarge
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] > 1 && CoC.getInstance().player.gems >= 5 ) {
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ]--;
+		if( CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] > 1 && CoC.player.gems >= 5 ) {
+			CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ]--;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] > 1 && CoC.getInstance().player.gems >= 5 ) {
-			CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ]--;
+		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] > 1 && CoC.player.gems >= 5 ) {
+			CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ]--;
 		}
 		//Fix 'hangs' - PC is at the bottom of the dress countdown;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 1 && CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 0 && this.RaphaelLikes() ) {
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 4;
+		if( CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 1 && CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 0 && this.RaphaelLikes() ) {
+			CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 4;
 		}
 		return false;
 	};
 	Raphael.prototype.timeChangeLarge = function() {
-		if( this.checkedRussetRogue++ === 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] >= 0 && CoC.getInstance().player.hasKeyItem( 'Camp - Chest' ) >= 0 && CoC.getInstance().player.gems >= 5 && CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
-			/*trace('RAPHAEL FINAL COUNTDOWN: ' + CoC.getInstance().flags[kFLAGS.RAPHEAL_COUNTDOWN_TIMER]);
-			 trace('RAPHAEL MET: ' + CoC.getInstance().flags[kFLAGS.RAPHAEL_MET]);
-			 trace('RAPHAEL DRESS TIMER: ' + CoC.getInstance().flags[kFLAGS.RAPHAEL_DRESS_TIMER]);
-			 trace('RAPHAEL DISGUSTED: ' + CoC.getInstance().flags[kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE]);*/
-			if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 0 ) {
+		if( this.checkedRussetRogue++ === 0 && CoC.time.hours === 6 && CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] >= 0 && CoC.player.hasKeyItem( 'Camp - Chest' ) >= 0 && CoC.player.gems >= 5 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
+			/*trace('RAPHAEL FINAL COUNTDOWN: ' + CoC.flags[kFLAGS.RAPHEAL_COUNTDOWN_TIMER]);
+			 trace('RAPHAEL MET: ' + CoC.flags[kFLAGS.RAPHAEL_MET]);
+			 trace('RAPHAEL DRESS TIMER: ' + CoC.flags[kFLAGS.RAPHAEL_DRESS_TIMER]);
+			 trace('RAPHAEL DISGUSTED: ' + CoC.flags[kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE]);*/
+			if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 0 ) {
 				{ //Countdown to finale not currently engaged!
 				}
 				//If the PC meets his criteria!;
 				if( this.RaphaelLikes() ) { //Not yet met!  MEETING TIEM!
-					if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_MET ] === 0 ) {
+					if( CoC.flags[ kFLAGS.RAPHAEL_MET ] === 0 ) {
 						EngineCore.outputText( '<b>\nSomething unusual happens that morning...</b>\n' );
 						EngineCore.doNext( this.meetRaphael );
 						return true;
 					} else {
 						{ //Already met!
 						}
-						if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 0 && CoC.getInstance().flags[ kFLAGS.RAPHAEL_SECOND_DATE ] === 0 ) {
+						if( CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 0 && CoC.flags[ kFLAGS.RAPHAEL_SECOND_DATE ] === 0 ) {
 							{ //Not given dress yet
 							}
 							EngineCore.outputText( '<b>\nSomething unusual happens that morning...</b>\n' );
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 							return true;
 						}
 						//Dress followup - Call picnic date prologue!;
-						if( CoC.getInstance().player.armor === ArmorLib.R_BDYST && (CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] > 1 && CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] <= 4) ) {
+						if( CoC.player.armor === ArmorLib.R_BDYST && (CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] > 1 && CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] <= 4) ) {
 							EngineCore.outputText( '<b>\nSomething unusual happens that morning...</b>\n' );
 							EngineCore.doNext( this.RaphaelEncounterIIDressFollowup );
 							return true;
@@ -66,19 +66,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 					}
 					//Dress countdown - if pc isn't wearing it yet, kick out to;
 					//Finale!;
-					if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 1 ) {
-						CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = -1;
-						CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
+					if( CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] === 1 ) {
+						CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = -1;
+						CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
 					}
 					//PC get ready for the 2nd encounter and hasn't been;
 					//shot down yet?;
-					if( CoC.getInstance().player.armor === ArmorLib.R_BDYST && CoC.getInstance().flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] === 0 ) {
+					if( CoC.player.armor === ArmorLib.R_BDYST && CoC.flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] === 0 ) {
 						EngineCore.outputText( '<b>\nSomething unusual happens that morning...</b>\n' );
 						EngineCore.doNext( this.RaphaelEncounterIIDressFollowup );
 						return true;
 					}
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 1 ) {
+			} else if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === 1 ) {
 				{ //FINALE
 				}
 				EngineCore.outputText( '<b>\nSomething unusual happens that morning...</b>\n' );
@@ -90,47 +90,47 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 	};
 	//End of Interface Implementation;
 	Raphael.prototype.RaphaelLikes = function() {
-		if( CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
-			if( CoC.getInstance().player.gender === 2 || CoC.getInstance().player.gender === 3 ) {
+		if( CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
+			if( CoC.player.gender === 2 || CoC.player.gender === 3 ) {
 				// you at least need a vagoo for raphael to fuck you. Otherwise the sex scenes will be rather broken.
 			}
 			return true;
 		}
 		//({If player has no legs, or a centaur body.};
-		if( !CoC.getInstance().player.isBiped() ) {
+		if( !CoC.player.isBiped() ) {
 			return false;
 		}
 		//({If player has above E cup breasts} ;
-		if( CoC.getInstance().player.biggestTitSize() >= 12 ) {
+		if( CoC.player.biggestTitSize() >= 12 ) {
 			return false;
 		}
 		//({If player has below C cup breasts} ;
-		if( CoC.getInstance().player.biggestTitSize() < 3 ) {
+		if( CoC.player.biggestTitSize() < 3 ) {
 			return false;
 		}
 		//({If player has grown less than girly hips};
-		if( CoC.getInstance().player.hipRating < 6 ) {
+		if( CoC.player.hipRating < 6 ) {
 			return false;
 		}
 		//({If player has gotten a massive butt} ;
-		if( CoC.getInstance().player.buttRating >= 16 ) {
+		if( CoC.player.buttRating >= 16 ) {
 			return false;
 		}
 		//({If female player has gotten bigger than 6 feet};
-		if( CoC.getInstance().player.tallness > 72 ) {
+		if( CoC.player.tallness > 72 ) {
 			return false;
 		}
 		//({If female player has gotten smaller than 4 feet};
-		if( CoC.getInstance().player.tallness < 48 ) {
+		if( CoC.player.tallness < 48 ) {
 			return false;
 		}
 		//({If player has grown ANY cock and balls};
-		if( CoC.getInstance().player.balls > 0 || CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.balls > 0 || CoC.player.cockTotal() > 0 ) {
 			return false;
 		}
 		//(For now: ;
 		//({If player has lost all gender};
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			return false;
 		}
 		return true;
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '"<i>Ha-hah!</i>" it exclaims boastfully with a sharp, young, dashing voice while standing tall and proud on top of its perch. "<i>Another daring caper committed by...</i>"  The being takes the time to strike a pose. "<i>...the Russet Rogue!</i>"\n\n', false );
 		EngineCore.outputText( 'You rub your eyes, walk towards the wall and take a curious look up. It appears to be a red fox. He\'s looking down on you with a triumphant smirk on a tapered snout; most definitely male and masculine. Although not the broadest figure around, his muscles are lean and strong. His contoured torso flares up above narrow hips and gives him a body that has an agile deftness to it. He wears a loose, red-brown jacket and supple deerskin pants, with a red sash across the hip and soft-soled boots below. They do much to complement the vivid color of his fur, which is a vibrant crimson, broken only by the beige fur running down his chest and towards his crotch. Lithe, the only two things that are large about him is the clear bulge in his thin leather pants and the bushy tail that flicks playfully from side to side. The russet rogue takes quite a bit of pleasure from larceny it seems. Judging by his ornate outfit, he does it for the thrill of it. He himself must be well off.', false );
 		//Set first meeting complete;
-		CoC.getInstance().flags[ kFLAGS.RAPHAEL_MET ] = 1;
+		CoC.flags[ kFLAGS.RAPHAEL_MET ] = 1;
 		EngineCore.doNext( this.meetRaphaelPtII );
 	};
 	//~~~ Next Page ~~~;
@@ -174,8 +174,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You resolve to wash your hand. You\'re sure you\'ve not seen the last of the russet rogue, but it will be time in coming before that happens with the severity of your rejection.', false );
 		//{Game Removal};
 		//No more meetings + endgame in 21 days;
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 0;
-		CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 0;
+		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//{When player chooses swoon after the first encounter};
@@ -203,9 +203,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '"<i>No, my lady. If you ever want to inspect these particular goods, we will have to meet again!</i>"  Raphael hops up the same wall, spinning about on one leg. "<i>Do not worry yourself, my fair flower. The russet rogue never leaves a lady wanting. For now, patience. I can already tell a woman like you is deserving of delicacy and finesse, like the blooming rose needs nurturing and time to present her full glory.</i>"\n\n', false );
 		EngineCore.outputText( 'In a blink of an eye, the red fox jumps back up the wall. "<i>We will meet again!</i>" He exclaims in a hushed tone, while slinking over the wall to land on the other side.\n\n', false );
 		//{Optional: Raph makes off with 5 gems);
-		CoC.getInstance().player.gems -= 5;
-		if( CoC.getInstance().player.gems < 0 ) {
-			CoC.getInstance().player.gems = 0;
+		CoC.player.gems -= 5;
+		if( CoC.player.gems < 0 ) {
+			CoC.player.gems = 0;
 		}
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( EventParser.playerMenu );
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'It\'s a one piece suit, combining intricate full-body stockings with a graceful corset and an elegant long sleeve, short top jacket sewn in. You try to slip into the unitard and soon figure out you\'re supposed to do so in the nude, with the tight outfit serving as underwear and overwear both. Made of the finest silk, the feeling is sensual when your naked body slides into the satin lattice and fills out the pliable lacework with your volume. Pulling on the zipper in the back, you seal yourself in and reign the corset tight. It causes the suit to hug and clutch every curve on you with comfortable snugness, bringing out the rounds and the flow of your body. With the incorporated leather corset pressing into your waist, it also forces you to maintain a dignified, elegant posture. It fits like a literal glove, with rings across each of your fingers to pull down its sleeves and leather padding below the stockings of your feet. You can\'t help but tug the corset\'s cords one more time to add upon the tightness and an added feeling of secure comfort. Other than that, the fabric is featherlight and you soon notice how some parts do a better job at covering you up than others.\n\n', false );
 		EngineCore.outputText( 'All over your body where the gossamer isn\'t reinforced with jacket or corset, the density of the delicate velvet web varies. Although the silk hugs across your ' + Descriptors.vaginaDescript( 0 ) + ' and through the crack of your ass as a triple layer that guards against prying eyes, the surface of your hips and legs is clearly seen through the transparent motif of flowers swirling across the lace. The cheeks of your ' + Descriptors.buttDescript() + ' feel equally exposed despite the presence of four sweeping rosebranches stitched across them, but at least the jacket trails past your lower back and partly covers your buttocks with its parted tailflaps.', false );
 		//({If player has tail};
-		if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( '  Your tail peeks out through the cut.', false );
 		}
 		EngineCore.outputText( '  You still can\'t help but feel that anyone standing behind you is given a generous glimpse of your ornate ass, however. The same goes for your ' + Descriptors.breastDescript( 0 ) + '; cupped, lifted and presented as they are to the outside world by grasping silk. Their ample curve and tender flesh are clearly visible through the red lace. The only thing saving their modesty is the tactical application of a sea of organic patterns across the lower half, with the curl of two roses covering your ' + Descriptors.nippleDescript( 0 ) + 's. The ensemble comes with a pair of red stiletto high heels, but you\'re not sure you\'re ready for them. Wearing them would only perk up your noticeable posterior even more. That your ' + Descriptors.breastDescript( 0 ) + ' contrast above a slender waist is enough for now. Maybe on special occasions.\n\n', false );
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You stand up straight and look over your body one more time. With this outfit, you could walk into a stately ballroom with as much confidence as you could a seedy burlesque, even though both places would be filled with people turning their heads. At least your blush would match the color of the outfit, while an audience would try to figure out whether you\'re either a lost duchess or a stray dancer. You\'re not certain if you want to continue wearing it, although you\'re sure Raphael would appreciate you for it.  You change back for now - you\'ll have to decide once you\'ve cleared your head.', false );
 		//{Third encounter unlocked};
 		//Set 'time to wear dress' countdown.;
-		CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
+		CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
 		SceneLib.inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
 	};
 	/*DRESS HERE
@@ -253,9 +253,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		//{Encounter two};
 		//{Requirement: PC is wearing High society bodysuit. ;
 		//Sequence: When PC wakes up the next day.});
-		CoC.getInstance().flags[ kFLAGS.RAPHAEL_SECOND_DATE ] = 1;
+		CoC.flags[ kFLAGS.RAPHAEL_SECOND_DATE ] = 1;
 		//Clear dress countdown.  Its over and done with.;
-		CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
+		CoC.flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You awake to the soft patter of footsteps moving away from you. For a second you think nothing of it, but soon awake to the realization you might have been robbed again. When you sit up and notice a weight off your chest, you realize someone has made off with the priceless ruby pendant Raphael gifted you earlier. They swiped it straight off your neck!\n\n', false );
 		EngineCore.outputText( 'You rush out of your tent, but when you look around and spot something red lying on the small ruined wall on the outskirts of your camp, you realize that the situation isn\'t as urgent as you had feared. You begin to understand what the wily fox meant to imply with uncertain ownership of the pendant.\n\n', false );
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'When you inspect the rest of his body, it\'s clear that Raphael is still the sly fox. Your ruby pendant hangs from his belt. He has once again stolen it from you after gifting it earlier, like it was some game. When he notices your interest, he flicks his tail over it, causing the necklace to disappear.\n\n', false );
 			EngineCore.outputText( '"<i>The temporary price of admission for a moment of wonder.</i>" He assures you. "<i>Trust me that it\'ll be worth it. Join me, and I might even teach you the tricks of the trade. That is, unless you\'re cunning enough to frisk me for it.</i>" He smiles playfully.\n\n', false );
 			EngineCore.outputText( 'What do you do?', false );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] = 0;
+			CoC.flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] = 0;
 			//[Reject] [Frisk] [Date];
 			EngineCore.choices( 'Reject', this.RaphaelChooseReject, 'Frisk', this.RaphaelChooseFrisk, 'Date', this.RaphaelSelectDate, '', null, '', null );
 		}
@@ -276,40 +276,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( '"<i>Mon Dieu!</i>" he states in shock and stands up on top of his wall.\n\n', false );
 			EngineCore.outputText( '"<i>What terrible tragedy! The land has taken its toll on the once so beautiful.</i>" He looks down on you.\n\n', false );
 			//({If player has no legs, or a centaur body.};
-			if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO || CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_PONY ) {
+			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_PONY ) {
 				EngineCore.outputText( '"<i>You\'re missing half your body!</i>" He refers to your morphed legs.\n\n', false );
 			}
 			//({If player has above E cup breasts} ;
-			if( CoC.getInstance().player.biggestTitSize() >= 7 ) {
+			if( CoC.player.biggestTitSize() >= 7 ) {
 				EngineCore.outputText( '"<i>Your female curves... replaced with such... udders!</i>" He looks at your bosom. "<i>No woman could be elegant with such monstrosities up front!</i>"\n\n', false );
 			}
 			//({If player has below C cup breasts} ;
-			if( CoC.getInstance().player.biggestTitSize() < 3 ) {
+			if( CoC.player.biggestTitSize() < 3 ) {
 				EngineCore.outputText( '"<i>Your female curves... gone!</i>" He looks at your bosom. "<i>It\'s hard to tell you apart from a little girl!</i>"\n\n', false );
 			}
 			//({If player has grown less than girly hips};
-			if( CoC.getInstance().player.hipRating < 6 ) {
+			if( CoC.player.hipRating < 6 ) {
 				EngineCore.outputText( '"<i>What happened to that fine hourglass shaped figure? Those comely hips?</i>"\n\n', false );
 			}
 			//({If player has gotten a massive butt} ;
-			if( CoC.getInstance().player.buttRating >= 13 ) {
-				EngineCore.outputText( '"<i>Oh... my... Marae! ' + CoC.getInstance().player.short + ', look at your butt. It is so big! You look one of those cat guy\'s girlfriends. Who understands those cat guys? You look like a total prostitute. I mean, your butt. It\'s just so big. I can\'t believe it\'s just so round and so out there! Gross!</i>"  The fox shakes his head and breaks it down. "<i>I hate big butts! So vulgar.</i>"\n\n', false );
+			if( CoC.player.buttRating >= 13 ) {
+				EngineCore.outputText( '"<i>Oh... my... Marae! ' + CoC.player.short + ', look at your butt. It is so big! You look one of those cat guy\'s girlfriends. Who understands those cat guys? You look like a total prostitute. I mean, your butt. It\'s just so big. I can\'t believe it\'s just so round and so out there! Gross!</i>"  The fox shakes his head and breaks it down. "<i>I hate big butts! So vulgar.</i>"\n\n', false );
 			}
 			//({If female player has gotten bigger than 6 feet};
-			if( CoC.getInstance().player.tallness > 72 ) {
+			if( CoC.player.tallness > 72 ) {
 				EngineCore.outputText( 'Raphael rolls his eyes across your giant body and looks intimidated. "<i>I can forget about remaining unseen when I take someone of your size somewhere!</i>"\n\n', false );
 			}
 			//({If female player has gotten smaller than 4 feet};
-			if( CoC.getInstance().player.tallness < 48 ) {
+			if( CoC.player.tallness < 48 ) {
 				EngineCore.outputText( 'Raphael squints like he has trouble seeing you from there, because of your dimunitive size. "<i>I\'ve dated goblins once... didn\'t work out.</i>"\n\n', false );
 			}
 			//({If player has grown ANY cock and balls};
-			if( CoC.getInstance().player.balls > 0 || CoC.getInstance().player.cockTotal() > 0 ) {
+			if( CoC.player.balls > 0 || CoC.player.cockTotal() > 0 ) {
 				EngineCore.outputText( '"<i>What is that bulge below the tight outfit I gave you?</i>" The fox inspects your groin. "<i>No, never mind. I don\'t want to know.</i>"\n\n', false );
 			}
 			//(For now: ;
 			//({If player has lost all gender};
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( '"<i>There\'s... something different about you today. Your smell, it has changed.</i>"\n\n', false );
 			}
 
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'You clench your jaw as he vanishes, more than a bit offended.', false );
 			//{Game removal untill the PC complies with the requirements again.});
 			EngineCore.doNext( EventParser.playerMenu );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] = 1;
+			CoC.flags[ kFLAGS.RAPHAEL_DISGUSTED_BY_PC_APPEARANCE ] = 1;
 			//7 days to fix or done with!;
 		}
 	};
@@ -339,20 +339,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '"<i>Such a pity though... the flower who refused to bloom.</i>" He stands atop his crumbled wall. "<i>Take my advice fair lady. Life is too short and this world too fleeting, for missed opportunities. Let your hair drop, loosen your guard and enjoy the finer things in life.</i>" He nods and winks at you. "<i>You might discover it might not be so bad.</i>"\n\n', false );
 		EngineCore.outputText( 'In the two seconds it takes for you to pick up the pouch, you find that the fox has vanished as though he were never there. Amazed, you climb onto the wall and try to figure out where he\'d gone that fast. Peeking over the wall confirms your suspicions of him simply letting himself fall off the wall to make an elegant exit. A single shattered glass can be found on the other side, but no trace of the fox.', false );
 		//{Game Removal.};
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
-		CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
+		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//{When player chooses [Frisk] after second encounter};
 	Raphael.prototype.RaphaelChooseFrisk = function() {
-		CoC.getInstance().flags[ kFLAGS.FUCK_YOU_GOT_MINE_RAPHAEL ] = 0;
+		CoC.flags[ kFLAGS.FUCK_YOU_GOT_MINE_RAPHAEL ] = 0;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You flash a playful smile and express the desire to get your jewelry back.\n\n', false );
 		EngineCore.outputText( 'Challenged, Raphael hops from his perch and leans against the wall like a misbehaved rascal at your approach. With his back towards the boulders, he has his hands behind his head and one foot up against the stacked cobblestone; braving his body like he\'s eager for your touch. "<i>My, whatever are you talking about, señorita? Know something I don\'t?</i>"\n\n', false );
 		EngineCore.outputText( 'Noticing how Raphael leaves more room between his hands and his head than necessary, you reach beind his neck to retrieve the pilfered pendant, but when you do, there is none to be found. It\'s the only place he could have put it, but it\'s gone and he isn\'t using his arms!\n\n', false );
 		/// Int/Spe Variables ///;
 		//({Int or Spe below 24 and Cor is not higher than 19} ;
-		if( (CoC.getInstance().player.inte < 24 && CoC.getInstance().player.spe < 24) && CoC.getInstance().player.cor < 19 ) {
+		if( (CoC.player.inte < 24 && CoC.player.spe < 24) && CoC.player.cor < 19 ) {
 			EngineCore.outputText( 'You frown, befuddled and eyeing the body you hold close to yours. He must be a magician, you conclude.\n\n', false );
 			EngineCore.outputText( 'When you look up again, you realize you have your arms around his neck. His verdant green eyes peer into yours daringly and before the awkward moment has a chance to pass, the russet rogue steals a kiss. Putting the tip of his snout on your lips, he gives you a kiss more passionate and skilled than you thought possible with a sharp muzzle such as his. He discontinues before you have the time to either enjoy it or feel intimidated by it.\n\n', false );
 			EngineCore.outputText( '"<i>Forgive me...</i>" He growls softly with low tone. "<i>You\'re just so cute when consternated.</i>"\n\n', false );
@@ -361,10 +361,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.doNext( this.RaphaelPicnic );
 		}
 		//({Int or Spe between 24-36 and Cor is not higher than that};
-		else if( (CoC.getInstance().player.inte < 36 && CoC.getInstance().player.spe < 36) && CoC.getInstance().player.cor < 36 ) {
+		else if( (CoC.player.inte < 36 && CoC.player.spe < 36) && CoC.player.cor < 36 ) {
 			EngineCore.outputText( 'Not outdone through wit, you notice how the fox is moving his tail about. The wileful rogue is using his fifth limb to move the pendant about his body! You quickly reach around and pat him across the back and flanks, but inspecting the tip of his tail leaves the pendant nowhere to be found. By then Raphael is moving his arms and legs to misplace it further. In a game of cat and mouse all through his red fur, you follow the movement from his lower back, to his feet and his thighs. The sly vulpine clearly enjoys leading you on your hunt across his skin and supple deerskin attire, as you graze over taut leather spanned across a contoured, masculine body. Raphael always appears one step ahead. That is, until the trail ends near his crotch.\n\n', false );
 			//({If player corruption is below 15} ;
-			if( CoC.getInstance().player.cor <= 15 ) {
+			if( CoC.player.cor <= 15 ) {
 				EngineCore.outputText( 'You have the stronge urge to grab hold of the oddly enlarged bulge between his legs and retrieve the necklace from within his pants, but the lewdness of the gesture keeps you from it.\n\n', false );
 			}
 			//{If player corruption is at or higher than 15} ;
@@ -378,7 +378,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.doNext( this.RaphaelPicnic );
 		}
 		//({Int or Spe are above 35 and Cor is not higher than that};
-		else if( CoC.getInstance().player.cor < 35 ) {
+		else if( CoC.player.cor < 35 ) {
 			EngineCore.outputText( 'Figuring it out easily, you notice how the fox is moving his tail about. The sneaky rogue is using his fifth limb to move the pendant about his body! Deducing the only way he could do that without moving his arms, you reach for the heel of his lifted foot and intercept the string before he can pass it onto his leg.\n\n', false );
 			EngineCore.outputText( '"<i>Nice try!</i>" You comment with a triumphant smile, when you quickly retrieve the necklace and walk away from Raphael before he realizes you\'ve outwitted him. You hug the jewelry tight.\n\n', false );
 			EngineCore.outputText( 'The fox seems like a gracious loser and the young man beams. "<i>Well played!</i>" He congratulates you behind your back. "<i>You show potential. However, I urge you not to grow complacent. There\'s quite a few tricks that only a true master thief like I possesses. If you\'d allow me, I could teach you even more about my craft, graduate you into a whole new way of living. One you never knew existed...</i>"\n\n', false );
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 	};
 	//[Accept];
 	Raphael.prototype.friskAcceptChoice = function() {
-		CoC.getInstance().flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] = 1;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>Come on then!</i>" He proclaims before shooting up the wall, extending you his paw. "<i>Join me! Together we shall paint the forest russet red!</i>"\n\n', false );
 		EngineCore.outputText( 'You waive his paw and choose to walk around the 8 foot long wall, instead of struggling to climb over it. Raphael flashes a grin of delight when you do. "<i>I can see I\'ve caught on to a smart one! Stick with me and I could even finish your education. I promise that graduation will be something... special.</i>"\n\n', false );
@@ -418,8 +418,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '"<i>I will regain my honor!</i>" He exclaims while waving his hands in a theatrical flourish, causing his pants to drop once more.\n\n', false );
 		EngineCore.outputText( 'You laugh as he blushes, beating a sound retreat. You\'re sure this won\'t be the last you\'ll see of him however.', false );
 		//{Game removal};
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
-		CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
+		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//[Fondle];
@@ -444,8 +444,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '"<i>I\'ll be sure to repay the favor.</i>" He warns you with a high pitched voice while clasping his poor genitals. "<i>Nobody touches my goods like that and gets away with it.</i>"\n\n', false );
 		EngineCore.outputText( 'He raises just a single finger to the air and groans painfully. "<i>We will meet again!</i>"\n\n', false );
 		//{Game removal};
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
-		CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 14;
+		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	Raphael.prototype.RaphaelPicnic = function() {
@@ -472,11 +472,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You know he\'s just keeping up appearances and making you feel welcome, however. When you smile and assure him that you must be getting back, Raphael declares his regret one more time before literally scrambling to get away from the meadow, hastily cleaning up the picnic. He doesn\'t even bother to put things back in the basket. He just takes the four corners of the blanket and folds it into a bag slung over the shoulder. A bit perturbed, you look after him as he slips into the treeline.\n\n', false );
 		EngineCore.outputText( 'However, just before he vanishes, the fox gives you a wink and a bow. "<i>My Lady, it has been a true delight, and it would be to my great fortune if you\'d allow me to see you again.</i>"\n\n', false );
 		EngineCore.outputText( 'He seems so hasty that you\'d begin to question it, but your doubt is taken away as the fox takes the time to stare patiently at you from the forest\'s edge. "<i>How could I resist, when you\'re dressed and made so gorgeously?</i>" He smiles, referring to your elegant red suit.\n\n', false );
-		if( CoC.getInstance().flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] === 0 ) {
+		if( CoC.flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] === 0 ) {
 			EngineCore.outputText( 'A minute of silence follows and just when it has been long enough to reassure you, he throws you something and slips away and vanishes.\n\n', false );
 			EngineCore.outputText( 'You catch the object: he has returned the priceless ruby pendant. You recollect yourself and head back to camp.', false );
 		} else {
-			CoC.getInstance().flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] = 0;
+			CoC.flags[ kFLAGS.FUCK_OFF_THEIVING_RAPHAEL ] = 0;
 			EngineCore.outputText( 'A minute of silence follows and just when it has been long enough to reassure you, he makes his excuses and sets about heading back to... whatever it is the sly fox spends his days doing.\n\n', false );
 			EngineCore.outputText( 'You recollect yourself and head back to camp.', false );
 		}
@@ -486,7 +486,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 	Raphael.prototype.RaphaelPicnicSkill = function() {
 		EngineCore.outputText( '', true );
 		//{Introduction scene that Plays out only once.};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 0 ) {
 			EngineCore.outputText( 'You allow yourself to be distracted by the sheer opulence of the picnic. Crystal glasses, fine linen blanket, intricately woven basket... and then the clothes and pendant he put on you. Where does he get these things from? It almost leaves you jealous. While you peer across the arrangement, Raphael even manages to retrieve a small guitar. With his long slender fingers, he picks the snares and fine-tunes it. When the Russet Rogue frowns seriously and occupies himself with the small instrument - cradling in its arms focusing on its tortured plinks - you notice just how dedicated and dashing he is.\n\n', false );
 			EngineCore.outputText( 'Whatever else is on display however, your eye is consistently caught by the fox\'s rapier. Raphael has left it sheathed in a scabbard reinforced with silver upon the hard brown leather. The sword\'s guard sticks out from the sheath and is fashioned out of fine golden filigree that domes around a red hilt. The weapon makes you curious. It appears so delicate that you can hardly believe it to be serviceable in battle.\n\n', false );
 			EngineCore.outputText( 'When you ask Raphael if such a small weapon ever managed to impress anyone, he snaps one of the snares in shock and draws a long face. "<i>It is not a thin, flimsy thing!</i>" He balks in his unique accent and loses his cool for a moment. "<i>I\'ll have you know it\'s perfectly average compared to those of others!</i>" He defends himself with an excitable hand gesture.\n\n', false );
@@ -502,7 +502,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			//{Leads up to fencing variables};
 		}
 		//{Below 30 speed. PC chooses [Skill] Must play out at least once};
-		if( CoC.getInstance().player.spe < 30 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 0 ) {
+		if( CoC.player.spe < 30 || CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 0 ) {
 			EngineCore.outputText( 'The two of you amble over to a mossy field. Raphael is up front and waving about his rapier playfully, grazing the tip through the flora and even slashing at a wasp. You can\'t seem to spot the insect flying around after he does that.\n\n', false );
 			EngineCore.outputText( 'When you reach the center of the field however, Raphael throws the weapon to the ground with temperament and tells you to prepare.\n\n', false );
 			EngineCore.outputText( '"<i>Aren\'t we going to use the weapon?</i>" You ask him, causing him to smirk.\n\n', false );
@@ -525,10 +525,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'Raphael\'s smile returns for him. "<i>Raphael!</i>" He burrs. "<i>And for someone like you I\'d gladly suffer a dozen broken toes at once!</i>" He boasts. "<i>I will teach you grace becoming of your beauty yet!</i>"\n\n', false );
 			EngineCore.outputText( '"<i>Again!</i>" He stands up and extends you an arm with renewed energy.', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'spe', 3, 'sen', 1, 'lus', 25 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 1;
+			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 1;
 		}
 		//{Fencing practice variables: Speed 30-39 Must play out at least once};
-		else if( CoC.getInstance().player.spe < 39 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 1 ) {
+		else if( CoC.player.spe < 39 || CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 1 ) {
 			EngineCore.outputText( 'In the middle of the mossy field, you grab Raphael by his paw as he offers it. The other you instinctively put around his shoulder, when he does the same around your waist. This forces the both of you to hold each other close. A little closer than what you\'re normally comfortable with. Raphael doesn\'t seem to mind when you lean away from him however. He treats it as a game between you.\n\n', false );
 			EngineCore.outputText( 'When you ask him if he\'s sure that this is part of a dance. He chortles. "<i>M\'lady, it takes two to tango!</i>"\n\n', false );
 			EngineCore.outputText( '"<i>Vamanos!</i>" The fox moves his feet about, leading you into dance.\n\n', false );
@@ -543,10 +543,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'Only a minute later do you take the chance to stand still and feel the weapon within your grasp.  The hilt cups your hand and you look down upon the weapon standing away from your body with admiration.  When you run a proud finger along its firm length, you shiver.  You could get used to the idea of being a cheeky lady fencer, free and in control.\n\n', false );
 			EngineCore.outputText( '<i>"Magnefique."</i> Raphael comments, pleased.  <i>"You could use some work on how to wield it properly, but only because you weren\'t born with one in hand like I was."</i> He smiles, saunters closer to you and releases the rapier from your intoxicated grip by fondling your fingers.  <i>"You still need a master to show you how to thrust and parry properly."</i>\n\n', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'spe', 3, 'sen', 1, 'lus', 25 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 2;
+			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 2;
 		}
 		//{Fencing practice variables: Speed 40-49, Must play out at least once};
-		else if( CoC.getInstance().player.spe < 49 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 2 ) {
+		else if( CoC.player.spe < 49 || CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 2 ) {
 			EngineCore.outputText( 'Impressed by your fancy footwork - fast and accurate - Raphael has granted you the use of his rapier.  You are still unsure of how to wield such a precise instrument, but the fox circles you curiously while he makes you practice lunges.  It frustrates you.  They aren\'t fierce lunges, nor are they long ones.  You don\'t even get to sweep across the mossy field as playfully or as dramatically as Raphael makes fencing out to be.  Basically you\'re stuck in your place, walking a straight line and jabbing it limply at an invisible opponent or twisting your wrist in awkward angles to learn all the different parries.  Raphael has given you strict instructions on how to bear your body, but you have to admit that you pay such things lip service.  You\'d much rather be impaling something or slashing off the top of a melon, looking cool while doing it.\n\n', false );
 			EngineCore.outputText( '<i>"No, no!"</i> the fox berates you.  <i>"All wrong! Merde! It feels like I\'m working with an amateur here!"</i> He waves his hands about in anguish and approaches you for the sixth time this session. <i>"You\'ll have all the time you need to teach yourself flourish and fancy at a later date. For now, we perfect the basics! You need to have one unifying stance to fall back on. What\'s not to understand!?"</i>\n\n', false );
 			EngineCore.outputText( 'You had it coming.  You instantly realize you misaligned the tip with the straight line of your perfectly parallel body.  Perhaps on purpose; it\'s actually quite fun to see the fox so passionate about little details.  That he drops his role of incorrigible flatterer to become rightly upset with you is rather exciting too.  He\'s a good teacher, being patient and attentive when you\'re sincere in your desire to learn, yet relentless and harsh when you slack, no matter how many excuses you make for yourself.  You can\'t help but feel a little bad when you disappoint him and waste his time.  It drives you to perform better, to please him and reward him for his efforts.\n\n', false );
@@ -557,7 +557,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( '<i>"Think you can remember how this feels?"</i> Raphael asks. Your flustered acknowledgement comes out in the form of a soft groan.\n\n', false );
 			EngineCore.outputText( 'Perhaps with a deliberate, firmer brush than necessary, Raphael removes his crotch from your upturned ass and moves backward, seemingly uninterested.  He adopts a serious stare, nods and commands you to practice jabs again, this time holding your stance.  You do so to the letter with a bright blush, never remiss, but always feeling Raphael is getting a good look at your exposed buttocks as you raise them towards him like an offering.  His tail wags to the rhythm of the display, even though the fox stares you down solemnly with crossed arms - ever the harsh taskmaster when it comes to grace.\n\n', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'spe', 3, 'sen', 2, 'lus', 60 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 3;
+			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 3;
 		}
 		//{Warning when you have 50 speed, played through all 3 variables and choose {Skill} at the opening picnic};
 		else {
@@ -567,7 +567,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'You look up and smile, cautious about the offer.  You\'ve built up a good rapport with the fox, but there\'s something mischievous about him, that still makes you playfully hesitant to completely trust him.  You ask him what you\'d have to do for it.\n\n', false );
 			EngineCore.outputText( '<i>"Spar with me over it."</i> The master fencer challenges you to what could only be an impossible fight.  He has taught you everything you know about fencing.\n\n', false );
 			EngineCore.outputText( 'What do you do?', false );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 4;
+			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 4;
 			//[Fence] [Discuss];
 			EngineCore.choices( 'Fence', this.fenceRaphaelSexily, 'Discus', this.fenceOfferChangeToDiscuss, '', null, '', null, '', null );
 			return;
@@ -605,12 +605,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '<i>"Well, it just so happens that your opponent was indeed none other than I.  And faced with such unfair odds..."</i> the fox growls, <i>"... this would be the perfect opportunity to show you what losing is like against such opposition."</i>\n\n', false );
 		EngineCore.outputText( 'You look up and ask him what he means, but the fox\'s friendly smile is ever-present as he taps you with his sheathed sword.  You fall silent when first he gently nudges it into your ribcage like scoring another few hits.  When he brushes it in circles across your left breast however, it sends a shiver down your spine.  From there he drags it slowly down your body, from rib to rib, past your stomach, until he does no less than slide the sheath all the way between your legs.  Raphael has touched you many times before, but now his predatory smile does not change when he lifts the length into the folds of your ' + Descriptors.vaginaDescript( 0 ) + '.  As he stares you down, you realize this has been the most unambiguous gesture yet.  Looking into his deep, emerald eyes sparkling with crafty cunning, you feel how your very essence is held aloft upon his desires.  The ground moves out from under your feet as the sheath digs deeply into your labia.\n\n', false );
 		//{If PC has also reached the intelligence Apex};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
 			EngineCore.outputText( 'By now, you\'ve grown wise enough to know of his ways.  You spent enough time sitting with him around the picnic blanket to resist his wiles... when you want to.  You hold your breath as the rogue closes in on you, putting his face close to yours.  He growls softly at you and you moan back at him, but only after allowing yourself to do so.\n\n', false );
 			EngineCore.outputText( 'When he moves his lips forward, you place your hands on his shoulders and guide him away from your lips and into your neck instead.  He nibbles on it softly, while you have the opportunity to admire the rest of him: his soft fur, his skilful, patient touches and his fine wardrobe.  The sash falls in over your body while the supple brown and purple leather gives the graceful body moving in over you, a sturdy quality.  Spending time with him has rubbed off on you.  Only now do you appreciate the value of certain baubles that cling to his leathered threads, thinking like a pickpocket.  A brooch that can only be priceless decorates the soft silk sash. You reach and fondle the magnificent ornament hanging off his hips. With a few nimble flicks of your fingers, you manage to get it off.\n\n', false );
 		}
 		//({Female characters who have also raised Intelligence to 49+} ;
-		if( CoC.getInstance().player.inte > 49 ) {
+		if( CoC.player.inte > 49 ) {
 			EngineCore.outputText( 'Still possessing the fighting spirit of earlier and enough wits to resist him, it seems fitting to stand your ground and you push Raphael away from you.  Surprised, he looks you in the eyes and realizes you\'re still very much in control of your mind and of the situation.  To take you roughly on the moss instead of sweeping you off your feet would be a thing unbecoming of the refined fox. He needs you to consent, to win the game.\n\n', false );
 			EngineCore.outputText( '<i>"I have never met a woman with your skills in the rapier,"</i> he sighs at you.  <i>"My lady, I must have you.  It would only be right."</i>\n\n', false );
 			EngineCore.outputText( '<i>"Oh my, are you soliciting me, mister fox?  Right here in the wilds, crudely upon the moss?"</i> you tease coyly.  <i>"Wouldn\'t that mean I lose the game?"</i>\n\n', false );
@@ -634,35 +634,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'What he does do is grab your right leg, at the hollow of your knee, and drag it sideways.  It forces you to stand on one leg with your groin spread.  Luckily, your hold around his neck gives you all the support you need.  There\'s one other thing giving you support, however; as you look down and gasp, Raphael\'s vulpine cock is resting in the hollow of your groin, poking through the fly of his pants.  The bright-red, smooth tip stands out between your legs, riding up your womanhood admiringly.  It lacks the mushroom-shaped  crown of human men and, instead, his cock is pointed and tapered, much like the weapons he prefers.  You can also feel a subtle, but noticeable canine bulb at the base throbbing against your sensitive loins.\n\n', false );
 		EngineCore.outputText( 'When Raphael notices your attention, the time seems right for one of his one-liners.  \'Do not fear the blade\', \'look how the length stands firm upon the hilt\', a lecture on the art of parrying, or the like is not forthcoming, however.  The fox says nothing instead and merely smiles knowingly at you from the side, knowing silent action is enough.  With his one remaining free arm, he claws around the silk of your womanhood and does indeed part the subtle opening of your interlapping folds. For a moment you gasp as his hot, slick cock falls freely into the denuded skin of your quaking ' + Descriptors.vaginaDescript( 0 ) + '.  It shouldn\'t come as a surprise that he knows of the secret opening in the clothes: he gifted them to you after all, perhaps planning it all along.\n\n', false );
 		EngineCore.outputText( 'You tremble as Raphael shifts back, angles his cock into the furrow of your womanhood and takes your moist opening in a single inward incursion.  ', false );
-		CoC.getInstance().player.cuntChange( 12, true );
+		CoC.player.cuntChange( 12, true );
 		EngineCore.outputText( 'After that he slowly begins to oscillate into you.  You\'re turned into a wreck as you hold on for dear life, feeling the russet rogue enter you repeatedly.  His paw continues to trace around your body to tease your tits or bother your lovebud.  Your one remaining foot has long since begun to buckle under the repeated bumps against your g-spot.  Raphael does not have an impressive girth, but he uses it well in rapid plunges into your yielding loins.  He often changes his angle, until not an inch of your loosening walls have been deprived of an pleasurable inner invasion, as he brushes into your walls with deep lunges.\n\n', false );
 		EngineCore.outputText( 'Finally, you can bear it no more with his hot breath across your neck.  Your body convulses limply around his upright impalement, the fox still standing tall and firm.  You try to close your leg or slip down his body, but with two firm hands Raphael holds you in climactic embrace like captured prey.  Only after you howl and rock your hips forth to the involuntary rhythm of orgasm does Raphael allow you to drop to the moss. The dew-dappled meadows feel like salvation, but little do you know that it does not end there.\n\n', false );
 		EngineCore.outputText( 'With a victorious glint, Raphael rolls you on your back while you\'re still dazed.  The fox, taking the sash from his hips and tying either end around your knees, brings your legs towards your chest.  He holds them there without any effort on the part of either of you, by putting his chest down on the cloth tied between them and mounting you again, lying on top of you.  More deep thrusts follow, this time deep enough for the tip to titilate even your cervix, while the slender knot at his base parts the sensitive entrance a little wider with every bottoming bump into you.\n\n', false );
 		EngineCore.outputText( 'It is how you spend the rest of that morning, filled a thousands times over and constantly driven past the edge of orgasmic bliss by the master fencer\'s trained thrusts.  His civilized smile has long since given way to the mean smirk of a sexual victor driving his victim to the edge of madness.', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( this.postRaphaelCoitus );
 	};
 	Raphael.prototype.postRaphaelCoitus = function() {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00149 ] = 1;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00149 ] = 1;
 		EngineCore.outputText( 'When you wake up on a bed of soft moss, Raphael has disappeared completely.\n\n', false );
 		//({When player had reached the SPE fencing apex};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
 			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex} ;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
 			EngineCore.outputText( 'However, you realize he\'s left you with more than just pleasant memories of sitting with him around the picnic.  Realizing how skillfully you declined him and how deftly you led him around, you realize you may have mastered his art of keeping another\'s attention and leading them around with cunning and acting.  This misdirection could have great applications in battle.\n\n', false );
 			//Optional Perk: Misdirection. Intelligence adds to the chance to evade. Turns you into a true rogue together with the bodysuit.]);
-			CoC.getInstance().player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
 		}
 		EngineCore.outputText( 'You return to camp, having cleaned up the picnic and taking the rations that were left with you.  You can\'t help but wonder if you\'ll ever see him again though.\n\n', false );
 		//[Removes Raph from the game. 7 days later, the Quicksilver scene plays out.];
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
 		//Next button if not taking Rapier;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		}
 	};
@@ -681,23 +681,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'After a small while, the fox finally speaks.  <i>"It seems like there isn\'t anything more I can teach you,"</i> the fox claims.  <i>"... I\'m proud of you, my greatest student."</i>\n\n', false );
 		EngineCore.outputText( 'You turn around to smile at him.  However, Raphael has vanished.\n\n', false );
 		//({When player had reached the SPE fencing apex};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss. He\'s bound it with his red sash around the length like a ribbon, like he has now gifted it to you. Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
 			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
 			EngineCore.outputText( 'You realize he\'s left you with more than just pleasant memories of sitting with him around the picnic, though. Realizing how skillfully you declined him and how deftly you led him around, you realize you may have mastered his art of keeping another\'s attention and leading them around with cunning and acting. This misdirection could have great applications in battle.\n\n', false );
 			//[Optional Perk: Misdirection. Intelligence adds to the chance to evade. Turns you into a true rogue together with the bodysuit.]);
-			CoC.getInstance().player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
 		}
 		EngineCore.outputText( 'You return to camp, having cleaned up the picnic and taking the rations that were left with you.  You can\'t help but wonder if you\'ll ever see him again.\n\n', false );
 		//[Removes Raph from the game. 7 days later, the Quicksilver scene plays out.];
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
-		CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
+		CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] = 1;
 		//Next button if not looting!;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		}
 	};
@@ -707,7 +707,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( '', true );
 		}
 		//(Introduction; plays out only once);
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 0 ) {
 			EngineCore.outputText( 'Faced by the \'world-renowned Russet Rogue\' - self proclaimed though he may be - your mind fills itself with questions as you try to come up with topics of conversation.  The flamboyant fox must lead an interesting life; one made only more infamous by superstitious folktale and colorful exaggerations.  You intend to get to the bottom of it however!  You lean slightly forward and ask Raphael if everything they say about rogues is true.\n\n', false );
 			EngineCore.outputText( '<i>"Certainly not!"</i>  The fox grins.  <i>"People often underestimate how tiring proper lovemaking is.  I restrict myself to a mere tryst a day.  No more, often less.  You ladies would be the death of me otherwise."</i>\n\n', false );
 			EngineCore.outputText( 'When you ask him what he\'s doing now, the fox nods at you subtly and swerves his tail about in delight.  <i>"Other than that, I sold my grandmother out for a good price - I know how to bargain - and I nicked these boots off a perfectly healthy man and their size does not correlate with certain other attributes I possess.  A rogue like me relies on a..."</i> here he winks, <i>"...silver tongue and  magic fingers."</i>\n\n', false );
@@ -716,7 +716,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			//{Leads to [Thieving] scenes subjects to PC stats.} ;
 		}
 		//{[Thieving], intelligence (Less than 30): Must play out at least once.} ;
-		if( CoC.getInstance().player.inte < 30 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 0 ) {
+		if( CoC.player.inte < 30 || CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 0 ) {
 			EngineCore.outputText( '<i>"How do pickpockets do it?"</i> you blurt out bashfully; the first thing coming to mind is how it\'s possible for them to reach into pockets without the victims even sensing it.\n\n', false );
 			EngineCore.outputText( 'When you pick up a nearby sparerib and nibble upon it, you notice how Raphael isn\'t partaking.  He merely stares at you, resting on his hip and with both hands on the blanket.  The triangular ears on the sides of his cuneate head perk up like that of a patient predator\'s.  Raphael\'s tail flicks about like the tip of a paintbrush, swept by a balmy breeze.  Whenever he raises it, a subtle draft of Raphael\'s fragrant male musk mingles with the sweet scent of meadow bloom.\n\n', false );
 			EngineCore.outputText( 'You blush when you stare back into those vibrant green eyes, set as they are besides a sharp red nose and with the vivid orange jowls running down below it.  A delicate beige shade colors his lower jaw and runs all the way through across the underside of his body, down his body\'s neck, chest, stomach, hips and shapely crotch, contrasting sharply with the flawless fire of his crimson coat.  All of it punctuates the brilliant emerald of his deep irises.  They have flecks of jade and shades of dark within them.  They sparkle and shimmer, as though desiring something of you.  It\'s quite hard to resist.\n\n', false );
@@ -726,10 +726,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'Raphael himself remains amicable and relents, leaning back on crossed arms and with a pleased smile, as though signifying it was all you.  <i>"And that is what they call distraction. Notice how you didn\'t even realize until the last moment I had my hands on your body?"</i> Raphael states academically.  He lets you recover, but keeps a careful eye on you like a considerate lover.  <i>"That\'s how a proper pickpocket operates."</i>\n\n', false );
 			EngineCore.outputText( 'You respond with a embarrassed "<i>uh-huh</i>" as you turn your back to the fox and shield your breasts. The taste of his saliva is still on your tongue, surprisingly sweet. You would have protested, if you hadn\'t asked for a demonstration of his skills earlier.\n\n', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'int', 3, 'sen', 1, 'lus', 40 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 1;
+			CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 1;
 		}
 		//{Picnic Thieving 30-39 Int. Must play out at least once.};
-		else if( CoC.getInstance().player.inte < 39 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 1 ) {
+		else if( CoC.player.inte < 39 || CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 1 ) {
 			EngineCore.outputText( '<i>"Are rogues born to be what they are?"</i> you ask him curiously.\n\n', false );
 			EngineCore.outputText( 'The fox, pouring you another glass of wine, laughs.  <i>"Depends on the rogue.  I myself was definitely born with a gift, a pernicious scamp even as a toddler.  I would steal kisses, woo my aunties, and swipe small baubles before I even learned to walk."</i>  The fox smiles glib and leans back.  <i>"Yes, I\'m afraid I was destined for this line of work.  When you think about it, you can no more blame me for stealing and being a ladies\' man than you could the sun for rising or a wolf for eating meat or reeking foul. Locking me up would surely be a crime against nature."</i>\n\n', false );
 			EngineCore.outputText( 'When you ask him if it is a thing you could learn, he looks at you with piqued interest.  <i>"Now, the rapier.  That is true skill learned.  Actually being a rogue, however?"</i>  The fox rubs the white streak across his chin.  <i>"Can a feel for the theatrical, mastering another\'s attention and making skillful love to a woman, be learned?  I suppose, with the right student..."</i>\n\n', false );
@@ -744,10 +744,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( '<i>"Not bad!"</i> The fox states as he disconnects.  <i>"But you\'re missing the point, señorita."</i> he comments, pleased.  <i>"Although this was fine practice, it is not a game about winning.  It is not a game about foiling the other side, your mark.  This is a game... of togetherness, of both believing you can reach the state you desire, even though your goals may not be alike. It is about illusion. About gliding across fields of forbidding energies and secret desires."</i>\n\n', false );
 			EngineCore.outputText( 'When you ask him what he means, Raphael merely winks.  <i>"You\'ve come this far, I\'m sure you\'ll figure it out. A proper rogue knows it by heart."</i>\n\n', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'int', 3, 'sen', 1, 'lus', 40 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 2;
+			CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 2;
 		}
 		//{Picnic Thieving at 40-49 Int. Must play out at least once.};
-		else if( CoC.getInstance().player.inte < 39 || CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 2 ) {
+		else if( CoC.player.inte < 39 || CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 2 ) {
 			EngineCore.outputText( '<i>"Are you always this much of a charmer?"</i> you wonder about Raphael, and how he always manages to keep his cool.\n\n', false );
 			EngineCore.outputText( 'He draws a weary smile, not completely disheartened.  <i>"It is my natural state of being... though I must confess; it takes effort to stay on top of my game."</i>\n\n', false );
 			EngineCore.outputText( 'When you ask him what he does for relaxation, the rogue raises his shoulders.  <i>"Being less than on the very top of my game.  An audience will never know the difference however.  Working the crowds is vital."</i>  When you ask him if that includes you, he merely grins.\n\n', false );
@@ -759,7 +759,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'Raphael however, doesn\'t get angry at himself.  The young prince of thieves isn\'t embarrassed and doesn\'t even try to desperately correct himself.  He simply smiles, rolls slowly onto his back before your eyes and carries through the performance.  He crooks his limbs above his prostrate body, curls his tail between his legs and acts like a young dog who has just made a mess, staring at you from upside down position with well-humoured puppy dog eyes.\n\n', false );
 			EngineCore.outputText( 'You crack up and laugh openly at his antics.  Suddenly, you don\'t have as hard a time imagining Raphael relaxing.\n\n', false );
 			EngineCore.dynStats( 'str', -1, 'tou', -1, 'int', 3, 'sen', 1, 'lus', 20 );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 3;
+			CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 3;
 		}
 		//{Int Thieving Apex Warning: When the PC's intelligence is at 50 or higher.};
 		else {
@@ -769,7 +769,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 			EngineCore.outputText( 'You realize that he\'s preparing for the long haul.  You might not get off quite as easily as earlier, should you decide to flirt with him again.\n\n', false );
 			EngineCore.outputText( 'It occurs to you to change the subject to that of the rapier at his side but you are equally drawn to engaging the fox and satisfying your... curiosity.\n\n', false );
 			EngineCore.outputText( 'What do you do?', false );
-			CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 4;
+			CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] = 4;
 			//[Fencing] [Flirt];
 			//[Fencing] {Leads to Fencing Variables};
 			//[Flirt] Leads towards the final Int Sex scene. ;
@@ -783,7 +783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'It\'s a beautiful morning out on the meadows.  The rising sun shines brightly and casts radiant beams of golden light across the clearing.  Dandelion seeds, flower petals and feathers drift by on a strong, but balmy breeze that falls pleasantly across the skin.  The air currents are dry, and amplify both smells and sounds.  On the foregrounds of this brilliant backdrop, Raphael lies on his side with the sun rising in his back.  The warm gusts and luminescent hue appear to set Raphael on fire.  His radiant fur gleams in the sun and dances in the wind.  The fine long hairs of it turn into delicate golden threads near the ends and run off endlessly into the ambient light.  Perhaps he\'s the trickster that makes the airborne delight flutter by and the hot sun shine today?  The fox himself however is the perfect picture of belonging, at peace within the setting.  He has the top two buttons of his jacket unfastened, allowing the white fur on his chest to spill out in a manly way, only adding to the display.\n\n', false );
 		EngineCore.outputText( 'Raphael himself remains silent.  There is no need to move as he looks upon you with a dreamy glaze in his eyes, sideways from his pointed snout.  He\'s enjoying his sunbath.\n\n', false );
-		EngineCore.outputText( 'You break the silence by finally asking him what he wanted to talk about.  When you do, Raphael rises up timelessly slow, like a rousing sungod.  When he puts the sun in his back and loses the orange sheen across his fur, he turns back into the playful red scoundrel.  <i>"I have never met a woman... quite like you, ' + CoC.getInstance().player.short + ',"</i> he drawls.\n\n', false );
+		EngineCore.outputText( 'You break the silence by finally asking him what he wanted to talk about.  When you do, Raphael rises up timelessly slow, like a rousing sungod.  When he puts the sun in his back and loses the orange sheen across his fur, he turns back into the playful red scoundrel.  <i>"I have never met a woman... quite like you, ' + CoC.player.short + ',"</i> he drawls.\n\n', false );
 		EngineCore.outputText( 'Suddenly it appears the entire world rides upon his words towards you.  Not just the fox and the picnic, but the sun, sky and wind too, flow in your direction.  Just before the feeling overwhelms you, you snap out of it and turn your attention towards what the fox is doing.  Like always, he carefully starts to draw closer like some patient predator, brushing across the checkered blanket and past the picnic pieces.  You\'ve grown wise enough to know of his ways and dismantle him.  However, when you look around and realize how much work he\'s put into arranging this, you don\'t have the heart to do so.  Perhaps that\'s what the fox meant by a game of two?\n\n', false );
 		EngineCore.outputText( 'You make the snap decision to simply indulge him and enjoy yourself.  When the fox is nearly upon you however, you realize how hard it is to do that without losing your mind to his sensual advances.  You go with the flow and seemingly relinquish control, but hold tentatively onto your senses and make sure not to get swept away.  Perhaps within the current, opportunities will present themselves.\n\n', false );
 		EngineCore.outputText( 'You hold your breath as the rogue closes in on you, putting his face close to yours.  He growls softly at you and you moan back at him, but only after allowing yourself to do so.\n\n', false );
@@ -791,7 +791,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'As he kisses you across the leg, the thing you feel most clearly are his whiskers and soft wet nose gliding across your thin silk attire.  He keeps a respectable distance from your groin, skipping past it with a feathery touch.  Instead, his inquisitive snout sniffs past your tummy and ' + Descriptors.allBreastsDescript() + '.  Meanwhile, you have the opportunity to admire him, his soft fur, his skillful touches and his fine wardrobe.  The sash falls in over your body while the supple brown and red leather gives the graceful body moving in over you a refined quality.  Spending time with him has rubbed off on you.  Only now do you appreciate the value of certain baubles that cling to his leathered threads, thinking like a pickpocket.\n\n', false );
 		EngineCore.outputText( 'A brooch that can only be described as priceless decorates the soft silk sash.  ', false );
 		//({When player has not reached the apex of fencing lessons/Optional: and also has less than 60 speed};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
 			EngineCore.outputText( 'You try to reach for the magnificent ornament hanging off his hips, but as the fox continues to move, you lack the nimbleness to remove it.\n\n', false );
 		}
 		//({When player has also reached the apex of fencing lessons;
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'Finally the fragile tension between you breaks.  Raphael undoes your zipper and roughly pulls your bodysuit down, revealing your ' + Descriptors.allBreastsDescript() + '. You\'re stunned; the fine, abrasive texture of his nimble fingers\' pads run in eager circles across your sensitive neck, from whence moans have begun to flow. His soft fur brushes across your body as the fox moves downwards.  Gingerly, he puts his maw down on your right breast and suckles once, but in the span of an agonizingly long time.  The ' + Descriptors.nippleDescript( 0 ) + ' is sucked into his toothy mouth, which he puts down on the nub carefully.  The little points scrape by sensually, before your nipple slips through them.\n\n', false );
 		EngineCore.outputText( 'You gasp when he spreads your legs by placing his in between and parting them. When he fondles you down there, fingers rubbing into your flushed  ' + Descriptors.vaginaDescript( 0 ) + ', you suddenly feel the wind passing through the hot bare inners of your parted folds.  Raphael has opened the silken opening of your suit. It shouldn\'t come as a shock.  He gifted them after all, perhaps planning for it all along.  Another surprise follows as you can feel something hot and rigid standing off his body and lying on top of yours. Raphael\'s vulpine cock is resting in the hollow of your bellybutton, through the fly of his pants.  The bright red, smooth tip rides up your tummy admiringly.  It lacks the mushroom shaped dome that human men have and instead, his cock is pointed and tapered, much like the weapons he prefers.  You can also feel a subtle, but noticeable canine bulb at the base, throbbing against your sensitive loins.\n\n', false );
 		EngineCore.outputText( 'When he finally lowers himself, positioning himself in front of your opening, you\'ve already welcomed it.  In the time it took him, the wind\'s soft breeze has passed through and licked by your exposed cunt for long enough.  By now you long to get penetrated by something more substantial and indeed your wish is granted.  When you feel the tip of Raphael\'s foxy cock trail down your furrow, it hits the spot and he takes your moist opening in a single inward incursion.  ', false );
-		CoC.getInstance().player.cuntChange( 12, true );
+		CoC.player.cuntChange( 12, true );
 		EngineCore.outputText( 'After that he slowly begins to oscillate into you.  You\'re turned into a wreck as you hold on for dear life, feeling the russet rogue enter you repeatedly.  His paws grope your tits and pester the ' + Descriptors.nippleDescript( 0 ) + 's by twirling his abrasive hands around them.  With a knowing look upwards, he has also begun to nibble down on your shoulders with his sharp teeth, giving you little lovebites across your neck that make you gasp.  Your body has long since buckled under his luscious fur thanks to the repeated bumps against your g-spot.  Raphael does not have an impressive girth, but he uses it well in rapid plunges into your yielding loins. He often changes his angle, until not an inch of your loosening walls have been deprived of a pleasurable inner indentation, as he brushes into your walls with deep lunges.\n\n', false );
 		EngineCore.outputText( 'Finally, you can bear it no more.  Your body convulses limply below him, the fox still jamming himself in with consistent rhythm.  You raise your legs and clamp him around his hips as Raphael keeps up the motion, rocking into you like a voracious predator.  Only after you howl and pump your hips to the involuntary rhythm of orgasm does Raphael allow you a breather by sitting up, but his penis is still locked into your ' + Descriptors.vaginaDescript( 0 ) + '. Little do you guess that it does not end there.\n\n', false );
 		EngineCore.outputText( 'With a victorious glint, the fox takes the sash from his hips and, tying either end around your knees, brings your legs towards your chest. He holds them there without any effort on the part of either of you, by putting his chest down on the cloth tied between them and mounting you again, lying on top of you. More deep thrusts follow, this time deep enough for the tip to titilate even your cervix, while the slender knot at his base parts the sensitive entrance a little wider with every bottoming bump into you.\n\n', false );
@@ -831,23 +831,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'When you wake up on a bed of soft moss, Raphael has disappeared completely.\n\n', false );
 		//({When player had reached the SPE fencing apex} ;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
 			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
 			EngineCore.outputText( 'However, you realize he\'s left you with more than just pleasant memories of sitting with him around the picnic.  Realizing how skillfully you declined him and how deftly you led him around, you realize you may have mastered his art of keeping another\'s attention and leading them around with cunning and acting.  This misdirection could have great applications in battle.\n\n', false );
 			//[Optional Perk: Misdirection. Intelligence adds to the chance to evade. Turns you into a true rogue together with the bodysuit.]);
-			CoC.getInstance().player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.Misdirection, 0, 0, 0, 0 );
 			EngineCore.outputText( '(Gained Perk: Misdirection!)\n\n' );
 		}
 		EngineCore.outputText( 'You return to camp, having cleaned up the picnic and taking the rations that were left with you. You can\'t help but wonder if you\'ll ever see him again though.', false );
 		//[Removes Raphael from game. In 7 days, the quicksilver scene plays out];
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = 7;
 		//If not taking item, go next.;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] !== 4 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		}
 	};
@@ -860,11 +860,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'It is an eerily misty morning outside, with banks of fog covering your campsite.  It only makes the second howl more haunting as the danger appears to draw closer to camp.  You stand still and prepare yourself to face this menace, peering into the fog.  When a shadow creeps closer, you prime for combat.  However, its posture suggests it is weary and tired, slumping against a tree. When it struggles forward, it almost comes falling out of the curtaining mist.  It is only then that you notice the redness of its fur and the fineness of its clothes.  It is the fox and russet rogue, Raphael!\n\n', false );
 		EngineCore.outputText( '<i>"Please, you must help me!"</i> he begs of you.  <i>"They\'re trying to frame me!  I\'m innocent!"</i>\n\n', false );
 		//({If player rejected him earlier};
-		if( CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] === 1 ) {
+		if( CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] === 1 ) {
 			EngineCore.outputText( 'You\'re immediately confused and you ask him what\'s going on, but the fox is out of breath.  What\'s more, a similar howl now calls out from the opposite direction too!  Whatever these sounds are or this fog is, they have the camp surrounded!\n\n', false );
 		}
 		//({If player had an INT or SPE ending with him earlier};
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00149 ] === 1 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00149 ] === 1 ) {
 			EngineCore.outputText( 'You\'re a bit miffed at the fox.  You haven\'t heard from him for more than a week after he slept with you, and now he only shows up because he\'s looking for help.  The fox however, is out of breath.  What\'s more; a similar howl now calls out from the opposite direction too!  Whatever these sounds are or this fog is, they have the camp surrounded!\n\n', false );
 		}
 		EngineCore.outputText( '<i>"They hound me night and day!  I can\'t outrun them any longer!"</i> he wheezes.  <i>"Please!  You don\'t know what they\'ll do to me when they catch me!"</i>\n\n', false );
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '<i>"Must have gone on a real romp, that one,"</i> you quip.\n\n', false );
 		EngineCore.outputText( 'Skoll responds, amused.  <i>"We need to set standards for ourselves and he crossed them.  It\'s how we separate ourselves from the demons.  Petty theft, highway robbery, and breaking and entering are counted amongst his other crimes.  Not that their severity should matter to the course of our investigation."</i>\n\n', false );
 		//({If player removed him earlier};
-		if( CoC.getInstance().flags[ kFLAGS.REJECTED_RAPHAEL ] === 1 ) {
+		if( CoC.flags[ kFLAGS.REJECTED_RAPHAEL ] === 1 ) {
 			EngineCore.outputText( '<i>"I can smell traces of him,"</i> Hati states, nearing the waterbarrel, <i>"but it\'s hard to tell.  There\'re too many other scents here."</i>\n\n', false );
 		}
 		//Played around/special ending;
@@ -898,7 +898,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 
 		EngineCore.outputText( 'Your heart jumps as Hati manages to discover a pile of Raphael\'s clothes, near the barrel.  It\'s irrefutable proof.  Raphael must have put them there to throw the wolves off.  Hati gives you a look of dissapointment.  <i>"He\'s nude. They must have slept together."</i>', false );
 		//({If player is wearing red bodysuit};
-		if( CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( '  Suddenly, his eyes and ears perk.  <i>"Isn\'t that the stolen clothing of the widow Camembert that she\'s wearing? You know, before she mysteriously dropped the charges after a nightly visit from the fox? Should we confiscate it anyway?"</i>', false );
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You stare back into the wolf\'s yellow eyes, keep a stiff back and answer him.  <i>"I\'m not seeing him right now."</i>\n\n', false );
 		//({Player corruption below 30};
-		if( CoC.getInstance().player.cor < 30 ) {
+		if( CoC.player.cor < 30 ) {
 			EngineCore.outputText( 'You instantly feel bad for lying to the wolf. More so because he doesn\'t get troubled, disappointed or vexed.  He seems to instantly believe you... or at least, he wants to believe you, even though being a detective probably keeps him cynical.  You\'ll only be adding to that cynicism if he discovers your lie.\n\n', false );
 		}
 
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'Your hair stands upright when he leans back in over the barrel and appears to look down into the water, but you struggle not to slake a sigh of relief when he merely starts drinking from it instead.  A few long laps with his tongue and the wolf is sent cringing and shaking his head at the taste.  <i>"Even the water tastes of him."</i>\n\n', false );
 		EngineCore.outputText( '<i>"Hati, enough!"</i> The wolf in front of you turns his head, throws back his cuneate ears and snarls at his partner.  <i>"We\'re not in the habit of throwing around accusations without material proof."</i>  His anger starts to decrease. <i>"Don\'t help Raphael turn us into the bad guys."</i>  Skoll turns back to you with just as much friendly patience as ever.  <i>"I\'m sure she would have told us if she knew anything about that."</i>', false );
 		//({If cor is below 30};
-		if( CoC.getInstance().player.cor < 30 ) {
+		if( CoC.player.cor < 30 ) {
 			EngineCore.outputText( '  You slowly shake your head, tortured by the trusting twinkle in the wolf\'s soft yellow eyes.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -945,7 +945,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '<i>"Mademoiselle, this day, I owe you a great boon.  The russet rogue never forgets a debt.  Visit Tel\'Adre after things die down and look for the orphanage.  You will be welcomed like a queen! Ah-ha!"</i> he exclaims, before hopping down the wall.\n\n', false );
 		EngineCore.outputText( 'You blink as he fades off into the mist and you\'re left to absorb the morning\'s events by yourself.  For a minute you\'re concerned with the wolves, but at least you\'ve managed to keep Raphael as a friend.  Though, you are curious what he means by \'orphanage\'.', false );
 		//Concludify things;
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -2;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -2;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//{PC chooses to betray Raphael};
@@ -961,7 +961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '<i>"We caught him in record time,"</i> Skoll remarks.  <i>"I\'m sure Urta won\'t mind it if we keep him for ourselves for just a day.  You know... collect evidence... interrogate the culprit..."</i>  His voice is carried off by the mist.\n\n', false );
 		EngineCore.outputText( 'Hati throws you one more amicable glance before turning, getting on all fours, and running off.\n\n', false );
 		EngineCore.outputText( 'You blink as he fades and you\'re left to reflect on these morning\'s events by yourself.  For a minute you\'re concerned for the fox, but the wolves don\'t seem like the types to harm him... much.  You are curious what they plan to do with him and what his \'sentence\' might be, though.', false );
-		CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -1;
+		CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] = -1;
 		//1k gems?;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -969,7 +969,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 	Raphael.prototype.orphanageIntro = function() {
 		EngineCore.clearOutput();
 		if( this.RaphaelLikes() ) {
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ] === 0 ) {
 				EngineCore.outputText( 'You spend some time around Tel\'Adre looking for the orphanage Raphael mentioned, but you can\'t seem to find a building that looks like one.  Instead you resort to asking the locals, but their reactions are weird. Upstanding citizens, friendly and polite, turn away from you at the merest notion of it.  Young men get excited but dare not speak of it, women blush and turn away like you\'ve just solicited them and, strangest of all, most children have never even heard of it.' );
 				EngineCore.outputText( '\n\nEventually, it takes the beggars and the organ grinders, the guards and the muggers, to tell you of its location.  More than that they do not say as they just grin at you, telling you should \'experience\' it for yourself.  Well, the guards don\'t.  They just tell you to keep your nose clean.' );
 				EngineCore.outputText( '\n\nWhat sparse directions you have guide you to what must be one of the biggest buildings in Tel\'adre - aside from the mage\'s tower.  It looks nothing like an orphanage and more like a fortified stronghold in the bad part of town, situated amongst slums and seedy bars.  It has thick stone walls, a massive oak door and ramparts on top, even though it has a distinctly ramshackle appearance to it.  Beams are sticking out everywhere, replete with pulleys and lengths of rope.  Windows are larger than they need to be and look like they can handle the intake of cargo.  It has something of a warehouse feel to it and it may just have been that, retrofitted into a reinforced bulwark.  For a moment you belief you might have had your leg pulled and that \'the orphanage\' is something of a running joke within Tel\'Adre.  You\'re reassured however, when you spot half a dozen little heads sticking out of one of the windows, giggling at you.  When you spot them, the children shoot back inside.' );
@@ -993,19 +993,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 				//~~~ Page ~~~;
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', this.raphaelIntroPageTwo );
-				CoC.getInstance().flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ]++;
-			} else if( CoC.getInstance().time.hours >= 19 && CoC.getInstance().time.hours <= 21 ) {
+				CoC.flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ]++;
+			} else if( CoC.time.hours >= 19 && CoC.time.hours <= 21 ) {
 				//Repeat Approaches;
 				//Repeat encounter the Orphanage is selected between 19 and 21:00;
 				EngineCore.outputText( 'You walk into the alley to the side of the orphanage and look up expectantly, brushing by shady looking teens who enjoy patting you down, but leaving you and your possessions alone otherwise.  They seem to make a game out of it.  The little staging room is lit and you begin to search for the one rope out of many that will hoist you up there by pulling it.  You stay clear of the other ones, not quite sure what they\'d do, but half expecting them to fire a crossbow bolt or drop an anvil on your head.  Anxious, you grab the right one and hold on tight as it pulls you up into the air and swings you towards the correct window.' );
 				//[One of the three sex / dialogue scenes follows];
-				CoC.getInstance().flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ]++;
-				if( CoC.getInstance().player.spe < 33 ) {
+				CoC.flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ]++;
+				if( CoC.player.spe < 33 ) {
 					EngineCore.outputText( '\n\nYou try your best to make an elegant entrance, but the rope gathers such speed that you\'re almost hurled into the room ungraciously.  Just before you crash into the floorboards, something catches you and slows your flight by spinning you around by the waist.' );
 					EngineCore.outputText( '"<i>Ho-ho, I\'ve not even begun the night and already I\'m snatching the priceless treasure out of thin air.</i>"  When your eyes focus, Raphael is smiling back at you and leans you backward in his embrace.  His long vulpine snout hovers over you and his green eyes twinkle in the light.  "<i>I must admit that I was feeling a bit nervous about my chances in the coming night, but now that you\'re here?</i>"  He shrugs playfully.  "<i>I\'d say that fallen angels are a blessing.  With you seeing me off for good luck, I can\'t go wrong!</i>" he chuckles while setting you down.' );
 				}
 				//~~;
-				else if( CoC.getInstance().player.spe < 66 ) {
+				else if( CoC.player.spe < 66 ) {
 					EngineCore.outputText( '\n\nGetting the hang of it, you sweep up and manage a deft landing in the little rogue\'s pad by sinking to your knees as you land.  When you look up, you barely manage a fleeting glimpse of Raphael\'s luscious bare butt before the young man hoists up his pants by candlelight.  Apparently he was just getting dressed.' );
 					EngineCore.outputText( '\n\nHe turns around.  "<i>Getting better at it my little moth of the night; catching a master thief with his pants down.</i>" he chuckles as he puts on his leather jacket and buttons it up.  Throwing his lavender scarf around his neck, he turns around all prim and proper.  "<i>Though let me see what a lowly rogue can do to muster an introduction more becoming of his lady guest.</i>"' );
 				}
@@ -1074,13 +1074,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( 'You drift into Raphael as easily as you would into a pillow.  The young thief leans in over you and begins to devour you softly with gentle tongue and nimble hands.  You are all too eager to reciprocate and let him pass through your mouth and across your back.  You try to wrestle him for control over your tangled tongues, but it turns all too quickly into a metaphor for his swordplay.  All your twirls and wriggles are met by sensuous swirls across areas of your tongue you never even knew you had.  Raphael has instantly turned it into an major erogenous zone.  You give up, but once again the fox does not relent.  He keeps lashing your tongue until you\'re forced to writhe limply to the rhythm.  When you attempt to imagine what would happen, were he to do the same to your already throbbing ' + Descriptors.clitDescript() + ', your knees shudder.  When Raphael, just faintly, places his paws on the sides of your spine in just the right way, you nearly climax.  You fall into his waiting hand and he catches you by the neck and lower back.  You\'re enveloped in a soft sea of groping warmness.  His playful growls carry further into your body than they should.' );
 		EngineCore.outputText( '\n\nHe moves you back, further into the garden.  Just before you hit a rose entwined lattice, Raphael takes hold of you and lifts you up, pinning you squarely against it at mid-height.  Slightly startled by the gesture, you spread your arms to find a grip, but discover it to be easy, up against the plants.  The lattice is indeed rotten to the core, and it crumbles at your touch.  The thick, stubborn rosebushes, however, manage to hold your weight.  You quickly find two branches to grasp and your posterior finds a nook to sit upon.  Your legs you wrap around the fox\'s hips, as the rogue smiles at you with admiration and zeal.' );
 		EngineCore.outputText( '\n\nThere\'s a brief moment of vulnerability, as he finds an opening into your pants.  As sure as a master thief would find his way into the vault of a city, he quickly opens it.  The thorns at your back do bite while you hang limply between trunk and fox with your privates exposed mid air, but you are soon relieved of your awkward neglect when Raphael tilts his hips and drives deep a much larger implement.  Finally the embrace is whole again as you can feel his pelvis thump in against your netherlips. His bone-hard length has already breached you.' );
-		CoC.getInstance().player.cuntChange( 5, true, true, false );
+		CoC.player.cuntChange( 5, true, true, false );
 		EngineCore.outputText( '\n\nThere\'s something to be said for his slender and agile size, still clearly felt bottoming inside you.  You\'re never left waiting for too long.  You quickly settle into the distinctive rhythm, staring Mr. Fox into his eyes with a daring look.  You\'re willing to suffer the discomfort of the thorns to discover just how good he is now that you\'re in it for the duration.  You arch your back into the bushes, help to ease him into your passage and feel like the first of Spring\'s roses held proudly aloft by the gifted gardener.' );
 		EngineCore.outputText( '\n\nWhile Raphael might indeed not be the most endowed lover, he is very skilled.  The wicked fox keeps eye contact, often grinning and snarling at you as in an attempt to keep you aware of just what predicament you\'re in.  He whispers you little words in an indecipherable language, running his paws across your ' + Descriptors.buttDescript() + ' or [hips].  Whatever he does bring to bear, he does well.' );
 		EngineCore.outputText( '\n\nYou begin to notice how his smooth tip nudges repeatedly into your cervix, massaging you deep from within.  Then you begin to notice how his pelvic bone and the soft fur on top rubs into your ' + Descriptors.clitDescript() + ' at just the right angle.  The sensations are seperate at first, but Raphael keeps the steady rhythm steady enough to concentrate.  When you finally manage to focus and truly enjoy them both, it\'s like a subtle spark that grows into a relentless bolt of energy.  The pleasurable pinch at your cervix, always followed by the nod on your clitoris.  It builds.' );
 		EngineCore.outputText( '\n\nFinally, you beg of him to stop as the growing crescendo and steady rhythm becomes too much, not by pulling out, but by jamming into you one last time and simply keeping his wonderful cock in the magic spot for long enough to ride the sensation to a climax.' );
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().player.orgasm();
+		CoC.player.slimeFeed();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.followupToFirstTimeOrphanageRaphSex );
@@ -1107,17 +1107,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '\n\nHe\'s good at it.  With every new lap, he sinks a little deeper into your crevasse to partake of the moist delta, parting the trembling lips as he runs through the furrow and ravages your trembling buzzer, sometimes doing all these three things at the same time with the full length of his limber tongue.  It roves, lays along the entire length and falls neatly into place.' );
 		EngineCore.outputText( '\n\nAfter five minutes of this, sending you gasping and writhing, you dare to raise your head and look down with a fierce blush.  Raphael is still at it.  He looks up and patiently resumes eye contact, like you\'re an invitee to the discourse between him and the glistening red, tongue-lashed and dilated femslit before him.  The look he throws you is enough to send you over the edge and you cum hard, ' );
 		//({Low wetness multiplier});
-		if( CoC.getInstance().player.wetness() < 3 ) {
+		if( CoC.player.wetness() < 3 ) {
 			EngineCore.outputText( 'your cunt fluttering' );
 		}//({Medium wetness multiplier};
-		else if( CoC.getInstance().player.wetness() < 4 ) {
+		else if( CoC.player.wetness() < 4 ) {
 			EngineCore.outputText( 'sending out a small spurt of femcum landing on your belly' );
 		}//({High wetness multiplier};
 		else {
 			EngineCore.outputText( 'gushing a torrent of femcum into the air' );
 		}
 		EngineCore.outputText( '.  Raphael backs off a bit afterwards, giving you a few more laps of admiration around the throbbing fissure and cleaning you of any spillage. He ends with a tiny kiss, just inside your inner thigh.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1129,11 +1129,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLi
 		EngineCore.outputText( '\n\n"<i>Uno momento, señorita.</i>"  Raphael purrs, and with a sly smile, takes out what looks like a thin piece of skin.  "<i>A latex condom.</i>"  He tells you.  "<i>I think neither of us would want you bothered by my spawn.  Normally I slip it on unbeknownst to my lovers, but then again, none of them have been as proactive as you have been now.</i>"' );
 		EngineCore.outputText( '\n\nYou swipe the condom out of the fox\'s hand and waste no time applying it.  In fact, you manage to do a good job of giving it a sensual part within your lovemaking, which makes you feel all smart.  Between spread legs and right in front of your ' + Descriptors.vaginaDescript( 0 ) + ', you lay it in within your hand and slowly roll your fist across his cock; giving him a taste of what is to come.  Raphael gasps softly at the sight as you do it. The condom fogs up instantly around his muzzled red bone.' );
 		EngineCore.outputText( '\n\nTriumphant, you finally point his tip towards your furls and drag through, towards the waiting hole of your [vagina].  Gently sitting down upon it, it slides in smoothly. Raphael rewards you by finally participating, softly running his velvet paws across your flanks, neck and fondling your [chest] admiringly.  Finally, a little bashful, you throw your head back, letting Raphael have his way with your body as you concentrate and enjoy riding him.' );
-		CoC.getInstance().player.cuntChange( 5, true, true, false );
+		CoC.player.cuntChange( 5, true, true, false );
 		EngineCore.outputText( '\n\nRaphael\'s cock is something else. It must be the bone running through it that gives it its firmness.  Instead of stuffing yourself with a nondescript roll of meat, you can clearly feel him penetrating you with his well defined and rock-hard shaft.  With the faintest twitch of the hip, you can change its angle and run it through in an entirely different manner and you eagerly start experimenting with what feels best.  Eventually you settle on jutting your ass backwards and pressing the middlemost of his solid length against the front wall of your [vagina] while the tip bottoms out against the back.  The position does not go unnoticed to Raph, and he trails his paws along your ' + Descriptors.buttDescript() + '.  You begin to bounce around on top him, jamming him into you more firmly and more securely with every rut in.  Raphael supports you by either grabbing you by the ass or cupping your tits, playing with them with his sandy paws.  He sinks in heavily, smoothly, with every gulp of your tightening cunt accompanied by a little wet slush around his hard manhood.' );
 		EngineCore.outputText( '\n\nDesperate for that little bit more, you reach down and start fondeling your ' + Descriptors.clitDescript() + ' too.  Your button brushing in against Raphael\'s soft white pubes tickles.' );
 		EngineCore.outputText( '\n\nLooking him in the eyes again, you slaver on top of the fox.  Raphael simply lays back, lazily fondles your breasts and ass and looks at you to put in the effort around his cock.  Only after minutes of this, almost driving yourself towards the brink, does Raphael suddenly sit up sharply - an anguished snarl on his face - to hold you in a tight embrace and groan conceitedly.  You can feel his cock jerk up and grow an inch in size, before his passion escapes into your womanhood.  Allowing yourself as well, you follow him with a lazy orgasm and join him in his growl, while he squeezes you on your waist.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

@@ -10,16 +10,16 @@ angular.module( 'cocjs' ).factory( 'WizardsStaff', function( CoC, Weapon, PerkLi
 	};
 	WizardsStaff.prototype._superPlayerEquip = WizardsStaff.prototype.playerEquip;
 	WizardsStaff.prototype.playerEquip = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.WizardsFocus );
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
-		CoC.getInstance().player.createPerk( PerkLib.WizardsFocus, 0.4, 0, 0, 0 );
+		CoC.player.createPerk( PerkLib.WizardsFocus, 0.4, 0, 0, 0 );
 		return this._superPlayerEquip();
 	};
 	WizardsStaff.prototype._superPlayerRemove = WizardsStaff.prototype.playerRemove;
 	WizardsStaff.prototype.playerRemove = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.WizardsFocus );
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
 		return this._superPlayerRemove();
 	};

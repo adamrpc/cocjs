@@ -7,18 +7,18 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 	angular.extend(BeeGirl.prototype, Monster.prototype);
 	BeeGirl.prototype.defeated = function( hpVictory ) {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully, and you see an easy way to relieve it..\n\nWhat do you do to her?' );
 			} else {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' spreads her legs and starts frigging her honey-soaked cunt.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully, and you see an easy way to relieve it..\n\nWhat do you do to her?' );
 			}
-			CoC.getInstance().player.lust = 98;
+			CoC.player.lust = 98;
 			EngineCore.dynStats( 'lus', 1 );
-			var dildoRape = CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.beeGirlScene.beeGirlsGetsDildoed : null;
-			var milkAndHoney = CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny : null;
+			var dildoRape = CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.beeGirlScene.beeGirlsGetsDildoed : null;
+			var milkAndHoney = CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny : null;
 			EngineCore.choices( 'Rape', SceneLib.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', dildoRape, '', null, 'B. Feed', milkAndHoney, 'Leave', this.leaveAfterDefeating );
-		} else if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Genderless can still breastfeed
+		} else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Genderless can still breastfeed
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			} else {
@@ -31,9 +31,9 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 	};
 	BeeGirl.prototype.leaveAfterDefeating = function() {
 		if( this.HP < 1 ) {
-			CoC.getInstance().flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITHOUT_RAPE ]++; //This only happens if you beat her up and then don't rape her
+			CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITHOUT_RAPE ]++; //This only happens if you beat her up and then don't rape her
 		} else {
-			CoC.getInstance().flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITH_RAPE ]++; //All wins by lust count towards the desire option, even when you leave
+			CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITH_RAPE ]++; //All wins by lust count towards the desire option, even when you leave
 		}
 		Combat.cleanupAfterCombat();
 	};
@@ -53,21 +53,21 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 			return;
 		}
 		//Determine if dodged!
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			if( CoC.getInstance().player.spe - this.spe < 8 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+			if( CoC.player.spe - this.spe < 8 ) {
 				EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s stinger!' );
 			}
-			if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+			if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 				EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s stinger with superior quickness!' );
 			}
-			if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+			if( CoC.player.spe - this.spe >= 20 ) {
 				EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow attempts to sting you.' );
 			}
 			Combat.combatRoundOver();
 			return;
 		}
 		//determine if avoided with armor.
-		if( CoC.getInstance().player.armorDef >= 10 && Utils.rand( 4 ) > 0 ) {
+		if( CoC.player.armorDef >= 10 && Utils.rand( 4 ) > 0 ) {
 			EngineCore.outputText( 'Despite her best efforts, ' + this.a + this.short + '\'s sting attack can\'t penetrate your armor.' );
 			Combat.combatRoundOver();
 			return;
@@ -77,50 +77,50 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'Searing pain lances through you as ' + this.a + this.short + ' manages to sting you!  You stagger back a step and nearly trip, flushing hotly.  ' );
 			EngineCore.outputText( 'Oh no!  You\'ve been injected with some kind of aphrodisiac.  You\'ve got to keep focused, you can\'t think about... fucking... ' );
-			if( CoC.getInstance().player.gender === 1 ) {
+			if( CoC.player.gender === 1 ) {
 				EngineCore.outputText( 'or dripping honey-slicked cunts beckoning you. ' );
 			}
-			if( CoC.getInstance().player.gender === 2 ) {
+			if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( 'planting your aching sex over her face while you lick her sweet honeypot. ' );
 			}
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( 'or cocks, tits, and puffy nipples. ' );
 			}
 			EngineCore.dynStats( 'lus', 25 );
-			if( CoC.getInstance().player.lust > 60 ) {
+			if( CoC.player.lust > 60 ) {
 				EngineCore.outputText( ' You shake your head and struggle to stay focused,' );
-				if( CoC.getInstance().player.gender === 1 || CoC.getInstance().player.gender === 3 ) {
+				if( CoC.player.gender === 1 || CoC.player.gender === 3 ) {
 					EngineCore.outputText( ' but it\'s difficult with the sensitive bulge in your groin.' );
 				}
-				if( CoC.getInstance().player.gender === 2 ) {
+				if( CoC.player.gender === 2 ) {
 					EngineCore.outputText( ' but can\'t ignore the soaking wetness in your groin.' );
 				}
-				if( CoC.getInstance().player.sens > 50 ) {
-					EngineCore.outputText( '  The sensitive nubs of your nipples rub tightly under your ' + CoC.getInstance().player.armorName + '.' );
+				if( CoC.player.sens > 50 ) {
+					EngineCore.outputText( '  The sensitive nubs of your nipples rub tightly under your ' + CoC.player.armorName + '.' );
 				}
 			} else {
 				EngineCore.outputText( ' You shake your head and clear the thoughts from your head, focusing on the task at hand.' );
 			}
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.lustvenom ) < 0 ) {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.lustvenom, 0, 0, 0, 0 );
+			if( CoC.player.findStatusAffect( StatusAffects.lustvenom ) < 0 ) {
+				CoC.player.createStatusAffect( StatusAffects.lustvenom, 0, 0, 0, 0 );
 			}
 		}
 		//Paralise the other 50%!
 		else {
 			EngineCore.outputText( 'Searing pain lances through you as ' + this.a + this.short + ' manages to sting you!  You stagger back a step and nearly trip, finding it hard to move yourself.' );
-			var paralyzeIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.ParalyzeVenom );
+			var paralyzeIndex = CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom );
 			if( paralyzeIndex >= 0 ) {
-				CoC.getInstance().player.statusAffect( paralyzeIndex ).value1 += 2.9; //v1 - strenght penalty, v2 speed penalty
-				CoC.getInstance().player.statusAffect( paralyzeIndex ).value2 += 2.9;
+				CoC.player.statusAffect( paralyzeIndex ).value1 += 2.9; //v1 - strenght penalty, v2 speed penalty
+				CoC.player.statusAffect( paralyzeIndex ).value2 += 2.9;
 				EngineCore.dynStats( 'str', -3, 'spe', -3 );
 				EngineCore.outputText( '  It\'s getting much harder to move, you\'re not sure how many more stings like that you can take!' );
 			} else {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.ParalyzeVenom, 2, 2, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.ParalyzeVenom, 2, 2, 0, 0 );
 				EngineCore.dynStats( 'str', -2, 'spe', -2 );
 				EngineCore.outputText( '  You\'ve fallen prey to paralyzation venom!  Better end this quick!' );
 			}
 		}
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
 			EngineCore.doNext( EventParser.playerMenu );

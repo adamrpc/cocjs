@@ -225,9 +225,9 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 	MainView.menuButtons = {
 		newGameButton: {visible: false, labelText: '', callback: null, toolTipText:''},
 		dataButton: {visible: false, labelText: '', callback: null, toolTipText:''},
-		statsButton: {visible: false, labelText: '', callback: CoC.getInstance().displayStats, toolTipText:''},
-		levelButton: {visible: false, labelText: '', callback: CoC.getInstance().levelUpGo, toolTipText:''},
-		perksButton: {visible: false, labelText: '', callback: CoC.getInstance().displayPerks, toolTipText:''},
+		statsButton: {visible: false, labelText: '', callback: CoC.displayStats, toolTipText:''},
+		levelButton: {visible: false, labelText: '', callback: CoC.levelUpGo, toolTipText:''},
+		perksButton: {visible: false, labelText: '', callback: CoC.displayPerks, toolTipText:''},
 		appearanceButton: {visible: false, labelText: '', callback: Appearance.appearance, toolTipText:''}
 	};
 	MainView.prototype.showLevelUp = function() {
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 			index = 0;
 		}
 		var sprite = _.find(sprites, function(img) { return img.startsWith(index + '-'); });
-		if( !sprite || CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
+		if( !sprite || CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			MainView.sprite.visible = false;
 		} else {
 			MainView.sprite.visible = true;

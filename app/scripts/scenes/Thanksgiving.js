@@ -23,12 +23,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	};
 	//Introduction: -McGirt;
 	Thanksgiving.prototype.datTurkeyRumpMeeting = function() {
-		if( CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] > 0 ) {
 			this.turkeyGirlTwoTheTurkeningBySavinWhatADickInAButt();
-			CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
+			CoC.flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
 			return;
 		}
-		CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
+		CoC.flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( '\nYou sit down by your fire pit, looking at the meager provisions you\'ve managed to gather up in the days leading up to the Feast for the Thankful, your village\'s largest annual feast day.  Right now through the portal, your friends and loved ones from Ingnam are sitting down to a mighty banquet, holding hands in prayer before devouring more food than they can possibly stand.  A pang of homesickness sweeps through you as you look at the small meal before you.  With a sigh, you pick up your fork and prepare to dig in.' );
 		EngineCore.outputText( '\n\nSomething stirs at the edge of camp.' );
 		EngineCore.outputText( '\n\nYou jump to your feet, readying your [weapon] for battle as you scan the perimeter.  A moment later, and you see a ponderous figure step out of the shadows behind a large rock.  At first glance, it looks like a normal girl dressed in a simple deerskin poncho, her bright red hair falling past her shoulders to rest on a pair of absolutely massive breasts.  Timidly, she steps forward, giving you a good look at her less human attributes: a pair of avian legs stick out beneath the hem of her clothes, and a large plume of feathers stick up from her big bubble-butt, each red feather nearly reaching the back of her head.  And her breasts... each easily the size of a goblin, so massive that it seems she can barely wobble along.' );
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	};
 	//Let her Approach;
 	Thanksgiving.prototype.letZeTurkeyApproach = function() {
-		if( CoC.getInstance().player.gender === 2 || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+		if( CoC.player.gender === 2 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 			this.femaleLetZeTurkeyGalApproach();
 			return;
 		}
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>"  she cries ecstatically, a huge smile playing across her face as she licks up a bit of your cum from her cheek, drinking it up without inhibition.  With a sigh, you let the girl\'s bosom fall free, leaving your wilting prick in the warm air, content with the powerful face-fucking you\'ve given the eager slut.  You run your hand through her hair again, telling her what a good cock-gobbler she is.' );
 		EngineCore.outputText( '\n\n"<i>G-gobble?</i>"' );
 		EngineCore.outputText( '\n\nThe turkey-girl smiles at you and flops onto her back, spreading her meaty thighs to give you a good look at the trimmed red bush between her legs, and the glistening slit of her vagina.  It looks like she wants some stuffing....' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.choices( 'Stuff Her', this.stuffDatTurkeyWithSpoo, '', null, '', null, '', null, 'That\'ll Do', this.thatllDoTurkey );
 	};
@@ -93,16 +93,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\nYou gag a bit as a thick trickle of gravy spills down your throat, now pouring freely from the girl\'s heavy-laden teats.  She sighs contentedly as you swallow another mouthful of tit-gravy, starting to form a rhythm of sucking sharply between steadily quickening thrusts into her sodden vagina.' );
 		EngineCore.outputText( '\n\nSoft moans begin to echo through the air as you thrust harder and faster into the turkey-girl, lapping up half a gallon of gravy from one of her huge tits before switching to the other, giving her neglected nip the attention it deserves.  You hammer into her, thrusting with enough force to let loose spurts and trickles of femcum and your own pre as the turkey-girl throws her head back in rapture, overwhelmed by the dual sensations.' );
 		EngineCore.outputText( '\n\nWith a laugh, you let go of the turkey\'s tit and bury your face between her mounds, burying yourself in her expansive flesh as ' );
-		if( CoC.getInstance().player.cumQ() < 1000 ) {
+		if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'you let loose another load of seed, this time deep into her cunt.  You grunt and growl animalistically, pumping thick gobs of spunk into her until the turkey\'s womb is practically painted white with your cum.  Each roar sends shudders through her teats, waves of the fatty flesh forming as you cry out into her chest.  You steady yourself between orgasmic thrusts by grabbing onto her melons, your sudden grasp harsh enough to elicit a stream of titgravy from inside her.' );
 		} else {
 			EngineCore.outputText( 'your [cock] distends and bulges.  A startled gasp catches in her throat as the hapless fowl\'s fuckhole is stretched wider by the oncoming storm.  No sooner has your shaft unloaded a monstrous surge of virile spunk deep inside her cunt than a familiar pressure signals yet another load is on the way.  As you continue to stuff the bitch with baby batter, her once-taut stomach swells outwards, jiggling and gurgling with each fresh load.  Your grunts and growls intermingle with the overstuffed turkey\'s moans of mindless lust.  Each roar sends shudders through her teats, waves of the fatty flesh forming as you cry out into her chest. You steady yourself between orgasmic thrusts by grabbing onto her melons, your sudden grasp harsh enough to elicit a stream of titgravy from inside her.' );
 		}
 
 		EngineCore.outputText( '\n\nSoon, between your kneading out the thick gravy from her breasts and the spunk leaking out from her loins, mixing with what you splattered across her minutes earlier, the poor turkey is absolutely filthy, covered in the remnants of your rough fucking.  Slowly, languidly, you pull out from inside her, your cock still dribbling little rivulets of cum onto the musky girl\'s thighs.  The air around you now reeks of sex and a warm meal, her strange breastmilk creating a strong aroma of its own below that of drying spooge.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		if( CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] === 1 && CoC.flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] === 0 ) {
 			EngineCore.outputText( '\n\nAs you lay atop the turkey, you hear a faint, almost pleading, "<i>Gobble?</i>"  from her. Furrowing your brow, you pick yourself up to look at the cum-slathered turkey.  As soon as you\'re off her, she rolls over onto her hands and knees, her big bubble butt sticking up in the air for you, her plume of feathers tickling your cheeks.  She... still wants more?</i>"' );
 			EngineCore.choices( 'Spit-Roast', this.spitRoastThatTurkey, '', null, '', null, '', null, 'That\'s Enough', this.thatllDoTurkey );
 		} else {
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\nYou hammer the turkey-girl\'s ass, fucking her until she cries out around Hel\'s tail, screaming an ecstatic combination of lusty moans and her only word.  Now she\'s getting into it! You grab her auburn hair, yanking her head back as you land a thrust hard enough to send wobbles through her whole body, ripples running through her bubble butt and goblin-sized jugs.  Over her plumage, you hear Hel give out a sharp yelp, and for a moment fear you\'ve made the poor turkey bite down on her -- until you see Hel\'s eyes rolled back in her head, one hand ravaging her tits and the other furiously masturbating.' );
 		EngineCore.outputText( '\n\nWith a roar, you give the turkey a hard slap on the ass and, with her last violent contraction around your prick, cum.  Thrice already in the last hour, but you manage, pouring another hot load of semen into the turkey\'s abused anus.  She cries out as you slap her butt, but her scream turns into a long, lewd moan as she feels your seed filling her bum, your prick packing it in until trickles of spooge pour out around your shaft.' );
 		EngineCore.outputText( '\n\nYou pull out of her with a wet squelch, grinning as a flood of your spunk starts to pour from her abused asshole, mixing in with the titgravy and two other loads you blew on her previously.  Supported by her huge tits, the turkey-girl goes limp, finally contented by the third fucking, her body stained and completely covered in your cum.  Looking around her, you see Hel lying on her back, snoring quietly after her own tail-based orgasm, her own body coated liberally with femcum and globs of your own spunk that rubbed off on her.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( this.thatllDoTurkey );
 	};
@@ -133,8 +133,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Running your hand through the turkey-girl\'s hair, you whisper what a good little cockgobbler she is. However, you soon find that the poor thing\'s passed out, your rut finally over with.  You give her a gentle push over her back, giving you a nice soft tit-pillow to lay your head down upon as you pick up the lunch you\'d been preparing to eat before the eager slut arrived.' );
 		EngineCore.outputText( '\n\n"<i>That\'ll do, turkey,</i>" you say, patting her jiggling tit. "<i>That\'ll do.</i>"' );
-		if( CoC.getInstance().player.findPerk( PerkLib.PilgrimsBounty ) < 0 ) {
-			CoC.getInstance().player.createPerk( PerkLib.PilgrimsBounty, 0, 0, 0, 0 );
+		if( CoC.player.findPerk( PerkLib.PilgrimsBounty ) < 0 ) {
+			CoC.player.createPerk( PerkLib.PilgrimsBounty, 0, 0, 0, 0 );
 			EngineCore.outputText( '\n\n(<b>Perk Gained: Pilgrim\'s Bounty - Lower lust values no longer reduce the size of your orgasm.</b>)' );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\nMaking sure to stay away from her erect clit, you continue to tease her entrance.  Her hips once again try to hump against you, but your other hand presses down on her stomach with enough force to hold her back.  Lifting her head to look at you, she whines in displeasure as you keep denying her, her breasts still leaking as she plays with herself.  Your eyes lock with hers and you see the need burning behind them.  Without looking away, you slide two fingers into her warm, wet hole.' );
 		EngineCore.outputText( '\n\nShe cries out at the penetration and you feel her tunnel grip your fingers as they try to go deeper inside her.  She stiffens up, moaning and groaning as an orgasm wracks her body, her thighs quaking with pleasure and hands going and breasts bouncing as she gasps in air.  You rest your thumb on her clit as she cums, rapidly rolling over the nub and her hips thrust into your hand, desperate to feel your fingers touch as much of her as they can.  Her nipples jut out through the poncho as she contorts herself, her fingers clamping down on them harshly as the pleasure overwhelms her, causing what could only be called an eruption from each nub.  Gravy spurts out, splattering against her already sodden clothing as you feel the tasty liquid streaking down her body beneath the material.  The warmth spreads across your hand, though it is no match for the heat between your legs as you watch the girl writhing in pleasure.' );
 		EngineCore.outputText( '\n\nUnable to stop yourself, you wrench your hand out from beneath her garment and before the girl can tell what\'s happening, you start to pull it up over her head, finally unleashing those fantastic breasts to the fresh air.  She nearly squawks as you drag her up from her relaxed position to free the material trapped beneath her, but calms down once you manage to get the thing over her head, throwing the soaked cloth out of the way.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( this.femaleAndTurkeyMainCourse );
 	};
 
@@ -203,9 +203,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\nYour eyes crack open, mind still foggy as sleep still clings to the corners of your eyes.  Memories of the insatiable turkeygirl flood back as you start to sit up, dreading the inevitable clean-up after so much spilled fluid.  However, you quickly realize that you\'re already redressed! In fact, it seems like someone not only dressed you, but both your body and your [armor] are completely spotless, not even a trace of the girl remaining on your person.  Looking around you notice that your campfire still burns brightly, as if someone stoked it recently.  Even your stomach has returned to its previous state, leaving no sign of the massive amount of gorgeous gravy you guzzled not an hour ago.' );
 		EngineCore.outputText( '\n\nLurching to your feet, you stretch your arms, feeling completely refreshed after the short nap.  If it wasn\'t for the sweet taste of pumpkin still lingering on your lips, you\'d be prepared to call what had just happened one of the weirdest dreams you\'ve had since arriving in Mareth.' );
 		EngineCore.outputText( '\n\nThen again, you have to admit that it would also class as one of the most fun...' );
-		if( CoC.getInstance().player.findPerk( PerkLib.Cornucopia ) < 0 ) {
+		if( CoC.player.findPerk( PerkLib.Cornucopia ) < 0 ) {
 			EngineCore.outputText( '\n\n(<b>Gained Perk: Cornucopia - increases vaginal and anal capacities by 30.</b>)' );
-			CoC.getInstance().player.createPerk( PerkLib.Cornucopia, 0, 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.Cornucopia, 0, 0, 0, 0 );
 		}
 		//HP set to full, EngineCore.fatigue to 0?;
 		EngineCore.fatigue( -100 );
@@ -224,14 +224,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\n“<i>G-gobble?</i>”  she asks quietly, her big blue eyes pleading at you.' );
 		//[Shoo Off] [Let her Come] [Hello again!];
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 || CoC.getInstance().player.hasItem( ConsumableLib.L_DRAFT ) || CoC.getInstance().player.hasItem( ConsumableLib.F_DRAFT ) ) {
+		if( CoC.player.hasCock() ) {
+			if( CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 || CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT ) ) {
 				EngineCore.outputText( '\n\n<b>You could let her come, like last year, or great her in a whole new way (by clicking \'Hello Again\')</b>' );
 				EngineCore.addButton( 2, 'Hello Again', this.helloAgain );
-				CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] = 0;
+				CoC.flags[ kFLAGS.MORE_TURKEY ] = 0;
 			} else {
 				EngineCore.outputText( '\n\n<b>You might be able to have some new, kinky fun with Gobbles this year if you had something lusty on you...</b>.' );
-				CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] = 1;
+				CoC.flags[ kFLAGS.MORE_TURKEY ] = 1;
 			}
 		}
 		EngineCore.addButton( 0, 'Shoo Off', this.shooTurkeyAway );
@@ -242,8 +242,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '"<i>Oh, hey, you,</i>" you say as the seasonal little near-harpy waddles up.  You pat your thigh invitingly, letting Gobbles approach.' );
 		EngineCore.outputText( '\n\nSeeing that you\'re not angry with her, she bounds over with a flutter of her seemingly useless wings, plopping into your lap with a happy cry of "<i>Gobble!</i>" You rustle her feathers playfully as the turkey-girl nestles in, pressing her massive bust tight to your chest.  Damn, those tits of hers are gargantuan, like they haven\'t been milked since you gave her a good spit-roasting last year.  You can practically hear the gravy sloshing around in them, just waiting to spill out and drench her again.  You lick your lips at the thought, your hands wandering up to the clasps of your [armor] to pull it free.' );
 		EngineCore.outputText( '\n\n"<i>Gobble?</i>" Gobbles asks cheerily, big blue eyes staring intently at your crotch.' );
-		EngineCore.outputText( '\n\n"<i>Gobble,</i>" you answer, pushing her head down toward your [cock].  She giggles giddily as you free your prick, already hard enough to bop her on the nose as she buries her face in your groin.  The turkey takes a deep breath, wallowing in the potent musk of your ' + CoC.getInstance().player.multiCockDescriptLight() + ', venturing to lick along the side of your shaft.  You let out a soft moan, stroking her auburn locks as the turkey happily suckles on your prick, taking the head ' );
-		if( CoC.getInstance().player.cockArea( 0 ) <= 60 ) {
+		EngineCore.outputText( '\n\n"<i>Gobble,</i>" you answer, pushing her head down toward your [cock].  She giggles giddily as you free your prick, already hard enough to bop her on the nose as she buries her face in your groin.  The turkey takes a deep breath, wallowing in the potent musk of your ' + CoC.player.multiCockDescriptLight() + ', venturing to lick along the side of your shaft.  You let out a soft moan, stroking her auburn locks as the turkey happily suckles on your prick, taking the head ' );
+		if( CoC.player.cockArea( 0 ) <= 60 ) {
 			EngineCore.outputText( 'and down to the base' );
 		} else {
 			EngineCore.outputText( 'and swallowing your shaft until her throat is bulging with your massive manhood' );
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\n"<i>Gobble?</i>" she asks again, silenced when you squeeze her tits harder, aiming them for your meager meal.  She squeals happily as you bathe your lunch in gravy, squirting a thick arc of her sweet cream into your cook pan, still so hot that her lactic load quickly sets to steaming.  "<i>Gobble!</i>" she giggles, taking a deep breath of the meal as her gravy gets nice and toasty warm in the embers of your fire.  She shifts her hips ever so slightly, letting her grip of your cock go in order to straddle your [legs], squeezing her thigh thighs around your manhood, letting her silky-soft feathers caress your most sensitive flesh, tickling your [cockHead] as she starts to work her hips, grinding against your cock as you keep her tits constantly flowing.  You can visibly see her huge breasts shrinking as you milk her, cream flowing out of your over-flowing pan and into the fire or the hungry ground to be swallowed up.' );
 		EngineCore.outputText( '\n\nThe smell is almost overwhelming, so potent and familiar that you can\'t help but feel homesick and hungry.  But her cock-rubbing legs keep you from getting too down; she\'s going at it with wild abandon, happily humping against your cock\'s length.  Her cunt is drooling fem-slime almost as much as her tits now, slathering your [cock] in her warm slickness, her nether lips reaching out to gently caress your prick, almost inviting you to penetrate her.  You hold her still just a moment, long enough to shift your [hips] and slide right on in.  Gobbles\' back arches, voice turning into a giddy cry of pleasure as your [cock] enters her, spearing her on your length as you hold her dripping tits over the hearth, cooking her gravy as you spitroast Gobbles once again.' );
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>" she declares triumphantly as your prick slides home, pushing into her until her hips are nestled back into your lap' );
-		if( CoC.getInstance().player.cocks[ 0 ].cockThickness >= 5 ) {
+		if( CoC.player.cocks[ 0 ].cockThickness >= 5 ) {
 			EngineCore.outputText( ', her stomach bulging obscenely with your inhuman girth' );
 		}
 		EngineCore.outputText( '.' );
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>" Gobbles cries, and you\'re not sure if she\'s happy or upset anymore: the sheer amount and cum and cock in her mouth muffles her word into a mere pleasured cry.  It takes her a solid minute to finally regain her senses enough to pull your shaft out of her mouth, cum drooling out of her lips as she lets your prick droop down.  "<i>Gobble!</i>" she repeats, this time wiggling her hips in your face, pushing her drooling, cock-stretched cunt right onto your nose to give you a nice, big whiff of her entrancing pussy-smell.  You\'re almost hard again by the time you manage to dislodge her, but she holds fast just off of your face, the lips of her muff practically kissing your own.' );
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>"' );
 		EngineCore.outputText( '\n\nLooks like she wants you to return the favor!' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.seasonHerDatTurkeyBitch );
@@ -284,22 +284,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	Thanksgiving.prototype.seasonHerDatTurkeyBitch = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You plant your hands on the busty bird\'s broad, breeder\'s hips, spreading her cheeks to get a good look at her slit.  Still agape after taking your cock earlier, she\'s liberally leaking fem-slime onto your face, eagerly awaiting your lusty touch.  You venture your tongue out to taste her, and instantly draw back even as she flutters excitedly - does she...  of course she tastes like turkey.  What else? But it\'s a damn fine turkey, oh so sweet and juicy; you don\'t hesitate to dig in, tongue probing deep into the giddy fowel\'s slit.  She wiggles her tremendous tush happily as you spread her nethers wide, her vibrant brown plumage standing straight up, as erect as your own [cock] as Gobbles\' tits bounce and jiggle around it.  Tongueing your tasty turkey, you slip a few fingers up between her luscious thighs, brushing the tender flesh just enough to make her arch her back, dragging her tits right along the length of your shaft to bury the crown in the jiggly bottom of her rack.  You trace your fingers higher, brushing the silky lips of her sodden box and circling up to the prominent little bud of her clit.' );
-		EngineCore.outputText( '\n\n"<i>GOBBLE!</i>" she cries as your digits brush her sensitive point, arching her back and squirting gravy onto your crotch, lactating from pleasure alone.  You shudder as the warm, creamy gravy slathers onto your ' + CoC.getInstance().player.multiCockDescriptLight() + ' pinned between her tits, her pleasured motions getting her boobs bouncing like a regular titfucking.  At your touch, her quivering quim lets loose a torrent of excited fem-slime, smearing your face in turkey-tasting juices faster than your hard-working tongue can lap it up.  She\'s a fine tasting turkey if ever you saw one, her sweet juices practically compelling you to eat her out, pushing your tongue as deep into her juicy slit as you can to harvest her delicious bounty.' );
+		EngineCore.outputText( '\n\n"<i>GOBBLE!</i>" she cries as your digits brush her sensitive point, arching her back and squirting gravy onto your crotch, lactating from pleasure alone.  You shudder as the warm, creamy gravy slathers onto your ' + CoC.player.multiCockDescriptLight() + ' pinned between her tits, her pleasured motions getting her boobs bouncing like a regular titfucking.  At your touch, her quivering quim lets loose a torrent of excited fem-slime, smearing your face in turkey-tasting juices faster than your hard-working tongue can lap it up.  She\'s a fine tasting turkey if ever you saw one, her sweet juices practically compelling you to eat her out, pushing your tongue as deep into her juicy slit as you can to harvest her delicious bounty.' );
 		EngineCore.outputText( '\n\nBut what\'s a turkey without a little seasoning, hmm? Sweet as she is, and as eager to gobble your cock as can be, things could still turn up a notch.  Still servicing her box, you reach an arm out to your discarded pack, searching through it until you feel the familiar shape of ' );
-		if( CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ) {
+		if( CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ) {
 			EngineCore.outputText( 'Tamani\'s dildo' );
-		} else if( CoC.getInstance().player.hasItem( ConsumableLib.L_DRAFT ) ) {
+		} else if( CoC.player.hasItem( ConsumableLib.L_DRAFT ) ) {
 			EngineCore.outputText( 'a bottle of Lust draft' );
-		} else if( CoC.getInstance().player.hasItem( ConsumableLib.F_DRAFT ) ) {
+		} else if( CoC.player.hasItem( ConsumableLib.F_DRAFT ) ) {
 			EngineCore.outputText( 'a bottle of Fuck draft' );
 		} else {
 			EngineCore.outputText( 'A FUCKIN ERROR' );
 		}
-		EngineCore.outputText( '.  You pull it out and squeeze a copious load of the bubblegum pink aphrodisiac out into your hand.  The second it touches your skin, you feel a palpable warmth spreading out through your nerves, skin burning with sensitivity as the roiling, viscous substance pools in your cupped hand.  You can\'t help but shudder as the pink veno\'s effect reaches out through your body, setting your whole person to tingling - and especially your ' + CoC.getInstance().player.multiCockDescriptLight() + ', which rises to an almost painful hardness.' );
+		EngineCore.outputText( '.  You pull it out and squeeze a copious load of the bubblegum pink aphrodisiac out into your hand.  The second it touches your skin, you feel a palpable warmth spreading out through your nerves, skin burning with sensitivity as the roiling, viscous substance pools in your cupped hand.  You can\'t help but shudder as the pink veno\'s effect reaches out through your body, setting your whole person to tingling - and especially your ' + CoC.player.multiCockDescriptLight() + ', which rises to an almost painful hardness.' );
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>" Gobbles giddily cries, sucking up the head of your turgid [cock] when its crown peeks out from between her teats, clearly pleased with your oral attentions.  She\'s got no idea what\'s coming! You slip one hand out of her cunny, and push another in, fingers sliding easily into her sodden hole.  "<i>G-gobble!?</i>" she whines as your lust-coated digits probe her, swirling around her quivering walls, making sure to spread the pink venom it out nice and even, coating every inch of her channel.' );
-		EngineCore.outputText( '\n\nInstantly, you can see her pale flesh reddening, burning with desire.  Her fem-slime practically pours out of her over-excited pussy as her breath quickens, chest heaving her tits up and around your ' + CoC.getInstance().player.multiCockDescriptLight() + '.  Perfect! You pull your hand back out of her love-tunnel, slapping both her butt cheeks to wipe off the last of the lusty cream on her bare derriere, which flushes as red as her hair.  "<i>Gobble!</i>" she screams as you swat her ass, slamming her big hips down on your face, trying to get you to eat her needy box again even as she\'s panting and twitching, playing with her tits and your cock with shameless abandon.' );
+		EngineCore.outputText( '\n\nInstantly, you can see her pale flesh reddening, burning with desire.  Her fem-slime practically pours out of her over-excited pussy as her breath quickens, chest heaving her tits up and around your ' + CoC.player.multiCockDescriptLight() + '.  Perfect! You pull your hand back out of her love-tunnel, slapping both her butt cheeks to wipe off the last of the lusty cream on her bare derriere, which flushes as red as her hair.  "<i>Gobble!</i>" she screams as you swat her ass, slamming her big hips down on your face, trying to get you to eat her needy box again even as she\'s panting and twitching, playing with her tits and your cock with shameless abandon.' );
 		EngineCore.outputText( '\n\n"<i>Gobbles, gobble,</i>" you command, poking a finger into her drooling slit.' );
-		EngineCore.outputText( '\n\n"<i>Gobble!</i>" she answers, rolling off of you and hiking her legs up, knees sinking into her bust to show off her slit for you, so eager and inviting.  You rise to your [feet], grabbing the lusty fowl behind her hooked knees and pulling her in to line up with your ' + CoC.getInstance().player.multiCockDescriptLight() + '.  "<i>G-gobble!</i>" she begs, fluttering her plumage against your [legs], staring up at you imploringly as her skin further reddens, so hot with desperate lust you can practically feel the sexual hunger radiating off of her.  Time to finish this turkey off in style!' );
+		EngineCore.outputText( '\n\n"<i>Gobble!</i>" she answers, rolling off of you and hiking her legs up, knees sinking into her bust to show off her slit for you, so eager and inviting.  You rise to your [feet], grabbing the lusty fowl behind her hooked knees and pulling her in to line up with your ' + CoC.player.multiCockDescriptLight() + '.  "<i>G-gobble!</i>" she begs, fluttering her plumage against your [legs], staring up at you imploringly as her skin further reddens, so hot with desperate lust you can practically feel the sexual hunger radiating off of her.  Time to finish this turkey off in style!' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.turkeyDesertBitches );
@@ -307,104 +307,104 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	//Dessert;
 	Thanksgiving.prototype.turkeyDesertBitches = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( '"<i>G-gobble!?</i>" Gobbles whines at your moment of hesitation, wiggling her upraised botty at you enticingly, hot flesh jiggling just close enough to brush your ' + CoC.getInstance().player.multiCockDescriptLight() + ' with her lust-coated cheeks.' );
+		EngineCore.outputText( '"<i>G-gobble!?</i>" Gobbles whines at your moment of hesitation, wiggling her upraised botty at you enticingly, hot flesh jiggling just close enough to brush your ' + CoC.player.multiCockDescriptLight() + ' with her lust-coated cheeks.' );
 		EngineCore.outputText( '\n\n"<i>Fuck!</i>" you groan as the venom drips off your [cock], a small droplet vanishing into your dilated urethra.  Your heart skips a beat as the lusty cream works its magic, pounding through your sex.  Well, that backfired! You clutch at your [chest]' );
-		if( CoC.getInstance().player.biggestTitSize() > 1 ) {
+		if( CoC.player.biggestTitSize() > 1 ) {
 			EngineCore.outputText( ', cupping a tit' );
 		}
 		EngineCore.outputText( ' as the venom takes control, flushing your skin and forcing out all thoughts but one that turkey! There\'s nothing for it, now: you grab Gobbles\' hips and plunge in' );
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( ' with both cocks, one ramming into her abused cunny and the other right up her vulnerable little bumhole' );
-		} else if( CoC.getInstance().player.cockTotal() > 2 ) {
+		} else if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( ' with every cock you\'ve got, half in the pink and half in the stink, spreading her as wide as you are in both barrels' );
 		}
 		EngineCore.outputText( ', shocking her so much that she can\'t hold back, screaming and cumming on the spot! You groan, thrusting forward as her spasming muscles contract around your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', milking you as hard as she can while her orgasm overtakes her.  Gravy geysers out of her swollen tits as fem-cum splashes out around your deep-buried cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', drenching your [hips] and [legs] in creamy girl-spunk, tinged pink by the poison you fist-fucked up her cunt.' );
-		EngineCore.outputText( '\n\nThe squawking turkey seems to be depthless, easily swallowing up every inch of your ' + CoC.getInstance().player.multiCockDescriptLight() + ' until ' );
-		if( CoC.getInstance().player.cockArea( 0 ) >= 50 ) {
+		EngineCore.outputText( '\n\nThe squawking turkey seems to be depthless, easily swallowing up every inch of your ' + CoC.player.multiCockDescriptLight() + ' until ' );
+		if( CoC.player.cockArea( 0 ) >= 50 ) {
 			EngineCore.outputText( 'her stomach is bulging obscenely with the sheer volume of cockflesh rammed up her cunt' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'and ass' );
 			}
 		} else {
 			EngineCore.outputText( 'your hips are slapping into hers, making her butt bounce with the impact' );
 		}
 		EngineCore.outputText( '.  She cries her one word to the heavens as you pound into her hole' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', thrusting your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' deep inside.  Her avian legs break free of her hold, wrapping around your [hips] and pulling you in, locking you in her spasming hole' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' as she cums and cums, pleading, "<i>Gobble!</i>" at the top of her lungs.  You switch your grip to her bountiful bosom, roughly squeezing her tits as you hump your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' in and out of her slick slit{and quivering behind}, pinching her nipples to give the squealing turkey just a little more pleasure.' );
 		EngineCore.outputText( '\n\nGobbles\' feathered arms reach up, hooking around your neck and bringing you down, pulling you into a startlingly passionate kiss.  You lose yourself in her warm embrace, hips pistoning on automatic as you caress and kiss the lusty bird, tongue playing across her full red lips as you cup a breast just hard enough to make it lactate, so that your fingers are coated in thick gravy.  You bring them up to her cheek, smearing a bit over her lower lip before she eagerly swallows it up, suckling her own lactic lust from your digit like a little teat; you join in, half-kissing her and half licking up the gravy from your fingers, tongue tying with hers more than once, playing across each other.  Your sexy moans turn to gasps and cries as you continue to pound her puss' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and ass' );
 		}
 		EngineCore.outputText( ', her legs spurring you on every time you withdraw, muscles clenching when you pause, never letting you rest.  Needy slut! But she\'s more than willing to do her part, thrusting her hips up to meet you, squeezing and milking your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' every time you pierce her, working your shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' so expertly that you know you won\'t be able to hold on for long - and neither will she, the way she\'s panting and gasping along with you!' );
 		EngineCore.outputText( '\n\nYou draw nearer to the breaking point, hips unrelentingly slamming your shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' deep into Gobbles\' eager depths, urged on by her happy squawks and gleeful cries.  Lust-venom-addled as the two of you are, orgasm approaches like a wave of relief, crashing through your bodies in beautiful unison.  "<i>Gobbles!</i>" she cries as her cunt ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'and ass ' );
 		}
 		EngineCore.outputText( 'squirm around your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
-		EngineCore.outputText( ', wringing the cum from you with powerful spastic contraction.  Her arms pull you down into the valley of her gravy-laden bosom, squeezing your face between her massive mounds as she cums, drawing the spunk right out of you.  With a potent, feral roar, you cum, ' + CoC.getInstance().player.multiCockDescriptLight() + ' blasting its salty load deep into Gobbles\' womb' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		EngineCore.outputText( ', wringing the cum from you with powerful spastic contraction.  Her arms pull you down into the valley of her gravy-laden bosom, squeezing your face between her massive mounds as she cums, drawing the spunk right out of you.  With a potent, feral roar, you cum, ' + CoC.player.multiCockDescriptLight() + ' blasting its salty load deep into Gobbles\' womb' );
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and bowels' );
 		}
 		EngineCore.outputText( '; her back arches, teats wobbling around your head as she takes your cum, squawking and gobbling gaily as more and more of your virile spunk pours into her, mixing with her own fem-cum and the remnants of the lusty draft your fucked into her.' );
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>" she sighs happily as your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's deposit the last of their' );
 		} else {
 			EngineCore.outputText( ' deposits the last of its' );
 		}
 		EngineCore.outputText( ' cream into her, fully stuffing your turkey-girl.  Panting, you let your head rest between her tits a moment long, shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' wilting inside her until like a broken dam, her cunt' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and ass' );
 		}
 		EngineCore.outputText( ' begin' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' to drool spunk, pooling onto the hungry ground with the gallons of spilt gravy and fem-spooge.' );
 		EngineCore.outputText( '\n\n"<i>Gobble,</i>" you agree, wrapping the giddy turkey up in your arms and planting one last kiss on her big ol\' boob.  She stares sedately at you with big, blue eyes, a cute little smile on her lips as you withdraw from her, wiping the last of your spunk on her feathery thigh.  Running your hand through the turkey-girl’s hair, you whisper what a good little cockgobbler she is.  However, you soon find that the poor thing’s passed out, your rut finally over with.  Still, she\'s left you with a nice soft tit-pillow to lay your head down upon as you pick up the lunch you’d been preparing to eat before the eager slut arrived.' );
 		EngineCore.outputText( '\n\n“<i>That’ll do, turkey,</i>” you say, patting her jiggling tit and scrapign soem of the excess gravy out of your lunch.  “<i>That’ll do.</i>”' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Ham Roast: Getting All Up In A Honey Pot (Female and Genderless only);
@@ -413,14 +413,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	Thanksgiving.prototype.pigSlutRoastingGreet = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As you enter The Wet Bitch you’re accosted by an incredibly busty waitress. You can’t really discern what exactly she is as your eyes are solely focused on the massive melons jutting out from her chest and jiggling proudly with mile deep cleavage to boot.' );
-		EngineCore.outputText( '\n\n"<i>Hey there ' + CoC.getInstance().player.mf( 'handsome', 'cutie' ) + '! We\'ve got quite a unique special going on right now!</i>" she exclaims in a cheery voice.' );
+		EngineCore.outputText( '\n\n"<i>Hey there ' + CoC.player.mf( 'handsome', 'cutie' ) + '! We\'ve got quite a unique special going on right now!</i>" she exclaims in a cheery voice.' );
 		EngineCore.outputText( '\n\nThen she motions to a sparkly gem-filled bucket, with several strands of what looks like cum running in creamy rivulets down the side.' );
 		EngineCore.outputText( '\n\nShe moves in closer to talk right into your ear with a seductive voice, "<i>Just throw a gem in that bucket over there and <i>she\'s</i> all yours for the night!</i>"' );
 		EngineCore.outputText( '\n\nYou grin. You could really go for a wild night right about now and a cheap whore sounds like just the right thing to ease your... stress.' );
 		//{Lust = lust + 10};
 		EngineCore.dynStats( 'lus', 5 );
 		EngineCore.menu();
-		if( CoC.getInstance().player.gems >= 1 ) {
+		if( CoC.player.gems >= 1 ) {
 			EngineCore.addButton( 0, 'Throw gem', this.getARoastPiggueOinkOinkOinkMotherfucker );
 		}
 		EngineCore.addButton( 1, 'Nah', SceneLib.telAdre.barTelAdre );
@@ -430,14 +430,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 	//Ham Roast -> In For A Gem;
 	Thanksgiving.prototype.getARoastPiggueOinkOinkOinkMotherfucker = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.gems -= 1;
+		CoC.player.gems -= 1;
 		EngineCore.outputText( 'You quickly approach the gooey bucket and toss a single, shiny gem inside. Another waitress winks at you, almost equally as busty, nodding her head in the direction of the back rooms.' );
 		EngineCore.outputText( '\n\nYou wander around for a bit in the hallway, doors on either side of you filled with mysterious grunts and groaning. Apparently, people are really getting filled with the holiday spirit, you muse, and getting FILLED with it as well!' );
 		EngineCore.outputText( '\n\nEventually you come upon a door at the end of the hallway, noticing a sticky sheet of parchment nailed to it.' );
 		EngineCore.outputText( '\n\nIt reads: "<i>Get your sausage sticky! Or dip some pork tongue into your honey pot!</i>" in playful calligraphy handwriting, an arrow closer to the bottom of the sheet pointing to the door knob. You notice in amusement how the knob seems a bit sticky too. Just about everything involving this... spit-roasted speciality is sticky.' );
 		EngineCore.outputText( '\n\nYou open the door, the smell of sex wafting out in dizzying amounts: hungry pussy, eager asshole, meaty shafts, and hairy balls all mixing together to create a truly arousing aroma. The room is foggy with lusty fumes, working themselves into your [armor] and finding a home in your [hair].' );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nYour [vagina] drools pussy juice down your [legs] as y' );
 		} else {
 			EngineCore.outputText( 'Y' );
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\nThe afflicted areas on her generous rump turn rosy red, which is hard to notice on her otherwise pink skin. You grin; apparently nobody had the decency to give this sausage slut a good rump-roasting. You bring both of your open palms down at the same time, both giant tushy cheeks undulating sexily as you leave fingerprint marks on her juicy booty. You experimentally put pressure on one of her fat orbs of flushing-red posterior, smiling in delight as your fingers practically sink into the round flesh.' );
 		EngineCore.outputText( '\n\n"<i>Oink...</i>" she moans, lustily as you manhandle her backside. The dirty little slut! She likes it! Well, you\'re not one to deprive a sexy strumpet of her pleasure.' );
 		EngineCore.outputText( '\n\nYou begin to rapid-fire spank her ass, alternating your strikes between her two cheeks. ' );
-		if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( 'You even bring your tail from behind your back to join in, the unfamiliar texture causing the sausage slut to let out surprised, high-pitched squeaks. ' );
 		}
 		EngineCore.outputText( 'You notice the pigslut moving backwards, her ass being pushed into the air as she attempts to feel the full power of your spanking, her pussy spraying juices onto the soaked sheets.' );
@@ -550,76 +550,76 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, Even
 		EngineCore.outputText( '\n\nYou let out a satisfied burp from all the syrup you just ingested. Patting your own stomach, you make your way towards the door, leaving the piggy pussy drenched as the whore snoozes away, snorting cutely every once in a while.' );
 		EngineCore.outputText( '\n\nWhoah, that was strange.' );
 		var changed = false;
-		if( CoC.getInstance().player.thickness < 100 ) {
+		if( CoC.player.thickness < 100 ) {
 			EngineCore.outputText( '  You notice that you seem a bit more... jiggly, a slight paunch in your stomach now as you grow a bit more plump than you once were.' );
-			if( CoC.getInstance().player.thickness <= 10 ) {
-				CoC.getInstance().player.thickness += 10;
+			if( CoC.player.thickness <= 10 ) {
+				CoC.player.thickness += 10;
 			}
-			if( CoC.getInstance().player.thickness <= 20 ) {
-				CoC.getInstance().player.thickness += 10;
+			if( CoC.player.thickness <= 20 ) {
+				CoC.player.thickness += 10;
 			}
-			if( CoC.getInstance().player.thickness <= 30 ) {
-				CoC.getInstance().player.thickness += 10;
+			if( CoC.player.thickness <= 30 ) {
+				CoC.player.thickness += 10;
 			}
-			if( CoC.getInstance().player.thickness <= 40 ) {
-				CoC.getInstance().player.thickness += 10;
+			if( CoC.player.thickness <= 40 ) {
+				CoC.player.thickness += 10;
 			}
-			if( CoC.getInstance().player.thickness < 50 ) {
-				CoC.getInstance().player.thickness += 5;
+			if( CoC.player.thickness < 50 ) {
+				CoC.player.thickness += 5;
 			}
 			changed = true;
 		}
-		if( CoC.getInstance().player.buttRating < 35 ) {
+		if( CoC.player.buttRating < 35 ) {
 			EngineCore.outputText( '  You notice your ass filling out, gaining more mass as it visibly grows before your eyes.' );
-			if( CoC.getInstance().player.buttRating < 4 ) {
-				CoC.getInstance().player.buttRating += 3;
+			if( CoC.player.buttRating < 4 ) {
+				CoC.player.buttRating += 3;
 			}
-			if( CoC.getInstance().player.buttRating <= 10 ) {
-				CoC.getInstance().player.buttRating += 2;
+			if( CoC.player.buttRating <= 10 ) {
+				CoC.player.buttRating += 2;
 			}
-			if( CoC.getInstance().player.buttRating <= 15 ) {
-				CoC.getInstance().player.buttRating += 1;
+			if( CoC.player.buttRating <= 15 ) {
+				CoC.player.buttRating += 1;
 			}
-			if( CoC.getInstance().player.buttRating <= 20 ) {
-				CoC.getInstance().player.buttRating += 1;
+			if( CoC.player.buttRating <= 20 ) {
+				CoC.player.buttRating += 1;
 			}
-			if( CoC.getInstance().player.buttRating <= 35 ) {
-				CoC.getInstance().player.buttRating += 1;
+			if( CoC.player.buttRating <= 35 ) {
+				CoC.player.buttRating += 1;
 			}
 			changed = true;
 		}
-		if( CoC.getInstance().player.hipRating < 35 ) {
+		if( CoC.player.hipRating < 35 ) {
 			EngineCore.outputText( ' Your hips grow too, widening and giving you more sexy curves.' );
-			if( CoC.getInstance().player.hipRating < 4 ) {
-				CoC.getInstance().player.hipRating += 3;
+			if( CoC.player.hipRating < 4 ) {
+				CoC.player.hipRating += 3;
 			}
-			if( CoC.getInstance().player.hipRating < 10 ) {
-				CoC.getInstance().player.hipRating += 2;
+			if( CoC.player.hipRating < 10 ) {
+				CoC.player.hipRating += 2;
 			}
-			if( CoC.getInstance().player.hipRating < 15 ) {
-				CoC.getInstance().player.hipRating += 1;
+			if( CoC.player.hipRating < 15 ) {
+				CoC.player.hipRating += 1;
 			}
-			if( CoC.getInstance().player.hipRating < 20 ) {
-				CoC.getInstance().player.hipRating += 1;
+			if( CoC.player.hipRating < 20 ) {
+				CoC.player.hipRating += 1;
 			}
-			if( CoC.getInstance().player.hipRating < 35 ) {
-				CoC.getInstance().player.hipRating += 1;
+			if( CoC.player.hipRating < 35 ) {
+				CoC.player.hipRating += 1;
 			}
 			changed = true;
 		}
-		if( CoC.getInstance().player.biggestTitSize() < 20 ) {
+		if( CoC.player.biggestTitSize() < 20 ) {
 			EngineCore.outputText( ' Your boobs also grow, gaining size as it seems that every part of your body wants to join in on the growth.' );
-			if( CoC.getInstance().player.biggestTitSize() < 3 ) {
-				CoC.getInstance().player.growTits( 3, CoC.getInstance().player.bRows(), false, 1 );
+			if( CoC.player.biggestTitSize() < 3 ) {
+				CoC.player.growTits( 3, CoC.player.bRows(), false, 1 );
 			}
-			if( CoC.getInstance().player.biggestTitSize() < 6 ) {
-				CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 1 );
+			if( CoC.player.biggestTitSize() < 6 ) {
+				CoC.player.growTits( 2, CoC.player.bRows(), false, 1 );
 			}
-			if( CoC.getInstance().player.biggestTitSize() < 12 ) {
-				CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 1 );
+			if( CoC.player.biggestTitSize() < 12 ) {
+				CoC.player.growTits( 2, CoC.player.bRows(), false, 1 );
 			}
-			if( CoC.getInstance().player.biggestTitSize() < 20 ) {
-				CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 1 );
+			if( CoC.player.biggestTitSize() < 20 ) {
+				CoC.player.growTits( 2, CoC.player.bRows(), false, 1 );
 			}
 			changed = true;
 		}

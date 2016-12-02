@@ -10,13 +10,13 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, Imp, CockTypes
 		EngineCore.outputText( 'The imp mutters something to himself. Before you have time to react the demonic creature\'s hand is filled with a bright red fire that he hurls at you.  The flames lick at your body leaving a painful burn on you torso, as well as an arousing heat in your groin.' );
 		//[-HP // +Lust(minor)];
 		var damage = 40 + Utils.rand( 10 );
-		CoC.getInstance().player.takeDamage( damage );
-		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.cor / 10 );
+		CoC.player.takeDamage( damage );
+		EngineCore.dynStats( 'lus', 20 + CoC.player.cor / 10 );
 		Combat.combatRoundOver();
 	};
 	//Heavy Attack;
 	ImpLord.prototype.impLordHeavyEncounter = function() {
-		var damage = Math.ceil( (this.str + this.weaponAttack + 20) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		var damage = Math.ceil( (this.str + this.weaponAttack + 20) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		EngineCore.outputText( 'The demonic creature slashes a clawed hand towards your stomach,' );
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			EngineCore.outputText( ' but you handily avoid it.' );
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, Imp, CockTypes
 			EngineCore.outputText( ' but the attack proves ineffectual.' );
 		} else {
 			EngineCore.outputText( 'leaving a large gash. The attack leaves you slightly stunned, but you recover. ' );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( '(' + damage + ')' );
 		}
 		Combat.combatRoundOver();
@@ -33,17 +33,17 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, Imp, CockTypes
 	ImpLord.prototype.impLordLustAttack = function() {
 		EngineCore.outputText( 'Lowering his loincloth the imp reveals his inhumanly thick shaft.  He smirks and licks his lips as he gives his cock a squeeze, milking a few beads of clear pre from the tip.  You shake your head and try to ignore your growing need.' );
 		//[+Lust];
-		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 5 + CoC.getInstance().player.cor / 5 );
+		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5 + CoC.player.cor / 5 );
 		Combat.combatRoundOver();
 	};
 	//Lust and Light Attack;
 	ImpLord.prototype.impLordLustAttack2 = function() {
 		EngineCore.outputText( 'Reaching into his satchel the devilish creature pulls out a leather riding crop.  He quickly rushes forward, but somehow manages to get behind you.  Before you can react the imp lashes out, striking your [butt] twice with the riding crop.  The strikes leave a slight burning feeling, as well as a strange sense of arousal.' );
 		var damage = 3 + Utils.rand( 10 );
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')' );
 		//[-HP(minor) // +Lust];
-		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.sens / 4 + CoC.getInstance().player.cor / 10 );
+		EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 4 + CoC.player.cor / 10 );
 		Combat.combatRoundOver();
 	};
 	ImpLord.prototype.performCombatAction = function() {

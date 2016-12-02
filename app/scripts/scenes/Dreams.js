@@ -7,65 +7,65 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 	Dreams.prototype.dreamSelect = function() {
 		var daydream = 0;
 		var choices = [].concat(
-			_.times( CoC.getInstance().player.humanScore(), _.constant( 0 ) ),
-			_.times( CoC.getInstance().player.dogScore(), _.constant( 2 ) ),
-			_.times( CoC.getInstance().player.horseScore(), _.constant( 1 ) ),
-			_.times( CoC.getInstance().player.cowScore(), _.constant( 3 ) ),
-			_.times( CoC.getInstance().player.catScore(), _.constant( 4 ) ),
-			_.times( CoC.getInstance().player.demonScore(), _.constant( 5 ) )
+			_.times( CoC.player.humanScore(), _.constant( 0 ) ),
+			_.times( CoC.player.dogScore(), _.constant( 2 ) ),
+			_.times( CoC.player.horseScore(), _.constant( 1 ) ),
+			_.times( CoC.player.cowScore(), _.constant( 3 ) ),
+			_.times( CoC.player.catScore(), _.constant( 4 ) ),
+			_.times( CoC.player.demonScore(), _.constant( 5 ) )
 		);
 		//dream quantity;
-		var dreamtemp = Utils.rand( CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 20 ) + CoC.getInstance().player.cor / 20;
+		var dreamtemp = Utils.rand( CoC.player.lib / 10 + CoC.player.cor / 20 ) + CoC.player.cor / 20;
 		//Two chances if addicted, three if with perk!;
-		if( CoC.getInstance().player.minotaurAddicted() ) {
+		if( CoC.player.minotaurAddicted() ) {
 			choices.push( 6 );
 			choices.push( 6 );
-			if( CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
 				choices.push( 6 );
 			}
 		}
 		//Akbal;
-		if( CoC.getInstance().flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 4 ) {
-			if( CoC.getInstance().flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 10 ) {
+		if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 4 ) {
+			if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 10 ) {
 				choices.push( 7 );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 13 ) {
+			if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 13 ) {
 				choices.push( 7 );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 15 ) {
+			if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 15 ) {
 				choices.push( 7 );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 18 ) {
+			if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] > 18 ) {
 				choices.push( 7 );
 			}
 			choices.push( 7 );
 			choices.push( 7 );
 		}
 		//Exgartuboobs;
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 2 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 2 ) {
 			choices.push( 8 );
 			choices.push( 8 );
 			choices.push( 8 );
 		}
 		//Exgartucock;
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && CoC.player.hasCock() ) {
 			choices.push( 9 );
 			choices.push( 9 );
 			choices.push( 9 );
 		}
 		//Latexy Skinz;
-		if( CoC.getInstance().player.skinAdj === 'latex' || CoC.getInstance().player.skinAdj === 'rubber' ) {
+		if( CoC.player.skinAdj === 'latex' || CoC.player.skinAdj === 'rubber' ) {
 			choices.push( 10 );
 			choices.push( 10 );
 			choices.push( 11 );
 			choices.push( 11 );
 		}
 		//Dom + Scylla;
-		if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
+		if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
 			choices.push( 12 );
 			choices.push( 12 );
 			choices.push( 12 );
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cor > 50 ) {
+			if( CoC.player.hasCock() && CoC.player.cor > 50 ) {
 				choices.push( 13 );
 				choices.push( 13 );
 				choices.push( 13 );
@@ -77,19 +77,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			choices.push( 14 );
 			choices.push( 14 );
 		}
-		if( SceneLib.anemoneScene.kidAXP() >= 40 && CoC.getInstance().player.lust >= 70 && CoC.getInstance().player.gender > 0 ) {
+		if( SceneLib.anemoneScene.kidAXP() >= 40 && CoC.player.lust >= 70 && CoC.player.gender > 0 ) {
 			choices.push( 15 );
 			choices.push( 15 );
 			choices.push( 15 );
 		}
 		//Sand trap;
-		if( CoC.getInstance().player.sandTrapScore() >= 2 ) {
+		if( CoC.player.sandTrapScore() >= 2 ) {
 			choices.push( 16 );
 			choices.push( 16 );
 			choices.push( 16 );
 			choices.push( 16 );
 		}
-		if( CoC.getInstance().player.mouseScore() >= 3 ) {
+		if( CoC.player.mouseScore() >= 3 ) {
 			choices.push( 17 );
 			choices.push( 17 );
 			choices.push( 17 );
@@ -108,11 +108,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 		//Well adjusted cuts gain in half!;
 		var dreamLust = dreamtemp;
 		// Lusty increases by 1/3rd;
-		if( CoC.getInstance().player.findPerk( PerkLib.Lusty ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 ) {
 			dreamLust += (dreamtemp / 3);
 		}
 		// Well Adjusted cuts by half;
-		if( CoC.getInstance().player.findPerk( PerkLib.WellAdjusted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.WellAdjusted ) >= 0 ) {
 			dreamLust = (dreamLust / 2);
 		}
 		if( dreamLust > 0 ) {
@@ -125,13 +125,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			daydream = choices[ Utils.rand( choices.length ) ];
 			//normal fantasies...;
 			if( daydream === 0 ) {
-				if( CoC.getInstance().player.cor <= 33 ) {
+				if( CoC.player.cor <= 33 ) {
 					//randomly 1 of two simple fantasies.;
 					if( Utils.rand( 2 ) === 0 ) {
 						EngineCore.outputText( 'tender sex with a sweetheart back home.  ', false );
 					} else {
 						EngineCore.outputText( 'beautiful nude ', false );
-						if( CoC.getInstance().player.gender <= 1 || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+						if( CoC.player.gender <= 1 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 							EngineCore.outputText( 'women ', false );
 						} else {
 							EngineCore.outputText( 'men ', false );
@@ -139,10 +139,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 						EngineCore.outputText( 'massaging you, slowly moving their hands over your most intimate places.  ', false );
 					}
 				}
-				if( CoC.getInstance().player.cor > 33 && CoC.getInstance().player.cor <= 66 ) {
+				if( CoC.player.cor > 33 && CoC.player.cor <= 66 ) {
 					EngineCore.outputText( 'being violently raped and used by demons.  ', false );
 				}
-				if( CoC.getInstance().player.cor > 66 ) {
+				if( CoC.player.cor > 66 ) {
 					dreamtemp = Utils.rand( 5 );
 					if( dreamtemp <= 3 ) {
 						EngineCore.outputText( 'giving yourself to the demons fully, allowing yourself to be tied down and owned as your body is warped for their twisted pleasures.  ', false );
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			//canine;
 			else if( daydream === 2 ) {
 				//Male-ish dreams;
-				if( CoC.getInstance().player.gender <= 1 || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+				if( CoC.player.gender <= 1 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 					if( Utils.rand( 2 ) === 0 ) {
 						EngineCore.outputText( 'locking a thick knotted cock inside a female, the pheromones of her heat making your maleness twitch and flex, the knot bulging obscenely as you begin to impregnate her.  ', false );
 					} else {
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				//female;
 				else {
 					//heat dream!;
-					if( CoC.getInstance().player.inHeat ) {
+					if( CoC.player.inHeat ) {
 						EngineCore.outputText( 'being pregnant, your belly bulging obscenely with the fruits of all your frequent copulations, and your breasts swollen with breast milk.  You imagine your condition enhancing your libido, driving you seek out sexual partners willing to pleasure your distorted form.  ', false );
 					}
 					//normal dream;
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			}
 			//horse;
 			else if( daydream === 1 ) {
-				if( CoC.getInstance().player.gender === 1 || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+				if( CoC.player.gender === 1 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 					EngineCore.outputText( ' running the plains with a harem of beautiful centaur fillies.  Your bloated equine endowments swelling with blood at the sight of their fertile backsides and potent pheromones.   You dream of staying up half the night to service your animalistic brides insatiable desires, plugging them over and over until your baby-batter is running in steady streams from their backsides.  ', false );
 				} else {
 					EngineCore.outputText( 'running your own farm, complete with a stable of docile, horse-morphed studs.   Of course each had to be captured as he came through the portal, until you had enough studs to keep your cunny happy and your womb filled with equine-spunk.  You saunter out to the barn and smile at the immediate reaction your presence has on your livestock, their leering eyes glued to every curve of your nude body.   Each of them lines up, guiding their rapidly hardening shafts through specially crafted holes in the stalls.  You giggle as your oldest acquisition struggles, trying to get the massive flare of his head through the hole before it gets any bigger.  You dream of walking down the aisle, granting each stud the release he so desires, taking the largest and most worthy to feed your tainted womb\'s thirst for hot spunk.  ', false );
@@ -183,11 +183,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			}
 			//cow;
 			else if( daydream === 3 ) {
-				if( (CoC.getInstance().player.gender === 1 && CoC.getInstance().player.biggestTitSize() >= 5) || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
-					EngineCore.outputText( 'having full and lactating breasts, searching for the right person to give your milk to.  You come across a pretty human girl and invite her to your breast.  She eagerly jumps into your arms and starts to suckle from your ample bosom.  You then guide your erect ' + CoC.getInstance().player.cockDescript( 0 ) + ' into her waiting lower lips.  The two of you stand there in eternal bliss as she suckles on your chest and you thrust into her womanhood, until you wake from the dream.  ', false );
-				} else if( CoC.getInstance().player.gender >= 2 ) {
+				if( (CoC.player.gender === 1 && CoC.player.biggestTitSize() >= 5) || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+					EngineCore.outputText( 'having full and lactating breasts, searching for the right person to give your milk to.  You come across a pretty human girl and invite her to your breast.  She eagerly jumps into your arms and starts to suckle from your ample bosom.  You then guide your erect ' + CoC.player.cockDescript( 0 ) + ' into her waiting lower lips.  The two of you stand there in eternal bliss as she suckles on your chest and you thrust into her womanhood, until you wake from the dream.  ', false );
+				} else if( CoC.player.gender >= 2 ) {
 					EngineCore.outputText( 'wandering through the forest, cradling your full and lactating breasts, searching for the right person to give your milk to.  You come across a cute human boy and invite him to your breast.  He eagerly jumps into your arms and starts to suckle from your ample bosom.  You then guide his erect cock into your ' + Descriptors.vaginaDescript( 0 ) + ' and engulf him.  The two of you stand there in eternal bliss as he suckles on your chest and thrusts into your womanhood, until you wake from the dream.  ', false );
-				} else if( CoC.getInstance().player.gender === 0 ) {
+				} else if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( 'wandering the forest, carrying full and lactating breasts.  You spot a creature of the forest looking down at you, but you feel no fear, only contentedness as you invite the creature to suckle from your breasts.  It eagerly jumps out of its hiding place to lick and suck at your full breast, before soon running back off into the woods.  You continue your wonderings, and meet many more creatures.  Each one you meet comes to you and begs you for its daily milk.  It fills you with great satisfaction to feed them all, and you feel that they would do anything for you if you asked them to.  It is a state of eternal bliss, until you wake from the dream.  ', false );
 				} else {
 					EngineCore.outputText( 'roaming the mountain-sides while you hunt for a mate, your turgid shaft and swelling balls aching with the need for release.  ', false );
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			//cat;
 			else if( daydream === 4 ) {
 				//FEMALE;
-				if( CoC.getInstance().player.hasVagina() && (!CoC.getInstance().player.hasCock() || Utils.rand( 2 ) === 0) ) {
+				if( CoC.player.hasVagina() && (!CoC.player.hasCock() || Utils.rand( 2 ) === 0) ) {
 					EngineCore.outputText( 'being a full cat and getting pounded by another as you mewl with pleasure.  He comes and pulls out, the barbs on his cock rake your insides as you yowl from the sensation. You clean yourself before searching for another cat to pound you, then another, and another...  ', false );
 				}//MALE;
 				else {
@@ -211,8 +211,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			else if( daydream === 6 ) {
 				EngineCore.outputText( 'the many encounters you\'ve had with minotaurs.  You shake, cold sweat on your brow, a pit of emptiness in your stomach, and a seething fire in your loins.  You don\'t know how long you lie there, but gradually, somehow, dreams overtake you and the cramped isolation of your camp falls away to reveal a sweeping vista.  Halfway up the slope of a mountain, the way down the sheer cliff face is a dizzying descent of jagged rocks.  The plateau you find yourself on is fairly wide and is populated by a great many caves that wind down, deep into the mountain\'s core.  There is a strange sense of familiarity to this place, as if you... belong here.\n\n', false );
 				EngineCore.outputText( 'Your presence does not go unnoticed.  The owners of the caves step out of the shadows and you find yourself surrounded on all sides by the hulking, vulgar forms of minotaurs, their titanic cocks stiffening while their overfull balls sway heavily between their legs.  You don\'t remember how you got up here, but there is no way out.  A thrill of panic shoots up your spine and you try to call for help, but your voice catches in your throat, barely more than an impassioned whisper.  Then, they are upon you.  Coarse hands grab your arms and hips, throwing you into the small circle at the center of the mob, the oafish beasts crowding against each other to surround you.  They loom impossibly tall over you, the corded muscles of their barbarous chests hiding their faces from you, but you can hear them snorting in perverse impatience as they scuff their hooves on the ground, the flesh of their profane shafts engorged and straining in the air around you.\n\n', false );
-				EngineCore.outputText( 'The minotaurs grab their dicks and begin jerking themselves off, pumping their bitch-taming rods frantically, their unseen eyes boring holes of lustful desire through your body.  Alarmingly, you seem to have lost your ' + CoC.getInstance().player.armorName + ' to the monstrous men, your nude body bare to their lascivious, rutting needs.  You huddle against the ground, fearful of the bulls\' ejaculate, but something is wrong.  Despite their best efforts, none of the cocks swarming around you are releasing their seething seed.  You push yourself up to a sitting position and, hesitantly, reach a hand out to one of the shafts, its deeply-veined trunk bulbous and pulsing.  Placing the lightest touch of your fingers on the cylindrical tip, the minotaur immediately reacts, jerking his hands down to the base of his shaft, his cockhead flaring outward in a fleshy bulge that pushes the tip of his urethra out in a gaping, mouth-like pucker. You barely have time to blink before the minotaur\'s orgasm bursts forth, hot streams of creamy spunk lancing through the air to splat wetly on your face in sticky ropes.  You recoil as the monster\'s jizz pours from its arm-thick cum pump, the spurting cascade white-washing your ' + Descriptors.chestDesc() + ' with the pale, liquid alabaster of his desperate need.\n\n', false );
-				EngineCore.outputText( 'The deluge from his straining flesh tube slows and you sputter, trying to wipe the tainted, milky pearls from your body when the smell of the semen wafts into your nostrils.  An all-too-familiar weakness creeps into your limbs, addictive pheromones burning a depraved path from your nose directly into your brain, conquering your feeble will.  Panting, sweat beading on your brow, you try to hold back, but the feral potency of the bull-men has subdued your fear and outrage, leaving only a domesticated need to serve.  No longer the master of your body, your arms reach out and stroke more of the surrounding cocks, coaxing each one to fountain you with polluted, ivory loads, the pallid ambrosia lacquering your ' + CoC.getInstance().player.skinFurScales() + ', coating you in the savage seed of your masters.  You gratefully turn up your head to catch the full brunt of the torrid geysers with your face, syrupy cream rolling down your nostrils and filling your mouth until it runs over.\n\n', false );
+				EngineCore.outputText( 'The minotaurs grab their dicks and begin jerking themselves off, pumping their bitch-taming rods frantically, their unseen eyes boring holes of lustful desire through your body.  Alarmingly, you seem to have lost your ' + CoC.player.armorName + ' to the monstrous men, your nude body bare to their lascivious, rutting needs.  You huddle against the ground, fearful of the bulls\' ejaculate, but something is wrong.  Despite their best efforts, none of the cocks swarming around you are releasing their seething seed.  You push yourself up to a sitting position and, hesitantly, reach a hand out to one of the shafts, its deeply-veined trunk bulbous and pulsing.  Placing the lightest touch of your fingers on the cylindrical tip, the minotaur immediately reacts, jerking his hands down to the base of his shaft, his cockhead flaring outward in a fleshy bulge that pushes the tip of his urethra out in a gaping, mouth-like pucker. You barely have time to blink before the minotaur\'s orgasm bursts forth, hot streams of creamy spunk lancing through the air to splat wetly on your face in sticky ropes.  You recoil as the monster\'s jizz pours from its arm-thick cum pump, the spurting cascade white-washing your ' + Descriptors.chestDesc() + ' with the pale, liquid alabaster of his desperate need.\n\n', false );
+				EngineCore.outputText( 'The deluge from his straining flesh tube slows and you sputter, trying to wipe the tainted, milky pearls from your body when the smell of the semen wafts into your nostrils.  An all-too-familiar weakness creeps into your limbs, addictive pheromones burning a depraved path from your nose directly into your brain, conquering your feeble will.  Panting, sweat beading on your brow, you try to hold back, but the feral potency of the bull-men has subdued your fear and outrage, leaving only a domesticated need to serve.  No longer the master of your body, your arms reach out and stroke more of the surrounding cocks, coaxing each one to fountain you with polluted, ivory loads, the pallid ambrosia lacquering your ' + CoC.player.skinFurScales() + ', coating you in the savage seed of your masters.  You gratefully turn up your head to catch the full brunt of the torrid geysers with your face, syrupy cream rolling down your nostrils and filling your mouth until it runs over.\n\n', false );
 				EngineCore.outputText( 'You realize, at last, the bestial intelligence in the minotaurs.  They did not simply take you, though you were unarmed and outnumbered.  Instead, they let your own weakness doom you - a willing slave to the ecstasy of their loins.  As you grasp at the melon-sized balls churning all around you, begging for ever more of their nectar, a distant, fading voice begs you to hold out, to escape.  That final thought is driven away as the sublime arms of your masters lift their freshly broken cum-dump high into the air.  They crowd so tightly that they seem to be holding you over a sea of straining phalluses, spunk still bubbling from their engorged tips.  The palpable need to breed you ignites the bodies of your animalistic tyrants with smoldering heat.  Then, as time seems to slow down around you, they thrust your tamed body down, jamming endless inches of minotaur cock deep inside the latest of their submissive cock-sleeves...\n\n', false );
 				EngineCore.outputText( 'You awaken from the vivid dream at the sensation of penetration, lurid images slowly fading in the morning light.  Yet, somehow, you can still just barely smell the blissful odor of minotaur spunk.', false );
 				EngineCore.outputText( '\n', false );
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 			//[Player has latex skin] (Z);
 			else if( daydream === 11 ) {
 				EngineCore.outputText( 'dodging your foe\'s attack expertly, continuing a battle.  No faceless, featureless demon horde will get the best of you.  Deflecting assaults from all sides, you have never felt more powerful.  Yet an odd hiss distracts you.  Glancing behind, you see that a single lucky blade has rent a hole in your shoulder, through which air rapidly escapes.\n\n', false );
-				EngineCore.outputText( 'You stumble, attempting to keep your footing.  Already your legs waver and threaten to fall in on themselves, unable to support your weight.  You try to raise your ' + CoC.getInstance().player.weaponName + ', but your fingers feel increasingly boneless and lethargic.  Your hands go limp as you fall to your knees.  Your voice doesn\'t come, rushing out the gash in your back with the rest of the air.  A uselessness consumes you, as though every single muscle has failed at once.\n\n', false );
+				EngineCore.outputText( 'You stumble, attempting to keep your footing.  Already your legs waver and threaten to fall in on themselves, unable to support your weight.  You try to raise your ' + CoC.player.weaponName + ', but your fingers feel increasingly boneless and lethargic.  Your hands go limp as you fall to your knees.  Your voice doesn\'t come, rushing out the gash in your back with the rest of the air.  A uselessness consumes you, as though every single muscle has failed at once.\n\n', false );
 				EngineCore.outputText( 'An opponent is behind you now, pressing down on your legs and forcing the air out.  The hiss gets louder as they gather around and encourage the process, until you lay almost entirely flattened against the ground.  Starting at your toes they roll you up, squeezing the final puffs out and leaving you even more helpless than before.  They drop you into a pack, and your compressed form bounces slightly as they travel.\n\n', false );
 				EngineCore.outputText( 'You awake from your dream panting slightly, but not sweating.  You don\'t do that anymore.\n\n', false );
 				EngineCore.outputText( 'You\'re not certain how to feel about that.', false );
@@ -280,7 +280,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				EngineCore.outputText( 'something unusual...\n' );
 				SceneLib.anemoneScene.kidADreams();
 			} else if( daydream === 16 ) {
-				if( CoC.getInstance().player.gender <= 1 ) {
+				if( CoC.player.gender <= 1 ) {
 					if( Utils.rand( 2 ) === 0 ) {
 						EngineCore.outputText( 'something truly unusual...\nIt is difficult to find deep sleep, your rest tormented by strange desires which pluck at your subconscious and tease at the extremities of your nubile, boy-whore body.  You dream of silk against your skin, of wearing gowns, petticoats and dresses which reveal your thin, smooth arms, of girl\'s underwear tight against your groin, of moving through parties and bars and blushing whenever a man, a real man, looks at you.  Do they know?  Do they guess?  The thoughts and images are powerfully, shamefully erotic and there is no escaping them; each time you flee or turn away from one you open a door into an even more sexually charged dream.' );
 					}//Male Trap Dream #2: ;
@@ -293,9 +293,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 						EngineCore.outputText( '\n\n"<i>You know the punishment for being late miss...</i>"  They all get up from relaxing in the cushions and walk towards you; you gasp as you take a step back feeling cornered as one grabs you from behind.  "<i>I told you to set the alarm...</i>" a familiar voice comes from behind you, you turn your face to see the little lady that guided you down here.  She\'s just like them! His little erect cock peeks out from under his panties as he rubs it against you making your own little cock squirm with delight.' );
 						EngineCore.outputText( '\n\nIt all sinks in now, you are just like them.  As they pull off your fancy, girly clothing your bulging panties come into view and they begin to play with your body in ways that feel so wonderful.  You begin to reach out and play with their little trap cocks as they begin to pound away at your tiny hole.  So many cute little erections around you as you suckle and lick at them all like candy.' );
 						EngineCore.outputText( '\n\nYou awake with a moan, right where you went to sleep in the middle of your camp.  ' );
-						if( CoC.getInstance().player.hasCock() ) {
+						if( CoC.player.hasCock() ) {
 							EngineCore.outputText( '  [EachCock] is fully erect and throbbing.' );
-						} else if( CoC.getInstance().player.hasVagina() ) {
+						} else if( CoC.player.hasVagina() ) {
 							EngineCore.outputText( '  Your [vagina] dripping wet with need.' );
 						}
 						EngineCore.outputText( '  You shudder as you recall the erotic dream you were just having, a hand caressing your aching loins.' );
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				//Predator/prey dream is always chosen if the PC is genderless, if they are gendered, 50/50 shot of predator/prey dream or the brood dream.;
 				//Predator and prey;
 				//Dream about running from a sexy predator.  Emphasize that you're the prey, they are the predator.  You almost want to be caught, but you're also afraid of being caught.  When you finally are caught, you wake up.;
-				if( CoC.getInstance().player.gender === 0 || Utils.rand( 2 ) === 0 ) {
+				if( CoC.player.gender === 0 || Utils.rand( 2 ) === 0 ) {
 					EngineCore.outputText( 'running in the forest with something on your tail.  Fear courses through your veins as you hurry around the trees, desperately trying to lose your pursuer.  At the same time, a strange excitement fills you; you almost feel like you want to be caught.  That majestic predator wants you, it desires you, and a shiver passes through your body as the thought of what it might do to you if it manages to catch you crosses your mind.', false );
 					EngineCore.outputText( 'You fight back the strange desire, and scramble into a thick grove of trees, hoping that you\'ve managed to evade the strangely erotic creature.  You try to catch your breath while straining your large ears, trying to detect any possible sounds of danger.  The rapid beat of your little heart rings in your ears, and it seems impossible that you could hear anything.\n\n', false );
 					EngineCore.outputText( 'You feel strange, and look down at your body.  Much to your surprise, you find yourself fully aroused right now, and ready for sex, your desire to be caught almost overpowering your fear now.  You look up, and see the eyes of your predator staring down at you, the prey that wants to be caught and used...\n', false );
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				else {
 					EngineCore.outputText( 'finding yourself in an underground burrow, with many small furred bodies with large ears scurrying around all over.  The place is warm and cozy, while also filled with the smell of mice and sex.  You love it down here, and you love seeing all your energetic children running around and having fun.\n\n', false );
 					EngineCore.outputText( 'You have a great larder, able to feed everyone as much as they need.  It has never been a problem to keep it full.  It\'s a veritable paradise for a rodent such as yourself.  Then you find your way into the master bedroom and see its massive bed, the site where your great family was brought into existence.\n\n', false );
-					if( CoC.getInstance().player.gender === 1 || (CoC.getInstance().player.gender === 3 && Utils.rand( 2 ) === 0) ) {
+					if( CoC.player.gender === 1 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 						EngineCore.outputText( 'Things blur for a moment, and you find your head resting against a pregnant belly, covered in fine fur.  The results of your virility as a father, and soon to be added to the great brood that you helped bring into this world...\n\n', false );
 					} else {
 						EngineCore.outputText( 'Things blur for a moment, and you find yourself laying on the bed with your hands wrapped around your heavily pregnant belly.  The product of your fertility and the virility of your great mate, and soon to be added to the great brood you\'ve already brought into the world...\n', false );
@@ -338,8 +338,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 	};
 	Dreams.prototype.dayTenDreams = function() {
 		EngineCore.outputText( '\n', false );
-		if( CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.hasCock() ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'Your task completed, you return through the portal to your home.  Exhausted but happy, the sight of your village fills you with a surge of emotions.  Most prominently, and perhaps most enjoyably: pride.  You did it.\n\n', false );
 				EngineCore.outputText( 'You drink and celebrate with your people long into the night, feasting and receiving accolades and praise.  It is a party the likes of which you have never seen, and rightfully so.  Never again will your village be threatened by the demons.  Late in the evening, you arrive at the home of your childhood and greet your mother.\n\n', false );
 				EngineCore.outputText( '"<i>Welcome back,</i>" she smiles.\n\n', false );
@@ -357,7 +357,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				EngineCore.outputText( 'You awaken in a sweat.  Fuck.', false );
 			}
 		} else {
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'Your task completed, you return through the portal to your home.  Exhausted but happy, the sight of your village fills you with a surge of emotions.  Most prominently, and perhaps most enjoyably: pride.  You did it.\n\n', false );
 				EngineCore.outputText( 'You drink and celebrate with your people long into the night, feasting and receiving accolades and praise.  It is a party the likes of which you have never seen, and rightfully so.  Never again will your village be threatened by the demons.  Late in the evening, you arrive at the home of your childhood and greet your father.\n\n', false );
 				EngineCore.outputText( '"<i>Welcome back,</i>" he smiles.\n\n', false );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 				EngineCore.outputText( 'You wake up in a sweat.  Fuck.', false );
 			}
 		}
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.dynStats( 'lus', 10 );
 		} else {
 			EngineCore.dynStats( 'lus', 25 );
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 		EngineCore.outputText( 'not a drop of jism has escaped.' );
 		EngineCore.outputText( '\n\nA soft "sssht" noise comes from behind you, that hole in the metal cave opening up once more.  Curious, you twist around so that you and your alien lover are butt-to-butt, and trot towards the doorway, dragging her along with you, though she\'s too blissed out to care.' );
 		EngineCore.outputText( '\n\nAs you pass through the doorway, your vision suddenly goes white... and you wake up with a start.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.displacerDreamIII );
@@ -425,14 +425,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects
 		EngineCore.outputText( '\n\nSoon, even the details of the wolf-girl are gone, and you curse silently to yourself.  All you can really remember right now is the metal cave... and the glittering gem-like pillar.  You wonder if such a thing exists in the real world, and then dismiss it.  Such a thing is totally beyond the scope of reality.' );
 		EngineCore.outputText( '\n\nAs you settle back in to sleep, you feel a soft squirming beneath the covers.  Lifting the blanket, you can\'t stop your jaw from dropping.  There, between your legs is a cock just like the one in your dreams, fitting snugly into its purple cock-sock.  You give it a tentative poke, and the canine-like tip again unfurls into its starfish-like head tipped with wiggling tendrils.  How odd... was this the intended effect of the cock-sock?' );
 		EngineCore.outputText( '\n\nYou give your <b>new coeurl cock</b> a few tentative strokes, to confirm its verisimilitude.  When you\'re satisfied it\'s not just another dream, you sigh and flop backwards onto your bed.  This world just gets stranger by the second... you idly wonder what it would be like on some other world...' );
-		var x = CoC.getInstance().player.cockTotal();
+		var x = CoC.player.cockTotal();
 		while( x > 0 ) {
 			x--;
-			if( CoC.getInstance().player.cocks[ x ].sock === 'amaranthine' && CoC.getInstance().player.cocks[ x ].cockType !== CockTypesEnum.DISPLACER ) {
-				if( CoC.getInstance().player.cocks[ x ].cockType !== CockTypesEnum.DOG ) {
-					CoC.getInstance().player.cocks[ x ].knotMultiplier = 1.5;
+			if( CoC.player.cocks[ x ].sock === 'amaranthine' && CoC.player.cocks[ x ].cockType !== CockTypesEnum.DISPLACER ) {
+				if( CoC.player.cocks[ x ].cockType !== CockTypesEnum.DOG ) {
+					CoC.player.cocks[ x ].knotMultiplier = 1.5;
 				}
-				CoC.getInstance().player.cocks[ x ].cockType = CockTypesEnum.DISPLACER;
+				CoC.player.cocks[ x ].cockType = CockTypesEnum.DISPLACER;
 			}
 		}
 		EngineCore.doNext( EventParser.playerMenu );

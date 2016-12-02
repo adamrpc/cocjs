@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, Naga, CoC, Mons
 	};
 	Sirius.prototype.performCombatAction = function() {
 		var attack = Utils.rand( 4 );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
 			attack = Utils.rand( 3 );
 		}
 		if( attack === 0 ) {
@@ -50,21 +50,21 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, Naga, CoC, Mons
 		//Hit (Blind):;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
 			EngineCore.outputText( '  Though your vision is still blurry, you feel yourself being sucked into the golden depths of those pupils, making you forget all your worries, if only for an instant.  All you can focus on is your growing arousal as you sink deeper into his gaze.  You shake your head, clearing your mind of the hypnotising effects the snake-man\'s eyes seem to possess, though the arousal remains.' );
-			EngineCore.dynStats( 'lus', (5 + CoC.getInstance().player.lib / 10 - CoC.getInstance().player.inte / 20) );
+			EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 10 - CoC.player.inte / 20) );
 		}
 		//Hit:;
 		else {
 			EngineCore.outputText( '  Those pools of yellow suck you into their golden depths, making you forget all your worries, if only for an instant.  All you can focus on is your growing arousal as you sink deeper into his gaze.  You shake your head, clearing your mind of the hypnotising effects the snake-man\'s eyes seem to possess, though the arousal remains.' );
-			EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 7 - CoC.getInstance().player.inte / 20) );
+			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 7 - CoC.player.inte / 20) );
 		}
 		Combat.combatRoundOver();
 	};
 	Sirius.prototype.nagaSpitAttack = function() {
 		EngineCore.outputText( 'Hissing loudly, Sirius suddenly curls his lips and spits at your eyes!  ' );
 		//{Hit:;
-		if( this.spe / 20 + Utils.rand( 20 ) + 1 > CoC.getInstance().player.spe / 20 + 10 ) {
+		if( this.spe / 20 + Utils.rand( 20 ) + 1 > CoC.player.spe / 20 + 10 ) {
 			EngineCore.outputText( 'The vile spray hits your eyes and you scream in pain, clawing fiercely at your burning, watering, weeping eyes.  <b>You can\'t see!  It\'ll be much harder to fight in this state, but at the same time, his hypnosis won\'t be so effective...</b>' );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Blind, 3, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Blind, 3, 0, 0, 0 );
 		}
 		//Miss:;
 		else {
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, Naga, CoC, Mons
 		}
 		//Hit:;
 		EngineCore.outputText( 'The snake-man moves too quickly for you to evade and he sinks long fangs into your flesh, leaving a wound that burns with horrific pain.' );
-		var damage = CoC.getInstance().player.takeDamage( 40 + Utils.rand( 20 ) );
+		var damage = CoC.player.takeDamage( 40 + Utils.rand( 20 ) );
 		EngineCore.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};

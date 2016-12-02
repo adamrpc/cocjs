@@ -9,14 +9,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	//[Deciding to talk to her];
 	Frosty.prototype.approachFrosty = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.MET_FROSTY ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MET_FROSTY ] = 1;
-			EngineCore.outputText( 'You approach the pink girl and as she sees you walking towards her, she immediately makes a beeline for you. Before you know it, the girl is right in front of you, jamming one of her fliers right in your face and speaking fast and hyperactivily to you. “<i>Hello ' + CoC.getInstance().player.mf( 'sir', 'madam' ) + ', would you like to come to ‘Frosty Cake’s Cupcake stand’? I’m Frosty- Nice to meet you- I recently opened a sweets-stand and can’t wait to have loyal customers such as you coming to my stand every day and buying all kinds of super delicious cupcakes!”</i> You have to take a step back to process everything she just blurted out; you also take the flyer from her just so she stops pushing it against your face. “<i>So do you wanna come to my stand, do ya, do ya, do ya!?</i>” You answer her with an uncertain “<i>yes</i>”, still wondering what she just said.' );
+		if( CoC.flags[ kFLAGS.MET_FROSTY ] === 0 ) {
+			CoC.flags[ kFLAGS.MET_FROSTY ] = 1;
+			EngineCore.outputText( 'You approach the pink girl and as she sees you walking towards her, she immediately makes a beeline for you. Before you know it, the girl is right in front of you, jamming one of her fliers right in your face and speaking fast and hyperactivily to you. “<i>Hello ' + CoC.player.mf( 'sir', 'madam' ) + ', would you like to come to ‘Frosty Cake’s Cupcake stand’? I’m Frosty- Nice to meet you- I recently opened a sweets-stand and can’t wait to have loyal customers such as you coming to my stand every day and buying all kinds of super delicious cupcakes!”</i> You have to take a step back to process everything she just blurted out; you also take the flyer from her just so she stops pushing it against your face. “<i>So do you wanna come to my stand, do ya, do ya, do ya!?</i>” You answer her with an uncertain “<i>yes</i>”, still wondering what she just said.' );
 			EngineCore.outputText( '\n\nHowever, you can’t think for long as she grabs you by the hand to lead and whisk you out the front door of the bakery and to her food-stand that is just outside. It’s a tiny little booth, decorated in bright happy colors and streamers. A sign on the front reads:\n<i>“Frosty Cake’s Cupcake Stand!!!!”</i> in a bubbly rainbow colored chalk writing. She positions you right in front of it and jumps over the counter to the cashier side of it. “<i>Hello customer, how may I help you? My first customer!</i>” The last part comes out as a whispered squeal that doesn\'t do much to hide her excitement.' );
 			EngineCore.outputText( '\n\nYou both share a moment of silence, her big pink eyes looking at you with a hopeful smile, then she looks down at the counter and sees it\'s empty.  Letting out a little “eep” she quickly ducks down under the counter, coming back up with a bunch of silver platter displays with glass lids, so you can see the tasty cupcakes on the inside, and in a blur the displays are organized right in front of you. All sorts of cupcakes are displayed with various frostings, toppings, colorful wrappings and all different kinds of flavors. Your mouth is just watering as your eyes wander across this colorful display of cupcakes but quickly dries up as your gaze comes to rest upon the pricing for these delicacies.' );
 			EngineCore.outputText( '\n\n“<i>30 GEMS A CUPCAKE!!!</i>” Your shock causes you to yell this outrageous price out loud.' );
 			EngineCore.outputText( '\n\n“<i>Well duh-</i>” she crosses her eyes with that last word. “<i>-how else do you think the bakery would let someone run a stand outside their store, I give them 10% of my profits and they let me run this booth.</i>” Her explanation still makes you uncertain whether you should buy a cupcake or not and it shows like marker written across your face. She sees your look of uncertainty and now looks a bit hurt at your hesitance, but she does see where you’re coming from.' );
-			EngineCore.outputText( '\n\n“<i>Well, ' + CoC.getInstance().player.mf( 'sir', 'madam' ) + ', I was thinking of a new business plan last night. You could... be a... beta tester for it. All you have to do is sign these agreement papers.</i>”' );
+			EngineCore.outputText( '\n\n“<i>Well, ' + CoC.player.mf( 'sir', 'madam' ) + ', I was thinking of a new business plan last night. You could... be a... beta tester for it. All you have to do is sign these agreement papers.</i>”' );
 			EngineCore.outputText( '\n\nShe recklessly makes room on the counter to drop down a huge stack of papers with a loud pound and, with a flick of her wrist, a pen appears in her hand, being held up to your face with zeal. Whoa whoa whoa, you at least would like to know what you’re getting into before you sign any piece of paper.' );
 			EngineCore.outputText( '\n\n“<i>To be simple: You get to fuck me.</i>”' );
 			EngineCore.outputText( '\n\nWith how bluntly she said that you probably would have spat a mouthful of water if you had some. How could she be so comfortable with that idea and seem so innocent too.' );
@@ -48,19 +48,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	};
 	Frosty.prototype.frostyMainMenu = function() {
 		EngineCore.menu();
-		if( CoC.getInstance().player.gems >= 15 ) {
+		if( CoC.player.gems >= 15 ) {
 			EngineCore.addButton( 0, 'x1', this.cupcakeBuy, 1 );
 		}
-		if( CoC.getInstance().player.gems >= 60 ) {
+		if( CoC.player.gems >= 60 ) {
 			EngineCore.addButton( 1, 'x5', this.cupcakeBuy, 5 );
 		}
-		if( CoC.getInstance().player.gems >= 110 ) {
+		if( CoC.player.gems >= 110 ) {
 			EngineCore.addButton( 2, 'x10', this.cupcakeBuy, 10 );
 		}
-		if( CoC.getInstance().player.gems >= 200 ) {
+		if( CoC.player.gems >= 200 ) {
 			EngineCore.addButton( 3, 'x20', this.cupcakeBuy, 20 );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SIGNED_FROSTYS_CONTRACT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SIGNED_FROSTYS_CONTRACT ] === 0 ) {
 			EngineCore.addButton( 8, 'Contract', this.getAFuckingFuckContractFromFucks );
 		} else {
 			EngineCore.addButton( 8, 'Specials', this.frostysLimitedSpecialMenu );
@@ -71,18 +71,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		//1. Hand – 5. points;
 		//2. Mouth-15. Points;
 		EngineCore.menu();
-		if( !free && CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] < 5 ) {
+		if( !free && CoC.flags[ kFLAGS.FROSTY_POINTS ] < 5 ) {
 			EngineCore.outputText( '\n\nYou don\'t have enough points for any services.' );
-		} else if( !free && CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] < 15 ) {
+		} else if( !free && CoC.flags[ kFLAGS.FROSTY_POINTS ] < 15 ) {
 			EngineCore.outputText( '\n\nYou don\'t have enough points for mouth service.' );
 		}
-		if( free || CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] >= 5 ) {
+		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 5 ) {
 			EngineCore.addButton( 0, 'Hand', this.frostysHandsAreColdHolyShitWhyDontYouWarmTHoseMitsUp );
 		}
-		if( free || CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] >= 15 ) {
+		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 15 ) {
 			EngineCore.addButton( 1, 'Mouth', this.useFrostysMouth );
 		}
-		if( free || CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] >= 1 ) {
+		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 1 ) {
 			EngineCore.addButton( 8, 'EatHerOut', this.cunnilingateFrosty );
 		}
 		EngineCore.addButton( 9, 'Back', this.approachFrosty );
@@ -95,19 +95,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		EngineCore.outputText( 'You make your purchase and swiftly devour the results. They\'re surprisingly delicious!' );
 		//15;
 		if( arg === 1 ) {
-			CoC.getInstance().player.gems -= 15;
+			CoC.player.gems -= 15;
 		}
 		//60;
 		if( arg === 5 ) {
-			CoC.getInstance().player.gems -= 60;
+			CoC.player.gems -= 60;
 		}
 		//110;
 		if( arg === 10 ) {
-			CoC.getInstance().player.gems -= 110;
+			CoC.player.gems -= 110;
 		}
 		//200;
 		if( arg === 20 ) {
-			CoC.getInstance().player.gems -= 200;
+			CoC.player.gems -= 200;
 		}
 		this.frostyPoints( arg );
 		EngineCore.menu();
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	//[Yes];
 	Frosty.prototype.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.SIGNED_FROSTYS_CONTRACT ] = 1;
+		CoC.flags[ kFLAGS.SIGNED_FROSTYS_CONTRACT ] = 1;
 		EngineCore.outputText( 'Being rewarded with sex for buying cupcakes, what could be better? You take the pen from Frosty’s hand and ask where to sign. She lets out a joyful “<i>YAY!</i>” and does a little jump in the air. She zooms back behind the stand and points at the lines where your name, last name, initials, date of birth, mother’s maiden name and even your pet\'s name should be written. You sign all these areas until you’re finally on the last page of the contract. Thank goodness too, your hand is beginning to cramp up. You put the pen down and rub your wrist. Frosty spins the stack a 180° with the tip of her finger, does a quick flipping through the papers, nods her head, puts the stack in a lock-box under the counter and pops back up.' );
 		EngineCore.outputText( '\n\n“<i>Congratulations! You are now a beta tester in Frosty’s “Sweets and Sex” program. Here are the basics:\n1. You get a 20% discount on all final purchases.\n2. You get a point for each cupcake you buy.\n3. You can use these points to buy from my “special” menu.\n4. What points you use are, of course, subtracted from your total of points.\nThat’s all ya need to know, can’t wait to see you around to buy some tasty cupcakes and maybe give me a creampie!</i>" She gives you a wink as you walk away, hoping you know what you got yourself into. Before you get too far, you hear Frosty calling your name. You turn around and see her running up to you, waving an arm out.' );
 		EngineCore.outputText( '\n\n“<i>I forgot to mention, customers who join the </i>beta<i> got one free sample of my services but the offer is only good right after you join... so right now.</i>”' );
@@ -185,24 +185,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	};
 	Frosty.prototype.frostyPoints = function( arg ) {
 		if( arg === undefined || arg === 0 ) {
-			return CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ];
+			return CoC.flags[ kFLAGS.FROSTY_POINTS ];
 		}
 		//If any change, add it in.;
-		CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] += arg;
+		CoC.flags[ kFLAGS.FROSTY_POINTS ] += arg;
 		//Make sure it aint negative;
-		if( CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ] = 0;
+		if( CoC.flags[ kFLAGS.FROSTY_POINTS ] < 0 ) {
+			CoC.flags[ kFLAGS.FROSTY_POINTS ] = 0;
 		}
-		return CoC.getInstance().flags[ kFLAGS.FROSTY_POINTS ];
+		return CoC.flags[ kFLAGS.FROSTY_POINTS ];
 	};
 	//[Hands];
 	Frosty.prototype.frostysHandsAreColdHolyShitWhyDontYouWarmTHoseMitsUp = function() {
 		EngineCore.clearOutput();
-		if( !CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( !CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			this.genderlessCatchAllForFrosty();
 			return;
 		}
-		if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			EngineCore.outputText( '“<i>Okay, one tug-and-pull comin\' right up.</i>” she giggles at her own name for a hand-job and ducks under the table, pulling up a big, fancy, cushioned chair that looks like it belongs to a noble. It barely fits in the tiny space under her booth. She throws the chair right next to her stand and it lands perfectly, hardly making a sound. In one moment Frosty disappears and reappears on the chair, sitting on its arm and waving her hand over to the seat, gesturing for you to sit. You follow her gesture and take a seat in the comfy chair. Just sitting there makes you feel like the ruler of a land. Placing your arms on the armrests, you feel like a boss.' );
 			EngineCore.outputText( '\n\nYou didn’t even that notice Frosty has moved from the armrest and is now on her knees at level with your groin, her hands rubbing together, making a suggestive sound of rubbing flesh.' );
 			EngineCore.outputText( '\n\n“♪<i>As soon as I get my syrup rubbed all over my hands, we’ll begin.</i>♪”' );
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\nShe wraps her sticky fingers around your cock; the syrup on them is as warm as the desert sun, slick like a cunt and her grip is as tight as a virgin’s slit. Each finger takes a turn to squeeze down on your member like she is playing a flute, a cock flute. She even makes a musical “doo-dah-lee-do” sound as she continues to “play” her song. Your cock begins hardening in her hand, pushing against her grip, making you feel like your growing cock is being choked by a leather strap.' );
 			EngineCore.outputText( '\n\n Only when it’s fully erect does she release you, strands of the syrup still connecting her fingers to the shaft of your [cock biggest]. She stares at her “handy” work and watches it pulsing and throbbing, just asking for her to give it the release it wants so much. She makes a little giggle, amused by your involuntary actions.' );
 			EngineCore.outputText( '\n\n“<i>Ooooh, your ' );
-			if( CoC.getInstance().player.biggestCockLength() < 7 ) {
+			if( CoC.player.biggestCockLength() < 7 ) {
 				EngineCore.outputText( 'little' );
 			} else {
 				EngineCore.outputText( 'big' );
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\nNot for one moment does she let the cum pool in her mouth. She moves her face in closer as the cum-stream begins to die down, just so she can continue to gulp all your sweet cream, moving her head closer and closer to your cock, stopping only when her lips are about to wrap around the head. She lets out a low “phew” against your cock and gives it a warm little peck on the head, then bounces back onto her feet.' );
 			EngineCore.outputText( '\n\n“<i>Thank you for your business, hope to see you again.</i>”' );
 			EngineCore.outputText( '\n\nYou ask her who\'s gonna clean the syrup off your cock. “<i>Oh my, I guess I can’t leave your ' );
-			if( CoC.getInstance().player.biggestCockLength() < 7 ) {
+			if( CoC.player.biggestCockLength() < 7 ) {
 				EngineCore.outputText( 'little' );
 			} else {
 				EngineCore.outputText( 'big' );
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			//[Player is back at camp]};
 		}
 		//[If player is female];
-		else if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		else if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( '“<i>Okay, one dig-dug comin\' right up.</i>” she giggles at her own name for a fingering. She ducks under the table and pulls up a big, fancy cushioned chair that looks like it belongs to a noble and also shouldn’t be able to fit in the tiny space under her booth. She throws the chair right next to her stand and it lands perfectly, hardly making a sound. In one moment Frosty just disappears and reappears on the chair, sitting on its arm and waving her hand over to the seat, gesturing for you to sit. You follow her gesture and take a seat in the comfy chair; just sitting there makes you feel like the ruler of a land. Placing your arms on the armrests, you feel like a boss.' );
 			EngineCore.outputText( '\n\nFrosty has moved from the armrest and is now pulling at the bottom half of your [armor]. With one quick hard tug, she exposes your [butt] and [vagina] to the busy city street; a few people stop to gawk at the both of you. She places her thumbs on both sides of your cunt and stretches the lips wide and hard.' );
 			EngineCore.outputText( '\n\nFrosty takes a peek inside you, wondering how far she can see inside, then hovers her mouth over your fuck-hole and yells “<i>Hellllllllllllllo!!!</i>” like she was expecting the sound of her voice to echo back from your cunt. But the vibrations of her voice do ring through your [clit], causing your [vagina] to get a little moist.' );
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\nShe lifts your cock up, giving it small strokes while holding it up, to get a look at your cunt, which is getting aroused and puffy from the stimulation from your dick. She gives your clit a light poke with one finger and holds it there, giving both your sensitive bits a light electric feeling of pleasure. Your cock growing hard in her hand and your cunt getting wet under her finger, she frees you from her teasing grip and poke.' );
 			EngineCore.outputText( '\n\nYour [cock biggest] stands erect and your [vagina] drips wetness. Frosty reaches under the chair and pulls out a bottle of syrup from there. She looks at the bottle with a grin, opens it, swirls it around like a fine wine and sniffs its sweet aroma in. Then she holds the bottle over your skyward pointing cock and tilts the bottle, spilling the desert-hot syrup onto your [cockHead biggest].' );
 			EngineCore.outputText( '\n\nIt pools a little bit on the head on then spills over, flowing down your shaft and onto ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'your [balls]' );
 			} else {
 				EngineCore.outputText( 'your pussy lips' );
@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\nGeez, she could have at least not given you an intense case of blue balls.  Damn, this hurts SO much right now. “<i>Ooooh...</i>” Frosty sees the slight look of pain on your face. “Here, let me make this all better.</i>” Frosty licks the palm of the hand she used to jerk you, taking extra care to lick and suck on her fingers. She takes a look at her fingers then your cunt, then back to her fingers, back to your cunt then takes a final look at her fingers. The dim-witted nymph then launches two wet fingers into your syrup-covered pussy. So much pleasure hits you that a hard shot of pre-cum shoots from your cock.' );
 			EngineCore.outputText( '\n\nIt would have ended up in Frosty’s curly hair, but she swiftly tilts her head back and catches the pre in her mouth, not missing a beat in pushing her fingers in and out of your cunt. She may act innocent but she is one grade A pleasure slut.' );
 			EngineCore.outputText( '\n\nHer pushing two fingers into you combined with rubbing them against your G-spot makes your tongue loll out like ' );
-			if( CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 				EngineCore.outputText( 'the bimbo you are' );
 			} else {
 				EngineCore.outputText( 'a bimbo' );
@@ -287,18 +287,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		this.frostyPoints( -5 );
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mouth];
 	Frosty.prototype.useFrostysMouth = function() {
-		if( !CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( !CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			this.genderlessCatchAllForFrosty();
 			return;
 		}
 		EngineCore.clearOutput();
 		//[If player is male];
-		if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			EngineCore.outputText( '“<i>One banana-licking comin\' right up."</i> You roll your eyes at the comment as Frosty blurs away her display then vaults over the counter with ease and is suddenly behind you. You quickly turn around just as she pushes your backside against her stand and falls to her knees. She’s about to pull the lower half your [armor] off but decides not to. You wonder what she’s going to do as she stretches her jaw and sticks out her tongue for a few minutes. After she’s done with that, she cracks her neck and looks at your pants, like it’s a challenge. Then, in an instant, she’s able to undo your [armor] with just her tongue and teeth and has you standing waist-down naked. Now you have second thoughts of having any of your naughty bits near that mouth.' );
 			EngineCore.outputText( '\n\nJust before Frosty starts her mouth sex, she raises a finger up like she’s remembering something and quickly crawls around to the back of the booth, wiggling her tush in the air. You hear her rummaging under the counter and then she’s suddenly back in front of you; did she even crawl back around? In her hands is a yellow bottle shaped like a bee-girl and a thin black rope. She plops back down on her ass with her boobs doing a little jiggle when she lands. She holds the black rope up and tells you what it’s for.' );
 			EngineCore.outputText( '\n\n“<i>Sometimes I forget to not use my hands when I do this, so I tie them behind my back. And the honey... well,</i>" she giggles "<i>you’ll find out soon.</i>”' );
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			//[Player is back at camp];
 		}
 		//[If player is female];
-		else if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		else if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( '“<i>One sundae-eating coming right up!</i>" You roll your eyes at the comment as Frosty blurs away her display then vaults over the counter with ease and is suddenly behind you. You quickly turn around just as she pushes your backside against her stand and falls to her knees. She’s about to pull the lower half of your [armor] off but decides not to. You wonder what she’s going to do as she stretches her jaw and sticks out her tongue for a few minutes. After she’s done with that, she cracks her neck and looks at your pants, like it’s a challenge. Then, in an instant, she’s able to undo your [armor] with just her tongue and teeth and has you standing waist-down naked. Now you have second thoughts of having any of your naughty bits near that mouth. Just before Frosty starts her mouth sex, she raises a finger like she’s remembering something and quickly crawls around to the back of the booth, wiggling her tush in the air.' );
 			EngineCore.outputText( '\n\nYou hear her rummaging under the counter and then she’s suddenly back in front of you; did she even crawl back around? In her hands is a yellow bottle shaped like a bee-girl and a thin black rope. She plops back down on her ass with her boobs doing a little jiggle when she lands. She holds the black rope up and tells you what it’s for.' );
 			EngineCore.outputText( '\n\n“<i>Sometimes I forget to not use my hands when I do this, so I tie them behind my back. And the honey... well,</i>" she giggles, "<i>you’ll find out soon.</i>”' );
@@ -346,14 +346,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		this.frostyPoints( -15 );
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Back to Frosty’s Special Menu.];
 	Frosty.prototype.genderlessCatchAllForFrosty = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.SEEN_GENDERLESS_FROSTY_REJECTION ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SEEN_GENDERLESS_FROSTY_REJECTION ]++;
+		if( CoC.flags[ kFLAGS.SEEN_GENDERLESS_FROSTY_REJECTION ] === 0 ) {
+			CoC.flags[ kFLAGS.SEEN_GENDERLESS_FROSTY_REJECTION ]++;
 			//[If player selects any option and is Gender-less 1st time];
 			EngineCore.outputText( 'Frosty look at the service you selected then leans over the counter and looks down at your crotch. She makes a curious “<i>Mmmmm...</i>” and reaches her hand over the counter and down towards your crotch. She palms it a bit, nodding her head as she does so. “<i>Just as I thought,</i>” she mumbles. The pink nymph retracts her hand and stands straight up. She hits the special menu in the lower-right corner with two fingers. You see very tiny lettering, writing itself onto the paper. You try to read what it’s writing, even squinting your eyes, but it’s too small to read. Only when the lettering stop writing does Frosty hand you a huge magnifying glass. You wonder where she would keep such a thing. You give Frosty a strange look and go to holding the magnifier up to the newly formed text:' );
 			EngineCore.outputText( '\n\n“<i>We reserve the right to deny certain services to people of a certain gender, Sorry!</i>”' );
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	 function analWithACupcakeSloot() {
 	 EngineCore.clearOutput();
 	 //(If player has a cock, they are presented with this option);
-	 if(CoC.getInstance().player.hasCock()) {
+	 if(CoC.player.hasCock()) {
 	 EngineCore.outputText('“<i>So you wanna be the pitcher or the catcher?</i>” she ask with devilish smile. What the hell is that suppose to mean?');
 	 //[pitcher?]  [catcher?];
 	 } else {
@@ -455,7 +455,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	 EngineCore.outputText('“<i>Ok, let’s see if you can strike me out.</i>”  She closes one eye and sticks her tongue out at you.  This girl has a few screws loose, doesn’t she? You see her pull the strings of her bikini-bottom and you can assume she bare ass naked  behind the counter now. Through you couldn’t really see from where you standing, as the countertop is a little above waist level to her. She motions for you to walk around and join her on the cashier side.  You move around the counter, and you were right, her bikini bottom has fallen to the  ground and Frosty is practically naked, save for the little bit of cloth holding back her massive, pink tits.');
 	 EngineCore.outputText('\n\n“<i>Well, what are you waiting for? Get that thing out and let the fun start!</i>"');
 	 EngineCore.outputText('\n\nYou squeeze behind her, there being just enough room for the two to stand front to butt from one another, your body squishing against her soft back-side.  You reach into your [armor] and release your ' + Descriptors.multiCockDescriptLight() + ' from ');
-	 if(CoC.getInstance().player.cockTotal() === 1) output('its');
+	 if(CoC.player.cockTotal() === 1) output('its');
 	 else {
 	 output('their');
 	 }
@@ -589,7 +589,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	 *WHACK* *WHACK *WHACK* *WHACK*
 	 You moan again as tears continue to stream down your face and your [multicock.descipt/vagina]   getting close to it/their climax, throbbing/aching with pain-fueled lust and pleasure.
 	 Frosty becomes a spanking machine cranked up to 11! Your [toes/tail] curl up are your bottom is brutal and merciless by this barker’s studded paddle. The moans of gleeful pleasure that roar through your throat are overcomed the hard, smacking sound of wood on glowing, red-flesh. Even as [you cum like a gusher/ a phantom orgasm rips through your body], Frosty is waking your ass like a nanny. Your euphoric state has you sprawled out over Frosty’s pink thigh as she start to gently paddles your rear, every second she gets slower with her punishing thwacks. Then she stops with her paddle high in the air.
-	 “Ok [CoC.getInstance().player.name], that’s all the time you have with this service. Oh look at your tushy! It’s bright and glowing, I bet it hurts like a dragon throat!” Yes, it hurts sooo good. The stinging pain resonating from your butt-cheeks feels like it alone would make you cum again. You get up off her lap and put your clothes back on, a hard wave of pain shot through out your body as you get your pant back on. So good, you feel like you want to sit and squirm in your seat.
+	 “Ok [CoC.player.name], that’s all the time you have with this service. Oh look at your tushy! It’s bright and glowing, I bet it hurts like a dragon throat!” Yes, it hurts sooo good. The stinging pain resonating from your butt-cheeks feels like it alone would make you cum again. You get up off her lap and put your clothes back on, a hard wave of pain shot through out your body as you get your pant back on. So good, you feel like you want to sit and squirm in your seat.
 	 Frosty waves you good-bye as you walk away from her booth, surprisingly, no line has lined up while you were being serviced.
 	 5voice and the word “FAT” to be echoed around the shop. You stand there with a smirk on your face as the poor Talking-Ham looks to the ground, shocked and ashamed.  Frosty ignores your rudeness, and examines the girl, eyeing her pudgy form head to toe. The cupcake vendor looks to be in deep thought, before taking a deep breath and bursting into laughter. Holding her sides and pointing at the walking pork-rind. The devastated ham  is about to run off with tears in her eyes, but you grab her before she gets away from your arm’s reach and hold her there. This is too good to just let her run away.
 	 Frosty regains her mind and slows down a bit, her laughs becoming light chuckles before she talks again. “You may not be the skinniest person I’ve seen but you’re not the fattest... or the biggest.” Maybe you should have let the girl run, this isn’t as amusing as you thought it would be.

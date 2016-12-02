@@ -1,16 +1,9 @@
 'use strict';
 
 angular.module('cocjs').factory('CoC', function ( ) {
-	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
 	}
-	CoC.getInstance = function() {
-		if(instance === null) {
-			instance = new CoC();
-		}
-		return instance;
-	};
 	CoC.prototype.init = function(that) {
 		/**
 		 * Global Variables used across the whole game. I hope to whittle it down slowly.

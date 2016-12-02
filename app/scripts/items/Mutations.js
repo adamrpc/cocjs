@@ -5,9 +5,9 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
 		//Repeat genderless encounters
-		if (player.gender === 0 && CoC.getInstance().flags[kFLAGS.CERULEAN_POTION_NEUTER_ATTEMPTED] > 0) {
+		if (player.gender === 0 && CoC.flags[kFLAGS.CERULEAN_POTION_NEUTER_ATTEMPTED] > 0) {
 			EngineCore.outputText("You take another sip of the Cerulean Potion.  You find it soothing and become very excited about the possibility of another visit from the succubus.", true);
-		} else if (player.gender === 3 && CoC.getInstance().flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00111] > 0) {
+		} else if (player.gender === 3 && CoC.flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00111] > 0) {
 			EngineCore.outputText("With anticipation, you chug down another bottle of the Cerulean Potion. A warm sensation radiates out from your stomach as you feel the potion course through your body.", true);
 		} else { //All else
 			EngineCore.outputText("The liquid tastes rather bland and goes down easily. ", true);
@@ -156,7 +156,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			}
 			//TIT CHANGE 25% chance of shrinkage
 			if ( Utils.rand(4) === 0) {
-				if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+				if (!CoC.flags[kFLAGS.HYPER_HAPPY]) {
 					player.shrinkTits();
 				}
 			}
@@ -224,7 +224,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			//Shrink breasts a more
 			//TIT CHANGE 50% chance of shrinkage
 			if ( Utils.rand(2) === 0) {
-				if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+				if (!CoC.flags[kFLAGS.HYPER_HAPPY]) {
 					player.shrinkTits();
 				}
 			}
@@ -242,7 +242,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 					Mutations.growDemonCock(1, player);
 				}
 			}
-			if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]){
+			if (!CoC.flags[kFLAGS.HYPER_HAPPY]){
 				player.shrinkTits();
 				player.shrinkTits();
 			}
@@ -338,7 +338,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.outputText("\n\nYour mouth curls with a sick smile, speaking with a voice that isn't your own, \"<i>I ALWAYS get what I want, dear...</i>\"", false);
 			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 		}
-		if (!CoC.getInstance().isInCombat()) {
+		if (!CoC.isInCombat()) {
 			//RAEP
 			EngineCore.spriteSelect(50);
 			EngineCore.outputText("\n\nYou hear the soft impact of clothes hitting the ground behind you, and turn to see that the sand witch has found you! You cannot resist a peek at your uninvited guest, beholding a curvy dark-skinned beauty, her form dominated by a quartet of lactating breasts.  Somewhere in your lust-fogged mind you register the top two as something close to double-Ds, and her lower pair to be about Cs.  She smiles and leans over you, pushing you to the ground violently.\n\nShe turns around and drops, planting her slick honey-pot firmly against your mouth.  Her scent is strong, overpowering in its intensity.  Your tongue darts out for a taste and finds a treasure trove of sticky sweetness.  Instinctively you tongue-fuck her, greedily devouring her cunny-juice, shoving your tongue in as far as possible while suckling her clit.  Dimly you feel the milk spattering over you, splashing off you and into the cracked earth.  Everywhere the milk touches feels silky smooth and sensitive, and your hands begin stroking your body, rubbing it in as the witch sprays more and more of it.  You lose track of time, orgasming many times, slick and sticky with sexual fluids.", false);
@@ -353,12 +353,12 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		player.minoCumAddiction(7);
 		EngineCore.outputText("", true);
 		EngineCore.outputText("As soon as you crack the seal on the bottled white fluid, a ", false);
-		if (CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] === 0) {
+		if (CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] === 0) {
 			EngineCore.outputText("potent musk washes over you.", false);
 		} else {
 			EngineCore.outputText("heavenly scent fills your nostrils.", false);
 		}
-		if (CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] < 50) {
+		if (CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] < 50) {
 			EngineCore.outputText("  It makes you feel dizzy, ditzy, and placid.", false);
 		} else {
 			EngineCore.outputText("  It makes you feel euphoric, happy, and willing to do ANYTHING to keep feeling this way.", false);
@@ -403,9 +403,9 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			}
 		}
 		//(Minotaur fantasy)
-		if (!CoC.getInstance().isInCombat() && Utils.rand(10) === 1) {
+		if (!CoC.isInCombat() && Utils.rand(10) === 1) {
 			EngineCore.outputText("\n\nYour eyes flutter closed for a second as a fantasy violates your mind.  You're on your knees, prostrate before a minotaur.  Its narcotic scent fills the air around you, and you're swaying back and forth with your belly already sloshing and full of spunk.  Its equine-like member is rubbing over your face, and you submit to the beast, stretching your jaw wide to take its sweaty, glistening girth inside you.  Your tongue quivers happily as you begin sucking and slurping, swallowing each drop of pre-cum you entice from the beastly erection.  Gurgling happily, you give yourself to your inhuman master for a chance to swallow into unthinking bliss.", false);
-			EngineCore.dynStats("lib", 1, "lus", Utils.rand(5) + player.cor / 20 + CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] / 5);
+			EngineCore.dynStats("lib", 1, "lus", Utils.rand(5) + player.cor / 20 + CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] / 5);
 		}
 		//(Healing – if hurt and uber-addicted (hasperk))
 		if (player.HP < player.maxHP() && player.findPerk(PerkLib.MinotaurCumAddict) >= 0) {
@@ -413,8 +413,8 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.HPChange(Math.floor(player.maxHP() / 4), false);
 		}
 		//Uber-addicted status!
-		if (player.findPerk(PerkLib.MinotaurCumAddict) >= 0 && CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] <= 0) {
-			CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] = 3 + Utils.rand(2);
+		if (player.findPerk(PerkLib.MinotaurCumAddict) >= 0 && CoC.flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] <= 0) {
+			CoC.flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] = 3 + Utils.rand(2);
 			EngineCore.outputText("\n\n<b>Your body feels so amazing and sensitive.  Experimentally you pinch yourself and discover that even pain is turning you on!</b>", false);
 		}
 	};
@@ -560,7 +560,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 				changes++;
 			}
 		}
-		if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (!CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			//Kills vagina size (and eventually the whole vagina)
 			if (player.vaginas.length > 0) {
 				if (player.vaginas[0].vaginalLooseness > AppearanceDefs.VAGINA_LOOSENESS_TIGHT) {
@@ -1214,7 +1214,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			if (player.statusAffectv2(StatusAffects.Heat) < 30 && Utils.rand(2) === 0 && changes < changeLimit && player.goIntoHeat(true)) {
 				changes++;
 			}
-			if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+			if (!CoC.flags[kFLAGS.HYPER_HAPPY]) {
 				if ( Utils.rand(2) === 0 && changes < changeLimit) {
 					//Shrink B's!
 					//Single row
@@ -1453,7 +1453,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 				player.breastRows[0].breastRating = 2;
 				EngineCore.outputText("\n", false);
 			}
-			if (!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+			if (!CoC.flags[kFLAGS.HYPER_HAPPY]) {
 				// Shrink cocks if you have them.
 				if (player.cocks.length > 0) {
 					longestCockIndex = player.longestCock();
@@ -1493,7 +1493,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.outputText("\n\nAn itching starts in your crotch and spreads vertically.  You reach down and discover an opening.  You have grown a <b>new " + Descriptors.vaginaDescript(0) + "</b>!", false);
 		} else if (changesLevel < 90) { //Increase pussy wetness or grow one!!
 			//Shrink cawk
-			if (player.cocks.length > 0 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+			if (player.cocks.length > 0 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 				EngineCore.outputText("\n\n", false);
 				longestCockIndex = player.longestCock();
 				//Shrink said cock
@@ -2826,7 +2826,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 					player.skinAdj = "rubber";
 					EngineCore.outputText("a layer of sensitive rubber.  ", false);
 				}
-				CoC.getInstance().flags[kFLAGS.PC_KNOWS_ABOUT_BLACK_EGGS] = 1;
+				CoC.flags[kFLAGS.PC_KNOWS_ABOUT_BLACK_EGGS] = 1;
 				if (player.cor < 66) {
 					EngineCore.outputText("You feel like some kind of freak.", false);
 				} else {
@@ -3061,7 +3061,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.dynStats("cor", corChange / 10);
 		}
 		//Sex bits - Duderiffic
-		if (player.cocks.length > 0 && Utils.rand(2) === 0 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (player.cocks.length > 0 && Utils.rand(2) === 0 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			//If the player has at least one dick, decrease the size of each slightly,
 			EngineCore.outputText("\n\n", false);
 			var longestCockIndex = player.longestCock();
@@ -3497,7 +3497,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			player.goIntoRut(true);
 		}
 		//ORGAZMO
-		if (player.lust >= 100 && !CoC.getInstance().isInCombat()) {
+		if (player.lust >= 100 && !CoC.isInCombat()) {
 			EngineCore.outputText("\n\nThe arousal from the potion overwhelms your senses and causes you to spontaneously orgasm.  You rip off your " + player.armorName + " and look down as your ", false);
 			if (player.cocks.length > 0) {
 				EngineCore.outputText(Descriptors.multiCockDescriptLight() + " erupts in front of you, liberally spraying the ground around you.  ", false);
@@ -3616,7 +3616,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			player.fertility += 2 + Utils.rand(5);
 			changes++;
 			EngineCore.outputText("\n\nYou feel strange.  Fertile... somehow.  You don't know how else to think of it, but you're ready to be a mother.", false);
-		} else if (player.cocks.length === 1 && Utils.rand(2) === 0 && changes < changeLimit && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) { //Shrink primary dick to no longer than 12 inches
+		} else if (player.cocks.length === 1 && Utils.rand(2) === 0 && changes < changeLimit && !CoC.flags[kFLAGS.HYPER_HAPPY]) { //Shrink primary dick to no longer than 12 inches
 			if (player.cocks[0].cockLength > 12) {
 				changes++;
 				var lengthChange = 0;
@@ -4123,7 +4123,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		//b) Description while used
 		EngineCore.outputText("Pinching your nose, you quickly uncork the vial and bring it to your mouth, determined to see what effects it might have on your body. Pouring in as much as you can take, you painfully swallow before going for another shot, emptying the bottle.", false);
 		//(if outside combat)
-		if (!CoC.getInstance().isInCombat()) {
+		if (!CoC.isInCombat()) {
 			EngineCore.outputText("  Minutes pass as you start wishing you had water with you, to get rid of the aftertaste.", false);
 		}
 		//+ speed to 70!
@@ -4439,7 +4439,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			}
 		}
 		//Shrink the boobalies down to A for men or C for girls.
-		if (changes < changeLimit && Utils.rand(4) === 0 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (changes < changeLimit && Utils.rand(4) === 0 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			//Determine if shrinkage is required
 			//and set temp2 to threshold
 			var breastChangeThreshold = 0;
@@ -4498,7 +4498,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			changes++;
 		}
 		//Cat penorz shrink
-		if (player.catCocks() > 0 && Utils.rand(3) === 0 && changes < changeLimit && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (player.catCocks() > 0 && Utils.rand(3) === 0 && changes < changeLimit && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			//loop through and find a cat wang.
 			var bigCatCockIndex = _.indexOf(player.cocks, _.find(player.cocks, function(cock) { return cock.cockType === CockTypesEnum.CAT && cock.cockLength > 6; }));
 			if (bigCatCockIndex >= 0) {
@@ -4920,11 +4920,11 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			}
 		}
 		//-Hair stops growing!
-		if (CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] === 0 && changes < changeLimit && Utils.rand(4) === 0) {
+		if (CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] === 0 && changes < changeLimit && Utils.rand(4) === 0) {
 			EngineCore.outputText("\n\nYour scalp tingles oddly.  In a panic, you reach up to your " + Descriptors.hairDescript() + ", but thankfully it appears unchanged.\n\n", false);
 			EngineCore.outputText("(<b>Your hair has stopped growing.</b>)", false);
 			changes++;
-			CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD]++;
+			CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD]++;
 		}
 		//Big physical changes:
 		//-Legs – Draconic, clawed feet
@@ -5614,7 +5614,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			player.genderCheck();
 		}
 		//-Remove extra breast rows
-		if (changes < changeLimit && player.breastRows.length > 1 && Utils.rand(3) === 0 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (changes < changeLimit && player.breastRows.length > 1 && Utils.rand(3) === 0 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			changes++;
 			EngineCore.outputText("\n\nYou stumble back when your center of balance shifts, and though you adjust before you can fall over, you're left to watch in awe as your bottom-most " + Descriptors.breastDescript(player.breastRows.length - 1) + " shrink down, disappearing completely into your ", false);
 			if (player.breastRows.length >= 3) {
@@ -5631,7 +5631,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.outputText(" remains. <b>You've lost a row of breasts!</b>", false);
 			EngineCore.dynStats("sen", -5);
 			player.removeBreastRow(player.breastRows.length - 1, 1);
-		} else if (changes < changeLimit && player.breastRows.length === 1 && Utils.rand(3) === 0 && player.breastRows[0].breastRating >= 7 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) { //-Shrink tits if above DDs. //Cannot happen at same time as row removal
+		} else if (changes < changeLimit && player.breastRows.length === 1 && Utils.rand(3) === 0 && player.breastRows[0].breastRating >= 7 && !CoC.flags[kFLAGS.HYPER_HAPPY]) { //-Shrink tits if above DDs. //Cannot happen at same time as row removal
 			changes++;
 			//(Use standard breast shrinking mechanism if breasts are under 'h')
 			if (player.breastRows[0].breastRating < 19) {
@@ -6249,7 +6249,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			changes++;
 		}
 		//-Remove breast rows over 2.
-		if (changes < changeLimit && player.bRows() > 2 && Utils.rand(3) === 0 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+		if (changes < changeLimit && player.bRows() > 2 && Utils.rand(3) === 0 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 			changes++;
 			EngineCore.outputText("\n\nYou stumble back when your center of balance shifts, and though you adjust before you can fall over, you're left to watch in awe as your bottom-most " + Descriptors.breastDescript(player.breastRows.length - 1) + " shrink down, disappearing completely into your ", false);
 			if (player.bRows() >= 3) {
@@ -6712,9 +6712,9 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			EngineCore.outputText("\n\nYour balance slides way off, and you plop down on the ground as mass concentrates on your head.  Reaching up, you give a little shriek as you feel a disturbingly thick, squirming thing where your hair should be.  Pulling it down in front of your eyes, you notice it's still attached to your head; what's more, it's the same color as your hair used to be.  <b>You now have squirming tentacles in place of hair!</b>  As you gaze at it, a gentle heat starts to suffuse your hand.  The tentacles must be developing their characteristic stingers!  You quickly let go; you'll have to take care to keep them from rubbing on your skin at all hours.  On the other hand, they're quite short and you find you can now flex and extend them as you would any other muscle, so that shouldn't be too hard.  You settle on a daring, windswept look for now.", false);
 			player.hairType = 4;
 			player.hairLength = 5;
-			if (CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] === 0) {
+			if (CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] === 0) {
 				EngineCore.outputText("  <b>(Your hair has stopped growing.)</b>", false);
-				CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 1;
+				CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 1;
 			}
 			changes++;
 			changes++;
@@ -6845,9 +6845,9 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		}
 		//Used for dick and boob TFs
 		if (player.faceType === AppearanceDefs.FACE_FOX && player.tailType === AppearanceDefs.TAIL_TYPE_FOX && player.earType === AppearanceDefs.EARS_FOX && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_FOX && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && Utils.rand(3) === 0) {
-			if (CoC.getInstance().flags[kFLAGS.FOX_BAD_END_WARNING] === 0) {
+			if (CoC.flags[kFLAGS.FOX_BAD_END_WARNING] === 0) {
 				EngineCore.outputText("\n\nYou get a massive headache and a craving to raid a henhouse.  Thankfully, both pass in seconds, but <b>maybe you should cut back on the vulpine items...</b>");
-				CoC.getInstance().flags[kFLAGS.FOX_BAD_END_WARNING] = 1;
+				CoC.flags[kFLAGS.FOX_BAD_END_WARNING] = 1;
 			} else {
 				EngineCore.outputText("\n\nYou scarf down the ");
 				if (enhanced) {
@@ -7566,7 +7566,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 //Fish Fillet
 	Mutations.fishFillet = function(player) {
 		EngineCore.clearOutput();
-		if (!CoC.getInstance().isInCombat()) {
+		if (!CoC.isInCombat()) {
 			EngineCore.outputText("You sit down and unwrap your fish fillet. It's perfectly flaky, allowing you to break it off in bite-sized chunks.  The salty meal disappears quickly, and your stomach gives an appreciative gurgle.");
 		} else {
 			EngineCore.outputText("You produce the fish fillet from your bag.  Rather than unwrap it and savor the taste as you normally would, you take a large bite out of it, leaf wrapping and all.  In no time your salty meal is gone, your stomach giving an appreciative gurgle.");
@@ -8489,13 +8489,13 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		//BAD END:
 		if(player.ferretScore() >= 6) {
 			//Get warned!
-			if(CoC.getInstance().flags[kFLAGS.FERRET_BAD_END_WARNING] === 0) {
+			if(CoC.flags[kFLAGS.FERRET_BAD_END_WARNING] === 0) {
 				EngineCore.outputText("\n\nYou find yourself staring off into the distance, dreaming idly of chasing rabbits through a warren.  You shake your head, returning to reality.  <b>Perhaps you should cut back on all the Ferret Fruit?</b>");
 				player.inte -= 5 + Utils.rand(3);
 				if(player.inte < 5) {
 					player.inte = 5;
 				}
-				CoC.getInstance().flags[kFLAGS.FERRET_BAD_END_WARNING] = 1;
+				CoC.flags[kFLAGS.FERRET_BAD_END_WARNING] = 1;
 			} else if( Utils.rand(3) === 0) { //BEEN WARNED! BAD END! DUN DUN DUN
 				//-If you fail to heed the warning, it’s game over:
 				EngineCore.outputText("\n\nAs you down the fruit, you begin to feel all warm and fuzzy inside.  You flop over on your back, eagerly removing your clothes.  You laugh giddily, wanting nothing more than to roll about happily in the grass.  Finally finished, you attempt to get up, but something feels...  different.  Try as you may, you find yourself completely unable to stand upright for a long period of time.  You only manage to move about comfortably on all fours.  Your body now resembles that of a regular ferret.  That can’t be good!  As you attempt to comprehend your situation, you find yourself less and less able to focus on the problem.  Your attention eventually drifts to a rabbit in the distance.  You lick your lips. Nevermind that, you have warrens to raid!");
@@ -8503,7 +8503,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 				return;
 			}
 		} else { //Reset the warning if ferret score drops.
-			CoC.getInstance().flags[kFLAGS.FERRET_BAD_END_WARNING] = 0;
+			CoC.flags[kFLAGS.FERRET_BAD_END_WARNING] = 0;
 		}
 		var changes = 0;
 		var changeLimit = 1;
@@ -8566,7 +8566,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			changes++;
 		}
 		//-If male with breasts or female/herm with breasts > B cup:
-		if(!CoC.getInstance().flags[kFLAGS.HYPER_HAPPY] && (player.biggestTitSize() > 2 || (player.hasCock() && player.biggestTitSize() >= 1)) && Utils.rand(2) === 0 && changes < changeLimit) {
+		if(!CoC.flags[kFLAGS.HYPER_HAPPY] && (player.biggestTitSize() > 2 || (player.hasCock() && player.biggestTitSize() >= 1)) && Utils.rand(2) === 0 && changes < changeLimit) {
 			EngineCore.outputText("\n\nYou cup your tits as they begin to tingle strangely.  You can actually feel them getting smaller in your hands!");
 			_.forEach(player.breastRows, function(breastRow) {
 				if(breastRow.breastRating > 2 || (player.hasCock() && breastRow.breastRating >= 1)) {
@@ -8581,7 +8581,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 			//Find longest cock
 			var longestCock = player.longestCock();
 			if(longestCock >= 0 && Utils.rand(2) === 0 && changes < changeLimit) {
-				if(player.cocks[longestCock].cockLength > 6 && !CoC.getInstance().flags[kFLAGS.HYPER_HAPPY]) {
+				if(player.cocks[longestCock].cockLength > 6 && !CoC.flags[kFLAGS.HYPER_HAPPY]) {
 					EngineCore.outputText("\n\nA pinching sensation racks the entire length of your " + Descriptors.cockDescript(longestCock) + ".  Within moments, the sensation is gone, but it appears to have become smaller.");
 					player.cocks[longestCock].cockLength--;
 					if( Utils.rand(2) === 0) {
@@ -8615,7 +8615,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		if(player.hairType === AppearanceDefs.HAIR_ANEMONE && Utils.rand(4) === 0 && changes < changeLimit) {
 			EngineCore.outputText("\n\nYour head feels strange as the tentacles you have for hair begin to recede back into your scalp, eventually leaving you with a bald head.  Your head is not left bald for long, though.  Within moments, a full head of hair sprouts from the skin of your scalp.  <b>Your hair is normal again!</b>");
 			//Turn hair growth on.
-			CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 0;
+			CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 0;
 			player.hairType = 0;
 			changes++;
 		}
@@ -8623,7 +8623,7 @@ angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Setti
 		if(player.hairType === AppearanceDefs.HAIR_GOO && Utils.rand(3) === 0 && changes < changeLimit) {
 			EngineCore.outputText("\n\nYour gooey hair begins to fall out in globs, eventually leaving you with a bald head.  Your head is not left bald for long, though.  Within moments, a full head of hair sprouts from the skin of your scalp.  <b>Your hair is normal again!</b>");
 			//Turn hair growth on.
-			CoC.getInstance().flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 0;
+			CoC.flags[kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD] = 0;
 			player.hairType = 0;
 			changes++;
 		}

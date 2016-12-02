@@ -9,21 +9,21 @@ angular.module( 'cocjs' ).factory( 'LustStick', function( CoC, StatusAffects, Co
 		Consumable.prototype.init( that, [ 'LustStk', 'LustStk', 'a tube of golden lipstick', ConsumableLib.DEFAULT_VALUE, 'This tube of golden lipstick is used by harpies to keep males aroused.  It has aphrodisiac properties on anyone with male genitalia and is most effective when applied to the lips or groin.' ] );
 	};
 	LustStick.prototype.canUse = function() {
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.findPerk( PerkLib.LuststickAdapted ) < 0 ) {
+		if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) {
 			EngineCore.outputText( 'You look at the tube of lipstick, but get the idea it would be a pretty bad idea to smear a thick coating of cock-hardening aphrodisiacs over your own lips.  ' );
 			return false;
 		}
 		return true;
 	};
 	LustStick.prototype.useItem = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.LustStickApplied ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.LustStickApplied, 1, Utils.rand( 12 ) + 12 );
+		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.LustStickApplied, 1, Utils.rand( 12 ) + 12 );
 			EngineCore.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over the coat you already have on your lips.  <b>No doubt another layer will make it last even longer!</b>  ' );
 			EngineCore.outputText( 'You finish and pucker your lips, feeling fairly sexy with your new, thicker makeup on.\n\n' );
 		} else {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.LustStickApplied, 24, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.LustStickApplied, 24, 0, 0, 0 );
 			EngineCore.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over your lips.  ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'It tingles a little, but the drugs have little to no effect on you now.' );
 			} else {
 				EngineCore.outputText( 'Honestly, it amazes you that something as little as a kiss can make a man putty in your hands.' );

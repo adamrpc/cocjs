@@ -15,9 +15,9 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		var damage = Math.round( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		var damage = Math.round( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 
 		//Block:;
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 			return;
 		}
 		var damage = 0;
-		damage = Math.ceil( (20 + this.str / 3 + 100) + this.spe / 3 - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( (20 + this.str / 3 + 100) + this.spe / 3 - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 			return;
 		}
 		//Hit:;
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( 'The arrow bites into you before you can react. (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
@@ -70,13 +70,13 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 		//(3);
 		else {
 			EngineCore.outputText( 'Kelt snarls, "<i>Why don\'t you just masturbate like the slut that you are until I come over there and punish you?</i>"  ' );
-			if( CoC.getInstance().player.lust >= 80 ) {
+			if( CoC.player.lust >= 80 ) {
 				EngineCore.outputText( 'Your hand moves towards your groin seemingly of its own volition.' );
 			} else {
 				EngineCore.outputText( 'Your hands twitch towards your groin but you arrest them.  Still, the idea seems to buzz at the back of your brain, exciting you.' );
 			}
 		}
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 5 + Utils.rand( 10 ) );
+		EngineCore.dynStats( 'lus', CoC.player.lib / 5 + Utils.rand( 10 ) );
 		Combat.combatRoundOver();
 	};
 	//Attacks as normal + daydream 'attack';
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 				this.removeStatusAffect( StatusAffects.BowCooldown );
 			}
 		} else {
-			if( Utils.rand( 2 ) === 0 && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 2 ) {
+			if( Utils.rand( 2 ) === 0 && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 2 ) {
 				this.dayDreamKelly();
 			} else {
 				this.keltShootBow();
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 		}
 	};
 	Kelt.prototype.defeated = function() {
-		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
 			SceneLib.kelly.defeatKellyNDBREAKHIM();
 		} else {
 			SceneLib.kelly.breakingKeltNumeroThree();
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 	};
 	Kelt.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
-		var breakLevel2 = CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 2;
+		var breakLevel2 = CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 2;
 		that.a = '';
 		that.short = 'Kelt';
 		that.imageName = 'kelt';
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 		that.balls = 2;
 		that.ballSize = 2 + Utils.rand( 13 );
 		that.cumMultiplier = 1.5;
-		that.hoursSinceCum = CoC.getInstance().player.ballSize * 10;
+		that.hoursSinceCum = CoC.player.ballSize * 10;
 		that.createBreastRow( Appearance.breastCupInverse( breakLevel2 ? 'B' : 'A' ) );
 		that.ass.analLooseness = AppearanceDefs.ANAL_LOOSENESS_NORMAL;
 		that.ass.analWetness = AppearanceDefs.ANAL_WETNESS_DRY;

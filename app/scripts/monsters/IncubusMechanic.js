@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 	}
 	angular.extend(IncubusMechanic.prototype, Monster.prototype);
 	IncubusMechanic.prototype.defeated = function( hpVictory ) {
-		if( CoC.getInstance().flags[ kFLAGS.D3_DISCOVERED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_DISCOVERED ] === 0 ) {
 			this.defeatedInDungeon1( hpVictory );
 		} else {
 			this.defeatedInDungeon3( hpVictory );
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 		} else {
 			EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, masturbating happily.' );
 		}
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
 			EngineCore.choices( 'Anally', SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore.incubusVictoryService, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 		} else {
@@ -30,18 +30,18 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 			} else {
 				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
-				if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.biggestTitSize() >= 4 && CoC.getInstance().player.armorName === 'lusty maiden\'s armor' ) {
-					titfuck = EngineCore.createCallBackFunction2( CoC.getInstance().player.armor.lustyMaidenPaizuri, CoC.getInstance().player, this );
+				if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
+					titfuck = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
 				}
 				EngineCore.choices( 'Rape', SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', titfuck, 'Nothing', Combat.cleanupAfterCombat );
 			}
 		}
 	};
 	IncubusMechanic.prototype.defeatedInDungeon3 = function( hpVictory ) {
-		CoC.getInstance().incubusMechanicScenes.beatDaMechanic( hpVictory );
+		CoC.incubusMechanicScenes.beatDaMechanic( hpVictory );
 	};
 	IncubusMechanic.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( CoC.getInstance().flags[ kFLAGS.D3_DISCOVERED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_DISCOVERED ] === 0 ) {
 			this.wonInDungeon1( hpVictory, pcCameWorms );
 		} else {
 			this.wonInDungeon3( hpVictory, pcCameWorms );
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 		}
 	};
 	IncubusMechanic.prototype.wonInDungeon3 = function( hpVictory, pcCameWorms ) {
-		CoC.getInstance().incubusMechanicScenes.mechanicFuckedYouUp( hpVictory, pcCameWorms );
+		CoC.incubusMechanicScenes.mechanicFuckedYouUp( hpVictory, pcCameWorms );
 	};
 	IncubusMechanic.prototype.cockTripAttack = function() {
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) { //Blind dodge change
@@ -64,24 +64,24 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 			Combat.combatRoundOver();
 			return;
 		}
-		EngineCore.outputText( 'The incubus lunges forward in a clumsy attack that you start to side-step, only to feel something grip behind your ' + Descriptors.buttDescript() + ' and pull your ' + CoC.getInstance().player.legs() + ' out from under you.' );
-		if( (CoC.getInstance().player.spe - 30) > Utils.rand( 60 ) ) {
-			EngineCore.outputText( '  You spin as you fall, twisting your ' + CoC.getInstance().player.legs() + ' free and springing back to your ' + CoC.getInstance().player.feet() + ' unharmed.' );
+		EngineCore.outputText( 'The incubus lunges forward in a clumsy attack that you start to side-step, only to feel something grip behind your ' + Descriptors.buttDescript() + ' and pull your ' + CoC.player.legs() + ' out from under you.' );
+		if( (CoC.player.spe - 30) > Utils.rand( 60 ) ) {
+			EngineCore.outputText( '  You spin as you fall, twisting your ' + CoC.player.legs() + ' free and springing back to your ' + CoC.player.feet() + ' unharmed.' );
 		} else {
 			{ //Fall down go boom
 			}
-			EngineCore.outputText( '  You land hard on your ass, momentarily stunned as the demonic cock-tentacle curls around your ' + CoC.getInstance().player.legs() + ', smearing them with oozing demonic fluids.' );
-			if( CoC.getInstance().player.lust >= 80 || CoC.getInstance().player.cor >= 80 ) {
-				EngineCore.outputText( '  Moaning with desire, you lick your lips as you slide your well-lubricated ' + CoC.getInstance().player.legs() + ' free.  You gather a dollop of cum and lick it seductively, winking at the incubus and hoping to make him cave into his desire.' );
+			EngineCore.outputText( '  You land hard on your ass, momentarily stunned as the demonic cock-tentacle curls around your ' + CoC.player.legs() + ', smearing them with oozing demonic fluids.' );
+			if( CoC.player.lust >= 80 || CoC.player.cor >= 80 ) {
+				EngineCore.outputText( '  Moaning with desire, you lick your lips as you slide your well-lubricated ' + CoC.player.legs() + ' free.  You gather a dollop of cum and lick it seductively, winking at the incubus and hoping to make him cave into his desire.' );
 				EngineCore.dynStats( 'lus', 13, 'cor', 1 );
-			} else if( CoC.getInstance().player.lust >= 50 || CoC.getInstance().player.cor >= 50 ) {
-				EngineCore.outputText( '  Blushing at the scent and feel of cum on your ' + CoC.getInstance().player.legs() + ', you twist and pull free.  You find yourself wondering what this demon\'s dick would taste like.' );
-				EngineCore.dynStats( 'lus', 8 + CoC.getInstance().player.cor / 20 );
+			} else if( CoC.player.lust >= 50 || CoC.player.cor >= 50 ) {
+				EngineCore.outputText( '  Blushing at the scent and feel of cum on your ' + CoC.player.legs() + ', you twist and pull free.  You find yourself wondering what this demon\'s dick would taste like.' );
+				EngineCore.dynStats( 'lus', 8 + CoC.player.cor / 20 );
 			} else {
-				EngineCore.outputText( '  Disgusted, you pull away from the purplish monstrosity, the act made easier by your well-slimed ' + CoC.getInstance().player.legs() + '.' );
-				EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.cor / 20 );
+				EngineCore.outputText( '  Disgusted, you pull away from the purplish monstrosity, the act made easier by your well-slimed ' + CoC.player.legs() + '.' );
+				EngineCore.dynStats( 'lus', 5 + CoC.player.cor / 20 );
 			}
-			CoC.getInstance().player.takeDamage( 5 );
+			CoC.player.takeDamage( 5 );
 		}
 		EngineCore.outputText( '\nThe incubus gives an overconfident smile as his cock retracts away from you, returning to its normal size.' );
 		Combat.combatRoundOver();
@@ -98,37 +98,37 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 			case 0: //Face
 				EngineCore.outputText( 'face.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your mouth and nose!  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 				EngineCore.dynStats( 'lus', 3 );
-				if( CoC.getInstance().player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
+				if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 				} else {
-					CoC.getInstance().player.addStatusValue( StatusAffects.DemonSeed, 1, 7 );
+					CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 7 );
 				}
-				CoC.getInstance().player.slimeFeed();
+				CoC.player.slimeFeed();
 				break;
 			case 1: //Chest
-				if( CoC.getInstance().player.hasFuckableNipples() ) {
+				if( CoC.player.hasFuckableNipples() ) {
 					EngineCore.outputText( Descriptors.allBreastsDescript() + '.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your open nipples.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
-					if( CoC.getInstance().player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
-						CoC.getInstance().player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
+					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 					} else {
-						CoC.getInstance().player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );
+						CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );
 					}
-					CoC.getInstance().player.slimeFeed();
+					CoC.player.slimeFeed();
 				} else {
 					EngineCore.outputText( Descriptors.allBreastsDescript() + '.  Thankfully it doesn\'t seem to have much effect.' );
 				}
 				break;
 			default: //Crotch
-				if( CoC.getInstance().player.vaginas.length > 0 ) {
-					EngineCore.outputText( 'crotch.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way past your ' + CoC.getInstance().player.armorName + ' and into your ' + Descriptors.vaginaDescript( 0 ) + '.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
+				if( CoC.player.vaginas.length > 0 ) {
+					EngineCore.outputText( 'crotch.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way past your ' + CoC.player.armorName + ' and into your ' + Descriptors.vaginaDescript( 0 ) + '.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
-					if( CoC.getInstance().player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
-						CoC.getInstance().player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
+					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 					} else {
-						CoC.getInstance().player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );
+						CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );
 					}
-					CoC.getInstance().player.slimeFeed();
+					CoC.player.slimeFeed();
 				} else {
 					EngineCore.outputText( 'crotch.  Thankfully, it doesn\'t seem to have much effect.' );
 				}

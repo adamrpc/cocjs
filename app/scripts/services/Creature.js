@@ -354,12 +354,12 @@ angular.module('cocjs').factory('Creature', function ($log, CoC, Utils, Ass, Coc
 		}).length;
 	};
 	Creature.prototype.orgasm = function() {
-		this.getCoC.getInstance().dynStats('lus=', 0, 'res', false);
+		this.getCoC.dynStats('lus=', 0, 'res', false);
 		this.hoursSinceCum = 0;
 		if (this.countCockSocks('gilded') > 0) {
 			var randomCock = Utils.rand( this.cocks.length );
 			var bonusGems = Utils.rand( this.cocks[randomCock].cockThickness ) + this.countCockSocks('gilded'); // int so AS rounds to whole numbers
-			this.getCoC.getInstance().outputText('Feeling some minor discomfort in your ' + this.cockDescript(randomCock) + ' you slip it out of your [armor] and examine it. <b>With a little exploratory rubbing and massaging, you manage to squeeze out ' + this.bonusGems + ' gems from its cum slit.</b>' );
+			this.getCoC.outputText('Feeling some minor discomfort in your ' + this.cockDescript(randomCock) + ' you slip it out of your [armor] and examine it. <b>With a little exploratory rubbing and massaging, you manage to squeeze out ' + this.bonusGems + ' gems from its cum slit.</b>' );
 			this.gems += bonusGems;
 		}
 	};
@@ -1772,7 +1772,7 @@ angular.module('cocjs').factory('Creature', function ($log, CoC, Utils, Ass, Coc
 		return CoC;
 	};
 	Creature.prototype.getFlags = function() {
-		return this.getCoC.getInstance().flags;
+		return this.getCoC.flags;
 	};
 	return Creature;
 });

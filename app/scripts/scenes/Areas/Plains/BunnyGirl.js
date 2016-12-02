@@ -14,16 +14,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.bunnbunbunMeet = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 13 );
-		if( CoC.getInstance().flags[ kFLAGS.MET_BUNBUN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_BUNBUN ] === 0 ) {
 			EngineCore.outputText( 'A ', false );
-			if( CoC.getInstance().player.tallness > 64 ) {
+			if( CoC.player.tallness > 64 ) {
 				EngineCore.outputText( 'short ', false );
 			}
 			EngineCore.outputText( 'bunny-girl appears from behind some bushes, hopping about and clutching a basket full of multicolored eggs tightly in front of her muscular, fur-covered thighs.  She hops around a few times, peering closely at the ground as if searching for something.  Her slow, deliberate hopping comes to an end as she looks up and spots you.  The bunny\'s eyes widen into shocked dinner-plates, like she\'s utterly amazed someone saw her.  She freezes completely still, watching you, and you\'re given the chance to give her a good looking over.\n\n', false );
 			EngineCore.outputText( 'Starting above the bunny\'s hips, her fur vanishes into dusky, olive skin, save for two \'poofs\' of fur that ring her wrists like bracelets and a large, fluffy white tail above her butt-cheeks. It twitches nigh-constantly, the only part of the girl that\'s moving.  Her breasts are small - perhaps B-cups – and pear-shaped.  A tight, bright pink nipple perches atop each tiny tit\'s fleshy swell, hard from arousal or cold. Her face is human save for a bright pink nose and a few whiskers that sprout from the freckles on her cheeks.  The strange woman\'s groin is concealed behind the basket, ', false );
-			if( CoC.getInstance().player.lib > 50 ) {
+			if( CoC.player.lib > 50 ) {
 				EngineCore.outputText( 'and you find yourself wondering what sort of treasures she conceals behind it.', false );
-			} else if( CoC.getInstance().player.cor < 40 ) {
+			} else if( CoC.player.cor < 40 ) {
 				EngineCore.outputText( 'and you find yourself thankful for her modesty.', false );
 			} else {
 				EngineCore.outputText( 'and you find yourself considering tearing away the basket so you can see what she\'s hiding down there.', false );
@@ -36,36 +36,36 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		//Met her;
 		else {
 			//Bunbunsplosions!;
-			if( Utils.rand( 6 ) === 0 || (CoC.getInstance().isEaster() && Utils.rand( 3 ) === 0) ) {
+			if( Utils.rand( 6 ) === 0 || (CoC.isEaster() && Utils.rand( 3 ) === 0) ) {
 				this.adjathaEggsplosions();
 				return;
 			}
 			EngineCore.outputText( 'While exploring the plains, you spy the familiar ears of a bunny-girl bobbing up and down behind a particularly tall patch of grasses.  You peek over the top of the grasses to find the dusky-skinned rabbit-girl playing with herself.  Both of her dainty, dextrous hands are clamped tightly around the wet, dripping length of her 14-inch cock as she hammers at the ground with her feet and humps away at her tightly-balled fists.\n\n', false );
-			EngineCore.outputText( 'You lean forwards for a better look, dislodging a small pebble with your ' + CoC.getInstance().player.foot() + ' while shifting position.  The bunny-girl leaps to her feet in a panic until her terrified irises lock onto your ' + CoC.getInstance().player.face() + '.  Her panic turns to embarrassment and in a flash every inch of her tanned skin is colored red.  She asks, "<i>Ummm, since I\'m still in s-season, c-could we b-breed or something?  Maybe just a little fuck?</i>"\n\n', false );
+			EngineCore.outputText( 'You lean forwards for a better look, dislodging a small pebble with your ' + CoC.player.foot() + ' while shifting position.  The bunny-girl leaps to her feet in a panic until her terrified irises lock onto your ' + CoC.player.face() + '.  Her panic turns to embarrassment and in a flash every inch of her tanned skin is colored red.  She asks, "<i>Ummm, since I\'m still in s-season, c-could we b-breed or something?  Maybe just a little fuck?</i>"\n\n', false );
 			EngineCore.outputText( 'She claps both hands over her mouth, leaving her swollen prick to bounce precipitously while she awaits your response.\n\n', false );
 			EngineCore.outputText( '(If you\'re going to sex her, which of her body parts will you use?', false );
-			EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 			var DickInV = null;
 			var Vagina = null;
 			var sixtyNine = null;
 			var eggs = null;
-			if( CoC.getInstance().player.cockThatFits( 40 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 40 ) >= 0 ) {
 				Vagina = this.bunbunGetsFucked;
 				EngineCore.outputText( '  Fuck her vagina?', false );
-			} else if( CoC.getInstance().player.cockTotal() > 0 ) {
+			} else if( CoC.player.cockTotal() > 0 ) {
 				EngineCore.outputText( '  <b>You\'re too to big fit inside her...</b>', false );
 			}
 			//Dick requires one 40 area or smaller.;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				DickInV = this.bunbunFucksYourVag;
 				EngineCore.outputText( '  Her dick in your vagina?', false );
 			}
-			if( CoC.getInstance().player.gender > 0 ) {
+			if( CoC.player.gender > 0 ) {
 				sixtyNine = this.bunbun69;
 				EngineCore.outputText( '  Sixty-nine her?', false );
 			}
-			if( CoC.getInstance().player.canOviposit() && CoC.getInstance().player.lust >= 33 ) {
-				if( !CoC.getInstance().player.canOvipositBee() || Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.canOviposit() && CoC.player.lust >= 33 ) {
+				if( !CoC.player.canOvipositBee() || Utils.rand( 2 ) === 0 ) {
 					eggs = this.ovipositBunnyEaster;
 				} else {
 					eggs = this.layEggsInBunbuns;
@@ -81,11 +81,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	//[Talk];
 	BunnyGirl.prototype.talkToBunnyBunBun = function() {
 		EngineCore.spriteSelect( 13 );
-		CoC.getInstance().flags[ kFLAGS.MET_BUNBUN ]++;
+		CoC.flags[ kFLAGS.MET_BUNBUN ]++;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You slowly introduce yourself, and let the bunny-girl know that you mean her no harm. She doesn\'t move until you finish, but as you conclude she visibly relaxes and nods.  It doesn\'t stop her tail from twitching, and if anything, her nose joins it in twitching, but she asks, "<i>How is it you can see me?  I\'ve got a lot of eggs to hide and normally no one sees me.</i>"\n\n', false );
 		EngineCore.outputText( 'A shrug of your shoulders is the only answer you\'ve got.  Does she think she\'s some kind of invisible bunny?  How crazy is that!\n\n', false );
-		if( CoC.getInstance().isEaster() ) {
+		if( CoC.isEaster() ) {
 			EngineCore.outputText( 'She sighs and wipes the sweat from her brow with one of the bracelet-like fur-poofs on her wrist as she tries to explain, "<i>I\'ve got to put out all these eggs! It\'s my duty! Once every year I turn invisible and go around hiding eggs for children to find.  It\'s a family duty that\'s been passed down for generations.  I seem to have gotten lost though.  I\'ve never been anywhere like this and the food here makes me so terribly hot. It\'s like I just want to fuck and lay eggs all day!</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( 'She sighs and wipes the sweat from her brow with one of the bracelet-like fur-poofs on her wrist as she tries to explain, "<i>I\'ve got all these eggs to get rid of.  I\'m not supposed to make so many, but I keep going into season over and over again that I make sooo many.  The worst part is every time I pop out a few eggs I want to do it even more the next time.  It\'s like I just want to fuck and lay eggs all day!</i>"\n\n', false );
@@ -98,17 +98,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		var Vagina = null;
 		var sixtyNine = null;
 		//Dick requires one 40 area or smaller.;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			DickInV = this.bunbunFucksYourVag;
 			EngineCore.outputText( '  Her dick in your vagina?', false );
 		}
-		if( CoC.getInstance().player.cockThatFits( 40 ) >= 0 ) {
+		if( CoC.player.cockThatFits( 40 ) >= 0 ) {
 			Vagina = this.bunbunGetsFucked;
 			EngineCore.outputText( '  Fuck her vagina?', false );
-		} else if( CoC.getInstance().player.cockTotal() > 0 ) {
+		} else if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  <b>You\'re too big to fit inside her...</b>', false );
 		}
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			sixtyNine = this.bunbun69;
 			EngineCore.outputText( '  Sixty-nine her?', false );
 		}
@@ -116,21 +116,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		//var Ass:Number = 0;;
 		//Dick In V] [Dick in A] [Vagina] [Ass] [Leave];
 		EngineCore.choices( 'Your Vagina', DickInV, 'Your Ass', this.bunbunFucksPCInAss, 'Her Vagina', Vagina, '69', sixtyNine, 'Leave', SceneLib.camp.returnToCampUseOneHour );
-		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 );
+		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 	};
 	//[Rape Her];
 	BunnyGirl.prototype.rapeBunBun = function() {
 		EngineCore.spriteSelect( 13 );
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().player.spe < 60 ) {
-			EngineCore.outputText( 'You lunge forward off your ' + CoC.getInstance().player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you, she bounds off in the other direction!  She\'s hopping so fast there\'s no way you could possibly catch her, and in a matter of seconds you\'re left totally alone.  Well, perhaps not TOTALLY alone – there\'s one small egg nestled in the grass.  It fell from the bunny\'s basket in her haste to flee!', false );
+		if( CoC.player.spe < 60 ) {
+			EngineCore.outputText( 'You lunge forward off your ' + CoC.player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you, she bounds off in the other direction!  She\'s hopping so fast there\'s no way you could possibly catch her, and in a matter of seconds you\'re left totally alone.  Well, perhaps not TOTALLY alone – there\'s one small egg nestled in the grass.  It fell from the bunny\'s basket in her haste to flee!', false );
 			//(pick and loot random egg);
 			SceneLib.inventory.takeItem( ConsumableLib.NPNKEGG, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[Rape Her Faster];
 		else {
-			CoC.getInstance().flags[ kFLAGS.MET_BUNBUN ]++;
-			EngineCore.outputText( 'You lunge forward off your ' + CoC.getInstance().player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you,  she launches herself up and back with a powerful hop.  She didn\'t count on your speed, and you manage to tackle her mid-air.  Both of you slam into the ground, the bunny pinned tightly underneath you.  Her basket and eggs went flying when you hit her, and now there\'s a few dozen eggs scattered in the tall grass.   The girl wriggles, trying to squeeze out of your grip, but you hold firm to her as she cries, "<i>YOU MEANIE!</i>"\n\n', false );
+			CoC.flags[ kFLAGS.MET_BUNBUN ]++;
+			EngineCore.outputText( 'You lunge forward off your ' + CoC.player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you,  she launches herself up and back with a powerful hop.  She didn\'t count on your speed, and you manage to tackle her mid-air.  Both of you slam into the ground, the bunny pinned tightly underneath you.  Her basket and eggs went flying when you hit her, and now there\'s a few dozen eggs scattered in the tall grass.   The girl wriggles, trying to squeeze out of your grip, but you hold firm to her as she cries, "<i>YOU MEANIE!</i>"\n\n', false );
 			EngineCore.outputText( 'Your belly feels warm and wet, and as you pull back to examine the bunny, the source of the moisture is revealed.  The girl isn\'t a girl at all!  She\'s got a hard 14-inch dick and a pair of bouncing, egg-sized balls that are working quite hard to leak bunny-cum onto you.  You reach down underneath the orbs and thankfully find another source of wetness.  At least you weren\'t completely wrong!  You\'re dealing with a hermaphrodite, and a horny one at that.  Why would she bother resisting when her body is so thrilled to be so close to you?\n\n', false );
 			EngineCore.outputText( 'The horny bun-herm follows your gaze and breaks into a slowly spreading grin, revealing a pair of cute buck-teeth as she asks, "<i>Oh, you just wanted to fuck?  Why didn\'t you just ask?  I thought you were going to eat me!</i>"  Her confident declaration does little to hide the bright red blush coloring her cheeks, making it clear this situation is a little strange to her.\n\n', false );
 			EngineCore.dynStats( 'lus', 10, 'cor', 3 );
@@ -139,17 +139,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			var Vagina = null;
 			var sixtyNine = null;
 			//Dick requires one 40 area or smaller.;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				DickInV = this.bunbunFucksYourVag;
 				EngineCore.outputText( '  Her dick in your vagina?', false );
 			}
-			if( CoC.getInstance().player.cockThatFits( 40 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 40 ) >= 0 ) {
 				Vagina = this.bunbunGetsFucked;
 				EngineCore.outputText( '  Fuck her vagina?', false );
-			} else if( CoC.getInstance().player.cockTotal() > 0 ) {
+			} else if( CoC.player.cockTotal() > 0 ) {
 				EngineCore.outputText( '  <b>You\'re too big to fit inside her...</b>', false );
 			}
-			if( CoC.getInstance().player.gender > 0 ) {
+			if( CoC.player.gender > 0 ) {
 				sixtyNine = this.bunbun69;
 				EngineCore.outputText( '  Sixty-nine her?', false );
 			}
@@ -163,33 +163,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.bunbunFucksYourVag = function() {
 		EngineCore.spriteSelect( 13 );
 		EngineCore.outputText( '', true );
-		EngineCore.outputText( 'A anticipatory grin widens across your ' + CoC.getInstance().player.face() + ' as you speedily disrobe, discarding your ' + CoC.getInstance().player.armorName, false );
-		if( CoC.getInstance().player.weaponName !== 'fists' ) {
-			EngineCore.outputText( ' and ' + CoC.getInstance().player.weaponName, false );
+		EngineCore.outputText( 'A anticipatory grin widens across your ' + CoC.player.face() + ' as you speedily disrobe, discarding your ' + CoC.player.armorName, false );
+		if( CoC.player.weaponName !== 'fists' ) {
+			EngineCore.outputText( ' and ' + CoC.player.weaponName, false );
 		}
 		EngineCore.outputText( ' in a hurry.   Meanwhile the bunny looks on in a semi-aroused stupor, stroking her length with one hand while her other teases one of the hard nubs of her nipples.  You sigh with excitement as you position yourself above her, lining up her somewhat angular crown with the entrance to your ' + Descriptors.vaginaDescript( 0 ) + ' before you start to drop.', false );
-		if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_DROOLING ) {
+		if( CoC.player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_DROOLING ) {
 			EngineCore.outputText( '  Moisture leaks in a steady drizzle, mixing with bunny-pre to totally slick the soon-to-be invading member.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Gasping hotly, you swallow her pointed tip into your depths, feeling the rabbit-like girl\'s tip swell and pump out a few more drops of lube', false );
-		if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_SLICK ) {
+		if( CoC.player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_SLICK ) {
 			EngineCore.outputText( ', not that you needed it', false );
 		}
 		EngineCore.outputText( '.  You don\'t need any more encouragement.  The long, slow slide down her thick bunny-dick is heavenly, as the veins on its surface scratch your \'itch\' in just the right way.  ', false );
-		if( CoC.getInstance().player.vaginalCapacity() < 20 ) {
+		if( CoC.player.vaginalCapacity() < 20 ) {
 			EngineCore.outputText( 'By the time you\'re getting close to the bottom you have to work to encompass her length and girth within your velvet folds and grunt with discomfort from each new inch of throbbing fuck-stick, but you take it all.  ', false );
-		} else if( CoC.getInstance().player.vaginalCapacity() < 50 ) {
+		} else if( CoC.player.vaginalCapacity() < 50 ) {
 			EngineCore.outputText( 'By the time you get to the bottom you\'re panting and moaning, delighting in the feeling of being so perfectly impaled on a rigid fuck-stick.   With her entirely inside you, you\'re ready to fuck her in earnest.  ', false );
 		} else {
 			EngineCore.outputText( 'It doesn\'t take long to slide down the more-than footlong meat-pole, and to be honest you wish she was a bit bigger.  Your ' + Descriptors.vaginaDescript( 0 ) + ' is so ready for big dicks that this disproportionate member is average at best.  Still, you clench your thigh muscles to wring it a little tighter, and swoon from the feeling of warm maleness filling your loins.  ', false );
 		}
-		CoC.getInstance().player.cuntChange( 35, true );
+		CoC.player.cuntChange( 35, true );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'While the bunny was content to remain passive up until this point, a fire lights in her eyes now that she\'s had a taste of pussy.  Her petite hands grab hold of your ' + Descriptors.assDescript() + ' while she pulls her powerful, oddly-jointed legs underneath of her.  A split second later she pushes up with enough force to bounce you a few inches into the air before you drop down on top of her.  ', false );
-		if( CoC.getInstance().player.tallness >= 72 ) {
+		if( CoC.player.tallness >= 72 ) {
 			EngineCore.outputText( 'Your sheer weight makes her grunt in discomfort when you land back atop her, but the squish of copious sexual fluids nearly drowns it out. She even squirts another thick gout of pre inside you.  ', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'You\'ll have to try to slow your descent next time!  ', false );
 			} else {
 				EngineCore.outputText( 'If she\'s going to fuck you like this, she can handle your weight!  ', false );
@@ -199,37 +199,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		}
 		EngineCore.outputText( 'How much pre-cum can she squirt?!\n\n', false );
 		EngineCore.outputText( 'You reach down and grab the bunny\'s hips for support as she bounces you again, higher this time.  A solid five or six inches of her length slide in and out of your ' + Descriptors.vaginaDescript( 0 ) + ' before you slap into her, and a split second later, you\'re airborne again.  She bounces you harder and harder until each thrust of her muscled thighs is launching you nearly a foot off her loins and letting gravity guide you back down her shaft.', false );
-		if( CoC.getInstance().player.clitLength >= 4 ) {
+		if( CoC.player.clitLength >= 4 ) {
 			EngineCore.outputText( '  Your ' + Descriptors.clitDescript() + ' bounces on her belly, tingling like mad every time it slaps into her tanned, sweat-slicked skin.', false );
 		}
-		if( CoC.getInstance().player.biggestLactation() >= 1 ) {
-			EngineCore.outputText( '  Milk begins to bead on your ' + CoC.getInstance().player.allBreastsDescript() + ' from the sensation of the bunny\'s brutal, almost mechanical fucking.', false );
+		if( CoC.player.biggestLactation() >= 1 ) {
+			EngineCore.outputText( '  Milk begins to bead on your ' + CoC.player.allBreastsDescript() + ' from the sensation of the bunny\'s brutal, almost mechanical fucking.', false );
 		}
 		EngineCore.outputText( '  The eager girl moans, "<i>Ooooh fuckfuckyes... gotta fuck... gotta breed... ungh... eggs eggs eggs!</i>"\n\n', false );
 		EngineCore.outputText( 'Eggs?  Is she going to knock you up with eggs?  The confusion she\'s caused actually distracts you from the sex long enough to push back your orgasm, but the amorous bunny-gal pushes herself over the edge with one last thrust, hard enough to nearly launch you from her tumescent cock.  You slide back down the exhausted bunny, but don\'t feel the telltale spurting and warmth you\'d expect to be bursting inside your ' + Descriptors.vaginaDescript( 0 ) + '.  Sure, there is a trickle of warmth, but your convulsing lover\'s rod hasn\'t spurted like a male\'s organ should.   You turn to get a better look at her and notice that she STILL seems lost in orgasm, and her balls are GONE!\n\n', false );
-		EngineCore.outputText( 'Your eyes cross from a sudden, massive change in thickness of your lover\'s pole.  It starts out at your lower lips, spreading them until they\'re positively gaping.  Muscular contractions in the bunny\'s shaft make her dick pulse inside you, slowly pushing the bulge upwards and stretching your ' + Descriptors.vaginaDescript( 0 ) + '\'s walls as it travels towards your womb.  More and more fluid leaks inside of your channel until your ' + CoC.getInstance().player.legs() + ' relax and go limp.  It isn\'t just pre-cum anymore – it\'s dulling the pain and relaxing your body!  You can actually feel your cervix starting to open involuntarily as the bulge passes the halfway point.  From the distended spot downwards, your cunt hangs loosely around the swollen cock, but another knot emerges at the base and starts to slide up your abused tunnel.  ', false );
+		EngineCore.outputText( 'Your eyes cross from a sudden, massive change in thickness of your lover\'s pole.  It starts out at your lower lips, spreading them until they\'re positively gaping.  Muscular contractions in the bunny\'s shaft make her dick pulse inside you, slowly pushing the bulge upwards and stretching your ' + Descriptors.vaginaDescript( 0 ) + '\'s walls as it travels towards your womb.  More and more fluid leaks inside of your channel until your ' + CoC.player.legs() + ' relax and go limp.  It isn\'t just pre-cum anymore – it\'s dulling the pain and relaxing your body!  You can actually feel your cervix starting to open involuntarily as the bulge passes the halfway point.  From the distended spot downwards, your cunt hangs loosely around the swollen cock, but another knot emerges at the base and starts to slide up your abused tunnel.  ', false );
 		//(Cunt Change HERE);
-		CoC.getInstance().player.cuntChange( 70, true );
+		CoC.player.cuntChange( 70, true );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'The girl underneath you is thrashing and moaning, chanting, "<i>Yes... eggs eggs EGGS! YES!</i>" while her ovipositor-like cock robs you of your strength and slides egg-shaped bulges inside you.  Amazingly, your ' + Descriptors.vaginaDescript( 0 ) + ' is awash with pleasure, and you reach down to ', false );
-		if( CoC.getInstance().player.clitLength >= 4 ) {
+		if( CoC.player.clitLength >= 4 ) {
 			EngineCore.outputText( 'fondle your ' + Descriptors.clitDescript() + ' a moment before wrapping your hand around it and stroking the girl-cock excitedly.', false );
 		} else {
 			EngineCore.outputText( 'caress your ' + Descriptors.clitDescript() + ' a moment before you start to circle it with a finger, teasing it expertly.', false );
 		}
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' twitches and drools ', false );
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength < 10 ) {
+			if( CoC.player.cocks[ 0 ].cockLength < 10 ) {
 				EngineCore.outputText( 'on the bunny\'s belly', false );
-			} else if( CoC.getInstance().player.cocks[ 0 ].cockLength < 18 ) {
+			} else if( CoC.player.cocks[ 0 ].cockLength < 18 ) {
 				EngineCore.outputText( 'between the bunny\'s tiny tits', false );
-			} else if( CoC.getInstance().player.cocks[ 0 ].cockLength < 28 ) {
+			} else if( CoC.player.cocks[ 0 ].cockLength < 28 ) {
 				EngineCore.outputText( 'on the bunny\'s face', false );
 			} else {
 				EngineCore.outputText( 'past the bunny\'s head', false );
 			}
 			EngineCore.outputText( ', and your free hand wastes no time in tending to your male ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'half\'s needs, slathering it in pre-cum and stroking hard and fast.', false );
 			} else {
 				EngineCore.outputText( 'halfs\' needs, slathering them in pre-cum and stroking hard and fast.', false );
@@ -237,24 +237,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		}
 		EngineCore.outputText( '  The futanari rabbit\'s dick-head swells as the egg reaches her tip, completely opening your womb, and then with one last explosive push, launches it deep inside you.\n\n', false );
 		EngineCore.outputText( 'You get off hard.  Despite the drug-induced relaxation that\'s overwhelmed you from the waist down, rippling convulsions erupt up and down your ' + Descriptors.vaginaDescript( 0 ) + ', squeezing the egg-spurting cock tightly.  This only speeds the passage of the bunny\'s second bulge, and in seconds her distended cock-head is stretched wider than before, locking her inside you for a moment.   The pair of you rock and grind your hips together futilely until the final egg erupts inside of you, accompanied by a huge wave of whatever it is that\'s made your lower body so nerveless.', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  At last, ' + Descriptors.sMultiCockDesc() + ' blasts sticky ropes of seed everywhere, cumming with you as your body slides sideways off the exhausted bunny into the dirt.  A few thick strands hit her tits and face, but judging by her half-closed eye-lids and questing tongue, she doesn\'t mind.', false );
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( '  Not content with that, ' + Descriptors.sMultiCockDesc() + ' continues to pump until the bunny is coated with a generous layer of seed', false );
 			}
-			if( CoC.getInstance().player.cumQ() > 2000 ) {
+			if( CoC.player.cumQ() > 2000 ) {
 				EngineCore.outputText( ' and the excess is running down the hill in a small river', false );
 			}
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( '.', false );
 			}
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'You sprawl out, leaking sexual fluids as your womb closes in around the foreign cargo, closing your cervix to hold in both the eggs.  An indeterminate amount of time has passed, but the forced euphoria of your new pregnancy makes it hard to get up just yet.  You see the bunny standing up with her dick finally going limp and no balls to speak of.  She leans down and gives you a kiss on the lips before whispering, "<i>', false );
-		if( CoC.getInstance().player.bunnyScore() < 4 ) {
+		if( CoC.player.bunnyScore() < 4 ) {
 			EngineCore.outputText( 'It\'s so good to finally think straight!  I don\'t know why I went into heat right now, but it\'s so much easier to think now that I\'ve gotten rid of those eggs.  Don\'t worry, you won\'t be popping out rabbits since you aren\'t an easter-bun.  Your body will probably absorb them in a few days.  Just don\'t be surprised if you feel a little bloated or feel a little weird after.</i>"\n\n', false );
 		}//Pregnant already;
-		else if( CoC.getInstance().player.pregnancyIncubation > 0 ) {
+		else if( CoC.player.pregnancyIncubation > 0 ) {
 			EngineCore.outputText( 'It\'s so good to finally think straight!  I don\'t know why I went into heat right now, but it really is a shame you\'re pregnant.  Your body will destroy the little eggs before they can even do anything!  Well, at least I feel sooo much better...</i>"\n\n', false );
 		}
 		//Preggers;
@@ -264,12 +264,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 
 		EngineCore.outputText( 'She walks away, her puffy tail twitching with the breeze while your eyes drift closed.', false );
 		//(Easter vag-preg + 8 hours pass);
-		if( CoC.getInstance().player.bunnyScore() < 4 ) {
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS );
+		if( CoC.player.bunnyScore() < 4 ) {
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS );
 		} else {
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_BABY, 60 );
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_BABY, 60 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -3 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
@@ -277,15 +277,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.bunbunFucksPCInAss = function() {
 		EngineCore.spriteSelect( 13 );
 		EngineCore.outputText( '', true );
-		EngineCore.outputText( 'You get a very naughty idea and silently discard your ' + CoC.getInstance().player.armorName + ', tossing it aside as you turn around and present your ' + Descriptors.assDescript() + ' to the bunny-girl.  With a lewd shake, you tease her and give her a good view of your ' + Descriptors.assholeDescript() + ' while it lowers closer and closer to the turgid bunny-cock, just inches away.  Drops of clear pre-cum roll down her shaft as it twitches eagerly, and the girl watches you through a gleam of sexual excitement while her shaft gets closer and closer to your rear entrance.  You let your ' + CoC.getInstance().player.legs() + ' relax a little until it\'s pressing tightly against your sphincter, feeling it slather pre-cum in preparation for the coming penetration.\n\n', false );
+		EngineCore.outputText( 'You get a very naughty idea and silently discard your ' + CoC.player.armorName + ', tossing it aside as you turn around and present your ' + Descriptors.assDescript() + ' to the bunny-girl.  With a lewd shake, you tease her and give her a good view of your ' + Descriptors.assholeDescript() + ' while it lowers closer and closer to the turgid bunny-cock, just inches away.  Drops of clear pre-cum roll down her shaft as it twitches eagerly, and the girl watches you through a gleam of sexual excitement while her shaft gets closer and closer to your rear entrance.  You let your ' + CoC.player.legs() + ' relax a little until it\'s pressing tightly against your sphincter, feeling it slather pre-cum in preparation for the coming penetration.\n\n', false );
 		EngineCore.outputText( 'Looking over your shoulder at the bunny\'s beet-red face, you let a little of your weight down and start to spread around the bunny-herm\'s cock.  It slides inside you easily, aided by her copious drops of pre-cum, but ', false );
-		if( CoC.getInstance().player.analCapacity() < 20 ) {
+		if( CoC.player.analCapacity() < 20 ) {
 			EngineCore.outputText( 'it stretches you dangerously wide as you slide down the thick shaft.  The further down it gets, the more you have to work to relax your muscles and push yourself along.  With enough time, patience, and copious bunny-pre, you manage to take it completely inside you.  It twitches happily while you adjust to the intrusion, but you know you\'re just getting started.', false );
-		} else if( CoC.getInstance().player.analCapacity() < 40 ) {
+		} else if( CoC.player.analCapacity() < 40 ) {
 			EngineCore.outputText( 'you have to keep pausing as you slide down to let more of her pre-cum bubble out and lubricate the fourteen inch shaft.  It fills you nicely, pressing on your innards in all the right ways as you slowly engulf the bunny-cock with your ' + Descriptors.assholeDescript() + '.  After bottoming out, your nervous lover\'s prick pulsates happily inside you, but you\'re just getting started.', false );
 		} else {
 			EngineCore.outputText( 'you wish it was a bit bigger.  A few seconds is all it takes to get her thick shaft completely inside your ' + Descriptors.assholeDescript() + '.  You clench and squeeze your muscles around it as you sit on the bunny-', false );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'girl', false );
 			} else {
 				EngineCore.outputText( 'bitch', false );
@@ -293,25 +293,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( '\'s lap, giggling as you feel it twitch happily inside you, but you\'re just getting started.', false );
 		}
 		//(BUTT CHANGE HERE);
-		CoC.getInstance().player.buttChange( 35, true );
+		CoC.player.buttChange( 35, true );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Your partner gasps in surprise as you pull yourself up, dragging her cock slowly through the tight ring of your pucker until she\'s about to slip out, and then dropping back down to envelop her again.  She involuntarily grunts wordless pleasure noises, thrilled with the sensation your warm body provides.  Her hands grab her nipples as you repeat your actions, working her with a slow, smooth rhythm that should bring her to orgasm... eventually.  ', false );
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( 'Each time she bumps and slides past your prostate a dollop of your pre-cum spurts from ' + Descriptors.sMultiCockDesc() + ' onto the ground, and you have a hard time not using your new lover like an anal toy and masturbating yourself.  ', false );
 		}
 		EngineCore.outputText( 'The long-eared slut makes a display of touching her nipples, pulling and twisting on them as you watch her over your shoulder.\n\n', false );
 		EngineCore.outputText( 'Without meaning to, you begin to pick up the speed of your up and down strokes.  Your body is feeling horny and warm from all the sex, and having such a strange, attractive lover mating with your backside isn\'t helping.  ', false );
-		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_SLICK ) {
+		if( CoC.player.hasVagina() ) {
+			if( CoC.player.vaginas[ 0 ].vaginalWetness >= AppearanceDefs.VAGINA_WETNESS_SLICK ) {
 				EngineCore.outputText( 'Juices begin to run from your ' + Descriptors.vaginaDescript( 0 ) + ', but you ignore the empty feeling and focus on the throbbing meat inside your backdoor.  ', false );
 			}
 		}
 		EngineCore.outputText( 'Fingers find their way to your nipples without conscious thought, and begin ', false );
-		if( !CoC.getInstance().player.hasFuckableNipples() ) {
+		if( !CoC.player.hasFuckableNipples() ) {
 			EngineCore.outputText( 'pulling and tugging on them', false );
-			if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+			if( CoC.player.biggestLactation() >= 1 ) {
 				EngineCore.outputText( ', spurting out ', false );
-				if( CoC.getInstance().player.biggestLactation() >= 4 ) {
+				if( CoC.player.biggestLactation() >= 4 ) {
 					EngineCore.outputText( 'sprays', false );
 				} else {
 					EngineCore.outputText( 'drops', false );
@@ -324,17 +324,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		}
 		EngineCore.outputText( '  The bunny reaches down to your ' + Descriptors.assDescript() + ' and gives it a gentle caress and squeeze.  A moment later both her hands are holding your butt-cheeks, guiding you up and down as you bounce atop her faster and faster.\n\n', false );
 		EngineCore.outputText( 'You stroke the downy fur of her thighs through your fingers, marveling at her softness as you let the bunny start to set a tempo so fast that her pre-cum is squirting out with each wet, gushy fuck.   She occasionally gives your ass a gentle slap and starts moaning and panting out loud with every heated penetration, "<i>Fuck... breed... mmm... yes... eggs eggs pleaseletmeegg!</i>" It\'s hard to pay attention with the rising pleasure surging through your body', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( ', and ' + Descriptors.sMultiCockDesc() + ' pouring incredibly sticky pre-cum each time she squeezes your prostate', false );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', and your ' + Descriptors.vaginaDescript( 0 ) + ' clenching and dripping on the verge of orgasm', false );
 		}
 		EngineCore.outputText( '.', false );
-		if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+		if( CoC.player.biggestLactation() >= 1 ) {
 			EngineCore.outputText( '  Milk ', false );
-			if( CoC.getInstance().player.biggestLactation() < 2 ) {
+			if( CoC.player.biggestLactation() < 2 ) {
 				EngineCore.outputText( 'leaks', false );
-			} else if( CoC.getInstance().player.biggestLactation() < 4 ) {
+			} else if( CoC.player.biggestLactation() < 4 ) {
 				EngineCore.outputText( 'drips', false );
 			} else {
 				EngineCore.outputText( 'pours', false );
@@ -343,29 +343,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Wait a second, what was that about eggs?  The confusion that comes with that thought distracts you enough to keep you from cumming, but the bunny orgasms before you have a chance to reconsider your position atop her.  She convulses, her rod twitching and thickening slightly, but you don\'t feel the warmth of erupting cum that you would expect.  You look down at her, but the bunny-girl is too insensate to provide any answer, and it\'s not until you notice that her balls are missing that you realize something is wildly different about the way her orgasms work.\n\n', false );
-		EngineCore.outputText( 'You gasp in pain as the thickness at the base of your lover\'s shaft doubles.  It stretches your ' + Descriptors.assholeDescript() + ' wide, almost painfully wide as something starts to push up her dick from the inside.  Before you can pull yourself off her, a massive gush of fluid drizzles inside of you, quickly numbing any pain and stealing the strength from your ' + CoC.getInstance().player.legs() + ' and muscles.  You twist back and forth, but the pleasure intensifies as the bulge slips past your sphincter, leaving your body slightly agape in its wake.  You find the rest of its passage to be more comfortable ', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		EngineCore.outputText( 'You gasp in pain as the thickness at the base of your lover\'s shaft doubles.  It stretches your ' + Descriptors.assholeDescript() + ' wide, almost painfully wide as something starts to push up her dick from the inside.  Before you can pull yourself off her, a massive gush of fluid drizzles inside of you, quickly numbing any pain and stealing the strength from your ' + CoC.player.legs() + ' and muscles.  You twist back and forth, but the pleasure intensifies as the bulge slips past your sphincter, leaving your body slightly agape in its wake.  You find the rest of its passage to be more comfortable ', false );
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( 'and as it squeezes past your prostate, ' + Descriptors.sMultiCockDesc() + ' spurts thick cum on the ground, though you don\'t QUITE orgasm.', false );
 		} else {
 			EngineCore.outputText( 'and your arousal returns in force.', false );
 		}
 		//(BUTT CHANGE HERE);
-		CoC.getInstance().player.buttChange( 70, true );
+		CoC.player.buttChange( 70, true );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'A moment before the bulge reaches the tip of the rabbit-cock, you feel another sliding through your ' + Descriptors.assholeDescript() + '.  The bunny-dick\'s head thickens for a moment before it dwindles down to its normal shape.  You feel something warm and orb shaped inside you – it\'s an egg!  The strangeness of the insemination can\'t hold back the excitement your body built up or the feelings the second egg\'s passage is leaving in its wake, and you cum hard.  Somehow your body gets enough control to squeeze the girl\'s penis tightly, but all it accomplishes is speeding the eggs passage as it spurts into your rectum along with another big burst of pleasant, relaxing fluids.', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' erupts in truth, spraying and splattering white goop over the grass and ground.', false );
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( '  The splattering of your seed only increases in volume as it makes a rather large puddle', false );
 			}
-			if( CoC.getInstance().player.cumQ() > 2000 ) {
+			if( CoC.player.cumQ() > 2000 ) {
 				EngineCore.outputText( ', but you just keep going until you create a lazily winding river of cum that flows its way through the grasses', false );
 			}
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( '.', false );
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' clenches, empty, drooling, and neglected, wishing it something inside it.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -373,8 +373,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( 'An indeterminate amount of time later, the cute bunny-girl is giving you a long, wet kiss on the lips.  She stops to whisper, "<i>It\'s so good to finally think straight!  I don\'t know why I went into heat right now, but it\'s so much easier to think now that I\'ve gotten rid of those eggs.  Don\'t worry, I\'m sure you\'ll absorb them in a couple days and be fine.  Just don\'t be surprised if you feel a little bloated and weird.</i>"\n\n', false );
 		EngineCore.outputText( 'She walks away, her puffy tail twitching with the breeze while your eyes drift closed.', false );
 		//(Easter ass-preg + 8 hours pass);
-		CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS, 1, 1 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS, 1, 1 );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
@@ -383,17 +383,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.spriteSelect( 13 );
 		EngineCore.outputText( '', true );
 		//Requires wang that fits;
-		var x = CoC.getInstance().player.cockThatFits( 40 );
+		var x = CoC.player.cockThatFits( 40 );
 		//Second wang that fits for DP;
-		var y = CoC.getInstance().player.cockThatFits2( 40 );
-		EngineCore.outputText( 'You disrobe and toss your ' + CoC.getInstance().player.armorName + ' to the side, immediately forgetting about it as the bunny-girl lifts her sack to expose the bright pink flesh of her femininity.  It glistens, practically steaming up the air with her plentiful lubricants.  She runs a slender finger around the moist hole, beckoning you to plunge inside and fill her hungry flesh with your ' + Descriptors.cockDescript( x ) + '.  Lust burns through you as you drop to your knees and line your ' + Descriptors.cockDescript( x ) + ' up with that ready opening', false );
+		var y = CoC.player.cockThatFits2( 40 );
+		EngineCore.outputText( 'You disrobe and toss your ' + CoC.player.armorName + ' to the side, immediately forgetting about it as the bunny-girl lifts her sack to expose the bright pink flesh of her femininity.  It glistens, practically steaming up the air with her plentiful lubricants.  She runs a slender finger around the moist hole, beckoning you to plunge inside and fill her hungry flesh with your ' + Descriptors.cockDescript( x ) + '.  Lust burns through you as you drop to your knees and line your ' + Descriptors.cockDescript( x ) + ' up with that ready opening', false );
 		if( y !== -1 ) {
 			EngineCore.outputText( ', taking care to align your ' + Descriptors.cockDescript( y ) + ' with her tightly puckered backdoor as well.', false );
 		} else {
 			EngineCore.outputText( ', barely able to restrain yourself as the time for penetration approaches.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
-		EngineCore.outputText( 'The nubile bunny\'s eyes cross as you push forwards, sliding your ' + CoC.getInstance().player.cockHead( x ) + ' over her love-slicked lips until it has a generous coating and pressing harder.  ', false );
+		EngineCore.outputText( 'The nubile bunny\'s eyes cross as you push forwards, sliding your ' + CoC.player.cockHead( x ) + ' over her love-slicked lips until it has a generous coating and pressing harder.  ', false );
 		if( y !== -1 ) {
 			EngineCore.outputText( 'She squeaks at the pressure on her tender asshole, but doesn\'t object as your pre-cum smears over it.  ', false );
 		}
@@ -407,9 +407,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		} else {
 			EngineCore.outputText( ' sinks', false );
 		}
-		EngineCore.outputText( ' into her slippery, warm depths.  She pants and groans with happiness, going so far as to vocalize her pleasure, "<i>Oooh yes, I don\'t know why but it feels just as good as breeding season!  If you keep this up, ' + CoC.getInstance().player.mf( 'stud', 'sexy' ) + ', you might... ahhhh.. make me egg!</i>"\n\n', false );
+		EngineCore.outputText( ' into her slippery, warm depths.  She pants and groans with happiness, going so far as to vocalize her pleasure, "<i>Oooh yes, I don\'t know why but it feels just as good as breeding season!  If you keep this up, ' + CoC.player.mf( 'stud', 'sexy' ) + ', you might... ahhhh.. make me egg!</i>"\n\n', false );
 		EngineCore.outputText( 'You don\'t try to make sense of it and instead plunge further forward, watching with delight as more and more of your length is devoured by the horny bunny\'s body.  ', false );
-		if( CoC.getInstance().player.cockArea( x ) >= 25 ) {
+		if( CoC.player.cockArea( x ) >= 25 ) {
 			EngineCore.outputText( 'Her belly bulges pleasantly, displaying the vaguely cylindrical shape of a cock through her skin in a way that makes you feel utterly dominant over this \'female\'.  ', false );
 		}
 		EngineCore.outputText( 'Once you bottom out, the hermaphrodite actually starts to squirt pre-cum onto herself.  It isn\'t quite as much as you\'d expect from a real orgasm, but it\'s enough that she makes a slippery mess of her tits and belly.  She gathers it up and starts stroking herself off with it, and you watch the enthusiastic bunny masturbate herself.\n\n', false );
@@ -418,7 +418,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( 'Her tight asshole slowly loosens around your ' + Descriptors.cockDescript( y ) + ', and so much lubricant splatters from her cunt with each thrust that the sensations of both your dicks become nigh-identical, save for the tight ring gripping the bottom one.', false );
 		} else {
 			EngineCore.outputText( 'So much lubricant splatters from her cunt that your thighs', false );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', belly, and balls', false );
 			} else {
 				EngineCore.outputText( ' and belly', false );
@@ -434,55 +434,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'The bunny\'s convulsions take on a manic, thrashing pace, and before your eyes the base of her swollen cock begins to distend, nearly doubling in width from some internal object.  You wonder how she could enjoy something like that, but maybe her body is built for it?  It slowly works its way up the shaft while your long-eared lover stays locked in orgasm, panting, gasping, and leaking whiter-colored pre-cum that stops the convulsions anywhere it hits.  There must be something in it that forcibly relaxes the muscles, but before you can ponder it further your own climax has arrived.\n\n', false );
 		EngineCore.outputText( 'You bottom out with brutal force', false );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ', slapping your balls against her ass', false );
 		}
 		EngineCore.outputText( ', as your ', false );
-		if( CoC.getInstance().player.hasSheath() ) {
+		if( CoC.player.hasSheath() ) {
 			EngineCore.outputText( 'sheath', false );
 		} else {
 			EngineCore.outputText( 'base', false );
 		}
 		EngineCore.outputText( ' rubs her passion-inflamed pussy-lips.  ' + Descriptors.SMultiCockDesc() + ' unloads, splattering out ropes of cum into ', false );
-		if( (CoC.getInstance().player.cockTotal() === 2 && y === -1) || CoC.getInstance().player.cockTotal() > 2 ) {
+		if( (CoC.player.cockTotal() === 2 && y === -1) || CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( 'and onto ', false );
 		}
 		EngineCore.outputText( 'the insensate bunny-breeder.  Her silken pussy milks and squeezes as you cum, seeming to draw your seed from your cock itself and pull it deeper inside, leaving none to waste.', false );
 		if( y !== -1 ) {
 			EngineCore.outputText( '  Her ass gurgles from your deposit', false );
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( ', and her stomach gains a bit of pudge from the copious jism deluge you pump into her', false );
 			}
 			EngineCore.outputText( '.', false );
 		}
-		if( CoC.getInstance().player.cumQ() > 500 ) {
+		if( CoC.player.cumQ() > 500 ) {
 			EngineCore.outputText( '  You keep cumming, slamming blast after blast of spooge into her welcoming nethers, delighted that none seems to leak out.', false );
 		}
-		if( CoC.getInstance().player.cumQ() >= 1500 ) {
+		if( CoC.player.cumQ() >= 1500 ) {
 			EngineCore.outputText( '  Somehow her womb never seems to fill or bulge, even though you must be pumpings gallons of fertile baby-batter into her cunt.  By the time your orgasm winds down, you feel a little confused by it all, but sated.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'The bunny\'s swollen cock has pushed the bulge all the way up to the tip, though you see another forming at the base.  She doesn\'t seem to mind, in fact she actually stops babbling and moaning long enough to scream with delight as she launches an egg onto her tits.  It sits between her small mounds, rolling and dripping white goo onto her nipples.  Her dick spurts out a few more blasts of whatever her \'cum\' is before trailing off.  The other bulge isn\'t far from her still-somewhat stretched tip, and you know she\'ll be \'laying\' another egg soon.\n\n', false );
 		EngineCore.outputText( 'There\'s a feminine grunt, a moan, and a burst of fluid as the second egg falls onto her belly.  The bunny-girl finally stops convulsing as she soaks herself with more white goop, and though her eyes make an attempt to focus on you, they seem a little more dilated than they should be.  The only movements she bothers to make are breathing and weakly pushing a globule of white stuff away from her eyes.  The bunny sighs dreamily while you pull out, and pets her eggs as she comes down from the absurdly long and unusual orgasm.\n\n', false );
 		EngineCore.outputText( 'You ask her if that\'s normal, and she weakly nods.  A second later, a distinct rumble can be heard from the area of her groin.  You look at her as her cheeks turn red and she slowly starts to pant.  A moment later, her \'sack\' reappears with a single \'ball\' in it, though at this point you know what it is – an egg.  The bunny starts stroking her cock again, though this time without the feverish intensity she had before, and another egg drops down, restoring her \'pair\'.', false );
-		if( CoC.getInstance().player.cumQ() > 100 ) {
+		if( CoC.player.cumQ() > 100 ) {
 			EngineCore.outputText( '  A few seconds later another rolls in, cramming three into her increasingly obscene looking \'sack\'.', false );
 		}
-		if( CoC.getInstance().player.cumQ() > 250 ) {
+		if( CoC.player.cumQ() > 250 ) {
 			EngineCore.outputText( '  One more follows, giving her quads', false );
 		}
-		var z = 8 + Utils.rand( CoC.getInstance().player.cumQ() / 100 );
+		var z = 8 + Utils.rand( CoC.player.cumQ() / 100 );
 		if( z > 50 ) {
 			z = 50;
 		}
-		if( CoC.getInstance().player.cumQ() > 700 ) {
+		if( CoC.player.cumQ() > 700 ) {
 			EngineCore.outputText( ', but she\'s not done.  Her gut rumbles loudly, and then one after another egg after egg pours into the sack, stretching it out until you\'re sure she has at least ' + z + ' in there and will have trouble walking.', false );
 		} else {
 			EngineCore.outputText( '.', false );
 		}
 		EngineCore.outputText( '  She moans contentedly and closes her eyes, sighing blissfully.\n\n', false );
 		EngineCore.outputText( 'You shrug and pick up one of her eggs, noticing that it\'s turned neon pink in color.  The bunny mumbles, "<i>Have it, iz good for youuuu...</i>" before she starts to snore and murmur out a sexual dream.\n\n', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.NPNKEGG, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -490,7 +490,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.spriteSelect( 13 );
 		EngineCore.outputText( '', true );
 		//Centaur;
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			if( Utils.rand( 2 ) === 0 ) {
 				//should trigger if PC is a centaur and height > 4'0", since a horse <= 4feet could 69 the bunny >_>;
 				EngineCore.outputText( 'Without thinking it over beyond \'that sounds hot\', you declare your intention to 69 the bunny girl.  She stands there, mouth hanging open and heat briefly forgotten.\n\n', false );
@@ -500,7 +500,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( 'Before you can return with a witty remark, the bunny has hopped off, leaving you alone in the field with your face in your palm.\n\n', false );
 				//- Intelligence;
 				//+ Lust;
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -2 );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} else {
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( '"<i>Hahah! Egg on your face! Ahahah!</i>"\n\n', false );
 				EngineCore.outputText( 'You wipe off what you can of the sticky goop and trot off with a scowl, leaving the hysterical rabbit to calm herself down.\n\n', false );
 				//- Intelligence;
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -2 );
 				//+ Lust;
 				//+ Pink Egg ;
@@ -520,41 +520,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			return;
 		}
 		//Dudes;
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			//EASTER CANDY VERSION;
-			if( CoC.getInstance().isEaster() ) {
+			if( CoC.isEaster() ) {
 				EngineCore.outputText( 'It\'d be a shame if both of you didn\'t have a chance at a little fun, wouldn\'t it? Gripping the dusky-skinned girl, you gently push her down and hover over her face for a moment, playing with the whiskers on her freckled cheeks. Your tickling seems to excite the girl and before long, she\'s panting through her buck teeth, her stiffness rigid and pulsing with her racing heartbeat. Flipping over her, you park your [legs] on either side of her ears and lean down toward her crotch, savoring the slightly sweet scent of chocolate that wafts from her sweat-slick body. Her cock is almost intimidating, bulging obscenely in front of you, tiny dollops of pre-cum oozing to the pointed tip in rich bubbles that trickle down her caramel skin. Warily, you bring your nose up to her shaft and sniff, pleasantly surprised to find that the bulbs of sticky semen smell more like fresh marshmallows than the salty discharge you\'re used to. Actually, it smells really, REALLY good. You rest your cheek against the bunny-girl\'s root and tentatively lick up her shaft, gathering the stray strands of cum that stripe her dusky dick with snowy white. She gasps and her cock twitches against your face, bobbing back and forth in time to the rapid vibration of her legs. When you taste her cum, it\'s even better than it smells- like an orgy of cotton candy, marshmallows, and sweet juice swirling in your mouth, as tantalizing as the first spoonful of ice cream. Invisible bunny or no, you just have to get more of her cum!\n\n', false );
 				EngineCore.outputText( 'Underneath you, the bunny seems to be admiring your length with barely contained lust. The boiling horniness you saw earlier is overpowering her restraint and it\'s all she can do to try to lubricate you before taking your cock whole. A long, broad tongue licks up and down your manhood, hot and wet, her cute little nose rubbing against your bulging veins with a maddening tickle. A tremor of uneasiness creeps into you as she runs her long, buck teeth against your supple flesh, but surprisingly, you find that they\'re extremely dull and almost feel soft to the touch. As you bring your mouth to her pointed cockhead, she decides that treating your dick like a popsicle isn\'t enough and guides your tip to her eager lips with hungry relish. She slips your cock into her mouth with a satisfied gulp and uses the edge of her tongue to massage just under your cockhead, pressing into the swell of flesh while she uses the ridges of the top of her mouth to tease your urethra, opening and closing the tender hole with every bobbing head motion.\n\n', false );
 				EngineCore.outputText( 'In turn, you suck all the harder on the bunny-girl\'s cock, swallowing a few inches at a time until your mouth feels full of the chocolate girl\'s erection. Around your head, she\'s drawn her knees up and braces her legs on the balls of her feet. Her lower body vibrates with the bouncing excitement of her twitching calves and it makes the prick in your mouth quiver like hot jelly. Her sac rolls this way and that in front of you, oval-shaped balls bouncing in eager appreciation and you can\'t help but wrap your hand around them, feeling the radiating heat pouring from the scrotum in the palm of your hand. Gently rolling them in your hand, you can feel the weight of the rapidly filling pouch in your palm. With your thumb, you stroke her bronzed nuts up to the tip of her vagina. The bunny\'s clit is as hard and large as a jelly bean and you circle it with the tips of your fingers, almost as if trying to tease it out of its dark chocolate-colored fleshy hood.\n\n', false );
 				EngineCore.outputText( 'Your teasing and prodding may have been ill-advised, you realize, as the bunny-girl\'s restraint evaporates like fog on a hot day. Her animalistic instincts kick in and the girl\'s bobbing legs become full-sized thrusts. With surprising leg strength, she bucks her hips in increasingly long strokes until her whole butt is bouncing off the ground like fuzzy rubber. You try to compensate, but the girl\'s frenzy is relentless. In seconds she goes from your tongue to your tonsils to your throat, her conical dick perfectly shaped to slide right into a deep throat. You begin to choke in response to the sudden intrusion, but the bunny is just as eager to get cream-filled as she is to give you a rich, chocolate center. With a gleeful \'squeek\' noise she opens her esophagus and works her head deeper onto your shaft, her broad, gentle rabbit teeth pressing your over-burdened veins just enough to send shivers through your body.', false );
 				//[8"+ : ;
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength >= 8 ) {
+				if( CoC.player.cocks[ 0 ].cockLength >= 8 ) {
 					EngineCore.outputText( '  As she passes six inches into her throat, her sucking grows more anxious, her arms wrapping around your hips, fingers digging into your ass, drawing your groin down faster.', false );
 				}
 				//[12"+ : ;
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength >= 12 ) {
+				if( CoC.player.cocks[ 0 ].cockLength >= 12 ) {
 					EngineCore.outputText( '  You can\'t concentrate with a foot of bunny cock plowing your lungs so you aren\'t prepared for the girl\'s desperation until it boils over. She takes a deep breath through her tiny nostrils and slams her head as hard as she can into your groin, fucking your cock with her face until the soft folds of her throat part and she buries her freckled cheeks in your thighs.', false );
 				}
 				EngineCore.outputText( '\n\n', false );
 				EngineCore.outputText( 'The bunny-girl\'s chest rises and falls rapidly, almost as if she\'s hyperventilating. You realize she\'s gone into a breeding frenzy! Wrapping her legs around your head, she clings tightly to you and flips the two of you around with a hard thud that bottoms out her 14" cock in your throat. Your eyes go wide, too stunned by the caramel pole running from your lips to your stomach to be terribly concerned by the sudden lack of oxygen going to your body. Her balls lurch against your nose as her egg-laying urges turn the bunny into something feral. Every inch of her lean, olive body humps against yours in rapid, tiny hops that keep your bodies bouncing against each other. Her hyperactive overdrive gives a frisky energy to her fucking and sucking. The bunny\'s muscled body hops higher and higher, until she\'s thrusting nearly a foot of her chocolate prick in and out of your mouth, thankfully giving you enough respite to breathe through your nose between strokes.\n\n', false );
 				EngineCore.outputText( 'The spry bunny starts to make you dizzy and the slapping of her modest B-cups against your ' + Descriptors.chestDesc() + ' has begun to leave tingling red welts on your sensitive flesh. Wrapping one arm around her waist, you pull her crotch tightly against your face and bury your other hand into her dripping snatch, bunny lips parting like taffy to your forceful grip. Digging in as many as you can fit, you hook your fingers around and drag them out until you find the squirming girl\'s G-spot. Her frenzied hops cease immediately and her whole body quivers in your embrace. You congratulate yourself on your quick thinking as her cock pulses in your mouth, the girl\'s orgasm imminent. To your considerable surprise, however, instead of merely pulsing, her balls begin to swell and one of them pops into her body! You can see an egg-shaped bulge work its way up her abdomen toward her cock and you quickly try to draw your head back. The bunny\'s arms shoot to the back of your head and her fingers dig into your hair, trying to force you back down as she moans into your straining inches. You pull against her grip, the egg-shaped bulge of her testicle working its way up her shaft just a bit faster than you can distend it from your gut. Drool-slick flesh expands as the protrusion slips past your lips and just as her cockhead slides against your tongue, her narrow corona swells, dilating obscenely. A hot rush of marshmallow cum erupts in your mouth, gooey strands filling your cheeks, sliding back down your throat, and even bursting from your nostrils in soupy ropes of sugarcoated ejaculate when your attempt to swallow her load closes your esophagus. The girl\'s testicle plops into your mouth a moment later and you\'re relieved to find that it seems to be an egg that\'s rolling around your tongue.\n\n', false );
 				EngineCore.outputText( 'Still possessed by the delirious breeding hysteria, the bunny grunts and jams her cock back down your throat, pushing the egg along with it. Your skin mushrooms as the bunny\'s egg-ball slides down your cum-lubricated neck and tumbles into your belly with an audible, vulgar plop. A feeling of incredible fullness fills you, as if you\'ve just finished eating a small mountain of candy treats. A surge of heat stuffs your belly like a confectionary oven and the bunny\'s egg between to bloat, soaking up her cum and your body heat, growing like a baking cake inside you. You become dizzy from the bunny\'s stuffing and when her sac deflates as the second egg slides into her dick, you shake your head weakly, as if to say you don\'t want seconds. The girl is too far gone in her wanton ardor to take your motion as anything but encouragement, however, and she nuzzles her nose into your ', false );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'balls', false );
 				} else {
 					EngineCore.outputText( 'clit', false );
 				}
-				EngineCore.outputText( ', whiskers vibrating with a happy little hum, her buck teeth massaging your root enthusiastically, impatient for her Champion-cream filling. Her hands slide from the back of your head, along your neck, down your back, and to your ass, fingers wrapping around to find your ' + CoC.getInstance().player.assholeOrPussy() + '. Slipping both middle fingers in, she strokes your ', false );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				EngineCore.outputText( ', whiskers vibrating with a happy little hum, her buck teeth massaging your root enthusiastically, impatient for her Champion-cream filling. Her hands slide from the back of your head, along your neck, down your back, and to your ass, fingers wrapping around to find your ' + CoC.player.assholeOrPussy() + '. Slipping both middle fingers in, she strokes your ', false );
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'prostate', false );
 				} else {
 					EngineCore.outputText( 'inner walls', false );
 				}
 				EngineCore.outputText( ' until your orgasm overpowers your saccharine-fat daze and you peak, egg-bloated body spurting in creaming jets of pale seed to paint the brown bunny\'s insides white.\n\n', false );
 				EngineCore.outputText( 'Her second egg forces its way down your throat with gushing shudders and you can feel your hips straining against the weight of your overburdened stomach. You\'re a little afraid of what the second one will do to you as it slides out of the flared tip of the bunny\'s fourteen inches. Maybe it\'s the milking motion of the bunny\'s head bobbing in happy hops on your cock or maybe it\'s the swelling of the second egg, but your body begins to feel hot and your flesh tingles at your scalp and butt. You clench your eyes, willing yourself to digest the bunny\'s candy eggs and, to your surprise, your belly slows its expansion, gradually shrinking as the eggs burst in your stomach, unloading their gooey candy filling.', false );
-				if( CoC.getInstance().player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
+				if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
 					//[No Tail: ;
-					if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+					if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 						EngineCore.outputText( '  The heat around your lower back clutches at your tail bone and you feel a fluffy explosion swell around your butt cheeks as <b>a fluffy bunny\'s tail pops out of your back</b>, twitching excitedly!', false );
 					}
 					//[Existing tail: ;
@@ -562,25 +562,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 						EngineCore.outputText( '  Your tail jiggles and shrinks, slowly sucking back into your body until only a tiny nub remains which quickly explodes with fluff into <b>your new cuddly, twitching bunny tail!</b>', false );
 					}
 				}
-				if( CoC.getInstance().player.earType !== AppearanceDefs.EARS_BUNNY ) {
+				if( CoC.player.earType !== AppearanceDefs.EARS_BUNNY ) {
 					EngineCore.outputText( '  The top of your head is next, it seems.', false );
 					//[No antennae: ;
 					EngineCore.outputText( '  Your eyebrows feel like they\'re being drawn upwards, your eyes getting larger and larger until you\'re almost painfully aware of every color and sound around you. You shake your head and <b>large, floppy bunny ears bounce in front of your eyes</b>. You slap the sides of your head and, sure enough, your old ears are gone.', false );
 				}
 				EngineCore.outputText( '\n\n', false );
 				EngineCore.outputText( 'With a happy sigh, the girl slides off of your cock and lets it flop against your leg, not a single drop of cum wasted. Her belly has ', false );
-				if( CoC.getInstance().player.cumQ() < 250 ) {
+				if( CoC.player.cumQ() < 250 ) {
 					EngineCore.outputText( 'a slight swell', false );
-				} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+				} else if( CoC.player.cumQ() < 1000 ) {
 					EngineCore.outputText( 'a noticeable girth', false );
 				} else {
 					EngineCore.outputText( 'bloated obscenely', false );
 				}
 				EngineCore.outputText( ', your spunk calming the egg-laying passion that had her bouncing like whipped caramel. She pulls her shrinking phallus from your mouth with a wet slurp, the taste of her rich cum sweet on your lips. She rises to a crouch and gives your new ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Hope you had a happy, tasty day! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still feeling fat and bloated from the \'meal.\'\n\n', false );
-				CoC.getInstance().player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
-				CoC.getInstance().player.earType = AppearanceDefs.EARS_BUNNY;
+				CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
+				CoC.player.earType = AppearanceDefs.EARS_BUNNY;
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 			}
 			//REGULAR SHOW;
@@ -590,35 +590,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( 'In turn, you suck all the harder on the bunny-girl\'s cock, swallowing a few inches at a time until your mouth feels full of the chocolate girl\'s erection. Around your head, she\'s drawn her knees up and braces her legs on the balls of her feet. Her lower body vibrates with the bouncing excitement of her twitching calves and it makes the prick in your mouth quiver with a breeder\'s anticipation. Her sac rolls this way and that in front of you, oval-shaped balls bouncing in eager appreciation and you can\'t help but wrap your hand around them, feeling the radiating heat pouring from the scrotum in the palm of your hand. Gently rolling them in your hand, you can feel the weight of the rapidly filling pouch in your palm. With your thumb, you stroke her bronzed nuts up to the tip of her vagina. The bunny\'s clit is as hard and large as the tip of your pinkie and you circle it with your fingers, trying to tease it out of its pink, fleshy hood.\n\n', false );
 				EngineCore.outputText( 'Your teasing and prodding may have been ill-advised, you realize, as the bunny-girl\'s restraint evaporates like fog on a hot day. Her animalistic instincts kick in and the girl\'s bobbing legs become full-sized thrusts. With surprising leg strength, she bucks her hips in increasingly long strokes until her whole butt is bouncing off the ground like fuzzy rubber. You try to compensate, but the girl\'s face-fucking jubilation is relentless. In seconds she goes from your tongue to your tonsils to your throat, her conical dick perfectly shaped to slide right into your neck. You begin to choke in response to the sudden intrusion, but the bunny\'s trickling pre-cum provides a woozy numbness that relaxes your gag reflex and swells your throat into a soft, squishy tunnel, pulsing with cunt-tightness. Rocking her head in time to her hips, she seems just as eager to earn your load as she is to give you hers. With a gleeful \'squeek\' noise she opens her esophagus and works her mouth deeper onto your shaft, her broad, gentle rabbit teeth pressing your over-burdened veins just enough to send shivers through your body.', false );
 				//[8"+ : ;
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength >= 8 ) {
+				if( CoC.player.cocks[ 0 ].cockLength >= 8 ) {
 					EngineCore.outputText( '  As she passes six inches into her throat, her sucking grows more anxious, her arms wrapping around your hips, fingers digging into your ass, drawing your groin down faster.', false );
 				}
 				//[12"+ : ;
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength >= 12 ) {
+				if( CoC.player.cocks[ 0 ].cockLength >= 12 ) {
 					EngineCore.outputText( '  You can\'t concentrate with a foot of bunny cock plowing your lungs so you aren\'t prepared for the girl\'s desperation until it boils over. She takes a deep breath through her tiny nostrils and slams her head as hard as she can into your groin, fucking your cock with her face until the soft folds of her throat part and she buries her freckled cheeks in your thighs.', false );
 				}
 				EngineCore.outputText( '\n\n', false );
 				EngineCore.outputText( 'The bunny-girl\'s chest rises and falls rapidly, almost as if she\'s hyperventilating. You realize she\'s gone into a breeding frenzy! Wrapping her legs around your head, she clings tightly to you and flips the two of you around with a hard thud that bottoms out her 14" cock in your throat. Your eyes go wide, too stunned by the caramel pole running from your lips to your stomach to be terribly concerned by the sudden lack of oxygen going to your body. Her balls lurch against your nose as her egg-laying urges turn the bunny into something feral. Every inch of her lean, olive body humps against yours in rapid, tiny hops that keep your bodies bouncing against each other. Her hyperactive overdrive gives a frisky energy to her fucking and sucking. The bunny\'s muscled body hops higher and higher, until she\'s thrusting nearly a foot of her chocolate prick in and out of your mouth, thankfully giving you enough respite to breathe through your nose between strokes.\n\n', false );
 				EngineCore.outputText( 'The spry bunny starts to make you dizzy and the slapping of her modest B-cups against your ' + Descriptors.chestDesc() + ' has begun to leave tingling red welts on your sensitive flesh. Wrapping one arm around her waist, you pull her crotch tightly against your face and bury your other hand into her dripping snatch, bunny lips parting like velvet to your forceful grip. Digging three fingers in, you hook your fingers around and drag them along the girl\'s quivering walls until her choked squeals tell you that you\'ve found her most sensitive spot. Her gleeful hops cease immediately and her whole body trembles in your embrace. You congratulate yourself on your quick thinking as her cock pulses in your mouth, the girl\'s orgasm imminent. To your considerable surprise, however, instead of merely pulsing, her balls begin to swell and one of them pops into her body! You can see an egg-shaped bulge work its way up her abdomen toward her cock and you quickly try to draw your head back. The bunny\'s arms shoot to the back of your head and her fingers dig into your hair, trying to force you back down as she moans into your groin. You pull against her grip, the egg-shaped bulge working its way up her shaft just a bit faster than you can distend it from your gut. Drool-slick flesh expands as the protrusion slips past your lips and just as her cockhead slides against your tongue, her narrow corona swells, dilating obscenely. A hot rush of tingling cum erupts in your mouth, gooey strands filling your cheeks, sliding back down your throat, and even bursting from your nostrils in soupy ropes of sticky ejaculate when your attempt to swallow her load closes your esophagus. The girl\'s load rolls in your mouth for a moment and you find that the cummy mess seems to have deposited an egg on your tongue!\n\n', false );
 				EngineCore.outputText( 'Still possessed by the delirious egg-laying hysteria, the bunny grunts and jams her cock back down your throat, pushing the egg along with it. Your skin mushrooms as the bunny\'s load slides down your cum-lubricated neck and tumbles into your belly with an audible, vulgar plop. A feeling of incredible fullness fills you, as if you\'ve been swallowing spunk and eggs for hours. You become dizzy from the bunny\'s numbing jizz and when her sac deflates as the second egg slides into her dick, you shake your head weakly, as if to say \'no more.\' The girl is too far gone in her wanton ardor to take your motion as anything but encouragement, however, and she nuzzles her nose into your ', false );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'balls', false );
-				} else if( CoC.getInstance().player.hasVagina() ) {
+				} else if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'clit', false );
 				} else {
 					EngineCore.outputText( 'groin', false );
 				}
-				EngineCore.outputText( ', whiskers vibrating with a happy little hum, her buck teeth massaging your root enthusiastically, impatient for her own creamy meal. Her hands slide from the back of your head, along your neck, down your back, and to your ass, fingers wrapping around to find your ' + CoC.getInstance().player.assholeOrPussy() + '. Slipping both middle fingers in, she strokes your ', false );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				EngineCore.outputText( ', whiskers vibrating with a happy little hum, her buck teeth massaging your root enthusiastically, impatient for her own creamy meal. Her hands slide from the back of your head, along your neck, down your back, and to your ass, fingers wrapping around to find your ' + CoC.player.assholeOrPussy() + '. Slipping both middle fingers in, she strokes your ', false );
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'prostate', false );
 				} else {
 					EngineCore.outputText( 'inner walls', false );
 				}
 				EngineCore.outputText( ' until your orgasm overpowers your bunny-fucked daze and you peak, your egg-bloated body spurting in gushing jets of pale seed to paint the olive girl\'s insides white.\n\n', false );
 				EngineCore.outputText( 'Her second egg forces its way down your throat with pulsing shudders and you can feel your hips straining against the weight of your overburdened stomach. You\'re a little afraid of what the second one will do to you as it slides out of the flared tip of the bunny\'s fourteen inches. Maybe it\'s the milking motion of the bunny\'s head bobbing in happy hops on your cock or maybe it\'s the swelling numbness of the eggs, but your body begins to feel hot and your flesh tingles at your scalp and butt. You clench your eyes, grunting through the heat of the bunny\'s eggs and, to your surprise, your belly begins to feel like it\'s emptying.', false );
-				if( CoC.getInstance().player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
+				if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
 					//[No Tail: ;
-					if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+					if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 						EngineCore.outputText( '  The heat around your lower back clutches at your tail bone and you feel a fluffy explosion swell around your butt cheeks as a fluffy bunny\'s tail pops out of your back, twitching excitedly!', false );
 					}
 					//Existing tail: ;
@@ -626,29 +626,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 						EngineCore.outputText( '  Your tail jiggles and shrinks, slowly sucking back into your body until only a tiny nub remains which quickly explodes with fluff into a cuddly, twitching bunny tail!', false );
 					}
 				}
-				if( CoC.getInstance().player.earType !== AppearanceDefs.EARS_BUNNY ) {
+				if( CoC.player.earType !== AppearanceDefs.EARS_BUNNY ) {
 					EngineCore.outputText( '  The top of your head is next, it seems.', false );
 					//[No antennae:;
 					EngineCore.outputText( '  Your eyebrows feel like they\'re being drawn upwards, your eyes getting larger and larger until you\'re almost painfully aware of every color and sound around you. You shake your head and large, floppy bunny ears bounce in front of your eyes.', false );
 				}
 				EngineCore.outputText( '\n\n', false );
 				EngineCore.outputText( 'With a happy sigh, the girl slides off of your cock and lets it flop against your leg, not a single drop of cum wasted. Her belly has ', false );
-				if( CoC.getInstance().player.cumQ() < 250 ) {
+				if( CoC.player.cumQ() < 250 ) {
 					EngineCore.outputText( 'a slight swell', false );
-				} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+				} else if( CoC.player.cumQ() < 1000 ) {
 					EngineCore.outputText( 'a noticeable girth', false );
 				} else {
 					EngineCore.outputText( 'bloated obscenely', false );
 				}
 				EngineCore.outputText( ', your spunk calming the egg-laying passion. She pulls her shrinking phallus from your mouth with a wet slurp, the taste of her strange cum sweet on your lips. She rises to a crouch and gives your ', false );
-				if( CoC.getInstance().player.earType !== AppearanceDefs.EARS_BUNNY ) {
+				if( CoC.player.earType !== AppearanceDefs.EARS_BUNNY ) {
 					EngineCore.outputText( 'new ', false );
 				}
 				EngineCore.outputText( 'ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still recovering from the eggs.', false );
-				CoC.getInstance().player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
-				CoC.getInstance().player.earType = AppearanceDefs.EARS_BUNNY;
+				CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
+				CoC.player.earType = AppearanceDefs.EARS_BUNNY;
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 			}
 		}
@@ -662,9 +662,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( 'The spry bunny starts to make you dizzy and the slapping of her modest B-cups against your ' + Descriptors.chestDesc() + ' has begun to leave tingling red welts on your sensitive flesh. Wrapping one arm around her waist, you pull her crotch tightly against your face and bury your other hand into her dripping snatch, bunny lips parting like velvet to your forceful grip. Digging three fingers in, you hook your fingers around and drag them along the girl\'s quivering walls until her choked squeals tell you that you\'ve found her most sensitive spot. Her gleeful hops cease immediately and her whole body trembles in your embrace. You congratulate yourself on your quick thinking as her cock pulses in your mouth, the girl\'s orgasm imminent. To your considerable surprise, however, instead of merely pulsing, her balls begin to swell and one of them pops into her body! You can see an egg-shaped bulge work its way up her abdomen toward her cock and you quickly try to draw your head back. The bunny\'s arms shoot to the back of your head and her fingers dig into your hair, trying to force you back down as she moans into your groin. You pull against her grip, the egg-shaped bulge working its way up her shaft just a bit faster than you can distend it from your gut. Drool-slick flesh expands as the protrusion slips past your lips and just as her cockhead slides against your tongue, her narrow corona swells, dilating obscenely. A hot rush of tingling cum erupts in your mouth, gooey strands filling your cheeks, sliding back down your throat, and even bursting from your nostrils in soupy ropes of sticky ejaculate when your attempt to swallow her load closes your esophagus. The girl\'s load rolls in your mouth for a moment and you find that the cummy mess seems to have deposited an egg on your tongue!\n\n', false );
 			EngineCore.outputText( 'Still possessed by the delirious egg-laying hysteria, the bunny grunts and jams her cock back down your throat, pushing the egg along with it. Your skin mushrooms as the bunny\'s load slides down your cum-lubricated neck and tumbles into your belly with an audible, vulgar plop. A feeling of incredible fullness fills you, as if you\'ve been swallowing spunk and eggs for hours. You become dizzy from the bunny\'s numbing jizz and when her sac deflates as the second egg slides into her dick, you shake your head weakly, as if to say \'no more.\' The girl is too far gone in her wanton ardor to take your motion as anything but encouragement, however, and she nuzzles her nose into your vulva, whiskers vibrating with a happy little hum, her buck teeth massaging you enthusiastically, impatient for her own creamy meal. Her hands slide from the back of your head, along your neck, down your back, and to your rump, fingers wrapping around to find your sphincter. Slipping both middle fingers in, she strokes your inner walls with fingers and tongue until your orgasm overpowers your bunny-fucked daze and you climax again, your egg-bloated body spurting in gushing jets of female lubrication into the olive girl\'s twitching nose.\n\n', false );
 			EngineCore.outputText( 'Her second egg forces its way down your throat with pulsing shudders and you can feel your hips straining against the weight of your overburdened stomach. You\'re a little afraid of what the second one will do to you as it slides out of the flared tip of the bunny\'s fourteen inches. Maybe it\'s the milking motion of the bunny\'s head bobbing in happy hops on your clit or maybe it\'s the swelling numbness of the eggs, but your body begins to feel hot and your flesh tingles at your scalp and butt. You clench your eyes, grunting through the heat of the bunny\'s eggs and, to your surprise, your belly begins to feel like it\'s emptying.', false );
-			if( CoC.getInstance().player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
+			if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_RABBIT ) {
 				//[No Tail: ;
-				if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+				if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 					EngineCore.outputText( '  The heat around your lower back clutches at your tail bone and you feel a fluffy explosion swell around your butt cheeks as a fluffy bunny\'s tail pops out of your back, twitching excitedly!', false );
 				}
 				//Existing tail: ;
@@ -672,21 +672,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 					EngineCore.outputText( '  Your tail jiggles and shrinks, slowly sucking back into your body until only a tiny nub remains which quickly explodes with fluff into a cuddly, twitching bunny tail!', false );
 				}
 			}
-			if( CoC.getInstance().player.earType !== AppearanceDefs.EARS_BUNNY ) {
+			if( CoC.player.earType !== AppearanceDefs.EARS_BUNNY ) {
 				EngineCore.outputText( '  The top of your head is next, it seems.', false );
 				//[No antennae:;
 				EngineCore.outputText( '  Your eyebrows feel like they\'re being drawn upwards, your eyes getting larger and larger until you\'re almost painfully aware of every color and sound around you. You shake your head and large, floppy bunny ears bounce in front of your eyes.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'With a happy sigh, the girl rubs your slick honey off of her face and gives your clit a final, pleased lick. She pulls her shrinking phallus from your mouth with a wet slurp, the taste of her cum sweetly icy on your lips. She rises to a crouch and gives your ', false );
-			if( CoC.getInstance().player.earType !== AppearanceDefs.EARS_BUNNY ) {
+			if( CoC.player.earType !== AppearanceDefs.EARS_BUNNY ) {
 				EngineCore.outputText( 'new ', false );
 			}
 			EngineCore.outputText( 'ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still recovering from the eggs.', false );
-			CoC.getInstance().player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
-			CoC.getInstance().player.earType = AppearanceDefs.EARS_BUNNY;
+			CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
+			CoC.player.earType = AppearanceDefs.EARS_BUNNY;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		}
 	};
@@ -697,22 +697,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.layEggsInBunbuns = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The displayed lapin in front of you has you excited, but not for a simple roll in the grass.  Your ' );
-		if( CoC.getInstance().player.eggs() < 20 ) {
+		if( CoC.player.eggs() < 20 ) {
 			EngineCore.outputText( 'eager egg-tube slips free, ready to show the rabbit you can play the egg game too.' );
-		} else if( CoC.getInstance().player.eggs() < 40 ) {
+		} else if( CoC.player.eggs() < 40 ) {
 			EngineCore.outputText( 'distended bug part quivers in anticipation, the ovipositor pushing into view with a drop of honeyed pre on its tip.' );
 		} else {
 			EngineCore.outputText( 'low-hanging bee abdomen drools honey-like ichor down its carapace from the bulge where the thick black organ shows its need to relieve your burden.' );
 		}
 		EngineCore.outputText( '  The bunny gasps upon noticing it, the herm\'s hips wiggling. "<i>Oh my, could... could you mount me with that?  I need to egg so badly.</i>"  Not needing to be urged further, you arch your bee-section up underneath you while lifting the lusty bunny against you.' );
 		EngineCore.outputText( '\n\nPulling her so that she presses her tits against your [chest], the throbbing egg-depositor rubs between her legs.  With a high squeal she pushes forward harder, the long lapin cock twitching with her heartbeat' );
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( ' against the empty place of your crotch.' );
 		} else {
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ' alongside [eachCock]' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and her hefty oval balls rubbing the [vagina] tucked between your thighs' );
 			}
 			EngineCore.outputText( '.' );
@@ -721,47 +721,47 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\nYou shudder, adjusting to her position and beginning to buck up in order to stuff the length of flesh deeper into the warm passage under the rabbit\'s tail.  Wiggling her hips as it pushes half of itself further, the egg-chute pulses, then deposits some bee-secretion into the happy companion.  Having prepared her insides, your organ and abdomen flexes, sticking the egg-tunnel up to its base.' );
 		EngineCore.outputText( '\n\nThe forces moving along the sensitive shaft give you a pseudo-orgasm, pushing an egg down the flesh-tube pleasurably slow.  She relaxes a moment, tongue hanging out cutely before her big dick spurts pre onto your stomach and [chest] just as the first ovoid finds her puckered entrance.  Another egg finds its way from your cache as soon as the first passes the entrance and joins it on its way to being planted inside her.' );
 		EngineCore.outputText( '\n\nShe continues writhing against you, bouncing up and down against the bee-abdomen and working the eggs in faster.  As you feel the first one reach the end of the trail you find yourself experiencing an ecstatic energy' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( ', ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '[eachCock]' );
 			}
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'your [vagina]' );
 			}
 			EngineCore.outputText( ' lathering the bunny-girl in ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'spunk' );
 			}
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'femcum' );
 			}
 		}
 		EngineCore.outputText( '.  Stuffing a warm hole with egg after egg is not only fulfilling (for <i>both</i> involved) but is also damn fun, which the rabbit agrees with!' );
 		EngineCore.outputText( '\n\nAnother egg, then another and another pump down your egg-cock with plenty of honeyed goo between to push her belly further and further out. You lose count of how many slip into her, completely engulfed by the orgasmic joy. Your legs had given out sometime during the process and the hour has passed, but it doesn\'t matter to you so long as there is another egg to lay.' );
 		EngineCore.outputText( '\n\nYour front is coated with the bunny-girl\'s spooge, dripping down both your thighs onto the yellow and black chitin of your bee-abdomen.' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  You add to the mess, ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'spraying a long, thick load against the bunny\'s soft tits from your [eachCock]' );
 			}
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'splashing her balls with your girlcum' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\nFinally you find you no longer have any to give to the egg-obsessed rabbit girl and the ovipositor retracts into its slit.  Tired but blissful, she curls up to slumber, and you leave her to deal with having a stomach chock full of eggs \'n honey, returning to camp until you once again need a warm body to play host.' );
-		CoC.getInstance().player.dumpEggs();
-		CoC.getInstance().player.orgasm();
+		CoC.player.dumpEggs();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -772,7 +772,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\n"<i>It\'s a surprise,</i>" you promise, "<i>Get on all fours, and I\'ll give you all the eggs you could ever want.</i>"' );
 		EngineCore.outputText( '\n\nThe confused, almost clueless look in her eyes betrays her hesitancy, but she obeys, spurred by needs she doesn\'t even seem to truly understand.  Her poofy little tail flips up as far as it can, and you\'re treated to the sight of her big, surprisingly muscular rump.  All that hopping around has done wonderful things for her rear, and the bunny-girl\'s thighs are similarly toned, obscured only by a hint of fat and her down-soft fur.  You can see moisture running freely from a puffy pink mound, much of it clinging to her smooth sack\'s gentle, oblong curves.  She shudders slightly as the enormity of the pose she has struck settles into her mind.' );
 		EngineCore.outputText( '\n\nYou don\'t give her a chance to regret adopting such a sensual stance.  Instead, you grab two big handfuls of furry butt and squeeze as you climb atop her, not as a male taking a female but as an ' );
-		if( CoC.getInstance().player.canOvipositBee() ) {
+		if( CoC.player.canOvipositBee() ) {
 			EngineCore.outputText( 'insect' );
 		} else {
 			EngineCore.outputText( 'arachnid' );
@@ -787,13 +787,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\nSuddenly shifting, the hare-woman\'s body tilts as her arms give out, uselessly splayed alongside her.  Her dick is still barely inside her mouth, but the flow of pre-cum seems to be even faster than before.  Her cheeks keep puffing out with whenever a fresh wave of the stuff rolls into her maw, and though her throat is swallowing and unchecked rivers of the stuff leak out through the loosening seal around her shaft, you can tell she\'s just getting started.  Of course, the way she\'s just completely relaxing into your fuck hasn\'t stopped her from humping her own mouth or having her pussy caress your prong.  Sexual instinct seems largely unaffected by whatever her pre-cum is doing to her...' );
 		EngineCore.outputText( '\n\nYou let your muses fade into the gentle thrum breeding pleasure that\'s taken hold of your mind.  Moving with swift contractions down your fleshy tube, many of your eggs are already stretching you and the bunny-girl out.  They glide through you and her together, setting off cascades of delightful nerve-impulses in both your bodies.  When the first one crests through her opened cervix, you\'re transported to an ecstatic nirvana.   Gentle, muffled \'pops\' can be heard whenever one of your spheres is released from your prong.' );
 		//{Some Eggs};
-		if( CoC.getInstance().player.eggs() < 20 ) {
+		if( CoC.player.eggs() < 20 ) {
 			EngineCore.outputText( '\n\nOne after another, your eggs are perfectly deposited in the lapine\'s now-conquered womb.  It does not take long, as you didn\'t have that many eggs built up, but the pleasure from your organ is too great to simply withdraw.  You keep yourself buried inside and continue to slowly ply the slippery quim with your insectile tool, releasing plenty of lubricant for your eggs to swim in.  Your rutting [hips] keep their slow tempo until you run out of liquid to inject.  The orgasms are all blurred together, one after another, such that all you can really remember is a haze of pleasure and grinding bodies.' );
 		}
 		//{Plenty of eggs};
-		else if( CoC.getInstance().player.eggs() < 40 ) {
+		else if( CoC.player.eggs() < 40 ) {
 			EngineCore.outputText( '\n\nOne after another, your eggs lurch into the conquered womb in a steady stream of oviposition, each one coming closer on the heels of the previous one.  You release a whimper of bliss at the same time as your incubator, her tight pussy actually trying to milk you of sperm.  Of course, that just makes your eggs flow into her that much faster.  Her uterus is soon stuffed with your ' );
-			if( !CoC.getInstance().player.canOvipositBee() ) {
+			if( !CoC.player.canOvipositBee() ) {
 				EngineCore.outputText( 'arachnid' );
 			} else {
 				EngineCore.outputText( 'insectile' );
@@ -814,8 +814,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\nYou climb off as your ovipositor retracts into its slot.  The emptiness is a blessed change from the constant, needy weight of an unlaid brood.  As you gather your wits, you realize that the bunny-girl is still orgasming.  Her dick finally popped out of her mouth, and you\'re treated to the sight of her bukkaking herself with thick, clear sex-juice.  A huge bulge distends her urethra as it\'s forced through her shaft, erupting out into a bright pink egg.  It bounces off her drugged, dopey cheek as her nerveless lips try to moan, followed shortly after by a second.  In the wake of the two surprises, a wave of jism splatters across her head, plastering her ears back into her hair.' );
 		EngineCore.outputText( '\n\nThe hare goes limp after that, her eyes drifting shut as her tongue idly licks her spent seed from her face.  It looks like she got more eggs than she reckoned for.' );
 		//ITS OVER;
-		CoC.getInstance().player.dumpEggs();
-		CoC.getInstance().player.orgasm();
+		CoC.player.dumpEggs();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -826,32 +826,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your trek through the plains is interrupted by a shrill, piercing cry that jolts you out of the daydreams that were floating through your mind.  The piercing wail of a woman in distress grabs your attention and you hurry over the rising hills to the source of the howling bluster.  You weren\'t sure exactly what to expect, but as the source of the commotion comes into view, you have to admit this wasn\'t exactly what you thought you\'d find.' );
 		EngineCore.outputText( '\n\nLying in a shallow valley is a ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'dusky' );
 		} else {
 			EngineCore.outputText( 'chocolate' );
 		}
 		EngineCore.outputText( ' skinned woman.  Atop her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'tanned' );
 		} else {
 			EngineCore.outputText( 'caramel' );
 		}
 		EngineCore.outputText( ' head, two large pairs of bunny ears flop back and forth helplessly as she shakes her head in frustrated tension. Her long, muscled legs kick the ground in futile anguish, though you notice her feet are long and fuzzy, ending in thick paws with little pink pads underneath. Her arms appear to be secured behind her back by a corded rope that has her bound to a pair of tawny boulders. Between her legs, a fourteen inch erection throbs, fully erect and frothing with ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'thin, gushing pre-cum' );
 		} else {
 			EngineCore.outputText( 'thick, syrupy cream' );
 		}
 		EngineCore.outputText( '. It\'s a bunny-girl, certainly, but who would go through the effort of tying her up and then just leave?' );
 		EngineCore.outputText( '\n\nAs you approach, she takes notice of you, turning her full attention to you with desperation dripping from every pore of her freckled, ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'olive' );
 		} else {
 			EngineCore.outputText( 'cinnamon' );
 		}
 		EngineCore.outputText( ' skin.  "<i>Oh thank goodness,</i>" she pants, her tongue lolling under her tiny buck teeth.  "<i>You have to help me,</i>" the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'coffee' );
 		} else {
 			EngineCore.outputText( 'toffee' );
@@ -864,12 +864,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		//[Free Her] (Any gender);
 		EngineCore.addButton( 0, 'Free Her', this.freeHerOhGodWhyDidYouDoThis );
 		//[Get Egged] (Female/Futa only);
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 1, 'Get Egged', this.getEggflated );
 		}
 		//[Fuck Her] (Male/Futa Only);
-		if( CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.cockThatFits( 40 ) >= 0 ) {
+		if( CoC.player.hasCock() ) {
+			if( CoC.player.cockThatFits( 40 ) >= 0 ) {
 				EngineCore.addButton( 2, 'Fuck Her', this.fuckTheEggBoundBun );
 			} else {
 				EngineCore.outputText( '  <b>You\'re too big to fuck her!</b>' );
@@ -881,29 +881,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.freeHerOhGodWhyDidYouDoThis = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Taking a chance, you step up to the wriggling bunny and inspect her bonds.  The girl\'s body is covered in a ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );
 		} else {
 			EngineCore.outputText( 'shimmering glaze' );
 		}
 		EngineCore.outputText( ', her urgent lust pulsing in every inch of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'freckled brown' );
 		} else {
 			EngineCore.outputText( 'pudding rich' );
 		}
 		EngineCore.outputText( ' skin.  Her abdomen is slightly rounded with a pot-bellied pout that you assume must be the seed of the previous Samaritans.  Due to her inability to climax, her pussy must be clenching so tightly that only a thin trickle of cum is able to escape.  Her ' );
-		if( CoC.getInstance().isEaster() ) {
+		if( CoC.isEaster() ) {
 			EngineCore.outputText( 'cony ' );
 		}
 		EngineCore.outputText( 'cock jerks in the air with every hyperventilating breath, ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'bubbling pearls' );
 		} else {
 			EngineCore.outputText( 'gooey marshmallows' );
 		}
 		EngineCore.outputText( ' of pre dribbling from the narrow, spear-like crest. The lustful girl\'s balls are even more lewd close up, gargantuan orbs obscenely stuffed with ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'the carnal fruit of her unwelcome, monstrous couplings' );
 		} else {
 			EngineCore.outputText( 'candied plenty, her saccharine treats swimming amid a warm sea of honeyed spunk' );
@@ -911,26 +911,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '. She bites down on her lower lip with her prominent front two teeth, her eyes following your motions intently, hoping for the best but braced for the worst.' );
 		EngineCore.outputText( '\n\nGently bending her forward at the waist, you examine the ropes around her wrists.  They appear to have been tied with a simple slip knot designed to cinch tighter the harder she struggles against it.  The girl\'s tuffed tail twitches eagerly atop her supple rump, as she bobs up and down on her large bunny toes.  With a few firm tugs, you manage to undo the cords and let her arms loose.  You almost expect the bunny-girl to make a grab for you, but she\'s so overcome by the need for release, she all but forgets her emancipator.  Breathlessly, the energetic hare seizes the constraining loop of metal and rolls it off her shaft with moaning delight, throwing it into the tall grasses triumphantly.' );
 		EngineCore.outputText( '\n\nBefore the cock ring even lands, she\'s sunk to her knees, both hands pumping her length feverishly, coaxing her pent-up reservoirs to sweet release.  The behemoth balls next to you churn and gurgle in sympathetic fervor, trembling at the intensity of her passion.  A thick bulb forms at the base of her member, the pliant flesh distending to twice its normal girth.  Slowly, achingly, the protuberance is forced up her fourteen inch rod, the tip of her cockhead dilating like a gaping mouth.  Then, with a loud, gushing pop, the first egg spurts from her breeding pole, shooting through the air at the head of a tremendous fountain of ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'splattering spoo' );
 		} else {
 			EngineCore.outputText( 'climaxing cream' );
 		}
 		EngineCore.outputText( '.  The showering spray continues in an unbroken outpouring, a river of alabaster arcing and gushing in a throbbing surge that white-washes everything within ten feet of her frontal arc.  Countless ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'bright pink eggs' );
 		} else {
 			EngineCore.outputText( 'candy-coated confections' );
 		}
 		EngineCore.outputText( ' issue forth amid the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'cum' );
 		} else {
 			EngineCore.outputText( 'icing' );
 		}
 		EngineCore.outputText( ' geyser, plopping moistly here and there.  Some stop in plain sight, others roll into hidden hollows, left for some curious treasure hunter.' );
 		EngineCore.outputText( '\n\nGasping and squealing in unfettered release, the bunny girl continues pumping her torrential spigot with one hand while the other runs across her heaving, glistening breasts, pinching her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'pert' );
 		} else {
 			EngineCore.outputText( 'gum drop' );
@@ -945,86 +945,86 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.fuckTheEggBoundBun = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'It\'s not often you find a treat gift wrapped so neatly for you; what kind of ingrate would you be if you just turned it down?  You step up to the wriggling bunny and inspect her carefully.  The girl\'s body is covered in a ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );
 		} else {
 			EngineCore.outputText( 'shimmering glaze' );
 		}
 		EngineCore.outputText( ', her urgent lust pulsing in every inch of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'freckled brown' );
 		} else {
 			EngineCore.outputText( 'pudding rich' );
 		}
 		EngineCore.outputText( ' skin.  Her abdomen is slightly rounded with a pot bellied pout that you assume must be the seed of the previous Samaritans.  Due to her inability to climax, her pussy must be clenching so tightly that only a thin trickle of cum is able to escape.  Her cony cock jerks in the air with every hyperventilating breath, ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'bubbling pearls' );
 		} else {
 			EngineCore.outputText( 'gooey marshmallows' );
 		}
 		EngineCore.outputText( ' of pre dribbling from the narrow, spear-like crest.  The lustful girl\'s balls are even more lewd close up, gargantuan orbs obscenely stuffed with ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'the carnal fruit of her unwelcome, monstrous couplings' );
 		} else {
 			EngineCore.outputText( 'candied plenty, her saccharine treats swimming amid a warm sea of honeyed spunk' );
 		}
 		EngineCore.outputText( '.  She bites down on her lower lip with her prominent front two teeth, her eyes following your motions intently, hoping for the best but braced for the worst.' );
 		EngineCore.outputText( '\n\nYou plant yourself firmly in front of the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'dusky' );
 		} else {
 			EngineCore.outputText( 'caramel-skinned' );
 		}
 		EngineCore.outputText( ' bunny-girl with an easy smile.  Loosening your [armor] just enough to let your stiffening cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' free, you set your hands lightly on her ample hips, guiding your fingertips up her narrow waist and along the slick flesh of her tensed arms.  She trembles at your touch, but the boiling lust within her turns the fearful shudder into an orgasmic one in the very next second.  In this state, even just the touch of your fingers is enough to set her off, the bound hare\'s shaft spasming fruitlessly as the thick bronze of her cock ring holds back the torrential flood of her impotent climax.  You wrap your hands around her back, guiding them back down, over the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'supple mounds' );
 		} else {
 			EngineCore.outputText( 'taut dough' );
 		}
 		EngineCore.outputText( ' of her wiggling ass and across the fidgeting girl\'s athletic legs.  Hooking one hand under her knee, you hoist up one leg and spin the girl in place, pushing her face-first into her own colossal, egg-bloated ballsac.  She lets out a thin "<i>eep!</i>" as her boundless energy sets off another futile bout of struggling against her bindings.' );
 		EngineCore.outputText( '\n\n"<i>Please,</i>" she begs, "<i>not more eggssss!</i>"  Despite her squeaking protests, the girl\'s overflowing urges put a husky, wanton thickness in her voice.  She wobbles from one leg to the other, wiggling her fluffy tail as her jutted ass slides up and down your crotch, carnal cravings to breed leaving her little more than a paper-thin ounce of restraint, the frothing mania of lewd depravity electrifying her every nerve.  She\'s so tightly wound, she doesn\'t even notice when you grab her butt cheeks and sink your fingers into the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'yielding flesh' );
 		} else {
 			EngineCore.outputText( 'semi-spongy hotcakes' );
 		}
 		EngineCore.outputText( '.  Some light prodding tells you that her ass is far too tightly squeezed from the tension in her bloated organs to have any hope of penetration.  Her snatch is nearly as secure, but the drooling seed of her earlier suitors, along with her own glistening honey should provide all the lubrication you need.  The slimy spunk of countless suitors is warm against the throbbing flesh of your [cock] and you ' );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'grimace at the vulgar goo that washes over your flesh' );
-		} else if( CoC.getInstance().player.cor < 66 ) {
+		} else if( CoC.player.cor < 66 ) {
 			EngineCore.outputText( 'swallow a gulp as the lewd spoo squelches around your member' );
 		} else {
 			EngineCore.outputText( 'revel in the profane stimulation of bestial batter anointing your length in impure, liquid virility' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nWith a grunt, you force yourself into her, pulsing phallus parting her overwrought pussy lips in a spearing thrust.  The bunny-girl gasps, her control suffocated under the fathomless ocean of her keening lust.  She bucks wildly against you, desperate to hilt your [cock] as swiftly and fully as she can.  Her stomach bulges while ropes of spunk splatter out of her stuffed cunny, displaced by your girth.  It\'s amazing she\'s so frisky after being taken so many times, you consider with delight as you grasp her slender waist to set her pace to your own.  Before long, you have her thrashing in ecstasy, a writhing parade of unfulfilled orgasms setting her body ablaze, her inner walls virtually vibrating around you while rivers of spunk flow down her legs, painting her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'darkly freckled thighs ivory' );
 		} else {
 			EngineCore.outputText( 'savory, chocolate thighs with pale cream' );
 		}
 		EngineCore.outputText( '.  Reaching your own threshold, you lean forward, pressing your cheek against hers, the intake of your breath hissing between your teeth.  She instinctively understands, slamming her ass against your [hips] with as much force as she can muster.' );
 		EngineCore.outputText( '\n\nYou orgasm, [oneCock] erupting inside the frenzied woman\'s womb with thick gouts of heavy seed ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'flooding her semen-gorged cunt with fresh issue' );
 		} else {
 			EngineCore.outputText( 'glazing her cream-filled center with your silky spunk' );
 		}
 		EngineCore.outputText( '.  She bucks helplessly as her gut swells under your load, ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'steady streams of cum seeping from her pussy' );
-		} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		} else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'bulging enough that her belly button turns outward as the cum oozing from her pussy gushes between the two of you' );
 		} else {
 			EngineCore.outputText( 'growing larger and larger as cum splatters in thick streams from her saturated pussy. Your seemingly endless gallons of flooding cum wash the remnants of her previous partners away, immersing the caramel woman in the fluid wealth of your liquid possession.' );
 		}
 		EngineCore.outputText( '  No sooner has your spunk taken root inside her, than the bunny\'s already colossal testes tremble anew.  Before your eyes, they balloon even larger, fattening with the profit of your claim.  You remain inside her a moment longer to marvel at the impossible bulk of her egg-stuffed body, before withdrawing and stepping back to clean yourself off.  Bulbous dollops of spunk bubble from her cunny as she impotently grinds her shaft against the mammoth bulk of her stoppered balls.  Satisfied, you head back to camp, leaving the bunny to the mercies of the next rescuer.' );
 		//[End Encounter, corruption up];
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1032,152 +1032,152 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	BunnyGirl.prototype.getEggflated = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Deciding it\'d be too cruel to leave her like this, you resolve to put the bunny-girl at ease. However, you\'re not so foolish that you\'re willing to just untie her - if that hungry look in her eyes is any warning.  Stepping up to the wriggling bunny, you inspect her carefully.  The girl\'s body is covered in a ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );
 		} else {
 			EngineCore.outputText( 'shimmering glaze' );
 		}
 		EngineCore.outputText( ', her urgent lust pulsing in every inch of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'freckled brown' );
 		} else {
 			EngineCore.outputText( 'pudding rich' );
 		}
 		EngineCore.outputText( ' skin.  Her abdomen is slightly rounded with a pot bellied pout that you assume must be the seed of the previous Samaritans.  Due to her inability to climax, her pussy must be clenching so tightly that only a thin trickle of cum is able to escape.  Her ' );
-		if( CoC.getInstance().isEaster() ) {
+		if( CoC.isEaster() ) {
 			EngineCore.outputText( 'cony ' );
 		}
 		EngineCore.outputText( 'cock jerks in the air with every hyperventilating breath, ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'bubbling pearls' );
 		} else {
 			EngineCore.outputText( 'gooey marshmallows' );
 		}
 		EngineCore.outputText( ' of pre dribbling from the narrow, spear-like crest.  The lustful girl\'s balls are even more lewd close up, gargantuan orbs obscenely stuffed with ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'the carnal fruit of her unwelcome, monstrous couplings' );
 		} else {
 			EngineCore.outputText( 'candied plenty, her saccharine treats swimming amid a warm sea of honeyed spunk' );
 		}
 		EngineCore.outputText( '.  She bites down on her lower lip with her prominent front two teeth, her eyes following your motions intently, hoping for the best but braced for the worst.' );
 		EngineCore.outputText( '\n\nSettling standing in front of her, you turn your attention to the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'twitching length' );
 		} else {
 			EngineCore.outputText( 'succulent delicacy' );
 		}
 		EngineCore.outputText( ' before you.  The thought of letting her empty her eggs into your body flickers across your mind.  It\'s a mad impulse, you have to admit, but you kind of want to see what she\'s capable of.  Stripping your [armor] and setting it far enough away to avoid potential spills, you carefully place your fingers on the bronze ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'ring' );
 		} else {
 			EngineCore.outputText( 'donut' );
 		}
 		EngineCore.outputText( ' around her conical cock.  The engorged flesh is swollen with pent-up need and you almost swear it gets a bit bigger when your fingertips press against her bindings.  Slowly, carefully, you start to remove the cock ring.  Luckily, the steady flow of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'pre-cum' );
 		} else {
 			EngineCore.outputText( 'milky cream' );
 		}
 		EngineCore.outputText( ' has lubricated her shaft enough to make the loop\'s passage relatively simple.  Up, up, up it slides, over bulging veins and over the flared peak of her cockhead until, at last, you peel the cinch from her distressed member.  She reflexively bucks at the air, groping for any friction with a weak whimper.  You take a deep breath to steady your own accelerating heart rate and prepare yourself.' );
 		EngineCore.outputText( '\n\nStepping forward, you press against the girl, her perky B-cup breasts squishing against your [chest] until you can feel her racing pulse pounding in her chest.  Her mouth opens in a wanton moan as you grind against her with your [hips], guiding her pulsing pecker toward your [pussy].  Pre-lubricated in her own ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'frothy juices' );
 		} else {
 			EngineCore.outputText( 'slick honey' );
 		}
 		EngineCore.outputText( ', her spear-like head slips easily past your labia, fervent flesh filling your trembling cavity. The girl\'s ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'thick pole' );
 		} else {
 			EngineCore.outputText( 'sweet shaft' );
 		}
 		EngineCore.outputText( ' sends ripples of hot and cold through your gut as her peculiar, almost numbing jism bubbles up inside you.  In another moment, you find yourself completely impaled on her turgid length, despite the throbbing girth of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'swollen mast' );
 		} else {
 			EngineCore.outputText( 'bloated baster' );
 		}
 		EngineCore.outputText( '.  Pressing her backwards, the two of you lean against her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'supple' );
 		} else {
 			EngineCore.outputText( 'marshmallow' );
 		}
 		EngineCore.outputText( ' testes, their soft, pliant surface enveloping her as you straddle the helpless bunny.  Testing the tension of her scrotum, you find that the egg-filled sac is firm enough to support both of your weights without causing the girl any pain.  Gleefully, you wrap your arms around her waist and push forward, rolling up and over until the two of you rest atop the gargantuan balls like spherical, ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'well-padded bedding' );
 		} else {
 			EngineCore.outputText( 'sponge cakes baked for a giant' );
 		}
 		EngineCore.outputText( '.' );
-		CoC.getInstance().player.cuntChange( 28, true, true, false );
+		CoC.player.cuntChange( 28, true, true, false );
 		EngineCore.outputText( '\n\nAtop your perch, bound to the lapin by fourteen inches of caramel-colored flesh, you take a moment to rock back and forth atop the girl.  Merely being mounted has taken every ounce of her restraint, but you can tell it\'s a matter of seconds before her resolve crumbles.  Positioned perfectly to take the full geyser of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'gurgling seed' );
 		} else {
 			EngineCore.outputText( 'saccharine seed' );
 		}
 		EngineCore.outputText( ', you realize there\'s really only one thing left to do.  Sliding a hand between her waist and the tender flesh the two of you are balanced upon, your fingers seek out the ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'twitching tuft' );
 		} else {
 			EngineCore.outputText( 'cotton candy poof' );
 		}
 		EngineCore.outputText( ' of her fluffy tail.  You find the junction where it meets the base of her spine and bear down on the sensitive point with your knuckles, eliciting a shrieking squeal of bliss from the over-burdened bunny-girl.  An intense pressure floods your cunt as her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'swollen dick' );
 		} else {
 			EngineCore.outputText( 'candied cock' );
 		}
 		EngineCore.outputText( ' distorts under the heft of the emerging eggs.  As the first oval bulge travels up her shaft, you grind and slam deeper on her until the narrow point of her ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'jizz-burbling' );
 		} else {
 			EngineCore.outputText( 'jelly-bubbling' );
 		}
 		EngineCore.outputText( ' crest presses hotly against your cervix.  The sputtering flood of her opiate spunk saturates your inner walls, giving them a yielding elasticity.  As the egg nears her tip, you spear yourself down on the climaxing girl\'s prominence, feeling her dilating peak penetrating your womb.  With an exquisite moan of drugged euphoria, you watch your abdomen bulge as the egg pops free, followed by jets of ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'tingling, liquid passion' );
 		} else {
 			EngineCore.outputText( 'fattening, cream filling' );
 		}
 		EngineCore.outputText( '.  Another egg rushes up, followed by another, the pace accelerating as you bounce atop the vivacious hare with fast, short strokes that rub your [clit] against her cum-bloated belly.' );
 		EngineCore.outputText( '\n\nEgg after egg fills your womb, swelling your abdomen with the heavy ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'load' );
 		} else {
 			EngineCore.outputText( 'treat' );
 		}
 		EngineCore.outputText( '. You pant, finding it difficult to draw a breath with the burden massing in your inner recess, your tongue hanging freely  and drool trickling down the side of your mouth.' );
 		//Futa:;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Quite without realizing it, [eachCock] spasms in messy orgasm, spurting ropes of spunk  across the bunny girl\'s tawny skin like a gooey glaze.' );
 		}
 		EngineCore.outputText( '  Your vision swims and when you blink back the dizziness, you find your gut has bloated to the size of ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'advanced pregnancy' );
 		} else {
 			EngineCore.outputText( 'gluttonous excess' );
 		}
 		EngineCore.outputText( '.  Though her cushioning balls have emptied some of their load inside you, they\'re still huge enough to support you both, so you regretfully begin to slide off the bunny girl\'s cock, eggs filling the gap her distended shaft leaves.  Pausing, with the tip at the cusp of your flush lower lips, you turn around atop the delirious bunny, popping her crest out, a rivulet of ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'cum' );
 		} else {
 			EngineCore.outputText( 'cream' );
 		}
 		EngineCore.outputText( ' leaking from your freshly stuffed snatch.  With a guiding hand, you steer her surging spout to your [ass] and drop your full ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'egg-loaded' );
 		} else {
 			EngineCore.outputText( 'candy fattened' );
 		}
 		EngineCore.outputText( ' weight on the conical cock.  With fresh space to fill, the eggs flow into you once more, one pushing another in a procession up your large intestine.' );
 		//Futa:;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  The steady movement of the orbs pushing past your prostate drills another, even messier orgasm from your ' + Descriptors.multiCockDescriptLight() + ', cum arcing into the air to shower down on the two of you in pearl beads.' );
 		}
 		EngineCore.outputText( '\n\nTime seems to flow from one moment to the next, your consciousness fading in and out as a small deluge of ' );
-		if( !CoC.getInstance().isEaster() ) {
+		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'bunny seed' );
 		} else {
 			EngineCore.outputText( 'marshmallow and chocolate' );
@@ -1185,20 +1185,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( ' loads up your belly as fully as your twitching, clenching womb.  You can practically taste the sweetness in the back of your throat by the time the bunny-girl\'s orgasm ends.  Your body is inflated far beyond anything you could\'ve imagined, eggs and spunk leaking from your gravid abdomen.  The bunny girl is lost to the world, dazed in a private bliss as her basketball-sized balls slowly push the last few eggs out of her dusky stalk with splattering plops.  You couldn\'t move if you wanted to, so you just remain on the ground, enjoying the feeling of utter, immobile bounty.  Gradually, the eggs in your belly and womb begin to melt, losing their firmness in favor of a fresh flux of raw warmth that wrings a final climax from your overtaxed body.' );
 		EngineCore.outputText( '\n\n' );
 		//Futa:;
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( 'Your exhausted ' + Descriptors.multiCockDescriptLight() + ' somehow find' + (CoC.getInstance().player.cocks.length > 1 ? '' : 's') + ' the strength for a gushing orgasm of ' + (CoC.getInstance().player.cocks.length > 1 ? 'their' : 'its') + ' own, strands of spoo spilling across your own body, white hot spunk bringing a fresh sheen to your sweat-slick [chest].  ' );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( 'Your exhausted ' + Descriptors.multiCockDescriptLight() + ' somehow find' + (CoC.player.cocks.length > 1 ? '' : 's') + ' the strength for a gushing orgasm of ' + (CoC.player.cocks.length > 1 ? 'their' : 'its') + ' own, strands of spoo spilling across your own body, white hot spunk bringing a fresh sheen to your sweat-slick [chest].  ' );
 		}
 		EngineCore.outputText( 'Eventually, enough of the eggs melt to let you stand under your own power.  You grab your [armor] but hold off on putting it on until you have a chance to shrink down to a more normal size.  Before you leave, you make sure to remove the rope from her wrists, for when she gathers her orgasm-blasted wits.' );
 		//[If full bunny morph, End Encounter. Weight up, sensitivity down, fertility up.];
-		if( CoC.getInstance().player.bunnyScore() < 4 ) {
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS );
+		if( CoC.player.bunnyScore() < 4 ) {
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS );
 		} else {
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_BABY, 60 );
-			CoC.getInstance().player.fertility++;
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_BABY, 60 );
+			CoC.player.fertility++;
 		}
-		EngineCore.outputText( CoC.getInstance().player.modThickness( 100, 3 ) );
-		EngineCore.outputText( CoC.getInstance().player.modTone( 0, 3 ) );
-		CoC.getInstance().player.orgasm();
+		EngineCore.outputText( CoC.player.modThickness( 100, 3 ) );
+		EngineCore.outputText( CoC.player.modTone( 0, 3 ) );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -3 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};

@@ -176,8 +176,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	// Entrance/Exit;
 	D3.prototype.discoverD3 = function() {
-		if( CoC.getInstance().flags[ kFLAGS.D3_DISCOVERED ] === 0 && CoC.getInstance().player.hasKeyItem( 'Zetaz\'s Map' ) >= 0 && CoC.getInstance().player.level >= 10 && Utils.rand( 5 ) === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.D3_DISCOVERED ] = 1;
+		if( CoC.flags[ kFLAGS.D3_DISCOVERED ] === 0 && CoC.player.hasKeyItem( 'Zetaz\'s Map' ) >= 0 && CoC.player.level >= 10 && Utils.rand( 5 ) === 0 ) {
+			CoC.flags[ kFLAGS.D3_DISCOVERED ] = 1;
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'During your exploration, you come across a familiar looking patch of ground. In fact... you pull out Zetaz’s map, your eyes widening as they realize what you’ve just found Keep. You follow a concealed trail past several harpy nests directly to an almost invisible cave entrance. You never would’ve found it without the map.' );
 			EngineCore.outputText( '\n\n<b>You’ve discovered a hidden entrance to Lethice’s lair. It can be accessed from the Dungeons submenu in the future.</b>' );
@@ -264,18 +264,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	D3.prototype.roomofmirrorsRoomFunc = function() {
 		EngineCore.outputText( 'The metal door opens soundlessly onto a fairly large, unlit room, shabby and grey with disuse. It is cluttered with a great quantity of mirrors. Round hand mirrors are stacked on shelves, square wall mirrors are leant against walls, a large,' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_MIRRORS_SHATTERED ] === 1 ) {
+		if( CoC.flags[ kFLAGS.D3_MIRRORS_SHATTERED ] === 1 ) {
 			EngineCore.outputText( ' now shattered,' );
 		}
 		EngineCore.outputText( ' ornate standing mirror dominates the center of the room, and a number of broken, jagged specimens are stacked near the back. They reflect the dull trappings of this place back at you emptily. You guess as self-centred a race as the demons probably has quite a large use for these.' );
-		if( CoC.getInstance().player.hasKeyItem( 'Laybans' ) >= 0 ) {
+		if( CoC.player.hasKeyItem( 'Laybans' ) >= 0 ) {
 			EngineCore.outputText( '\n\nThe place feels hollow and creepy, even after the ad hoc exorcism you performed here. There is no reason to linger.' );
 		} else {
 			EngineCore.outputText( '\n\nNear the back, next to the broken stack is a white stand, displaying what appear to be a number of dark shades.' );
-			if( CoC.getInstance().flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] === 1 ) {
+			if( CoC.flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] === 1 ) {
 				EngineCore.outputText( '  Your spirits rise. They look like they may very well be made of the same material as the screen in the basilisk hall.' );
 			}
-			if( CoC.getInstance().player.inte >= 70 || CoC.getInstance().player.sens >= 70 ) {
+			if( CoC.player.inte >= 70 || CoC.player.sens >= 70 ) {
 				EngineCore.outputText( '  Disquiet edges down your spine. Something about this place doesn’t feel right. The room seems faded at the corners, as if it’s not quite there.' );
 			}
 
@@ -284,26 +284,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 		return false;
 	};
 	D3.prototype.magpiehallsRoomFunc = function() {
-		if( CoC.getInstance().flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] === 0 ) {
-				CoC.getInstance().flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] = 1;
+		if( CoC.flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] === 0 ) {
+				CoC.flags[ kFLAGS.D3_ENTERED_MAGPIEHALL ] = 1;
 				EngineCore.outputText( 'You creep through the archway. The sound of movement and bustle is closer here; it seems to be coming from directly below you. Ahead is the screen, a large window made from tinted glass. Cautiously you peer through it. You have entered a vast hall, near the very top of it; this seems to be some sort of observation booth set high in the stone wall. It’s designed in the grand, classical tradition, fluted balustrades flanking the walls, each decorated at the top by a carved magpie in flight. Below is - well. You blink, trying to take it all in.' );
 				EngineCore.outputText( '\n\nMany feet below the hall swarms with activity, thin, grey-green reptiles sliding sinuously around each other and the long tables that run the length of the room. There must be hundreds, no, at least a thousand basilisks down there, carrying, analyzing, sorting the vast amount of junk the tables are heaped with.' );
-				if( CoC.getInstance().flags[ kFLAGS.BENOIT_AFFECTION ] === 100 ) {
+				if( CoC.flags[ kFLAGS.BENOIT_AFFECTION ] === 100 ) {
 					EngineCore.outputText( '  This can only be the hall that ' + SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' once worked in.' );
 				}
 				EngineCore.outputText( '  You get the fright of your life when you think you see a number of depthless pools of grey revolve up to meet yours- but they don’t freeze you, you note as you reflexively turn away. The tinted glass must carry some sort of anti-petrifying charm, and further it must be reflective on the other side, because no one below seems to realize you’re standing there. Relaxing a bit, you continue to absorb the massive room. At the end furthest away from you two huge piles have been created- one of eggs, a massed assortment of every color and size imaginable, and one of pure junk, presumably everything the basilisks have found whilst scavenging and considered worth keeping. The detritus of a dozen collapsed civilizations must be down there, collected for the demons’ perusal by their scaly custodians. Directly below you, you can see archways like the one you just passed under, through which the basilisks ebb and flow.' );
 				EngineCore.outputText( '\n\nYour heartbeat quickens as you consider. There is a grid gantry running from where you are right around the room to the other side, where you can see a matching observation booth, presumably containing another exit. But it’s quite a distance, there are stairs leading down to the ground level, and outside the protective glass you would surely be spotted and apprehended' );
-				if( CoC.getInstance().player.canFly() ) {
+				if( CoC.player.canFly() ) {
 					EngineCore.outputText( ', even if you tried to fly it' );
 				}
 				EngineCore.outputText( '. Wouldn’t you? You can’t outrun the gaze of a thousand basilisks... could you?' );
-				if( CoC.getInstance().player.hasKeyItem( 'Laybans' ) >= 0 ) {
+				if( CoC.player.hasKeyItem( 'Laybans' ) >= 0 ) {
 					EngineCore.outputText( '  You take the Laybans out of your pouch and hold them up against the glass. It’s exactly as you hoped - they are made of the same material, and are almost certainly what the demons wear when they themselves interact with the basilisks. They would surely help you get across the hall, if you were crazy enough to try.' );
 				}
 			} else {
 				EngineCore.outputText( 'Again you creep up to the tinted glass, again you take in the vast hall with the army of basilisks below hard at work, and again you stare out at the metal gantry, with the exit tantalizingly visible on the other side.' );
-				if( CoC.getInstance().player.hasKeyItem( 'Laybans' ) < 0 ) {
+				if( CoC.player.hasKeyItem( 'Laybans' ) < 0 ) {
 					EngineCore.outputText( '  Are you going to try this?' );
 				} else {
 					EngineCore.outputText( '  You take the Laybans out of your pocket, turning them around in your hands as you consider. Are you going to try this?' );
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	var BROWN = 1 << 4;
 	var PURPLE = 1 << 5;
 	D3.prototype.eggsAvailable = function() {
-		var flagNum = CoC.getInstance().flags[ kFLAGS.D3_EGGS_AVAILABLE ];
+		var flagNum = CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ];
 		var eggs = 0;
 		if( !(flagNum & BLACK) ) {
 			eggs++;
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You head down the stairs into the hall proper to inspect the ramble hoard of eggs the basilisks collected. They’re mostly unfertilised harpy ovum, but you quickly pick out a number of differently coloured transformative eggs stolen from Gods know who.' );
 		EngineCore.menu();
-		var flagNum = CoC.getInstance().flags[ kFLAGS.D3_EGGS_AVAILABLE ];
+		var flagNum = CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ];
 		if( !(flagNum & BLACK) ) {
 			EngineCore.addButton( 0, 'Black', this.takeEgg, BLACK );
 		}
@@ -399,13 +399,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 		// Should actually be handled by the fallthrough of doNext(1) in the takeItem shit;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pluck out ' + item.longName + ' ' );
-		CoC.getInstance().flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
+		CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
 		SceneLib.inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
 	};
 	D3.prototype.fallbackFromMagpieHallS = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'No, there has to be a better way.' );
-		if( CoC.getInstance().player.hasKeyItem( 'Laybans' ) < 0 && CoC.getInstance().player.inte >= 50 ) {
+		if( CoC.player.hasKeyItem( 'Laybans' ) < 0 && CoC.player.inte >= 50 ) {
 			EngineCore.outputText( '  Surely the demons themselves are not immune to the basilisks’ glares - the darkened screen is proof of that. How do they interact with the creatures, then? Maybe if you keep poking around, you might find an answer.' );
 		}
 		EngineCore.outputText( '\n\nYou head back through the archway into the gloomy antechamber.' );
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 		EngineCore.addButton( 1, 'Next', this.move, 'antechamber' );
 	};
 	D3.prototype.magpiehallnRoomFunc = function() {
-		if( CoC.getInstance().flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( 'You find yourself back in the small booth, with the locked door leading out into the Magpie Hall. Just like the one on the opposite side, there is a darkened screen here through which you can see hundreds of basilisks milling down below, sorting through the vast amount of junk and eggs they have collected from the mountainside. They don’t seem to have taken any extra precautions following your narrow escape of them- the gantry remains free of any guards, and the door on the other side looks open.' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
@@ -448,10 +448,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	D3.prototype.southwestwalkRoomFunc = function() {
 		EngineCore.outputText( 'The bushes surrounding the path have given way here to a mass of tentacles, some still bedecked in the flowers that surround the air. They twist and writhe but seem content to stay in their place for now. Besides, if you hang back along the edge of the walk, you should be out of their reach. The path heads north and south... if the wall of oily-looking tendrils leaves you alone.' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_GARDENER_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\nThe slick foilage parts just ahead, revealing a lissom leg clad in green hosiery that resembles the spiderwork patterns of leafy veins more than any garment. Its owner follows but a moment later, so perfectly, wonderfully shapely that you freeze in place, compelled by biology to take notice. Her expansive bosom, womanly hips, and gentle, soft curves invite you to fall into her embrace. Her lips, full and pouting, beckon for you to taste them. Her hair\'s lustrous shine glitters like an angler fish\'s lure, just out of reach and oh so foolish to pursue. The smooth, twists of her ram-like horns keep her coiffure stylish while simultaneously jolting you out of your reverie.' );
 			EngineCore.outputText( '\n\nYou shake your head to regain your focus. This is a demon, and you won\'t fall for her tricks this easily' );
-			if( CoC.getInstance().player.lust <= 75 ) {
+			if( CoC.player.lust <= 75 ) {
 				// I'm not sure what this variation was supposed to point at specifically.
 				EngineCore.outputText( '!' );
 			} else {
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	D3.prototype.westwalkRoomFunc = function() {
 		EngineCore.outputText( 'Pollen clings to you, released by the many flowering bushes in the area. They only grow thicker to the south, too. To the east, you can' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( ' see a massive statue with an immense hammer' );
 		} else {
 			EngineCore.outputText( ' a mound of rubble, the scattered remains of the animated statue that you slew' );
@@ -492,7 +492,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	D3.prototype.northeastcourtyardRoomFunc = function() {
 		EngineCore.outputText( 'This particular corner of the courtyard feels remarkably cramped, even a little claustrophobic. To the north, a stone wall rises, dwarfing the smaller one to the east, and to make matters worse, the hedges to the southwest are high and square, virtually a wall in their own right. The only avenues of travel available are to the south or west, following the red sandstone bricks as they bend around the corner.' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_CENTAUR_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] === 0 ) {
 			SceneLib.hermCentaurScenes.encounterThePony();
 			return true;
 		}
@@ -504,7 +504,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	};
 	D3.prototype.eastwalkRoomFunc = function() {
 		EngineCore.outputText( 'The smooth, almost flawlessly laid stones split into a T-intersection here, heading north, south, and west. The bushes that hem in the paths are likewise split, though they have been maintained with the same sense of care you’ve seen elsewhere in the garden. One particularly interesting shrub has been trimmed into the shape of a large bust, complete with erect nipples. You shake your head and glance west, where you can spot' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( ' a massive statue with an immense hammer.' );
 		} else {
 			EngineCore.outputText( ' a mound of rubble, the scattered remains of the animated statue that you slew.' );
@@ -523,7 +523,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Comba
 	D3.prototype.courtyardsquareRoomFunc = function() {
 		//Statue not exploded - mossy - 30’ high;
 		EngineCore.outputText( 'A circle of polished stone wraps around a colossus here in the center of the courtyard, ringed by cushioned benches that would be a delight to sit on were they not stained with bodily fluids of all colors and sexes. You didn’t think pink cum was possible, but the demons’ endless sexual creativity doesn’t seem to be bound by such notions. You can leave east and west from here.' );
-		if( CoC.getInstance().flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\nWait... what’s that?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', SceneLib.livingStatueScenes.encounter );

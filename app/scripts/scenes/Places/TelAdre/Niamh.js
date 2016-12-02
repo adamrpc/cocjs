@@ -9,22 +9,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	//Implementation of TimeAwareInterface;
 	Niamh.prototype.timeChange = function() {
 		var needNext = false;
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] > 1 ) {
-			CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ]--;
+		if( CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] > 1 ) {
+			CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ]--;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] > 1 ) {
-			CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ]--;
+		if( CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] > 1 ) {
+			CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ]--;
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.BimboChampagne, 1, -1 );
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.BimboChampagne ) <= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.BimboChampagne, 1, -1 );
+			if( CoC.player.statusAffectv1( StatusAffects.BimboChampagne ) <= 0 ) {
 				this.removeBimboChampagne();
 				needNext = true;
 			}
 		}
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.BlackCatBeer, 1, -1 );
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.BlackCatBeer ) <= 0 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
+			CoC.player.addStatusValue( StatusAffects.BlackCatBeer, 1, -1 );
+			if( CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) <= 0 ) {
 				this.blackCatBeerExpires();
 				needNext = true;
 			}
@@ -36,21 +36,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	};
 	//End of Interface Implementation;
 	Niamh.prototype.telAdreNiamh = function() {
-		if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_NIAMH ] === 0 ) {
 			EngineCore.outputText( '\n\nAt a table near the back of the bar sits one of the many curious sights Tel\'Adre has to offer white-haired, ebony-skinned woman, sporting twitching feline ears and tail.  The curious-looking and mostly human girl sports a pair of form-fitting white leggings and a matching top hat. An unbuttoned leaf-green waistcoat hangs slack around her slender hips, and it doesn\'t take you long to see the reason for the lack of closure: her ' );
-			if( CoC.getInstance().time.hours <= 8 ) {
+			if( CoC.time.hours <= 8 ) {
 				EngineCore.outputText( 'massive N-cup breasts, spilling over the table' );
-			} else if( CoC.getInstance().time.hours <= 9 ) {
+			} else if( CoC.time.hours <= 9 ) {
 				EngineCore.outputText( 'huge M-cup breasts, taking up much of the table' );
-			} else if( CoC.getInstance().time.hours <= 10 ) {
+			} else if( CoC.time.hours <= 10 ) {
 				EngineCore.outputText( 'great L-cup breasts, advancing far onto the table' );
-			} else if( CoC.getInstance().time.hours <= 11 ) {
+			} else if( CoC.time.hours <= 11 ) {
 				EngineCore.outputText( 'heavy K-cup breasts, lying on the table for support' );
-			} else if( CoC.getInstance().time.hours <= 12 ) {
+			} else if( CoC.time.hours <= 12 ) {
 				EngineCore.outputText( 'hefty J-cup breasts, resting comfortably on the table' );
-			} else if( CoC.getInstance().time.hours <= 13 ) {
+			} else if( CoC.time.hours <= 13 ) {
 				EngineCore.outputText( 'weighty I-cup breasts, dangling to lie on the table' );
-			} else if( CoC.getInstance().time.hours <= 14 ) {
+			} else if( CoC.time.hours <= 14 ) {
 				EngineCore.outputText( 'squeezable H-cup breasts, settling burdensomely on her chest' );
 			} else {
 				EngineCore.outputText( 'moderately manageable G-cups, trembling with every breath she takes' );
@@ -60,19 +60,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		//This scene only plays if the PC has either Talked to Niamh or has gotten at least 1 mug of Black Cat Beer from her.;
 		else {
 			EngineCore.outputText( '\n\nNiamh is seated at her usual place near the back of the bar, ' );
-			if( CoC.getInstance().time.hours <= 8 ) {
+			if( CoC.time.hours <= 8 ) {
 				EngineCore.outputText( 'her titanic N-cup \'kegs\' resting against the thankfully sturdy table in front of her.  Her teats are engorged with the beer she\'s cursed to carry, and the stuff dribbles out whenever she shifts.' );
-			} else if( CoC.getInstance().time.hours <= 14 ) {
+			} else if( CoC.time.hours <= 14 ) {
 				EngineCore.outputText( 'her ' );
-				if( CoC.getInstance().time.hours <= 9 ) {
+				if( CoC.time.hours <= 9 ) {
 					EngineCore.outputText( 'M-cup' );
-				} else if( CoC.getInstance().time.hours <= 10 ) {
+				} else if( CoC.time.hours <= 10 ) {
 					EngineCore.outputText( 'L-cup' );
-				} else if( CoC.getInstance().time.hours <= 11 ) {
+				} else if( CoC.time.hours <= 11 ) {
 					EngineCore.outputText( 'K-cup' );
-				} else if( CoC.getInstance().time.hours <= 12 ) {
+				} else if( CoC.time.hours <= 12 ) {
 					EngineCore.outputText( 'J-cup' );
-				} else if( CoC.getInstance().time.hours <= 13 ) {
+				} else if( CoC.time.hours <= 13 ) {
 					EngineCore.outputText( 'I-cup' );
 				} else {
 					EngineCore.outputText( 'H-cup' );
@@ -87,19 +87,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	Niamh.prototype.approachNiamh = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'niamh-approach-in-bar' ) );
-		if( Utils.rand( 5 ) === 0 && CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] > 0 && (CoC.getInstance().player.hasItem( ConsumableLib.BIMBOLQ ) || CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK )) ) {
+		if( Utils.rand( 5 ) === 0 && CoC.flags[ kFLAGS.MET_NIAMH ] > 0 && (CoC.player.hasItem( ConsumableLib.BIMBOLQ ) || CoC.player.hasItem( ConsumableLib.SUCMILK )) ) {
 			this.corruptOrBimboNiamhIntro();
 			return;
 		}
 		//(If player has Talked to Niamh or gotten 1+ mugs of Black Cat Beer, replace with the following:;
-		if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.MET_NIAMH ] > 0 ) {
 			EngineCore.outputText( 'Niamh gives you a friendly, but professional, smile as you draw near.  She smiles and shakes her head knowingly as your gaze inevitably falls to her chest, obviously as full of booze as ever.  Small puddles of alcoholic fluid slowly accumulate from the steady drip of her swollen nipples.  "<i>Well, hello, consumer - yes, up here - hello, consumer.  Did ye want to try more o\' me Black Cat Beer?  Just remember the rules; two bits a glass, treat me gentle, and no sneakin\' a drink from \'the tap\'.</i>"' );
 		} else {
 			EngineCore.outputText( 'You approach the burdened woman, hailing her politely.  Her ears twitch at the sound, and she sends a crooked smile your way.  "<i>What can I do ya for?</i>" she asks somewhat tiredly, the lilt of her words hinting at an accent.  "<i>Up for a bit o\' the brew, perhaps?</i>"  Your question regarding why she\'s peddling alcohol dies in your throat as your gaze inevitably drops to her dusky-toned bosom.  As you watch, a small droplet of cloudy golden liquid forms at her engorged teat and splashes into the growing puddle under the nipple.  From the array of top-bearing beer mugs placed within reaching distance on the ground, you begin to put the pieces together.  Is she actually... lactating beer?  You glance back up at her; she smirks knowingly, casually resting her forearms against her expansive breast-flesh and using them to push together and amplify the already-incredible cleavage.  She takes a deep breath, then chants in a singsong voice, "<i>Black cat beer, two bits a glass.  Get it quick, for it\'s goin\' fast.  Just treat me gentle, or you\'re in for a slap, and no, you can\'t have it \'straight from the tap\'.</i>"  After a couple moments, you shrug, figuring stranger things have happened in Mareth.' );
 		}
 
 		var beer = null;
-		if( CoC.getInstance().player.gems >= 2 ) {
+		if( CoC.player.gems >= 2 ) {
 			beer = this.getANiamhBeer;
 		} else {
 			EngineCore.outputText( '\n\n<b>You\'re too poor for beer.</b>' );
@@ -113,27 +113,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( ImageManager.showImage( 'niamh-get-beer' ) );
 		EngineCore.outputText( '"<i>That\'ll be two gems,</i>" she replies.  You hand over the payment, which she holds up to the light and scrutinizes thoroughly.  Satisfied, she drops the things into a sack at her waist.  "<i>Sorry,</i>" she mutters. "<i>I do want to get this damned beer out o\' me, but this is still my primary livelihood; I canno\' afford to be cheated.  Anyway, here\'s your mug - you can keep that f\'r another two gems; I get \'em cheap.  Go ahead and fill it up, but keep in mind what you\'re tweakin\', right?</i>"' );
 		//Feeder;
-		if( CoC.getInstance().player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
 			EngineCore.outputText( '  You understand exactly what she\'s going through; the weight of a huge pair of breasts, the sensitivity as they engorge with fluids, the near-maddening sensation of the contents sloshing around underneath your straining skin...' );
 		}//(Player has G-cups or bigger;;
-		else if( CoC.getInstance().player.biggestTitSize() >= 15 ) {
-			if( CoC.getInstance().player.lactationQ() === 0 ) {
+		else if( CoC.player.biggestTitSize() >= 15 ) {
+			if( CoC.player.lactationQ() === 0 ) {
 				EngineCore.outputText( '  Not terribly surprising; you know your tits are sensitive, and you don\'t even make milk in them.' );
 			} else {
 				EngineCore.outputText( '  You can easily imagine just how much trouble she must have, especially given the bulk of her tits are fluid.' );
 			}
-		} else if( CoC.getInstance().player.lactationQ() > 0 ) {
+		} else if( CoC.player.lactationQ() > 0 ) {
 			EngineCore.outputText( '  You know just how distracting it is to have your tits full of fluid waiting to get out.' );
 		}
 		//([if first time];
-		if( CoC.getInstance().flags[ kFLAGS.GOT_NIAMH_BEER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.GOT_NIAMH_BEER ] === 0 ) {
 			EngineCore.outputText( '\n\nYou briefly deliberate how you should go about the \'milking\' process.  Should you focus on one nipple, or both...?  Deciding on both - most likely easier on the girl that way - you take the proffered mug and prepare to tap the... kegs.' );
 		} else {
 			EngineCore.outputText( '\n\nYou recall how pleased she was last time, when you handled both nipples, so you decide to stick to that. Taking the offered mug from her, you prepare for the extraction.' );
 		}
 		EngineCore.outputText( '  Gingerly, as if you\'re handling fine china, you heft one of her prodigious mammaries and position a teat above your flagon. With gentle nipple-squeezing motions from base to tip, you quickly get a steady stream of booze flowing. She rewards your skilled manipulations with a throaty groan, and little ripples begin flitting across her boob-flesh as she begins trembling in barely-suppressed arousal.' );
 		EngineCore.outputText( '\n\nThe girl\'s hands clamp to her seat as she tries her hardest to disguise her pleasure... unsuccessfully.  Filling your mug around halfway, you push the nipple to the side and move to the other.  The cat-girl\'s expression gradually changes from excited to nearly orgasmic as the teasing goes on.  The stream of beer easily begins again, and your cup fills surprisingly fast.  You release her tit and cap the mug, to prevent spilling. You now have a mug of Black Cat Beer.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.MET_NIAMH ] > 0 ) {
 			EngineCore.outputText( 'Niamh ' );
 		} else {
 			EngineCore.outputText( 'the cat-girl ' );
@@ -141,22 +141,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( 'sighs in relief, biting her lower lip slightly.' );
 		//General Ending;
 		EngineCore.outputText( '\n\nYou think her breasts may have decreased in size somewhat, but with how massive they are it\'s hard to tell.  She blushes, trying her hardest to conceal the grinding against her chair.  "<i>Faith, you\'re good with yer hands,</i>" she veritably purrs.  "<i>Will ye be drinkin\' it here or takin\' the mug t\'go?</i>"' );
-		CoC.getInstance().player.gems -= 2;
+		CoC.player.gems -= 2;
 		EngineCore.statScreenRefresh();
 		//[Here][To Go];
 		var togo = null;
-		if( CoC.getInstance().player.gems >= 2 ) {
+		if( CoC.player.gems >= 2 ) {
 			togo = this.blackCatBeerToGo;
 		} else {
 			EngineCore.outputText( '\n\n<b>You\'re too poor to buy the mug.</b>' );
 		}
-		CoC.getInstance().flags[ kFLAGS.GOT_NIAMH_BEER ]++;
+		CoC.flags[ kFLAGS.GOT_NIAMH_BEER ]++;
 		EngineCore.choices( 'Here', this.drinkNiamhsBeerInTelAdre, 'To Go', togo, '', null, '', null, '', null );
 	};
 	//[Here];
 	Niamh.prototype.drinkNiamhsBeerInTelAdre = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.lactationQ() >= 300 && CoC.getInstance().player.biggestTitSize() >= 5 && Utils.rand( 2 ) === 0 && CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] > 0 ) {
+		if( CoC.player.lactationQ() >= 300 && CoC.player.biggestTitSize() >= 5 && Utils.rand( 2 ) === 0 && CoC.flags[ kFLAGS.MET_NIAMH ] > 0 ) {
 			EngineCore.outputText( '"<i>Skoal!</i>" you cheer as you down the delicious mug of booze.  The incredibly potent beverage warms you down to your chest and beyond.  The heat of the alcohol trails like fire down into your gut and warms your genitals, causing you to feel more aroused.  The buzz of the beverage makes you light headed, as if thinking had become a little more difficult.' );
 			EngineCore.outputText( '\n\nYou start to stumble as your sense of balance shifts and you realize the heat in your body is expanding outwards.  Looking down you see it isn\'t the heat that\'s expanding, but your own bountiful tits.  Each of your [fullChest] have gained two full cup sizes, and within seconds they\'ve gained even more.  Beneath your clothes your areola darken in color and you can feel each nipple throbbing with the need to expel its milky contents.' );
 			EngineCore.outputText( '\n\n"<i>Oh me, ma darlin\'.</i>"  Niamh comments, "<i>Those beauties o\' yours look to be burstin\' out o\' ye...</i>"  Your [armor] falls open as your enlargening breasts swell too large to be contained.  Each of your nipples fatten up and begin squirting a liquid that looks unusual.' );
@@ -165,13 +165,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			// New Years;
 			if( SceneLib.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
 				EngineCore.outputText( '\n\n"<i>Cor, well ah\'ll be.  Sweetie, you be leaking Champagne.</i>"  She gives your other nipple a tweak to fill a second shot glass.  The same clear liquid pours out, and the little champagne bubbles tickle your nipples to new heights of sensitivity, causing your ' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'pussy to wetten' );
 				}
-				if( CoC.getInstance().player.gender === 3 ) {
+				if( CoC.player.gender === 3 ) {
 					EngineCore.outputText( ' and ' );
 				}
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( '[eachCock] to stiffen' );
 				}
 				EngineCore.outputText( '.  "<i>Ye know, I got\'s an idea.  How\'s about ye stick by me for the next hour.  I\'m sure ye must be diein\' to drain those big\'uns of yours.  We might as well sell your champagne ta the patrons.  Whaddaya say Lassie?</i>"' );
@@ -202,38 +202,38 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		}
 		EngineCore.outputText( 'You yell "<i>Skoal!</i>" and upend the mug into your mouth, drinking greedily.  The warmth of the booze quickly follows the liquid itself - potent stuff, this is.' );
 		//PC is affected by Black Cat Beer item effects;
-		this.blackCatBeerEffects( CoC.getInstance().player, false, true );
+		this.blackCatBeerEffects( CoC.player, false, true );
 		//both output;
-		if( CoC.getInstance().time.hours <= 15 ) {
-			EngineCore.outputText( '\n\n"<i>Thanks for the business, ' + CoC.getInstance().player.mfn( 'laddie', 'lassie', 'customer' ) + '!  Remember, Niamh sells her Black Cat Beer every day from 8 until 4.</i>"  You nod your head in thanks and step away from the table.' );
+		if( CoC.time.hours <= 15 ) {
+			EngineCore.outputText( '\n\n"<i>Thanks for the business, ' + CoC.player.mfn( 'laddie', 'lassie', 'customer' ) + '!  Remember, Niamh sells her Black Cat Beer every day from 8 until 4.</i>"  You nod your head in thanks and step away from the table.' );
 		}
 		//16:00 ending;
 		else {
 			EngineCore.outputText( '\n\nThanks to your efforts, ' );
-			if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MET_NIAMH ] === 0 ) {
 				EngineCore.outputText( 'the cat girl\'s' );
 			} else {
 				EngineCore.outputText( 'Niamh\'s' );
 			}
 			EngineCore.outputText( ' breasts have had the last of their beer squeezed from them.  She sighs in relief, caressing her shrunken breasts; while still hovering at around G-cup size, they\'re much smaller than they are when the day starts for her.  "<i>Me thanks for the business; ye got the last mug for today.  Still, I\'ll be here tomorrow, full as ever.</i>" She sighs softly.  "<i>I regret to say that Niamh\'s Black Cat Beer doesn\'t look to be going out of business anytime soon.</i>"  She stands and gathers her coat, slipping her arms into the sleeves.  The nimble girl draws the garment across her buxom chest, buttoning the slightly strained buttons with deceptive ease.  Dressed properly, she starts away, a bag full of gems bouncing against her swaying hips. You watch her go, staring at her back until she walks out the door.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
+		CoC.flags[ kFLAGS.MET_NIAMH ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[To Go];
 	Niamh.prototype.blackCatBeerToGo = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>That\'ll be two more gems, then,</i>" the girl says.  "<i>Though, if your hands get any more skillful I might have to pay you to take it,</i>" she flirts.  You pass over two more gems, and she gratefully bags them and beams you a smile.' );
-		CoC.getInstance().player.gems -= 2;
+		CoC.player.gems -= 2;
 		EngineCore.statScreenRefresh();
 		//both output;
-		if( CoC.getInstance().time.hours <= 15 ) {
-			EngineCore.outputText( '\n\n"<i>Thanks for the business, ' + CoC.getInstance().player.mfn( 'laddie', 'lassie', 'customer' ) + '!  Remember, Niamh sells her Black Cat Beer every day from 8 until 4.</i>"  You nod your head in thanks and step away from the table.' );
+		if( CoC.time.hours <= 15 ) {
+			EngineCore.outputText( '\n\n"<i>Thanks for the business, ' + CoC.player.mfn( 'laddie', 'lassie', 'customer' ) + '!  Remember, Niamh sells her Black Cat Beer every day from 8 until 4.</i>"  You nod your head in thanks and step away from the table.' );
 		}
 		//16:00 ending;
 		else {
 			EngineCore.outputText( '\n\nThanks to your efforts, ' );
-			if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MET_NIAMH ] === 0 ) {
 				EngineCore.outputText( 'the cat girl\'s' );
 			} else {
 				EngineCore.outputText( 'Niamh\'s' );
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( ' breasts have had the last of their beer squeezed from them.  She sighs in relief, caressing her shrunken breasts; while still hovering at around G-cup size, they\'re much smaller than they are when the day starts for her.  "<i>Me thanks for the business; ye got the last mug for today.  Still, I\'ll be here tomorrow, full as ever.</i>" She sighs softly.  "<i>I regret to say that Niamh\'s Black Cat Beer doesn\'t look to be going out of business anytime soon.</i>"  She stands and gathers her coat, slipping her arms into the sleeves.  The nimble girl draws the garment across her buxom chest, buttoning the slightly strained buttons with deceptive ease.  Dressed properly, she starts away, a bag full of gems bouncing against her swaying hips. You watch her go, staring at her back until she walks out the door.' );
 		}
 		EngineCore.outputText( '\n\n' );
-		CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
+		CoC.flags[ kFLAGS.MET_NIAMH ]++;
 		//PC gains 1x BCB;
 		SceneLib.inventory.takeItem( ConsumableLib.BC_BEER, SceneLib.telAdre.barTelAdre );
 	};
@@ -249,21 +249,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	Niamh.prototype.talkToNiamh = function() {
 		EngineCore.clearOutput();
 		//(first time only);
-		if( CoC.getInstance().flags[ kFLAGS.TALKED_NIAMH ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TALKED_NIAMH ] === 0 ) {
 			EngineCore.outputText( 'You ask the cat-girl to tell you about her past.' );
 			EngineCore.outputText( '\n\n"<i>The name\'s Niamh - like the cat noise, eh?  Nya-m? - that\'s who I am.  I used to be a normal lass... then I stumbled through the portals to this blasted world.  Made the mistake of pickin\' up some whiskered fruit an\' giving them a samplin\'... grew these blasted cat-parts!  So I avoided that lake like th\' plague fer a while... ended up in a desert.  Don\'t know how that happened.  Now, I\'m completely lost, and the thirst is killing me - but then, I hear singing.  I charge desperately across a dune, and what do I find?  Some gal sitting in the sand, four big ol\' tits hanging out, and guzzling away at a glass of beer - whenever she\'s empty, she just squirts some more out of her nipples.</i>"' );
 			EngineCore.outputText( '\n\nShe shrugs, which does impressive things to her cleavage, then notices your downward glance and taunts you with her laugh, which only causes her huge breasts to jiggle all the more.  "<i>Aye, just like what I got here.  So, anyway, I beg her to share a drink with me, and she kindly agrees.  I\'m so thirsty, and the beer\'s so good, that, well, I stay there drinking for a good long while...</i>"' );
 			EngineCore.outputText( '\n\nShe trails off, then shakes her head sadly, "<i>I don\'t really know what happened next; I figure we must have gotten so drunk together that I asked her to cast the same sort of spell on me.  All I know is, I woke up with a killer headache, and monster tits swollen with beer - and the witch o\' the sands is gone.  I somehow managed to lug myself around long enough to find... this city.  That nice fox ' );
-			if( CoC.getInstance().time.hours < 15 ) {
+			if( CoC.time.hours < 15 ) {
 				EngineCore.outputText( 'who usually sits over yonder ' );
 			}
 			EngineCore.outputText( 'helped me in and set me up here so I can... lighten me load.  That bulk\'s basically all brew; I milk it out all the time, but I just keep making more of th\' stuff... I don\'t know any way to stop.</i>"  She shakes her head and sighs.  "<i>Ironically, it\'s kept a roof over my head since I got here.  Folks are happy to pay for Niamh\'s Black Cat Beer.  So, did you want some, or are you done here?</i>" she asks.' );
-			CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
-			CoC.getInstance().flags[ kFLAGS.TALKED_NIAMH ]++;
+			CoC.flags[ kFLAGS.MET_NIAMH ]++;
+			CoC.flags[ kFLAGS.TALKED_NIAMH ]++;
 		}
 		//(repeated);
 		else {
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You clop up and stand awkwardly' );
 			} else {
 				EngineCore.outputText( 'You pull up a chair and sit' );
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		}
 		//[Beer] [Leave];
 		var beer = null;
-		if( CoC.getInstance().player.gems >= 2 ) {
+		if( CoC.player.gems >= 2 ) {
 			beer = this.getANiamhBeer;
 		}
 		EngineCore.choices( 'Beer', beer, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
@@ -327,8 +327,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	};
 	//Black Cat Beer Wears Off: This message is displayed eight hours after the last drink.;
 	Niamh.prototype.blackCatBeerExpires = function() {
-		EngineCore.dynStats( 'spe', 4.5, 'int', 4.5, 'lib', (-1 * CoC.getInstance().player.statusAffectv2( StatusAffects.BlackCatBeer )) );
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.BlackCatBeer );
+		EngineCore.dynStats( 'spe', 4.5, 'int', 4.5, 'lib', (-1 * CoC.player.statusAffectv2( StatusAffects.BlackCatBeer )) );
+		CoC.player.removeStatusAffect( StatusAffects.BlackCatBeer );
 		EngineCore.outputText( '\n<b>The warm, fuzzy feeling finally dissipates, leaving you thinking clearer, focusing better, and less horny.  It was nice while it lasted, but it\'s also good to be back to normal.  Still, a part of you kind of wants another beer.</b>\n' );
 	};
 	Niamh.prototype.giveNiamphBimboLiquer = function() {
@@ -344,17 +344,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Heya, favored customer,</i>" the busty kitty greets as you approach.  "<i>I have a favor to ask!  My drink\'s empty, and I get bored of me own brew,</i>" Niamh explains.  "<i>Would ya mind fetchin\' me somethin\', or are ye gonna force me to sample me own goods once more?</i>"' );
 		EngineCore.outputText( '\n\nYou pause, contemplating your options.  While you know of many drinks The Wet Bitch sells, most of them... aren\'t exactly fit for human - or feline - consumption, in your opinion.  You\'re stricken with a particularly naughty thought.  Perhaps you could fetch something... ' );
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOLQ ) ) {
+		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
 			EngineCore.outputText( '"bubbly" for her, in the form of the Bimbo Liqueur you got from the imp lord, or ' );
 		}
 		EngineCore.outputText( 'maybe even a Succubus Milk?  You\'ll have to consider your options.  On the other hand, of course, something that corruptive would probably mutate her booze-filled boobs, most likely forcing her out of Tel\'Adre altogether... and may fall back on your own head, to boot.  What do you do?' );
 		//[Bimbo][Succubus][Maybe Later] (spacebar should select 'Maybe Later' as long as it's a repeatable;
 		EngineCore.outputText( '\n\n(Editors Note: Succubi Milk Option Currently in beta)\n\n\n' );
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOLQ ) ) {
+		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
 			EngineCore.addButton( 0, 'Bimbo', this.giveNiamphBimboLiquer );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) ) {
+		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
 			EngineCore.addButton( 1, 'S.Milk', this.giveNiamphSuccubiMilk );
 		}
 		EngineCore.addButton( 4, 'Back', this.maybeLaterNiamh );
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You chuckle nervously and shake your head, citing your ignorance of all things alcoholic.  Niamh sighs resignedly, reaching forward and grabbing one of her elongated nipples.  With practiced ease, she fills her flagon and takes a deep swig of it.  "<i>Can\'t blame me for wantin\' a change of pace,</i>" she mutters.  "<i>Now, would ye like your own glass of Black Cat Beer, or are ya gonna keep starin\' at me tits?</i>"' );
 		var beer = null;
-		if( CoC.getInstance().player.gems >= 2 ) {
+		if( CoC.player.gems >= 2 ) {
 			beer = this.getANiamhBeer;
 		} else {
 			EngineCore.outputText( '\n\n<b>You\'re too poor for beer.</b>' );
@@ -378,16 +378,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( 'You grab Niamh\'s glass and one more and head off, making sure to turn a corner before commandeering an empty table.  Plunking the mugs down in front of you, you mutter to yourself as she moves away.' );
 		//[if sucmilk];
 		if( !bimbo ) {
-			CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK );
+			CoC.player.consumeItem( ConsumableLib.SUCMILK );
 			EngineCore.outputText( '\n\nYou uncork your bottle of Succubus Milk and pour half into each mug, loving the way the thick, creamy fluid flows.  With each containing a good amount of the stuff, you scoop them up and start towards Niamh.  Her expression brightens when she notices your approach, and she giggles when she regards the two glasses of milk in your hands.  "<i>Are ye making fun of me?</i>" she remarks coyly, patting one of her beer-filled boobs gently.  "<i>Ah well, I haven\'t had a good glass o\' milk in too long... this is milk, yeah?</i>"' );
 			EngineCore.outputText( '\n\nNiamh reaches for a mug, but you draw it away from her questing hand, instead sinking it into her considerable expanse of cleavage.  A devious grin flits across your features as she subsequently shivers from the cold glass between her fluid-filled bosom.  "<i>Wh-why you...</i>" she gasps, quickly snatching the drink and rubbing warmth back into her goosebumped flesh.  "<i>You scoundrel...</i>"' );
 			EngineCore.outputText( '\n\nYou respond by raising your glass in toast, and she grudgingly complies.  Your mugs clink together, and she wastes no time in downing the creamy milk.  You raise your own drink to your lips and pretend to sip, not wanting anything to do with what\'s about to happen.  "<i>Went down smooth,</i>" she comments, licking her lips.  "<i>Say, there... mind if I have a swig o\' yours, too?</i>"  You readily hand the flagon over, marveling at how fast she chugs it.  Niamh gives a happy little burp, and you scoot back a bit in anticipation.' );
 		}
 		//[if bimbo liqueur];
 		else {
-			CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOLQ );
+			CoC.player.consumeItem( ConsumableLib.BIMBOLQ );
 			EngineCore.outputText( '\n\nYou pop the seal of your bottle of Bimbo Liqueur, recoiling at the cloying, spiced scent that paints visions of a slutty slave-girl\'s slightly spread folds.  With a grimace, you pour the potent stuff evenly into the glasses.  Hefting the mugs, you rise and start towards Niamh.' );
-			EngineCore.outputText( '\n\nHer expression brightens when she notices your approach, and she giggles when she regards the quarter-full mugs of liqueur.  "<i>What, that\'s it?</i>" she quips curiously.  "<i>This stuff had better pack some punch, ' + CoC.getInstance().player.mf( 'lad', 'lass' ) + '.</i>"  You assure her that it will knock her socks off.' );
+			EngineCore.outputText( '\n\nHer expression brightens when she notices your approach, and she giggles when she regards the quarter-full mugs of liqueur.  "<i>What, that\'s it?</i>" she quips curiously.  "<i>This stuff had better pack some punch, ' + CoC.player.mf( 'lad', 'lass' ) + '.</i>"  You assure her that it will knock her socks off.' );
 			EngineCore.outputText( '\n\nNiamh reaches for a mug, but you draw it away from her questing hand, instead sinking it into her considerable expanse of cleavage.  A devious grin flits across your features as she subsequently shivers from the cold glass between her fluid-filled bosom.  "<i>Wh-why you...</i>" she gasps, quickly snatching the drink and rubbing warmth back into her goosebumped flesh.  "<i>You scoundrel...</i>"' );
 			EngineCore.outputText( '\n\nYou respond by raising your glass in toast, and she grudgingly complies.  Your mugs clink together, and she wastes no time in downing the cloudy liqueur.  You raise your own drink to your lips and pretend to sip, not wanting anything to do with what\'s about to happen.  "<i>Burned pretty good,</i>" she comments, licking her lips.  "<i>Say, there...mind if I have a swig o\' yours, too?</i>"  You readily hand the flagon over, marveling at how fast she chugs it.  Niamh gives a happy little burp, and you scoot back a bit in anticipation.' );
 		}
@@ -396,7 +396,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( '\n\nAfter several moments, a small groan escapes her lips, her slender hand flying under the table to press against her suddenly gurgling belly.  She looks up at you, horrified, and you only offer a shrug in response.  The increasingly panicked catgirl tries to rise, toppling her table and sweeping aside her empty flagons.  With a surprised cry, she loses her balance and falls onto her cushiony butt, her gigantic boob-barrels flopping onto her lap.  She tries to speak, but can only moan as a shudder runs through her.  Her hand is the first thing to be affected.  Her ebony skin slowly shifts to a blue tone, and she grunts as two nubs poke through her white bob-cut; the fur of her tail recedes, replaced with glimmering blue skin.  The tip of the appendage shivers and changes as well, going from rounded to spade-tipped.' );
 			EngineCore.outputText( '\n\nNiamh abruptly cries out in ecstasy as her libido levels skyrocket and begins to knead her tits fervishly.  You can tell she\'s getting off on the near-electric thrill of their sensitivity.  Equal parts aroused and amused, you\'re torn between the desire to watch and the need to make yourself scarce before the Watchmen show up to find you at the scene of a \'demonification\'.  As the newly-azure girl raises a teat to her mouth and suckles herself, the other hand dropping to her sopping, needy loins, you decide in favor of discretion and pull yourself away from the spectacle, making sure to back up in mock-horror.  Curiously, as Niamh drinks her own \'lactation\', the golden coloration of the brew dribbling out around her lips darkens.  From beer to ale, you muse.  As you exit the door of the tavern, four members of the town guard slip into your place; you make sure to give them the benefit of your confused, terrified acting.' );
 			EngineCore.outputText( '\n\nA crowd of spectators follows as they cart her out, allowing you to slip into the group and watch the proceedings.  Poor Niamh is thrown out of the city unceremoniously, her corrupted bosom spewing ale onto the hot desert sand.  Writhing with a combination of fury and lust, the newly-minted devil\'s familiar screams profanities and threats between moans, not even bothering to move from her face-down position.  You get one last look at her before the doors close, shutting her out of the desert city completely.  You linger around the city until you figure she\'d have moved away from the gate, then make your own way out.' );
-			CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] = 1;
+			CoC.flags[ kFLAGS.NIAMH_STATUS ] = 1;
 			EngineCore.dynStats( 'cor', 5 );
 		}
 		//[if bimbo liquor];
@@ -406,31 +406,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( '\n\nOnly the sight of her still-swelling butt, pants tearing and hips swaying in blatant disregard of the chair stuck to her, prevents you from sampling the stuff.  Better to let bimbofied dogs lie, you figure.  The straining armrests finally splinter from the pressure, embedding a few wooden shards into her partially bared booty.  "<i>Cripes!</i>" she exclaims, trying to turn herself enough to reach the stinging slivers, "<i>How did, like, me... big... wobbly... butt...</i>"  She trails off, a blush of arousal flying across her features as she regards her new-and-improved posterior.  Ignoring her still-\'lactating\' nipples, she presses a hand deeply into her double-wide ass, cooing as it sinks into the blubbery bubble-butt.  Still applying considerable pleasure, she slides her hand down to her thickened thigh - causing the cheek to flop up and jiggle all about.' );
 			EngineCore.outputText( '\n\nThe enamored catgirl\'s attentions inevitably shift to her unattended lady-bits, and she promptly begins rubbing her still-clothed groin.  "<i>Fai... Fae... Omigosh, this feels good!</i>" the increasingly-ditzy Niamh moans.  The catgirl\'s cries quicken, and you can fairly easily assume what that implies.  Fighting against the urge to give her some \'assistance\', you decide instead to duck out, unwilling to be nearby when the inevitable Watch response happens.  As you slip out the door, four guardsmen slip in; you make sure to give them the benefit of a confused, scandalized expression.  Commotion and the sounds of upending furniture ring out from inside the bar, and after a few minutes, a struggling Niamh is carried out by three of the four.' );
 			EngineCore.outputText( '\n\nA crowd of spectators follow, allowing you to slip into the group and watch the proceedings.  A very confused Niamh is placed, firmly but surprisingly gently, outside of the bounds of the city.  A guard explains to her that, after that display and the transformative effects forced upon the poor watchman who was the subject of her... motherly affections... she and her bosom-brew can\'t be allowed in Tel\'Adre.  She nods, her face curiously blank of any emotion... except maybe lust.  As the gates are closing, you hear her call, "<i>Hey, can I masturbate now, pretty-please?</i>" and then, with a slam, she\'s gone.  You linger around the city until you figure she\'d have moved away from the gate, then make your own way out.' );
-			CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] = 2;
+			CoC.flags[ kFLAGS.NIAMH_STATUS ] = 2;
 		}
-		CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = 25;
+		CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = 25;
 		EngineCore.dynStats( 'cor', 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//24 hours later, random encounter on the Plains;
 	Niamh.prototype.niamhPostTelAdreMoveOut = function() {
 		//Move her into the bazaar;
-		CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = -1;
+		CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = -1;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Upon one of your routine searches, you\'re given pause as a half-coherent mess of a song comes tumbling across the grasses.  You move toward the cacophony of sound, fairly confident in what you will find.  Indeed, stumbling and shambling towards you comes a ' );
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
 			EngineCore.outputText( 'demonic-looking' );
 		} else {
 			EngineCore.outputText( 'hourglass-shaped' );
 		}
 		EngineCore.outputText( ' Niamh, and it\'s obvious she\'s completely hammered.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
-			EngineCore.outputText( '"<i>W\'hey there ' + CoC.getInstance().player.mf( 'boyo', 'big girl' ) + ', wanna...g\'forrra goooo-gfh...time?</i>"' );
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
+			EngineCore.outputText( '"<i>W\'hey there ' + CoC.player.mf( 'boyo', 'big girl' ) + ', wanna...g\'forrra goooo-gfh...time?</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>W\'heeeey, honey!  I never thought I\'d see yaaaagain!</i>"' );
 		}
 		EngineCore.outputText( ' she slurs, struggling to stay upright between her impaired motor skills and her absolutely overfilled chest.  "<i>Aaah\'ve been drinkin\' me \'shtash\',</i>" she explains, noticing your gaze.  "<i>Canno\' leddit go\'tuh waste!</i>" You nod your agreement, sneaking a glance behind her to observe the twin trails of ' );
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
 			EngineCore.outputText( 'dark' );
 		} else {
 			EngineCore.outputText( 'light' );
@@ -451,13 +451,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Of course you do!  You went through the trouble of getting her boobs to their current condition; drinking from the tap is exactly what you had in mind.  A smile brightens Niamh\'s features, and she plops down heavily on the ground, waving you over to sit next to her.  ' );
 		//[bimbo version];
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 			EngineCore.outputText( 'She does her best to jiggle her huge champagne-laden tits.  "<i>Like, come \'n\' get it!</i>" she beckons.  "<i>It\'s all bubbly and tickly and yummy.</i>"  She giggles, belches hugely, then demurely puts her fingers across her mouth.  "<i>Like, sorry; my tummy\'s all full of bubbles too.</i>"  She giggles again; looks like that bimbo liqueur really down-shifted her mental gear.  But, hell, that\'s all right; she\'s only of any importance for what\'s in those gorgeous great boobs of her, not her brain.  You confidently stride over to her and sit down, positioning yourself where you can most easily access her breasts.' );
 			EngineCore.outputText( '\n\nShe gives you an empty-headed smile and starts to purr, tail lazily swishing back and forth in anticipation.  You reach out and take hold of one weighty mammary, making her moan throatily; pale frothy liquor immediately starts to seep from it, and you waste no time in taking the nipple between your lips.  Mmm... the taste is like nothing you have ever tried before; sweet and sugary and rich... kinda gooey, actually.  It froths and fizzes madly in your mouth, tickling as you swallow and making you repress a giggle of delight.' );
 			EngineCore.outputText( '\n\n"<i>Yummy, isn\'t it?</i>" Niamh purrs.  "<i>Like, drink up; I gots lots more where that came from!</i>"  She giggles, trying to push her breast forward; with how big it is, she can\'t really reach around to force you into it like she\'d like.' );
 			EngineCore.outputText( '\n\nStill, refusing such a delicious drink is not something a true connoisseur does; you nuzzle eagerly into her swollen breast.  A little too hard, in hindsight; the pressure makes the vast quantity of champagne inside come spurting into your mouth, filling you up with sweet richness and forcing you to chug it down to avoid choking.  Once you get the rhythm right, though, it\'s much easier; you hardly need to suckle, just keep squeezing jet after glorious jet down your thirsty gullet.' );
 			EngineCore.outputText( '\n\n...This stuff is, like, way too freaking good!  Er?  Did you really just think that?  Come to think of it, it\'s getting harder to think, like, about anything... but izzat really so bad?  What do you need to think about, other than this sweet, sweet booze?' );
-			this.bimboChampagne( CoC.getInstance().player, false, false );
+			this.bimboChampagne( CoC.player, false, false );
 			EngineCore.outputText( '\n\nGiggling happily around your boozy boob of love, you start to scrape your crotch against the ground and rub your bouncy big boobs against Niamh\'s; that feels just sooo good!  Niamh is meowing and purring and occasionally burping; she, like, really likes you sucking on her... that\'s good, since you like sucking on her too.  You move one of your hands down between her legs... ooh, she\'s, like, not wearing any panties... what a naughty, naughty kitty-girl! You grin into her boob and, still sucking, start to play with her little pleasure button and her wet, sticky girly bits.' );
 			EngineCore.outputText( '\n\nNiamh yowls and shudders, her pussy-parts squeezing around your fingers, and then, all of a sudden, she clenches up and lets go.  Girly-goo drizzles into your hand, getting you all sticky, and her big boobies suddenly start spurting... uh, whatsit, sham-pain?  From her big ol\' nipples.  The other breast starts spraying the grass, which is a waste of good bubbly brew, but you get more than your fair share since her other breast is gushing into your mouth and you swallow and gulp and slurp as fast as you can.  But, in the end, you just can\'t keep up and you, like, have to let go.  Have to.' );
 			EngineCore.outputText( '\n\nFinally, Niamh\'s boobgasm comes to an end and she falls back on her big jiggly butt.  "<i>Like, that feels so much better than when I put my big ol\' boob in my own mouth...  Hey, [name]... you, like, okay?</i>" she asks.  She half-crawls over to you, then giggles.  "<i>You, like, got a big sloshy belly on you now, [name]!  You look so funny with this giant gutty-gut.</i>"' );
@@ -476,9 +476,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( '\n\nFalling?' );
 			EngineCore.outputText( '\n\nYou wake with a start, swiftly rolling to your feet and trying to shake the lingering cobwebs out of your head.  You quickly spot Niamh, still kneeling and fixing you with a wry smirk.  "<i>I got a bit overzealous with the nursing, I suppose,</i>" she mutters, as close to an apology that you\'ll probably get from her.  "<i>After ya went under, ya kept clawing at my tits for a bit, so I had to hop off.  Kept myself busy while you were asleep, at least.</i>"' );
 			EngineCore.outputText( '\n\nGlancing around, you can\'t help but agree, judging by the lake of ale surrounding you both.  Luckily, her self-entertainment seems to have shrunk her normally-gigantic tits to a more manageable size, and with your assistance, she\'s soon back on her feet.  "<i>I heard there was a form of refuge for... well, differently-blessed lassies like meself,</i>" she says, somewhat drily, patting the top of her huge azure bosom for emphasis.  "<i>I\'m heading there.  Maybe I\'ll find you there eventually, hey?</i>"' );
-			EngineCore.outputText( '\n\nShe gives you a little punch in the shoulder, shooting you a wink and walking away.  "<i>Don\'t think I forgot about how I got like this,  ' + CoC.getInstance().player.mf( 'boy', 'gal' ) + ', ,</i>" she yells over her shoulder, stopping you in your tracks as you turn to leave.  Several moments pass before she finally turns around and resumes her departure.' );
+			EngineCore.outputText( '\n\nShe gives you a little punch in the shoulder, shooting you a wink and walking away.  "<i>Don\'t think I forgot about how I got like this,  ' + CoC.player.mf( 'boy', 'gal' ) + ', ,</i>" she yells over her shoulder, stopping you in your tracks as you turn to leave.  Several moments pass before she finally turns around and resumes her departure.' );
 			EngineCore.outputText( '\n\nJust before you move out of earshot, a last word from Niamh floats to your ears.  You can\'t be sure, but... did she say... "<i>Thanks?</i>"' );
-			this.blackCatBeerEffects( CoC.getInstance().player, false, true );
+			this.blackCatBeerEffects( CoC.player, false, true );
 			//[end encounter]*/;
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -536,27 +536,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	Niamh.prototype.removeBimboChampagne = function() {
 		EngineCore.outputText( '\n<b>Whoah!  Your head is clearing up, and you feel like you can think clearly for the first time in forever.  Niamh sure is packing some potent stuff!  You shake the cobwebs out of your head, glad to once again be less dense than a goblin with a basilisk boyfriend.</b>' );
 		EngineCore.dynStats( 'spe', 10, 'lib', -1 );
-		if( CoC.getInstance().player.statusAffectv2( StatusAffects.BimboChampagne ) > 0 ) {
-			CoC.getInstance().player.breastRows[ 0 ].breastRating -= CoC.getInstance().player.statusAffectv2( StatusAffects.BimboChampagne );
+		if( CoC.player.statusAffectv2( StatusAffects.BimboChampagne ) > 0 ) {
+			CoC.player.breastRows[ 0 ].breastRating -= CoC.player.statusAffectv2( StatusAffects.BimboChampagne );
 			EngineCore.outputText( '  As the trecherous brew fades, your [chest] loses some of its... bimboliciousness.  Your back feels so much lighter without the extra weight dragging down on it.' );
 		}
-		if( CoC.getInstance().player.statusAffectv3( StatusAffects.BimboChampagne ) > 0 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.BimboChampagne ) > 0 ) {
 			EngineCore.outputText( '  At the same time, your [vagina] slowly seals itself up, disappearing as quickly as it came.  Goodbye womanhood.' );
-			CoC.getInstance().player.removeVagina();
+			CoC.player.removeVagina();
 		}
-		if( CoC.getInstance().player.statusAffectv4( StatusAffects.BimboChampagne ) > 0 ) {
-			CoC.getInstance().player.buttRating -= CoC.getInstance().player.statusAffectv4( StatusAffects.BimboChampagne );
+		if( CoC.player.statusAffectv4( StatusAffects.BimboChampagne ) > 0 ) {
+			CoC.player.buttRating -= CoC.player.statusAffectv4( StatusAffects.BimboChampagne );
 			EngineCore.outputText( '  Of course, the added junk in your trunk fades too, leaving you back to having a [butt].' );
 		}
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.BimboChampagne );
-		CoC.getInstance().player.genderCheck();
+		CoC.player.removeStatusAffect( StatusAffects.BimboChampagne );
+		CoC.player.genderCheck();
 		EngineCore.outputText( '\n' );
 	};
 	Niamh.prototype.bazaarNiamh = function() {
 		EngineCore.clearOutput();
 		//Bimbo Niamh:;
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_NIAMH_BAZAAR_MET ] === 0 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
+			if( CoC.flags[ kFLAGS.TIMES_NIAMH_BAZAAR_MET ] === 0 ) {
 				EngineCore.outputText( 'As you enter the bazaar, you hear a familiar voice calls out to you. "<i>Hey!  [name]!  Over here!  Like, it\'s me!</i>"' );
 				EngineCore.outputText( 'You follow the sound and find Niamh seated in a corner of the bazaar.  She is totally naked save for a small strip of cloth around her loins; her huge breasts lie exposed for all the world to admire.  She\'s surrounded by a small entourage of assorted beings; some are either hoping to earn a drink or else are simply here to ogle the massively buxom catgirl, others have evidently already drunk their fill, given their swollen bellies, feminine forms and platinum blonde coloration.  She grins as you approach.' );
 				EngineCore.outputText( '"<i>Like, I was just roaming the plains, trying to, like, figure out where I was gonna go, and I found this place.  Isn\'t it, like, so neat here?</i>"  She has apparently already forgotten that this was her destination all along!  "<i>All these cool people who know how to have a totally good time!  Not like that dump in the desert, fulla buzzkills.  Yeah, I\'m gonna, like, party all night and day here, [name].</i>" She giggles yet again.  "<i>But you\'re still, like, my number one customer.  So... you, like, wanna do something?</i>" she asks.' );
@@ -575,16 +575,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			//(Approach:;
 			EngineCore.outputText( 'Pushing your way past the drugged, sloshing, and fitful sleepers, you approach the encircled cat girl.  You catch her eye, and she waves you over.  "<i>Welcome to me corner,</i>" she snickers, glancing around at all of her victims.  "<i>I don\'t suppose ya want a drink o\' the brew?</i>"  So saying, she lays her hands atop her ponderous bosom, leaning forward and smiling wickedly.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_NIAMH_BAZAAR_MET ]++;
+		CoC.flags[ kFLAGS.TIMES_NIAMH_BAZAAR_MET ]++;
 		//[Bizarre Bazaar, beer purchase, bimbo and corrupted version];
 		var drink = null;
-		if( CoC.getInstance().player.gems >= 2 ) {
+		if( CoC.player.gems >= 2 ) {
 			drink = this.bazaardNiamhDrink;
 		} else {
 			EngineCore.outputText( '\n\n<b>You\'re too poor to get a drink.</b>' );
 		}
 		var fuck = null;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			fuck = this.bazaarSex;
 		}
 		EngineCore.choices( 'Get A Drink', drink, 'Tit-Fuck', fuck, '', null, '', null, 'Back', SceneLib.bazaar.enterTheBazaar );
@@ -592,10 +592,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	//[bimbo/corrupted beer drink texts];
 	Niamh.prototype.bazaardNiamhDrink = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.gems -= 2;
+		CoC.player.gems -= 2;
 		EngineCore.outputText( 'Approaching the fallen-from-grace (yet completely content) catgirl, you toss her a couple gems and request a glass of the house drink.' );
 		//Bimbo:;
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 			EngineCore.outputText( '\n\nThe dark-skinned blonde giggles, snatching up the gems and jingling them in the palm of her hand. "<i>Like, that\'s totally cool with me, but you\'re gonna have to serve yourself, y\'know?</i>" she jiggles her mountainous mammaries, the alcoholic beverage softly, yet audibly, sloshing inside them.  "<i>I\'m a wee bit too big to be, like, serving you.</i>"  Sure enough, when she stretches her arms to demonstrate, her hands can\'t even reach her nipples anymore.  She titters, which makes the random drunkards around her giggle in amusement.' );
 			EngineCore.outputText( '\n\nYou approach her leaking teats, casually swatting aside a giggling, totally plastered imp with long, lady-like locks of strawberry blonde, curly hair wreathing his (her?) features.  You contemplate if you want to just milk some into a bottle for later consumption, or have a drink here and now.' );
 			EngineCore.choices( 'Drink', this.drinkFromZeTap, 'Bottle', this.getBimboChampFromNiamh, '', null, '', null, '', null );
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( '\n\nThe wonderful taste explodes into your mouth as her well-trained teat gushes forth its precious elixir.  Delightfully fizzy, the frothy fluid is a rich, sugary-sweet delicacy, with a strangely gooey texture that just makes it all the yummier to swallow.  You gulp and slurp and suckle, dimly aware that somebody else has taken advantage of Niamh\'s free nipple.  A strange tingling feeling sweeps through your body; like pins and needles, only wonderfully pleasurable, so much so that you can feel your mind starting to dim.  Desperate for greater pleasure you suck harder and harder, gorging yourself on as much fluid as you can get, as fast as you can make it pour into your mouth - everything seems to fade away into nothing except the wonderful taste of this fizzy booze and your insatiable thirst for more of it.  You just keep drinking and drinking and, like, it just feels better and better - you find your mind totally shutting down...' );
 		EngineCore.outputText( '\n\nYou snap back to your senses with a jolt, finding yourself flat on your back and gazing up at the sky.  "<i>Like, are you alright, [name]?</i>" Niamh asks, amused.  "<i>My fizzy titties, like, really hit some people harder than they can, y\'know, deal with.  You okay?</i>"' );
 		EngineCore.outputText( '\n\nYou push yourself upright and assure the pretty catgirl that you feel, like, super-duper wonderful!  You punctuate this declaration with a burp as the sudden motion makes all the yummy bubbles in your belly dance, and then you giggle at how naughty that was.' );
-		this.bimboChampagne( CoC.getInstance().player, false, false );
+		this.bimboChampagne( CoC.player, false, false );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//grabbing Bim Cham in a to-go box;
@@ -628,10 +628,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	};
 	//[Bazaar sex];
 	Niamh.prototype.bazaarSex = function() {
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		var y = x + 1;
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
+		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 			//Bimbo:Fuck a Bimbo Catgirl and Suck Dem Boozetits Like You Got a Pair (Or at least a dick; gotta have one of them);
 			EngineCore.outputText( 'As you approach the bimbofied cat-girl, your eyes wander lustily toward her huge, beer-lactating tits.  Seeing you stare, she giggles and shakes her chest enticingly, letting the huge, liquid-filled mounds wobble.  "<i>Like, like what you see, [name]?</i>" she purrs, her long black tail wagging excitedly behind her.' );
 			EngineCore.outputText( '\n\nYou grab the horny bimbo by the arm and lead her off to an empty tent that she identifies as her own.  As soon as the flaps close, the cat-girl undoes her loincloth, letting the fabric flutter to the ground and exposing her nude body in all its glory.  Her massive tits sway heavily, a little trickle of beer leaking from her nipples as she cups the massive mounds.  With a gentle push, you knock Niamh onto the bed, spreading her legs to get a good look at her eager, wanton lips, glistening in the dim light.' );
@@ -641,9 +641,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( '\n\nAfter several minutes of tit-fucking your brainless beer-girl, you feel an orgasm welling up inside your [balls].  You pick up the pace, hammering your hips into her tits as hard as you can until she cries out, fizz leaking down her chin, and soon mixing with the first thick streams of your ejaculate. You roar and cum, giving the bimbo a creamy pearl necklace as it jets out from between her thick tits.' );
 			EngineCore.outputText( '\n\nGiggling drunkenly, the girl slurps up the little extras that stain her chin and cheeks, her long cat-tongue flicking bits of spooge around mindlessly as you wind down, now just dribbling a little lake between her breasts.' );
 			EngineCore.outputText( '\n\n"<i>Thash was - HIC - shuper shexy, [name],</i>" the drunken keg-girl giggles, staggering to her feet and stumbling toward the Bazaar.  "<i>Like, we shud do thish again shoon!</i>" she adds, prancing out with her new pearl necklace on full display.' );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'int', -0.5, 'sen', -2 );
-		} else if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
 			// Succubi Milk
 		}
 		{
@@ -661,7 +661,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( '\n\nHe picks up one of the flasks and screws off the cap, leaning forward and wafting the drink to his nostrils.  "<i>Not as potent as the real stuff,</i>" he confirms, recapping the thing and setting it next to the others.  "<i>I can do it,</i>" he decides, "<i>but it will take a good amount of time and a good amount of effort.  Five hundred gems and I\'ll have it done by tomorrow.</i>"' );
 		var yep = null;
 		//[Yep][Nope];
-		if( CoC.getInstance().player.gems < 500 ) {
+		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( '<b>\n\nYou\'re too poor to get Sean to make you bimbo liqueur.</b>' );
 		} else {
 			yep = this.yeahSeanLetsBimbooze;
@@ -674,14 +674,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( '"<i>Perfect!</i>" he says, moving forward to gather up the flasks.  "<i>You can go, now.  This is a delicate process, and any mistakes may lead to an outbreak of large-breasted and dim-witted fauna.</i>"  He pauses, gauging your expression.  "<i>... Which is <b>not</b> a good thing,</i>" he adds.  Almost as an afterthought, he extends his hand toward the table, saying, "<i>I\'d like the payment now, if you\'d please.</i>"  You separate out the appropriate number of gems for the demon.  He snatches it up and idly throws it behind him, where you hear a clunk and tinkle as it strikes something and rolls a bit.' );
 		EngineCore.outputText( '\n\n"<i>Now shoo, I must do work!</i>" he scolds, ushering you out of the cave.  "<i>Come back tomorrow!</i>"  Satisfied, you leave his shop.' );
 		EngineCore.doNext( EventParser.playerMenu );
-		CoC.getInstance().player.gems -= 500;
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOCH );
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOCH );
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOCH );
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOCH );
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOCH );
+		CoC.player.gems -= 500;
+		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
+		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
+		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
+		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
+		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 25;
+		CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 25;
 	};
 	//back to camp;
 	//remove 5 bimbo champagnes from inventory and also 500 gems;
@@ -693,14 +693,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		EngineCore.outputText( 'He scoops a familiar-looking bottle from a tabletop, passing it off to you.  "<i>Be somewhat careful with this,</i>" he warns as you take it.  "<i>The original\'s deleterious effect on the mind has been duplicated, I assure you.</i>"\n\n' );
 		EngineCore.outputText( 'You drop the vial into a pouch on your person.\n\n' );
 		//bimbo liqueur aqcquired;
-		CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 0;
+		CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 0;
 		SceneLib.inventory.takeItem( ConsumableLib.BIMBOLQ, SceneLib.dungeon2Supplimental.incubusShop );
 	};
 	// [LEAVE];
 	Niamh.prototype.leaveWithBeerTits = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The offer is tempting but right now you\'d much rather deal with your boozy boobs privately.  You take off while trying to keep your [armor] modestly in place over your tits but it\'s difficult.  Your nipples constantly leak and drip a trail of alcohol all the way back to camp.  Thankfully by the time you arrive the effects seem to have mostly worn off.  Your nipples return to dripping milk, but although they\'ve shrunk back down a bit they don\'t quite shrink all the way, leaving you with somewhat larger endowments than you had before.' );
-		CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
+		CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	// [SELL YOUR BOOZE];
@@ -708,37 +708,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	// Holidays have larger payout of gems proportional to lactation.  Boob rating increases by 2.;
 	Niamh.prototype.sellYourBooze = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.gems += 2;
-		var temp = Math.round( CoC.getInstance().player.lactationQ() / 100 );
+		CoC.player.gems += 2;
+		var temp = Math.round( CoC.player.lactationQ() / 100 );
 		if( temp > 40 ) {
 			temp = 40 + Utils.rand( 3 );
 		}
-		CoC.getInstance().player.gems += temp;
-		CoC.getInstance().player.gems = Math.round( CoC.getInstance().player.gems );
+		CoC.player.gems += temp;
+		CoC.player.gems = Math.round( CoC.player.gems );
 		EngineCore.statScreenRefresh();
 		//If player has only two breasts.;
-		if( CoC.getInstance().player.bRows() === 1 ) {
+		if( CoC.player.bRows() === 1 ) {
 			EngineCore.outputText( 'With a chipper giggle Niamh pulls you closer to the bar.  With both hands she helps you heft your tits up and on to the counter.' );
 		}//If player has four or six breasts.;
 		else {
 			EngineCore.outputText( 'Niamh giggles as you try to move your breasts closer to the bar to be milked by the patrons, but it\'s obvious only the top pair of your tits can easily rest on the counter top.  "<i>Lassie, it might be unconventional, but givin\' the circumstance mayhaps it\'d be best if ye laid down on the bar.</i>"' );
 		}
 		EngineCore.outputText( '\n\nIt isn\'t long before patrons start lining up for mugs of your particular brand of booze.  They tug on your nipples, teasing the beverage from your teats.  Each drunken tug however encourages your libido, arousing you further.' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  You feel your excitement dripping down the inside of your thighs as your pussy wettens.' );
 		}
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 5, 'resisted', false );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 5, 'resisted', false );
 		//[If player has cocks];
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  You start to feel sympathetic sensations in [eachCock] as the hands and paws of the bar goers milk your nipples.  With their fingers sliding over your sensitive nubs you can easily imagine them sliding up and down your cock' );
 		}
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.' );
 		//If lust is low;
-		if( CoC.getInstance().player.lust < 50 || CoC.getInstance().player.gender === 0 ) {
-			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
+		if( CoC.player.lust < 50 || CoC.player.gender === 0 ) {
+			CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 			EngineCore.outputText( '\n\nYou feel flushed from the sensations, but finally you run dry.  Your breasts have shrunk back down, but they still feel a little larger than they were earlier.  As little droplets of milk instead of booze return to dripping from your nipples, Niamh hands you your cut of the gems you earned from the sales.' );
 			//[LEAVE];
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -747,10 +747,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		else {
 			EngineCore.outputText( '\n\nYou\'re not sure how much more you can give before it becomes impossible to ignore your raging hormones.' );
 			EngineCore.outputText( '\n\nNiamh notices your condition, as does several other patrons in the bar.  ' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'You can feel your labia dripping with need.  ' );
 			}
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'pre-cum drizzles down your ' + Descriptors.multiCockDescriptLight() + ' as the need to fuck a pussy grows stronger.  A few wandering hands reveals some apparent interest amongst the folks in the bar in seeing your genitals as active as your nipples.' );
 			}
 			//[FUCK THE BAR] [LEAVE];
@@ -763,20 +763,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 	//===============;
 	Niamh.prototype.barBeerOrgyTits = function() {
 		EngineCore.clearOutput();
-		//If [CoC.getInstance().player has pussy];
-		if( CoC.getInstance().player.hasVagina() ) {
+		//If [CoC.player has pussy];
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'The drooling of your [vagina] gets worse as the constant "tapping of your kegs" drives your sense of self-restraint to its limits.  The hands of various drunks start moving more aggressively over your breasts, eventually winding their way down between your thighs.' );
 		}
-		//IF [CoC.getInstance().player has cock/s];
-		if( CoC.getInstance().player.hasCock() ) {
+		//IF [CoC.player has cock/s];
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[EachCock] grows to its full length.  You try to keep ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it' );
 			} else {
 				EngineCore.outputText( 'them' );
 			}
 			EngineCore.outputText( ' discreet but it\'s impossible.  You try to push ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it' );
 			} else {
 				EngineCore.outputText( 'them' );
@@ -784,41 +784,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( ' down or aside, but other pairs of hands begin stroking you.' );
 		}
 		EngineCore.outputText( '\n\nNiamh purrs, "<i>O\' deary lass, you look fit to pop.</i>"  She pokes your bloated boob, "<i>An\' I don\'t mean ye booze balloons here.</i>"  She leans over, plopping her fat tits down on top of your own, and gives you a huge wet kiss on your lips.  A round of cheers go up through the bar as she shoves her tongue inside your mouth.  Smiling as she pulls back she cheekily announces, "<i>C\'mon folks!  What say we tap this keg the right way?</i>"' );
-		//IF [CoC.getInstance().player has huge ass];
-		if( CoC.getInstance().player.buttRating >= 20 ) {
+		//IF [CoC.player has huge ass];
+		if( CoC.player.buttRating >= 20 ) {
 			EngineCore.outputText( '  She slaps your ass to emphasize her meaning, and the action sends jiggling waves through each immense cheek.' );
 		}
 
 		EngineCore.outputText( '\n\nA few more hollers go up from the crowd that\'s drunk themselves silly on the booze from your tits.  Hands and paws begin grabbing your limbs and tits and carry you aloft.  ' );
-		if( CoC.getInstance().player.biggestTitSize() >= 20 ) {
+		if( CoC.player.biggestTitSize() >= 20 ) {
 			EngineCore.outputText( 'Your giant boobs are large enough to temporarily hang off the sides of your body as you\'re carried.' );
 		}
 		EngineCore.outputText( '  Your [butt] hits the table first as the crowd puts you down.  Some patrons begin sucking on your nipples directly.' );
 		// [IF player has four or more giant tits, but not hugely pregnant];
-		if( (CoC.getInstance().player.pregnancyIncubation === 0 || CoC.getInstance().player.pregnancyIncubation > 100) && CoC.getInstance().player.bRows() > 1 ) {
+		if( (CoC.player.pregnancyIncubation === 0 || CoC.player.pregnancyIncubation > 100) && CoC.player.bRows() > 1 ) {
 			EngineCore.outputText( '  You are essentially a pile of ' + this.boozeBoobsType() + ' filled tits.' );
 		}// [IF player is hugely pregnant with four or more tits];
-		else if( CoC.getInstance().player.bRows() > 1 ) {
+		else if( CoC.player.bRows() > 1 ) {
 			EngineCore.outputText( '  You are essentially a giant pregnant belly surrounded by your [chest] on the table, helpless to the sexual advances of the bar goers and you can\'t get enough of it.' );
 		}
 		//===============;
 		//Third Paragraph;
 		//===============;
 		//IF player has pussy and Urta is in the bar and sex with her is unlocked.;
-		if( CoC.getInstance().time.hours < 15 && CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 && CoC.getInstance().player.hasVagina() ) {
+		if( CoC.time.hours < 15 && CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 && CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nA pair of familiar paws grab your ankles and spread your legs wide.  Your labia practically spurt out girl cum in anticipation of what\'s about to happen.  "<i>Oh, looks like someone\'s overly eager.</i>"  You struggle to look over the mounds of your own tits to see who\'s standing between your legs.  The familiar sight of an oversized horse-cock waving in the air catches your attention shortly before the grinning smile of Urta comes into view.  "<i>My, aren\'t you going to get reamed, lover.</i>"  No sooner than she says that does the flared head of her cock plunges with a wet squish between your nether lips.  You feel her stretching your entrance apart as her massive horse meat bores into your body.  Blissful screams of pleasure are heard and it isn\'t until the head of Urta\'s cock breaks into your womb that you realize it\'s you that\'s screaming in ecstasy.' );
-			if( CoC.getInstance().player.pregnancyIncubation === 0 ) {
+			if( CoC.player.pregnancyIncubation === 0 ) {
 				EngineCore.outputText( '  Some folks give yelps and cheers when they see the bulge that repeatedly forms in your abdomen each time Urta thrusts herself inside you.' );
 			}
-			CoC.getInstance().player.cuntChange( 60, true, true, false );
+			CoC.player.cuntChange( 60, true, true, false );
 		}
 		//ELSE IF player has pussy and Urta is not in the bar.;
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nHands grip your legs and spread you apart while slathering your thighs with your own pussy juices until every square inch of your lower body is slick and slippery.  A pair of dog morphs clamor for position between your thighs.' );
-			//IF [CoC.getInstance().player has less than a gaping pussy];
-			if( CoC.getInstance().player.vaginalCapacity() < 60 ) {
+			//IF [CoC.player has less than a gaping pussy];
+			if( CoC.player.vaginalCapacity() < 60 ) {
 				EngineCore.outputText( '  One is sporting a cock that is obviously too massive for your pussy, and eventually backs down so that the other one, despite still being on the large size, can take the honor of fucking your cunt silly.' );
-			}//ELSE IF [CoC.getInstance().player has a gaping pussy or bigger];
+			}//ELSE IF [CoC.player has a gaping pussy or bigger];
 			else {
 				EngineCore.outputText( '  They\'re both sporting large canine cocks, but one is particularly massive while the other would likely be a loose fit for a pussy as naturally stretched out as yours.  The largest one wins out and positions himself to give your overly wide fuck hole a much needed stretching.' );
 			}
@@ -829,18 +829,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		 ================*/
 		EngineCore.outputText( '\n\nNiamh crawls up and on to the table, moving to position her hips over your head while leaning over the rest of your torso.  It\'s obvious that she either removed her undergarments, or wasn\'t wearing any in the first place.  Her bare pussy is now hovering just inches from your face.' );
 		// IF [Player has a large pregnancy];
-		if( CoC.getInstance().player.pregnancyIncubation > 0 && CoC.getInstance().player.pregnancyIncubation < 100 ) {
+		if( CoC.player.pregnancyIncubation > 0 && CoC.player.pregnancyIncubation < 100 ) {
 			EngineCore.outputText( '  "<i>Oi!  Careful folks, this babe could blow at any time!</i>"  Niamh pats your belly with chiding affection.' );
 		}
 		// IF [Player has a single cock];
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Mmmmm, now that be what me wants.</i>"  Niamh settles down, pressing her womanhood over your mouth.  Through some lustful instinct your tongue begins licking her folds, seeking for an entrance into the busty cat girl\'s depths.  Her own rough tongue begins slurping up the sides of your erection.' );
 		}// ELSE IF [Player has multiple cocks];
-		else if( CoC.getInstance().player.cockTotal() > 1 ) {
+		else if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '\n\n"<i>Ooooh, how delightful.  Ye come overly equipped dontcha?</i>"  Niamh grabs a handful of your cock meat as she settles her hips down to smother your face with her vaginal folds.  Her labia slip between your lips and you find yourself tonguing her cunt in search of her entrance.  With your cocks in her hands she begins glomping down on one of your shafts with her own mouth, eagerly sucking you off while giving you a hand job at the same time.  Excessive amounts of your pre-cum serve as the perfect lubricant for her hands as they stroke you off.  "<i>Mmmmm,</i>"  Niamh purrs, "<i>I hope your cum is as good as your ' + this.boozeBoobsType() + '.</i>"' );
 		}
 		//IF [Player has 2+ inch clit];
-		if( CoC.getInstance().player.clitLength >= 2 ) {
+		if( CoC.player.clitLength >= 2 ) {
 			EngineCore.outputText( '\n\nThe sensations in your groin become more pleasurably irresistible as you feel something wet and tight slip around your clit.  Amongst the ruckus of voices in the bar you can make out the distinctive yelps of a fairy that call out in time with the sensations of whatever is sliding up and down your pussy\'s nub.' );
 		}
 
@@ -849,8 +849,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		//===============;
 		EngineCore.outputText( '\n\nYour nipples squirt relentlessly while the crowd thickens around you.  Each customer tries to suck off mouthfuls of your delectable ' + this.boozeBoobsType() + '.  Niamh allows her own breasts to rest on top of you, pushed out to the sides so that others may slurp up the beer leaking from her tender nipples as well.  The two of you become a mass of tit flesh spraying alcohol into the waiting mouths of customers.' );
 		// IF[Character has fuckable nipples];
-		if( CoC.getInstance().player.hasFuckableNipples() ) {
-			EngineCore.outputText( '  Eventually some of the randier drunks start whipping out their cocks, and begin pressing the heads against the openings of your nipples.  Within moments you feel your booze bloated breasts being fucked silly by ' + Utils.num2Text( CoC.getInstance().player.totalNipples() ) + ' hard cocks.  Each thrust causes ' + this.boozeBoobsType() + ' to spill out around their shafts.' );
+		if( CoC.player.hasFuckableNipples() ) {
+			EngineCore.outputText( '  Eventually some of the randier drunks start whipping out their cocks, and begin pressing the heads against the openings of your nipples.  Within moments you feel your booze bloated breasts being fucked silly by ' + Utils.num2Text( CoC.player.totalNipples() ) + ' hard cocks.  Each thrust causes ' + this.boozeBoobsType() + ' to spill out around their shafts.' );
 		}// ELSE[Character doesn't have fuckable nipples];
 		else {
 			EngineCore.outputText( '  Some of the hornier customers start shoving cocks of all shapes and sizes into the moist wet cleavages formed by yours and Niamh\'s breasts.' );
@@ -861,26 +861,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		//===============;
 		EngineCore.outputText( '\n\nAltogether the bar fucks you silly.  Your ' + this.boozeBoobsType() + ' filled tits jiggle with the relentless sex.  Orgasms run down your spine; quaking your flesh in pleasure as you cum.  Niamh\'s sweet pussy soaks your face with her own orgasms while others in the bar fill your canyons of cleavage with jizz.' );
 		//IF [Player has fuckable nipples];
-		if( CoC.getInstance().player.hasFuckableNipples() ) {
+		if( CoC.player.hasFuckableNipples() ) {
 			EngineCore.outputText( '  The cocks filling your nipples start pumping hot sperm into your breasts, mixing with your ' + this.boozeBoobsType() + ' and causing every nerve ending in your nipples to tingle.  Some of them ejaculate so much that it feels as if your breasts are swelling even larger, almost to the point of bursting before the cum spills out.' );
 		}
 		//IF [Player has cocks];
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  You feel as if your body is exploding everywhere.  Niamh gags momentarily as her mouth fills with your seed, and you realize your cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's have' );
 			} else {
 				EngineCore.outputText( ' has' );
 			}
 			EngineCore.outputText( ' begun spurting ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'its ' );
 			} else {
 				EngineCore.outputText( 'their ' );
 			}
 			EngineCore.outputText( 'jizz.  Niamh swallows it down her throat but not without some of it getting plastered across her face.' );
 			//IF [character is pregnant];
-			if( CoC.getInstance().player.pregnancyIncubation > 0 && CoC.getInstance().player.pregnancyIncubation < 200 ) {
+			if( CoC.player.pregnancyIncubation > 0 && CoC.player.pregnancyIncubation < 200 ) {
 				EngineCore.outputText( '  Globs of cum splatter across your gravid belly.' );
 			}
 		}
@@ -890,39 +890,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 		//Varies based on body type and characters present;
 		//================================================;
 		// IF [Edryn and Urta are present in the bar and free sex with both is unlocked and character is a herm];
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Edryn ) >= 5 && CoC.getInstance().player.gender === 3 && CoC.getInstance().time.hours === 14 && CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Edryn ) >= 5 && CoC.player.gender === 3 && CoC.time.hours === 14 && CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 ) {
 			EngineCore.outputText( '\n\nYou\'re so dizzy on pleasure that you barely notice it when you\'re lifted off the table and carried through the bar again.  You can hardly feel your feet and legs when the crowd stands you up, and with a weak lifting of your head you see the reason for the sudden change of position.  Right in front of you is Edryn\'s womanly hindquarters with her black cunt lips jiggling back and forth, dripping her girly horse juices from their sopping wet folds.  You don\'t even have to do anything as several hands angle [eachCock] and guide you forwards.' );
-			// IF [CoC.getInstance().player has a single cock];
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			// IF [CoC.player has a single cock];
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( '  Edryn moans out loud in ecstasy as your [cock] fills her up.' );
-			}// If [CoC.getInstance().player has multiple cocks];
-			else if( CoC.getInstance().player.cockTotal() > 1 ) {
+			}// If [CoC.player has multiple cocks];
+			else if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '  The heads of your cocks press in between Edryn\'s labia causing her to cry out, "<i>Oh gawd!  How many dicks are y-you f-f-fucking meeee with???</i>"  Edryn\'s orgasm cuts her voice off and every muscle in her cunt contracts around your ' + Descriptors.multiCockDescriptLight() + '.' );
 			}
 			EngineCore.outputText( '\n\nAs Edryn\'s cunt literally sucks you in deeper you feel Urta move up behind you.  As her horse-cock pokes against your pussy lips you realize just before the first thrust what is about to happen.  Tel\'Adre\'s finest guard rams her massive member inside you, making you the center of a fuck sandwich.' );
-			// IF[CoC.getInstance().player is pregnant];
-			if( CoC.getInstance().player.pregnancyIncubation > 0 && CoC.getInstance().player.pregnancyIncubation < 200 ) {
+			// IF[CoC.player is pregnant];
+			if( CoC.player.pregnancyIncubation > 0 && CoC.player.pregnancyIncubation < 200 ) {
 				EngineCore.outputText( '  Your pregnant belly presses up against Edryn\'s ass as both Urta\'s cock and Edryn\'s pussy keeps you pinned in place between them.' );
 			}
-			// IF[CoC.getInstance().player is not pregnant];
+			// IF[CoC.player is not pregnant];
 			else {
 				EngineCore.outputText( '  Urta\'s cock and Edryn\'s pussy pin you in place between them, and as Urta fucks you deeper her cock head forces your belly to bulge outwards until it presses against Edryn\'s ass.' );
 			}
 
 			EngineCore.outputText( '\n\nBetween Edryn\'s horse-cunt and Urta\'s horse-cock you effectively become their living fucktoy.  Your body shakes and shimmies back and forth as the two of them grind you between their sexes.  Your breasts spray ' + this.boozeBoobsType() + ' everywhere, slapping against Edryn\'s ass in the process.' );
-			//IF [CoC.getInstance().player has four huge tits];
-			if( CoC.getInstance().player.bRows() === 2 ) {
+			//IF [CoC.player has four huge tits];
+			if( CoC.player.bRows() === 2 ) {
 				EngineCore.outputText( '  Your second row of tits get thrust out to either side every time Urta\'s torso presses your own against Edryn.' );
-			}//IF [CoC.getInstance().player has six giant breasts];
-			else if( CoC.getInstance().player.bRows() === 3 ) {
+			}//IF [CoC.player has six giant breasts];
+			else if( CoC.player.bRows() === 3 ) {
 				EngineCore.outputText( '  Your lowest row of tits slap against all three of your thighs as the love making becomes more brutal.' );
 			}
-			//IF [CoC.getInstance().player has large balls];
-			if( CoC.getInstance().player.balls > 0 && CoC.getInstance().player.ballSize > 14 ) {
+			//IF [CoC.player has large balls];
+			if( CoC.player.balls > 0 && CoC.player.ballSize > 14 ) {
 				EngineCore.outputText( '  Your hanging testicles bounce around between everyone\'s legs.' );
 			}
-			//IF [CoC.getInstance().player has giant ass];
-			if( CoC.getInstance().player.buttRating >= 22 ) {
+			//IF [CoC.player has giant ass];
+			if( CoC.player.buttRating >= 22 ) {
 				EngineCore.outputText( '  The fat of your ass cheeks jiggles and quakes even as Urta practically stuffs her hips into your crack.  "<i>Damn, you\'ve got a bigger ass than Edryn,</i>" she chides as she spanks you.  "<i>Hey!</i>"  Edryn calls out with a false tone of hurt pride.' );
 			}
 
@@ -932,97 +932,97 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, Ima
 			EngineCore.outputText( '\n\nThe next thing you\'re aware of is feeling an intense pressure in your gut.  As your vision returns you weakly make out the desert outside Tel\'Adre passing you by.  As your senses return you realize you\'re riding on Edryn\'s back and Urta is sitting behind you.  "<i>Hellooooo...</i>"  A very drunk Urta whispers in your ear.  "<i>Looks like you\'re awake.</i>"  She reaches around and pats your bloated belly.  "<i>You really took a lot.  We sort of felt we overdid it, so we decided to give you a lift back to your camp.</i>"  Urta\'s cum is still spilling out of your crotch, soaking Edryn\'s sides.  Edryn\'s own hindquarters are leaking from the many loads you gave her.' );
 			// IF [Player is pregnant but not with eggs] You pat your pregnant belly and silently hope Urta's ocean of cum hasn't drowned the child, if that's even possible.;
 			EngineCore.outputText( '\n\nThe two of them drop you off along with your clothes and gear back at camp.  Each of them winks and blows you a kiss as they travel back to Tel\'Adre.  Your breasts are leaking milk again, and they appear to have grown permanently larger.' );
-			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
+			CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 		}
 		// IF [Urta but not Edryn is present in the bar and sex with her is unlocked and character has pussy];
-		else if( CoC.getInstance().player.hasVagina() && CoC.getInstance().time.hours < 15 && CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 ) {
+		else if( CoC.player.hasVagina() && CoC.time.hours < 15 && CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] > 0 ) {
 			EngineCore.outputText( '\n\nYou hear passionate cries of lustful need from Urta as her horse-cock reams you with greater ferocity.  Her orgasm nearly knocks her off her feet as her shaft swells wider, stretching you apart as the cum surges up through it.' );
-			// IF [CoC.getInstance().player is not pregnant];
-			if( CoC.getInstance().player.pregnancyIncubation === 0 ) {
+			// IF [CoC.player is not pregnant];
+			if( CoC.player.pregnancyIncubation === 0 ) {
 				EngineCore.outputText( '  The eruption of cum from her horsecock out does every other ejaculating dick in the room.  Your belly button pops outward as your stomach swells from the surging torrent of sperm pumping directly into your womb.  The hands of strangers grab your legs to keep you pinned in place while Urta struggles to keep her gushing cock inside your cunt despite the building pressure.  A couple voices call out, "<i>She\'s gonna pop!  Is she gonna pop?  I think she is!</i>"  Niamh is forced to sit up higher as your cum bloated belly pushes up against her.  Urta looks as if she\'s having a seizure from the sheer effort of unloading herself into you.  You scream out loud from the ecstasy of swelling but your cries of pleasure are lost within Niamh\'s pussy folds, urging her to come again.  Her girl cum squirts down your throat, making your belly feel all the more tight and fit to burst.' );
 			}
-			// ELSE IF [CoC.getInstance().player is pregnant];
+			// ELSE IF [CoC.player is pregnant];
 			else {
 				EngineCore.outputText( '  Urta feels as if she\'s going to tear you apart as the surging torrent of her horse cum shoots through the shaft of her cock.  She pulls it out just in time to plaster your abused pussy and the underside of your pregnant belly with her seed.  Ropes of cum spray across your thighs, belly, the undersides of your tits, and all over Niamh\'s chest and face.  "<i>Oi!  Oh yes!</i>"  Niamh calls out happily as Urta drowns the two of you in sperm.  Squirts of pussy juice pour down your throat and Niamh climaxes just from the sensation of being coated in Urta\'s hot jizz.' );
 			}
 
 			EngineCore.outputText( '\n\nOrgasm after orgasm keeps you dizzy and drunk while you gush ' + this.boozeBoobsType() + ' and take in cum.  The bar patrons finally wear themselves out with fucking your oversexed body.  Niamh crawls off of your face and back down to the floor.  She pauses to catch her breath and regain her sense of balance, leaning on the table and resting her breasts on your face.  You\'ve barely regained your own senses when Urta tries to help you up.' );
 			//IF [Player has four or more breasts];
-			if( CoC.getInstance().player.bRows() > 1 ) {
+			if( CoC.player.bRows() > 1 ) {
 				EngineCore.outputText( '  Your rows of breasts shift around as your posture changes, making squelching sounds as they slide around.' );
 			}
-			//If [CoC.getInstance().player not pregnant];
-			if( CoC.getInstance().player.pregnancyIncubation === 0 ) {
+			//If [CoC.player not pregnant];
+			if( CoC.player.pregnancyIncubation === 0 ) {
 				EngineCore.outputText( '  Urta\'s small ocean of sperm streams out from your pussy like a river down your legs as you try to stand.' );
 			}
 
 			EngineCore.outputText( '\n\nWhen you\'re finally on your feet all the cum covering your body and filling your cleavage begins dripping down and pooling around your feet.  Milk is dripping from your nipples, signaling that the effects of Niamh\'s beer have finally worn off.  "<i>Oi lass, I think ye be needin\' a dip in a river.  Pity ye in a desert eh?</i>"  She grins.  Still half drunk off booze and sex you haphazardly gather your things.  Urta graciously helps you out of the bar and through the streets of Tel\'Adre until you\'ve gathered your senses enough to find your way back to camp.  Your breasts ache from the pleasant ordeal, each one feeling fuller and larger than it was before this all began.' );
-			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
+			CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 		}
 		//=====;
 		//Generic ending if the first two don't trigger;
 		else {
 			EngineCore.outputText( '\n\nFor what seems like forever your body is used as a cum dump and fuck toy.' );
-			// IF [CoC.getInstance().player has pussy];
-			if( CoC.getInstance().player.hasVagina() ) {
+			// IF [CoC.player has pussy];
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  The giant knot of the dog morph finally breaks its way inside causing your pussy to become overstretched.  The pleasurable torture only gets worse as he begins unloading a river of his cum inside you.  It begins squirting out around his cock and soaks both of your thighs in the process.' );
 			}
-			CoC.getInstance().player.cuntChange( 60, true, true, false );
+			CoC.player.cuntChange( 60, true, true, false );
 			EngineCore.outputText( '  Niamh finally has her fill and dismounts you, but no sooner has her pussy left your face than a determined cock belonging to some sort of cat morph fills your mouth.  Your eyes bug out as it thrusts down your throat.' );
-			// If [CoC.getInstance().player has pussy];
-			if( CoC.getInstance().player.hasVagina() ) {
+			// If [CoC.player has pussy];
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  You gag on it at the same time a new cock fills your cunt, ready to renew the thrusting that\'s been causing your tits to bounce all over the place.' );
 			}
-			//IF [CoC.getInstance().player has single cock small-med cock];
-			if( CoC.getInstance().player.cockTotal() === 1 && CoC.getInstance().player.cockArea( 0 ) < 75 ) {
+			//IF [CoC.player has single cock small-med cock];
+			if( CoC.player.cockTotal() === 1 && CoC.player.cockArea( 0 ) < 75 ) {
 				EngineCore.outputText( '\n\nA cat girl with six C-cup breasts jumps up onto the table and mounts you.  She grabs your cock and proceeds to shove it up between the folds of her tight pussy.' );
-			}//OR IF [CoC.getInstance().player has single huge cock];
-			else if( CoC.getInstance().player.cockTotal() === 1 ) {
+			}//OR IF [CoC.player has single huge cock];
+			else if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( '\n\nA cow girl with six large tits and quad nipples crawls with difficulty up and onto the table, carefully positioning her bare bovine cunt above your massive member, and proceeds to thrust her ridiculously wide hips down around it.' );
 			}
 			// FOR BOTH COCK SIZES -;
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( '  Your cock remains tightly embedded inside the girl.  She bounces up and down causing her six tits to shake for the crowd\'s enjoyment.  You\'re so hard that even if she tried to dismount the head of your cock would have grown too thick to allow it to slide out of her pussy\'s entrance.  You can\'t hold back and a surging sensation rushes through you, blasting your hot seed up inside the wildly busty girl.  You hear cries from the crowd "<i>Knock her up!  Knock her up! Knock her up!</i>"  You hear cheers when they see your cum leaking out of her.' );
-			}//If [CoC.getInstance().player has multiple cocks];
-			else if( CoC.getInstance().player.cockTotal() > 1 ) {
+			}//If [CoC.player has multiple cocks];
+			else if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nIt isn\'t long before mouths and pussies take their turns as the female inclined customers of the bar mount your shafts, eager to get loads of your man seed to erupt inside of them.  Girls and herms of every shape and breed take turns sucking the cum out of you.  You can\'t hold back and within minutes you\'re blasting sperm into various pussies all at once.  As soon as one pussy is removed another takes its place.  You start hearing chanting from the crowd "<i>Knock them up!  Knock them up! Knock them up!</i>"  The crowd cheers various hoorays whenever they see your cum suddenly erupt from one of the various cunts your cocks are stuffed in.' );
 			}
 			EngineCore.outputText( '\n\nThe smell of sex fills your nostrils.  The hot seed of the crowd fills your throat and covers your body.  Even after your breasts start lactating regular milk the fucking continues.  Only after every patron in the bar has managed to cum their brains out through use of your flesh do things settle down.  You\'re out of breath, out of strength, and out of booze or milk to give.' );
 			EngineCore.outputText( '\n\nNiamh helps you struggle to your feet, leaving behind a silhouette of your body in the various fluids that cover the table.  She gives you a loooong kiss before helping you get cleaned up.  Your breasts, although lactating normally now, seemed to have gained some extra bulk.  Niamh purrs, "<i>Perhaps you\'d better lay off my beer for a while.  Wouldn\'t want this to become a regular occurrence, right?</i>"  she winks at you.' );
 			EngineCore.outputText( '\n\nAs you leave the bar you look around.  Every cock hangs low looking satisfied.' );
-			// IF [CoC.getInstance().player has one cock];
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			// IF [CoC.player has one cock];
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( '  The six titted girl smiles at you, patting her belly while your cum runs down the inside of her thighs.  You only now wonder about how fertile she might be.' );
-			}// IF [CoC.getInstance().player has multiple cocks];
-			else if( CoC.getInstance().player.cockTotal() > 1 ) {
+			}// IF [CoC.player has multiple cocks];
+			else if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '  Various girls around the room are patting their bellies and giving you sultry looks while your cum continues to drip from their pussies.  You passively wonder if any of them might indeed be hauling around some larger pregnant bellies in a few days, but you try to push those thoughts from your head.  At the moment they seem happy.' );
 			}
-			// IF [CoC.getInstance().player has pussy];
-			if( CoC.getInstance().player.hasVagina() ) {
+			// IF [CoC.player has pussy];
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  You walk slightly bow legged out of the bar.  Cum is still dripping from your snatch and will likely continue to do so for a while.' );
-				//IF [CoC.getInstance().player is not pregnant];
-				if( CoC.getInstance().player.pregnancyType === 0 ) {
+				//IF [CoC.player is not pregnant];
+				if( CoC.player.pregnancyType === 0 ) {
 					EngineCore.outputText( '  You can\'t help but wonder how virile those dog morphs might have been as their cum and the cum of other customers sloshes around inside your uterus.' );
 				}
 				var temp = Utils.rand( 6 );
 				switch( temp ) {
 					case 0:
-						CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR );
+						CoC.player.knockUp( PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR );
 						break;
 					case 1:
-						CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_MOUSE, PregnancyStore.INCUBATION_MOUSE );
+						CoC.player.knockUp( PregnancyStore.PREGNANCY_MOUSE, PregnancyStore.INCUBATION_MOUSE );
 						break;
 					case 2:
-						CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_MOUSE, PregnancyStore.INCUBATION_MOUSE ); //I'm betting this was meant to be dog morph chance
+						CoC.player.knockUp( PregnancyStore.PREGNANCY_MOUSE, PregnancyStore.INCUBATION_MOUSE ); //I'm betting this was meant to be dog morph chance
 						break;
 					default:
-						CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_CENTAUR, PregnancyStore.INCUBATION_CENTAUR );
+						CoC.player.knockUp( PregnancyStore.PREGNANCY_CENTAUR, PregnancyStore.INCUBATION_CENTAUR );
 						break;
 				}
 			}
-			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
+			CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 

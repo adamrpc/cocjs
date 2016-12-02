@@ -15,26 +15,26 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 60 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 60 ) {
 			EngineCore.outputText( 'You manage to roll out of the way of a massive overhand swing.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
 			EngineCore.outputText( 'You easily sidestep as Marble tries to deliver a huge overhand blow.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( (this.str + 20 + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( (this.str + 20 + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
 			EngineCore.outputText( 'You somehow manage to deflect and block Marble\'s massive overhead swing.', false );
 		}
 		if( damage > 0 ) {
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 		}
 		EngineCore.outputText( 'You are struck by a two-handed overhead swing from the enraged cow-girl.  (' + damage + ' damage).', false );
 		EngineCore.statScreenRefresh();
@@ -48,13 +48,13 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 			EngineCore.outputText( 'Marble makes a wide sweeping attack with her hammer, which is difficult to avoid even from a blinded opponent.\n', false );
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'You barely manage to avoid a wide sweeping attack from marble by rolling under it.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( (this.str + 40 + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( (this.str + 40 + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		damage /= 2;
 		if( damage <= 0 ) {
 			damage = 0;
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 		}
 		EngineCore.outputText( 'Marble easily hits you with a wide, difficult to avoid swing.  (' + damage + ' damage).', false );
 		if( damage > 0 ) {
-			CoC.getInstance().player.takeDamage( damage );
+			CoC.player.takeDamage( damage );
 		}
 		EngineCore.statScreenRefresh();
 		Combat.combatRoundOver();

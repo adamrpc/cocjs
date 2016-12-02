@@ -35,41 +35,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	 'Kelt' - v1 = Archery, v2 = Submissiveness, v3 = total encounters.
 	 'KeltOff' - Turns off Kelt */
 	KeltScene.prototype.bowSkill = function( diff ) {
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 1, diff );
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Kelt ) >= 100 ) {
-			CoC.getInstance().player.changeStatusValue( StatusAffects.Kelt, 1, 100 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 1, diff );
+		if( CoC.player.statusAffectv1( StatusAffects.Kelt ) >= 100 ) {
+			CoC.player.changeStatusValue( StatusAffects.Kelt, 1, 100 );
 		}
-		return CoC.getInstance().player.statusAffectv1( StatusAffects.Kelt );
+		return CoC.player.statusAffectv1( StatusAffects.Kelt );
 	};
 	//Function to choose which Kelt Encounter to load.;
 	KeltScene.prototype.keltEncounter = function() {
 		EngineCore.spriteSelect( 35 );
 		//Clear screen, set next button, and count how many times hes been encountered;
 		EngineCore.outputText( '', true );
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 3, 1 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 3, 1 );
 		//If First Encounter;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 0, 0, 1, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
+			CoC.player.createStatusAffect( StatusAffects.Kelt, 0, 0, 1, 0 );
 			this.keltFirstTime();
 		}
 		//Repeated encounter;
 		else {
 			//Second/Third Events - Normal;
-			if( CoC.getInstance().player.statusAffectv3( StatusAffects.Kelt ) <= 3 ) {
+			if( CoC.player.statusAffectv3( StatusAffects.Kelt ) <= 3 ) {
 				this.keltMainEncounter();
 				return;
 			}
 			//Bad Ends;
-			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
+			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
 				this.keltSubmissiveBadEnd();
 				return;
 			}
 			//Centaur bad end;
-			if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 100 && CoC.getInstance().player.gender > 1 ) {
-				if( CoC.getInstance().player.inte > Utils.rand( 40 ) && CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) < 130 && CoC.getInstance().player.findStatusAffect( StatusAffects.KeltBadEndWarning ) < 0 ) {
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KeltBadEndWarning, 0, 0, 0, 0 );
+			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 100 && CoC.player.gender > 1 ) {
+				if( CoC.player.inte > Utils.rand( 40 ) && CoC.player.statusAffectv2( StatusAffects.Kelt ) < 130 && CoC.player.findStatusAffect( StatusAffects.KeltBadEndWarning ) < 0 ) {
+					CoC.player.createStatusAffect( StatusAffects.KeltBadEndWarning, 0, 0, 0, 0 );
 					EngineCore.outputText( 'You approach the farm, ready for another archery lesson.  Kelt is oblivious to your presence, busy practicing with his own bow for the moment.  The wind shifts and blows his musk your way.  Unconsciously, you breathe deeply, sending heat racing between your rear legs.  Alarm bells go off in your mind as you realize what his presence is doing to you, and you run away to your camp before he can notice you.  It\'s clear to you that you can\'t resist him much longer; the next time you meet him, you\'ll probably volunteer to become his brood-mare.  Perhaps you should avoid Kelt and the farm until you feel his influence less keenly.', true );
-					EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 5 + 10 );
+					EngineCore.dynStats( 'lus', CoC.player.lib / 5 + 10 );
 					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					this.keltCentaurBadEnd();
@@ -77,18 +77,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				return;
 			}
 			//Naked event if its time for it;
-			if( CoC.getInstance().player.statusAffectv3( StatusAffects.Kelt ) === 4 && CoC.getInstance().player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
+			if( CoC.player.statusAffectv3( StatusAffects.Kelt ) === 4 && CoC.player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
 				this.keltRequiresNakedness();
 				return;
 			}
 			//60+ Submissiveness—First Time Blowjob Requirement;
-			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 40 && CoC.getInstance().player.findStatusAffect( StatusAffects.KeltBJ ) < 0 ) {
+			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 && CoC.player.findStatusAffect( StatusAffects.KeltBJ ) < 0 ) {
 				this.keltRequiresBlowjobs();
 				return;
 			}
 			//75+ Submissiveness, 60+ Lust—Lust Encounter;
 			//Remaining events;
-			if( CoC.getInstance().player.statusAffectv3( StatusAffects.Kelt ) > 4 ) {
+			if( CoC.player.statusAffectv3( StatusAffects.Kelt ) > 4 ) {
 				this.keltMainEncounter();
 			}
 		}
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'He slaps a hand on his bare chest proudly, and you realize that he means for you to strip down naked.  When you protest, his eyes narrow with irritation, and his sneer becomes more cruel.\r\r', false );
 		EngineCore.outputText( '"<i>Didn\'t know you were a coward, too.  That\'s fine... go fuck off, then.  You can\'t handle it, then go back to your camp and braid your hair, or something.  If you wait long enough, I\'m sure a nice minotaur will come along to make you his bitch.  \'Bout all you\'re good for, right?</i>"\r\r', false );
 		EngineCore.outputText( 'Do you obey his demand?', false );
-		if( CoC.getInstance().player.cor > 70 && CoC.getInstance().player.inte > 40 && CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
+		if( CoC.player.cor > 70 && CoC.player.inte > 40 && CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 			EngineCore.outputText( '\n\n<b>If you fight back and take him down a peg, you might never see him again...</b>' );
 			EngineCore.choices( 'Reluctantly', this.keltReluctantlyGetNaked, 'Eagerly', this.keltEagerlyGetNaked, 'Fight Back', this.keltResistance, '', null, 'Never', this.keltRefuseNakedness );
 			return;
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.choices( 'Reluctantly', this.keltReluctantlyGetNaked, 'Eagerly', this.keltEagerlyGetNaked, '', null, '', null, 'Never', this.keltRefuseNakedness );
 		}
 		//(Corruption higher than 60 automatically chooses eagerly);
-		if( CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 180 ) {
+		if( CoC.player.cor + CoC.player.lib + CoC.player.lust >= 180 ) {
 			EngineCore.outputText( ' Of course you do.  You love putting on a show.', false );
 			// go eagerly.;
 			EngineCore.doNext( this.keltEagerlyGetNaked );
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You adamantly refuse, determined to not give this arrogant centaur the satisfaction.  Kelt sneers at you derisively, and gives you several pieces of advice as to what could fit up your rear end.  As his insults grow more colorful, you turn and leave; his mocking laughter follows behind you.  You resolve to not bother with him anymore.\r\r(Somehow you know you\'ll never encounter him again.)', true );
 		//(Kelt never encountered again);
-		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Naked Requirement, Eagerly;
@@ -140,16 +140,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You have no problem stripping down naked in front of Kelt, even enjoying the process a little bit.  Judging by his leer, Kelt is enjoying it too.  He seems aroused by his power over you more than anything else... and you find yourself admitting that you\'re a little aroused by it as well.\r\r', false );
 		EngineCore.outputText( 'You remove your top first, slowly revealing your ' + Descriptors.allBreastsDescript() + '.  Kelt is pacing around you, eyes locked on your chest hungrily.  As you let your top fall to the ground, he laughs mockingly, though, ', false );
-		if( CoC.getInstance().player.gender === 1 && CoC.getInstance().player.biggestTitSize() < 1 ) {
+		if( CoC.player.gender === 1 && CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( '"<i>What are you, a girl?  Get on with it so I can see what I\'m dealing with.</i>"\r\r', false );
 		} else {
-			if( CoC.getInstance().player.biggestTitSize() === 0 ) {
+			if( CoC.player.biggestTitSize() === 0 ) {
 				EngineCore.outputText( '"<i>Oops!  Could have sworn I\'d find a pair of tits on you.  That\'s okay... I\'m sure you\'ll hit puberty some day!</i>"\r\r', false );
 			}//(Too small, A to DD: ;
-			else if( CoC.getInstance().player.biggestTitSize() <= 5 ) {
-				EngineCore.outputText( '"<i>Ha! No wonder you cover up like a sniveling human!  Any centaur maiden would be ashamed to go out in public with ' + Utils.num2Text( CoC.getInstance().player.totalBreasts() ) + ' mosquito bites like that!  What do they call you back home... \'Tiny Tits\'?  Or maybe they all just assume you\'re a guy!</i>"\r\r', false );
+			else if( CoC.player.biggestTitSize() <= 5 ) {
+				EngineCore.outputText( '"<i>Ha! No wonder you cover up like a sniveling human!  Any centaur maiden would be ashamed to go out in public with ' + Utils.num2Text( CoC.player.totalBreasts() ) + ' mosquito bites like that!  What do they call you back home... \'Tiny Tits\'?  Or maybe they all just assume you\'re a guy!</i>"\r\r', false );
 			}//(Medium, E to HHH:;
-			else if( CoC.getInstance().player.biggestTitSize() <= 11 ) {
+			else if( CoC.player.biggestTitSize() <= 11 ) {
 				EngineCore.outputText( '"<i>Uh oh, boys... look out!  Miss Melons here has been putting on a little weight!  How did someone like you become an adventurer?  From the waist up, you\'re good for whoring and not much else!</i>"\r\r', false );
 			}//(Big, Watermelon and beyond:;
 			else {
@@ -158,11 +158,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 		EngineCore.outputText( 'Despite his harsh comments, you can see the lust in Kelt\'s eyes, and are more than a little turned on by his derisive laughter.  His critique only becomes more lewd when you continue.  As you remove the lower half of your clothes, stripping completely naked, he eyes your ass and lets out a crude hoot of scornful delight, ', false );
 		//(Too small, Firm to Shapely:;
-		if( CoC.getInstance().player.buttRating < 6 ) {
+		if( CoC.player.buttRating < 6 ) {
 			EngineCore.outputText( '"<i>Well, someone works out!  Got a nice, tight little ass there! Probably a little too tight, huh?  Don\'t worry, you can tell me... do the mean old monsters hurt when they fuck that poor little ass of yours? HA!</i>"\r\r', false );
 		}
 		//(Medium, Large to Heavy:;
-		else if( CoC.getInstance().player.buttRating < 13 ) {
+		else if( CoC.player.buttRating < 13 ) {
 			EngineCore.outputText( '"<i>Hey, nice little cushion you got back here!  Do you get that from sitting around all day?  Nah, can\'t be that.  I\'m sure you get more than a workout on this baby... of course, cock is no substitute for a little exercise, you know!</i>"\r\r', false );
 		}
 		//(Big, Voluminous and beyond:;
@@ -171,33 +171,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 		EngineCore.outputText( 'He slaps your ass with his open palm, getting in a good grope while he\'s at it.  His animalistic musk is in your nostrils, making you feel dizzy and more than a little aroused.  He grins widely, then walks around to your front, ', false );
 		//(No Cock:;
-		if( CoC.getInstance().player.totalCocks() === 0 ) {
+		if( CoC.player.totalCocks() === 0 ) {
 			EngineCore.outputText( '"<i>Well, aren\'t you a pretty little thing, all together.  You and I will get along real nice, that\'s for sure!</i>"\r\r', false );
 		} else {
 			//(Any Cock: ;
 			EngineCore.outputText( 'and almost inevitably, his eyes drop down to your ' + Descriptors.cockDescript( 0 ) + '.  He snorts, ', false );
 			//(Human Cock:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.HUMAN ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.HUMAN ) {
 				EngineCore.outputText( '"<i>Heh.  Just sporting the normal model, huh?  You know there\'s a phrase around here... hung like a human!  Trust me... it\'s not a compliment.  ', false );
 			}
 			//(Dog Cock:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.DOG ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.DOG ) {
 				EngineCore.outputText( '"<i>Oh, lookie here!  We got ourselves a little doggie dong!  Well, cock or not, you\'ll always be a bitch to me, mutt.  ', false );
 			}
 			//(Horse Cock: ;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.HORSE ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.HORSE ) {
 				EngineCore.outputText( '"<i>Now that\'s just sad.  Getting a little envious of me, huh?  Had to go out and get a nice horsecock all your own?  Should have asked.  I\'d have given you a taste of mine!  ', false );
 			}
 			//(Tentacle Cock or other weirdness;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType.Index >= 3 ) {
+			if( CoC.player.cocks[ 0 ].cockType.Index >= 3 ) {
 				EngineCore.outputText( '"<i>Hah!  I\'ll bite... what the fuck are you supposed to be?  That a cock, or just an ugly, misplaced tail?  HA!  ', false );
 			}
 			//(Small Size, ?-10 inches:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength <= 10 ) {
+			if( CoC.player.cocks[ 0 ].cockLength <= 10 ) {
 				EngineCore.outputText( '"So, when you poke a woman with that, does she notice?  Or do you have to tell her when to start faking her orgasm?</i>"\r\r', false );
 			}
 			//(Medium Size, 11-20 inches: ;
-			else if( CoC.getInstance().player.cocks[ 0 ].cockLength <= 20 ) {
+			else if( CoC.player.cocks[ 0 ].cockLength <= 20 ) {
 				EngineCore.outputText( '"Still, at least you\'ve got a decent sized cock.  You know, for a colt.  Maybe you\'ll get lucky, and the real women will take pity on you!</i>"\r\r', false );
 			}
 			//(Big Size, 21 inches and beyond:;
@@ -207,11 +207,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 		EngineCore.outputText( 'He looks you over one last time, and sneers condescendingly.  "<i>Well, it ain\'t much as far as heroes go.  But it\'s better than nothing.  Fine, I\'ll teach ya some more.  But I don\'t want to see those damn clothes again.  You\'ll learn the way I tell you to learn, got it?</i>"\r\r', false );
 		EngineCore.outputText( 'You nod, almost grateful for the excuse to go naked.  From the way Kelt is eyeing your ass, you think he\'ll enjoy it too.\r\r', false );
-		//(Naked on. Every visit, CoC.getInstance().player will automatically strip.);
-		CoC.getInstance().player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
+		//(Naked on. Every visit, CoC.player will automatically strip.);
+		CoC.player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
 		//(+10 Submissive);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 10 );
-		EngineCore.dynStats( 'lus', Math.ceil( CoC.getInstance().player.lib / 10 ) + 5 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 10 );
+		EngineCore.dynStats( 'lus', Math.ceil( CoC.player.lib / 10 ) + 5 );
 		this.keltMainEncounter2();
 	};
 	//Naked Requirement, Reluctantly;
@@ -221,16 +221,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You are uncomfortable with the idea of being naked in front of this crude, cruel taskmaster.  But he is good at what he does, and if this is the only way to convince him to teach you, then you\'ll just have to get it over with.  You agree to his terms reluctantly, and begin to strip off your clothes.\r\r', false );
 		EngineCore.outputText( 'You remove your top first, slowly revealing your ' + Descriptors.allBreastsDescript() + '.  Kelt is pacing around you, eyes locked on your chest hungrily.  As you let your top fall to the ground, he laughs mockingly, ', false );
-		if( CoC.getInstance().player.gender === 1 && CoC.getInstance().player.biggestTitSize() < 1 ) {
+		if( CoC.player.gender === 1 && CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( '"<i>What are you, a girl?  Get on with it so I can see what I\'m dealing with.</i>"\r\r', false );
 		} else {
-			if( CoC.getInstance().player.biggestTitSize() === 0 ) {
+			if( CoC.player.biggestTitSize() === 0 ) {
 				EngineCore.outputText( '"<i>Oops!  Could have sworn I\'d find a pair of tits on you.  That\'s okay... I\'m sure you\'ll hit puberty some day!</i>"\r\r', false );
 			}//(Too small, A to DD: ;
-			else if( CoC.getInstance().player.biggestTitSize() <= 5 ) {
-				EngineCore.outputText( '"<i>Ha! No wonder you cover up like a sniveling human!  Any centaur maiden would be ashamed to go out in public with ' + Utils.num2Text( CoC.getInstance().player.totalBreasts() ) + ' mosquito bites like that!  What do they call you back home... \'Tiny Tits\'?  Or maybe they all just assume you\'re a guy!</i>"\r\r', false );
+			else if( CoC.player.biggestTitSize() <= 5 ) {
+				EngineCore.outputText( '"<i>Ha! No wonder you cover up like a sniveling human!  Any centaur maiden would be ashamed to go out in public with ' + Utils.num2Text( CoC.player.totalBreasts() ) + ' mosquito bites like that!  What do they call you back home... \'Tiny Tits\'?  Or maybe they all just assume you\'re a guy!</i>"\r\r', false );
 			}//(Medium, E to HHH:;
-			else if( CoC.getInstance().player.biggestTitSize() <= 11 ) {
+			else if( CoC.player.biggestTitSize() <= 11 ) {
 				EngineCore.outputText( '"<i>Uh oh, boys... look out!  Miss Melons here has been putting on a little weight!  How did someone like you become an adventurer?  From the waist up, you\'re good for whoring and not much else!</i>"\r\r', false );
 			}//(Big, Watermelon and beyond:;
 			else {
@@ -239,11 +239,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 		EngineCore.outputText( 'Even with his harsh comments, you can see the lust in Kelt\'s eyes.  He is obviously enjoying seeing your naked flesh.  Despite the embarrasment, you are determined to not let his remarks get to you.  His critique only becomes more lewd as you continue, though.  As you remove your lower clothes, stripping completely naked, he eyes your ass and lets out a crude hoot of scornful delight, ', false );
 		//(Too small, Firm to Shapely:;
-		if( CoC.getInstance().player.buttRating < 6 ) {
+		if( CoC.player.buttRating < 6 ) {
 			EngineCore.outputText( '"<i>Well, someone works out!  Got a nice, tight little ass there! Probably a little too tight, huh?  Don\'t worry, you can tell me... do the mean old monsters hurt when they fuck that poor little ass of yours? HA!</i>"\r\r', false );
 		}
 		//(Medium, Large to Heavy:;
-		else if( CoC.getInstance().player.buttRating < 13 ) {
+		else if( CoC.player.buttRating < 13 ) {
 			EngineCore.outputText( '"<i>Hey, nice little cushion you got back here!  Do you get that from sitting around all day?  Nah, can\'t be that.  I\'m sure you get more than a workout on this baby... of course, cock is no substitute for a little exercise, you know!</i>"\r\r', false );
 		}
 		//(Big, Voluminous and beyond:;
@@ -252,33 +252,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 		EngineCore.outputText( 'He slaps your ' + Descriptors.buttDescript() + ' with his open palm, getting in a good grope while he\'s at it.  His animalistic musk is in your nostrils, making you feel dizzy and somehow even a little aroused.  The centaur\'s obvious enjoyment of your body is a little flattering, even if his words are cruel.  He paces around to your front, a shameless grin on his face while he taunts you, ', false );
 		//(No Cock:;
-		if( CoC.getInstance().player.totalCocks() === 0 ) {
+		if( CoC.player.totalCocks() === 0 ) {
 			EngineCore.outputText( '"<i>Well, aren\'t you a pretty little thing, all together.  You and I will get along real nice, that\'s for sure!</i>"\r\r', false );
 		} else {
 			//(Any Cock: ;
 			EngineCore.outputText( 'and almost inevitably, his eyes drop down to your ' + Descriptors.cockDescript( 0 ) + '.  He snorts, ', false );
 			//(Human Cock:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.HUMAN ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.HUMAN ) {
 				EngineCore.outputText( '"<i>Heh.  Just sporting the normal model, huh?  You know there\'s a phrase around here... hung like a human!  Trust me... it\'s not a compliment.  ', false );
 			}
 			//(Dog Cock:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.DOG ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.DOG ) {
 				EngineCore.outputText( '"<i>Oh, lookie here!  We got ourselves a little doggie dong!  Well, cock or not, you\'ll always be a bitch to me, mutt.  ', false );
 			}
 			//(Horse Cock: ;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.HORSE ) {
+			if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.HORSE ) {
 				EngineCore.outputText( '"<i>Now that\'s just sad.  Getting a little envious of me, huh?  Had to go out and get a nice horsecock all your own?  Should have asked.  I\'d have given you a taste of mine!  ', false );
 			}
 			//(Tentacle Cock or other weirdness;
-			if( CoC.getInstance().player.cocks[ 0 ].cockType.Index >= 3 ) {
+			if( CoC.player.cocks[ 0 ].cockType.Index >= 3 ) {
 				EngineCore.outputText( '"<i>Hah!  I\'ll bite... what the fuck are you supposed to be?  That a cock, or just an ugly, misplaced tail?  HA!  ', false );
 			}
 			//(Small Size, ?-10 inches:;
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength <= 10 ) {
+			if( CoC.player.cocks[ 0 ].cockLength <= 10 ) {
 				EngineCore.outputText( '"So, when you poke a woman with that, does she notice?  Or do you have to tell her when to start faking her orgasm?</i>"\r\r', false );
 			}
 			//(Medium Size, 11-20 inches: ;
-			else if( CoC.getInstance().player.cocks[ 0 ].cockLength <= 20 ) {
+			else if( CoC.player.cocks[ 0 ].cockLength <= 20 ) {
 				EngineCore.outputText( '"Still, at least you\'ve got a decent sized cock.  You know, for a colt.  Maybe you\'ll get lucky, and the real women will take pity on you!</i>"\r\r', false );
 			}
 			//(Big Size, 21 inches and beyond:;
@@ -289,14 +289,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'He looks you over one last time, and sneers condescendingly.  "<i>Well, it ain\'t much as far as heroes go.  But it\'s better than nothing.  Fine, I\'ll teach ya some more.  But when I tell you to strip, you do it a little faster next time... or I might not be so generous.</i>"\r\r', false );
 		EngineCore.outputText( 'You nod, a little irritated at his callous nature.  You\'re not entirely sure you want to be naked in front of this crude centaur... but for now, at least, he\'ll teach you a little more.  Though the way he eyes your ass does make you feel a little uncomfortable.\r\r', false );
 		//(+7 Submissive);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 7 );
-		EngineCore.dynStats( 'lus', Math.ceil( CoC.getInstance().player.lib / 10 ) + 5 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 7 );
+		EngineCore.dynStats( 'lus', Math.ceil( CoC.player.lib / 10 ) + 5 );
 		this.keltMainEncounter2();
 	};
 	//Blowjob Requirement;
 	KeltScene.prototype.keltRequiresBlowjobs = function() {
 		EngineCore.spriteSelect( 35 );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltBJ, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.KeltBJ, 0, 0, 0, 0 );
 		EngineCore.outputText( 'Crossing the field of Whitney\'s farm, your heart begins to beat a little bit faster as you spy Kelt the centaur off in the distance.  You can\'t help but admire his powerful flanks and his proud stature as he runs freely.  Perhaps a little pleased with yourself, you also take a good look at his dangling equipment, sheathed yet sizable.  The sight is entrancing.\r\r', false );
 		EngineCore.outputText( 'A grin crosses your face, despite yourself.  Kelt can be insufferable sometimes.  Most times.  Okay, at all times.  But there is something about him that makes you feel... right, somehow.  Sure he insults you... but he is so strong, so powerful.  So masculine, for lack of a better word.  Infuriating, arrogant, and utterly in control.  Somehow, the combination makes you feel weak at the knees.\r\r', false );
 		EngineCore.outputText( '"<i>Enjoying the sights, are we?</i>"\r\r', false );
@@ -312,13 +312,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'You swallow hard.  You don\'t have to take this!  Kelt is an arrogant, abusive, well-hung, enticing, delicious... you shake your head, thoughts clouded.  The cock grows larger and thicker by the second, and the musk of it delights your senses.  Part of you reasons that one little blowjob won\'t hurt... right?', false );
 		EngineCore.outputText( '\r\rDo you submit?', false );
 		//(Corruption higher than 80 automatically chooses Eagerly);
-		if( CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 200 && CoC.getInstance().player.inte < 60 ) {
+		if( CoC.player.cor + CoC.player.lib + CoC.player.lust >= 200 && CoC.player.inte < 60 ) {
 			EngineCore.outputText( '  Of course you do, slut that you are.', false );
 			EngineCore.doNext( this.keltBlowjobRequirementEagerly );
 			return;
 		}
 		//Never!			Shamefully			Eagerly;
-		if( CoC.getInstance().player.inte > 40 && CoC.getInstance().player.cor > 70 && CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
+		if( CoC.player.inte > 40 && CoC.player.cor > 70 && CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 			EngineCore.outputText( '\n\n<b>If you fight back and take him down a peg, you might never see him again...</b>' );
 			EngineCore.choices( 'Shamefully', this.keltBlowjobRequirementShamefully, 'Eagerly', this.keltBlowjobRequirementEagerly, 'Fight Back', this.keltResistance, '', null, 'Never!', this.keltBlowjobRequirementNever );
 		} else {
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'His words hurt more than you thought, and you turn around, fleeing.  Kelt continues to curse violently at you as you run, but does not follow.  Your head is swimming, confused.  Did you really want to submit to a monster like him?  What did he do to you?  One way or another, it is clear that you are not welcome here anymore.  The thought fills you with that same, strange need, as well as a desire to literally crawl back, and take that glorious cock worshipfully into your mouth, like a good slave.\r\r', false );
 		EngineCore.outputText( 'But the feeling is weaker now.  Whatever is was that kept you bound to him seems to be fading now, albeit slowly.  A shiver of desire runs through you, even so.  It may be a long recovery.\r\r', false );
 		//(Kelt never encountered again);
-		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob Requirement, Shamefully;
@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		if( newl ) {
 			EngineCore.outputText( '', true );
 		}
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( ImageManager.showImage( 'kelt-farm-shamefulbj' ) );
 		EngineCore.outputText( 'The thought of going through with it is appalling.  The thought of not wrapping your lips around that glorious member is equally unthinkable.\r\r', false );
 		EngineCore.outputText( 'Face flushed with lust and shame, you reach up hesitently to wrap your hand around the growing member, feeling its wondrous heat.  Kelt lets out a satisfied groan, his hips bucking forward involuntarily.  The flared head of his massive cock drools precum lewdly, and you hesitate once more, torn.  But with the warmth of his cock beneath your hand, there is no going back.\r\r', false );
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'It may be unhealthy, to keep going back to him.  Of course, you could always say no, right?  He is a good teacher.  And... and would it be so bad to suck him off a few more times?  That wouldn\'t be so bad... would it?\r\r', false );
 		//(Blowjob Off, but activated.);
 		//(+7 Submissiveness);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 7 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 7 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob Requirement, Eagerly;
@@ -379,7 +379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		if( newl ) {
 			EngineCore.outputText( '', true );
 		}
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( ImageManager.showImage( 'kelt-farm-eagerbj' ) );
 		EngineCore.outputText( 'It is like someone answered your prayers.  You eagerly agree, babbling your thanks to Kelt as you are faced with the massive cock, growing harder and harder.  He snorts scornfully.\r\r', false );
 		EngineCore.outputText( '"<i>I didn\'t ask for your thanks, slut,</i>" he says cruelly.  "<i>I asked for you to suck my cock.  Now open wide and choke it down, or I\'m aiming for your ass.</i>"\r\r', false );
@@ -398,9 +398,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'He leaves, obviously quite pleased with himself, and your legs give out from under you, weak from your experience.  Even so, you frantically masturbate, knowing true bliss as you lie within a small pool of his spunk.  The smell of it clings to you, even after you push yourself upright and begin hobbling back to camp, arms clutched around your swollen stomach.  This is what happiness feels like... used and full of sperm.\r\r', false );
 		EngineCore.outputText( 'Still, part of you feels unsteady about this whole thing.  Are you becoming a little too dependent on Kelt?  It may be unhealthy to keep going back to him.  And there are others out there, right?  But... but you can\'t get the centaur out of your head.  It feels right to kneel at his feet; to be his slutty little cumdump.  It is becoming hard to remember why you came here in the first place...\r\r', false );
 		//(Blowjob On.);
-		CoC.getInstance().player.createStatusAffect( StatusAffects.BlowjobOn, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.BlowjobOn, 0, 0, 0, 0 );
 		//(+15 Submissiveness);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 15 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 15 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Normal Encounter;
@@ -408,10 +408,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'Once more, you encounter Kelt the centaur at Whitney\'s farm.  He smirks at you, and asks if the fool has come once more to learn from the master.\r\r', false );
 		//(Submissive 0-30: ;
-		if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
+		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
 			EngineCore.outputText( 'You grind your teeth in irritation, but swallow your pride enough to ask him for help.  ', false );
 		}//(Submissive 30-70:;
-		else if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
+		else if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
 			EngineCore.outputText( 'You nod reluctantly, and Kelt grins.  He may be arrogant, but he is rather good.  ', false );
 		}//(Submissive 70-100: ;
 		else {
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		}
 
 		//(Before Naked Requirement);
-		if( CoC.getInstance().player.statusAffectv3( StatusAffects.Kelt ) <= 3 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.Kelt ) <= 3 ) {
 			EngineCore.outputText( 'Kelt seems to find the idea of training a human almost comical, but suggests that if you want to follow him around for a while, he has no problem with it.  Though his attitude is annoying, you resolve to learn what you can.\r\r', false );
 		}
 		//Stuff that happes after naked requirement;
@@ -433,10 +433,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	KeltScene.prototype.keltMainEncounterAfterNakedReq = function() {
 		//After naked requirement;
 		//(Naked On);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.NakedOn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NakedOn ) >= 0 ) {
 			EngineCore.outputText( 'He nods, smirking slightly, and gestures at your clothes impatiently.  With some pleasure, you strip down before him, discarding your clothes with a little flair.  Kelt is grinning by the end, openly admiring your body, and you feel a little more aroused for obeying his dominant command.\r\r', false );
 			//(+5 Submissive);
-			CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 3 );
+			CoC.player.addStatusValue( StatusAffects.Kelt, 2, 3 );
 		}
 		//(Naked Off);
 		else {
@@ -444,22 +444,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			if( Utils.rand( 10 ) <= 5 ) {
 				EngineCore.outputText( 'Kelt looks down your body scornfully, and claims he is unwilling to teach you unless you are willing to learn naked again.  ', false );
 				//(Corruption 60+, or Submissive 60+: ;
-				if( (CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 180 && CoC.getInstance().player.inte < 30) || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 60 ) {
+				if( (CoC.player.cor + CoC.player.lib + CoC.player.lust >= 180 && CoC.player.inte < 30) || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 60 ) {
 					EngineCore.outputText( 'This time, the idea turns you on a little, and you agree automatically, stripping naked before Kelt with enthusiasm.  He obviously enjoys the show, and you are incredibly aroused by his attention.  Part of you reasons that if training naked is better, maybe you should just strip down right away, each time?  The thought is more than a little stimulating.', false );
-					if( (CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 220 && CoC.getInstance().player.inte < 40) || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 70 ) {
+					if( (CoC.player.cor + CoC.player.lib + CoC.player.lust >= 220 && CoC.player.inte < 40) || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 70 ) {
 						EngineCore.outputText( '  <b>With a lusty smile, you decide to ALWAYS get naked before practicing.</b>', false );
-						CoC.getInstance().player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
+						CoC.player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
 					}
 					EngineCore.outputText( '\r\r', false );
 					//[+5 Submissive]);
-					CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 7 );
+					CoC.player.addStatusValue( StatusAffects.Kelt, 2, 7 );
 				}
 				//(Otherwise:;
 				else {
 					EngineCore.outputText( '\r\rYou\'re not certain you want to practice naked again... particularly with the way Kelt is looking at you, his arrogant smirk plastered on his face.  Do you agree to his terms?', false );
 					//(Yes[+5 Submissive]			No[Never event]);
 					//Link this to reluctant && never;
-					if( CoC.getInstance().player.inte > 40 && CoC.getInstance().player.cor > 70 && CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
+					if( CoC.player.inte > 40 && CoC.player.cor > 70 && CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 						EngineCore.outputText( '\n\n<b>If you fight back and take him down a peg, you might never see him again...</b>' );
 						EngineCore.choices( 'Yes', this.keltReluctantlyGetNaked, 'No', this.keltRefuseNakedness, 'Fight Back', this.keltResistance, '', null, '', null );
 					} else {
@@ -472,14 +472,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			else {
 				EngineCore.outputText( 'Kelt looks at your clothes sourly once more, and mocks you for what he calls \'human sensitivity\'.  He does not, however, directly tell you to take them off.\r\r', false );
 				//(Corruption 60+, or Submissive 60+:;
-				if( (CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 180 && CoC.getInstance().player.inte < 40) || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 60 ) {
+				if( (CoC.player.cor + CoC.player.lib + CoC.player.lust >= 180 && CoC.player.inte < 40) || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 60 ) {
 					EngineCore.outputText( 'This time, though, the idea turns you on a little.  You ask Kelt if he would prefer to see you naked, and begin stripping down in front of him.  He seems surprised but obviously enjoys the show, and you are incredibly aroused by his attention.  Part of you reasons that if training naked is better, maybe you should just strip down right away, each time?  The thought is more than a little stimulating.', false );
-					if( (CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 220 && CoC.getInstance().player.inte < 40) || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 75 ) {
+					if( (CoC.player.cor + CoC.player.lib + CoC.player.lust >= 220 && CoC.player.inte < 40) || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 75 ) {
 						EngineCore.outputText( '  <b>You cast a seductive smile Kelt\'s way and decide you should always strip before practice</b>.', false );
-						CoC.getInstance().player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
+						CoC.player.createStatusAffect( StatusAffects.NakedOn, 0, 0, 0, 0 );
 					}
 					EngineCore.outputText( '\r\r', false );
-					EngineCore.dynStats( 'lus', Math.ceil( CoC.getInstance().player.lib / 10 ) + 5 );
+					EngineCore.dynStats( 'lus', Math.ceil( CoC.player.lib / 10 ) + 5 );
 				}
 				//(Otherwise: ;
 				else {
@@ -492,11 +492,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	//Normal Encounter 2;
 	KeltScene.prototype.keltMainEncounter2 = function() {
 		//(No bow equipped);
-		if( CoC.getInstance().player.hasKeyItem( 'Bow' ) < 0 ) {
+		if( CoC.player.hasKeyItem( 'Bow' ) < 0 ) {
 			EngineCore.outputText( '"<i>Here,</i>" Kelt says, tossing you a spare bow.  "<i>You can use this, for right now.  We train colts on it... you know, before their balls drop.  Should be just about right for your level.  Keep it if you want.</i>"\r\r', false );
 			EngineCore.outputText( 'Despite his mocking description, the bow he gives you really is a decent weapon.  You take it up and start towards the practice field, Kelt following behind.\r\r', false );
-			if( CoC.getInstance().player.hasKeyItem( 'Bow' ) < 0 ) {
-				CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
+			if( CoC.player.hasKeyItem( 'Bow' ) < 0 ) {
+				CoC.player.createKeyItem( 'Bow', 0, 0, 0, 0 );
 			}
 		}
 		//(Bow equipped);
@@ -505,7 +505,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( 'Together, the two of you head off to the practice field.\r\r', false );
 		}
 		//IF BLOWJOB HAS HAPPENED ALREADY, chances to repeat;
-		if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 60 && Utils.rand( 4 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.KeltBJ ) >= 0 ) {
+		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 60 && Utils.rand( 4 ) === 0 && CoC.player.findStatusAffect( StatusAffects.KeltBJ ) >= 0 ) {
 			this.keltMainEncounterPostBlowjob();
 			return;
 		}
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	KeltScene.prototype.keltMainEncounter3 = function() {
 		var temporary = 0;
 		//(Clothed);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
 			EngineCore.outputText( 'Kelt is arrogant, crude, and all too often cruel as he mocks your attempts at archery again and again.  Despite all this, however, he obviously does know what he\'s doing.  You try to ignore his insults and lewd comments as best as you can and focus on the archery.  In the end, you feel you\'ve learned a lot, though Kelt remains snide.\r\r', false );
 			var temp = Utils.rand( 4 );
 			//(25% Chance: ;
@@ -531,19 +531,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			}
 			//(25% Chance: ;
 			if( temp === 3 ) {
-				if( CoC.getInstance().player.race() !== 'centaur' ) {
-					EngineCore.outputText( '"<i>If you were a centaur, I\'d recommend suicide.  Since you\'re a ' + CoC.getInstance().player.race() + ', I\'d say your best option is to fuck off.</i>"\r\r', false );
+				if( CoC.player.race() !== 'centaur' ) {
+					EngineCore.outputText( '"<i>If you were a centaur, I\'d recommend suicide.  Since you\'re a ' + CoC.player.race() + ', I\'d say your best option is to fuck off.</i>"\r\r', false );
 				} else {
 					EngineCore.outputText( '"<i>As a centaur, I\'d recommend suicide.  Really, it\'s that or man the fuck up.</i>"\r\r', false );
 				}
 			}
-			//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,5+Utils.rand(4));;
+			//CoC.player.addStatusValue(StatusAffects.Kelt,1,5+Utils.rand(4));;
 			this.bowSkill( 5 + Utils.rand( 4 ) );
 		}
 		//NAKERS;
 		else {
 			//(Naked, Player in Heat:);
-			if( CoC.getInstance().player.inHeat && CoC.getInstance().player.gender > 1 ) {
+			if( CoC.player.inHeat && CoC.player.gender > 1 ) {
 				EngineCore.outputText( ImageManager.showImage( 'kelt-farm-female-inheat' ) );
 				EngineCore.outputText( 'You line up as normal to begin practicing, shooting at the distant targets while Kelt criticizes your technique... usually in as loud, lewd, and offensive a way as possible.  Today, however, he seems particularly energetic.  He looms over you, distractingly close, his hooves stomping at the ground like an anxious horse.  His insults are as harsh as ever... perhaps even more cruel than usual as he mocks your attempts to hit the targets.\r\r', false );
 				EngineCore.outputText( 'One shot goes wide, and Kelt furiously demands that you go to retrieve the arrow, lodged in a nearby bale of hay.  You do so quickly, snapping to obey his orders with a little shiver of pleasure.  Somehow, it feels right to obey his every wish; to do what you can to satisfy him.  His scent has been distracting you... the rich, masculine power of him.  How had you never noticed before what a spectacular creature Kelt was?\r\r', false );
@@ -551,10 +551,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( '"<i>Did you think I wouldn\'t notice, slut?  You reek like a mare in heat.  I could smell it on you the moment you arrived.  Fortunately, I know just what to do with a fertile bitch.  Let\'s put a baby centaur in that tight pussy of yours.</i>"\r\r', false );
 				EngineCore.outputText( 'Kelt\'s forelegs rear up just enough to plant them around your shoulders, his massive weight bearing down on you.  The bale of hay lifts you just high enough to line up with his fat erection, which presses between your asscheeks even now.\r\r', false );
 				//(Submissive, 0-30: ;
-				if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
+				if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
 					EngineCore.outputText( 'You struggle as best as you can, but Kelt weighs a good deal more than you do.  As his thrusting hips anxiously press his cock to your nether-lips, you realize this is going to happen, whether you want it to or not.  The thought fills you with an undeniable shiver of pleasure.\r\r', false );
 				}//(Submissive, 30-70: ;
-				else if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
+				else if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
 					EngineCore.outputText( 'You put forth a token effort to escape, but it is obvious from the beginning that there is no way to get out from under the heavy weight of the centaur.  Besides, the desire running through you is palpable... in a way, you want this to happen.  So much so that as Kelt is thrusting, trying to line up his cock, you raise your hips to help him out, silently longing for penetration.\r\r', false );
 				}//(Submissive, 70-100: ;
 				else {
@@ -563,24 +563,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 
 				EngineCore.outputText( 'The centaur\'s cock has truly equine proportions, being easily two and a half feet long and over three inches thick.  ', false );
 				//(Vagina, Small: ;
-				if( CoC.getInstance().player.vaginalCapacity() <= 16 ) {
+				if( CoC.player.vaginalCapacity() <= 16 ) {
 					EngineCore.outputText( 'The fit seems impossible, but Kelt could care less about your comfort, and shoves the flared head into you without hesitation.  You let out a scream, feeling like you are being torn apart by his cock as it rudely presses against your insides, spreading you wide open.  Kelt thrusts with growing frustration, but can fit no more than half his cock inside of you, despite his best efforts.  Every twitch makes you cry out as your tight pussy squeezes and milks that massive organ.\r\r', false );
 				}//(Vagina, Medium: ;
-				else if( CoC.getInstance().player.vaginalCapacity() <= 40 ) {
+				else if( CoC.player.vaginalCapacity() <= 40 ) {
 					EngineCore.outputText( 'Even for you, Kelt\'s cock seems oversized as he presses the flared head of his massive manhood against your netherlips.  Even so, he does not hesitate, lunging forward and spearing you on his manhood without hesitation.  You let out a groan as that massive organ spreads you wide open, straining your bounderies and almost certainly stretching you out even further.  The centaur\'s thrusts are relentless, but even at his best, he can only fit in about three fourths of his cock.  He snorts, frustrated... but you are so filled that your head is spinning with pleasure.\r\r', false );
 				}//(Vagina, Large: ;
 				else {
 					EngineCore.outputText( 'It seems like a perfect fit for your gaping, hungry pussy as Kelt rams the flared head deep into you.  You feel that glorious manhood filling you like few cocks can these days, spreading you wide and searching out your depths.  Kelt lets out a pleased laugh when he bottoms out with you just barely able to accommodate his size.  His heavy balls slap pleasantly against your ass as you groan with pleasure, filled to the core with cock.', false );
 				}
-				CoC.getInstance().player.cuntChange( 50, true, true, false );
+				CoC.player.cuntChange( 50, true, true, false );
 				EngineCore.outputText( '\n\n' );
 				EngineCore.outputText( 'From then on, the ride only becomes rougher.  Kelt begins pumping his hips steadily, deep and hard, intent on burying as much of his manhood as possible with each thrust.  He gives little thought to your pleasure, but it hardly matters.  With a cock that size, you cannot help but moan with each buck of his hips.\r\r', false );
 				EngineCore.outputText( '"<i>Not too bad, not too bad!  You make for a pretty decent fuck!  Maybe after you bear a couple of my foals, I\'ll add you to my harem.  You\'d like that, wouldn\'t you?  You just can\'t wait to get a bellyful of centaurs, can you?</i>"\r\r', false );
 				//(Submissive, 0-30: ;
-				if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
+				if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
 					EngineCore.outputText( 'You shiver and groan, unable to help yourself.  It is clear that Kelt has every intention of breeding you, and you are helpless to stop the urges of your body.  Terrifying images of being raped daily by this cruel beast fill your head... of your belly swelling with his young again and again.  You let out a moaning cry, and orgasm helplessly even as Kelt laughs.\r\r', false );
 				}//(Submissive, 30-70: ;
-				else if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
+				else if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
 					EngineCore.outputText( 'The thought of that fills you with a dreadful shiver of lust, from your head to your toes.  Your body longs to be bred, again and again, and the idea of submitting to this powerful creature is so powerfully erotic that you cum on the spot, orgasming with delightful abandon.  The thought of being this centaur\'s breeding slave feels so right!\r\r', false );
 				}//(Submissive, 70-100: ;
 				else {
@@ -590,15 +590,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'You feel a bloom of warmth as the centaur\'s cock bursts within you, pumping thick semen straight into your womb.  The quantity is unbelievable, and you orgasm again just from the sensation of his steaming spunk filling your belly.  Each little twitch of his cock sends sprays of seed and juices squelching from your overstuffed pussy, the majority of it being trapped inside.  Your stomach begins to swell slightly from the sheer quantity, and you all but dissolve into a puddle of satiated goo.\r\r', false );
 				EngineCore.outputText( 'Some time later, Kelt\'s enormous cock softens enough to slip out of your abused cunt, a virtual torrent of cum flowing out afterwards.  You lay on the bale of hay, panting tiredly, hands pressed to your full belly.  Kelt looks down at you, and snorts.\r\r', false );
 				EngineCore.outputText( '"<i>That\'s a good look for you.  Come back tomorrow if it doesn\'t take, slut.  I\'ll be glad to do the job again.</i>"\r\r', false );
-				CoC.getInstance().player.slimeFeed();
-				CoC.getInstance().player.orgasm();
+				CoC.player.slimeFeed();
+				CoC.player.orgasm();
 				EngineCore.outputText( 'He leaves you without another word.', false );
 				//(+5 Submissive);
-				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
+				CoC.player.addStatusValue( StatusAffects.Kelt, 2, 5 );
 				//(Pregnancy Chance);
-				CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_KELT, PregnancyStore.INCUBATION_CENTAUR, 50 );
+				CoC.player.knockUp( PregnancyStore.PREGNANCY_KELT, PregnancyStore.INCUBATION_CENTAUR, 50 );
 				//Should be equivalent to the old way, but now Kelt does all the usual things like checking for contraceptives and fertilizing eggs if PC can oviposit;
-				if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_KELT ) {
+				if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_KELT ) {
 					$log.debug( 'PLAYER GOT KNOCKED UP BY KELT' );
 				}
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -609,23 +609,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			if( temporary <= 2 ) {
 				EngineCore.outputText( 'The lesson proceeds as normal, with you taking shots while Kelt arrogantly critiques your style, tossing out colorful and creative insults whenever possible.  He has no shame about mocking your body as much as he laughs at your archery, and makes several crude comments about what it might be good for.', false );
 				//(Submissive, 0-30:;
-				if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
+				if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
 					EngineCore.outputText( 'You try to ignore the foul remarks, telling yourself that this is simply the way he is.  It does not help, though, that at times you feel Kelt\'s eyes wandering across you lustfully.  At least some of his comments are not mockeries, but suggestions.  The entire experience makes you feel a little more uncomfortable around the abusive centaur.', false );
 				}//(Submissive, 30-70: ;
-				else if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
+				else if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 70 ) {
 					EngineCore.outputText( 'Despite yourself, some of his cruder comments make you blush.  By now, you\'re getting used to the oft times depraved sexuality of the demon world... but it is a little humiliating to subject yourself to this kind of treatment... and, to your shame, sometimes it\'s a little arousing.  Though Kelt is insulting, cruel, and crude, you also notice real lust in some of his glances.  By the end of the lesson, you are flushed with arousal as well as exertion.', false );
 				}//(Submissive, 70-100:;
 				else {
 					EngineCore.outputText( 'Of course, Kelt\'s words only distract you even more from hitting the target.  Not because you are angry... but because you are aroused.  Somehow, his lewd comments and crude jibes make you shiver with anticipation.  He\'s just so powerful, so masculine.  Kelt seems well aware of the effect he has on you, and once reaches out to slap your ass heartily.  By the end of the training, you feel intensely horny.', false );
 				}
 				EngineCore.dynStats( 'lus', 10 );
-				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
+				//CoC.player.addStatusValue(StatusAffects.Kelt,1,4);;
 				this.bowSkill( 4 );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(No Breasts—Do standard Naked event);
-			if( CoC.getInstance().player.biggestTitSize() === 0 && temporary === 3 ) {
+			if( CoC.player.biggestTitSize() === 0 && temporary === 3 ) {
 				temporary = 4;
 			}
 			//(Naked, 20% Chance);
@@ -636,10 +636,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( '"<i>I am being serious.  Women aren\'t warriors.  And those with tits do not become warriors.  I just think it\'s funny. You, begging me to teach you, while you have those udders hanging off your chest!</i>"\r\r', false );
 				EngineCore.outputText( 'To your surprise, he suddenly leans forward, fist moving towards your head.  You raise your arms to deflect the blow, but he changes tactics suddenly and grabs one of your ' + Descriptors.breastDescript( 0 ) + ' instead.  You stiffen, but before you can react further, he squeezes them brutally, mauling your breasts roughly with his hands.\r\r', false );
 				//(Small Size, A-DD: ;
-				if( CoC.getInstance().player.biggestTitSize() <= 5 ) {
+				if( CoC.player.biggestTitSize() <= 5 ) {
 					EngineCore.outputText( '"<i>Ha!  Even with your itty-bitty-titty, you have to admit to a certain... weakness, is it?  Awfully sensitive, aren\'t they?  Ooh, am I making the little girl wet?  Naughty slut!</i>"\r\r', false );
 				}//(Medium Size, E-HHH:;
-				else if( CoC.getInstance().player.biggestTitSize() <= 11 ) {
+				else if( CoC.player.biggestTitSize() <= 11 ) {
 					EngineCore.outputText( '"<i>Just look at these mommy melons!  You want to be an archer?  I\'m amazed you don\'t slap yourself in the tits with every shot!  Easy target to grab onto.  But hey, I bet you like it that way.  Like it when people grope these fat titties of yours?</i>"\r\r', false );
 				}//(Big Size, Watermelon and beyond:;
 				else {
@@ -647,22 +647,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				}
 				EngineCore.outputText( 'Despite his cruel words, you can\'t help but groan a little bit as he brutalizes your sensitive chest.  Kelt seems to take a good deal of pleasure in how helpless you are, pinching and flicking your ' + Descriptors.nippleDescript( 0 ) + 's.\r\r', false );
 				//(Milk);
-				if( CoC.getInstance().player.biggestLactation() > 1 ) {
+				if( CoC.player.biggestLactation() > 1 ) {
 					EngineCore.outputText( 'Inevitably, beads of milk appear on the tips of your breasts, and Kelt lets out a hoot of laughter.\r\r', false );
 					EngineCore.outputText( '"<i>Oh, boy!  Mommy here brought snacks for everyone!  Don\'t mind if I do!</i>"\r\r', false );
 					EngineCore.outputText( 'Without hesitation, he lowers his lips to your engorged breast, suckling on the nipple.  He is immediately rewarded with a jet of milk, and you whimper slightly with pleasure as the centaur begins aggressively suckling your tit.  He drinks down your sweet, warm cream hungrily, and you are so enthralled with the sensations of release that you are powerless to stop him as he takes his fill of you.  The other hand continues to crudely grope your unattended teat, and despite yourself, you can feel your arousal building.  At last, Kelt releases you, wiping his mouth with an arrogant grin.\r\r', false );
 					EngineCore.outputText( '"<i>Not bad, for a cow.  You certainly seemed to enjoy it too.</i>"\r\r', false );
 					EngineCore.outputText( 'Even released, your teat continues to drizzle slightly, spilling your milk shamefully on the ground as Kelt continues to squeeze your breasts.\r\r', false );
 					//You've now been milked, reset the timer for that;
-					CoC.getInstance().player.addStatusValue( StatusAffects.Feeder, 1, 1 );
-					CoC.getInstance().player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
+					CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
+					CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 				}
 				EngineCore.outputText( '"<i>Take it from me, bitch.  Know your place.  Breasts are for women, and women are for fucking until their bellies are full of foals.  \'Teach me archery, Kelt!\'  Ha!  Now that\'s a joke.</i>"\r\r', false );
 				EngineCore.outputText( 'Flicking your erect teats painfully one last time, Kelt walks away, laughing loudly to himself.', false );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				//(+5 Submissive);
-				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
-				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
+				CoC.player.addStatusValue( StatusAffects.Kelt, 2, 5 );
+				//CoC.player.addStatusValue(StatusAffects.Kelt,1,4);;
 				this.bowSkill( 4 );
 				return;
 			}
@@ -680,8 +680,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'He walks away without another word, taking some of your dignity with him.', false );
 				//(+5 Submissive);
 				EngineCore.dynStats( 'lus', 15 );
-				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
-				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
+				CoC.player.addStatusValue( StatusAffects.Kelt, 2, 5 );
+				//CoC.player.addStatusValue(StatusAffects.Kelt,1,4);;
 				this.bowSkill( 4 );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
@@ -691,9 +691,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	};
 	KeltScene.prototype.keltMainEncounterPostBlowjob = function() {
 		//(Blowjob Requirement On);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BlowjobOn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BlowjobOn ) >= 0 ) {
 			//(Submissiveness 75+, Lust 60+);
-			if( CoC.getInstance().player.lust >= 75 || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 90 && Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.lust >= 75 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 90 && Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( ImageManager.showImage( 'kelt-farm-smallbarn' ) );
 				EngineCore.outputText( 'It is almost too much to wait for your meeting with Kelt today.  His familiar musk enflames your senses, making you ache with need.  You try to wriggle your ass enticingly for Kelt as the two of you walk, eager to start in on the usual blowjob.  Even you don\'t usually hunger after it this much, but a need for Kelt\'s cock fills you to the core.  You long for nothing more than to service your mighty stud.\r\r', false );
 				EngineCore.outputText( 'To your surprise, Kelt leads you not towards the practice field, but towards a small barn, near the edge of the field.  When you meekly ask why he\'s taken you here, his brow clouds and he lashes out, striking you with casual violence.  ', false );
@@ -701,39 +701,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'Scrambling to your feet and babbling apologies, you hastily open the door to the barn, entering immediately.  Before you is a thin, upraised table, with straps in it, like saddle stirrups.  Your heart leaps excitedly, and Kelt laughs a little to himself as he tells you to get on, facedown.  You hasten to comply.\r\r', false );
 				EngineCore.outputText( 'Lying on the rough table with your feet in the stirrups, your ass is suspended at just the right height.  Kelt moves with obvious hunger, running his finger along your nethers.', false );
 				//(Penis:;
-				if( CoC.getInstance().player.totalCocks() > 0 ) {
+				if( CoC.player.totalCocks() > 0 ) {
 					EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' is rock hard, but he ignores it almost contemptuously.  You almost feel ashamed of it, compared to the slowly-growing manhood between his legs.', false );
 				}
 				//(Vagina:;
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  For a moment, his fingers trace the line of your exposed ' + Descriptors.vaginaDescript( 0 ) + ', giving you the slightest of warnings before he crudely jams two fingers deep inside, as though scouting out your depths.  You whimper urgently at the treatment, and more so as Kelt removes his fingers, licking with obvious pleasure.', false );
 				}
 				EngineCore.outputText( '\r\r"<i>Oh?  Like that, do you?  Well, we\'re not here for what you like.  You\'re here to satisfy me, slut.  And I know what I\'m after.</i>"\r\r', false );
 				EngineCore.outputText( 'You flinch slightly as his two front hooves land forcefully on either side of your head, as Kelt mounts you from behind.  You can feel his massive cock pressing firmly into your back, drooling a warm little blob of precum between your shoulder blades. For a few, anxious moments, you tremble and bite your lip, waiting for him to line up his shot.  You almost cum on the spot as the flared head of his member presses squarely between your ' + Descriptors.buttDescript() + '.\r\r', false );
 				EngineCore.outputText( 'Kelt doesn\'t hesitate.  With an almost primal snarl, he rams his cock forward, anxious to sink himself deep into your ass.  With no lube and no foreplay, you let out a cry as the massive cock splits you open.  Fortunately, it drools precum eagerly into your backside, making the next thrust easier, though no less forceful.  Kelt shows no mercy, trying to fit himself inside your ' );
-				if( CoC.getInstance().player.tallness < 112 ) {
+				if( CoC.player.tallness < 112 ) {
 					EngineCore.outputText( 'smaller ' );
 				}
 				EngineCore.outputText( 'body with no concern for your well being.', false );
-				CoC.getInstance().player.buttChange( 70, true, true, false );
+				CoC.player.buttChange( 70, true, true, false );
 				EngineCore.outputText( '\r\r', false );
 				EngineCore.outputText( 'You can\'t help it... at the thought of being used as his worthless fucktoy, you suffer a mild orgasm of your own, crying out your submission to this powerful creature.', false );
 				//(Penis: ;
-				if( CoC.getInstance().player.totalCocks() > 0 ) {
+				if( CoC.player.totalCocks() > 0 ) {
 					EngineCore.outputText( '  Beneath you, pressed firmly into the harsh wood of the mounting board, your ' + Descriptors.cockDescript( 0 ) + ' erupts, splattering your stomach with your own cum.  As the thick semen slides down towards your face, you begin slipping on your own warm seed, rocking back and forth with each harsh pounding Kelt delivers to your backside.', false );
 				}
 				//(Vagina:;
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  Your poor, neglected pussy quivers with delight, convulsing without even being touched.  Thick juices run freely down your leg, dripping off to splatter the hay below you as you moan like a bitch in heat.', false );
 				}
 				//(Genderless: ;
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( '  Never before has a complete lack of genitalia been so frustrating... or pleasurable.  Not being able to physically cum, the explosions of climax simply rack up within your body... waves of cascading pleasure with no release and no mercy.', false );
 				}
 				EngineCore.outputText( '\r\rIf anything, your orgasm only seems to spur Kelt on, causing him to push deeper and faster.  The idea of fitting his massive, nearly three-foot cock into your bowels seems ludicrous, but the aggressive centaur obviously has no intention of taking \'no\' for an answer.  With each powerful thrust of his hips, he sinks more cock deep within your ass, filling you, stretching you, ripping you open with still more to come.  It is almost a terrible relief when you feel his massive testicles colide with your ass, buried at last to the hilt. Even in victory, Kelt is snide.  ', false );
-				if( CoC.getInstance().player.looseness( false ) < 3 ) {
+				if( CoC.player.looseness( false ) < 3 ) {
 					EngineCore.outputText( '"<i>Fuck!  About time!  Sure got a tight little ass back here, but don\'t worry, slut.  We\'ll stretch it out in no time. I promise you this... you\'ll be getting a lot more of my cock from now on, so you\'d better be ready!</i>"\r\r', false );
-				} else if( CoC.getInstance().player.looseness( false ) < 5 ) {
+				} else if( CoC.player.looseness( false ) < 5 ) {
 					EngineCore.outputText( '"<i>Fuck!  About time!  Sure got a nice ass back here, but don\'t worry, slut.  We\'ll turn it into a real gaper soon.  It\'s a good thing you\'ve been practicing... you\'ll be getting a lot more of my cock from now on, so you\'d better be ready!</i>"\n\n' );
 				} else {
 					EngineCore.outputText( '"<i>Fuck!  About time!  Sure got a nice, stretched out little pucker back here, but don\'t worry, slut.  I\'ll train into to squeeze down just right in no time.  I promise you this... you\'ll be getting a lot more of my cock from now on, so you\'d better be ready!</i>"\n\n' );
@@ -744,13 +744,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( '"<i>Now stay there for a while, bitch.  Let it get good and stuck up there.  Come back tomorrow, and maybe, if you\'re lucky, I\'ll fuck you again.  You do, after all, make a pretty good cumdump.</i>"\r\r', false );
 				EngineCore.outputText( 'It\'s some hours later before you rouse yourself, clenching your ass as best as you can to keep the tide inside.  Despite your efforts, a steady trail oozes down your leg, marking your path as you slowly, happily trudge back to your camp.', false );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
-				CoC.getInstance().player.slimeFeed();
+				CoC.player.slimeFeed();
 				//(+10 Submissiveness);
-				if( CoC.getInstance().player.buttChange( 70, true ) ) {
+				if( CoC.player.buttChange( 70, true ) ) {
 					EngineCore.outputText( '\r\r', false );
 				}
-				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 10 );
-				CoC.getInstance().player.orgasm();
+				CoC.player.addStatusValue( StatusAffects.Kelt, 2, 10 );
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'cor', 1 );
 				return;
 			}
@@ -764,10 +764,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'Though he lasts some time, it is still too short before he groans aloud and begins spewing thick seed into your stomach.  Rapturous, you gulp it down eagerly, feeling it warm your insides and slide into your stuffed belly.  By the time he is finished, your stomach is so packed it aches... but the feeling of contentment at being full of his seed once more is far more satisfying.  Kelt allows you to clean his cock before pulling away.\r\r', false );
 				EngineCore.outputText( '"<i>Pretty good, slut.  I knew there was a reason I kept you around.  I\'ve indulged you enough, though.  Get over there and shoot some arrows, before I get bored with you.</i>"\r\r', false );
 				EngineCore.outputText( 'You hardly remember the rest of the training.  You\'re far too distracted by the fullness of your belly, and the thought of maybe getting a little more.  Kelt seems almost bored by the end, despite your attempts to entice him during the lesson, and leaves soon afterwards, to your chagrin.', false );
-				CoC.getInstance().player.slimeFeed();
+				CoC.player.slimeFeed();
 				//(+5 Submissiveness);
-				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
-				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,3);;
+				CoC.player.addStatusValue( StatusAffects.Kelt, 2, 5 );
+				//CoC.player.addStatusValue(StatusAffects.Kelt,1,3);;
 				this.bowSkill( 3 );
 				EngineCore.dynStats( 'lus', 20, 'cor', 1 );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -781,7 +781,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( '"<i>Not today, bitch.  I think it\'s time you gave a little back.  So be a good little whore, and get to work on my cock.  I\'m gonna bust a nut in that pretty little mouth before I do any more teaching.</i>"\r\r', false );
 			EngineCore.outputText( 'A shiver of desire and a tremor of fear run through you.  You had hoped to avoid this requirement.  A hunger lies within you... the thought of once more slurping down centaur cum is all but irresistible.  But you fear that with each time, you are losing yourself more and more...\r\r', false );
 			//(Submissiveness +80, or Corruption +80);
-			if( CoC.getInstance().player.cor + CoC.getInstance().player.lib + CoC.getInstance().player.lust >= 220 && CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 80 ) {
+			if( CoC.player.cor + CoC.player.lib + CoC.player.lust >= 220 && CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 80 ) {
 				EngineCore.outputText( 'You try to resist the need.  You honestly try.  But this time, there is just no stopping it.  Your desire for Kelt to cum within you again is so great, you fall to your knees immediately before him, waiting hungrily for your treat.  A part of you wonders why you ever resisted in the first place... in fact, why not suck him off before every lesson?  Surely that would make him like you more...\r\r', false );
 				EngineCore.doNext( this.keltSubmitGivingBJ );
 				return;
@@ -804,19 +804,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'To your surprise, however, Kelt does not seem particularly bothered.  In fact, he laughs as you leave.\r\r', false );
 		EngineCore.outputText( '"<i>Keep fooling yourself, bitch.  I\'ll be waiting when you get hungry.</i>"  \r\rKelt leaves, refusing to teach you now.', false );
 		//(-5 Submissiveness);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, -5 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, -5 );
 		EngineCore.dynStats( 'lus', 5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Submit);
 	KeltScene.prototype.keltSubmitGivingBJ = function() {
 		EngineCore.spriteSelect( 35 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>There we go.  Who\'s a good little whore?  Who\'s a hungry little slut?  Okay, bitch... time to fill that belly of yours.  Open wide.</i>"\r\r', false );
 		EngineCore.outputText( 'Reluctantly, with shame burning in your cheeks and desire ravaging your mind, you lower yourself before him and do just that.\r\r', false );
-		if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 90 ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.BlowjobOn, 0, 0, 0, 0 );
+		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 90 ) {
+			CoC.player.createStatusAffect( StatusAffects.BlowjobOn, 0, 0, 0, 0 );
 		}
 		this.keltReluctantGivingBJ();
 		EngineCore.doNext( this.continueAfterBJ );
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	//(Reluctant Blowjob);
 	KeltScene.prototype.keltReluctantGivingBJ = function() {
 		EngineCore.spriteSelect( 35 );
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'kelt-farm-reluctantbj' ) );
 		EngineCore.outputText( 'Kelt immediately moves over you, grinding his cock forcefully into your face.  He seems to enjoy teasing you with it above anything else as you wait anxiously for his command, nuzzling his cock but unable to do more until he allows it.  The musky scent of it fills you with a desire you don\'t dare admit to... but is present all the same.\r\r', false );
@@ -841,7 +841,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( 'Meekly you nod, humiliated and full of cum.  The worst part, by far, is how happy you are on the inside.  You try to tell yourself that this is wrong, that Kelt is an arrogant, cruel creature, and that this is the last time.  But you don\'t really believe that.  Despite the lies you tell yourself, you look forward to the next time he decides to use you.\r\r', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//(+5 Submissiveness)*/;
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bad Ends;
@@ -854,7 +854,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.outputText( '"<i>So... just had to get a taste of what it is like, huh?  Good for you... I like you this way.  Yes... I can work with this.</i>"\r\r', false );
 		EngineCore.outputText( 'He paces around you, and you stand at attention, quivering with pleasure at his compliments.  Involuntarily, you feel your horselike tail raise high into the air, as if to show off your nethers as well.  Kelt takes a moment to inspect them, obviously enjoying himself.\r\r', false );
 		//(Male);
-		if( CoC.getInstance().player.gender === 1 ) {
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( '"<i>Hmph.  Still technically male, huh?  What, you call this a cock?</i>"\r\r', false );
 			EngineCore.outputText( 'Roughly he seizes hold of your crotch, making you whinny slightly.  Whether from pain or pleasure, however, is harder to tell.  You feel strange, conflicting emotions... primarily a need to be with Kelt, to pleasure Kelt, to fuck Kelt... the urgency surprises you.  Even more surprising is the fact that your cock is entirely flaccid.\r\r', false );
 			EngineCore.outputText( '"<i>Well, I\'ve got no use for males, slut.  Fortunately, you still have something I can use in the meantime.</i>"\r\r', false );
@@ -865,7 +865,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( 'He thrusts in once more ruthlessly, completely filling your ' + Descriptors.assholeDescript() + ' as he ruthlessly snarls, cumming forcefully deep within you.  Your cock remains flaccid the entire time... it\'s obvious who the male is in this situation.  As his hot seed pumps into your abused ass, the last resistance you had crumbles, and you moan like a mare in heat, desperate for more.  Kelt obliges, never going soft, and prepares to deliver a second load to his newest harem member.  Again and again, you beg him for more, embracing your new life without regret.\r\r', false );
 		}
 		//(Genderless);
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( '"<i>Ha!  What the fuck are you supposed to be?  No cock, no cunt?  Well, no matter, bitch.  You\'ve still got what I want.</i>"\r\r', false );
 			EngineCore.outputText( 'Roughly he shoves a couple of fingers into your asshole, making you whinny slightly.  Whether from pain or pleasure, however, is harder to tell.  You feel strange, conflicting emotions... primarily a need to be with Kelt, to pleasure Kelt, to fuck Kelt... the urgency surprises you.  But how... and with what?\r\r', false );
 			EngineCore.outputText( '"<i>Well, man or woman, it doesn\'t matter to me.  You\'re still only good for one thing.  Time to give you a purpose, slut.</i>"\r\r', false );
@@ -876,9 +876,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( 'He thrusts in once more ruthlessly, completely filling your ass as he ruthlessly snarls, cumming forcefully deep within you.  It fills you with an intense, unknowable joy to be used in this way, to have found your purpose!  As his hot seed pumps into your abused ass, the last resistance you had crumbles, and you moan like a mare in heat, desperate for more.  Kelt obliges, never going soft, and prepares to deliver a second load to his newest harem member.  Again and again, you beg him for more, embracing your new life without regret.', false );
 		}
 		//(Female, Hermaphrodite);
-		if( CoC.getInstance().player.gender >= 2 ) {
+		if( CoC.player.gender >= 2 ) {
 			//(Hermaphrodite);
-			if( CoC.getInstance().player.gender === 3 ) {
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '', true );
 				EngineCore.outputText( '"<i>Ooh, the slut is packing is she?  Tell me, how\'s that cock working out for you?</i>"\r\r', false );
 				EngineCore.outputText( 'It isn\'t, of course.  Not at all... you are entirely flaccid, and Kelt knows it.  He grasps the base of your cock roughly, giving it a few experimental tugs, laughing derisively as he does so.  There is no reaction... save that your cunt gets a little wetter.\r\r', false );
@@ -932,7 +932,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 	KeltScene.prototype.keltResistance = function() {
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You close your eyes, ', true );
-		if( CoC.getInstance().player.faceType === AppearanceDefs.FACE_HORSE || CoC.getInstance().player.faceType === AppearanceDefs.FACE_DOG ) {
+		if( CoC.player.faceType === AppearanceDefs.FACE_HORSE || CoC.player.faceType === AppearanceDefs.FACE_DOG ) {
 			EngineCore.outputText( 'a low growl building in the back of your throat', false );
 		} else {
 			EngineCore.outputText( 'fighting anger-fueled muscle-spasms', false );
@@ -945,22 +945,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You suppress your anger for now.  Yes; Kelt\'s an asshole, but he\'s taught you a lot, and would it hurt to humor the cute stud?  You shake your head, uncomfortable with the out-of-place thought.  You leave in a hurry, unable to face your master.', true );
 		//(+2 submission);
-		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 2 );
+		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KeltScene.prototype.fuckKeltsShitUp = function() {
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( '', true );
 		//If naga folks;
-		if( CoC.getInstance().player.faceType === AppearanceDefs.FACE_SNAKE_FANGS && CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_SNAKE && CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA ) {
+		if( CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS && CoC.player.tongueType === AppearanceDefs.TONUGE_SNAKE && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA ) {
 			EngineCore.outputText( ImageManager.showImage( 'kelt-farm-naga-subkelt' ) );
 			EngineCore.outputText( 'Feigning a coy smile, you lick your lips with your forked tongue and beckon Kelt towards you.  The foolish stud trots over to you saying "<i>That\'s more like it, worm.  Maybe when I\'m done with your mouth, I\'ll let you have my dick in your ass, too.</i>"  His sheath ripples and swells as his thick member begins to slowly droop out from the folded skin, hanging towards the ground.  It continues growing as he comes closer and closer, until it finally begins to grow rigid and arc towards your face.  You feel a moment of self-doubt as you breathe in his wonderful scent - wouldn\'t it be better, safer to just give in?  No, says a cold, reptile voice in your head.  You are the predator here and he, arrogant prey, has stepped into your trap.  Make him pay.  Make him know where his place in the world is.\r\r', false );
 			EngineCore.outputText( 'You open your mouth and, instead of attaching yourself to Kelt\'s cock, you lash out at lightning speed, wrapping your arms around his flanks and biting into his backside.  The satisfaction you take from burying your fangs into such a fine piece of meat is almost as great as the squeal of surprised pain it draws from Kelt.  "<i>What are you doing, you stupid bitch?  Get off.  Now!</i>"  You don\'t bother giving him a response.  He lashes out with his powerful hind legs, but you are well ahead of him; wriggling upwards you begin to wrap your long coils around his equine back.  He tries to trap your lower half under his hooves, but the poison you sank into him is already taking effect - unable to coordinate, he can only stab at you woozily.  You skilfully trip him to his knees with a flick of your scaled tip, before weaving under him and over, then around his human upper half.  He struggles weakly with his arms, but with your venom coursing through him he is simply no match for your strong, muscular coils.  You stop when you are level with his face, his arms and entire frame swaddled and trapped in your long, patterned tail.\r\r', false );
 			EngineCore.outputText( 'You take a moment to indulge in the sensation - the feeling of this big, muscled creature against your warm scales, at your mercy.  His panicky heartbeat reverberates through your frame, and he glowers at you, unable to resist, as you languidly trace the line of his proud jaw with your finger.  "<i>Let me go now, and I promise I won\'t kill you.  I may have to beat you, but I won\'t kill you,</i>" he growls.  You are barely listening - you are staring into his eyes.  There is something there aside from anger - is it fear?  You smirk, and slowly begin to rise above him, until your genital slit is level with his face.  As you do so, you slide the tip of your tail towards Kelt\'s member and gently flick its end; he grits his teeth as his big horse cock begins to strain to attention again.  You gently circumnavigate his head, tormenting him as you speak.\r\r', false );
 			//If male/hermaphrodite ;
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				//Single cock: ;
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( '"<i>Pretty pony stepped on a snake.  Now pretty pony has to pay the price,</i>" you say, sighing as you part your lips and allow your ' + Descriptors.cockDescript( 0 ) + ' to slide out and feel the fresh air.\n\n"<i>You put that in my mouth and I will bite it off,</i>" snarls Kelt.\n\n"<i>Will you?</i>" you sneer. "<i>I will grow one back.  You, on the other hand, will die a slow, agonising death.  Be smart.</i>" He stares up at you, and yes, it\'s fear: pure, animalistic fear of a horse for a viper.  You open your mouth and bare your fangs in a wide, triumphant smile at him; venom dribbles down your chin.  He lowers his eyes and opens his mouth in submission.  Needing no further invitation, you slide your ' + Descriptors.cockDescript( 0 ) + ' into his mouth, massaging your hands into his hair as you do so.\r\r', false );
 					EngineCore.outputText( 'He is unpracticed at first, unsure; you feel his teeth rub against your length and for a moment you wonder if he actually will carry through his threat.  You tease at his horsecock with your tail, circling his head faintly and then, gently, sticking the very tip of it into his urethra.  He moans around your ' + Descriptors.cockDescript( 0 ) + ' and his teeth seem to vanish, replaced with a sucking, eager wetness.  You slowly begin to feed more of your length into him.\r\r', false );
 				}
@@ -969,8 +969,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 					EngineCore.outputText( '"<i>Pretty pony stepped on a snake.  Now pretty pony has to pay the price,</i>" you say, sighing as you part your lips and allow your cocks to slide out and feel the fresh air.  You idly slap your ' + Descriptors.cockDescript( 0 ) + ' against his face. "<i>You put that in my mouth and I will bite it off,</i>" snarls Kelt.\n\n"<i>Will you?</i>" you sneer.  "<i>I will fuck your mouth with the next one. Then I\'ll grow the first one back and come and fuck you with that one again!  Be smart.</i>"  He stares up at you, and yes, it\'s fear: pure, animalistic fear of a horse for a viper.  You open your mouth and bare your fangs in a wide, triumphant smile at him; venom dribbles down your chin.  He lowers his eyes and opens his mouth in submission.  Needing no further invitation, you slide your ' + Descriptors.cockDescript( 0 ) + ' into his mouth, massaging your hands into his hair as you do so; your semi-distended ' + Descriptors.cockDescript( 1 ) + ' bumps into his chin, an impossible-to-ignore reminder of your threat.\r\r', false );
 					EngineCore.outputText( 'He is unpracticed at first, unsure; you feel his teeth rub against your length and for a moment you wonder if he actually will carry through his threat.  You tease at his horsecock with your tail, circling his head faintly and then, gently, sticking the very tip of it into his urethra.  He moans around your ' + Descriptors.cockDescript( 0 ) + ' and his teeth seem to vanish, replaced with a sucking, eager wetness.  You slowly begin to feed more of your length into him.\r\r', false );
 				}
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength <= 10 ) {
-					if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.cocks[ 0 ].cockLength <= 10 ) {
+					if( CoC.player.balls > 0 ) {
 						EngineCore.outputText( 'Your ' + Descriptors.ballsDescriptLight() + ' bump into his chin as your cock finds the back of his throat. ', false );
 					} else {
 						EngineCore.outputText( 'Your genital slit bumps into his chin as your cock finds the back of his throat. ', false );
@@ -978,7 +978,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 					EngineCore.outputText( 'He is now entirely engaged with your length, moving his head back and forth as his tongue slathers it with attention, perhaps in the hope that the sooner he gets you off the sooner this nightmare will end.  You smirk and grip his hair, moving his head in rhythm with your own movements.\r\r', false );
 					EngineCore.outputText( 'You feel a mighty groan around your ' + Descriptors.cockDescript( 0 ) + ' and Kelt\'s cock begin to pulse against your tail urgently.  Quickly and expertly, you wrap the end around the centaur\'s penis tightly, denying him release and rewarding yourself with another pained, muffled squeal reverberating through your prick.\r\r', false );
 					EngineCore.outputText( '"<i>Ah, ah, ah,</i>" you hiss.  "<i>Sluts don\'t get off before their masters.</i>"  A wicked idea strikes you.  Whilst still holding onto the centaur\'s cock with your coils, you begin to wind the tip of your tail towards Kelt\'s ass.  It isn\'t easy; you have invested the entirety of your frame into holding onto the centaur, so it is by measures that you constrict him tighter as your tail inches towards his anus.  He is bone -crushingly gripped in your coils by the time you find his sphincter, which you softly but surely sink your tip into.  Kelt struggles with the last of his strength against this final humiliation, but there is nothing he can do; with your venom plaguing his limbs, your coils wrapped hard around his frame, and your cock buried in his face, you have robbed him of everything.  His saliva coats your ', false );
-					if( CoC.getInstance().player.balls > 0 ) {
+					if( CoC.player.balls > 0 ) {
 						EngineCore.outputText( Descriptors.ballsDescriptLight(), false );
 					} else {
 						EngineCore.outputText( 'crotch', false );
@@ -997,7 +997,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				}
 			}
 			//If Female: ;
-			else if( CoC.getInstance().player.hasVagina() ) {
+			else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '"<i>Pretty pony stepped on a snake.  Now pretty pony has to pay the price,</i>" you say, sighing as you part your lips and allow your ' + Descriptors.vaginaDescript( 0 ) + ' to open and feel the fresh air. "<i>You put your bud in my mouth and I will bite it off,</i>" snarls Kelt. "<i>Will you?</i>" you sneer.  "<i>I will grow one back.  You, on the other hand, will die a slow, agonising death.  Be smart.</i>"  He stares up at you, and yes, it\'s fear: pure, animalistic fear of a horse for a viper. You open your mouth and bare your fangs in a wide, triumphant smile at him; venom dribbles down your chin.  He lowers his eyes and opens his mouth in submission. Needing no further invitation, you lower your ' + Descriptors.vaginaDescript( 0 ) + ' onto his tongue, massaging your hands into his hair as you do so.\r\r', false );
 				EngineCore.outputText( 'He is unpracticed at first, unsure; you feel his teeth rub against your ' + Descriptors.clitDescript() + ' and for a moment you wonder if he actually will carry through his threat.  You tease at his horsecock with your tail, circling his head faintly and then, gently, sticking the very tip of it into his urethra.  He moans against your ' + Descriptors.vaginaDescript( 0 ) + ' and his teeth seem to vanish, replaced with a sucking, eager wetness.  You press your abdomen against him tightly, forcing your ' + Descriptors.clitDescript() + ' into his mouth and his tongue into your wet hole.\r\r', false );
 				EngineCore.outputText( 'Girl cum begins to drip down Kelt\'s chin.  He is now entirely engaged with your ' + Descriptors.vaginaDescript( 0 ) + ', moving his head back and forth as his tongue slathers your clit with attention, perhaps in the hope that the sooner he gets you off the sooner this nightmare will end.  You smirk and grip his hair, forcing his head this way and that so that no corner of your pink opening goes without attention.\r\r', false );
@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'You punctuate these last words with three final backward thrusts against his face and then, spent, you slowly pull away, spit trailing from your ass onto your captive\'s lips.  Smirking, you loosen your bonds just a little by withdrawing your tail from his ass.  Kelt doesn\'t even orgasm; he raggedly moans as cum simply drools out of his abused dick by the bucket load.\r\r', false );
 			}
 			//All go to: ;
-			EngineCore.outputText( 'You take your time unknotting yourself from the centaur, continuing to enjoy the feeling of your scales brushing against his thoroughbred form.  Kelt is in no shape to retaliate against you; your poison and treatment of him has left him semi-comatose.  His eyes are wide open and vague, as if he can\'t quite believe what just happened.  You leisurely put on your ' + CoC.getInstance().player.armorName + ' and then, with a smile, give him an affectionate slap on the spot you bit him and slither off.  You wonder if he will ever be able to face you again.', false );
+			EngineCore.outputText( 'You take your time unknotting yourself from the centaur, continuing to enjoy the feeling of your scales brushing against his thoroughbred form.  Kelt is in no shape to retaliate against you; your poison and treatment of him has left him semi-comatose.  His eyes are wide open and vague, as if he can\'t quite believe what just happened.  You leisurely put on your ' + CoC.player.armorName + ' and then, with a smile, give him an affectionate slap on the spot you bit him and slither off.  You wonder if he will ever be able to face you again.', false );
 		}
 		//Standard anti-kelt scene;
 		else {
@@ -1025,8 +1025,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( 'Feigning a coy smile, you drop to your knees and beckon Kelt towards you.  The foolish stud trots over saying, "<i>That\'s more like it, slut.  Maybe when I\'m done with your mouth, I\'ll let you have my dick in your ass too.</i>"  His sheath ripples and swells as his thick member begins to slowly droop out from the folded skin, hanging towards the ground.  It continues growing as he comes closer and closer, until it finally begins to grow rigid and arc up to point at your face.  You breathe in your master\'s wonderful scent an — No!  You won\'t cave in to him this time!\r\r', false );
 			EngineCore.outputText( 'You grip his dick just below the flare and yank it down hard, stepping up and back until you\'re behind the beast.  His flexible horse-dick seems to be handling the angle well, so you pull it back further until Kelt dances about uncomfortably, trying to relax the pressure on his exposed member.  He barks, "<i>You really have no fucking clue what you\'re doing, do you, bitch?</i>"\r\r', false );
 			EngineCore.outputText( 'Your cheeks color, but your anger drives away the urge to submit.  A quick jerk on his flared dong makes Kelt whinny painfully, and he lashes out with a vicious kick from his hind legs.  You anticipate such a move, and dodge, bending his length further just as his backside starts lifting up.  The pain robs his kick of any strength, and you\'re able to sidestep one leg and force the other aside with a block before it can connect.  He lands hard, wobbling and whinnying uncomfortably, even starting to cry, "<i>Ah, oww... please, just stop hurting me!</i>"\r\r', false );
-			if( CoC.getInstance().player.tallness < 50 || CoC.getInstance().player.totalCocks() === 0 ) {
-				if( CoC.getInstance().player.tallness < 50 ) {
+			if( CoC.player.tallness < 50 || CoC.player.totalCocks() === 0 ) {
+				if( CoC.player.tallness < 50 ) {
 					EngineCore.outputText( 'Realizing you\'re too short to dominate him properly, you come up with another plan.  ', false );
 				}
 				EngineCore.outputText( 'You give his ass a hard smack before you ball up your hand into a fist.  "<i>Who\'s the bitch now?!</i>" you taunt, punching forwards into his asshole.  He cries out at the sudden discomfort, but you feel his dick thicken perceptibly in your hand.  You open your hand when you bump into an apple sized knot inside him, and give it a small, experimental squeeze.  Kelt whinnies and squirts like a garden-hose, splattering a generous helping of clear pre-cum into the grass.  You grin wolfishly and constrict your fingers around the organ.  His horse-cock twitches and flares in your hand, unloading a massive squirt of cum from the stimulation.\r\r', false );
@@ -1034,26 +1034,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 				EngineCore.outputText( 'You give his ass a hard smack and line your ' + Descriptors.cockDescript( 0 ) + ' with his massive pucker.  Pressing forwards, you punch deep into his asshole and taunt, "<i>Who\'s the bitch now, you fucking cock-sleeve?</i>"  You feel your head bump across the hard knot of his prostate, and on contact you can feel his dick twitch in your hand, unloading a torrent of pre-cum into the dirt.  Porking the poor centaur, you laugh as he whinnies in pain, but every time you thrust back inside he spurts more and sticky pre until you feel his cock flare in your hand and start unloading.\r\r', false );
 			}
 			EngineCore.outputText( 'Pulling out with a wet-sounding \'SCHLIIICK\', you wash off the filth with a nearby bucket, probably set up by the centaur when he was planning on using YOU.  You grab a lasso and pull it up over his dick, ignoring his protests as you knot it tightly about his still-leaking member.  Kelt whines, "<i>What are you dooooiiiing?!?</i>"\r\r', false );
-			EngineCore.outputText( '"<i>Bitches aren\'t supposed to get off first, slut.</i>"  You pull the rope up between his ass-cheeks and walk forwards, looping it over his shoulder.  Now in front of him, you give the rope a yank, watching his face contort with pain as the rope digs into his ass and pulls his cock backwards until it looks like a second tail.  Ignoring his tears and blubbering protests, you lead him to a nearby bench and climb atop it, undoing your ' + CoC.getInstance().player.armorName + ' with one hand.  He looks down at your now-exposed crotch and shudders, openly crying.\r\r', false );
-			if( CoC.getInstance().player.gender === 0 ) {
+			EngineCore.outputText( '"<i>Bitches aren\'t supposed to get off first, slut.</i>"  You pull the rope up between his ass-cheeks and walk forwards, looping it over his shoulder.  Now in front of him, you give the rope a yank, watching his face contort with pain as the rope digs into his ass and pulls his cock backwards until it looks like a second tail.  Ignoring his tears and blubbering protests, you lead him to a nearby bench and climb atop it, undoing your ' + CoC.player.armorName + ' with one hand.  He looks down at your now-exposed crotch and shudders, openly crying.\r\r', false );
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'You turn around, bending over to expose your ' + Descriptors.assholeDescript() + '.  "<i>Lick it, bitch,</i>" you command.  When he doesn\'t, you give the rope a pull, and his hooves paw at the dirt in pain.  "<i>I said LICK!</i>" you scream, and this time he does.  His tongue slips between your ' + Descriptors.assDescript() + '.  "<i>Deeper,</i>" you sigh, and he complies, no longer capable of resistance.  You make him tonguefuck you until you come to a shuddering orgasm.\r\r', false );
-			} else if( CoC.getInstance().player.hasVagina() && (CoC.getInstance().player.totalCocks() === 0 || Utils.rand( 2 ) === 0) ) {
-				EngineCore.outputText( 'You spread your ' + CoC.getInstance().player.legs() + ' and expose your ' + Descriptors.vaginaDescript( 0 ) + '.  "<i>Lick it, bitch,</i>" you command.  When he doesn\'t, you give the rope a pull, and his hooves paw at the dirt in pain.  "<i>I said LICK!</i>" you scream, and this time he does.  His tongue slips between your puffy folds ', false );
-				if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness < AppearanceDefs.VAGINA_WETNESS_SLICK ) {
+			} else if( CoC.player.hasVagina() && (CoC.player.totalCocks() === 0 || Utils.rand( 2 ) === 0) ) {
+				EngineCore.outputText( 'You spread your ' + CoC.player.legs() + ' and expose your ' + Descriptors.vaginaDescript( 0 ) + '.  "<i>Lick it, bitch,</i>" you command.  When he doesn\'t, you give the rope a pull, and his hooves paw at the dirt in pain.  "<i>I said LICK!</i>" you scream, and this time he does.  His tongue slips between your puffy folds ', false );
+				if( CoC.player.vaginas[ 0 ].vaginalWetness < AppearanceDefs.VAGINA_WETNESS_SLICK ) {
 					EngineCore.outputText( 'tasting them experimentally.  ', false );
 				} else {
 					EngineCore.outputText( 'immediately becoming slick with your fuck-me-juices.  ', false );
 				}
 				EngineCore.outputText( '"<i>Deeper,</i>" you sigh, and he complies, no longer capable of resistance.  You make him tonguefuck you until you come to a shuddering, cunt-clenching orgasm.', false );
-				if( CoC.getInstance().player.totalCocks() > 0 ) {
+				if( CoC.player.totalCocks() > 0 ) {
 					EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' splatters cock-cream into his hair, further humiliating him.', false );
 				}
 				EngineCore.outputText( '\r\r', false );
 			} else {
-				EngineCore.outputText( 'You spread your ' + CoC.getInstance().player.legs() + ' and expose your ' + Descriptors.cockDescript( 0 ) + '.  "<i>Lick it, bitch,</i>" you command.   When he doesn\'t, you give the rope a pull, and his hooves paw at the dirt in pain.  "<i>I said LICK!</i>" you scream, and this time he does.  His slightly rough tongue slides up and down your length, gingerly tasting your prick-skin.  "<i>Take it deep,</i>" you sigh, and he complies, no longer capable of any form of resistance.  He opens wide and buries his face into your crotch ', false );
-				if( CoC.getInstance().player.cocks[ 0 ].cockLength < 10 ) {
+				EngineCore.outputText( 'You spread your ' + CoC.player.legs() + ' and expose your ' + Descriptors.cockDescript( 0 ) + '.  "<i>Lick it, bitch,</i>" you command.   When he doesn\'t, you give the rope a pull, and his hooves paw at the dirt in pain.  "<i>I said LICK!</i>" you scream, and this time he does.  His slightly rough tongue slides up and down your length, gingerly tasting your prick-skin.  "<i>Take it deep,</i>" you sigh, and he complies, no longer capable of any form of resistance.  He opens wide and buries his face into your crotch ', false );
+				if( CoC.player.cocks[ 0 ].cockLength < 10 ) {
 					EngineCore.outputText( 'taking the entire thing easily as his tongue licks you to ', false );
-				} else if( CoC.getInstance().player.cocks[ 0 ].cockLength < 25 ) {
+				} else if( CoC.player.cocks[ 0 ].cockLength < 25 ) {
 					EngineCore.outputText( 'taking the entire thing deep into his throat.  Apparently centaurs lack a gag-reflex, and you can see his throat stretched around you as you\'re brought to ', false );
 				} else {
 					EngineCore.outputText( 'taking as much as he can deep into his throat.  Even though his entire neck is distorted by your massive member, his throat simply isn\'t long enough to take any more.  You writhe as the throat-fucking brings you to ', false );
@@ -1063,9 +1063,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTyp
 			EngineCore.outputText( 'Taking pity on him, you turn and release the rope, shoving his exhausted body over.  He hits the ground hard and his tightly bound cock bounces in the dirt underneath him.  You gingerly untie the bulging centaur-shaft, noting how massively bloated it is with pent up arousal.  As each layer of rope is peeled off, cum starts to leak from him in greater and greater quantities.  With the release of the last knot, he begins spurting helplessly.  You pat his flank and say, "<i>Good bitch.  Now why don\'t you go find some succubus milk so you can look the part?</i>"\r\r', false );
 			EngineCore.outputText( 'You redress before the comatose centaur gets a chance to come to his senses, and wonder if he\'ll recover enough of his pride to face you again.', false );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'int', 2, 'cor', 4 );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'keltScene', new KeltScene() );

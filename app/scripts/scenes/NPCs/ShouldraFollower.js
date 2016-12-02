@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 
 	/*Follower Shouldra tracks hours since her last fuck, similar to Exgartuan. Each sex scene involving her resets this counter and also puts her to 'sleep' (length of sleep at least 16 hours). Shouldra will gradually fuck with the PC the longer they go without involving her in sex (length of time below)*/
 	ShouldraFollower.prototype.followerShouldra = function() {
-		return CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] === 1;
+		return CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] === 1;
 	};
 	ShouldraFollower.prototype.shouldraSleeping = function( changes, reset ) {
 		if( changes === undefined ) {
@@ -14,18 +14,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}
 		//Adjust sleep timer;
 		if( reset ) {
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = changes;
+			CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = changes;
 		} else {
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] += changes;
+			CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] += changes;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 0;
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] < 0 ) {
+			CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 0;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] > 48 ) {
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 48;
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] > 48 ) {
+			CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 48;
 		}
 		//Is she sleeping?;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] > 0 ) {
 			return true;
 		}
 		return false;
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nDoesn\'t seem you have much choice in the matter.  With a shrug, you keep strolling until you reach camp, and Shouldra promptly exits your body.  As she solidifies, however, you notice her hair, previously dark as jet, now shines with the achromatic luster of her ghostly form, complete with yellow eyes and too-pale lips.  You ask her about the change, but she just shrugs and chuckles.  "<i>I don\'t have to care about looking normal anymore,</i>" she says softly.  "<i>I\'m with you now.</i>"' );
 		EngineCore.outputText( '\n\nYou exchange quick smiles, but Shouldra\'s expression darkens.  "<i>Ah, damn it, I forgot something,</i>" she groans, making a fist and bopping herself on the temple.  "<i>Stay cool while I get that, alright, Champ?  I\'ll be back by tomorrow morning.</i>"  With that, she walks past you, striding with purpose back toward the lake and the town ruins.  You can\'t help but wonder what she must have forgotten that would be so important...' );
 		//{NOTHING REALLY HAS CHANGED UNTIL NEXT MORNING HERE WE GO};
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0.5;
+		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0.5;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ShouldraFollower.prototype.morningShouldraAlert = function() {
@@ -65,8 +65,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n"<i>Yo, Champ!</i>" a voice calls, stirring you from your sleep.  You grumble and sit up, rubbing the sleep from your eyes.  Shouldra\'s standing a few feet away from you, hands on hips and staring at you expectantly.  As soon as you slink out of bed, she slides up and wraps you in a big hug, gradually allowing herself to grow transparent and slide into you.  A few moments of adjustments later, you stretch, feeling the otherworldly presence gliding around your body.  "<i>Alright, Champ,</i>" Shouldra exclaims, "<i>Let\'s paint this land white.</i>"' );
 		EngineCore.outputText( '\n\nTime to set out, you figure.' );
 		EngineCore.outputText( '\n\n(<b>Gained Shouldra as a follower!</b>)' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 1;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
+		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 1;
+		CoC.flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//PC x Shouldra x Vala Threesome: Female Scene;
@@ -75,8 +75,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	ShouldraFollower.prototype.shouldraAndValaGetBigger = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_MET_VALA ] < 1 ) {
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_MET_VALA ] = 1;
+		if( CoC.flags[ kFLAGS.SHOULDRA_MET_VALA ] < 1 ) {
+			CoC.flags[ kFLAGS.SHOULDRA_MET_VALA ] = 1;
 		}
 		EngineCore.outputText( 'You decide to make your way down to the Wet Bitch to introduce Vala to her.  A few minutes into your stay, you see the fairy serving a few tables while holding a tray filled with drinks and empty glasses.  Pointing her out, Shouldra gives a delighted squeal.' );
 		EngineCore.outputText( '\n\n"<i>She\'s adorable!  I think I have just the idea for that cute little thing...</i>"' );
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		//Male:;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Bringing you up near her face, she examines your body and begins pushing her scaled-up forefinger against your prick, pressing it back onto your stomach.  The sensation of the giant fairy\'s caress causes you to gasp, and you try to move the finger around in a vain attempt to relieve some of the pressure. Shouldra coos at your pathetic efforts and begins to softly rub up and down your dick with the pad of her finger.  The smoothness of her skin allows the ridges of her fingerprint to glide over with little friction, sending sharp spikes of pleasure each time one rubs over the crown of your cock.  Your hips begin to feebly shake beneath her digit, pre leaking out of you and covering the tip of her finger.  Waves of pleasure wash over you, and you begin to relax against her hand.  Her soft palm provides a wonderfully warm place to rest as her finger massages your cock, the sticky feeling of your pre-cum intensifying the sensations tenfold.  Your entire body begins to move with her finger, your back gliding around her palm from your body\'s sweat.  It becomes difficult to think, your feeble attempts at escape turning into feeble attempts at holding onto her fingertip.  As the ridges continue to goad you towards orgasm, you quicken your pace.  The specter, amused, merely holds her finger in place, allowing you to slide up and down, desperately rubbing against her in an effort to nut.  Before the moment of release can come, she peels you off with her thumb, pushing you back into the softness of her hand and leaving you shaking from the denial.' );
 			EngineCore.outputText( '\n\n"<i>Heh.  Look what you did!  Now my finger\'s all dirty...</i>"' );
 			EngineCore.outputText( '\n\nShouldra gives her finger a gentle lick, getting a good taste of the mess.  After smacking her tongue a bit, a small blush runs across her face, obviously turned on by the perverted taste.  She begins to suck on her finger like a lollipop, letting out wet, seductive sounds with every motion.  Her tongue dances around the tip, lapping up every bit of the sticky pre-cum you left behind.  The sight becomes too much to bear and you begin masturbating in an effort to relieve your frustration yourself.  The possessed fae peeks down at you with a half-lidded eye and takes the finger out with a wet *pop*, bringing you closer to her face.' );
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nYou wake up back at your camp...' );
 		}
 		this.shouldraSleeping( 10 + Utils.rand( 15 ), true );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -136,15 +136,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	ShouldraFollower.prototype.pureValaAndShouldraMacroMax = function() {
 		EngineCore.spriteSelect( 67 );
 		EngineCore.clearOutput();
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( 'Before she can do anything, you shout out a rather unusual suggestion, though to you it sounds quite exciting.  Vala or Shouldra, whoever she is, smiles wickedly and nods, lifting you up towards the glittering gash between her legs.' );
 		EngineCore.outputText( '\n\n"<i>I didn\'t expect you to come up with such a great idea, Champ, but then again, great minds think alike!</i>" you hear Shouldra comment through the faerie\'s soothing voice.' );
 		EngineCore.outputText( '\n\nUp higher, you can see her puffy labia on display, glistening with moisture that\'s already beginning to bead on the quickly-flushing skin.  Indeed, her rosy pussy stands in stark contrast to the creamy white skin around it, visibly pulsing and engorging as you close in on it.  A moment later, your nude body makes contact with Vala\'s honey-pot, pressing against her lips, into her slit and all over her mons.  A sweet, slightly musky smell smears across you as you bump into the gigantic snatch, growing dizzy as the aroma overpowers your senses.  Almost immediately, you give yourself over to that steamy muff, happily stuffing your arms through her curtain-like lips and pulling them wide.  The dripping moisture oozing from the pink chasm seems to fog the very air, and before you can do anything else, a fair hand is clamping around your [legs] and tilting you forward, up and in...' );
 		EngineCore.outputText( '\n\nYour vision goes pink as the channel devours you, sliming your hair with clear, female lubricants.  You can feel your shoulders sliding in after you, and in your excitement, you pull your arms in after, pushing and stroking the silky smooth walls as you explore the inner workings of the Vala\'s vagina.  You can see the flesh pulsate as you touch it, and after a few particularly successful gropes, the entire channel snaps closed around you, smothering you with pussy as it involuntarily clenches around you.  The entire thing vibrates with the faerie\'s moan, and she pushes the rest of you in faster, her giant clit bouncing over your [nipples] as she rams you in.' );
 		EngineCore.outputText( '\n\nSoon, your body is engulfed up to your lower [legs], mired in pussy and lubricant.  It\'s like taking a bath in slime, only the bathtub is giving you a whole-body embrace, slipping, sliding, and taking pleasure from every motion you make.' );
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Inspired by this, your own body has long since responded' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', becoming firmly erect.  You happily piston your hips to grind your ' + Descriptors.multiCockDescriptLight() + ' along the pink-glossed walls, oozing your fluids in delight.' );
 			} else {
 				EngineCore.outputText( ', growing wet, though in this slick fluid, your contribution is a mere drop in the ocean.' );
@@ -152,36 +152,36 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}
 		EngineCore.outputText( '  The warm fleshy dream is abruptly ended as Shouldra yanks you out by your [feet].  "<i>I\'m gonna put you the whole way in.  Do me a solid and get me off a few times, will ya?</i>"' );
 		EngineCore.outputText( '\n\nDripping with her lusty leavings, you vigorously nod and crane your head back up to the randy passage.  Your plus-sized poltergeist wastes no time in returning you to her box\'s moist embrace, stuffing you most of the way in with a simple motion.  A finger as big as your [legs] pushes your [feet] the rest of the way inside, stuffing you so high up you bump your head on the narrow entrance of her womb.  It\'s dark inside her, but you quickly get to work, sliding and squirming around, humping your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( Descriptors.multiCockDescriptLight() );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( Descriptors.vaginaDescript() );
 		} else {
 			EngineCore.outputText( '[butt]' );
 		}
 		EngineCore.outputText( ' against the slick walls.  You push your way towards the pinkish slit in the distance begin to slide your [legs] over the inner edges of her lips, pressing your arms up above you for stability.' );
 		EngineCore.outputText( '\n\nYou must have hit her g-spot, because as soon as you do, a rush of lady-spunk envelops you.  The walls squeeze around you, this time rippling in waves up and down your body, squeezing you affectionately as your temporary shelter vents thick flows of girl-goo all around you.  You hold onto the pulsing walls for dear life, moaning into the steamy cunt while it gives you a full-body massage.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  [EachCock] is quickly brought to orgasm by the exotic situation, and you fire off your own load into the deluge of sex-juice.' );
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  Somehow, you pour out almost as much spunk as Vala\'s orgasm, turning the inside of her honeypot into an off-white mess.' );
 			}
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your [vagina] can scarcely resist the allure of the sweet, female flesh pressing against it, and with an explosion of hot bliss, you climax' );
-			if( CoC.getInstance().player.wetness() >= 4 ) {
+			if( CoC.player.wetness() >= 4 ) {
 				EngineCore.outputText( ', squirting with joy' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\nSlowly, the tumultuous orgasm concludes, but no sooner than it finishes, your pink prison begins to sway back and forth.  The possessed faerie is walking somewhere!  Shouldra\'s face peeps out of the tunnel\'s soaked edge, illuminated by its own inner radiance.  She says, "<i>Don\'t stop now, Champ!  You were doing so well!</i>"  Her hand appears to flick one of your [nipples], and suddenly, your lust washes through you.  You try to grab hold of your ghost by the head to fuck her' );
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( ' somehow' );
 		}
 		EngineCore.outputText( ', but she vanishes with a high-pitched giggle.' );
 		EngineCore.outputText( '\n\nDriven nearly mad by lust, you swing your [legs] out of the tunnel and wrap them around the faerie\'s embiggened clit, grinding yourself against the top of the twat with the added leverage.  Your hands grab hold of your [nipples] and tug, tweaking and twisting as you writhe in Vala\'s pretty, pink pussy.  Her sodden snatch has become your entire world, and you give your body and its lusts over to it, doing everything in your power to please and be pleased by the cavernous obsession.' );
 		EngineCore.outputText( '\n\nThe swaying gait flexes your body to and fro as she moves, the bouncing, wiggling motion only adding to your irregular stimulation of her slit.  At least three times she stops and that tunnel goes tight around you, enveloping you in female flesh.  You lose yourself to it all, closing your eyes and subsuming yourself in pulsing... pink... pussy pleasure...  Though you manage to orgasm a few times as well, pleasing this gigantic cunt is infinitely more rewarding, and you get Vala\'s body off time after time, barely caring when you begin to lose consciousness from fatigue.  Even in slumber, you toss and turn, your body little more than an organic vibrator...' );
 		EngineCore.outputText( '\n\nYou wake in your camp, still smelling faintly of Vala\'s vagina but fully dressed.  You flush a little from the smell, but otherwise feel rather well rested.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -200,13 +200,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nAny protests the giant fairy makes are cut off by moans as the skilled strokes of your hands builds up her frustration even further.  Vala tries to form a coherent sentence between her animalistic noise.  "<i>M-M-Master did this to Bitch... N-Now Bitch can\'t get off...</i>"' );
 		EngineCore.outputText( '\n\nShouldra stops massaging the fairy\'s cunt, simply standing there as the poor girl\'s juices flow around your feet.  You\'re too shocked to try to regain control, awestruck by the arousing and somewhat frightening change of the fairy before you.  Before you can snap out of it, Vala reaches down and grabs you in an enormous hand, lifting you up to her face.  "<i>Somebody... somebody has to take care of Bitch\'s pussy!  Bitch needs to get off now!</i>"' );
 		EngineCore.outputText( '\n\nA squeal of delight echoes in your head as Vala begins lowering you down to her dripping cunt.  The heat washes over your body, tickling the surface of your skin in gentle waves.  Your feet begin sinking into the cushy, moist flesh of her cunny, sending out another stream of juice in response. A deep moan resounds throughout the cave as your legs become engulfed in her pussy.  You\'re able to slip in fairly easily, but once inside, her walls begin a gentle, tantalizing squeeze that seems to pulse with her every heartbeat.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Your cock slips past the folds, pressed up against your stomach as the underside is massaged with the gentle tightness within.' );
 		}
 		EngineCore.outputText( '  Once you\'re up to your chest, Vala stops, instead grasping your shoulders between her thumb and forefingers as she begins to gently slide you in and out of her.' );
 		EngineCore.outputText( '\n\nEach motion sends a chill up your spine as the fairy uses you as a dildo.  Every time you\'re pushed back in, a torrent of fluids gushes out, washing you in her scent.  The smell makes you dizzy, and soon you find yourself moaning in time with her, with the ghost girl following soon after.  In your daze you notice your hands reaching out to grasp at the giant fairy\'s oversized clit. With Shouldra busy soaking in the sensations, you realize this must be your own doing, and the revelation ends what little resistance you were putting up before.  The sounds of your lower half being thrust in and out become the only thing you can focus on, each plunge bringing you closer and closer to your limit; you feel her walls around you become tighter and tighter as the fairy begins to near hers as well.  Soon, her pussy begins to spasm, the sharp motions sending you flying over the edge, releasing your seed into her oversized cunt.  The fairy gives a loud moan of satisfaction, and the geyser of resulting fluids sends you flying out of your soft prison, and into the now ankle pool below.  With the last bits of your strength, you manage to crawl out of the puddle, and bask in the satisfying feeling of release ebbing throughout your body.  As you lay on your side, you see feel Shouldra oozing out of your mouth, regaining her form beside you.' );
 		EngineCore.outputText( '\n\nYou stare at each other for a little while, still half-drunk from the fragrant secretions that have filled up the room.  Looking over to the fae, you see Vala returned to her normal size as she weakly tries to redo the chains that held her.  Shouldra giggles again at the poor fairy, and tries her best to stand. Pulling you up, she helps you gather your things.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		this.shouldraSleeping( 10 + Utils.rand( 15 ), true );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -216,13 +216,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	ShouldraFollower.prototype.sandWitchGetsGhostly = function() {
 		EngineCore.spriteSelect( 67 );
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.hasCock() && (!CoC.getInstance().player.hasVagina() || Utils.rand( 2 ) === 0) ) {
+		if( CoC.player.hasCock() && (!CoC.player.hasVagina() || Utils.rand( 2 ) === 0) ) {
 			EngineCore.outputText( 'As you admire your latest victory, a familiar specter pokes her head out from your torso.  The sand witch shuffles backward on the ground, her face an amalgamation of dread, confusion, and curiosity.  "<i>What say we have a little fun with this one, eh, Champ?</i>" Shouldra suggests, licking her lips in anticipation.  You wave an arm outwards, giving the antsy apparition the go ahead to pursue her prey.  The desert denizen unearths a second breath, climbing to her feet in an attempt to escape.  She doesn\'t make it too far before the ghost girl dives into her back, hurling the witch to the dunes.' );
 			EngineCore.outputText( '\n\n"<i>Get out of my head!</i>" the sorceress screams, thrashing around in the sand clinging to her cranium.  She eventually calms down and faces you, her brown eyes now the customary glowing shade of yellow you\'ve come to welcome.  "<i>Now all we need is a skeleton, a wolf man, and some bats.  Then we\'ll have ourselves a holiday!</i>" Shouldra jokes while climbing to her new feet, her voice replacing that of her quarry.  The ghost girl begins exploring the sand witch\'s body; it doesn\'t take long for her to fixate on the witch\'s quartet of lactating lovelies.  Reassured that the ghost girl is in control, you strip free of your [armor] and approach the bewitched witch.' );
 			EngineCore.outputText( '\n\n"<i>I haven\'t done anything yet and these factories are already working at over-capacity,</i>" the spirit points out.  She takes a moment to jab a finger into one of the milky teats and samples her host\'s product.  Her reaction is like that of a gourmet chef enjoying a fine delicacy.  "<i>Mmmm... invigorating.  But I think we can do something about the modest proportions of the source,</i>" Shouldra teases, circling the witches\' hands around the churning cantaloupes.  The ghost girl wastes no time in getting right to her own variety of spell casting, doing her best to keep from wavering as she continues to grope the sorceress\' silos.' );
 			EngineCore.outputText( '\n\nYou smile and shrug as you witness all four tits quickly climb up the brassiere measuring scale, easily gaining an extra couple of cup sizes.  Their perky stature defies all logic, as well; the size-obsessed ghost has never been one for realistic interpretations.  Tangentially, the length of the ghost girl\'s spell has you make a mental note.  It went on quite a bit long to be just for some ample augmentation.  "<i>Now the question is what to do with these slobbering puppies,</i>" Shouldra teases, reeling you in with a seducible gaze.  The two of you shuffle through the desert sands towards one another, the haunted witch throwing her arms over your shoulders.  Her churning funbags press tightly against your [fullChest], soaking you in her milk.' );
 			EngineCore.outputText( '\n\nLips locked, the witch pushes you back into the sands, her modest frame jiggling around atop you.  The possessed witch\'s glare turns mischievous as you watch her breasts spread apart of their own accord.  The fleshy mountains then quickly scoop up your [cock], ' );
-			if( CoC.getInstance().player.longestCockLength() < 18 ) {
+			if( CoC.player.longestCockLength() < 18 ) {
 				EngineCore.outputText( 'completely smothering all around it in breastflesh.  The immense pressure sends tense shivers up your spine; your rod feels wonderful.  Things only escalate as the enchantress begins slowly thrusting back and forth, her massive mammaries working every inch of your shaft.  The heavenly stroking works so well, in fact, that you barely notice the head of your cock poke out from your partner\'s cleavage.  Your length and girth have increased substantially, enough for full-on quad-boob action.' );
 			} else {
 				EngineCore.outputText( 'smothering all around it in breastflesh.  The immense pressure sends tense shivers up your spine; your rod feels wonderful.  Things only escalate as the enchantress begins slowly thrusting back and forth, her massive mammaries working your shaft.  The heavenly stroking works so well, in fact, that you barely notice your cock broadening within the embrace.  Your girth has increased substantially, still enough for full-on quad-boob action.' );
@@ -250,17 +250,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nHowever, you\'re determined not to go down without a proper fight.  You throw down the gauntlet by leaning up and eating the sand witch\'s pussy a new one.  With maddening concentration, your tongue teases her vulva, dashing all around as you attempt to cope with your own mounting passion.  Whichever of the witch\'s cunts isn\'t getting the oral treatment continues to receive your fingering speciality.  Soaked in the never ending geysers of breastmilk, your hands can easily keep up with your own lapping deliverance.  The sand sorceress\' moaning picks up in pace as her breathing reaches its crescendo, her voice mixing with that of her paranormal invader.' );
 			EngineCore.outputText( '\n\nYour extraordinary determination wins out as Shouldra\'s host concedes, a cocktail of breastmilk and femspunk blasting all over your bound body.  You fall in short order after her, your [vagina] letting loose its own juice[if (hasCock = true) , right alongside your spraying [cock]].  It\'s a wonder you haven\'t started seeing stars through all your convulsing.  Dragged through unnatural ecstasy and back, Shouldra and her host flop down [if (isBiped = true) between your [legs]][if (isBiped = false) on top of you], their dual voices still mixing together as the duo try and climb down from their sexual high.  After a few moments, you slide out from underneath the witch and rise to your [feet] - an action made most difficult by the continued orb penetration.' );
 			EngineCore.outputText( '\n\nHelping the possessed desert seductress to her feet, you query as to how to get the damnable things to stop.  "<i>Oh... oh... t-that\'s easy,</i>" Shouldra replies, her voice cracking under the persisting frontal duress.  She leans heavily on your shoulder and with a merely a snap of her fingers, the orbs finally go silent, lifelessly rolling out from their targeted orifices.  Your relief is only shadowed by the incredibly odd tingling sensation left in the orbs\' wake.  Peering back up at the sand witch, you find her eyes finally returned back to her normal shade of brown.  Her breathless gaze meets yours, the two of you staring at one another for a moment.' );
-			CoC.getInstance().player.cuntChange( 20, true, true, false );
-			CoC.getInstance().player.buttChange( 20, true, true, false );
+			CoC.player.cuntChange( 20, true, true, false );
+			CoC.player.buttChange( 20, true, true, false );
 			EngineCore.outputText( '\n\nThe witch suddenly blushes beet red.  "<i>What the fuck is wrong with you?</i>" she shouts, slapping you across the face and back down to the desert ground.  The sand witch storms off into the horizon, muttering to herself as she glares down at her mutated tits.  Boisterous laughing off to your side catches your attention; Shouldra is entirely too pleased with herself it seems.  It appears that the deceased comedian snuck out of her host without catching your attention.' );
 			EngineCore.outputText( '\n\n"<i>The look on your face was priceless!</i>" she says, doing her best to mimic you.  You give her a slightly perturbed stare as she stumbles back into your body, still laughing to herself.  ' );
-			if( !CoC.getInstance().player.hasFuckableNipples() ) {
+			if( !CoC.player.hasFuckableNipples() ) {
 				EngineCore.outputText( '"<i>You know, maybe I should give you a couple of those chest-mounted treats.  They\'re pretty fun,</i>" Shouldra teases, tweaking your [nipples].  ' );
 			}
 			EngineCore.outputText( 'With a very telling exasperated sigh, you snatch up your [armor] and march back to camp.' );
 		}
 		this.shouldraSleeping( 10, true );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
 	//Follower Shouldra - Masturbation Scenes;
@@ -269,11 +269,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	//Genderless Masturbation;
 	ShouldraFollower.prototype.shouldraFappinTimes = function() {
 		EngineCore.spriteSelect( 67 );
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			this.shouldraAndWormsYoureGonnaHaveABadTime();
-		} else if( CoC.getInstance().player.gender === 0 ) {
+		} else if( CoC.player.gender === 0 ) {
 			this.genderlessShouldraMasturbation();
-		} else if( CoC.getInstance().player.hasCock() && (!CoC.getInstance().player.hasVagina() || Utils.rand( 2 ) === 0) ) {
+		} else if( CoC.player.hasCock() && (!CoC.player.hasVagina() || Utils.rand( 2 ) === 0) ) {
 			this.maleMasturbationProper();
 		} else {
 			if( Utils.rand( 2 ) === 0 ) {
@@ -296,26 +296,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra runs your fingers along your ' );
 		//[if (femininity < 50) ;
-		if( CoC.getInstance().player.femininity < 50 ) {
+		if( CoC.player.femininity < 50 ) {
 			EngineCore.outputText( 'masculine ' );
-		} else if( CoC.getInstance().player.femininity > 50 ) {
+		} else if( CoC.player.femininity > 50 ) {
 			EngineCore.outputText( 'feminine ' );
 		}
 		EngineCore.outputText( 'form while processing your request, your eyes glowing yellow as she mulls over her choices.' );
 		//(same paragraph follows);
 		//{if SHOULDRA_GENDERLESS_FUCK_COUNT = 0 & event occurrence = 0};
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( '\n\nFully aware that your salacious options are sorely lacking downstairs, it would seem as though you\'ve stumped your roommate not soon after handing her the keys.  However, your confidence is incredibly short lived as a scheming grin spreads unbidden across your face.  "<i>Unluckily for you, I\'ve come prepared for these sorts of situations,</i>" your ghostly half explains, knocking your knuckles against the vast expanse that is your crotch.  She\'s leaving no clue as to what she could be referring to, leaving you to only imagine what fate lies in store.' );
 		}
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0 & event occurrence = 0;
-		else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		else if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>So, Champ, you\'ve left me this blank canvas to draw upon again.</i>"  Elbow propped in your hand, a contemplative finger rests against your lips.  The land\'s greatest psychic would lack the foresight to predict what your ethereal roommate is concocting.  After the last time she employed - "<i>Any means necessary,</i>" your mouth interrupts, concluding your train of thought.  You\'re left with only a volatile cocktail of equal parts dread and curiosity as your hands rub together menacingly.' );
 		}
 		//if event occurrence > 0;
 		else {
 			EngineCore.outputText( '\n\n"<i>Up for another round then, Champ?</i>" she asks, rubbing your hands down your [butt].  ' );
 			//[if (corruption < 50) ;
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'There isn\'t an answer or outcome to that question that you\'re in favor of, honestly.' );
 			} else {
 				EngineCore.outputText( 'You sure as hell wouldn\'t have bothered asking if you weren\'t.' );
@@ -324,29 +324,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '  The ghost girl promptly discards your [armor] before hurrying your naked body along into the wilderness away from camp.' );
 		EngineCore.outputText( '\n\nShe leads you to a small clearing in the woods, highlighted by an opening in the slightly dense canopy and a babbling brook a few feet further in.  To your right is a short, grassy embankment with a pile of large rocks and boulders embedded into the natural wall.  As the specter leads you towards them, a disconcerting realization sinks in: you have no memory of traveling here.  The last thing you can picture is sprinting away from the camp naked.  Either you really need to work on your mental issues or, more likely, Shouldra would rather you not come here on your own.' );
 		EngineCore.outputText( '\n\nSpeaking of the phantom, your bout of amnesia is the least of her concerns as she has you set aside one rock after another, revealing a tiny cavity in the wall.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( 'Within lies a rather rustic yet well-built chest.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( 'The moment the light reveals what lies within, your [butthole] instinctively clenches shut.  "<i>You didn\'t think I\'d leave my most treasured possessions behind for some goblin to run into, did you?</i>" It\'s the ghost girl\'s chest of dildos, as well-kept as the last time you laid worried eyes on it.' );
 		} else {
 			EngineCore.outputText( 'Inside rests the ghost\'s familiar treasure trove of dildos and other toys you have yet to discover.' );
 		}
 		EngineCore.outputText( '  She has you pull the container out from its hiding place, removing the clear tarp she used to protect it from the elements.  Despite the fact that you have yet to control your body once through this entire ordeal, an intrinsic urge to open the container has you bending over to pry into the contents within.' );
 		EngineCore.outputText( '\n\nHowever, an unusual stirring deep within your midsection grinds your pursuit to a halt; the familiar visage of your companion has formed atop your feature-less groin.  "<i>Let me take care of this, Champ,</i>" she exclaims before thrusting forward and - after carefully wiping it clean - using your [foot] to open and sift through the chest\'s contents.  While doing so, she begins to recite some manner of spell in a singsong voice; whatever her target is, she certainly seems to be enjoying herself.  You feel as though you could lose your balance at any time... if you actually had any command over it.  No, the poltergeist is in full control from your waist and downward, defying gravity as she continues chanting and searching through her collection.  Thanks to the incredibly awkward forward thrust you\'re locked in, you can\'t really make out the contents of her chest.  At least not visually, but as the specter guides your [foot] around you can plainly tell that it\'s full of all sorts of dildos... among other things.' );
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 ) {
 			EngineCore.outputText( '  Just what else did she pack in there since last you peered at its contents back at the ruins?' );
 		}
 		EngineCore.outputText( '\n\n"<i>Okay, here we go,</i>" she declares, quickly ending whatever spell she was working on.  Shouldra pulls your [foot] back out of the chest, a ' );
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
 			EngineCore.outputText( 'familiar, ' );
 		}
 		EngineCore.outputText( 'bumpy, eight-inch demon vibrator firmly in her "grasp."  A tingling sensation coursing through your hind end draws your attention away from the ghost as she inspects her quarry.  You honestly aren\'t too surprised to peer around and discover your [butt] plumping up, each burst of expansion quaking your flesh.' );
 		EngineCore.outputText( '\n\n"<i>Now, this will take me a minute to get used to...</i>"' );
 		EngineCore.outputText( '\n\n...Yup, now she\'s speaking through your [butthole].  Some day you\'ll cease underestimating the lengths this eerie eidolon\'s creativity will reach in order to have a good time.  You glance forward to confirm that the woman\'s face has disappeared from your bare groin; this circus attraction has moved on to the main event.  ' );
-		if( CoC.getInstance().player.ass.analLooseness < 3 ) {
+		if( CoC.player.ass.analLooseness < 3 ) {
 			EngineCore.outputText( 'Your nerves screech out in pain as your rear revenant stretches out her puckered little "jaw" to something more fitting for what she has in store.  A few seconds later and the sensations begin to only register as pleasure.' );
 			//[if (corruption < 50);
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '..  This only worries you further.' );
 			}
 			EngineCore.outputText( '  It doesn\'t take her long to <b>prepare your anus for any insidious ploy she\'s thought up.</b>' );
@@ -354,14 +354,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		//if analLooseness >= 3;
 		else {
 			EngineCore.outputText( '"<i>Looks as though you already get plenty of action back here, chief,</i>" she jests.  Nevertheless, the rear revenant massages her "jaw" even more lax than you already are.  Even stranger, each gyration provides more and more pleasurable feedback' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( ', which only serves to confuse you' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\n"<i>And now for the pièce de résistance.</i>"' );
 		EngineCore.outputText( '\n\nWhat more could she possibly have to do? Just how much sorcery has she - some sort of slimy protrusion is sprouting out of your asshole.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.ZETSUKO_MET ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ZETSUKO_MET ] > 0 ) {
 			EngineCore.outputText( '"<i>Your run-in with a particular kitsune inspired me,</i>" Shouldra teases' );
 		} else {
 			EngineCore.outputText( 'Shouldra is too caught up in her machination to give you any hint as to what is going on, leaving you confused' );
@@ -375,24 +375,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nShouldra doubles down on her payload, yanking it free from your bruised bottom.  But this is no act of mercy.  You\'re left breathless as the fiend hammers her freight as far down your cargo hold as she can muster.  Now would be a horrible time for her to choke.  Having come as close to cumming as your featureless form can manage, your entire body goes limp.  Your humongous ass lightly quakes as the vibrating dildos continue their melodious humming, going lax in your gaping bum with the ghost girl\'s grip relaxing.  The torment - however alarmingly pleasurable it turned out to be - is over.' );
 		EngineCore.outputText( '\n\n"<i>I\'m not... through... yet,</i>" the spirit spits out between deep breathes.  Too far gone to continue the yoga act, she begins dragging you back towards her treasury with your arms.  Your eyes go wide as she reaches inside and grabs onto something... massive.  Your grip cannot even fully encompass its girth.  ' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0 OR event occurrence > 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
 			EngineCore.outputText( 'You recognize it instantly as she pulls it free from her chest: the nearly foot-long floppy horse cock she impaled you on before.' );
 		}
 		//{if SHOULDRA_GENDERLESS_FUCK_COUNT = 0};
-		else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 ) {
+		else if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 ) {
 			EngineCore.outputText( 'She holds her catch up clear for you to see; to your horror, you have clutched onto an enormous horse cock replica.  All 13 inches flop restlessly in your grip, seemingly taunting you with the foreboding future that lays before you.' );
 		}
 		EngineCore.outputText( '  Shouldra smacks the dildo of doom onto a nearby boulder as she wearily rises you to your [feet].  The inferior, forgotten playthings slide out uselessly from the ghoul\'s gasping craw as she slowly clambers over top the wiggling horsey wang.' );
 		EngineCore.outputText( '\n\nToo tired to object or plead, you meekly brace for impact as the wraith lines up its target.  Your immense cheeks part way.  Your rectum gapes wide.  Your anal tongue presses firmly against your taint.  "<i>Down the hatch!</i>"' );
 		EngineCore.outputText( '\n\nThe forest shudders with your scream.  The phantom easily downs six inches on the first go.  She wraps her tongue around the shaft, forcing more and more into you.  You swear your pelvis is bulging.  Muffled moans blended with laughter emit from your belabored behind.  You dare not guess how deep Shoudra drills the cock into you before she climaxes - hard.  Your voluptuous ass quavers with ferocity alongside her gagged yelping, throwing you from your perch atop the rock back down to the earth.  Her fun over, you begin to feel the magic subsiding.  Having no desire to learn of the consequences of leaving a massive wang lodged in your shrinking anus, you muster what little strength you can to plumb it free.  With the experience settling down, you can\'t help but laugh - closer to a timid chuckle, as its the best your exhausted body can offer.  You think you hear Shouldra saying something to you, but you\'re too worn out to listen to her boasting.' );
 		EngineCore.outputText( '\n\nYou wake some time later, having passed out on top of your clothes.  You\'re right back at camp.  The ghost girl managed to drag you back somehow - no doubt interested in keeping the location of her secret goodies safe.  For now, at least.  Your attempt to rise back to your [feet] is halted; your ass is still sore... and about as wide as before.  There\'s also a bottle at your side, full of <b>ectoplasm</b> - you hope this didn\'t come from where you think it came from.  You can only snicker to yourself, reflecting on the absurdity of it all.  When it comes right down to it, your spooky friend will really go to any means necessary.  It would pay to remember that for a change.' );
-		//{analLooseness is now 5} {CoC.getInstance().player receives ectoplasm};
-		CoC.getInstance().player.ass.analLooseness = 5;
+		//{analLooseness is now 5} {CoC.player receives ectoplasm};
+		CoC.player.ass.analLooseness = 5;
 		EngineCore.outputText( '\n\n', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
-		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
+		CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
 		SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Anal Masturbation - Variant on Genderless Masturbation;
@@ -408,15 +408,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra runs your fingers along your ' );
 		//[if (femininity < 50) ;
-		if( CoC.getInstance().player.femininity < 50 ) {
+		if( CoC.player.femininity < 50 ) {
 			EngineCore.outputText( 'masculine ' );
-		} else if( CoC.getInstance().player.femininity > 50 ) {
+		} else if( CoC.player.femininity > 50 ) {
 			EngineCore.outputText( 'feminine ' );
 		}
 		EngineCore.outputText( 'form while processing your request, your eyes glowing yellow as she mulls over your request.  "<i>So, let me get this straight.  Despite[if (hasCock = true)  this dandy dick] [if (isHerm = true)  and][if (hasVagina = true)  this serviceable snatch] you want me to work with this?</i>" the spirit asks, smacking your hand against your [butt].  A smug nod reaffirms your desire.  ' );
 		//(same paragraph follows);
 		//if event occurrence = 0;
-		if( CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( 'Your spectral visitor cracks your knuckles in a blustering show of confidence.  "<i>You think you\'ve thrown down the gauntlet with your challenge, eh, Champ?  You think rules, regulations, sanctions, trade embargos... these things can keep me down?</i>"  What is she blathering on about?  You suspect she\'s just stalling; call it your own sixth sense, but as she waves your hands around as she boasts, it feels like it\'s taking some willpower to not just listlessly stroke your goods.  At least, it seems that way until some errant thought interrupts her tirade, a knowing grin blossoming along your mug.  "<i>No blockade can stop me.</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>Up for another round then, Champ?</i>" she asks, your body striking a familiar boxing stance from bouts long since fought.  "<i>If you think I\'ll be pulling any punches then you don\'t have a ghost of a chance.</i>"  Only if you had control of your body could you respond with even half the appropriate groan.' );
@@ -425,9 +425,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nShe leads you to a small clearing in the wood, highlighted by an opening in the slightly dense canopy and a babbling brook a few feet further in.  To your right is a short, grassy embankment with a pile of large rocks and boulders embedded into the natural wall.  As the specter leads you towards them, a disconcerting realization sinks in: you have no memory of traveling here.  The last thing you can picture is sprinting away from the camp naked.  Either you really need to work on your mental issues or, more likely, Shouldra would rather you not come here on your own.' );
 		EngineCore.outputText( '\n\nSpeaking of the phantom, your bout of amnesia is the least of her concerns as she has you set aside one rock after another, revealing a tiny cavity in the wall.  ' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT = 0 & event occurrence = 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( 'Within lies a rather rustic yet well-built chest.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] === 0 ) {
 			EngineCore.outputText( 'The moment the light reveals what lies within, your [butthole] instinctively clenches shut.  "<i>You didn\'t think I\'d leave my most treasured possessions behind for some goblin to run into, did you?</i>" It\'s the ghost girl\'s chest of dildos, as well-kept as the last time you laid worried eyes on it.' );
 		} else {
 			EngineCore.outputText( 'Inside rests the ghost\'s familiar treasure trove of dildos and other toys you have yet to discover.' );
@@ -435,34 +435,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '  She has you pull the container out from its hiding place, removing the clear tarp she used to protect it from the elements.  Despite the fact that you have yet to control your body once through this entire ordeal, an intrinsic urge to open the container has you bending over to pry into the contents within.' );
 		EngineCore.outputText( '\n\nHowever, an unusual stirring deep within your midsection grinds your pursuit to a halt; the familiar visage of your companion has pushed its way out of your groin.  You can\'t decide whether to laugh or cry at the sight as she[if (hasCock = true)  substitutes your [cock] in place of her nose] [if (isHerm = true)  and she][if (hasVagina = true)  shuffles your [vagina] for a moment, using it as her mouth].  "<i>I had to get dressed up for the occasion,</i>" she jests before thrusting forward and - after carefully wiping it clean - using your [foot] to open and sift through the chest\'s contents.  While doing so, she begins to recite some manner of spell in a singsong voice; whatever her target is, she certainly seems to be enjoying herself.  You feel as though you could lose your balance at any time... if you actually had any command over it.  No, the poltergeist is in full control from your waist and downward, defying gravity as she continues chanting and searching through her collection.  Thanks to the incredibly awkward forward thrust you\'re locked in, you can\'t really make out the contents of her chest.  At least not visually, but as the specter guides your [foot] around you can plainly tell that it\'s full of all sorts of dildos... among other things.' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 ) {
 			EngineCore.outputText( '  Just what else did she pack in there since last you peered at its contents back at the ruins?' );
 		}
 		EngineCore.outputText( '\n\n"<i>Okay, here we go,</i>" she declares, quickly ending whatever spell she was working on.  Shouldra pulls your [foot] back out of the chest, a ' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0 OR event occurrence > 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
 			EngineCore.outputText( 'familiar, ' );
 		}
 		EngineCore.outputText( 'bumpy, eight-inch demon vibrator firmly in her "grasp." A tingling sensation coursing through your hind end draws your attention away from the ghost as she inspects her quarry.  You honestly aren\'t too surprised to peer around and discover your [butt] plumping up, each burst of expansion quaking your flesh.' );
 		EngineCore.outputText( '\n\n"<i>Now, this will take me a minute to get used to...</i>"' );
 		EngineCore.outputText( '\n\n...Yup, now she\'s speaking through your [butthole].  Some day you\'ll cease underestimating the lengths this eerie eidolon\'s creativity will reach in order to have a good time.  You glance forward to confirm that the woman\'s face has disappeared from your groin; this circus attraction has moved on to the main event.  ' );
 		//{if analLooseness < 3};
-		if( CoC.getInstance().player.ass.analLooseness < 3 ) {
+		if( CoC.player.ass.analLooseness < 3 ) {
 			EngineCore.outputText( 'Your nerves screech out in pain as your rear revenant stretches out her puckered little "jaw" to something more fitting for what she has in store.  A few seconds later and the sensations begin to only register as pleasure.' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '  This only worries you further.' );
 			}
 			EngineCore.outputText( '  It doesn\'t take her long to <b>prepare your anus for any insidious ploy she\'s thought up.</b>' );
 		} else {
 			EngineCore.outputText( '"<i>Looks as though you already get plenty of action back here, chief,</i>" she jests.  Nevertheless, the rear revenant massages her "jaw" even more lax than you already are.  Even stranger, each gyration provides more and more pleasurable feedback' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( ', which only serves to confuse you' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\n"<i>And now for the pièce de résistance.</i>"' );
 		EngineCore.outputText( '\n\nWhat more could she possibly have to do? Just how much sorcery has she - some sort of slimy protrusion is sprouting out of your asshole.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.ZETSUKO_MET ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ZETSUKO_MET ] > 0 ) {
 			EngineCore.outputText( '"<i>Your run-in with a particular kitsune inspired me,</i>" Shouldra teases' );
 		} else {
 			EngineCore.outputText( 'Shouldra is too caught up in her machination to give you any hint as to what is going on, leaving you confused' );
@@ -476,7 +476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nShouldra doubles down on her payload, yanking it free from your bruised bottom.  But this is no act of mercy.  You\'re left breathless as the fiend hammers her freight as far down your cargo hold as she can muster.  Now would be a horrible time for her to choke.  The final delivery throws you over the deep-end, [if (hasCock = true) your [cock] spraying cum everywhere] [if (isHerm = true)  while ][if (hasVagina = true) your [vagina] sprays femspunk, mixing in with the otherworldly drool already coating your [legs]].  Your humongous ass lightly quakes as the vibrating dildos continue their melodious humming, going lax in your gaping bum with the ghost girl\'s grip relaxing.  The torment - however alarmingly pleasurable it turned out to be - is over.' );
 		EngineCore.outputText( '\n\n"<i>I\'m not... through... yet,</i>" the spirit spits out between deep breathes.  Too far gone to pick up the yoga act again, she begins dragging you back towards her treasury with your arms.  Your eyes go wide as she reaches inside and grabs onto something... massive.  Your grip cannot even fully encompass its girth.  ' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0 OR event occurrence > 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ] > 0 ) {
 			EngineCore.outputText( 'You recognize it instantly as she pulls it free from her chest: the nearly 2-foot floppy horse cock she impaled you on before.' );
 		}
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT = 0;
@@ -488,12 +488,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nThe forest shudders with your scream.  The phantom easily downs six inches on the first go.  She wraps her tongue around the shaft, forcing more and more into you.  You swear your pelvis is bulging.  Muffled moans blended with laughter emit from your belabored behind.  You dare not guess how deep Shoudra drills the cock into you before she climaxes - hard.  Your voluptuous ass quavers with ferocity alongside her gagged yelping, throwing you from your perch atop the rock back down to the earth.  Her fun over, you begin to feel the magic subsiding.  Having no desire to learn of the consequences of leaving a massive wang lodged in your shrinking anus, you muster what little strength you can to plumb it free.  With the experience settling down, you can\'t help but laugh - closer to a timid chuckle, as its the best your exhausted body can offer.  You think you hear Shouldra saying something to you, but you\'re too worn out to listen to her boasting.' );
 		EngineCore.outputText( '\n\nYou wake some time later, having passed out on top of your clothes.  You\'re right back at camp.  The ghost girl managed to drag you back somehow - no doubt interested in keeping the location of her secret goodies safe.  For now, at least.  Your attempt to rise back to your [feet] is halted; your ass is still sore... and about as wide as before.  There\'s also a bottle at your side, full of <b>ectoplasm</b> - you hope this didn\'t come from where you think it came from.  You can only snicker to yourself, reflecting on the absurdity of it all.  When it comes right down to it, your spooky friend will really meet any challenge you confront her with.  It would pay to remember that for a change.' );
 		//analLooseness is now 5;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		CoC.getInstance().player.ass.analLooseness = 5;
+		CoC.player.ass.analLooseness = 5;
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		EngineCore.outputText( '\n\n', false );
-		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
+		CoC.flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
 		SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Male Masturbation;
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nHer smile only widens as one of flowers engorge in the magic, quickly sprouting into a terrifically monstrous abomination of nature.  Thick tendrils sprout from its base, wriggling excitedly and dripping with... something.  "<i>Oh, good boy!</i>" Shouldra coos, reaching out to the gargantuan plant in the strangest display of filial affection.  The tentacled beast eagerly sweeps you up, dangling you several feet in the air with one large, excited tentacle wrapped around your chest and one [leg].' );
 		EngineCore.outputText( '\n\nLike a fast-motion sunflower reaching toward sunlight, the gigantic blossom tilts towards you and your rigid [cock].  You notice the more-than-passing resemblance in the folds to a certain aspect of the female anatomy enshrouded by the soft folds of an actual rose.  Where Shouldra comes up with these spells, you could only guess.' );
 		//[if cockSize < 200;
-		if( CoC.getInstance().player.cockArea( 0 ) < 200 ) {
+		if( CoC.player.cockArea( 0 ) < 200 ) {
 			EngineCore.outputText( '  Shouldra laughs happily as she considers the size difference; your dick simply does not pack enough of a punch for the assuredly hungry flower.  Always eager to help, Shouldra, not the least bit discomforted by her near-helpless situation, happily sings out the necessary enchantment.  You can\'t help but think she\'s having a bit too much fun with this for her own good.' );
 		}
 		EngineCore.outputText( '\n\nShouldra\'s high-pitched and nearly crazed laughter peals from your mouth as the tentacles lower you towards the vegetative vagina.  Shouldra\'s ecstatic reaction to this whole overgrown situation rubs off on you slightly; each time you blink, the glistening pedals just look more and more inviting.  Curse Shouldra and her ability to impart lust, but damn it all, you want to fuck the chlorophyll out of that plant!' );
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nFor a little while you gently poke and pinch at her soaking folds before you can confirm their validity.  Shouldra does good work; the vegetable organ even radiates a gentle heat.  There\'s nothing for it, then.  You drag yourself to your feet, line yourself up as best you can, then, with an excited cry, leap high into the air.  With a loud and delicious-sounding squelch, you drive your way into the rose.  Your momentum aids in the penetration, sinking further and further still until, with a dull smack, you hilt; an impressively deep insertion, you observe happily.' );
 		EngineCore.outputText( '\n\nThe plant immediately goes to work, the stuffed recesses expertly rippling and squeezing your [cock].  A shuddering sigh ripples from your very being at the milking.  "<i>She seems to like you,</i>" Shouldra whispers in your ear.  If you were in a more stable state of mind, you\'d probably roll your eyes.  As it were, you simply hum your agreement, losing yourself in the heat of the moment.  She just chuckles and casts a small spell before falling silent once more.' );
 		//if buals: ;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '\n\nYour sack' );
 		} else {
 			EngineCore.outputText( '\n\nYour prostate' );
@@ -526,11 +526,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nAs the thought crosses your mind, a familiar-looking ghost sits up in your torso, clamoring out and leaning over you with a huge smile on her face.  "<i>Have fun?</i>" she asks innocently.  "<i>I thought you might like that little trick.  Picked it up a few decades back from a dryad; nice bunch, as long as they warm up to you.</i>"' );
 		EngineCore.outputText( '\n\nYou don\'t bother responding.  She reaches to you, and you take her hand, letting her guide you to your feet.' );
 		//if cocksize <200: ;
-		if( CoC.getInstance().player.cockArea( 0 ) < 200 ) {
+		if( CoC.player.cockArea( 0 ) < 200 ) {
 			EngineCore.outputText( '  You stagger a bit at the unaccustomed heft of your junk altering your center of gravity, but you know that will wear off soon enough.' );
 		}
 		EngineCore.outputText( '  She reaches into her tunic and tosses you a full bottle of ectoplasm, giving you a wink before incorporealizing once more and floating into you.  All\'s well that ends well.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.outputText( '\n\n', false );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
@@ -549,7 +549,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nCurving over your entrance, the vibrating palm presses against you, each pulse reverberating through the whole of your body as it times itself with your heartbeat.  The sensation is more than enough to send you over the edge after all the teasing, your moans catching in your throat as you forget to breathe.  But much like the cum that had been building up inside you, the animalistic noises explode out of you, the sounds startling a few surrounding birds out of their trees.  Satisfied, the ghost-girl allows you control of your arms, but continues whatever spell that generates the vibrations, much to your delight.  You indulge yourself a little more, basking in the intensity only her magic could provide.  Satisfied, you try to withdraw your hand, but to you dismay you find it adhering to the surface.  Panicking slightly, you twist and jerk, but nothing seems to break the bond between your still-pulsing hand and now overly-sensitive cunny.  In fact, each attempt seems to cause it to increase in potency, until eventually the titillating shocks of pleasure-pain become far too powerful to focus on anything else.' );
 		EngineCore.outputText( '\n\nYou clutch your thighs together in a final act of defiance to the situation, but to no avail.  As your lower mouth begins drooling onto the ground below, the numbness of your legs spreads upward.  As it hits your head, thinking becomes a nigh-impossible task.  Your body twitches on the ground, and the thought of just surrendering and riding it out becomes increasingly appealing.  The edges of your vision turn pink and your tongue rolls out of your mouth as you lose yourself in the intense, otherworldly sensations.  You feel your honey pouring out on the ground below you, mixing in with the soil.  Before your mind and vision go completely dark, however, the pulsing stops, cutting off flow of pleasure that had just moments ago threatened to steal your sanity.' );
 		EngineCore.outputText( '\n\nA chill signifies Shouldra\'s exit of your body, and through the haze you make out her peeking her head over your form.  The odd quiver in your legs and the now sex-scented mud coating your ass are the only proof of what you had just experienced, and the fatigue quickly sets in as the last remnants of pleasure fade from your body.  As you lose consciousness, you feel yourself being picked up, and carried back to your camp.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -561,14 +561,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( 'The ghost girl promptly discards your [armor] before hurrying your naked body along into the wilderness away from camp.' );
 		EngineCore.outputText( '\n\nShe leads you to a small clearing in the wood, highlighted by an opening in the slightly dense canopy and a babbling brook a few feet further in.  To your right is a short, grassy embankment with a pile of large rocks and boulders embedded into the natural wall.  As the specter leads you towards them, a disconcerting realization sinks in: you have no memory of traveling here.  The last thing you can picture is sprinting away from the camp naked.' );
 		//if SHOULDRA_GENDERLESS_FUCK_COUNT > 0 || event occurrence > 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 || CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 			EngineCore.outputText( '  The consistency of your forgetfulness while traveling this path leads you to believe that your ethereal inhabitant would rather you not come back here on your own.' );
 		}
 		EngineCore.outputText( '\n\nYour bout of amnesia is the least of Shouldra\'s concerns as she has you set aside one rock after another, revealing a tiny cavity in the wall.' );
 		//Variables probably need to be given another look to make sure a PC that went through a genderless scene and then acquired a vagina will get the right text;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] === 0 && CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 			EngineCore.outputText( '  Within lies a rather rustic yet well-built chest.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ] > 0 && CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 			EngineCore.outputText( '  "<i>You didn\'t think I\'d leave my most treasured possessions behind for some goblin to run into, did you?</i>"  It\'s the ghost girl\'s chest of dildos, as well-kept as the last time you laid worried eyes on it.' );
 		} else {
 			EngineCore.outputText( '  Inside rests the ghost\'s familiar treasure trove of dildos and other toys you have yet to discover.' );
@@ -576,9 +576,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '  She has you pull the container out from its hiding place, removing the clear tarp she used to protect it from the elements.  Despite the fact that you have yet to control your body once through this entire ordeal, an intrinsic urge to open the container has you bending over to pry into the contents within.' );
 		EngineCore.outputText( '\n\n"<i>Ahh, so many choices,</i>" Shouldra muses as you study the contents of her hidden cache.  Before you sits a collection of various sex toys so diverse and numerous that it would be impossible to take stock of everything inside the chest at once.  Clearly in no rush to reveal everything she\'s got in store for you just yet, your incorporeal companion wastes no time in plunging your hands into the lewd assortment.  She rummages about for a moment, snatches a couple of toys that she judges to be "<i>just about right</i>" from the mess, and stands you back up, giving the chest just enough of a kick to close it on the way.  "<i>Don\'t want to ruin any surprises,</i>" she explains.  Your pondering of just what else she has in that thing is interrupted by the voice of a rather bored ghost.' );
 		//if event occurrence === 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>Aah, but it\'s all the same anyways</i>," Shouldra sighs, rolling the long phallic objects over each other in your palm.  "<i>Where\'s the excitement in going back to the same old thing?</i>" she laments, suddenly quite sad about the whole situation despite her earlier eagerness.  Sensing your displeasure, she snaps back, "<i>Hey, I told you my deal already.  How am I supposed to feel when I\'ve seen it all before?</i>"  Trying to hurry her along, you ask if there\'s <b>anything </b> new that she might try.  "<i>Well what else am I gonna play with on you?</i>" She breaks out into your own voice.  "<i>You\'ve got tits, an ass and a cunt, just like the rest of \'em! What am I mi-0...</i>"  She cuts herself off.  Shouldra closes one of your eyes and sticks ' );
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( 'some of ' );
 			}
 			EngineCore.outputText( 'your tongue out, examining it.  Already, you think you\'ve got a pretty good idea of where she\'s going to take this.' );
@@ -587,9 +587,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nShouldra smiles and wonders aloud, "<i>Think I could get your tongue in your cooch again?</i>"' );
 		}
 		//if PC is catgirl (has 'flexibility' perk);
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 ) {
 			//if event occurrence = 0;
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 				EngineCore.outputText( '\n\nYou sheepishly pulse confirmation back to her that you can.  You\'re not really used to talking about that sort of thing, but you <b>are</b> sharing a body.  "<i>Oh, now that\'s just adorable!</i>" Shouldra exclaims, having already searched you for mental images of your own flexibility.  You blush at the tease, but you can feel her lust spike at the thoughts, telling you that it\'s more than just a fun thought for your ethereal partner.' );
 				EngineCore.outputText( '\n\nShe sits you down and lets her dildos fall to the ground, forgotten for the moment.  "<i>How\'s this one go?</i>" she asks, leaning down in an awkward attempt to get your face in your ' + Descriptors.vaginaDescript( 0 ) + '.  You start to explain the proper \'technique\' to what she\'s trying to do, but before you can even finish your thought she\'s stuck a leg up in the air and has your mouth to your own snatch.  You doubt you\'ll ever get used to having her inside your thoughts.' );
 			}
@@ -599,7 +599,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			}
 			EngineCore.outputText( '\n\nIt feels absolutely <b>fantastic</b> as she begins to take a few testing licks at your pussy.  "<i>Oooh, Champ, I could get used to this...</i>" Shouldra moans from somewhere within you.  Truth be told, it does pretty nice to have someone else doing the work for you.  Her vast pool of libido laps at you, arousing you and making every one of her flicks across your engorged ' + Descriptors.clitDescript() + ' feel better than they have any right to.  She caresses your slickening lips with your small, tender tongue, granting you all the pleasure of her expert form.  Thoughts fog and blow away as you ride the waves of pleasure inside your mind, body a <b>very</b> willing slave to the ghostly girl\'s desires.' );
 			EngineCore.outputText( '\n\n"<i>Need... more...</i>"  Without bothering to get your opinion on the matter, Shouldra starts to mutter a soft incantation into your steamy sex.  Much to your dismay, she momentarily lifts your head from your crotch.  With the hand that she isn\'t propping you up on, she takes your tongue between your thumb and a couple fingers and begins to gently tug and stroke on it.  Though imperceptible at first, a few strokes later the change becomes obvious: inches of muscle spill forth from your mouth.' );
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 				EngineCore.outputText( '  Almost shocked enough to wrest control away from your companion, you begin to babble dissent and try to reel your lengthening tongue back in to no avail.  Shouldra stops for a moment, quite frustrated by the interruption.  Sitting straight up, she consoles you, "<i>Relax, Champ, it\'ll stop feeling weird in a minute and you know it\'s all temporary.</i>"' );
 				EngineCore.outputText( '\n\nGranted a moment to adjust, you let yourself settle down and hand her the reins once more.  She happily goes back to' );
 			}
@@ -616,11 +616,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			//end catgirl scene, back to camp;
 		}
 		//if demon tongue;
-		else if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
+		else if( CoC.player.tongueType === AppearanceDefs.TONUGE_DEMONIC ) {
 			EngineCore.outputText( '\n\nYou tell your experimentative friend to see for herself.  She opens your jaw wide, letting inch after inch of your demonic tongue spill out.  A happy squeak, made rather awkward by the floppy appendage, comes from you as Shouldra checks out what you\'ve been packing in your mouth.  "<i>Tho yuv ha tis-</i>" she giggles at the sound of talking with it hanging out, but continues talking in your mind.  "<i>So you\'ve had this thing all this time and I haven\'t gotten to play with it?  Well that just won\'t do.</i>"' );
 			EngineCore.outputText( '\n\nShe sits you down and lets her dildos fall to the ground, forgotten for the moment.  It feels absolutely <b>fantastic</b> as she begins to take a few testing licks at your pussy.  "<i>Oooh, Champ, I could get used to this...</i>"  Shouldra moans from somewhere within you.  Truth be told, it does pretty nice to have someone else doing the work for you.  Her vast pool of libido laps at you, arousing you and making every one of her flicks across your engorged ' + Descriptors.clitDescript() + ' feel better than they have any right to.  She caresses your slickening lips with your lengthy prehensile tongue, granting you all the pleasure of her expert technique.  Thoughts fog and blow away as you ride the waves of pleasure inside your mind, body a <b>very</b> willing slave to the ghostly girl\'s desires.' );
 			EngineCore.outputText( '\n\n"<i>Need... more...</i>" Without bothering to get your opinion on the matter, Shouldra starts to mutter a soft incantation into your steamy sex.  Much to your dismay, she momentarily snakes your tongue out from your crotch.  With the hand that she isn\'t propping you up on, she takes your demonic tongue between your thumb and a couple fingers and begins to gently tug and stroke on it.  Though imperceptible at first, a few strokes later the change becomes obvious: even more inches of muscle spill forth from your mouth.' );
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 				EngineCore.outputText( '  Almost shocked enough to wrest control away from your companion, you begin to babble dissent and try to reel your lengthening tongue back in to no avail.  Shouldra stops for a moment, quite frustrated by the interruption.  Sitting straight up, she consoles you, "<i>Relax, Champ, it\'ll stop feeling weird in a minute and you know it\'s all temporary.</i>"\n\nGranted a moment to adjust, you let yourself settle down and hand her the reins once more.  She happily goes back to ' );
 			} else {
 				EngineCore.outputText( '\n\n She happily continues ' );
@@ -637,7 +637,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nYou tell Shouldra that you unfortunately cannot, expecting her to be disappointed.  "<i>Ah well, that\'s fine,</i>" she replies without sounding put off one bit, "<i>you will soon.</i>"' );
 			EngineCore.outputText( '\n\nShe sits you down and lets her dildos fall to the ground, forgotten for the moment. Just to check that you truly can\'t get down there on yourself, she sticks your tongue as far out as your mouth can manage and tries all sorts of twists and contortions to get your face between your legs, but to no avail.  "<i>Bah, on with it, then,</i>" Shouldra says, finally conceding defeat to your body\'s rigidity.  "<i>Rather not get the bones mixed up right now</i>."  You\'re thankful for that, knowing full well that your ghostly friend just might be able to do something like that.' );
 			EngineCore.outputText( '\n\nShouldra sticks your small tongue out once again.  "<i>Need... more...</i>"  Without bothering to get your opinion on the matter, Shouldra starts to mutter a soft incantation into.  With the hand that she isn\'t propping you up on, she takes your tongue between your thumb and a couple fingers and begins to gently tug and stroke on it.  Though imperceptible at first, a few strokes later the change becomes obvious: extra inches of muscle spill forth from your mouth.  ' );
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ] === 0 ) {
 				EngineCore.outputText( '\n\nAlmost shocked enough to wrest control away from your companion, you begin to babble dissent and try to reel your lengthening tongue back in to no avail. Shouldra stops for a moment, quite frustrated by the interruption. Sitting straight up, she consoles you, "<i>Relax, Champ, it\'ll stop feeling weird in a minute and you know it\'s all temporary.</i>"\n\nGranted a moment to adjust, you let yourself settle down and hand her the reins once more.  She happily goes back to ' );
 			} else {
 				EngineCore.outputText( '\n\n  She happily continues ' );
@@ -649,11 +649,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nStuck in your mind as a helpless onlooker, you\'re forced to just ride out the storm.  You feel <b>everything</b> so clearly; every blade of grass tickling your shoulders, every drop of saliva smeared across your swollen [clit], every hard press of your possessed tongue against your craving walls.  It all feels like so much, like the pleasure is burning you so hot that it\'s going to tear you apart from the inside and drive you insane.  Your follower, apparently in possession of quite a will of her own, manages to overcome the feelings just long enough to roll herself onto her side and grab for the dildos.  She manages to drag them back, and all you can do is pray that they\'ll make this release come faster, as the buildup is especially torturous under the circumstances.  Now more confident in her ability to keep your tongue moving, she releases it, and reaches for the pair of phallic toys.' );
 			EngineCore.outputText( '\n\nOne in each of your shaking hands, she flops onto your back once more.  You hear a strained voice from within telling you to "<i>get ready</i>," just before Shouldra jams one dildo in your cunt and crams the other in your mouth.  Their bumpy surfaces tickle the nerves of your tongue so perfectly and they make you feel so wonderfully full that thoughts of the agonizing wait you had to endure is dissolved almost immediately by orgasm.  Shouldra screams out around the one in your mouth, muffled wails of pleasure echoing among the rocks.  A tasty gush of your juices splash out over your tightly-packed tongue and onto your thighs and the ground.  Your vision begins to fade even before the  feelings of release leave you.  By the time it has and your tongue starts to shrink back to its usual size, you\'re gone, floating unaware on a cloud of post-orgasmic bliss.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -2 );
 		EngineCore.outputText( '\n\nYou wake some time later, lying naked beside a pile of your [armor].  You\'re right back at camp.  The ghost girl managed to drag you back somehow - no doubt interested in keeping the location of her secret goodies safe.' );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ]++;
+		CoC.flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		//triggers one week after obtaining follower Shouldra;
 		//Shouldra's first experience with actual possession.  Targets a human (or furry?) Her introduction to how she can't fulfill any of her basic cravings - particularly sexual ones - without a host;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 0 ) {
 			EngineCore.outputText( 'How many days has it been? Maybe it\'s been weeks now.  The only thing you\'ve been focusing on is running, running as far away as you can.  You\'re surprised at your newfound endurance.  Seems like you\'ve been able to do anything you\'ve put your mind to, free from any sort of mortal constraints or limits.  But your frustration has made plain to you new hurdles.  As time slips by and old wounds begin to mend, these hurdles grow closer... grow larger, more imposing.  You can\'t ignore them any longer.  You involuntarily obsess over them.' );
 			EngineCore.outputText( '\n\nYou can no longer partake in simple pleasures once taken for granted.  Touch, taste, feel... they seem so natural, which makes their absence so maddening.  You no longer starve, yet you feel hungry.  You no longer grow exhausted, yet you yearn for sleep.  You no longer feel pain, yet you crave any sort of sensation.' );
 			EngineCore.outputText( '\n\nWithout thinking, your smooth hand reaches between your legs...  Same disappointing result.  You know something is there.  You can see it.  You <b>think</b> you can feel it; you aren\'t numb or tingling.  But the sensation is gone.  It\'s a pussy without a pulse, a moist, empty cavity.' );
@@ -681,7 +681,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nThe pleading voice of the woman is present, seeming as if to reside beside your own.  You ignore it; there\'s enough on your plate as it is, and you aren\'t in the mood to chat.  But you\'ll show her what it is you want from her.  Absent of any and all subtlety, you tear the woman\'s garments to shreds, eager to get to her pussy.  This is the moment you\'ve been pining for, desperate to know if you\'ll ever re-experience this feeling.  The woman\'s consciousness screams and begs; parts of her body tremble as she regains some sort of control.  In your unwavering persistence, you lose track... lose feeling of unimportant aspects of your host.  Your perception never wavers, however, even when you relinquish control of it to the woman... Maggey, as it turns out.  She\'s a...' );
 			EngineCore.outputText( '\n\nNo, you don\'t care about her.  It\'s the only way you won\'t lose yourself in this woman.  Never get too attached.  You\'re here only for yourself.  You reassure yourself repeatedly... until your hand finally reaches its prize.  Her pussy feels wonderful... your pussy.  Just as well as you can feel with her hands, her cunt floods you with pleasure.  It\'s as if you\'ve been crawling through a desert for months to only finally realize the taste and moisture of water on your lips, a sensation you had once thought lost.  You begin to lose yourself as your borrowed hands explore the vaginal walls, your moaning intertwining with that of your host\'s.  It feels so heavenly.' );
 			EngineCore.outputText( '\n\nBetter than anything you could possibly recall.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 1 ) {
 			//Dream 2 - First Transformation;
 			//triggers one week after Dream/Talk 1;
 			//Shouldra's first attempt with unfamiliar magic. Tired of the same old boring masturbation, she attempts just simple body inflation. (Target TBD) Has poor results, but exciting for her nonetheless;
@@ -697,7 +697,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nThat\'s right.  Tit.  One.  A precious, luscious, miraculous D cup hanging out next to an unaltered B cup.  The destruction of symmetry staring back at you in the mirror is taunting you with how ugly it appears.  Ignoring the sobbing in the back of your head, you grasp the odd duckling with both hands as you consider what went wrong.  Planting both mounds firmly in palms, you repeat the spell, paying close attention to your enunciation while making corrections.  Both chest bumps grow out another couple of cup sizes, but remain lopsided.  You stare in the mirror for a bit, ogling the asymmetrical fun bags.  Despite their mismatching, they still feel fantastic, you find.  You even managed to work in some lactation!' );
 			EngineCore.outputText( '\n\nYou manage to pull yourself away from fondling your knockers long enough to spread your legs, eyeing the farmhand\'s succulent snatch in her reflection.  You mull over the appropriate spell for a moment, not wanting a repeat performance.  Confident you\'ve sussed out the details, you give it a shot.  Right on the cusp of the final utterance, the woman\'s pussy swells in size, pressing up against her legs and making her crotch incredibly warm.  The sensation of the spell alone is making you incredibly horny, as it turns out.  Your hands anxiously dive in, exploring your success.' );
 			EngineCore.outputText( '\n\nA pleasant, yet surprising side effect of your prowess is that the enhancement doesn\'t just increase mass, but seems to really jack up sensitivity, too.  Your simple poking, prodding, and rubbing has made its way through to your cellmate, causing the otherwise frightened female to essentially melt in your hands, overwhelmed by your sexual provocations.  Reinvigorated by your happy hostess, you set to work, exploring your fine craftsmanship.  It\'s only going to get better from here...' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 2 ) {
 			//Dream 3 - 'Recent' Goblin Possession;
 			//triggers one week after Dream/Talk 2;
 			EngineCore.outputText( 'Few things more relaxing than heading home after a day of work.  But as you approach the dilapidated hut, some strange noises from within catch you off guard.  If it\'s that fucking mouse again...' );
@@ -755,7 +755,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nHer wide, quivering eyes slowly work their way up from the ground to witness you as you reassemble your typical form.  The goblin\'s mouth droops open and her hand finally falls free from its tit cell, a small geyser of milk coming out alongside it.' );
 			EngineCore.outputText( '\n\n"<i>And that\'s why you don\'t fuck with my stuff!</i>" you shout, turning back to a wisp and leaving the miserable creature to her miserable existence.' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 3 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 3 ) {
 			//Dream 4 - Backstory;
 			//triggers one week after Dream/Talk 3;
 			//Basically, her village was raided by orcs (which I'm pretty sure existed hundreds of years ago as well, since they're not demons), and the females were taken alive for the obvious reasons. Orcs would act like a far more primitive version of the factory; just pumping semen into the girls until they're constantly cock-hungry. Shouldra manages to retain enough of herself due to some knowledge of the arcane, separates her soul from her now-disgusting (to her) body, and flees.;
@@ -782,22 +782,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			//next page;
 			EngineCore.outputText( '\n\n<b><u>You wake abruptly, heart thrumming wildly in your chest.  Shouldra... You two have to talk.</u></b>' );
 		}
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ]++;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 1;
+		CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ]++;
+		CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Talk 1 - First Possession Discussion;
 	ShouldraFollower.prototype.shouldraYappin = function() {
 		EngineCore.clearOutput();
 		//Plot dreams!;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] === 1 ) {
 			//unlocked with Dream 1;
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 1 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 1 ) {
 				//Clear out that talk happened and start a countdown till next dream sequence.;
-				CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
+				CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
 				EngineCore.spriteSelect( 67 );
-				if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
-					CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
+				if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
+					CoC.flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
 				}
 				//Explanation of why the PC can experience her dreams.  Cagey about past, dodging how she became a ghost.  More focused on why that specific dream is important to her.;
 				EngineCore.outputText( 'You decide not to beat around the bush and ask about the strange dream you had the other night.  The spirit puts on a surprised reaction, your shoulder returning to normal as she casually walks outside of your body.' );
@@ -808,28 +808,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				EngineCore.outputText( '\n\nYou watch the spirit\'s face closely.  She doesn\'t seem too upset; aware of how long she\'s been a ghost, you assume this is something she had long since gotten over and forgotten.  "<i>I hadn\'t even considered being able to possess someone before I came across that woman in the forest.  The only thing on my mind before I saw her was living out my life - well, afterlife - in this state of flux, unable to <b>feel</b> joy.</i>" Shouldra shrugs off her introspective state, "<i>But then I ran into that woman, things clicked into place, and I had a bitchin\' few hundreds of years up until today.</i>"' );
 				EngineCore.outputText( '\n\nCluing in on her reluctance to divulge any more on the pre-bitchin\' years, you instead decide to ask about the woman.  This is probably one of the best leads on humans in Mareth you\'ve ever had.  Unfortunately, Shouldra does not share your interest.  "<i>Eh, yea humans were a thing a long time ago, I guess.  I was a little more interested in Numero Uno from that point on, though,</i>" she admits, thumbing herself in the chest.  "<i>I won\'t get you very far in any history classes I\'m afraid.</i>" You don\'t dare ask her straight up - honestly, you doubt you\'d receive little more than a sarcastic empty remark - but you can\'t help but wonder if the otherwise egocentric eidolon hasn\'t changed her tune even a little since setting up shack with you.  Has she even hung out with any other person for longer than a one night stand?' );
 				EngineCore.outputText( '\n\nThe tangent disappears from your head as Shouldra stares at you, probably curious as to what you\'re obsessing over.  You redirect her back to the dream, specifically about the actual first possession.  "<i>Well, I already had a pretty good grasp on the act.  Without divulging much information, let\'s just say for now that I\'ve always had a unique fascination with magic.</i>" Tired of pacing around - and potentially trying to keep you from digging too deep again - Shouldra directs you nearby to a little clearing where the two of you sit down, side by side.  "<i>But all the books in the world don\'t really prepare you for what\'s it like.  Like most anything, really.</i>"' );
-				if( CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
 					EngineCore.outputText( '  Shouldra bumps you to the side a little as she makes her next point, "<i>Even with your hoaky quasi-possession power, you don\'t really know what it\'s like to actually possess someone.</i>" You look at her funny, unaware that you weren\'t really getting the full effect.  Not that you care!' );
 				}
 				EngineCore.outputText( '\n\nShouldra scootches over against you until almost half of her body is inside of yours.  She moves your arm and [leg] around as she illustrates her next point, "<i>The expectation is that you\'re just \'putting on\' the host.  Like a glove or a suit.  But the instant you dive inside someone' );
-				if( CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
 					EngineCore.outputText( ' - and I mean <b>really</b> possess someone -' );
 				}
 				EngineCore.outputText( ' you find out just how much more there is to it.</i>" Shouldra directs your hand up, staring at it intently as she sprawls out your fingers, "<i>You aren\'t crawling inside a husk.  There\'s a lot to a living being.  You felt it in my dream.  I know how to deal with it now but back then? It took real determination to not lose yourself in a person.  Even the most boring scumbag has a life\'s worth of history and an endless program of emotion and thought.</i>"' );
 				EngineCore.outputText( '\n\nShouldra puts on a mischievous smile, turning to face you, "<i>That\'s not to say I never pry, mind you.  Given all the time I\'ve spent with you, I\'ve been able to learn plenty.  Like about your hometown of Ingnam, Champ.</i>" Shouldra laughs as you shuffle around uncomfortably, the notion of the ghost girl ransacking your mind of its every fiber not sitting well with you.  "<i>Don\'t worry your pretty little head over it, though.</i>"  Your hand reaches down unbidden, grasping at your [if (hasCock = true) [cock]] [if (isHerm = true)  and ][if (hasVagina = true) [vagina]]' );
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( '[asshole]' );
 				}
 				EngineCore.outputText( '.  "<i>No matter what treasure trove of knowledge I dig up from you, there\'s always something I\'m more interested in.</i>"  Your hand lifts back up, and you watch as Shouldra\'s hand splits off from your own, meeting below the wrist.  She holds your hand with her own ghostly appendage, resting her head on your shoulder.  The ghost girl sits there for a moment, silent, leaving you to wonder if maybe, just maybe, you\'re starting to mean a little more to her than just a sex toy.' );
 				EngineCore.outputText( '\n\nObviously aware of your inner monologue, Shouldra slips back inside you and digs both your hands into your [armor].  You may not have a clear answer, but you figure you have enough information to come to your own hypothesis.' );
 			}
 			//Talk 2 - First Transformation Discussion;
-			else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 2 ) {
+			else if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 2 ) {
 				//Clear out that talk happened and start a countdown till next dream sequence.;
-				CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
+				CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
 				EngineCore.spriteSelect( 67 );
-				if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
-					CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
+				if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
+					CoC.flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
 				}
 				//unlocked with Dream 2;
 				//unlocks grow/shrinking of body parts (See next section);
@@ -840,25 +840,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				EngineCore.outputText( '\n\n"<i>Anyway, imagine eight years of just fingering, groping, the occasional dildo-shaped object down your snatch.  Eight years where you never got tired or hungry or chaffed or sore, either.  Sure the subjects come in different varieties - her clit\'s a little big, this one\'s got piercings, this bitch got me a dick to play with - but its honestly all cast from a similar mold.  My point is it gets <b>dull</b> after a while. It never stopped feeling good, mind you, but it just stopped getting nearly as satisfying.</i>"  Sex getting boring sounds like a pretty sad afterlife to you.  Though you would hope that if it were come to that, you wouldn\'t be nearly as obsessed with it as the fanatical phantom before you.' );
 				EngineCore.outputText( '\n\n"<i>And you saw my epiphany.  I was already a self-made expert on magic.  Just took some creative know-how to bend that around into something I could use.  It\'s been smooth sailing from that point on.</i>"  There she goes again talking about her extensive knowledge of some arcane art form that involves some of the kinkiest sex you\'ve ever witnessed.  You try and ask about it again, but Shouldra shoots you down, still uninterested in divulging something she evidently considers to be very personal.  You accept defeat, instead deciding to question how she didn\'t come to be just as bored of her enhanced sex as she did the normal variety.  "<i>Other than the fact that it never stops feeling fucking great?</i>"  Shouldra pauses for a moment, seriously considering her reasoning.' );
 				EngineCore.outputText( '\n\n"<i>I\'ve always had a fairly simple rule I try to follow.</i>"  The ghost girl casually walks up to you and places her hand inside your chest.  Both your hands raise up in front of you, as if you had never seen them before.  It\'s a little creepy how easily she can manipulate you at this point.  "<i>Everyone has two of these,</i>" Shouldra explains.  "<i>Sometimes three or four or - heaven forbid - one or none... but the bulk of the world has two.</i>"  Suddenly your right hand magnetizes to your crotch, cupping it fervently.  "<i>Most people have a one-hand job.  They can handle it themselves, even while doing something else.  I\'m not interested in just living out someone else\'s life.</i>"' );
-				if( CoC.getInstance().player.gender > 0 ) {
+				if( CoC.player.gender > 0 ) {
 					EngineCore.outputText( '  Your [if (hasCock = true) [cock]][if (isHerm = true)  and ][if (hasVagina = true) [vagina]] start to swell up; looking up at the ghost, you realize that she hasn\'t uttered a single word!' );
 				} else {
 					EngineCore.outputText( '  A fleshy, penis-shaped bulge begins to swell out of your loins; looking up at the ghost, you realized she hasn\'t uttered a single word!' );
 				}
 				EngineCore.outputText( '\n\n"<i>When I get involved, I turn things into a two-handed job.</i>"  Your hands move up and slip inside your [armor], sensually massaging your puffing package.  "<i>Things that are unique to <b>me.</b>  That only I can deliver.  That\'s my rule.  As long as I\'m turning something otherwise ordinary into something extraordinary, I\'m never bored.</i>"  Shouldra casts you a lewd smile, resting her free hand over your over-active bulge.  Your [armor] is only feeling more and more constrictive as your [if (hasCock = true) dick][if (isHerm = true)  and ][if (hasVagina = true) cootch]' );
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( 'dick' );
 				}
 				EngineCore.outputText( ' [if (isHerm = false) continues its][if (isHerm = true) continue their] march of magnification while your fingers vigorously explore their new frontiers.' );
 				EngineCore.outputText( '\n\n"<i>No potions, no tonics, no needles, no booze, no eggs, nothing.</i>"   Your genitals pulse adding emphasis to the ghost\'s boast, quickly plumping up an extra step as your digits dig into your flesh.  "<i>Nothing but me.  That\'s what makes me unique.</i>"  Shouldra undoes your outfit with her free hand, releasing you from your constraints.  Without it in the way, the phantom directs your hands all along your [if (hasCock = true) burgeoning dickflesh][if (isHerm = true)  and ][if (hasVagina = true) widening feminine walls]' );
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( 'burgeoning dickflesh' );
 				}
 				EngineCore.outputText( '.  It takes some gumption for you to work through the arousal and contribute to the conversation, but you manage to point out how you\'re pretty sure there are other people in Mareth with the same sort of power, to some degree at least.' );
 				EngineCore.outputText( '\n\n"<i>Maybe demons, I suppose.  I haven\'t fucked around with them much.  But anyone else is either pumping you full of something or pulling a trick on you.  I\'m sure of it.</i>"  You also point out how her acts lack any sort of permanence.  "<i>So?  I\'m not interested in playing the dick fairy, giving all the good little men and women tree trunks to bring home.  Its always been for my amusement!</i>"  Shouldra stares at your fattening flesh for a moment, your fingers pinching at your skin as they welcome each new centimeter.  Looks like the jade spirit is actually mulling over your question.' );
 				EngineCore.outputText( '\n\n"<i>I\'ve never really tried any spells that stick; magic isn\'t always known for its durability, you know?  Thinking about it now, the biggest problem is just how different everyone is.  Even twins may as well be a world apart when you get right down to it.  I spent so much time with goblins - centuries easily - learning about how their breasts practically change just by looking at them funny.  I never actually realized the breakthrough I made when I got a slight few of their massive mammaries to stick around after I left.</i>"' );
 				EngineCore.outputText( '\n\nYou\'re about knocked off your [feet] as your hands go into double time, covering every new square inch of flesh on your midsection.  ' );
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( 'Your now erect dick is leaking out pre at an alarming rate, which your possessed hands greedly lap up and distribute all along your length.  ' );
 				}
 				EngineCore.outputText( '[if (hasCock = true) Your now erect dick is leaking out pre at an alarming rate, which your possessed hands greedly lap up and distribute all along your length.  ][if (hasVagina = true) Your cunt has ballooned up enough to press hard against your [legs], its increased wetness allowing for your hands to effortlessly glide along its canyon walls and north watchtower.  ]"<i>You know, I\'ve grown so accustomed to your body... I easily understand it as well as my own.</i>"  You aren\'t quite sure how reassuring that is, considering her lack of a body, but the point is made just the same.' );
@@ -867,12 +867,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				//Unlocks Grow/Shrink options;
 			}
 			//Talk 3 - 'Recent' Goblin Possession Discussion;
-			else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 3 ) {
+			else if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] === 3 ) {
 				//Clear out that talk happened and start a countdown till next dream sequence.;
-				CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
+				CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
 				EngineCore.spriteSelect( 67 );
-				if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
-					CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
+				if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 ) {
+					CoC.flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = 7;
 				}
 				//unlocked with Dream 3;
 				EngineCore.outputText( 'You stare at Shouldra.  "<i>Oh, <b>what</b>?</i>"  You stare at Shouldra.  "<i>She fucking pissed on my floor!</i>"  You stare at Shouldra.  The ghost shakes her head, sinking it back inside your skin. The ghost girl quickly flies out of your chest.  "<i>You don\'t fuck with my stuff!</i>"' );
@@ -880,13 +880,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				EngineCore.outputText( '\n\nYou grin at her rather candid explanation and take a seat.  Shouldra sits down beside you, eager to continue explaining herself, "<i>Knocking my rocks off was always high on my list of shit to do.  But I also love just messing with people.  You may know it as \'haunting.\'  And you know me; why would I bother with small time stuff like blowing a curtain or pretending to be a dead relative?</i>"  This doesn\'t sound quite as innocent as she\'s making it out to be.  The sight of the crying, soaked goblin alone in the woods certainly didn\'t paint a pretty picture.' );
 				EngineCore.outputText( '\n\nDetecting your mounting concern, Shouldra decides to pipe up, "<i>Now, come on.  I\'m not \'Shouldra the Friendly Ghost.\'  I\'m the sweet little gal you met that tried to punch your teeth in so I could have my way with you.  Keep things in perspective here!</i>"  Well, that makes for a clear enough point.  "<i>Anyway, when I finally settled down - oh, ten or thirty years ago - I came to discover the local area\'s just littered with goblins.  You couldn\'t walk a mile without tripping over one!  Most of them are fairly simple creatures; they just want to fuck and breed and fuck and throw a bottle of something at you and fuck.  Sometimes you could find one with a little more ambition or sense.  Those were my favorites.</i>"' );
 				EngineCore.outputText( '\n\nShouldra leans back as she reminisces, "<i>But those ruins were crawling with the little beasts.  I\'m sure you won\'t believe me, but I\'m not ALWAYS horny.  Usually, but not always.  And when I wasn\'t horny, I still loved messing with all those delicate little flowers as they fought over what precious few dicks come out there.</i>"  Precious few?  You\'re pretty sure you\'ve been finding things with cocks without too much trouble, telling the ghost as much.  "<i>Eh, not really the case back where you found me, where I was staying.  And, honestly, looking at my catches over the last, say, hundred years?  If I had to wager to guess... maybe less than ten percent had a fun stick for me to play with.' );
-				if( CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( '</i>"  Shouldra eyes your [cock] gingerly, acting as if she can stare right through your outfit at it.  "<i>' );
 				} else {
 					EngineCore.outputText( '  ' );
 				}
 				EngineCore.outputText( 'The half-millenium or so of scarcity has really shaped my interests.  I\'m at the point now where I just lose it whenever I get these ghostly mitts on a slab of meat.  And the big ones?  ' );
-				if( CoC.getInstance().player.biggestCockArea() >= 200 ) {
+				if( CoC.player.biggestCockArea() >= 200 ) {
 					EngineCore.outputText( 'Ones like yours?  ' );
 				}
 				EngineCore.outputText( 'Then I\'m just in heaven.</i>"  Hold on.  She can turn any dick into a towering monument.  What\'s so special about ones that come pre-packaged, you ask?  "<i>I kinda break the one rule I had at that point, but when I find someone with a big boner, it just... feels so good to me.  There\'s just something about an all-natural magnum opus that just lights my fire.</i>"' );
@@ -904,7 +904,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				EngineCore.outputText( '\n\nShouldra leans against you, slowly sliding back into your body.  You count your blessings to not have been born a goblin as you get back off the ground.' );
 			} else {
 				//Clear out that talk happened and start a countdown till next dream sequence.;
-				CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
+				CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] = 0;
 				EngineCore.spriteSelect( 67 );
 				//Talk 4 - Backstory Discussion;
 				//unlocked with Dream 4;
@@ -948,7 +948,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			return;
 		}
 		var sex = null;
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			sex = this.shouldraSexMenu;
 		}
 		EngineCore.choices( 'Talk', this.shouldraTalkMenu, 'Sex', sex, '', null, 'Go Away', this.kickFollowerShouldraOut, 'Back', SceneLib.camp.campFollowers );
@@ -958,12 +958,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra stirs from somewhere deep inside you, excitement evident in the swiftness of her reaction.  "<i>Is it time for some fun, Champ?</i>" she asks happily, her increased lust affecting you just a bit.  Do you oblige her?' );
 		var vala = null;
-		if( CoC.getInstance().flags[ kFLAGS.FREED_VALA ] !== 0 && (CoC.getInstance().time.hours >= 12 && CoC.getInstance().time.hours <= 21) ) {
+		if( CoC.flags[ kFLAGS.FREED_VALA ] !== 0 && (CoC.time.hours >= 12 && CoC.time.hours <= 21) ) {
 			EngineCore.outputText( '\n\nVala might interest Shouldra.  You could go introduce them...' );
 			vala = this.shouldraAndValaGetBigger;
 		}
 		var anal = null;
-		if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			anal = this.nongenderlessAnalShouldraMasturbation;
 			EngineCore.outputText( '\n\nShouldra could also let you have a little anal fun, if you\'d like.' );
 		}
@@ -973,18 +973,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	ShouldraFollower.prototype.shouldraTalkMenu = function() {
 		EngineCore.spriteSelect( 67 );
 		//Go directly to appropriate talk if necessary;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] === 1 ) {
 			this.shouldraYappin();
 			return;
 		}
 		//Allow for the expansion of bodyparts via spooky magic;
 		var blowShitUp = null;
 		var shrinkShit = null;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] >= 2 && CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] <= 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] >= 2 && CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] <= 0 ) {
 			blowShitUp = this.shouldraGroPlus;
 			shrinkShit = this.shouldraReductoMenu;
 			EngineCore.outputText( '\n\nShouldra could permanently expand or reduce part of your body.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] >= 2 ) {
+		} else if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] >= 2 ) {
 			EngineCore.outputText( '\n\nShouldra needs some time before she can grow or shrink one of your body parts permanently.' );
 		}
 		EngineCore.choices( 'Normal Talk', this.shouldraYappin, 'Grow Something', blowShitUp, 'Shrink Something', shrinkShit, '', null, 'Back', this.shouldraFollowerScreen );
@@ -1005,35 +1005,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		var cock = null;
 		var butt = this.shouldrasButtBigginator;
 		var nipples = this.shouldraGivesYaSomeFukkinTeats;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			balls = this.groBallsBiggaGHOSTYSTYLE;
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			cock = this.shouldraCockBloating101;
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			clit = this.shouldraGrowsYoClit;
 		}
 		EngineCore.choices( 'Balls', balls, 'Breasts', breast, 'Clit', clit, 'Cock', cock, 'Nipples', nipples, 'Butt', butt, '', null, '', null, '', null, 'Back', this.shouldraTalkMenu );
 	};
 	//Balls;
 	ShouldraFollower.prototype.groBallsBiggaGHOSTYSTYLE = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>Interested in a bigger ballsack, huh?  Not only will it help pronounce your package, but a big ol\' swinging sack of nuts feels great when you\'re really pounding.</i>" Shouldra grasps your [balls] with both your hands and begins reciting the appropriate spell.' );
 		//ballsize + 2 + Utils.rand(4) 20% chance;
 		if( Utils.rand( 5 ) === 0 ) {
-			CoC.getInstance().player.ballSize += 2 + Utils.rand( 4 );
-			EngineCore.outputText( '\n\nYour testicles rumble greatly, inch after inch of ' + CoC.getInstance().player.skinTone + ' flesh enveloping their impressive new bulk.  Shouldra gives your enlarged [balls] a little squeeze and leaves you to reacquaint yourself with a new center of balance.' );
+			CoC.player.ballSize += 2 + Utils.rand( 4 );
+			EngineCore.outputText( '\n\nYour testicles rumble greatly, inch after inch of ' + CoC.player.skinTone + ' flesh enveloping their impressive new bulk.  Shouldra gives your enlarged [balls] a little squeeze and leaves you to reacquaint yourself with a new center of balance.' );
 		}
 		//ballsize + 1 + Utils.rand(2) Else;
 		else {
-			CoC.getInstance().player.ballSize += 1 + Utils.rand( 2 );
-			EngineCore.outputText( '\n\nA tingling sensation courses through your scrotum, your ' + CoC.getInstance().player.skinTone + ' going taut as it gains additional mass.  Shouldra rewards your new [balls] with a light massage.' );
+			CoC.player.ballSize += 1 + Utils.rand( 2 );
+			EngineCore.outputText( '\n\nA tingling sensation courses through your scrotum, your ' + CoC.player.skinTone + ' going taut as it gains additional mass.  Shouldra rewards your new [balls] with a light massage.' );
 		}
 		//if ballsize > 10;
-		if( CoC.getInstance().player.ballSize > 10 ) {
+		if( CoC.player.ballSize > 10 ) {
 			EngineCore.outputText( '  You second guess your decision when your swinging cum barrels seem to impede walking.  Shouldra reassures you that the enhanced libido and baby batter supply is worth the wider gait.' );
 		}
 		EngineCore.dynStats( 'lus', 10 );
@@ -1041,57 +1041,57 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	};
 	//Breast;
 	ShouldraFollower.prototype.shouldraGrowsYoTits = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>I\'ll give you a rack that could hypnotize anyone into a faithful tit slave,</i>" Shouldra boasts, stretching your shoulders in preparation.  Your hands grope your [fullChest] as the spirit slips into the arcane language you\'ve come to grow so familiar with.\n\n' );
 		//same growtits() as Gro+;
-		if( CoC.getInstance().player.breastRows.length === 1 ) {
-			CoC.getInstance().player.growTits( (1 + Utils.rand( 5 )), 1, true, 1 );
+		if( CoC.player.breastRows.length === 1 ) {
+			CoC.player.growTits( (1 + Utils.rand( 5 )), 1, true, 1 );
 		} else {
-			CoC.getInstance().player.growTits( 1 + Utils.rand( 2 ), CoC.getInstance().player.breastRows.length, true, 1 );
+			CoC.player.growTits( 1 + Utils.rand( 2 ), CoC.player.breastRows.length, true, 1 );
 		}
 		EngineCore.dynStats( 'lus', 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clit;
 	ShouldraFollower.prototype.shouldraGrowsYoClit = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>Looking to give your joy buzzer a little jumpstart?</i>" Shouldra teases, your hands sliding down to your inviting [cunt].  Your fingers tease your [clit] while the ghost girl spouts her arcane tongue from your mouth.  ' );
 		//clitLength + 1;
-		CoC.getInstance().player.clitLength += 1;
+		CoC.player.clitLength += 1;
 		EngineCore.outputText( 'She welcomes the new inch with a quick flick.  The sensitive [clit] twitches happily in response, confirming the success of the spell.' );
 		EngineCore.dynStats( 'sen', 5, 'lus', 15 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cock;
 	ShouldraFollower.prototype.shouldraCockBloating101 = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'A satisfied grin develops on your face.  "<i>I was hoping you\'d spring for the male enhancement,</i>" Shouldra teases, your hands darting into your armor and stroking your dick fervently.  You realize that the mere request to give your member a long-lasting lengthening has excited your paranormal partner enough that [eachCock] gets rock hard, gushing pre in anticipation.  You reign in the spirit, asking she not do anything too crazy.  Your head nods in response, and the eager wraith gets to work on her spell.\n\n' );
 		//same growth as Gro+, depending on cock number;
-		if( CoC.getInstance().player.cocks.length === 1 ) {
+		if( CoC.player.cocks.length === 1 ) {
 			EngineCore.outputText( 'Several more inches push their way from your ' );
-			if( !CoC.getInstance().player.hasSheath() ) {
+			if( !CoC.player.hasSheath() ) {
 				EngineCore.outputText( 'crotch' );
 			} else {
 				EngineCore.outputText( 'sheath' );
 			}
 			EngineCore.outputText( ' in short order.  Shouldra happily grasps your fuller dick, stroking it vigorously.  Knowing your inaction will strand you for the rest of the day, you\'re able to pry your haunted hands away from your crotch.', false );
-			CoC.getInstance().player.increaseCock( 0, 4 );
-			CoC.getInstance().player.cocks[ 0 ].cockLength += 1;
-			CoC.getInstance().player.cocks[ 0 ].cockThickness += 0.25;
+			CoC.player.increaseCock( 0, 4 );
+			CoC.player.cocks[ 0 ].cockLength += 1;
+			CoC.player.cocks[ 0 ].cockThickness += 0.25;
 		}
 		//MULTI;
 		else {
 			EngineCore.outputText( 'Your bouquet of cocks twitches and thickens, each gaining more than an inch of new vibrance.  Shouldra wastes no time in grouping them together, your hands stroking them vigorously.  Knowing your inaction will strand you for the rest of the day, you\'re able to pry your haunted hands away from your crotch.' );
-			for( var i = 0; i < CoC.getInstance().player.cocks.length; i++ ) {
-				CoC.getInstance().player.increaseCock( i, 2 );
-				CoC.getInstance().player.cocks[ i ].cockLength += 1;
-				CoC.getInstance().player.cocks[ i ].cockThickness += 0.25;
+			for( var i = 0; i < CoC.player.cocks.length; i++ ) {
+				CoC.player.increaseCock( i, 2 );
+				CoC.player.cocks[ i ].cockLength += 1;
+				CoC.player.cocks[ i ].cockThickness += 0.25;
 			}
 		}
 		EngineCore.dynStats( 'sen', 2, 'lus', 20 );
@@ -1099,18 +1099,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	};
 	//Nipples;
 	ShouldraFollower.prototype.shouldraGivesYaSomeFukkinTeats = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra rubs your hands together in anticipation, "<i>A beautiful blossoming pair of nipples is what you need to really compliment a nice set of tits.</i>"  Your hands gleefully tweak your [nipples] as the spirit\'s incantation gets underway.' );
 		EngineCore.outputText( '\n\nYour nipples press hard against your [armor], easily gaining at least a quarter of an inch in size.  Shouldra gives each [nipple] a hasty inspection, ensuring her work.' );
 		//same increase and potential for fuckable nipples as Gro+;
-		CoC.getInstance().player.nippleLength += (Utils.rand( 2 ) + 3) / 10;
+		CoC.player.nippleLength += (Utils.rand( 2 ) + 3) / 10;
 		EngineCore.dynStats( 'lus', 15 );
 		//NIPPLECUNTZZZ;
-		if( !CoC.getInstance().player.hasFuckableNipples() && CoC.getInstance().player.nippleLength >= 2 && Utils.rand( 4 ) === 0 ) {
+		if( !CoC.player.hasFuckableNipples() && CoC.player.nippleLength >= 2 && Utils.rand( 4 ) === 0 ) {
 			var changed = false;
-			_.forEach( _.filter( CoC.getInstance().player.breastRows, function( breastRow ) {
+			_.forEach( _.filter( CoC.player.breastRows, function( breastRow ) {
 				return !breastRow.fuckable;
 			} ), function( breastRow ) {
 				breastRow.fuckable = true;
@@ -1125,12 +1125,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	};
 	//Butt;
 	ShouldraFollower.prototype.shouldrasButtBigginator = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra\'s haunting laugh works its way out from your mouth.  "<i>Looking for a little more jiggle in your step, Champ?  I can get BEHIND that.</i>"  This damnable ghost won\'t let you roll your eyes!  Is there no end to her torment?  After a quick crack of your knuckles, Shouldra directs your hands back onto your derriere as she transitions into spellcasting.' );
 		//this.player.buttRating = this.player.buttRating + 1 + Utils.rand(3)); or so;
-		CoC.getInstance().player.buttRating += 1 + Utils.rand( 3 );
+		CoC.player.buttRating += 1 + Utils.rand( 3 );
 		EngineCore.outputText( '\n\nYour cheeks quake as the magic takes hold, warm ripples greeting the inches of new retail estate on your hind quarters.  Shouldra can\'t resist herself, giving your [butt] a vigorous slap.' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1150,70 +1150,70 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		var cock = null;
 		var butt = null;
 		var nipples = null;
-		if( CoC.getInstance().player.nippleLength > 0.25 ) {
+		if( CoC.player.nippleLength > 0.25 ) {
 			nipples = this.shrinkDemNipplzForYoGhost;
 		}
-		if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+		if( CoC.player.biggestTitSize() >= 1 ) {
 			breasts = this.shouldraReductosYourTits;
 		}
-		if( CoC.getInstance().player.buttRating >= 2 ) {
+		if( CoC.player.buttRating >= 2 ) {
 			butt = this.shrinkDatBootyForYoGhost;
 		}
-		if( CoC.getInstance().player.balls > 0 && CoC.getInstance().player.ballSize > 1 ) {
+		if( CoC.player.balls > 0 && CoC.player.ballSize > 1 ) {
 			balls = this.shouldraReductosYourBallsUpInsideYa;
 		}
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.longestCockLength() > 4 ) {
+		if( CoC.player.hasCock() && CoC.player.longestCockLength() > 4 ) {
 			cock = this.shouldraMakesCocksDisappear;
 		}
-		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.clitLength > 0.25 ) {
+		if( CoC.player.hasVagina() && CoC.player.clitLength > 0.25 ) {
 			clit = this.clittyVanishingActShouldra;
 		}
 		EngineCore.choices( 'Balls', balls, 'Breasts', breasts, 'Clit', clit, 'Cock', cock, 'Nipples', nipples, 'Butt', butt, '', null, '', null, '', null, 'Back', this.shouldraTalkMenu );
 	};
 	//Balls;
 	ShouldraFollower.prototype.shouldraReductosYourBallsUpInsideYa = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>Why would you want to shrivel these delicious cumquats?</i>"  Shouldra\'s arsenal of puns doesn\'t affect your request in the slightest.  The ghost girl moves into a quick spell, savoring your testicles before finishing.' );
 		//this.player.ballSize = this.player.ballSize - (2 + this.rand(4));;
-		CoC.getInstance().player.ballSize -= (2 + Utils.rand( 4 ));
-		if( CoC.getInstance().player.ballSize < 1 ) {
-			CoC.getInstance().player.ballSize = 1;
+		CoC.player.ballSize -= (2 + Utils.rand( 4 ));
+		if( CoC.player.ballSize < 1 ) {
+			CoC.player.ballSize = 1;
 		}
 		EngineCore.outputText( '\n\nYour scrotum shifts and squirms, clinging to your testicles as your package recedes into your body by a few inches.  The pouting ghost is quick to give you back your body, disappointed in your new [balls].' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Breast;
 	ShouldraFollower.prototype.shouldraReductosYourTits = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Your arms clasp themselves around your [fullChest].  "<i>Not the gals!  What monster would want to deflate their knockers?</i>"  This monster, evidently.  Shouldra sighs, holding your hands in a weak casting stance as she gets the heinous act over with.' );
-		CoC.getInstance().player.shrinkTits();
+		CoC.player.shrinkTits();
 		EngineCore.outputText( '\n\nYou explore your [fullChest] carefully, confirming their new size.  As you brush over your right [nipple], a tiny burst of milk soaks your hand.  You suppose your mutinous friend isn\'t too thrilled with your new brassiere size.' );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clit;
 	ShouldraFollower.prototype.clittyVanishingActShouldra = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>Aw, really, Champ?  The best part of your snatch?</i>"  A nod of your head reasserts your desire.  The depressed phantom hastily works through the spell, the notion of shrinking your [clit] not sitting well with her.' );
-		CoC.getInstance().player.clitLength /= 1.7;
+		CoC.player.clitLength /= 1.7;
 		//Set clitlength down to 2 digits in length;
-		CoC.getInstance().player.clitLength = Math.ceil( CoC.getInstance().player.clitLength * 100 ) / 100;
+		CoC.player.clitLength = Math.ceil( CoC.player.clitLength * 100 ) / 100;
 		EngineCore.outputText( '\n\nA soft moan is all you can manage as your button tingles and shrinks to almost half its original size.  You think you can hear Shouldra sighing in the back of your head.  She\'ll get over it.' );
 		EngineCore.dynStats( 'sen', 2, 'lus', 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cock;
 	ShouldraFollower.prototype.shouldraMakesCocksDisappear = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Your hands dart for your ' + Descriptors.multiCockDescriptLight() + ' as if to protect your poor masculinity.  "<i>You\'re kidding, right?  You can\'t mean to rob me of my pride and joy!</i>"  You remind Shouldra just whose dick she\'s talking about; the eidolon is getting a little too accustomed to your [if (cocks = 1) dick][if (cocks > 1) dicks].  "<i>Please, Champ.  Not the dick...</i>"  You slowly remove your hands from your crotch, asking the ghost to proceed.  She complies with a frustrated sigh and a rather perturbed incantation.' );
-		if( CoC.getInstance().player.cocks.length === 1 ) {
+		if( CoC.player.cocks.length === 1 ) {
 			EngineCore.outputText( '\n\nYour penis vibrates slightly as the magic starts to take effect.  Your eyes just about bulge out of your skull when your rod starts to smoke and twitch violently.  The panic immediately subsides when it starts yelling.  "<i>You ' );
 			var choice = Utils.rand( 10 );
 			if( choice === 0 ) {
@@ -1236,33 +1236,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 				EngineCore.outputText( 'dick' );
 			}
 			EngineCore.outputText( '!</i>" it shouts.  The tiny voice fades away as your [cock] goes still, resting at two thirds of its original size.  A single tear rolls down your cheek; you suspect the melodramatic spirit is at fault here.' );
-			CoC.getInstance().player.cocks[ 0 ].cockLength *= 2 / 3;
-			CoC.getInstance().player.cocks[ 0 ].cockThickness *= 2 / 3;
+			CoC.player.cocks[ 0 ].cockLength *= 2 / 3;
+			CoC.player.cocks[ 0 ].cockThickness *= 2 / 3;
 		}
 		//MULTI;
 		else {
 			EngineCore.outputText( '\n\nYour dicks vibrate slightly as the magic begins to sink in.  You about jump out of your skin when they [if (cocks < 2) both][if (cocks >= 2) all] suddenly start smoking and flailing about.  Your fear is short lived, however, when they begin to wail and cry.' );
 			EngineCore.outputText( '\n\n"<i>I\'m sorry, [Master]!  Please have mercy on me!</i>" your [cock biggest] pleads.' );
 			EngineCore.outputText( '\n\n"<i>[Master], have mercy!  I\'ll make it up to you!  Please!</i>" the [cock smallest] begs.' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( '\n\n"<i>I\'ll fuck extra hard, [Master]!  Just give me a chaaaance!</i>" another yells.' );
 			}
-			if( CoC.getInstance().player.cockTotal() > 3 ) {
+			if( CoC.player.cockTotal() > 3 ) {
 				EngineCore.outputText( '\n\n"<i>What did we do wrong?  At least tell us that much!</i>" one of your cocks begs.' );
 			}
-			if( CoC.getInstance().player.cockTotal() > 4 ) {
+			if( CoC.player.cockTotal() > 4 ) {
 				EngineCore.outputText( '\n\n"<i>I\'ll never fucking forgive you for this!</i>" another of your dicks shouts furiously.' );
 			}
-			if( CoC.getInstance().player.cockTotal() > 5 ) {
+			if( CoC.player.cockTotal() > 5 ) {
 				EngineCore.outputText( '\n\n"<i>Are we a nuisance?  Please, [Master], there must be another way!</i>" yet another one of your many cocks pleads.' );
 			}
-			if( CoC.getInstance().player.cockTotal() > 6 ) {
+			if( CoC.player.cockTotal() > 6 ) {
 				EngineCore.outputText( '\n\nThe remainder of your plentiful penises are a sad mixture of crying and begging.' );
 			}
 			EngineCore.outputText( '\n\nThe cacophony of voices finally subside, your crotch finally settling down with each of your cocks at roughly two/thirds their original size.  A single tear rolls down your cheek; you suspect the melodramatic spirit is at fault here.' );
-			for( var ii = 0; ii < CoC.getInstance().player.cocks.length; ii++ ) {
-				CoC.getInstance().player.cocks[ ii ].cockLength *= 2 / 3;
-				CoC.getInstance().player.cocks[ ii ].cockThickness *= 2 / 3;
+			for( var ii = 0; ii < CoC.player.cocks.length; ii++ ) {
+				CoC.player.cocks[ ii ].cockLength *= 2 / 3;
+				CoC.player.cocks[ ii ].cockThickness *= 2 / 3;
 			}
 		}
 		EngineCore.dynStats( 'sen', -2, 'lus', -10 );
@@ -1270,37 +1270,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 	};
 	//Nipples;
 	ShouldraFollower.prototype.shrinkDemNipplzForYoGhost = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( '"<i>Are you kidding me, Champ?  Nipples are the most important-</i>"  You cut the ghost girl\'s argument there, not wanting to leave your decision up for debate.  She instead leaves you with a deep sigh of disapproval before quickly casting the appropriate spell.' );
 		//Shrink;
-		if( CoC.getInstance().player.nippleLength / 2 < 0.25 ) {
+		if( CoC.player.nippleLength / 2 < 0.25 ) {
 			EngineCore.outputText( '\n\nYou run a couple fingers around your [nipples], finding them shrunk to a quarter-inch long.  A quick squirt of liquid from each surprises you, causing you to jerk back a little.  Shouldra is evidently not too thrilled over your alterations.' );
-			CoC.getInstance().player.nippleLength = 0.25;
+			CoC.player.nippleLength = 0.25;
 		} else {
 			EngineCore.outputText( '\n\nYou run a couple fingers around your [nipples], finding them at nearly half their original size.  A quick squirt of liquid from each surprises you, causing you to jerk back a little.  Shouldra is evidently not too thrilled over your alterations.' );
-			CoC.getInstance().player.nippleLength /= 2;
+			CoC.player.nippleLength /= 2;
 		}
 		EngineCore.dynStats( 'sen', -3, 'lus', -5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Butt;
 	ShouldraFollower.prototype.shrinkDatBootyForYoGhost = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
+		CoC.flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] = 72;
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Your hands quickly grasp at your bare [butt].  "<i>You... you\'re desecrating a national treasure here!</i>"  The rather odd declaration gets a chuckle from you, but you remain firm in your request to dull your derriere.  The ghost girl furthers her attempts to change your mind, but without literally changing your mind, you remain steadfast.  Defeated, your hands take one last trip around your posterior before the poltergeist recites her incantation.' );
-		if( CoC.getInstance().player.buttRating >= 15 ) {
-			CoC.getInstance().player.buttRating -= 3 + Math.ceil( CoC.getInstance().player.buttRating / 3 );
+		if( CoC.player.buttRating >= 15 ) {
+			CoC.player.buttRating -= 3 + Math.ceil( CoC.player.buttRating / 3 );
 			EngineCore.outputText( '\n\nWithin seconds, your cheeks feel noticeably lighter.  You confirm with a glance that your [butt] is much smaller than before.  Shouldra confirms with a pouting sigh that she is much sadder than before.' );
-		} else if( CoC.getInstance().player.buttRating >= 10 ) {
-			CoC.getInstance().player.buttRating -= 3;
+		} else if( CoC.player.buttRating >= 10 ) {
+			CoC.player.buttRating -= 3;
 			EngineCore.outputText( '\n\nYour ass jiggles as it recedes into your body.  A few moments later and your [butt] settles into its new, compact form.  The ghost girl recedes deep back into your body with a depressing sigh.' );
 		} else {
-			CoC.getInstance().player.buttRating -= 1 + Utils.rand( 3 );
-			if( CoC.getInstance().player.buttRating < 1 ) {
-				CoC.getInstance().player.buttRating = 1;
+			CoC.player.buttRating -= 1 + Utils.rand( 3 );
+			if( CoC.player.buttRating < 1 ) {
+				CoC.player.buttRating = 1;
 			}
 			EngineCore.outputText( '\n\nIn a few brief seconds, your [butt] relaxes into its new, slightly tinier form.  Shouldra huffs and puffs inside you, not wanting to discuss your bottom any further.' );
 		}
@@ -1314,12 +1314,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		//PC says Shouldra's being a drag and they don't want to deal with her. She takes it well, as wanton spirits are want to do, unless you've already passed the fourth dream/talk with her. Then she's gonna FREAK. THE FUCK. OUT.;
 		//She's Cool - She has not bared all to PC;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 || CoC.getInstance().flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_PLOT_LEVEL ] < 4 || CoC.flags[ kFLAGS.SHOULDRA_TALK_NEEDED ] > 0 ) {
 			EngineCore.outputText( '"<i>Ah, you\'re booting me out, hey?</i>"  Shouldra asks innocently, tumbling out of your body and corporealizing. "<i>Wouldn\'t be the first, and won\'t be the last.  I do realize I have certain \'needs\' that got cloying to many of my former hosts.</i>"' );
 			EngineCore.outputText( '\n\nShouldra\'s hair darkens to the familiar brunette coiffure even as her yellow eyes flee before their brown replicas.  "<i>Just promise you\'ll pay me a visit from time to time, alright, Champ?  And if you want me back... you\'ll have to work for it.</i>"' );
 			EngineCore.outputText( '\n\nWith that, she turns on her heel and wanders out of camp.  You watch her go for a while, then turn your focus back to other things.' );
 			//shouldra back to town ruins, reset to 'friendly' status;
-			CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
+			CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//She Fucking Explodes;
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nAfter a few moments, you repeat your command; you would like Shouldra to leave.  The ghost girl promptly exits your body to stand before you, hands on hips and eyebrows furrowed.  She sniffles a bit. "<i>I can\'t say I didn\'t see this coming,</i>" she says quietly.  "<i>but after opening myself up like I did... I gotta say, I\'m pretty disappointed.</i>"' );
 		EngineCore.outputText( '\n\nShouldra shakes her head, disappointment evident in her expression.  She turns and stomps away.  "<i>Don\'t bother calling after me, asshole,</i>" she yells over her shoulder.' );
 		EngineCore.outputText( '\n\nYou only stand passively as she begins cursing and screaming her anger, listening to her fuming growing ever more distant until fading away completely.  It seems Shouldra has passed on.' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
+		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Follower Shouldra - Ignoring Her;
@@ -1345,7 +1345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		//Warnings appear during scene transitions.;
 		//Warning One;
 		//4 days (96 hours) since last Shouldra scene;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -96 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -96 ) {
 			EngineCore.spriteSelect( 67 );
 			if( Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n"<i>Hey, Champ, I appreciate the time together, but it\'s been a while since I got to let off some steam,</i>" Shouldra says, her built up lust growing more evident.  "<i>Next time you\'ve got a moment, maybe give me a buzz and we\'ll have some fun.</i>"\n' );
@@ -1358,13 +1358,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}
 		//Warning Two;
 		//7 days (168 hours) since last Shouldra scene;
-		else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -168 ) {
+		else if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -168 ) {
 			EngineCore.spriteSelect( 67 );
 			$log.debug( 'LEVEL 2 LUST INCREASE HAPPEN' );
 			//increased minimum lust +20 until Shouldra is satisfied;
 			if( Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\nYour [if (hasCock = true) dick is begining to get hard][if (isHerm = true)  while your ][if (hasVagina = true) cunt is getting moist with need]' );
-				if( CoC.getInstance().player.gender === 0 ) {
+				if( CoC.player.gender === 0 ) {
 					EngineCore.outputText( 'libido seems to be going haywire' );
 				}
 				EngineCore.outputText( '.  Shouldra\'s unfulfilled sexual needs are starting to blend into your own.  Nothing you do will satisfy your urging until she\'s seen to her own.\n\n<b>Minimum lust raised by 20.</b>\n' );
@@ -1378,7 +1378,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		}
 		//Warning Three;
 		//9 days (216 hours) since last Shouldra scene;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -216 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === -216 ) {
 			EngineCore.spriteSelect( 67 );
 			//increased minimum lust bonus to +50 (20 + 30) until Shouldra is satisfied;
 			if( Utils.rand( 3 ) === 0 ) {
@@ -1399,13 +1399,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		//when PC goes to sleep after warning three without satisfying Shouldra;
 		//resets Shouldra's sex hour counter, erases minimum lust bonuses;
 		//Scene increases libido, sensitivity, gives bottle of ectoplasm;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 0;
+		CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] = 0;
 		EngineCore.spriteSelect( 67 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 4 );
 		EngineCore.outputText( '\nA chilling gust rouses you from your slumber.  Wind this fierce would probably tear apart your camp or at least make a serious mess.  Eyelids as heavy as boulders prove difficult to open.  You seem especially groggy, odd tingling and numb sensations radiating from all your body.  Your right hand feels especially odd.  Grasping onto your senses as well you can, you\'re at least able to make out a few pale objects in the dead dark of night.  Sounds of water crashing into rock in the distance are also becoming more clear.  Finally your vision comes into focus, greeting you with the faint emerald glow of your ghostly partner against a cold, dark blue horizon.  She appears to be standing at the precipice of some drop-off, transfixed on the blood red moon hanging in the sky.' );
 		//event occurance = 0;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_TIMES_NIGHT_RAPED_PC ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_TIMES_NIGHT_RAPED_PC ] === 0 ) {
 			EngineCore.outputText( '\n\n"<i>I\'ve always loved coming out to this spot at night,</i>" Shouldra says, her soft tone surprising you.  "<i>Mareth can be so dull at night, shrouded in a thick, deep darkness.  But way up here, looking out into that forgotten sea, you can see as clear as day.</i>"  What was that about the sea?  Way up here?  Where the fuck has she dragged you to?' );
 			EngineCore.outputText( '\n\n"<i>I haven\'t brought too many people out this way.  Not that anyone could really get out here on their own - you\'re a pain in the ass to drag around when you\'re asleep, by the way.</i>"' );
 		} else {
@@ -1415,11 +1415,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>I\'m not that big a fan of dry spells, you know.  They tend to make me a little... vindictive.</i>"  Now you realize what this is all about.  "<i>Typically these sobering times were due to either a spot of laziness or bad luck.  Not being able to relieve oneself is one thing.  It\'s quite another when you are teased with salvation for well over a week, exercising every thread of your self-control to stop yourself from just reaching out and taking it; all because you feel some sort of obligation to a so-called partner.</i>"  Shouldra puts her translucent arms around your head, putting her lips to your ear, "<i>Consider yourself obliged.</i>"' );
 		EngineCore.outputText( '\n\nYou want to at least stand up, get a clearer picture of just what\'s going on - or about to.  Your body just won\'t cooperate, though, no matter how hard you try and shake it.  "<i>If magic were a drug, you\'d have OD\'d something fierce by now,</i>" Shouldra interjects as she rises back to her feet.  The spirit\'s been much busier than you thought.' );
 		//if PC has cock;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nThe calculated shade works her way over to your [cock], a vacant expression dominating her face.  You\'re unsure just what that means, but it becomes the least of your concerns when she jabs her thumb into your [cockHead]!  You instinctively wince in pain, but the sensation never comes.  Not much of anything registers, really.  This soon becomes a blessing as you witness the eidolon stretch your cock away from you, insert BOTH her hands into it, and stretch your slit high into the air.  She then casually slips inside it as if it were a sleeping bag, disappearing into its distended depths.  It all happened so fast, nothing really had time to register.  You try and touch your magnified member, only to discover that it\'s now rock solid.  No, not erect, but literally made of stone!' );
 		}
 		//if PC has no cock, but has vagina;
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nThe calculated shade bends her way down to your [cunt], a vacant expression dominating her face.  You\'re unsure just what that means, but your concern is quickly forgotten as the spirit grasps your vaginal walls with both hands!  Oddly enough, you feel nothing.  No pain, but no pleasure either.  This soon becomes a blessing when the eidolon works her way around your canal, shaping it into a gaping wide hole!  Once its large enough, she casually slips inside and disappears into your depths.  It all happened so fast, nothing really had time to register.  You try and touch your stretched cunt, only to discover that it\'s sealed shut and rock solid.  Like, literally made of stone!' );
 		}
 		EngineCore.outputText( '\n\nYour groggy daze isn\'t helping matters much as you panic, hands exploring your solidified genitalia.  It doesn\'t feel any more dense or heavier than before, but there\'s a disconcerting texture alongside impossible rigidity.  "<i>Tonight we\'re focusing on something of my own design,</i>" Shouldra says, her voice reverberating in your head.  Her tone mirrors the stony-eyed demeanor you witnessed earlier.  Whatever she has in store probably won\'t be too kosher.' );
@@ -1428,7 +1428,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nIt hits you like a harpy\'s ass.  She really did it.  The bunched up skin slowly unfurls, confirming your suspicion.  Shouldra\'s changed your fingers into five stout, little dicks, beads of pre forming at each of their tips.  The otherwise impassive facade of your tormentor finally gives in, your face slowly becoming giddier as she marvels at her creation.  "<i>You have no idea how glad I am this worked,</i>" she says outwardly.  "<i>Granted, I had a lot of time lately to perfect it.</i>"  She wiggles your new fingers around, displaying the same range of movement they\'ve always had.  Balling them into a fist, however, makes for an unusually rousing experience, your dick-fingers only increasing the flow from their- "<i>You don\'t want to know what I had to do to get these little guys to squirt, Champ.</i>"  That doesn\'t sound good.' );
 		EngineCore.outputText( '\n\nYour left hand further examines your new wrist-mounted bouquet.  They\'re incredibly sensitive; you can feel things just as you would normally, but any manipulation of them registers just the sort of reactions you would expect from a dick - or five in this case.  She rubs the shafts soothingly, your left thumb exploring under each glan, over each slit, and into each fold.  The attention sinks in swiftly, each of your phallic fingers getting rigid and a little harder to bend.  The handjob results in a five-pronged stiffy, each dick taut, drooling, and ready for insertion.' );
 		EngineCore.outputText( '\n\nYou noticed that the pace of your breathing has picked up; the horny ghost is really getting into this madness.  The foreplay - or is it five-play in this case? - isn\'t going to end so soon, however.  After a few more loving strokes from one hand to the other, Shouldra begins teasing your naked body with the squadron of cocks.  She runs their dribbling tips up along your [hips].  She glides their velvet shafts down your [legs].  She pinches your [nipple] with their bulbous heads' );
-		if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+		if( CoC.player.biggestTitSize() >= 1 ) {
 			EngineCore.outputText( ', circling their entire lengths around your [fullChest]' );
 		}
 		EngineCore.outputText( '.  It\'s quite amazing how ecstatic the tour feels, each pre-smeared exploration smothering you in sensual vibes.  Just moving the stiff little devils - particularly at your joints - sends shivers up your arm.' );
@@ -1437,27 +1437,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nShouldra moans in ecstasy, each finger shooting out one payload after another.  Your entire arm is spasming, forcing the ghost to grab onto it with your left hand.  Seemingly endless streams of cum spray against your head and down your throat.  You can hardly describe what you\'re feeling.  The poltergeist seems incredibly content with herself.  Your body is flush with sexual release.  But you find that, mentally, you\'re unfulfilled.  0...Shit, you hope Shouldra doesn\'t pick up on that as she enjoys your hand cannons.' );
 		EngineCore.outputText( '\n\nThankfully, the ghost seems to be in her own personal heaven, still filling your gullet full of cream, lightening her grasp in-between each pulse.  Finally, she finishes and lazily drags your soaked hand from your mouth, dangling the twitching members wearily in the air.' );
 		EngineCore.outputText( '\n\n"<i>That felt even better than I imagined it would,</i>" the satisfied spirit finally proclaims, leaning back on your left hand.  She lifts your flaccid fingers over your own petrified sex, dripping cum all over it.  It doesn\'t really surprise you as the jism soaks into your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[cock]' );
 		} else {
 			EngineCore.outputText( '[cunt]' );
 		}
 		EngineCore.outputText( ', softening the ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'magically enlarged member' );
 		} else {
 			EngineCore.outputText( 'magically gaped snatch' );
 		}
 		EngineCore.outputText( ' back to a much less craggy complexion.  Shouldra slowly drags you back to your [feet] after a minute or two of blissful respite and walks you closer to the cliffside to stare off into the moonlit horizon.  It never really dawned on you just how fucking high you are; just where the fuck did she take you?' );
 		EngineCore.outputText( '\n\n"<i>Well, that was a lot of fun, Champ.  I hope that I made my point abundantly clear,</i>" she says while vacantly rubbing your dick fingers.  She turns away from the ledge as if to leave, but stops after a few brief steps.  "<i>Actually, I think I\'ll make sure you remember this occasion.</i>"  She what- The fucking crazy bitch is running you off the cliff!  Things go from kooky fun to morbid chaos as you take a mighty leap hundreds of feet over seemingly uninviting waters, the little orb of light trailing closely behind you.  Suddenly you feel yourself in control of your body again.  "<i>I had my fun.  Now it\'s your turn,</i>" Shouldra blasts into your head, pointing your eyes to your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'flailing cock' );
 		} else {
 			EngineCore.outputText( 'moist vagina' );
 		}
 		EngineCore.outputText( '.' );
 		//if cock;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYou aren\'t sure why you kowtow to her little game.  Maybe it\'s the surge of adrenaline, the rapidly approaching water below or you\'re just horny after the less-than-fulfilling sex act before.  Either way, you grasp onto your rod with your left hand, pumping for all you\'re worth as you plummet helplessly.  But as your [cock] surges to life, you soon find that its enchanted size has easily made it more than a one-handed job!  Without any further hesitation, both of your hands- in your tense excitement, you forgot about your five-cocked feature.  The dicks-on-big-dick action is... it feels way too fucking good right now.' );
 			EngineCore.outputText( '\n\nWith all participants at full salute, your manic stroking commences.  The wind races past you while your beating heart pounds into your ears.  You hold your wang firmly against your [chest] in an attempt to keep it from flailing about, putting it square into your face.  Easily halfway down the descent, your pick up the pace of your caress, circling your massive [cockHead] with your mutated hand.  It doesn\'t take you long to reach your own precipice, phallic fingers pressing hard into your mast.  Just as you\'re about to climax, your body slams hard into the ocean.' );
 		}
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>Don\'t go about ignoring me ever again.</i>"  Okay, never mind.  The now stone-faced ghoul sits on top of you and gives your thumb a little squeeze... pushing some sort of liquid up and out of the top much to your horror.  "<i>You missed a great fucking orgasm, let me tell you,</i>" she says, being unusually bubbly - which is probably more terrifying than any other of her moods.  The ghost girl runs her roulette wheel of emotion again, giving you a cocky smirk as she phases into your body.' );
 		EngineCore.outputText( '\n\nThe dream was all too real, it turns out.\n\n(<b>Minimum Lust reduced!</b>)' );
 		//Libido and Sensitivity slight increase;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_TIMES_NIGHT_RAPED_PC ]++;
+		CoC.flags[ kFLAGS.SHOULDRA_TIMES_NIGHT_RAPED_PC ]++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Shouldra Waking Up/PC Exploring;
@@ -1490,42 +1490,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		var choices = [];
 		var select;
 		//1 PC with cock - 1;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.biggestCockArea() < 200 ) {
+		if( CoC.player.hasCock() && CoC.player.biggestCockArea() < 200 ) {
 			choices[ choices.length ] = 1;
 			choices[ choices.length ] = 1;
 			choices[ choices.length ] = 1;
 			choices[ choices.length ] = 1;
 		}
 		//2 PC with BIG COCK - if (this.player.biggestCockArea() >= 200);
-		else if( CoC.getInstance().player.hasCock() ) {
+		else if( CoC.player.hasCock() ) {
 			choices[ choices.length ] = 2;
 			choices[ choices.length ] = 2;
 			choices[ choices.length ] = 2;
 			choices[ choices.length ] = 2;
 		}
 		//3 PC with balls;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			choices[ choices.length ] = 3;
 			choices[ choices.length ] = 3;
 			choices[ choices.length ] = 3;
 			choices[ choices.length ] = 3;
 		}
 		//4 PC with boobs;
-		if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+		if( CoC.player.biggestTitSize() >= 2 ) {
 			choices[ choices.length ] = 4;
 			choices[ choices.length ] = 4;
 			choices[ choices.length ] = 4;
 			choices[ choices.length ] = 4;
 		}
 		//5 PC with vagina;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			choices[ choices.length ] = 5;
 			choices[ choices.length ] = 5;
 			choices[ choices.length ] = 5;
 			choices[ choices.length ] = 5;
 		}
 		//6 PC with Exgartuan and Shouldra //unlocked after deciding to keep Shouldra and Exgartuan together, for better or for worse (see below for scene);
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && 9999 === 9999 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && 9999 === 9999 ) {
 			choices[ choices.length ] = 6;
 			choices[ choices.length ] = 6;
 			choices[ choices.length ] = 6;
@@ -1537,27 +1537,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		choices[ choices.length ] = 7;
 		choices[ choices.length ] = 7;
 		//8 (Tel'Adre unlocked);
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
 			choices[ choices.length ] = 8;
 		}
 		//9 (is preggers);
-		if( CoC.getInstance().player.pregnancyIncubation > 0 ) {
+		if( CoC.player.pregnancyIncubation > 0 ) {
 			choices[ choices.length ] = 9;
 		}
 		//10 (is preggers2);
-		if( CoC.getInstance().player.pregnancyIncubation > 0 ) {
+		if( CoC.player.pregnancyIncubation > 0 ) {
 			choices[ choices.length ] = 10;
 		}
 		//11 (is butt pregnant);
-		if( CoC.getInstance().player.buttPregnancyIncubation > 0 ) {
+		if( CoC.player.buttPregnancyIncubation > 0 ) {
 			choices[ choices.length ] = 11;
 		}
 		//12 (can fly);
-		if( CoC.getInstance().player.canFly() ) {
+		if( CoC.player.canFly() ) {
 			choices[ choices.length ] = 12;
 		}
 		//13 (is Naga);
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			choices[ choices.length ] = 13;
 		}
 		//14 (Amily is a follower);
@@ -1565,31 +1565,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			choices[ choices.length ] = 14;
 		}
 		//15 (Pure Jojo is a follower);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			choices[ choices.length ] = 15;
 		}
 		//16 (has any of Marae's gift perks);
-		if( CoC.getInstance().player.findPerk( PerkLib.MaraesGiftStud ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.MaraesGiftProfractory ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.MaraesGiftButtslut ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0 || CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 || CoC.player.findPerk( PerkLib.MaraesGiftProfractory ) >= 0 || CoC.player.findPerk( PerkLib.MaraesGiftButtslut ) >= 0 ) {
 			choices[ choices.length ] = 16;
 		}
 		//17 (has had children with Izma);
-		if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + CoC.flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] > 0 ) {
 			choices[ choices.length ] = 17;
 		}
 		//18 (has Incorporeality perk);
-		if( CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
 			choices[ choices.length ] = 18;
 		}
 		//19 (possessed by Boobgartuan);
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 2 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 2 ) {
 			choices[ choices.length ] = 19;
 		}
 		//20 (PC knows any spells);
-		if( CoC.getInstance().player.hasSpells() ) {
+		if( CoC.player.hasSpells() ) {
 			choices[ choices.length ] = 20;
 		}
 		//21 (PC has anemone dick);
-		if( CoC.getInstance().player.anemoneCocks() > 0 ) {
+		if( CoC.player.anemoneCocks() > 0 ) {
 			choices[ choices.length ] = 21;
 		}
 		//22 (Computer date is within a week before or after Halloween/or on Halloween whichever's easier);
@@ -1610,7 +1610,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 					EngineCore.outputText( 'You\'re distracted as you notice your [cock] snaking its way down your [leg], quickly growing larger.  You make your displeasure obvious, causing it to recoil back to its original size.  Seems as though your ghostly friend is getting restless.' );
 				} else if( subSelect === 3 ) {
 					EngineCore.outputText( 'You come to a halt as you suddenly lose control of your arms, forcing you to watch your hands dart down your [armor] to fiercely grab at your [cock].  Though you let out a growl for her to stop, it takes Shouldra a minute to return your arms to you.  She must be getting restless.' );
-				} else if( subSelect === 4 && CoC.getInstance().player.horseCocks() === 0 ) {
+				} else if( subSelect === 4 && CoC.player.horseCocks() === 0 ) {
 					EngineCore.outputText( 'There\'s a sudden twisting pain in your [cock], forcing you to undo your [armor] and see what\'s wrong.  To your dismay, a large equine dong is staring back at you, leaking profusely.  "<i>Just testing out some new transformations, Champ,</i>" Shouldra snickers.  You yell out again as your dick quickly turns back to normal.' );
 				} else {
 					EngineCore.outputText( 'One of your hands begins playing with your [cock], no doubt spurred on by your paranormal passenger.  "<i>You know, Champ, I could make you some easy gems.  Just find some know-nothing and introduce them to The Amazing Penis, capable of astounding feats like responding to any vocal coital commands!</i>"  Playing the part of a sideshow attraction is quite the tangent to your typical daily activities.  Probably best not to think about it.' );
@@ -1641,7 +1641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 					EngineCore.outputText( 'A tightness in your [armor] reveals to you your swelling [balls].  Shouldra continues to try and convince you of the importance of a virile package, but you remind her as to who\'s in control of this ship.  Regretfully conceding, the ghost girl returns your sac to its original proportions.' );
 				} else if( subSelect === 2 ) {
 					EngineCore.outputText( 'You suddenly fall [if (isBiped = true) to your knees][if (isBiped = false) to the ground] as your [balls] begin to thrash and vibrate wildly!  "<i>Interesting. That was way more effective than I would have guessed.  I\'ll have to make a note of that,</i>" your paranormal passenger says, ending the spell.  With a mild case of confusion, you\'re left to your thoughts as you go about your business.' );
-				} else if( subSelect === 3 && CoC.getInstance().player.hasCock() ) {
+				} else if( subSelect === 3 && CoC.player.hasCock() ) {
 					EngineCore.outputText( 'You feel your [balls] quickly swell then tighten out of nowhere, forcing some of their payload out your [cock].  Suddenly your hand darts down your [armor] and delivers the errant cum directly to your mouth!  "<i>Had some time on my hands, so I decided to try out some new recipes.  What do you think?</i>" Shouldra asks.  Tastes... citrus-y?  That your loins are being used as an experimental factory is... disconcerting.' );
 				} else {
 					EngineCore.outputText( '"<i>Champ... you weren\'t thinking of impregnating anyone too soon, were you?</i>"  You ask Shouldra what\'s wrong, afraid of the answer you\'ll hear.  The odd sensations you\'ve felt in your [balls] are probably related.  "<i>Well, let\'s just say that your sperm may be little wild cards at the moment.  I\'ll... get that sorted out shortly.</i>"  On that note, a rough churning starts up down below.  Your baby batter isn\'t safe with this ghost around, it seems.' );
@@ -1754,7 +1754,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			//(has had children with Izma);
 			case 17:
 				EngineCore.outputText( '"<i>' );
-				if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] === 1 ) {
+				if( CoC.flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + CoC.flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] === 1 ) {
 					EngineCore.outputText( 'That shark daughter of yours is' );
 				} else {
 					EngineCore.outputText( 'Those shark daughters of yours are' );
@@ -1796,21 +1796,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Your eyes glow yellow, signaling Shouldra\'s desire to stretch around a little.  You grant her mastery over your hands as you continue about your business.  The eager phantom decides to push things a little, however, systematically removing your [armor].  A break isn\'t that big a deal you figure, and you relinquish full control to the giddy ghost.  She directs you out of plain view' );
-		if( CoC.getInstance().player.cocks[ 0 ].cockLength < 48 ) {
+		if( CoC.player.cocks[ 0 ].cockLength < 48 ) {
 			EngineCore.outputText( ' and cuts right to the chase, ballooning your [cock] into a rigid, wide, four-foot tall slab of meat' );
 		}
 		EngineCore.outputText( '.  Unable to contain her delight, she hastily hugs your enormous dick firmly against your body and squeezes vigorously, rubbing your face against your [cockHead].  A warm stream of pre oozes out and onto your possessed face.' );
 		EngineCore.outputText( '\n\nA strange sensation in the pleasant liquid slowly lures the phantom from her shaft-obsessed trance, your eyes slowly opening to discover what\'s at fault.  One of your worms managed to fall free of your loins and right onto the tip of your nose... much to Shouldra\'s chagrin.  The spirit slowly identifies the parasite, your body shuddering as she smacks it clear off your face.  She peers up at your large cockslit to find two more of the suckers lounging about in their makeshift hot tub, enjoying the brisk ' );
-		if( CoC.getInstance().time.hours <= 12 ) {
+		if( CoC.time.hours <= 12 ) {
 			EngineCore.outputText( 'morning ' );
-		} else if( CoC.getInstance().time.hours <= 5 ) {
+		} else if( CoC.time.hours <= 5 ) {
 			EngineCore.outputText( 'afternoon ' );
 		} else {
 			EngineCore.outputText( 'evening ' );
 		}
 		EngineCore.outputText( 'air.  Your hands clue the eidolon in to further activity, introducing her to your urethra all the way down to your [balls], every square wriggling inch chock-full of the little buggers, exploring their extended living quarters.' );
 		EngineCore.outputText( '\n\nWhat follows is an unearthly scream that may have killed any small nearby woodland creatures with its intensity.  It certainly does a number on your hearing, anyway.  Shouldra jumps to your [feet], wagging your monstrous meat every which way as your hands furiously pat away at your head.  A few worms slide free from your flailing penis, but not many.  Your body tenses up, trembling profusely as your pelvis is pushed as far ahead of you as possible.  The typically confident spectre now has you frozen in place, your entire body poised and jittering in fear as you\'re forced to watch for any more unwelcomed guests.' );
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_WORM_SCENE_COUNTER ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_WORM_SCENE_COUNTER ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>H-h-how did I forget about these damn things!</i>"  the spooked spirit utters through your mouth.  A worm pokes its head up out of your fat cock head, causing Shouldra to scream and violently pivot your hips again, desperately trying to shake more of the vermin loose.  "<i>I... I can feel all of them... crawling around in-  How do you live like this!</i>"  Again, you try and calm the panicked spirit, attempting to convince her to at least try and accept your infestation.  More wormy escape attempts cause your pelvis to thrash about; Shouldra not only refuses to touch your blighted phallus, but is actively working to avoid its every swing.  "<i>NOPE.  NEVER.  These fuckers have GOT to GO!  There\'s no way in HELL I\'m riding shotgun with-</i>" The ghost has you shout yet again, quickly jumping away from a thick strand of your jism flying back towards you.  Looks like the decision lies with you.' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>Your dick\'s INFESTED!</i>"  your mouth utters, lower jaw quivering in fear.  A worm pokes its head up out of your fat cock head, causing Shouldra to scream and violently pivot your hips again, desperately trying to shake more of the vermin loose.  "<i>I... I can feel all of them... crawling around in-  How do you live like this!</i>"  You explain to the panicked spirit to the best of your ability the allure of your dickworms - maybe you should have figured out a better name - how they aid in battle, how they help <i>after</i> battle, and many other fascinating facts one may not realize about your chummy little pals.' );
@@ -1825,12 +1825,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Shouldra is clear that there is no ally to be had in your crotch-dwelling creepies, shutting down any further attempts for negotiations.  Be it that you have taken a shining to the little invertebrates or that you\'ve had enough of your judgemental companion, you decide that the worms will be staying, with or without Shouldra.' );
 		EngineCore.outputText( '\n\n"<i>Are you fucking kidding me?  You\'re keeping these... <b>things</b>?</i>"  Sensing your firmness in this regard, Shouldra quickly phases out of your back, pushing you flat onto your besieged dick.  The angry spirit pauses to get in a final word, but you rise off the ground and face her, absentmindedly giving her front row access to the main event.  A trio of worms hanging out in your slit is enough to send the ghost heading into the horizon.' );
-		if( CoC.getInstance().player.cocks[ 0 ].cockLength < 48 ) {
+		if( CoC.player.cocks[ 0 ].cockLength < 48 ) {
 			EngineCore.outputText( '  With that little ordeal dealt with, you now are left to decide how best to manage the time until your cock returns to its normal size.' );
 		}
 		EngineCore.outputText( '  Oddly enough, you hope the little buggers appreciate you sticking up for them.' );
 		//Follower Shouldra leaves;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
+		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Keep Shouldra;
@@ -1844,7 +1844,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nFueled by the sizzling churning in your [balls], the spirit works you towards a mighty geyser.  She cringes further, trying her best to direct the parasite-riddled spray away from you.  However, the head worm gets lodged in your canal, knocking some of Shouldra\'s worst nightmare onto your head.  She prances around in place, your hands knocking any offenders clear from your body.  The flailing about manages to loosen the obese leader from your shaft, aided by a final spurt of cum.  Shouldra balls up all her rage and unleashes it onto the poor little critter, setting it aflame.' );
 		EngineCore.outputText( '\n\nTaking great caution, the spirit falls you back onto your rump, still trembling from the horrifying ordeal.  With weary eyes, she stares at what was once her glorious salvation that had now become a drooping dick.' );
 		EngineCore.outputText( '\n\n"<i>We are taking a bath first thing when we get to your camp, Champ,</i>" Shouldra says by way of your mouth, your body still shuddering.' );
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.Infested );
+		CoC.player.removeStatusAffect( StatusAffects.Infested );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -1858,7 +1858,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		//Unlocks Argue 2;
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'Your bedroll looks mighty comfortable after a hard day\'s ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'work' );
 		} else {
 			EngineCore.outputText( 'fucking' );
@@ -1871,7 +1871,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>What I fuck and feel is for me and the champ here, got it?  You should feel fucking praised that you even get to control hands that brush up against a god such as myself.</i>"' );
 		EngineCore.outputText( '\n\nBefore Shouldra\'s rebuttal, you at least get to make it clear for her to relinquish control over your body back to you.  She does as much while maintaining the spirited debate over semantics and property rights with the protective demon, her upper torso -- slightly scaled down -- molding up and out of your flesh.  You\'re honestly too tired to pay the two much mind, so you resume working your way back down to your bedroll.  Though with your dick still arguing with your ghost, you doubt getting under your covers would be wise.' );
 		EngineCore.outputText( '\n\n[if (isBiped = true) You instead tuck your [cock] down between your [legs] and lay on your stomach, distancing yourself from their bickering.  Neither party pays you much mind as they continue arguing, your third leg still fidgeting despite the awkward placement while Shouldra has moved residency to your back.  You cover your head with a pillow and soon thereafter head off to slumber.][if (isBiped = false) The best you can hope to manage is to lay on your side and use your covers as a makeshift fortification between you and your arguing [cock].  Shouldra and Exgartuan pay you no mind despite the odd construction, leaving you to bury your head in your pillows and, eventually, head off to sleep.]' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 1;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Argue 2 - When out exploring;
@@ -1882,7 +1882,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\nA sudden immense buildup in your [cock] takes you by surprise, easily bursting out of your [armor]!  Your urethra is horribly distended, your entire demonic length rumbling in preparation for something tremendous!  The unexpected pressure forces you to your knees.  Your head closer to your evil dong, you realize that you can make out muffled shouting inside.  This is hardly anything you-' );
 		EngineCore.outputText( '\n\nA mind-bending ejaculation dislodges whatever was in there in the first place.  Never has anything felt more excruciating and yet satisfying in all your days.  You peer at the massive gob of your cum, surprised when it gets up and has a face... a rather angry one at that.  Actually, it resembles Shouldra!' );
 		EngineCore.outputText( '\n\nExgartuan is laughing his head off at this point.  Not particularly thrilled with the experience, the cum spirit marches back towards you.  Too confused to react, you find yourself absolutely drenched in your own jism as Shouldra stomps back into your body.  The ghost and demon begin arguing, leaving you back to your moistened ventures.\n' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 2;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 2;
 	};
 	//Argue 3 - When out exploring again;
 	ShouldraFollower.prototype.exgartumonAndShouldraFightPartIII = function() {
@@ -1894,7 +1894,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>You don\'t like it when people fuck with <b>you</b>, huh?</i>" Shouldra has you shout at the equestrian package.  Exgartuan grunts and strains, your urethral opening twitching with the demon\'s every exertion.  With a mighty growl, your horsey wang <b>returns to its demonic complexion.</b>' );
 		EngineCore.outputText( '\n\n"<i>Stop screwing with me, babe, or I\'ll show you what it\'s like to die TWICE.</i>"' );
 		EngineCore.outputText( '\n\nYou have no desire to see this escalate further and tell the two as much.  The planets must be aligned in your favor, as the two actually calm down.  But only to a level where they\'re at least still grumbling and mumbling to one another.\n' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 3;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 3;
 	};
 	//Argue 4 - At bed, morning, time to decide;
 	ShouldraFollower.prototype.exgartuMonAndShouldraShowdown = function() {
@@ -1907,7 +1907,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>What part of \'STAY OUT\' do you not understand, bitch!</i>"' );
 		EngineCore.outputText( '\n\n"<i>The part where you think I fucking care!  Stop fucking hogging all the cock!</i>"' );
 		EngineCore.outputText( '\n\n"<i>I\'M running this show and I don\'t like stage jumpers! Now get OUT!</i>"' );
-		EngineCore.outputText( '\n\nYour [cock] thrusts to one side, forcing Shouldra right out of your contested cock, taking your sheets along with her as she pushes into the side of your tent.  This bickering is getting stupid now.  These two could probably go on like this forever.  Neither of them seem to have given you even the slightest bit of attention on the matter.  You know, the ' + CoC.getInstance().player.mf( 'guy', 'gal' ) + ' ATTACHED to the world\'s most popular shaft?' );
+		EngineCore.outputText( '\n\nYour [cock] thrusts to one side, forcing Shouldra right out of your contested cock, taking your sheets along with her as she pushes into the side of your tent.  This bickering is getting stupid now.  These two could probably go on like this forever.  Neither of them seem to have given you even the slightest bit of attention on the matter.  You know, the ' + CoC.player.mf( 'guy', 'gal' ) + ' ATTACHED to the world\'s most popular shaft?' );
 		EngineCore.outputText( '\n\nShouldra untangles herself out of your sheets, tossing them back to the ground in a huff.  You groggily raise to your [feet], spurred on by your raging demonic erection and its vendetta against your cock-hungry, post-mortem playmate.' );
 		EngineCore.outputText( '\n\n"<i>Just WHAT is your problem?  I\'m sick of repeating myself!  Whether you like it or not, I\'m part of the group, and the group SHARES,</i>" Shouldra shouts, thrusting her arms to her sides.' );
 		EngineCore.outputText( '\n\n"<i>You still think this is a group, babe?  You still think you and me are on the same page?  You still think that just because you can set up shack inside any sack of flesh you come across that that gives you the right to brush up against ME?</i>"  Exgartuan about conks you in the face as he rises skyward, proudly trying to make himself as mesmerizing and alluring as he thinks he is.  "<i>I\'M the fucking BUSINESS, sugar.  You need to get in line with all the rest of the bitches that are slobbering over this magnificent dick.</i>"' );
@@ -1928,9 +1928,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>Are you kidding me, Champ?  This tainted blight of a dick is what you want over me?  0...You\'re kicking me out of the band over this <b>thing</b>?</i>"' );
 		EngineCore.outputText( '\n\n"<i>No one likes a clingy girlfriend, ghost gal,</i>" Exgartuan chides.' );
 		EngineCore.outputText( '\n\n"<i>Girlfriend! I-</i>" Shouldra stops, not wanting to give off the wrong impression.  She\'s obviously through with you anyway.  "<i>Champ, this fucker is corrupting your mind.  You see that, right?</i>"' );
-		if( CoC.getInstance().player.cor < 10 ) {
+		if( CoC.player.cor < 10 ) {
 			EngineCore.outputText( '\n\nYou nod, trying to excuse your decision by at least explaining how well you\'ve been purifying yourself afterward.  "<i>Stop kidding yourself, champion.  We all know you\'re just as crazy about me as she is.</i>"' );
-		} else if( CoC.getInstance().player.cor < 60 ) {
+		} else if( CoC.player.cor < 60 ) {
 			EngineCore.outputText( '\n\nYou nod, but quickly brush away the Shouldra\'s claim as anything worth worrying about.  You\'re as sound of mind as you always have been.  Exgartuan only laughs as your hand strokes vacantly up and down his mighty length.' );
 		} else {
 			EngineCore.outputText( '\n\nYou don\'t know what she\'s going on about, but you attest to just how fucking awesome Exgartuan is at... well, fucking.  Shouldra just stares at you, acting is if she\'s in on something you\'re not.' );
@@ -1938,9 +1938,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>I didn\'t think you\'d side with this actual prick, Champ.  When you-</i>"' );
 		EngineCore.outputText( '\n\n"<i>Blah, blah, blah,</i>" Exgartuan interrupts, "<i>Just get lost already.  The sun\'s almost up and we\'ve cunts to fill.</i>"' );
 		EngineCore.outputText( '\n\nShouldra gives you one last stink eye before doing a 180 and storming out of the tent.  Exgartuan starts blathering on about something or other as you reflect on your decision.  No use dwelling on it too much, though; you figure you\'ll never be seeing the shade again.' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -1;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -1;
 		//Shouldra gone for good;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
+		CoC.flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Keep Shouldra;
@@ -1967,11 +1967,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>You know, nothing in that pile effected your actual load,</i>" Shouldra smiles, reaching over from her perch to rub your [balls].  "<i>How\'s about we greet the morning sunrise with my brand new cock.  I never liked that grody demonic dong you had earlier.  I mean, just look at this thing.  I made the head nice and...</i>"' );
 		EngineCore.outputText( '\n\nShouldra goes on and on about her new toy.  She\'s certainly a spry little thing.  After paying one more glance to the mess in the side of your tent, you finally get to move on with your day.  You really hope Shouldra was right about that sight evaporating on its own.' );
 		//PC has human dick;
-		CoC.getInstance().player.cocks[ 0 ].cockType = CockTypesEnum.HUMAN;
+		CoC.player.cocks[ 0 ].cockType = CockTypesEnum.HUMAN;
 		//Exgartuan departs;
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.Exgartuan );
+		CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 		//unlocks one more scene for later that night;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -0.5;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = -0.5;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Keeping Shouldra 2 - Exgartuan's back from the dead!;
@@ -1985,7 +1985,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>YOU THINK YOU CAN FUCKING GET RID OF ME THAT EASILY, CHAMPION!</i>"' );
 		EngineCore.outputText( '\n\nHoly shit! Your bedroll just fucking spoke!  With Exgartuan\'s annoying voice!  You try and extricate yourself, but you\'re sucked in under the covers!  Your entire sleeping setup is compressing around you, the dead demon\'s laugh booming in from every angle.  In nothing but your birthday suit, you uselessly claw at your sheets to try and escape, but it\'s no use!' );
 		EngineCore.outputText( '\n\nYou fear for the worst as your bed and sheets close in on you.' );
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 0;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 0;
 		//[next page];
 		EngineCore.doNext( this.keepShouldraPartIIIExgartumonsUndeatH );
 	};
@@ -2026,7 +2026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nYour hands hold steadfast on the creature\'s expansive hips.  It feels as though you should be contributing more to this morning feast; the ramming is being done without you, and you presume that anything you would try to do with your fictile friend would ultimately be for naught.  It makes sense, though, considering how these two never really acknowledged your existence right from the start of their angry misadventure.  You may as well enjoy their hot makeup sex.' );
 		EngineCore.outputText( '\n\nAnd enjoy it you do, soft moans easing you through the intense vibrations as your cock explores inner caverns of its own design.  The ramming turns violent with hard, forced thrusts spurred on by your nether regions.  The two minds throw your pelvis one direction and the next, digging your [cock] further and further.  Your entire body plows repeatedly into the elemental, smothering you in mud and dirt with each smack.  [if (hasBalls = true) Ready to unleash their churning payload, your [balls] tighten up something fierce, rumbling in anticipation.  ][if (cumNormal = true) "The modest load hardly makes a dent in the golem\'s cavity."][if (cumMedium = true) "The above-average load floods the golem\'s cavity, gushing back around your cock"][if (cumHigh = true) The intense load streams even farther within the dirt innards of the earth elemental, expanding her slightly.][if (cumVeryHigh = true) The extreme load fills the titan vigorously, your pearly seed threatening her composition as it permeates her body.][if (cumExtreme = true) "There are no words to properly explain the magnificence of your ejaculation.  Only through Shouldra\'s magic does the beast maintain the furious blasts from your loins, soiling even every insignificant pocket of air with your seed."]' );
 		EngineCore.outputText( '\n\nYour eyes go wide with your release, but your [cock] only works harder, working in tandem with your climax to ravage the poor incantation.  It\'s starting to hurt with how hard you\'re being slammed into the creature, but it\'s nothing compared to the torment the earth elemental is going for.  Maybe it\'s for the best that the thing only has the simplest of sentience.  You reassure yourself of your assumption when the jugs engrossing the upper half of your body lose their form, tumbling to the ground and allowing for a clear view of the elemental\'s downfall.  Her glowing eyes are starting to fade out of existence' );
-		if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( ', trails of your cum pouring out from them' );
 		}
 		EngineCore.outputText( '.' );
@@ -2035,9 +2035,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\nYou\'ll spend the rest of the early morning greeting the sunrise and cleaning off.' );
 		//puts Shouldra and Exgartuan to sleep/resets their timers;
 		this.shouldraSleeping( 15, true );
-		CoC.getInstance().player.changeStatusValue( StatusAffects.Exgartuan, 2, (12 + Utils.rand( 7 )) );
+		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, (12 + Utils.rand( 7 )) );
 		//unlocks follower dialog;
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 4;
+		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] = 4;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Intro;
@@ -2047,7 +2047,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( 'You set off towards the bakery, and it\'s not long before the smell of freshly-baked pastries and sugary candies wafts through the air.  Something stirs in your mind as a familiar ghostly presence makes herself known; seems you\'re not the only one who noticed the scent of cinnamon.' );
 		EngineCore.outputText( '\n\n"<i>Oh hey, a bakery!</i>" She exclaims, "<i>Are we gonna grab something?  All those years of being a ghost did a real number on my appetite.</i>"  ' );
 		//first time: ;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] === 0 ) {
 			EngineCore.outputText( 'You smirk, wondering how exactly a ghost manages to work up a hunger.  Your skepticism is met by an intense stabbing pain in your stomach, forcing you to buckle slightly from the cramping.  It lasts only a moment before it vanishes, however.  "<i>You feel that, smartass?</i>" The ghost girl sneers, "<i>That\'s what decades of fasting will do to you.' );
 		} else {
 			EngineCore.outputText( 'You point out that she\'s already had something at the bakery.  "<i>Yeah, I did.  And now I\'m hungry again.  Deal with it.' );
@@ -2068,7 +2068,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'You decide that there\'s no use getting cold feet now; you wanted to go the bakery anyway, no harm in letting Shouldra have some fun while you\'re there.  ' );
 		//after first time: ;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] > 0 ) {
 			EngineCore.outputText( 'Well, nothing <i>permanent</i>, anyway.  ' );
 		}
 		EngineCore.outputText( 'You press on, soon arriving at the ramp leading down into the bakery\'s interior.  It\'s as busy as ever, with patrons milling about, chatting between bites of pastry.' );
@@ -2084,9 +2084,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.outputText( '\n\n"<i>Actually, scratch that.  I\'m starving all of a sudden.  Lemme see, how about...</i>" The sneaky spook rattles off a huge list of foods, covering damn near the entire menu.  With each item ordered, your heart sinks a little lower, Maddie\'s eyes grow a little wider, and your gem pouch feels a little lighter.  Eventually Shouldra stops and grins expectantly, leaving an awkward silence hanging in the air.' );
 		EngineCore.outputText( '\n\n"<i>...Uh, right, \'kay.</i>" Maddie quickly begins scribbling down the huge order.  "<i>That\'ll be, um, hang on...</i>" She furrows her spongy brow.  "<i>Um, a lot of gems.  Sorry, I can\'t count higher than three digits.</i>"  Ouch.  Shouldra doesn\'t seem too worried though.  "<i>Oh, that\'s cool.  Just put it on my tab.</i>" Before the jiggly girl can complain, your lips move in a silent chant, and a second later Maddie\'s face breaks out in a dumb grin.  "<i>Oh yeah, your tab!  Sure, totally.  I\'ll be right back with your order, sugar!</i>" She winks and disappears into the back room, only to return a few moments later.  "<i>Um, actually this order might take a while.  Make yourself comfy and I\'ll be with you soon.</i>"' );
 		EngineCore.outputText( '\n\nYou...  well, <i>Shouldra</i> takes a seat in a booth near the back, and begins drumming her fingers impatiently on the wooden table.  A murmur from the patrons heralds the arrival of your order, and no wonder: despite her size, Maddie is visibly weighed down by the vast plates of donuts, cakes, and other sweet treats.  After a few close calls, she manages to reach your booth and lay them down, covering the entire table in a chocolatey smorgasbord.  As your eyes roam over the fattening feast, you can\'t help but cringe.  Or try to, anyway.  Shouldra instead licks her lips and thanks Maddie, who scoots back to her counter, before your hand reaches for a decadent slice of caramel torte.  This might not bode well for your ' );
-		if( CoC.getInstance().player.tone >= 60 ) {
+		if( CoC.player.tone >= 60 ) {
 			EngineCore.outputText( 'well-toned' );
-		} else if( CoC.getInstance().player.thickness < 50 ) {
+		} else if( CoC.player.thickness < 50 ) {
 			EngineCore.outputText( 'trim' );
 		} else {
 			EngineCore.outputText( 'curvaceous' );
@@ -2100,43 +2100,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		//if repeat scene: ;
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ] > 0 ) {
 			EngineCore.outputText( '"Man, you\'re not sure you want that kind of impact on your figure again...  "' );
 		}
 		EngineCore.outputText( 'Ah, what the hell.  You were hungry anyway.  You let Shouldra guide the cake into your mouth.  Mmm, not bad; rich, sweet and delicate.  Shouldra chuckles in your mind as she releases her control slightly, letting you lick your fingers clean of any stray crumbs.  "<i>Well, guess you\'re pretty hungry yourself!  Alright, Champ, I\'ll give you some freedom, but just remember you\'re not the only one with an appetite.</i>" You wince as your hunger intensifies to the verge of pain; looks like you\'re eating for two.  Your eyes lock on to the feast before you and something snaps in your mind.  You need this food, all of this food, inside you.  <i>Now</i>.' );
 		EngineCore.outputText( '\n\nYou finish the torte, pausing only to scrape the platter clean and devour the crumbs before starting on some brownies.  As snack upon snack disappears down your maw, your stomach grows warm and full, feeling mildly bloated as the last brownie passes your lips.  "<i>Ooh, is your poor lil\' tummy feeling a bit full?</i>" Shouldra snickers.  "<i>Let\'s get it out of this cumbersome outfit.</i>" An incantation echoes in your mind before your [armor] shimmers and vanishes.  Well, that was unexpected' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( ', though not completely unwelcome' );
 		}
 		EngineCore.outputText( '.  You blush furiously and back into the corner of the (now rather cold) booth' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( ' as your heart races and blood rushes down towards your ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'drowsy member' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'trembling nether-lips' );
 			}
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'groin' );
 			}
 		}
 		EngineCore.outputText( ', before you realize that nobody seems to notice your predicament.  Shouldra reads your thoughts and responds, "<i>Thought you might appreciate some privacy' );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( ', even with that kink of yours' );
 		}
 		EngineCore.outputText( ', Champ.  Here\'s something extra anyway, just in case.</i>" One ghostly incantation later, and ' );
-		if( CoC.getInstance().player.femininity <= 50 ) {
+		if( CoC.player.femininity <= 50 ) {
 			EngineCore.outputText( 'a buttoned shirt and pair of belted jeans' );
 		} else {
 			EngineCore.outputText( 'a tight-fitting tank top and skirt' );
 		}
 		EngineCore.outputText( ' adorn your person.' );
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( '\n\nYou run a hand down your chest, examining the new material.  Silky smooth...  As your hand slides across your stomach, you press in slightly.  You\'ve only made a small dent in the food before you, but there\'s already a noticeable bulge beneath your belt, and a few slivers of ' + CoC.getInstance().player.skinFurScales() + ' are visible between the buttons.  You rub the modest mound, resulting in a subdued gurgling and a content burp; you\'ve gotten full pretty quickly.  Maybe you should just leave the rest of the food and- "<i>Not so fast, bucko!</i>" Shouldra fumes, causing you to jump in your seat.  "<i>You might be full, but <b>I\'ve</b> barely started!</i>" Your gut churns violently as the ghost girl\'s inhuman appetite infects your own.  Oh dear...' );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( '\n\nYou run a hand down your chest, examining the new material.  Silky smooth...  As your hand slides across your stomach, you press in slightly.  You\'ve only made a small dent in the food before you, but there\'s already a noticeable bulge beneath your belt, and a few slivers of ' + CoC.player.skinFurScales() + ' are visible between the buttons.  You rub the modest mound, resulting in a subdued gurgling and a content burp; you\'ve gotten full pretty quickly.  Maybe you should just leave the rest of the food and- "<i>Not so fast, bucko!</i>" Shouldra fumes, causing you to jump in your seat.  "<i>You might be full, but <b>I\'ve</b> barely started!</i>" Your gut churns violently as the ghost girl\'s inhuman appetite infects your own.  Oh dear...' );
 			EngineCore.outputText( 'You quickly grab something, an eclair, from the table in an effort to ease the pain in your stomach.  The taste is incredible; you don\'t know if it\'s the hunger or Shouldra\'s magic, but this is easily the best eclair you\'ve ever eaten.  You moan low in your throat as you savor the eclair, thick sweet cream exploding in your mouth, chilled chocolatey pastry caressing your tongue like a skilled lover.  Sugar and pastry mix and twirl around your mouth, and you can\'t help but close your eyes and relax, mind and body comforted by a glucose euphoria.' );
 			if( EngineCore.silly() ) {
 				EngineCore.outputText( '  This is a <i>fucking good eclair</i>.' );
@@ -2145,7 +2145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nAs bite after delectable bite passes your lips, you can\'t help losing yourself in a gluttonous haze.  So many flavors, so many textures, creamy, smooth, crumbly, doughy, mmm...' );
 			EngineCore.outputText( '\n\nA slight bump against the bottom of your growing gut distracts you.  You reach around the strained dome to find your member is hard and rock-solid in your hand; seems the constant onslaught of food is getting to you.  "<i>Oh dear,</i>" Shouldra remarks as she stuffs another portion of fattening candy into your mouth, "<i>Can\'t have you getting distracted, not when there\'s still so much food to go into your belly.  Hang on, I\'ll see what I can do about that.</i>" A snap of your fingers later and Maddie is by your table with a bimbo grin.  "<i>Hi!  Enjoying your meal?</i>" She giggles and pats your taut stomach.  "<i>Now, um, was there something you wanted, or...</i>" There\'s a short pause before the cupcake girl\'s eyes glow that all-too-familiar yellow.  "<i>Ooh, roomy!</i>"  Shouldra runs her doughy hands over her new form, paying careful attention to Maddie\'s hefty breasts and plump well-rounded ass.' );
 			EngineCore.outputText( '\n\n"<i>Now, how about that delicious cock of yours?</i>"  The possessed pastry licks her full lips and crouches down, barely fitting under the table.  ' );
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength < 8 || CoC.getInstance().player.cocks[ 0 ].cockLength > 25 ) {
+			if( CoC.player.cocks[ 0 ].cockLength < 8 || CoC.player.cocks[ 0 ].cockLength > 25 ) {
 				EngineCore.outputText( '"<i>First though, let\'s change it to something more manageable.</i>" Arcane sounds float up towards you, causing your shaft to shift and morph until your throbbing rod is around 2 feet long and dripping pre.  "<i>Mmm, much better!</i>"  ' );
 			}
 			EngineCore.outputText( 'Her eyes close as those sumptuous icing-white lips wrap around the [cockHead] of your aching dick, the cherry tongue canvassing your cockflesh like an artist, until she slowly, oh-so-slowly gulps down inch after gradual inch of your girth.  Her enormous chocolate rump is visible on the other side of the booth, lulling back and forth in contented bliss.' );
@@ -2153,16 +2153,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nThe bloated orb has by now left your shirt in tatters and your jeans in disrepair; it rests between your thighs, your legs having been forced to part under its growing weight.  An ominous gurgle erupts from your overtaxed gut; perhaps you\'ve overestimated yourself?  You massage the complaining flesh with one hand to ease the pressure while continuing to sate your insatiable appetite with the other, heavenly gouts of angel cake dropping into your abyss of a stomach.  Shouldra smiles around your cock as the churning and gurgling continues; her fucksucking lips slip off the tip of your rigid dick and ascend, trailing supersized kisses across your crotch and up to your navel.  She nuzzles your bloated belly like a pillow, her hands digging gently into the flesh and kneading with equal parts care and roughness.  Your free hand stops massaging and cradles her head, and in a moment of impishness you shove a slice of something gooey and triple-layered into her unsuspecting candied maw.  She swallows, surprise turning quickly to a grin of friendly vengeance.  "<i>So that\'s how we\'re playing it, big guy?</i>"  Shouldra snickers, before giving your sensitive stomach a hearty slap.' );
 			EngineCore.outputText( '\n\nYou wince slightly before returning a sloppy food-filled grin... Wait.  You\'re not feeding yourself.  What the fuck?  The ghost girl answers your confusion with a profiterole that soars into your slack mouth.  Damned ghoul, that\'s just playing dirty!  You both devolve into a fierce stuffing contest; your desperate hands snag anything they can from the spread and cram them into the ghost\'s gullet, while waves of pastries ram themselves into your own defenseless mouth.  The combination of the adrenaline-fueled force-feeding frenzy and the increasing pressure of your swelling gut on your eager cock forms a familiar sensation; prickling loins, skipped heartbeats, an intense heat in your flushed cheeks.  As you feel the giddy euphoria of an oncoming food coma, Shouldra seizes the moment and dives onto your half-buried shaft, sliding and slipping down along every inch she can, teasing and tickling with her jellied tongue.' );
 			EngineCore.outputText( '\n\nA guttural moan escapes your icing-caked lips as you sink into a creamy smooth orgasm, like sliding into a hot bath.  ' );
-			if( CoC.getInstance().player.cumQ() < 200 ) {
+			if( CoC.player.cumQ() < 200 ) {
 				EngineCore.outputText( 'Modest spurts of semen shoot out into Shouldra\'s awaiting mouth.  She withdraws, swirls it around her tongue, then swallows your load in one gulp.  "<i>Hmm...  needs cinnamon,</i>" she jokes, licking her lips.' );
 			}//if (cumMedium = true);
-			else if( CoC.getInstance().player.cumQ() <= 400 ) {
+			else if( CoC.player.cumQ() <= 400 ) {
 				EngineCore.outputText( 'Several thick spurts of semen shoot out into Shouldra\'s awaiting mouth.  She withdraws, swilling the sizeable load around her mouth before swallowing it in a few gulps.  "<i>Not bad...  could use a dash of ginger though,</i>" she jokes, licking her lips.' );
 			}//if (cumHigh = true) ;
-			else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+			else if( CoC.player.cumQ() <= 1000 ) {
 				EngineCore.outputText( 'Your groin roils as a thick jet of pearly cum floods Shouldra\'s mouth, followed by another, then another.  The ghost girl barely has time to swallow each load before the next comes, but she manages not to spill a drop of your virility.  "<i>Mmm, pretty tasty!</i>"  She says after wiping her mouth in satisfaction.  "<i>Hints of pineapple, coconut...  delicious.</i>"' );
 			}//if (cumVeryHigh = true);
-			else if( CoC.getInstance().player.cumQ() <= 5000 ) {
+			else if( CoC.player.cumQ() <= 5000 ) {
 				EngineCore.outputText( 'Your loins tremble and quiver as an immense load of cloying cum bulges along your shaft and explodes in Shouldra\'s mouth.  A further wave of bulges assault the ghost girl\'s throat, forcing her to swallow all of your thick virile spunk.  Eventually the wave subsides, leaving a satisfied and somewhat bloated spook in its wake.  "<i>Soo gooood...</i>" she drawls, her goofy grin smattered with white.' );
 			} else {
 				EngineCore.outputText( 'A cock-distending wad of potent jizm works its way through your throbbing shaft, erupting from your urethra down the hapless ghost\'s gullet.  As bulge after obscene bulge forces itself inside Shouldra\'s stomach, her spongy abdomen balloons outwards, soon reaching the size of an adult human.  Streams of excess cum flow down her straining cheeks, and by the time you\'ve stopped cumming the ghostly glutton is lying in a large sticky puddle of your spunk.  She tries to speak, but all that emerge are a sloppy belch and a few flecks of cum, and she resorts instead to hysterical giggling, lost in a cum-addled haze.' );
@@ -2170,12 +2170,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '  After a moment of rest, Shouldra squeezes out from under the table[if (cumQuantity > 1000) , her soft belly sloshing audibly,] and helps you to your feet; a task made seriously annoying by your titanic tummy digging in to the edge of the counter.  The other patrons remain blissfully unaware of the whole act, including your current nudity.  Speaking of which...' );
 			EngineCore.outputText( '\n\n"<i>Oh, don\'t worry, Champ,</i>" Shouldra says, having returned to your head, "<i>No permanent damage intended. Here ya go!</i>"  You feel slightly woozy as your abdomen collapses inwards, soon returning to its original, non-bloated state.  A moment later and you are once again clad in your [armor].  "<i>Well, enough shenanigans for now, right?  Though you do look pretty cute with a pot belly... Heh, just teasing,</i>" laughs the ghost, "<i>Now c\'mon, let\'s blow this joint!</i>"' );
 			EngineCore.outputText( '\n\nYou leave the bakery and head back to camp, leaving behind a very confused Maddie.' );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[(if hasCock = false) ;
 		else {
-			EngineCore.outputText( '\n\nYou run a hand down your chest, examining the new material.  Silky smooth...  As your hand slides across your stomach, you press in slightly.  You\'ve only made a small dent in the food before you, but there\'s already a noticeable bulge beneath the hem of your skirt, and a few inches of soft ' + CoC.getInstance().player.skinTone + ' skin are visible beneath the top.  You rub the modest mound, resulting in a subdued gurgling and a content burp; you\'ve gotten full pretty quickly.  Maybe you should just leave the rest of the food and- "<i>Not so fast, bucko!</i>"  Shouldra fumes, causing you to jump in your seat.  "<i>You might be full, but </i>I\'ve<i> barely started!</i>"  Your gut churns violently as the ghost girl\'s inhuman appetite infects your own.  Oh dear...' );
+			EngineCore.outputText( '\n\nYou run a hand down your chest, examining the new material.  Silky smooth...  As your hand slides across your stomach, you press in slightly.  You\'ve only made a small dent in the food before you, but there\'s already a noticeable bulge beneath the hem of your skirt, and a few inches of soft ' + CoC.player.skinTone + ' skin are visible beneath the top.  You rub the modest mound, resulting in a subdued gurgling and a content burp; you\'ve gotten full pretty quickly.  Maybe you should just leave the rest of the food and- "<i>Not so fast, bucko!</i>"  Shouldra fumes, causing you to jump in your seat.  "<i>You might be full, but </i>I\'ve<i> barely started!</i>"  Your gut churns violently as the ghost girl\'s inhuman appetite infects your own.  Oh dear...' );
 			EngineCore.outputText( '\n\nYou quickly grab something, an eclair, from the table in an effort to ease the pain in your stomach.  The taste is incredible; you don\'t know if it\'s the hunger or Shouldra\'s magic, but this is easily the best eclair you\'ve ever eaten.  You moan low in your throat as you savor the eclair, thick sweet cream exploding in your mouth, chilled chocolatey pastry caressing your tongue like a skilled lover.  Sugar and pastry mix and twirl around your mouth, and you can\'t help but close your eyes and relax, mind and body comforted by a glucose euphoria.' );
 			if( EngineCore.silly() ) {
 				EngineCore.outputText( '  This is a <i>fucking good eclair</i>.' );
@@ -2189,11 +2189,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 			EngineCore.outputText( '\n\nA guttural moan escapes your icing-caked lips as you sink into a creamy smooth orgasm, like sliding into a hot bath.  [if (isSquiter = true) "Hot streams of liquid lust spurt across Maddie\'s face, drizzling her with your copious fem-spunk.  "][if (isLactating = true) "Droplets of milk form on your [nipples], soon forming rivers of cream that cascade down your fiery-hot flesh.  "]After a moment of rest, Shouldra squeezes out from under the table, licking your girl-cum from her lips with a satisfied slurp, and helps you to your feet; a task made seriously annoying by your titanic tummy digging in to the edge of the counter.  The other patrons remain blissfully unaware of the whole act, including your current nudity. Speaking of which...' );
 			EngineCore.outputText( '\n\n"<i>Oh, don\'t worry, Champ,</i>" Shouldra says, having returned to your head, "<i>No permanent damage intended.  Here ya go!</i>"  You feel slightly woozy as your abdomen collapses inwards, soon returning to its original, non-bloated state.  A moment later and you are once again clad in your [armor].  "<i>Well, enough shenanigans for now, right?  Though you do look pretty cute with a pot belly...  Heh, just teasing,</i>" laughs the ghost, "<i>Now c\'mon, let\'s blow this joint!' );
 			EngineCore.outputText( '\n\nYou leave the bakery and head back to camp, leaving behind a very confused Maddie.' );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
-		CoC.getInstance().flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ]++;
-		CoC.getInstance().player.slimeFeed();
+		CoC.flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ]++;
+		CoC.player.slimeFeed();
 	};
 
 	//Resist;
@@ -2211,7 +2211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, 
 		if( EngineCore.silly() ) {
 			EngineCore.outputText( '  "<i>D... dedicated customers?</i>"\n\nShouldra sighs, "<i>Knock that shit off kid, it ain\'t cute.  You want the course or not?</i>"' );
 		}
-		EngineCore.outputText( '\n\n"<i>Oh, well, er, okay,</i>" she stammers.  The possessed pastry beams and leads her towards your table.  The mousy girl\'s eyes are drawn to the feast laid out upon the counter; she bites her lower lip in anticipation.  As Shouldra seats her down opposite you, however, she can\'t help but stare at you timidly.  "<i>Just our chef, dear,</i>" the ghost girl assures her, "<i>' + CoC.getInstance().player.mf( 'he', 'she' ) + ' just wants to make sure you enjoy ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' food.  Now, dig in!</i>"' );
+		EngineCore.outputText( '\n\n"<i>Oh, well, er, okay,</i>" she stammers.  The possessed pastry beams and leads her towards your table.  The mousy girl\'s eyes are drawn to the feast laid out upon the counter; she bites her lower lip in anticipation.  As Shouldra seats her down opposite you, however, she can\'t help but stare at you timidly.  "<i>Just our chef, dear,</i>" the ghost girl assures her, "<i>' + CoC.player.mf( 'he', 'she' ) + ' just wants to make sure you enjoy ' + CoC.player.mf( 'his', 'her' ) + ' food.  Now, dig in!</i>"' );
 		EngineCore.outputText( '\n\nThe shy girl fidgets for a bit, glancing between you and the \'All-You-Can-Eat course\', before picking up a sugar-laden donut and taking a few tentative nibbles.  The nibbles turn into full-blown bites as she becomes focused on sating her food-lust, swallowing larger and larger chunks of baked goods down into her eager stomach.' );
 		EngineCore.outputText( '\n\nShouldra sits down next to the gluttonous girl, her super-stacked body barely fitting behind the table, and begins chanting something arcane and foreign.  A crimson aura shimmers around the facestuffing girl, eliciting a muffled moan and a brief tension.  Imbued with the ghost mage\'s lust magic, she doesn\'t notice a pair of spongy hands sliding under her jumper.  Even as the cake woman slowly undresses her, leaving her with nought but a bra and panties, the girl is focused entirely on chewing and swallowing mouthful after mouthful of fattening food.  Shouldra burrows an arced hand down under the hem of her underwear, while using the other to grope and massage her exposed belly.  It\'s quite a sight; the girl alternating between eating, burping, and moaning lewdly, while the buxom bombshell next to her plants kisses and lovebites on her nape, her hands tending lovingly to both her tummy and her sex.  A schlicking sound intersperses the girl\'s other noises, as a pool of fem-spunk appears between her creamy thighs.' );
 		EngineCore.outputText( '\n\n"<i>Oh... oh gods...</i>" gasps the girl as she\'s overwhelmed by the heady hedonism of her gluttonous lust, so sweet, so sinful.  Shouldra responds by taking a bite of eclair and kissing her deeply, swapping the cream between their tongues.  The bra gets lost in a flurry of touching, and the oversexed specter toys with a budding nipple between thumb and forefinger as the kissing continues relentlessly.  The table shrinks slightly, giving the ghost more room to perform.  Eventually Shouldra pulls away, placing a hand on the lust-addled girl\'s gurgling abdomen.  "<i>Mmm, so full, so fat...</i>" Suddenly she grabs the rest of the eclair and stuffs it into her partner\'s accepting mouth.  "<i>I want you bigger, want you </i>fatter<i>.  Can you do that for me, babe?  Can you get big and fat for me?</i>"  The girl nods dazedly.  Your ghostly companion has picked up a few odd kinks over the years, it seems.' );

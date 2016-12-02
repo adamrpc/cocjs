@@ -78,8 +78,8 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
 			result = 0;
 		}
-		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
-			result -= CoC.getInstance().monster.statusAffectv1( StatusAffects.TailWhip );
+		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
+			result -= CoC.monster.statusAffectv1( StatusAffects.TailWhip );
 			if( result < 0 ) {
 				result = 0;
 			}
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.reduceDamage = function( damage ) {
 		damage = Math.ceil( damage - Utils.rand( this.tou ) - this.armorDef );
 		//EZ MOAD half damage
-		if( CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
 			damage /= 2;
 		}
 		if( this.findStatusAffect( StatusAffects.Shielding ) >= 0 ) {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( damage > 0 ) {
 			this.HP -= damage;
 			MainView.statsView.showStatDown( 'hp' );
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE ] > 0 ) {
 				EngineCore.dynStats( 'lus', Math.ceil( damage / 2 ) );
 			}
 			//Prevent negatives
@@ -944,8 +944,8 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		if( this.findPerk( PerkLib.Diapause ) >= 0 ) {
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00228 ] += 3 + Utils.rand( 3 );
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00229 ] = 1;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00228 ] += 3 + Utils.rand( 3 );
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00229 ] = 1;
 		}
 	};
 	Player.prototype.minoCumAddiction = function( raw ) {
@@ -953,36 +953,36 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			raw = 10;
 		}
 		//Increment minotaur cum intake count
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ]++;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ]++;
 		//Fix if variables go out of range.
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 0;
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] < 0 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 0;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] = 0;
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] < 0 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] = 0;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 120 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 120;
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 120 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 120;
 		}
 		//Turn off withdrawal
-		//if(CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] > 1) CoC.getInstance().flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] = 1;
+		//if(CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] > 1) CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] = 1;
 		//Reset counter
-		CoC.getInstance().flags[ kFLAGS.TIME_SINCE_LAST_CONSUMED_MINOTAUR_CUM ] = 0;
+		CoC.flags[ kFLAGS.TIME_SINCE_LAST_CONSUMED_MINOTAUR_CUM ] = 0;
 		//If highly addicted, rises slower
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 60 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 60 ) {
 			raw /= 2;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 80 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 80 ) {
 			raw /= 2;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 90 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 90 ) {
 			raw /= 2;
 		}
 		//If in withdrawl, readdiction is potent!
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
 			raw += 10;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
 			raw += 5;
 		}
 		raw = Math.round( raw * 100 ) / 100;
@@ -993,13 +993,13 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( raw < -50 ) {
 			raw = -50;
 		}
-		CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] += raw;
+		CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] += raw;
 		//Recheck to make sure shit didn't break
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 120 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 120;
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 120 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 120;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 0;
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] < 0 ) {
+			CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] = 0;
 		}
 	};
 	Player.prototype.hasSpells = function() {
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return Appearance.hairDescription( this );
 	};
 	Player.prototype.shrinkTits = function( ignore_hyper_happy ) {
-		if( CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] && !ignore_hyper_happy ) {
+		if( CoC.flags[ kFLAGS.HYPER_HAPPY ] && !ignore_hyper_happy ) {
 			return;
 		}
 		if( this.breastRows.length === 1 ) {
@@ -1079,7 +1079,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				var smallestBreastRow = _.minBy(this.breastRows, function(breastRow) { return breastRow.breastRating; });
 				$log.debug( 'Breastrow chosen for growth: ', smallestBreastRow );
 				var breastRatingChanges = amount;
-				if( !CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] ) {
+				if( !CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
 					//Diminishing returns!
 					if( smallestBreastRow.breastRating > 3 ) {
 						if( this.findPerk( PerkLib.BigTits ) < 0 ) {
@@ -1117,7 +1117,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				rowsGrown--;
 			}
 		}
-		if( !CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] ) {
+		if( !CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
 			//Diminishing returns!
 			if( this.breastRows[ 0 ].breastRating > 3 ) {
 				if( this.findPerk( PerkLib.BigTits ) < 0 ) {
@@ -1308,9 +1308,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		}
 		//SHOULDRA BOOSTS
 		//+20
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -168 ) {
+		if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -168 ) {
 			min += 20;
-			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -216 ) {
+			if( CoC.flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -216 ) {
 				min += 30;
 			}
 		}
@@ -1327,10 +1327,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return min;
 	};
 	Player.prototype.minotaurAddicted = function() {
-		return this.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1;
+		return this.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1;
 	};
 	Player.prototype.minotaurNeed = function() {
-		return CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 1;
+		return CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 1;
 	};
 	Player.prototype.clearStatuses = function( ) {
 		while( this.findStatusAffect( StatusAffects.Web ) >= 0 ) {
@@ -1347,8 +1347,8 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findStatusAffect( StatusAffects.LustStones ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.LustStones );
 		}
-		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
-			CoC.getInstance().monster.this.removeStatusAffect( StatusAffects.Sandstorm );
+		if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
+			CoC.monster.this.removeStatusAffect( StatusAffects.Sandstorm );
 		}
 		if( this.findStatusAffect( StatusAffects.Sealed ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.Sealed );
@@ -1356,8 +1356,8 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.Berzerking );
 		}
-		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
-			CoC.getInstance().monster.this.removeStatusAffect( StatusAffects.TailWhip );
+		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
+			CoC.monster.this.removeStatusAffect( StatusAffects.TailWhip );
 		}
 		if( this.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.UBERWEB );
@@ -1394,8 +1394,8 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findStatusAffect( StatusAffects.SheilaOil ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.SheilaOil );
 		}
-		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
-			this.inte += CoC.getInstance().monster.statusAffectv1( StatusAffects.TwuWuv );
+		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
+			this.inte += CoC.monster.statusAffectv1( StatusAffects.TwuWuv );
 			EngineCore.statScreenRefresh();
 			MainView.statsView.showStatUp( 'inte' );
 		}
@@ -1476,9 +1476,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findStatusAffect( StatusAffects.Disarmed ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.Disarmed );
 			if( this.weapon === WeaponLib.FISTS ) {
-				this.setWeapon( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ] ));
+				this.setWeapon( ItemType.lookupItem( CoC.flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ] ));
 			} else {
-				CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = CoC.getInstance().flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ];
+				CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = CoC.flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ];
 			}
 		}
 		if( this.findStatusAffect( StatusAffects.AnemoneVenom ) >= 0 ) {
@@ -1607,7 +1607,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return numOfItemToRemove <= 0;
 	};
 	Player.prototype.lengthChange = function( changes, ncocks ) {
-		if( changes < 0 && CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] ) { // Early return for hyper-happy cheat if the call was *supposed* to shrink a cock.
+		if( changes < 0 && CoC.flags[ kFLAGS.HYPER_HAPPY ] ) { // Early return for hyper-happy cheat if the call was *supposed* to shrink a cock.
 			return;
 		}
 		//DIsplay the degree of length change.
@@ -1959,7 +1959,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				},
 				set: function( target, name, value ) {
 					if( _.find( [ 'armorValue', 'armorName', 'armorDef', 'armorPerk', 'weaponName', 'weaponVerb', 'weaponAttack', 'weaponPerk', 'weaponValue' ], name ) ) {
-						CoC_Settings.error( 'ERROR to directly set CoC.getInstance().player.' + name );
+						CoC_Settings.error( 'ERROR to directly set CoC.player.' + name );
 						return;
 					}
 					target[ name ] = value;

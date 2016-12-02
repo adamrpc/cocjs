@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, M
 	};
 	DemonPack.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
-			EngineCore.outputText( 'You strike out and the last of the demons tumbles to the ground with a thud. You stand there for a second surrounded by dead or unconscious demons feeling like a god of battle. Then you realize that if a god of battle does exist he lives on a demonic plane like this, so to avoid insulting him you take your hands off your hips and your ' + CoC.getInstance().player.legs() + ' off the head of the demon leader before you start to search the bodies.', true );
+			EngineCore.outputText( 'You strike out and the last of the demons tumbles to the ground with a thud. You stand there for a second surrounded by dead or unconscious demons feeling like a god of battle. Then you realize that if a god of battle does exist he lives on a demonic plane like this, so to avoid insulting him you take your hands off your hips and your ' + CoC.player.legs() + ' off the head of the demon leader before you start to search the bodies.', true );
 			EngineCore.dynStats( 'lus', 1 );
 		} else {
 			EngineCore.outputText( 'The demons stop attacking, and reach out to touch your body. Some are already masturbating like it\'s the only thing in the world and you know that right now, if you wanted to, you could make each and every one of them fuck you.' );
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, M
 		EngineCore.doNext(SceneLib.oasis.oasisSexing);
 	};
 	DemonPack.prototype.won = function(hpVictory, pcCameWorms) {
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			if( hpVictory ) {
 				EngineCore.outputText( 'You collapse before the demons, who laugh at your utter lack of male or female endowments, beating you until you pass out.', true );
 			} else {
@@ -49,19 +49,19 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, M
 			if( pcCameWorms ) {
 				EngineCore.outputText( '\n\nThe demons joke and smile, obviously unconcerned with your state.\n\n', false );
 			}
-			if( CoC.getInstance().player.cocks.length > 0 ) {
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cocks.length > 0 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'Each of y', false );
 				} else {
 					EngineCore.outputText( 'Y', false );
 				}
-				EngineCore.outputText( 'our ' + CoC.getInstance().player.multiCockDescriptLight() + ' throbs ', false );
-				if( CoC.getInstance().player.hasVagina() ) {
+				EngineCore.outputText( 'our ' + CoC.player.multiCockDescriptLight() + ' throbs ', false );
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( ' and your ', false );
 				}
 			}
-			if( CoC.getInstance().player.vaginas.length > 0 ) {
-				if( !CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.vaginas.length > 0 ) {
+				if( !CoC.player.hasCock() ) {
 					EngineCore.outputText( 'Your ', false );
 				}
 				EngineCore.outputText( Descriptors.vaginaDescript( 0 ) + ' burns ', false );

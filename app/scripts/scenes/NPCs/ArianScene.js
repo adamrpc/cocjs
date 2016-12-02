@@ -51,15 +51,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 
 	//Implementation of TimeAwareInterface;
 	ArianScene.prototype.timeChange = function() {
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ] > 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ]++;
+		if( CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ] > 0 ) {
+			CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ]++;
 		}
-		if( CoC.getInstance().time.hours > 23 ) {
-			if( SceneLib.arianScene.arianFollower() && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_EVENT ]++;
+		if( CoC.time.hours > 23 ) {
+			if( SceneLib.arianScene.arianFollower() && CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				CoC.flags[ kFLAGS.ARIAN_EGG_EVENT ]++;
 			}
-			CoC.getInstance().flags[ kFLAGS.ARIAN_LESSONS ] = 0;
-			CoC.getInstance().flags[ kFLAGS.ARIAN_TREATMENT ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_LESSONS ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_TREATMENT ] = 0;
 		}
 		return false;
 	};
@@ -68,22 +68,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	};
 	//End of Interface Implementation;
 	ArianScene.prototype.arianCockSize = function() {
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] < 0 || CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] < 0 || CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 3 ) {
 			return 0;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
 			return 9;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
 			return 16;
 		} else {
 			return 36;
 		}
 	};
 	ArianScene.prototype.arianFollower = function() {
-		return CoC.getInstance().flags[ kFLAGS.ARIAN_FOLLOWER ] > 0;
+		return CoC.flags[ kFLAGS.ARIAN_FOLLOWER ] > 0;
 	};
 	ArianScene.prototype.arianMF = function( boy, girl ) {
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				return girl;
 			} else {
 				return boy;
@@ -93,22 +93,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	};
 	ArianScene.prototype.arianHealth = function( arg ) {
 		if( arg !== undefined && arg !== 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] += arg;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] > 100 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] = 100;
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 0 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_HEALTH ] += arg;
+			if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] > 100 ) {
+				CoC.flags[ kFLAGS.ARIAN_HEALTH ] = 100;
+			} else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 0 ) {
+				CoC.flags[ kFLAGS.ARIAN_HEALTH ] = 0;
 			}
 		}
-		return CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ];
+		return CoC.flags[ kFLAGS.ARIAN_HEALTH ];
 	};
 	ArianScene.prototype.arianChestAdjective = function() {
 		var buffer = '';
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
 			return '';
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
 			buffer += Utils.randomChoice('small', 'small', 'small', 'small', 'small', 'petite', 'petite', 'perky', 'perky', 'palm-filling');
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 			buffer += Utils.randomChoice('generous', 'generous', 'generous', 'generous', 'hand-filling', 'hand-filling', 'bouncy', 'bouncy', 'shapely', 'shapely');
 		} else {
 			buffer += Utils.randomChoice('large', 'large', 'large', 'large', 'voluptuous', 'voluptuous', 'jiggly', 'bra-bursting', 'bountiful', 'huge');
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.arianChest = function() {
 		var buffer = '';
 		//Men get no cool descriptions!;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
 			return 'chest';
 		}
 
@@ -149,9 +149,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( 'Not liking the risks it presents - after all, they could be a mugger, or have something nasty and highly contagious - you keep on walking.  You\'ve not gone too far before a pair of figures, elegantly dressed ferret-morphs, nearly slam into you, running quickly.  You shout at them to watch where they\'re going, but they ignore you, instead heading straight for the alleyway you just passed.  You watch as they grab the hooded figure and pull them to their feet.  The ferrets start chattering at their target; though you can\'t make out precisely what they\'re saying, it sounds like a scolding, even as they take a bottle from a pouch they\'re carrying and make the hooded figure drink it.  The cloaked man\'s coughs start to subside, and they promptly take an arm each and half-lead, half-carry him away.  You wonder what that was all about, but decide it doesn\'t matter and press on.' );
 		//Disable the bitch if appropriate.;
 		if( never ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] = -1;
+			CoC.flags[ kFLAGS.ARIAN_PARK ] = -1;
 		} else {
-			CoC.getInstance().flags[ kFLAGS.NOT_HELPED_ARIAN_TODAY ] = 1;
+			CoC.flags[ kFLAGS.NOT_HELPED_ARIAN_TODAY ] = 1;
 		}
 		//Player enters Tel'Adre main screen;
 		EngineCore.menu();
@@ -160,9 +160,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//[=Help=];
 	ArianScene.prototype.helpArianWhenYouMeetHim = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_CAPACITY ] = 50;
+		CoC.flags[ kFLAGS.ARIAN_PARK ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_CAPACITY ] = 50;
 		EngineCore.outputText( 'You approach the hooded figure with caution, asking if they\'re all right; it feels a little silly to say that, but you can\'t think of much else to say.' );
 		EngineCore.outputText( '\n\n"<i>Just... help me up,</i>" a masculine voice asks, between coughs.' );
 		EngineCore.outputText( '\n\nYou lean down and offer the stranger your shoulder, letting them place their arm across your neck before you stand upright, helping pull them to their feet.  Once the hooded figure is standing, the hood slides off [Arian eir] head, to reveal a reptilian muzzle that could only belong to some sort of lizard.  His scales are white, almost absurdly so, and he takes deep breaths, trying to calm down his coughing fit.' );
@@ -189,9 +189,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As you enter the ragged remnants of the park, you spot the sickly lizan, Arian, sitting at his usual bench, and greet him.  "<i>Oh, hello there [name].  Good to see you.</i>"  He waves lazily.' );
 		//Visit 1;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 1 ) {
 			EngineCore.outputText( '\n\nFeeling ' );
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'curious' );
 			} else {
 				EngineCore.outputText( 'bored' );
@@ -204,7 +204,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\n"<i>Oh, yes, I really am a mage.  But I don\'t belong to the covenant that protects this town... You see, I\'m not fit for the job.  And besides that, with my magic... it would kill me....</i>"' );
 			EngineCore.outputText( '\n\nHow is that so?' );
 			//(PC has at least 1 Black or White Magic spell:);
-			if( CoC.getInstance().player.hasSpells() ) {
+			if( CoC.player.hasSpells() ) {
 				EngineCore.outputText( '  You thought spellcasting merely took fatigue and the proper mindset, not life force, and you express that sentiment to the lizan.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Ah...  Now we\'re getting to why I\'m in such a miserable state.  You see I\'ve found a new way to use white magic; one that results in far more powerful spells;  problem is it is very unhealthy for the caster.</i>"  [Arian Ey] smiles at you weakly.  "<i>In order to achieve a state of complete concentration, I stop all my bodily functions.  My heart stops beating, I stop breathing, I dedicate all of my being to the spell I wish to cast.  This is very dangerous, but thanks to this I am able to achieve a degree of concentration that no other mage can.</i>"  He gauges your reaction.  "<i>So what would you say?  Impressive?  Reckless?  Stupid?</i>"' );
@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou excuse yourself and head back to camp.' );
 		}
 		//Visit 2;
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 2 ) {
 			EngineCore.outputText( '\n\nAfter you make yourself comfortable, you suggest that he continue his story.  He looks at you in surprise at first, but he smiles shortly afterwards.  "<i>Very well, where was I?</i>"  He rubs his chin in thought.  "<i>Ah, yes.</i>"' );
 			EngineCore.outputText( '\n\nHe clears his throat.  "<i>I had to use my power to help my friends.  You see, our academy had been overrun by demons and I tried to fight them.  But... of course I was not strong enough to defeat all of them or save everyone.  All I could do was protect my pupils and myself.</i>"  He coughs, but smiles all the same.' );
 			EngineCore.outputText( '\n\nSo, he\'s not originally from Tel\'Adre?  You suggest he should go into details, tell you about his academy.' );
@@ -225,20 +225,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou tell him that you\'ve heard enough for this time, so it\'s probably best if he saves his strength and calls it quits there.  "<i>Very well.  I\'ll be seeing you then, [name].</i>"  He waves you off.' );
 		}
 		//Visit 3;
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 3 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 3 ) {
 			EngineCore.outputText( '\n\nYou bring up the last conversation you had with Arian and ask him whatever happened to his apprentices.' );
 			EngineCore.outputText( '\n\nHe smiles.  "<i>You see... my apprentices are actually my aides now.  They swore to live their lives in my service as my aides.</i>"  So, he\'s been avoiding his apprentices?' );
 			EngineCore.outputText( '\n\n"<i>They are worried about me all the time.  Maybe too worried... and it\'s not like I don\'t appreciate their concern, but sometimes I feel smothered.  Make no mistake, I love them like family, but I like to get out sometimes too.</i>"  You give a nod in response, figuring it\'s what he wants to see.' );
 			EngineCore.outputText( '\n\n"<i>Anyway, there is not much more to my story.  We made our escape and wandered about the desert, until we found Tel\'Adre.  They were nice enough to take us in and so here we are.</i>"  He motions to the area surrounding the two of you.' );
 			EngineCore.outputText( '\n\n"<i>So, [name]?</i>"  You look at him in response.  "<i>Can I interest you in a magical demonstration?</i>"  You answer in the positive.' );
 			EngineCore.outputText( '\n\nHe holds his hands apart from each other, palm facing palm.  "<i>Here\'s what you can normally do with White Magic.</i>"  He closes his eyes and focus.  You watch as arcs of electrical energy, like a tiny current of lightning, sparkles and crackles from one hand to the next.  You comment that\'s quite a sight' );
-			if( CoC.getInstance().player.cor > 66 ) {
+			if( CoC.player.cor > 66 ) {
 				EngineCore.outputText( ', whilst privately thinking to yourself how useless that looks - no wonder they can\'t fight the demons if this is the best they\'re capable of' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\n"<i>Now let me show you what I can do with my technique.</i>"  He closes his eyes once more and focuses.  His white scales begin glowing as his power increases and you gasp as energy virtually explodes from hand to hand, a cascade of lightning coruscating between his hands with enough fury to consume anything that falls between them.  He stops when he racks and begins coughing.  Now, that is more impressive, you have to admit to yourself.' );
 			EngineCore.outputText( '\n\n"<i>I guess I might have overdone it.</i>"  He smiles at you goofily, then coughs in what is obviously meant to cover his embarrassment.  "<i>Thanks for keeping me company, I enjoy our chats a lot, [name].  You\'ve been a great friend for me.</i>"  You accept the compliment and tell him that it was nothing' );
-			if( CoC.getInstance().player.cor >= 66 ) {
+			if( CoC.player.cor >= 66 ) {
 				EngineCore.outputText( ', keeping your real reasons for bothering with him to yourself' );
 			}
 			EngineCore.outputText( '.' );
@@ -252,13 +252,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			this.arianHealth( 5 );
 		}
 		this.arianHealth( 1 );
-		CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ]++;
+		CoC.flags[ kFLAGS.ARIAN_PARK ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//First Visit;
 	ArianScene.prototype.visitAriansHouse = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 29 || CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 29 || CoC.flags[ kFLAGS.ARIAN_VIRGIN ] === 1 ) {
 			this.arianHealth( 1 );
 		}
 		if( this.arianFollower() ) {
@@ -276,8 +276,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( 'You don\'t have to look far to find Arian; [Arian ey]\'s currently curled up and asleep on the couch.  As you contemplate whether or not to wake [Arian em], [Arian ey] suddenly stirs and uncoils himself, stretching and yawning hugely in a way that lets you see every last needle-like tooth in [Arian eir] mouth.  [Arian ey] then sees you and gives you a smile. "<i>Ah, [name]; I was just having a little nap.  Something on your mind?</i>"' );
 			} else if( temp <= 8 ) {
 				EngineCore.outputText( 'A strange smell hits your nose as you enter the tent; it takes you a few moments, but then you place it, your ears pricking as you hear Arian letting out some very familiar groans of release.  With a smirk, you sneak up and lean over the couch, looking right into the eyes of Arian, [Arian eir] fingers still glistening with ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 						EngineCore.outputText( 'mixed sexual fluids' );
 					} else {
 						EngineCore.outputText( 'jizz' );
@@ -286,12 +286,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					EngineCore.outputText( 'femjizz' );
 				}
 				EngineCore.outputText( ' and, indeed, still hovering over [Arian eir] ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 						EngineCore.outputText( 'twin sexual slits' );
 					} else {
 						EngineCore.outputText( 'cock' );
-						if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+						if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 							EngineCore.outputText( 's' );
 						}
 					}
@@ -306,19 +306,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 			this.arianHomeMenu();
 		} else {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 4 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ]++;
+			if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 4 ) {
+				CoC.flags[ kFLAGS.ARIAN_PARK ]++;
 				EngineCore.outputText( 'Deciding to visit the sickly, Lizan mage, Arian, you promptly start walking.  The house is fairly large, at least two stories tall, but it looks pretty ordinary; there\'s nothing about it to make it really stand out from the other buildings in the neighborhood.  It\'s only the small brass plate on the door that says "<i>Arian, Magus</i>" that provides any clue that a wizard lives here.  There is a knocker on the front door, solid brass, carved in the shape of a leering grotesque, and you take hold of the handle and loudly bang it against the door to announce your presence.' );
-				EngineCore.outputText( '\n\n"<i>One minute!</i>"  You hear a feminine voice yell from inside.  After hearing the clicking of a latch the door slowly opens to reveal what looks like a tan-furred female ferret looking at you with bespectacled brown eyes; she is not very tall, and her body is clad in loose comfortable robes that hide her curves well.  She adjusts her glasses and asks, "<i>How may I help you, ' + CoC.getInstance().player.mf( 'sir', 'ma\'am' ) + '?</i>"' );
+				EngineCore.outputText( '\n\n"<i>One minute!</i>"  You hear a feminine voice yell from inside.  After hearing the clicking of a latch the door slowly opens to reveal what looks like a tan-furred female ferret looking at you with bespectacled brown eyes; she is not very tall, and her body is clad in loose comfortable robes that hide her curves well.  She adjusts her glasses and asks, "<i>How may I help you, ' + CoC.player.mf( 'sir', 'ma\'am' ) + '?</i>"' );
 				EngineCore.outputText( '\n\nYou explain you\'re an acquaintance of Arian the wizard, and you came to see him.  With a smile the ferret steps aside.  "<i>Please come in.</i>"  You promptly step inside, getting your first look at Arian\'s home.  The exterior and the interior match quite well; it looks very normal in here.  Aside from a few nice vases and potted flowers, nothing else stands out.' );
-				EngineCore.outputText( '\n\nThe ferret girl slowly closes the door behind you, closing the latch before she dusts her robes and turns to you.  "<i>I\'m afraid we haven\'t been properly introduced just yet, ' + CoC.getInstance().player.mf( 'sir', 'ma\'am' ) + '.  My name is Laika and I\'m one of master Arian\'s aides.</i>"  She curtsies with a smile and adds, "<i>Pleased to meet you... umm....</i>"  You smile and tell her your name.  She closes her eyes and nods.  "<i>Ah, yes, [name]....</i>"  Suddenly she opens her eyes wide open.  "<i>Wait a moment... [name]!?</i>"  She advances on you, threatening you with a wooden spoon.  "<i>You! You\'re the one who helped master Arian get away!</i>"  She yells with a frown, poking your [chest] with her spoon.' );
+				EngineCore.outputText( '\n\nThe ferret girl slowly closes the door behind you, closing the latch before she dusts her robes and turns to you.  "<i>I\'m afraid we haven\'t been properly introduced just yet, ' + CoC.player.mf( 'sir', 'ma\'am' ) + '.  My name is Laika and I\'m one of master Arian\'s aides.</i>"  She curtsies with a smile and adds, "<i>Pleased to meet you... umm....</i>"  You smile and tell her your name.  She closes her eyes and nods.  "<i>Ah, yes, [name]....</i>"  Suddenly she opens her eyes wide open.  "<i>Wait a moment... [name]!?</i>"  She advances on you, threatening you with a wooden spoon.  "<i>You! You\'re the one who helped master Arian get away!</i>"  She yells with a frown, poking your [chest] with her spoon.' );
 				EngineCore.outputText( '\n\nYou ask if that\'s really such a big deal; all he wanted was to go and sit in a park.  Laika points an accusing finger at you and is about to say something when a masculine voice interrupts her.  "<i>Sis! What\'s the problem?</i>" Slowly, another tan-furred ferret emerges from the hallway nearby, clad in robes much like his sister\'s.  If Laika were to remove her spectacles, they would look like identical twins.' );
 				EngineCore.outputText( '\n\n"<i>Boon, this is the....</i>"  Boon raises his hands, stopping Laika mid-sentence.  "<i>Yes, sister.  Half the neighborhood knows by now.</i>"  He walks up to his sister and slowly pushes her back towards the kitchen.  "<i>Let me handle this, sis.  Just finish doing the dishes and cool your head down, I\'ve already finished with my chores, so I can attend to our visitor.</i>"' );
 				EngineCore.outputText( '\n\nLaika glares at both you and her brother, but complies.  Sighing, Boon turns to you.  "<i>Hello, [name].  I\'m Boon, Laika\'s brother and master Arian\'s apprentice.  You\'ll have to forgive my sister, she\'s rather... passionate... when it comes to our master, but she does have a point.  What if master Arian had collapsed?  Or needed his medicine?</i>"' );
 				EngineCore.outputText( '\n\nBefore you can protest he stops you.  "<i>You know what, it doesn\'t matter.  He would\'ve found a way to run off whether you were there or not.  So, thanks for keeping him company.</i>"  You accept the thanks with your usual grace, then ' );
-				if( CoC.getInstance().player.cor < 33 ) {
+				if( CoC.player.cor < 33 ) {
 					EngineCore.outputText( 'curiously' );
-				} else if( CoC.getInstance().player.cor < 66 ) {
+				} else if( CoC.player.cor < 66 ) {
 					EngineCore.outputText( 'casually' );
 				} else {
 					EngineCore.outputText( 'indifferently' );
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nYou head inside at the ferret\'s gesture, wondering if Arian has stayed or not.  To your pleasant surprise, he is seated inside his bed, tucked somewhat sulkily under the covers.  You tell him that you wanted to come and visit, apologizing if you\'re interrupting something important.' );
 				EngineCore.outputText( '\n\nArian smiles at you.  "<i>Not at all.  Boon, you may leave us for now.</i>"  Boon bows and leaves, closing the door behind him.  Arian sighs, removing his covers to sit up properly on the bed and motioning towards a nearby chair.  "<i>Just make yourself at home; I\'m really glad you came to see me.  I was wondering if I\'d ever get to see you again.</i>"' );
 				EngineCore.outputText( '\n\nYou tell him that you couldn\'t resist coming to see him, even as you ' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( 'pull up a chair' );
 				} else {
 					EngineCore.outputText( 'seat your tauric body on the floor' );
@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				//This plays at your next visit to Arian's place if you had him become a herm/girl.;
 				//Occurs only once, and after this intro plays as usual.;
 				//Don't increment ArianGirlHermChat yet!;
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_HERM_CHAT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.flags[ kFLAGS.ARIAN_HERM_CHAT ] === 1 ) {
 					EngineCore.outputText( 'Figuring that Arian would enjoy your company, you make your way with confidence through the streets leading to the lizan\'s home.  Soon enough, you find yourself standing before the stately home in which [Arian ey] and [Arian eir] ferret associates dwell. You pound heartily on the knocker to announce your presence.' );
 					EngineCore.outputText( '\n\n"<i>Coming!</i>"  You hear Laika yell.  Shortly after the ferret girl opens the door.  Once she sees it\'s you, she doesn\'t bother greeting you; she drags you in and slams the door behind you.' );
 					EngineCore.outputText( '\n\n"<i>You!  What did you do to master Arian!?</i>"  She threatens you with a duster.  Boon rushes in to check on the commotion, drying his wet hands with a piece of cloth.  "<i>Sis, what\'s going... on...</i>"  He looks at the scene and sighs.' );
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					EngineCore.outputText( '\n\nYou assure the ferrets that it\'s fine, and you understand how busy they are.  Remembering where Arian\'s room is from the last time you visited, you proceed to make your way to it, finding the door to be closed, as usual.  You slowly rap your knuckles on the closed door, trying to announce your presence without being a nuisance at the same time.' );
 				}
 				//(if ArianGirlHermChat === 1);
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_HERM_CHAT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_HERM_CHAT ] === 1 ) {
 					EngineCore.outputText( '\n\nBefore you can say anything, you hear the distinct sound of Laika\'s yell.  It seems Boon and Laika are still engaged in a heated argument.  Arian winces and immediately apologizes to you.' );
 					EngineCore.outputText( '\n\n"<i>Sorry about that, [name].  I guess I should\'ve been more considerate of the shock it would be to change like this.</i>"' );
 					EngineCore.outputText( '\n\nYou don\'t say anything, and just listen in as Boon and Laika stop their quarreling.  Arian smiles at you.  "<i>They may argue, but they\'re good people.  Usually it only takes a moment before they settle their differences.</i>"' );
@@ -383,17 +383,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					EngineCore.outputText( '\n\nYou laugh, well that\'s certainly something she wouldn\'t be doing as a male.' );
 					EngineCore.outputText( '\n\nArian quickly changes the subject though.  "<i>So... what do you want to do today?</i>"' );
 					//ArianGirlHermChat++;;
-					CoC.getInstance().flags[ kFLAGS.ARIAN_HERM_CHAT ]++;
+					CoC.flags[ kFLAGS.ARIAN_HERM_CHAT ]++;
 				}
 				//0-9 health:;
-				else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 10 ) {
+				else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 10 ) {
 					EngineCore.outputText( '\n\nYou hear a faint cough through the door.  "<i>Come in.</i>"  You hear a tired voice say.  Gently clasping the doorknob, you slowly open the door, careful of startling the sickly lizan.' );
 					EngineCore.outputText( '\n\nArian smiles at you as you enter.  "<i>Oh, hello [name].  I\'m glad you came.</i>"  He slowly sits up and motions to a chair nearby.  "<i>Make yourself at home.</i>"' );
 					EngineCore.outputText( '\n\nYou pull the offered chair and sit next to his bed, smiling at [Arian em].' );
 					EngineCore.outputText( '\n\n"<i>So, is there anything you\'d like to do?  Maybe talk?</i>"  Arian asks.  You reply that talking is fine.' );
 				}
 				//10-19 health:;
-				else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 20 ) {
+				else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 20 ) {
 					EngineCore.outputText( '\n\nYou hear the distinct groan of someone stretching from behind the door.  "<i>Come in,</i>" you hear a tired voice say.  Quietly but calmly you open the door and slip gently inside.' );
 					EngineCore.outputText( '\n\nArian smiles as you enter, sitting on his bed.  "<i>Hello, [name].  I\'m glad to see you.</i>"  He motions to a nearby chair.  "<i>Please, make yourself at home.</i>"' );
 					EngineCore.outputText( '\n\nYou take the nearby chair and sit next to his bed.  With a smile you ask how he is.' );
@@ -401,9 +401,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					//Display options;
 				}
 				//20-29 health:;
-				else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 30 ) {
+				else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 30 ) {
 					//Repeat this until the PC decides to sex Arian up somehow.;
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] === 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] === 0 && CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 ) {
 						EngineCore.outputText( '\n\nYou hear a faint moan.  "<i>Oh... [name].</i>"' );
 						EngineCore.outputText( '\n\nIs he... no, he couldn\'t be.  Arian\'s still too sickly to get horny... isn\'t he?  You wonder if you should try and spy on him - or maybe listen at the keyhole?  Then again, you could just barge on in - after all, it\'s not like he\'s really playing with himself, right?' );
 						//[Eavesdrop] [Peep] [Barge In] [Leave];
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					//(else);
 					else {
 						EngineCore.outputText( '\n\n"<i>Come in!</i>"  You hear Arian say, detecting a slight pep to [Arian eir] voice.  You step inside and smile at Arian as you close the door behind you.  [Arian Ey] smiles back at you and motions towards a nearby chair.' );
-						if( !CoC.getInstance().player.isTaur() ) {
+						if( !CoC.player.isTaur() ) {
 							EngineCore.outputText( '\n\nYou pull the chair and sit next to [Arian eir] bed.' );
 						} else {
 							EngineCore.outputText( '\n\nYou simply sit beside [Arian eir] bed.' );
@@ -426,17 +426,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 					}
 				}
 				//30-49 health:;
-				else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 50 ) {
+				else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 50 ) {
 					EngineCore.outputText( '\n\nYou hear the sound of drawers being pulled open and forcefully closed.  "<i>C-come in!</i>"  You hear Arian announce.  Curious as to what [Arian ey]\'s up to, you open the door  and step inside to see Arian sitting on [Arian eir] work desk.  [Arian Ey] slowly turns on [Arian eir] swivel chair to gaze at you with a smile.  "<i>Hello, [name]!</i>"  [Arian Ey] motions to a nearby chair.  "<i>I was just working on a little project, nothing important.  So, make yourself at home!</i>"  [Arian Ey] smiles happily at you.' );
 					EngineCore.outputText( '\n\nYou enter the room, wondering what [Arian ey] might have been working on, but decide it\'s probably nothing.  You note [Arian ey]\'s made quite an improvement in health since you first met [Arian em].' );
 					EngineCore.outputText( '\n\nYou pull the chair and sit next to [Arian em], asking why [Arian ey]\'s thanking you;  [Arian Ey] did all the hard work and made  [Arian emself] get better, you merely provided the incentive to try, you tell  [Arian em].  "<i>You\'ve given me much more than that, and for that I thank you.</i>"' );
 					EngineCore.outputText( '\n\nYou stop and consider a moment, wondering what you should do now that you\'re here with the lizan.' );
 				}
 				//50-74 health;
-				else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 75 ) {
+				else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 75 ) {
 					EngineCore.outputText( '\n\n"<i>[name], is that you?  Come in!</i>"  You hear Arian happily say.  You open the door and step in to find Arian sitting by [Arian eir] table, a book is laying on the table and a mug of tea in [Arian eir] hand.  [Arian Ey] motions to a chair nearby as [Arian ey] sips [Arian eir] tea.  "<i>Pull up a chair. May I offer you some tea?</i>"' );
 					EngineCore.outputText( '\n\nYou politely decline the tea and ' );
-					if( !CoC.getInstance().player.isTaur() ) {
+					if( !CoC.player.isTaur() ) {
 						EngineCore.outputText( 'take the offered chair' );
 					} else {
 						EngineCore.outputText( 'the offered chair' );
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				else {
 					EngineCore.outputText( '\n\nArian opens the door, smiling brightly at you.  "<i>Hello [name]!  Come in!</i>"  [Arian Ey] says, stepping back and holding the door for you.  You step in and Arian closes the door behind you and embraces you in a friendly hug.  You return [Arian eir] hug with one of your own.' );
 					EngineCore.outputText( '\n\nBreaking the hug Arian leads you to [Arian eir] table' );
-					if( !CoC.getInstance().player.isTaur() ) {
+					if( !CoC.player.isTaur() ) {
 						EngineCore.outputText( ' and offers you the chair nearby' );
 					}
 					EngineCore.outputText( '.  Taking another for [Arian em]self.  "<i>I love when you come visit, [name].  So, what are we going to do today?</i>" [Arian ey] asks, expectantly.' );
@@ -460,37 +460,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	};
 	ArianScene.prototype.arianHomeMenu = function() {
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 0 && this.arianHealth() >= 10 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 0 && this.arianHealth() >= 10 ) {
 			EngineCore.addButton( 0, 'Next', this.arianStoryDialogue1 );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 1 && this.arianHealth() >= 20 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 1 && this.arianHealth() >= 20 ) {
 			EngineCore.addButton( 0, 'Next', this.arianStoryDialogue2 );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 && this.arianHealth() >= 30 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 && this.arianHealth() >= 30 ) {
 			EngineCore.addButton( 0, 'Next', this.arianDialogue3 );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 3 && this.arianHealth() >= 50 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 3 && this.arianHealth() >= 50 ) {
 			EngineCore.addButton( 0, 'Next', this.arianImbue );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 4 && this.arianHealth() >= 75 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 4 && this.arianHealth() >= 75 ) {
 			EngineCore.addButton( 0, 'Next', this.arianPlot4 );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 5 && this.arianHealth() >= 100 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 5 && this.arianHealth() >= 100 ) {
 			EngineCore.addButton( 0, 'Next', this.arianPlot5 );
 		}//If no story dialogue;
 		else {
 			EngineCore.addButton( 0, 'Talk', this.talkToArianChoices );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 2 ) {
 				EngineCore.addButton( 1, 'Sex', this.arianSexMenu );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 1 ) {
 				EngineCore.addButton( 3, 'Give Item', this.giveArianAnItem );
 			}
-			if( CoC.getInstance().player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 || CoC.getInstance().player.hasKeyItem( 'Arian\'s Charged Talisman' ) >= 0 ) {
+			if( CoC.player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 || CoC.player.hasKeyItem( 'Arian\'s Charged Talisman' ) >= 0 ) {
 				EngineCore.addButton( 2, 'Talisman', this.imbueTalisman );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 5 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 5 ) {
 				EngineCore.addButton( 4, 'Treat Corr.', this.treatCorruption );
 			}
-			if( CoC.getInstance().time.hours >= 17 && this.arianFollower() ) {
+			if( CoC.time.hours >= 17 && this.arianFollower() ) {
 				EngineCore.addButton( 8, 'Sleep With', this.sleepWithArian, true );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] === 'Arian' ) {
+			if( CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Arian' ) {
 				EngineCore.addButton( 8, 'NoSleepWith', this.dontSleepWithArian );
 			}
 			if( !this.arianFollower() ) {
@@ -503,7 +503,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.dontSleepWithArian = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide not to sleep with Arian at night, for now.' );
-		CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = '';
+		CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		this.arianHomeMenu();
 	};
 	//[=Eavesdrop=];
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.peepOnArian = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Curious, you decide to take a little peek through the lock; you press yourself against it as best you can, looking through into the bedroom beyond.  True to what your ears heard, the sickly albino\'s health has improved enough for him to focus on more... carnal matters.  Naked from the waist down, he sits on the edge of his bed, groinal slit disgorging a single, average-sized phallus.  Maybe 6 inches long, it\'s a bright purple-red color, covered in strange lumps' );
-		if( CoC.getInstance().player.lizardCocks() > 0 ) {
+		if( CoC.player.lizardCocks() > 0 ) {
 			EngineCore.outputText( ' just like yours' );
 		}
 		EngineCore.outputText( ', though this isn\'t stopping him from enthusiastically stroking himself off.' );
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nSlowly you approach the hiding lizard, and sit on his bed.  You let him know you\'re flattered to be his object of desire, and that there\'s no need to hide himself.  If he felt this way about you he should just have said so.' );
 		EngineCore.outputText( '\n\nArian peeks from under his covers.  "<i>Y - You mean you\'re not mad at me?</i>"  You smile and tell him you aren\'t.  Arian visibly relaxes, letting his covers fall on his chest.' );
 		//(if PC is male);
-		if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\n"<i>I just assumed... since we\'re both male....</i>" He explains himself, fidgeting.  "<i>I didn\'t know if you... well... if you would mind that....</i>"' );
 			EngineCore.outputText( '\n\nYou raise your eyebrow; it seems that Arian is not opposed to some male on male.... What do you tell him?' );
 			//[Don't mind] [Like Girls];
@@ -560,14 +560,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.addButton( 1, 'Like Girls', this.youLikeGirlsNotSickLizardDudes );
 		}
 		//(else if PC is genderless);
-		else if( !CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+		else if( !CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\n"<i>I just assumed... since we\'re both male....</i>"  He fidgets with his hands.  "<i>I didn\'t know if you... well... if you would mind that....</i>"' );
 			EngineCore.outputText( '\n\nYou stop him in his tracks, and tell him you\'re not exactly male.  You strip your undergarments and let Arian gaze in fascination at your crotch - your clean, smooth, genderless crotch.  Not believing what he is seeing Arian crawls forward to touch your crotch, mesmerized.  "<i>How?  You... I... we can\'t....</i>"  You silence him with a finger, and tell him there\'s plenty you two can do.' );
 			//(Display Sex Menu);
 			this.arianSexMenu( false );
 		}
 		//(else if PC is female);
-		else if( !CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ) {
+		else if( !CoC.player.hasCock() && CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\n"<i>It\'s just that... well... you\'re so beautiful and I\'m... I didn\'t think you....</i>"  He trails off.' );
 			EngineCore.outputText( '\n\nYou tell him he looks adorable, especially when he\'s acting like a hopeless virgin.  At the mention of the word ‘virgin\' Arian recoils.  Surprised by this development, you ask him if he really is a virgin.' );
 			EngineCore.outputText( '\n\nArian hides his face once more inside his covers and says in a whisper, "<i>Yes....</i>"' );
@@ -601,7 +601,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		//Penetrate - (Proceed to appropriate scene);
 		//Get Penetrated - (Proceed to appropriate scene);
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 50 ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 50 ) >= 0 ) {
 			EngineCore.addButton( 0, 'Penetrate', this.giveArianAnal );
 		}
 		EngineCore.addButton( 1, 'Get Penetrated', this.getPenetratedByArianAndHisHitlerMustache );
@@ -619,10 +619,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nWith a nervous smile, she asks, "<i>S-So? How do I look now...?</i>"' );
 		EngineCore.outputText( '\n\nYou don\'t bother replying; you walk up to her and gently help her up.  Then you push her gently towards the bed and begin stripping.  Arian smiles and lays down.' );
 		//(Proceed to Penetrate);
-		CoC.getInstance().flags[ kFLAGS.ARIAN_HERM_CHAT ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_HERM_CHAT ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_VAGINA ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
+		CoC.flags[ kFLAGS.ARIAN_BREASTS ] = 1;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.penetrateArian );
 	};
@@ -636,7 +636,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		//(Proceed Give Anal);
 		// Redirecting the scene if the players cock is too big for the anal scene... not ideal, but its a QWIKFIX™;
 		EngineCore.menu();
-		if( CoC.getInstance().player.cockThatFits( 50 ) === -1 ) {
+		if( CoC.player.cockThatFits( 50 ) === -1 ) {
 			EngineCore.addButton( 0, 'Next', this.getBlownByArian );
 		} else {
 			EngineCore.addButton( 0, 'Next', this.giveArianAnal );
@@ -655,10 +655,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou don\'t bother replying; you walk up to her and help her up then gently push her towards the bed as you begin stripping.  Arian smiles and lays down. ' );
 		//(Proceed to Penetrate);
 		EngineCore.menu();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_HERM_CHAT ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] = 1;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
+		CoC.flags[ kFLAGS.ARIAN_HERM_CHAT ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_VAGINA ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_BREASTS ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.penetrateArian );
 	};
@@ -674,7 +674,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian nods.  "<i>I guess it isn\'t fair that I\'m the only one that gets to hear your stories... but before we start....  How long ago do you think this whole demon trouble started?</i>"' );
 		EngineCore.outputText( '\n\nYou shrug your shoulders; ' );
 		//PC has met Marae: ;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.MetMarae ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) >= 0 ) {
 			EngineCore.outputText( 'Marae herself told you they showed up about, what, 20-30 years ago?' );
 		} else {
 			EngineCore.outputText( 'you\'d guess a long while ago given the general mess they seem to have made of the world.' );
@@ -713,8 +713,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou give him a firm handshake, pronouncing that it\'s a deal.  Arian smiles at you before opening [Arian eir] maw into a wide yawn.  "<i>Sorry about that, [name].  I guess I\'m a bit sleepy....</i>"' );
 		EngineCore.outputText( '\n\nYou smile, and tell him that it\'s all right and he needs [Arian eir] sleep, so he had best get into bed. Arian nods and tucks himself in.  "<i>Thank you, [name].</i>"  You bid him goodnight and gently close [Arian eir] door behind you.  On your way out you let Boon and Laika know Arian is sleeping, then you make your way back to camp.' );
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
-		//CoC.getInstance().player returns to camp.;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		//CoC.player returns to camp.;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	////((if ArianHealth >= 20) && (ArianSDialogue === 1)) ;
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou ask him why he feels like that - what\'s wrong with [Arian eir] dream lover?  0...Is he worried because [Arian eir] lover is a boy?  Or maybe a girl with a cock?' );
 		EngineCore.outputText( '\n\nArian swallows audibly.  "<i>No, that\'s not the point....  I mean... maybe... just... just forget about it....  I\'m feeling a bit tired.... Do you mind if we talk some other time?</i>"' );
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		//[Drop It] [Pry];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Drop It', this.arianStory2DropIt );
@@ -752,7 +752,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.arianStoryPry = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Oh, no, you\'re not letting him wriggle out of this that easily.  You playfully tap [Arian eir] nose and tell him he should come clean and confess' );
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( '; he\'ll sleep better with the burden off [Arian eir] conscience' );
 		}
 		EngineCore.outputText( '.' );
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'Before you can say anything, Arian asks you, "<i>[name], I\'ve been wondering....  Do you have any interest in magic?  You\'ve done so much for me; I believe I should return the favor somehow.</i>"' );
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		//[Yes] [No];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.yesArianShouldMagicTeach );
@@ -810,9 +810,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nOh-hooo....  Your smoldering eyes burn holes in the nervously embarrassed lizan, and you give [Arian em] your sexiest glare as you ask whatever [Arian ey] means by "<i>thanking [Arian em] properly</i>"...?  You reach out and stroke the side of [Arian eir] face to emphasize your words, watching [Arian em] shudder anticipatorily at your touch.' );
 		EngineCore.outputText( '\n\nArian swallows audibly.  "<i>I... I... I want you!</i>" Arian blurts out, averting [Arian eir] gaze in embarrassment, fidgeting even more in what you\'ve come to recognize as a sign [Arian ey] is aroused.' );
 		EngineCore.outputText( '\n\nDo you have sex with Arian?' );
-		CoC.getInstance().player.createKeyItem( 'Arian\'s Talisman', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'Arian\'s Talisman', 0, 0, 0, 0 );
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		//[Yes] [No];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.yesPlotSexArian );
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian smiles brightly at you.  "<i>No problem.  I\'d do anything for you.</i>"  [Arian Ey] gazes into your eyes in silence... perhaps a bit too long....  You clear your throat and Arian seems to snap out of [Arian eir] trance.  "<i>Oh!  Umm... is there something you want to do?</i>"  [Arian Ey] fidgets.' );
 		//(Display Options);
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		this.arianHomeMenu();
 	};
 	//((if ArianHealth === 100) && (ArianSDialogue === 5));
@@ -865,7 +865,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>I\'ve spoken with them already and I believe they are ready to pursue their magical studies on their own.  They\'ve been caring for me for a long time; I think it\'s time they lived their lives for themselves.  Besides, we won\'t be separated for good; I\'ll come and visit every once in a while.</i>"  Arian smiles hopefully at you.' );
 		EngineCore.outputText( '\n\nWell... when [Arian ey] puts it that way... what should you do?' );
 		//ArianSDialogue++;;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
+		CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		//[Accept] [Deny];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Accept', this.acceptArianMovingIntoCamp );
@@ -891,16 +891,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Arian you\'d like to talk to [Arian em].  Arian smiles at the prospect of chatting with you.  "<i>I love talking with you; so what do you want to talk about?</i>"' );
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
 			EngineCore.addButton( 0, 'Sexy Talk', this.arianSexingTalk );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 3 ) {
 			EngineCore.addButton( 1, 'Teach Magic', this.arianMagicLessons );
 		}
-		if( !this.arianFollower() && CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 6 ) {
+		if( !this.arianFollower() && CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] >= 6 ) {
 			EngineCore.addButton( 4, 'Invite2Camp', this.inviteArianToCamp );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] === 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] < 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] === 0 && CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] < 3 ) {
 			EngineCore.outputText( '\n\n<b>Arian doesn\'t have much to talk about right now.  Maybe you ought to just visit him from time to time or find him an item that would help combat [Arian eir] sickness.</b>' );
 		}
 		EngineCore.addButton( 9, 'Back', this.arianHomeMenu );
@@ -913,7 +913,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'You ask Arian if [Arian ey] wouldn\'t mind giving you some magic lessons.' );
 		//(if ArianMLesson >= 4);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_LESSONS ] >= 4 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_LESSONS ] >= 4 ) {
 			EngineCore.outputText( '\n\nArian raises [Arian eir] hand, stopping you in your tracks.  "<i>I appreciate your enthusiasm, [name].  But first you must rest and let the lessons of the day sink in.  I promise I\'ll teach you more tomorrow.</i>"  Arian smiles at you.' );
 			EngineCore.outputText( '\n\nMaybe [Arian ey]\'s right... you tell [Arian em] you\'ll ask [Arian em] to teach you more tomorrow and excuse yourself.' );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -921,7 +921,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		EngineCore.outputText( '\n\nArian nods.  "<i>Of course!  Now where do I begin....</i>"' );
 		//(if PC int < 25) //Basics!;
-		if( CoC.getInstance().player.inte < 25 ) {
+		if( CoC.player.inte < 25 ) {
 			EngineCore.outputText( '\n\nYou let Arian know you\'re actually pretty new to magic in general, so maybe [Arian ey] could teach you a few basics?  Arian nods.  "<i>Very well...</i>"  Arian clears [Arian eir] throat.' );
 			EngineCore.outputText( '\n\n"<i>The basis of all magic is mental strength, or more appropriately, your willpower - the desire, the wish, the passion to make something that is not... be.  Which is the reason mages study so hard to begin with.</i>"' );
 			EngineCore.outputText( '\n\nYou pay attention to Arian\'s every word, making mental notes of the more important lessons....' );
@@ -935,7 +935,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 		}
 		//(else if PC int < 50 //Teach Charge Weapon if PC doesn't know.;
-		else if( CoC.getInstance().player.inte < 50 ) {
+		else if( CoC.player.inte < 50 ) {
 			EngineCore.outputText( '\n\nYou tell Arian you\'ve got the fundamentals down, so why not cover something a bit more advanced?' );
 			EngineCore.outputText( '\n\nArian taps [Arian eir] chin in thought, then smiles.  "<i>I know!  Let\'s talk about channeling.</i>"' );
 			EngineCore.outputText( '\n\nChanneling? You ask.' );
@@ -950,18 +950,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 
 			//(if PC doesn't know Charge Weapon);
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
 				EngineCore.outputText( '\n\nAs you ' );
-				if( !CoC.getInstance().player.isNaga() ) {
+				if( !CoC.player.isNaga() ) {
 					EngineCore.outputText( 'walk' );
 				} else {
 					EngineCore.outputText( 'slither' );
 				}
 				EngineCore.outputText( ' away, you start pondering Arian\'s lesson of the day.  You wonder if you could perhaps apply the channeling principle to strengthen your [weapon] in combat.' );
 				EngineCore.outputText( '\n\nThat would be very helpful; you\'ll have to try it sometime.' );
-				CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
 			}
-		} else if( CoC.getInstance().player.inte < 75 ) {
+		} else if( CoC.player.inte < 75 ) {
 			EngineCore.outputText( '<b>Game Note isn\'t canon and will be re-written soonish.</b>' );
 			//Teach Blind if PC doesn't know.;
 			EngineCore.outputText( '\n\nYou say you have a pretty good understanding of how magic works now, so you\'d like [Arian em] to get started on the more complex theories.' );
@@ -970,12 +970,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nArian wasn\'t kidding; this is quite a complex subject...' );
 			EngineCore.outputText( '\n\n"<i>Now to finish our lesson, I\'ll give you a practical example of how to effectively use conjuration to defend yourself.  So pay attention, [name].  Conjured objects are generally weaker than real objects, so conjuring a shield or a suit of armor or even a weapon is no good.  Not to mention it\'s quite complicated.  A suit of armor is made not only of metal, but of other components as well - you\'d have to conjure and maintain each individually.  Instead, conjure a simple element that can turn the tide of the battle in your favor.</i>"' );
 			//(if PC doesn't know Blind);
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
 				EngineCore.outputText( '\n\nLike what?  You ask in curiosity.' );
 				EngineCore.outputText( '\n\nArian lifts a closed fist.  "<i>Mind your eyes.</i>"  You nod.  Arian points [Arian eir] fist towards a nearby wall and opens [Arian eir] hand.  A bright flash of light shoots out of [Arian eir] hand to hit the wall harmlessly.  "<i>This was the element of light.  I produced a bright light capable of temporarily blinding whomever happens to be looking at it when it\'s exposed.</i>"' );
 				EngineCore.outputText( '\n\nYou note how such a spell could be useful for you in combat.  Arian grins at you.  "<i>I\'m glad this lesson was helpful, [name].  Come here and I\'ll teach you how to properly conjure it.</i>"' );
 				EngineCore.outputText( '\n\nYou spend a few minutes learning how to properly use the spell, and after some practice you can reliably use the spell whenever you want to.  You thank Arian for the lesson and for teaching you a new spell.  Then bidding farewell to the grinning lizan, you leave, promising to visit [Arian em] again soon.' );
-				CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
 				//Return to camp.;
 			} else {
 				EngineCore.outputText( '\n\nYou understand what Arian\'s talking about.  [Arian Ey] means that rather than conjuring a barrier, it\'s best to conjure something akin to a bright light to try and blind your foe.' );
@@ -1000,18 +1000,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( 'exit [Arian eir] tent.' );
 			}
 			//(if PC doesn't know Whitefire);
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
 				EngineCore.outputText( '\n\nAs you walk, you ponder what you discussed with Arian and conclude that by combining conjuration with alteration, you could quickly and easily create an expanding conflagration of flames, burning your foes in combat.' );
 				EngineCore.outputText( '\n\nYou should put that into practice sometime soon.' );
-				CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
 			}
 		}
-		CoC.getInstance().flags[ kFLAGS.ARIAN_LESSONS ]++;
+		CoC.flags[ kFLAGS.ARIAN_LESSONS ]++;
 		EngineCore.dynStats( 'int', 1 );
-		if( CoC.getInstance().player.inte < 75 ) {
+		if( CoC.player.inte < 75 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
-		if( CoC.getInstance().player.inte < 50 ) {
+		if( CoC.player.inte < 50 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1025,9 +1025,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian bites [Arian eir] lower lip in embarrassment.  "<i>I... umm... can\'t we talk about something else?</i>"  You shake your head and tell [Arian em] there\'s nothing to be ashamed of.  The two of you have already shared intimacy after all; and you\'d like to know [Arian eir] kinks and wishes as well.' );
 		EngineCore.outputText( '\n\nArian blushes, and takes a deep breath.  "<i>Okay....</i>"' );
 		//Block about penis. Should only show up if Arian has a cock at all.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] !== 0 ) {
 			//Arian talks about his lack of a second penis.;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>I\'ve always resented my lack of a second dick,</i>" Arian admits.' );
 				EngineCore.outputText( '\n\nReally?' );
 				EngineCore.outputText( '\n\n"<i>Well, lizans like me usually have two, and I only have one....  I\'ve always thought I was freakish and usually avoided any kind of sexual contact, not that it was hard to avoid it, since I usually had my muzzle buried in a book.  Maybe I wasn\'t as social because of that... or... I don\'t know.  The point is, I never hoped to find someone who\'d... you know....</i>"  Arian fidgets, smiling nervously at you.' );
@@ -1047,15 +1047,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nWhat about [Arian eir] size though?  In this world it\'s quite easy to do something about that, if size is a problem.' );
 			//Now deal with Cock Sizes, properly.;
 			//Regular Cock.;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
 				EngineCore.outputText( '\n\n"<i>Well, I don\'t have any complaints, personally.  I feel good no matter what we do.  Even if you don\'t touch me there.  But if you want me to grow bigger, or maybe want me to get rid of it... I don\'t have any objections.</i>"' );
 			}
 			//Big Cock.;
-			else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
+			else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
 				EngineCore.outputText( '\n\n"<i>I\'m certainly a lot bigger than I hoped to ever get.  Sometimes it\'s a tight fit... in my slit I mean... but I kinda like it, and that also means it\'ll feel better for you if we... I mean... if you want to...  Not that I mind, I\'m happy just being with you.  And if you want to change it somehow... I wouldn\'t mind.</i>"' );
 			}
 			//Huge Cock.;
-			else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+			else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 				EngineCore.outputText( '\n\n"<i>It\'s a lot bigger than I\'m comfortable with, to be honest.  But you said you liked it, so I\'m keeping it.</i>"  You see [Arian eir] robes beginning to tent, and can\'t help but tease the shy lizan.  It seems that despite [Arian eir] complaints, [Arian ey] enjoys having a monster between [Arian eir] legs... one that [Arian ey] can\'t hope to hide.' );
 				EngineCore.outputText( '\n\nArian blushes.  "<i>I... okay, I admit it... it feels pretty good... and is kinda kinky, too... Still, if you think I should be smaller... I wouldn\'t mind.</i>"' );
 			}
@@ -1063,7 +1063,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		//End of Cock Block. Innuendos ahoy!;
 		//(if ArianVagina > 0) //Talk about Arian's new oviposition perk;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( '\n\nArian sighs and flushes; the distinct smell of an aroused female begins to permeate the room.  That and the lizan\'s cute fidgeting are a dead giveaway of her current state.' );
 			EngineCore.outputText( '\n\nArian sighs and licks her lips.  "<i>I never imagined I would ever turn into a girl... much less that I would know what being a girl is like....  Everything feels different... but not in a bad way... just weird, I guess.</i>"' );
 			EngineCore.outputText( '\n\nYou tell her that\'s understandable, and ask how she\'s feeling about that.' );
@@ -1085,12 +1085,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		EngineCore.outputText( '\n\nYou look Arian over, and decide to ask what [Arian eir] preferred form of sex is.' );
 		//Finally discuss Arian's preferred sex acts. [Arian Ey] slowly takes a liking for anal.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			//No preference... yet.;
 			EngineCore.outputText( '\n\nArian rubs [Arian eir] chin in thought, but in the end [Arian ey] simply shrugs and says, "<i>I guess I don\'t really have a preference... so I\'m good with whatever you feel like doing.</i>"  Arian smiles at you.' );
 			EngineCore.outputText( '\n\nMaybe [Arian ey]\'s not sure yet because you haven\'t played with [Arian em] enough yet.... Perhaps you should try doing more... stuff?' );
 			EngineCore.outputText( '\n\nArian smiles nervously at you and slowly nods in agreement.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			//Kinda like anal, thought it was going to hurt but it feel nice...;
 			EngineCore.outputText( '\n\nArian rubs [Arian eir] chin in thought.  "<i>To be honest... ever since you... umm... put it back there....</i>"  Arian blushes.  "<i>I\'ve been thinking that anal is not so bad... I was scared that it might hurt at first... and while it does hurt a bit, it also feels nice.</i>"' );
 			EngineCore.outputText( '\n\nYou\'re surprised to hear that.  Not everyone enjoys anal sex.' );
@@ -1098,7 +1098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		//Anal feels good, just as good as any other action if not better;
 		//(else if (ArianAnalXP <= 100));
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] <= 100 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] <= 100 ) {
 			EngineCore.outputText( '\n\nArian blushes.  "<i>I\'m... I like it when you use my ass... it feels really good,</i>" Arian admits.' );
 			EngineCore.outputText( '\n\nOh, really?  You ask.  It\'s rare to find someone who actually enjoys anal sex, much less someone willing to admit it openly.  This is something you certainly didn\'t expect from the shy lizan.' );
 			EngineCore.outputText( '\n\nArian bites [Arian eir] lower lip and smiles nervously at you.  "<i>I guess that makes me a pervert for liking it?</i>"' );
@@ -1109,7 +1109,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nThat\'s... quite forward of [Arian em]... you didn\'t expect an admission like that.  But you like it; [Arian eir] ass certainly feels good, and you\'re glad it is pleasurable and that Arian likes it so much.' );
 			EngineCore.outputText( '\n\nArian takes a glance at your crotch.' );
 			//if PC has no cock);
-			if( !CoC.getInstance().player.hasCock() ) {
+			if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nBut sighs in disappointment when [Arian ey] sees no bulge.  "<i>Maybe... you could grow your dick back and... nevermind....</i>"  Arian averts [Arian eir] eyes.' );
 				EngineCore.outputText( '\n\nYou tell [Arian em] you\'ll think about it.' );
 			} else {
@@ -1156,8 +1156,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( 'You ask the lizan if [Arian ey] still really wants to leave [Arian eir] comfortable home in the city and come out to live with you in your little camp in the wastelands?' );
 		EngineCore.outputText( '\n\n"<i>Of course I do!</i>" Arian says enthusiastically.' );
 		EngineCore.outputText( '\n\nWell, if [Arian ey] really wants to do that... though why [Arian ey] would want to do that escapes you... [Arian ey] can come and move in.  But [Arian ey] will need to bring [Arian eir] own tent and sleeping bag and stuff like that, you warn the overenthusiastic lizard-' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
 				EngineCore.outputText( 'man' );
 			} else {
 				EngineCore.outputText( 'herm' );
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian nods.  "<i>You\'re always welcome here whenever you want.</i>"' );
 		EngineCore.outputText( '\n\nYou politely excuse yourself, saying you should let the lizan make [Arian emself] comfortable in [Arian eir] new home, and step back outside.' );
 		//flag arian as follower;
-		CoC.getInstance().flags[ kFLAGS.ARIAN_FOLLOWER ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_FOLLOWER ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sex;
@@ -1227,19 +1227,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'You ask Arian if [Arian ey] feels strong enough to do a little lovemaking.' );
 			//(if ArianHealth < 30);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 30 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 30 ) {
 				EngineCore.outputText( '\n\nArian smiles nervously at you.  "<i>I... of course.  I\'d love to.  What do you feel like doing?</i>"' );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 50 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 50 ) {
 				EngineCore.outputText( '\n\nArian smiles nervously and averts [Arian eir] eyes.  "<i>Of course.  I want to learn more about you body, your thoughts, everything.  So... what do you want to do?</i>"' );
 			}
 			//(if ArianHealth < 75);
-			else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 75 ) {
+			else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 75 ) {
 				EngineCore.outputText( '\n\nArian smiles and averts [Arian eir] eyes.  "<i>I would love to.  This isn\'t just thanks for my gift is it?</i>"' );
 				EngineCore.outputText( '\n\nYou assure [Arian em] that\'s not the case; you just feel in the mood.' );
 				EngineCore.outputText( '\n\nArian looks at you happily.  "<i>Okay... what do you feel like doing?</i>"' );
 			}
 			//(if ArianHealth < 100);
-			else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 100 ) {
+			else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 100 ) {
 				EngineCore.outputText( '\n\nArian smiles tenderly at you.  "<i>I always have enough strength for lovemaking, [name].  What do you feel like doing?</i>"' );
 			}
 			//(if ArianHealth === 100) //Also used for follower Arian.;
@@ -1250,9 +1250,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		//(Display Options);
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			//PC must have a cock that fits (cock area 50 or less);
-			if( CoC.getInstance().player.cockThatFits( 50 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 50 ) >= 0 ) {
 				EngineCore.addButton( 0, 'Anal - Pitch', this.giveArianAnal );
 			}
 			//Get Blown:;
@@ -1261,41 +1261,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			//Penetrate:;
 			//Arian must be herm/female.;
 			//PC must have a cock that fits (cock area 50 or less);
-			if( CoC.getInstance().player.cockThatFits( CoC.getInstance().flags[ kFLAGS.ARIAN_CAPACITY ] ) >= 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.player.cockThatFits( CoC.flags[ kFLAGS.ARIAN_CAPACITY ] ) >= 0 && CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.addButton( 4, 'Fuck Vagina', this.penetrateArian );
 			}
 			//Double Pen Arian:;
 			//PC must have at least 2 cocks that fit. That means two cocks with a cock area of <= 50.;
 			//This isn't meant to give AnalXP, but given the fact that Arian's ass will get pen'd it would also be justified. Up to you Fen!;
-			if( CoC.getInstance().player.cockThatFits( 50 ) >= 0 && CoC.getInstance().player.cockThatFits2( 50 ) >= 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.player.cockThatFits( 50 ) >= 0 && CoC.player.cockThatFits2( 50 ) >= 0 && CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.addButton( 8, 'Double Pen', this.doublePenetrateArian );
 			}
 			//Docking;
 			//ArianCockSize needs to be below 3. (ArianDblCock does not affect this decision.) ;
 			//PC cock area must be <= 30.;
-			if( CoC.getInstance().player.smallestCockArea() <= 30 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.player.smallestCockArea() <= 30 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.addButton( 7, 'Docking', this.arianDocking );
 			}
 		}
 		//Get Anal:;
 		//Arian must have a cock.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.addButton( 1, 'Anal - Catch', this.getButtWreckedByArian );
 		}
 		//Blow:;
 		//Arian must have a cock.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.addButton( 3, 'Blow ' + this.arianMF( 'Him', 'Her' ), this.suckAriansDick );
 		}
 
 		//PC must have a vagina.;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			//Get Penetrated:;
 			//Arian must have a cock.;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.addButton( 5, 'Get Fucked', this.getPenetratedByArianAndHisHitlerMustache );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 && (CoC.getInstance().player.hasKeyItem( 'Dildo' ) >= 0 || CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0) ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 && (CoC.player.hasKeyItem( 'Dildo' ) >= 0 || CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0) ) {
 				EngineCore.addButton( 6, 'Dildo Fun', this.arianDildoFun );
 			}
 		}
@@ -1305,15 +1305,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Modified by AnalXP.;
 	//PC must have a cock that fits (cock area 50 or less);
 	ArianScene.prototype.giveArianAnal = function() {
-		var x = CoC.getInstance().player.cockThatFits( 50 );
+		var x = CoC.player.cockThatFits( 50 );
 		EngineCore.clearOutput();
 		this.arianHealth( 3 );
-		CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] += 10;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] >= 100 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] = 100;
+		CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] += 10;
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] >= 100 ) {
+			CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] = 100;
 		}
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-giveArianAnal' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-giveArianAnal' ) );
@@ -1321,20 +1321,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		// This breaks the capacity-restriction, but it's a quickfix to make the scene stop crashing in lieu of writing new ;
 		// content to work around the player not being able to call this scene from earlier interactions with Arian.;
 		if( x === -1 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You tell Arian that, if [Arian ey]\'s willing, you\'d like to take [Arian em] from behind.' );
 		//AnalXP < 33;
 		//Tight, sensitive enough to orgasm. (It hurts... but feels good);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			EngineCore.outputText( '\n\n[Arian Ey] fidgets, biting [Arian eir] lower lip.  "<i>I... okay.  J - Just be gentle, ok?  I\'m still tight back there.</i>"  Arian hesitantly rolls onto [Arian eir] hands and knees, lifting [Arian eir] tail out of the way to give you a glimpse of [Arian eir] puckered hole.' );
 			EngineCore.outputText( '\n\nYou promise [Arian em] that you will, sidling yourself onto [Arian eir] bed behind [Arian em].  You reach out with one hand and stroke the base of [Arian eir] tail, gently admiring its cool, smooth-textured surface before running your hand down to rub across [Arian eir] asscheeks.  Mmm... [Arian ey] has a very nice ass, you tell [Arian em], groping [Arian em] in an effort to display your admiration for the lush, full, surprisingly soft cheeks.  Yes, for someone who was born male, [Arian ey] truly has a wonderful ass, so deliciously full and round and soft.' );
 			//(if ArianVagina < 1);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
 				EngineCore.outputText( '\n\n"<i>I - I can\'t help it, I was born this way... that isn\'t a bad thing is it?</i>" Arian asks, fidgeting and shuddering as you stroke [Arian eir] behind.  From [Arian eir] tone, it\'s clear that [Arian ey]\'s torn between being flattered and being embarrassed at your evident approval of [Arian eir] butt.  You don\'t bother answering [Arian eir] question, instead you just firmly grip [Arian eir] scaly buttcheek, eliciting a gasp from the flustered lizan.' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>Y - Yes... I was born like this... and being a ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
 					EngineCore.outputText( 'girl' );
 				} else {
 					EngineCore.outputText( 'herm' );
@@ -1342,15 +1342,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( ' isn\'t going to make it any smaller either.</i>"  Arian fidgets and shudders as you stroke [Arian eir] behind.' );
 			}
 			EngineCore.outputText( '\n\nYou tell [Arian em] that you don\'t know why [Arian ey] was born with it, but you certainly appreciate it.  Your wandering eyes close in on ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( 'the puffy lips of [Arian eir] drooling vagina' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' erecting ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 'pair of reptilian pricks' );
 				} else {
 					EngineCore.outputText( 'reptilian prick' );
@@ -1366,7 +1366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou tell [Arian em] that it feels wonderful; [Arian ey]\'s so tight and firm back here... to be honest, [Arian ey]\'s almost too tight; you can feel [Arian eir] heartbeat with every involuntary contraction of [Arian eir] anal walls, squeezing your cock like it\'s trying to wring it off and swallow it.  Arian chuckles.  "<i>I\'m not going to lie, [name].  It hurts, but it also feels good.  I think... maybe you should start moving?</i>"' );
 			EngineCore.outputText( '\n\nOh, and suddenly [Arian ey]\'s an expert on this, hmm?  You agree [Arian ey] has a point.  You start to withdraw yourself from [Arian em], fighting against the squeezing walls and intense suction all the way, then painstakingly pushing yourself back in, worming your way in inch by inch until you have plunged yourself all the way into [Arian eir] depths, only to start again.  Arian moans and groans with each movement.  "<i>It\'s starting to feel good now... really good.  Don\'t stop.</i>"' );
 			EngineCore.outputText( '\n\nTime fades away as you continue to squeeze your shaft in and out of Arian\'s tight, delicious little ass.  Soon - all too soon - the unmistakable feeling of orgasm starts boiling up from ' );
-			if( CoC.getInstance().player.balls === 0 ) {
+			if( CoC.player.balls === 0 ) {
 				EngineCore.outputText( 'the base of your cock' );
 			} else {
 				EngineCore.outputText( 'the bottom of your balls' );
@@ -1374,11 +1374,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( ' and you warn Arian that you\'re going to cum inside [Arian em] if you keep going.  Arian drools in pained pleasure, for a moment you wonder if [Arian ey] even heard you.  "<i>Cum.  Cum inside me.  I want it... all of it! Ah!</i>"' );
 			EngineCore.outputText( '\n\nYou groan and cry out as you promptly fulfill [Arian eir] request.' );
 			//(Low Cum Amount);
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( '\n\nEven though your load might pale in comparison to other creatures native to Mareth, you have no doubt that you\'re more than enough to fill Arian\'s tight ass flush with cum.  You unload inside [Arian em] with short, controlled thrusts.' );
 			}
 			//(Medium Cum Amount);
-			else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( '\n\nYou begin dumping your prodigious amount of cum inside your willing lizan lover.  The more you unload into [Arian eir] tight ass the more pleasurable [Arian eir] slick muscle spasms feel, milking you for more and more cum, such a lewd little hole this puckered rosebud of Arian\'s.  You sigh as [Arian eir] belly inflates and some of your spent seed begins dripping from around Arian\'s little hole.' );
 			}
 			//(High Cum Amount);
@@ -1386,13 +1386,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nFor a moment you hesitate....  Arian is clearly inexperienced and you know your load is nothing if not enormous; you worry if the inexperienced lizan will be able to handle you, but your worries are soon forgotten; it\'s much too late to worry about it now.  Your spunk jets inside the moaning lizan like a fire hose, dowsing both your and [Arian eir] flames of lust with its immense output of white, creamy goodness.  Arian\'s belly protrudes like a gravid woman\'s belly - no, actually, it\'s even wider, and yet the lizan\'s lewd little hole never tires as it milks you, even though by now Arian is beyond full - copious amounts of cum leak from around your ' + Descriptors.cockDescript( x ) + ' as [Arian eir] ass fails to contain it all.' );
 			}
 			EngineCore.outputText( '\n\nYour orgasm triggers the lizan\'s own, and [Arian ey] bites into the pillow, groaning with ecstasy as [Arian ey] cums [Arian em]self, ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( 'spewing forth large gobs of cum of [Arian eir] own' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 && CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( 'wetting both your and her legs with a healthy serving of lizan pussy juice' );
 			}
 			EngineCore.outputText( '.  You shudder and gasp until, utterly spent, you can\'t resist sinking down atop Arian and bearing [Arian em] into the comforting embrace of the bed.  You lay there, recovering your strength from your most delightful exertions, wriggling to give the lizan a proper snuggling while you lay there.' );
@@ -1405,23 +1405,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		//AnalXP < 66;
 		//Loose, sensitive enough to make Arian scream in pleasure. (It's like a tight vagina, feels like one too, minor pain);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			EngineCore.outputText( '\n\n[Arian Ey] fidgets, smiling at you nervously.  "<i>Okay, but don\'t be too rough.  I might have gotten a bit used to it, but you\'re still capable of giving me quite a stretch.</i>"  Arian rolls onto [Arian eir] hands and knees, tail waving excitedly as you catch a glimpse of [Arian eir] stretched hole.  [Arian Ey] looks back at you, shooting you [Arian eir] best seductive look and wiggling [Arian eir] hips side to side.' );
 			EngineCore.outputText( '\n\nYou smile at [Arian em] and gently stroke [Arian eir] swaying tail.  Arian sighs and lays down on the bed, reaching behind with [Arian eir] hands to spread [Arian eir] buttcheeks apart for you; [Arian eir] tail strokes your side lovingly.  Your hands reach down and gently bat [Arian eir] hands away, then begin to caress [Arian eir] luxurious ass, even as you tell [Arian em] that [Arian ey]\'s got a very sexy rear and you\'re going to enjoy fucking [Arian eir] back passage oh so very much.' );
 			EngineCore.outputText( '\n\nArian raises [Arian eir] behind, giving you better access, then looks at you with a glimmer in [Arian eir] eyes.  "<i>I\'m going to enjoy this, too.</i>"' );
 			EngineCore.outputText( '\n\nYou slick your fingers up with some saliva, noisily smacking your tongue around the digits to make it as lewd as possible, and then gently start to probe at Arian\'s black pucker, seeking entry in an effort to gauge how stretched [Arian ey] is.  Your digits slide in easily enough, meeting only a token resistance as you slowly invade Arian\'s bowels.\n\n"<i>Ah... this feels good....</i>"\n\nYou raise an eyebrow, though you know [Arian ey] can\'t really see you from this position, and ask if [Arian ey]\'s really getting to be such a buttslut that even this feels good?' );
 			EngineCore.outputText( '\n\nArian turns as much as [Arian ey] can to look at you.  "<i>Lizan females have assholes that are as sensitive as vaginas to accommodate their mate\'s dual penises.</i>"  [Arian Ey] stops [Arian eir] explanation momentarily to moan in pleasure as you begin stroking [Arian eir] insides.' );
 			//(if ArianVagina < 1);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
 				EngineCore.outputText( '\n\n"<i>This shouldn\'t apply to me, since I\'m male.  Ah!  But I guess I\'m starting to develop some sensitivity back there.  It really feels good... hmm....</i>"' );
 				EngineCore.outputText( '\n\nYou smile and comment that you wouldn\'t be surprised; if it\'s natural for [Arian eir] kind to enjoy taking it up the ass, well, it makes sense that a male would quickly grow to like it, too... especially with all the practice the two of you have been doing....' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>This didn\'t apply to me, since I was originally male.  Ah!  B-but I guess since I\'m a girl now, I\'m starting to develop some sensitivity back there.  It really feels good....  Hmm....</i>"' );
 				EngineCore.outputText( '\n\nYou smile and comment that since [Arian ey]\'s a girl now, shouldn\'t [Arian eir] ass have gotten the sensitivity boost by default if that\'s the case?' );
 				EngineCore.outputText( '\n\n"<i>I don\'t know... maybe so... but then again, lizan females don\'t have these either,</i>"  Arian replies, lifting herself off the mattress to show you her' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
 					EngineCore.outputText( ' perky' );
-				} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+				} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 					EngineCore.outputText( ' rounded' );
 				} else {
 					EngineCore.outputText( ' pillowy' );
@@ -1430,22 +1430,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nYou can\'t resist sneaking an admiring grope of the lizan\'s presented bosom, admitting that gaining breasts in exchange for anal affinity sounds like a fair trade, but you aren\'t complaining about Arian\'s bust either.  Arian gasps and drops chest-first onto the bed.  "<i>They are sensitive, too.</i>"  Arian smiles nervously at you.' );
 			}
 			EngineCore.outputText( '\n\nYou sneak a probing hand under and up between Arian\'s legs.  Oh ho!  You grin as' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( ' a' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( ' pair of dripping cocks' );
 				} else {
 					EngineCore.outputText( ' dripping cock' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( ' and' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' a sopping wet pussy' );
 			}
 			EngineCore.outputText( ' greet' );
-			if( (CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0) || (CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 1 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0) ) {
+			if( (CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 0 && CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0) || (CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 1 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0) ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' your touch.  What a little slut Arian is turning into; [Arian ey]\'s already raring to go, and even knowing it\'s going to be [Arian eir] ass that\'s getting fucked, too!' );
@@ -1459,7 +1459,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '.  You sink your fingers into the smoothly scaled skin of [Arian eir] butt, and promptly thrust your ' + Descriptors.cockDescript( x ) + ' into [Arian eir] back passage; not with the gentleness you showed Arian as an anal virgin, but not with brutal force, either.  The practice the lizan\'s had with pleasuring your cock with [Arian eir] ass is obvious - you slide in as if it\'s been lubed, with what little resistance it poses quickly giving way under the insistent pressure of your thrusts.  It\'s not as painfully tight as it was, the looseness letting you move more freely without fear of hurting your lover, but at the same time it grips you like a well-trained pussy, holding you deliciously tight and eagerly sucking you into its depths.' );
 			EngineCore.outputText( '\n\nArian moans lewdly at your intrusion.  "<i>Ah, I can feel you inside me.  I love this feeling... so full....  Do you like my ass, [name]?  Does it feel good when you use me like this?</i>"' );
 			EngineCore.outputText( '\n\nYes, you hiss, yes it feels good... does [Arian ey] really enjoy this so much?  You never stop your thrusts, relentlessly pounding into [Arian eir] greedy little ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] < 1 ) {
 				EngineCore.outputText( 'boypussy' );
 			} else {
 				EngineCore.outputText( 'nether-pussy' );
@@ -1467,34 +1467,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '.  "<i>Yesssss.... Oh, sometimes it hurts a bit, but the feeling, the pleasure, the pain.... It\'s heavenly.</i>"' );
 			EngineCore.outputText( '\n\nSmiling wryly, you lean over Arian\'s back and whisper into [Arian eir] ear, that if [Arian ey] likes this so much... you\'ll just have to fuck [Arian em] more.  Having said that, you quicken your pace, drawing a pleasured, shuddering moan from your lizan lover.  "<i>Ah!  [name]!  If you keep this up you\'re going to make me - Ah!</i>"  Make [Arian em] what now?  "<i>C-cuuuuum~</i>"' );
 			EngineCore.outputText( '\n\nArian\'s ass tightens around your ' + Descriptors.cockDescript( x ) + ' as [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 					EngineCore.outputText( 'cock spews its load' );
 				} else {
 					EngineCore.outputText( 'twin cocks spew their loads' );
 				}
 				EngineCore.outputText( ' on the bedsheets' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( ' and [Arian eir] ' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' contracting pussy paints your lower body with lizan femcum' );
 			}
 			EngineCore.outputText( '.  Arian is only capable of moaning and shuddering as [Arian eir] powerful orgasm rocks the poor lizan to [Arian eir] core.  The extra tightness of [Arian eir] contracting butthole increases the friction on your ' + Descriptors.cockDescript( x ) + ', pushing you ever closer to the climax.' );
 			EngineCore.outputText( '\n\nSeeing no point in holding back yourself, you cry out as you give yourself over to the feeling of climax, orgasm ripping its way through you from the ' );
-			if( CoC.getInstance().player.balls === 0 ) {
+			if( CoC.player.balls === 0 ) {
 				EngineCore.outputText( 'base of your spine' );
 			} else {
 				EngineCore.outputText( 'depths of your balls' );
 			}
 			EngineCore.outputText( '.  Arian, completely blissed out, lays limply on [Arian eir] bed, [Arian eir] butt held up by your gripping hands.  With a final deep thrust you finally go over the edge.' );
 			//(Low Cum Amount);
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( '\n\nYou pump Arian\'s insides with as much cum as you can muster, filling [Arian em] with your liquid love while the lizan gasps, moans, and grips you tightly with [Arian eir] distended sphincter.  You are quickly spent though, and after a couple more tugs, you feel the lizan\'s contracting rosebud relax to let you pull out of [Arian eir] depths.' );
 			}//(Medium Cum Amount);
-			else if( CoC.getInstance().player.cumQ() < 1000 ) {
-				EngineCore.outputText( '\n\nArian\'s butt feels so good that you can\'t help but paint it in white.  Gob after gob of searing hot cum flows from your ' + CoC.getInstance().player.cockHead( x ) + ' and into the lizan\'s willing bowels.  You can\'t help but continue thrusting inside [Arian eir] deliciously slick insides, even as Arian\'s distended sphincter tries its best to hold you in place.  By the time you\'re done, Arian looks like [Arian ey]\'s three months pregnant; after a few final thrusts, you\'re confident you\'ve given [Arian em] all that you can muster for the moment and pull out of the lizan\'s hungry ass.' );
+			else if( CoC.player.cumQ() < 1000 ) {
+				EngineCore.outputText( '\n\nArian\'s butt feels so good that you can\'t help but paint it in white.  Gob after gob of searing hot cum flows from your ' + CoC.player.cockHead( x ) + ' and into the lizan\'s willing bowels.  You can\'t help but continue thrusting inside [Arian eir] deliciously slick insides, even as Arian\'s distended sphincter tries its best to hold you in place.  By the time you\'re done, Arian looks like [Arian ey]\'s three months pregnant; after a few final thrusts, you\'re confident you\'ve given [Arian em] all that you can muster for the moment and pull out of the lizan\'s hungry ass.' );
 			}//(High Cum Amount);
 			else {
 				EngineCore.outputText( '\n\nYou bury yourself as deep as you can into the lizan\'s behind and brace yourself, holding onto [Arian eir] hips as the first of many jets of cum finally escapes your throbbing ' + Descriptors.cockDescript( x ) + '.  You can feel the groaning lizan shudder with each blast that you pump into [Arian eir] inviting interior; each of your sticky ropes of cum filling [Arian em] up until [Arian eir] belly looks as big as a beach ball.  Arian\'s contracted sphincter tries its best to hold your prodigious load in, but it can\'t hope to contain it all; soon white jism explodes from around the seal of your cock.  Trails of your pleasure run down the lizan\'s legs to soak the bedsheets along with the lizan\'s own fluids.  One final jet pushes Arian off your shaft, and you gaze at the messy results of your recent activities.' );
@@ -1517,41 +1517,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nHow much does [Arian ey] need it, you ask?  Enough to beg for it, like the little buttslut [Arian ey] is, hmm?  If [Arian ey] can convince you [Arian ey] wants it enough, you\'ll give it to [Arian em], you tell [Arian em].  Arian\'s tail encircles your waist, and pulls you towards [Arian eir] quivering rosebud.  "<i>Come on... fill me up.  I\'m so hot it feels like I\'m on fire!  Fill me up, please?</i>"' );
 			EngineCore.outputText( '\n\nWhat a naughty, naughty little buttslut [Arian ey] is, you croon, and deliver a playful slap to [Arian eir] ass, before squeezing the luscious round buttock, fingers creeping into [Arian eir] crevice to probe at [Arian eir] back passage.  To your surprise, the slight pressure you\'re exerting makes [Arian eir] orifice ripple and flex; [Arian ey]\'s trained [Arian eir] ass so well [Arian ey] can even try to deliberately grab you with it and suck you in.' );
 			EngineCore.outputText( '\n\nArian moans and bucks against your fingers, eager to get more of you inside.  "<i>Ah... yessss... more...</i>"  [Arian Ey] groans.  Looking under [Arian em], you can see that [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( 'wet gash is positively leaking lizan juices' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( ' and [Arian eir] ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( 'erect cock is already leaking pre like a sieve' );
 			}
 			EngineCore.outputText( '.  You can hardly believe how far Arian has come; you ask [Arian em] if it really feels that good?  "<i>More than you can... ah... imagine, now fill me up!</i>" [Arian ey] demands with a sense of urgency.' );
 			EngineCore.outputText( '\n\nSeeing no reason to delay any longer, and figuring [Arian ey] must be well-trained enough now that you don\'t need to be gentle, you promptly extract your fingers from the lizan\'s greedy ass and then slam your shaft home in one fierce thrust, asking if this is what [Arian ey] wanted.' );
 			EngineCore.outputText( '\n\nArian gasps and opens [Arian eir] maw in a silent scream.  [Arian Eir] ass contracts, milking you; ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( 'her pussy clenches, spilling a flood of juices; ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( ' and ' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( 'his cock throbs and shoots rope after rope of cum onto the bedsheets' );
 			}
 			EngineCore.outputText( '. Overwhelmed by your sudden intrusion, Arian collapses forward, burying [Arian eir] face on [Arian eir] pillow and dragging you on top of [Arian em].  "<i>Ah... [name], you feel so good.  It\'s amazing.  I never thought buttsex could ever feel this good.</i>"' );
 			EngineCore.outputText( '\n\nYou almost blink in surprise; you were just throwing the term buttslut around as a joke, you didn\'t think Arian was really like that.  Still, there are far more important matters - like digging your way into the depths of Arian\'s greedy little ass with your ' + Descriptors.cockDescript( x ) + '!  You squeeze the lizan\'s scaly butt and begin to rut [Arian em] like an animal, thrusting your way in and out of [Arian eir] back passage with all the eagerness you can muster.' );
 			EngineCore.outputText( '\n\nArian screams in pleasure, muffled by [Arian eir] pillow.  [Arian Eir] ass strives to pull you in as far as you can go, contracting, milking, gripping; even though Arian\'s just climaxed, you can see [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 'cocks are still rock hard, and surprisingly, still leaking ropes of cum' );
 				} else {
 					EngineCore.outputText( 'cock is still rock hard, and surprisingly, still leaking ropes of cum' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( ', and her' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' pussy squirting juices against your [legs] with each shuddering impact of your [hips]' );
 			}
 			EngineCore.outputText( '.  "<i>Ah!  Yes!  More, give me more!  Harder!  Faster!</i>" Arian pleads, before biting on [Arian eir] pillow in pleasure.' );
@@ -1560,11 +1560,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\n"<i>No! Ah, yes!  Cum inside me, [name]!  I need your seed inside my naughty ass.  I need to feel you filling me up, using me like the buttslut I am!  I want to cum with you!</i>"  You lift a brow, of all the people you know, Arian is the last one you\'d expect to hear this from... what would [Arian eir] apprentices say if they heard their ' + this.arianMF( 'master', 'mistress' ) + ' begging to be used like that?  "<i>Ah... I don\'t care, just fill me up with your hot, slimy spunk!</i>"  It would seem the lizan mage is too far gone to give you a straight answer.  You\'ll have to talk to [Arian em] after this.' );
 			EngineCore.outputText( '\n\nWith that in mind, you give yourself over to the pleasures of your reptilian lover and [Arian eir] naughty little ass, allowing the building orgasm to finally reach its climax and boil from your body in a gush of salty spooge.' );
 			//(Low Cum amount);
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( '\n\nYou spill your load, deep into Arian\'s bowels, [Arian eir] ass working overtime to ensure not even a single drop of seed is left in you.  "<i>Ah!  I can feel it!  Yes!</i>"  [Arian Ey] screams, in ecstasy.  Gob after gob of cum travels down your urethra and into Arian\'s blooming rosebud, you almost feel bad when you run dry and are unable to give [Arian em] anymore; even as [Arian eir] ass continues to impatiently milk you. "<i>...Aww. No more?</i>" [Arian ey] jokes.' );
 			}
 			//(Medium Cum amount);
-			else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( '\n\nYou dig deep into [Arian eir] ass, intent on delivering your load as far inside the lizan\'s slutty ass as you can.  "<i>Ah!  You feel so good!  Give it to me!  Yesss!</i>" [Arian ey] screams in ecstasy.  You can feel your cum travelling down your urethra, forcing Arian\'s sphincter to loosen up enough so you can finally cum inside [Arian em] with the force of hose.  You reach down to massage the blissed out lizan\'s belly, feeling it inflate and expand with each potent jet.  By the time you\'re done, Arian has formed a small pot belly.  "<i>Already over?  No more?</i>"  [Arian Ey] jokes.  You give [Arian em] a wry smile and pound into [Arian em] one last time, spilling one last jet into [Arian eir] belly.  "<i>Aaaah, yesss...</i>"' );
 			}
 			//(High Cum amount);
@@ -1572,16 +1572,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nYou have no doubt Arian will appreciate your prodigious load, so you make sure to press as deep as you can into [Arian eir] ass to ensure [Arian ey] will keep it all inside, then finally let your cum flow out of you and into the cock and cum hungry ass, eagerly massaging your shaft.  "<i>I can feel it!  It\'s going to be a big one!  Shoot it!</i>" [Arian ey] screams in ecstasy.  You groan and begin dumping obscene amounts of seed into your lizan lover.  The first few jets inflate [Arian eir] belly slightly, and you dart a hand to feel it expand with every subsequent blast of sticky jism.  "<i>So much cum!  So good... more!</i>"  Arian demands, blissed out by your pumping appendage.  [Arian Eir] ass never stops its assault on your ' + Descriptors.cockDescript( x ) + ' intent on massaging you as you orgasm, even as you fill Arian beyond full and some cum begins backflowing out of [Arian eir] ass.  "<i>Hmm, yesss... so full....</i>"  You pound into [Arian em] a few more times, ensuring you spill every last drop of cum.' );
 			}
 			EngineCore.outputText( '\n\nPleased and pleasured, Arian holds you still with [Arian eir] tail and rolls around on [Arian eir] back, your dick still buried inside [Arian em].  You gasp with the sudden friction and fall on top of the lizan, just in time to receive a kiss from your lizan lover.  [Arian Ey] grips you with both [Arian eir] hands and legs, then finally quakes as [Arian eir] second orgasm overtakes [Arian em].' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( '  Her cunt grips the air and blasts one last jet of wetness at your crotch.' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( '  [Arian Eir] throbbing cock flexes and shoots one last rope of lizan-cum against your belly.' );
 			}
 			EngineCore.outputText( '  [Arian Eir] ass grips you forcefully, forming a vacuum and finally loosens.  "<i>That... that wash da best,</i>"  Arian slurs, before finally collapsing on [Arian eir] bed.' );
 			EngineCore.outputText( '\n\nYou find yourself collapsing on top of the collapsed lizan, heaving to regain your breath after such a vigorous fuck.  Finally, you regain sufficient energy to pull yourself free of the absent-minded sucking of [Arian eir] ass, which wetly slurps shut afterwards to hold your seed inside.  "<i>I feel so empty when you\'re not inside,</i>" Arian utters tiredly.' );
 			//(ArianAssChat === 0);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_ASS_CHAT ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_ASS_CHAT ] === 0 ) {
 				EngineCore.outputText( '\n\nYou shake your head slowly in disbelief, telling Arian [Arian ey]\'s really let [Arian emself] go.  Arian averts [Arian eir] gaze in embarrassment.  "<i>I... sorry.  It\'s just that it feels so good, and I can\'t... sorry.</i>"  [Arian Ey] looks away, moving [Arian eir] tail into [Arian eir] hands. You sigh softly and stroke [Arian eir] scaly face, telling him it\'s not a bad thing that [Arian ey] enjoys himself, it\'s just you\'re surprised at how "<i>into it</i>" [Arian ey] gets.  [Arian Ey] doesn\'t need to debase himself for you, this is supposed to be good for both of you.' );
 				EngineCore.outputText( '\n\n"<i>I... I\'m not really trying to debase myself.  I guess I lose a bit of control when it comes to anal, because it really feels that good for me.  You\'re not mad at for being like that... for liking being fucked from behind.  Are you?</i>"' );
 				EngineCore.outputText( '\n\nYou tell [Arian em] you certainly aren\'t; you were just making sure that [Arian ey] was really enjoying himself, that [Arian ey]\'s not under the conception [Arian ey] has to act that way for you to do this to [Arian em].  Arian breaths a sigh of relief.  "<i>No, I... sorry if my being like that offends you.  I thought you enjoyed it too, since you were teasing me, but maybe I should change?</i>"' );
@@ -1603,7 +1603,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				} else {
 					EngineCore.outputText( 'out of [Arian eir] tent.' );
 				}
-				CoC.getInstance().flags[ kFLAGS.ARIAN_ASS_CHAT ]++;
+				CoC.flags[ kFLAGS.ARIAN_ASS_CHAT ]++;
 			} else {
 				EngineCore.outputText( '\n\nYou pat Arian gently on [Arian eir] ass and comment playfully that [Arian ey] is such an unabashed buttslut, isn\'t [Arian ey]?  Still, did [Arian ey] get enough cock up [Arian eir] ass for a while?' );
 				EngineCore.outputText( '\n\nArian smiles wryly at you.  "<i>I guess I\'ve got enough to hold me for a while now, but I could always use another dose.</i>"' );
@@ -1616,7 +1616,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				}
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1624,18 +1624,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//PC must have a cock.;
 	ArianScene.prototype.getBlownByArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-getbj' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-getbj' ) );
 		}
 		EngineCore.outputText( 'You trail your hand down your belly, pondering what to do.  Arian doesn\'t seem to notice, instead staring with anticipation at your erection.  You idly swing your hips from side to side, and notice with amusement that the lizan seems to follow it.  Building on that train of thought, you ask if [Arian ey] would be willing to suck you off.' );
 		//(if ArianHasBlown === 0);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_HAS_BLOWN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_HAS_BLOWN ] === 0 ) {
 			EngineCore.outputText( '\n\nThe lizan averts [Arian eir] eyes, snapping out of [Arian eir] reverie.' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 				EngineCore.outputText( '  You notice Arian\'s exposed shaft slowly hardening at your invitation.' );
 			}
 			EngineCore.outputText( '  "<i>I... Can I really?</i>"' );
@@ -1650,7 +1650,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou shudder in pleasure at the sensation; the interior of Arian\'s mouth is warmer than you expected, but smooth in texture and silky soft.  Something long and wet wriggles around your [cock biggest]; for a heartbeat, you\'d almost think it\'s a slimy snake, but then logic hits and you realize it\'s Arian\'s long, prehensile tongue, which [Arian ey] is using to coil around and entangle your intruding shaft.' );
 		EngineCore.outputText( '\n\nWith one powerful slurp, Arian coaxes a small jet of pre out of your [cock biggest], which Arian is only too happy to drink down, moaning at the first taste of your seed; this in turn sends wonderful vibrations along your length, coaxing even more pre into Arian\'s hungry maw.' );
 		//(If ArianHasBlown === 0);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_HAS_BLOWN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_HAS_BLOWN ] === 0 ) {
 			EngineCore.outputText( '\n\nAs you gasp in pleasure, you cannot help but wonder when did Arian get so skillful with [Arian eir] mouth; you thought [Arian ey] said [Arian ey] was a virgin before you came along.' );
 			EngineCore.outputText( '\n\nYou ask if Arian\'s sure [Arian ey] was a virgin until [Arian ey] met you.' );
 			EngineCore.outputText( '\n\nArian lets go of your cock, kissing its [cockHead biggest] before replying, "<i>Yes, I\'m sure... but I practiced a lot on myself...</i>"' );
@@ -1668,25 +1668,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian never slows down, even as [Arian ey] looks up to you, trying to catch a glimpse of your face to make sure [Arian ey]\'s pleasuring you well.  When your eyes meet, you swear you can see the lizan mage smiling at you, even thought [Arian eir] mouthful of cock prevents you from catching a good glimpse of [Arian eir] face.  [Arian Ey] moans with delight as you take hold of [Arian eir] head and begin guiding [Arian em].' );
 		EngineCore.outputText( '\n\nWith a few last huffs and gasps, it finally comes.  Orgasm rips through your flesh and sends your cum cascading from out of your [cock biggest] into Arian\'s suckling mouth - no point worrying about whether or not [Arian ey] wants it in the mouth now, it\'s here and [Arian ey]\'ll just have to deal with it.' );
 		EngineCore.outputText( '\n\nArian is surprised when the first jet of cum hits [Arian em] straight in [Arian eir] throat, but never stops sucking.  Somehow Arian manages to drink your cum as fast as you can pump it into [Arian eir] eager maw; by the time you\'re done, Arian has developed a ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'small' );
-		} else if( CoC.getInstance().player.cumQ() < 1500 ) {
+		} else if( CoC.player.cumQ() < 1500 ) {
 			EngineCore.outputText( 'big' );
 		} else {
 			EngineCore.outputText( 'huge' );
 		}
 		EngineCore.outputText( ' pot belly.  [Arian Ey] lets go of your dick with a sigh of pleasure and lays back on the bed.  "<i>Ah... I\'m full.</i>"' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] that [Arian ey] looks full' );
-		if( CoC.getInstance().player.cumQ() >= 1500 ) {
+		if( CoC.player.cumQ() >= 1500 ) {
 			EngineCore.outputText( ', in fact, you\'re amazed [Arian ey] didn\'t pop with how much [Arian ey] drank' );
 		}
 		EngineCore.outputText( '; is [Arian ey] sure [Arian ey]\'s all right?' );
 		EngineCore.outputText( '\n\nArian yawns, revealing [Arian eir] toothy maw.  "<i>Yes, I just need a nap.</i>"  You chuckle and tell [Arian em] that [Arian ey] should at least get under the covers.  "<i>Too... tired to bother.</i>"  Arian replies with a second yawn.  Seeing no reason not to be gallant, you step forward and help Arian climb to [Arian eir] feet' );
-		if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( ' which, considering the fact [Arian ey] looks like a mother ready to birth a toddler from the size of [Arian eir] belly, isn\'t as easy as you\'d think' );
 		}
 		EngineCore.outputText( '.  Letting the lizan use your shoulder, you pull [Arian eir] sheets up and help [Arian em] back in the bed, where [Arian ey] flops down with a protest of springs' );
-		if( CoC.getInstance().player.cumQ() >= 250 ) {
+		if( CoC.player.cumQ() >= 250 ) {
 			EngineCore.outputText( ', [Arian eir] gut audibly sloshing as the cum inside is churned by the impact' );
 		}
 		EngineCore.outputText( '.' );
@@ -1696,45 +1696,45 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		} else {
 			EngineCore.outputText( ' out of Arian\'s tent.' );
 		}
-		CoC.getInstance().player.orgasm();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_HAS_BLOWN ]++;
+		CoC.player.orgasm();
+		CoC.flags[ kFLAGS.ARIAN_HAS_BLOWN ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Penetrate:;
 	//Arian must be herm/female.;
 	//PC must have a cock that fits (cock area 50 or less);
 	ArianScene.prototype.penetrateArian = function() {
-		var x = CoC.getInstance().player.cockThatFits( 50 );
+		var x = CoC.player.cockThatFits( 50 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-penetrate' ) );
 		EngineCore.outputText( 'You admire the transgendered lizan\'s body, from her feminized features, down past her [arian chest], all the way to her shapely thighs.  You tell Arian that the change looks very good on her; few boys would really be so naturally pretty when turned into a ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'dick' );
 		}
 		EngineCore.outputText( 'girl.' );
 		EngineCore.outputText( '\n\nArian smiles and averts her eyes, rubbing one arm.  "<i>You really think so?</i>"  She bites her lower lip in nervousness.' );
 		EngineCore.outputText( '\n\nYou nod your head, insisting that you do think so.  With a lustful purr, you ask just how she would like to try out her girl parts, maybe see just how pretty she can feel with the right... encouragement?' );
 		EngineCore.outputText( '\n\n"<i>Of course!  I would love it.  So what should I do?</i>" she asks, tail waving lazily behind her as she awaits further instructions.  "<i>Should I help you get ready first?</i>"  She looks down between your legs to see your half-erect cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  "<i>Err... readier?</i>"  She asks, smiling nervously.' );
 		EngineCore.outputText( '\n\nYou smile, and tell her that, seeing as how this is fairly new to her, you\'ll try and let her take charge.  You sashay over to her bed and lay down on your back, [eachCock] jutting proudly into the air, before telling Arian you want her to straddle you.' );
 		EngineCore.outputText( '\n\nArian nods, her liquid lust dropping over your [legs] as she straddles you' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 			EngineCore.outputText( ', her exposed cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' hardening at what she\'s about to do' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( ', her bulbous cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's peeking out of their' );
 			} else {
 				EngineCore.outputText( ' peeking out of its' );
@@ -1745,7 +1745,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou gently reach up and take hold of the lizan\'s hips, telling her that first, you need to connect, slowly guiding her down, feeling her all-too-human folds parting around the tip of your cock.' );
 		EngineCore.outputText( '\n\nArian moans and tries to speed things up by impaling herself on [oneCock], but the pleasure of the insertion makes her lose her balance and she falls face down on your [chest].  "<i>Ah!  S-sorry!</i>"  She smiles nervously at you.' );
 		EngineCore.outputText( '\n\nYou smile at her and pat her on the cheek, telling her to take it easy; there\'s no need to rush this.  With painstaking deliberation, you continue gently inserting yourself into the ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
 			EngineCore.outputText( 'female' );
 		} else {
 			EngineCore.outputText( 'herm' );
@@ -1754,9 +1754,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian shudders, rubbing her stretched pussy lips against your groin.  "<i>This feels so good.  I never thought I\'d ever feel something like this.  Your cock is filling me up, and I love it.  I can feel everything... every little twitch, every little vein, the texture... everything.</i>"' );
 		EngineCore.outputText( '\n\nYou whisper to her that the best is yet to come, and then start to slowly buck your hips up and down, gradually increasing the tempo, murmuring in pleasure as you feel her slick, wet netherlips hungrily kissing you in response.' );
 		EngineCore.outputText( '\n\nArian moans throatily, gyrating her hips against your intruding shaft, until she starts to slowly rise and fall, trying her best to keep up with your rhythm.  "<i>So wet... I\'m so wet, and the sounds!  I feel so hot... sexy... wanted.  Oh, [name] fuck me!  Take me!</i>" she says, supporting herself on either side of your head, looking down at you with half-lidded, lust-driven eyes, panting hotly down at you as she bucks her hips against your thrusts.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( '  Her ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 'twin shafts' );
 			} else {
 				EngineCore.outputText( 'shaft' );
@@ -1768,9 +1768,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou unthinkingly reach up and take the lizan\'s [arian chestAdj] bosom in your hands, caressing the small, cherry-like nubs of her nipples, caressing the so-so-smooth scales that cover it, creating a texture at once alien and erotic.  Arian sighs in pleasure as you continue to massage her breasts.  "<i>Do you like them?  My breasts?  Does it feel weird that I have breasts, despite being a lizan?</i>"  You hoarsely whisper to her that you love them, and while it was strange at first, there\'s certainly many odder things about this world, and you think they\'re part of her natural charms.' );
 		EngineCore.outputText( '\n\nArian moans appreciatively and grinds her hips against you.  "<i>I\'m so happy to hear you say that; you really know how to make a girl feel appreciated.</i>"  You note that it feels a little strange to hear Arian so easily referring to "<i>herself</i>" as a girl.  Arian fidgets and averts her eyes.  "<i>I-I can\'t help it.  When you\'re buried in my pussy I just... feel girly - pretty.</i>"  That might be because she is so very pretty, you can\'t resist saying, even as you continue to thrust into her.  "<i>Oh [name]... F-fuck me.  Make me feel beautiful!  Make me cum!  I want you to fuck me as hard as you can.  Please....</i>"' );
 		EngineCore.outputText( '\n\nYou promise her you will, but with her on top, you can\'t really exert that much control.  Swinging her tail to the side along with her body, Arian quickly rolls over, never breaking contact, nor stopping bucking against you, even as her legs close behind you and she loops her arms around your neck.  She looks up at you, panting, with half-lidded eyes, then she smiles.  "<i>What about now?</i>"' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( '  Her cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's twitch as they spurt ' );
 			} else {
 				EngineCore.outputText( ' twitches as it spurts ' );
@@ -1782,35 +1782,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>That\'s... Ah!</i>"  Arian\'s words catch in her throat, and instead she moans, "<i>J-just cum!  Please!  I need it!</i>"' );
 		EngineCore.outputText( '\n\nWell, it\'s rude to cum before a lady, so you\'re not giving in, not until she cums first, you manage to gasp, though in truth you\'re struggling to keep from blowing.  "<i>Oh!  Cum!  Cum with meeeee!</i>"' );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'Arian\'s ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 'twin cocks throb' );
 			} else {
 				EngineCore.outputText( 'cock throbs' );
 			}
 			EngineCore.outputText( ' as she splashes her [arian chest] and face with her own futa-lizan seed.  ' );
 		}
-		EngineCore.outputText( 'Her walls grip you tightly, almost painfully, as a flood of juices hit the ' + CoC.getInstance().player.cockHead( x ) + ' of your ' + Descriptors.cockDescript( x ) + ' with the force of a tidal wave, only to spill around her spread nethers and run down your lower body.  Her sopping wet pussy works overtime, trying its best to pull you in as deep as possible, intent on sucking all the cum out of ' );
-		if( CoC.getInstance().player.balls === 0 ) {
+		EngineCore.outputText( 'Her walls grip you tightly, almost painfully, as a flood of juices hit the ' + CoC.player.cockHead( x ) + ' of your ' + Descriptors.cockDescript( x ) + ' with the force of a tidal wave, only to spill around her spread nethers and run down your lower body.  Her sopping wet pussy works overtime, trying its best to pull you in as deep as possible, intent on sucking all the cum out of ' );
+		if( CoC.player.balls === 0 ) {
 			EngineCore.outputText( 'you' );
 		} else {
 			EngineCore.outputText( 'your [balls]' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nFinally having kept your promise, you give yourself over to the inevitable. ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' A wash of fluids spills down your body from your cunt as it spasms in release and y' );
 		} else {
 			EngineCore.outputText( 'Y' );
 		}
 		EngineCore.outputText( 'ou unleash your essence right into the lizan\'s burning womb.' );
 		//(Low Cum amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nArian\'s pussy is clamping down so hard on your dick, that you can feel it as the cum stretches your urethra, gathering at the tip, and exploding outwards.  Contracting walls carrying the seed deep into the awaiting womb that lies beyond.  You hug the shuddering lizan tightly as you thrust against her a few more times, delivering the last few ropes of cum and collapsing atop her.' );
 		}
 		//(Medium Cum amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYou forcible stretch Arian\'s wet pussy with the sheer volume of the load traversing your cum-sleeve.  You imagine yourself, covering the lizan\'s canal in white... all the way to her cervix.  The weak barrier barely containing the enormous load that forces it open, to spatter and sit inside her womb.  "<i>Ahh... so full,</i>" Arian says, tongue lolling out.  You hug her tightly against you, an action she happy to return, and slowly you feel it.  Her slender belly gains volume, sloshing with the cum you just deposited in it.  Once spent, you collapse and sigh.' );
 		}
 		//(High Cum amount);
@@ -1818,9 +1818,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou threaten to blow the poor lizan straight off your ' + Descriptors.cockDescript( x ) + ' with the sheer force of your cum.  Hosing down her walls to the point she can\'t hope to contain all of your powerful jets, you draw her close, and Arian groans, returning the gesture with a tight hug of her own.  "<i>Ugh, my belly... so much... so good,</i>" she moans, and you continue to torment her body with your prodigious load.  The sheets under the two of you have since turned into a wet mess of mixed juices, covering both of your lower bodies in the aftermath of you tryst; and it\'s not until you thrust into her a couple more times, to ensure you\'re completely spent, that you collapse on top of her, slightly propped up by the protruding, pregnant-looking belly you\'ve given her.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Aaahhhh...</i>"  Arian sighs.  "<i>Sex... feels so good.</i>"  Caressing the back of your head, she gently pulls you into a quick kiss.  "<i>If this is how it\'ll feel every time we do this, then I have no regrets about turning into a girl,</i>" she says, one hand snaking it\'s way between the two of you to rub her ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'lean' );
-		} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		} else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'full' );
 		} else {
 			EngineCore.outputText( 'overfilled' );
@@ -1828,7 +1828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ' belly.  "<i>Stay with me, like this, a little longer?</i>" Arian asks.' );
 		EngineCore.outputText( '\n\nYou take her free hand in your own and tell her that, if she wants you to, you can stay for at least a little while longer.  "<i>I\'d like that... just a while.</i>"  Arian does her best to nuzzle you.  With no compelling reason not to, you nuzzle her back and content yourself with laying there, enjoying the mutual afterglow.' );
 		EngineCore.outputText( '\n\nEventually, though, you announce that you should probably get going.  As nice as it is to stay here with her, you have duties to attend to.  Arian smiles at you, and gives you a little peck on the lips.  "<i>I understand, but come see me again soon, please.</i>"  You promise her you will and extract yourself from the affectionate lizan\'s embrace.  You quickly find your clothes and get dressed, then leave.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1836,20 +1836,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Arian must have a cock.;
 	ArianScene.prototype.getButtWreckedByArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-getArianAnal' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-getArianAnal' ) );
 		}
 		EngineCore.outputText( 'With a lick of your lips with your tongue, you ask how Arian would like to be on the pitching end of anal?' );
 		//(if AnalXP < 33);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			EngineCore.outputText( '\n\n"<i>I don\'t know... won\'t it hurt, are you sure?</i>"' );
 		}
 		//(if AnalXP < 66);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			EngineCore.outputText( '\n\n"<i>I like it when you use my ass, but if you want me to use yours, I would gladly comply.  That is, if you\'re sure you want me to...?</i>"' );
 		}
 		//(if AnalXP <= 100);
@@ -1861,9 +1861,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>Okay, then.  How should we do this?  I don\'t want to do something wrong and end up hurting you...</i>"' );
 		EngineCore.outputText( '\n\nYou smirk and reach out a hand to caress the lizan\'s [arian chest], stage-whispering to [Arian em] that [Arian ey] just needs to lie down on [Arian eir] bed and you\'ll take care of things from there...' );
 		EngineCore.outputText( '\n\nArian swallow audibly, but complies.  Slowly [Arian ey] lets [Arian em]self fall back onto [Arian eir] bed, fidgeting as [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
 			EngineCore.outputText( 'exposed cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's harden' );
 			} else {
 				EngineCore.outputText( ' hardens' );
@@ -1871,7 +1871,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( ' to full mast.' );
 		} else {
 			EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's peek out of their' );
 			} else {
 				EngineCore.outputText( ' peeks out of its' );
@@ -1879,21 +1879,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( ' hiding place, rising to full mast.' );
 		}
 		EngineCore.outputText( '\n\nYou sashay yourself towards the prone lizan, straddling [Arian eir] legs and reaching out to grasp [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'primary ' );
 		}
 		EngineCore.outputText( 'cock.  Slowly and gently you begin to stroke its strange, knobbly surface, your fingers eliciting moans and gasps from Arian as [Arian ey] shudders under your touch.  Precum begins to ooze from the reptilian prick\'s head, and you purposefully rub it into [Arian eir] shaft as a kind of makeshift lubricant.' );
 		EngineCore.outputText( '\n\n"<i>Ohm... T-this feels great, [name], b-but if you keep this up, I won\'t be able to hold back!</i>" Arian pants, [Arian eir] shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' throbbing against your hands.' );
 		EngineCore.outputText( '\n\nWell, that would be a shame; it might be a little rough, but you\'ll have to make do with what you\'ve got.  With that in mind, you cease your stroking, and start sliding yourself up Arian\'s body, until your [ass] is positioned above [Arian eir] jutting prick.  With slow, deliberate motions, you slowly start to impale yourself upon it...' );
-		CoC.getInstance().player.buttChange( this.arianCockSize(), true, true, false );
+		CoC.player.buttChange( this.arianCockSize(), true, true, false );
 		EngineCore.outputText( '\n\n"<i>Argh!  T-this is too much!</i>"  With a groan of pleasure Arian shoots [Arian eir] cum into your bowels, lubricating it enough to allow you to easily slide down onto [Arian eir] shaft.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( '  [Arian Eir] other shaft twiches and sprays your ' );
-			if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+			if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 				EngineCore.outputText( 'back' );
 			} else {
 				EngineCore.outputText( 'tail' );
@@ -1904,16 +1904,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>S-sorry...</i>"  Well, it can\'t be helped.  You\'ll just have to try again some other time... "<i>No!  Wait!</i>"  Arian grabs your hips.  "<i>I-I can still go on!</i>"  Really?  Because you\'re pretty sure you can feel [Arian em] going soft right this instant...  "<i>Y-yes... just give me a moment.</i>"' );
 		EngineCore.outputText( '\n\nArian looks up at you, panting; [Arian eir] hands begin roaming your body, caressing your [hips], your [butt], your [chest].  For a moment, you actually feel [Arian eir] bulbous shaft throb within you, but maybe [Arian ey] needs a little push to make things go faster?  You smirk.' );
 		EngineCore.outputText( '\n\nWith that, you bend over and kiss [Arian em], slipping your tongue into [Arian eir] mouth to wrestle with [Arian eir] own long, dexterous tongue.  Withdrawing, you send a hand reaching down between [Arian eir] legs, squeezing [Arian eir] ass, ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'stroking [Arian eir] other cock and sliding it between your ass cheeks, ' );
 		}
 		EngineCore.outputText( 'caressing the base of [Arian eir] tail.  With a devious grin, you begin to gently but insistently slide your finger into [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] > 66 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] > 66 ) {
 			EngineCore.outputText( 'eager ' );
 		}
 		EngineCore.outputText( 'ass, probing for [Arian eir] prostrate...' );
 		EngineCore.outputText( '\n\nThe reaction is almost instantaneous; Arian moans into your kiss and you feel [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'pair of lizan-cocks practically jump' );
 		} else {
 			EngineCore.outputText( 'lizan-cock practically jump' );
@@ -1922,59 +1922,59 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou grin and coyly muse to yourself that maybe Arian makes up for [Arian eir] quickness at climaxing with the speed with which [Arian ey] can recover.' );
 		EngineCore.outputText( '\n\nArian bites [Arian eir] lower lip nervously.  "<i>I can\'t help myself if you keep touching me like that.</i>"  [Arian Ey] closes [Arian eir] eyes and turns to the side, [Arian eir] hands clutching your [hips] and [Arian eir] toes curling behind you.  You can\'t help but gently pat [Arian em] on [Arian eir] head and tell [Arian em] that [Arian ey] looks really cute when [Arian ey] acts like an embarrassed virgin, especially after having already cum inside you.  Arian just turns to smile nervously at you.  "<i>I... can we... start moving now?</i>"' );
 		EngineCore.outputText( '\n\nYes, yes you can, you tell [Arian em], and for emphasis you begin to rise and fall, ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'sliding [Arian eir] neglected prick through your ass-cheeks, ' );
 		}
 		EngineCore.outputText( 'clenching your inner walls to grip and feel the excitingly unusual lumpy, bulbous texture of [Arian eir] shaft inside you.  You moan and gasp, telling [Arian em] that [Arian ey] feels so unique, and yet [Arian ey] stimulates you so wonderfully.' );
 		EngineCore.outputText( '\n\nThe lizan mage can barely contain [Arian emself] as [Arian ey] tosses and turns on [Arian eir] bed, gasping and moaning at your ministrations.  You lick your lips as you continue to ride [Arian em], ' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'cunt dripping with arousal' );
 		}
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' drooling precum onto [Arian eir] belly' );
 		}
 		EngineCore.outputText( '.  You\'re so close now, you can feel it.  You tell Arian you\'re going to cum, and beg [Arian em] to cum with you.' );
 		EngineCore.outputText( '\n\nAs if on cue, Arian gasps and [Arian eir] shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's twitch' );
 		} else {
 			EngineCore.outputText( ' twitches' );
 		}
 		EngineCore.outputText( ', signaling [Arian eir] oncoming orgasm.  [Arian Ey] grabs the sheets on [Arian eir] bed and curls [Arian eir] toes.  "<i>...[name]!</i>"  Jet after jet of lizan spunk paints your bowels white' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( ', as well as your butt' );
 		}
 		EngineCore.outputText( ', as Arian climaxes' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ', her own pussy clenching and drizzling juices on the matted sheets beneath the two of you.' );
 		} else {
 			EngineCore.outputText( '.' );
 		}
 
 		EngineCore.outputText( '\n\nWith a cry of glee, you orgasm, giving yourself over to the pleasures of the act.  Your ass clenches around the bulbous shaft intruding in your bowels, trying to wring it of all its delicious load.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  [EachCock] spasms and shoots rope after rope of cum, painting Arian\'s [arian chest] white, as well as the groaning lizan\'s face.' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your [pussy], though unattended, joins in the perverted display, leaking copious amount of fluids on top of the prone lizan.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Ahhhhh...</i>"  Arian sighs, going limp on [Arian eir] bed.  You follow shortly, laying down on top of [Arian em], embracing [Arian em] as [Arian ey] does the same.  "<i>[name], you\'re amazing.</i>"' );
 		EngineCore.outputText( '\n\nWith a pleased grin, you tell [Arian em] that [Arian ey]\'s not too shabby [Arian em]self, either.  So, how did [Arian ey] like being the pitcher?' );
 		//(if AnalXP < 33);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			EngineCore.outputText( '\n\n"<i>Wow, that felt really good.  Did it feel good for you too, [name]?  I hope it did... wow,</i>"  Arian pants.' );
 			EngineCore.outputText( '\n\nYou smile and pat your lover on the head, assuring [Arian em] that it was good for you, too.' );
 			EngineCore.outputText( '\n\n"<i>I\'m glad,</i>" [Arian ey] replies, nuzzling you in affection.' );
 		}
 		//(if AnalXP < 66);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			EngineCore.outputText( '\n\n"<i>You ass feels so good on my cock, [name].  I can only hope it feels this good when you\'re inside me.  Though to be honest, I think I like it best when our roles are reversed.</i>"' );
 			EngineCore.outputText( '\n\nYou insist that it does, though you can\'t resist grinning and warning Arian [Arian ey] might be getting too much into catching when it comes to this situation.' );
 			EngineCore.outputText( '\n\n"<i>It just feels so good when you\'re doing me from behind, but doing you is good too.</i>"  [Arian Ey] smiles.' );
@@ -1987,14 +1987,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nAnd what if you want to be the catcher sometimes, huh?  [Arian Ey]\'s got such a wonderful cock, how can [Arian ey] deny you the pleasure of taking it up the ass?  [Arian Ey]\'s so greedy, you tell him, playfully tapping him on the nose.  [Arian Ey] whimpers.  "<i>Okay, I like being the pitcher too, but can you do me now?  Please?</i>"  [Arian Ey] asks, eagerly wiggling [Arian eir] hips.' );
 			EngineCore.outputText( '\n\nYou contemplate it...' );
 			//(if PC has a cock) {;
-			if( CoC.getInstance().player.hasCock() ) {
-				CoC.getInstance().player.orgasm();
+			if( CoC.player.hasCock() ) {
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', 2 );
-				CoC.getInstance().player.slimeFeed();
+				CoC.player.slimeFeed();
 				//[Yes: Play the "<i>PC fucks Arian's ass</i>" scene];
 				//[No: You tell Arian you've had enough fun for now; maybe later, after you've both recovered.];
 				EngineCore.menu();
-				if( CoC.getInstance().player.cockThatFits( 50 ) >= 0 && CoC.getInstance().player.hasCock() ) {
+				if( CoC.player.cockThatFits( 50 ) >= 0 && CoC.player.hasCock() ) {
 					EngineCore.addButton( 0, 'Yes', this.giveArianAnal );
 				} else {
 					EngineCore.outputText( '.  You\'re too big to fit inside Arian\'s ass, though.' );
@@ -2008,7 +2008,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\n"<i>I guess I need a nap now.  Care to join me?</i>" [Arian ey] asks, yawning widely.  You tell him the offer is tempting, but you really need to get going and attend to other things.  You stroke [Arian eir] cheek and tell [Arian em] to get some rest to build [Arian eir] strength back up - after all, it wasn\'t really that long ago that [Arian ey] was so sick.  Arian nods.  "<i>Okay, see you soon?</i>"' );
 			EngineCore.outputText( '\n\nYou promise [Arian ey] will, and plant a quick kiss on [Arian eir] brow.  As the lizan settles down to rest, you quietly redress yourself and leave [Arian em] to [Arian eir] slumbers.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2016,9 +2016,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Arian must have a cock.;
 	ArianScene.prototype.suckAriansDick = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-suckariandick' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-suckariandick' ) );
@@ -2029,15 +2029,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>Ok... if that\'s what you really want to do.  So... what should I do?</i>" the lizan mage asks, fidgeting in barely contained excitement, tapping [Arian eir] fingers in anticipation.' );
 		EngineCore.outputText( '\n\nJust get on the bed, you instruct [Arian em]; you\'re certain you can take care of the rest.' );
 		EngineCore.outputText( '\n\n"<i>All right,</i>" Arian replies nervously, [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 3 ) {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 3 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 'exposed cocks hardening to full mast' );
 			} else {
 				EngineCore.outputText( 'exposed cock hardening to full mast' );
 			}
 		} else {
 			EngineCore.outputText( 'cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's emerging from their' );
 			} else {
 				EngineCore.outputText( ' emerging from its' );
@@ -2046,54 +2046,54 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\nYou approach [Arian em] and position yourself before [Arian em], contemplating how to begin.  You reach out with one hand and start to stroke [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'uppermost ' );
 		}
 		EngineCore.outputText( 'cock, marveling at the strange textures of its bumpy, knobbly, bulbous surface.  It feels so strange to you, and you continue to stroke it eagerly.' );
 		EngineCore.outputText( '\n\nArian can only moan at your ministrations, eagerly humping your hand, desperate for your touch.  "<i>Oh, my... it... it feels so good when it\'s someone else\'s hand...</i>" [Arian Eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'twin ' );
 		}
 		EngineCore.outputText( 'shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's tremble' );
 		} else {
 			EngineCore.outputText( ' trembles' );
 		}
 		EngineCore.outputText( ' and throb' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' against your hand; pre quickly forming on the tip' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' only to slowly slide down the bulbous surface of Arian\'s lizan prick' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  You continue to slide your hand along the increasingly slick surface, playfully asking if your hand really feels that good to [Arian em]?' );
 		EngineCore.outputText( '\n\n"<i>Yesssss... Oh!  If you keep this up I won\'t be able to last long.</i>"  Arian pants, [Arian eir] three-toed feet curling with each stroke, hands gripping the sheets tightly.' );
 		EngineCore.outputText( '\n\nYou smile at [Arian em] with an innocent expression quite out of place for what you\'re doing, and then lean in to give [Arian eir] cock' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' a long, loving, slurpy lick.  The taste is surprising; a sort of sugary-tinted spice, not the usual salt of another creature.  It\'s actually quite pleasant, and you find yourself running your tongue up and down [Arian eir] prick as if it were some kind of candied stick, eagerly sucking and slobbering as you coax more of [Arian eir] yummy goo from its strangely-shaped tip.' );
 		EngineCore.outputText( '\n\nArian contorts with each loving lick, grunting and groaning in pleasure.  "<i>[name], I\'m going to cum!</i>"  [Arian Ey] warns you, and judging by the way [Arian eir] shaft is throbbing [Arian ey] looks just about ready.' );
 		EngineCore.outputText( '\n\nIn other circumstances, you\'d probably tease [Arian em] about having no staying power, but, seeing how the wind\'s blowing, you instead put your mouth to better use and envelop [Arian eir] cock, suckling and slurping like a baby on a nipple as more of that strange spicy-sweet cum trickles steadily into your mouth.' );
 		EngineCore.outputText( '\n\nUnable to hold back any longer, Arian\'s hands pull on the sheets as [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'twin cocks throb' );
 		} else {
 			EngineCore.outputText( 'cock throbs' );
 		}
 		EngineCore.outputText( ' one more time and erupts into your waiting mouth' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( ' and chin' );
 		}
 		EngineCore.outputText( '.  [Arian Eir] legs close around your back, effectively keeping you from moving too far away as [Arian ey] finishes giving you all of [Arian eir] load.' );
 		EngineCore.outputText( '\n\nYou simply go with what [Arian ey] wants and focus on guzzling down every last drop, continuing to lick and tease even as you swallow mouthful after creamy mouthful' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( ', oblivious to the second cock spewing cum all over your [chest] in your eagerness' );
 		}
 		EngineCore.outputText( '.  After [Arian ey] finally finishes, you continue to lick and suckle for a few minutes longer, making sure you\'ve lapped up every last drop.  Then and then alone do you lift your head, flirtatiously licking your lips to tease the now-spent lizan.' );
@@ -2101,7 +2101,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou confess that, truthfully, the taste was unusual, but hardly unpleasant.  So, did your little lizard like the way you licked [Arian eir] lolly to reach the creamy center?  You jest.' );
 		EngineCore.outputText( '\n\n"<i>Yes, I liked it very much!  Though I hope you\'ll let me return the favor... somehow,</i>"  [Arian Ey] says, releasing you from between [Arian eir] legs, while [Arian eir] tail lazily curls to gently massage your neck in a sign of affection.' );
 		//[NoCock: ;
-		if( !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYou tell [Arian ey] you\'ll think of some way [Arian ey] can return the favor,' );
 		} else {
 			EngineCore.outputText( '\n\nWell, you happen to have a creamy lolly of your own that [Arian ey] could lick, you tease,' );
@@ -2110,13 +2110,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian bites [Arian eir] lips and twirls [Arian eir] fingers.  "<i>Well, I hope I can do something... anything... for you soon.  I really enjoy spending time with you, [name].</i>" [Arian Ey] smiles at you.' );
 		EngineCore.outputText( '\n\nSmiling wryly, you jokingly tell the lizan mage that the only reason [Arian ey] happens to enjoy your company is because of all the sex [Arian ey]\'s getting.  Arian gasps and immediately blurts out, "<i>No! Of course not!  I would love to be in your company even if we didn\'t do anything!</i>"  [Arian Ey] gasps once more and shamefully hides [Arian eir] face when [Arian ey] realizes [Arian ey]\'s sporting another erection.  "<i>S-sorry!  I can\'t help it!</i>" [Arian ey] fumbles, trying to cover [Arian emself].' );
 		EngineCore.outputText( '\n\nYou just smile and pat [Arian em] on the cheek, telling [Arian em] that [Arian ey]\'s adorable when [Arian ey] blushes.  You give [Arian eir] newly-stiffened cock a good firm stroke' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ' and tickle her cunt with a finger' );
 		}
 		EngineCore.outputText( ' for emphasis, kiss [Arian em] gently on the tip of [Arian eir] nose, and then get your clothes together, planning on getting dressed and heading back out again.' );
 		EngineCore.outputText( '\n\n"<i>Uuuh... see you soon?</i>"' );
 		EngineCore.outputText( '\n\nYou throw [Arian em] a smirk over your shoulder, shake your [ass] for [Arian eir] benefit, and head on out.' );
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Penetrated:;
@@ -2124,24 +2124,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Arian must have a cock.;
 	ArianScene.prototype.getPenetratedByArianAndHisHitlerMustache = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-getpenetrated' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-getpenetrated' ) );
 		}
 		EngineCore.outputText( 'You look at Arian\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
 			EngineCore.outputText( 'slit, and think of what it\'s hiding in there' );
 		} else {
 			EngineCore.outputText( 'exposed cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 		}
 		EngineCore.outputText( '; then you turn to look at Arian and ask [Arian em] how would [Arian ey] feel about giving [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'twin cocks' );
 		} else {
 			EngineCore.outputText( 'cock' );
@@ -2149,82 +2149,82 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ' a bit of a workout?' );
 		EngineCore.outputText( '\n\nArian swallows audibly.  "<i>Are you suggesting that we... and that I... put it in?</i>"  Grinning, you nod in affirmation, telling [Arian em] that there\'s no need to be shy about it... at least not since your relationship escalated to the current level.' );
 		EngineCore.outputText( '\n\n"<i>Ok... how do you want to do this?</i>"  You motion for the lizan to get up.  Arian eagerly complies and gets off [Arian eir] bed.  You teasingly take [Arian eir] place on the bed, looking up at [Arian em] as you ' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( 'spread your [legs] and ' );
 		}
 		EngineCore.outputText( 'expose your [vagina] to [Arian eir] viewing pleasure.  The reaction is almost instantaneous; Arian\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
 			EngineCore.outputText( 'exposed' );
 		} else {
 			EngineCore.outputText( 'hidden' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( ' twin shafts immediately fill' );
 		} else {
 			EngineCore.outputText( ' shaft immediately fills' );
 		}
 		EngineCore.outputText( ' with blood, growing fully erect in ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'their' );
 		} else {
 			EngineCore.outputText( 'its' );
 		}
 		EngineCore.outputText( ' bulbous, throbbing glory.' );
 		EngineCore.outputText( '\n\nWith a smile, you tell [Arian em] that despite [Arian eir] initial bout of shyness, [Arian eir] body seems to know exactly what to do.  Arian simply laughs in nervousness.  You wait for a short while, until finally you tell [Arian em] that [Arian ey] should position [Arian emself] at your opening' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' and get ready to thrust in; otherwise neither of you are going to be feeling good any time soon.' );
 		EngineCore.outputText( '\n\nSnapping to [Arian eir] senses, Arian quickly ' );
 		EngineCore.outputText( 'kneels between your [legs]' );
 		EngineCore.outputText( ', aligning the tip of ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'each of ' );
 		}
 		EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' ' );
 		EngineCore.outputText( 'shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' with your [vagina]' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( ' and [asshole]' );
 		}
 		EngineCore.outputText( '.  [Arian Ey] looks at you, waiting for you to confirm that [Arian ey] should indeed get going.  You smile and nod' );
-		if( CoC.getInstance().player.hasLongTail() ) {
+		if( CoC.player.hasLongTail() ) {
 			EngineCore.outputText( ', looping your tail around [Arian eir] waist' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nArian smiles right back at you and finally begins easing [Arian emself] inside you.' );
 		//(if ArianDblCock === 1) //DP PC;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( '\n\nHesitantly, the lizan tries to fit both of [Arian eir] cocks into your [vagina] and [asshole] at the same time.  You sigh at the intrusion and look at [Arian eir] face; Arian has a look of absolute bliss on [Arian eir], you can even see that the lizan is beginning to drool a bit.  The texture of Arian\'s twin cocks might be very similar, but they feel entirely different on both your ass and pussy.' );
 			EngineCore.outputText( '\n\nThe bulbous orbs dotting the length work somewhat like beads, as they work over your resistance, each time one of them presses in, you moan and brace yourself for the next, larger bulb.  Gently but insistently Arian presses forward, quite happy to try and take both of your holes at the same time.  "<i>This isn\'t hurting you, is it?</i>" [Arian ey] asks, still understandably nervous about your relationship.' );
 			EngineCore.outputText( '\n\nYou shake your head and tell [Arian em] that you\'re fine.  [Arian Eir] cocks just feel... different... from what you\'re used to seeing around; you remark that they seem built to rub against your most sensitive spots inside both your ass and your vagina.  Still, if [Arian ey] doesn\'t hurry up and fill you up, you might have to take matters into your own hands.  It\'s not nice to keep a girl waiting.' );
 			EngineCore.outputText( '\n\nArian fumbles and begins penetrating you with more gusto.  "<i>S-sorry, I just don\'t want to hurt you...</i>"  You sigh and tell [Arian em] that you aren\'t made of glass.  [Arian Ey] can be a little rough, though if [Arian ey] overdoes it you\'ll have to stop [Arian em].  Still, you can take something like this!' );
 			EngineCore.outputText( '\n\nYou take hold of [Arian eir] arms and pull [Arian em] up towards you, making the lizan lose [Arian eir] balance and fully penetrate you.' );
 			//(Enlargement/Virginity loss messages);
-			CoC.getInstance().player.cuntChange( this.arianCockSize(), true, true, false );
-			CoC.getInstance().player.buttChange( this.arianCockSize(), true, true, false );
+			CoC.player.cuntChange( this.arianCockSize(), true, true, false );
+			CoC.player.buttChange( this.arianCockSize(), true, true, false );
 			EngineCore.outputText( '\n\nThe lizan moans in shock at the deed, as if [Arian ey] still can\'t believe this is actually happening.  [Arian Eir] fingers clutch you tightly, but [Arian ey] doesn\'t make any further motions - more likely [Arian ey] can\'t bring himself to thrust just yet, still full of that nervous virgin behavior.' );
 		} else { //Only one pole for that hole.
 			EngineCore.outputText( '\n\nArian nervously begins to thrust [Arian eir] strange, bumpy cock into your cunt, timidly inserting an inch or two and then withdrawing, as if unable to bring [Arian em]self to fully penetrate you.' );
 			EngineCore.outputText( '\n\nYou moan at the initial intrusion, and sigh as [Arian ey] pulls out.  Impatient and bothered by [Arian eir] impromptu teasing, you ask what\'s gotten into [Arian em] to make [Arian em] withdraw?  You\'re already more than ready for this.' );
 			EngineCore.outputText( '\n\n"<i>I-I\'m sorry, it\'s just....  Well, I\'m not used to this, you know.</i>"  Arian\'s eyes are downcast, and you\'re certain you can see a faint tinge of red around [Arian eir] face, [Arian eir] albinism allowing [Arian em] to blush in a way you\'re not sure a normal lizan could.  "<i>It... it\'s so overwhelming to finally be with a woman, never mind a woman like you.</i>"' );
 			EngineCore.outputText( '\n\nSighing at the lizan\'s inexperience, you gently take [Arian eir] hands in yours and guide them around you, telling [Arian em] to hug you' );
-			if( CoC.getInstance().player.hasLongTail() ) {
+			if( CoC.player.hasLongTail() ) {
 				EngineCore.outputText( ', further encouraging [Arian em] to do so, by looping your tail around [Arian eir] waist' );
 			}
 			EngineCore.outputText( '.  The lizan doesn\'t need much encouragement to comply, easily snuggling against you, breast to breast, and sighing softly.  "<i>I\'m sorry.  Sometimes I wonder why you bother doing something like this, with someone like me,</i>" [Arian ey] says, a hint of sadness in [Arian eir] voice.' );
 			EngineCore.outputText( '\n\nYou reply that you bother because Arian is cute and you happen to like [Arian em].  [Arian Ey] should forget about [Arian eir] insecurities and give [Arian emself] some credit.  Still, you are horny, and judging by the prodding you feel on your [leg], so is Arian.  You don\'t bother saying anything more, gently reaching down to align [Arian eir] shaft with your [vagina] and then pinch on the base of [Arian eir] tail.' );
 			EngineCore.outputText( '\n\nArian lets out a tiny squeak of shock at the pinching sensation, which instinctively makes [Arian em] thrust [Arian emself] forward, embedding [Arian emself] in you to the hilt.' );
 			//(Enlargement/Virginity loss messages);
-			CoC.getInstance().player.cuntChange( this.arianCockSize(), true, true, false );
+			CoC.player.cuntChange( this.arianCockSize(), true, true, false );
 			EngineCore.outputText( '\n\nYou gasp in pleasure at the sudden intrusion; then hug your lizan lover closer, stroking [Arian eir] back.  You ask if that was so difficult?' );
 			EngineCore.outputText( '\n\n"<i>N-not difficult, no.  But hard, all the same,</i>" Arian replies.  Did [Arian ey] just make a joke?' );
 		}
 		EngineCore.outputText( '\n\nSmiling, you gently tap [Arian em] on the nose and tell [Arian em] that unless [Arian ey] expects you to do all the work, the two of you won\'t get anything done if [Arian ey] just lets [Arian eir] shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' sit inside you.' );
@@ -2233,59 +2233,59 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>I\'m sorry,</i>" [Arian ey] sighs.  It\'s ok, you tell [Arian em], you\'ll just have to guide [Arian em] through the process.  Grasping on the base of [Arian eir] tail, you begin guiding the inexperienced lizan, using [Arian eir] tail like a control stick.' );
 		EngineCore.outputText( '\n\nArian moans and shivers at the pleasure, but it doesn\'t stop [Arian em] from catching on; indeed, [Arian ey] proves [Arian em]self a quick study and starts to preempt your ‘instructions\'.  "<i>I-I can\'t tell you how incredible this is, [name].  You\'re so warm and wet inside,</i>" [Arian ey] murmurs to you, too caught up in the sensations of sex to really flatter you.' );
 		EngineCore.outputText( '\n\nYou moan alongside your lizan lover, replying that [Arian ey] feels just as good.  [Arian Eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'twin bulbous shafts feel' );
 		} else {
 			EngineCore.outputText( 'bulbous shaft feels' );
 		}
 		EngineCore.outputText( ' exquisite, and ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'their' );
 		} else {
 			EngineCore.outputText( 'its' );
 		}
 		EngineCore.outputText( ' bumps massage your entrance' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' unlike anything else.  You praise the lizan on being a quick study, letting go of [Arian eir] tail and grabbing onto [Arian eir] scaly shoulders instead, giving [Arian em] a few more directions so [Arian ey] can catch your most sensitive spots.' );
 		EngineCore.outputText( '\n\nArian suddenly clenches and gasps, moaning several times and arching [Arian eir] back before [Arian ey] can\'t hold it back anymore and climaxes inside of you, filling your [cunt] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'and [ass] ' );
 		}
 		EngineCore.outputText( 'with [Arian eir] sticky wet seed.' );
 		EngineCore.outputText( '\n\nYou moan as [Arian ey] fills you with [Arian eir] lizan seed, then immediately sigh in disappointment as [Arian ey] slumps down on top of you, nuzzling against you tenderly.  "<i>That was incredible.  Hey, what\'s wrong?  Why didn\'t you cum?</i>" Arian asks, curious yet sated.  Well, you just didn\'t have time to, but it\'s okay.  You\'ll find some way to relieve yourself, and it did feel good for the time it lasted.  You pat Arian\'s head, smiling at the lizan, despite being annoyed at not being able to climax.' );
 		EngineCore.outputText( '\n\n"<i>You mean, I didn\'t...?  No, no that\'s not acceptable!</i>"  Arian growls.  To your surprise, you suddenly feel [Arian eir] flaccid member' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' swelling inside you, the lizan grabbing your shoulders and starting to thrust [Arian em]self back into you once more.' );
 		EngineCore.outputText( '\n\nYou groan in as much surprise as pleasure, bracing yourself against Arian as [Arian ey] begins fucking you with as much enthusiasm as when you two started.  You are genuinely impressed.  This is not something a newcomer to sex would be able to pull off.  You decide to thank and congratulate the lizan for [Arian eir] dedication with a kiss.' );
 		EngineCore.outputText( '\n\nArian promptly redoubles [Arian eir] efforts, while trying to kiss you back in appreciation of the gesture.  You lose yourself in the pleasure and closeness of the act, fucking and kissing.  Slowly you feel a familiar pressure build in your loins, and you know it won\'t be long before you finally achieve your so, so desired, orgasm.' );
 		EngineCore.outputText( '\n\nArian [Arian emself] lets out a cry of relief; having finally achieved [Arian eir] goal in helping you orgasm means [Arian ey] can give in to the sensations ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
 			EngineCore.outputText( '[Arian ey] himself ' );
 		} else {
 			EngineCore.outputText( 'she ' );
 		}
 		EngineCore.outputText( 'is being overwhelmed by, spraying your ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 			EngineCore.outputText( 'cavity' );
 		} else {
 			EngineCore.outputText( 'cavities' );
 		}
 		EngineCore.outputText( ' with a second helping of lizan spunk, dredging up every last drop of jizz left in [Arian eir] internal balls before, with a groan, [Arian ey] sinks down atop you.  Arian\'s orgasm pushes you over the edge, and you find your pussy ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'and ass ' );
 		}
 		EngineCore.outputText( 'contracting, trying ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 			EngineCore.outputText( 'its' );
 		} else {
 			EngineCore.outputText( 'their' );
 		}
 		EngineCore.outputText( ' best to milk the poor lizan of all [Arian ey] is worth, until finally with one last spasm, you slump down and release the lizan shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' deeply embedded inside you, some of your mixed juices running down to mat Arian\'s bed.' );
@@ -2293,7 +2293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nGrinning at [Arian em], you question just why would [Arian ey] have picked up this one particular spell?  Arian does that weird pseudo-blush of [Arian eirs] again.  "<i>A fellow can dream of finding someone special someday, can\'t they?</i>"  That\'s all [Arian ey]\'ll say on the subject, despite your coaxing.' );
 		EngineCore.outputText( '\n\nYou decide to drop the subject for the moment and tell [Arian em] that as enjoyable as it was to spend time with [Arian em], you must return to your duties now.  Arian simply nods, wearing [Arian eir] best stoic expression.  "<i>I understand... but, please, come back when you can, all right?</i>"  You smile and tell [Arian em] you will, caressing [Arian eir] scaly cheek, then with a cheeky grin, let [Arian em] know that next time you expect at least four more performances from [Arian em].  Arian\'s eyes bulge at your suggestion, half in fear and half in lust.  "<i>I... I can\'t possibly do that!  I mean, I don\'t have the energy,</i>"  [Arian Ey] declares, swallowing audibly and averting [Arian eir] eyes.' );
 		EngineCore.outputText( '\n\nGrinning, you pull [Arian em] into a final kiss, telling [Arian em] this is just something for [Arian em] to think about.  Having said that, you quickly redress and excuse yourself, leaving one flustered lizan behind to rest.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2302,17 +2302,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//This isn't meant to give AnalXP, but given the fact that Arian's ass will get pen'd it would also be justified. Up to you Fen!;
 	ArianScene.prototype.doublePenetrateArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-doublepenetrate' ) );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().flags[ kFLAGS.ARIAN_CAPACITY ] );
-		var y = CoC.getInstance().player.cockThatFits2( CoC.getInstance().flags[ kFLAGS.ARIAN_CAPACITY ] );
+		var x = CoC.player.cockThatFits( CoC.flags[ kFLAGS.ARIAN_CAPACITY ] );
+		var y = CoC.player.cockThatFits2( CoC.flags[ kFLAGS.ARIAN_CAPACITY ] );
 		EngineCore.outputText( 'You look over your feminine lizard lover, and feel your ' + Descriptors.multiCockDescriptLight() + ' starting to stir in your [armor].  Since you have enough tools for the job, and Arian has enough holes, you ask if Arian would be willing to let you fuck her in both her ass and pussy at the same time?' );
 		EngineCore.outputText( '\n\nArian bites her lower lip, fidgeting a bit at your suggestion.  "<i>Sure.  I mean... that\'s the way sex is supposed to be with lizan females, and I do have the parts now.</i>"' );
 		EngineCore.outputText( '\n\nArian rolls around, laying face down on her bed, her rump held high to allow you easy access to both her ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] <= 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] <= 33 ) {
 			EngineCore.outputText( 'tight' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] <= 66 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] <= 66 ) {
 			EngineCore.outputText( 'loose' );
 		} else {
 			EngineCore.outputText( 'throbbing' );
@@ -2320,14 +2320,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ' ass and dripping wet vagina; a pair of clawed hands reach behind to spread her butt open for you.  "<i>Okay, I\'m ready.</i>"  Arian says, looking behind at you.' );
 		EngineCore.outputText( '\n\nYou sidle gently into the bed behind her and gently squeeze her full, round cheeks, rubbing them before moving your hand into her crack in an effort to massage both anus and pussy at the same time.  You roll the palm of your hand against her back passage and stroke her softly scaled vulva lips with your fingers, asking how that feels.  "<i>G-good,</i>" Arian replies, shuddering.' );
 		//(if ArianAnalXP < 33);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			EngineCore.outputText( '\n\nYou slide your finger inside of Arian\'s pussy, getting it nice and slick with her juices, and then remove your hand; lining the finger up with her ass, you start pressing insistently against her back hole; it takes some effort, but finally her back passage yields and Arian moans as your finger presses past her sphincter and into her warm innards.  You smile and tell Arian she\'s really tight back here.' );
 			EngineCore.outputText( '\n\n"<i>Hmm... we don\'t get to use my ass much, so of course it\'ll be tight.  Just try not to be too rough, please?  It kinda hurts.</i>"' );
 			EngineCore.outputText( '\n\nYou assure her that you\'ll be gentle; and with her pussy getting some as well, it should be easier for her to adjust.  That said, you carefully align your shafts and start to press them home.  It takes some effort to push inside her ass, but her pussy readily accepts you into its warm, wet embrace.' );
 			EngineCore.outputText( '\n\n"<i>Ooohhh!</i>" Arian\'s initial cry of pain turns into a deep moan of pleasure as you finally make your way inside.  You stop to give her some time to adjust.  "<i>I feel so stuffed... it hurts, but feels good at the same time.  Hhmmm... keep moving, please.</i>"  You do as she asks, and slowly push yourself to the hilt.' );
 		}
 		//(else if ArianAnalXP < 66);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			EngineCore.outputText( '\n\nYou know Arian\'s no stranger to anal sex, but you still figure it\'s polite to lube your finger up to some extent first.  Your fingers stroke and caress, sliding in and out of her moist depths, and you remove your hand to begin probing into her tailhole.  The well-trained orifice happily accepts you, posing little resistance as you begin sliding your femcum-slick digits inside.' );
 			EngineCore.outputText( '\n\n"<i>Aah, that feels nice.  I feel like such a girl, being treated like that...</i>"' );
 			EngineCore.outputText( '\n\nWell, of course, she is a girl, you grin.  Why shouldn\'t you treat her like this, especially if it makes her happy?  "<i>W-well, I\'m not really a girl.  I mean... not originally, but it does make me happy.  Why don\'t you stick it in?</i>"  She smiles nervously back at you.' );
@@ -2347,14 +2347,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>What do you think I\'m trying to do!?  Now get in here and paint my womb white!</i>" Arian snaps, bracing herself on her bed and allowing her ass and pussy both to suck you in with surprising force.  As soon as you\'re hilted within both holes, her ass clamps shut on your ' + Descriptors.cockDescript( y ) + ', while her pussy\'s contractions begin truly milking you for all you\'re worth.  Stuck as you are, you have no option but to sit back and enjoy her contractions as you feel yourself nearing the edge of an inevitable orgasm.' );
 		EngineCore.outputText( '\n\nYou still can\'t quite drown your surprise at how this is making her act, but if that\'s what she wants.  Besides, with the vice-like grip her holes have on your cocks, it\'s not as if you have a choice, right?  You thrust two, three more times with all the ferocity you can muster, grab her ass and holler as your climax finally erupts from your twin dicks.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() <= 250 ) {
+		if( CoC.player.cumQ() <= 250 ) {
 			EngineCore.outputText( '\n\nYour ' + Descriptors.multiCockDescriptLight() + ' explode inside Arian\'s eager holes, giving them the liquid warmth they so crave.  The massage that your two cocks are receiving only enhance the intense feeling, and you find yourself cumming more than usual.  They don\'t stop massaging you for more, even as you stop unloading.' );
 			EngineCore.outputText( '\n\n"<i>More, I need more for my eggs!</i>" Arian demands, yet you are truly spent...' );
 		}
 		//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() <= 1000 ) {
+		else if( CoC.player.cumQ() <= 1000 ) {
 			EngineCore.outputText( '\n\nLiquid lust floods Arian\'s insides, as your ' + Descriptors.multiCockDescriptLight() + ' do their best to relieve ' );
-			if( CoC.getInstance().player.balls === 0 ) {
+			if( CoC.player.balls === 0 ) {
 				EngineCore.outputText( 'themselves' );
 			} else {
 				EngineCore.outputText( 'your [balls]' );
@@ -2369,7 +2369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		EngineCore.outputText( '\n\nArian\'s ass goes slack around your ' + Descriptors.cockDescript( y ) + ', and Arian slowly slides off your shaft to plop on her bed; eyes closed in bliss, as she takes a short nap.' );
 		//(if ArianDblPenChat === 0);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_PENETRATION_CHAT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_PENETRATION_CHAT ] === 0 ) {
 			EngineCore.outputText( '\n\nBreathing a sigh of relief, you gently pat Arian on the ass and comment that you didn\'t expect her to be so eager to lay a batch of fertilized eggs, and you certainly didn\'t expect her to be so... bossy.' );
 			EngineCore.outputText( '\n\nArian\'s eyes snap open and she quickly rolls around to look you in the eyes.  "<i>Oh my!  Please, forgive me, [name].  I swear I don\'t know what came over me.  It was... sorry!</i>"  She bows her head down in shame.' );
 			EngineCore.outputText( '\n\nYou just laugh.  So, it looks like she wasn\'t really in control, huh?  Well, you should have figured she\'d have problems with it; this is a situation she was never really supposed to be in, after all.' );
@@ -2400,7 +2400,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 			EngineCore.outputText( '.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2409,9 +2409,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//PC cock area must be <= 30.;
 	ArianScene.prototype.arianDocking = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
+		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-docking' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-docking' ) );
@@ -2420,30 +2420,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian shudders a bit.  "<i>That... would feel kinda weird, I think, but it\'s not unheard of among certain lizan couples.  If you want to try that, I\'m okay with it.</i>"' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] that, yes, you want to try it - you\'re sorry, but it just sounds so kinky; and besides that, ' );
 		//(if ArianDblCock === 0);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 			EngineCore.outputText( 'didn\'t [Arian ey] always want to have two dicks?  Well, now it\'s [Arian eir] chance to find out what it\'d be like.' );
 		} else {
 			EngineCore.outputText( '[Arian ey]\'s already hiding two in there... an extra cock won\'t make such a huge difference, would it?' );
 		}
 		EngineCore.outputText( '\n\n"<i>I suppose you\'re right.  Okay then, let\'s try.</i>"  Arian lays on [Arian eir] back, spreading [Arian eir] legs to give you access to [Arian eir] genital slit, gently touching the soft folds that hide [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'pair of ' );
 		}
 		EngineCore.outputText( 'pecker' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' from your prying eyes.' );
 		EngineCore.outputText( '\n\nYou gently push away [Arian eir] hands, running your fingers over the strange, almost woman-like folds, rubbing against the soft, smooth scales that cover [Arian em] there.  You gently massage [Arian em], making [Arian em] groan softly at the stimulation, before working up the courage to begin gently probing inside.  It\'s wet and slick, the muscles squeezing your fingers tightly, and you don\'t have too far to go before you can feel yourself touching the bulbous, unmistakable shape' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' of Arian\'s dick' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  You brush your fingers against the tip' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', seeing what kind of reaction that will elicit from your scaly lover.' );
@@ -2451,7 +2451,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou tell [Arian em] that would be a crying shame, and gently remove your fingers.  Arian whimpers in disappointment.  "<i>Awww, I was fine with having a handjob instead.</i>"  [Arian Ey] smiles mischievously at you.' );
 		EngineCore.outputText( '\n\nOh no, you tell [Arian em]; you started out with something more unusual in mind, and you\'re going to finish it.  Quickly giving your own [cock smallest] a few strokes to help coax it into the right mindset, you aim it into Arian\'s cock-slit and, looping your arms around [Arian eir] neck for balance, begin to press forward and gently feed it into the literal boy-pussy.' );
 		EngineCore.outputText( '\n\nThe fit is so very tight, warmer than the rest of [Arian em] for reasons you don\'t care enough to contemplate at this moment, and slick with lubricating fluids.  It\'s so strange, yet so hot... and once you have your [cock smallest]' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 			EngineCore.outputText( ' brushing up against [Arian eir] own lizan pecker' );
 		} else {
 			EngineCore.outputText( 'sandwiched between [Arian eir] two lizard dicks' );
@@ -2459,23 +2459,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ', the friction is absolutely incredible, sending sparks of pleasure cascading along your shaft.  You moan in delicious lust and tell Arian that this is absolutely incredible.' );
 		EngineCore.outputText( '\n\nArian\'s expression is difficult to read; you can tell there is an obvious discomfort in the lizan\'s face, but at the same time, [Arian ey]\'s panting in excitement.  "<i>Ugh, It feels stuffed... but also good.  Your cock rubbing against my own... t-try moving your hips.</i>"' );
 		EngineCore.outputText( '\n\nYou shift your arms from around [Arian eir] neck to around [Arian eir] waist and do as [Arian ey] asks, pulling your hips back and then inserting them forward, just like you were trying to fuck a pussy.  The slimy, knobbly, bulbous texture of [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'twin cocks ' );
 		} else {
 			EngineCore.outputText( 'cock ' );
 		}
 		EngineCore.outputText( 'slides across your intruding shaft as you go, and [Arian eir] sheathe-walls grip and squeeze as best they can, leaving you moaning and panting like a bitch in heat.  Arian\'s moans of pleasure join yours, [Arian eir] twitching bulbous shaft' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' massaging your [cock smallest] almost like a vagina would.  Shaky hands grab a hold of your shoulders, helping you down and up on Arian\'s male slit.  "<i>Oh, Marae!  It feels like I\'m getting an internal handjob... it feEels so... so good!  H - harder... almost cumming!</i>" [Arian ey] pleads, as [Arian ey] breathes hotly on your face; panting like a bitch in heat.' );
 		EngineCore.outputText( '\n\nNot, you gasp back, if you don\'t come first... with that desperate promise (warning? Plea? Who cares?) you piston yourself back and forth four more times and then howl at the ceiling above as you cum into Arian\'s makeshift vagina.' );
 		//(Low Cum Amount);
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( '\n\nEven if your load is not that big to begin with; there is little room inside Arian\'s cramped genital slit, and you soon find yourself overflowing the little crevice.' );
 		}
 		//(Medium Cum Amount);
-		else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '\n\nYour load is big enough to give females a bit of a potbelly, but Arian\'s slit being so shallow by comparison, means your cum practically erupts out of [Arian eir] overfilled crevice.' );
 		}
 		//(high Cum Amount);
@@ -2484,18 +2484,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		EngineCore.outputText( '\n\nSpent, you slump down on the lizan\'s [arian chest].  With a sense of urgency Arian looks pleadingly at you, feebly pushing your shoulders away.  "<i>P-pull out, please!</i>"' );
 		EngineCore.outputText( '\n\nYou ask [Arian em] what\'s wrong, too caught up in the feelings of your release to obey [Arian em] immediately. "<i>Need... to cum... no room!</i>" [Arian ey] says, groaning.  Realizing what\'s wrong, you hasten to obey - you don\'t want [Arian em] to burst!  You pull your cum-slick shaft from [Arian eir] cock-slit, waiting to see if [Arian ey]\'ll manage to poke [Arian eir] own cock' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' out before cumming.' );
 		EngineCore.outputText( '\n\nArian groans in relief as a small white eruption comes out of [Arian eir] cum-filled slit, soaking [Arian eir] white scales in your combined jism.  Then, a ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'pair of cummy masts emerge' );
 		} else {
 			EngineCore.outputText( 'cummy mast emerges' );
 		}
 		EngineCore.outputText( ' to feebly shoot a couple more ropes of jism, before returning limply to ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'their' );
 		} else {
 			EngineCore.outputText( 'its' );
@@ -2507,7 +2507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian gives you a winning grin.  "<i>I wonder why,</i>"  [Arian ey] says, rubbing at [Arian eir] used slit.' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] the sex is nice, but there\'s other things in [Arian eir] favor too.  Then, you kiss [Arian em] again before [Arian ey] can ask what those are.  While [Arian ey]\'s left reeling, blissed out and goofy from the sexual overwhelm, you quietly slip out of [Arian eir] bed, pull your clothes back on and slip away, blowing [Arian em] a kiss before you depart.' );
 		//Player returns to camp;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2516,18 +2516,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Thinking about the many items in your possession, you ask if Arian would be willing to take something for you?' );
 		//(if ArianHealth < 10) //May not give anything.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] < 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] < 1 ) {
 			EngineCore.outputText( '\n\n"<i>Uhh... I\'d rather not.  I\'m not feeling very well, and I don\'t think it\'s wise for me to be drinking anything, well... strange.</i>"' );
 			EngineCore.outputText( '\n\nYou nod your head in understanding and change the subject; if you want to give Arian any of the potions you\'ve found, you\'ll need to nurse him back to strength first.' );
 			//Display other Arian interaction options;
 			this.arianHomeMenu();
 			return;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] < 20 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 20 ) {
 			{ //May only give Vitality T.
 			}
 			EngineCore.outputText( '\n\n"<i>Is it medicine you\'ve brought me?  If so I\'ll be happy to take it; otherwise I think we should wait until I\'m better; especially after that scolding you gave me earlier...</i>"' );
 			//If PC has Vitality T. go to Give VT section. Otherwise, play below:;
-			if( !CoC.getInstance().player.hasItem( ConsumableLib.VITAL_T ) ) {
+			if( !CoC.player.hasItem( ConsumableLib.VITAL_T ) ) {
 				EngineCore.outputText( '\n\nYou admit you don\'t have any medicine on you at the moment, and change the subject.' );
 				this.arianHomeMenu();
 				return;
@@ -2540,36 +2540,36 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			//Display PC inventory;
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 0 && this.arianHealth() >= 10 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 0 && this.arianHealth() >= 10 ) {
 			this.arianStoryDialogue1();
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 1 && this.arianHealth() >= 20 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 1 && this.arianHealth() >= 20 ) {
 			this.arianStoryDialogue2();
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 && this.arianHealth() >= 30 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 2 && this.arianHealth() >= 30 ) {
 			this.arianDialogue3();
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 3 && this.arianHealth() >= 50 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 3 && this.arianHealth() >= 50 ) {
 			this.arianImbue();
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 4 && this.arianHealth() >= 75 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 4 && this.arianHealth() >= 75 ) {
 			this.arianPlot4();
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 5 && this.arianHealth() >= 100 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] === 5 && this.arianHealth() >= 100 ) {
 			this.arianPlot5();
 		} else {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.VITAL_T ) ) {
+			if( CoC.player.hasItem( ConsumableLib.VITAL_T ) ) {
 				EngineCore.addButton( 0, 'Vital Tinct', this.arianVitalityTincture );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_HEALTH ] >= 20 ) {
-				if( CoC.getInstance().player.hasItem( ConsumableLib.P_DRAFT ) ) {
+			if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] >= 20 ) {
+				if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
 					EngineCore.addButton( 1, 'P. Incubi D', this.giveIncubusDraftToArian );
 				}
-				if( CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK ) ) {
+				if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) ) {
 					EngineCore.addButton( 2, 'P. Suc.Milk', this.succubiMilkForArian );
 				}
-				if( CoC.getInstance().player.hasItem( ConsumableLib.LACTAID ) ) {
+				if( CoC.player.hasItem( ConsumableLib.LACTAID ) ) {
 					EngineCore.addButton( 3, 'Lactaid', this.giveArianLactaid );
 				}
-				if( CoC.getInstance().player.hasItem( ConsumableLib.REDUCTO ) ) {
+				if( CoC.player.hasItem( ConsumableLib.REDUCTO ) ) {
 					EngineCore.addButton( 4, 'Reducto', this.giveArianReducto );
 				}
-				if( CoC.getInstance().player.hasItem( ConsumableLib.REPTLUM ) ) {
+				if( CoC.player.hasItem( ConsumableLib.REPTLUM ) ) {
 					EngineCore.addButton( 5, 'Reptilum', this.giveArianReptilum );
 				}
 			}
@@ -2590,7 +2590,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou apologize, but, hey, medicine just tends to taste nasty anyway.  Still, it\'s doing [Arian em] the world of good, now isn\'t it?' );
 		EngineCore.outputText( '\n\n"<i>I guess I do feel better.  Thank you [name].</i>" Arian smiles at you, already looking a bit better.' );
 		EngineCore.outputText( '\n\nYou smile and stroke the lizan gently on [Arian eir] head, telling [Arian em] that [Arian ey]\'s welcome.  Now, you think it\'s time [Arian ey] laid [Arian em]self back down and got some rest; give the medicine time to work.  You promise you\'ll try and come back to see [Arian em] later, but right now, [Arian ey] needs to get some more rest.  Arian nods and settles [Arian em]self on [Arian eir] bed.' );
-		CoC.getInstance().player.consumeItem( ConsumableLib.VITAL_T );
+		CoC.player.consumeItem( ConsumableLib.VITAL_T );
 		this.arianHealth( 10 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.giveArianAnItem );
@@ -2601,9 +2601,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//If at min breast size, next dose reverts Arian to male. (Lose breasts and vagina.);
 	ArianScene.prototype.giveIncubusDraftToArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.P_DRAFT );
+		CoC.player.consumeItem( ConsumableLib.P_DRAFT );
 		EngineCore.outputText( 'Fishing around in your pockets, your hand closes on the vial of purified incubus draft.  You offer this to Arian, asking ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'if [Arian ey] would like to make [Arian eir] cock bigger' );
 		} else {
 			EngineCore.outputText( 'if she\'d like to have a touch of her old malehood back' );
@@ -2611,50 +2611,50 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nArian blushes.  "<i>I don\'t mind the way I am now, but if you want me to take it I\'d be happy to.</i>"  Arian smiles nervously at you.' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] that you would like [Arian em] to take it, and hold it out to the lizan with greater emphasis.  Arian takes the draft, uncorks it and chugs it down.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
+			CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
 			EngineCore.outputText( '\n\nThe changes start at once.  Arian shudders as a wave of arousal hits her and quickly opens her robes to watch in awe as a slit appears above her juicy feminine cunt.  It overflows with natural lubricant, and for a moment you think Arian is growing a second vagina.  The thought is quickly forgotten as you watch a reptilian, bulbous, purple dick emerge from its depths; it grows to an average size before Arian moans and cums, spraying herself with her newly acquired tool.' );
 			EngineCore.outputText( '\n\nYou make a show of smirking and shaking your head.  My, but Arian needs to work on her control, now doesn\'t she?  To think she\'d cum just from growing a sweet little cock like this.  You reach out and stroke the hermaphroditic member, gently trailing your fingers across its reptilian bumps and nodules.  A tiny part of you shivers in anticipation of it plumbing into your ' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '[vagina] and ' );
 			}
 			EngineCore.outputText( '[asshole].' );
 			EngineCore.outputText( '\n\n"<i>Wait!  I\'m still sensi-Ahhh!</i>"  Arian\'s shaft throbs and another jet of cum arches through the air to hit her squarely on her face.  Panting, Arian says, "<i>I-I think I need a rest now...</i>"  She collapses on her bed, prehensile, reptilian tail waving about in a display of enjoyment.' );
 			EngineCore.outputText( '\n\nA part of you wonders if maybe she\'s hoping you\'ll join her in bed, but then you take a closer look and concede that she is genuinely tired.  You stroke her affectionately on her scaly cheek and politely excuse yourself, heading back to camp.' );
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
+			CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
 			EngineCore.outputText( '\n\nThe changes start at once. Arian shudders as a wave of arousal hits [Arian em] and quickly opens [Arian eir] robes to watch [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 				EngineCore.outputText( 'shaft emerges from its hiding place.  It throbs and grows, settling in its' );
 			} else {
 				EngineCore.outputText( 'pair of shafts emerge from their hiding place.  They throb and grow, settling in their' );
 			}
 			EngineCore.outputText( ' new size as Arian moans and cums all over [Arian em]self.' );
 			EngineCore.outputText( '\n\nYou gently flick a strand of cum off of the lizan\'s belly.  So, how does [Arian ey] like the new and improved lizard cock?  Arian swallows audibly and tries to retract [Arian eir] cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's back into their' );
 			} else {
 				EngineCore.outputText( ' back into its' );
 			}
 			EngineCore.outputText( ' slit.' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
-				EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
+				CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ]++;
+				EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
 				EngineCore.outputText( '\n\n[Arian Ey] manages to tuck it in, although you have the impression you wouldn\'t have to reach too far inside to feel its tip.' );
 				EngineCore.outputText( '\n\n"<i>It\'s a tight fit, but I think I can still keep it inside,</i>" Arian sighs in pleasure.  "<i>It did feel good though; thank you, [name].</i>"' );
 				EngineCore.outputText( '\n\nYou smirk and tell [Arian em] that maybe you\'ll ask [Arian em] to show you how it feels in an up-close and private demonstration later, but, for now, you\'ll let [Arian em] get some sleep.  Arian nods, blushing.  "<i>I\'m looking forward to it.</i>"  [Arian Ey] smiles nervously at you.' );
 				EngineCore.outputText( '\n\nYou smirk and pat [Arian eir] head, tell [Arian em] you\'ll come back for it when you can, and then politely excuse yourself.' );
 			} else {
 				EngineCore.outputText( '\n\n[Arian Ey] manages to retract ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 'them' );
 				} else {
 					EngineCore.outputText( 'it' );
 				}
 				EngineCore.outputText( ' until two thirds are inside, then it doesn\'t looks like [Arian ey] can take in anymore.' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( '\n\n"<i>W-Wow, they\'re so big I can\'t even manage to hide them,</i>" Arian pants as the tip of [Arian eir] cocks hang limply, exposed for all to see.' );
 				} else {
 					EngineCore.outputText( '\n\n"<i>W-Wow, it\'s so big I can\'t even manage to hide it,</i>" Arian pants as the tip of [Arian eir] cock hangs limply, exposed for all to see.' );
@@ -2664,15 +2664,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nArian shudders at your touch.  "<i>I-I\'d have to ask Boon for one of [Arian eir].  I don\'t have any here.</i>"  Arian blushes.' );
 				EngineCore.outputText( '\n\nYou smile playfully at [Arian em] and ask if [Arian ey] would like you to go and fetch one now?' );
 				EngineCore.outputText( '\n\n"<i>N-No!  I couldn\'t stand it if Boon and Laika found out I look like this,</i>" Arian says, pointing towards [Arian eir] exposed shaft' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( '.' );
 				//if ArianHerm:;
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( '\n\nYou can\'t resist quirking an eyebrow and asking if this is really more embarrassing than revealing that she\'d grown an egg-filled womb and a pussy to use with it?  "<i>Well, yes!  They\'ll give you a hard time too for getting me to do this, you know?</i>" Arian protests.' );
 					EngineCore.outputText( '\n\nYou smile and tap her playfully on the nose, pointing out the difference between you and her is that you don\'t care what two overprotective ferrets have to say about how she looks.  You think she\'s hot like this.  Arian blushes at that.  "<i>Then... I\'ll go without wearing a loincloth?</i>"  You tell her that\'d be very naughty, but you think it\'d be kind of sexy, too.  Arian smiles nervously, "<i>Ok, then that\'s what I\'ll do... c-can\'t wait to use it...</i>" Her tip' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 						EngineCore.outputText( 's' );
 					}
 					EngineCore.outputText( ' starts hardening, no longer able to hide Arian\'s excitement inside her protective slit.' );
@@ -2686,8 +2686,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 		}
 		//(else if ArianBreasts > 1) //Boob shrinkage.;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] > 1 && (!CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ]--;
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] > 1 && (!CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) {
+			CoC.flags[ kFLAGS.ARIAN_BREASTS ]--;
 			EngineCore.outputText( '\n\nArian shudders as she feels the changes sweep through her, but rather than settling on her huge lizan shaft, the warmth that precedes change settles on her breasts.  Arian moans and kneads her mounds as they shrink to a smaller size.' );
 			EngineCore.outputText( '\n\n"<i>Well, at least my chest won\'t feel so heavy anymore.  I hope you\'re not disappointed?</i>" Arian asks, panting.' );
 			EngineCore.outputText( '\n\nYou just smile back at her and tell her you can live with it.  Arian sighs.  "<i>Good, they did feel kinda nice, though.</i>"  You detect a hint of disappointment in her voice.' );
@@ -2696,12 +2696,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			//Display sex menu;
 			this.arianSexMenu( false );
 			return;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 && (!CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) { //Now you are male again.
+		} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 && (!CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) { //Now you are male again.
 			EngineCore.outputText( '\n\nArian shudders as she feels the changes sweep through her, but rather than settling on her huge lizan shaft, the warmth that precedes change settles on her breasts.  Arian moans and kneads her mounds as they shrink until they are completely gone.  Her nipples follow suit, being replaced by smooth scales.' );
 			EngineCore.outputText( '\n\nArian moans as another change happens below; she spreads her legs and watches in wonder as the lips of her wet fuckhole join together, becoming smooth scales as well.  A few more subtle changes occur as Arian\'s body shift towards the masculine and finally settles down.  Arian breaths a sigh of relief.' );
 			EngineCore.outputText( '\n\n"<i>I guess I\'m male now?</i>" Arian\'s voice sounds more masculine as well.' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] = 0;
-			CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_BREASTS ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_VAGINA ] = 0;
 			EngineCore.outputText( '\n\nYou note that seems to be the case.  So, is [Arian ey] going to miss being even half-girl?  Arian rubs [Arian eir] chin.  "<i>Well, it was weird, but it was kinda nice too.</i>"  [Arian Ey] looks at you, smiling nervously.  "<i>I\'d spend some time in the mornings looking in the mirror.  I guess I didn\'t look so bad as a girl?</i>"' );
 			EngineCore.outputText( '\n\nYou note that she was quite pretty, but you think [Arian ey]\'s just as handsome now.  Besides, being all-guy means no more dealing with eggs, right?' );
 			EngineCore.outputText( '\n\nArian blushes, averting [Arian eir] eyes in embarrassment.  "<i>It wasn\'t that bad... the whole deal with the eggs I mean.</i>"' );
@@ -2729,29 +2729,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//If breasts is at maximum size, extra doses reduce Cock Size. Removing first the second cock and then the first one if necessary.;
 	ArianScene.prototype.succubiMilkForArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK );
+		CoC.player.consumeItem( ConsumableLib.P_S_MLK );
 		EngineCore.outputText( 'Fishing out the bottle of purified demon\'s milk, you ask if Arian is willing to get ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( 'further ' );
 		}
 		EngineCore.outputText( 'in touch with [Arian eir] feminine side.  For you?' );
 		EngineCore.outputText( '\n\nArian bites [Arian eir] lower lip.  "<i>For you?  Of course I wouldn\'t mind it.</i>"  You pass over the bottle, and watch as [Arian ey] removes the cork and drinks its contents.' );
 		//(if ArianVagina === 0) //Arian... you look so pretty!;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ]++;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ]++;
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
+			CoC.flags[ kFLAGS.ARIAN_VAGINA ]++;
+			if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
+				CoC.flags[ kFLAGS.ARIAN_BREASTS ]++;
 			}
 			EngineCore.outputText( '\n\nArian gasps and moans, a throaty, girly moan. [Arian Ey] opens [Arian eir] robes to watch as the changes sweep through [Arian eir].  First the smooth scales of [Arian eir] chest begin flaking off, making way for a pair of erect nipples; following the growth of said nipples, [Arian eir] previously flat chest begins inflating, growing into perky scaly breasts.  Down below, Arian feels a wave of heat gather between [Arian eir] legs; once [Arian ey] spreads them, [Arian ey] gasps.  A slit appears, the surrounding scales become smaller and softer, forming what looks like a tight little pussy.  Arian\'s newly formed labia puff up and juices begin flowing freely from the moist passage, even as Arian\'s little pleasure buzzer appears to slightly part her labia in a clear invitation for you to explore its depths.' );
 			EngineCore.outputText( '\n\nYou drag your eyes away from Arian\'s new vagina and look the newly hermified lizan in the eyes, asking if she feels all right.  Arian pants, questing hands wandering towards her breasts to gently grope them. "<i>Hot... so hot...</i>" Arian\'s shaft hangs fully out of its hiding place, rock hard and throbbing.' );
 			EngineCore.outputText( '\n\nYou tell her you\'ll get her something cold to drink, turning towards the door.  "<i>H-hurry, please!</i>"  You need no further encouragement and quickly race to the kitchen, where you grab a jug of water from the coldbox and run back with it, as quickly as you dare.' );
 			EngineCore.outputText( '\n\nAs soon as you enter Arian\'s room, she sweeps the jug from your hands and begins downing the water.  You watch in amazement as Arian drains the jug of all its water, some stray droplets falling on her exposed scales, forming small rivulets that trace Arian\'s increasingly feminine curves.  Once Arian is done she sighs with relief, quietly handing you the jug and wiping her lips with a forearm.  "<i>Thanks, [name].  I really needed that.</i>"  Arian smiles at you, no longer hot to the point of boiling.  Her previously erect cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' having already softened and retracted' );
 			//if ArianCockSize >= 3:;
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 				EngineCore.outputText( ' as far as it\'ll go' );
 			}
 			EngineCore.outputText( ' into its protective slit.' );
@@ -2759,16 +2759,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou can\'t help noting she looks pretty fine, too.  Arian blushes at your comment.  "<i>Umm... thanks.</i>"  One of Arian\'s questing hands find her newly formed slit, and she gasps in pleasure as she circles her soft labia with a clawed finger, smearing some of her juices on her finger.  She lifts the finger to her face and watches the moisture drip from her digit; then, without sparing a thought, she takes the finger into her mouth and begins lightly sucking on the digit.' );
 			EngineCore.outputText( '\n\nYou pointedly cough and tell her that, while you\'re not necessarily minding if she wants to try out her new body, does she really want to put on a show for you, or would she rather you leave?  Arian snaps out of her trance, blushing in embarrassment.  "<i>Oh! Sorry!</i>"  Arian attempts to cover her breasts and crotch with her arms. She fidgets a bit, then smiles nervously at you.  "<i>Umm, maybe you\'d like to help me get used to my new body?</i>" Arian averts her eyes, blushing furiously at what she just said.' );
 			EngineCore.outputText( '\n\nYou step forward and gently run your hands over her newfound breasts. Well, if that\'s what she\'s in the mood for, you\'re game.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] < 3 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ]++;
+		} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] < 3 ) {
+			CoC.flags[ kFLAGS.ARIAN_BREASTS ]++;
 			EngineCore.outputText( '\n\nWarmth sweeps through Arian\'s body, eliciting a gasp and a moan.  Soon the warmth settles on Arian\'s mounds, and she opens her robes to gaze at the change that is taking place.' );
 			//(if ArianBreasts === 2);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 				EngineCore.outputText( '\n\nArian\'s perky breasts inflate into perfect, soft-looking mounds.  Arian gropes her newly enlarged breasts tentatively and gasps in pleasure at their softness and sensitivity.  "<i>It feels nice.</i>"  Looking at you with a blush, Arian asks, "<i>Would you like to touch them?</i>"' );
 				EngineCore.outputText( '\n\nSeeing no reason to pass up the opportunity, you reach out and gently take hold of them, rolling their weight around in your hands.  You make a show of remarking to Arian that you had no idea scaly boobs could be so wonderfully soft and perky.' );
 				EngineCore.outputText( '\n\nArian gasps and sighs as you gently massage her breasts.  "<i>[name]... this feels good.</i>"' );
 				EngineCore.outputText( '\n\nYou note it feels pretty nice for you as well.  Still, does Arian maybe want to turn things up a notch in the intimacy department?  Arian blushes.  "<i>You won\'t hear me complain.</i>"  She starts fidgeting' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
 					EngineCore.outputText( ' and her exposed shaft begins to grow hard' );
 				}
 				EngineCore.outputText( '.' );
@@ -2776,7 +2776,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nArian\'s generous mounds inflate once more.  Arian gasps in pleasure, their growth also enhancing the lizan\'s sensitivity.  Once their expansion is finished, Arian lifts the huge orbs in awe.  "<i>T-they\'re huge... and so heavy.</i>"  She rolls the breasts in her hands, gently touching her soft scales and sensitive nipples, gasping and panting in pleasure.' );
 				EngineCore.outputText( '\n\nYou note they look pretty big as well; why, she must be the bustiest lizan you\'ve ever seen.  Arian blushes, and bites her lower lip.  "<i>Do you like them?</i>"  You give her a flat look and reach out to caress the breasts.  If you didn\'t like big breasts, well, why would you have asked her to grow them this big?  But is she comfortable with them being like this?' );
 				EngineCore.outputText( '\n\nArian shudders at your touch.  "<i>They are kind of heavy, but if you really like them, I don\'t mind keeping them.</i>"  Arian smiles nervously at you.  "<i>I hope you will help me carry them?</i>"  She fidgets' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 					EngineCore.outputText( ' and you see her exposed shaft slowly rising to point at you' );
 				}
 				EngineCore.outputText( '.' );
@@ -2785,25 +2785,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			}
 		}
 		//(else If ArianCockSize > 1) //Dick shrinkage.;
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 1 && (!CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 1 && (!CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) {
 			EngineCore.outputText( '\n\nWarmth flows throughout Arian\'s body, and she moans in obvious pleasure.  Then, she opens her robes and looks at her rock-hard bulbous shaft.  It throbs as if edging a massive orgasm, but much to Arian\'s surprise it starts to shrink, until it finally grows limp and hides itself in its protective slit.  "<i>I... didn\'t expect that,</i>" Arian remarks.' );
 			EngineCore.outputText( '\n\nYou note it\'s not that surprising; the potion in question is a feminizer, so it must be shrinking away the only trace of her masculinity left - her cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  "<i>Oh... that\'s good.  Right?</i>" Arian looks at you nervously.  You think it over, and confess that while you are more attracted to women than men, you won\'t force Arian to become fully female if she doesn\'t want to.' );
 			EngineCore.outputText( '\n\nArian smiles at your consideration.  "<i>Thank you, [name], but if you\'d prefer me to be a girl... err... completely female, I wouldn\'t object.  I\'m fine either way.</i>"  Arian grins.' );
 			EngineCore.outputText( '\n\nYou ask, then, if Arian\'s so comfortable with her girly side, maybe she\'d like to try out her more female parts?  Arian blushes and averts her eyes, nodding lightly.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 && CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] >= 1 && (!CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 && CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] >= 1 && (!CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) {
 			EngineCore.outputText( '\n\nWarmth flows throughout Arian\'s body, and she moans in obvious pleasure.  Then she opens her robes and looks at her pair of rock-hard bulbous shafts.  They throb as if edging a massive orgasm, but much to Arian\'s surprise they begin to merge, until only one reptilian dick remains; finally it grows limp and recedes into its hiding place.  "<i>They fused into one,</i>" Arian remarks.' );
 			EngineCore.outputText( '\n\nMaybe it\'s because of the increasingly high femininity the milk is bestowing on her, you suggest?' );
 			EngineCore.outputText( '\n\n"<i>Maybe... that\'s good, right?</i>" Arian asks.  You simply meet her gaze levelly and tell her that it\'s good if she wants it to be good; if she\'s uncomfortable with what you\'re doing to her, she needs to tell you and you\'ll stop, you promise.' );
 			EngineCore.outputText( '\n\n"<i>No!  I\'m fine!</i>" Arian insists.  "<i>I\'m just not used to, well... reshaping my body like this.  But if you think I look better this way, then I\'m happy to comply.</i>"  Arian smiles.' );
 			EngineCore.outputText( '\n\nYou tell her that, for what it\'s worth, you do think she\'s beautiful, then give her a lustful grin and ask if she\'d like you to show her just how beautiful?' );
 			EngineCore.outputText( '\n\nArian blushes.  "<i>I... show me...</i>"' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] = 0;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 && (!CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ]) ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
+			CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] = 0;
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 && (!CoC.flags[ kFLAGS.HYPER_HAPPY ]) ) {
+			CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] = 0;
 			EngineCore.outputText( '\n\nWarmth flows throughout Arian\'s body, and she moans in obvious pleasure.  Then, she opens her robes and look at her rock-hard bulbous shaft.  It throbs and slowly recedes back into its hiding place.  An indignant rope of cum shoots into the air, splashing on her belly as the slit containing the last of her malehood finally closes up, leaving only smooth scales in its wake.  Arian pants, "<i>Looks like I\'m completely female now.</i>"' );
 			EngineCore.outputText( '\n\nYou agree with her summary, and then note she\'s taking this quite calmly.  You mean, it had to be a shock just growing a pussy and laying eggs all the time, but now she doesn\'t even have her cock to go with it.' );
 			EngineCore.outputText( '\n\nArian looks at you, blushing.  "<i>Do you think I\'m pretty?</i>"' );
@@ -2830,13 +2830,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//If Arian has breasts, Increases breasts size by 1.;
 	ArianScene.prototype.giveArianLactaid = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.LACTAID );
+		CoC.player.consumeItem( ConsumableLib.LACTAID );
 		EngineCore.outputText( 'Your hand closes around the vial of lactation-inducing potion that is Lactaid.  You almost reject it automatically, but then you stop and think.  There\'s odder things in this world, after all.  You remove the vial and ask Arian if [Arian ey] would be willing to let you see what lizan milk tastes like.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t know.  Lizans don\'t actually lactate, since we lay eggs, so I don\'t know if this...</i>"  Arian squints [Arian eir] eyes to read the label on the vial you\'re holding.  "<i>...Lactaid will even work.  But if you want to try, I suppose it couldn\'t hurt... right?</i>"  Arian smiles nervously.' );
 		EngineCore.outputText( '\n\nYou assure the lizan that, at worst, it\'d just fail to do anything, and hand the vial of lactaid to [Arian em].  [Arian Ey] takes the offered bottle and smiles at you.  "<i>All right.</i>"' );
 		EngineCore.outputText( '\n\nArian removes the cork and downs thick milky liquid, passing you the emptied vial.  "<i>That tasted kinda nice...</i>"' );
 		EngineCore.outputText( '\n\nThe two of you sit in awkward silence awaiting for anything to happen.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
 			EngineCore.outputText( '\n\nAfter some time, Arian sighs and opens [Arian eir] robes, rubbing [Arian eir] chest.  "<i>I don\'t think it worked.  At least... I don\'t feel any different.</i>"' );
 			EngineCore.outputText( '\n\nYou note that\'s strange, and wonder what could have stopped it working.  You shrug and suggest maybe it was Arian\'s lack of existing breasts?  Still, no harm done; would Arian maybe like to do something else instead?' );
 			EngineCore.outputText( '\n\nHe shrugs and closes [Arian eir] robes.  "<i>I\'m sorry it didn\'t work, [name].  If you want to do something else, just say so.</i>"  Arian smiles at you.' );
@@ -2846,17 +2846,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			{ //Lizard milk! Recover some HP and fatigue.
 			}
 			EngineCore.fatigue( -15 );
-			EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.2, false );
+			EngineCore.HPChange( CoC.player.maxHP() * 0.2, false );
 			EngineCore.outputText( '\n\nAfter some time, Arian begins panting, sweating as her body temperature goes up.  "<i>I feel... hot.</i>"  In an attempt to lower her body temperature, Arian discards her robes and lays down on her bed, fanning herself with her clawed hands.' );
 			EngineCore.outputText( '\n\nYou approach her cautiously, asking if she\'s okay.' );
 			EngineCore.outputText( '\n\n"<i>My breasts feel ticklish.</i>"  Suddenly, Arian gasps in pleasure' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
 				EngineCore.outputText( ', her exposed cock growing hard as she flushes with arousal' );
 			}
 			EngineCore.outputText( '.  Her hands grip the sheets and you watch her ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
 				EngineCore.outputText( 'perky' );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 				EngineCore.outputText( 'luscious' );
 			} else {
 				EngineCore.outputText( 'pillowy' );
@@ -2871,8 +2871,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nArian sighs in relief.  "<i>That felt nice.  Maybe we can do it again sometime?</i>"' );
 			EngineCore.outputText( '\n\nIf she\'s willing, then certainly, you tell her, but you\'ll need to track down another vial first.  You think Arian should have a rest before then.  She nods and kneads her now emptied breasts.' );
 			//(if ArianBreasts < 3);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] < 3 ) {
-				CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ]++;
+			if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] < 3 ) {
+				CoC.flags[ kFLAGS.ARIAN_BREASTS ]++;
 				EngineCore.outputText( '\n\n"<i>Is it me or... are they bigger?</i>" Arian asks curiously, looking at you and holding her scaly orbs.' );
 				EngineCore.outputText( '\n\nYou look at them curiously, and then decide (and tell her) that, yes, they have gotten bigger.  Probably a side effect of expanding to contain and produce the milk she just fed you.' );
 			}
@@ -2891,10 +2891,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>Umm... sure, which part?</i>"' );
 		//(Display Options);
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] > 0 ) {
 			EngineCore.addButton( 0, 'Breasts', this.useReductoOnAriansBreasts );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.addButton( 1, 'Cock', this.useReductoOnArianCocks );
 		}
 		EngineCore.addButton( 2, 'Asshole', this.useReductoOnAriansAsshole );
@@ -2903,11 +2903,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Cannot go flat;
 	ArianScene.prototype.useReductoOnAriansBreasts = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.REDUCTO );
+		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You point at Arian\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
 			EngineCore.outputText( 'small' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 			EngineCore.outputText( 'generous' );
 		} else {
 			EngineCore.outputText( 'pillowy' );
@@ -2915,10 +2915,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ' breasts.  "<i>Okay... I suppose it would be good to lose a bit of weight up here and spare my back.</i>"  Arian smiles, opening the tube of Reducto and her robes; then squeezing the contents of the paste her hands.' );
 		EngineCore.outputText( '\n\nArian kneads her breasts, lathering the paste all over her breasts.  You can\'t help but note that this is kinda sexy.  Arian\'s breasts glisten in the light of the room.  Once [Arian ey] is done, [Arian ey] cleans her hands with a piece of cloth that was laying nearby and waits for the Reducto\'s effect.' );
 		//(if ArianBreasts > 1);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] > 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] > 1 ) {
 			EngineCore.outputText( '\n\nArian gasps and the two of you watch as her breasts slowly shrink, setting into a smaller size.  You reach forward and feel her breasts; it\'s a much better fit for your hands now.' );
 			EngineCore.outputText( '\n\nArian sighs.  "<i>So... better now?</i>"  You nod in response.  "<i>Great!  Is there something else you\'d like to do?</i>"' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ]--;
+			CoC.flags[ kFLAGS.ARIAN_BREASTS ]--;
 		} else {
 			EngineCore.outputText( 'The two of you watch Arian\'s breasts, but nothing seems to be changing.  You reach forward to feel them, and indeed they haven\'t shrunk down at all.' );
 			EngineCore.outputText( '\n\n"<i>Umm... I...</i>"  Before Arian can continue, you tell her that it\'s fine, you\'ll just have to find another way to get rid of her breasts.  "<i>Okay.  So, is there anything else you\'d like to do?</i>"' );
@@ -2932,28 +2932,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Cannot remove cocks.;
 	ArianScene.prototype.useReductoOnArianCocks = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.REDUCTO );
+		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You point at [Arian eir] crotch, mentioning that you\'d like [Arian em] to be smaller.' );
 		EngineCore.outputText( '\n\n"<i>Oh, ok then.</i>"  Arian opens [Arian eir] robes and squeezes the tube of Reducto on an open palm.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ]--;
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 3 ) {
+			CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ]--;
 			EngineCore.outputText( '\n\nThen, [Arian ey] slowly teases [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 'pair of exposed lizard cocks' );
 			} else {
 				EngineCore.outputText( 'exposed lizard cock' );
 			}
 			EngineCore.outputText( ' into full erection.  Finally [Arian ey] begins applying the paste.' );
 			EngineCore.outputText( '\n\nThe changes are almost immediate; Arian groans and watches as [Arian eir] oversized dick' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' slowly shrink' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' to a more manageable size.  Once the transformation is complete Arian tries to fully retract [Arian eir] cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's back into their' );
 			} else {
 				EngineCore.outputText( ' back into its' );
@@ -2961,30 +2961,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( ' hiding place; it\'s a tight fit, but it fits.' );
 			EngineCore.outputText( '\n\n"<i>Phew.  I won\'t say I didn\'t enjoy being that size, but it feels a lot more natural and comfortable now that I don\'t have to walk about exposed.</i>"  You nod in agreement.  "<i>So, is there anything else you\'d like to do?</i>"' );
 			//(Back to Options menus);
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ]--;
+		} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 2 ) {
+			CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ]--;
 			EngineCore.outputText( '\n\nThen, [Arian ey]slowly teases [Arian eir] slit, coaxing [Arian eir] serpentine shaft' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's from their tight hiding place' );
 			} else {
 				EngineCore.outputText( ' from its tight hiding place' );
 			}
 			EngineCore.outputText( ', and into full erection.  Finally [Arian ey] begins applying the Reducto.' );
 			EngineCore.outputText( '\n\nIt takes mere moments for the changes to occur; Arian groans in slight discomfort as [Arian eir] cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's return to their' );
 			} else {
 				EngineCore.outputText( ' returns to its' );
 			}
 			EngineCore.outputText( ' original size.  Once the transformation is complete, [Arian ey] retracts ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 'them' );
 			} else {
 				EngineCore.outputText( 'it' );
 			}
 			EngineCore.outputText( ' back into [Arian eir] genital slit.' );
 			EngineCore.outputText( '\n\n"<i>Well, it seems I\'m back to being average sized,</i>" Arian says with a tinge of disappointment.   You tell [Arian em] that average can be good too, in fact you happen to like average.  The lizan instantly cheers up and smiles at you.  "<i>Thanks, [name].  Is there anything else you\'d like to do, now?</i>"' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 			EngineCore.outputText( 'Then, [Arian ey] coaxes [Arian eir] twin reptilian-peckers out of their hiding place.  Finally [Arian ey] applies the paste to both shafts in turn.' );
 			EngineCore.outputText( '\n\nIt takes a short while for anything to happen, but when it does Arian groans.  "<i>S-something feels different.  Ugh, this feels weird.</i>"  You two watch as [Arian eir] shafts slowly reduce in size, then to your surprise merge together forming one average-sized cock, much like the one Arian sported before.' );
 			EngineCore.outputText( '\n\n"<i>I guess I\'m back to begin a lizan with a single cock,</i>" Arian says with a slight tinge of regret.  You cheer [Arian em] up by saying that\'s the way you prefer it, besides is it really that bad, having only one cock?  Arian smiles at you.  "<i>I guess it isn\'t too bad, just unusual for my species, but if you like me like this, then I\'m okay with it.</i>"  You nod and pat [Arian em] gently on the head.  "<i>So... is there anything else you\'d like to do?</i>"' );
@@ -3002,10 +3002,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//How much AnalXP should be lost per use is up to Fen.;
 	ArianScene.prototype.useReductoOnAriansAsshole = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.REDUCTO );
+		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You ask Arian to hand the tube of reducto back over to you, telling [Arian em] that you want to make [Arian em] a little tighter when you do [Arian em] from behind.  The lizard-' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] === 0 ) {
 				EngineCore.outputText( 'man' );
 			} else {
 				EngineCore.outputText( 'herm' );
@@ -3015,43 +3015,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		}
 		EngineCore.outputText( ' does as you ask, allowing you to smear your fingers generously with the shrinking cream, even as [Arian ey] anticipates your next request and removes [Arian eir] clothes before lying down, bum up in the air and tail slowly swishing to and fro, [Arian eir] anus exposed and waiting for your ministrations.' );
 		//(if AnalXP === 1);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] <= 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] <= 1 ) {
 			EngineCore.outputText( '\n\n"<i>I don\'t know if I can get any tighter than this, but... go ahead,</i>" Arian says, smiling nervously at you.' );
 			EngineCore.outputText( '\n\nYou poke and prod gently but insistently at Arian\'s ass, but are forced to concede the truth; you can barely get one of your fingers inside [Arian eir] tight anus, and you have little reason to suspect that it would do much good even if you could get it inside.' );
 			EngineCore.outputText( '\n\n"<i>I guess it\'s no use after all,</i>" Arian chuckles.  "<i>I imagine if you did manage to apply it you\'d make my ass disappear.  Now that would be weird.</i>"' );
 			EngineCore.outputText( '\n\n[Arian Ey]\'s not wrong there, you agree.  Still, would [Arian ey] maybe like to do something else, seeing as how that was a bust?  Arian nods.  "<i>Of course.  What would you like to do?</i>"' );
 		}
 		//(else if AnalXP < 33);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 			EngineCore.outputText( '\n\n"<i>I think I\'m still pretty tight back there, but if you want me to be tighter, go ahead,</i>" Arian says, smiling nervously at you.' );
 			EngineCore.outputText( '\n\nYou gently press your fingers against the hole in question; like Arian noted, it\'s tight and resists your effort, but you manage, with some difficulty, to slide first one finger and then the other inside, allowing you to start coating the inner walls with Reducto cream.  You can feel the walls growing taut as you work - indeed, it promptly shrinks down almost painfully around your fingers, and you have to struggle as hard to pull them out as you had to push them in to begin with.' );
 			EngineCore.outputText( '\n\nArian groans as you finally manage to pull your fingers out.  "<i>I don\'t think it\'ll feel that much different when you decide to put it back there again, but I hope it\'ll feel good for you anyway.  Just promise you\'ll be gentle, ok?</i>"' );
 			EngineCore.outputText( '\n\nYou promise [Arian em] that you\'ll take care of [Arian em].  "<i>So, anything else you\'d like to do?</i>"' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] = 1;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] -= 33;
+			CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] = 1;
+		} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+			CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] -= 33;
 			EngineCore.outputText( '\n\n"<i>To be honest, I had kind of gotten used to the feeling... sorta.  It will be a bit painful to go back to being that tight back there, but if that\'s what you\'d like, go ahead,</i>" Arian says, smiling at you.' );
 			EngineCore.outputText( '\n\nYou slide two fingers easily inside [Arian eir] stretched out back passage, rubbing the interior of [Arian eir] anus with the magical shrinking cream.  You end up applying a third finger for ease of application; [Arian ey]\'s certainly loose enough to take it.  You can feel it shrinking around you as you work, but you still have little difficulty sliding your fingers back out.' );
 			EngineCore.outputText( '\n\nArian moans as you pull out your fingers.  "<i>And I was just getting used to being taken from behind.  Somehow I get the feeling it won\'t feel just as good, but I\'m glad to make a little sacrifice for you.</i>"  [Arian Ey] smiles at you.' );
 			EngineCore.outputText( '\n\nYou smile back, thanking [Arian em] for catering to your wishes, even though [Arian ey] doesn\'t have to.  Arian grins at you.  "<i>Don\'t worry about that.  I want to make you feel good...</i>"  Stroking [Arian eir] exposed ass, you tell [Arian em] that [Arian eir] efforts are appreciated and promise to make [Arian em] feel just as good in return.  Arian smiles.  "<i>Okay, it\'s a deal.  So, anything else you\'d like to do?</i>"' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] <= 100 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] -= 33;
+		} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] <= 100 ) {
+			CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] -= 33;
 			EngineCore.outputText( '\n\n"<i>I just know it won\'t feel quite as good back there if you shrink my ass, but maybe this is for the best?  Perhaps I might have let the feeling get to me.  Maybe I did become too much of a buttslut...</i>"  Arian lowers [Arian eir] head.' );
 			EngineCore.outputText( '\n\nYou can\'t resist patting the lizan\'s head and assuring [Arian em] that, yeah, [Arian ey] is a slut when it comes to [Arian eir] ass, but the way [Arian ey] goes about being a slut is honestly kind of cute.  You just want to see if tightening [Arian em] back up will make things even better, now [Arian ey]\'s got the experience of loving a great assfuck.' );
 			EngineCore.outputText( '\n\nYou push your way into Arian\'s butt and almost find your whole hand sliding down [Arian eir] well-trained \'boyslut pussy\', which prompts a lewd moan from the anal-loving lizan' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( ', [Arian eir] cock' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 's suddenly jolting from their sheathe' );
 				} else {
 					EngineCore.outputText( ' suddenly jolting from its sheathe' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 0 ) {
 					EngineCore.outputText( ', ' );
 				}
 				EngineCore.outputText( 'her pussy growing wet from the stimulation' );
@@ -3068,7 +3068,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Chance to make Arian grow a second dick, if [Arian ey] has only one. (high chance: 50%);
 	ArianScene.prototype.giveArianReptilum = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.consumeItem( ConsumableLib.REPTLUM );
+		CoC.player.consumeItem( ConsumableLib.REPTLUM );
 		EngineCore.outputText( 'Fingering the vial of reptilium, you smirk to yourself.  Quickly wiping it off your face, you instruct Arian to close [Arian eir] eyes and open [Arian eir] mouth, as you have a special surprise for [Arian em].' );
 		EngineCore.outputText( '\n\nArian, quickly complies.  "<i>Okay, but can you at least tell me what is this about?</i>"  [Arian ey] asks in curiosity.' );
 		EngineCore.outputText( '\n\nYou cluck your tongue in a disappointed tone and point out that a surprise isn\'t a surprise if you tell [Arian em] what it is.' );
@@ -3079,7 +3079,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>I sweagrlpff-</i>" the lizan\'s protests are cut short by the stream of cool reptilum being poured down [Arian eir] throat.  [Arian Ey] chokes a bit, but quickly adapts, drinking eagerly.  When you finish tipping the bottle and remove it from [Arian eir] lips, Arian coughs a bit and licks [Arian eir] lips.  "<i>Hmm... that tasted good, what was it?</i>"' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] [Arian ey]\'ll just have to wait to find out, taking off [Arian eir] blindfold and smiling wryly at [Arian em].  "<i>Umm... ok...</i>"' );
 		//(if ArianFirstRept === 1);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 0 ) {
 			EngineCore.outputText( '\n\nThe two of you sit there in wait... but oddly nothing happens.  You ask Arian if [Arian ey]\'s feeling any different.' );
 			EngineCore.outputText( '\n\n"<i>No. I feel fine.</i>"' );
 			EngineCore.outputText( '\n\nThat\'s weird... was it a bust then?' );
@@ -3087,9 +3087,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou chuckle inwardly, any time now...' );
 		}
 		EngineCore.outputText( '\n\nArian suddenly shakes [Arian eir] head, blinking as if trying to focus; then [Arian ey] turns to look at you, and gives you a silly smile.  "<i>Hey, [name].  Did you know you have a very beautiful aura?  All the colors.  I wonder what it tastes like.</i>"' );
-		CoC.getInstance().flags[ kFLAGS.ARIAN_FIRST_REPTILUM ]++;
+		CoC.flags[ kFLAGS.ARIAN_FIRST_REPTILUM ]++;
 		//(if ArianFirstRept === 1);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 1 ) {
 			EngineCore.outputText( '\n\nYou blink; aura?  What is the lizan talking about?  And what would make [Arian em] think colors are tasty - or even edible?' );
 		} else {
 			EngineCore.outputText( '\n\nChuckling, you tell [Arian em] that if [Arian ey]\'s so curious, [Arian ey] should try it.' );
@@ -3098,81 +3098,81 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian suddenly gets up and takes a lick off your cheek.  "<i>Yum... didn\'t know rainbows tasted like cloud ice-cream.</i>"  [Arian Ey] begins laughing uncontrollably.  You wipe [Arian eir] saliva off your cheek and look in amazement as [Arian ey] continues to laugh for no apparent reason.' );
 		EngineCore.outputText( '\n\n"<i>Hey [name], cats are flexible right?  Think I would turn into one if I could lick my butt?  I\'d be a sexy kitten!</i>"  Arian does away with [Arian eir] robes, tossing them around and bending over as far as [Arian ey] can in an attempt to lick at [Arian eir] butt.  "<i>J-just a bit more....  Help me here, [name]!  I want to turn into a cat so we can roleplay!  I\'ll be Mittens and you can be Fishbreath!</i>"' );
 		//(if ArianFirstRept === 1);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_FIRST_REPTILUM ] === 1 ) {
 			EngineCore.outputText( '\n\nFeeling a touch nervous, you ask if [Arian ey]\'s feeling all right.  "<i>All right?  I\'m super!</i>" [Arian ey] replies, gigling madly.' );
 		} else {
 			EngineCore.outputText( '\n\nYou were kinda waiting for this part.  [Arian Ey] might not know it, but Arian\'s flexibility is truly impressive for a non-feline.  Just a few extra inches of tongue and [Arian ey] actually manages to lick [Arian eir] belly!' );
 		}
 
 		EngineCore.outputText( '\n\nAt one point the bending lizan gives up and falls flat on [Arian eir] back then gets right up eyeing you with a glow in [Arian eir] eyes.  "<i>That was a stupid idea!  I know just how to make it!  I can lick your butt instead!  Do you think it tastes like cloud ice-cream like your rainbow aura?</i>"' );
-		EngineCore.outputText( '\n\nYou shake your head and tell [Arian em] you\'d rather [Arian ey] didn\'t lick your butt.  Why don\'t you go and get [Arian em] some candy instead?  "<i>Candy!?  I love candy!  You can smear chocolate on yourself and I could lick it clean! Then we\'d get chocolate flavored cloud ice-cream with ' + CoC.getInstance().player.race() + ' musk!  What a great idea!  Get your undies off so I can get started!</i>"  [Arian Ey] pounces on you, effectively removing your underpants and exposing your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		EngineCore.outputText( '\n\nYou shake your head and tell [Arian em] you\'d rather [Arian ey] didn\'t lick your butt.  Why don\'t you go and get [Arian em] some candy instead?  "<i>Candy!?  I love candy!  You can smear chocolate on yourself and I could lick it clean! Then we\'d get chocolate flavored cloud ice-cream with ' + CoC.player.race() + ' musk!  What a great idea!  Get your undies off so I can get started!</i>"  [Arian Ey] pounces on you, effectively removing your underpants and exposing your ' );
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( Descriptors.multiCockDescriptLight() );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' and ' );
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '[vagina]' );
 		}
-		if( !CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( 'genderless crotch' );
 		}
 		EngineCore.outputText( '.  "<i>Hmm, that looks much tastier than candy actually.</i>"  [Arian Ey] licks your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cock from base to tip' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'pussy all the way from the back to the tip of your [clit]' );
 		} else {
 			EngineCore.outputText( 'your sweaty crotch' );
 		}
 		EngineCore.outputText( '.  "<i>Yummy!  I could use seconds, but roleplay time is over; let\'s... masturbate each other!</i>"  [Arian Ey] begins stroking [Arian eir] ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-mutualmasturbation' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-home-mutualmasturbation' ) );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] === 1 ) {
 			EngineCore.outputText( 'quickly erecting lizan cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' and her ' );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( 'slavering vagina' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nArian must be high; normally [Arian ey] needs a little encouragement to put on a show like this.  Still, who are you to pass up on a free show from your lizan lover?' );
 		EngineCore.outputText( '\n\nLaughing and moaning uncontrollably Arian says, "<i>Wow, [name].  Your hands feel really good!  Kind of familiar too!</i>"' );
 		EngineCore.outputText( '\n\n[Arian Ey]\'s clearly so daffy that [Arian ey] doesn\'t realize [Arian ey]\'s the one touching [Arian em]self.  Still, this is amusing, rather than scary, so you\'re content to watch and let the show play out.  It\'s kind of a turn on...' );
-		EngineCore.dynStats( 'lus', (5 + CoC.getInstance().player.lib / 10) );
+		EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 10) );
 		var tfed = false;
 		EngineCore.outputText( '\n\nArian\'s giggling suddenly stops as [Arian ey] finally orgasms, ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'shooting thick ropes of cum up into the air to land on [Arian eir] ' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 0 ) {
 				EngineCore.outputText( 'chest' );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
 				EngineCore.outputText( 'perky little breasts' );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 2 ) {
 				EngineCore.outputText( 'soft breasts' );
 			} else {
 				EngineCore.outputText( 'pillowy breasts' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ' while ' );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( 'her vagina doing its best to soak her bed with lizan femcum' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nLooking at you dizzily, Arian smiles and says, "<i>That was fun, [name].  You have truly gifted hands!</i>"  You repress a laugh; this was just too much fun, and tell Arian that credit is due where it\'s due.  You leave it to the dazed lizan to eventually decipher if you\'re saying you were the one with the gifted hands or you were encouraging [Arian em] to recognize that [Arian ey] is the one with the gifted hands.' );
 		//(if (random <= 50%) && (ArianDblCock === 0) && (ArianCockSize !== 0);
-		if( Utils.rand( 2 ) === 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( Utils.rand( 2 ) === 0 && CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 0 && CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>Ugh... something feels weird...</i>"  Arian looks down at [Arian eir] crotch.  You follow [Arian eir] eyes and see a second cock growing.  It grows until it\'s the same size as Arian\'s original cock, and once the transformation is over, Arian bursts out in uncontrollable laughter.' );
 			EngineCore.outputText( '\n\n"<i>Look, [name]!  You did me so hard I\'m seeing double!</i>"  [Arian Ey] moves [Arian eir] hands to touch [Arian eir] sensitive twin members.  "<i>Whoa! I\'m feeling double too!</i>"  Eventually the laughter dies down and the lizan collapses on [Arian eir] back, snoring in a quick nap.' );
 			tfed = true;
@@ -3186,7 +3186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\n"<i>Two... but, I was....  Was that you, [name]?</i>"' );
 			EngineCore.outputText( '\n\nYou smile and nod your head; does [Arian ey] like them?' );
 			EngineCore.outputText( '\n\n"<i>Like them?  I love them!  You have no idea how much I longed to... to... to actually have two dicks like most of my people.  Thank you so much for this wonderful suprise [name]!</i>"  [Arian Ey] grins happily at you.' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] = 1;
+			CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] = 1;
 		} else {
 			EngineCore.outputText( '\n\n"<i>I guess I did...</i>"  [Arian Ey] smiles tiredly at you.  "<i>Thank you for the wonderful surprise, [name].</i>"' );
 		}
@@ -3203,7 +3203,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.treatCorruption = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ask Arian if [Arian ey] thinks [Arian ey] can help you reduce some of the taint that has infected your soul.' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_TREATMENT ] === 1 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_TREATMENT ] === 1 ) {
 			EngineCore.outputText( '\n\nArian solemnly shakes [Arian eir] head.  "<i>Sorry, [name].  But I have already treated you once today, and if I did it again it could be hazardous to you... sorry.</i>"' );
 			EngineCore.outputText( '\n\nYou apologize.  You had forgotten how much that taxes [Arian em], and you will come back for further treatments tomorrow.  However, there is something else [Arian ey] can help you with...' );
 			this.arianHomeMenu();
@@ -3219,13 +3219,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nYou do as you are instructed, and note that, once you do feel better, you literally feel better; your thoughts are less clouded by corruption than they were before' );
 			EngineCore.dynStats( 'cor', -1 );
 			EngineCore.fatigue( 20 );
-			if( CoC.getInstance().player.cor === 0 ) {
+			if( CoC.player.cor === 0 ) {
 				EngineCore.outputText( ' - in fact, you\'re quite sure that Arian has purified you entirely' );
 			}
 			EngineCore.outputText( '.  You thank the lizan for [Arian eir] magical treatment.' );
 			EngineCore.outputText( '\n\n"<i>You\'re welcome,</i>" [Arian ey] replies with a smile.  "<i>Just remember that we can only do this once per day.  Any more and it would be hazardous, for both of us.</i>"' );
 			EngineCore.outputText( '\n\nYou acknowledge what [Arian ey] is saying, promise you\'ll try and be more careful in the future, thank [Arian em] once more, and then excuse yourself.' );
-			CoC.getInstance().flags[ kFLAGS.ARIAN_TREATMENT ]++;
+			CoC.flags[ kFLAGS.ARIAN_TREATMENT ]++;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
@@ -3238,7 +3238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	ArianScene.prototype.imbueTalisman = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Arian that, if it\'s not too much trouble, you\'d like [Arian em] to ' );
-		if( CoC.getInstance().player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 ) {
+		if( CoC.player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 ) {
 			EngineCore.outputText( 'place a spell in the enchanted talisman [Arian ey] created for you' );
 		} else {
 			EngineCore.outputText( 'change the spell in the talisman [Arian ey] created for you' );
@@ -3256,10 +3256,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n<b>Shielding Spell Two Black Chitin and One Tough Silk - Increases defense for the duration of the battle.' );
 		EngineCore.outputText( '\n<b>Immolation Spell 2x Goblin Ale and 1x Sweet Gossamer - Deals damage over time.' );
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasItem( UsableLib.B_CHITN, 2 ) && CoC.getInstance().player.hasItem( UsableLib.T_SSILK ) ) {
+		if( CoC.player.hasItem( UsableLib.B_CHITN, 2 ) && CoC.player.hasItem( UsableLib.T_SSILK ) ) {
 			EngineCore.addButton( 0, 'Shielding', this.arianSpellPlace, 'Shielding Spell' );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.GOB_ALE, 2 ) && CoC.getInstance().player.hasItem( ConsumableLib.S_GOSSR ) ) {
+		if( CoC.player.hasItem( ConsumableLib.GOB_ALE, 2 ) && CoC.player.hasItem( ConsumableLib.S_GOSSR ) ) {
 			EngineCore.addButton( 1, 'Immolation', this.arianSpellPlace, 'Immolation Spell' );
 		}
 		EngineCore.addButton( 9, 'Back', this.arianHomeMenu );
@@ -3276,35 +3276,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n(<b>Your talisman has been imbued with the ' + spell + '. You can use it from the M. Specials menu in combat.</b>)\n\n' );
 		this.clearCharges();
 		if( spell === 'Shielding Spell' ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.ShieldingSpell, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.ShieldingSpell, 0, 0, 0, 0 );
 			//Shielding Spell: 2x Black Chitin and 1x Tough Silk. - Increases defense for the duration of the battle.;
-			CoC.getInstance().player.consumeItem( UsableLib.B_CHITN, 2 );
-			CoC.getInstance().player.consumeItem( UsableLib.T_SSILK );
+			CoC.player.consumeItem( UsableLib.B_CHITN, 2 );
+			CoC.player.consumeItem( UsableLib.T_SSILK );
 		}
 		if( spell === 'Immolation Spell' ) {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.ImmolationSpell, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.ImmolationSpell, 0, 0, 0, 0 );
 			//Immolation Spell: 2x Goblin Ale and 1x Sweet Gossamer. - Deals damage over time.;
-			CoC.getInstance().player.consumeItem( ConsumableLib.GOB_ALE, 2 );
-			CoC.getInstance().player.consumeItem( ConsumableLib.S_GOSSR );
+			CoC.player.consumeItem( ConsumableLib.GOB_ALE, 2 );
+			CoC.player.consumeItem( ConsumableLib.S_GOSSR );
 		}
 		//If charged, stay chargggggeeed;
-		if( CoC.getInstance().player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 ) {
-			CoC.getInstance().player.removeKeyItem( 'Arian\'s Talisman' );
-			CoC.getInstance().player.createKeyItem( 'Arian\'s Charged Talisman', 0, 0, 0, 0 );
+		if( CoC.player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 ) {
+			CoC.player.removeKeyItem( 'Arian\'s Talisman' );
+			CoC.player.createKeyItem( 'Arian\'s Charged Talisman', 0, 0, 0, 0 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ArianScene.prototype.clearCharges = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.ShieldingSpell ) >= 0 ) {
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.ShieldingSpell );
+		if( CoC.player.findStatusAffect( StatusAffects.ShieldingSpell ) >= 0 ) {
+			CoC.player.removeStatusAffect( StatusAffects.ShieldingSpell );
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.ImmolationSpell ) >= 0 ) {
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.ImmolationSpell );
+		if( CoC.player.findStatusAffect( StatusAffects.ImmolationSpell ) >= 0 ) {
+			CoC.player.removeStatusAffect( StatusAffects.ImmolationSpell );
 		}
 	};
 	ArianScene.prototype.clearTalisman = function() {
-		CoC.getInstance().player.removeKeyItem( 'Arian\'s Charged Talisman' );
-		CoC.getInstance().player.createKeyItem( 'Arian\'s Talisman', 0, 0, 0, 0 );
+		CoC.player.removeKeyItem( 'Arian\'s Charged Talisman' );
+		CoC.player.createKeyItem( 'Arian\'s Talisman', 0, 0, 0, 0 );
 	};
 	//Follower Stuff:;
 	//Camp Modifier;
@@ -3318,7 +3318,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		if( newl ) {
 			EngineCore.clearOutput();
 		}
-		CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = 'Arian';
+		CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Arian';
 		EngineCore.outputText( 'Tired after a whole day of adventuring, you decide to retire and catch some shut-eye.  While going through the day\'s events, you recall Arian had offered to let you stay in [Arian eir] tent and sleep with [Arian em] in [Arian eir] bed.  Your tired body could surely use a soft bed today, and maybe a certain lizan to keep you company too.  With that in mind, you head to [Arian eir] tent.' );
 		EngineCore.outputText( '\n\nInside, you find the ' + this.arianMF( 'male', 'girly' ) + ' lizan standing naked before [Arian eir] bed, stretching [Arian eir] arms and tail as widely as they can and groaning with satisfaction as [Arian eir] joints pop.  Apparently not having noticed you arrive, [Arian ey] hums to [Arian emself] as [Arian ey] busies [Arian emself] with the covers of [Arian eir] bed, bending over and letting you get a good look at [Arian eir] sweet ass.  You appreciate the view for a few moments, and then gently cough to announce your presence.' );
 		EngineCore.outputText( '\n\nStartled, Arian tries [Arian eir] best to cover [Arian eir] privates and finally notices you standing just inside.  "<i>Oh, hello [name].  S-sorry, I\'m not decent... I was just getting ready to turn in.  Can I help you with something?</i>"' );
@@ -3328,14 +3328,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\n"<i>Really?  Umm... well, they say it\'s easier to share body heat with skin contact, so...</i>"  Arian trails off twirling [Arian eir] fingers, no longer bothering to cover [Arian emself] up.' );
 		EngineCore.outputText( '\n\nYou make no secret of your visual appreciation, telling [Arian em] that the view is definitely nice, and then you start to strip down, making a little show out of it for your lizan lover.' );
 		EngineCore.outputText( '\n\nArian fidgets and watches enraptured as you peel off each piece of your [armor].  ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'You can clearly see [Arian eir] exposed cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' stiffening at the sight.  ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( 'You can tell that [Arian ey] is aroused by the little show, despite [Arian eir] body doing a good job of hiding it.  ' );
 		}
 		EngineCore.outputText( 'You just let [Arian em] squirm, pretending you don\'t see [Arian eir] reactions, and then, indicating the bed, you ask which of you should get in first.' );
@@ -3343,17 +3343,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nWorried?  You smirk and ask whatever you could be worried about, even as you saunter over and slide yourself onto the bed.  You smile and wiggle with appreciation, telling Arian how wonderful [Arian eir] sheets and soft mattress feel after so long sleeping in a bedroll on the hard ground.' );
 		EngineCore.outputText( '\n\nArian smiles at you.  "<i>I\'m glad you\'re comfortable.  Just know that I\'ll always have a spot for you under my bedsheets.</i>"  Oh?  Is that a proposal of a little... light exercise before bed, hmm?  You tease the lizan.  Averting [Arian eir] gaze and biting [Arian eir] lower lip, Arian quickly blurts out.  "<i>No!  I mean... I wouldn\'t mind... but I, umm....  I\'ll just be getting in under the covers, if you don\'t mind.</i>"  You chuckle and motion for [Arian em] to come hither.' );
 		EngineCore.outputText( '\n\nArian lays down beside you, and scoots over, trying to get as close as possible to you.  You promptly wrap your arms around [Arian eir] waist, and then wrap your [legs] around [Arian em] for good measure, nuzzling yourself against [Arian eir] smooth scales.' );
-		EngineCore.outputText( '\n\nArian sighs in happiness at your close contact.  "<i>It feels so good to have your ' + CoC.getInstance().player.skinFurScales() + ' against my scales.  So warm...</i>" [Arian ey] sidles up against you, [Arian eir] tail draping over your waist as [Arian ey] sinks into your embrace.  You just squeeze [Arian em] a little tighter and hold [Arian em] close, saying nothing aside from a quiet whisper to sleep well.  "<i>Good night, [name],</i>" [Arian ey] whispers back, before extending a hand toward the globe illuminating the tent and snapping [Arian eir] fingers, shutting down the light.' );
+		EngineCore.outputText( '\n\nArian sighs in happiness at your close contact.  "<i>It feels so good to have your ' + CoC.player.skinFurScales() + ' against my scales.  So warm...</i>" [Arian ey] sidles up against you, [Arian eir] tail draping over your waist as [Arian ey] sinks into your embrace.  You just squeeze [Arian em] a little tighter and hold [Arian em] close, saying nothing aside from a quiet whisper to sleep well.  "<i>Good night, [name],</i>" [Arian ey] whispers back, before extending a hand toward the globe illuminating the tent and snapping [Arian eir] fingers, shutting down the light.' );
 		//(if AnalXP <33);
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
-			EngineCore.outputText( '\n\nA strange sensation, combined with a soft sound, stirs you from your sleep.  You realize that Arian is stirring in [Arian eir] sleep, softly mumbling to [Arian em]self as [Arian eir] tail gently swishes to and fro under the covers, sometimes accidentally running its warm length over your ' + CoC.getInstance().player.skinFurScales() + '.' );
+		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+			EngineCore.outputText( '\n\nA strange sensation, combined with a soft sound, stirs you from your sleep.  You realize that Arian is stirring in [Arian eir] sleep, softly mumbling to [Arian em]self as [Arian eir] tail gently swishes to and fro under the covers, sometimes accidentally running its warm length over your ' + CoC.player.skinFurScales() + '.' );
 			EngineCore.outputText( '\n\nAt first you think the lizan might actually be awake, but under further inspection you realize that [Arian ey] is just sleep-talking.  Should you listen in or just go back to sleep?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Listen', this.listenToLowAnalXPArian );
 			EngineCore.addButton( 1, 'Sleep', this.dontListenToLowAnalXPArian );
 		}
 		//(else if AnalXP <66);
-		else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+		else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 			EngineCore.outputText( '\n\nYou awaken blearily to the sound of soft whimpering, the feeling of hips rubbing softly and repeatedly against your groin, and the sensation of a long, smoothly-scaled tail flickering across your [chest].  Looks like Arian is dreaming something... probably something erotic, too.' );
 			EngineCore.outputText( '\n\nShould you listen in, and perhaps tease [Arian em]?  Or just go back to sleep?' );
 			//[Listen][Sleep];
@@ -3381,13 +3381,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//[=Listen=];
 	ArianScene.prototype.listenToLowAnalXPArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_MORNING ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 1;
 		EngineCore.outputText( 'You turn you head to try and catch what Arian might be dreaming about.' );
 		EngineCore.outputText( '\n\n"<i>In my ass?  Are you sure?</i>"' );
 		EngineCore.outputText( '\n\nWell, now; looks like Arian might be dreaming about anal sex.  You wonder what to do....  Well, since it\'s basically [Arian eir] fault that you are awake, you feel a little payback is in order.  You whisper in [Arian eir] ear that you are sure.' );
 		EngineCore.outputText( '\n\n"<i>But sausages belong inside breads,</i>" Arian whimpers.  "<i>But... if you\'re sure... okay....</i>"  Under the covers you feel Arian wiggling [Arian eir] butt against you, [Arian eir] tail lifting to make room for the "<i>sausage</i>".' );
 		//(if PC has a cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nYou wonder for a moment if maybe this is fair, but decide that, if [Arian ey]\'s obviously dreaming about it eagerly....  Your hand slips under the covers to start stroking your [cock smallest], gently coaxing yourself to erection.  Once you\'ve gotten yourself sufficiently stiff, you wrap your arms around the lizan\'s waist for balance and start pushing yourself in.' );
 		} else {
 			EngineCore.outputText( '\n\nGiven you\'re rather lacking in the penis department, you decide to make do with your fingers; they should be close enough for someone new to anal like [Arian em], right?  Copiously lubricating your middle finger with saliva, you wriggle it between [Arian eir] soft asscheeks and begin gently pushing it into [Arian eir] tight little pucker.' );
@@ -3411,7 +3411,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//[=Listen=];
 	ArianScene.prototype.listenToMediumAnalXPArian = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_MORNING ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 1;
 		EngineCore.outputText( 'You turn you head to try and catch what Arian might be dreaming about.' );
 		EngineCore.outputText( '\n\n"<i>Hmm... no, not my muffins.</i>"' );
 		EngineCore.outputText( '\n\n...Muffins?  [Arian Ey]\'s kicking and squirming like that... over a dream about muffins?  Feeling mischievous, and maybe a little insulted, you lean over [Arian eir] ear and whisper that you\'ve got some very special muffins for him.' );
@@ -3419,18 +3419,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou tell [Arian em] it\'s a surprise.' );
 		EngineCore.outputText( '\n\n"<i>Hmm, okay then.  Shove it in.</i>"  Arian lifts [Arian eir] tail out of the way, wiggling [Arian eir] hips against you.' );
 		//(if PC has a cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nWell, if this is what [Arian ey] wants, you\'re happy to oblige.  Your hand slips under the covers to start stroking your [cock smallest], gently coaxing yourself to erection.  Once you\'ve gotten yourself sufficiently stiff, you wrap your arms around the lizan\'s waist for balance and start pushing yourself in.' );
 			EngineCore.outputText( '\n\nArian moans.  "<i>Such a familiar flavor.  Why didn\'t you tell me you were [name] flavored?  I love muffins.  I love [name] muffins.</i>"' );
 			EngineCore.outputText( '\n\nYou blink in surprise; is Arian really asleep, you wonder?  No, [Arian ey]\'s got to be awake, otherwise how could [Arian ey] realize you\'re actually fucking [Arian eir] ass?  "<i>Hmm... tasty...</i>"  You lean over the lizan, ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'cock' );
 			} else {
 				EngineCore.outputText( 'finger' );
 			}
 			EngineCore.outputText( ' still worming its way into [Arian eir] fuckable ass, but it really does look like [Arian ey]\'s fast asleep.  Weird.  "<i>So many muffins... all [name] flavored...</i>"  [Arian ey] calms down and begins snoring lightly.' );
 			EngineCore.outputText( '\n\nUnbelievable... if you didn\'t know better you\'d think that Arian is the one doing the teasing here.  Still... [Arian ey]\'s fast asleep right now, and you don\'t feel like fucking [Arian em] in [Arian eir] sleep' );
-			if( CoC.getInstance().player.cor >= 66 ) {
+			if( CoC.player.cor >= 66 ) {
 				EngineCore.outputText( ', despite the silly lizan being deserving of it' );
 			}
 			EngineCore.outputText( '.  But as payback, [Arian ey]\'s going to sleep with you inside, not that it seems like it\'ll be much of a problem to [Arian em]... Too bad you can\'t hold an erection all the time while asleep, so you know eventually you\'ll slip out...' );
@@ -3439,7 +3439,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( '\n\nArian moans.  "<i>Such a familiar flavor... why didn\'t you tell me you were [name] flavored?  I love muffins... I love [name] muffins...</i>"' );
 			EngineCore.outputText( '\n\nYou blink in surprise; is Arian really asleep, you wonder?  No, [Arian ey]\'s got to be awake, otherwise how could [Arian ey] realize you\'re actually fucking [Arian eir] ass?  "<i>Hmm... tasty...</i>"  You lean over the lizan, finger still worming its way into [Arian eir] fuckable ass, but it really does look like [Arian ey]\'s fast asleep.  Weird.  "<i>So many muffins... all [name] flavored....</i>"  [Arian Ey] calms down and begins snoring lightly.' );
 			EngineCore.outputText( '\n\nUnbelievable... if you didn\'t know better you\'d think that Arian is the one doing the teasing here.  Still... [Arian ey]\'s fast asleep right now, and you don\'t feel like fucking [Arian em] in [Arian eir] sleep' );
-			if( CoC.getInstance().player.cor >= 66 ) {
+			if( CoC.player.cor >= 66 ) {
 				EngineCore.outputText( ', despite the silly lizan being deserving of it' );
 			}
 			EngineCore.outputText( '.' );
@@ -3458,29 +3458,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//[=Tease=];
 	ArianScene.prototype.TeaseHighAnalXPArian = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-camp-dreamingArian' ) );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'arianmale-camp-dreamingArian' ) );
 		}
-		CoC.getInstance().flags[ kFLAGS.ARIAN_MORNING ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 1;
 		EngineCore.outputText( '\n\nFirst, you decide to check what exactly is Arian dreaming about...' );
 		EngineCore.outputText( '\n\n"<i>...[name]... no... don\'t stuff that turkey... stuff me....  I wanna be tasty too.</i>"' );
 		EngineCore.outputText( '\n\nIs [Arian ey] dreaming about food, or sex?' );
 		//(if PC has a cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nAh well, why not indulge a little?  You take one hand and begin to sensuously stroke your shaft, aiming to get yourself nice and erect, while with the fingers of the other you slide into the lizan\'s tailhole, seeing if your teasing will get a reaction and prove [Arian ey] wants [Arian eir] butt fucked.' );
 			EngineCore.outputText( '\n\n"<i>Hmm... hehe.  It\'s so little... [name]... you can do better.</i>"' );
 			EngineCore.outputText( '\n\nOkay, it seems there\'s no need to hesitate any more.  Your cock rock-solid with anticipation, you wriggle yourself into the proper position and thrust yourself bluntly up [Arian eir] ass.  Arian moans lewdly in [Arian eir] sleep, [Arian eir] well-trained pucker easily, nay, eagerly taking you in a single thrust, the hungry muscles sliding wetly across your length and then clamping down in an effort to suck you inside.' );
 			EngineCore.outputText( '\n\n"<i>Oooh... that\'s what I\'m talking about... make me tasty...</i>" Arian\'s hips eagerly begin thrusting against you in an attempt to force you even deeper into [Arian eir] contracting rosebud; every time you push inside, the flesh surrounding your [cock smallest] yields, allowing you easy access; and every time you pull out, Arian\'s sphincter grips you tightly, as if trying to prevent you from leaving its tight embrace.  It feels good, despite being a bit difficult to get into proper rhythm.' );
 			EngineCore.outputText( '\n\nStill, you persevere despite the awkwardness, leaning over and whispering into Arian\'s ear, asking if [Arian ey] wants to be stuffed nice and full.' );
 			EngineCore.outputText( '\n\n"<i>More than full... I want to be as big as Miss Turkey...</i>"' );
-			EngineCore.outputText( '\n\nIs that so, you ask?  Does [Arian ey] really want a big squishy belly, stuffed full of hot, salty ' + CoC.getInstance().player.mf( 'man', 'herm' ) + '-goo?' );
+			EngineCore.outputText( '\n\nIs that so, you ask?  Does [Arian ey] really want a big squishy belly, stuffed full of hot, salty ' + CoC.player.mf( 'man', 'herm' ) + '-goo?' );
 			EngineCore.outputText( '\n\n"<i>Hmm, yessss... put the sauce inside me,</i>" Arian hisses in obvious pleasure.' );
 			EngineCore.outputText( '\n\nAlready hot and bothered, you don\'t need much more encouragement.  A few final thrusts, brutal in your eagerness, and you give yourself over to climax, cumming as long and hard as you can into Arian\'s greedy little butt.' );
 			EngineCore.outputText( '\n\nYou cum as hard as you can, but find yourself unable to cum as much you\'re used to, due to the fact you\'re still half-asleep.  "<i>Hmm, no... more stuffing.  I need it for my muffins...</i>"  You try your best, but just can\'t dredge up anything more of note, and tell Arian that [Arian ey]\'ll need to get some sleep and you\'ll stuff [Arian em] in the morning.  Arian whimpers, but seems to calm down for the time being... now maybe you can get some proper sleep.' );
 			EngineCore.outputText( '\n\nYou try to pull out of the lizan\'s trained ass, but find yourself unable to.  Well, this is not exactly how you saw yourself spending the night today, but you\'re too tired to put much of an effort extracting your [cock smallest] from the lizan\'s greedy butthole.  You get as comfortable as you can, given your current position, and close your eyes...' );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		} else {
 			EngineCore.outputText( '\n\nPity you don\'t have the necessary parts to play with [Arian em], though.  Still, maybe if you do something a little special for him, [Arian ey]\'ll calm down and let you get some sleep...?' );
 			EngineCore.outputText( '\n\nWith anyone else, you\'d probably lube your fingers up first; given what a total buttslut Arian\'s turned [Arian emself] into, though, you doubt [Arian ey] needs it.  Gently, you begin pressing against [Arian eir] puckered tailhole with two fingers; eagerly it slips open, allowing you access with what you\'d swear was a soft slurping sound. The interior is wet and slick, more like an aroused pussy than a normal anus, and you start to slowly thrust your fingers in and out of the warm, wet depths.' );
@@ -3500,20 +3500,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Outcome slightly modified by AnalXP.;
 	ArianScene.prototype.wakeUpAfterArianSleep = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+		if( CoC.player.hasCock() ) {
+			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ImageManager.showImage( 'arianfemale-camp-dreamingArian' ) );
 			} else {
 				EngineCore.outputText( ImageManager.showImage( 'arianmale-camp-dreamingArian' ) );
 			}
 			//(if AnalXP < 33);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 				//(PC tried but didn't manage to get their cocks in. Even tho you slept with it inside, you do go flaccid at some point in the night.);
 				EngineCore.outputText( 'Your eyes open, and you suddenly realize that whatever dreams you were having... are now gone.  You make note of the still sleeping lizan right next to you and recall last night\'s events.  You wonder if Arian will remember any of that...' );
 				EngineCore.outputText( '\n\nGetting yourself out of bed, you start to stretch your muscles, cracking joints and generally waking yourself up.  While you are doing this, the lizan yawns loudly, slowly coming awake as well.  Rubbing the sleep out of [Arian eir] eyes, Arian utters.  "<i>Morning, [name].  Sleep well?</i>"  [Arian ey] turns to look at you and suddenly hides [Arian emself] under the covers.' );
 				EngineCore.outputText( '\n\nYou give [Arian em] a wide grin and repeat the sentiment, assuring [Arian em] that you did indeed sleep well.  Aww, why\'s [Arian ey] being so shy?  It\'s far too late for either of you to be worried about being naked around each other.' );
 				EngineCore.outputText( '\n\nArian\'s head pokes from under the covers.  "<i>I suppose you\'re right... but that\'s still an impressive sight,</i>"  [Arian ey] says pointing at your erect cock' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( '.' );
@@ -3523,7 +3523,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\n"<i>All right!  Sit down,</i>" [Arian ey] says, getting up and motioning towards [Arian eir] bed.' );
 				EngineCore.outputText( '\n\nYou easily catch on to what the lizan has in mind and, with a smile, do as you are told, baring your crotch so to give [Arian em] the best access.' );
 				EngineCore.outputText( '\n\nArian promptly nuzzles your ' + Descriptors.multiCockDescriptLight() + ', rubbing [Arian eir] face all over ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'it' );
 				} else {
 					EngineCore.outputText( 'them' );
@@ -3533,7 +3533,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nArian\'s eyes bulge with surprise and [Arian ey] begins drinking down in earnest, moaning in enjoyment, which proves to be a mistake... shortly after a particularly lengthy moan, [Arian ey] tries to swallow and winds up choking.  Some cum escapes [Arian em] through [Arian eir] nose and [Arian ey] quickly pulls away, coughing.  Unfortunately for [Arian em], you\'re still cumming, and the result that even as [Arian ey] gags and splutters, you keep on spurting cum all over [Arian eir] face until you\'ve emptied yourself.  You sigh in relief, then, with a hint of guilt, ask Arian if [Arian ey]\'s all right?' );
 				EngineCore.outputText( '\n\nWiping your seed off [Arian eir] eyes, [Arian ey] says, "<i>I\'m fine... should have been more careful... and don\'t worry about the facial either, all I need is a few moments to clean myself up.</i>"  [Arian ey] gets up and walks towards a jug filled with water [Arian ey] keeps nearby.' );
 				EngineCore.outputText( '\n\nYou quietly get up, pull your clothes on and start heading off to another busy day as Champion.  As you go, you can\'t help but notice your reptilian lover is licking [Arian eir] face clean of cum and washing it down with the water, rather than washing [Arian em]self off.' );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 				EngineCore.outputText( 'With a wide yawn, you open your eyes and realize your dreams have been chased away by your sudden bout of wakefulness.  Arian seems to still be asleep; you take a short moment to snuggle up to the curled lizan, rubbing your erect cock up [Arian eir] butt crack.  Despite going soft and slipping out of the lizan\'s warm innards, you still have to contend with a morning wood... so you dutifully hump yourself between the lizan\'s buttcheeks, poking the base of [Arian eir] tail with your protruding shaft.' );
 				EngineCore.outputText( '\n\n"<i>Hmm, I\'m awake already, stop poking me,</i>" Arian protests, rubbing the sleep off [Arian eir] eyes and turning to look at you over [Arian eir] shoulder.  "<i>Morning, [name].  You don\'t have to keep poking me under the tail to wake me up,</i>" [Arian ey] says, a bit grumpy.  Then [Arian ey] realizes that your hands are still occupied hugging [Arian em], so what\'s poking [Arian em] is...  "<i>Oh!  Sorry about that, [name]!  I thought you wanted something... I mean, maybe you do want something?</i>"  [Arian ey] smiles nervously at you.' );
 				EngineCore.outputText( '\n\nYou make a show of pursing your lips.  The question might be, you decide, does Arian want to do something?  After all, those were rather mixed signals [Arian ey] sent you last night...' );
@@ -3567,16 +3567,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nIf you weren\'t already buried inside of [Arian em], you\'d pounce right into [Arian eir] ass.  Instead, you redouble your efforts, savoring the delicious interior of your little buttslut\'s ass and [Arian eir] now-deliberate efforts to milk your cock of its cum.' );
 				EngineCore.outputText( '\n\n"<i>Hmm... harder... faster,</i>"  Arian begs, in between moans of pleasure.  Seeing no reason to deny [Arian em], you pick up the pace, roughly pounding [Arian em] for all you\'re worth.' );
 				EngineCore.outputText( '\n\nWith a groan, you feel [Arian eir] sphincter contract, pulling you even deeper inside.  Looking down, you realize ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' pussy is squirting her juices all over your lower body' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 						EngineCore.outputText( ' and ' );
 					} else {
 						EngineCore.outputText( '; ' );
 					}
-				} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+				} else if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 					EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' ' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 						EngineCore.outputText( 'twin shafts are' );
 					} else {
 						EngineCore.outputText( 'shaft is' );
@@ -3585,7 +3585,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				}
 				EngineCore.outputText( ' what a naughty little lizan.' );
 				EngineCore.outputText( '\n\nYou can\'t resist playfully teasing Arian that [Arian ey] is such a buttslut.  ' );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'Did [Arian ey] always know [Arian ey] wanted a man to top [Arian em], or is this development new to [Arian em]?' );
 				} else {
 					EngineCore.outputText( 'Does [Arian ey] really get off on having a girl with a dick all her own fuck [Arian em] like a girl, hmm?' );
@@ -3594,10 +3594,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\n"<i>No... but I love it regardless!  Fill me with your seed, please!</i>"  Arian begs, moaning and eagerly awaiting your deposit.' );
 				EngineCore.outputText( '\n\nYou thrust into [Arian em] thrice more, then, with a hollow cry, let out all the seed you can to sate your lovely little buttslut\'s thirst.  And this time, you can properly focus on cumming, too.' );
 				//(Low cum amount);
-				if( CoC.getInstance().player.cumQ() <= 200 ) {
+				if( CoC.player.cumQ() <= 200 ) {
 					EngineCore.outputText( '\n\nThe first jet of cum of the day spurts forth from your tip to paint the eager lizan\'s insides.  "<i>Ahhh... that\'s the way you do it,</i>"  Arian says, tongue lolling out in pleasure as your cock finishes throbbing and shooting inside.' );
 				}//(Medium cum amount);
-				else if( CoC.getInstance().player.cumQ() <= 750 ) {
+				else if( CoC.player.cumQ() <= 750 ) {
 					EngineCore.outputText( '\n\nString after string of cum leaves your tool to paint the lizan\'s bowels white with the results of your morning escapade, even swelling [Arian eir] belly a bit.  "<i>Oh, yessss... breakfast.... Hah,</i>"  Arian says, tongue lolling out in pleasure as [Arian ey] anally devours your pent up cum.' );
 				}
 				//(High cum amount);
@@ -3610,13 +3610,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\n"<i>Hmm... please do...</i>"  Arian\'s mouth opens in a wide yawn.  "<i>Still a bit sleepy.  I think I\'ll take a nap now, if you\'ll excuse me.</i>"' );
 				EngineCore.outputText( '\n\nYou chuckle and tell Arian [Arian ey]\'s such a lazy little lizard, stroking [Arian eir] head affectionately before getting dressed and leaving to start your day.' );
 			}
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		} else {
 			{ //PC has no cock
 			}
 			//These do not link to a sex scene. No cocks, no sex in the morning, sorry girls/genderless.;
 			//(if AnalXP < 33);
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 33 ) {
 				EngineCore.outputText( 'You awaken with a yawn, still snuggling against your scaly sleeping partner.  You slip quietly from the bed and give a good stretch, enjoying the feeling but trying not to wake Arian up.  Shortly after you\'re done, the lizan\'s maw opens into a wide toothy yawn of [Arian eir] own, rubbing the sleep off [Arian eir] eyes, [Arian ey] looks about until [Arian ey] spots you.  "<i>Good morning, [name]!</i>"  [Arian ey] says cheerfully, getting up and lazily stretching [Arian emself] as well.  "<i>Sleep well?</i>"' );
 				EngineCore.outputText( '\n\nYou tell [Arian em] that you did, and ask if [Arian ey] enjoyed having you in [Arian eir] bed as well?  "<i>I did!  I really enjoyed having you spend the night with me.</i>"  [Arian Ey] grins, prehensile tail swishing lazily behind.' );
 				EngineCore.outputText( '\n\nWell, if that\'s the case, you reply, you might just consider sleeping with [Arian em] more often.  You wink as you tell [Arian em] this, kind of hoping [Arian ey]\'ll blush - it\'s such an odd sight to see.  Arian doesn\'t disappoint, fidgeting a bit as [Arian eir] cheeks get slightly rose-tinted.  "<i>I hope you will come more often,</i>" [Arian ey] replies, always grinning.  "<i>Maybe we should get ready for the day?</i>"' );
@@ -3624,28 +3624,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.outputText( '\n\nOnce you\'re both fully dressed, Arian smiles at you.  "<i>[name], have a nice day... and please come visit me soon.</i>"  You promise you will, and start heading out.' );
 				EngineCore.outputText( '\n\n"<i>Wait!  Before you go, could you... never mind...</i>"  The lizan fidgets a bit and turns away, walking towards [Arian eir] work desk.  With a knowing smirk on your face, you walk back and grab [Arian em] shoulder, forcefully spinning [Arian em] around and kissing [Arian em] witless.  You pause for a moment to admire the blissfully stunned, dopey look on your lover\'s face, then walk off to begin yet another day.' );
 				EngineCore.dynStats( 'lus', 10 );
-			} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
+			} else if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] < 66 ) {
 				EngineCore.outputText( 'You awaken with a yawn, still snuggling against your scaly sleeping partner.  You slip quietly from the bed and give a good stretch, enjoying the feeling but trying not to wake Arian up.  Shortly after you\'re done, the lizan\'s maw opens into a wide toothy yawn of [Arian eir] own, rubbing the sleep off [Arian eir] eyes, [Arian ey] looks about until [Arian ey] spots you.  "<i>Good morning, [name]!</i>" [Arian ey] says cheerfully, getting up and lazily stretching [Arian emself] as well.  "<i>Sleep well?</i>"' );
 				EngineCore.outputText( '\n\nYou did and ask if [Arian ey] also slept well.  Rather than replying, the lizan bites [Arian eir] lower lip and begins fidgeting in what appears to be embarrassment.  You ask what the matter is, your expression making it clear you aren\'t going anywhere until [Arian ey] talks about it.' );
 				EngineCore.outputText( '\n\n"<i>Well, I did sleep well.  It\'s just that I also had the strangest... dream.</i>"  [Arian Ey] swallows audibly.  Oh?  And what was this dream about?  You ask in a playful tone, but you think you have an idea already...' );
 				EngineCore.outputText( '\n\n"<i>Uhh... well, I was... and then... I... had things... done to me...</i>" [Arian ey] explains nervously.' );
 				EngineCore.outputText( '\n\nYou shake your head and tell [Arian em] that you didn\'t understand a word of that.  Fidgeting, the lizan recomposes [Arian emself] and begins explaining once more.  "<i>I-I dreamt I was... well... a muffin and... uhh... I needed my fillings, but the baker kept teasing me by putting the wrong needles in my... bottom... and... well... there was no cream... so... uuh...</i>"  Embarrassed beyond belief, the lizan just stops talking and just fiddles [Arian eir] fingers, white cheeks tinted with the distinct rosy-pink tone that comes with embarrassment.' );
 				EngineCore.outputText( '\n\nYou smile and can\'t resist stroking your fingers across the lizan\'s still naked ass, squeezing the round plumpness of [Arian eir] cheeks and stroking [Arian eir] slutty butt-pucker, just to see how [Arian ey]\'ll] react.  Arian whimpers, ' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 					EngineCore.outputText( this.arianMF( 'his', 'her' ) + ' ' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] >= 3 ) {
 						EngineCore.outputText( 'exposed ' );
 					}
 					EngineCore.outputText( 'bulbous shaft' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 						EngineCore.outputText( 's begin' );
 					} else {
 						EngineCore.outputText( ' begins' );
 					}
 					EngineCore.outputText( ' sporting an erection' );
-					if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
+					if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] < 3 ) {
 						EngineCore.outputText( ', poking ' );
-						if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 1 ) {
+						if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] === 1 ) {
 							EngineCore.outputText( 'its tip' );
 						} else {
 							EngineCore.outputText( 'their tips' );
@@ -3653,7 +3653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 						EngineCore.outputText( ' out of Arian\'s genital slit' );
 					}
 					EngineCore.outputText( '.' );
-				} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+				} else if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 					EngineCore.outputText( 'and her moist pussy, begins forming a stream of juices that gently run its course through the inside of Arian\'s thighs, evaporating before hitting the floor due to the lizan\'s currently elevated body heat.' );
 				}
 				EngineCore.outputText( '  [Arian Ey] pants, eyes glazed.  "<i>Uhh... [name]...</i>"' );
@@ -3673,7 +3673,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 				EngineCore.dynStats( 'lus', 10 );
 			}
 		}
-		CoC.getInstance().flags[ kFLAGS.ARIAN_MORNING ] = 0;
+		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 0;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Egging Event;
@@ -3683,9 +3683,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//If you don't visit Arian, you miss this event, and the eggs she would be laying.;
 	ArianScene.prototype.arianEggingEvent = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_EVENT ] = 1;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_CHAT ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_CHAT ]++;
+		CoC.flags[ kFLAGS.ARIAN_EGG_EVENT ] = 1;
+		if( CoC.flags[ kFLAGS.ARIAN_EGG_CHAT ] === 0 ) {
+			CoC.flags[ kFLAGS.ARIAN_EGG_CHAT ]++;
 			EngineCore.outputText( 'As you are about to enter Arian\'s tent, you hear a moan emanate from within.  Those aren\'t moans of pleasure though.  They are moans of discomfort.  Wondering if the lizan is all right, you decide to enter her tent.' );
 			EngineCore.outputText( '\n\nArian is laying on her bed, naked, as she rubs her belly in a slow circular motion.  You rush to her side and ask what happened?' );
 			EngineCore.outputText( '\n\n"<i>Uh?  Oh, hello [name].  Just feeling a bit sick, that\'s all.</i>"  Arian smiles, somewhat embarrassed, and adds, "<i>You see... it\'s that time... when girls... y\'know.</i>"  She giggles.' );
@@ -3724,13 +3724,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			color = 'pink';
 		}
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] = color;
+		CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] = color;
 		EngineCore.outputText( 'You tell Arian you\'d like her to make you a ' + color + ' egg.' );
 		EngineCore.outputText( '\n\n"<i>All right,</i>" Arian replies, closing her eyes and beginning to focus her magic.' );
 		EngineCore.outputText( '\n\nYou watch in wonder as a ' + color + ' light seems to gather within Arian\'s belly, slowly fading away.  The lizan mage smiles and opens her eyes, tail waving lazily behind her in happiness.  "<i>It\'s done.  I tried to get all my eggs imbued, but I won\'t know if I was successful or not until they\'re laid.</i>"' );
 		EngineCore.outputText( '\n\nYou thank her for her efforts, give her a quick peck on the cheek, and then encourage her to get some rest.  Arian nods.  "<i>I should be ready to lay tomorrow, so don\'t forget to visit.</i>"' );
 		EngineCore.outputText( '\n\nYou nod in understanding and wave to her as you leave her tent.' );
-		CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 1;
+		CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave;
@@ -3746,10 +3746,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 	//Randomly decide between small or large egg, I'd say 50% chance of either.;
 	ArianScene.prototype.arianLaysEggs = function() {
 		EngineCore.clearOutput();
-		var color = CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ];
-		CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 0;
+		var color = CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ];
+		CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 0;
 		EngineCore.outputText( 'As you approach the tent, you wonder if Arian\'s ready to lay those eggs...  Your contemplations are promptly interrupted as you hear a pained moan coming from inside.  Seems like Arian is in labor!  Without delay, you rush inside, to be greeted by the sight of naked lizan-' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'herm' );
 		} else {
 			EngineCore.outputText( 'girl' );
@@ -3757,7 +3757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( ' squatting over a wooden basin, one hand between her legs, massaging her dripping treasure, while the other is rubbing her belly to try and coax the eggs out of her.' );
 		EngineCore.outputText( '\n\nYou see her sway momentarily, too focused on the task at hand to even notice you.  Fearing she might lose her balance and fall, you quickly move behind her, hugging and steadying her.' );
 		EngineCore.outputText( '\n\nThe lizan ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'herm' );
 		} else {
 			EngineCore.outputText( 'female' );
@@ -3782,17 +3782,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou laugh at Arian\'s reaction, telling her that you don\'t mind.  You should go right now.  You turn to pocket the egg and leave Arian\'s tent, bidding the lizan farewell before you do.\n\n' );
 		//(PC obtains (Large) Egg of the [color] asked message.);
 		var itype;
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'brown' ) {
+		if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'brown' ) {
 			itype = ConsumableLib.L_BRNEG;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'purple' ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'purple' ) {
 			itype = ConsumableLib.L_PRPEG;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'blue' ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'blue' ) {
 			itype = ConsumableLib.L_BLUEG;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'pink' ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'pink' ) {
 			itype = ConsumableLib.L_PNKEG;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'white' ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'white' ) {
 			itype = ConsumableLib.L_WHTEG;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'rubbery black' ) {
+		} else if( CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'rubbery black' ) {
 			itype = ConsumableLib.L_BLKEG;
 		}
 		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
@@ -3805,18 +3805,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		//PC and Arian must both have vaginas to access this scene;
 		EngineCore.clearOutput();
 		//1st time:;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ARIAN_DILDOED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ARIAN_DILDOED ] === 0 ) {
 			EngineCore.outputText( 'Looking over your reptilian girlfriend, your eyes go down her body' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 				EngineCore.outputText( ', past her cock' );
-				if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+				if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 					EngineCore.outputText( 's' );
 				}
 			} else {
 				EngineCore.outputText( ',' );
 			}
 			EngineCore.outputText( ' to her dripping wet pussy, clearly yearning for some action.  Reflecting that your own love-lips feel the same way, you decide to try something fun and present to Arian the dildo that you ' );
-			if( CoC.getInstance().player.hasKeyItem( 'Dildo' ) >= 0 ) {
+			if( CoC.player.hasKeyItem( 'Dildo' ) >= 0 ) {
 				EngineCore.outputText( 'bought from Giacomo' );
 			} else {
 				EngineCore.outputText( 'got from Tamani' );
@@ -3829,12 +3829,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 			EngineCore.outputText( 'You present your dildo to Arian again, telling her that this time, you want to play with your toys - after all, she enjoyed it so much the first time.' );
 			EngineCore.outputText( '\n\nArian fidgets in embarrassment.  "<i>Okay.</i>"' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_ARIAN_DILDOED ]++;
+		CoC.flags[ kFLAGS.TIMES_ARIAN_DILDOED ]++;
 		EngineCore.outputText( '\n\nYou carefully put the dildo down beside the pillow before turning to Arian and pulling her into an embrace, arms around her waist, before spinning her around, sweeping her off her feet, and dropping her flat on the bed.  She giggles nervously as you slide yourself into position, straddling her and pinning her wrists to the bed beside her head, leaving her helpless.  Your tongue slides out of your lips in a lecherous gesture before you bend your head down and kiss her first on one dark nipple, and then on the other.  Arian wriggles and squirms underneath you as you start to plant quick, soft, gentle kisses up her torso and towards her neck, diligently kissing your way towards her lips.  Once there, you plant a butterfly kiss on her lips, but that\'s not enough; you release your grip on her wrists and instead place a soft but authoritative palm on each of her cheeks, pinning her in place as you passionately consume her lips with your own.' );
 		EngineCore.outputText( '\n\nYour lizan lover reciprocates your kiss, her scaled arms wrapping around you as she hugs you tightly, legs instinctively spreading to allow you access.  You continue to suckle at her lips, forcefully probing at them with your tongue to see if she will allow you access.  Even as you do this, you settle yourself more comfortably upon her body and slide a hand down her torso, over her belly until you reach between her legs.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'Ignoring her cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ', y' );
@@ -3848,9 +3848,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nShe pops the dildo out of her mouth, satisfied with its current wetness.  With one hand, she cups a breast and rubs the tip of the dildo on her erect nipple, moaning at the stimulation.  Her eyes glance at you to see if she\'s pleasing you.  You shift so that she can see your naked form, letting her watch as your hands slip teasingly down to your love canal\'s entrance.  You moan softly, starting to frig yourself in excitement at the show she\'s putting on.  Emboldened by your display, Arian smiles and licks the tip of the dildo once more.  She moans as she strokes her other nipple, setting the dildo between her breasts to run its length along her cleavage.  Whenever the dildo grows dry, she takes it back to her mouth to lather it again with a drawn out slurp.  She\'s starting to get in the mood, you notice.' );
 		EngineCore.outputText( '\n\nYou clap your hands all of a sudden, startling Arian out of her oral ravishing.  You crawl your way up to her, your motions smooth and seductive, gently taking the dildo from her unresisting fingers as you coil yourself around her.  She\'s been putting on a very nice show, you stage whisper to her, but this isn\'t really what you wanted to see.  You\'re going to give her a hand and show her just how good this can really be....' );
 		EngineCore.outputText( '\n\nYou start by seductively wrapping your own tongue around the dildo, sloppily kissing it and slurping on it, sucking eagerly at the taste of her saliva and making sure it\'s good and sodden with both your mixed juices.  Then, you hold the dripping wet toy up to her for her inspection.  She looks at the dildo enraptured, panting in excitement.  Then, now that she\'s good and excited, you bring the dildo down to the junction of her legs, ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'brushing it tantalizingly across the sensitive skin of her pre-oozing cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' before' );
@@ -3859,9 +3859,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nArian moans and fidgets as you play with her body, moaning and gasping at the friction generated by the rubber dildo.  "<i>Oh, [name].  T-that feels great!</i>" she moans in delight, bucking against the dildo in an attempt to find purchase.' );
 		EngineCore.outputText( '\n\nIf it feels so good, then why doesn\'t she prove it, you ask her, continuing to tease her with the dildo but refusing to put it in, your free hand stroking your [clit] and fingerfucking your [vagina] at an excited pace.  Isn\'t she just dying to have this fake-cock between her legs, spreading her pussy wide and stretching out her gut until she\'s a helpless puddle of fuck?  Why doesn\'t she show you that\'s what she wants?' );
 		EngineCore.outputText( '\n\nArian looks at you in confusion.  "<i>Prove it? 0...Ah!</i>" she moans loudly, bucking wildly against your teases.  Yes, prove it... and with that, you take a firm grip on the dildo and roughly thrust it as far into Arian\'s cunt as the horny lizan will let it enter!  The she-lizan\'s maw opens in a look of surprise; instead of a scream, all she can manage is a gasp.  You make sure to commit the image to memory for moments.  Arian closes her eyes and moans - a throaty moan, a moan of pleasure.  Her face contorts as her vaginal walls clamp down on the rubbery intruder.  ' );
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
 			EngineCore.outputText( 'Her cock' );
-			if( CoC.getInstance().flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
+			if( CoC.flags[ kFLAGS.ARIAN_DOUBLE_COCK ] > 0 ) {
 				EngineCore.outputText( 's throb' );
 			} else {
 				EngineCore.outputText( 'throbs' );
@@ -3878,14 +3878,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descri
 		EngineCore.outputText( '\n\nYou shift and thrash, moaning lewdly as you stroke every spot that you know will bring you pleasure; in your aroused state, it\'s easy to get into things.  Each thrust you make earns an ecstatic groan from your girlfriend as it shifts the dildo inside her over-aroused pussy.  You hump and you grind and you squeeze, a tug of war between your two netherlips as you and Arian fight for possession of your favorite toy.  You can feel the pleasure overwhelming you, sparks of arousal setting your brain on fire; you\'re close... oh, gods, you\'re so close!' );
 		EngineCore.outputText( '\n\nWith one mighty clench and tug, you pull the dildo free of Arian\'s love-hole, throwing your head back and crying out as you climax, the waves of orgasm washing through you, your whole body quaking in pleasure.  When at last it ends, you let yourself fall limply back on the bed with a sigh of relief, your pussy slackening and letting your dildo fall free.' );
 		EngineCore.outputText( '\n\nOnce you catch your breath, you absently reach down and bring your favorite toy up to your face, you watch as it slowly reverts back to its original form, though still dripping with your mixed juices.  Smiling openly, you inform Arian that you may just be the luckiest girl in Mareth, to have a girlfriend like her.' );
-		EngineCore.outputText( '\n\nArian pants, still winded, though her breathing seems to have returned to a more normal level.  She can\'t help but grin at your compliment.  "<i>Don\'t be silly, [name].  I\'m the lucky one.  But I\'m really glad you think so highly of me.</i>"  Why shouldn\'t you?  She gave up her birth-gender, just to better please you - why, any girl who passed up a chance to snap up someone as sweet as Arian was a fool, but they\'ll never amend their mistake, because she\'s all yours now.  With that you slither around in the bed so that you can glomp onto your girlfriend, rubbing your ' + CoC.getInstance().player.skinFurScales() + ' cheek against her own smooth scales, hugging her tightly to you.' );
+		EngineCore.outputText( '\n\nArian pants, still winded, though her breathing seems to have returned to a more normal level.  She can\'t help but grin at your compliment.  "<i>Don\'t be silly, [name].  I\'m the lucky one.  But I\'m really glad you think so highly of me.</i>"  Why shouldn\'t you?  She gave up her birth-gender, just to better please you - why, any girl who passed up a chance to snap up someone as sweet as Arian was a fool, but they\'ll never amend their mistake, because she\'s all yours now.  With that you slither around in the bed so that you can glomp onto your girlfriend, rubbing your ' + CoC.player.skinFurScales() + ' cheek against her own smooth scales, hugging her tightly to you.' );
 		EngineCore.outputText( '\n\nArian rubs herself back at you affectionately.  "<i>I love you, [name].</i>"  You just hold her and let her feel your warmth.  Then, you realize you\'re still holding a sopping wet dildo in one hand, and you casually present it to Arian, holding it in front of her face and telling her to clean it.  Before she can protest, you point out that <b>she</b> got the most fun out of it, and <b>she</b> made most of the mess, so that makes it <b>her</b> responsibility to clean it up.  You waggle it in front of her snout for emphasis.' );
 		EngineCore.outputText( '\n\nArian blinks at your words, but concedes with a smile.  "<i>Of course.</i>"  She opens her mouth and lets her tongue roll out, inviting you to place the dildo into her open mouth.  You promptly slide the fake-cock gently home, letting her start at her own pace.' );
 		EngineCore.outputText( '\n\nShe cleans it diligently, and from the looks of it, she\'s also enjoying herself immensely.  Arian\'s eyes are closed most of the time, but you notice that she opens them to glance at you and smile to herself.  Whatever\'s going through her head must be very pleasant.  It takes only a couple minutes before you pull the dildo out to inspect it.  Lizan spit shines in the light of the ambience, and from what you can see... there\'s not a single trace of your, or Arian\'s, juices left on the dildo.  With a smile, you pat your lizan on the head, congratulating her on a job well done.' );
 		EngineCore.outputText( '\n\n"<i>Thank you, but I\'m not done yet.</i>"  You look at her, wondering what she has in mind.  Arian slithers along your body, until her face is hovering your [vagina].  A knowing smirk crosses your lips and you relax, eager to let her get to work.  She gently spreads your legs and begins licking, making sure to drink in all of your juice.' );
 		EngineCore.outputText( '\n\nYou gasp and shudder, moaning softly as she pleasures your oversensitive love canal.  It doesn\'t take long, maybe a minute or two, before you are writhing in a mini-orgasm, your female fluids gushing into your lover\'s eager mouth, bathing her probing tongue.  She makes sure to lap it all, not keen on letting even a single drop be wasted.  "<i>Hmm, delicious,</i>" Arian says as she licks her lips clean of leftovers.' );
 		EngineCore.outputText( '\n\nYou heave a sigh of contentment and authoritatively drag your little lizan slut into your arms, wrapping yourself around her in a cuddle and making it quite clear you don\'t intend to let her go anywhere any time soon.  Fortunately, she seems quite eager to be there, and so you shut your eyes and allow yourself to slowly drift off to sleep.  Before you fully embrace unconsciousness, though, you place a gentle hand on Arian\'s pussy, stroking her softly - not to arouse her yet again, but just to let her feel a loving touch there, in the place that brings you both such pleasures....' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

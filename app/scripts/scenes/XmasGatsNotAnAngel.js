@@ -9,9 +9,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	 Starring Gatters Bee, Shamble Sworth and a caribou named Kirbu.
 	 */
 	XmasGatsNotAnAngel.prototype.gatsSpectacularRouter = function() {
-		if( CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 ) {
 			this.christmasEncounterAngelJunk();
-		} else if( CoC.getInstance().player.hasKeyItem( 'North Star Key' ) < 0 ) {
+		} else if( CoC.player.hasKeyItem( 'North Star Key' ) < 0 ) {
 			this.findTheWindUpKey();
 		} else {
 			this.giveThatBitchAKeyYo();
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'In a place like the high mountains, there\'s no warning to be found if you happen to be confronted by danger.  Deciding not to take your chances, you continue to walk down the path you came, leaving the peaks to head straight back to camp.' );
 		EngineCore.outputText( '\n\nIt\'s certainly warmer there.' );
 		//turn dat shit off;
-		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 0.5;
+		CoC.flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 0.5;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//ii. Yes;
@@ -97,9 +97,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.outputText( '\n\nYou tell her that you\'ll try your best to find it, though you admit that even you don\'t fully believe your words.  She must\'ve heard the same thing thousands of times before, to no avail.  Despite this, her face brightens, her glimmering tears whisked away by the cold winds.' );
 			EngineCore.outputText( '\n\n"<i>I believe in you.</i>"' );
 			EngineCore.outputText( '\n\nThe feminine behemoth rests her head upon the cliff once more, but not before waving you goodbye.  You return her gesture with a thumbs up, heading back to camp to prepare for another wintery escapade.' );
-			CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] = 1;
+			CoC.flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] = 1;
 		}
-		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] = 1;
+		CoC.flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//5. Solution;
@@ -112,14 +112,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nLuckily for you, there isn\'t much ground for you to cover.  Your hands slowly pass over the illuminated surfaces, hunting for anything that stands out.  For as inspiring as the illuminated crag and minuscule gems appear, you doubt that any it is what the mountaintop spirit requested of you.  A few moments pass before a slight ledge hanging over your head comes to your attention, shrouded in the dense emerald radiance of the cave.  Looks as though this little hole has at least a little more to it than you anticipated!' );
 		EngineCore.outputText( '\n\nA sturdy grip and a measured tug propels you up the wall, with extra care taken not to brush your bare body against whatever lays on the multicolored wall.  Though there is more to the cave than you initially anticipated, it doesn\'t amount to much more than an illuminated little dome.' );
 		//[if (tallness > 60) ;
-		if( CoC.getInstance().player.tallness > 60 ) {
+		if( CoC.player.tallness > 60 ) {
 			EngineCore.outputText( '  You can\'t even stand straight up below the low-hanging ceiling, forced to carefully tread along on your knees over the slick, hard rock.' );
 		}
 		EngineCore.outputText( '  Squinting around the small, deep green grotto, a pedestal in the center calls out to you.  As you approach it, it becomes evident to you why things are so chilly in here; the outcrop is made up of clear ice - and within, the bodies of the many who had found this place before you.  At least that mystery is cleared up.  Atop the frozen prop lies a small, crystal... crank? Upon closer inspection, it actually resembles a - kitty titties, it\'s a windup key!  Despite the fact that you should\'ve seen this one coming, you surmise that this is the item you\'ve come searching for.' );
 		EngineCore.outputText( '\n\nYou reach over the bitter base to pluck your prize free, again careful that your moistened, exposed body refrain from making contact with the frigid obelisk.  There isn\'t an ounce of your being that wants to experience ripping any frozen flesh free.  As you grasp and pull free the slick, clear trinket you\'re taken by surprise as the brilliant glow surrounding you snuffs out, quickly leaving you in silent, black darkness.  Your hands grasp tightly onto your bounty, gently rubbing over its curves with your fingertips as you fruitlessly glance around in search of light.' );
 		EngineCore.outputText( '\n\nOne surprise leads to another when a warm glow breaks free from between your hands.  A swirling of green and red mist is concentrated within the frame of your prize, glowing brightly as they swim endlessly through the key\'s curves at a variety of velocities.  It\'s plain to see that this little treasure was the cause for the cave\'s unnatural brilliance.  You\'re a little ashamed to rob it of its power source... but not enough to give it a second thought as you crawl back down to the entrance only a few feet away.  The last thing you want is for your magical lantern to dull and leave your naked body blind in this hazard-filled hole.' );
 		EngineCore.outputText( '\n\nYou carefully re-enter the flooded tunnel, unsure how the supposed key will take to water.  It makes little impact as you submerge it, though the glowing light looks lovely on the pitch black tunnel.  The sight reinvigorates you slightly, though the warmer waters are probably more to blame.  Chalking up yet another simple retrieval asked of your person, you surface back outside, eager to get back into your [armor] and return to the high mountains.' );
-		CoC.getInstance().player.createKeyItem( 'North Star Key', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'North Star Key', 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//ii. Bringing the Key Back;
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	XmasGatsNotAnAngel.prototype.giveThatBitchAKeyYo = function() {
 		EngineCore.clearOutput();
 		//if in time!;
-		if( CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] < 150 ) {
+		if( CoC.flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] < 150 ) {
 			EngineCore.outputText( 'All throughout your perilous climb, you cannot help but ogle at the brilliant little crystal key.  You have a suspicion as to how this innocent little key will help the crying colossus on the peak, but you are not completely sure this is the artifact she required.  But you have a hunch that it is.' );
 			EngineCore.outputText( '\n\nYour trek halts to a standstill as you return to the side of the vast giantess.  Her sadness and longing appears to have overwhelmed her to a degree, putting her to sleep beside the still-inanimate soldier beside her.  You cast another glance at your brilliant relic, hooking a finger through it as you lift it before your face.  Transfixed by the swirling dance of red and green, you begin to weigh the options before you.  The spirit would surely request the key from you so that she may return her love to his former self, you believe.  However, perhaps you deserve a greater reward from this little deed.  You hold all the important cards in this deal after all.  You thoughtlessly swirl the windup key around on your finger, pondering your next move.' );
 			EngineCore.outputText( '\n\nYou could try to fuck around with the spirit or her soldier, but doing either would be a huge dick move...' );
@@ -153,10 +153,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.outputText( '\n\nHe wasn\'t dead. Only waiting, like her.' );
 			EngineCore.outputText( '\n\nThe air remains cold and merciless, and regardless of what you do it would be difficult to stay for much longer.  Turning away, you trot silently back to your camp, wondering how things would\'ve gone - if only you were quicker.' );
 			//[BAD END, Can no longer see the Old Woman or this series of events];
-			CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
+			CoC.flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
-		//CoC.getInstance().player.removeKeyItem('North Star Key');;
+		//CoC.player.removeKeyItem('North Star Key');;
 	};
 	//6. Corrupt End #1;
 	XmasGatsNotAnAngel.prototype.theWorstEndingEverDotJPG = function() {
@@ -172,25 +172,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\n"<i>May I ask as to who you are?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Why, I\'m the spirit,</i>" you respond.' );
 		//[if (corruption > 49);
-		if( CoC.getInstance().player.cor > 49 ) {
+		if( CoC.player.cor > 49 ) {
 			EngineCore.outputText( '  It seems like the best response to you for now.  Based on the giantess\'s sobbing soliloquy, you figure that standing in for the love of the soldier\'s life will get you straight to the action.' );
 		} else {
 			EngineCore.outputText( '  Wait, what?  It appears that in your desperation to contain the situation, your lingering doubt was enough to get you blurt out a bold faced lie.  You figure that you may as well roll with it for now.' );
 		}
 		EngineCore.outputText( '\n\n"<i>That can\'t be right.  Carol was lying beside me up on the mountain.  Then you came and dragged me away,</i>" North replies, still as casual and calm as before.  Carol... you figure that must be the name of the spirit you left behind.  Without missing a beat, you devise an explanation consisting of dreams, loneliness and immeasurable amounts of time leading to North\'s obvious hallucinations.  Why would a spirit be so large and leave the two of you lost to a cold and forgotten mountaintop?  As North processes your explanation, you figure it best to just go straight for your coup de grace, insisting on the love between the two of you.' );
 		EngineCore.outputText( '\n\nIt\'s hard to get a read on just what\'s going on in that tin-covered head of his.  In a last ditch effort to reign in the situation, you strip free of your [armor], accentuating ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[eachCock]' );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( ' and ' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your [vagina]' );
 		}
 		EngineCore.outputText( ' to try and convince the confused soldier.  You look North over, figuring the best way to work him under your spell.  It isn\'t a long search, as you decide that his ' );
 		//[if (hasCock = true) ;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'keyhole' );
 		}//[if (hasCock = false) ;
 		else {
@@ -200,7 +200,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nA playful, sly smile is the only hint you give to the strangely compliant tin man as you slink on around to his back, gracefully resting your fingertips upon his crystal key.' );
 		EngineCore.outputText( '\n\n"<i>What are you doing?</i>" he asks, his tone still as polite and reserved as ever.  He doesn\'t react with much more than a sideways glance as you lurch the sizeable apparatus free of his backside.  ' );
 		//[if (hasCock = true) ;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'You slide the key playfully down your wrist, rubbing your [cock] with your free hand.  You aren\'t entirely sure if he\'ll even feel a sensation from your penetration, but perhaps it\'ll at least get him in the mood.  With your manhood at full mast, you gently skirt along the edges of the keyhole.' );
 		} else {
 			EngineCore.outputText( 'A mischievous tongue traces along the smooth, perfect surface of the windup key.  You promptly lower the makeshift toy precariously in front of your [cunt]; if there was ever a time to make a wind up pun or remark as some sort of goofy foreplay, now would be the time.' );
@@ -214,19 +214,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nThere has to be more to it than this key.' );
 		EngineCore.outputText( '\n\nYou slip it back into the armor\'s lock and give it another twist.  But nothing happens.' );
 		//[if (corruption > 49) ;
-		if( CoC.getInstance().player.cor > 49 ) {
+		if( CoC.player.cor > 49 ) {
 			EngineCore.outputText( '  0...Well, that was a waste of time.' );
 		}
 		EngineCore.outputText( '\n\nThe key\'s glowing innards finally disappear, leaving a simple glass key jammed into tin.  It\'s a sad sight, one that you can\'t help but stand in silence over.' );
 		EngineCore.outputText( '\n\nAfter a few moments, you decide to don your [armor] once again, leaving the mishap behind as you return to camp.  There\'s no telling if what you did was ultimately right or wrong in the grand scheme of things, but dwelling over North or Carol isn\'t going to get you anywhere any time soon.' );
 		//[if (corruption > 49) ;
-		if( CoC.getInstance().player.cor > 49 ) {
+		if( CoC.player.cor > 49 ) {
 			EngineCore.outputText( '  More importantly, you have some unsatisfied, pent up lust that you\'d like to expend.' );
 		}
-		EngineCore.dynStats( 'lus', 2 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 10, 'cor', 10, 'resisted', false );
+		EngineCore.dynStats( 'lus', 2 + CoC.player.lib / 10 + CoC.player.cor / 10, 'cor', 10, 'resisted', false );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
-		CoC.getInstance().player.removeKeyItem( 'North Star Key' );
+		CoC.flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
+		CoC.player.removeKeyItem( 'North Star Key' );
 	};
 
 	//7. Corrupt End #2;
@@ -243,22 +243,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nCompensation only she can provide.' );
 		EngineCore.outputText( '\n\nInnocent as always, you didn\'t really expect her to pick up the hint.  Your chocolate-colored goddess seems flustered and confused.  Of course, you are holding her tin soldier up for ransom, so it\'s only natural she\'d respond with bewilderment and stress.  You tut - this isn\'t going to go anywhere without a push.  Grasping the key tightly with one hand, you tell her to rest her chin upon the cliff, and to open wide.' );
 		EngineCore.outputText( '\n\nThe giantess has no choice but to comply with your odd demands, still unaware of the plans you have in store for her.  Her snow-dusted head rests against the edge of mountain, her cold, mint-like breath causing the vanilla ground to ebb and flow like a tide.  Pursing her lips, she impulsively licks them before opening her maw slowly, allowing her tongue to stretch out upon the ground.  You walk towards it, slowly removing your [armor].  The prospect of fucking someone\'s tongue seems interesting enough to grab your attention, and it isn\'t every day you run into a desperate spirit like this.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nTaking out your junk' );
 		} else {
 			EngineCore.outputText( '\n\nCaressing your cunt' );
 		}
 		EngineCore.outputText( ', you wander your way towards the giant\'s mouth-muscle, climbing on top of her warm, pink bed. There\'s gotta be some kinda magic involved - her mint saliva sends tingles through your body, while dragging your ' );
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight() );
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( CoC.player.multiCockDescriptLight() );
 		} else {
 			EngineCore.outputText( Descriptors.vaginaDescript() );
 		}
 		EngineCore.outputText( ' against each bump and curve is beginning to get you hard.  She winces at the taste of your crotch against her tongue, though she\'s obviously never given oral to something with a heartbeat before.  Well, there\'s a first time for everything.' );
 		EngineCore.outputText( '\n\nHer mouth is already lubricated with what appears to be chocolatey saliva, a sweet syrup coating your genitals with a cool, arousing fluid.  It\'s not hard to guess that her tongue might be incredibly sensitive, and every hump against it seems to be getting the giantess unconsciously excitable.  Her eyes begin to flutter and a groan escapes her lips, while you hug against each wave of her warm breath.  The hypersensitivity of her mouth-muscle begins to take control of her movements, the grinding of your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'member' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 		} else {
@@ -266,16 +266,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		EngineCore.outputText( ' along the softness of her maw causing her to twitch and drool uncomfortably.  You\'re beginning to fuck along her slowly, chuckling at every wince and moan she makes from the taste of your genitals.' );
 		EngineCore.outputText( '\n\nOne of the giantess\' hands moves slowly towards the top of her head - what could she possibly be planning, you wonder.  Your query is answered almost instantly as the tips of her fingers start to caress the lengths of her striped horns, and her unused hand drifts slowly beneath to pet the increasingly wet problem below.  It didn\'t take her long to forget that pathetic bin of a man!  If anything, the taste of your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'cock' );
 		} else {
 			EngineCore.outputText( 'pussy' );
 		}
 		EngineCore.outputText( ' seems to have awakened something inside of her.  Each breath of the jiggling giant intensifies, while her heaving breasts press up against the hard mountainside.  You thrust between the curves of her tongue, lapping at her chestnut saliva and caressing each bump and groove.  Her soft, candy-coated lips slowly descend every so often in an attempt to kiss you, to which you respond with slow licks of those luscious love-pillows.  Your titanic lover jerks slightly - she\'s dipped a finger inside of her slick honeypot, flowing freely to wherever her arousal will take her.  Taking to the tongue-fucking charade quite easily, you wonder if she\'s allowed her mechanical mate to blow one off on her blushing bronze face before.' );
 		EngineCore.outputText( '\n\nDespite the increasing ecstasy wrought on by your talkbox-twiddling escapade, you snap back from your delirium to take notice of your lover\'s aroused antics.  The giantess pushes back and forth against another nearby mountain while furiously fingering her tight cunt.  Upon further inspection, a large curiously-shaped rock appears to be lubed up and ramming her from behind, pounding into her ample ass by her command.  Unable to resist any longer, she\'s taken to pleasuring herself from every angle, entrusting you to take command on her tongue.' );
-		EngineCore.outputText( '\n\nThe grooves of her syrup-coated organ hum against your body, the chocolate-covered taste buds massaging your figure as you grind along them.  The vibrations drooling along your ' + CoC.getInstance().player.skinFurScales() + ' appear to be coming from the snow-dusted girl herself, a result of her constant moaning from the good plowing she\'s receiving from behind.  Her fingers dance between her, now focusing on squeezing her cushiony tits together to rub her nipples against the hardness of the cliff\'s edge, while bending down further to fit more of the lubed-up loverock taking her from below.  In some form of ambrosia-induced harmony, you\'ve allowed yourself to become a part of this incredibly orchestrated scene of scented fucking.' );
+		EngineCore.outputText( '\n\nThe grooves of her syrup-coated organ hum against your body, the chocolate-covered taste buds massaging your figure as you grind along them.  The vibrations drooling along your ' + CoC.player.skinFurScales() + ' appear to be coming from the snow-dusted girl herself, a result of her constant moaning from the good plowing she\'s receiving from behind.  Her fingers dance between her, now focusing on squeezing her cushiony tits together to rub her nipples against the hardness of the cliff\'s edge, while bending down further to fit more of the lubed-up loverock taking her from below.  In some form of ambrosia-induced harmony, you\'ve allowed yourself to become a part of this incredibly orchestrated scene of scented fucking.' );
 		EngineCore.outputText( '\n\nThe giantess\' butt-drilling escalates with her hand ravaging the tight confines of her dripping pussy, attempting to cry words but unwilling to close her mouth on you.  It\'s amazing, this chance to drag your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'dick' );
 		} else {
 			EngineCore.outputText( 'vagina' );
@@ -283,15 +283,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( ' on a person\'s tongue to fuck it thoroughly.  You wonder if she\'s already long forgotten the pile of bolts she was originally trying to save.  A man frozen in time, never to wake up because - whoops!  You\'re taking care of her needs now.  Maybe you\'ll invest in a giant goblin-built sex machine, who knows?  Judging by the bitch\'s aroused whines, she was probably waiting for the chance to strip for the next person to find her up the mountain.  It\'s about time she let herself go, after all.' );
 		EngineCore.outputText( '\n\nYou grin at the thoughts pervading your mind, unaware of the intense pleasure building up in your junk - the sugary syrup coating the base of her mouth starts to force your [hips] to propel further, to splatter your love inside her.  It\'s almost automatic, the movement of your [hips] against each rubbery, vibrating protrusion tickling and fondling you while receiving satisfaction in return.  You\'re going to cum, and there\'s nothing stopping you now!' );
 		EngineCore.outputText( '\n\nWith a jerk of your hips, you release your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'hot, white seed' );
 		} else {
 			EngineCore.outputText( 'feminine juices' );
 		}
 		EngineCore.outputText( ' all along her starving tongue, your eyes lifting up as you stretch to force as much as you can upon her.  A slick, stubby tendril fits between your [butt], while more of her taste buds rub against you in your squirting ecstasy.  Your ' );
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight() );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.hasCock() ) {
+			EngineCore.outputText( CoC.player.multiCockDescriptLight() );
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'throbs' );
 			} else {
 				EngineCore.outputText( 'throb' );
@@ -315,8 +315,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nNope, she\'s still angry. It\'s time to go. Taking your [armor] with you, you make a run down the side of the high mountain, throwing the key off the side of the cliff as you hear the distraught damsel cry into the skies. The mountains tremble in fear, and a snow storm begins to brew.' );
 		EngineCore.outputText( '\n\nThankfully, you\'re out of that mess and heading for camp. That slut is cold.' );
 		//[End of event. Possible expansions include finding her as a difficult combat encounter, or raping her while she sleeps.];
-		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
-		CoC.getInstance().player.orgasm();
+		CoC.flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -380,18 +380,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nThat being accomplished, the knight kicks his applications up a notch, breaking away from the throbbing and stimulated button and zooming straight toward the depths of her glistening and inviting folds.  She coos throatily, back arching and tongue lolling, as North penetrates and wriggles further into her pussy.  Blossoms of fog issue from the giantess\'s mouth with increased frequency as North tunnels deeper and deeper inside her; you idly marvel at how effective the little knight\'s tactics prove on his enormous lover.' );
 		EngineCore.outputText( '\n\nWith a cry of simple pleasure, the giantess\'s arms buckle under her and she falls back, tumbling from her perch on the cliff and landing back-first.  Unable to sit idle while North has all the fun, she takes matters in her own hands, cupping a breast in one hand while the other slips down between her legs.  Her moans only intensify once she gets into the squeezing and caressing, scattering snow in all directions as she squirms along the valley, crying her pleasure for all to hear.' );
 		//LUST GAIN +20 100:;
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10, 'resisted', false );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10, 'resisted', false );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.outputText( 'Despite yourself, your hands slowly begin crawling into your [armor] in pursuit of your naughty bits.  ' );
 		}
 		EngineCore.outputText( '"<i>Aaaahn, North, you haven\'t lost your touch,</i>" the giantess moans, kneading deeply into her chilled titflesh and barraging her already-titillated tunnel with three slender fingers.  Even from your position from on high, you can hear the squelches of her very well-lubricated fingering, and before you know it, the bottom part of your [armor] is off, and you\'re openly toying with your genitals, spurred on by the passionate internal embrace of the giant woman and her loving creation.' );
 		EngineCore.outputText( '\n\nWithout notice, the sexually belaboured titan howls with newfound fervor.  Her breasts shudder noticeably, her already dusky breast-skin darkening slightly as their churning contents shift in composition.  The giantess\'s fingers fly from stroking her womanhood to grabbing the other breast, a line of glistening femcum trailing from her fingers and splattering against the mountains.  Efforts redoubled by her two-handed grip, she writhes in absolute orgasmic bliss even as her bosom swells up a bit.' );
 		EngineCore.outputText( '\n\nYou can easily guess what\'s coming, even before the giantess\'s frenzied gasps give way to an almost anguished shriek of ecstasy.  Her butt rises off the ground, then slams back down, sending a snowy shockwave out in all directions and doing absolutely marvelous things to the suddenly-oscillating ass-flesh.  Even with the chilly breeze making sure her nipples will stay perpetually rock-stiff, you can see them puff up further and wiggle ominously from your perch.  Sure enough, her internal valves burst open, and twin geysers of milk - white, but a shade darker than what one would expect - spray into the air.' );
 		//IF LUST 100:;
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.outputText( '\n\nHer powerful climax nearly shakes the very bluff you\'re standing on, and the event is enough to force you over the edge' );
-			if( CoC.getInstance().player.wetness() >= 4 || CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.wetness() >= 4 || CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( ' - figuratively, and literally, as well, as your fluids drip off the edge to add to the rain of sexual fluids the giantess is laying in the midst of' );
 			}
 			EngineCore.outputText( '.' );
@@ -399,9 +399,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nFor many heartbeats she lays panting, basking in the afterglow of her and her lover\'s first outing in a long, long time.  Eventually, a stirring in the breast-milk coating her and the ground around her rouses her from her peaceful contemplations.  Just as you suspected, North had internally traveled from her vaginal passage to her enormous breasts, and escaped with the boobgasm that followed.  His shadow-essence separates from its milky prison to reform near the giantess\'s cheek.  She smiles warmly at him, and he hugs her cheek in response.' );
 		EngineCore.outputText( '\n\nWith North in tow, the giantess lifts herself back up onto the cliff, allowing the knight to retreat back into his ashen armor.  He turns towards you, his golden orbs slightly eclipsed in what you can only assume to be his form of a happy expression.  "<i>Thank you, hero,</i>" he says, only managing the brief courtesy before he\'s swept up into his lover\'s arms and smashed against her cheek once more, in an even bigger and more passionate hug.' );
 		//IF MASTURBATED: ;
-		if( CoC.getInstance().player.lust >= 100 ) {
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.outputText( '\n\nYou take the opportunity to do up your [armor] before either of them notices.' );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		}
 		//[Next];
 		EngineCore.menu();
@@ -418,7 +418,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nAfter a long pause, you pocket the key, square yourself with Carol and North, returning her hand gesture before giving them a goofy grin that positively sparks in the snow-cushioned landscape.  As you turn to depart once more, you wave over your shoulder, escorted out with the continued giggles and lovey-dovey conversation of the unlikely couple.' );
 		EngineCore.outputText( '\n\nMerry Christmas indeed!' );
 		//[if you haven't been introduced to christmas via elf or otherwise] ;
-		if( CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] === 0 ) {
 			EngineCore.outputText( '\n\nYou have no idea what that is.' );
 		}
 		//[end, get The North Star & A Christmas Carol perks];
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//A Christmas Carol;
 		//Christmas events are open all year 'round! (some sort of arbitrary limit);
 		//merry christmas everyone <3;
-		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] = 1;
+		CoC.flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'xmasGatsNotAnAngel', new XmasGatsNotAnAngel() );

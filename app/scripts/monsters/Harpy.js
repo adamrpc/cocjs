@@ -20,14 +20,14 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, SceneLib, CoC, kFLAG
 		}
 		//(this.Harpy special attack 1, part two if PC does anything but 'Wait')
 		else {
-			if( CoC.getInstance().flags[ kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG ] === 0 ) {
+			if( CoC.flags[ kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG ] === 0 ) {
 				var damage = 160 + Utils.rand( 20 );
-				damage = CoC.getInstance().player.takeDamage( damage );
-				EngineCore.outputText( 'The harpy lets out a terrible cry and drops, reaching an almost impossible speed as she dives down at you.  Her eyes are narrowed like a true bird of prey.  You were too busy with your own attack to avoid it!  Her claws surge down and pierce your ' + CoC.getInstance().player.armorName + ' like paper, driving hard into the flesh beneath and making you cry out in pain.  The harpy dumps you onto the ground, your wounds bleeding profusely. (' + damage + ')', false );
+				damage = CoC.player.takeDamage( damage );
+				EngineCore.outputText( 'The harpy lets out a terrible cry and drops, reaching an almost impossible speed as she dives down at you.  Her eyes are narrowed like a true bird of prey.  You were too busy with your own attack to avoid it!  Her claws surge down and pierce your ' + CoC.player.armorName + ' like paper, driving hard into the flesh beneath and making you cry out in pain.  The harpy dumps you onto the ground, your wounds bleeding profusely. (' + damage + ')', false );
 				this.removeStatusAffect( StatusAffects.Uber );
 			} else {
 				EngineCore.outputText( 'You stand firm and ready yourself as the crazed harpy hovers above you. Letting out an ear-splitting cry she dives at you with her claws extended, reaching an incredible speed before she levels out.  The harpy is heading right for you!  Thanks to your ready position, you manage to dive aside just as the harpy reaches you.  She clips you slightly, spinning you as you dive for the ground.  You hit the ground hard, but look up in time to see her make a rough, graceless landing.  Her body rolls until it reached a standstill.  The enraged harpy drags herself up and takes flight once more!', false );
-				CoC.getInstance().player.takeDamage( 10 + Utils.rand( 10 ) );
+				CoC.player.takeDamage( 10 + Utils.rand( 10 ) );
 				this.removeStatusAffect( StatusAffects.Uber );
 				this.HP -= 20;
 			}
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, SceneLib, CoC, kFLAG
 	//(this.Harpy special attack 2, lust increase)
 	Harpy.prototype.harpyTease = function() {
 		EngineCore.outputText( 'The harpy charges at you carelessly, her body striking you with the full weight of her motherly hips.  The pair of you go crashing backwards onto the ground.  You grapple with her weighty ass, trying your best not to think dirty thoughts, but the way she\'s maniacally flapping and writhing her curvy body against you makes it impossible! After a brief, groping wrestle on the ground, she pushes you away and takes flight again.', false );
-		EngineCore.dynStats( 'lus', (12 + Utils.rand( CoC.getInstance().player.sens / 5 )) );
+		EngineCore.dynStats( 'lus', (12 + Utils.rand( CoC.player.sens / 5 )) );
 		Combat.combatRoundOver();
 	};
 

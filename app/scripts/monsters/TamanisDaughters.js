@@ -8,26 +8,26 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 	TamanisDaughters.prototype.midRoundMadness = function() {
 		var selector = Utils.rand( 4 );
 		if( selector === 0 ) {
-			EngineCore.outputText( 'A slender hand reaches inside your ' + CoC.getInstance().player.armorName + ' and gives your ', false );
-			if( CoC.getInstance().player.balls > 0 ) {
+			EngineCore.outputText( 'A slender hand reaches inside your ' + CoC.player.armorName + ' and gives your ', false );
+			if( CoC.player.balls > 0 ) {
 				if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight(), false );
+					EngineCore.outputText( CoC.player.multiCockDescriptLight(), false );
 				} else {
-					EngineCore.outputText( CoC.getInstance().player.ballsDescriptLight(), false );
+					EngineCore.outputText( CoC.player.ballsDescriptLight(), false );
 				}
 			} else {
-				EngineCore.outputText( CoC.getInstance().player.multiCockDescriptLight(), false );
+				EngineCore.outputText( CoC.player.multiCockDescriptLight(), false );
 			}
 			EngineCore.outputText( ' a gentle squeeze.  You twist away but your breathing gets a little heavier.\n\n', false );
 		} else if( selector === 1 ) {
-			EngineCore.outputText( 'A girl latches onto your ' + CoC.getInstance().player.legs() + ' and begins caressing your body lovingly, humming happily.  You quickly shake her loose but the attention makes you blush a little more.\n\n', false );
+			EngineCore.outputText( 'A girl latches onto your ' + CoC.player.legs() + ' and begins caressing your body lovingly, humming happily.  You quickly shake her loose but the attention makes you blush a little more.\n\n', false );
 		} else if( selector === 2 ) {
 			EngineCore.outputText( 'One of your daughters launches onto your back and presses her hard, pierced nipples against your neck.  She whispers in your ear, "<i>Twist my nipples dad!</i>"\n\n', false );
 			EngineCore.outputText( 'You reach back and throw her off, but her perverted taunts still leave you feeling a little hot under the collar.\n\n', false );
 		} else {
-			EngineCore.outputText( 'A daughter lays down in front of you and starts jilling herself on the spot.  It\'s impossible to not glance down and see her or hear her pleasured moans.  You step away to remove the distraction but it definitely causes some discomfort in your ' + CoC.getInstance().player.armorName + '.\n\n', false );
+			EngineCore.outputText( 'A daughter lays down in front of you and starts jilling herself on the spot.  It\'s impossible to not glance down and see her or hear her pleasured moans.  You step away to remove the distraction but it definitely causes some discomfort in your ' + CoC.player.armorName + '.\n\n', false );
 		}
-		EngineCore.dynStats( 'lus', 1 + CoC.getInstance().player.lib / 15 + Utils.rand( CoC.getInstance().player.cor / 30 ) );
+		EngineCore.dynStats( 'lus', 1 + CoC.player.lib / 15 + Utils.rand( CoC.player.cor / 30 ) );
 	};
 	TamanisDaughters.prototype.tamaniShowsUp = function() {
 		if( TamainsDaughtersScene.tamaniPresent ) {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 		}
 		switch( Utils.rand( select ) ) {
 			case 0:
-				this.createStatusAffect( StatusAffects.Attacks, Math.ceil( CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 20 ), 0, 0, 0 ); //Tamani's Daughters get multiattacks!
+				this.createStatusAffect( StatusAffects.Attacks, Math.ceil( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 20 ), 0, 0, 0 ); //Tamani's Daughters get multiattacks!
 				this.eAttack();
 				break;
 			case 1:
@@ -118,11 +118,11 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 		that.weaponName = 'fists';
 		that.weaponVerb = 'tiny punch';
 		that.armorName = 'leather straps';
-		that.bonusHP = 50 + (Math.ceil( CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 2 ) * 15);
+		that.bonusHP = 50 + (Math.ceil( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 2 ) * 15);
 		that.lust = 30;
 		that.lustVuln = 0.65;
 		that.temperment = Monster.TEMPERMENT_RANDOM_GRAPPLES;
-		that.level = 8 + (Math.floor( CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 20 ));
+		that.level = 8 + (Math.floor( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 20 ));
 		that.gems = Utils.rand( 15 ) + 5;
 		that.drop = new WeightedDrop().add( ConsumableLib.GOB_ALE, 5 ).addMany( 1, ConsumableLib.L_DRAFT,
 			ConsumableLib.PINKDYE,

@@ -5,20 +5,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 	}
 
 	ErlKingScene.prototype.encounterWildHunt = function() {
-		if( CoC.getInstance().flags[ kFLAGS.WILD_HUNT_ENCOUNTERS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.WILD_HUNT_ENCOUNTERS ] === 0 ) {
 			this.firstWildHuntEncounter();
-		} else if( CoC.getInstance().player.hasKeyItem( 'Golden Antlers' ) < 0 ) {
+		} else if( CoC.player.hasKeyItem( 'Golden Antlers' ) < 0 ) {
 			this.repeatWildHuntEncounter();
-		} else if( CoC.getInstance().player.hasKeyItem( 'Golden Antlers' ) >= 0 ) {
+		} else if( CoC.player.hasKeyItem( 'Golden Antlers' ) >= 0 ) {
 			this.encounterPrincessGwynn();
 		}
-		CoC.getInstance().flags[ kFLAGS.WILD_HUNT_ENCOUNTERS ]++;
+		CoC.flags[ kFLAGS.WILD_HUNT_ENCOUNTERS ]++;
 	};
 	ErlKingScene.prototype.playerHuntScore = function() {
 		$log.debug( 'Calculating Wild Hunt score.' );
-		$log.debug( 'Int + Spd = ' + String( CoC.getInstance().player.inte + CoC.getInstance().player.spe ) );
-		$log.debug( 'Base = ' + String( (CoC.getInstance().player.inte + CoC.getInstance().player.spe) - (CoC.getInstance().player.fatigue * 2) ) );
-		var baseVal = (CoC.getInstance().player.inte + CoC.getInstance().player.spe) - (CoC.getInstance().player.fatigue * 2);
+		$log.debug( 'Int + Spd = ' + String( CoC.player.inte + CoC.player.spe ) );
+		$log.debug( 'Base = ' + String( (CoC.player.inte + CoC.player.spe) - (CoC.player.fatigue * 2) ) );
+		var baseVal = (CoC.player.inte + CoC.player.spe) - (CoC.player.fatigue * 2);
 		/*
 		 Conditional modifiers for Evade
 		 +20 for Runner
@@ -34,65 +34,65 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		 -10 for Goo Half
 		 -10 for Centaur Half
 		 */
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 ) {
 			baseVal += 20;
 			$log.debug( '+20 for Evade' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Runner ) >= 0 ) {
 			baseVal += 20;
 			$log.debug( '+20 for Runner' );
 		}
-		if( CoC.getInstance().player.isDrider() ) {
+		if( CoC.player.isDrider() ) {
 			baseVal += 20;
 			$log.debug( '+20 for Drider' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.CorruptedNinetails ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.CorruptedNinetails ) >= 0 ) {
 			baseVal += 30;
 			$log.debug( '+30 For Ninetails' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.EnlightenedNinetails ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.EnlightenedNinetails ) >= 0 ) {
 			baseVal += 30;
 			$log.debug( '+30 for Ninetails' );
 		}
 		// Akbal Blessings
-		if( CoC.getInstance().player.findPerk( PerkLib.FireLord ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.FireLord ) >= 0 ) {
 			baseVal += 10;
 			$log.debug( '+10 for Firelord' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Whispered ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Whispered ) >= 0 ) {
 			baseVal += 10;
 			$log.debug( '+10 for Whispered' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Fast ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Fast ) >= 0 ) {
 			baseVal += 10;
 			$log.debug( '+10 for Fast' );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
 			baseVal += 10;
 			$log.debug( '+10 for Incorporeal' );
 		}
-		if( CoC.getInstance().player.canFly() ) {
+		if( CoC.player.canFly() ) {
 			baseVal += 10;
 			$log.debug( '+10 for Flight' );
 		}
 		// Heavy penalty for prey features. The penalty is applied PER FEATURE.
-		if( CoC.getInstance().player.kitsuneScore() > 0 ) {
-			baseVal -= (CoC.getInstance().player.kitsuneScore() * 20);
-			$log.debug( '-20 for each Kitsune part (-' + String( CoC.getInstance().player.kitsuneScore() * 20 ) + ')' );
+		if( CoC.player.kitsuneScore() > 0 ) {
+			baseVal -= (CoC.player.kitsuneScore() * 20);
+			$log.debug( '-20 for each Kitsune part (-' + String( CoC.player.kitsuneScore() * 20 ) + ')' );
 		}
-		if( CoC.getInstance().player.bunnyScore() > 0 ) {
-			baseVal -= (CoC.getInstance().player.bunnyScore() * 20);
-			$log.debug( '-20 for each Bunny part (-' + String( CoC.getInstance().player.bunnyScore() * 20 ) + ')' );
+		if( CoC.player.bunnyScore() > 0 ) {
+			baseVal -= (CoC.player.bunnyScore() * 20);
+			$log.debug( '-20 for each Bunny part (-' + String( CoC.player.bunnyScore() * 20 ) + ')' );
 		}
-		if( CoC.getInstance().player.harpyScore() > 0 ) {
-			baseVal -= (CoC.getInstance().player.harpyScore() * 20);
-			$log.debug( '-20 for each Harpy part (-' + String( CoC.getInstance().player.harpyScore() * 20 ) + ')' );
+		if( CoC.player.harpyScore() > 0 ) {
+			baseVal -= (CoC.player.harpyScore() * 20);
+			$log.debug( '-20 for each Harpy part (-' + String( CoC.player.harpyScore() * 20 ) + ')' );
 		}
-		if( CoC.getInstance().player.gooScore() > 0 ) {
-			baseVal -= (CoC.getInstance().player.gooScore() * 10);
-			$log.debug( '-10 for each Goo part (-' + String( CoC.getInstance().player.gooScore() * 10 ) + ')' );
+		if( CoC.player.gooScore() > 0 ) {
+			baseVal -= (CoC.player.gooScore() * 10);
+			$log.debug( '-10 for each Goo part (-' + String( CoC.player.gooScore() * 10 ) + ')' );
 		}
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			baseVal -= 10;
 			$log.debug( '-10 for Taur' );
 		}
@@ -106,13 +106,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As you explore between the tall, ancient trees, you notice a thick fog beginning to spill out from between the trees and over the mossy ground. As the haze pours forth and flows past your [feet], you notice the forest around you growing distinctly darker and colder. \n\n' );
 		EngineCore.outputText( 'A shiver of unnatural fear runs up your spine, just as a hunting horn sounds from the distance.  You gasp, your breath materializing as a puff of fine, white mist.  Just as the echoes of the horn fade, a chorus of canine howls breaks through the' );
-		if( CoC.getInstance().time.hours >= 0 && CoC.getInstance().time.hours <= 10 ) {
+		if( CoC.time.hours >= 0 && CoC.time.hours <= 10 ) {
 			EngineCore.outputText( ' chill morning' );
-		} else if( CoC.getInstance().time.hours >= 11 && CoC.getInstance().time.hours <= 13 ) {
+		} else if( CoC.time.hours >= 11 && CoC.time.hours <= 13 ) {
 			EngineCore.outputText( ' unusually cold daytime' );
-		} else if( CoC.getInstance().time.hours >= 14 && CoC.getInstance().time.hours <= 17 ) {
+		} else if( CoC.time.hours >= 14 && CoC.time.hours <= 17 ) {
 			EngineCore.outputText( ' brisk afternoon' );
-		} else if( CoC.getInstance().time.hours >= 18 && CoC.getInstance().time.hours <= 24 ) {
+		} else if( CoC.time.hours >= 18 && CoC.time.hours <= 24 ) {
 			EngineCore.outputText( ' freezing night' );
 		}
 		EngineCore.outputText( ' air. Your eyes twitch and ears ring at the sound of hooves pounding through the forest.\n\n' );
@@ -128,20 +128,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 			EngineCore.outputText( 'You’re surrounded.\n\n' );
 		} else {
 			EngineCore.outputText( 'The baying of hounds fills the air, and the trees echo with the distant thunder of hooves as the first of the creatures bursts through the fog.  Stooped and low, this beast-man is mostly canine, with a sharp-toothed muzzle spread wide and panting.  His red-black tongue dangles with each breath, steam rising up from his jaws.  The hound’s pelt is midnight black, covering his muscular frame.  Strong arms hang low, almost touching the ground, muscles flexing as his surprisingly human hands open and close restlessly.  His legs are distinctly dog-like, ending in wide, black-clawed paws.  Between its stocky legs; you catch a glimpse of an arm-thick sheath and a heavy sack behind.  A broad tail wags behind him, swinging slowly and menacingly' );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.MetWhitney ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) >= 0 ) {
 				EngineCore.outputText( ', and for a moment all you can think of are Whitney’s canine peppers' );
 			}
 			EngineCore.outputText( '.\n\n' );
 			EngineCore.outputText( 'His baleful red eyes glare at you from beneath a dark brow.  The hound takes in a deep breath, his nostrils flaring, then throws his head back to howl.  The deafening sound is answered instantly by the crashing of brush as another beast man leaps through the undergrowth.  The fog falls to shreds as he leaps out behind you, flanking you with his fellow Hound.\n\n' );
 			EngineCore.outputText( 'To your horror, you see flashes of red as their slick shafts slide out, the air thick with heavy, panting breaths.' );
-			if( CoC.getInstance().player.cor >= 40 ) {
-				if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.cor >= 40 ) {
+				if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  You can\'t help but stiffen, yourself, at the sight of their eagerness.' );
-				} else if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+				} else if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 					EngineCore.outputText( '  As the air grows thick with their musk, your pussy grows wet, despite your best efforts.' );
-				} else if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasCock() ) {
+				} else if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
 					EngineCore.outputText( '  You feel a twitch from your cock' );
-					if( CoC.getInstance().player.cocks.length > 1 ) {
+					if( CoC.player.cocks.length > 1 ) {
 						EngineCore.outputText( 's' );
 					}
 					EngineCore.outputText( ' and an answering shiver from your pussy as you imagine those canine shafts being put to use.' );
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As you wander through the Deepwoods, a familiar chilly fog begins to gather around your [feet], and in the distance, you hear the sound of a hunting horn and the baying of Hounds.\n\n' );
 		EngineCore.outputText( 'The Erlking is coming for you!\n\n' );
-		if( CoC.getInstance().player.wingType !== AppearanceDefs.WING_TYPE_NONE ) {
+		if( CoC.player.wingType !== AppearanceDefs.WING_TYPE_NONE ) {
 			EngineCore.outputText( 'You quickly glance from side to side, realizing that the trees here grow too close together for your to spread your [wings].\n\n' );
 		}
 		EngineCore.outputText( 'Do you make a run for it or stand your ground?\n\n' );
@@ -191,8 +191,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'The sounds of the hunt grow louder and louder until the trees themselves appear to be shaking with the sounds of the approaching hunt.  You stand tall, refusing to play the Huntsman’s twisted game.\n\n' );
 		EngineCore.outputText( 'The Hunt’s deafening approach abruptly quiets.  Like a tide going out, the fog drains away from around you, leaving the forest clear and calm. Slowly, the sounds of birdsong and insects return to the woods around you.  \n\n' );
 		EngineCore.outputText( 'It seems the Erlking has no interest in chasing prey that won’t run.\n\n' );
-		if( CoC.getInstance().player.inte < 80 ) {
-			CoC.getInstance().player.inte++;
+		if( CoC.player.inte < 80 ) {
+			CoC.player.inte++;
 		}
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -208,15 +208,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 	ErlKingScene.prototype.repeatWildHuntEscaped = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The Erlking might be the Master of the Hunt, but you are no one’s prey.  You immediately begin running, moving like the wind through the Deepwoods, your heart beating hard in your chest.' );
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( 'You move like quicksilver over the forest floor, your slimy bottom half flowing over all obstacles, oozing you faster and faster, ever onward.' );
-		} else if( CoC.getInstance().player.isBiped() ) {
+		} else if( CoC.player.isBiped() ) {
 			EngineCore.outputText( '  Your [legs] pound against the mossy ground, deftly moving across the forest floor.' );
-		} else if( CoC.getInstance().player.isNaga() ) {
+		} else if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '  You move like the wind across the mossy ground, your coils propelling you through the forest.' );
-		} else if( CoC.getInstance().player.isDrider() ) {
+		} else if( CoC.player.isDrider() ) {
 			EngineCore.outputText( '  Your multitude of legs skitter over the forest floor, propelling you between the trees at great speed.' );
-		} else if( CoC.getInstance().player.isTaur() ) {
+		} else if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '  Your hooves send you rocketing through the forest, dodging between the trees and ducking below branches.' );
 		}
 		EngineCore.outputText( '  Though the fog snakes through the undergrowth, ever at your heels, it never manages to surround you, and you hear the sounds of the Hunt growing more and more distant until they disappear altogether.\n\n' );
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'Your lungs are burning as you run at top speed, the Hounds driving you this way and that.  Something happens as you breathe the fog - it’s getting harder and harder to think.  You just need to run, <b>run</b> from the predators after you.\n\n' );
 		EngineCore.outputText( 'As you leap to clear a low bush, leaves explode around you, and the world flips upside down.  It’s a trap!  The net closes around you and hauls you up into the air, leaving you spinning, 15 feet up.  Hounds burst from the fog, barking and snarling from the ground below you.  Just out of arm’s reach is a thick rope, running from the ground up over the branch supporting you.\n\n' );
 		EngineCore.outputText( 'The ropes are thicker than your wrist, and you could probably untie them, given time, but the spin of the net, combined with the mind-bending terror of the fog has left you no room to think.  The hounds are snarling, the world is spinning, you’re prey, and you’ve been caught.\n\n' );
-		if( CoC.getInstance().player.bunnyScore() >= 4 || CoC.getInstance().player.kitsuneScore() >= 4 || CoC.getInstance().player.harpyScore() >= 4 || pScore > 100 ) {
+		if( CoC.player.bunnyScore() >= 4 || CoC.player.kitsuneScore() >= 4 || CoC.player.harpyScore() >= 4 || pScore > 100 ) {
 			this.repeatWildHuntAWinnerIsYou();
 		} else {
 			this.repeatWildHuntGivenToTheHounds();
@@ -259,11 +259,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'The fog swallows the Erlking as you drop to the ground.  The impact against the mossy forest floor doesn’t injure you, but it <b>does</b> knock the wind from you.  As you struggle to regain your breath, you inhale the icy fog, and a cascade of terror... and something else... runs through you.\n\n' );
 		EngineCore.outputText( 'This fear doubles as the two hounds waste no time.  They are on you in the space of a heartbeat, ripping the net from around you, their powerful hands shoving you to all fours as they snarl and bark.  Their red, shiny dog cocks slip from their heavy sheaths, throbbing with thin, purple veins.  The fog has definitely done something to you, because you can’t help but lick your lips at the sight.  \n\n' );
 		EngineCore.outputText( 'Growling, the first Hound grabs you by your [ass], his muscular fingers sinking roughly into your flesh.  He roughly rips your [armor] from you, growling.  You feel a rush of warmth as a canine mouth presses against your [ass],' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' long tongue touching the bottom edge of your [vagina]' );
-		} else if( CoC.getInstance().player.balls > 0 ) {
+		} else if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' long tongue lapping at the base of your balls' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' long tongue lapping at the base of your cock' );
 		} else {
 			EngineCore.outputText( ' long tongue slapping warmly against your taint' );
@@ -271,13 +271,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( ' before running up to your [asshole].\n\n' );
 		EngineCore.outputText( 'You shiver, the fog-born fear still controlling your body.  You feel a rush of strange gratitude— the hounds don’t want to eat you, they just want to sate a different hunger.  And with the mindbending fog inside you, you want desperately to satisfy them.  Your submissive mind even hopes that if you can do a good job, they’ll spare you any further domination.  You’d be repulsed by the idea of fucking two Hounds to exhaustion if you weren’t so damn scared of them.  An errant thought at the back of your mind hopes that the effects of this fog are only temporary.\n\n' );
 		EngineCore.outputText( 'You glance over your shoulder, wanting to make sure the Hound has no trouble getting into you,' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' and realizing that you’re too tall, you fold your legs beneath you, dropping all the way to the ground,' );
 		}
 		EngineCore.outputText( ' when the other hound roughly grabs your' );
-		if( CoC.getInstance().player.femininity < 30 ) {
+		if( CoC.player.femininity < 30 ) {
 			EngineCore.outputText( ' strong jaw' );
-		} else if( CoC.getInstance().player.femininity > 70 ) {
+		} else if( CoC.player.femininity > 70 ) {
 			EngineCore.outputText( ' delicate chin' );
 		} else {
 			EngineCore.outputText( ' chin' );
@@ -285,11 +285,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( ', turning it toward his massive, slimy dog cock.  You get a brief glimpse of a crystal-clear bead of pre before the tip is forced between your lips.\n\n' );
 		EngineCore.outputText( 'The Hound begins fucking your face roughly, leaving salty precum on your tongue, his cock throbbing between your lips.  You feel grateful that the Hound has chosen to simply fuck you, and you want nothing more than to do the best job possible for the Hound.\n\n' );
 		EngineCore.outputText( 'You groan around the Hound’s dick as you feel a pressure against your [asshole].  The beast squeezes your [ass] cheeks as he shoves his foot-long doggie cock into your rear. ' );
-		CoC.getInstance().player.buttChange( 12 * 3, true, false, false );
+		CoC.player.buttChange( 12 * 3, true, false, false );
 		EngineCore.outputText( ' You yelp, realizing what’s to come, and try to wriggle away, but, pinned between the two Hounds, there’s no escape.  The Hounds growl in unison and you freeze, cowed by the two powerful males who want their way with your frightened, vulnerable body.\n\n' );
 		EngineCore.outputText( 'After all, comes a thought in your fog-addled head, they’ve earned the right to do whatever they want to their prey.\n\n' );
 		EngineCore.outputText( 'It doesn’t take the two dog men long.  They rock back and forth, shoving their thick cocks in and out of your submissive, helpless body.  The one in front grabs your head, burying your [face] into his crotch, so deep that your tongue licks against the throbbing bulge of his knot, your nose buried in the thick fur above his shaft.' );
-		if( CoC.getInstance().player.tailType !== AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( '  The Hound behind grabs you by [onetail], using it as a handhold as he thrusts over and over into your [asshole].' );
 		} else {
 			EngineCore.outputText( '  The Hound behind grabs you by your [ass], thrusting into you again and again.' );
@@ -299,16 +299,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'You shiver, breathing in the cold, mind-altering fog, waiting obediently for the two Hounds to tire of you.  Oddly enough, with their seeds spent, they’re strangely affectionate, and you find your back, face, and ass covered in warm, languid licks from the savage men.  Eventually their knots shrink, and the two Hounds withdraw from you, letting you slump to the ground as they pad off into the woods.  \n\n' );
 		EngineCore.outputText( 'As the fog recedes, your mind quickly returns.  Blinking, you wobble to your [feet], wiping cum from your lips and gathering your scattered gear from around the clearing before setting back for camp.  You find a shiny, red pepper in the clearing, but appear to have dropped some gems in your failed flight from the Hunt.\n\n' );
 		var gemLoss = 10 + Utils.rand( 15 );
-		if( CoC.getInstance().player.gems < gemLoss ) {
-			gemLoss = CoC.getInstance().player.gems;
+		if( CoC.player.gems < gemLoss ) {
+			gemLoss = CoC.player.gems;
 		}
-		CoC.getInstance().player.gems -= gemLoss;
+		CoC.player.gems -= gemLoss;
 		EngineCore.outputText( '<b>You’ve lost ' + gemLoss + ' gems.</b>\n\n' );
 		SceneLib.inventory.takeItem( ConsumableLib.CANINEP, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'sen-', 2, 'lib+', 2, 'cor+', 1, 'lus=', 0 );
 		EngineCore.fatigue( 10 );
-		CoC.getInstance().player.orgasm();
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.orgasm();
+		CoC.player.slimeFeed();
 	};
 	ErlKingScene.prototype.repeatWildHuntAWinnerIsYou = function() {
 		EngineCore.outputText( 'Spirited clapping fills the woods.  The Hounds fall silent, sitting obediently on their haunches as the Erlking walks into the clearing, dismounting and looking up at you.\n\n' );
@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		}
 	};
 	ErlKingScene.prototype.stopTheMadness = function() {
-		CoC.getInstance().flags[ kFLAGS.ERLKING_DISABLED ] = 1;
+		CoC.flags[ kFLAGS.ERLKING_DISABLED ] = 1;
 		EngineCore.clearOutput();
 		//[This ends all the Erlking Encounters]
 		EngineCore.outputText( 'You have had enough of this maniac and his insane hunt.\n\n' );
@@ -370,72 +370,72 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'You shiver at his touch, completely broken.\n\n' );
 		EngineCore.outputText( '“<i>Look at me,</i>” he commands.  Completely obedient to the Hunter’s words, you look up, meeting his red-ember eyes.  “<i>I shall make amends,</i>” he says softly. \n\n' );
 		EngineCore.outputText( 'The words rumble through you, and you feel a warm heat building in your stomach.  Something about your arms and legs feel... off... but you can’t take your eyes away from the Erlking’s, not even when pain lances through your body, your muscles swelling, your [armor] tearing and falling away.  The Erlking releases his hold on you and you look down immediately at your body.\n\n' );
-		if( CoC.getInstance().player.skinType === AppearanceDefs.SKIN_TYPE_FUR ) {
+		if( CoC.player.skinType === AppearanceDefs.SKIN_TYPE_FUR ) {
 			EngineCore.outputText( 'Your fur turns jet black.' );
 		} else {
 			EngineCore.outputText( 'Black fur runs down your body like a tide coming in.' );
 		}
 		EngineCore.outputText( '  Your muscles bulge and swell beneath the midnight coat.' );
-		if( CoC.getInstance().player.hasBreasts() ) {
+		if( CoC.player.hasBreasts() ) {
 			EngineCore.outputText( '  Your chest first flattens out, then swells, as' );
 		} else {
 			EngineCore.outputText( '  T' );
 		}
 		EngineCore.outputText( ' taut muscles fill in your entire frame.' );
-		if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG ) {
+		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG ) {
 			EngineCore.outputText( '  Your doggie paws tingle as muscles build there, rebuilding them as stocky, athletic hound legs.' );
 		} else {
 			EngineCore.outputText( '  Your [legs] bend and crack, making you howl in pain as they rebuild themselves as onyx-clawed canine paws.' );
 		}
 		EngineCore.outputText( '\n\n' );
 		EngineCore.outputText( 'Between your bestial legs, your genitals rearrange themselves.' );
-		if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Your clit swells to incredible size, throbbing a dull red, run through with purple veins.  You pant heavily, your tongue hanging out of your mouth, as the rest of your pussy closes, sealing as if it were never there, only to be replaced a moment later with the swelling of two massive testicles.' );
-		} else if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+		} else if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( '  Your stomach lurches as your cocks slap together and begin melding into one swollen form.  It pulses and throbs, swelling at the base, pointing at the tip, becoming a single dog cock.' );
-			} else if( CoC.getInstance().player.cocks[ 0 ].cockType !== CockTypesEnum.DOG ) {
+			} else if( CoC.player.cocks[ 0 ].cockType !== CockTypesEnum.DOG ) {
 				EngineCore.outputText( '  Your cock begins to shift and mold like clay, aching dull red, the veins darkening to purple, tip pulling out to form a throbbing, new dog cock.' );
 			} else {
 				EngineCore.outputText( '  Your canine prick throbs painfully, leaving you panting and whining.' );
 			}
-		} else if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+		} else if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( '  You pant heavily, your tongue hanging out of your mouth, as your pussy closes, sealing as if it were never there, only to be occluded a moment later with the curve of your swelling, massive testicles.  Your stomach lurches as your cocks slap together and begin melding into one swollen form.  It pulses and throbs, swelling at the case, pointing at the tip, becoming a single dog cock.' );
 			} else {
 				EngineCore.outputText( '  You pant heavily, your tongue hanging out of your mouth, as your pussy closes, sealing as if it were never there, only to be occluded a moment later with the curve of your swelling, massive testicles.' );
-				if( CoC.getInstance().player.cocks[ 0 ].cockType !== CockTypesEnum.DOG ) {
+				if( CoC.player.cocks[ 0 ].cockType !== CockTypesEnum.DOG ) {
 					EngineCore.outputText( '  Your cock begins to shift and mold like clay, aching dull red, the veins darkening to purple, tip pulling out to form a throbbing, new dog cock.' );
 				} else {
 					EngineCore.outputText( '  Your canine prick throbs painfully, leaving you panting and whining.' );
 				}
 			}
-		} else if( !CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		} else if( !CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( '  The smooth curve of your crotch ripples and bulges, and a cherry-red tip pushes out from your fur.  The wind around you picks up, blowing across your new, smooth doggie prick as it pushes out.  The overwhelming sensation has you shuddering, and you tilt your head back and howl.' );
 		}
 		EngineCore.outputText( '\n\n' );
 		EngineCore.outputText( 'The black fur covers your' );
-		if( CoC.getInstance().player.balls === 0 ) {
+		if( CoC.player.balls === 0 ) {
 			EngineCore.outputText( ' new' );
 		}
 		EngineCore.outputText( ' balls and runs halfway up your shiny red pecker, forming a sheath.' );
-		if( CoC.getInstance().player.wingType !== 0 ) {
+		if( CoC.player.wingType !== 0 ) {
 			EngineCore.outputText( '  You whine, rolling on your back and with a start, realize that your wings must have fallen off while you were distracted with your cock.' );
 		}
 		EngineCore.outputText( '  You smile an open-mouthed doggie smile, feeling the warm churning of cum building in your throbbing balls.  You ache for release, wanting nothing more than to stroke yourself.  You raise your black-nailed hands to your cock, but stop short, knowing instinctively that masturbating is forbidden.\n\n' );
 		EngineCore.outputText( 'Instead, you curl your stomach, trying to reach your cock with your mouth.' );
-		if( CoC.getInstance().player.faceType !== AppearanceDefs.FACE_DOG ) {
+		if( CoC.player.faceType !== AppearanceDefs.FACE_DOG ) {
 			EngineCore.outputText( '  The world bends alarmingly as your nose pushes out, creating a black-furred muzzle where your mouth once was.' );
 		}
 		EngineCore.outputText( '  You whine, looking directly at your pointed dog cock, and the trickle of pre running from its tip, but even your' );
-		if( CoC.getInstance().player.faceType !== AppearanceDefs.FACE_DOG ) {
+		if( CoC.player.faceType !== AppearanceDefs.FACE_DOG ) {
 			EngineCore.outputText( ' new' );
 		}
 		EngineCore.outputText( ' muzzle and broad, flat tongue can’t reach it.\n\n' );
 		EngineCore.outputText( 'The Erlking... The Master, your mind corrects itself.  The Master murmurs softly to you.  “<i>Patience, Hound,</i>” he commands, pressing a strong, gloved hand against your chest, holding you down on the ground.  You go still, submissive to the Master as he kneels next to your prone form.  His other hand grasps your dick slowly, and your mind melts.\n\n' );
 		EngineCore.outputText( 'You’re in absolute heaven as the Master pins you down, stroking your dick.  His gloved fingers work your shaft with elegant efficiency, running down your length, and squeezing in a delicious rhythm.  The hand on your chest stays firm, but runs through your fur, petting your broad, muscular chest.\n\n' );
 		EngineCore.outputText( 'Your eyes roll back, tongue lolling as the Master squeezes the base of your cock.  Your' );
-		if( !CoC.getInstance().player.hasKnot() ) {
+		if( !CoC.player.hasKnot() ) {
 			EngineCore.outputText( ' new' );
 		}
 		EngineCore.outputText( ' knot swells, and his firm hand on it feels sooo good.  At some point the two other Hounds have appeared, and you can feel, rather than see, their presence nearby.\n\n' );
@@ -451,33 +451,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'You smile seductively, asking the Erlking exactly what he’s offering.\n\n' );
 		EngineCore.outputText( '“<i>Exactly what you’re thinking,</i>” rumbles the Erlking.  You feel the voice vibrating up through your arm.  Maybe it’s the lingering effects of the fog, but you need the Huntsman inside you, his arms around you, and as he slips one arm around at the small of your back, the other behind your head, fingers entwined in your [hair], you melt into his embrace.  \n\n' );
 		EngineCore.outputText( 'His warm mouth presses against your neck, his fingers undoing your [armor], letting it fall to the forest floor.  His touch sends warm shivers through you, and you moan as he walks you backward, pressing you firmly against a tree.\n\n' );
-		if( !CoC.getInstance().player.isTaur() ) {
-			if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.isTaur() ) {
+			if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 				EngineCore.outputText( 'With your back against the tree, he guides your' );
-				if( CoC.getInstance().player.isBiped() || CoC.getInstance().player.isDrider() || CoC.getInstance().player.isGoo() ) {
+				if( CoC.player.isBiped() || CoC.player.isDrider() || CoC.player.isGoo() ) {
 					EngineCore.outputText( ' [legs] up, letting them wrap around his back.' );
-				} else if( CoC.getInstance().player.isNaga() ) {
+				} else if( CoC.player.isNaga() ) {
 					EngineCore.outputText( ' tail up, letting your coils wrap around his back.' );
 				}
 				EngineCore.outputText( '  One hand grasps firmly under your [ass], holding you up, while the other plays softly across your chest, squeezing and caressing each of your [chest] in turn.  He tweaks your nipples, one by one, sending shockwaves of pleasure through your body.\n\n' );
 				EngineCore.outputText( '“<i>Take me, Huntsman,</i>” you moan.  His shaft is already poised, his equine dick sliding up into your [vagina], pushing deep inside you.' );
-				CoC.getInstance().player.cuntChange( 12 * 3, true, true, false );
+				CoC.player.cuntChange( 12 * 3, true, true, false );
 				EngineCore.outputText( '\n\n' );
 				EngineCore.outputText( 'You gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, holding you under the arms, fucking you against the tree.  The rough bark scratches your back as he thrusts deep inside you.  You feel the triple rings of his prepuce rubbing against your inner walls.\n\n' );
 				EngineCore.outputText( 'His speed builds, and his strong arms lift you up, sliding you up and down his shaft, letting your own weight fuck you against his dick, over and over.  You moan, body quaking as you cum, his shaft grinding deep against your womb.  After several minutes of steady rhythm, he grunts, pushing you down, and a moment later, he climaxes inside you, pumping you full of hot, thick cum.  You shudder as he floods you with jet after jet of his thick seed.\n\n' );
 				EngineCore.outputText( 'You wrap your arms around him, clinging to him as he shifts his grip, bearing you up as you quake with aftershocks of pleasure.  One arm holds you up, close to his muscular chest, his other gloved hand strokes your [hair], as the fog rolls in.\n\n' );
 				EngineCore.outputText( 'You feel drowsy as the air thickens with chill fog, though the Erlking’s body keeps you warm.  Despite your best efforts, you find yourself drifting to sleep in his arms.  \n\n' );
 				EngineCore.outputText( 'You wake up an hour later, head spinning, feeling slightly tougher for all of the... exercise.\n\n' );
-			} else if( CoC.getInstance().player.hasCock() ) {
+			} else if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'With your back against the tree, he guides your' );
-				if( CoC.getInstance().player.isBiped() ) {
+				if( CoC.player.isBiped() ) {
 					EngineCore.outputText( ' [legs] up, letting them wrap around his back.' );
-				} else if( CoC.getInstance().player.isNaga() ) {
+				} else if( CoC.player.isNaga() ) {
 					EngineCore.outputText( ' tail up, letting your coils wrap around his back.' );
 				}
 				EngineCore.outputText( '  One hand grasps firmly under your [ass], holding you up, while the other plays softly across your chest, tweaking each nipple before trailing down your stomach, grasping [oneCock]\n\n' );
 				EngineCore.outputText( '“<i>Take me, Huntsman,</i>” you groan.  His shaft is already at your [ass].  His equine dick pushing up into your [asshole], pushing deep inside you.' );
-				CoC.getInstance().player.buttChange( 12 * 3, true, true, false );
+				CoC.player.buttChange( 12 * 3, true, true, false );
 				EngineCore.outputText( '\n\n' );
 				EngineCore.outputText( 'You gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, one at the small of your back, steadying you, fucking you against the tree.  The other squeezes tight around your dick, jacking you off, gloved hand stroking you roughly in time to his thrusts.  The coarse bark of the tree scratches at your back as you feel the triple rings of his prepuce rubbing against the inner walls of your [asshole].  \n\n' );
 				EngineCore.outputText( 'You moan, body quaking as you cum, spurting cum over his chest and your own, his shaft grinding deep inside you.  He pushes you down, and a moment later, he climaxes inside you pumping you full of hot, thick cum.  He floods your bowels with jet after jet of his thick seed, your belly swelling slightly outward from the volume of cum.\n\n' );
@@ -487,12 +487,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 			}
 		} else {
 			EngineCore.outputText( 'The Erlking smiles at you, caressing your cheek.  “<i>I pride myself in keeping a proper stable,</i>” he says, delicately moving behind you.  With his strong hands on your flanks, he guides you to face up against a tree.\n\n' );
-			if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 				EngineCore.outputText( 'With your [chest] against the rough bark, he lifts your [tail], exposing your [pussy] to the swelling head of his equine cock.  With a soft sound, he pushes between your lips, letting you feel each prepuce ring as they squeeze into you.' );
-				CoC.getInstance().player.cuntChange( 12 * 3, true, true, false );
+				CoC.player.cuntChange( 12 * 3, true, true, false );
 				EngineCore.outputText( '\n\n' );
 				EngineCore.outputText( 'You wrap your arms around the trunk of the tree as his hands grip your flanks.  His own equine legs begin thrusting him against you, his ribbed cock sliding in and out of your [pussy], the ridges of his horselike shaft massaging you from the inside.  The force of his fucking ginds your [chest] against the tree.' );
-				if( CoC.getInstance().player.biggestLactation() > 0 ) {
+				if( CoC.player.biggestLactation() > 0 ) {
 					EngineCore.outputText( '  The friction begins milking you, making you ooze milk down the trunk.' );
 				}
 				EngineCore.outputText( '  The mild pain of abrasion couples with the pleasure of his forceful fucking and you feel your climax approaching.\n\n' );
@@ -500,7 +500,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 				EngineCore.outputText( 'He allows you a moment to catch your breath, the pulls out.  You hear his cock slap wetly against his thigh.  A strong hand takes yours, guiding you across the clearing to a fallen log. Dazed, you follow him, and he sits, guiding you to do the same next to him.  \n\n' );
 				EngineCore.outputText( 'Reaching into his belt pouch, he pulls out a small bottle of salve.  One hand strokes your hair as the other begins to work the cream into your scratched [chest].  The cream is cool and soothing, and the Erlking is attentive.  You soon fall asleep, your head leaning against his chest.\n\n' );
 				EngineCore.outputText( 'You wake up an hour later in the clearing, the Erlking gone and your chest unmarred.  You blink, sleepily, still feeling the Erlking’s arms around you and shakily climb to your feet, making your way back to camp.\n\n' );
-			} else if( CoC.getInstance().player.hasCock() ) {
+			} else if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'With your [chest] against the rough bark, he crouches at your side, taking your already stiffening [oneCock] in his gloved hand.  From this angle, you feel, rather than see the cream he lathers on your [cock], working you to full hardness. One hand strokes your flank soothingly as the other wraps around your [cock], stroking you in his strong grip.\n\n' );
 				EngineCore.outputText( 'You pant, fingertips gripping the bark of the tree as he jacks you off.  Your tongue lolls out as his gloved hand grips you firmly, moving faster and faster as he works his way up and down your length.  Whatever lube he used is incredible, and you feel a tingle on every down and up stroke.\n\n' );
 				EngineCore.outputText( 'You can’t get enough of this feeling - being milked by the Erlking.  He even seems to be humming under his breath as he strokes your side and works you with deft fingers.  It’s like he’s calming some rutting stallion!  Your leg stamps reflexively, your [tail] swishing as your body announces your intent to cum.\n\n' );
@@ -511,13 +511,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 			}
 		}
 		//[+10 Fatigue, +1 Toughness / +1 Strength, 100 hp healed]
-		if( CoC.getInstance().player.tou < CoC.getInstance().player.str ) {
+		if( CoC.player.tou < CoC.player.str ) {
 			EngineCore.dynStats( 'toughness+', 1, 'fatigue+', 10, 'health+', 100, 'lust=', 0 );
 		} else {
 			(EngineCore.dynStats( 'strength+', 1, 'fatigue+', 10, 'health+', 100, 'lust=', 0 ));
 		}
-		CoC.getInstance().player.orgasm();
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.orgasm();
+		CoC.player.slimeFeed();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -530,7 +530,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( '“<i>Please... my cane...</i>” he pleads.  On his knees, his trembling arms hold him up.  He seems to be telling the truth - without the cane, he’s as weak as a newborn.\n\n' );
 		EngineCore.outputText( '“<i>You taunt me, you hunt me, and now you ask for favors?</i>”  you snort.  “<i>No, no, you’re about to be taught a very lasting lesson,</i>” you snarl.\n\n' );
 		EngineCore.outputText( '“<i>What do yo-</i>” begins the Erlking, looking up at you.  You slap his face, cutting off the end of the question.\n\n' );
-		if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
 			EngineCore.outputText( 'You grab his horns, shoving him over backwards.  He seems to be getting weaker by the moment.  He can barely pick himself up off the ground.  You look down at the prone huntsman with disdain, striding to his head, your [feet] on either side of his head.\n\n' );
 			EngineCore.outputText( '“<i>What are yo-</i>” he tries to ask, before you crouch down, burying his deer-muzzle in your muff.  You grab the forward prongs of his antlers, steering his mouth against your dripping vagina.\n\n' );
 			EngineCore.outputText( '“<i>Lick it, Huntsman!</i>” you order, pulling on his antlers, his dark muzzle pushing hard against your pussy.  You snarl, feeling the timid push of his tongue against your pussy lips.\n\n' );
@@ -540,7 +540,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 			EngineCore.outputText( 'You sigh in satisfaction, settling down on his face, holding tight to his antlers and steering his lapping tongue.  You ride the Erlking’s face for nearly half an hour.  Eventually you climax, moaning in ecstasy, covering the huntsman’s face with your pussy juices.  You grind down hard on his face, pulling up hard on his horns.  With a cracking noise, his golden antlers come loose in your hands\n\n' );
 			EngineCore.outputText( 'You stand, looking down at the disgraced forest lord.  He lies there, gasping, smeared with your pussy juices, dirt ground into his fur, his antlers broken.  From the wetness staining his leathers and hips, it looks like he came at some point, and it’s now slowly oozing out of his clothes, matting his fur.  Maybe it’s the spunk, but it looks as if his fur has an odd tint to it - slightly pink?  You shrug it off as some trick of the light as you gather yourself and prepare to leave.\n\n' );
 			EngineCore.outputText( 'As you turn away, the fog rolls in low, engulfing the prone huntsman.  You know he definitely won’t be bothering you anymore.\n\n' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'You undo your [armor], releasing your [cock].  Narrowing your eyes at the fallen hunter, you grab him by the antlers, shoving your cock in his face.\n\n' );
 			EngineCore.outputText( '“<i>Lick it, huntsman.  Make me good and wet,</i>” you growl.  \n\n' );
 			EngineCore.outputText( 'Strangely, the Erlking needs little encouragement, and almost eagerly takes your [cock] into his long stag muzzle, his hot tongue running up and down the underside of your shaft.  Is it possible that the cane was reinforcing his mind as much as his body?  He moans in pleasure as you grip his antlers, driving yourself deep into his mouth.\n\n' );
@@ -559,8 +559,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 			EngineCore.outputText( '“<i>I don’t expect we’ll have any more problems, will we?</i>” you ask, sliding out of him.  You rise, watching as his fur takes on a curiously pink hue.\n\n' );
 			EngineCore.outputText( '“<i>No, my Lord,</i>” She croons, rising up to her knees, lapping at your dick.  Once she’s finished cleaning, she helps you with your [armor].  You nod a goodbye to her and begin walking, smirking in amusement at the trickle of cum running down her taut cheeks and down her legs as she waves farewell.\n\n' );
 		}
-		CoC.getInstance().player.createKeyItem( 'Golden Antlers', 0, 0, 0, 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.createKeyItem( 'Golden Antlers', 0, 0, 0, 0 );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -585,29 +585,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		}
 		EngineCore.outputText( 'Despite that, she looks very happy to see you.  She’s become more feminine since you last saw her.  Her hair is tufted up into a rose-colored pixie cut with two spritely pigtails at the nape of her neck. Her chest is still flat, but she’s lost muscle mass, making her tall, thin, and androgynous.  Her black leathers are gone, and her fur is mostly cotton-candy pink, accented by her white chest, stomach, and thighs.  Her cock swings with each careful movement, a mottled white and pink, matching her fur, with three prepuce rings.  She steps forward, her long, deer legs giving her hips an unintentional sway as she gingerly minces toward you.\n\n' );
 		EngineCore.outputText( '“<i>Master!  It’s wonderful to see you again!</i>” she coos, throwing her arms around your shoulders, kissing you with pink, pouty lips.  “<i>I’ve been having so much </i>fun<i> as a Princess!  I can’t believe how much happier I am now!  Thank you </i>so<i> much!</i>”  Her voice sounds a bit slurred, as if she’s been mentally affected by slutting around in the Deepwoods.\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ENCOUNTERED_PRINCESS_GWYNN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_PRINCESS_GWYNN ] === 0 ) {
 			EngineCore.outputText( '“<i>I’m so happy you helped me get rid of that nasty old cane,</i>” she says, waving a pink-furred arm vaguely at the forest.  “<i>It may have kept out the corruption, but it was giving me a </i>weird<i> idea of fun,</i>” she bubbles.  “<i>No more hunting for me - no, sir!</i>”\n\n' );
 			EngineCore.outputText( 'She touches her white fingers to her chest and purrs demurely, “<i>You can call me Gwynn, now.  But I’ll still be your princess!</i>”\n\n' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_ENCOUNTERED_PRINCESS_GWYNN ]++;
+		CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_PRINCESS_GWYNN ]++;
 		EngineCore.outputText( '“<i>What can I do to repay you?</i>” Gwynn chirps cutely, kissing your cheek.  ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '“<i>I could suck your dick, or you could fuck my princess pussy, or ' );
 		} else {
 			EngineCore.outputText( '“<i>' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'I could eat your pussy, ' );
 		}
 		EngineCore.outputText( ' or I could share some of my special potion with you,</i>” she counts the options off on her slim fingers.\n\n' );
 		EngineCore.outputText( 'You run through the options in your head, even briefly considering ‘getting some of her potion’ on your own terms.\n\n' );
 		//Suck My Dick  /  Fuck Her Ass  /  Eat My Pussy  /  Milk Her Dick  /  Gifts
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Suck Me', this.gwynnSucksDicks );
 			EngineCore.addButton( 1, 'Assfuck', this.gwynnGetsButtfuxed );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Eat Me', this.gwynnNomsDaCunts );
 		}
 		EngineCore.addButton( 3, 'Milk Dick', this.gwynnGetsDickmilked );
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( '“<i>Thank you, M’lord!</i>” she calls as you walk off.\n\n' );
 		//[Libido + 2]
 		EngineCore.dynStats( 'lib+', 2, 'lus=', 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'You withdraw from her and she sits up, giggling, spinning on her knees to slurp at your cock, cleaning you off.  Just as when you first turned her, she cleans you completely, then helps you dress, giggling happily as you kiss her cheek farewell.\n\n' );
 		//[Sensitivity -2]
 		EngineCore.dynStats( 'sen-', 2, 'lus=', 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -650,14 +650,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'You sigh happily, bracing yourself with your arms and leaning back.  Princess Gwynn slurps noisily at your muff, her tongue moving faster and faster.  You gasp, pleasure building in your whole body as she withdraws her tongue from your pussy, wrapping her lips around your pleasure button.\n\n' );
 		EngineCore.outputText( 'Two long, slim fingers slide into your pussy as she sucks on your love button.  Her tongue flickers and massages your clit as her finger pump in and out of your dripping snatch.  She hums, letting the vibrations from her lips travel in and buzz around your clitty.  Just as you shiver, on the edge of your orgasm, she closes her teeth lightly on your clitty, humming and buzzing them against your sensitive nub.  You cry out, gushing pussyjuices down her chin and chest.  She keeps licking, drawing another shivering orgasm on the heels of the first. \n\n' );
 		EngineCore.outputText( 'You slump back on the stump, trembling.  You glance down' );
-		if( CoC.getInstance().player.hasBreasts() ) {
+		if( CoC.player.hasBreasts() ) {
 			EngineCore.outputText( ' between your breasts' );
 		}
 		EngineCore.outputText( ' to see her smiling and elegantly licking her slim fingers clean. You shudder as she begins lapping at your pussy, cleaning you methodically.' );
 		EngineCore.outputText( 'When you can finally move again, Princess is kneeling next to you obediently.  She closes her eyes, smiling as you pat her head, ruffling her pink hair.  When you stand, she rises to help dress you, blowing you a kiss as you leave the forest behind.\n\n' );
 		//[Sensitivity -2, Libido +2]
 		EngineCore.dynStats( 'sen-', 2, 'lib+', 2, 'lus=', 0 );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

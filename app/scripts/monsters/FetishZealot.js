@@ -82,10 +82,10 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 		if( this.armorName === MILITARY_CLOTHES ) {
 			//In front of you is someone wearing a green military uniform.  They obviously aren't in any military you've ever heard of, as on his shoulder he has emblazoned <i>FF Army Sex Instructor</i>.  It seems you are his latest Recruit...
 			EngineCore.outputText( 'He suddenly barks, "<i>Let\'s see those genitals, soldier!</i>" ', false );
-			//[CoC.getInstance().player is corrupt] 
-			if( CoC.getInstance().player.cor > 50 ) {
+			//[CoC.player is corrupt] 
+			if( CoC.player.cor > 50 ) {
 				EngineCore.outputText( 'You eagerly cry out "<i>Yes, sir!</i>" and show yourself off to the best of your ability.  The whole act is extremely arousing.', false );
-			}//[CoC.getInstance().player is not corrupt]
+			}//[CoC.player is not corrupt]
 			else {
 				EngineCore.outputText( 'You have no idea why, but you promptly display yourself in the most provocative way possible.  After a moment you realize what you\'re doing and quickly stop, flushed with embarrassment and arousal.', false );
 			}
@@ -93,14 +93,14 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 		//Gimp gear;
 		if( this.armorName === LEATHER_CLOTHES ) {
 			//The Zealot has taken on an appearance that seems more suitable for the level of perversion he exudes.  He is wearing a full-body suit of leather, with a cock case over his crotch; you can clearly see a large zipper on it.  The zipper handle is far bigger than you think is absolutely necessary.
-			EngineCore.outputText( 'The Zealot turns around and gives you a full view of his tight leather clad body.  He smacks his ass and says "<i>You like what you see, don\'t you ' + CoC.getInstance().player.mf( 'stud', 'slut' ) + '?</i>"  You can\'t help but be incredibly aroused by the scene.', false );
+			EngineCore.outputText( 'The Zealot turns around and gives you a full view of his tight leather clad body.  He smacks his ass and says "<i>You like what you see, don\'t you ' + CoC.player.mf( 'stud', 'slut' ) + '?</i>"  You can\'t help but be incredibly aroused by the scene.', false );
 		}
 		//Well dressed and well groomed student in uniform;
 		if( this.armorName === STUDENTS_CLOTHES ) {
 			//The Zealot seems to have taken on the appearance of a young adult wearing a student uniform of sorts; of course, this isn't any less perverted than any of the other costumes this man wears.  This one includes a number of loose straps that you're certain would cause large sections of his clothes to fall off if somebody pulled on them.
 			EngineCore.outputText( 'The Zealot student looks at you a little shyly and sticks a pencil in his mouth while pushing a hand in front of his groin, trying to hide a rather obvious bulge.  The whole scene is rather cute, and you feel incredibly aroused afterwards.', false );
 		}
-		EngineCore.dynStats( 'lus', (7 + Utils.rand( CoC.getInstance().player.lib / 20 + CoC.getInstance().player.cor / 20 )) );
+		EngineCore.dynStats( 'lus', (7 + Utils.rand( CoC.player.lib / 20 + CoC.player.cor / 20 )) );
 		Combat.combatRoundOver();
 	};
 	//Special2: Lust transfer spell, it becomes more and 
@@ -116,12 +116,12 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 	FetishZealot.prototype.postAttack = function( damage ) {
 		if( damage > 0 ) {
 			EngineCore.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
-			if( CoC.getInstance().player.inte > 50 ) {
+			if( CoC.player.inte > 50 ) {
 				EngineCore.outputText( ', was there some kind of aphrodisiac on the knife?', false );
 			} else {
 				EngineCore.outputText( '.', false );
 			}
-			EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 20 + 5) );
+			EngineCore.dynStats( 'lus', (CoC.player.lib / 20 + 5) );
 		}
 		this._superPostAttack( damage );
 	};
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 	FetishZealot.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe fetish cultist ignores the perverse display and continues on as if nothing had happened...', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.doNext( SceneLib.fetishZealotScene.zealotLossRape );
 		} else {
 			SceneLib.fetishZealotScene.zealotLossRape();

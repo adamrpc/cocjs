@@ -12,24 +12,24 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 			Combat.combatRoundOver();
 			return;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && CoC.getInstance().player.spe >= 35 && Utils.rand( 3 ) !== 0 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.spe >= 35 && Utils.rand( 3 ) !== 0 ) {
 			EngineCore.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you.  You easily avoid the wave, diving to the side and making the most of your talents at evasion.', false );
-		} else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 20 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s fire.\n', false );
-		} else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && CoC.getInstance().player.spe > 30 && Utils.rand( 10 ) !== 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && CoC.player.spe > 30 && Utils.rand( 10 ) !== 0 ) {
 			EngineCore.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you.  You twist and drop with incredible flexibility, watching the fire blow harmlessly overhead.', false );
 		} else {
 			//Determine the damage to be taken
 			var temp = 15 + Utils.rand( 10 );
-			temp = CoC.getInstance().player.takeDamage( temp );
+			temp = CoC.player.takeDamage( temp );
 			EngineCore.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you. While the flames don\'t burn much, the unnatural heat fills your body with arousal. (' + temp + ' damage)', false );
-			EngineCore.dynStats( 'lus', 20 - (CoC.getInstance().player.sens / 10) );
+			EngineCore.dynStats( 'lus', 20 - (CoC.player.sens / 10) );
 			EngineCore.statScreenRefresh();
-			if( CoC.getInstance().player.HP <= 0 ) {
+			if( CoC.player.HP <= 0 ) {
 				EngineCore.doNext( Combat.endHpLoss );
 				return;
 			}
-			if( CoC.getInstance().player.lust >= 100 ) {
+			if( CoC.player.lust >= 100 ) {
 				EngineCore.doNext( Combat.endLustLoss );
 				return;
 			}
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	HellHound.prototype.hellhoundScent = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {
 			if( this.spe === 100 ) {
 				this.hellhoundFire();
 				return;
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 		} else {
 			this.spe += 40;
 			EngineCore.outputText( 'The hellhound keeps his four eyes on you as he sniffs the ground where you were moments ago. He raises his heads back up and gives you a fiery grin - he seems to have acquired your scent!  It\'ll be hard to get away now...', false );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();
 	};
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 		if( hpVictory ) {
 			EngineCore.outputText( 'The hellhound\'s flames dim and the heads let out a whine before the creature slumps down, this.defeated and nearly unconscious.', true );
 			//Rape if not naga, turned on, and girl that can fit!
-			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 && !CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.hasVagina() && CoC.player.lust >= 33 && !CoC.player.isNaga() ) {
 				EngineCore.outputText( '  You find yourself musing that you could probably take advantage of the poor \'doggy\'.  Do you fuck it?', false );
 				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene.hellHoundPropahRape, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 			} else {
@@ -66,10 +66,10 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 		} else {
 			EngineCore.outputText( 'Unable to bear hurting you anymore, the hellhound\'s flames dim as he stops his attack. The two heads look at you, whining plaintively.  The hellhound slowly pads over to you and nudges its noses at your crotch.  It seems he wishes to pleasure you.\n\n', true );
 			var temp2 = null;
-			if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.lust >= 33 ) {
+			if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 				EngineCore.outputText( 'You realize your desires aren\'t quite sated.  You could let it please you', false );
 				//Rape if not naga, turned on, and girl that can fit!
-				if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 && !CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.hasVagina() && CoC.player.lust >= 33 && !CoC.player.isNaga() ) {
 					EngineCore.outputText( ' or make it fuck you', false );
 					temp2 = SceneLib.hellHoundScene.hellHoundPropahRape;
 				}

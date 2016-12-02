@@ -5,8 +5,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 		'Show Stats',
 		'Show the stats pane when available',
 		function() {
-			if (MainView.menuButtonIsVisible(MainView.MENU_STATS) && CoC.getInstance().player.str > 0) {
-				CoC.getInstance().displayStats();
+			if (MainView.menuButtonIsVisible(MainView.MENU_STATS) && CoC.player.str > 0) {
+				CoC.displayStats();
 			}
 		}
 	);
@@ -14,8 +14,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 		'Level Up',
 		'Show the level up page when available',
 		function() {
-			if (MainView.menuButtonIsVisible(MainView.MENU_LEVEL) && CoC.getInstance().player.str > 0) {
-				CoC.getInstance().levelUpGo();
+			if (MainView.menuButtonIsVisible(MainView.MENU_LEVEL) && CoC.player.str > 0) {
+				CoC.levelUpGo();
 			}
 		}
 	);
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 			'Quicksave ' + (value + 1),
 			'Quicksave the current game to slot ' + (value + 1),
 			function() {
-				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && CoC.getInstance().player.str > 0) {
+				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && CoC.player.str > 0) {
 					MainView.nameBox.text = '';
 					Saves.saveGame('CoC_' + (value + 1));
 					EngineCore.outputText('Game saved to slot ' + (value + 1) + '!', true);
@@ -161,31 +161,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 		'Cheat! Give Hummus',
 		'Cheat code to get free hummus',
 		function(keyCode) {
-			if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 0) {
+			if (CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 0) {
 				if (keyCode === 38) {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
 				} else {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
 				}
-			} else if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 1) {
+			} else if (CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 1) {
 				if (keyCode === 40) {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
 				} else {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
 				}
-			} else if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 2) {
+			} else if (CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 2) {
 				if (keyCode === 37) {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER]++;
 				} else {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
 				}
-			} else if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 3) {
+			} else if (CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 3) {
 				if (keyCode === 39) {
-					if (CoC.getInstance().player.str > 0 && MainView.getButtonText(0).indexOf('Game Over') === -1) {
+					if (CoC.player.str > 0 && MainView.getButtonText(0).indexOf('Game Over') === -1) {
 						SceneLib.inventory.giveHumanizer();
 					}
 				} else {
-					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
+					CoC.flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;
 				}
 			}
 		},

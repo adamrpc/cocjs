@@ -14,27 +14,27 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 			EngineCore.outputText( this.getCapitalA() + this.short + ' seems to have no problem guiding his attacks towards you, despite his blindness.\n', false );
 		}
 		//Determine if dodged!
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			if( CoC.getInstance().player.spe - this.spe < 8 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+			if( CoC.player.spe - this.spe < 8 ) {
 				EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!', false );
 			}
-			if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+			if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 				EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!', false );
 			}
-			if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+			if( CoC.player.spe - this.spe >= 20 ) {
 				EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.', false );
 			}
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if evaded
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if flexibilitied
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your cat-like agility, you twist out of the way of ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
@@ -43,29 +43,29 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 		//*Normal Attack A -
 		if( Utils.rand( 2 ) === 0 ) {
 			//(medium HP damage)
-			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage <= 0 ) {
 				EngineCore.outputText( 'Akbal lunges forwards but with your toughness', false );
-				if( CoC.getInstance().player.armorDef > 0 ) {
-					EngineCore.outputText( ' and ' + CoC.getInstance().player.armorName + ', he fails to deal any damage.', false );
+				if( CoC.player.armorDef > 0 ) {
+					EngineCore.outputText( ' and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
 				} else {
 					EngineCore.outputText( ' he fails to deal any damage.', false );
 				}
 			} else {
 				EngineCore.outputText( 'Akbal rushes at you, his claws like lightning as they leave four red-hot lines of pain across your stomach.', false );
-				CoC.getInstance().player.takeDamage( damage );
+				CoC.player.takeDamage( damage );
 			}
 		} else { //*Normal Attack B
 			//(high HP damage)
-			damage = Math.ceil( (this.str + 25 + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + 25 + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage === 0 ) {
 				EngineCore.outputText( 'Akbal lunges forwards but between your toughness ', false );
-				if( CoC.getInstance().player.armorDef > 0 ) {
-					EngineCore.outputText( 'and ' + CoC.getInstance().player.armorName + ', he fails to deal any damage.', false );
+				if( CoC.player.armorDef > 0 ) {
+					EngineCore.outputText( 'and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
 				}
 			} else {
 				EngineCore.outputText( 'Akbal snarls as he flies towards you, snapping his ivory teeth on your arm. You scream out in pain as you throw him off.', false );
-				CoC.getInstance().player.takeDamage( damage );
+				CoC.player.takeDamage( damage );
 			}
 		}
 		Combat.combatRoundOver();
@@ -79,31 +79,31 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 	};
 	Akbal.prototype.akbalLustAttack = function() {
 		//*Lust Attack -
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Whispered ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Whispered ) < 0 ) {
 			EngineCore.outputText( 'You hear whispering in your head. this.Akbal begins speaking to you as he circles you, telling all the ways he\'ll dominate you once he beats the fight out of you.', false );
 			//(Lust increase)
-			EngineCore.dynStats( 'lus', 7 + (100 - CoC.getInstance().player.inte) / 10 );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Whispered, 0, 0, 0, 0 );
+			EngineCore.dynStats( 'lus', 7 + (100 - CoC.player.inte) / 10 );
+			CoC.player.createStatusAffect( StatusAffects.Whispered, 0, 0, 0, 0 );
 		}
 		//Continuous Lust Attack -
 		else {
 			EngineCore.outputText( 'The whispering in your head grows, many voices of undetermined sex telling you all the things the demon wishes to do to you. You can only blush.', false );
 			//(Lust increase)
-			EngineCore.dynStats( 'lus', 12 + (100 - CoC.getInstance().player.inte) / 10 );
+			EngineCore.dynStats( 'lus', 12 + (100 - CoC.player.inte) / 10 );
 		}
 		Combat.combatRoundOver();
 	};
 	Akbal.prototype.akbalSpecial = function() {
 		//*Special Attack A -
-		if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.spe > 20 ) {
-			var speedChange = CoC.getInstance().player.spe / 5 * -1;
+		if( Utils.rand( 2 ) === 0 && CoC.player.spe > 20 ) {
+			var speedChange = CoC.player.spe / 5 * -1;
 			EngineCore.outputText( 'Akbal\'s eyes fill with light, and a strange sense of fear begins to paralyze your limbs.', false );
 			//(Speed decrease)
 			EngineCore.dynStats( 'spe', speedChange );
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.AkbalSpeed ) >= 0 ) {
-				CoC.getInstance().player.addStatusValue( StatusAffects.AkbalSpeed, 1, speedChange );
+			if( CoC.player.findStatusAffect( StatusAffects.AkbalSpeed ) >= 0 ) {
+				CoC.player.addStatusValue( StatusAffects.AkbalSpeed, 1, speedChange );
 			} else {
-				CoC.getInstance().player.createStatusAffect( StatusAffects.AkbalSpeed, speedChange, 0, 0, 0 );
+				CoC.player.createStatusAffect( StatusAffects.AkbalSpeed, speedChange, 0, 0, 0 );
 			}
 		}
 		//*Special Attack B -
@@ -111,32 +111,32 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 			EngineCore.outputText( 'Akbal releases an ear-splitting roar, hurling a torrent of emerald green flames towards you.\n', false );
 			//(high HP damage)
 			//Determine if dodged!
-			if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-				if( CoC.getInstance().player.spe - this.spe < 8 ) {
+			if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+				if( CoC.player.spe - this.spe < 8 ) {
 					EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s fire!', false );
 				}
-				if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+				if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 					EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s fire with superior quickness!', false );
 				}
-				if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+				if( CoC.player.spe - this.spe >= 20 ) {
 					EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow fire-breath.', false );
 				}
 				Combat.combatRoundOver();
 				return;
 			}
 			//Determine if evaded
-			if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 20 ) {
+			if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 20 ) {
 				EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;
 			}
 			//Determine if flexibilitied
-			if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
+			if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
 				EngineCore.outputText( 'Using your cat-like agility, you contort your body to avoid ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;
 			}
-			EngineCore.outputText( 'You are burned badly by the flames! (' + CoC.getInstance().player.takeDamage( 40 ) + ')', false );
+			EngineCore.outputText( 'You are burned badly by the flames! (' + CoC.player.takeDamage( 40 ) + ')', false );
 		}
 		Combat.combatRoundOver();
 	};

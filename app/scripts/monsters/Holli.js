@@ -23,26 +23,26 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	Holli.prototype.escapeFailWithHolli = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ' );
-		if( CoC.getInstance().player.canFly() ) {
+		if( CoC.player.canFly() ) {
 			EngineCore.outputText( 'beat your wings and ' );
 		}
 		EngineCore.outputText( 'try to escape, but ' + this.short + ' wraps one of her writhing roots around your [leg], slamming you to the ground and tying you up with several more!  "<i>And just where do you think you\'re going, my little meat?</i>" she hisses.  Her bark splits open, exposing her body, and a green shaft snakes out of her crotch, sprouting thorns and blooming into a rose at the tip.  She holds the drooling blossom over your [face] as she forces your mouth open with her roots!' );
 		//hp loss, begin lust constrict next round;
 		var damage = 15;
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')\n\n' );
-		CoC.getInstance().player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
+		CoC.player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
 		Combat.combatRoundOver();
 	};
 	//End of Round, if no Jojo Fire -Z;
 	Holli.prototype.holliBonusHealing = function() {
-		//(CoC.getInstance().monster hp < 100%);
+		//(CoC.monster hp < 100%);
 		if( this.findStatusAffect( StatusAffects.HolliBurning ) < 0 ) {
 			if( this.HPRatio() < 1 && this.HP > 1 ) {
 				EngineCore.outputText( '\n\nWhat wounds you have inflicted on the tree-demon overflow with sap, and begin to close!  You are left to watch helplessly as she recovers, knotting up her damaged bark until it looks as formidable as before.' );
 				this.addHP( 25 );
 			}
-			//[(CoC.getInstance().monster lust > 0)];
+			//[(CoC.monster lust > 0)];
 			if( this.lust > 20 && this.lust <= 99 ) {
 				EngineCore.outputText( '\n\nA single rent forms in the tree\'s armor-like surface; you can actually see the demon touching her pussy inside, and her eyes roll back as she comes!  It looks like teasing her won\'t be very effective if you can\'t distract her from pleasuring herself inside her shell.' );
 				this.lust -= 10;
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 		if( this.findStatusAffect( StatusAffects.JojoIsAssisting ) >= 0 ) {
 			if( this.findStatusAffect( StatusAffects.HolliBurning ) >= 0 ) {
 				EngineCore.outputText( '\n\nJojo continues to ferry firewood to stoke the blaze; flames lick at Holli, and her face contorts in anger.  Sap flows from her burn wounds, but much of it boils away before it can do her any good and her iron-hard bark is peeling in places.' );
-				//much less HP regain, no lust regain, CoC.getInstance().monster armor lowered;
+				//much less HP regain, no lust regain, CoC.monster armor lowered;
 				if( this.armorDef > 20 ) {
 					this.armorDef = 20;
 				}
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 		//Hit;
 		else {
 			EngineCore.outputText( '  The darts find flesh, and you feel yourself slowing down drastically; all you want to do as the plant woman\'s poison takes you is fuck and sleep.  "<i>Just give up,</i>" Holli coos.  "<i>Think how good it would be to fall into my arms and ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'come inside me' );
 			} else {
 				EngineCore.outputText( 'have me inside you' );
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 			EngineCore.fatigue( 10 );
 			EngineCore.dynStats( 'lus', 25 );
 			var damage = 20 + Utils.rand( 10 );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 		}
 		Combat.combatRoundOver();
@@ -143,27 +143,27 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 			//plus med HP damage on turn one, plus med-heavy lust damage every turn while constricted;
 			//sap rose shitposting;
 			var damage = 10 + Utils.rand( 5 );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.dynStats( 'lus', 15 );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();
 	};
 	Holli.prototype.struggleOutOfHolli = function() {
 		EngineCore.clearOutput();
 		//Boost odds of success. Round 3 guaranteed.;
-		CoC.getInstance().player.addStatusValue( StatusAffects.HolliConstrict, 1, 9 );
+		CoC.player.addStatusValue( StatusAffects.HolliConstrict, 1, 9 );
 		//Struggle Succeed;
 		//if demon/dragon tongue, automatic success;
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( 'You can\'t move an arm nor a [leg] to bat the flower away... but she\'s literally holding your mouth open.  Your long tongue rolls out, gripping and ripping out several of the petals on the end of her stalk!  Holli screams and her roots slacken, allowing you to batter your way out of them.' );
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.HolliConstrict );
+			CoC.player.removeStatusAffect( StatusAffects.HolliConstrict );
 		}
 		//else if normal str-based success;
-		else if( CoC.getInstance().player.str / 10 + Utils.rand( 20 ) + 1 + CoC.getInstance().player.statusAffectv1( StatusAffects.HolliConstrict ) > 30 ) {
+		else if( CoC.player.str / 10 + Utils.rand( 20 ) + 1 + CoC.player.statusAffectv1( StatusAffects.HolliConstrict ) > 30 ) {
 			EngineCore.outputText( 'You manage to force the roots open when the distracted Holli begins to stroke her plant-shaft, pulling out of the bindings just as a drop of sap oozes out and falls where you were standing.  You\'re free!' );
 			//sap rose pls go;
-			CoC.getInstance().player.removeStatusAffect( StatusAffects.HolliConstrict );
+			CoC.player.removeStatusAffect( StatusAffects.HolliConstrict );
 		}
 		//Struggle Fail/Wait;
 		else {
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 		if( this.lust < 20 ) {
 			this.lust = 20;
 		}
-		EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.sens / 5 );
+		EngineCore.dynStats( 'lus', 15 + CoC.player.sens / 5 );
 		Combat.combatRoundOver();
 	};
 	//heal -Z;
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	Holli.prototype.performCombatAction = function() {
 		if( this.HP < 50 && Utils.rand( 2 ) === 0 ) {
 			this.healHolli();
-		} else if( Utils.rand( 4 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.HolliConstrict ) < 0 ) {
+		} else if( Utils.rand( 4 ) === 0 && CoC.player.findStatusAffect( StatusAffects.HolliConstrict ) < 0 ) {
 			this.holliConstrictAttack();
 		} else if( Utils.rand( 2 ) === 0 ) {
 			this.fuckinJamanjiFlowerDarts();

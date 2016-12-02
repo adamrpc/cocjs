@@ -6,23 +6,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 
 	//[Mage's Tower];
 	Library.prototype.visitZeMagesTower = function() {
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 ) {
 			this.firstTowerVisit();
 		} else {
 			this.towerFollowUpVisits();
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 || CoC.getInstance().time.hours <= 17 ) {
+		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 || CoC.time.hours <= 17 ) {
 			EngineCore.addButton( 1, 'You Okay?', this.youOkayBuddy );
-			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00175 ] > 0 ) {
+			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00175 ] > 0 ) {
 				EngineCore.addButton( 2, 'Mali', this.talkToMali );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_VISITED_MALI ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_VISITED_MALI ] > 0 ) {
 			EngineCore.addButton( 2, 'Mali', this.talkToMali );
 		}
 		EngineCore.addButton( 0, 'Study', this.studyInTA );
-		CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ]++;
+		CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ]++;
 		EngineCore.addButton( 4, 'Back', SceneLib.telAdre.telAdreMenu );
 	};
 
@@ -32,32 +32,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 		EngineCore.outputText( 'You make your way to the largest fixture of the city, the impressive tower in the center.  The large spire could easily hold everyone you know ten times over and still have room to spare.  It is far too large for a city with Tel\'adre\'s population – but then, you reflect, so is Tel\'adre itself.' );
 		EngineCore.outputText( '\n\nThe front entryway appears to be fairly heavily guarded, and the two elites at the entryway turn you aside, directing you towards a different entrance - a public library.  Following the directions, you quickly come upon a different face of the tower.  You might have expected some epic pair of double doors, ten times your height, barely opening with a dramatic creak as you push them out of your way.  Instead you see a polite little entryway with hinges so well maintained they shine.  No frowning gargoyle door knockers, simply a small knob and a keyhole, as though it was someone\'s apartment.' );
 		EngineCore.outputText( '\n\nA single room takes up the entirety of the space on the first floor.  Staircases up and down can be seen on opposing ends, but the majority of the room is furnished with simple seats and tables.  Scrolls and books litter the surfaces, likely pulled from a series of shelves set under the curving staircase.  There does not seem to be a connection between this library and the actual core of the tower.' );
-		if( CoC.getInstance().time.hours <= 17 ) {
+		if( CoC.time.hours <= 17 ) {
 			{ //Don't want to meet Quinn if he's not supposed to be there
 			}
 			EngineCore.outputText( '  A single man carefully turns through the pages of one book' );
 			this.commonQuinnTroduction();
 		} else {
 			EngineCore.outputText( '\n\nThere doesn\'t appear to be anyone here, so there\'s nothing stopping you from reading some of the books and scrolls left out on the tables.  Looking up and down the staircases reveals two locked doors, so it\'s unlikely you could do anything else here.' );
-			CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] = -2; //This will be incremented to -1 by the visitZeMagesTower function after we return
+			CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] = -2; //This will be incremented to -1 by the visitZeMagesTower function after we return
 		}
 	};
 	Library.prototype.towerFollowUpVisits = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === -1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === -1 ) {
 			{ //Return visits before you meet Quinn. Either you meet him or you continue to go to the library at night like some bibliophile vampire
 			}
-			if( CoC.getInstance().time.hours <= 17 ) {
+			if( CoC.time.hours <= 17 ) {
 				EngineCore.outputText( 'You return to the mage\'s tower.  Entering the main room, you\'re surprised to see a man carefully turning the pages of one of the tomes' );
 				this.commonQuinnTroduction();
 			} else {
 				EngineCore.outputText( 'As before, there\'s no one here.  At least there\'s no lack of reading material.  Looking up and down the staircases reveals two locked doors, so it\'s unlikely you could do anything but study here.' );
-				CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] = -2; //This will be incremented to -1 by the visitZeMagesTower function after we return
+				CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] = -2; //This will be incremented to -1 by the visitZeMagesTower function after we return
 			}
 			return;
 		}
 		//(follow-up visits, 6:00 – 17:00);
-		if( CoC.getInstance().time.hours <= 17 ) {
+		if( CoC.time.hours <= 17 ) {
 			EngineCore.outputText( 'You return to the mage\'s tower.  Entering the main room, Quinn is carefully inspecting the pages of a book.  The room looks slightly more organized from when you last saw it, but it looks as though Quinn will be working on it for some time.' );
 			EngineCore.outputText( '\n\nHe notices you\'ve arrived and quirks an eyebrow.  "<i>Yes?</i>" he asks wearily, "<i>Is there something I can assist you with?</i>"' );
 			//If the player has encountered Asa Mali they may ask for Mali.  Otherwise they can either leave, ask to study, or ask Quinn if he is okay.;
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 	Library.prototype.studyInTA = function() {
 		EngineCore.clearOutput();
 		//[Study, 6:00-17:00];
-		if( CoC.getInstance().time.hours <= 17 ) {
+		if( CoC.time.hours <= 17 ) {
 			EngineCore.outputText( 'You ask Quinn if you can use the library to study and learn.' );
 			EngineCore.outputText( '\n\n"<i>I\'m afraid that I may have not made myself clear earlier, the library is not presently open,</i>" Quinn sighs, rubbing his forehead.  "<i>This means that it is closed, which is the opposite state of open.  While it is in this state its services are unavailable to the general public.  The general public in this particular instance are also the ones directly responsible for the necessity of it closing, leading to further hesitation in the Covenant\'s willingness to hasten the opening.  Your interest is noted, filed, and considered, but will be regarded as a data point and not the quote unquote voice of the people.</i>"' );
 			EngineCore.outputText( '\n\nQuinn pauses for a few more moments, looking you in the eye thoughtfully before finishing with "<i>That means no, in case we\'re unclear.</i>"' );
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 		}
 		//[Study, 18:00-20:00];
 		else {
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === -1 ) {
+			if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === -1 ) {
 				EngineCore.outputText( 'Looking around you decide to spend some time reading' );
 			} else {
 				EngineCore.outputText( 'Without Quinn to hassle you and request your absence from the presences, you have some time to read' );
@@ -104,38 +104,38 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 				EngineCore.dynStats( 'int', 3 + Utils.rand( 4 ) );
 				//(Intelligence increase);
 				//Smart enough for arouse and doesnt have it;
-				if( CoC.getInstance().player.inte >= 25 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsArouse ) < 0 ) {
+				if( CoC.player.inte >= 25 && CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Arouse.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsArouse, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsArouse, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.getInstance().player.inte >= 30 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsHeal ) < 0 ) {
+				else if( CoC.player.inte >= 30 && CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Heal.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsHeal, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsHeal, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.getInstance().player.inte >= 40 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsMight ) < 0 ) {
+				else if( CoC.player.inte >= 40 && CoC.player.findStatusAffect( StatusAffects.KnowsMight ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Might.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsMight, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsMight, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.getInstance().player.inte >= 25 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+				else if( CoC.player.inte >= 25 && CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Charge Weapon.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.getInstance().player.inte >= 30 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+				else if( CoC.player.inte >= 30 && CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Blind.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.getInstance().player.inte >= 40 && CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+				else if( CoC.player.inte >= 40 && CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
 					EngineCore.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Whitefire.</b>', false );
-					CoC.getInstance().player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
+					CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
 				}
 			}
-			//OR (CoC.getInstance().player is bimbo/bimbro/whatever) ;
-			else if( (CoC.getInstance().player.lib > 75 || CoC.getInstance().player.cor > 75 || CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BroBrains ) >= 0) && Utils.rand( 2 ) === 0 ) {
+			//OR (CoC.player is bimbo/bimbro/whatever) ;
+			else if( (CoC.player.lib > 75 || CoC.player.cor > 75 || CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.player.findPerk( PerkLib.BroBrains ) >= 0) && Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( '\n\nYou pick up a book from a table randomly and open it up.  Incredibly disappointed, you soon realize that there are no pictures of people fucking at all.  Reading sucks.  You eventually toss the book aside and resolve to go do something more fun.' );
 			}//OR (history) ;
 			else {
@@ -158,7 +158,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 	//[Mali];
 	Library.prototype.talkToMali = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_VISITED_MALI ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_VISITED_MALI ] === 0 ) {
 			EngineCore.outputText( 'You mention to Quinn that you\'re looking to speak with Mali.  "<i>Ah, Asa Mali, our very own Alissyn del Aliana.</i>"  Quinn chuckles and rubs his chin.  You think you\'re talking about the same person.  "<i>How mysterious that she of all people should have a visitor.  Am I setting up a forbidden tryst?  A secret rendezvous?  Or perhaps, given the nature of her work, something far more... ominous.</i>"  He looms curiously, but you clear your throat and ask if she\'s in.  Disappointed, he sighs and gestures up the stairs.  "<i>Yes, our sylvan sorceress is not that much of a socialite.</i>"' );
 			EngineCore.outputText( '\n\nTurning on his heel he ascends and unlocks a hidden, secure-looking door to the second floor, beckoning you to follow him.  The staircase loops around the wall of the tower, and you pass many closed doors as you make your way up.  Strange and unfamiliar sounds come from more than a few of them, but Quinn seems to ignore them completely.  Apparently they\'re to be expected from the tower.  Finally, after climbing higher than any other building in the town (but yet with a great deal more to go), he turns and raps sharply on a wooden door.' );
 			EngineCore.outputText( '\n\nIt takes a few moments for anything to respond, but eventually the knob turns and the door opens. Behind it a harried but smiling Mali stands, raising her eyebrows curiously.  "<i>Yes?</i>" she asks, "<i>What is it, Quinn?</i>"' );
@@ -173,30 +173,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 			//[Mali] is added permanently to the tower's menu during the day.;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
-		//[[Mali], CoC.getInstance().player has spellblade];
-		else if( (CoC.getInstance().player.weaponName === 'inscribed spellblade' || CoC.getInstance().player.hasItem( WeaponLib.S_BLADE )) && CoC.getInstance().flags[ kFLAGS.MALI_TAKEN_BLADE ] === 0 ) {
+		//[[Mali], CoC.player has spellblade];
+		else if( (CoC.player.weaponName === 'inscribed spellblade' || CoC.player.hasItem( WeaponLib.S_BLADE )) && CoC.flags[ kFLAGS.MALI_TAKEN_BLADE ] === 0 ) {
 			EngineCore.outputText( 'You tell Quinn you\'re here to see Mali.  He seems intrigued by the wrapped blade you\'re carrying, but doesn\'t ask any questions.  Unlocking the second floor as usual, he escorts you to Mali\'s quarters.' );
 			EngineCore.outputText( '\n\n"<i>What\'s that?</i>" Mali asks, curious when you pull out the inscribed spellblade.  You place it down on the desk and explain that you got it from... from...  Mali\'s eyes light up at your strained inability to explain.  "<i>Yes!</i>" she says excitedly, reaching over the desk and grabbing your cheeks.  She plants a quick and enthusiastic kiss on your lips in thanks, looking back down at the sword and running her hands over it.' );
 			EngineCore.outputText( '\n\n"<i>Yes, yes,</i>" she says as she inspects it, "<i>This is definitely... yes, I can sense her, now that I know.  I can feel the magic she poured into this.  Aaah!</i>"  Bursting with excitement she can\'t help but ball her hands and shake them a little, hopping from one foot to the other.  "<i>Yes, we can do it!  We can protect the city!</i>"  Mali quickly steps around the table and pulls you into a large hug, her breasts squishing against your chest.  "<i>Thank you so much,</i>" she smiles, "<i>You\'ve done what no one else could.  I know it might not seem like much, but most people forget I\'ve even asked about her.  You didn\'t just remember, you...</i>"  She hugs you again, before excitedly running back around the desk and lifting up the sword, looking closer at it.' );
 			EngineCore.outputText( '\n\n"<i>I\'m going to use this to track her,</i>" she explains, "<i>Then gather up some guards and find out just what she\'s up to.  You should rest up, prepare for lethal danger, then come back.</i>"  The grin on her face doesn\'t seem to be going anywhere.  "<i>I can\'t imagine doing this without your help now.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Please, come back soon.</i>"' );
 			EngineCore.outputText( '\n\n(<b>Conclusion not yet complete...</b>)' );
-			if( CoC.getInstance().player.weapon === WeaponLib.S_BLADE ) {
-				CoC.getInstance().player.setWeapon( WeaponLib.FISTS );
+			if( CoC.player.weapon === WeaponLib.S_BLADE ) {
+				CoC.player.setWeapon( WeaponLib.FISTS );
 			} else {
-				CoC.getInstance().player.consumeItem( WeaponLib.S_BLADE );
+				CoC.player.consumeItem( WeaponLib.S_BLADE );
 			}
-			CoC.getInstance().flags[ kFLAGS.MALI_TAKEN_BLADE ] = 1;
+			CoC.flags[ kFLAGS.MALI_TAKEN_BLADE ] = 1;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
-		//[[Mali], CoC.getInstance().player does not have spellblade];
+		//[[Mali], CoC.player does not have spellblade];
 		else {
 			EngineCore.outputText( 'You tell Quinn you\'re here to see Mali.  He rolls his eyes but doesn\'t say anything, unlocking the second floor and leading you up once more.' );
 			EngineCore.outputText( '\n\n"<i>Ah, how are you?</i>" Mali smiles at your visit, putting a tome aside.  You don\'t yet have anything that can help her locate Dominika, but the company is nice.  She puts on some tea and the two of you make small talk.  Mali\'s laugh is bright, tinkling lightly when you bring it out.  Eventually the time comes to leave.  She thanks you for the visit.' );
 			EngineCore.outputText( '\n\n"<i>Remember,</i>" she says on the way out, "<i>Anything you can get from Dominika that holds some aspect of her power will help.</i>"' );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_VISITED_MALI ]++;
+		CoC.flags[ kFLAGS.TIMES_VISITED_MALI ]++;
 	};
 	SceneLib.registerScene( 'library', new Library() );
 } );

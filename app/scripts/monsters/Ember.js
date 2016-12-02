@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 		EngineCore.outputText( 'The dragon moans, weaving softly from side to side, eyes glazed and tongue lolling at the intimate prospect of sex... but then, to your surprise, ' + this.emberMF( 'he', 'she' ) + ' visibly shakes it off and recomposes ' + this.emberMF( 'him', 'her' ) + 'self, frowning at you.' );
 		EngineCore.outputText( '\n\n"<i>W-what do you think you\'re doing!?  I\'m not some ordinary monster!  Don\'t think you can seduce me out of a battle!</i>"' );
 		EngineCore.outputText( '\n\nDespite Ember\'s initial display; you realize that, Ember was still a ways from ' + this.emberMF( 'his', 'her' ) + ' peak arousal.  The dragon flies off in a huff, irritated that you would stoop to fighting in a such a manner.' );
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( '  How boring.' );
 		}
 		this.gems = 0;
@@ -37,11 +37,11 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			EngineCore.outputText( 'You dodge aside at the last second and Ember\'s claws whistle past you.' );
 		} else {
-			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			if( damage <= 0 ) {
 				EngineCore.outputText( 'Ember\'s claws scrape noisily but harmlessly off your [armor].' );
 			} else {
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( 'Ember\'s claws rip into you, leaving stinging wounds.' );
 				EngineCore.outputText( ' (' + damage + ')' );
 			}
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 			} else {
 				EngineCore.outputText( '  The pain as the deadly combination washes over you is indescribable.  It\'s a miracle that you endure it, and even Ember looks amazed to see you still standing.' );
 				var damage = 100 + Utils.rand( 100 );
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( ' (' + damage + ')' );
 			}
 		}
@@ -86,9 +86,9 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 			}
 			EngineCore.outputText( ' the tail at the last moment, causing Ember to lose control of ' + this.emberMF( 'his', 'her' ) + ' own momentum and stumble.' );
 		} else {
-			var damage = Math.ceil( (this.str + this.weaponAttack + 100) - Utils.rand( CoC.getInstance().player.tou ) - CoC.getInstance().player.armorDef );
+			var damage = Math.ceil( (this.str + this.weaponAttack + 100) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			EngineCore.outputText( '  The tail slams into you with bone-cracking force, knocking you heavily to the ground even as the spines jab you wickedly.  You gasp for breath in pain and shock, but manage to struggle to your feet again.' );
-			damage = CoC.getInstance().player.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			EngineCore.outputText( ' (' + damage + ')' );
 		}
 		Combat.combatRoundOver();
@@ -99,14 +99,14 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 		//Description:;
 		EngineCore.outputText( 'Ember bares ' + this.emberMF( 'his', 'her' ) + ' teeth and releases a deafening roar; a concussive blast of force heads straight for you!' );
 		EngineCore.outputText( '  Try as you might, you can\'t seem to protect yourself; and the blast hits you like a stone, throwing you to the ground.' );
-		if( CoC.getInstance().player.findPerk( PerkLib.Resolute ) < 0 ) {
+		if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
 			EngineCore.outputText( '  Your head swims - it\'ll take a moment before you can regain your balance.' );
 			//Miss: You quickly manage to jump out of the way and watch in awe as the blast gouges into the ground you were standing on mere moments ago.;
-			CoC.getInstance().player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 		}
 		this.createStatusAffect( StatusAffects.StunCooldown, 4, 0, 0, 0 );
 		var damage = 10 + Utils.rand( 10 );
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 		that.short = 'Ember';
 		that.imageName = 'ember';
 		that.long = 'You are currently \'battling\' Ember, the dragon, in a playfight.  At least, that was the intention.  The way ' + that.emberMF( 'he', 'she' ) + ' lashes ' + this.emberMF( 'his', 'her' ) + ' tail along the ground, with claws spread and teeth bared ferociously, makes you wonder.';
-		var gender = CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ];
+		var gender = CoC.flags[ kFLAGS.EMBER_GENDER ];
 		if( gender === 0 ) {
 			that.pronoun1 = 'she';
 			that.pronoun2 = 'her';
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 			that.cumMultiplier = 3;
 		}
 		if( gender >= 2 ) {
-			that.createVagina( CoC.getInstance().flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0, AppearanceDefs.VAGINA_WETNESS_SLAVERING, AppearanceDefs.VAGINA_LOOSENESS_LOOSE );
+			that.createVagina( CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ] === 0, AppearanceDefs.VAGINA_WETNESS_SLAVERING, AppearanceDefs.VAGINA_LOOSENESS_LOOSE );
 			that.createBreastRow( Appearance.breastCupInverse( 'F' ) );
 		} else {
 			that.createBreastRow( Appearance.breastCupInverse( 'flat' ) );
@@ -177,7 +177,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 		that.hairColor = 'black';
 		that.hairLength = 15;
 		that.initStrTouSpeInte( 75, 75, 75, 75 );
-		that.initLibSensCor( 50, 35, CoC.getInstance().flags[ kFLAGS.EMBER_COR ] );
+		that.initLibSensCor( 50, 35, CoC.flags[ kFLAGS.EMBER_COR ] );
 		that.weaponName = 'claws';
 		that.weaponVerb = 'claw';
 		that.weaponAttack = 30;

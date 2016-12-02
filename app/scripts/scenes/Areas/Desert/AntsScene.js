@@ -10,20 +10,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//Implementation of TimeAwareInterface
 	AntsScene.prototype.timeChange = function() {
 		this.pregnancy.pregnancyAdvance();
-		$log.debug( '\nPhylla time change is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && Utils.rand( 5 ) === 0 && CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] < 5000 ) {
-			CoC.getInstance().flags[ kFLAGS.ANT_KIDS ]++;
+		$log.debug( '\nPhylla time change is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && Utils.rand( 5 ) === 0 && CoC.flags[ kFLAGS.ANT_KIDS ] < 5000 ) {
+			CoC.flags[ kFLAGS.ANT_KIDS ]++;
 		}
-		if( CoC.getInstance().time.hours > 23 ) {
+		if( CoC.time.hours > 23 ) {
 			//The pregnancyStore doesn't handle Phylla's ant eggs because they are continuous. The regular egg production is all handled here.
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
-				CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ]++;
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+				CoC.flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ]++;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] > 0 ) {
-				CoC.getInstance().flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] = 0;
+			if( CoC.flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] > 0 ) {
+				CoC.flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] = 0;
 			}
 			if( this.phyllaWaifu() ) {
-				CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ]++;
+				CoC.flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ]++;
 			}
 		}
 		return false;
@@ -33,27 +33,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	};
 	//End of Interface Implementation
 	AntsScene.prototype.phyllaWaifu = function() {
-		return CoC.getInstance().flags[ kFLAGS.ANT_WAIFU ] > 0;
+		return CoC.flags[ kFLAGS.ANT_WAIFU ] > 0;
 	};
 	AntsScene.prototype.antColonyEncounter = function() {
 		//WAIFU GET!
-		$log.debug( 'ANT WINS: ' + CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] + ' ANT LOSSES: ' + CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] );
-		if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] - CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] >= 2 && CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] >= 4 && CoC.getInstance().player.gender > 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_STAY_HOME ] > 0 ) {
+		$log.debug( 'ANT WINS: ' + CoC.flags[ kFLAGS.ANT_ARENA_WINS ] + ' ANT LOSSES: ' + CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] );
+		if( CoC.flags[ kFLAGS.ANT_ARENA_WINS ] - CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] >= 2 && CoC.flags[ kFLAGS.ANT_ARENA_WINS ] >= 4 && CoC.player.gender > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_STAY_HOME ] > 0 ) {
 				this.bumpIntoTheAntColonyAfterStayHomePhylla();
 			} else {
 				this.antGirlGoodEnd();
 			}
-		} else if( CoC.getInstance().flags[ kFLAGS.PC_READY_FOR_ANT_COLONY_CHALLENGE ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.PC_READY_FOR_ANT_COLONY_CHALLENGE ] === 1 ) {
 			this.antColonyChallenge();
-		} else if( CoC.getInstance().flags[ kFLAGS.PHYLLA_SAVED ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.PHYLLA_SAVED ] === 1 ) {
 			this.enterTheColony();
 		} else {
 			this.firstAntColonyEncounter();
 		}
 	};
 	AntsScene.prototype.phyllaCapacity = function() {
-		return CoC.getInstance().flags[ kFLAGS.PHYLLA_CAPACITY ];
+		return CoC.flags[ kFLAGS.PHYLLA_CAPACITY ];
 	};
 
 	//First Encounter
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.firstAntColonyEncounter = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'While traversing an unfamiliar part of this desert wasteland, ' );
-		if( CoC.getInstance().player.cor > 75 && CoC.getInstance().player.lust > 50 ) {
+		if( CoC.player.cor > 75 && CoC.player.lust > 50 ) {
 			EngineCore.outputText( ' looking for something to slake your unquenchable lusts, ' );
 		}
 		EngineCore.outputText( 'you come across an abandoned merchant\'s cart.  The cart looks eerily disheveled, with a majority of its contents strewn about the sand.  Whoever or whatever deserted this thing did so in a hurry, and for seemingly no reason. Curious, you decide to inspect it for anything worthwhile.' );
@@ -80,13 +80,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	};
 	//►[Keep Hidden]
 	AntsScene.prototype.keepHidden = function() {
-		CoC.getInstance().flags[ kFLAGS.ANT_COLONY_KEPT_HIDDEN ] = 1;
+		CoC.flags[ kFLAGS.ANT_COLONY_KEPT_HIDDEN ] = 1;
 		//If Male/Female/Herm and Corruption & Libido Under 40 OR If Unsexed Leads to - If Under 40
 		//If Male/[Use Dick - Herm] and Corruption & Libido Over 41 Leads to - If Over 41 - Male
 		//If Female/[Use Vagina - Herm] and Corruption & Libido Over 41 Leads to - If  Over 41 - Female
 		EngineCore.clearOutput();
 		//If Under 40
-		if( (CoC.getInstance().player.lib < 41 && CoC.getInstance().player.lust < 50) || CoC.getInstance().player.cor < 66 || CoC.getInstance().player.gender === 0 ) {
+		if( (CoC.player.lib < 41 && CoC.player.lust < 50) || CoC.player.cor < 66 || CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'After seeing the large pack of demons you decide it\'s best not to act.  You yourself are in no condition to help the poor creature, and knowing full well what comes after demons \'subdue\' their prey, you don\'t want to stick around either.  You glance over and realize the skirmish has already started.  It\'s too late to really help her anyway, you argue to yourself, plus she\'s covered in muscle.' );
 			EngineCore.outputText( '\n\nAssuring yourself that she\'ll be fine, you take the opportunity to flee while the demons are distracted, heading back to camp.  Leaving the ant-girl to her fate.' );
 			//[End of Event]
@@ -94,23 +94,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			return;
 		}
 		//►(If Over 41 - Male)
-		else if( CoC.getInstance().player.hasCock() ) {
+		else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ImageManager.showImage( 'ants-desert-male-firstencounter' ) );
-			EngineCore.outputText( 'You know exactly what\'s going to happen once the demons \'subdue\' their prey.  The growing throbbing in your loins begs for release, and you quickly and quietly take off your ' + CoC.getInstance().player.armorName + ', making sure the demons don\'t notice you.  You might as well watch the show as you\'re not gonna be able to leave unnoticed until the demons are done anyways.' );
+			EngineCore.outputText( 'You know exactly what\'s going to happen once the demons \'subdue\' their prey.  The growing throbbing in your loins begs for release, and you quickly and quietly take off your ' + CoC.player.armorName + ', making sure the demons don\'t notice you.  You might as well watch the show as you\'re not gonna be able to leave unnoticed until the demons are done anyways.' );
 			EngineCore.outputText( '\n\nWatching from your hiding spot you start to stroke your ' + Descriptors.cockDescript( 0 ) + '.' );
 			//Start Dick Size Check
-			var x = CoC.getInstance().player.biggestCockIndex();
+			var x = CoC.player.biggestCockIndex();
 			//If player can auto-fallatio:
-			if( CoC.getInstance().player.cocks[ x ].cockLength >= 20 ) {
+			if( CoC.player.cocks[ x ].cockLength >= 20 ) {
 				EngineCore.outputText( '  Licking the head of your [cock ' + (x + 1) + '] in anticipation of what\'s to come only adds to your growing lust.' );
 			}//If player cock size tiny:
-			else if( CoC.getInstance().player.cockArea( x ) < 6 ) {
+			else if( CoC.player.cockArea( x ) < 6 ) {
 				EngineCore.outputText( '  Though your cock isn\'t the most impressive, it\'s \'got it where it counts\' and you intend to make the most of it.  You lovingly tease yourself until you\'re fully erect; running your fingers down the ridge causes a bead of pre-cum to form on your tip.' );
 			}//If player cock size normal:
-			else if( CoC.getInstance().player.cockArea( x ) < 12 ) {
+			else if( CoC.player.cockArea( x ) < 12 ) {
 				EngineCore.outputText( '  You hold your cock like the hilt of a sword and start to pump your shaft slowly.  Your breathing becomes heavier and labored, as you stroke yourself with mounting passion.' );
 			}//If player cock size large:
-			else if( CoC.getInstance().player.cockArea( x ) < 30 ) {
+			else if( CoC.player.cockArea( x ) < 30 ) {
 				EngineCore.outputText( '  The fear of having your cock give away your position quickly passes through your mind, but it\'s too late now.  The only way out of this is to cum, so you might as well enjoy it.  You firmly grasp your cock and start jacking off, hoping that you\'ll finish sooner rather than later.' );
 			}//If player cock size MASSIVE:
 			else {
@@ -129,11 +129,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nYou\'re almost ready to blow your load when a hermaphrodite demon with what must easily be a 20-inch prick steps up to the plate.' );
 			EngineCore.outputText( '\n\nThe hermaphrodite struggles to cram itself inside the ant-girl and eventually succeeds.  With each stomach-contorting thrust you hear the ant\'s muffled moans of pain and ecstasy from between the legs of the female demon.  The hermaphrodite quickens his thrusts and, in turn, you keep speed.  With near-precision timing, you and the demon finish together.  ' + Descriptors.SMultiCockDesc() + ' throbs and a wave of euphoria washes over you.  Groaning in pleasure you release your ' );
 			//[no new PG, Start Cum Check
-			if( CoC.getInstance().player.cumQ() < 100 ) {
+			if( CoC.player.cumQ() < 100 ) {
 				EngineCore.outputText( 'sizable' );
-			} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			} else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( 'huge' );
-			} else if( CoC.getInstance().player.cumQ() < 10000 ) {
+			} else if( CoC.player.cumQ() < 10000 ) {
 				EngineCore.outputText( 'massive' );
 			} else {
 				EngineCore.outputText( 'titanic' );
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nYour body satisfied, you drift off.  When you awaken much later, the demons and the ant seem to have moved on, thankfully without noticing you.  You put your armor back on and return to camp.' );
 			//[End of Event]
 			//maybe lower libido and raise corruption, huh
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1, 'cor', 3 );
 		}
 		//►If Over 41 - Female
@@ -153,11 +153,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nRunning your hands over your breasts, you pinch your [nipple] and give a soft coo, careful to keep your voice down.  Alas, your body\'s reactions start to overwhelm your senses and you slowly begin to forget that you\'re even trying to hide.' );
 			//Unique Prerequisites
 			//If PC is lactating:
-			if( CoC.getInstance().player.lactationQ() > 100 ) {
+			if( CoC.player.lactationQ() > 100 ) {
 				EngineCore.outputText( '  You feel your warm milk flow out of your hardened arola, as your body begs to release its sweet nectar.' );
 			}
 			//If PC has dick(s):
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '  Feeling [eachCock] throb between your legs, you run one of your hands down your chest and start to stroke lovingly.' );
 			}
 			EngineCore.outputText( '\n\nBlood still concentrating on your crotch, you set your fingers atop your vagina, resting lightly on your [clit], then rub the lips of your labia until your juices start to dribble down your legs.  In a slow circular motion you start to massage your clit as you watch the scene unfold before you.' );
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nWhen you awaken from the refreshing doze, you sit up and look from your hiding spot.  You must have been out longer than you thought, because the demons seem to have moved on.  All that\'s left is the ant-morph, lying in and still oozing a puddle of tainted semen, with hymen and possibly mind broken by the demonic orgy.  You quickly get dressed and head back to camp.' );
 			//[End of Event]
 			//lib down, corr up
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1, 'cor', 3 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'As the demons bear down on the ant-girl, you burst from your hiding place, raising your [weapon] to the air and uttering an impressive war cry.  Nobody, ant or otherwise, is getting raped if you have any say in the matter!' );
 		EngineCore.outputText( '\n\nYou are now fighting demons!' );
 		Combat.startCombat( new DemonPack() );
-		CoC.getInstance().monster.createStatusAffect( StatusAffects.phyllafight, 0, 0, 0, 0 );
+		CoC.monster.createStatusAffect( StatusAffects.phyllafight, 0, 0, 0, 0 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//►Console ant-morph
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.consolePhylla = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As the demons flee over the dunes, you gather your thoughts and survey the chaotic scene.  The woman you saved has taken refuge under the ruined cart, trying to conceal herself.  Her upper torso, at least, is \'hidden\' inside it, but her large abdomen and black legs jut outward, giving away her poor attempts at stealth.  ' );
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( 'After taking an eyeful of her smooth, enticing pussy, revealed in her current position by the inadequacies of her loincloth, y' );
 		} else {
 			EngineCore.outputText( 'Y' );
@@ -201,7 +201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nIt\'s as if your mind is being assaulted by memories that are not your own.  You see a large hill deep in the desert and an extensive network of dark caves.  Day flashes to night in your mind as you see silhouetted figures emerging from the hill and one stalking off into the wilderness.  When these last images fade from your mind, you feel a tug on your consciousness, as though you are trying very hard to recall a memory you had forgotten long ago. The tug quickly becomes a pull and within seconds you feel your own memories conjured up. The most important moments of your life are brought to the forefront of your mind\'s eye of your home, friends, and family; your mission and entry into this land; your humble campsite and the variety of monsters you\'ve defeated; each is pulled from your mind in turn.  This sudden transfer of information is almost too much for you to handle, and right as you\'re about to pass out the ant-girl breaks the kiss.' );
 		EngineCore.outputText( '\n\nYou stagger backwards and almost fall over completely, but the ant manages to catch you. Though she herself is thin, her four arms are surprisingly strong; they do little to help the disorientation, even so.  The world spins round and round as you struggle to shake off your vertigo and the girl lowers you to the ground.  Once your thoughts are collected enough to at least sit up unassisted, you find your new friend standing in front of you with a huge smile.  You feel an odd kinship from her, as though you\'ve known her your whole life.  That can\'t be right; you shake your head again trying to clear your mind.  The female... ant-morph breaks into a sprint away from you and the cart, before you can ask her what just happened.  You would attempt to pursue, but she\'s very quick and you can yet hardly stand upright.  She leaves you surrounded by useless trinkets in a barren part of the desert and completely stunned as to what just transpired.  Although, looking around, you think you have a better idea of where you might be in the desert - you may even know how to find that large anthill you saw when the ant-morph kissed you.  Unconsciously you whisper a name quietly under your breath as you picture the scene: "<i>Phylla...</i>"' );
 		EngineCore.outputText( '\n\nYou exhale a loud sigh.  This land is still full of surprises, even after all you\'ve seen.' );
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_SAVED ] = 1;
+		CoC.flags[ kFLAGS.PHYLLA_SAVED ] = 1;
 		Combat.cleanupAfterCombat();
 	};
 	//[Enter The Colony]
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nIn the middle of this massive hub, sitting on a \'throne\' of sorts, is the only other female ant-morph you\'ve seen in Mareth.  You\'re suddenly overcome with a feeling of deja vu, as if you\'ve been here before... as if you\'ve <b>lived</b> here before.  The \'queen\', as your mind persists in regarding her, is much larger than any of the other ants; on top of that, her abdomen is almost twice the size of her own body!  As your guide leads you to meet her she arches her back and all her muscles tense up, but your uncertainty quickly evaporates as she relaxes; a small flood of clear gel and a small cylindrical egg emerges from the orifice on the end of her abdomen.  The egg is quickly gathered up by another ant emerging from one of the many tunnels and just as quickly carried back into it. The sword-bearing soldier gestures you toward the large female, then disappears into the caves. She looks you over, scanning you up and down.' );
 		EngineCore.outputText( '\n\n"<i>I am Queen Chylla.  Do you understand this?  Qu-een.  It\'s only recently I\'ve learned this pathetic thing you call by the name of language.</i>"  Her tone is that of a monarch being forced to address a peasant.  Clearly she doesn\'t think highly of you or your intelligence.  ' );
 		//[(corruption < 40)
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( '"<i>\'Champion\', you\'ve been sent to this land to resist the demons and your efforts thus far, insignificant though they be, have not escaped my gaze.  ' );
 		} else {
 			EngineCore.outputText( '"<i>Despite your obvious taint, you seem to have retained your valor as the \'Champion\' you proclaim yourself to be, and not as a rutting beast.  Something to be admired, for sure.  ' );
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>When you\'re ready, make your way to the arena.  Good luck; I believe you will need it.</i>"' );
 		EngineCore.outputText( '\n\nThe ant queen gives you a dismissive wave with one of her larger arms, giving you reason to think her good will is anything but.  As you turn to leave, your eye catches Phylla\'s and she shyly smiles at you.  Her mother sees this and delivers a final, cryptic warning.  "<i>One last thing before you depart, \'Champion\'.  Should you fail, the consequences, for you, will be... dire.</i>"' );
 		EngineCore.outputText( '\n\nAs you mull over this ominous message, your guide reappears and leads you back through the maze of tunnels, to the exit of the colony.  You leave the anthill behind and head to camp, considering your best course of action.' );
-		CoC.getInstance().flags[ kFLAGS.PC_READY_FOR_ANT_COLONY_CHALLENGE ] = 1;
+		CoC.flags[ kFLAGS.PC_READY_FOR_ANT_COLONY_CHALLENGE ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//The Challenges
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//Leads to - Introduction First Time
 		//Leads to - Introduction Subsequent Times
 		//Introduction First Time
-		if( CoC.getInstance().flags[ kFLAGS.MET_ANT_ARENA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_ANT_ARENA ] === 0 ) {
 			EngineCore.outputText( 'Unbidden, your feet return you to the anthill from before; a soldier peers from under a trapdoor at you when you arrive, then swings it open wide and beckons you to descend.  As you enter the colony, you find that only one path is lit with the bioluminescent fungus, leading you down a predetermined route.  Even with the low light, it\'s still hard to see exactly where you\'re going, and you find yourself holding your hands out, like a blinded man, to make sure you don\'t walk into a wall.  You can hear scurrying and unintelligible chattering echoing from darkened hallways as you descend deeper into the colony.  Just as you convince yourself you\'ve taken a wrong turn and consider turning around, you stumble onto a sharp curve in the path.  Bright light issues from beyond it.' );
 			EngineCore.outputText( '\n\nYou guard your eyes and turn the corner.  As your pupils adjust you realized you\'ve walked into yet another huge cavern that\'s been hollowed out by the ants.  The entire ceiling is covered with a huge patch of fungus, making it almost as bright as high noon.  Your eyes widen as you see an underground auditorium!  Though it appears to have been recently adapted to serve as a colosseum, the fixtures of the oval arena seem to be carved out of the very bedrock of the desert.  Looking up reveals a honeycomb-like series of stands and tunnels leading higher and higher.  This colosseum could easily fit hundreds of people, if not thousands.  As you step out into the cavern, you are greeted by a thin male ant-morph holding a clipboard in two hands and black charcoal sticks in the others. Glancing down to the clipboard you see many words - names, presumably - and all of them seem to have lines through them.  Two of them even have crude skulls next to them!  The last name on the list happens to be yours.  He notices you attempting to read the other names on his list and he pulls the clipboard to his chest.' );
 			EngineCore.outputText( '\n\n"<i>You mind?!  Can\'t imagine what the Princess sees in you,</i>" he mutters, more to himself than to you.  He pauses to look you up and down.  Judging skill based on appearance seems to be common for this race.' );
@@ -246,15 +246,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			if( EngineCore.silly() ) {
 				EngineCore.outputText( '\n\n"<i>Oh, I\'m sorry; you\'re not on the list.</i>"  You tell him that if your name doesn\'t appear on the list quickly, he\'ll find himself on the side of the road with nothing but his ass to sell to get back here.' );
 			}//Else if strength over 50:
-			else if( CoC.getInstance().player.str > 50 ) {
+			else if( CoC.player.str > 50 ) {
 				EngineCore.outputText( '\n\n"<i>Well, you certainly look the part.  But you\'re going to need more than brute strength to win here.</i>"' );
 			}//Else if intelligence over 50:
-			else if( CoC.getInstance().player.inte > 50 ) {
+			else if( CoC.player.inte > 50 ) {
 				EngineCore.outputText( '\n\nYou make a witty quip about how he might be making puppy eyes at someone who saved him from a horde of giant demon cocks, too, but he doesn\'t receive it well.' );
 			}
 			EngineCore.outputText( '  After a moment he looks down and scribbles something on his chart.' );
 			EngineCore.outputText( '\n\n"<i>So, we\'re ready to start when you are.</i>"' );
-			CoC.getInstance().flags[ kFLAGS.MET_ANT_ARENA ]++;
+			CoC.flags[ kFLAGS.MET_ANT_ARENA ]++;
 		}
 		//Introduction Subsequent Times
 		else {
@@ -273,37 +273,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.antColiseumFight = function() {
 		EngineCore.clearOutput();
 		//►[Fight #1]
-		if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] + CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ANT_ARENA_WINS ] + CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] === 0 ) {
 			//(Tentacle Beast - Intro)
 			EngineCore.outputText( 'You tell the fight manager you\'re ready.  He nods and leads you down into one of the two staging areas of the arena.  You watch through the bars as the stadium fills quickly.  Although pretty much every ant face looks identical to you, the larger ones who are clearly warriors stand in stark contrast with the smaller ones that must be the workers - or maybe they\'re just younger; you can\'t tell.  Watching them gather for the impending fight, you confirm the suspicion you formed when you first saw the queen\'s chamber ant-morph except the princess and the queen is male!  Gazing out into the crowd you spot the two royal personages sitting in a special area that appears to be reserved for them.  The shy princess\'s gaze nervously drifts toward your room and for a moment your eyes meet.' );
 			EngineCore.outputText( '\n\nAs you raise a hand to wave, you\'re stopped as you hear the sounds of a shambling and banging from across the arena.  A large silhouetted beast is poked and prodded into the staging area across from you. You narrow your eyes, trying to get a glimpse of your opponent. As you do, the gates of the staging areas drop and a very angry and enraged tentacle beast thrashes out into the center of the arena.' );
 			EngineCore.outputText( '\n\nYou\'re fighting a tentacle beast!' );
 			Combat.startCombat( new TentacleBeast() );
-			CoC.getInstance().monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
+			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		//►[Fight #2]
-		else if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] + CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] === 1 ) {
+		else if( CoC.flags[ kFLAGS.ANT_ARENA_WINS ] + CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] === 1 ) {
 			//►(Minotaur - Intro)
 			EngineCore.outputText( 'When you arrive in the colosseum, you tell the fight manager you\'re ready; he nods and leads you down into one of the two staging areas for the arena.  You watch through the bars as the stadium fills almost to capacity, still resistant to the idea of so many ants living right under the sands; there must be hundreds.  Gazing out into the cheering crowd, you spot the royal family sitting in their reserved area.  The princess waves at you excitedly with two of her arms, but her mother grabs them and lowers them.  Chylla herself looks as regal and reserved as ever.  You catch the queen smiling at you, but there\'s something wicked behind the smile.  Before you can contemplate what it might be, the gates raise on both sides of the colosseum and you are pushed out.' );
 			EngineCore.outputText( '\n\nYou\'re now fighting a minotaur and it\'s wielding a Giant Axe!  You quickly put two and two together and realize Chylla has set you up by arming the minotaur!  You brace yourself as the beastman charges you, roaring wildly.' );
 			Combat.startCombat( new Minotaur( true ) );
-			CoC.getInstance().monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
+			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		//►[Fight #3]
 		else {
 			//(Gnoll - Intro)
-			if( CoC.getInstance().flags[ kFLAGS.MET_ANT_ARENA_GNOLL ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MET_ANT_ARENA_GNOLL ] === 0 ) {
 				EngineCore.outputText( 'With due ceremony, the manager leads you down to one of the staging areas for the arena.  You watch through the bars as the stadium fills far past capacity.  There must be a thousand ants here... maybe even the whole colony.  Gazing out into the crowd, you pick out the royal seating and in it, Princess Phylla.  The princess is in much finer attire than you\'re used to seeing - her chest is actually covered by a fine red and blue dress and her hair is combed, framing her face nicely.  Her mother is nowhere to be seen, and you can tell that Phylla is taking full advantage.  She waves and cheers for you just like the crowd is and, perhaps by her orchestration, you hear the crowd pick up a chant in your name.  Seeing Phylla chant with them makes you feel invigorated.  As the gates raise, you charge out into the center of the arena, roaring your finest battle cry; your opponent is taken somewhat aback but finds resolve and braces for your charge.' );
 			}//►(Gnoll - Intro Repeat - for people that lost once)
 			else {
 				EngineCore.outputText( 'You move through the network of tunnels and caves and come to the colosseum once more.  You are greeted by the event manager and he ushers you down to one of the staging areas for the arena.  The noise intensifies as the colosseum fills to the brim with spectators; Phylla herself is up in her box waving to you.  You look across the arena floor and the gnoll at the other side of the arena seems just as excited to fight as you are.  The gates open and you charge each other!' );
 			}
 			EngineCore.outputText( '\n\nYou\'re fighting a gnoll!' );
-			CoC.getInstance().flags[ kFLAGS.MET_ANT_ARENA_GNOLL ]++;
+			CoC.flags[ kFLAGS.MET_ANT_ARENA_GNOLL ]++;
 			Combat.startCombat( new Gnoll() );
-			CoC.getInstance().monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
+			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
-		CoC.getInstance().monster.createStatusAffect( StatusAffects.PhyllaFight, 0, 0, 0, 0 );
+		CoC.monster.createStatusAffect( StatusAffects.PhyllaFight, 0, 0, 0, 0 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//(Tentacle Beast - Win) Standard Tentacle Beast Win Scene. (Again we're going to need to adapt the ending so the PC does not go back to camp.)
@@ -315,7 +315,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(Player Recovers 10 Fatigue)
 		EngineCore.fatigue( 10 );
 		//(+1 Win Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ]++;
+		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
 		Combat.cleanupAfterCombat();
 	};
 	//►(Tentacle Beast - Loss) Standard Tentacle Beast Loss Scene.
@@ -325,8 +325,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>You lost... so you have to drink this.  I mean... I\'m sorry.</i>"' );
 		EngineCore.outputText( '\n\nYou look at the vial inquisitively but the warriors don\'t look like they\'re going to budge until you consume the liquid.  You uncork the bottle and drink the whole thing, like a shot.  Remarkably it doesn\'t taste like anything.  The clear liquid is a little more viscous than water, but doesn\'t have much else in the way of texture.  Though you were expecting something awful to happen to you, you don\'t even feel any different.  As you hand back the empty bottle, the guards part to let you leave.  Although, oddly, you find yourself not really wanting to, you shake your head and return to camp.' );
 		// (+1 Loss Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
-		if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
+		CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
+		if( CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
 			this.antastrophyBadEnd();
 			return;
 		}
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(Player Recovers 10 Fatigue)
 		EngineCore.fatigue( 10 );
 		//(+1 Win Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ]++;
+		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
 		Combat.cleanupAfterCombat();
 	};
 	//►(Minotaur- Loss)
@@ -348,8 +348,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'After your staggering defeat and subsequent humiliation in the arena two guards approach you as you try to leave.  One of them holds out a small vial.  Princess Phylla is off in the corner of the room crying, and you try to move closer to her but one of the guards steps in front of you.  "<i>Drink!</i>" he commands, uncorking the vial.' );
 		EngineCore.outputText( '\n\nIt\'s strange... you don\'t care for the idea of being commanded by an ant, but you find yourself indifferent now that you smell the liquid.  You drink the whole thing in one go; it has no taste or texture and afterwards you don\'t feel any different.  The guards tell you to leave again, though you don\'t really want to.  Looking around you, you muse that you would be completely contented with staying underground here for a while... maybe forever, if you had to!  One of the guards, however, pushes you towards the exit, causing you to stumble a bit until you catch yourself.  Before you leave, you glance at where Princess Phylla was watching you, but she\'s already been removed by the other dutiful guards.  You head up the path to the surface, and from there back to camp.' );
 		//(+1 Loss Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
-		if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
+		CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
+		if( CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
 			this.antastrophyBadEnd();
 			return;
 		}
@@ -358,14 +358,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.phyllaPCBeatsGnoll = function() {
 		EngineCore.clearOutput();
 		//►(Gnoll - Win First Time)
-		if( CoC.getInstance().flags[ kFLAGS.ANTS_PC_BEAT_GNOLL ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ANTS_PC_BEAT_GNOLL ] === 0 ) {
 			EngineCore.outputText( 'As you stand over your defeated opponent and the red mist of combat fades, you finally become conscious of the crowd.  Everyone is cheering, and some are even throwing gems into the arena at your feet.  You hold your [weapon] up to the sky proudly, only making them erupt in greater roars and whistles.  As you make your way out, Phylla greets you, doting over every cut and scrape, as maternal as always.  You smile and let her do her thing.  The usual guards don\'t seem to be around, but you suppose they\'re lurking just out of sight.' );
 			EngineCore.outputText( '\n\n"<i>You\'re the most amazing champion I\'ve ever met,</i>" the girl says.  "<i>I mean, not that I\'ve met many; you\'re actually the first.  Er, the first I\'ve ever talked to...</i>"  She seems to stumble around the words - you\'re not sure if she\'s just shy or if she\'s unused to speaking; both, maybe.  Clearly she doesn\'t have a chance to talk with outsiders often.' );
 			EngineCore.outputText( '\n\nGingerly, you raise a finger and put it to her lips, shushing her, then flash her a wink and a grin.  She blushes slightly and returns the smile.  There\'s no time for more than that, as two guards arrive; one to reclaim her and the other - your rust-wielding guide - to escort you out.' );
-			CoC.getInstance().flags[ kFLAGS.ANTS_PC_BEAT_GNOLL ]++;
-		} else if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] - CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] >= 2 && CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ] >= 3 && CoC.getInstance().player.gender > 0 ) {
-			CoC.getInstance().setInCombat(false);
-			CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ]++;
+			CoC.flags[ kFLAGS.ANTS_PC_BEAT_GNOLL ]++;
+		} else if( CoC.flags[ kFLAGS.ANT_ARENA_WINS ] - CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] >= 2 && CoC.flags[ kFLAGS.ANT_ARENA_WINS ] >= 3 && CoC.player.gender > 0 ) {
+			CoC.setInCombat(false);
+			CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
 			this.antGirlGoodEnd();
 			return;
 		}
@@ -374,13 +374,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( 'This isn\'t the first time you\'ve accomplished this, but it still brings the crowd to their feet.  You simply stand in the center of the arena, taking it all in.  Phylla makes her way to you, blushing as the rowdy audience follows her with catcalls and demands for her to give her champion a kiss.  She tends to you as always and, when she\'s done, takes your hand in hers and looks at you expectantly.  You smile at her, brushing the hair from her face with your other hand; she colors deeply at the contact as two guards appear to lead you both off.  Having no more reason to stay, you allow your guide to return you to the surface.' );
 		}
 		//(+1 Win Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_WINS ]++;
+		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
 		Combat.cleanupAfterCombat();
 	};
 	AntsScene.prototype.phyllaGnollBeatsPC = function() {
 		//►(Gnoll - Loss First Time) Standard Gnoll Loss Scene. +
-		if( CoC.getInstance().flags[ kFLAGS.ANTS_PC_LOST_TO_GNOLL ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ANTS_PC_LOST_TO_GNOLL ]++;
+		if( CoC.flags[ kFLAGS.ANTS_PC_LOST_TO_GNOLL ] === 0 ) {
+			CoC.flags[ kFLAGS.ANTS_PC_LOST_TO_GNOLL ]++;
 			EngineCore.outputText( 'You lie on the arena floor, listening to the crowd boo you and cheer the gnoll.  After enough time to recover yourself, you stand up and start to head to the exit.  Four guards block the way and one of them presents you with a vial of mysterious clear liquid, motioning for you to drink.  They appear disinclined to let you leave without doing so, and as you peer down into the uncorked vial, a strange tingle in the back of your head tells you not to worry.  You drink it in one gulp and the guards tell you to leave.  You are completely oblivious of Phylla crying to herself as you stroll past her.' );
 		}
 		//►(Gnoll - Loss Repeat)
@@ -389,8 +389,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nYou quickly grab the vial and drink its contents, irritated at being crowded by the ants.  After drinking it however, the feeling lessens somewhat.  You look at the vial absently, then shake your head.  The guards move aside and you step past them; you look around a bit for Phylla but don\'t see her.  Not having any reason to stay, you return to the surface.' );
 		}
 		//(+1 Loss Score)
-		CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
-		if( CoC.getInstance().flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
+		CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ]++;
+		if( CoC.flags[ kFLAGS.ANT_ARENA_LOSSES ] > 3 ) {
 			this.antastrophyBadEnd();
 			return;
 		}
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//Good End / Waifu Content
 	AntsScene.prototype.antGirlGoodEnd = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_CAPACITY ] = 50;
+		CoC.flags[ kFLAGS.PHYLLA_CAPACITY ] = 50;
 		EngineCore.outputText( 'As you turn to leave, something is different; the crowd seems unusually silent. Phylla swiftly climbs down from her seat and jumps into the arena.  You glance warily at the gnoll but it\'s already being dragged out.  Phylla runs to you, and gives you a massive hug, wrapping all four of her arms around you and squeezing as hard as she can.  Her open display of affection leaves you more than a little shocked, given the creaking and soft cracking of bone in your body.  Interlocking her fingers with yours, she turns and raises your hands in the air, proclaiming your victory to every ant in the colony.  The awed crowd suddenly erupts, filling the stadium with cheers for your victory.  She turns towards the exit and tugs on your sleeve.' );
 		EngineCore.outputText( '\n\nPhylla drags you blindly through myriads of unlit tunnels until you reach the Queen\'s chamber, where Chylla seems to be awaiting you. Though, something is different than the last time you saw her; she\'s dressed just as regally as Phylla is, but it appears more...  formal.' );
 		EngineCore.outputText( '\n\n"<i>Phylla seems to have been right about you. You are as smart as you are strong.  Though I had my doubts, you are truly something special.  You have my blessing to start your own colony with Phylla, should you choose to.</i>" Chylla turns to her daughter and nods some kind of silent message.  You\'re not sure if the Ant-Queen has really warmed up to you, or she\'s just saying it because she must in her role as Queen, bestowing a great honor on someone she detests.  Whatever the reason, Phylla seems ecstatic about what\'s to come next.' );
@@ -432,10 +432,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//Use Vagina - Female Continuation
 		//simpleChoices('UseYourPenis',0,'UseYourVagina',0,'',0,'',0,'',0);
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Use Penis', this.gigititigitigitigitigityAntGirl );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 1, 'Use Vagina', this.femalePhyllaFirstFuckGooooo );
 		}
 	};
@@ -443,24 +443,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.gigititigitigitigitigityAntGirl = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sporting a painfully obvious tent, your body betrays its desire for sexual gratification and it causes Phylla to smile with interest.  "<i>I-I didn\'t think I had that ability to... to...  I mean I\'m not like you, so I thought...</i>" she begins, but trails off as she takes in the rough, obscured shape given off by your bulge.' );
-		var x = CoC.getInstance().player.cockThatFits( this.phyllaCapacity() );
+		var x = CoC.player.cockThatFits( this.phyllaCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		//***Dick(s) size less than 36 inches:
-		if( CoC.getInstance().player.cockArea( x ) < 36 ) {
+		if( CoC.player.cockArea( x ) < 36 ) {
 			EngineCore.outputText( '\n\nHer delicate face wears an expression of utmost curiosity.  She seems to be interested in your outline but unsure of what to do with it. As if she\'s never... then you recall her saying it\'s her first time; she\'s a virgin!' );
 			//PC has more than one dick:
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nShe probably won\'t be able to handle ONE, let alone all of your ' + Descriptors.multiCockDescriptLight() + '!' );
 			}
 		}
 		//***Dick(s) size more than 36 inches, but less than 72 inches:
-		else if( CoC.getInstance().player.cockArea( x ) < 72 ) {
+		else if( CoC.player.cockArea( x ) < 72 ) {
 			EngineCore.outputText( '\n\nThe constant bobbing and twitching of your ' + Descriptors.multiCockDescriptLight() + ' is apparently not obvious enough to her that your trousers aren\'t built to accommodate the size of your loins.  You grimace in response as the fabric of your pants become painfully constrictive and unyielding. Snapping out of her inexperienced musings, the Ant Morph sees your obvious predicament.' );
 			EngineCore.outputText( '\n\nIn an effort to get your loins free she rushes in, all four of her arms working feverishly to help spring you free.  After a quick flurry of motions, your ' + Descriptors.multiCockDescriptLight() + ' snap out of your britches; the size of which apparently intimidates the Ant Morph, whose eyes go wide.  "<i>H-Ho- How am I... wow...</i>"' );
 			//PC has more than one dick:
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nShe probably won\'t be able to handle ONE, let alone all of your ' + Descriptors.multiCockDescriptLight() + '!' );
 			}
 		}
@@ -471,9 +471,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nToo late!  With a final groan and a rip, your pants give way to the force and power of your quickly hardening ' + Descriptors.multiCockDescriptLight() + ', sending a cursed button flying asunder from your waistline. The button connects with Phylla\'s forehead with a mighty \'thwack\' and careens off her skull.  Fortunately for you, and her, she\'s more fixated on what\'s coming out of your pants rather than the pants themselves.' );
 		//Dick Size huge:
-		if( CoC.getInstance().player.cockArea( x ) >= 72 ) {
+		if( CoC.player.cockArea( x ) >= 72 ) {
 			EngineCore.outputText( '\n\nDespite the early warning, [eachCock] bursts outward and slams into her shoulder blade. "<i>Ahh~tk!</i>" She clicks, more in surprise than pain.  She rubs at her bruised shoulder, somewhat shocked that someone could possess THAT kind of ability.  "<i>Oops</i>", you playfully apologize.  Phylla looks completely awestruck and doesn\'t seem hear you as her large eyes are fixated on your enormous member' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
@@ -481,32 +481,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			//Dick Size massive (first time male fuck, LF1): (It/They) swing downwards at her,
 			//causing her to unleash a surprised scream as she scrambles out of the way. Narrowly avoiding being smashed by the brutish, fleshy cudgel that is your loins as it swings downward in what arguably could have been a debilitating injury for Phylla.
 			//PC has more than one dick:
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nOverwhelmed by the sight of ONE of your members, Phylla arguably goes catatonic when she sees all of what your packing.  She probably won\'t be able to handle the one, let alone all of your ' + Descriptors.multiCockDescriptLight() + '!' );
 			}
 			//Tentacle dick check for Dick Size Huge and Massive
 			//One penis longer than 8 feet, or two or more dicks that are 5 feet long:
-			if( CoC.getInstance().player.tentacleCocks() > 0 ) {
+			if( CoC.player.tentacleCocks() > 0 ) {
 				EngineCore.outputText( '\n\nAt your whim, you command your tentacle dick' );
-				if( CoC.getInstance().player.tentacleCocks() > 1 ) {
+				if( CoC.player.tentacleCocks() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' forward and wrap them tightly around Phylla, taking her hand and tugging her in close.' );
 			}
 			//(****See these two options? One is where your dick isn't huge, one is where it is huge.****)
 			EngineCore.outputText( '\n\nOpting to josh her a bit, you release your cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' from around her and hang it in front of her face, grinning your antics on your face as Phylla stares at ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it' );
 			} else {
 				EngineCore.outputText( 'them' );
 			}
 			EngineCore.outputText( ', slightly intimidated.' );
 			EngineCore.outputText( '\n\n"<i>W-What is that?  I m-mean... don\'t tell me you\'re THAT big!  There\'s gotta be something for you to... "put" in me, right?...</i>"  You see her peek around your cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' looking for something more sizeable.  You can tell Phylla is more scared of what might happen to her than what might happen to you.' );
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.menu();
 		//If PC has dick(s) that will fit: Jump to - Regular Male Scene Continuation
-		if( CoC.getInstance().player.cockArea( x ) <= this.phyllaCapacity() ) {
+		if( CoC.player.cockArea( x ) <= this.phyllaCapacity() ) {
 			EngineCore.addButton( 0, 'Next', this.malePhyllaContinuation, x );
 		}
 		//If PC has dick(s) that won't fit: Jump to - Cunnilingus Scene Continuation
@@ -526,14 +526,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Phylla stares down at your ' + Descriptors.multiCockDescriptLight() + ' and starts nervously rubbing her hands together.  "<i>It\'s my first time... I mean, I hope it isn\'t going to be bad for you...</i>" she says, before trailing off; uncertain of her sexual prowess.' );
 		//Corruption less than 75:
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nYou assure her that she shouldn\'t worry so much about her first time.' );
 		}//Corruption more than 75:
 		else {
 			EngineCore.outputText( '\n\nYou think to yourself that her pussy better be tight and pleasurable.  You didn\'t risk your life for \'royal\' sub-par snatch.' );
 		}
 		EngineCore.outputText( '\n\nYou tug ' );
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( 'playfully' );
 		} else {
 			EngineCore.outputText( 'forcefully' );
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>I want... I mean... just like this...</i>"  Tossing her clothes aside, Phylla guides you around to behind her.  "<i>This, is how... I mean... how... my kind mate.</i>"' );
 		EngineCore.outputText( '\n\nOnce you\'re behind her, Phylla bends over in an effort to present herself to you.  Her abdomen makes it a bit awkward, but you manage to find a comfortable position.  Leaning over Phylla, you move your mouth to her neck and let your heavy breath warm her supple skin.  Phylla unconsciously moves her head to the side, giving you a much better angle to allow the heat of your essence to wash over her.  You start to nibble her neck as you run your hands across her pelvis and chest, sliding close to her B-cup breasts before snaking away.  Your explorative efforts yield a sweet spot by nibbling along her earlobe, causing Phylla to arch her back and softly hum her approval.  While teasing her with your mouth, you work a hand down to her clit' );
 		//PC is goo morph:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( ', leaving traces of your slimy lust along her body for her to wear, allowing your detached bits of mass to ignite her sexual fires' );
 		}
 		EngineCore.outputText( '.' );
@@ -550,20 +550,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>Enough teasing,</i>" she manages between moans.' );
 		EngineCore.outputText( '\n\n"<i>I... think... no, I\'m ready... please...</i>"' );
 		//Corruption more than 75:
-		if( CoC.getInstance().player.cor >= 75 ) {
+		if( CoC.player.cor >= 75 ) {
 			EngineCore.outputText( '\n\nWell, you wanted her wet and eager like drought-ridden crops during a rain storm; now it\'s time to "reap" your efforts.' );
 		}
 		EngineCore.outputText( '\n\nLying against the assortment of cushions she\'s fashioned into a bed, Phylla glances back at you eagerly; her amateurish sexual demeanor and giddiness shine through her like light through pitch darkness.  She seems somewhat aware of this, but not as much as before; with her mind and body wholly consumed by lust, she longs only for your voice, your touch, and your inevitable penetration of her quivering form.' );
 		EngineCore.outputText( '\n\nTrembling ever so slightly, her dripping ' );
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 			EngineCore.outputText( 'nipples and ' );
 		}
-		EngineCore.outputText( 'wet vagina betray her timidness.  You move up along the bedding and brush your ' + CoC.getInstance().player.skinDesc + ' against her own tender flesh.  Finally, you come to rest in the perfect position for penetration, Phylla looking over her shoulder at you with longing eyes and eager lips.  As you slide your tongue inside her mouth, you feel her twitch at the foreign sensation.  Closing her eyes, Phylla instantly melts like butter as your tongue finds hers of its own volition; clearly a turn for the better for you.  Phylla finally relaxes her legs and spreads them apart; the foreign sense of humid heat from her genitals registering as it warms your nethers.' );
+		EngineCore.outputText( 'wet vagina betray her timidness.  You move up along the bedding and brush your ' + CoC.player.skinDesc + ' against her own tender flesh.  Finally, you come to rest in the perfect position for penetration, Phylla looking over her shoulder at you with longing eyes and eager lips.  As you slide your tongue inside her mouth, you feel her twitch at the foreign sensation.  Closing her eyes, Phylla instantly melts like butter as your tongue finds hers of its own volition; clearly a turn for the better for you.  Phylla finally relaxes her legs and spreads them apart; the foreign sense of humid heat from her genitals registering as it warms your nethers.' );
 		//(Radar note:
 		//Because Phylla is a virgin, I wouldn't go past 2 inches total width for two dick penetration; you're taking her virginity, so that will be painful enough.
 		//@FEN: Please note the following coding calls for two dicks that are less than two inches in total width.)
 		EngineCore.outputText( '\n\nSimply dragging your ' + Descriptors.cockDescript( x ) + ' along the entrance her of moist pussy causes her to moan and wiggle under you. Parting her pink little lips with the head of your cock, you finally hit the sweet spot for penetration. With ' );
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( 'a gentle amount of force, ' );
 		} else {
 			EngineCore.outputText( 'an uncaring, brutish amount of force, ' );
@@ -571,7 +571,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'you push past the tight opening of Phylla\'s folds.  You hear Phylla inhale sharply as she stretches to accommodate your width. In what seems to be a prolonged amount of time, you finally manage to ease the head of your ' + Descriptors.cockDescript( x ) + ' into her.  The act takes a loud and pained turn as Phylla moans and shifts in obvious discomfort.  You feel her squeeze her vaginal walls tightly around your cock as her considerable strength almost cuts off blood flow.  After a moment, Phylla realizes how much pressure she\'s exerting and her body relaxes, realizing the potential for injuring her partner.  Sighing heavily, she moves her hips down to take even more of you in. As you slide further in, her eyes flash with pain as she bites down on her lip, it becomes glaringly clear that something has yielded inside of Phylla.' );
 		EngineCore.outputText( '\n\n<b>You have taken Phylla\'s virginity!</b>' );
 		//Corruption less than 75:
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nHolding yourself still, you stare down at Phylla and inquire as to whether she is okay.' );
 		}//Corruption more than 75:
 		else {
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>I\'m okay- GUH! No, re-really I\'m fine!</i>" she stammers out behind half winced eyes.  You can tell she\'s trying to look past the obvious pain, eager to savor every moment of this ultimately fleeting "first-time".  You continue to touch all of her most sensitive spots, trying to replace the pain you\'re inflicting with softer pleasure.' );
 		EngineCore.menu();
 		//(Jump to Corruption less than 75 - Pure Ending)
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.addButton( 0, 'Next', this.phyllaFirstTimePureBabiesFuckEnding );
 		}//(Jump to Corruption more than 75 - Corrupt Ending)
 		else {
@@ -590,13 +590,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//PURE ENDING!
 	AntsScene.prototype.phyllaFirstTimePureBabiesFuckEnding = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( this.phyllaCapacity() );
+		var x = CoC.player.cockThatFits( this.phyllaCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'For a while, you allow Phylla to slowly adapt to your presence inside of her and the stretching of her vaginal walls; something she reacts to with soft moans of pleasurable appreciation.  She wears her obvious discomfort at being forcefully stretched by your ' + Descriptors.cockDescript( x ) + ', but you see she can hardly complain as her body cradles yours in an attempt to keep you where you are.  Once you feel she\'s comfortable you start slowly pumping away at her, gradually building your own rut.' );
 		EngineCore.outputText( '\n\nYou feel the smaller set of her hands move between your [legs] and start to fondle your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '[balls]' );
 		} else {
 			EngineCore.outputText( 'sensitive taint' );
@@ -605,9 +605,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nPhylla\'s own sporadic moaning begins to mimic your movements, increasing in sync with each hard thrust into her.  The many soft, delicate hands of the ant morph cling to the bedding and tighten with each gyration, intent on not letting go until you both achieve your mutual satisfaction.' );
 		EngineCore.outputText( '\n\nPhylla abruptly connects her mouth to yours with another fierce kiss, darting her tongue in your mouth and against yours, slapping it around with surprising ferocity as your saliva intermingles. Your carnal pleasures suddenly begin to mix and intertwine with something... else.  It dawns on you that Phylla has initiated her "link" once more; Pleasures, of your own and your lover, are shared between you both instantaneously.  The primal need to guide your ' + Descriptors.cockDescript( x ) + ' deeper into her passes from her mind to yours.  With this new shared perception you feel the walls of her vagina sending pulses down your shaft, washing you in waves of pleasure.  Her long cilt drags along the shaft of your cock, causing her to arch her back again and again.  Your thrusting comes to a rapid staccato as your hips and hers work together in shared concert.  Yet, you can feel her grasping and understanding your rut; your need to work your cock just right along her depths.  Your need to penetrate her as hard as you can as you both build your orgasms.  Your feeling of the uncontrollable, primal urge to inseminate her love canal and breed her to bear your young.  You unknowingly make a snarl and grind your teeth together as you pound away at her, too consumed by animal like lust to notice.' );
 		EngineCore.outputText( '\n\nAt this tempo, it\'s not long before your mind is suddenly bombarded by unfamiliar warnings.  It\'s a mix of yes and no, go and stop, pleasure and pain; and you revel in what exactly what it\'s receiving.  Thankfully the mixed messages from Phylla are understood within a few moments as she abruptly clamps down hard with her whole body and braces for what is to come.  With a girlish little howl, Phylla can\'t resist it anymore and climaxes.  You can feel the sweet smelling, and very wet release of her lady fluids on your genitalia.  Nearing your own orgasm, you begin to thrust at just that right angle, her vagina seemingly begging for you to release inside her.  It\'s when your ' + Descriptors.cockDescript( x ) + ' is deepest inside her that she sends a fleshy quake down her vaginal walls.  As if that wasn\'t enough; you feel a whispering in your mind beckoning you to flood her with your seed.  You feel a distinct pull on your consciousness; as if impregnating her would fulfill her every need, her very destiny to become a mother.  This emotional crescendo is too much; you can\'t ignore it, can\'t control, or bear it any longer.  You arch your back, giving one final rock crushing thrust as your ' + Descriptors.cockDescript( x ) + ' reaches its deepest point inside her.  Grunting fiercely, you cum inside her, firing your ' );
-		if( CoC.getInstance().player.cumQ() < 50 ) {
+		if( CoC.player.cumQ() < 50 ) {
 			EngineCore.outputText( 'thin' );
-		} else if( CoC.getInstance().player.cumQ() < 500 ) {
+		} else if( CoC.player.cumQ() < 500 ) {
 			EngineCore.outputText( 'hefty' );
 		} else {
 			EngineCore.outputText( 'thick' );
@@ -615,19 +615,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( ' ejaculate far into her womb.  Phylla responses in kind, working her hips and squeezing your body with her legs in an almost milking fashion, trying to draw as much seed as she can into her womb.' );
 		EngineCore.outputText( '\n\nWith the last of your strength you pull out of Phylla and watch as almost none of your semen spills out of her.' );
 		//If cum milliliters over 100:
-		if( CoC.getInstance().player.cumQ() >= 100 && CoC.getInstance().player.cumQ() < 1000 ) {
+		if( CoC.player.cumQ() >= 100 && CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( '  Truly amazing considering how much your loads usually contain.  You think you see a little bulge in her stomach that wasn\'t there before.' );
 		}//If cum milliliters over 1000:
-		else if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		else if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( '  As you look down at her nethers your mind struggles to understand just how she could... then looking up her body, you see.  Her belly is bloated with your sperm, almost to the point of already looking pregnant.' );
 		}
 		EngineCore.outputText( '\n\nSpent, you drop your head down next to Phylla\'s, panting and breathing heavily as you resign yourself to rest.  Bits of the link remain as you feel Phylla\'s contentment.  She strokes your head lovingly, and pats her stomach.  Clearly her thoughts dwell on the package you just deposited inside her.  With the sync quickly fading you probe her mind one last time.  You can almost feel the sensation of your hot, sticky semen as it clings heavily on her vaginal walls.  A warm feeling flows over you as the excited thoughts of you getting her pregnant on her first try, making her a mother at long last... or so Phylla seemingly hopes.  Finally you sense at long last the closeness and intimate bond that she feels she shares with you at this very moment.  A sense of not wanting to let go, and wanting the breeding that has just past to continue forever and ever.  She yearns to pop out as many children as her body will allow her to and fulfill her need to breed.' );
 		//PC is a Female/Herm Drider:
-		if( CoC.getInstance().player.canOvipositSpider() ) {
+		if( CoC.player.canOvipositSpider() ) {
 			EngineCore.outputText( '\n\nThis overwhelming maternal feeling brings forth an interesting idea!  Turning to Phylla, you tell her that you can help to make her desire come true.  She looks at you a bit taken back, as if what you already did wasn\'t enough already.' );
 			EngineCore.outputText( '\n\nYou go on to explain, telling her that your body is chock full of eggs that eagerly await a willing host to gestate in.  If she wants to birth as many children as possible, your union can grant her wishes; albeit, she will be birthing both Ant and Spider children.' );
 			//Persuade Phylla: Random chance of failing, affected by INT level and whether she's already housing eggs in her vagina.
-			if( CoC.getInstance().player.inte / 20 + Utils.rand( 20 ) + 1 < 16 ) {
+			if( CoC.player.inte / 20 + Utils.rand( 20 ) + 1 < 16 ) {
 				//Persuasion failure:
 				EngineCore.outputText( '\n\nPhylla ponders for a moment and shakes her head.  "<i>I\'m sorry [name], I\'m not comfortable with that right now.' );
 				//(If player has already impregnated Phylla:
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\nWith some hesitation and consideration, Phylla ponders for a bit on the idea of being a brood mother in more than one way.  With a shy smile, Phylla reluctantly agrees to house both of your children.  "<i>H-How will we do this?  I mean, I\'ve never seen or heard of anything mating with a Drider before... M-my eggs come out of my abdo~ ...</i>"  She inquires.' );
 				EngineCore.outputText( '\n\nYou raise a finger to her lips and tell her to lie down against the bed and to relax.  You know exactly where her eggs come out of.  The image of Phylla dropping eggs out of both her vagina and her abdomen makes you want this all the more.' );
 				//If PC corruption over X:
-				if( CoC.getInstance().player.cor >= 75 ) {
+				if( CoC.player.cor >= 75 ) {
 					EngineCore.outputText( '  Little does poor Phylla know, you\'re going to just use her as a baby maker to ease the tension of your own sacks.' );
 				}
 				EngineCore.outputText( '\n\nIn uncertain anticipation, Phylla heeds your directions and lies down, her back on the bed with her abdomen in the air.  You help pose her in the right position; angling her pussy towards you as you clamber along the bed. Coming to rest on top of Phylla, you take her soft face in your hands and kiss her, firmly holding her against you as you work your ovipositor against her vagina.' );
@@ -651,7 +651,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\nShe squints and braces for the inevitable egg forcing its way into her, gasping as the oval mass finally makes contact and works its way into her.  You can feel the egg as it makes it way into Phylla, stretching her pussy out to accommodate future deposits as the frontrunner hits her cervix, and manages it to make its way inside.' );
 				EngineCore.outputText( '\n\n"<i>UGH! It hurts... a little~ feels so strange... I-mea~ good!</i>" she cries out.' );
 				EngineCore.outputText( '\n\nYou comfort her while telling her that you have a few more on the way; something that causes Phylla to beam with pride at the thought of being filled with so much new life that she will eventually birth.  Egg after egg slides into Phylla, causing her stomach to bulge bigger and bigger with your brood as you stuff more into her.  At last, the final egg is laid inside of Phylla, and with a loud pop, you  retract your ovipositor from her love hole;  you know it\'ll recover in time.  Phylla rubs her belly and gleams with delight, filled with her lover\'s future children that will help the colony to grow strong.' );
-				CoC.getInstance().player.dumpEggs();
+				CoC.player.dumpEggs();
 				if( !this.pregnancy.isPregnant ) {
 					this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 8 * 24 );
 				} //Supposed to be eight days, not eight hours
@@ -664,7 +664,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nSo this is what your other lovers must feel.' );
 		}
 		EngineCore.outputText( '\n\nYou drift off to sleep not long after, while Phylla demonstrates her appreciation for the intimacy you two just shared, kissing your body and rubbing you sensually as you doze off.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.waifuQuestOver );
 	};
@@ -672,37 +672,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.phyllaCorruptMascEnding = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'For a few moments longer, you pump yourself hard against her rump in an attempt to "break" your new fucktoy in.  Once you\'re satisfied that she will be able to handle what is to come, you take to sliding yourself along against her fuckhole as you grab her by the hair.  The backside of her abdomen grinds along your ' );
-		if( CoC.getInstance().player.tallness >= 72 ) {
+		if( CoC.player.tallness >= 72 ) {
 			EngineCore.outputText( 'chest' );
 		} else {
 			EngineCore.outputText( 'belly' );
 		}
 		EngineCore.outputText( ', but it will only serve to help you.  You will need a brace for what you\'re about to pull and her rigid abdomen will do just fine.  Phylla makes a confused noise, glancing over her shoulder with a look of concern growing on her face.' );
 		EngineCore.outputText( '\n\n"<i>W-What are you doing?</i>" she asks nervously. "<i>This isn\'t how I imag~</i>"' );
-		var x = CoC.getInstance().player.cockThatFits( this.phyllaCapacity() );
+		var x = CoC.player.cockThatFits( this.phyllaCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( '\n\nWithout letting her finish, you plunge your ' + Descriptors.cockDescript( x ) + ' into her, causing her to yell out in sheer surprise and discomfort.  "<i>This is how <b>I</b> mate!</i>" you inform her, telling her that she won\'t EVER forget her first time with you.  Her mouth goes open slightly before your subsequent gyrations put an end to whatever she was going to sputter out.  Smirking like a mad jester at the position you have Phylla in, you begin to work your hips as you dominate her from behind.  You hear your ' );
-		if( CoC.getInstance().player.balls === 0 ) {
+		if( CoC.player.balls === 0 ) {
 			EngineCore.outputText( 'thighs' );
 		} else {
 			EngineCore.outputText( Descriptors.ballsDescriptLight() );
 		}
 		EngineCore.outputText( ' slap loudly off of her rump with every aggressive thrust against her clit.  She wails out in frustration at the lack of intimacy that you apparently have in mind.  The moaning that is mixed into her pathetic protests, however, suggests that the naive little woman is getting off on being treated so roughly; a hard slap on the ass affirms this as she whines out in annoyed pleasure.  You feel the growing heat from her pussy as it gets wetter and wetter, continuing your pressure on her abdomen as you use it to support your brutal fucking of her cunt.' );
 		//PC has Goo Body:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '  Perhaps the poor dear could use some tender attention, you ponder to yourself.  Reducing the solidity of your body, you work her abdomen deep into your sticky, goopy body, re-solidifying once she\'s firmly in there and lowering your hands down to her nipples, pinching them hard as you continue your pumping of her rump.' );
 		}
 		EngineCore.outputText( '\n\nPoor Phylla can only grasp at her cushions as she struggles to maintain her comfort.  The brutish drilling of her pussy forces her to lift her rear further and further towards an acute angle. Try as she might, her efforts are no match for your barbaric tactics as you pound her love hole into oblivion.  All her attempts at maintaining a comfortable position quickly evaporate, and she resigns herself to being roughly taken from behind.  You watch as she buries her head into her cushions to muffle her howls of painful ecstasy.' );
 		//PC has more than one cock that is suitable:
-		var y = CoC.getInstance().player.cockThatFits2( this.phyllaCapacity() );
-		if( CoC.getInstance().player.cockTotal() < 2 ) {
+		var y = CoC.player.cockThatFits2( this.phyllaCapacity() );
+		if( CoC.player.cockTotal() < 2 ) {
 			y = -1;
 		}
 		if( y >= 0 ) {
 			EngineCore.outputText( '\n\nIntent on increasing your own pleasures, you decide to work ' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 'one of your free cocks' );
 			} else {
 				EngineCore.outputText( 'your free cock' );
@@ -711,7 +711,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>No... P-please, you can\'t... I mean...</i>" she manages to protest between moans of ecstasy and cries of pain as your cock works its way deeper with each thrust.  Scoffing at her plea, you guide your other cock into her anus.  It was never her choice to make in the first place, you tell her.  You feel the tightness of her muscular butt squeeze around your shaft - it\'s not as tight as her cunt is but it\'ll do!  You continue to thrust your hips as your cocks fill both of her holes.  You hear more muffled, painful moaning as you pound away along her anus.' );
 			EngineCore.outputText( '\n\n<b>You have taken Phylla\'s anal virginity! And you love every second of it.</b>' );
 			//PC has more than one cock that is over 25 inches that's not in Phylla's butt or vag:
-			if( CoC.getInstance().player.biggestCockArea() > this.phyllaCapacity() ) {
+			if( CoC.player.biggestCockArea() > this.phyllaCapacity() ) {
 				EngineCore.outputText( '\n\nSeeing as how her hands aren\'t busy and she\'s certainly not using that mouth for anything useful; you reach down and guide one of your cocks so it presses against her down turned stomach.  You tell her to press it between her breasts and start sucking at the head.  Though this doesn\'t stop you from pounding away at her backside. She quickly grabs your [cock biggest] with her smaller hands and guides for a better position between her breasts.  She uses her upper hands to press her breasts together.  You immediately feel the effect of her B-Cups as with each thrust they warm the shaft of your long cock.' );
 			}
 		}
@@ -722,7 +722,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( ' deep within her.  You further your power and control over Phylla, in a way that seems to convey to Phylla to let it all out, don\'t hold back, to have her completely resign herself to you.  The unconscious move unleashes a loud series of lust-filled gibberish from Phylla.  You feel her body fold to your will as she abandons her shyness and restraint, mashing her rump against you with the intent to rut along with you like two primal animals intertwined in savage mating.  You can\'t see it, but you taste her hunger to be bred; you can feel and visualize her attractive, beet red little face wearing her passion as she clenches her teeth, your instincts and consciousness completely taking her over and commanding her to hump and fuck your cock until she gets what her cunt hungers for.' );
 		EngineCore.outputText( '\n\nThe minutes that follow are hard for either of you to accurately remember.  The sweating of your bodies as they grind against each other.  The smell of your coupling filling the air...  Phylla moaning out like a cheap whore who\'s getting paid in gold bars... the increasing noisy crescendo of flesh as you rapt, your pelvis against her pussy.  All of it is but a murky blur of fierce, barbaric lust before the final release.  As you near orgasm, you can hear something in your head... something foreign... something warning Phylla that you will lead to her downfall.  Pleading with her to get away from your corruptive taint...  the instantaneous cockblocking voice of concern is quickly drowned out in a loud series of unmuffled wails and moans as Phylla nears climax.  You ignore the strange pleas but you aren\'t sure if she heard it or was she was the one thinking it.  The distraction gone, you continue thrusting wildly against her.' );
 		EngineCore.outputText( '\n\nWith a roar that would cause even gods to notice, you explode into her.  Your cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's twitch, ' );
 		} else {
 			EngineCore.outputText( ' twitches, ' );
@@ -734,7 +734,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( ', and onto the bedspread below.' );
 		}
 		EngineCore.outputText( '  As her pulsing cunt works to suck the semen out of your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'balls' );
 		} else {
 			EngineCore.outputText( 'shaft' );
@@ -747,7 +747,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		//Corruption is greater than 80:
 		EngineCore.outputText( '\n\nPerhaps corrupting her is the best route; look how you turned out! You could live with that...!  Giggling, you smirk at the thought of Phylla\'s mother; how she was right about you the whole time.  The thought of what kinds of corruption you can inflict on Phylla fill your mind until you finally drift off, holding your unsuspecting victim in your arms.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.waifuQuestOver );
@@ -756,16 +756,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.cuntmuffinLingusPhyllaDickBig = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sadly, as you gaze down at your ' + Descriptors.multiCockDescriptLight() + ', you realize that trying to penetrate Phylla with your freakishly large prick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' isn\'t going to work.  Phylla\'s eyes begin to tear up as she also comes to the realization that her first time is a non-starter.' );
 		EngineCore.outputText( '\n\nNot wanting to leave her virgin night a bust you playfully push her back onto the cushioned floor, causing her to land bottom first.  Confusion washes over her as she struggles to understand what you are planning to do; something that\'s further exacerbated when you lay down next to her.  Awkwardly you roll over on your back, doing your best not to knock over any furniture in the process.' );
 		EngineCore.outputText( '\n\n"<i>W-What are you doing?</i>" she asks, somewhat upset that she won\'t be getting the traditional first time sex.  Arcing your ' + Descriptors.multiCockDescriptLight() + ', you ' );
 		//Dick Size Over 48 but Under 69 inches:
-		if( CoC.getInstance().player.longestCockLength() < 69 ) {
+		if( CoC.player.longestCockLength() < 69 ) {
 			EngineCore.outputText( 'angle your hips so that ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it points' );
 			} else {
 				EngineCore.outputText( 'they point' );
@@ -775,7 +775,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//Dick size Over 70 inches::
 		else {
 			EngineCore.outputText( 'angle your hips so that ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it is' );
 			} else {
 				EngineCore.outputText( 'they are' );
@@ -791,13 +791,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nSighing, Phylla gestures to your enormous cock.  Clearly she\'s still depressed you\'re unable to penetrate her properly.' );
 		EngineCore.outputText( '\n\nTo finish up her teasing, she runs her fingers down the bridge of your nose ending on your lips. The scent and warmth of her essence again is starting to drive you crazy.  You feel your already hard cock stiffen even further, driving your body into a rut as you inhale her sweetness.  Your inhumanly large cock' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( ' switches and bobs' );
 		} else {
 			EngineCore.outputText( 's switch and bob' );
 		}
 		EngineCore.outputText( ', loudly brushing against the ' );
-		if( CoC.getInstance().player.longestCockLength() < 69 ) {
+		if( CoC.player.longestCockLength() < 69 ) {
 			EngineCore.outputText( 'ceiling' );
 		} else {
 			EngineCore.outputText( 'wall in the hallway' );
@@ -806,29 +806,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>I didn\'t think... that would work...</i>"  Phylla whispers sweetly into your ear, grinning like a fool.' );
 		EngineCore.outputText( '\n\nPulling her hands away from your shoulders, Phylla gives you a small nod and smile, signaling the go ahead for you to claim her pussy for your own.  You waste little time in doing so as you dart in and seize a portion of her labia in your lips.  Above you, Phylla makes a girlish gasp as you make contact.  Two of her hands caress your hair as the other two hold your head in place while you eat her out.  Grinning, but still holding her labia in your mouth, you drive your tongue into her, unleashing a series of quick flicks inside of her as you eat her out.  The very taste of her insides drives you even further into your rut.  It\'s then you feel a very blunt object sticking you in the nose as your tongue probes deeper and deeper into Phylla.  You realize her clit sticking out almost 2 inches past its hood, the long pink rod pleading for attention.  You reach up with your hand and give it a good pinch between your fingers. In immediate response Phylla moans loudly and squeezes your head between her legs.' );
 		//PC has goo body:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '\n\nA thought enters your head and fills your mind with images of her grinding furiously against your face.  Realizing that she\'d probably appreciate a firm "base", you work some of your mass up her legs and cradle her lower body into your own slightly thinned and warped mass.  Phylla looks down in surprise as she sees what you\'re doing, but hums approvingly once she figures out what you have in mind.' );
 		}
 		EngineCore.outputText( '\n\nClosing her eyes to enjoy your efforts, Phylla utters a pathetic moan as she better positions herself against your face.  Once she\'s found her optimal position you find your face pinned between her cunt and cushioned floor, the ansty Princess completely intent on keeping you there until you\'ve done your duty.' );
 		EngineCore.outputText( '\n\nTaking her cue, you remove your tongue from inside her and spread her lips apart with your hands, then begin to tease the tip of her long clit with your tongue, allowing the soft yet bumpy texture of your tongue to slide along the full length of her love button.' );
 		//If Snake Tongue:
-		if( CoC.getInstance().player.tongueType === AppearanceDefs.TONUGE_SNAKE ) {
+		if( CoC.player.tongueType === AppearanceDefs.TONUGE_SNAKE ) {
 			EngineCore.outputText( '  You run the split of your forked mouth muscle from the tip of her clit to the base.  As your textured feeler makes its way down, you wrap around the rest of her long clitorus, like a boa constrictor.  Once your split reaches the hood of her clit you roll and flick the tip of your tongue rapidly.  Pulling at your hair she gasps for breath in between teeth grinding moans.' );
 		}
 		EngineCore.outputText( '\n\nA surprised, muffled moan escapes from your lover\'s mouth as you lick past one particular spot near the hood of her clit.  More out of curiosity than anything else you "retrace" your efforts past that spot.  Again, Phylla whines out in unrestrained ecstasy, signalling that you found a sensitive spot.  You half hum, half sigh into her vagina, knowing full well further \'investigation\' around this area will make Phylla act like a bug caught in a spider web.  Phylla tenses up as she figures out you\'ve found her weakness.  You hear her pleading that you focus on all of her stiff nub.  Obviously, she has no idea how intense this can get and isn\'t too keen to find out.  But you can\'t pass this up!  With a playful little war cry, you take to her sensitive spot.  You immediately began licking and smashing your tongue against it like there\'s no tomorrow.' );
 		EngineCore.outputText( '\n\nYou hear her attempt to say something before her body takes over her mind.  She drowns herself out in moaning and whining as she braces her thighs against your shoulders and head, violently shaking your entrapped head back and forth, while simultaneously grinding her hips into your face. You ravenously assault her clit with no regard for her other desires;  She\'ll overcome her doubts and see that your "technique" is more than adequate. Gazing upwards, you see her face as she looks completely overcome with euphoria.' );
 		EngineCore.outputText( '\n\nPhylla quickly begins to grind her clit against your mouth harder and faster. Drenching your already wet face in even greater volumes of her lady juices. She furiously works her hips to yield more pleasure.' );
 		EngineCore.outputText( '\n\nAt this rate it won\'t be long before she reaches her peak, so you might as well make the finish one to remember.  Driving your fingers against her clit and teasing her labia you begin to rub at a lightning pace.  Phylla almost instantly loses her balance and stumbles backwards onto your ' + Descriptors.multiCockDescriptLight() );
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( ', tumbling out of your mass as she tears free' );
 		}
 		EngineCore.outputText( '.  She holds one of her hands out in an attempt to catch her breath.  Ignoring her, you dive in and continue your unrelenting assault as her legs twitch uncontrollably over your head, like a dog having its stomach petted.  Screaming out, Phylla seemingly sputters a garbled string of nonsense until she takes your head in a vice like grip between her thighs.  Feeling her vaginal muscles convulse and tighten on your tongue you notice the signaling of climax.  With one final body contracting pulse Phylla arches her back and roars in orgasmic bliss.  You open your mouth in eager anticipation as her orgasm washes over you.  Her girl cum seems almost never ending as pulse after pulse of it squirt out of her.  You swallow at least two mouthfuls before turning your head, only to feel more splash on your cheek.  Still holding you firmly in between her legs, your Ant Morph lover continues to grind and spurt out juices all over your [face].' );
 		EngineCore.outputText( '\n\nPhylla is clearly a squirter, in both volume and force.  You decide that it would be best to make a mental note of that for next time.  Exhausted, Phylla slumps against your prick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' and pants heavily, having just gone through the equivalent of an orgasm triathlon.  As you sigh, you can hear her giggle in what sounds like disbelief.  "<i>Heh... I didn\'t think I had it in me to do... that,</i>" she coos, staring mischievously up at you.  "<i>Just... could you shrink ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'this monster' );
 		} else {
 			EngineCore.outputText( 'these monsters' );
@@ -836,7 +836,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( ' down?  I mean, I\'m not complaining!  But I... just... I mean... you... inside me,</i>" she shyly remarks, obviously wanting something more... traditional.' );
 		//(Player lust increases to 100)
 		EngineCore.dynStats( 'lus=', 100 );
-		CoC.getInstance().flags[ kFLAGS.DIDNT_FUCK_PHYLLA_ON_RECRUITMENT ] = 1;
+		CoC.flags[ kFLAGS.DIDNT_FUCK_PHYLLA_ON_RECRUITMENT ] = 1;
 		//Where the fuck is this going?
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.waifuQuestOver );
@@ -846,12 +846,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Eager to get to some good old fashion fun, you direct your thoughts to Phylla, telling her to \'remove her clothing\'.  After all of the pieces of her royal attire are removed, she closes in and rubs her naked body against yours.  Her fingers move fluidly as she slowly traces her ever hardening nipples along your chest and along the ridges of your back, sending a sensual chill up and down your spine.  Your ' + Descriptors.nippleDescript( 0 ) + 's harden in response, and with surprising speed she shifts her body downward and locks her mouth around your nipple, firmly suckling at your hardened areola.' );
 		//If PC Lactating:
-		if( CoC.getInstance().player.lactationQ() > 250 ) {
+		if( CoC.player.lactationQ() > 250 ) {
 			EngineCore.outputText( '\n\nYou can feel her suck some of the milk from your breasts, slating her weak thirst in the process as she becomes immensely aroused at the sensation of "nursing" from her lover\'s ' + Descriptors.breastDescript( 0 ) + '.  Weird... you can taste the nutritious warmth of your nectar as it flows down her throat and into her stomach.  Drinking and tasting one\'s own breast milk could definitely weird someone out, but the foreignness of the act is an odd turn-on for you, and you let her continue to suckle.' );
 		}
 		EngineCore.outputText( '\n\nHer tongue moves expertly, darting over your nipple whilst she moves a hand over to the other, gently caressing and teasing your sensitive flesh with her soft tongue.  The thought of having your nipples pinched runs wild through your mind, and before you realize what you have done, your lover does exactly that.  You let out a surprised moan of pleasure, and she seems to get the picture as she escalates into running the nipple in her mouth along her teeth, even biting down just the right amount to find the space between pain and pleasure.  When she finally unlatches herself from your nipple, she looks up to you with the most devilish smile.  Grinning ear to ear as she licks your milk from her lips, she stares deep into your eyes.' );
 		//PC has Goo body:
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '\n\n"<i>How did I not get slime in the milk?</i>" she asks, breaking the stare.  "<i>I figured the slime would make your milk taste bad, but... it made me want it more... Sorry,  I got distracted there</i>" She says, apologizing as she stares once more into your eyes.' );
 		}
 		EngineCore.outputText( '\n\nYou suddenly sense an idea... no; a suggestion, tickling the back of your mind.  Somehow you decide it\'s a good idea to lay on your back with your legs spread wide open.  You\'re not sure where this foreign thought is coming from, but it appears to be "asking" you to lay back and prepare for a little carnal loving; something that entices your ' + Descriptors.clitDescript() + ' as you heed its direction and lay back on the bed.  Looking upwards as you prepare for her loving assault, you see the liquid in the bowl reflecting a shifting rainbow along the ceiling.  You also realize, while on your back that whatever Phylla did to you works both ways, as you come to the stark realization she has gotten you laying on your back.  She moves her hips over your face so her moist, inviting vagina is suspended ever so slightly over your mouth; the rest of her abdomen extending just past the top of your head.  Her scent fills your nostrils and floods your body with its intoxicating allure.  Lust takes hold of your mind, and you cannot restrain yourself from wanting to bury your face in that tender hole of hers.  No! You want to do more than that; you want to ravage her moistening cunt with your mouth like a dog with a new chew toy, but something holds you back.  It\'s like your body is being shackled by your mind, but you get the feeling it\'s not "your" mind holding you back.' );
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou\'ve had just about enough of her denying you her pussy, and concentrate hard on forcing her to lower herself onto you.  Quite a task, given your current predicament.  Right when you think about giving up trying and just enjoying her going to town on you, you feel her mind bend to you and her once out of reach lips lower.  She\'s so wet you can see the streams of her arousal running down both sides of her chitinous legs.  Zeroing in, you fixate on her clit, which is much longer than you expected and sticks out far past the folds of her fuckhole.' );
 		EngineCore.menu();
 		//(If PC has NO DICK(S)! Jump to - Scissoring Continuation)
-		if( !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Next', this.girlFiller );
 		}//(If PC has ANY NUMBER of DICK(S)! - Jump to - If PC Herm/Has (a) cock(s))
 		else {
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( ' has taken' );
 		EngineCore.outputText( ' hold of ' );
 		//One dick only:
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'your ' + Descriptors.cockDescript( 0 ) + '.' );
 		} else {
 			EngineCore.outputText( 'your ' + Descriptors.cockDescript( 0 ) + ' leaving the lucky member to bask in affectionate glory as the rest of your manhood laments being left out.  "<i>Don\'t worry, I have four hands...</i>" Phylla coos as she works your shaft.' );
@@ -899,17 +899,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nThen a sudden image, and sensation of shock fires into your mind;  Her whole body seems to tense up and with a sudden hip grinding pulse, she orgasms; moaning so loud it seems to echo off the walls.  Well toned legs squeeze tightly against your head, and then relax with a hearty groan as she squirts her girl cum all over you. Your hand and face are utterly drenched with her warm love juices and you try to drink up what you can... but there\'s just too much!' );
 		EngineCore.outputText( '\n\nShe rolls off of you in a state of absolute euphoria. You sit up on your elbows and make eye contact with her for a moment, causing her to giggle as she admires her comedic handiwork.  Of course, the once shy Ant Morph now eyes your own drooling pussy.  She looks as though she\'s about to continue stimulating you, but then you think of a better idea.  It\'s time you take control.' );
 		//(If dick(s) (is/are) huge, length unknown - Jump to - Dick(s) too Big)
-		if( CoC.getInstance().player.smallestCockArea() > this.phyllaCapacity() ) {
+		if( CoC.player.smallestCockArea() > this.phyllaCapacity() ) {
 			//Dicks too Big:
 			EngineCore.outputText( '\n\nDespite your best efforts to try and get into a comfortable position to scissor, your painfully erect  ' + Descriptors.multiCockDescriptLight() + ' prevent you from doing so, given that they are now compressed against the ceiling.  While the display of rainbows is pretty to watch on your ' + Descriptors.multiCockDescriptLight() + ', the crushing pain and the unyielding nature of your ' + Descriptors.multiCockDescriptLight() + ' is too much.  ' );
 			//Horse: (Cont from ...is too much.)
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'Seeing your impending predicament, Phylla quickly scrambles with all four of her arms to collect a bunch of cushions.  She stacks them in a makeshift \'resting place\' and helps you into a comfortable position as your cocks precede to grow uncontrollably.' );
 			}//Drider body:
-			else if( CoC.getInstance().player.isDrider() ) {
+			else if( CoC.player.isDrider() ) {
 				EngineCore.outputText( 'Phylla immediately realizes this, and flips you over so that you are resting on your head and neck, ducking in past your ' + Descriptors.multiCockDescriptLight() + ' and coming to rest on the border between your spider carapace and soft clit.' );
 			}//Goo body:
-			else if( CoC.getInstance().player.isGoo() ) {
+			else if( CoC.player.isGoo() ) {
 				EngineCore.outputText( 'Phylla immediately realizes this, and flips you over so that you are resting on your head and neck, and she works her way through your goopy mass, connecting her clit with yours in little time or effort. "<i>This is a little weird... but I like it...</i>" she flirts. Hardening your mass slightly, you snugly secure Phylla against your body, telling her that things "might" get rough.' );
 			}//Human/Harpy/Naga legs:
 			else {
@@ -926,7 +926,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(If applicable transitions to - Freakishly huge dick(s))
 		//(If not applicable transition to - Scissoring w/ Dick(s))
 		//Freakishly huge dick(s):
-		if( CoC.getInstance().player.smallestCockArea() > this.phyllaCapacity() ) {
+		if( CoC.player.smallestCockArea() > this.phyllaCapacity() ) {
 			EngineCore.outputText( '\n\nYou start rocking your hips and your pussies kiss, fluids mixing harmoniously together as shots of pleasure pass through both of you.  Her clit seems to penetrate further and further into yours with every push, and though it\'s not enough to fully enter you, the sensation on the inside sends wave after wave of euphoric bliss over the both of you.' );
 			//(Leads to - Scissoring w/ Dick(s))
 		}
@@ -936,22 +936,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		else {
 			EngineCore.outputText( '\n\n[EachCock] hungers for attention, having been let go by Phylla when you shifted into a scissoring position.  Reaching down to start taking care of yourself; Phylla interrupts you abruptly.  "<i>Oh, I\'m sorry! I mean... I forgot... just feels... so gooood,</i>" she coos between moans of ecstasy.  After a moment she seems to forget as waves of pleasure wash over her.  You make a playful throat clearing noise and gesture to your ' + Descriptors.multiCockDescriptLight() + '.  Phylla quickly snaps back into reality and takes hold of ' );
 			//Tentacle dick check
-			if( CoC.getInstance().player.tentacleCocks() > 0 ) {
+			if( CoC.player.tentacleCocks() > 0 ) {
 				//PC has (a) Tentacle dick(s):
 				EngineCore.outputText( 'your tentacle dick' );
-				if( CoC.getInstance().player.tentacleCocks() > 1 ) {
+				if( CoC.player.tentacleCocks() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( '.  Clearly she\'s never seen anything like it before as she doesn\'t know what to do.  Laughing, you tell Phylla she doesn\'t need to do anything except hold still.  You snake your tentacle cock' );
-				if( CoC.getInstance().player.tentacleCocks() > 1 ) {
+				if( CoC.player.tentacleCocks() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' up her body, making sure to caress her most tender places on their way.  She screams out loudly in shock only to realize what happened when she looks down.  "<i>God, you scared me!</i>" she yells, embarrassed that she got frightened half to death by your dick' );
-				if( CoC.getInstance().player.tentacleCocks() > 1 ) {
+				if( CoC.player.tentacleCocks() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( '.  Laughing at her display, you motion to your prick' );
-				if( CoC.getInstance().player.tentacleCocks() > 1 ) {
+				if( CoC.player.tentacleCocks() > 1 ) {
 					EngineCore.outputText( 's and wiggle them ' );
 				} else {
 					EngineCore.outputText( ' and wiggle it ' );
@@ -959,10 +959,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( 'in front of her, like a worm to a bird in her face.  "<i>Aw, does someone need some attention?</i>" Phylla teases, taking ' );
 				//PC has:
 				//one tentacle dick:
-				if( CoC.getInstance().player.tentacleCocks() === 1 ) {
+				if( CoC.player.tentacleCocks() === 1 ) {
 					EngineCore.outputText( 'your cock into her mouth as she continues to rock her hips into yours.' );
 				}//two:
-				else if( CoC.getInstance().player.tentacleCocks() === 2 ) {
+				else if( CoC.player.tentacleCocks() === 2 ) {
 					EngineCore.outputText( 'your cocks into her mouth and between her breasts as she continues to rock her hips into yours.' );
 				} else {
 					EngineCore.outputText( 'your cocks into her mouth, between her breasts, and along her body.  The ones on her body tightly wrap around her insectile joints, using her muscular curves to get you off.' );
@@ -970,14 +970,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				//End TD check; if TD's are present, ignore non-TD check and, below, and skip to scissoring continuation.
 			} else {
 				//PC has one/two dick(s) not exceeding 4 inches in width total:
-				if( CoC.getInstance().player.cockTotal() === 2 && (CoC.getInstance().player.cockArea( CoC.getInstance().player.smallestCockIndex2() ) + CoC.getInstance().player.cockArea( CoC.getInstance().player.smallestCockIndex() ) <= this.phyllaCapacity()) ) {
+				if( CoC.player.cockTotal() === 2 && (CoC.player.cockArea( CoC.player.smallestCockIndex2() ) + CoC.player.cockArea( CoC.player.smallestCockIndex() ) <= this.phyllaCapacity()) ) {
 					EngineCore.outputText( 'two of your ' + Descriptors.multiCockDescriptLight() + ', stroking them apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla\'s mind slowly becoming lost in pleasure.' );
 				}//TODO: 'player.cocks[player.smallestCockIndex()] < 4' changed to cockLength. Not sure if it is the appropriate attribute.
-				else if( CoC.getInstance().player.cocks[ CoC.getInstance().player.smallestCockIndex() ].cockLength < 4 ) {
-					EngineCore.outputText( 'your ' + Descriptors.cockDescript( CoC.getInstance().player.smallestCockIndex() ) + ', stroking it apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla\'s mind slowly becoming lost in pleasure.' );
+				else if( CoC.player.cocks[ CoC.player.smallestCockIndex() ].cockLength < 4 ) {
+					EngineCore.outputText( 'your ' + Descriptors.cockDescript( CoC.player.smallestCockIndex() ) + ', stroking it apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla\'s mind slowly becoming lost in pleasure.' );
 				}//PC only has a dick(s) that('s) (are) more than 4 inches in width:
 				else {
-					EngineCore.outputText( 'your ' + Descriptors.cockDescript( CoC.getInstance().player.smallestCockIndex() ) + ', but she simply can\'t fit any number of her hands around the entirety of your glans; instead, she takes to caressing the head of your ' + Descriptors.cockDescript( CoC.getInstance().player.biggestCockIndex() ) + '.' );
+					EngineCore.outputText( 'your ' + Descriptors.cockDescript( CoC.player.smallestCockIndex() ) + ', but she simply can\'t fit any number of her hands around the entirety of your glans; instead, she takes to caressing the head of your ' + Descriptors.cockDescript( CoC.player.biggestCockIndex() ) + '.' );
 				}
 				//(Leads to - Scissoring Continuation)
 			}
@@ -993,7 +993,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//Scissoring Continuation
 		EngineCore.outputText( 'You increase both your tempo and force as you grind your sex against hers, and your hips are greeted with Phylla trying her best to stay in place and to give the most resistance possible. The sensation of a foreign orgasm enters you, signalling Phylla is close to another body twitching release; at the same time you feel yourself also building up to one of your own. Simultaneously, you work each other up until you\'re both on the brink.  Your hips work at a fierce speed, caressing your cunts together in a flurry of sexual fury, neither of you letting the other cum and just enjoying the pleasure that you\'re sharing mentally, until Phylla can\'t stand it anymore and releases her hold over you.  The barrier to your orgasmic fulfillment gone, your mind becomes overwhelmed and releases control over her own release, flooding her mind with your euphoric delight.  Both of you cum in unison, drowning in earth shattering bliss. Phylla releases all notions of timidness and screams in utter bliss, spraying her love juices all over your cunt like a fountain, and you do the same in return; although not in nearly the same amounts.' );
 		EngineCore.outputText( '\n\nYou almost collapse onto her as your body attempts to recover from pleasure.  You catch yourself planting both your arms on either side of Phylla\'s face, hanging over her.  She reaches up and wraps all her arms around you, bringing you down to lay next to her.  The shy ant morph turns her head and kisses you one final time before you both pass out in each other\'s embrace.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.waifuQuestOver );
 	};
@@ -1011,7 +1011,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You smile at her and tell her you would love for her to join you at your camp.  Her face brightens like the sun and she quickly gathers the very few possessions she owns - mostly clothing, the pillows, and some jewelry.  Together you promptly leave the colony and head back to camp.' );
 		EngineCore.outputText( '\n\n(<b>Phylla has moved in!  She can be found in the lovers tab!</b>)' );
-		CoC.getInstance().flags[ kFLAGS.ANT_WAIFU ] = 1;
+		CoC.flags[ kFLAGS.ANT_WAIFU ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Stay Here]
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'Telling Phylla that your camp isn\'t really the safest place for her, even if she\'s underground, doesn\'t seem to make her accept the fact you\'re leaving her here any more heartbreaking.  You tell her you would rather her stay here for now, knowing she\'s safe, until you can make your campsite \'ready\' for her.  She looks a little doleful but she agrees.' );
 		EngineCore.outputText( '\n\nAs you turn to leave she quickly says, "<i>If you ever feel your camp is safe enough for me to join you, p-please come get me.  If you want.  I mean, I\'m not going anywhere... not that I could with my mother watching anyway...</i>"' );
 		EngineCore.outputText( '\n\nYou nod and without another word, head back to camp.' );
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_STAY_HOME ] = 1;
+		CoC.flags[ kFLAGS.PHYLLA_STAY_HOME ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//If PC returns to colony after telling her to stay with her mother:
@@ -1039,8 +1039,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	};
 
 	AntsScene.prototype.introductionToPhyllaFollower = function() {
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_CAPACITY ] < 50 ) {
-			CoC.getInstance().flags[ kFLAGS.PHYLLA_CAPACITY ] = 50;
+		if( CoC.flags[ kFLAGS.PHYLLA_CAPACITY ] < 50 ) {
+			CoC.flags[ kFLAGS.PHYLLA_CAPACITY ] = 50;
 		}
 		EngineCore.clearOutput();
 		if( this.pregnancy.isPregnant && this.pregnancy.incubation === 0 ) {
@@ -1048,7 +1048,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			return;
 		}
 		//[Follower > Phylla Intro (First Time)]
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_CAMP_VISITS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_CAMP_VISITS ] === 0 ) {
 			EngineCore.outputText( 'Gazing into the distance, you see a small dirt hill you can only assume is the beginning of Phylla\'s colony.  Every now and then you see Phylla\'s silhouette pop out of the hole then immediately dive back into it.  You smile to yourself as you walk along the unfamiliar path towards the growing anthill.  Not very long after you start down the path, you end your journey at the base of her colony\'s entrance.  It\'s pretty impressive that Phylla has moved so much earth in such a small amount of time given that she is alone and \'royalty.\'  Then again, she has four arms.  You cautiously make your way down through the threshold of the colony\'s entrance.  As you walk down the tunnel, you can\'t help but see the contrast between this single tunnel and her mother\'s massive, bewildering, colony.' );
 			EngineCore.outputText( '\n\nYou come to the end of the tunnel and find Phylla sprawled on her pillows, napping, completely naked.  She seems to have hollowed out a makeshift room for herself.  Everything in the room is carved out of stone.  Then you realize something; this room is almost a carbon copy of your campsite on the surface!  It\'s even complete with a bedroll and firepit, both completely made of stone, rendering them quite useless.  Clearly Phylla did this to make you more comfortable, but failed in a very cute way.  She wakes up with a weary yawn, stretching all six of her limbs and flexing her abdomen.  Opening her eyes groggily, she jumps in surprise when she notices you standing in her doorway.  Clearly startled, Phylla frantically grasps for her pillows to cover her nudity.' );
 			EngineCore.outputText( '\n\n"<i>Oh! You came! I\'m so happy!  I mean, I thought for a second you might not come... I mean...</i>"' );
@@ -1064,11 +1064,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nThe look on your face painfully displays that you don\'t understand what she\'s talking about.' );
 			EngineCore.outputText( '\n\n"<i>W-we only need to have sex the one time, I mean! I want to have sex with you more!</i>"  She quickly covers her mouth and blushes deeply after her mind catches up to what her mouth just blurted out.  Drawing her arms inward around her body, she stoops low in embarrassment but continues on.' );
 			EngineCore.outputText( '\n\n"<i>Ever since my first time with you, I\'ve been pregnant.  I can choose to have children or not.  I-I mean.. my kind, lay eggs. They grow up fast... or fast compared to people like you.  So if you want, I can build us a colony full of our offspring, or I can just be here all by myself.  I don\'t care as long I\'m with you.  The choice is up to you. I mean, if you don\'t mind.  You don\'t have to make this choice now either; I mean, I\'m always here.</i>"' );
-			if( CoC.getInstance().flags[ kFLAGS.DIDNT_FUCK_PHYLLA_ON_RECRUITMENT ] === 1 && CoC.getInstance().player.hasCock() ) {
+			if( CoC.flags[ kFLAGS.DIDNT_FUCK_PHYLLA_ON_RECRUITMENT ] === 1 && CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nYou raise your eyebrow and ask her how she can be pregnant if you never stuck it in.' );
 				EngineCore.outputText( '\n\nShe takes a deep breath and continues.' );
 				EngineCore.outputText( '\n\n"<i>I don\'t need semen to have children; I just need certain fluids.</i>"  Again she blushes and half covers her face with a pillow.  She looks as if she\'s not going to continue until she looks down between your legs.  "<i>You were kind of leaking them...</i>"  All she can muster is a deeper blush...' );
-			} else if( !CoC.getInstance().player.hasCock() ) {
+			} else if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nYou raise your eyebrow and ask her how she can be pregnant if neither of you have a penis.' );
 				EngineCore.outputText( '\n\nShe takes a deep breath and continues.' );
 				EngineCore.outputText( '\n\n"<i>I don\'t need semen to have children; I just need certain fluids.</i>"  Again she blushes and half covers her face with a pillow.  She looks as if she\'s not going to continue until she looks down between your legs.  "<i>You know the kind of fluids I\'m talking about...  I mean, they\'re sweet and we shared them... they come from our... I mean, your...</i>"  All she can muster is to point at where your vagina is located...' );
@@ -1080,10 +1080,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		else {
 			EngineCore.outputText( 'Making your way down the familiar path away from your camp it\'s not long until you reach the growing anthill that is Phylla\'s campsite-adjacent colony.  You climb to the crest of the ever increasing anthill, and enter down the passage to the caves below.  Once you get to Phylla\'s room, you see she\'s working on carving something on the wall.  Half of it looks like a copy of the art you did and the other half looks like a map of her colony with all the networked caves.' );
 			//If <10 days in camp:
-			if( CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ] < 10 ) {
+			if( CoC.flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ] < 10 ) {
 				EngineCore.outputText( '\n\nSo far the map of the caves doesn\'t look very impressive.' );
 			}//If <30 days in camp:
-			else if( CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ] < 30 ) {
+			else if( CoC.flags[ kFLAGS.DAYS_PHYLLA_IN_CAMP ] < 30 ) {
 				EngineCore.outputText( '\n\nThe map of the cave network is starting to look pretty impressive. You could get lost for quite awhile if you didn\'t know where you were going.' );
 			}//If <100 days in camp:
 			else {
@@ -1095,54 +1095,54 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//[Talk] [Sex] [Lay Eggs / Don't Lay Eggs] [Children] [Appearance] [Gems]
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Talk', this.phyllaTalkChoices );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'Sex', this.phyllaSexMenu );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 			EngineCore.addButton( 2, 'Lay Eggs', this.phyllaLaysEggsToggle );
 		} else {
 			EngineCore.addButton( 2, 'No Eggs', this.phyllaLaysEggsToggle );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 0 ) {
 			EngineCore.addButton( 3, 'Children', this.phyllasKidsChildren );
 		}
 		EngineCore.addButton( 4, 'Appearance', this.phyllaPearance );
 		EngineCore.addButton( 5, 'Find Gems', this.phyllaDigsForGems );
 		EngineCore.addButton( 9, 'Back', SceneLib.camp.campLoversMenu );
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_CAMP_VISITS ]++;
+		CoC.flags[ kFLAGS.PHYLLA_CAMP_VISITS ]++;
 	};
 	AntsScene.prototype.phyllaSexMenu = function() {
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Get BJ', this.phyllaBeeeJays );
 			//"<i>Use Dick</i>"
 			EngineCore.addButton( 1, 'Fuck Her', this.dickPhylla );
 			//[While Giving Birth]
 			//(Note: The above option will only be available if Phylla is 'Laying Eggs.')
 			//While Giving Birth (Male) - Written
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] >= 10 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && CoC.flags[ kFLAGS.ANT_KIDS ] >= 10 ) {
 				EngineCore.addButton( 1, 'Fuck Her', this.dudesFuckEggLayingBitches );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 10 && CoC.getInstance().player.cor >= 75 ) {
+			if( CoC.flags[ kFLAGS.ANT_KIDS ] > 10 && CoC.player.cor >= 75 ) {
 				EngineCore.addButton( 3, 'Orgy (Male)', this.orgyWithDatColonyCorruptDudes );
 			}
 		}
 		//Straight Sex (Lesbian/Fisting) - Written
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Lesbian Sex', this.lesbianFisting );
 			//While Giving Birth (Female) - Written
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] >= 10 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 && CoC.flags[ kFLAGS.ANT_KIDS ] >= 10 ) {
 				EngineCore.addButton( 2, 'Lesbian Sex', this.birfingSexWithAntsForDasLadies );
 			}
 			//Orgy w/ Colony (Female)
 			//You tell Phylla you're interested in 'inspecting' your children.
-			if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 10 && CoC.getInstance().player.cor >= 75 ) {
+			if( CoC.flags[ kFLAGS.ANT_KIDS ] > 10 && CoC.player.cor >= 75 ) {
 				EngineCore.addButton( 4, 'Orgy (Female)', this.antColonyOrgy4Ladies );
 			}
 		}
 		//Drider/Bee impregnation scene for Phylla (universal unless otherwise specified, which will include varied intros and stuff.
 		//Sex > [Egg Phylla]
-		if( CoC.getInstance().player.canOvipositSpider() ) {
+		if( CoC.player.canOvipositSpider() ) {
 			EngineCore.addButton( 5, 'Oviposit', this.eggDatBitch );
 		}
 		EngineCore.addButton( 9, 'Back', this.introductionToPhyllaFollower );
@@ -1160,7 +1160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//..(Ant Morph History)
 	AntsScene.prototype.talkAboutAntHistory = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.TALKED_WITH_PHYLLA_ABOUT_HISTORY ] = 1;
+		CoC.flags[ kFLAGS.TALKED_WITH_PHYLLA_ABOUT_HISTORY ] = 1;
 		EngineCore.outputText( 'You relax on one of the many available pillows and ask Phylla about her race\'s history. She pulls a pillow up next to yours and cuddles in.  "<i>It\'s not a very happy story, are you sure you want to hear it?</i>" You nod and move your hand to hold one of hers.' );
 		EngineCore.outputText( '\n\nShe looks down into the darkened tunnel that leads to her room, seeming slightly detached for a moment.  "<i>There was a time when my people were very prevalent here in Mareth.  We were called the Myrmi by different Tribes.  Though we never really interacted, I mean... we would forage on the surface sometimes, but we mostly kept to ourselves.  The only time we truly interacted with the surface is when a new Princess would go out looking for... for... suitors... if she couldn\'t find one among her own colony.</i>"  A flush of red washes over her face as she continues.' );
 		EngineCore.outputText( '\n\n"<i>Sometimes colonies would become so large, that they would connect to each other underground.  Therefore some colonies would never need to go to the surface again.</i>"' );
@@ -1174,14 +1174,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nTears begin trickling down her cheeks.  Then to your surprise, a smile lights up her face. She turns to you and wipes her tears and nose with her other three hands.  "<i>That was... until I met you. From the day we met, I knew you were special.  Together, we will write a new chapter for my people. One that has...</i>"' );
 		//(Leads to - Corruption Checks)
 		//[If corruption less than 40]
-		if( CoC.getInstance().player.cor < 70 ) {
+		if( CoC.player.cor < 70 ) {
 			EngineCore.outputText( '\n\nBefore she finishes her sentence, you pull her to you and kiss her deeply.' );
 			EngineCore.outputText( '\n\nYour mind is suddenly bombarded with images of when you first met Phylla.  You watch yourself burst from your hiding spot and heroically defeat the Oasis Demons.  Only this time from her perspective.  The suffocating fear of being pinned down and gang raped replaced with a glimmer of hope that the individual before her would save her from the tainted creatures.  Next, you see yourself in the trials, fighting off each and every horror they sent at you; the same feeling of hope she felt earlier filling her body as you ducked and weaved past minotaurs and the like.  The feeling of this strange yet courageous individual dueling those monsters being the one that would rise to the challenge of being her mate.  You feel an overwhelming sense of love and compassion as Phylla breaks the kiss.' );
 			EngineCore.outputText( '\n\n"<i>...just happy memories.</i>" she finishes.' );
 			EngineCore.outputText( '\n\nYou try to stand and almost fall over; you thought that this mind-link would get easier over time - you were clearly wrong. Phylla catches you in her arms and helps you to the exit of the colony.  Staggering back to camp like a drunkard you feel the weight on your mind ease with each step and by the time you\'ve arrived you feel right as rain.' );
 		}
 		//[If corruption more than 70]
-		else if( CoC.getInstance().player.cor < 80 ) {
+		else if( CoC.player.cor < 80 ) {
 			EngineCore.outputText( '\n\nYou interrupt her loving speech by standing up, leaving her momentarily confused.  You then comment on how you were never really interested in her people\'s history to begin with. All you really wanted was to get away from the surface for a while.  "<i>W-what?</i>" she says meekly.  With a small yawn you start to stretch in front of her, sighing to yourself as now you have to explain.' );
 			EngineCore.outputText( '\n\nYou tell her you have better things to do than sit here and listen to her half-babble, half-cry on about her mother and the demons.  You\'re a champion after all; if you wanted to hear people babble on and on about history you would have been a scholar.  Any interest in the subject is long gone at this point.' );
 			EngineCore.outputText( '\n\n"<i>I didn\'t mean to, I mean, you asked!  I didn\'t want to bore you, I-I just thought...</i>" She says timidly, trying to recover the conversation.' );
@@ -1196,7 +1196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>I wasn\'t even alive... how could you say...</i>"' );
 			EngineCore.outputText( '\n\nThough you\'ve taken \'advantage\' of the corruption yourself, it makes you a little horny verbally asserting your dominance over Phylla.' );
 			//(If PC has not completed the factory)
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
 				EngineCore.outputText( '\n\nEvery year!  Every year, your people valiantly send one of their own through that hellish portal to this place in the hopes to try and quell or even stop the spread of corruption.  Now you just learned that it all could have been slowed or even stopped completely by Phylla\'s race had they all not been gutless yellow-bellied cowards!' );
 			}
 			//(If PC has completed the factory)
@@ -1218,14 +1218,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou rest your hand on your face and smile as she continues, thinking how cute she is when she stutters.  She gives you an \'Oh right!\' look and continues.  "<i>It\'s how we are able to pass our thoughts to others that are not like us.  It\'s not something we control either, at least when connecting to others.  In very intimate situations or when under extreme stress is when everyone\'s minds are at their most vulnerable.  Under normal conditions our minds can\'t link, but if your mind is open, my mind can invade yours.  I mean, I don\'t want it to sound like I\'m attacking you! I mean, I wouldn\'t ever...</i>"' );
 		EngineCore.outputText( '\n\nYou\'re well aware of that and you make a wickedly playful face to show her you know.  She blushes deeply, her cheeks turning bright red and her hands start to fidget.  "<i>During mating... I-I mean s-sex, is when the link is the strongest. It\'s when both minds are open.  It\'s also why we can... control each others\' urges.</i>"  Phylla still seems very shy when it comes to talking about sex.' );
 		//If Phylla has ever Laid Eggs:
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>Unlike trying to connect to you, I can share knowledge freely with all of my children.  We never even need to make physical contact.  In the same way, they can share with me.</i>"' );
 		}
 		//If player has made Phylla have Drider Children:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>This of course doesn\'t extend to our non-ant children.  Like our lovely drider offspring for instance.</i>"' );
 		}//If Phylla has Ant Children:
-		else if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 0 ) {
+		else if( CoC.flags[ kFLAGS.ANT_KIDS ] > 0 ) {
 			EngineCore.outputText( '\n\nYou\'re a little amazed; you ask her if she can sense all of her children right now.  "<i>It\'s not like that. I mean... feeling their every thought, all the time, would probably kill me.</i>"  She pauses, trying to clear the morbid thought from her mind before a brilliant analogy pops into her head.  You comment that you aren\'t sure that would happen, but the inevitable headaches would certainly be debilitating.  Or drive her crazy.' );
 		}
 		EngineCore.outputText( '\n\n"<i>It\'s like trying to think of every number between 1 and a 100 at the same time.  I can pick out numbers, but thinking about them all at once is too much.  I can also feel if one of them is in trouble or is sending me a specific feeling.  Fear, triumph, or kinds of rock or dirt...</i>"' );
@@ -1233,7 +1233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nTrying to completely understand how Inherited Knowledge works seems difficult. At least you have a basic understanding now.' );
 		//(Leads to - Corruption Checks)
 		//If corruption less than 40:
-		if( CoC.getInstance().player.cor < 60 ) {
+		if( CoC.player.cor < 60 ) {
 			EngineCore.outputText( '\n\nYou walk over to her and give her a big kiss.  Nothing happens, so you give her a look and a sarcastic quip about how you were expecting something to happen.' );
 			EngineCore.outputText( '\n\nShe gives you a pouty face and then reiterates, again, that she can\'t control it.' );
 			EngineCore.outputText( '\n\nYou thank her for telling you everything, although as you turn to leave you swear she\'s covertly touching herself, trying to persuade you into a more passionate action.' );
@@ -1248,20 +1248,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nA little louder she starts again.' );
 			EngineCore.outputText( '\n\n"<i>These are my breasts; they\'re not very impressive...</i>"' );
 			//If PC has over D Cup Continue:
-			if( CoC.getInstance().player.biggestTitSize() >= 4 ) {
+			if( CoC.player.biggestTitSize() >= 4 ) {
 				EngineCore.outputText( '\n\n"<i>At least not like yours... I mean, yours are nicer!</i>"' );
 			}
 			EngineCore.outputText( '\n\nShe cups both of her breasts with her two larger hands.' );
 			EngineCore.outputText( '\n\nAnd?  "<i>...and my nipples.</i>"  Her nipples immediately get hard.  Either from her hands rubbing them or her talking about them, you\'re not quite sure.' );
 			//If Phylla is not laying eggs:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>They don\'t produce milk unless I\'m laying, but... they\'re very sensitive. I mean, you know that already.</i>"  Seeing her struggle like this is thrilling in a very sexual way. You ask her just how sensitive they are.  "<i>I don\'t... I mean...</i>" She looks away from you as you stare at her.  You tell her to play with them. You want to see how sensitive they are.  She does, eliciting a gasp of surprised excitement from her open mouth.' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>R-right now they\'re much bigger because... I-I\'m producing milk for our children.</i>"  You can tell she hasn\'t been suckled recently as her breasts are much larger than normal. You ask to see her milk.  Shocked, she turns her head away but does as she\'s told.  Her two larger hands cup the bottom on her breasts and give a squeeze. You hear her moaning exhale as white milk sprays out of her nipples.  She does it again without you even telling her to - again a louder moan escapes her.  "<i>I t-told you they\'re very sensitive...</i>" Phylla says between deep breaths.' );
 			}
 			EngineCore.outputText( '\n\nYou make a quip about how you\'ll keep that in mind the next time you two have sex. She quickly covers her chest with her hands, retracting inward.  "<i>I don\'t want to... I mean... I do, but... I\'m embarrassed... P-please...</i>"' );
 			//If corruption more than 80: (Continued From "<i>I don't want to... I mean... I do, but... I'm embarrassed... Please...</i>") You give Phylla your most innocent look, staring up at the ceiling, and putting your index finger on your lip.
-			if( CoC.getInstance().player.cor >= 80 ) {
+			if( CoC.player.cor >= 80 ) {
 				EngineCore.outputText( '\n\nShe continues apprehensively by removing her two upper hands from her boobs, but still keeping the lower two covering her nipples.' );
 				EngineCore.outputText( '\n\n"<i>This... this is... my... v-v...</i>"' );
 				EngineCore.outputText( '\n\n"<i>Your...?</i>"  You try to coax out of her.' );
@@ -1271,13 +1271,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\n"<i>Your cunt.</i>" You quickly correct her.' );
 				EngineCore.outputText( '\n\n"<i>My... c... cunt,</i>" she says with a defeated tone.' );
 				EngineCore.outputText( '\n\nYou tell her you can see her clit sticking out from between her lips.  She quickly looks down and confirms your words.  She quickly places all four of her hands over her pussy, uncovering her still hardened ' );
-				if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+				if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 					EngineCore.outputText( 'milk dripping ' );
 				}
 				EngineCore.outputText( 'nipples.  You tell her you want to see the inside and for her to explain why she doesn\'t give birth from it.  By this time, you can see you\'ve started making her horny and her modesty is slowly melting away.  She parts her pussy lips for you with her larger arms and then starts pointing at her long clit with one of her lower hands.' );
 				EngineCore.outputText( '\n\n"<i>This is my... m-my...</i>"  With a gulp of courage she continues.  "<i>My clitoris.  It\'s hypersensitive and just touching it can cause me to...</i>" Her voice trails off.  "<i>Cause you to...?</i>"  You probe for the answer with a smile on your face, knowing she isn\'t looking at you anyway.  "<i>Orgasm.</i>"  She says blankly.  You can tell by her changing tone and attitude her lust must be consuming all her thoughts.  You ask for a demonstration, causing her head to twist around to give you a long, hard stare.  You\'ve wiped the wicked smile from your face and replaced it with an innocently inquiring one; a true master of deception on one shoulder, and a devil in disguise on the other.' );
 				EngineCore.outputText( '\n\nWith her two upper hands still holding her pussy open for you to see, the lower hand not resting on her clit starts to run up and down the entrance of her quickly moistening cunt.  She moves her smaller right hand and starts from the tip of her love button and slowly runs all her fingers down it.  She moans loudly every time she reaches the base of her clit. Her shoulders tense up and her body shakes as she almost instantly builds to an orgasm.  The resulting climaxes, as you are well aware, are very messy.  With her small left hand, she thrusts two of her fingers into herself, and you watch as she moans deeply and starts masturbating her clit quicker. The two larger hands cease holding her pussy lips apart and start to pinch her nipples' );
-				if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+				if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 					EngineCore.outputText( ', sending jets of milk shooting out onto the floor' );
 				}
 				EngineCore.outputText( '.  With a loud moan she orgasms, covering her smaller two forearms, her inner thighs, and the floor below her in thick, sweet-smelling, girl cum.' );
@@ -1287,28 +1287,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\nThough you tried to count over such a long period of watching her masturbate, you lost track at around 15.' );
 				EngineCore.outputText( '\n\nShe\'s tried to stop a few times, pleading to you that it\'s too much but you just kept forcing her to continue.  After what you can only guess would be a few hours of watching her cum again and again in an almost heroic display of fortitude, she breaks.  Phylla falls over, completely spent. Sprawled out in front of you, her whole body from head to foot is covered in her own juices.' );
 				EngineCore.outputText( '\n\nYou don\'t say a word to her as she lies in the pool of her own secretions, her blank eyes gazing into nothingness.  Maybe you broke her, only time will tell, she\'ll need to recover first.  You set out back to camp, knowing full well she\'s now just another plaything for you.' );
-				CoC.getInstance().time.hours++;
+				CoC.time.hours++;
 				EngineCore.dynStats( 'lus', 25 );
 			} else {
 				EngineCore.outputText( '\n\nYou\'ve had your fun, and Phylla is none the wiser.  You wink at her and thank her for the show. The comment clearly goes over her head leaving her wondering about your meaning as you set off back to camp.' );
 				EngineCore.dynStats( 'lus', 15 );
 			}
 		}
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_INHERITED_KNOWLEDGE ] = 1;
+		CoC.flags[ kFLAGS.PHYLLA_INHERITED_KNOWLEDGE ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Phylla's Life Past & Future)
 	AntsScene.prototype.phyllasLifePastAndFuture = function() {
 		EngineCore.clearOutput();
 		//(If Izma at Camp)
-		if( SceneLib.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.PHYLLA_IZMA_TALK ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.PHYLLA_IZMA_TALK ] = 1;
+		if( SceneLib.izmaScene.izmaFollower() && CoC.flags[ kFLAGS.PHYLLA_IZMA_TALK ] === 0 ) {
+			CoC.flags[ kFLAGS.PHYLLA_IZMA_TALK ] = 1;
 			EngineCore.outputText( 'Phylla seems to be a little distant today as you sit down to talk.  You point it out to her and she cautiously asks about Izma.' );
 			EngineCore.outputText( '\n\n"<i>I k-know there\'s someone else at your camp.  I mean... I don\'t want to pretend I\'m the only one you\'ll ever mate with, but this one is special.  I mean, I can feel it inside here.</i>"  She points to your head with the two arms on her right side, and her head with the two arms on her left side. Seeing you don\'t deny it, Phylla\'s eyes well up as she tries to hold back tears.  "<i>I d-don\'t know why you didn\'t tell me you had others staying closer to you...</i>"' );
 			EngineCore.outputText( '\n\nShe seems extremely distressed and your hesitation while you ponder how to respond only compounds it.  "<i>I want to know how you feel about her.  I saw you two... I mean, I didn\'t mean to, I just heard moaning and I was tunneling out the colony and glanced over to your camp.  I didn\'t mean to watch but...</i>"' );
 			//(Leads to - Corruption Checks)
 			//If Corruption less than 40:
-			if( CoC.getInstance().player.cor < 40 ) {
+			if( CoC.player.cor < 40 ) {
 				EngineCore.outputText( '\n\nYou do your best to explain Izma\'s situation.  Mostly focusing on the fact that she\'s not like the other shark morphs.  She withstood the corruption by reading and she\'s naturally faster and stronger than almost anything that could have corrupted her anyway.' );
 				EngineCore.outputText( '\n\nPhylla doesn\'t look particularly thrilled and seems unsatisfied at your explanation. She sniffles and crosses all four of her arms waiting for further explanation.  There\'s really not much more to say unless...  You start to explain how Izma and you fought on several occasions.  Phylla looks shocked; the fact that you would attack someone you\'re in a \'relationship\' with clearly escapes her.' );
 				EngineCore.outputText( '\n\n"<i>Y-you fought? Ww-why...?</i>"' );
@@ -1317,7 +1317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\nOnce Phylla hears that she perks up.' );
 				EngineCore.outputText( '\n\n"<i>What if... you know... we... I mean...</i>"  You raise an eyebrow and give her an inquisitive look.  "<i>We could join...</i>" She points at her head and yours, again.' );
 				//If PC Has the 'inherited knowledge' talk:
-				if( CoC.getInstance().flags[ kFLAGS.PHYLLA_INHERITED_KNOWLEDGE ] === 1 ) {
+				if( CoC.flags[ kFLAGS.PHYLLA_INHERITED_KNOWLEDGE ] === 1 ) {
 					EngineCore.outputText( '\n\nYou comment on how you thought she couldn\'t control that. "<i>I can\'t... I mean not directly... I\'ve just been stressed recently... ever since I saw the two of you... I think I could... I mean!  I just thought... if you want to try...</i>"' );
 				}
 				EngineCore.outputText( '\n\nYou might as well try; Phylla seems pretty worked up over this and you want to help ease her stress in whatever way you can.' );
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( '\n\nYou start to retort but Phylla aggressively kisses you.  She grabs your head and neck with all four of her hands so you can\'t really break the kiss until she\'s gotten what she wants from you.' );
 				EngineCore.outputText( '\n\nClearly the stress has driven her mind meld to kick in.  She aggressively probes your mind looking for thoughts or memories of Izma.  It\'s not at all a pleasant feeling; it\'s as if your mind is being carved up and sorted, piece by piece.  Finally images flash of you first meeting Izma and how she showed you her collection of books.  The next thing you see is you and Izma sitting on a beach reading books together and chit-chatting about how Izma has withstood the corruption by reading.  That image suddenly fades as you see yourself in a fist fight with Izma vying for dominance in your estranged relationship. Eventually you see yourself dominating Izma to the point where she asks you if she\'s allowed to come back to camp with you.' );
 				//If Corruption more than 80 From: You're determined to not let this go without protest.)
-				if( CoC.getInstance().player.cor >= 80 ) {
+				if( CoC.player.cor >= 80 ) {
 					EngineCore.outputText( '\n\nHow dare she!' );
 					EngineCore.outputText( '\n\nAs Phylla attempts to conjure up another memory in your mind, you push her away with all of your strength.  Feeling her hands on the sides of your face start to slip, with one final grunt you send her staggering across the room.  Wiping her saliva from your mouth with the back of your hand, you spit whatever\'s left onto the floor.  She looks at you with stunned awe.  Clearly she didn\'t think you could escape.' );
 					EngineCore.outputText( '\n\n"<i>I-I didn\'t...  I mean...  she...!</i>"  She tries to confess, scrambling for words to make you less angry.' );
@@ -1371,7 +1371,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>Every young princess has to seek out a... well you know, partner.  I mean... mate - when they reach adulthood that is.  I searched in the colony, and even had some warriors attempt the trials in my name, but none of them... none could pass the tests.  So my mother decided if I could not find a mate in the colony, I would have to find one outside of it.  We both know what happened after that... I found you, and you\'re the best thing to ever happen to me.  The great Champion to keep me safe... and I couldn\'t be happier.</i>"' );
 			EngineCore.outputText( '\n\nShe playfully squeezes the muscles in your arm.  "<i>As for the future, that\'s really up to you. We\'re joined now, both in mind and destiny.</i>"' );
 			//If Phylla has never laid eggs:
-			if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.ANT_KIDS ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>As I\'ve said before, I can give us a growing colony with hundreds of children or I could just stay here with you.</i>"  She pauses, hesitating to continue.  "<i>Although if we have a large colony, it would mean we could repopulate my people...</i>"  You get the distinct feeling that Phylla really wants to have kids with you.' );
 			}//If Phylla has/is laid/laying eggs:
 			else {
@@ -1385,8 +1385,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//First Time Blowjob:
 	AntsScene.prototype.phyllaBeeeJays = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ]++;
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
+		CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ]++;
+		if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
 			EngineCore.outputText( 'Turning to Phylla, you can\'t help but smile as you flash her a seductive look, making sure you have her undivided attention before glancing down at the bulge in your pants.  Raising a hand to her mouth in sultry intrigue, Phylla giggles and shoots you a devilish look back.  Turning towards the bed, Phylla presumptuously begins to disrobe...  close!  But not what you had in mind.' );
 			EngineCore.outputText( '\n\nCrossing your arms, you let out a loud cough in order to redirect the confused ant morph\'s attention back to you.  She turns around slowly, obviously uncertain of what you have in mind for intimacy.' );
 			EngineCore.outputText( '\n\n"<i>I thought...  I mean...  that look...</i>"  She struggles to relay why she was undressing to you.  With a raised eyebrow and a perverted, inviting grin, you beckon her to come back over to you.  Eager, aroused, and a little nervous, Phylla clatters over to you, trying her best to put on her most seductive strut for you, though her inexperience shows.  She almost trips over herself as she throws one leg in front of the other, hips and abdomen in sway.  It\'s a bit awkward to watch. Nevertheless, you can\'t help but be aroused as she finishes her little walk.  Her emerald green eyes gaze into your own eyes with wanting and impatient anticipation for your next instruction.' );
@@ -1398,68 +1398,68 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		else {
 			EngineCore.outputText( 'Approaching Phylla, you cross your arms and lean against the wall of her bedchamber while sporting a tell-tale tent in your pants.  Phylla stares down at your bulge and picks up immediately on your intentions.' );
 			EngineCore.outputText( '\n\n"<i>Y-You gonna ask me nicely, or let your penis' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'es' );
 			}
 			EngineCore.outputText( ' do all the convincing?</i>"  She teases.  Shrugging, you inform her that whatever works for her works for you.' );
 		}
 		//Continued...
 		//If Phylla is not Laying Eggs:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 			EngineCore.outputText( '\n\nPhylla can\'t help but grin as she walks over to you, zeroing in on your crotch as she closes in.' );
 		}//If Phylla is Laying Eggs:
 		else {
 			EngineCore.outputText( '\n\nPhylla looks a little stuck as she attempts to shift her egg-enlarged abdomen.  "<i>I\'m s-sorry I can\'t...</i>" she says, looking on the verge of tears.  Taking a hint you walk over to her and climb atop the bed, leaving your package on an equal level with her mouth.  She immediately locks on to you with her eyes...' );
 		}
 		//First time:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Oh!  I get the meal delivered to me.  H-How... kind of you.</i>"' );
 		}//Subsequent times:
 		else {
 			EngineCore.outputText( '\n\n"<i>Breakfast in bed?  Y-You shouldn\'t have.</i>"  She coos playfully.' );
 		}
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		//Dick size less than 60 inches:
-		if( CoC.getInstance().player.cockArea( x ) < 60 ) {
+		if( CoC.player.cockArea( x ) < 60 ) {
 			EngineCore.outputText( '\n\nWithout even having to utter a word, Phylla jumps right in and starts to work your ' + Descriptors.multiCockDescriptLight() + ' free of ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'its' );
 			} else {
 				EngineCore.outputText( 'their' );
 			}
 			EngineCore.outputText( ' oppressive trappings. You can feel her undoing the straps of your clothes before gazing at the significantly larger bulge that is held behind the fabric of underwear.  "<i>How many layers of wrapping do you have on this thing?</i>"  Phylla jokingly teases, hints of her shy and nervous nature can be heard as she fools around with you.' );
 			EngineCore.outputText( '\n\nWith both sets of fingers placed in the fabric band of your undergarments, Phylla pulls downward and releases your ' + Descriptors.multiCockDescriptLight() + ', ' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'all ' );
 			}
 			EngineCore.outputText( 'bobbing up' );
 			//Dick size less than 5 inches:
-			if( CoC.getInstance().player.cocks[ x ].cockLength < 5 ) {
+			if( CoC.player.cocks[ x ].cockLength < 5 ) {
 				EngineCore.outputText( ' "tall" and proud, rock hard and ready for action.' );
 			} else {
 				EngineCore.outputText( ' tall and proud, rock hard and ready for action.' );
 			}
 		} else {
 			//Dick size more than 60 inches (First Time):
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
 				EngineCore.outputText( '\n\nPhylla jumps in to tug and free your member' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' from your pants, but apparently doesn\'t realize just how big ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'this' );
 				} else {
 					EngineCore.outputText( 'these' );
 				}
 				EngineCore.outputText( ' battering ram' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' can get.  Chuckling at her ignorance, you tell Phylla she\'d better back up.  Phylla rolls her eyes and looks up at you, giving you an unamused look.' );
 				EngineCore.outputText( '\n\n"<i>I-It can\'t be THAT big, [name]...</i>"  She chiddingly remarks, causing you to raise an eyebrow in eager amusement.  You know she\'s not ready to meet the challenge you\'re about to unleash upon her.' );
 				EngineCore.outputText( '\n\nYou work to release yourself from your clothing.  Once you\'re completely free you watch as Phylla\'s eyes widen in horror.  Smiling, you start to stroke your ' + Descriptors.multiCockDescriptLight() + ' and work ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'it' );
 				} else {
 					EngineCore.outputText( 'them' );
@@ -1467,7 +1467,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.outputText( ' up to a full raging erection, achieving your maximum state of "<i>readiness</i>" in no time at all.' );
 				EngineCore.outputText( '\n\nDumbfounded, Phylla stares in awe at how big your ' + Descriptors.multiCockDescriptLight() + ' can really get; you can see the look of complete intimidation on her face and who could blame her?  You\'ve seen ship cannons that pale in comparison to your man meat.' );
 				//If multiple cocks:
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '\n\nShe\'s staring down a mighty series of threatening fleshy spears.' );
 				}
 				EngineCore.outputText( '\n\n"<i>I don\'t know if I can... wow...</i>" She sputters out.  Laughing out loud, you grin down at her and inform her that, in this instance, her slight ignorance IS bliss.  Twitching the muscles in your ' + Descriptors.multiCockDescriptLight() + ' to bob a bit in her face you let her know that you rose to the challenge; now it\'s time for her to "<i>fulfill</i>" her end of the bargain cock end that is.' );
@@ -1475,27 +1475,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			//Dick size more than 60 inches (subsequent blowjobs):
 			else {
 				EngineCore.outputText( '\n\n"<i>Okay, you\'re gonna have to be careful so we don\'t have a repeat of ' );
-				if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 2 ) {
+				if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 2 ) {
 					EngineCore.outputText( 'last time' );
 				} else {
 					EngineCore.outputText( 'our first time' );
 				}
 				EngineCore.outputText( '.  I\'ll help to free ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'that monster' );
 				} else {
 					EngineCore.outputText( 'those monsters' );
 				}
 				EngineCore.outputText( ', but p-please be careful about my valuables.</i>"  Phylla asks nervously.' );
 				EngineCore.outputText( '\n\nYou tell her that as long as she\'s helping, there shouldn\'t be any "<i>accidents.</i>"  With synchronous effort, your hulking ' + Descriptors.multiCockDescriptLight() + ' ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'is' );
 				} else {
 					EngineCore.outputText( 'are' );
 				}
 				EngineCore.outputText( ' freed once more, ready and raring to "re-acquaint" with Phylla.  Taking the hint, Phylla closes in and takes the ' );
 				//Dick size less than 16 inches:
-				if( CoC.getInstance().player.cocks[ x ].cockLength < 16 ) {
+				if( CoC.player.cocks[ x ].cockLength < 16 ) {
 					EngineCore.outputText( 'base' );
 				} else {
 					EngineCore.outputText( 'middle' );
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.menu();
 		//(If Corruption less than 75 transitions to - Pure BJ Ending)
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.addButton( 0, 'Next', this.purePhyllaBJOver );
 		}//(If Corruption more than 75 transitions to - Corrupt BJ Ending)
 		else {
@@ -1516,7 +1516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//Pure BJ:
 	AntsScene.prototype.purePhyllaBJOver = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		EngineCore.outputText( 'You quickly and softly tell her to calm down, she needn\'t worry; you\'ll be more than happy to help her learn how as surely as she would help you if your situations were reversed.  At the mention of counter positions she nods cheerfully.' );
 		EngineCore.outputText( '\n\n"<i>You... know I\'d d-do anything for you... I\'ll get good, I will!</i>"' );
 		EngineCore.outputText( '\n\nHappy and secure that you\'re willing to tolerate her lack of experience, Phylla lowers herself back down to your ' + Descriptors.cockDescript( x ) + ' and gives you a tender lick on your head, slurping in all the pre-cum you\'ve been accumulating.  You opt to help her with a more direct approach; you lower your hand down to her chin and tilt her head up so her eyes meet yours.  The tension in Phylla\'s jaw is fierce, and you tell her that she\'s putting too much thought and effort into this relax. You move your thumb over her lips and part her mouth slightly.  A calm washes over her as your directive registers.' );
@@ -1527,15 +1527,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(If PC has Vagina Add Section - Vagina)
 		//(Else Continue to - Continuation)
 		//Multidick:
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '\n\nGasping for a brief moment, you ask Phylla to tend to ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'your other dick' );
 			} else {
 				EngineCore.outputText( 'the rest of your dicks' );
 			}
 			EngineCore.outputText( '; if she would be "<i>so kind.</i>" With gusto, her four hands shoot up and take your ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'cocks into their firm grips' );
 			} else {
 				EngineCore.outputText( 'cock into their firm grips' );
@@ -1543,7 +1543,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '.  Phylla mumbles something but absentmindedly realizes she still has your cock in her mouth and gives up on whatever it was she was trying to say.' );
 		}
 		//Vagina:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nYou ask Phylla if she can take care of your womanhood while she\'s at it.  Phylla moves one of her small arms in between your legs and rubs against your ' + Descriptors.clitDescript() + '.  She caresses your labia in between her fingers before inserting them inside of you.  Phylla begins working her wrist diligently in conjunction with her head bobbing.' );
 		}
 		//(Transitions to Continuation, below)
@@ -1560,12 +1560,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//[Sure]
 	AntsScene.prototype.surePhyllaLetsFuck = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		EngineCore.outputText( '"<i>We\'ll have to... kiss...  I mean, I can still taste you... inside my mouth...  I could go wash or... ah~!</i>" You cut her off by pulling her mouth on to yours.' );
 		EngineCore.outputText( '\n\nLike a tidal wave, her pleasures and emotions become one with yours, and you can feel the sensation of her longing for more of your ' + Descriptors.cockDescript( x ) + ' along her tongue.  You feel how her mind has given into the texture, the scent, the taste of your dick.  It\'s almost as though she doesn\'t want to stop - how cute she finds stimulating that one little area of your dick when she wants a shot of pre or how she wants to coax more and more precum out of you until you explode in her mouth.  You feel her wanting to try some more of those \'advanced techniques\' you mentioned before, wanting to try and drive your cock down her throat and flood her gullet with all the cum you can muster.  A symphony of ideas and images ring out, drowning your thoughts and overwhelming you with a single chorus chant.  Phylla\'s voice stands out Cum! CUM! <b>PLEASE I NEED IT! CUM!</b></i>"' );
 		EngineCore.outputText( '\n\nYou open your eyes to find Phylla staring up at you; you didn\'t even feel her break the kiss.  Never breaking her longing gaze, she once again wraps her mouth around your member and starts bobbing up and down.  Her eyes continue to lock on yours looking like a begging dog.  You feel the shaft and head of your cock rub along her lips as if you were fellating your own member.' );
 		//If PC can Autofellatio:
-		if( CoC.getInstance().player.canAutoFellate() ) {
+		if( CoC.player.canAutoFellate() ) {
 			EngineCore.outputText( '\n\nThis isn\'t really a new experience for you, but it\'s different this time as you feel Phylla\'s mind being overcome with the need for your nectar.' );
 		}
 		EngineCore.outputText( '\n\nShe beseeches both your mind and your body to orgasm and fill her mouth and stomach with your seed.' );
@@ -1577,7 +1577,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pass on her offer, not wanting to know what THAT sensation' );
 		//If PC can't Autofellatio:
-		if( !CoC.getInstance().player.canAutoFellate() ) {
+		if( !CoC.player.canAutoFellate() ) {
 			EngineCore.outputText( ' or anything like it would feel like.' );
 		} else {
 			EngineCore.outputText( ' feels like with Phylla\'s mind linked to your own.' );
@@ -1592,55 +1592,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nTo your surprise, Phylla has fully embraced this new talent you\'ve helped \'teach\' her' );
 		if( linked !== undefined && !linked ) {
 			EngineCore.outputText( '.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.TIMES_LINKED_BJ_SUCK ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.TIMES_LINKED_BJ_SUCK ] === 0 ) {
 			EngineCore.outputText( ', ' );
 			//If PC linked, first time occurring:
 			EngineCore.outputText( 'leading to you jesting through the link and calling her a damn dirty cheater.' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_LINKED_BJ_SUCK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_LINKED_BJ_SUCK ] > 0 ) {
 			EngineCore.outputText( '  You can feel her relying less and less on the link with every subsequent time; there\'s no doubt in your mind that she will no longer "<i>cheat</i>" her way into making you cum before you know it.' );
 		}
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		EngineCore.outputText( '\n\nShe giggles up at you as she bobs back and forth along your shaft, sensing the telltale signs of your pending orgasm with her mouth.  When you feel the moment of climax finally arrive, you grab onto the back of her head with your hands. She jumps at the unexpected feeling, but before she can react you roar, thrusting your hips forward.  Phylla, like a pro, times her motions with your release, drawing a steady stream of semen out of your rod.  With each spasm of your cock you shoot your cum into her mouth.  She doesn\'t relent until she\'s got a mouthful, pulling free of your ' + Descriptors.cockDescript( x ) + ' as ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'thin' );
-		} else if( CoC.getInstance().player.cumQ() > 1000 ) {
+		} else if( CoC.player.cumQ() > 1000 ) {
 			EngineCore.outputText( 'thick' );
 		}
 		EngineCore.outputText( ' strands of cum hang wildly between her lips and your prick.' );
 		//If cum volume over 1000ml
-		if( CoC.getInstance().player.cumQ() > 1000 ) {
+		if( CoC.player.cumQ() > 1000 ) {
 			EngineCore.outputText( '  Though she might have a mouthful, you\'re not finished yet!  You continue to unload the remainder of your hot load on her breasts and stomach.' );
 		}
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			//If multi cock
 			EngineCore.outputText( '  Your other cock' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's shower' );
 			} else {
 				EngineCore.outputText( ' showers' );
 			}
 			EngineCore.outputText( ' her hands and body in your white goo as she continues to pump ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'on each of ' );
 			}
 			EngineCore.outputText( 'them lovingly.' );
 		}
 		EngineCore.outputText( '\n\nWith a heavy sigh, and significantly lighter ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'balls' );
 		} else {
 			EngineCore.outputText( 'in the pelvis' );
 		}
 		EngineCore.outputText( ', you rub Phylla\'s hair playfully' );
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] !== 1 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] !== 1 ) {
 			EngineCore.outputText( '.' );
 		}//If first time:
 		else {
 			EngineCore.outputText( ' and congratulate her on her first time.' );
 		}
 		EngineCore.outputText( '\n\nShe smiles, but you notice that her cheeks are puffed up; turning your head quizzically, you ask Phylla what\'s she doing.  Embarrassed, she blushes and opens her mouth.  All of your deposit clings to her tongue and teeth. She can\'t talk but you can tell that she\'s looking for direction.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		//[Swallow it up]   [Spit it out]
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Swallow It', this.swallowDatJismPhylla );
@@ -1661,11 +1661,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//Corrupt BJ Ending
 	AntsScene.prototype.corruptPhyllaEndings = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.smallestCockIndex();
+		var x = CoC.player.smallestCockIndex();
 		EngineCore.outputText( '"<i>A slut that can\'t suck a dick... how can this get any worse?</i>"  You ponder to yourself while rubbing your nasal bridge. You tell the innocent little ant that she\'ll learn how to suck a mean cock, even if it kills her.  You\'re knee deep at this point - might as well turn her into something salvageable.  Commanding her attention, you lift her face up and hover your ' + Descriptors.cockDescript( x ) + ' close to her lips, smothering her lips with your precum.  She attempts to turn away but you react before she can.  Holding her head in place you comment on how this is what you want from her.' );
 		EngineCore.outputText( '\n\n"<i>Open wide!</i>"  You forcefully tell her.  Phylla does it immediately, seeing that you\'re using your \'serious voice.\'  You slide your cock in and smash into her tongue.  Smirking, you instruct your fuck toy to close up her mouth and form a tight seal around your rod; you have no intention of fucking an orifice that resembles a goblin brood mother\'s twat.  Phylla complies, but pulls away to hesitatingly ask if she\'s ' );
 		//If first time:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 1 ) {
 			EngineCore.outputText( 'achieved the desired effect.' );
 		}//Every other time:
 		else {
@@ -1679,9 +1679,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(If PC has Vagina Add Section - Vagina)
 		//(Else Continue to - Continuation)
 		//Multidick:
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '\n\nGasping for a brief moment, you ask Phylla to tend to ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'your other dick' );
 			} else {
 				EngineCore.outputText( 'the rest of your dicks' );
@@ -1689,7 +1689,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( ' if she would be "<i>so kind</i>".  With gusto, her four hands shoot up and take your cocks into their firm grips.  Phylla mumbles something but absentmindedly realizes she still has your cock in her mouth and gives up on whatever it was she was trying to say.' );
 		}
 		//Vagina:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nYou ask Phylla if she can take care of your womanhood while she\'s at it.  Phylla moves one of her small arms in between your legs and rubs against your ' + Descriptors.clitDescript() + '.  She caresses your labia in between her fingers before inserting them inside of you.  Phylla begins working her wrist diligently in conjunction with her head bobbing.' );
 		}
 		//Continuation:
@@ -1697,9 +1697,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>WELL?!</i>" You cheekily yell, making sure your shout echoes off the walls.  Phylla looks up at you with glazed over eyes, letting out a soft appreciative moan from behind your cock.  You act deaf and decide to ask her again, telling her you can\'t quite "<i>hear</i>" her.  Another moan, much louder than the last, rings out from Phylla\'s full mouth.  Her tongue works at a rapid pace, as if begging you to flood her mouth with your cum and drown her taste buds in your salty surprise.' );
 		EngineCore.outputText( '\n\n"<i>That\'s more like it,</i>" you think to yourself, lowering your other arm to the back of her head as you pump her like the local well.  The pressure in your loins cannot be contained any longer; the orgasm your body craves will not be denied this day!  Your cock flexes as a wave of ecstasy washes over you.  Grunting with great relief and release, your semen rushes into her mouth, filling her wanting craw with your salty jizz on the first salvo.  Her tonsils takes the brunt of the second salvo, followed by the back of her throat for the third.  Pulling out, you point your spasming spear of lust into Phylla\'s face, giving her a ' );
 		// If PC has under 10ml of Cum:
-		if( CoC.getInstance().player.cumQ() < 10 ) {
+		if( CoC.player.cumQ() < 10 ) {
 			EngineCore.outputText( 'tiny' );
-		} else if( CoC.getInstance().player.cumQ() < 100 ) {
+		} else if( CoC.player.cumQ() < 100 ) {
 			EngineCore.outputText( 'respectable' );
 		} else {
 			EngineCore.outputText( 'massive' );
@@ -1709,7 +1709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		if( EngineCore.silly() ) {
 			EngineCore.outputText( '\n\nYet, your constant stream does not stop.  It gets worse - much worse!  The flow of cum simply cannot be controlled as your loins release their fury into Phylla\'s face.  "<i>OH, GOD! I CAN\'T STOP CUMMING! OH, FUCK!</i>" You howl out.' );
 			EngineCore.outputText( '\n\nPhylla certainly doesn\'t mind though, bathing her body in your torrent of cum as you continue your painful and torturous ejaculation.  The pain causes your deranged howls to become deeper and longer, echoing throughout the colony as your body squeezes your loins like a package of soy, emptying you out all over your horny slut until there\'s no sperm left in your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls]' );
 			} else {
 				EngineCore.outputText( Descriptors.cockDescript( x ) );
@@ -1729,18 +1729,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		//***Both mode endings converge here***
 		EngineCore.outputText( '\n\n...Can you? You muse again, thinking about it.  After a few moments of helping Phylla to the pile of, now very wet, cushions she calls a bed, you finish donning your [armor] and head back to the surface.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//"<i>Use Dick</i>"
 	AntsScene.prototype.dickPhylla = function() {
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You give Phylla a devious look that denotes you didn\'t come here to just talk.  She looks a little surprised and embarrassed for you as you start removing your [armor].  Noticing her watching, you pull each article of clothing off a little slower, letting her lust build.  You seductively drop your armor, completely revealing yourself to her.  You can see her eyes widen as she visibly feasts on your features.' );
 		//(NO BJ experience)
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_BLOWJOBS ] === 0 ) {
 			EngineCore.outputText( '\n\nYou see it suddenly dawn on her that you\'re completely nude. Phylla quickly turns her head away but you see her eyes still very focused on your manhood' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
@@ -1753,28 +1753,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nOnce she\'s gotten you sufficiently stiff, she uses her tremendous strength to push you onto your back - clearly she wants to be on top first.  Holding your shoulders with her two upper hands, she guides your cock to meet her dripping cunt with her lower two.' );
 		//(If Phylla is not laying Eggs)
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 			EngineCore.outputText( '\n\nPhylla bends her abdomen so that the underside tip of it runs down the ridge of your shaft, leaving a very warm clear liquid on your privates that tingles, causing you to groan in pleasure.' );
 		}
 		EngineCore.outputText( '\n\nOne of her lower hands starts to slowly pump your member as she starts to touch her long clit with the other.  Even pinned as you are, you can see her clit start to grow and stick out between her lips.  "<i>Can I...  I mean... can I put you... inside me?</i>"' );
 		//3-4 times:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_FUCKS ] >= 3 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_FUCKS ] >= 3 ) {
 			EngineCore.outputText( ' she asks playfully, knowing full well that that\'s what you came here for.' );
 		}//(First time)
-		else if( CoC.getInstance().flags[ kFLAGS.PHYLLA_FUCKS ] === 0 ) {
+		else if( CoC.flags[ kFLAGS.PHYLLA_FUCKS ] === 0 ) {
 			EngineCore.outputText( ' You nod quickly.' );
 		}
 		//(Subsequent fucks)
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_FUCKS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_FUCKS ] > 0 ) {
 			EngineCore.outputText( '\n\n"<i>Do you have to ask?</i>"  You ask her while grinning mischievously; something that causes her to smirk back at you.' );
 		}
 		//3-4 times:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_FUCKS ] >= 3 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_FUCKS ] >= 3 ) {
 			EngineCore.outputText( '\n\nShe seems like she\'s losing some of her shyness, or at the very least feels comfortable enough around you to assert more of her personality.' );
 		}
 		EngineCore.outputText( '\n\nYou watch as she spreads herself apart for you and guides your cock into her.  As the head of your penis enters her, she lets out a weak moan.  Then in a wicked attempt to make her cum, because you know it\'s so easy, you thrust your hips upwards forcing as much as you can into her.' );
 		EngineCore.outputText( '\n\nHer eyes widen in surprise as your ' + Descriptors.cockDescript( x ) + ' fills her.  She howls a blissful scream as she drools forth her girl fluids, coating your cock ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'and balls ' );
 		}
 		EngineCore.outputText( 'in her sexual liquids.' );
@@ -1782,13 +1782,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>I... this feels... gods!  More!</i>"  You hear Phylla\'s futile attempts to construct a sentence between ecstatic exhales and moans.  She throws her head back, arches her back and shifts her upper hands from your shoulders to your legs as she starts to ride you like you\'re a stolen stallion. Glancing between your legs you see her clit peeking out from between her folds as her body pumps away on top of you.' );
 		EngineCore.outputText( '\n\nReaching down you give her hardening love knob a light pinch.  This causes your lover to roar in pleasure, and momentarily pause her thrusts onto you.  "<i>Harder!  Please!</i>"  She implores you as she picks up her pace.' );
 		//PC has only two to four dicks, and a vagina:
-		if( CoC.getInstance().player.cockTotal() >= 2 && CoC.getInstance().player.cockTotal() <= 5 ) {
-			if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.cockTotal() >= 2 && CoC.player.cockTotal() <= 5 ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '\n\nAs Phylla pleasures your cocks she uses another hand to make sure your lady parts are seen to as well.' );
 				//(Transitions to Vagina Dialog)
 			} else {
 				EngineCore.outputText( '\n\nYou look at Phylla and shrug at her, telling her you aren\'t sure if you can do that, given that you have some... \'members\' that are feeling a little left out.  With a flirty yet annoyed expression,  your lover reaches down and takes hold of your unloved  ' + Descriptors.multiCockDescriptLight() + '.  She coos as she starts to pump ' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'it' );
 				} else {
 					EngineCore.outputText( 'them' );
@@ -1798,8 +1798,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			}
 		}
 		//PC has over five dicks:
-		if( CoC.getInstance().player.cockTotal() > 5 ) {
-			if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.cockTotal() > 5 ) {
+			if( CoC.player.hasVagina() ) {
 				//PC has over four dicks and a vagina:
 				EngineCore.outputText( '\n\nAlthough she attempts to use all of her hands to pleasure as many cocks as she can, even switching between them proves to be too much for the ant morph.  "<i>There\'s too many; I can\'t take care of all of them!</i>"  You gesture to your [vagina], as if to tell her she can at least take care of three of your cocks and your wet pussy.' );
 				//(Transitions to Vagina Dialog)
@@ -1809,12 +1809,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			}
 		}
 		//Vagina Dialog:
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\n"<i>Let\'s see how you like it!</i>" Phylla whispers being playfully aggressive.  She reaches down with one of her uncocked hands and pinches your [clit].  Immediately a wave of euphoria washes over you and you respond by giving her long clit a pinch back.  You both moan in unison, then look at each other and chuckle, breathing heavily.' );
 		}
 		//First Time, PC is multi-genitaled:
-		if( CoC.getInstance().player.gender >= 3 ) {
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_FUCKS ] === 0 ) {
+		if( CoC.player.gender >= 3 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_FUCKS ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>God I have to get better at this, leaving my lover\'s sex all alone...  L-let me fix that.</i>"  She spits out between moans of pleasure, slightly embarrassed that she forgot her lover\'s OTHER genitalia. Wasting no time in order to make up for her "<i>mistake,</i>" Phylla does her best to please every part of your body.' );
 			}//(Transitions to Phylla does Vulcan shit to PC)
 			//Subsequent Times, PC is multi-genitaled:
@@ -1829,24 +1829,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nPhylla turns herself to face away from you on all fours... or in her case, all sixes.  She raises her ass into the air as if beseeching you to mount her; the lingering taste of her connection to you gives you a small idea of the desire she has for having you dominate her and fuck her until you gush forth with the seed of life.  Her posture the only motivation you\'ll ever need, you shift your hips to insert yourself from behind her.  Her abdomen rises upward and she uses one of her smaller sets of arms to spread herself wide open for you.  She turns to look back at you and you feel her in your mind, calling for you to take her and for you to assume utter control of the act.' );
 		EngineCore.outputText( '\n\nTaking her "<i>hint,</i>" you slam your cock into her pussy, making sure to get as deep as you can. Your initial thrust makes a very loud, squishy noise as your cock enters her soaked canal.  Your mind almost blacks out from the sheer sensual overload you both feel as a shared consciousness, unable to handle both hers and your own.  Phylla\'s head collapses into her hands as she releases a series of stammering moans.  Her hips twitch slightly with euphoria as she starts to slowly move up and down, her body desperately begging for more cock.' );
 		//If PC only has the two non TD dicks (greater than 42 inches):
-		if( CoC.getInstance().player.tentacleCocks() === 2 ) {
+		if( CoC.player.tentacleCocks() === 2 ) {
 			EngineCore.outputText( '\n\nNow content with her efforts, Phylla\'s body sucks in your long cock as your other is deep inside her. You feel her warm breath escape the seal she\'s made around the head of your cock when you hit the right spots inside her that cause her to moan.' );
 		}
 		//(Transitions to Doggy style Phylla or If PC has TD)
 		//PC has more than two Tentacle dicks (greater than 42 inches):
-		else if( CoC.getInstance().player.tentacleCocks() > 2 ) {
+		else if( CoC.player.tentacleCocks() > 2 ) {
 			EngineCore.outputText( '\n\nNot content with just a little oral attention, you slither your other tentacle cocks up to her hands and give them a hard smack, soliciting a surprised hum from Phylla.  Seeing her lover\'s tentacle penile appendages caressing the back of her hand helps to clue her in that she still has some "<i>capacity</i>" to service you.  Propping herself upwards with a pillow, Phylla takes to leaning on her elbows as she begins to stroke and tease your cocks, coaxing a small flow of pre-cum in the process.' );
 			//(Transitions to Doggy style Phylla)
 		}
 		//PC has one-two dicks 42 to 48 inches in length:
-		//if(CoC.getInstance().player.cockTotal() >= 2)
+		//if(CoC.player.cockTotal() >= 2)
 		//outputText('\n\nWell, if she wants more dick, then maybe she can be persuaded to put her mouth to use?  Expertly positioning your prick(s), you give her a quick jab in the chin in order to get her attention, causing her to look up at your over her shoulder.  You give her a knowing look and shoot a glance down at what poked her in the chin; she follows your gaze.  "<i>Well, you did want more of them,</i>" you convey to her with a wickedly playful grin, as though you\'re a kid in candy shop.  Phylla takes to your  ' + Descriptors.cockDescript(a/ & b) + ' with a zeal you've never seen before, especially in a woman so shy and uncertain. (Transitions to Doggy style Phylla)
 		//Doggy style Phylla:
 		EngineCore.outputText( '\n\nYou give her body what it wants as you start humping her; using her abdomen as a brace, you reach a very staccato rhythm with your thrusts as she spreads out all four of her arms in front of her to hold herself in place.  With almost every other pump you feel her mind and her body building to orgasm, flooding your mind with thoughts of doing the same.  Her cunt seems to be calling upon you to fill it as it clamps down tighter with each plunge of your cock.' );
 		EngineCore.outputText( '\n\nHolding out just isn\'t feasible anymore, and with one more great slam into her, you get as deep as you can and pin [oneCock] inside Phylla as you release the hot seed of life.  As your grip tightens around her abdomen, you hear her let out a gleeful cry of satisfaction.  The quivering mass of meat spear causes her to orgasm as well, washing your lower body in her warm sweet-smelling girl cum.  You feel her transmit the feeling of her insides swallowing your load, as her pussy\'s spasming starts to subside.' );
 		EngineCore.outputText( '\n\nYou both collapse in a hot, sweaty... and sticky heap, dozing off for quite some time only to wake after an hour of uninterrupted sleep, a bit hung over from the mind sharing and physically fatigued from the romp.' );
 		EngineCore.outputText( '\n\nPhylla stirs next to you, and groggily says, "<i>You should come down more often.  I mean...  I miss you sometimes...</i>"  Her shyness returns as she slowly recovers from the small sex-coma you placed each other in.  You say you\'ll think about it and wink at her as you get dressed and head back to camp, leaving her to eagerly await the next time you come to take her once again.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Straight Sex (Lesbian/Fisting) - Written
@@ -1857,7 +1857,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>Do you... want me to... I mean, you know...</i>" she says shyly as she blushes.' );
 		EngineCore.outputText( '\n\nWithout saying a word, you extend your hand and beckon her over to you with a hooked finger. Raising your eyebrows seductively, you make your intent crystal clear for her.  She quickly scampers off the bed and kneels in between your [hips].  Her upper two hands hold your legs apart, resting on your inner knees.  Her smaller set of hands gently begin to massage your inner [legs] right on the sides of your pussy lips, driving pleasure through your thighs.  It\'s not long before beads of lubricant start to flow out of your quickly moistening labia, a slight moan of sexual excitement slipping past your lips as Phylla\'s tongue starts to lick the lubricant coming out of you, pausing only briefly to taste your juices in her mouth like a fine wine.  You fall forward as her mouth finds your cilt, wrapping your hands around her head to encourage her to continue.  Your legs attempt to wrap around her head but her upper arms\' tremendous strength prevents them, leaving you "<i>hopelessly</i>" wide open for her assault.  Her lower hands stop massaging you, and for a moment leave you to wonder what\'s going on down there.  As you\'re about to ask why she stopped, her mouth plays erotically with your clit and one of her smaller hands spreads you wide open.' );
 		//If PC has cocks:
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nNot wanting to deprive you of what your body painfully wants, Phylla grabs hold of [oneCock] and starts pumping away as she does wonders on your female anatomy with her mouth.' );
 		}
 		EngineCore.outputText( '\n\nMoaning loudly into the air, the aroma of earth, sweat, and sex fills your nostrils.  You can\'t help but feel a little embarrassed to be so fully exposed to her, but that quickly passes as one of her fingers slips along your labia and brushes past the opening of your ' + Descriptors.vaginaDescript() + '.  Guided by the wetness of your ever eager pussy, her hard fingertips slide forward into your body.  You moan again at this slow insertion.  Encouraged, Phylla rubs up and down the walls of your vagina, leisurely at first but with mounting vigor, searching for your G-spot.' );
@@ -1868,14 +1868,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nHer whole body starts slowly thrusting on top of you, hard nipples rubbing against your own as she rocks back and forth, working her clit along your hand.  Suddenly, you curl two of your fingers around her on one of her gyrations backwards.  She moans loudly, her upper half collapsing onto your chest as she unknowingly forces your two fingers into her.  Her hips quickly start writhing on top of your fingers as she breathes sighs of ecstacy into your breasts.  Your fingers start to expertly work their way deeper and deeper into her with each thrust.  She sits upright on top of you, her vagina hovering just above your now drenched hand.  Feeling her in your mind... she\'s playfully hiding something from you but you can\'t find out what it is as you\'re lost in the shared pleasure.  Phylla\'s eyes meet yours and with an almost pleading tone she implores, "<i>I need you, to do this, I want this... please~</i>"' );
 		EngineCore.outputText( '\n\nIn your mind\'s eye you see your fingers make a spear-like formation and you instantly understand what Phylla wants.  You smile wickedly as you heed her wish, making your hand like the tip of a spear, knowing full well what will happen next, and in that moment Phylla drops her hips.  You feel her excitement as all four fingers enter her with alarming speed and force, stretching the walls of her pussy wide, happening upon her G-spot in a sheer stroke of luck.  The link, sharing all of its intricacies and sensations, floods your body with the wild satisfaction this shy little woman has, and you scream in ecstatic pleasure.  One of Phylla\'s larger hands' );
 		//(If pussy is Virgin or tight:)
-		if( CoC.getInstance().player.hasVirginVagina() || CoC.getInstance().player.vaginalCapacity() <= 10 ) {
+		if( CoC.player.hasVirginVagina() || CoC.player.vaginalCapacity() <= 10 ) {
 			EngineCore.outputText( ' tries to fit itself into you, only managing to insert her fingers into your pussy.  Despite the "<i>setback,</i>" Phylla' );
 		}
 		//(If pussy is loose or gaping: Continues as follows...)
 		EngineCore.outputText( ' thrusts into your cunt simultaneously.  You feel her hit the right spot, and an explosion of ecstasy floods your bodies as your minds join together in shared orgasm.  She squirts her warm girl cum all over you, coating your stomach in the sweet smelling liquid.  In return you cum into her hand and release what girl cum you can, but it\'s nowhere close to as much as Phylla produces.  You slowly remove each others\' hands from their respective vaginas and collapse into each other\'s arms.' );
 		EngineCore.outputText( '\n\nYou wake up about an hour later, still smelling of sex and covered in each other\'s fluids.  "<i>You should come down more often.  I mean... I miss you sometimes...</i>"  Her shyness returns as she slowly recovers from the small sex-comas you had placed each other in.' );
 		EngineCore.outputText( '\n\nYou say you\'ll think about it and wink at her as you get dressed and head back to camp, leaving her to eagerly await the next time you come to take her once again.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -1891,14 +1891,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nPhylla slowly recovers and looks back at you, trying to remember why you dropped by.  Then you, with a wicked smile, watch as her eyes widen in remembrance.' );
 		EngineCore.outputText( '\n\n"<i>I can\'t- just not like this... can\'t you see...</i>" she attempts to persuade you as she rambles on, but you ' );
 		//If Corruption is less than 50:
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'don\'t care how she looks right now. Besides, some creatures around here appreciate a little carnal love; it helps with the birthing process.' );
 		}//If Corruption is more than 50:
 		else {
 			EngineCore.outputText( 'could care less for her pathetic attempts at concealing her pregnant form; you\'re horny, and she\'s going to put out, regardless of her insecurities.' );
 		}
 		EngineCore.outputText( '\n\nYou walk over to her and ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'lovingly' );
 		} else {
 			EngineCore.outputText( 'apathetically' );
@@ -1922,7 +1922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou feel her vagina almost crush your fingers as a vice-like contraction causes her whole body to tense up.  It\'s almost like you\'re caught in a wrestling hold; you wince as what you thought would be pleasurable turns to pain.  It isn\'t long before the contraction subsides, and Phylla moans loudly as her vagina releases your fingers along with a small flood of lubricant.' );
 		EngineCore.outputText( '\n\nYou quickly glance at the tip of her abdomen as an egg covered in syrup-like birthing goo slowly pushes her folds open and glides gently to the ground.  As you remove your fingers from her slobbering cunt, you turn your head up to look at Phylla\'s face.  Before you can ponder your next move, Phylla darts in and plants a firm kiss on your lips.' );
 		//(If corruption is more than 50:
-		if( CoC.getInstance().player.cor > 50 ) {
+		if( CoC.player.cor > 50 ) {
 			EngineCore.outputText( '\n\n(Oh, great, here we go again...)' );
 		}
 		EngineCore.outputText( '\n\nSuddenly, as if two magnets had locked their opposite poles together, your minds link to each other.  It\'s extremely uncomfortable for you at first, unlike the previous times.  Experiencing the feeling of being in constant labor quickly takes over the forefront of your mind.' );
@@ -1932,14 +1932,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nThat\'s not fair!  You feel her birthing contraction coming up and conclude that two can play at that game.  Despite having no experience with this, you somehow manage to withhold her moment of respite.  You can taste her annoyed frustration but you opt to replace the feeling with your utter bliss, as you grab both of her enlarged breasts with your hands, and squeeze them so milk shoots all over your chest and you catch some of the falling droplets in your mouth.  Your hips still thrust like a madman, mashing into her pelvis as the pulses in her pussy start to synchronize with your thrusts.' );
 		EngineCore.outputText( '\n\nIn a similar fashion to the joining of minds, your bodies appear to be sharing information, too.  Then you feel it, just as suddenly as Phylla does.  This contraction can\'t be held back anymore, and it might have been a mistake to hold it back in the first place.  Phylla\'s whole body tightens around you, all four of her hands pulling, crushing you into her chest, causing your dick to delve so deep that' );
 		//(If PC has balls:
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' your balls slap against the smoothness of her pelvis.' );
 		} else {
 			EngineCore.outputText( ' your knees grind along the edge of her makeshift throne.' );
 		}
 		EngineCore.outputText( '\n\nThrough the link, you can feel the busy work of birth start to work its way down her body from Phylla\'s mind.  As it increases in intensity, her nails dig unconsciously into your back.  Taking your derriere in her lower arms, Phylla thrusts you completely inside her so that your cock hits the deepest part of her cunt in perfect timing with her contractions.' );
 		//(If PC is under 5 feet tall:
-		if( CoC.getInstance().player.tallness < 60 ) {
+		if( CoC.player.tallness < 60 ) {
 			EngineCore.outputText( '\n\nThis act actually lifts you off your feet, but with Phylla\'s tremendous strength you\'re sure she\'ll be able to hold you up.' );
 		}
 		EngineCore.outputText( '\n\nThe walls of her pussy warp and wrap around you so tightly that you can feel every single inner detail of her insides.  Her clit turns so hard that if you weren\'t linked you would have assumed a small blunt fleshy clamp was pushing into the base of your dick.  As the contraction passes, your joined minds share in the dual pleasures of your imminent orgasms.  It\'s as though time has frozen in this very moment before you and Phylla orgasm.  At the very threshold between want and satisfaction, you feel that you both have become a single consciousness; together you linger there for a moment, as if holding your breaths.  As your single mind seems to let out a prolonged breath, your link splits, sending you both crashing back into your own bodies and individual minds.' );
@@ -1947,8 +1947,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou feel the contraction pass quickly through all the different stages of her abdomen and almost like a repeating crossbow, three eggs drop abruptly out of her tip.' );
 		EngineCore.outputText( '\n\n"<i>I... I...</i>" she gasps, trying to catch her breath.  Before she can finish her sentence, she collapses in your arms, still sitting on her throne with you inside her.' );
 		//If Corruption is less than 75 & If PC STR over 70:
-		if( CoC.getInstance().player.cor < 75 ) {
-			if( CoC.getInstance().player.str >= 70 ) {
+		if( CoC.player.cor < 75 ) {
+			if( CoC.player.str >= 70 ) {
 				EngineCore.outputText( '\n\nYou muster the last of your strength to carry her over to her bed, struggling to overcome the exertive efforts of your mating and the weight of her abdomen. Eventually making it to her bedding, you lay her down and give her a light kiss on the lips as she drifts off to the land of dreams. Quietly you gather your things and head back to camp.' );
 			}//If Corruption is less than 75 & If PC STR less than 70:
 			else {
@@ -1961,7 +1961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>Come on, march!</i>"  You command her.  "<i>Over here, Phylla, one foot over the other; yes, that\'s a good breeding slut.</i>"' );
 			EngineCore.outputText( '\n\nAfter a moment of staggered walking you allow Phylla the courtesy to flop down onto the hard surface of the bed, pausing only for a moment to look over your pregnant little whore.  After a quick remark to her on how she\'d better be ready for another round soon, you leave her to the mess you have made as you head back to camp.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//While Giving Birth (Female) - Written
@@ -1971,7 +1971,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>I... look, we could wait until I\'ve given birth... Wouldn\'t you want that?</i>"  She glances behind her at her engorged abdomen.  "<i>I... It won\'t ta-AHH!</i>"' );
 		EngineCore.outputText( '\n\nShe stops mid-sentence as a contraction shoots through her body, making the entirety of it tense up.  Then with an almost sexual moan she shudders as all her muscles relax and the contraction pushes a cyclentrial egg out from the birthing slit at the tip of her abdomen. As if on cue, one of your many children quickly runs in from the shadows and scoops up the egg to remove it and take it somewhere deeper into the colony.  Clearly there\'s some kind of greater system going on here.' );
 		EngineCore.outputText( '\n\nAs you walk back in front of her you begin to strip down, leaving your armor and underwear strewn about behind you.' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '  You slither almost whorishly with a slow, measured wriggle,' );
 		} else {
 			EngineCore.outputText( '  You walk almost whorishly with a slow, sensual gait,' );
@@ -1979,7 +1979,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( ' allowing her to see the sensual swivel of your ' + Descriptors.buttDescript() + ' from left to right and back again as you visibly entice Phylla\'s mind to lustful thoughts.  Once you\'re facing Phylla once again, you see her lower two hands are still covering her breasts and the upper two are gripping the stone chair she sits in.' );
 		EngineCore.outputText( '\n\n"<i>I didn\'t mean... I just thought...</i>"' );
 		//If Corruption is less than 75:
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nPressing one of your fingers to her lips to quiet her, you slowly whisper sweet nothings into her ear.  This distraction is just the thing you needed.  Running your hand from her lips, you drag your nails ever so slightly down her neck in a way that ignites Phylla\'s sexual fires.  Eventually your hands come to rest on hers.  Playfully hooking one finger around one of the hands that\'s covering her breasts, you use it to slowly pull Phylla\'s hand back to reveal her hardened nipple.' );
 		}//If Corruption is more than 75:
 		else {
@@ -1995,14 +1995,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>Huangg~</i>"  Phylla\'s body tightens as she moans, another egg must be coming.  "<i>I can\'t... take mu~... more.</i>"  She struggles to say between moaning gasps for air.  "<i>I~...</i>"' );
 		EngineCore.outputText( '\n\nHer hands lift your face up and her glazed eyes stare blankly into yours; she must want to link badly if she\'s not even gazing intently into your eyes.' );
 		//PC is pure
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nSmiling, you wrap your hand around the back of her head and pull her into a deep kiss.' );
 			EngineCore.outputText( '\n\nFeeling the link almost immediately, it hits you as hard as a Minotaur wielding a battle axe.  A fireworks display of emotions wash over you; clearly, your mind was completely unprepared for this cavalcade of feeling.' );
 			//If PC has IS pregnant:
-			if( CoC.getInstance().player.pregnancyIncubation > 0 ) {
+			if( CoC.player.pregnancyIncubation > 0 ) {
 				EngineCore.outputText( '\n\nThe feeling of your pregnancies is instantly transferred between yourself and Phylla; you feel the warmth and energy of her unborn children inside of you, and you can feel her experiencing the warmth of the life still growing within you.  At this moment, you two understand perfectly what it\'s like for each other to be with child; it\'s a pretty... enlightening experience... that\'s distracting you from the task at hand.' );
 			}//If PC has been pregnant:
-			else if( CoC.getInstance().player.statusAffectv1( StatusAffects.Birthed ) > 0 ) {
+			else if( CoC.player.statusAffectv1( StatusAffects.Birthed ) > 0 ) {
 				EngineCore.outputText( '\n\nYou\'ve been pregnant before, but this... this is completely different.  You feel every stage that each of Phylla\'s eggs in her abdomen is in.  You feel what it\'s like to have your only goal, your only want in life being to mate and have children for the rest of your life.  It\'s an amazing turn on for you - you feel a warmth start to spread between your own legs.' );
 			}//If PC has NEVER been pregnant:
 			else {
@@ -2015,7 +2015,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nLooks like you need to teach Phylla that life\'s full of disappointment.  You pretend not to see the need in her eyes; heavens know you don\'t need another headache.  You\'ve got depraved fantasies to carry out after all!' );
 		}
 		EngineCore.outputText( '\n\nYou ' );
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( 'lovingly' );
 		} else {
 			EngineCore.outputText( 'dismissively' );
@@ -2025,22 +2025,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nAs a reward for your tongue\'s new position, you hear a prolonged groan of appreciation as she experiences the foreign sensation in her pussy.  Every contraction can be felt as her cunt wraps and releases your probing licker.  Pausing occasionally, you slurp up her sexual fluids, but are constantly assaulted by her rather tight, wet, and delicious pussy. Your tongue rattles around inside of her like an ant caught in a windstorm.  Pulling your tongue out, you lovingly lick along her clit, causing her to draw in a deep breath while grasping your hair even harder.  Phylla grunts girlishly while wrapping her legs firmly around your head.  With a slight shove she forces your face back into her cunt with tremendous force - obviously she\'s not finished with you yet.' );
 		EngineCore.outputText( '\n\nYou decide to make the best of it considering her strength; it could always be worse.' );
 		//If corruption over 50:
-		if( CoC.getInstance().player.cor > 50 ) {
+		if( CoC.player.cor > 50 ) {
 			EngineCore.outputText( '\n\nYou\'ll remember this and make her pay for it later.' );
 		}
 		EngineCore.outputText( '\n\nThe resulting sensation of your second go at her pussy causes her to release a mixture of a moan and whine as she bites her lower lip; being overwhelmed by ecstasy must be nice.' );
 		//If PC is linked:
-		if( CoC.getInstance().player.cor <= 50 ) {
+		if( CoC.player.cor <= 50 ) {
 			EngineCore.outputText( '\n\nYou hear her in your mind keep going.  It\'ll be your turn soon... please just... a little more.' );
 		}
 		EngineCore.outputText( '\n\nBy now she\'s clawing fiercely at your head in a violent yet caressing fashion as each millisecond of your efforts cause instantaneous reactions from your lover.  "<i>MMMhhPHHp!</i>"  She moans behind a closed mouth before managing to utter, "<i>Oh, MY-AHH!  Just like that!  Right there!  DON\'T-NGGHH, stop!</i>"' );
 		EngineCore.outputText( '\n\nShe\'s not ready to cum yet... is she?' );
-		if( CoC.getInstance().player.cor <= 50 ) {
+		if( CoC.player.cor <= 50 ) {
 			EngineCore.outputText( '  You probe her mind and are almost taken aback."<i>NO!  Just please keep going!</i>"  You hear her voice ring out in your head.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Please, lick me... right... THERE!</i>"  She moans out in her ecstasy quickly covering her mouth with the pair of hands not rooted in your hair in an attempt to muffle her pleasurable noises.' );
 		//If Corruption is less than 50:
-		if( CoC.getInstance().player.cor <= 50 ) {
+		if( CoC.player.cor <= 50 ) {
 			EngineCore.outputText( '\n\nWhile part of you wants to hear her moan her pleasures to the entire colony, you figure you\'ll allow her to not disturb the colony.' );
 			EngineCore.outputText( '\n\nYou continue your attack on her pussy as she tries desperately to contain her moans of pleasure, causing a muffled echo to ring out in the bedchamber as you slide your tongue in and along her pussy.  She\'s got to be close to cumming, you think to yourself, and realize you\'ve lost yourself in the moment; your ' + Descriptors.vaginaDescript() + ' has been neglected... perhaps it\'s her turn to tend to you?  As if you had said it out loud, Phylla eases her grip on your hair and unwraps her legs from behind your head, composing herself before rising to her feet.' );
 			EngineCore.outputText( '\n\n"<i>How would... you like me... to do this?</i>"  Phylla manages to moan out between staggered breaths as you playfully shove her backwards onto the bed.  You wait until she finishes positioning her massive abdomen, curling it around the both of you as she lays on her back.  You hover your hips just above her face, letting her smell your scent and feel your heat in the hopes that she\'ll get the idea and take over from here.' );
@@ -2052,7 +2052,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nWith those pesky hands out of the way, you dart back down to her clit and manhandle it with your tongue, causing her to erupt into a loud series of moans and labored breathing as she resigns herself to the full brunt of euphoria to take her.  Phylla gives in to instinct, letting it consume her as she slams backward onto her bed, milk-filled breasts swaying in the air as she spasms and screams as loudly as her body will let her.  Her leg even begins to twitch against your shoulder, feeding off of the hypersensitivity you have inflicted on her... no, the fuckhole that belongs to you.' );
 			EngineCore.outputText( '\n\nSensing that she is nearing an orgasm, you pull back and wrestle out from betwixt her legs.  Finally free, you see she\'s sprawled out on the bed, her massive abdomen hanging off to the side.  Settling yourself over the top of her, you slide your ' + Descriptors.clitDescript() + ' along her nose, intent on getting your scent entrenched in her body, wanting to make her crave your pussy, something that occurs as she takes a long whiff of air and moans like a whore in heat.' );
 			//If PC has loose pussy:
-			if( CoC.getInstance().player.vaginas[ 0 ].vaginalLooseness >= AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
+			if( CoC.player.vaginas[ 0 ].vaginalLooseness >= AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
 				EngineCore.outputText( '\n\nYour loose pussy lips cause your juices to drip onto Phylla\'s face as you hover over her, allowing her to lather in the wetness of your arousal.' );
 			}
 			EngineCore.outputText( '\n\n"<i>I think you need to lick my pussy for a bit, my queen,</i>" you tell her, thinking that you wouldn\'t want her getting off before she\'s tended to your needs.  You playfully smile down at her.' );
@@ -2060,17 +2060,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//EAT PUSSY:
 		EngineCore.outputText( '\n\nLike a starving animal, Phylla\'s mouth waters as she takes hold of your thighs and spreads your legs apart.  You grab hold of her hair and shove her head inbetween your legs, impacting your ' + Descriptors.clitDescript() + ' and causing you to moan slightly.  She certainly isn\'t shy now, you think, as her tongue starts to work its way into you.  You can "<i>hear</i>" Phylla giggle back in response. Thoughts of grinding your pussy across her mouth and face flood your mind, and instinct takes over as your hips start to rock in response to Phylla\'s eager attack.  Running your hands through her hair,  you grind Phylla\'s pretty face harder and deeper into your soaking ' + Descriptors.vaginaDescript() + '.  The poor ant can only respond by moaning fiercely as she eagerly sucks and kisses your love button, completely overwhelmed by the desire that has overtaken her.' );
 		//If PC has (a) Dick(s), that are less than 42 inches:
-		if( CoC.getInstance().player.cockTotal() > 0 && CoC.getInstance().player.cockThatFits( 42 ) >= 0 ) {
+		if( CoC.player.cockTotal() > 0 && CoC.player.cockThatFits( 42 ) >= 0 ) {
 			EngineCore.outputText( '\n\n[EachCock] begs for your touch, and with no hesitation you grab a hold of ' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'them' );
 			} else {
 				EngineCore.outputText( 'it' );
 			}
 			EngineCore.outputText( ', stroking ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it' );
-			} else if( CoC.getInstance().player.cockTotal() === 2 ) {
+			} else if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'them' );
 			} else {
 				EngineCore.outputText( 'as many as you can' );
@@ -2079,41 +2079,41 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nAs you feel your stiff ' + Descriptors.clitDescript() + ' glide along her lips, you can begin to taste bits of her almost primal hunger for you.  As well, you sense that the growing contractions in her abdomen are getting quicker and stronger.' );
 		//If Corruption is less than 50:
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '\n\nYou\'ll need to finish up quickly; you don\'t want to keep the children waiting to get her egg while you two are "<i>busy.</i>"' );
 		}//If Corruption is more than 50:
 		else {
-			EngineCore.outputText( '\n\nIf she lays an egg before you\'re done with her, not only will you be furious, but you\'ll have to scare your kids away.  ' + CoC.getInstance().player.mf( 'Daddy', 'Momma' ) + ' needs to get ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' rocks off first before any annoying kids get in the way.' );
+			EngineCore.outputText( '\n\nIf she lays an egg before you\'re done with her, not only will you be furious, but you\'ll have to scare your kids away.  ' + CoC.player.mf( 'Daddy', 'Momma' ) + ' needs to get ' + CoC.player.mf( 'his', 'her' ) + ' rocks off first before any annoying kids get in the way.' );
 		}
 		EngineCore.outputText( '\n\nHer tongue and fingers work their magic until she has you in a near orgasmic state.' );
 		EngineCore.outputText( '\n\nDeciding to end this, you work your hips away from Phylla\'s eager tongue and lean down, whispering into her ear; you\'re hell bent on cumming simultaneously in a glorious display of sexual gratification, and want to know if she\'s thinking along similar lines.  Giggling at your suggestion, the pair of you quickly shift positions so you\'re in the time-honored sixty-nine.  Her vagina now rests just above your face as her face rests in between your legs, her huge abdomen casting a looming shadow over both of you as it curls over your head and drips warm liquid down your spine.  You feel her yearning to lay eggs, but you suppress her desire.  "<i>Not yet,</i>" you think - not until you\'ve both cum.' );
 		EngineCore.outputText( '\n\nYour ' + Descriptors.clitDescript() + ' comes to rest on her lips again as her head starts to bob between her own strong legs.  Returning the sentiment, you dart in-between her legs, tongue first.  You hit that sweet tasting little pussy of hers with force.  Phylla moans, your intentions crystal clear as she bears down on your pussy hard, intently working for your sexual release.  She reaches up with her lower set of arms and gives both your ' + Descriptors.nippleDescript( 0 ) + 's a firm squeeze, the twist of which is nothing short of exquisite.  Muffled moans of bliss are unintelligible, but in your shared mind-state, you can hear one another screaming words of encouragement and direction.' );
 		//If PC has (a) Dick(s), that are less than 42 inches:
-		if( CoC.getInstance().player.cockTotal() > 0 && CoC.getInstance().player.cockThatFits( 42 ) >= 0 ) {
+		if( CoC.player.cockTotal() > 0 && CoC.player.cockThatFits( 42 ) >= 0 ) {
 			EngineCore.outputText( '\n\nWithout warning, Phylla begins to alternate between giving your ' + Descriptors.clitDescript() + ' oral and sucking your ' + Descriptors.multiCockDescriptLight() + '; the dual stimulation overwhelms you as she devilishly teases your sexes.' );
 		}
 		EngineCore.outputText( '\n\nYou recall the tip of her abdomen being particularly sensitive as you reach up overhead. Your arm can barely reach it, but as if she knew what you were trying accomplish, Phylla curls her abdomen just enough so you can start to stroke her birthing slit.  At your caress, Phylla shudders and deeply exhales into your cunt, sending a shiver up your spine. Continuing like this, you both quickly build up orgasms.' );
 		EngineCore.outputText( '\n\nHowling in delight, both of you twitch and writhe as the pure bliss of climax seizes your bodies, drooling and squirting lady fluids against each other\'s faces.' );
 		//If PC has a dick-two dicks that is/are less than 4 inches wide, in total:
-		if( CoC.getInstance().player.cockTotal() > 0 && CoC.getInstance().player.cockThatFits( 42 ) >= 0 ) {
+		if( CoC.player.cockTotal() > 0 && CoC.player.cockThatFits( 42 ) >= 0 ) {
 			EngineCore.outputText( '\n\nMoaning savagely, Phylla pops ' );
-			if( CoC.getInstance().player.cockThatFits2( 42 ) >= 0 ) {
+			if( CoC.player.cockThatFits2( 42 ) >= 0 ) {
 				EngineCore.outputText( 'two of ' );
 			}
 			EngineCore.outputText( 'your ' + Descriptors.multiCockDescriptLight() + ' into her mouth and mashes ' );
-			if( CoC.getInstance().player.cockThatFits2( 42 ) >= 0 ) {
+			if( CoC.player.cockThatFits2( 42 ) >= 0 ) {
 				EngineCore.outputText( 'them' );
 			} else {
 				EngineCore.outputText( 'it' );
 			}
 			EngineCore.outputText( ' against the back of her throat.  Unable to contain the pleasure from this, you howl and blow your hot load into her throat.' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nFeeling your own ' + Descriptors.multiCockDescriptLight() + ' about to erupt, you quickly roll off your lover.  Just in time, too - you fire your jizzum up at the ceiling, coating it quite well before your salty load falls back down on top of the two of you.' );
 		}
 		//PC dick is out in the hallway:
-		if( CoC.getInstance().player.biggestCockArea() >= 500 ) {
+		if( CoC.player.biggestCockArea() >= 500 ) {
 			EngineCore.outputText( '\n\nYour ' + Descriptors.multiCockDescriptLight() + ' twitches with orgasmic release, bulging as your load works its way through your urethra' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  With a heavy heave, you feel the hot and sticky ejaculate launch from your dick, hitting the interior decorations as you do so; what exactly you hit, you can\'t say... but you\'ll likely be tripping over your mess on the way out.' );
@@ -2121,12 +2121,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou struggle to breathe for a moment as a massive amount of warm girl cum seems to flood from Phylla\'s vagina to completely cover your face and soak most of your ' + Descriptors.hairDescript() + '.  While you catch your breath, you can hear Phylla noisily slurping up your fluids before compressing her face against your ' + Descriptors.clitDescript() + ' in an eager effort to lather her face in your juices for just a little longer.  Contentment and fulfilled desire - not only your own, but Phylla\'s as well - spreads like wildfire through your brain.  You grin to yourself, satisfied at the effect you\'ve had on Phylla during your session.' );
 		EngineCore.outputText( '\n\nUnfortunately, nature has to ruin the moment as Phylla\'s muscles seize up and her abdomen begins to contract significantly.' );
 		//f Corruption less than 75:
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nWith adrenaline pumping through your veins, you quickly flip Phylla over so she\'s on her hands and knees.  Taking hold of her hand and head as she groans in pain, you offer her your support, assuring her that you\'re here for her.  Sensing that she might benefit more from the link, you quickly plant a kiss on her lips and hold her close, something she responds to by clutching you in her arms, though it seems more for support than passion at this point. Nevertheless, you can feel that she\'s grateful that you\'re here.  With a final, labored groan, she works the impending egg free of her abdomen and breathes a large sigh of relief before passionately returning the kiss.' );
 			EngineCore.outputText( '\n\n"<i>T-Thank you... You\'re so good to me,</i>" she whispers in between kisses.' );
 			EngineCore.outputText( '\n\nUp the hallway, you can hear the patter of soft feet; one of your many children must be coming to fetch the egg.  Acting quickly, you grab your [armor] and position it so that it obstructs the view of your naked bodies.' );
 			//(If PC wasn't wearing revealing clothing:)
-			if( CoC.getInstance().player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
 				EngineCore.outputText( '\n\nThe "<i>child</i>" that walks in notices both of you breathing heavily, and quickly takes note of your need for privacy.  Phylla scoops up the egg and embarrassingly extends it to him.  He does his best to avert his eyes and quickly scampers over to fetch the egg and leaves.' );
 			}//(If PC was wearing revealing clothing:)
 			else {
@@ -2141,18 +2141,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>I-I thought... you were...</i>"  Phylla starts to say, but you cut her off with a look that shows you\'re in no mood to listen to her.' );
 			EngineCore.outputText( '\n\nNow that Phylla\'s quieted down, you tell her you\'re going to get some sleep; if she\'s to have another child, she\'ll need to either keep quiet or leave to another room.  She nods dejectedly as you settle in for your nap.  You swear you hear her go into labor again right before drifting off.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Orgy w/ Colony - Requires Children]
 	//(Note: The above option will only be available the PC has sufficient corruption.)
 	//Orgy w/ Colony (Male) - Written
 	AntsScene.prototype.orgyWithDatColonyCorruptDudes = function() {
-		CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ]++;
+		CoC.flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ]++;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Phylla to call in your strongest and most virile children for \'inspection.\'' );
 		//First Time:
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
 			EngineCore.outputText( '\n\nShe looks confused at first and attempts to ask why.  "<i>I don\'t think... they will all fit in this room.  We have many warriors...</i>"' );
 			EngineCore.outputText( '\n\nLooking around, though her room is about the size of your campsite on the surface, she\'s probably right.  Sighing, you just tell Phylla to do what she can.  She closes her eyes then tilts her head back.  After a moment or two of this \'meditation\' her eyes snap open.  "<i>They should be here soon.</i>"  Her voice is very cheerful.  You wonder how quickly it will change when you tell her just what you have in store.  If you even tell her outright - tricking her could be a better way to get what you want.' );
 		}
@@ -2163,7 +2163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nA few moments later five of your \'children\' show up. Phylla clearly took your advice and chose the best specimens from among her colony to show off for your \'inspection.\'' );
 		EngineCore.outputText( '\n\nThey line up along the wall as you walk down in front of them like a military officer.  Their chiseled bodies and large frames look akin to statues carved by master artisans.  You stop in front of the largest of them and run your hand over his chest, caressing his skin as your hand moves over his pecs.  His whole body tenses up as you reach his small nipple, but he doesn\'t make a move to stop you.' );
 		EngineCore.outputText( '\n\nYou step away from him and look up and down the line; they\'re not even fully naked.  This won\'t do at all.  With a wicked grin, you tell Phylla to have them remove their loincloths.  A few of your sons glance at each other and shift uncomfortably.  Phylla, on the other hand, looks frightened and hesitant to do as you ask.' );
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Why... would you... want to... see...?</i>"  Phylla seems confused.  You tell her that you need to see everything to get a proper assessment.  That is, unless Phylla thinks she\'s doing such a bad job of being queen that she would need to hide the facts from you.' );
 		}//Subsequent Times:
 		else {
@@ -2176,7 +2176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>Well, can\'t you feel them?  Their needs, their lusts?</i>" you tease Phylla as she glances over.  When she sees what you\'re doing she gasps in shock, covering her mouth and eyes with all four of her hands.' );
 		EngineCore.outputText( '\n\nYou look to the other four.  "<i>Do help your mother relieve herself of her... insecurities.  There\'s no reason for you four to hold back on my account.  Just don\'t touch her cunt!  That belongs to me!</i>" Heeding your command, the four other soldier ants descend on Phylla, peeling her arms away from her face.  You hear Phylla\'s muffled protests, but that\'s quickly stopped when one of them kisses her deeply and guides one of her hands to his cock.  Another starts to suckle on her breast and moves another of her hands to massage his own member.  The third takes both of Phylla\'s smaller hands and forces her to cup his balls and stroke his cock as he stands in-between his brothers.  The fourth man seems to be left out, but then gets an idea and walks behind Phylla.' );
 		//If Phylla Is Laying Eggs:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 			EngineCore.outputText( '\n\nSeeing as how he wouldn\'t be able to lift her massive abdomen, he lays down and almost completely disappears under it.  Phylla moans loudly as he runs all four of his hands down the underside of her abdomen as a contraction racks her body.  The birthing slit at the end of her abdomen widens as an egg pushes itself out of her, splattering her child\'s chest with her clear birthing gel as it comes.  The ant-man uses his lower two arms to softly set the egg aside as his large hands part her birth canal.  He licks his way down her long abdomen and begins lapping up the liquid that continues to seep out of her birthing slit.  Drinking and slurping wildly, he starts to jack himself off with his smaller hands.' );
 		}//If Phylla Isn't Laying Eggs:
 		else {
@@ -2186,7 +2186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou feel the ant you\'re giving a handjob to groan and start thrusting his cock into your hand.  You almost forgot what you were doing - watching Phylla get almost buried in incessant cocks clouded your mind. You release your grip on his cock, leaving him to give you a very confused and needful look.' );
 		EngineCore.outputText( '\n\n"<i>Go get \'er, tiger,</i>" you say, as you slap his ass.' );
 		EngineCore.outputText( '\n\nHe practically charges his mother, lustful wants burning through his veins.  Seeing him dash towards them, his brothers pull Phylla down onto the bed.  Soon she\'s in position; her shoulders on the edge of the bed and her head looking back up at her children.  Once he gets to his mother, the charging ant-man flops his cock in between her breasts and lets his balls hang above her mouth.  Phylla uses her smaller set of hands to press her breasts together against his long dick.  He starts thrusting his penis between her ' );
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 			EngineCore.outputText( 'large, lactating ' );
 		} else {
 			EngineCore.outputText( 'small ' );
@@ -2194,15 +2194,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'orbs.' );
 		EngineCore.outputText( '\n\nWith her face slapped by his balls with each thrust, Phylla takes it upon herself to start sucking on his nuts, covering them in her drooling saliva.' );
 		EngineCore.outputText( '\n\nHaving his kiss stolen from him, the ant who was kissing Phylla grabs his nearest brother and shoves his tongue into his mouth.  The two ants who were being jacked off by their mother\'s smaller hands now find themselves neglected since she\'s using them to pleasure their brother as he thrusts between her breasts.  Having their own needs, the larger of the two lies down so his brother can lie down reverse on top of him; they immediately start to suck one another off in a sixty-nine position.' );
-		EngineCore.outputText( '\n\nIt\'s then that you realize you\'re still completely clothed!  How inconsiderate of you.  You quickly shed your ' + CoC.getInstance().player.armorName + '.  Finding your own cock' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		EngineCore.outputText( '\n\nIt\'s then that you realize you\'re still completely clothed!  How inconsiderate of you.  You quickly shed your ' + CoC.player.armorName + '.  Finding your own cock' );
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' stiff and longing for immersion into this orgy, you just need to find an opening.  Walking over to Phylla, you tap the ant getting a tit fuck on the shoulder.  Without a second thought, he stands aside for you, letting his balls slip out of Phylla\'s mouth with an audible pop.  You grin down at Phylla, seeing that she\'s now completely lost and just enjoying herself.  It\'s at this moment that you feel shadows looming behind you.  Before you can react, hands reach down and start lovingly stroking [oneCock].' );
 		//If player has two-three dicks:
-		if( CoC.getInstance().player.cockTotal() > 1 && CoC.getInstance().player.cockTotal() <= 3 ) {
+		if( CoC.player.cockTotal() > 1 && CoC.player.cockTotal() <= 3 ) {
 			EngineCore.outputText( '\n\nYou quickly find each of your cocks are being taken care of.  You can hardly tell who\'s touching or sucking what.  Looking down you see Phylla sucking the head of your longest cock as someone\'s hands run down the shaft.  Your other dick' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( ' is' );
 			} else {
 				EngineCore.outputText( 's are' );
@@ -2210,10 +2210,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( ' getting sucked off by two of your children, who themselves are being sucked off.' );
 		}
 		//If player has four-6 six dicks:
-		if( CoC.getInstance().player.cockTotal() >= 4 && CoC.getInstance().player.cockTotal() <= 6 ) {
+		if( CoC.player.cockTotal() >= 4 && CoC.player.cockTotal() <= 6 ) {
 			EngineCore.outputText( '\n\nEven though you have so many cocks, it won\'t be a problem.  Just standing over Phylla you look down as hands, mouths, and Phylla\'s breasts do their best to please every one of your cocks in turn.' );
 		}
-		//Silly Mode (LOTR) CoC.getInstance().player has 10+ dicks:
+		//Silly Mode (LOTR) CoC.player has 10+ dicks:
 		if( EngineCore.silly() ) {
 			EngineCore.outputText( '\n\nLooking down at your children, fear can be seen  in their eyes.  You decide to give a heartfelt speech.' );
 			EngineCore.outputText( '\n\n"<i>Sons, offspring, my children!  I see in your eyes the same fear that would take the heart of me!  A day may come when the semen of these cocks fail, when they go limp and never stand erect again... but that is not this day!  An hour of sorrow and sadness when these cocks cease to cum... but that is not this day!  This day you fight!  By all that you hold dear in this good colony, I bid you suck!  Suck all the cock!</i>"' );
@@ -2222,42 +2222,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nHer mouth hangs open as if begging to be filled by [oneCock].  You didn\'t come here to get a blow job - you want her cunt.  You want your corrupt dick inside her.  You want to make her have to beg for release.' );
 		EngineCore.outputText( '\n\nAll four of her hands welcome your cock, her fingers running up and down your long shaft as she guides it to the lips of her drooling cunt.  Looking down you see her long clit poking out from between her inner folds.  Phylla pants heavily, like a dog in heat; you can actually see the steam coming from her mouth.  You grab her hair and shove your face into hers.  As your tongue penetrates her mouth you feel the familiar tinglings of your minds joining together.' );
 		//f first time; having orgy:
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_CORRUPT_MALE_ANT_ORGY ] === 1 ) {
 			EngineCore.outputText( '\n\nYou feel the link but it seems strained, like butter spread over too much toast.  You quickly recognize why feel the five others in the room in your mind along with Phylla.  They\'re building to release, but Phylla has been keeping them all from climaxing.  Well, at least you\'ve trained her well.' );
 		}//Repeat:
 		else {
 			EngineCore.outputText( '\n\nYou knew this moment would come and you\'re mentally prepared for it.  Feeling your mind link to everyone in the room is still overwhelming at first, but you quickly get over it as your mind finds balance.' );
 		}
-		var x = CoC.getInstance().player.cockThatFits( this.phyllaCapacity() );
+		var x = CoC.player.cockThatFits( this.phyllaCapacity() );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( '\n\nWhen you\'ve felt your mind completely sync up with everyone else in the room, it\'s like being drunk on sexual euphoria.  You almost lose yourself in it for a moment, but focusing your mind, you snap your eyes open. You see Phylla in front of you looking like a drugged slut; she runs all four of her hands over your ' + Descriptors.cockDescript( x ) + ' at the entrance of her flooded cunt while her children play with her nipples and suck each other off.  Aggressively, you grab her arms and pin her down while simultaneously shoving your cock into her.' );
 		EngineCore.outputText( '\n\nYou feel every mind in the room wince in pain, then be overcome with pleasure as your cock rams into the deepest part of Phylla\'s cunt.' );
 		EngineCore.outputText( '\n\nThe pulsations of her vagina run up and down the length of your cock as she struggles to get into a comfortable position under you.  With the help of her children, she finally finds a good position as you thrust harder and harder on top of her.  Phylla blindly reaches out, each of her hands searching for her offspring.  The largest of your children takes position over Phylla\'s face - she welcomes his long dick into her mouth.  As the others realize that Phylla is searching for their cocks, they untangle themselves from each other and crawl yearningly to their mother.  Phylla start to pump away at their cocks with her four hands as two latch on to her breasts.' );
 		EngineCore.outputText( '\n\nOne of your brood leans down and starts to feverishly lick the base of Phylla\'s clit as your cock slides in and out of her. His warm saliva coupled with Phylla\'s natural lubricant warms your cock and sends even more pleasure throughout your ' + Descriptors.cockDescript( x ) + '.' );
 		//If PC has Multi-Cocks:
-		if( CoC.getInstance().player.cockTotal() > 2 ) {
+		if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( '\n\nHaving just one of your cocks pleased as you ram her isn\'t enough.  You command your children, via the link, to get your other dicks off.  Quickly they oblige, using their hands and mouths to make sure no cock goes unpleased.' );
-		} else if( CoC.getInstance().player.cockTotal() === 2 ) {
+		} else if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( '\n\nHaving just one of your cocks pleased as you ram her isn\'t enough.  You command your children, via the link, to get your other dick off.  Quickly they oblige, using their hands and mouths to make sure no cock goes unpleased.' );
 		}
 		EngineCore.outputText( '\n\nEverything rapidly starts to blur together.  Your nipples are pinched, but you can\'t tell by who. Your mind struggles to comprehend which limb is where and whose cock is whose.  You just want this feeling to last forever, lost in a sea of pleasure.  You snap out of your hyper-stimulated state of mind as the six minds connected to yours approach their climaxes.' );
 		EngineCore.outputText( '\n\nIn a single instant you feel your synchronized release.  You feel the emptying balls of the five other males' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' along with your own' );
 		}
 		EngineCore.outputText( ' as they coat Phylla in cum inside and out.  The walls of her pussy pulse and draw your semen towards her womb.  She swallows the cum of the child that released into her mouth, letting the warm feeling spread down her throat into her belly.  The four other males ejaculate all over their mother\'s stomach and breasts, coating her tan-colored skin in sperm.  You watch as Phylla uses all four of her hands to spread the semen all over her, as if wanting to bathe in it.' );
 		EngineCore.outputText( '\n\n"<i>I... need... more... we... nee~</i>" Phylla sits up, but she doesn\'t look at you.  Instead, she licks her lips and gazes to the entrance of her room.  You turn and follow her stare.  Standing in the door are five or six more warriors, completely erect and ready.  You raise an eyebrow, and look to Phylla with a large grin.' );
 		EngineCore.outputText( '\n\nYou spend the next few hours in a massive orgy, getting your dick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' sucked, stroked, inserted, and finally orgasming so many times that you lose track. Hours pass and you eventually pass out sitting atop Phylla\'s throne watching the writhing mass before you.' );
 		EngineCore.outputText( '\n\nYou wake up some time later, body aching from exhaustion. Glancing over at Phylla to see how she\'s fairing after so much exertion, you see her sprawled out on cushions with pleased warriors surrounding her, her skin and chitin covered in a thick coat of semen.  You wonder to yourself if you should invite her to the stream to wash off.' );
 		EngineCore.outputText( '\n\n"<i>It\'s okay... they\'ll... lick me... clean...</i>"  You hear Phylla\'s weak voice in your mind, although she still doesn\'t look conscious.' );
 		EngineCore.outputText( '\n\nYou might want to stay and watch that, but you\'ve spent too long down here already.  You collect your things, trying your best not to step on the twenty or so passed out ants on the floor as you head back to camp.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2265,13 +2265,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	//You tell Phylla you're interested in 'inspecting' your children.
 	AntsScene.prototype.antColonyOrgy4Ladies = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_FEMALE_ANT_ORGY ]++;
+		CoC.flags[ kFLAGS.TIMES_CORRUPT_FEMALE_ANT_ORGY ]++;
 		//(First Time)
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_CORRUPT_FEMALE_ANT_ORGY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_CORRUPT_FEMALE_ANT_ORGY ] === 1 ) {
 			EngineCore.outputText( 'She gives you a confused look, but does as you command. Tilting her head back and closing her eyes you watch as she silently \'communicates\' to her children.' );
 			EngineCore.outputText( '\n\n"<i>I did what you asked. Five of my~ I mean our... finest warriors are on their way here.</i>"' );
 			EngineCore.outputText( '\n\nYou give her a nod, hoping that \'the finest warriors\' will also have the finest cocks. Your mind quickly wanders to how it\'s going to feel having five dicks to do with what you please. As you thoughts lead you down the familiar path you can feel your [vagina] moisten' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ' and [eachCock] harden' );
 			}
 			EngineCore.outputText( ' in anticipation. Snapping you out of your daydream, five males walk into the room holding themselves like veteran soldiers.' );
@@ -2283,7 +2283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		//(Continued From First/Subsequent)
 		EngineCore.outputText( '\n\nPhylla clearly chose the best specimens from among her colony to show off for you. They quickly line up with their small russet brown abdomens to the wall. You walk down the line in front of them, like a military officer inspecting troops. Their chiseled bodies and large masculine frames look as though they\'ve been working in the mines their whole lives. You stop in front of the largest of them and run your hand over his body with sinister intent looming in your mind. You caress his rough skin as your hand moves up and down his sculpted body.  His pecs tense up in surprise as you drag your nails down his neck; but like a good boy, he makes no attempt to stop you.' );
 		//If Femininity Greater than X:
-		if( CoC.getInstance().player.femininity >= 80 ) {
+		if( CoC.player.femininity >= 80 ) {
 			EngineCore.outputText( '\n\nLooking how you do, it\'s really no surprise that all five of them are erect. Or maybe that\'s Phylla working to try and impress you; you\'ll find out soon enough.' );
 		}
 		EngineCore.outputText( '\n\nYou continue to drag your nails into his chest, leaving bright red marks all the way down to the base of his shaft. He shifts uncomfortably as you guide your palm up his long hard member ending at his head. He lets out a studly grunt as you run your hand back down his cock and start to pump slowly.' );
@@ -2297,14 +2297,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\n"<i>But... I... don\'t~</i>" Phylla says, trying not to stare at you or her children.' );
 		EngineCore.outputText( '\n\n"<i>It\'s not about what you want! It\'s about what\'s fair!</i>" You scold her. "<i>You four!</i>" You gesture to the other males who you aren\'t servicing. </i>"Go get some \'release.\'</i>"' );
 		EngineCore.outputText( '\n\nPhylla looks almost terrified as her four offspring descend on her, cocks in hand.  You stop stroking the cock of the only remaining male and demand he remove your armor. Quickly he uses all four of his strong arms to remove your [armor]. Once you\'re completely nude you push him onto his knees.' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( '  Setting one foot on his shoulder, you present your [vagina] to him.' );
 		} else {
 			EngineCore.outputText( ' Now at the perfect height, you present your [vagina] to him.' );
 		}
 		EngineCore.outputText( '  Knowing full well what you want he plunges his face into your ready cunt and starts eating you out. You close your eyes and lean back, letting the passion of his licking consume your thoughts. You hear a loud moan and it snaps you out of your revelry.  You look over to Phylla. Her children have forced her onto her knees. Phylla uses all four of her hands and her mouth to please her children. You see her sloppily sucking off one dick then jump to sucking off another, exchanging her mouth with her hands as she services every dick in front of her. You glace between her legs and see streams of her wetness as it runs down her chitin legs and pools around her knees.' );
 		EngineCore.outputText( '\n\nGetting close to orgasm just by the oral pleasure coursing through your nethers, you pull the head of the ant' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( ' from between your legs.' );
 		} else {
 			EngineCore.outputText( ' from your cunt.' );
@@ -2324,7 +2324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nFeeling your children\'s yearnings through Phylla\'s mind gives you an idea. Though normally you wouldn\'t want to give up control, the current situation and your craving for something to fill your [vagina] leads you to command your man sluts to stop. You untangle yourself from Phylla, leaving the moaning whore begging and grabbing at you to rejoin her. You stand above her as she practically grovels at your feet, pleading for you. You mention you have a much better idea.' );
 		EngineCore.outputText( '\n\nWith a commanding tone in both voice and mind you tell Phylla to get into the doggystyle position facing away from you.' );
 		//If Laying Eggs:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 			EngineCore.outputText( '\n\nYou\'re sure she would have too, had it not been for her massive egg filled abdomen. The best she can muster is to lay on her side with one of her legs up in the air.  Still, you think it will work for what you have in mind.' );
 		}//If NOT Laying Eggs:
 		else {
@@ -2332,21 +2332,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nOnce she\'s in position, you get into the same position adjacent to her, lifting your own [butt] high into the air, like Phylla is. She looks over at you with a shocked expression on her face.  She looks as though she\'s about to say something but her attention is quickly drawn back to her offspring.  Two of the males present their cocks to your mouths.  The alluring aroma of pre-cum and saliva is practically begging you to take them into your mouth.  Glancing over you can see Phylla is having just as hard a time stopping herself from gobbling down the cock in front of her, but it\'s not just that time. You make a mental signal and two more step up behind the both of you.  You hear Phylla \'Eep!\' as the heat radiating off her sex is intruded upon. The two behind you drag their dicks up and down the folds of your vaginas.  The fifth takes position behind his brother who\'s behind Phylla.  Wouldn\'t want any hole going to waste, would we?' );
 		EngineCore.outputText( '\n\nWith both yours and Phylla\'s asses hanging in the air like dogs in heat, you feel your joined excitement for what\'s going to happen next.  You can feel the heat radiating off your cunts warming the tips of the cocks behind you. You smell the intoxicating aroma of sex in the air.  Male and female fluids joining, the scent of earth, the heavy labored breathing of everyone in the room.  It all joins to consume your senses.' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  You feel hands run up and down your shaft' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ', causing you to spurt bursts of pre all over the floor.' );
 		}
 		EngineCore.outputText( '\n\nPhylla\'s mind screams out for penetration.  Your own mind and your body cannot handle the anticipation anymore either.' );
 		EngineCore.outputText( '\n\nMentally you give the \'go ahead\' to your children, something you feel they\'ve been waiting for! All five males thrust their cocks forward in unison.  You\'re not sure what feels better; the fact that your mouth and [vagina] are now filled with your own children\'s genitals, or the fact that Phylla is too hyperstimulated to even fully comprehend what\'s happening to her.  Your tongue wraps around your son\'s cock as you do your best to drink in the pre-cum he\'s been accumulating.  The ant behind you thrusts at an alarming rate, sending shockwaves of passion though your body.  You hear Phylla\'s moans of pleasure though the dick she has stuffed in her mouth.  The triumphant roar of your child almost overpowers her moan as he thrusts into his brother; who in turn thrusts deep into Phylla.  You want to look over, you want to enjoy the sight of seeing Phylla skewered by dicks like a cabob. Unfortunately the sons at your front and rear keep your mind and body thoroughly occupied with their long throbbing man meat.' );
-		CoC.getInstance().player.cuntChange( 20, true, true, false );
+		CoC.player.cuntChange( 20, true, true, false );
 		EngineCore.outputText( '\n\nWhen you can muster the fortitude and focus enough to open your eyes, without them rolling back into your head, all you see is your son\'s cock as you deep throat him.  The harder and deeper the ant behind penetrates into your [vagina], the deeper the cock of the one in front thrusts into your throat.  Not that you\'re complaining, both of the feelings send crushing waves of euphoria through your mind and body.' );
 		//If PC has dick(s):
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Not forgetting you have \'other needs\' the ant mounting you reaches down with his larger arms and grabs hold of [eachCock].  Keeping his smaller arms on your hips to keep stable with each thrust, he pumps vigorously at your cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
@@ -2357,21 +2357,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nIn one last climax-inducing thrust, all five of your children, Phylla and you share in one of the most ectasy filled orgasms you\'ve ever experienced.' );
 		EngineCore.outputText( '\n\nYour own oragasm rocks your whole body as you try your best not to black out due to the sheer volume of pleasures your shared minds are experiencing.' );
 		//If player is squirter:
-		if( CoC.getInstance().player.wetness() >= 4 ) {
+		if( CoC.player.wetness() >= 4 ) {
 			EngineCore.outputText( '\n\nYou roar in climatic bliss as you feel your already soaked cunt release its fury as you squirt your juices all over the ant mounting you.' );
 		}
 		//If player has dick(s)
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '\n\nAlthough you wish someone had been under you to catch your cum as it erupts from your dick' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  You feel your load' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' splash into your [chest] and chest as ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'it' );
 			} else {
 				EngineCore.outputText( 'they' );
@@ -2388,7 +2388,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nYou wake up some time later, your body aching from exhaustion.  You look over at Phylla to see how she\'s fairing after the orgy.  She\'s sprawled out on her cushions with pleased warriors surrounding her.  Her skin and chitinous armor is covered in a thick coat of semen.  You wonder to yourself if you should invite her to wash off.' );
 		EngineCore.outputText( '\n\n"<i>It\'s okay... they\'ll... lick me... clean... oh, don\'t worry about getting pregnant; they\'re all sterile unless I say otherwise.</i>"  You hear Phylla\'s weak voice in your mind, although she still doesn\'t look conscious.' );
 		EngineCore.outputText( '\n\nYou might want to stay and watch that, but you\'ve spent too long down here already.  You collect your things, trying your best not to step on the twenty or so passed out ants on the floor as you head back to camp.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2396,11 +2396,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.phyllaLaysEggsToggle = function() {
 		EngineCore.clearOutput();
 		//(Lay Eggs)
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] = 1;
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+			CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] = 1;
 			EngineCore.outputText( 'Phylla seems confused as to what you\'re thinking as you gaze deeply into her eyes.  You gather all four of her hands between the two of yours and tell her that children are wanted.  Not just one or two; you want as many as she can muster.' );
 			//If you've talked to her about history:
-			if( CoC.getInstance().flags[ kFLAGS.TALKED_WITH_PHYLLA_ABOUT_HISTORY ] > 0 ) {
+			if( CoC.flags[ kFLAGS.TALKED_WITH_PHYLLA_ABOUT_HISTORY ] > 0 ) {
 				EngineCore.outputText( '  You tell her you want a colony like those she spoke of in the times before the corruption.' );
 			}
 			EngineCore.outputText( '\n\nAt first her eyes widen with shock, but then you see the reaction you were expecting; her face lights up with such a gleeful smile you could have sworn you just lit a large fire in the room.  She looks so excited; in fact, she seems to have lost her train of thought and just stands there taking in what you said... it\'s a bit odd.  Then she suddenly turns around and drops down on all fours.  Her abdomen rises, revealing all of herself to you.  Her embarrassment is clearly overshadowed by her desire to breed with you.  She looks at you from between her own legs and blushes, her cheeks growing as red as a tomato.  Using her two upper arms, she points to her abdomen, keeping her lower arms to support her as she\'s bent over on all fours.  There\'s a small opening that almost looks like a second vagina placed at the very end of her abdomen.  A clear coat of transparent liquid is already starting to seep out from the opening and has started to run down her abdomen.' );
@@ -2413,7 +2413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		//(Stop Laying Eggs)
 		else {
-			CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] = 0;
+			CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] = 0;
 			EngineCore.outputText( 'You sigh to yourself; you never really wanted this conversation but you knew it might happen someday.  You make a stern face and put a determined fatherly tone in your voice.  Phylla immediately senses you mean business and you have her full attention.  You try to tell her as gently as possible that you don\'t think it is safe for her to keep having children.' );
 			EngineCore.outputText( '\n\nTo your almost astonished surprise she hesitantly agrees with you; somehow, you expected her to argue with you or plead to bring more life into this world.  "<i>If you feel it\'s not safe for me to have anymore children, I won\'t.  I mean, you\'re both my mate and my colony\'s protector.  I would not want to endanger my children by overpopulation or the chance of corruption.</i>"' );
 			EngineCore.outputText( '\n\nShe pauses and makes a strange face as her abdomen pulses and another egg emerges from the tip.  She blushes deeply.  "<i>That\'s the last one!  I mean, I had to get it out, it was already...</i>"' );
@@ -2435,7 +2435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nAs she collapses in front of you, your eyes widen in shock.  You hadn\'t even noticed while you were occupied with pleasuring her, but her abdomen has almost quadrupled in size!  It\'s now easily six feet long, and it seems like every time you blink it gets just a little larger.  Stepping towards Phylla\'s body - now almost blocked by her engorged abdomen - you hear a distinct splash.  Looking down, you find to your amazement that the floor is almost completely coated in a thick layer of mixed girl cum and birth lubricant.  Honestly, there is no way of telling which one there\'s more of.  The mixture of fluids smells like an earthy plain after a light rain.  As you make your way to Phylla, you see her breasts have also grown in size and could now easily be DDs.  She makes a totally exhausted grab at you with all four of her arms, her eyes still rolling up in the back of her head slightly.  You forget that even in her current state she\'s amazingly strong and with a small splash, she drags you down into laying next to her.  All four of her arms wrap around you lovingly.' );
 		EngineCore.outputText( '\n\nAfter about a minute or two her eyes widen suddenly, her body contracting.  With a sudden pulse you can see a contraction run down Phylla\'s abdomen.  A small cylindrical egg about the length of your forearm pops out of the birth slit you were just licking for the last hour.' );
 		//First Time:
-		if( CoC.getInstance().flags[ kFLAGS.ANTS_BIRTHED_FROM_LICKING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ANTS_BIRTHED_FROM_LICKING ] === 0 ) {
 			EngineCore.outputText( '\n\nIt\'s a strange thing, unlike any egg you\'ve seen before.  It doesn\'t have a shell and is transparent.  The liquid inside of it seems to be shimmering, as if there were thousands of tiny gold flecks in it.  In the very center there\'s a black sphere that unfolds into a larva as you look at it.  Phylla quickly snatches it up and holds it between the two of you.' );
 			EngineCore.outputText( '\n\n"<i>This is the beginning of a whole new life for me...  I mean, for us.  I\'ll always remember this, [name]!</i>"  Phylla cries, cradling the egg close to her, proud to be a mother.  "<i>I... I love you.</i>"' );
 			EngineCore.outputText( '\n\nYou were about to return the compliment when her body contracts again and another egg pops out of her abdomen.' );
@@ -2448,10 +2448,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nYou know the drill.  You unwrap yourself from Phylla and walk over to scoop up the cyclical egg.  Once you\'ve gotten it you bring it back to her.  Although as soon as you do, she snuggles up with it.' );
 		}
 		EngineCore.outputText( '\n\nAfter only a minute or two, a large contraction passes through her body, and another egg seeps out of the tip of her abdomen.  You can see she\'s going to be very busy for the next few hours, maybe days; you\'re not really sure, and clearly she\'s in no condition to respond even if you asked.  You kiss her and head back to camp, happy with the job you\'ve just accomplished.' );
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_COOLDOWN ] = 12;
-		CoC.getInstance().flags[ kFLAGS.ANTS_BIRTHED_FROM_LICKING ]++;
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] < 5000 ) {
-			CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] += 5;
+		CoC.flags[ kFLAGS.PHYLLA_COOLDOWN ] = 12;
+		CoC.flags[ kFLAGS.ANTS_BIRTHED_FROM_LICKING ]++;
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] < 5000 ) {
+			CoC.flags[ kFLAGS.ANT_KIDS ] += 5;
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2463,13 +2463,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nThe process of simulation goes on for a several long, moan filled minutes, until with a hearty cry the orb that holds your newborn child slides out from Phylla\'s abdomen.  Panting and breathing a sigh of relief, your Ant Morph lover thanks you, but reminds you that she has quite the clutch of eggs that still needs to be laid.  Smiling, you renew your efforts along her orifice, to the affectionate gasps of Phylla...' );
 		EngineCore.outputText( '\n\nThe better part of an hour later, the two of you lay against Phylla\'s bedding in a loving embrace; you cuddle the exhausted ant woman close to you as she enjoys the tender feel of your fingers running through her hair.' );
 		EngineCore.outputText( '\n\n"<i>Thank you.  I-it meant a lot to me for you to be here.</i>"  She confides.  You tell her that it was no trouble at all; that you wouldn\'t miss this joyous moment.  Phylla sneaks in a soft kiss on your neck and gives you a firm squeeze of her arms.  "<i>I should be alright on my own at this point' );
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 1 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 1 ) {
 			EngineCore.outputText( '; the children can tend to the eggs and I can really use the rest' );
 		}
 		EngineCore.outputText( '.  You should get back to your duties...  B-but I wouldn\'t mind if you came back later...</i>"' );
 		EngineCore.outputText( '\n\nYou remark to Phylla that you might just take her up on that and wink as you leave your exhausted lover to recuperate, passing several of your children as they scoop up the bundle of eggs that lie huddled together on the floor.' );
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_COOLDOWN ] = 6;
-		CoC.getInstance().flags[ kFLAGS.ANT_KIDS ]++;
+		CoC.flags[ kFLAGS.PHYLLA_COOLDOWN ] = 6;
+		CoC.flags[ kFLAGS.ANT_KIDS ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Phylla lays Drider eggs
@@ -2478,27 +2478,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
 		EngineCore.outputText( 'As you near Phylla\'s bedchamber you can hear an \'Eeep!\' of surprise and worry. Thinking she might be in trouble you burst into the room.  Glancing around for any immediate danger you only see Phylla\'s vagina drooling a green, slimy mucus.  The way she holds her very pregnant stomach and splays her legs out on the bedspread suggests that your recently laid spawn are ready to hatch.  "<i>[name], it\'s time!  UGH!  I don\'t... have to words to express how weird this feels!</i>"  Phylla cries out, somewhat scared at the green ooze that trickled out of her.' );
 		//PC has less than 75 corruption:
-		if( CoC.getInstance().player.cor < 75 ) {
+		if( CoC.player.cor < 75 ) {
 			EngineCore.outputText( '\n\nQuickly kneeling at her bedside, taking one of her larger her hands in yours, you inform her that your children are ready to enter this world. They need their mother to concentrate and push.' );
 			//If Phylla is Laying (her) Eggs while Drider eggs hatch:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 				EngineCore.outputText( '\n\n"<i>It\'s~AHHH!</i>"  Phylla moans into your shoulder as a contraction passes through her abdomen.  "<i>I don\'t know if I can do both!</i>"  Phylla cries.  In a reassuring tone you tell Phylla she just needs to push both at once.' );
 			}
 			EngineCore.outputText( '\n\n"<i>I~Ahhh</i>" her words, again, stolen from her as you see her whole body contract.' );
 			EngineCore.outputText( '\n\n"<i>Oh, gods, I can feel yours sliding out!</i>"  She half exclaims, half moans.  Phylla\'s body writhes in a mixture of pleasure and pain as she solely focuses on pushing.  After what seems like an eternity, she breathes a heavy sigh of relief as the first of many eggs works its way out of her.' );
 			//If Phylla is Laying (her) Eggs while Drider eggs hatch:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 				EngineCore.outputText( '\n\nAt the same time your egg drops to the floor, you see one of Phylla\'s eggs glide out of the tip of her abdomen with the aid of the thick gel she produces.' );
 			}
 			EngineCore.outputText( '\n\nWith the knowledge that ' );
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 				EngineCore.outputText( 'both eggs are just fine on their own' );
 			} else {
 				EngineCore.outputText( 'the egg is just fine on its own' );
 			}
 			EngineCore.outputText( ', you redirect your focus to helping Phylla through the labor.  Each subsequent egg that finds its way to freedom causes Phylla\'s once pain filled screams to turn into pleasurable moans of euphoric delight as her pussy becomes overwhelmed by the stimulation of each of your eggs working their way out.  At long last, the final egg slithers out of her vagina and lands gently on the bedding.  Her ordeal over, Phylla breathes a long sigh of relief.' );
 			//First Time:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>I-I\'ve never given birth like that b-before.</i>"  She manages between gasps for air while rubbing her now normal-sized belly.\n\n"<i>I mean!  I want to, it was just different, usually I... use my...</i>"  She shyly gestures to her abdomen.  "<i>You\'ll have to do that to me again sometime.</i>"  You feel a maternal warmth radiating from Phylla.  It\'s clear to you she just enjoys being a mother; it doesn\'t really matter to her what her children look like.' );
 			}//Subsequent Times:
 			else {
@@ -2512,20 +2512,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\nGood, you get to watch while your corrupted young are birthed out of this creature naive enough to submit to your desires.  Phylla\'s painful screams quickly turn into blissful moans as her instincts for sexual pleasure dull the irritating agony and take over her mind.  You barely register any of it as your thoughts turn to future instances of pinning Phylla down to her bedding - how her ass will wave enticingly in the air just before you penetrate her and plant as many eggs as you can muster inside of her, how she\'ll beg to be stuffed with your brood and howl like a depraved whore as your cargo fills her with your corrupted brood.' );
 			EngineCore.outputText( '\n\nThe first egg works its way out of Phylla\'s pussy as she hums in obvious sexual delight.  You lick your lips at the sight; you can barely contain the urge to mount her right now and impregnate her with more of your future children, imagining the look of content violation on her face as you do so.  But you manage to restrain yourself, opting instead to watch the show as egg after egg worms its way out.' );
 			//If Phylla is Laying (her) Eggs while Drider eggs hatch:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 				EngineCore.outputText( '\n\nAs if your own corrupt brood weren\'t enough for her, she has to deal with giving birth to her own offspring at the same time.' );
 			}
 			//First Time:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] === 0 ) {
 				EngineCore.outputText( '\n\nHmm... That\'s something you didn\'t know she could do and something you\'ll damn well keep in mind for the future.  You watch as she struggles to time the different contractions of her abdomen and cunt, but ultimately fails to do so.  It\'s soon very clear she\'s no longer aware of which egg is coming out of which hole and just screams out in passionate moans as her whole body surges and pulses with contractions.' );
 			}
 			EngineCore.outputText( '\n\nWith one last heave the last egg is expelled from Phylla\'s pussy.' );
 			//If Phylla is Laying (her) Eggs while Drider eggs hatch:
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] > 0 ) {
 				EngineCore.outputText( '\n\nThough judging by the size of her abdomen, you\'re sure she still has a few left.  Her own eggs don\'t seem to cause her as many \'problems\' as your eggs do.  Phylla tiredly slumps back to her bed, completely spent.' );
 			}
 			EngineCore.dynStats( 'lus', 45 );
-			if( CoC.getInstance().player.canOvipositSpider() ) {
+			if( CoC.player.canOvipositSpider() ) {
 				EngineCore.outputText( '\n\nGods DAMN!  You want to knock her up so bad!  Your Drider urges to mount her are in danger of overwhelming you and reducing you to a brainless breeder... maybe that isn\'t so bad after all, but you need to make a decision now before you\'re consumed by lust!' );
 				EngineCore.menu();
 				//[Leave her to recover] - Let Phylla Recover  [Mount] - Mount Phylla
@@ -2537,8 +2537,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 				EngineCore.addButton( 0, 'Next', this.letPhyllaRecover );
 			}
 		}
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ]++;
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] += 5 + Utils.rand( 4 );
+		CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ]++;
+		CoC.flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] += 5 + Utils.rand( 4 );
 	};
 	//Mount Phylla:
 	AntsScene.prototype.driderDoublePhllaMount = function() {
@@ -2548,9 +2548,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nNot one to keep a \'queen\' waiting, you lurch forward and work your egg-filled appendage into her still wet cunt, edging deeper and deeper, releasing your lubricative mucus inside of her until you can go no further.  Now tightly within her depths, your ovipositor convulses in orgasm as your payload works its way into her body, leaving you screaming in sexual fury as you once again impregnate Phylla with your eggs.' );
 		EngineCore.outputText( '\n\n"<i>OH GODS!  I-I NEED MORE!  FILL ME!  FILL ME WITH YOUR YOUNG!  GUAAAHHHHHHHH!</i>"  She howls furiously.  Grinning, you take satisfaction in how far you\'ve pushed Phylla, turning her into an eager eggslut.  Glazing over, her eyes roll up into her head as she wears an expression of sensual devastation.' );
 		EngineCore.outputText( '\n\nAt last, your egg supply is exhausted and you pull free of the Ant Morph, carefully walking over broken and soon to be broken egg shells as your children skitter up to their mother\'s nourishing breasts.  Phylla only coos with deep content as she cradles her stomach, barely taking notice of the young spiders that squabble over who gets to suckle first.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		//empty eggs and such!
-		CoC.getInstance().player.dumpEggs();
+		CoC.player.dumpEggs();
 		//set phylla drider preggo timer
 		if( !this.pregnancy.isPregnant ) {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 8 * 24 );
@@ -2569,10 +2569,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( 'Phylla seems surprised you would be interested in the fruits of your loins.  "<i>Usually once my kind take a mate they never come back to their colony.  I mean!  Not that I don\'t want you to come back, I-I like when you come down here.  It\'s just, usually not what happens.</i>"  You reassure her you don\'t mind and that sometimes it\'s good to get away from the surface to see your progeny.  Her face seems to light up when you imply that they\'re \'your children.\'' );
 		EngineCore.outputText( '\n\n"<i>They\'re great; I mean... just look at who they come from.</i>"  She gives a timid nudge and continues.  "<i>They take care of me and we\'ve started to dig deeper into the ground.</i>"' );
 		//If birthing for less than 10 days:
-		if( CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ] < 10 ) {
+		if( CoC.flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ] < 10 ) {
 			EngineCore.outputText( '\n\n"<i>We haven\'t made much progress, but many of our children are still young and not fully able to serve me.  I mean us!</i>"  She quickly corrects herself.  "<i>The progress is slow but it\'s nice to have them around.  Little reminders of you when you\'re not here.</i>"  She smiles widely.' );
 		}//If birthing for more than 10 days:
-		else if( CoC.getInstance().flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ] < 40 ) {
+		else if( CoC.flags[ kFLAGS.DAYS_PHYLLA_HAS_SPENT_BIRTHING ] < 40 ) {
 			EngineCore.outputText( '\n\n"<i>We\'ve made considerable progress as you can no doubt tell.  Most of our children are completely capable of digging their own tunnels and with as many as we have, the progress is quite fast.  A few of them have even taken your name.  I mean, I hope you don\'t mind.  I started running out of names around the one hundredth egg.</i>"' );
 		}//If birthing for more than 40 days:
 		else {
@@ -2580,11 +2580,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		EngineCore.outputText( '\n\nClearly she sees you\'re not at ease and tries to reassure you.  "<i>We don\'t have an arena like my mother did; I have no reason for such a thing.  I mean, unless it would make you feel more comfortable down here...</i>"  That\'s the last thing that would make you comfortable; you could have died in that arena and you\'ll be damned if you ever see another one again.  "<i>Well, your children are happy.  They\'re living out their lives in peace and prosperity.  All thanks to you.</i>"' );
 		//If Phylla given birth to Drider Eggs:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 0 ) {
 			EngineCore.outputText( '\n\nYou inquire about ALL of your children, knowing Phylla was just talking about your ant offspring previously.  Phylla quickly glances at the ground, clearly embarrassed she forgot and that you remembered.\n\n"<i>They\'re...much larger than I would have expected, and I... can\'t communicate with them like I can with my... kind... but they help dig, I mean... they\'re capable of digging... they\'re just more playfully aggressive and rambunctious than I expected.  But their size makes them excellent guards and caretakers for the rest of the children.  I\'m not used to it, but I love them just as much as my own.</i>"' );
 		}
 		//PC has birthed 30 Drider children or more:
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 10 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_TIMES_DRIDER_EGG_LAYED ] > 10 ) {
 			EngineCore.outputText( '\n\nShe sighs forlornly but continues.  "<i>Some of our drider offspring have even taken it upon themselves to leave the colony and venture out into the world.  Not that I mind; it\'s just sad seeing them go sometimes.  I know we did a good job raising them, and I hope they take the lessons we taught them to heart, and that they never forget where home is...</i>"' );
 		}
 		//Ending for Scene
@@ -2595,7 +2595,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.phyllaPearance = function() {
 		EngineCore.clearOutput();
 		//Not Laying Eggs
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 			EngineCore.outputText( 'Phylla is a 5-foot 8-inch tall ant morph with a very small, feminine frame covered in highly defined muscles.  She has four arms, two that attach at her shoulders and two slightly smaller ones that attach at her serratus anterior on her stomach.  Both sets of her arms and human-like legs are covered in plates of semi-reflective brown chitin armor.  Her interlocking joints remind you of how insect joints connect to one another. Her abdomen is about 4 feet long and is covered in large interlocking plates of skin colored exoskeleton.  Despite the fact that she has to carry the weight of an abdomen, her hips are very girly.  Her well toned butt is rarely seen as her abdomen covers it most of the time.  She has a sharp, slightly feminine face and large almond shaped emerald-green eyes with no hint of pupils or irises.  Her mouth is surprisingly large considering how thin her lips are.  When she smiles at you, you see a single row of human like teeth with typical human canines.  Her short brown hair is usually matted and covered in dirt, although on rare occasions she styles it so that two long bangs frame her face leaving the rest to flow around her neck.' );
 			EngineCore.outputText( '\n\nShe has a pair of B-cup breasts, with a single 0.5 inch nipple on each breast.' );
 			EngineCore.outputText( '\n\nShe has one extremely tight pussy placed between her legs, with a 2.0 inch clitoris.' );
@@ -2621,35 +2621,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.phyllaDigsForGems = function() {
 		EngineCore.clearOutput();
 		var kidsMod = 0;
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 10 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 10 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 50 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 50 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 150 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 150 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 300 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 300 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 600 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 600 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 1000 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 1000 ) {
 			kidsMod++;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 2000 ) {
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 2000 ) {
 			kidsMod++;
 		}
 		//Success
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] === 0 && Utils.rand( 20 ) + kidsMod > 10 ) {
+		if( CoC.flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] === 0 && Utils.rand( 20 ) + kidsMod > 10 ) {
 			var gems = 0;
 			gems = 10 + Utils.rand( 10 ) + kidsMod * 2;
-			CoC.getInstance().player.gems += gems;
+			CoC.player.gems += gems;
 			EngineCore.statScreenRefresh();
 			//If Phylla IS NOT Laying Eggs
-			if( CoC.getInstance().flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
+			if( CoC.flags[ kFLAGS.PHYLLA_EGG_LAYING ] === 0 ) {
 				EngineCore.outputText( 'You ask Phylla is she\'s found any gems while digging out her colony.  She nods happily and runs over to a small stone chest and rifles though it.  After a moment, she runs back over to you and holds up all four of her hands.' );
 				EngineCore.outputText( '\n\n"<i>I hope... this is enough, I mean... they\'re rare, even down here.</i>"  You mess up her hair with your hand, laughing. Telling her it\'s enough, you advise her to keep looking.  She gives you a playful salute as you place the gems into your pouch.' );
 				EngineCore.outputText( '\n\nYou gain ' + gems + ' gems.' );
@@ -2659,7 +2659,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			else {
 				EngineCore.outputText( 'You ask Phylla if she or her children have found any gems while digging.  She nods happily and closes her eyes, tilting her head back slightly.  After a moment one your children scampers in. He runs overs to a small stone chest in the corner of Phylla\'s room and after a moment of rifling through it he finds what he\'s looking for.  Walking over to you, he presents his findings.  You accept the gems he\'s retrieved.' );
 				//if corruption under 50
-				if( CoC.getInstance().player.cor < 50 ) {
+				if( CoC.player.cor < 50 ) {
 					EngineCore.outputText( '\n\nYou pat him on the head for a job well done as he walks deeper into the colony leaving you alone with Phylla.' );
 				}//If corruption over 50
 				else {
@@ -2673,14 +2673,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		else {
 			EngineCore.outputText( 'You ask Phylla if she\'s found any more gems while digging.  "<i>No, I\'m sorry.  I haven\'t.  Not since the last time you asked.  I\'ll do better!  I mean, I know you like them.  They\'re rare... even down here.  I\'ll do better...</i>"' );
 			//If corruption is less  than 50
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '\n\nYou tell her it\'s all right and that you\'ll check back later.' );
 			} else {
 				EngineCore.outputText( '\n\nYou sigh, slightly disappointed, but give her a weak pat on the head anyway.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Is there anything else you wanted to do while you\'re down here?</i>"  She inquires excitedly.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] = 1;
+		CoC.flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Drider/Bee impregnation scene for Phylla (universal unless otherwise specified, which will include varied intros and stuff.
@@ -2688,11 +2688,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 	AntsScene.prototype.eggDatBitch = function() {
 		EngineCore.clearOutput();
 		//PC is a Female/Herm Drider:
-		if( CoC.getInstance().player.canOvipositSpider() ) {
+		if( CoC.player.canOvipositSpider() ) {
 			EngineCore.outputText( 'While Phylla appears to be sexually sated, the heaviness in your spider abdomen begs for release.\n\n' );
 		}
 		//First Time:
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ] === 0 ) {
 			EngineCore.outputText( 'Turning to Phylla, you tell her that you can help to make her wishes of being a brood-mother come true.  She looks at you a bit taken back, as if what you already did wasn\'t enough already.' );
 			EngineCore.outputText( '\n\nYou go on to explain, telling her that your body is chalk full of eggs that eagerly await a willing host to gestate in.  If she wants to birth as many children as possible, your union can grant her wishes; albeit, she would be birthing both Ant and Spider children.' );
 		}
@@ -2702,7 +2702,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		}
 		//Persuade Phylla - Random chance of failing, affected by INT and whether she's already housing eggs in her vagina.
 		//Persuasion failure
-		if( Utils.rand( 20 ) + 1 + CoC.getInstance().player.inte / 20 < 10 ) {
+		if( Utils.rand( 20 ) + 1 + CoC.player.inte / 20 < 10 ) {
 			EngineCore.outputText( '\n\nPhylla ponders for a moment and shakes her head.  "<i>I\'m sorry, [name], I\'m not comfortable with that right now.' );
 			//If player has already impregnated Phylla with drider eggs and fails the check:
 			if( this.pregnancy.isPregnant ) {
@@ -2717,7 +2717,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		else {
 			EngineCore.outputText( '\n\nWith some hesitation and consideration, Phylla ponders the idea of being a brood-mother in more than one way for a bit.  With a shy smile, Phylla reluctantly agrees to house both of your children.' );
 			//First Time:
-			if( CoC.getInstance().flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ] === 0 ) {
+			if( CoC.flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ] === 0 ) {
 				EngineCore.outputText( '\n\n"<i>H-How will we do this?</i>" She inquires. "<i>I mean, I\'ve never seen or heard of anything mating with a Drider before... M-my eggs come out of my abdo~</i>"' );
 				EngineCore.outputText( '\n\nYou raise a finger to her lips and tell her to lie down against the bed and to relax.  You know exactly where her eggs come out of.  The image of Phylla dropping eggs out of both her vagina and her abdomen makes you want this all the more.  Though the link you send this image to her, and feel her well up with maternal pride.  In uncertain anticipation, Phylla heeds your directions and lies down, her back on the bed with her abdomen curled in the air.' );
 			}
@@ -2725,7 +2725,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			else {
 				EngineCore.outputText( '\n\nPhylla quickly gets into position, although at first she looks uncertain of if what\'s she done is correct.' );
 				//If PC corruption over 75:
-				if( CoC.getInstance().player.cor < 75 ) {
+				if( CoC.player.cor < 75 ) {
 					EngineCore.outputText( '  Little does poor Phylla know, you\'re going to just use her as a baby maker to ease the tension of your own sacks.' );
 				}
 			}
@@ -2735,7 +2735,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			EngineCore.outputText( '\n\n"<i>UGH!  Its hurts... a little~ feels so strange... I-mea~ good!  Give me more!  Please!</i>" She cries out, her maternal instincts kicking in as her desires to bear many young overtake her.  You comfort her while telling her that you have a few more on the way; something that causes Phylla\'s eyes to roll up in her head.  You feel the thoughts of being filled with so much new life that she will eventually birth to overwhelm her senses.' );
 			EngineCore.outputText( '\n\nEgg after egg slides into Phylla, causing her to moan louder and louder with each egg. Her stomach quickly starts to bulge bigger and bigger with your brood as you stuff more into her.' );
 			//If PC corruption over 75:
-			if( CoC.getInstance().player.cor >= 75 ) {
+			if( CoC.player.cor >= 75 ) {
 				EngineCore.outputText( '\n\nYou can feel her ask you to stop though the link as her body starts to pull away from you, stating that she\'s nice and full and that any more could hurt her. Not yet! You know she can fit at LEAST three or four more! You KNOW she can hold them safely, she just needs to "<i>man up</i>". Using your numerous legs and arms you pin Phylla to the ground. Completely stopping her pulling away. Phylla screams in pleasure or pain, you can\'t really tell but you continue to deposit your eggs into her.' );
 			}
 			EngineCore.outputText( '\n\nAt last, the final egg laid inside of Phylla, you retract your ovipositor from her love hole; it\'ll recover in time. Phylla rubs her belly and gleams with delight, filled with her lover\'s future children that will help the colony to grow strong.' );
@@ -2744,9 +2744,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 			if( !this.pregnancy.isPregnant ) {
 				this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 8 * 24 );
 			} //Supposed to be eight days, not eight hours
-			CoC.getInstance().flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ]++;
-			CoC.getInstance().player.orgasm();
-			CoC.getInstance().player.dumpEggs();
+			CoC.flags[ kFLAGS.TIMES_EGG_IMPREGNATING_PHYLLA ]++;
+			CoC.player.orgasm();
+			CoC.player.dumpEggs();
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

@@ -25,13 +25,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, EventPa
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You carefully step through the cratered rubble to claim your prize. It\'s a chunk of lethicite,' );
 		// 9999 dis shit.;
-		if( CoC.getInstance().player.hasKeyItem( 'Marae\'s Lethicite' ) ) {
+		if( CoC.player.hasKeyItem( 'Marae\'s Lethicite' ) ) {
 			EngineCore.outputText( ' easily as big as Marae\'s.' );
 		} else {
 			EngineCore.outputText( ' like the purple crystals in the factory, only this one is three times as big.' );
 		}
 		EngineCore.outputText( '\n\n<b>Lethicite acquired!</b>' );
-		CoC.getInstance().player.createKeyItem( 'Stone Statue Lethicite', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'Stone Statue Lethicite', 0, 0, 0, 0 );
 		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	LivingStatueScenes.prototype.fuckinMarbleOP = function() {

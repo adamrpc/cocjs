@@ -6,7 +6,7 @@ angular.module('cocjs').factory('BerzerkerPerk', function (PerkType, CoC) {
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if(CoC.getInstance().player.str>=75) {
+		if(CoC.player.str>=75) {
 			return 'Grants "Berzerk" ability.';
 		}
 		return '<b>You aren\'t strong enough to benefit from this anymore.</b>';

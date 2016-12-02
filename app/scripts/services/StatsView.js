@@ -19,20 +19,20 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 	// <- statsScreenRefresh
 	StatsView.prototype.refresh = function() {
 		this.stats.coreStats.text = '<b><u>Name : {NAME}</b>'
-			.replace( '{NAME}', CoC.getInstance().player.short );
+			.replace( '{NAME}', CoC.player.short );
 		this.stats.time.text = "<b><u>Day #: {DAYS}</u></b>\n<b>Time : {HOURS}:00</b>"
-			.replace( "{DAYS}", CoC.getInstance().time.days )
-			.replace( "{HOURS}", CoC.getInstance().time.hours );
+			.replace( "{DAYS}", CoC.time.days )
+			.replace( "{HOURS}", CoC.time.hours );
 				
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'fatigue', 'lust' ], function( statName ) {
-			this.stats[statName].bar = CoC.getInstance().player[statName] / 100;
-			this.stats[statName].num = CoC.getInstance().player[statName];
+			this.stats[statName].bar = CoC.player[statName] / 100;
+			this.stats[statName].num = CoC.player[statName];
 		} );
-		this.stats.HP.bar = CoC.getInstance().player.HP / CoC.getInstance().player.maxHP();
-		this.stats.HP.num = CoC.getInstance().player.HP;
-		this.stats.level.num = CoC.getInstance().player.level;
-		this.stats.XP.num = CoC.getInstance().player.XP;
-		this.stats.gems.num = CoC.getInstance().player.gems;
+		this.stats.HP.bar = CoC.player.HP / CoC.player.maxHP();
+		this.stats.HP.num = CoC.player.HP;
+		this.stats.level.num = CoC.player.level;
+		this.stats.XP.num = CoC.player.XP;
+		this.stats.gems.num = CoC.player.gems;
 	};
 	// <- showStats
 	StatsView.prototype.show = function() {
@@ -59,10 +59,10 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 		this.upDownsContainer.visible = true;
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust' ], function( statName ) {
 			var oldStatName = _oldStatNameFor( statName );
-			if( CoC.getInstance().player[ statName ] > CoC.getInstance().oldStats[ oldStatName ] ) {
+			if( CoC.player[ statName ] > CoC.oldStats[ oldStatName ] ) {
 				this.showStatUp( statName );
 			}
-			if( CoC.getInstance().player[ statName ] < CoC.getInstance().oldStats[ oldStatName ] ) {
+			if( CoC.player[ statName ] < CoC.oldStats[ oldStatName ] ) {
 				this.showStatDown( statName );
 			}
 		} );

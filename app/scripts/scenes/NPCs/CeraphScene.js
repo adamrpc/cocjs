@@ -46,43 +46,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	//[Beat Ceraph And Rape Her];
 	//Ceraph's fluids boost PC libido and sensitivity massively either way.;
 	CeraphScene.prototype.maleFuckCeraphsPussy = function() {
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
 		//UBER-Fullbodypenetration;
-		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.biggestCockArea() > 500 && (CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || SceneLib.jojoScene.monk >= 5) ) {
+		if( CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.player.biggestCockArea() > 500 && (CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || SceneLib.jojoScene.monk >= 5) ) {
 			this.hugeCorruptionForceFuckCeraph();
 			return;
 		}
-		if( CoC.getInstance().player.cockArea( 0 ) <= CoC.getInstance().monster.vaginalCapacity() ) {
+		if( CoC.player.cockArea( 0 ) <= CoC.monster.vaginalCapacity() ) {
 			//[Male] Fuck 'Dat Pussah;
 			//[lust];
-			if( CoC.getInstance().monster.lust > 99 ) {
-				EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants.  Mindful of her demonic wiles, you pull her hands together and use a few tattered strips of cloth to bind them over her head.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.getInstance().player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her juicy purple cunt.\n\n', false );
+			if( CoC.monster.lust > 99 ) {
+				EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants.  Mindful of her demonic wiles, you pull her hands together and use a few tattered strips of cloth to bind them over her head.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her juicy purple cunt.\n\n', false );
 			}
 			//[hp];
 			else {
 				EngineCore.outputText( 'Ignoring her grunts of pain, you force Ceraph onto her back, oogling her perky breasts, limp cock, and hairless cunt.  She looks up at you with disdain, growling at you from the back of her throat.  Wary of the demon\'s abilities, you tie up her hands with a few tattered strips of cloth.  She seems to like it, judging by her tenting erection and now-glistening gash.  The slut even goes so far as to begin grinding her crotch against you, spreading her thighs wider and wider as she gets off on being restrained.  You\'re given a perfect view of her enticing purple cunt.\n\n', false );
 			}
 			EngineCore.outputText( 'Ceraph licks her lips and gazes up at you, begging with a voice that drips with seductive intent, "<i>Please don\'t rape me, champion!  Don\'t tie me down and rape me like a helpless village-girl!</i>"\n\n', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'Her words shame you.  Have you really sunk this low?  You wonder just how much this world has already corrupted you as you ready yourself to rape a sex-demon.', false );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'Her words confuse you.  You never would\'ve done this when you first came here, but you\'re horny and you know demons don\'t really mind.', false );
 			} else {
 				EngineCore.outputText( 'Her dishonest words anger you, and you slap her in the face.  Both of you know that she wants this almost as much as she wanted to rape you, and any pretense at disliking this act is a deceitful sham.', false );
 			}
-			EngineCore.outputText( '  It\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.getInstance().player.armorName + ' ', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+			EngineCore.outputText( '  It\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.player.armorName + ' ', false );
+			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 				EngineCore.outputText( 'getting an exhibitionist thrill ', false );
 			}
 			EngineCore.outputText( 'and begin stroking ', false );
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( 'each of ', false );
 			}
 			EngineCore.outputText( 'your stiff ' + Descriptors.multiCockDescriptLight() + ', preparing to penetrate her.\n\n', false );
 			EngineCore.outputText( 'Ceraph squirms in the dirt as you bring your ' + Descriptors.cockDescript( 0 ) + ' closer and closer to her female hole, her cock twitching with need like some kind of perverse, mutant clit.  Her hips twitch at you, as if eager to devour your maleness.  You don\'t keep her waiting, ', false );
-			if( CoC.getInstance().player.cockArea( 0 ) < 40 ) {
+			if( CoC.player.cockArea( 0 ) < 40 ) {
 				EngineCore.outputText( 'and with a forceful thrust, you sheath yourself inside the demon\'s unholy pussy', false );
 			} else {
 				EngineCore.outputText( 'and with a mighty effort, you force your over-sized cock inside her.  For a moment all you can do is stare in awe as it distorts her body – the fact that such a thing is possible puzzles you', false );
@@ -92,16 +92,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			EngineCore.outputText( 'You grunt, pounding her harder and faster than before, knowing you couldn\'t pull out of her vise-like pleasure-hole if you wanted to.  It feels too good to hold out or resist, and you drop down, adjusting your angle as you rape the beautiful omnibus.  You\'re grunting like an animal, humping her as fast as your body will let you, but she lies under you with a serene and enticing expression, as if she\'s greatly enjoying the situation and awaiting your orgasm.  You pinch her nipple roughly, irritated by her superior air, but it only makes her wriggling pussy get even wetter.  It clamps down on you, wringing your ' + Descriptors.cockDescript( 0 ) + ' dry as it erupts in a powerful orgasm.\n\n', false );
 			EngineCore.outputText( 'Ceraph squeals happily, her sultry visage fracturing into an uninhibited expression of pleasure as she cries, "<i>Fill me with your seed, champion!  Dominate the demon with your mighty spear!</i>"\n\n', false );
 			EngineCore.outputText( 'Her purple-hued pussy spasms around you, its oddly textured interior rippling and sucking in time with your ejaculations, drinking down your cum.  Ceraph squirms happily while her body absorbs your jizz with her impossibly pleasurable hole.', false );
-			if( CoC.getInstance().player.cumQ() >= 500 && CoC.getInstance().player.cumQ() < 1000 ) {
+			if( CoC.player.cumQ() >= 500 && CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( '  Her belly begins to rise with the volume of cum she\'s absorbed, and you finish your orgasm with a mildly pregnant demon underneath you.', false );
-			} else if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			} else if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  Her belly rises quickly from the volume of cum you\'re pumping into her, swelling up until she looks ready to give birth, but her taut purple body seems to handle the strain quite well, save for her belly-button turning into an outtie with an abrupt \'pop\'.', false );
 			}
 			EngineCore.outputText( '  The omnibus\' nubby shaft twitches happily and squirts out tiny dribbles of demon-semen, too left out by the sex to achieve a truly enjoyable orgasm, but more than willing to leak cum.\n\n', false );
 			EngineCore.outputText( 'Ceraph exhales with exhaustion and rubs her hands over her belly, cooing, "<i>So, you really did give up all your semen to me.  I guess I\'ll have to name the first imp I birth from this after you, won\'t I?</i>"\n\n', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'You groan, just wishing she would stop reminding you of the consequences of this little tryst.  In a hurry to leave the demon behind, you get dressed and take off for camp.\n\n', false );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'You groan, wondering why she just won\'t get over her little act.  Even though this wasn\'t your best idea, it isn\'t nearly as bad as she makes it out to be.  You get dressed and leave, eager to be rid of her.\n\n', false );
 			} else {
 				EngineCore.outputText( 'You bend over, rub her belly softly and whisper into her ear, "<i>I\'ll be sure to spit him on my cock first chance I get, dear.</i>"\n\n', false );
@@ -110,8 +110,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		} else {
 			//[MALE TOO DAMN BIGGA WIGGA];
 			//[lust] ;
-			if( CoC.getInstance().monster.lust > 99 ) {
-				EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants.  Wary of the demon\'s wiles, you pull her hands together and use some scraps of cloth to bind them up.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.getInstance().player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her juicy purple cunt.\n\n', false );
+			if( CoC.monster.lust > 99 ) {
+				EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants.  Wary of the demon\'s wiles, you pull her hands together and use some scraps of cloth to bind them up.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her juicy purple cunt.\n\n', false );
 			}
 			//[hp] ;
 			else {
@@ -119,55 +119,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			}
 
 			EngineCore.outputText( 'Ceraph licks her lips and gazes up at you, begging with a voice that drips with seductive intent, "<i>Please, don\'t rape me Champion!  Don\'t tie me down and rape me like a helpless village-girl!</i>"\n\n', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'Her words shame you.  Have you really sunk this low?  You wonder just how much this world has already corrupted you as you ready yourself to rape a sex-demon.', false );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'Her words confuse you.  You never would\'ve done this when you first came here, but you\'re horny and you know demons don\'t really mind.', false );
 			} else {
 				EngineCore.outputText( 'Her dishonest words anger you, and you slap her in the face.  Both of you know that she wants this almost as much as she wanted to rape you, and any pretense at disliking this act is a deceitful sham.', false );
 			}
-			EngineCore.outputText( '  It\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.getInstance().player.armorName + ' ', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+			EngineCore.outputText( '  It\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.player.armorName + ' ', false );
+			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 				EngineCore.outputText( 'getting an exhibitionist thrill ', false );
 			}
 			EngineCore.outputText( 'and begin stroking ', false );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'each of ', false );
 			}
 			EngineCore.outputText( 'your stiff ' + Descriptors.multiCockDescriptLight() + ', preparing to penetrate her.\n\n', false );
-			EngineCore.outputText( 'The ' + CoC.getInstance().player.cockHead() + ' of your ' + Descriptors.cockDescript( 0 ) + ' squishes flat against her twat, too big for her prodigious demon-cunt to swallow.  Spurred by frustrated desires, you lift her legs and wrap her girlcum-slicked thighs about your ', false );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			EngineCore.outputText( 'The ' + CoC.player.cockHead() + ' of your ' + Descriptors.cockDescript( 0 ) + ' squishes flat against her twat, too big for her prodigious demon-cunt to swallow.  Spurred by frustrated desires, you lift her legs and wrap her girlcum-slicked thighs about your ', false );
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'primary ', false );
 			}
 			EngineCore.outputText( Descriptors.cockDescript( 0 ) + '. Ceraph\'s smooth skin and soft thigh-flesh form a comfortably tight masturbation tube.  Starting slowly, you begin rocking back and forth, sawing your prodigious cock-flesh over her body.  The demoness swivels her hips underneath your ' + Descriptors.cockDescript( 0 ) + ', her slippery gash and near-crushed member feverishly rubbing into you.  Though you didn\'t get to truly violate her, her thighs and unblemished skin are more than good enough to bring you to the brink of orgasm.\n\n', false );
 			EngineCore.outputText( 'The defeated omnibus wraps her arms around your ' + Descriptors.cockDescript( 0 ) + ' and whines lustily, "<i>No, please!  You\'ll cover me in seed and despoil my face!  Please don\'t glaze me in that awful stuff!</i>"\n\n', false );
 			EngineCore.outputText( 'You grunt, hold the captive by her ankles, and use her like a disposable sex-toy.  The slap of your ' + Descriptors.hipDescript() + ' slapping into her thighs echoes loudly, nearly drowning out the wet squishing of your ' + Descriptors.cockDescript( 0 ) + ' with each violent brush against her cuntlips.  ', false );
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength < 18 ) {
-				EngineCore.outputText( 'Your ' + CoC.getInstance().player.cockHead() + ' crests between her breasts with every stroke, bumping against her chin.  It grows larger as the pleasure of the act intensifies to orgasmic levels.\n\n', false );
-			} else if( CoC.getInstance().player.cocks[ 0 ].cockLength < 24 ) {
-				EngineCore.outputText( 'Your ' + CoC.getInstance().player.cockHead() + ' slides over her cheek with every stroke, leaving a trail of pre-cum on her face.  The smudges of glistening pre grow larger and larger as the pleasure of the act nears orgasmic levels.\n\n', false );
+			if( CoC.player.cocks[ 0 ].cockLength < 18 ) {
+				EngineCore.outputText( 'Your ' + CoC.player.cockHead() + ' crests between her breasts with every stroke, bumping against her chin.  It grows larger as the pleasure of the act intensifies to orgasmic levels.\n\n', false );
+			} else if( CoC.player.cocks[ 0 ].cockLength < 24 ) {
+				EngineCore.outputText( 'Your ' + CoC.player.cockHead() + ' slides over her cheek with every stroke, leaving a trail of pre-cum on her face.  The smudges of glistening pre grow larger and larger as the pleasure of the act nears orgasmic levels.\n\n', false );
 			} else {
 				EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' slides over her face with every stroke, smearing the demon\'s hair with your thick pre-seed before you pull back and dribble it on her face.  The pleasure of the act is incredible, and you feel yourself getting harder as the sensation nears orgasmic levels.\n\n', false );
 			}
 
 			EngineCore.outputText( 'Ceraph squeals and blubbers incoherently for a moment as she cums, eventually managing to scream out, "<i>Yes, splatter me with seed!  Punish this lowly demon with your powerful spunk.  Dominaaaaate meeee~</i>"\n\n', false );
 			EngineCore.outputText( 'Underneath your own mammoth erection, you can feel Ceraph\'s smaller cock twisting and squirming, unloading its own hot fluids onto her sweat-slicked belly.  She wriggles and twitches under you, her thigh muscles clenching and releasing in time with her spurts as they push you beyond your limit.  You watch your ' + Descriptors.cockDescript( 0 ) + ' as it strains and squirts, dumping your thick load into the demon\'s ', false );
-			if( CoC.getInstance().player.cocks[ 0 ].cockLength < 18 ) {
+			if( CoC.player.cocks[ 0 ].cockLength < 18 ) {
 				EngineCore.outputText( 'tits', false );
-			} else if( CoC.getInstance().player.cocks[ 0 ].cockLength < 24 ) {
+			} else if( CoC.player.cocks[ 0 ].cockLength < 24 ) {
 				EngineCore.outputText( 'face', false );
 			} else {
 				EngineCore.outputText( 'long hair', false );
 			}
 			EngineCore.outputText( '.  The orgasming demonette continues to squirt underneath you, drenching and smearing herself with even more cum and her entire mid-section looks glazed in thick whitish goo.', false );
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  Your prodigious fertility quickly forms a puddle around her, leaving the deceptive seductress practically submerged in cum.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You sigh, feeling immense relief, and remove your softening bulk from atop her form.  Ceraph exhales in exhaustion and smears the mixture of cum over her belly, cooing, "<i>So you really did give me a huge load.  I\'ll be sure to scoop a few batches of it into my womb so we can have lots of imps together.</i>"\n\n', false );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'You groan, just wishing she would stop reminding you of the consequences of this little tryst.  In a hurry to leave the demon behind, you get dressed and take off for camp.\n\n', false );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'You groan, wondering why she just won\'t get over her little act.  Even though this wasn\'t your best idea, it isn\'t nearly as bad as she makes it out to be.  You get dressed and leave, eager to be rid of her.\n\n', false );
 			} else {
 				EngineCore.outputText( 'You bend over, rub her belly softly and whisper into her ear, "<i>I\'ll be sure to spit them on my cock first chance I get, dear.</i>"\n\n', false );
@@ -175,9 +175,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 
 			EngineCore.outputText( 'As you leave, you don\'t bother to spare a glance at the confused omnibus; she isn\'t worth your time.', false );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -185,13 +185,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	};
 	//[Female] Ride 'Dat Cawk;
 	CeraphScene.prototype.rideCeraphsCockLikeaBAWSSexclamation11eleven = function() {
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
-		CoC.getInstance().player.slimeFeed();
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
+		CoC.player.slimeFeed();
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
 		//lust;
-		if( CoC.getInstance().monster.lust > 99 ) {
-			EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants. Wary of the demon\'s wiles, you pull her hands together and use some tattered strips of cloth to bind them up.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.getInstance().player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her pulsating black demon-cock.\n\n', false );
+		if( CoC.monster.lust > 99 ) {
+			EngineCore.outputText( 'Ignoring her squeals of pleasure, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, and you have the feeling that on some level you\'re still giving her what she wants. Wary of the demon\'s wiles, you pull her hands together and use some tattered strips of cloth to bind them up.  Moaning with helpless desire, the demon grinds her crotch against your ' + CoC.player.leg() + ', spreading her thighs apart into a near split and giving you a world-class view of her pulsating black demon-cock.\n\n', false );
 		}
 		//[hp] ;
 		else {
@@ -199,35 +199,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		}
 
 		EngineCore.outputText( 'Ceraph licks her lips and gazes up at you, begging with a voice that drips with seductive intent, "<i>Please don\'t rape me!  I took a vow of chastity!</i>"\n\n', false );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'Her words shame you.  Have you really sunk this low?  You wonder just how much this world has already corrupted you as you ready yourself to get off on a sex-demon\'s tool.', false );
-		} else if( CoC.getInstance().player.cor < 66 ) {
+		} else if( CoC.player.cor < 66 ) {
 			EngineCore.outputText( 'Her words confuse you.  You never would\'ve done this when you first came here, but you\'re horny and you know demons don\'t really mind.', false );
 		} else {
 			EngineCore.outputText( 'Her dishonest words anger you, and you slap her in the face.  Both of you know that she wants this almost as much as she wanted to rape you, and any pretense at disliking this act is a deceitful sham.', false );
 		}
 
-		EngineCore.outputText( '\n\nIt\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.getInstance().player.armorName + ' ', false );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] >= 1 ) {
+		EngineCore.outputText( '\n\nIt\'s too late for her to have any hope of swaying you anyway.  You strip off your ' + CoC.player.armorName + ' ', false );
+		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.outputText( 'getting an exhibitionist thrill ', false );
 		}
 		EngineCore.outputText( 'and begin touching your ' + Descriptors.vaginaDescript( 0 ) + ', getting yourself ready for what is to come.\n\n', false );
-		EngineCore.outputText( 'You sink down, feeling yourself part around the hot demon-tool, its ring of crown-nubs stroking your walls as you slide down, and the bumpy texture of its shaft makes your ' + CoC.getInstance().player.legs() + ' feel weak.  You drop the rest of the way down in one smooth, wet slide, ' );
-		if( CoC.getInstance().player.vaginalCapacity() < 12 ) {
+		EngineCore.outputText( 'You sink down, feeling yourself part around the hot demon-tool, its ring of crown-nubs stroking your walls as you slide down, and the bumpy texture of its shaft makes your ' + CoC.player.legs() + ' feel weak.  You drop the rest of the way down in one smooth, wet slide, ' );
+		if( CoC.player.vaginalCapacity() < 12 ) {
 			EngineCore.outputText( 'unable to take the entire exquisite cock inside you.  The nubs squirm and wiggle, practically vibrating and massaging your internal muscles, and you\'re unable to stop yourself from bouncing on top of her, spearing yourself repeatedly upon the thick rod.\n\n', false );
 		} else {
 			EngineCore.outputText( 'able to take the entire exquisite cock inside you.  The nubs squirm and wiggle, practically vibrating and massaging your internal muscles, and you\'re unable to stop yourself from bouncing on top of her, spearing yourself repeatedly upon the thick rod.\n\n', false );
 		}
 
 		EngineCore.outputText( 'Ceraph cries in mock protest, "<i>No, don\'t make me cum inside you!  Please Champion, I swore not to spill my seed, lest I father a bastard child!</i>"\n\n', false );
-		EngineCore.outputText( 'The sensations of her vibrating nodules ensure you don\'t have the will or the strength to pull off of her, and what little power your ' + CoC.getInstance().player.legs() + ' have is used to keep bouncing and grinding on top of her, filling the air with wet squelches and slippery squishes.  You fall forwards, barely catching yourself before you slam into the sultry demoness.  Your ', false );
-		if( CoC.getInstance().player.biggestTitSize() < 1 ) {
+		EngineCore.outputText( 'The sensations of her vibrating nodules ensure you don\'t have the will or the strength to pull off of her, and what little power your ' + CoC.player.legs() + ' have is used to keep bouncing and grinding on top of her, filling the air with wet squelches and slippery squishes.  You fall forwards, barely catching yourself before you slam into the sultry demoness.  Your ', false );
+		if( CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( 'chest ', false );
 		} else {
 			EngineCore.outputText( 'tits ', false );
 		}
 		EngineCore.outputText( 'squish against hers, squeezing a gout of milk from her nipples.  Both pairs of ', false );
-		if( CoC.getInstance().player.biggestTitSize() < 1 ) {
+		if( CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( 'nipples', false );
 		} else {
 			EngineCore.outputText( 'jiggling mounds', false );
@@ -235,25 +235,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( ' feel wonderful as they\'re pressed between you, sliding back and forth in time with your body\'s urgent grinding.\n\n', false );
 		EngineCore.outputText( 'The omnibus\' facade of feigned innocence drops under the force of the hot, wet fuck.  Her mouth opens into an \'o\' of pleasure, and you feel her rod thicken as it begins pumping the proof of her ecstasy inside you.  The nodules that cover Ceraph\'s demonic erection wildly vibrate as she orgasms, throwing you over the edge and into the midst of a body-shaking orgasm.  Demon-seed floods your womb, squeezed inside it by your body\'s orgasmic contractions.  You shudder with the demon as you both begin calming down.\n\n', false );
 		EngineCore.outputText( 'She groans, "<i>Ooooh... Champion why did you make me despoil your womb?  ', false );
-		if( CoC.getInstance().player.pregnancyIncubation === 0 ) {
+		if( CoC.player.pregnancyIncubation === 0 ) {
 			EngineCore.outputText( 'You\'re only feeding the swarms of imps that are despoiling this land.', false );
 		} else {
 			EngineCore.outputText( 'I\'m sure whatever baby you have in there won\'t enjoy being so soaked in corruption.', false );
 		}
 		EngineCore.outputText( '</i>"\n\n', false );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'You groan, just wishing she would stop reminding you of the consequences of this little tryst.  In a hurry to leave the demon behind, you get dressed and take off for camp.\n\n', false );
-		} else if( CoC.getInstance().player.cor < 66 ) {
+		} else if( CoC.player.cor < 66 ) {
 			EngineCore.outputText( 'You groan, wondering why she just won\'t get over her little act.  Even though this wasn\'t your best idea, it isn\'t nearly as bad as she makes it out to be.  You get dressed and leave, eager to be rid of her.\n\n', false );
 		} else {
 			EngineCore.outputText( 'You bend over and rub your belly while whispering in her ear, "<i>Like mother, like child.</i>"\n\n', false );
 		}
 		EngineCore.outputText( 'As you leave, you don\'t bother to spare a glance at the confused omnibus; she isn\'t worth your time.\n\n', false );
-		CoC.getInstance().player.cuntChange( CoC.getInstance().monster.cockArea( 0 ), true );
-		CoC.getInstance().player.orgasm();
+		CoC.player.cuntChange( CoC.monster.cockArea( 0 ), true );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
-		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61 ); //Ceraph causes faster pregnancies
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61 ); //Ceraph causes faster pregnancies
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -264,31 +264,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph advances on your ', false );
-		if( CoC.getInstance().player.HP < 1 ) {
+		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'prone ', false );
 		} else {
 			EngineCore.outputText( 'lust-consumed ', false );
 		}
 		EngineCore.outputText( 'form, whispering calmly as she pulls a pair of gleaming, green piercings from a pouch, "<i>Oh, don\'t worry baby, you\'re going to love this so much.  These piercings are special, and they\'ll help you learn to enjoy the things I\'m going to teach you.</i>"\n\n', false );
-		if( CoC.getInstance().player.earsPierced > 0 ) {
+		if( CoC.player.earsPierced > 0 ) {
 			EngineCore.outputText( 'With a dismissive gesture, Ceraph murmurs words of dark magic and the piercings in your ears drop to the ground, leaving behind smooth, unbroken flesh.  ', false );
 		}
 		//(BUSINESS AS USUAL GENTLEMEN);
-		EngineCore.outputText( 'The demon places a hand on your forehead and rubs your temples.  Strength drains from your body with every touch, until you\'re left helpless and paralyzed.  She snaps an earring into your left ear, and dizziness washes over you.  A moment later she\'s piercing the other side, and the now-familiar vertigo that accompanies it seems to come and go quicker than before.  You hope she doesn\'t take your ' + CoC.getInstance().player.armorName + ' while you\'re paralyzed, leaving you to roam the realm totally exposed.  Confusion and waves of new desire battle in your mind as you try to come to grips with the odd thought.\n\n', false );
+		EngineCore.outputText( 'The demon places a hand on your forehead and rubs your temples.  Strength drains from your body with every touch, until you\'re left helpless and paralyzed.  She snaps an earring into your left ear, and dizziness washes over you.  A moment later she\'s piercing the other side, and the now-familiar vertigo that accompanies it seems to come and go quicker than before.  You hope she doesn\'t take your ' + CoC.player.armorName + ' while you\'re paralyzed, leaving you to roam the realm totally exposed.  Confusion and waves of new desire battle in your mind as you try to come to grips with the odd thought.\n\n', false );
 		EngineCore.outputText( 'Ceraph watches your ', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( 'cock bounce in time with your fluttering heartbeats', false );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'vagina get wetter and wetter', false );
 		} else {
 			EngineCore.outputText( 'parted lips and confused expression', false );
 		}
-		EngineCore.outputText( ' as the new thoughts and desires settle themselves inside you.  She gives you a gentle pat and explains, "<i>It\'s ok baby, you\'re an exhibitionist now.  The moment I put those cursed earrings in your cute little ears, they slid their magic deep inside you, teaching you how to be a good ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ' and get turned on by exposing yourself.</i>"\n\n', false );
+		EngineCore.outputText( ' as the new thoughts and desires settle themselves inside you.  She gives you a gentle pat and explains, "<i>It\'s ok baby, you\'re an exhibitionist now.  The moment I put those cursed earrings in your cute little ears, they slid their magic deep inside you, teaching you how to be a good ' + CoC.player.mf( 'boy', 'girl' ) + ' and get turned on by exposing yourself.</i>"\n\n', false );
 		EngineCore.outputText( 'Judging by how hot the idea is getting you, Ceraph is right – <b>whether you like it or not, you\'re an exhibitionist now.</b>', false );
-		CoC.getInstance().player.earsPierced = 1;
-		CoC.getInstance().player.earsPShort = 'green gem-stone ear-studs';
-		CoC.getInstance().player.earsPLong = 'Green gem-stone ear-studs';
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 1;
+		CoC.player.earsPierced = 1;
+		CoC.player.earsPShort = 'green gem-stone ear-studs';
+		CoC.player.earsPLong = 'Green gem-stone ear-studs';
+		CoC.flags[ kFLAGS.PC_FETISH ] = 1;
 		EngineCore.dynStats( 'lus', 25, 'cor', 5 );
 		Combat.cleanupAfterCombat();
 	};
@@ -297,16 +297,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph giggles as she closes in on you once again.  Unable to fight back, you lie there as she once again massages your temples, using her magic to paralyze your body.  She\'s all too happy to build up the suspense as she pulls out a pair of shining black studs, "<i>Oh, did you want to know what these are going to teach you?  Well, how about I slide them into your ', false );
-		if( CoC.getInstance().player.hasFuckableNipples() ) {
+		if( CoC.player.hasFuckableNipples() ) {
 			EngineCore.outputText( 'slut', false );
-		} else if( CoC.getInstance().player.nippleLength < 1 ) {
+		} else if( CoC.player.nippleLength < 1 ) {
 			EngineCore.outputText( 'cute', false );
 		} else {
 			EngineCore.outputText( 'tight', false );
 		}
 		EngineCore.outputText( '-nipples and you tell me all about your fetishes and which one makes you the hottest.  OK?</i>"\n\n', false );
 		//If already pierced;
-		if( CoC.getInstance().player.nipplesPierced > 0 ) {
+		if( CoC.player.nipplesPierced > 0 ) {
 			EngineCore.outputText( 'With a dismissive gesture, Ceraph murmurs words of dark magic, and the piercings in your nipples drop to the ground, leaving behind smooth, unbroken flesh.  ', false );
 		}
 		//Business as usual!;
@@ -314,10 +314,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( 'She smiles down at you and teases, "<i>Still haven\'t figured it out?  I\'ll give you a hint being paralyzed nearly the same as being tied down?</i>"\n\n', false );
 		EngineCore.outputText( 'Your body goes beet-red as it suddenly tries to struggle against her invisible restraints.  It really is!  You nearly cry as the restraint turns you on more and more.  Ceraph\'s cursed piercings have given you a fetish for being restrained.  You nearly faint when you think of the tentacle monsters, and you know you have no hope of resisting if they ever bind you up.  <b>Somehow you\'ll have to get used to being a bondage fetishist...</b>', false );
 		EngineCore.dynStats( 'lus', 25, 'cor', 5 );
-		CoC.getInstance().player.nipplesPierced = 1;
-		CoC.getInstance().player.nipplesPShort = 'seamless black nipple-studs';
-		CoC.getInstance().player.nipplesPLong = 'Seamless black nipple-studs';
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 2;
+		CoC.player.nipplesPierced = 1;
+		CoC.player.nipplesPShort = 'seamless black nipple-studs';
+		CoC.player.nipplesPLong = 'Seamless black nipple-studs';
+		CoC.flags[ kFLAGS.PC_FETISH ] = 2;
 		Combat.cleanupAfterCombat();
 	};
 	//[OH SHIT!  WHY DOES FEN KEEP WIRTING THAT 3RD TIME – CROTCH GO];
@@ -326,54 +326,54 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'The demoness pulls out a diamond-studded piercing and closes in on you, her cock hard, her pussy moist, and her hips swaying seductively as she advances.  Ceraph gives you a serious look and warns you, "<i>You know how close you are to being my pet, don\'t you?  You just need this piercing and a little time to get used to it.  Then if you\'re good, I\'ll strip you naked, tie you down, and let you lick me out.  We can even let the imps watch!</i>"\n\n', false );
 		EngineCore.outputText( 'The idea turns you on immensely, and you pant and gasp as ', false );
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( 'pre-cum oozes from ', false );
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( 'each of ', false );
 			}
 			EngineCore.outputText( 'your ' + Descriptors.multiCockDescriptLight() + '.', false );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'feminine moisture drools from between your lips and your ' + Descriptors.clitDescript() + ' turns into a hard button.', false );
 		} else {
 			EngineCore.outputText( 'your body aches for release.', false );
 		}
 		EngineCore.outputText( '  With an amused grin, Ceraph yanks down your gear and ', false );
 		//[dicks];
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( 'grabs your ' + Descriptors.cockDescript( 0 ), false );
-			if( CoC.getInstance().player.cocks[ 0 ].pierced > 0 ) {
+			if( CoC.player.cocks[ 0 ].pierced > 0 ) {
 				EngineCore.outputText( ', the old piercing clattering to the ground as it slides out of your flesh, ', false );
 			}
 			EngineCore.outputText( ' and snaps the diamond stud through your sensitive flesh, making your vision haze red in pain.\n\n', false );
-			CoC.getInstance().player.cocks[ 0 ].pierced = 1;
-			CoC.getInstance().player.cocks[ 0 ].pShortDesc = 'diamond cock-stud';
-			CoC.getInstance().player.cocks[ 0 ].pLongDesc = 'Diamond cock-stud';
+			CoC.player.cocks[ 0 ].pierced = 1;
+			CoC.player.cocks[ 0 ].pShortDesc = 'diamond cock-stud';
+			CoC.player.cocks[ 0 ].pLongDesc = 'Diamond cock-stud';
 		}
 		//[cunts];
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'spreads your lips', false );
-			if( CoC.getInstance().player.vaginas[ 0 ].clitPierced > 0 ) {
+			if( CoC.player.vaginas[ 0 ].clitPierced > 0 ) {
 				EngineCore.outputText( ', the old piercing clattering to the ground as it slides out of your flesh, ', false );
 			}
 			EngineCore.outputText( ', getting ahold of the flesh around the base of your ' + Descriptors.clitDescript() + '.  With practiced ease, she snaps the piercing closed, attaching the diamond stud to you while the pain fuzzes your vision red.\n\n', false );
-			CoC.getInstance().player.vaginas[ 0 ].clitPierced = 1;
-			CoC.getInstance().player.vaginas[ 0 ].clitPShort = 'diamond clit-stud';
-			CoC.getInstance().player.vaginas[ 0 ].clitPLong = 'Diamond clit-stud';
+			CoC.player.vaginas[ 0 ].clitPierced = 1;
+			CoC.player.vaginas[ 0 ].clitPShort = 'diamond clit-stud';
+			CoC.player.vaginas[ 0 ].clitPLong = 'Diamond clit-stud';
 		}
 		//[else];
 		else {
 			EngineCore.outputText( 'snaps the diamond stud into your eye-brow, piercing it', false );
-			if( CoC.getInstance().player.eyebrowPierced > 0 ) {
+			if( CoC.player.eyebrowPierced > 0 ) {
 				EngineCore.outputText( ' and discarding your old jewelry like a piece of garbage', false );
 			}
 			EngineCore.outputText( '.  It hurts more than it ought to, fuzzing your vision red.\n\n', false );
-			CoC.getInstance().player.eyebrowPierced = 1;
-			CoC.getInstance().player.eyebrowPShort = 'diamond eyebrow-stud';
-			CoC.getInstance().player.eyebrowPLong = 'Diamond eyebrow-stud';
+			CoC.player.eyebrowPierced = 1;
+			CoC.player.eyebrowPShort = 'diamond eyebrow-stud';
+			CoC.player.eyebrowPLong = 'Diamond eyebrow-stud';
 		}
 		//Set fetish level;
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 3;
-		EngineCore.outputText( 'As she finishes, you realize she didn\'t even try to restrain you!  Feeling a second wind, you twist out of her grasp before she can take advantage of your new piercing and lash out with a vicious punch.  Ceraph doesn\'t even try to move.  The demon watches calmly as your fist gets closer and closer, then stops, the punch turning into a gentle caress.  Horrified, you try to smack her with a ' + CoC.getInstance().player.leg() + ', but all you manage to do is stroke it along her inner thigh.\n\n', false );
+		CoC.flags[ kFLAGS.PC_FETISH ] = 3;
+		EngineCore.outputText( 'As she finishes, you realize she didn\'t even try to restrain you!  Feeling a second wind, you twist out of her grasp before she can take advantage of your new piercing and lash out with a vicious punch.  Ceraph doesn\'t even try to move.  The demon watches calmly as your fist gets closer and closer, then stops, the punch turning into a gentle caress.  Horrified, you try to smack her with a ' + CoC.player.leg() + ', but all you manage to do is stroke it along her inner thigh.\n\n', false );
 		EngineCore.outputText( '"<i>So, I take it you like it?  You\'ll never be able to raise a hand in anger again.  I guess if you want to win fights you\'ll have to tease your foes into submission with that luscious body.  I suppose that might be hard to do when you\'re getting off on exposing yourself and cumming from the thought of being tied down,</i>" she laughs.\n\n', false );
 		EngineCore.outputText( 'You tremble in impotent fury at the violation as the demoness flounces away.  You\'d pursue her, but between her ideas and exposing your crotch to the entire area, you need to cum more than anything.  You scurry back to camp, too horny to think straight and your new piercing aching just enough to keep you from forgetting about it.', false );
 		EngineCore.dynStats( 'lus', 25, 'cor', 5 );
@@ -400,10 +400,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You tell Ceraph no, and let her know ', false );
-		if( CoC.getInstance().player.cor <= 50 ) {
+		if( CoC.player.cor <= 50 ) {
 			EngineCore.outputText( 'you\'ll stop her devilish scheme', false );
 		} else {
-			EngineCore.outputText( 'you\'ll be HER ' + CoC.getInstance().player.mf( 'master', 'mistress' ), false );
+			EngineCore.outputText( 'you\'ll be HER ' + CoC.player.mf( 'master', 'mistress' ), false );
 		}
 		EngineCore.outputText( '.  She snarls and drops the harness, preparing to defend herself.  It looks like you\'ve got a fight!', false );
 		Combat.startCombat( new Ceraph() );
@@ -414,29 +414,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'At this point, you know she\'s right.  The desires Ceraph has awakened inside you will never go away.  In spite of the hassle they\'ve caused, you\'ve come to love being so uncontrollably aroused by such humiliating treatment.', false );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' tingles as you wonder how many piercings and fetishes she could fit into your labia.', false );
-		} else if( CoC.getInstance().player.cockTotal() > 0 ) {
+		} else if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' grows rock hard as you wonder if she\'ll give you a Jacob\'s ladder full of new fetishes and thoughts.', false );
 		} else {
 			EngineCore.outputText( '  Your body hums with arousal as you wonder if she\'ll give you a cock and cunt, pierce them both, and fill you with new fetishes and sexy submissive thoughts.', false );
 		}
 
 		EngineCore.outputText( '\n\nWith your mind made up, you give Ceraph a solemn nod.  The demon smiles knowingly and saunters up to you.  She grabs you by the head and looks you dead in the eye, as if searching for something.  Moments drag by until she releases you all at once, taking her whip and binding it crudely around your neck.  She pulls on it, forcing you down to the dirt, and commands, "<i>Pets crawl.  And they don\'t wear clothes.</i>"\n\n', false );
-		EngineCore.outputText( 'She spends a few moments undressing you, then gives your ' + Descriptors.buttDescript() + ' a few smacks to suitably redden it.  Horrified at the treatment but more turned on than ever, you endure the humiliation, crawling after your mistress as she leads you to a new, sexy life on an impromptu leash.  You lose track of time, just focusing on putting one hand in front of the other.  Multiple times you catch glimpses of demons and monsters from the fringe of your vision, but none of them seem keen on approaching your mistress or her new slave, you.  Every time you feel their eyes on your naked ' + CoC.getInstance().player.skinDesc + ', you\'re rocked with sexual pleasure.\n\n', false );
+		EngineCore.outputText( 'She spends a few moments undressing you, then gives your ' + Descriptors.buttDescript() + ' a few smacks to suitably redden it.  Horrified at the treatment but more turned on than ever, you endure the humiliation, crawling after your mistress as she leads you to a new, sexy life on an impromptu leash.  You lose track of time, just focusing on putting one hand in front of the other.  Multiple times you catch glimpses of demons and monsters from the fringe of your vision, but none of them seem keen on approaching your mistress or her new slave, you.  Every time you feel their eyes on your naked ' + CoC.player.skinDesc + ', you\'re rocked with sexual pleasure.\n\n', false );
 		EngineCore.outputText( 'Absorbed in your own thoughts, you barely notice the light dim or the solid thunk of a door closing behind you.  Happy moans bring you out of your dazed state.  You\'ve arrived at Ceraph\'s lair.  The demon is barely paying attention to you, holding on to your leash as she walks around greeting her other pets.  She ruffles the hair of a tiny boy wearing naught but doggie-ears and an inventive looking butt-plug that gives him the appearance of having a tail.  Ceraph tickles the crotch of a girl with more than a few demonic features.  She\'s tied to the wall, with two vibrators strapped hilt-deep in her abused nipple-cunts.  Her original sex is drooling but totally unfilled as she squirms in her straps while Ceraph touches her.\n\n', false );
-		EngineCore.outputText( 'There are many more slaves just like those two throughout Ceraph\'s home.  Some are little more than furniture, some she treats like artwork, and others she uses for her sexual enjoyment.  She announces, "<i>Pets, meet your new ' + CoC.getInstance().player.mf( 'brother', 'sister' ) + '.  I think I\'ll just call ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' \'pet\'.  ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' needs to learn her place and we\'re going to be teaching and piercing ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' all week.</i>"\n\n', false );
+		EngineCore.outputText( 'There are many more slaves just like those two throughout Ceraph\'s home.  Some are little more than furniture, some she treats like artwork, and others she uses for her sexual enjoyment.  She announces, "<i>Pets, meet your new ' + CoC.player.mf( 'brother', 'sister' ) + '.  I think I\'ll just call ' + CoC.player.mf( 'him', 'her' ) + ' \'pet\'.  ' + CoC.player.mf( 'He', 'She' ) + ' needs to learn her place and we\'re going to be teaching and piercing ' + CoC.player.mf( 'him', 'her' ) + ' all week.</i>"\n\n', false );
 		EngineCore.outputText( 'The whip is uncurled from around your neck, and you look up, unsure of what to do.  Ceraph coos, "<i>Good pet.  Just stay like that and pout for me.</i>"\n\n', false );
 		EngineCore.outputText( 'Not seeing the harm and seeking to endear yourself to your mistress, you thrust your lower lip out.  Your obediance is rewarded by a sharp snap of dazzling pain.  Licking experimentally, you feel the smooth band that loops over the center of your lip. ', false );
 		//if pierced there;
-		if( CoC.getInstance().player.lipPierced > 0 ) {
+		if( CoC.player.lipPierced > 0 ) {
 			EngineCore.outputText( 'The previous piercing has vanished!  ', false );
 		}
 		EngineCore.outputText( 'Mistress is so kind to give you such a pretty piercing!  The ease you find yourself calling her mistress shocks you, but that\'s what she is, isn\'t she?  She\'s your mistress and owner, and you are her pet.  You catch her looking at you expectantly and you realize she\'s waiting for something.\n\n', false );
 		EngineCore.outputText( 'You lick your new lip-ring nervously and say, "<i>Thank you mistress, pet is so happy to be pierced again!</i>"\n\n', false );
-		EngineCore.outputText( 'What the hell?  Did you just call yourself pet?  You struggle internally, thinking, "<i>When did pet start thinking of ' + CoC.getInstance().player.mf( 'him', 'her' ) + 'self as pet?</i>"  A tingle of new arousal shivers through you – Mistress Ceraph has made it impossible for you to think or call yourself anything other than pet!  What else is she going to do to you?\n\n', false );
-		EngineCore.outputText( '"<i>Oh it\'s so cute watching my pets and toys truly learn their new names.  Now come here pet, a good pet wears a collar so everyone knows who ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' belongs to,</i>" says Mistress as she pulls a thick black collar off a hook on the wall.  Compliant, you allow her to fasten it around your neck, waggling your ', false );
-		if( CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
+		EngineCore.outputText( 'What the hell?  Did you just call yourself pet?  You struggle internally, thinking, "<i>When did pet start thinking of ' + CoC.player.mf( 'him', 'her' ) + 'self as pet?</i>"  A tingle of new arousal shivers through you – Mistress Ceraph has made it impossible for you to think or call yourself anything other than pet!  What else is she going to do to you?\n\n', false );
+		EngineCore.outputText( '"<i>Oh it\'s so cute watching my pets and toys truly learn their new names.  Now come here pet, a good pet wears a collar so everyone knows who ' + CoC.player.mf( 'he', 'she' ) + ' belongs to,</i>" says Mistress as she pulls a thick black collar off a hook on the wall.  Compliant, you allow her to fasten it around your neck, waggling your ', false );
+		if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( 'backside', false );
 		} else {
 			EngineCore.outputText( 'tail', false );
@@ -448,12 +448,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	CeraphScene.prototype.agreeToBeABitchPt2 = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
-		EngineCore.outputText( 'Months pass in pure bliss.  Since adoption into Mistress Ceraph\'s harem, pet gained over a dozen piercings and nearly twice as many fetishes.  Pet learned to love spanking, and developed the ability to cum just from having ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' nipples pinched or being paddled.  Ceraph enjoyed that for a while, but she did eventually tire, and pet was given a fetish for orgasm denial', false );
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		EngineCore.outputText( 'Months pass in pure bliss.  Since adoption into Mistress Ceraph\'s harem, pet gained over a dozen piercings and nearly twice as many fetishes.  Pet learned to love spanking, and developed the ability to cum just from having ' + CoC.player.mf( 'his', 'her' ) + ' nipples pinched or being paddled.  Ceraph enjoyed that for a while, but she did eventually tire, and pet was given a fetish for orgasm denial', false );
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( ' along with a magical cock-ring', false );
 		}
-		EngineCore.outputText( '.  Two weeks of drug and bondage induced edging nearly broke pet\'s mind, but Mistress was nice and let ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' cum over and over after getting a new piercing and worshiping her feet for a few hours.\n\n', false );
-		EngineCore.outputText( 'The champion that left Ingnam so long ago is totally unrecognizable, body and soul.  The spirit that once burned bright with the desire to save the innocents of the village has been warped and twisted beyond repair.  The once-champion known only as \'pet\', not even worthy of a proper name, spends all ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' time lusting after Mistress Ceraph, taking part in her depraved orgies and willingly submitting to any kinks or debaucheries that are presented to ' + CoC.getInstance().player.mf( 'him', 'her' ) + '.  Pet\'s life of individuality and choice is over, all that remains is pleasure and pain.', false );
+		EngineCore.outputText( '.  Two weeks of drug and bondage induced edging nearly broke pet\'s mind, but Mistress was nice and let ' + CoC.player.mf( 'him', 'her' ) + ' cum over and over after getting a new piercing and worshiping her feet for a few hours.\n\n', false );
+		EngineCore.outputText( 'The champion that left Ingnam so long ago is totally unrecognizable, body and soul.  The spirit that once burned bright with the desire to save the innocents of the village has been warped and twisted beyond repair.  The once-champion known only as \'pet\', not even worthy of a proper name, spends all ' + CoC.player.mf( 'his', 'her' ) + ' time lusting after Mistress Ceraph, taking part in her depraved orgies and willingly submitting to any kinks or debaucheries that are presented to ' + CoC.player.mf( 'him', 'her' ) + '.  Pet\'s life of individuality and choice is over, all that remains is pleasure and pain.', false );
 		EventParser.gameOver();
 	};
 	//[Initial Meeting Text];
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( 'A cute goblin steps out of the bushes, holding a pair of green earrings up to the light.  She politely asks, "<i>Hey cutey!  I\'ve got some spare earrings I made the other day.  I was wondering if you want them?  As you can see, my ears are already full, and my daughters are a bunch of ungrateful cunts.</i>"\n\n', false );
 		EngineCore.outputText( 'The goblin\'s ears are covered in a dazzling array of piercings of all varieties.  She isn\'t dressed nearly as slutty as most of the goblins you\'ve seen.\n\n', false );
 		EngineCore.outputText( 'Do you let her put the earrings in your ears?', false );
-		CoC.getInstance().flags[ kFLAGS.PC_MET_CERAPH ] = 1;
+		CoC.flags[ kFLAGS.PC_MET_CERAPH ] = 1;
 		EngineCore.doYesNo( this.ceraphFirstTimeVolunteer, this.ceraphFirstTimeDecline );
 	};
 	//[No];
@@ -471,7 +471,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You decline, informing the petite girl you have no interest in her earrings.  She shrugs and laughs, her form distorting as it grows taller, twisting as her skin lightens, her breasts bulge, and a pair of cute horns breaks out of the skin of her forehead.  She pockets the earrings and stretches, revealing a glistening demon-snatch capped with a modest cock growing from where her clit should be.\n\n', false );
-		EngineCore.outputText( 'The demon introduces herself, "<i>Well if you want to do this the hard way, that\'s fine by me.  The ones that fight the hardest break down into the most submissive slaves.  Just remember that this is the beginning of your life as Ceraph the Omnibus\' slave-' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '.</i>"\n\n', false );
+		EngineCore.outputText( 'The demon introduces herself, "<i>Well if you want to do this the hard way, that\'s fine by me.  The ones that fight the hardest break down into the most submissive slaves.  Just remember that this is the beginning of your life as Ceraph the Omnibus\' slave-' + CoC.player.mf( 'boy', 'girl' ) + '.</i>"\n\n', false );
 		EngineCore.outputText( 'Ceraph adopts a suggestive pose and tweaks her nipple, clearly more intent on turning you on than physically harming you.', false );
 		//FIGHTO;
 		Combat.startCombat( new Ceraph() );
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'The goblin motions for you to bend over, and you do.  She holds the earrings up on your ears, getting them aligned just right.  ', false );
-		if( CoC.getInstance().player.earsPierced > 0 ) {
+		if( CoC.player.earsPierced > 0 ) {
 			EngineCore.outputText( 'Miraculously, your old earrings just fall out.  ', false );
 		}
 		EngineCore.outputText( 'The earrings snap into place with a painful and definitive *click*, and dizziness hits you so hard that you nearly fall.  The goblin catches you, steadying you as you blink a few times and adjust to the sensation.\n\n', false );
@@ -489,10 +489,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( 'Her forwardness brings a blush to your face and kindles a bonfire in your loins.  Somehow the thought of being nude in front of her is far more arousing than it ought to be.  You keep trying to banish the thought, but all you can think of is your nudity and how much hornier it\'s making you.\n\n', false );
 		EngineCore.outputText( 'Ceraph breaks your reverie with a chuckle, "<i>Oh baby, I see you\'re starting to figure it out.  Let me break it down for you.  <b>Those earrings have given you a fetish for exhibitionism.</b>  Being exposed and humiliated makes you hornier than a dog in heat, and even if you found a way to remove them, it\'s too late – they\'ve forever linked nudity and humiliation with desire and lust in your easy little mind.  Get used to it and I\'ll be back to introduce you to another fun little fetish.</i>"\n\n', false );
 		EngineCore.outputText( 'The slutty demon walks away with a sexy sway, and you\'re too confused and turned on by your predicament to pursue her.  It looks like you\'ll have to do with a little extra arousal whenever you\'re exposed in public.\n\n', false );
-		CoC.getInstance().player.earsPierced = 1;
-		CoC.getInstance().player.earsPShort = 'green gem-stone ear-studs';
-		CoC.getInstance().player.earsPLong = 'Green gem-stone ear-studs';
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 1;
+		CoC.player.earsPierced = 1;
+		CoC.player.earsPShort = 'green gem-stone ear-studs';
+		CoC.player.earsPLong = 'Green gem-stone ear-studs';
+		CoC.flags[ kFLAGS.PC_FETISH ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[PC 'BEAT OFF' Ceraph the first time...];
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	/*	scandalously seductive armor – dropped off a random demonic enemy.
 	 A complete suit of scalemail shaped to hug tightly against every curve, it has a solid steel chest-plate with obscenely large nipples molded into it.  The armor does nothing to cover the backside, exposing the wearer's cheeks to the world.
 	 [After wearing]
-	 While you take a break, you feel a sudden shift in your scandalous new armor.  To your horror, it begins folding into itself, revealing more and more of your ' + CoC.getInstance().player.skin + ' and the comfortable underclothes you had on underneath it.  The transforming armor gradually covers less and less of you until it's little more than a pair of huge nipple-coverings and a silver chain.  A loud KA-CHUNK startles you, and then you're screaming as you feel something stabbing through your nipples.  Goosebumps cover your flesh as you twist in unexpected agony.
+	 While you take a break, you feel a sudden shift in your scandalous new armor.  To your horror, it begins folding into itself, revealing more and more of your ' + CoC.player.skin + ' and the comfortable underclothes you had on underneath it.  The transforming armor gradually covers less and less of you until it's little more than a pair of huge nipple-coverings and a silver chain.  A loud KA-CHUNK startles you, and then you're screaming as you feel something stabbing through your nipples.  Goosebumps cover your flesh as you twist in unexpected agony.
 	 After you've had a chance to recover, you inspect your abused nipples and discover that your armor has totally disappeared.  The only thing left behind is a pair of seamless black nipple-studs, embedded into your vulnerable flesh.  There doesn't appear to be any way to remove them either.  Thankfully, your comfortable underclothes have been unaffected by the sudden disappearance of your armor.  The thought of having to run around naked stays stubbornly locked in your mind, and you mentally curse the demon for what she's done to you.
 	 As if summoned by your thoughts, you can hear her voice on the wind, taunting you again, "<i>Enjoy your new bondage fetish pet!  One more piercing and you'll be ready.  Don't have too much fun being tied down and fucked ok?</i>"
 	 */
@@ -535,13 +535,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You nod, biting your lip anxiously and undoing your armor to give her better access to your body.  The demoness pulls out a diamond-studded piercing and closes in on you, her cock hard, her pussy moist, and her hips swaying seductively as she advances.  Ceraph gives you a serious look and warns you, "<i>You know how close you are to being my pet, don\'t you?  You just need this piercing and a little time to get used to it.  Then if you\'re good I\'ll strip you naked, tie you down, and let you lick me out.  We can even let the imps watch!</i>"\n\n', false );
 		EngineCore.outputText( 'The idea turns you on immensely, and you pant and gasp as ', false );
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
+		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( 'pre-cum oozes from ', false );
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( 'each of ', false );
 			}
 			EngineCore.outputText( 'your ' + Descriptors.multiCockDescriptLight() + '.', false );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'feminine moisture drools from between your lips and your ' + Descriptors.clitDescript() + ' turns into a hard button.', false );
 		} else {
 			EngineCore.outputText( 'your body aches for release.', false );
@@ -549,40 +549,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 
 		EngineCore.outputText( '\n\nWith an amused grin, Ceraph yanks down your gear and ', false );
 		//[dicks];
-		if( CoC.getInstance().player.cockTotal() > 0 ) {
+		if( CoC.player.cockTotal() > 0 ) {
 			EngineCore.outputText( 'grabs your ' + Descriptors.cockDescript( 0 ), false );
-			if( CoC.getInstance().player.cocks[ 0 ].pierced > 0 ) {
+			if( CoC.player.cocks[ 0 ].pierced > 0 ) {
 				EngineCore.outputText( ', the old piercing clattering to the ground as it slides out of your flesh,', false );
 			}
 			EngineCore.outputText( ' and snaps the diamond stud through your sensitive flesh, making your vision haze red in pain.', false );
-			CoC.getInstance().player.cocks[ 0 ].pierced = 1;
-			CoC.getInstance().player.cocks[ 0 ].pShortDesc = 'seamless, diamond cock-stud';
-			CoC.getInstance().player.cocks[ 0 ].pLongDesc = 'Seamless, diamond cock-stud';
+			CoC.player.cocks[ 0 ].pierced = 1;
+			CoC.player.cocks[ 0 ].pShortDesc = 'seamless, diamond cock-stud';
+			CoC.player.cocks[ 0 ].pLongDesc = 'Seamless, diamond cock-stud';
 		}
 		//[cunts];
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'spreads your lips', false );
-			if( CoC.getInstance().player.vaginas[ 0 ].clitPierced > 0 ) {
+			if( CoC.player.vaginas[ 0 ].clitPierced > 0 ) {
 				EngineCore.outputText( ', the old piercing clattering to the ground as it slides out of your flesh,', false );
 			}
 			EngineCore.outputText( ' and gets ahold of the flesh around the base of your ' + Descriptors.clitDescript() + '.  With practiced ease, she snaps the piercing closed, attaching the diamond stud to you while the pain fuzzes your vision red.', false );
-			CoC.getInstance().player.vaginas[ 0 ].clitPierced = 1;
-			CoC.getInstance().player.vaginas[ 0 ].clitPShort = 'seamless, diamond clit-stud';
-			CoC.getInstance().player.vaginas[ 0 ].clitPLong = 'seamless, diamond clit-stud';
+			CoC.player.vaginas[ 0 ].clitPierced = 1;
+			CoC.player.vaginas[ 0 ].clitPShort = 'seamless, diamond clit-stud';
+			CoC.player.vaginas[ 0 ].clitPLong = 'seamless, diamond clit-stud';
 		} else {
 			EngineCore.outputText( 'gives you a mildly annoyed look before she snaps the diamond stud into your eye-brow, piercing it.  ', false );
-			if( CoC.getInstance().player.eyebrowPierced > 0 ) {
+			if( CoC.player.eyebrowPierced > 0 ) {
 				EngineCore.outputText( 'She discards your old jewelry like a piece of garbage.  ', false );
 			}
 			EngineCore.outputText( 'It hurts more than it ought to, fuzzing your vision red.', false );
-			CoC.getInstance().player.eyebrowPierced = 1;
-			CoC.getInstance().player.eyebrowPShort = 'seamless, diamond eyebrow-stud';
-			CoC.getInstance().player.eyebrowPLong = 'seamless, diamond eyebrow-stud';
+			CoC.player.eyebrowPierced = 1;
+			CoC.player.eyebrowPShort = 'seamless, diamond eyebrow-stud';
+			CoC.player.eyebrowPLong = 'seamless, diamond eyebrow-stud';
 		}
 		EngineCore.outputText( '  As she finishes, you feel grateful that she\'s so willing to lavish you with such sexy jewelry and teach you how to enjoy these wonderful new experiences.  You give her a wet kiss, wondering what she\'s done to you, but in the end you don\'t really care.  Somehow you know it\'s going to make you feel even more like a horny, hot, and obedient sex-pot for your demonic mistress.\n\n', false );
 		EngineCore.outputText( '"<i>So, I take it you like it?  You\'ll never be able to raise a hand in anger again.  I guess if you want to win fights you\'ll have to tease your foes into submission with that luscious body.  I suppose that might be hard to do when you\'re getting off on exposing yourself and cumming from the thought of being tied down,</i>" she laughs.\n\n', false );
 		EngineCore.outputText( 'You tremble with barely restrained lust as the demoness flounces away.  You\'d pursue her, but between her ideas and exposing your crotch to the entire area, you need to cum more than anything in the world.  You scurry back to camp, too horny to think straight and your new piercing aching just enough to keep you from forgetting about it.', false );
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 3;
+		CoC.flags[ kFLAGS.PC_FETISH ] = 3;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -590,30 +590,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		//Just in case set up next button for 1 hr + SceneLib.camp;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//If havent met her;
-		if( CoC.getInstance().flags[ kFLAGS.PC_MET_CERAPH ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PC_MET_CERAPH ] === 0 ) {
 			EngineCore.spriteSelect( 7 );
 			this.ceraphFirstTime();
 			return;
 		}
 		//If still not fetished by her;
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] === 0 ) {
 			EngineCore.spriteSelect( 7 );
 			this.ceraphFirstTimeRepeat();
 			return;
 		}
 		//If fetished level 1;
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 1 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
 			EngineCore.outputText( 'Though you spend an hour exploring, you don\'t find anything of note.', true );
 			return;
 		}
 		//fetished level 2;
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 2 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] === 2 ) {
 			EngineCore.spriteSelect( 7 );
 			this.level3CeraphOffer();
 			return;
 		}
 		//fetished level 3;
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 3 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] === 3 ) {
 			EngineCore.spriteSelect( 7 );
 			this.finalEncounterLevelCeraphPiercingButtholeNipples();
 		}
@@ -621,58 +621,58 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	CeraphScene.prototype.winRapeChoices = function() {
 		//FOLLOWER CHANCE:;
 		var leave = Combat.cleanupAfterCombat;
-		if( !CoC.getInstance().isInCombat() ) {
+		if( !CoC.isInCombat() ) {
 			//Load ceraph and set up win conditions;
 			Combat.startCombat( new Ceraph() );
 			leave = SceneLib.ceraphFollowerScene.ceraphFollowerAppearance;
 			//Exit combat;
-			CoC.getInstance().setInCombat(false);
-			CoC.getInstance().monster.lust = 100;
-			CoC.getInstance().monster.HP = 2;
-			if( CoC.getInstance().player.lust < 34 ) {
-				CoC.getInstance().player.lust = 34;
+			CoC.setInCombat(false);
+			CoC.monster.lust = 100;
+			CoC.monster.HP = 2;
+			if( CoC.player.lust < 34 ) {
+				CoC.player.lust = 34;
 			}
-		} else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] >= 4 ) {
+		} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] >= 4 ) {
 			SceneLib.ceraphFollowerScene.submissiveCeraphOffer();
 			return;
 		}
 		//Normal stuff here;
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'Ceraph collapses in a beaten, bloody heap.', false );
 		} else {
 			EngineCore.outputText( 'Ceraph masturbates futilely, too driven by desire to fight.', false );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Do you have your way with her? (And if so, which of your body parts do you do it with?)', false );
 			var dicking = null;
 			var buttsmexing = null;
 			//Dickings ahoyu!;
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				dicking = this.maleFuckCeraphsPussy;
-				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() ) !== -1 ) {
+				if( CoC.player.cockThatFits( CoC.monster.analCapacity() ) !== -1 ) {
 					buttsmexing = this.buttRapeCeraph;
 				} else {
 					EngineCore.outputText( '  <b>There\'s no way you could fit inside her ass - you\'re too big.</b>', false );
 				}
 			}
 			var cunting = null;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				cunting = this.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
 			var bikiniTits = null;
-			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.biggestTitSize() >= 4 && CoC.getInstance().player.armorName === 'lusty maiden\'s armor' ) {
-				bikiniTits = EngineCore.createCallBackFunction2( CoC.getInstance().player.armor.lustyMaidenPaizuri, CoC.getInstance().player, CoC.getInstance().monster );
+			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
+				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
 			EngineCore.choices( 'Fuck Her', dicking, 'Ride Her', cunting, 'FuckHerAss', buttsmexing, 'B.Titfuck', bikiniTits, 'Leave', leave );
 			/*
-			 if(CoC.getInstance().player.gender === 1) EngineCore.doYesNo(this.maleFuckCeraphsPussy,Combat.cleanupAfterCombat);
-			 if(CoC.getInstance().player.gender === 2) EngineCore.doYesNo(this.rideCeraphsCockLikeaBAWSSexclamation11eleven,Combat.cleanupAfterCombat);
-			 if(CoC.getInstance().player.gender === 3) EngineCore.choices('Fuck Her',this.maleFuckCeraphsPussy,'Ride Her',this.rideCeraphsCockLikeaBAWSSexclamation11eleven,'',0,'',0,'Leave',Combat.cleanupAfterCombat);
+			 if(CoC.player.gender === 1) EngineCore.doYesNo(this.maleFuckCeraphsPussy,Combat.cleanupAfterCombat);
+			 if(CoC.player.gender === 2) EngineCore.doYesNo(this.rideCeraphsCockLikeaBAWSSexclamation11eleven,Combat.cleanupAfterCombat);
+			 if(CoC.player.gender === 3) EngineCore.choices('Fuck Her',this.maleFuckCeraphsPussy,'Ride Her',this.rideCeraphsCockLikeaBAWSSexclamation11eleven,'',0,'',0,'Leave',Combat.cleanupAfterCombat);
 			 */
 		} else {
-			if( CoC.getInstance().isInCombat() ) {
+			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.ceraphFollowerScene.ceraphFollowerAppearance );
@@ -681,59 +681,59 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	};
 	CeraphScene.prototype.loseFUCKME = function() {
 		//Reset rape count if lost;
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] = 0;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] = 0;
 		EngineCore.spriteSelect( 7 );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] === 0 ) {
 			this.loseToCeraphAndGetPiercingsInEarsOrSomethingSomehow();
-		} else if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
 			this.loseToCeraphAnGetPierced2();
-		} else if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 2 ) {
+		} else if( CoC.flags[ kFLAGS.PC_FETISH ] === 2 ) {
 			this.getPiercedByCeraphLoss3();
 		} else {
 			this.ceraphRapesYouBADDAWGYODIGGITY();
 		}
 	};
 	CeraphScene.prototype.ceraphRapesYouBADDAWGYODIGGITY = function() {
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
-		if( (!CoC.getInstance().isInCombat()) && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] < 3 ) {
+		if( (!CoC.isInCombat()) && CoC.flags[ kFLAGS.PC_FETISH ] < 3 ) {
 			EngineCore.outputText( 'The demoness touches your forehead, and suddenly your mind is awash with fetishes!  Judging by the playful look she has, it\'s temporary, and you play along.  ', false );
 		}
 		EngineCore.outputText( 'Ceraph throws her head back and laughs as you ', false );
-		if( CoC.getInstance().player.HP < 1 ) {
+		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'slump down, defeated', false );
 		} else {
 			EngineCore.outputText( 'give up and start masturbating', false );
 		}
 		EngineCore.outputText( ', "<i>Really?  Is that it?  After being under my magic for so long, you try to make a stand and fail, like this?!  Pathetic.</i>"\n\n', false );
 		EngineCore.outputText( 'The demonic hermaphrodite steps one foot onto your chest', false );
-		if( CoC.getInstance().player.biggestTitSize() > 1 ) {
-			EngineCore.outputText( ', right between your ' + CoC.getInstance().player.allBreastsDescript(), false );
+		if( CoC.player.biggestTitSize() > 1 ) {
+			EngineCore.outputText( ', right between your ' + CoC.player.allBreastsDescript(), false );
 		}
 		EngineCore.outputText( '.  Her foot is arched like a high-heel, with a bone-like protrusion forming the heel and digging painfully into your chest.  She looks down at you, watching with a bemused expression while her right hand traces idle circles over her puffy feminine sex.  You can\'t help but enjoy the situation, pinned under the sexy demon and restrained by her heel.  Ceraph smirks and taunts, "<i>So what am I to do you with you?  I want you to submit to my harem, not become a bound and unwilling slave.</i>"\n\n', false );
 		EngineCore.outputText( 'She reaches down to pinch one of your erect nipples, "<i>Though I\'m sure you\'d enjoy the restraint and humiliation...  I suppose I\'ll just have to punish you for your transgression and hope you\'ve learned your lesson.  Now I\'m not letting you go until you get me off or suffocate, so I hope you have a talented tongue!</i>"\n\n', false );
-		EngineCore.outputText( 'For a brief, confused moment you wonder what she means, but then your hands and ' + CoC.getInstance().player.legs() + ' are swiftly hog-tied together with her whip.  Ceraph is so quick at her task that she finishes before your dumbstruck mind gets a handle on the situation.  You\'re utterly helpless to resist this demon\'s whims, and the best you can do to resist her would be to roll on your side.  It would be a hopelessly futile gesture, and you resolve to deal with whatever is to come without showing any fear or remorse.\n\n', false );
-		EngineCore.outputText( 'The sky is blocked out by Ceraph\'s curvy shadow as she steps over your head, dripping sweet-smelling demonic fluids onto your face.  An inch at a time, she lowers herself down, her sex dripping anxiously and her thick demon-shaft pulsating hotly.  The fluid-slicked lips get closer and closer to your own, dripping more and more moisture from the excited demonette\'s passage onto your neck.  Plunging down with violent force, she slams her hungry twat against your ' + CoC.getInstance().player.face() + ', smearing you from chin to nose with demon-juice.\n\n', false );
+		EngineCore.outputText( 'For a brief, confused moment you wonder what she means, but then your hands and ' + CoC.player.legs() + ' are swiftly hog-tied together with her whip.  Ceraph is so quick at her task that she finishes before your dumbstruck mind gets a handle on the situation.  You\'re utterly helpless to resist this demon\'s whims, and the best you can do to resist her would be to roll on your side.  It would be a hopelessly futile gesture, and you resolve to deal with whatever is to come without showing any fear or remorse.\n\n', false );
+		EngineCore.outputText( 'The sky is blocked out by Ceraph\'s curvy shadow as she steps over your head, dripping sweet-smelling demonic fluids onto your face.  An inch at a time, she lowers herself down, her sex dripping anxiously and her thick demon-shaft pulsating hotly.  The fluid-slicked lips get closer and closer to your own, dripping more and more moisture from the excited demonette\'s passage onto your neck.  Plunging down with violent force, she slams her hungry twat against your ' + CoC.player.face() + ', smearing you from chin to nose with demon-juice.\n\n', false );
 		EngineCore.outputText( 'Her nodule-covered demon-cock flops across your nose and forehead, already dripping with thick pre-cum that slowly rolls up towards your ' + Descriptors.hairDescript() + '.  Ceraph\'s well manicured hand wraps around, stroking it and totally blocking your view while her pussy continues to block your airflow.  Knowing that you\'ve no choice but to get her off, you struggle with arousal of your own from the crude restraint. You open wide and plunge your tongue inside her, tasting her sweet yet tangy fluids and feeling the oddly-textured interior of her passage.\n\n', false );
 		EngineCore.outputText( 'Ceraph moans out, "<i>Ooooh good fuck-toy, eat out your mistress\' box!  How does it feel to suffocate on submission and fragrant demon-cunt?</i>"\n\n', false );
 		EngineCore.outputText( 'Rocking her hips, she grinds herself into you, enhancing her stimulation as you begin to run out of breath.  With a mix of frantic sexual need and desire for oxygen, you lash your tongue around inside her, tilting your head slightly to rub your nose against her clit.  Your efforts pay off, and the demon\'s taunts die off into moans and gasps that you would think were cute, were you not being smothered in dripping demon-box.\n\n', false );
 		EngineCore.outputText( 'You start to black out as you feel her release a wave of seed onto your ' + Descriptors.hairDescript() + '.  Though you\'re too far gone to realize it, your eyes are slowly rolling back as your vision goes black.  Copious demonic fluids fill your mouth while Ceraph gets off on riding your face.  You\'re nearly gone when she finally pulls herself off of you, jacking her cock off and splattering a few ropes of thick male cum onto your chest and neck.  Coughing and sputtering out her sexual fluids, you fight back to consciousness, humiliated and aroused beyond measure.\n\n', false );
-		if( CoC.getInstance().player.totalCocks() > 0 ) {
-			if( CoC.getInstance().player.totalCocks() > 1 ) {
+		if( CoC.player.totalCocks() > 0 ) {
+			if( CoC.player.totalCocks() > 1 ) {
 				EngineCore.outputText( 'Each of y', false );
 			} else {
 				EngineCore.outputText( 'Y', false );
 			}
 			EngineCore.outputText( 'our ' + Descriptors.multiCockDescript() + ' is twitching and dripping pre-cum, on the edge of orgasm.  ', false );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'Your ' + Descriptors.vaginaDescript( 0 ) + ' twitches, aching with the desire to be touched or filled, and your hips twitch lewdly, desperate for sensation.  ', false );
 		}
 		EngineCore.outputText( 'The perverse sexuality fills you with need, but Ceraph only smirks and puts her foot against your cheek, shoving your face into the sex-fluid-filled mud.  She mutters, "<i>It looks like you managed to save a few brain-cells this time slut.  Because you\'ve been so disobedient you don\'t get to cum with me.  You can lay here and ache for sex for a few hours I think.</i>"\n\n', false );
 		EngineCore.outputText( 'Her whip uncurls itself from around you, but by some sorcerous trick, you\'re unable to separate your limbs and free yourself.  Ceraph snickers and gives your rump a crack with her whip before sauntering off, leaving you to lie there, growing more and more sexually frustrated.  Eventually you doze off into a sort of half-sleep, dreaming of being dominated as the demon\'s fluids dry on your face.', false );
 		EngineCore.dynStats( 'lus', 200 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -741,24 +741,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 	};
 	//(REQ's – HUGE WANG, Exgartuan or Jojo corruption, and !centaur);
 	CeraphScene.prototype.hugeCorruptionForceFuckCeraph = function() {
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] += 2;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] += 2;
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
-		var x = CoC.getInstance().player.biggestCockIndex();
+		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You laugh at Ceraph\'s ', false );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'beaten, prone', false );
 		} else {
 			EngineCore.outputText( 'prone, masturbating', false );
 		}
 		EngineCore.outputText( ' form, "<i>You fucking demons are all the same.  That smug superiority complex makes you forget that being a demon doesn\'t come with an invincibility clause.</i>"\n\n', false );
 		EngineCore.outputText( 'The hermaphrodite dominatrix frigs her dripping slit, getting off on the dominance in your words, but she still manages to snarl defiantly, "<i>F-uuuck off.  Just... rape me or whatever and get it over with.</i>"\n\n', false );
-		EngineCore.outputText( 'She\'s quite the sore loser!  You drop your ' + CoC.getInstance().player.armorName + ' on the ground and stroke your ', false );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		EngineCore.outputText( 'She\'s quite the sore loser!  You drop your ' + CoC.player.armorName + ' on the ground and stroke your ', false );
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'largest ', false );
 		}
 		EngineCore.outputText( Descriptors.cockDescript( x ) + ', feeling the blood pump into it.  The thick, penile flesh inflates to the ludicrous size it adopts every time you get hard.  Ceraph\'s eyes widen into dinner plate-sized saucers of shock as she beholds the behemoth that sprouts from your loins.  She actually tries to scrabble away in the dirt, but she fails miserably.  ', false );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'Her hands are too busy starting to pump away at her nodule-covered demon-dick to help her crawl away.', false );
 		} else {
 			EngineCore.outputText( 'Both her hands are too busy at her groin to help her escape.', false );
@@ -766,32 +766,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'You drop the swollen mass of dick-flesh on top her, pinning her under the weight of your lust.  Ceraph gasps in shock and pain, but her hard nipples are pressing tightly into your ' + Descriptors.cockDescript( x ) + '\'s underside.  The slut is loving it – could she secretly be a submissive?  It doesn\'t matter one way or the other; this demon is going to pay.  You shimmy back, dragging the elephantine fuck-stick over the defeated demon\'s body until the bloated tip is resting on her purplish demon-snatch.  She screams, "<i>OH FUCK NO!  That would kill me!  Please, don\'t!</i>"\n\n', false );
 		EngineCore.outputText( 'Please?  She said the magic words.  ', false );
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
 			EngineCore.outputText( 'You pat your ' + Descriptors.cockDescript( x ) + ' and say, "<i>A little help please, Exgartuan?</i>"  ', false );
 		} else {
 			EngineCore.outputText( 'You blink your eyes closed and focus your corruptive powers in your crotch.  ', false );
 		}
 		EngineCore.outputText( 'Pleasure blooms in your midsection, spreading through your over-sized prick until it begins to dribble from the tip in the form of black ooze.  The viscous, dark substance splashes into Ceraph\'s demonic cunt, wicking into her drippy hole in an instant.  She moans, probably getting off on the influx of perverse magic.  The effect is immediate and gravity is able to pull your tip into her unassisted.  The demon\'s corrupted cunt starts to stretch around you, and you haven\'t even started to push!\n\n', false );
 		EngineCore.outputText( 'The flawless skin of her thighs slips through your fingers before you get a grip on her legs, just below the knees.  Ceraph is alternatively moaning and begging, "<i>Wha-what are you doing to meeee?  Stop... please... don\'t... push it in!  Oh by the Queen, it\'s good... it shouldn\'t feel goooooood...</i>"\n\n', false );
-		EngineCore.outputText( 'She doesn\'t seem to mind receiving it at all.  You push forwards into the clenching tightness of a demon\'s pussy and groan with delight at the feeling of her tight walls clamping down on you.  The once-dominatrix\'s belly visibly distorts, mirroring the shape of your member as her cunt expands to handle you.  Her curvy hips visibly shift, spreading apart as Ceraph\'s body bends to your will.  Your ' + CoC.getInstance().player.cockHead( x ) + ' hits a token block of resistance, but a quick spurt of black, transformative cum dilates her cervix to allows you to pass through. The demonic love canal continues to widen in order to accept the gift of your ' + Descriptors.cockDescript( x ) + ' and you have an easy time pushing the distortion past her belly button to just below her large, firm breasts.\n\n', false );
+		EngineCore.outputText( 'She doesn\'t seem to mind receiving it at all.  You push forwards into the clenching tightness of a demon\'s pussy and groan with delight at the feeling of her tight walls clamping down on you.  The once-dominatrix\'s belly visibly distorts, mirroring the shape of your member as her cunt expands to handle you.  Her curvy hips visibly shift, spreading apart as Ceraph\'s body bends to your will.  Your ' + CoC.player.cockHead( x ) + ' hits a token block of resistance, but a quick spurt of black, transformative cum dilates her cervix to allows you to pass through. The demonic love canal continues to widen in order to accept the gift of your ' + Descriptors.cockDescript( x ) + ' and you have an easy time pushing the distortion past her belly button to just below her large, firm breasts.\n\n', false );
 		EngineCore.outputText( 'Even with your dark magic twisting her body, it doesn\'t look like Ceraph\'s body can take any more.  Her mind sure as hell can\'t; her eyes are rolled most of the way back and she\'s panting pornographic nonsense, "<i>Fuck.. ahh... pussy-cock... oooh... so... big... more... cum-sleeve...</i>"  You\'re a bit disappointed that you\'ve broken her already, but it quickly fades when you feel her body sucking more of you inside her.  It might be her inherent magic falling under your influence, or maybe her fractured personality has decided to assist you in fully penetrating her.  Whatever the case, a cylindrical bulge forms between her tits, mirroring every vein of your ' + Descriptors.cockDescript( x ) + ' through her skin.\n\n', false );
 		EngineCore.outputText( 'Ceraph\'s throat balloons out to handle your girth, just in time for her to suck you further inside.  You aren\'t even pushing forwards at this point; her entire body feels like the inside of a succubus\' cunt, entirely focused on pleasing male organs.  Her babbles cut off into pleased gurgles, and then die down entirely.  You aren\'t sure how she\'s breathing, but her jaw unhinges and stretches obscenely.  You can actually see your tainted pre-cum spilling out from between her lips to run down her face, and then your cunt-slicked tip is tasting the air.', false );
-		if( CoC.getInstance().player.cocks[ x ].cockLength < 68 ) {
+		if( CoC.player.cocks[ x ].cockLength < 68 ) {
 			EngineCore.outputText( '  It\'s impossible!  You aren\'t long enough for that.  Her body must have shrunk itself to a more appropriate length...', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'As you\'re squeezed and massaged by ', false );
-		if( CoC.getInstance().player.cocks[ x ].cockLength < 68 ) {
-			EngineCore.outputText( Utils.num2Text( Math.ceil( CoC.getInstance().player.cocks[ x ].cockLength / 12 ) ), false );
+		if( CoC.player.cocks[ x ].cockLength < 68 ) {
+			EngineCore.outputText( Utils.num2Text( Math.ceil( CoC.player.cocks[ x ].cockLength / 12 ) ), false );
 		} else {
 			EngineCore.outputText( 'six', false );
 		}
 		EngineCore.outputText( ' feet of love-tunnel, you struggle not to blow your load.  ', false );
-		if( CoC.getInstance().player.cocks[ x ].cockLength > 84 ) {
+		if( CoC.player.cocks[ x ].cockLength > 84 ) {
 			EngineCore.outputText( 'You\'ve still got a lot more dick to get wet, and you start pushing the rest through her, using her like a plus-sized, organic onahole.  ', false );
 		} else {
 			EngineCore.outputText( 'You sigh happily, rubbing your ', false );
-			if( !CoC.getInstance().player.hasSheath() ) {
+			if( !CoC.player.hasSheath() ) {
 				EngineCore.outputText( 'groin', false );
 			} else {
 				EngineCore.outputText( 'sheath', false );
@@ -799,63 +799,63 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			EngineCore.outputText( ' against her slippery, split slit, before you pull back and start fucking her like a plus-sized, organic onahole.  ', false );
 		}
 		EngineCore.outputText( 'The once-formidable demon sighs happily each time you pull back out of her throat, and the obscene \'schlick\' her cunt makes as you penetrate it is auditory heaven.  You slap her tits and watch them jiggle, but the absurd eroticism of it all overwhelms even your perverse standards.  Ceraph slides down, bottoming out on you while her full-body cunt convulses with orgasm.  ', false );
-		if( CoC.getInstance().player.cumQ() < 100 ) {
+		if( CoC.player.cumQ() < 100 ) {
 			EngineCore.outputText( 'You squirt your load into the dirt, but some rolls back along the underside of your urethra, catches on Ceraph\'s upper lip, and drips up her cheek into her tangled hair.', false );
-		} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		} else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'You squirt your copious cum everywhere, splattering the dirt and dripping white goo onto Ceraph\'s face, forehead, and hair.  By the time you finish she\'s got a nice glaze going on.', false );
 		} else {
 			EngineCore.outputText( 'You expel huge waves of seed in what can only be described as eruptions.  They splatter into the dirt, forming thick puddles that are joined together with each successful splash of goo.  In between blasts, a steady stream leaks from the tip, travels down the underside, and catches on Ceraph\'s lip.  The spunk-flow is pulled over her face and into her hair by gravity.  She\'s glazed white and dripping into a puddle by the time you finish.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'You push the used fuck-toy off your ' + Descriptors.cockDescript( 0 ), false );
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( ' and marvel at the cum your other cock dumped into the puddle', false );
-		} else if( CoC.getInstance().player.cockTotal() > 2 ) {
+		} else if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( ' and marvel at the cum your other cocks dumped into the puddle', false );
 		}
-		EngineCore.outputText( '.  Ceraph\'s pussy gapes at least ' + Utils.num2Text( Math.ceil( CoC.getInstance().player.cocks[ x ].cockThickness + 1 ) ) + ' inches wide, pushing her hips so far apart as to make it difficult to walk.  She shudders, drooling spit, pussy-juice, and sperm as her mouth, neck, and chest tighten up.  Her lower body doesn\'t change one iota; your magics are still overpowering her natural abilities below the waist.  The abused dom twitches a few more times before her eyes reappear and she pulls her tongue back into her mouth.\n\n', false );
+		EngineCore.outputText( '.  Ceraph\'s pussy gapes at least ' + Utils.num2Text( Math.ceil( CoC.player.cocks[ x ].cockThickness + 1 ) ) + ' inches wide, pushing her hips so far apart as to make it difficult to walk.  She shudders, drooling spit, pussy-juice, and sperm as her mouth, neck, and chest tighten up.  Her lower body doesn\'t change one iota; your magics are still overpowering her natural abilities below the waist.  The abused dom twitches a few more times before her eyes reappear and she pulls her tongue back into her mouth.\n\n', false );
 		EngineCore.outputText( 'Ceraph gasps, "<i>Ohhhhkay.  That felt goooooooood.</i>"  She gathers some of your sperm from her space and swallows it with a smile before she offers, "<i>You\'ve shown me a good time, mortal.', false );
-		if( !CoC.getInstance().isInCombat() ) {
+		if( !CoC.isInCombat() ) {
 			EngineCore.outputText( '</i>"', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '  That\'s rarer than you know, so I\'m feeling a little generous.  ', false );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( 'I\'ll remove some of my magic from you if you want, and I\'ll even let you keep the piercing.  Would you like that?', false );
 		} else {
 			EngineCore.outputText( 'I\'d be willing to give you a few extra gems to keep you motivated to do something like this again.  I LIKE surprises. How about it?', false );
 		}
 		EngineCore.outputText( '</i>"\n\n', false );
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
 			EngineCore.outputText( 'Exgartuan mumbles, "<i>Yeah I love me too.  Now while you two bitches kiss and make up, I\'m gonna take a nap.</i>"\n\n', false );
 			//Put Exgartuan to bed.  Awww he's so cute!;
-			CoC.getInstance().player.addStatusValue( StatusAffects.Exgartuan, 2, 5 );
+			CoC.player.addStatusValue( StatusAffects.Exgartuan, 2, 5 );
 		}
 		EngineCore.outputText( '(Do you accept Ceraph\'s Offer?)', false );
 		//Y/N – remove 1 fetish level or +10 gems;
 		EngineCore.doYesNo( this.ceraphsNiceOffer, Combat.cleanupAfterCombat );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 	};
 	CeraphScene.prototype.ceraphsNiceOffer = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
-		if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			EngineCore.outputText( 'Ceraph touches your forehead, and it feels like her claws are raking through your brain, plowing through the surface of your thoughts.  She pulls away, leaving you feeling a little dazed.  You blink and mentally go over your fetishes - ', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 1 ) {
+			if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
 				EngineCore.outputText( 'your exhibitionism is gone!', false );
-			} else if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 2 ) {
+			} else if( CoC.flags[ kFLAGS.PC_FETISH ] === 2 ) {
 				EngineCore.outputText( 'your bondage fetish is gone!', false );
 			} else {
 				EngineCore.outputText( 'your pacifism is gone!', false );
 			}
-			CoC.getInstance().flags[ kFLAGS.PC_FETISH ]--;
+			CoC.flags[ kFLAGS.PC_FETISH ]--;
 		} else {
 			EngineCore.outputText( 'Ceraph shakes some of the jism out of her hair and reaches under the tangled mass.  Her hand comes out with a small pouch of gems, and she tosses them to you.  You open it up and are surprised to find 10 gems inside.', false );
-			CoC.getInstance().player.gems += 10;
+			CoC.player.gems += 10;
 		}
 		EngineCore.outputText( '\n\nThe abused demon-dom laughs, "<i>What?  Did you expect me to trick you?  No, I liked today.  It\'s so hard to find someone who can go toe to toe with me AND find incredible ways to abuse my body.</i>"\n\nShe lays back and relaxes, falling asleep after the intense fuck.', false );
 		Combat.cleanupAfterCombat();
@@ -871,39 +871,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'While exploring, a sudden compulsion to strip naked runs through your body, ', false );
-		if( CoC.getInstance().player.cor > 66 ) {
-			EngineCore.outputText( 'and without a second thought you disrobe, tossing your ' + CoC.getInstance().player.armorName + ' to the side.  It thumps heavily in the dry mountain dust.', false );
-		} else if( CoC.getInstance().player.cor > 33 ) {
-			EngineCore.outputText( 'and you squirm and writhe within your ' + CoC.getInstance().player.armorName + ', the material itching on your skin.  Ultimately, you manage to resist.', false );
+		if( CoC.player.cor > 66 ) {
+			EngineCore.outputText( 'and without a second thought you disrobe, tossing your ' + CoC.player.armorName + ' to the side.  It thumps heavily in the dry mountain dust.', false );
+		} else if( CoC.player.cor > 33 ) {
+			EngineCore.outputText( 'and you squirm and writhe within your ' + CoC.player.armorName + ', the material itching on your skin.  Ultimately, you manage to resist.', false );
 		} else {
 			EngineCore.outputText( 'and you stifle a laugh at the ridiculous thought, ignoring your fingers while they scratch at the itch under your gear.', false );
 		}
 		EngineCore.outputText( '  Your ', false );
-		if( CoC.getInstance().player.skinType <= AppearanceDefs.SKIN_TYPE_FUR ) {
+		if( CoC.player.skinType <= AppearanceDefs.SKIN_TYPE_FUR ) {
 			EngineCore.outputText( 'skin burns', false );
-		} else if( CoC.getInstance().player.skinType === AppearanceDefs.SKIN_TYPE_SCALES ) {
+		} else if( CoC.player.skinType === AppearanceDefs.SKIN_TYPE_SCALES ) {
 			EngineCore.outputText( 'scales burn', false );
 		} else {
-			EngineCore.outputText( CoC.getInstance().player.skinDesc + ' burns', false );
+			EngineCore.outputText( CoC.player.skinDesc + ' burns', false );
 		}
 		EngineCore.outputText( ' hot, raging from fetish-enhanced lust and daydreams, but you shake your head in time to see a pair of inky black orbs rising from behind a nearby boulder.\n\n', false );
 		EngineCore.outputText( 'You wrench your gaze from the treacherous, alien eyes and glance lower, but it doesn\'t help.  There\'s nothing but flawless, sweat-moistened demon-skin, jutting purple breasts, and a crotch that combines the finest attributes of both genders.  It\'s the demon, Ceraph!\n\n', false );
 		EngineCore.outputText( '"<i>Oh my, does someone like what they see?  ', false );
-		if( CoC.getInstance().player.cor > 66 ) {
+		if( CoC.player.cor > 66 ) {
 			EngineCore.outputText( 'I can see just how hot I\'m making you, I\'m so glad you gave in and got undressed for me', false );
 		} else {
 			EngineCore.outputText( 'You can\'t take your eyes off me.  It\'s a shame you didn\'t get undressed.  Didn\'t anyone tell you this mountain has a dress code?  Or should I say, an undress code', false );
 		}
 		EngineCore.outputText( ',</i>" she says.\n\n', false );
-		EngineCore.outputText( 'You ready your ' + CoC.getInstance().player.weaponName + ', but Ceraph just throws her head back and laughs in your face.  "<i>', false );
-		if( CoC.getInstance().player.cor > 66 ) {
+		EngineCore.outputText( 'You ready your ' + CoC.player.weaponName + ', but Ceraph just throws her head back and laughs in your face.  "<i>', false );
+		if( CoC.player.cor > 66 ) {
 			EngineCore.outputText( 'Are you going to try to fight me in the buff?  If you\'re going to do that then you can go ahead and get dressed, I wouldn\'t want to accidentally leave a scar in the wrong place.', false );
 		} else {
 			EngineCore.outputText( 'Are you going to try to fight me?  If you\'re going to do that, I suppose we can.  You do seem to need some practice at indulging your fetishes.', false );
 		}
 		EngineCore.outputText( '</i>"\n\n', false );
 		EngineCore.outputText( 'The demoness lifts one heeled foot high onto a boulder and winks at you, letting her whip rub up and down her hard, nodule-studded shaft.  Her tail rises languidly between her perfect, lissomelegs, rubbing the glistening wet delta of her sex enticingly.  The demon coos, "<i>Oh, I do love putting on a show for my future pets.  Tell me, did you really come up here to fight?  I\'d rather lie back in the sunlight, rubbing my fingers over my glistening skin and showing everyone just how wondrous sex with me would be.  You can even go if you want, or maybe you\'d have something worth trading with me?</i>"', false );
-		EngineCore.dynStats( 'lus', (5 + CoC.getInstance().player.cor / 10 + CoC.getInstance().player.lib / 20), 'cor', 0 );
+		EngineCore.dynStats( 'lus', (5 + CoC.player.cor / 10 + CoC.player.lib / 20), 'cor', 0 );
 		//[Fight] [Trade] [Run];
 		EngineCore.choices( 'Fight', this.startAFightWithCeraph, 'Trade', this.tradeCeraphSomething, '', null, '', null, 'Run', this.runFromCeraphsNiceDeal );
 	};
@@ -918,12 +918,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You ', false );
-		if( CoC.getInstance().player.cor > 66 ) {
+		if( CoC.player.cor > 66 ) {
 			EngineCore.outputText( 'grab your equipment and ', false );
 		}
 		EngineCore.outputText( 'beat a hasty retreat from the trickster of fetishes.  Her masturbatory moans chase you down the mountainside back towards your camp, spiking the already-burning furnace of your lust.', false );
 		//(+10 lust + 10lust/piercing);
-		EngineCore.dynStats( 'lus', (10 + CoC.getInstance().flags[ kFLAGS.PC_FETISH ] * 10) );
+		EngineCore.dynStats( 'lus', (10 + CoC.flags[ kFLAGS.PC_FETISH ] * 10) );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade] ;
@@ -935,27 +935,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		var armor = null;
 		EngineCore.outputText( 'Ceraph looks you up and down like an appraiser examining an antique, never stopping her languid masturbation.  You stand there, hands on your hips, waiting for her to finish while you try not to stare too long at her beading pre-cum or dripping twat-juice.\n\n', false );
 		//(BIMBO LIQUER) ;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOLQ ) ) {
+		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
 			EngineCore.outputText( 'She finishes and smiles widely.  "<i>Is that bimbo liqueur?  That stuff is so hard to find, even for a demon like me.  I tell you what, I\'ll release you from ', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 1 ) {
+			if( CoC.flags[ kFLAGS.PC_FETISH ] > 1 ) {
 				EngineCore.outputText( 'all the fetishes', false );
 			} else {
 				EngineCore.outputText( 'the fetish', false );
 			}
 			EngineCore.outputText( ' I\'ve placed upon you if you\'ll trade me that stuff.  There\'s a naughty boy in my harem whose quick wit I\'ve begun to tire of.', false );
-			if( CoC.getInstance().player.gender > 0 || CoC.getInstance().player.biggestTitSize() > 2 ) {
+			if( CoC.player.gender > 0 || CoC.player.biggestTitSize() > 2 ) {
 				EngineCore.outputText( '  Or if you\'d rather keep it, I could take one of your endowments for my own use and remove a single fetish.  It\'s always fun giving one of my old pets a new part to play with.', false );
 			}
 			EngineCore.outputText( '  Maybe you just need some better equipment though?  I have this sexy armor I\'d love to loan you, pet.</i>"\n\n', false );
 			liqueur = this.tradeCeraphBimboLiqueur;
-			if( CoC.getInstance().player.gender > 0 || CoC.getInstance().player.biggestTitSize() > 2 ) {
+			if( CoC.player.gender > 0 || CoC.player.biggestTitSize() > 2 ) {
 				endowment = this.tradeCeraphCrotchityBits;
 			}
 		}
 		//(No Bimbo Liquer) ;
-		else if( CoC.getInstance().player.gender > 0 || CoC.getInstance().player.biggestTitSize() > 2 ) {
+		else if( CoC.player.gender > 0 || CoC.player.biggestTitSize() > 2 ) {
 			EngineCore.outputText( 'She finishes and perks up, leering lewdly at you.  "<i>I tell you what.  Let me take one of your endowments to use on my pets and I\'ll get rid of ', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 1 ) {
+			if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
 				EngineCore.outputText( 'your fetish for you.</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( 'one of your fetishes for you.</i>"\n\n', false );
@@ -965,9 +965,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		//(NO TRADE);
 		else {
 			EngineCore.outputText( 'She finishes and frowns.  "<i>I don\'t think you\'ve got a single thing worth trading.', false );
-			if( CoC.getInstance().flags[ kFLAGS.PC_FETISH ] < 2 ) {
+			if( CoC.flags[ kFLAGS.PC_FETISH ] < 2 ) {
 				armor = this.getCeraphsArmor;
-				EngineCore.outputText( 'Don\'t fret your ' + CoC.getInstance().player.mf( 'pretty little head', 'charming little head' ) + ', Mistress Ceraph is nothing if not generous to her pets.  I can give you some beautiful armor to entice your foes with, wouldn\'t that be lovely?', false );
+				EngineCore.outputText( 'Don\'t fret your ' + CoC.player.mf( 'pretty little head', 'charming little head' ) + ', Mistress Ceraph is nothing if not generous to her pets.  I can give you some beautiful armor to entice your foes with, wouldn\'t that be lovely?', false );
 			}
 			EngineCore.outputText( '</i>"\n\n', false );
 		}
@@ -989,9 +989,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph grins as wide as the Cheshire Cat, groaning with happiness as she pulls her dripping tail from her snatch.  The pungent scent of her lusty, tainted puss hangs in the air while her tail extends towards you, looping around the liquer\'s top and pulling it from your pouch.  Ceraph plucks the bottle from her lust-drenched tail with great care and undoes the top.  She gives the liquer a tiny sniff, but it rocks her back on her heels all the same.  The demon starts giggling as she corks it, smiling with a slightly dopy look.  "<i>Wheeeeeewww... heheheheee.. that stuff has got some kick!</i>"\n\n', false );
 		EngineCore.outputText( 'You mention the deal and she glares back at you in irritation.  Her beautiful features curl with anger, a hand coming out of nowhere to slap you squarely on the side of the temple.  "<i>Don\'t interrupt me, pet.</i>"  Ears ringing, you stagger back, clutching at your head in surprise.  By the time you glare back at her, she\'s walking away.  You briefly consider giving her payback, but you realize your head feels clearer, more normal.  The artificial fetishes are gone!  While you catalogue lewd acts in your head and marvel at how little they affect you, Ceraph makes good on her escape.', false );
-		CoC.getInstance().player.consumeItem( ConsumableLib.BIMBOLQ );
-		CoC.getInstance().player.takeDamage( 4 );
-		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 0;
+		CoC.player.consumeItem( ConsumableLib.BIMBOLQ );
+		CoC.player.takeDamage( 4 );
+		CoC.flags[ kFLAGS.PC_FETISH ] = 0;
 		EngineCore.dynStats( 'lus', -20 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1000,28 +1000,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		//(EXGARTUAN PISSED) ;
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
-			EngineCore.outputText( 'A disembodied voice roars out, "<i>FUCK NO!  You are NOT giving me to that crazy bitch!</i>"  Exgartuan doesn\'t seem to want to run the risk of being taken by Ceraph, and he completely assumes control of your ' + CoC.getInstance().player.legs() + ' to make you flee with all due haste.  He taunts, "<i>Rip off your own little dick, why doncha!  You\'d look better with just a pussy anyhow ya dried out old sow!</i>"\n\n', false );
+		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
+			EngineCore.outputText( 'A disembodied voice roars out, "<i>FUCK NO!  You are NOT giving me to that crazy bitch!</i>"  Exgartuan doesn\'t seem to want to run the risk of being taken by Ceraph, and he completely assumes control of your ' + CoC.player.legs() + ' to make you flee with all due haste.  He taunts, "<i>Rip off your own little dick, why doncha!  You\'d look better with just a pussy anyhow ya dried out old sow!</i>"\n\n', false );
 			EngineCore.outputText( 'Ceraph seems perturbed but doesn\'t bother to pursue you.', false );
 			EngineCore.dynStats( 'lus', -20 );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Create array for choosing bits!;
-		var choices = _.times( CoC.getInstance().player.cocks.length, _.constant( 1 ) );
+		var choices = _.times( CoC.player.cocks.length, _.constant( 1 ) );
 		var choice = 0;
 		var temp2 = 0;
 		//1 = wang, 2 = cunt, 3 = tits.;
 		//Add dicks;
 		//Add pussy twice for kicks!;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			choices.push( 2 );
 			if( Utils.rand( 2 ) === 0 ) {
 				choices.push( 2 );
 			}
 		}
 		//Add tits;
-		_.forEach( _.filter( CoC.getInstance().player.breastRows, function( breastRow ) {
+		_.forEach( _.filter( CoC.player.breastRows, function( breastRow ) {
 			return breastRow.breastRating > 2;
 		} ), function() {
 			choices.push( 3 );
@@ -1035,28 +1035,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		}
 		//(DICKS);
 		else if( choice === 1 ) {
-			temp2 = Utils.rand( CoC.getInstance().player.cockTotal() );
+			temp2 = Utils.rand( CoC.player.cockTotal() );
 			EngineCore.outputText( 'She pipes up, "<i>', false );
-			if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.HORSE ) {
+			if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.HORSE ) {
 				EngineCore.outputText( 'Oooh, is that a horse-cock?  Those are quite nice.  I love the feel of a flare inside me, or even better, plunging one deep into a slut\'s poor, abused asshole.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.DOG ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.DOG ) {
 				EngineCore.outputText( 'Oooh, is that a dog-cock?  Those are quite nice.  It\'s oh-so-fun to enhance the knots on those and then watch them puff up enough to distend some poor slave\'s gut.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.DEMON ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.DEMON ) {
 				EngineCore.outputText( 'Oooh, is that a demon-cock?  As you can see I\'m QUITE familiar with those, but it might be fun to replace one of my girl\'s tongues with it.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.CAT ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.CAT ) {
 				EngineCore.outputText( 'Oooh, is that a kitty-dick?  The spines on those feel so good while they rub down all your walls or catch your prostate.  Meow.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.LIZARD ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.LIZARD ) {
 				EngineCore.outputText( 'Wow, you\'ve got a snake-dick?  I haven\'t seen one of those in a while.  I love the bulbous, knot-like texture.  Maybe I\'ll graft it onto a chair and make one of my boys sit on it for a few days.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.TENTACLE ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.TENTACLE ) {
 				EngineCore.outputText( 'Oooh, a tentacle cock?  How lucky to find one of those on you!  I\'ve been meaning to add another poor tentacle-slave.', false );
-			} else if( CoC.getInstance().player.cocks[ temp2 ].cockType === CockTypesEnum.ANEMONE ) {
+			} else if( CoC.player.cocks[ temp2 ].cockType === CockTypesEnum.ANEMONE ) {
 				EngineCore.outputText( 'Oooh, an anemone-cock?  Simply marvelous!  I might have to crank up the strength of the venom and use it myself!', false );
 			} else {
 				EngineCore.outputText( 'Oooh, a normal, uncorrupted cock.  How utterly droll!  You\'d think these would be more common, but it\'s quite a treat to come across one.', false );
 			}
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '  Of course that\'s not the only prick you\'re packing, hrmmm?  Maybe I should take ', false );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'the other one', false );
 				} else {
 					EngineCore.outputText( 'one of the others', false );
@@ -1067,12 +1067,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		}
 		//(Cunts) ;
 		else if( choice === 2 ) {
-			EngineCore.outputText( 'The demon\'s gaze drops down between your ' + CoC.getInstance().player.legs() + ', and she remarks, "<i>', false );
-			if( CoC.getInstance().player.wetness() >= 5 ) {
+			EngineCore.outputText( 'The demon\'s gaze drops down between your ' + CoC.player.legs() + ', and she remarks, "<i>', false );
+			if( CoC.player.wetness() >= 5 ) {
 				EngineCore.outputText( 'My my, what a juicy box you have there.  Tell me, doesn\'t it bother you to be soaking in your own lubricants all the time?  Perhaps I\'ll put it on one of my slaves and mount her on the wall.  Then I can simply slip in and lube up before giving one of my other pets a proper lesson.', false );
-			} else if( CoC.getInstance().player.wetness() >= 3 ) {
+			} else if( CoC.player.wetness() >= 3 ) {
 				EngineCore.outputText( 'My my, what a nice wet pussy you have there.  I really feel that you have a perfect blend of moisture and practicality down there.  I might have to snatch that snatch and give it to one of my drier pets.', false );
-			} else if( CoC.getInstance().player.vaginalCapacity() >= 150 ) {
+			} else if( CoC.player.vaginalCapacity() >= 150 ) {
 				EngineCore.outputText( 'My my, what a terrifically gaped hole you have there.  Do minotaurs even feel anything while they rail you?  Perhaps I could use that when I\'m playing with Shenandoah.  She\'s had a few too many incubi drafts and can be a little difficult to handle.', false );
 			} else {
 				EngineCore.outputText( 'My my, such a pretty pussy.  I bet it would be fun to replace one of my noisier pet\'s mouth with.  She never did learn not to bite.', false );
@@ -1082,9 +1082,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		//(Tits) ;
 		else {
 			EngineCore.outputText( 'Ceraph\'s hands reach up to cup the swell of your ' + Appearance.biggestBreastSizeDescript() + ' as she asks, "<i>', false );
-			if( CoC.getInstance().player.biggestTitSize() > 14 ) {
+			if( CoC.player.biggestTitSize() > 14 ) {
 				EngineCore.outputText( 'Oh wow... just wow.  How do you walk?  With melons like this you could tit-fuck three or four people at once!  Absolutely exquisite.', false );
-			} else if( CoC.getInstance().player.biggestTitSize() > 6 ) {
+			} else if( CoC.player.biggestTitSize() > 6 ) {
 				EngineCore.outputText( 'Tell me dear, are they real?  I mean, were they always this size, or did you have to get a little bit of work done?', false );
 			} else {
 				EngineCore.outputText( 'Well, these are a bit small.  Have you ever considered trying some Gro Plus?  I hear it\'s all the rage with Lethice\'s lackeys nowadays.', false );
@@ -1094,7 +1094,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( 'A long, silent moment passes before Ceraph makes up her mind.  She points at your ', false );
 		if( choice === 1 ) {
 			EngineCore.outputText( 'manhood', false );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' ', false );
@@ -1111,7 +1111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		}
 		EngineCore.outputText( 'of those.  Now just hold still.</i>"\n\n', false );
 		EngineCore.outputText( 'Do you let her take it?', false );
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = choice;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = choice;
 		EngineCore.doYesNo( this.giveUpYourBallsOrWhateverForLessFetishes, this.bailBeforeCeraphYoinksYourNads );
 	};
 	//[No];
@@ -1128,95 +1128,95 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		var x = 0;
 		EngineCore.outputText( 'You hold still, dreading this moment but knowing all-too well that you\'d have to give something up to get her touch out of your mind.  ', false );
 		//(Cock);
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 1 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 1 ) {
 			//Pick a dick at random!;
-			x = Utils.rand( CoC.getInstance().player.cockTotal() );
+			x = Utils.rand( CoC.player.cockTotal() );
 			EngineCore.outputText( 'Ceraph\'s fingers feel unexpectedly hot as they brush your ' + Descriptors.cockDescript( x ) + ', as if she had just come out of a heated tub.  You don\'t have long to ponder that little detail as they pinch into a tight ring', false );
-			if( CoC.getInstance().player.cocks[ x ].cockThickness >= 4 ) {
+			if( CoC.player.cocks[ x ].cockThickness >= 4 ) {
 				EngineCore.outputText( ', compressing your massive girth into the rigid shaft', false );
 			}
 			EngineCore.outputText( ', slowly closing.  It should hurt but it doesn\'t, it just feels warmer and warmer, and then with a sudden \'PYOING!\', Ceraph is holding your ' + Descriptors.cockDescript( x ), false );
-			if( CoC.getInstance().player.balls > 0 && CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.balls > 0 && CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( ' and balls', false );
 				//Gotcher balls!;
-				CoC.getInstance().player.balls = 0;
-				CoC.getInstance().player.ballSize = 1;
+				CoC.player.balls = 0;
+				CoC.player.ballSize = 1;
 			}
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
-				CoC.getInstance().player.removeStatusAffect( StatusAffects.Infested );
+			if( CoC.player.cockTotal() === 1 ) {
+				CoC.player.removeStatusAffect( StatusAffects.Infested );
 			}
 			EngineCore.outputText( ' in her hand!  At the base there\'s smooth flesh and an arcane mark, somehow keeping the disembodied dick alive to pulse and squirm in her grasp.  The place on your groin is left completely smooth and featureless, as if it had never been there at all.\n\n', false );
 			EngineCore.outputText( 'Ceraph runs a finger up and down the length, setting off fireworks in your brain – you can still feel it!  The demoness laughs and says, "<i>Don\'t worry, you won\'t feel the sensations constantly once I bond it elsewhere, though you may get a hint of feeling when unconscious.  For now, enjoy the pleasure!  Oh, I packed that tasty fetish into the cock for later.  Ta-ta, my pet!  Now go find me some more delicious dicks!</i>"\n\n', false );
 			EngineCore.outputText( 'She pirouettes away, practically dancing through the mountains while she strokes and teases the cock you just lost.  Thankfully she was true to her word – your mind feels significantly clearer, at least when a burning hot demon-tongue isn\'t enveloping Ceraph\'s new toy.', false );
 			//PYOING!;
-			CoC.getInstance().player.removeCock( x, 1 );
+			CoC.player.removeCock( x, 1 );
 			//(-fetish, +cock-toy status +1);
-			CoC.getInstance().flags[ kFLAGS.PC_FETISH ]--;
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ]++;
+			CoC.flags[ kFLAGS.PC_FETISH ]--;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ]++;
 			EngineCore.dynStats( 'lib', -2, 'sen', -2, 'cor', 5 );
 		}
 		//(Pussy);
-		else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 2 ) {
-			EngineCore.outputText( 'Ceraph\'s fingernails stab at your ' + CoC.getInstance().player.skinDesc + ' painfully, dragging them in a circular motion around your vulva.  The pain of the action fades to a gentle, throbbing heat while her fingers go deeper, corkscrewing through your flesh.  A second later she pulls back, a featureless pillar of flesh wrapped in skin and sitting in her hand, topped with your ' + Descriptors.vaginaDescript() + '.  The other end is capped with a strange, arcane mark, seemingly tattooed into the skin.  You glance down, expecting to find your groin ruined, but the spot your vagina once occupied is replaced with bare, unmarked skin.\n\n', false );
+		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 2 ) {
+			EngineCore.outputText( 'Ceraph\'s fingernails stab at your ' + CoC.player.skinDesc + ' painfully, dragging them in a circular motion around your vulva.  The pain of the action fades to a gentle, throbbing heat while her fingers go deeper, corkscrewing through your flesh.  A second later she pulls back, a featureless pillar of flesh wrapped in skin and sitting in her hand, topped with your ' + Descriptors.vaginaDescript() + '.  The other end is capped with a strange, arcane mark, seemingly tattooed into the skin.  You glance down, expecting to find your groin ruined, but the spot your vagina once occupied is replaced with bare, unmarked skin.\n\n', false );
 			EngineCore.outputText( 'The demon slips a finger into her hand-held pussy, and you inexplicably moan, still feeling every sensation with perfect clarity.  She plays with it for a few more seconds, the gentle \'schlick-schlick-schlick\' of her fingers carrying through the mountain air before she seems to tire of teasing you.\n\n', false );
 			EngineCore.outputText( '"<i>Oh don\'t mind the feelings, they\'ll fade once I get farther away and get this stuffed into another pet.  I don\'t know if you\'ll ever be completely isolated from it, but who cares?  You\'ll probably only feel it in your dreams anyway.  Oh, I almost forgot!  I packed up a fetish into my new pocket pussy.  I\'m a lady of my word, wouldn\'t you say?  Now, I have to go.  Pet, make sure to get another one of these in case I need more, okay?</i>" instructs Ceraph with an air of incalculable authority.\n\n', false );
-			EngineCore.outputText( 'You work your jaw in consternation, trying to dredge up a response or stop her, but before you can do anything, she pushes your old ' + Descriptors.vaginaDescript( 0 ) + ' down on her throbbing demon-shaft.  It knocks the strength out of your ' + CoC.getInstance().player.legs() + ', and you lie there moaning while Ceraph prances off, masturbating herself with your disembodied pussy.  Eventually you cum to the feeling of demon-cum spurting inside you, but it\'s a strange, empty orgasm.', false );
-			CoC.getInstance().player.removeVagina( 0, 1 );
+			EngineCore.outputText( 'You work your jaw in consternation, trying to dredge up a response or stop her, but before you can do anything, she pushes your old ' + Descriptors.vaginaDescript( 0 ) + ' down on her throbbing demon-shaft.  It knocks the strength out of your ' + CoC.player.legs() + ', and you lie there moaning while Ceraph prances off, masturbating herself with your disembodied pussy.  Eventually you cum to the feeling of demon-cum spurting inside you, but it\'s a strange, empty orgasm.', false );
+			CoC.player.removeVagina( 0, 1 );
 			//(-100 lust, -1 fetish, +1 vagina toy status);
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 5 );
-			CoC.getInstance().flags[ kFLAGS.PC_FETISH ]--;
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ]++;
+			CoC.flags[ kFLAGS.PC_FETISH ]--;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ]++;
 		}
 		//(Tits) ;
 		else {
 			//Take da biggest titz!;
-			x = CoC.getInstance().player.biggestTitRow();
+			x = CoC.player.biggestTitRow();
 			//Store nipplecuntz or milks;
-			if( CoC.getInstance().player.breastRows[ x ].fuckable ) {
-				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 4;
-			} else if( CoC.getInstance().player.lactationQ() >= 100 ) {
-				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 5;
+			if( CoC.player.breastRows[ x ].fuckable ) {
+				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 4;
+			} else if( CoC.player.lactationQ() >= 100 ) {
+				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 5;
 			} else {
-				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 3;
+				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = 3;
 			}
 			EngineCore.outputText( 'Ceraph bounces your ' + Descriptors.breastDescript( x ) + ' in her hands, playing with them for just a few seconds before she digs her nails in and pulls.  Your tits stretch for a moment, pulled tight while Ceraph giggles cruelly.  Heat blooms inside your chest, vivid tingles radiating from Ceraph\'s fingertips deep inside you.  At last it peaks and with a deep \'POMF\', your tit-flesh separates from your body.  You look closely at the departing bosom – where it once joined with your body, it\'s covered in healthy pink skin and intricate, arcane tattoos.  Meanwhile, ', false );
 			//More than 1 set of tits and not on bottom row?;
-			if( x < CoC.getInstance().player.breastRows.length - 1 && CoC.getInstance().player.breastRows.length > 1 ) {
+			if( x < CoC.player.breastRows.length - 1 && CoC.player.breastRows.length > 1 ) {
 				//If only 1 row below;
-				if( x >= CoC.getInstance().player.breastRows.length - 2 ) {
+				if( x >= CoC.player.breastRows.length - 2 ) {
 					EngineCore.outputText( 'your torso has shifted and your ' + Descriptors.breastDescript( x + 1 ) + ' have moved up to fill the void.', false );
 				}
 				//Multiple below;
 				else {
 					EngineCore.outputText( 'your torso has shifted and your other breasts have moved up to fill the void.', false );
 				}
-				CoC.getInstance().player.removeBreastRow( x, 1 );
+				CoC.player.removeBreastRow( x, 1 );
 			}
 			//Top row is only row;
 			else if( x === 0 ) {
 				EngineCore.outputText( 'your now-flat chest slowly gains two tiny, quarter-inch nipples.', false );
-				CoC.getInstance().player.breastRows[ 0 ].breastRating = 0;
-				CoC.getInstance().player.nippleLength = 0.25;
-				CoC.getInstance().player.breastRows[ 0 ].breasts = 2;
-				CoC.getInstance().player.breastRows[ 0 ].nipplesPerBreast = 1;
-				CoC.getInstance().player.breastRows[ 0 ].fuckable = false;
-				CoC.getInstance().player.breastRows[ 0 ].lactationMultiplier = 0;
+				CoC.player.breastRows[ 0 ].breastRating = 0;
+				CoC.player.nippleLength = 0.25;
+				CoC.player.breastRows[ 0 ].breasts = 2;
+				CoC.player.breastRows[ 0 ].nipplesPerBreast = 1;
+				CoC.player.breastRows[ 0 ].fuckable = false;
+				CoC.player.breastRows[ 0 ].lactationMultiplier = 0;
 			}
 			//everybody else;
 			else {
 				EngineCore.outputText( 'your torso leaves the now-empty spot as a flat, featureless void.', false );
-				CoC.getInstance().player.removeBreastRow( x, 1 );
+				CoC.player.removeBreastRow( x, 1 );
 			}
 			//Oh shit something went wrong.;
-			if( CoC.getInstance().player.breastRows.length === 0 ) {
+			if( CoC.player.breastRows.length === 0 ) {
 				EngineCore.outputText( '<b>ERROR!  ERROR!  Please contact Fenoxo and reload your game if you don\'t want your save messed up.</b>', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You gasp when Ceraph ', false );
-			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 3 ) {
+			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 3 ) {
 				EngineCore.outputText( 'rolls the nipples in her hands', false );
-			} else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 4 ) {
+			} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] === 4 ) {
 				EngineCore.outputText( 'pushes her fingertips inside the leaky nipple-cunts', false );
 			} else {
 				EngineCore.outputText( 'squeezes out a squirt of milk', false );
@@ -1226,11 +1226,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			EngineCore.outputText( 'Ceraph turns and prances off through the rocks, tweaking your nipples HARD every time you start to make a move to follow her.  It\'s no use.  She vanishes before long, leaving you to deal with the slowly dwindling sensation of her cock in your tits.\n\n', false );
 			//(-1 fetish, +1 tit toy status);
 			EngineCore.dynStats( 'lus', 20, 'cor', 5 );
-			CoC.getInstance().flags[ kFLAGS.PC_FETISH ]--;
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]++;
+			CoC.flags[ kFLAGS.PC_FETISH ]--;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]++;
 		}
 		//Fix any gender mixmatches;
-		CoC.getInstance().player.genderCheck();
+		CoC.player.genderCheck();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//NIGHTTIME;
@@ -1249,9 +1249,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		var subChoice = 0;
 		//dicks;
 		var choices = [].concat(
-			_.times( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ], _.constant( 1 ) ),
-			_.times( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ], _.constant( 2 ) ),
-			_.times( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ], _.constant( 3 ) )
+			_.times( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ], _.constant( 1 ) ),
+			_.times( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ], _.constant( 2 ) ),
+			_.times( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ], _.constant( 3 ) )
 		);
 		//Pick one!;
 		choice = choices[ Utils.rand( choices.length ) ];
@@ -1262,7 +1262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			//PUSSY ORGY FLOOR DRAIN;
 			if( subChoice === 0 ) {
 				EngineCore.outputText( 'You can feel an odd sensation in your nethers during your dreams, and as the warm, slick feeling grows you recognize it for what it is – cum dripping into your pussy.  ', false );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'You don\'t have a vagina any more, do you?', false );
 				} else {
 					EngineCore.outputText( 'No, that doesn\'t feel right – it isn\'t your vagina.', false );
@@ -1276,7 +1276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 			//PUSSY CLITPUMP;
 			else if( subChoice === 1 ) {
 				EngineCore.outputText( 'An insistent suction pulls on your lower lips, engorging them.  You squirm, rolling your hips back and forth to escape the pull, even as your clit begins to grow from its hood.  ', false );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'Wait... you don\'t have a clit any more... Ceraph took that away.  ', false );
 				} else {
 					EngineCore.outputText( 'Wait... that\'s not your ' + Descriptors.clitDescript() + '... it\'s the one Ceraph took from you.  ', false );
@@ -1288,23 +1288,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				EngineCore.outputText( 'The demon-dom grabs your ankles and foot-fucks you hard, leaving you to swim in pleasure like your cunt swims in pooled juices.  Your vulva are huge and rounded from the drugs and constant suction, filling the clear pump and pressing against the chamber walls.  The clit that pokes between them looks monstrous, huge and veiny.  It resembles a massive, distended dog-cock more than anything human, but every time your hips shake and bounce it against the sides of the tube it fills, you nearly cum.\n\n', false );
 				EngineCore.outputText( 'Sudden warmth plasters your feet and ankles, drenching them with the inhumanly warm jizm of Ceraph\'s pleasure.  She sighs, relaxing her grip on your ankles while you pump away, dutifully milking every ounce of demonic juice onto your willing soles.  "<i>Gooood pet... yes, good girl,</i>" coos the still blissful dominatrix before she suddenly yanks the pump from your groin without warning.  Your poor pussy jiggles with pain and pleasure, orgasming hard enough to squirt all over your cock-sized clitty.  Thankfully, the swelling of your genitals immediately fades, leaving them larger but less freakish.  Ceraph presses her still-hard cock against your lips, but the mental link starts to fade as she does so, leaving you to return to your normal dreams...', false );
 				//(-3 sens, -100 lust);
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', -3 );
 			}
 			//PUSSY FLESHLIGHT;
 			else if( subChoice === 2 ) {
 				EngineCore.outputText( 'A sudden prodding at your vagina\'s entrance nearly rouses you from your sleep.  ', false );
-				if( !CoC.getInstance().player.hasVagina() ) {
+				if( !CoC.player.hasVagina() ) {
 					EngineCore.outputText( 'Wait... you don\'t have a pussy anymore.  ', false );
 				} else {
 					EngineCore.outputText( 'Wait... your pussy doesn\'t feel like that!  ', false );
 				}
 				EngineCore.outputText( 'You must be picking up on feelings from the cunt Ceraph took away from you!  Warm demonic cum bubbles at your entrance, slicking the engorging vulva with demonic taint.  You swoon from the heat of it, and the demoness wastes no time, quickly inserting her entire length.\n\n', false );
-				EngineCore.outputText( 'The nubby nodules that line her shape press on your walls, stroking the innermost folds of your long-lost nethers.  Somehow you get a visual of the scene – Ceraph, lying back in bed, your pussy-flesh clutched in her hand like a perverse sex-toy.  She starts pumping it on herself, using a part of your body like a simple masturbation tool.  The room is empty, and she wastes no time in vocalizing her pleasure, "<i>Ohhh fuck you\'ve got a nice pussy ' + CoC.getInstance().player.short + '.  By Lethice\'s lewd tits, I hope you can feel how good your cooch is at devouring a demon\'s dick.  Next time we meet you should... Ah.. ahhh... ohhhh umm... submit to... ahhh AHHH!</i>"\n\n', false );
+				EngineCore.outputText( 'The nubby nodules that line her shape press on your walls, stroking the innermost folds of your long-lost nethers.  Somehow you get a visual of the scene – Ceraph, lying back in bed, your pussy-flesh clutched in her hand like a perverse sex-toy.  She starts pumping it on herself, using a part of your body like a simple masturbation tool.  The room is empty, and she wastes no time in vocalizing her pleasure, "<i>Ohhh fuck you\'ve got a nice pussy ' + CoC.player.short + '.  By Lethice\'s lewd tits, I hope you can feel how good your cooch is at devouring a demon\'s dick.  Next time we meet you should... Ah.. ahhh... ohhhh umm... submit to... ahhh AHHH!</i>"\n\n', false );
 				EngineCore.outputText( 'Throughout Ceraph\'s speech she continually increased her pace, jackhammering your pussy up and down on her bulging dick.  The nodules start to enlarge, puffing up around her base and then rippling, wave-like towards the slowly thickening head.  A squirt of hot cum shoots into your depths, sliming them with the demoness\' corrupt cream, but it feels so good... so very good.  Your pussy clamps down on the invader, imprinting the swollen nodules against its soft inner walls, and you cum as hard as if you were riding her yourself.\n\n', false );
 				EngineCore.outputText( 'The vision and feelings slowly fade, letting you out of their grip and leaving faint after-images of Ceraph cleaning you with her tongue.', false );
 				//(-100 lust, +2 sens, +1 cor);
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', 2, 'cor', 1 );
 			} else {
 				//Vagina Wall-Cubby;
@@ -1317,7 +1317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				EngineCore.outputText( '\n\nA quim-stained crotch smacks into your lips, and explosions of warmth begin detonating deep inside your depths, the blooms of liquid heat bringing you to a cunt-clenching climax of epic proportions.  Your muscles lock and your [butt] rises from your resting place, cheeks clenched in tight pleasure.  A scream of bliss tears through the night as you cum.  Jizz froths from your entrance as you\'re overfilled, spilling out to roll to the ground.  It feels so good, so goddamn good.  Your wails slowly trail off to whimpers, aftershocks of enjoyment causing your body to twitch wildly beneath the blankets until the cream-spurting cock is finally removed from your jizz-glazed cavern.' );
 				EngineCore.outputText( '\n\n"<i>I suppose I should thank [name] for giving me such an excellent fuck-toy,</i>" the mysterious-yet-familiar voice comments.  Wait... Ceraph!' );
 				EngineCore.outputText( '\n\nYou jolt awake, sweating buckets and shivering.  Somewhere, the demoness just blew a load in your old pussy.  The thought would keep you awake, if that orgasm hadn\'t been so goddamn satisfying.' );
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', 2, 'cor', 1 );
 			}
 		} else if( choice === 3 ) {
@@ -1327,14 +1327,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				EngineCore.outputText( 'You feel your tits dragging across the smooth cave floor... a dozen pairs arranged by size, starting with a meager pair of A-cups at the tip of your tail, up to DD cups not far below your waist.  The well-arranged boobs swell up your thighs, hitting F-cups by your hips.  Three more rows of mammoth mammaries hang from your torso, straining your poor back with their obscene weight.  You want to clutch at them, but you have no arms, and every movement is an agony of pleasure, dragging nipples, tit-pussies, and teats beneath you.  Juices run unhindered from your cloaca, your poor, neglected pussy unable to deal with the erotic sensations.' );
 				EngineCore.outputText( '\n\nIn a panic, you wriggle your tit-tail, propelling yourself around the confines of your small chamber.  The door is locked, as always, but you press your tight, hard nipples against it anyhow.  Mistress has kept you pent up for so long, trapped away in this little box.  You regret everything!  You\'ll never doubt her again!  She was so right... nipples can feel so wonderfully, exquisitely pleasureable, but you can\'t take it any longer.  Every movement, every sinuous slide, they feel so good.  You can cum just from pacing about, but you know you\'ll just wind up a twisted, curling mass of squirming nipple-flesh, your tail half-tied in knots as it tries to rub each pair of breasts against another. You know because you\'ve done it countless times already.' );
 				EngineCore.outputText( '\n\nA spiral of pain twists through your pleasure-wounded psyche, and you remember yourself, not the demon-enslaved naga.  Still, conjoined as your minds are, you\'re able to recognize that one of those many breasts used to be yours.  Ceraph has put it to good use.  The realization jars you to wakefulness, and you\'re forced to try and go to sleep with the knowledge that somewhere, your breasts are being used to break a naga.  Sleep does not return easily.' );
-				EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 5 );
+				EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5 );
 			}
 			//Milk Dispenser;
 			else if( subChoice === 1 ) {
 				EngineCore.outputText( 'You dream about your tits.  Not your current [chest], but the ones from before.  Before Ceraph took them.  You can\'t see anything.  You can\'t hear anything.  There\'s something sucking on your nipples - slowly, incessantly tugging.  Trickles of warm wetness express from your milky tits with every pull.  There\'s a subtle relief mixed with erotic pleasure, and as the sucking action repeats itself, you come to realize that it\'s mechanical.  Something is milking your tits!  It never stops or slows.  The milking simply continues.' );
 				EngineCore.outputText( '\n\nSuddenly, from out of nowhere, you hear a voice in the silence, "<i>Well, I can\'t thank [name] enough for these.  No shortage of milk here!</i>"  Then, there is brightness.  The appearance of light reveals a strange, disembodied view of a demon standing next to a tank. It\'s Ceraph!  She holds a cup of coffee, and as she pulls a lever, creamy breast milk flows into the mocha-colored beverage, lightening it significantly. Your tits, hooked up to some kind of odd machinery, tremble and shake as fluids are fed into them by transparent cables.  The speed of the milking increases, gallons gushing from your tender teats in mere seconds.  Faster and faster the liquids flow, a veritable waterfall of lactic cream.' );
 				EngineCore.outputText( '\n\nErotic energy sizzles through your nipples as the milking goes faster and faster, the pleasure unbearable.  Sadly, just when you feel on the cusp of orgasm, the machine shuts down, and the vision fades.  There will be no relief for you tonight.' );
-				EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 5 );
+				EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5 );
 			}
 			//Tit Volleyball;
 			else {
@@ -1360,7 +1360,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 					EngineCore.outputText( ' and what possible ramifications it has for your mental health' );
 				}
 				EngineCore.outputText( ', until you dismiss it as corruption and toss over, entering a peaceful, dreamless sleep.' );
-				EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 5 );
+				EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5 );
 			}
 		}
 		//COCKUUUU;
@@ -1387,17 +1387,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				EngineCore.outputText( 'Oh gods, she\'s so perfect.  You submit completely, emptying every ounce of your loins into her perfect purple-skinned ass.  Totally spent, your cock gives a few waning twitches and starts to soften.  Ceraph smiles and lifts off, spunk dripping from her gaping asshole as she slides it up your chest.  The dream-sequence fades before you can see any more, fading away along with the wilting strength of your former penis.\n\n', false );
 				EngineCore.outputText( 'With the sensation and scenario fading, your confused dreams shift before resuming a more normal flow.  You\'ve no doubt you\'ll feel sated in the morning, but the lingering echoes of Ceraph\'s pet in your mind wishes you\'d go submit to her.', false );
 				//(-100 lust, +1 corruption);
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'cor', 1 );
 			}
 			//FEATHER TORTURE;
 			else if( subChoice < 7 ) {
 				EngineCore.outputText( 'Throughout the night you\'re constantly aroused by the feelings of feathers sliding up and down your turgid member, teasing the swollen hardness with soft, even strokes.  Without ever increasing the pace, you\'re kept in a hell of constant sensation.  It goes on and on, your swollen balls getting sore and achy.  You open your eyes, seeing yourself in a dungeon – Ceraph\'s dungeon – with a feathery harpy girl a few inches away.  She\'s slowly squatting up and down, sliding her soft tail-feathers over your groin to tease you.\n\n', false );
-				EngineCore.outputText( 'Her mouth is filled by Ceraph\'s dick, jizm pooling from the corners of her mouth while her lipstick gilds the demon\'s cock in gold.  The demonic dominatrix is panting, blushing hard from all the harpy-drugs in her but showing no signs of slowing down.  "<i>Keep sucking you thick-thighed turkey.  You\'re going to swallow my cum until your lip-stick wears off or your belly\'s too full for you to move.  We\'ll see which happens first!  And don\'t you dare stop teasing that dick behind you either!  Nice even strokes.  Once we break ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' fragile little mind I\'ve got a new personality I want to give ' + CoC.getInstance().player.mf( 'him', 'her' ) + '.</i>"\n\n', false );
+				EngineCore.outputText( 'Her mouth is filled by Ceraph\'s dick, jizm pooling from the corners of her mouth while her lipstick gilds the demon\'s cock in gold.  The demonic dominatrix is panting, blushing hard from all the harpy-drugs in her but showing no signs of slowing down.  "<i>Keep sucking you thick-thighed turkey.  You\'re going to swallow my cum until your lip-stick wears off or your belly\'s too full for you to move.  We\'ll see which happens first!  And don\'t you dare stop teasing that dick behind you either!  Nice even strokes.  Once we break ' + CoC.player.mf( 'his', 'her' ) + ' fragile little mind I\'ve got a new personality I want to give ' + CoC.player.mf( 'him', 'her' ) + '.</i>"\n\n', false );
 				EngineCore.outputText( 'The scene fades, but that maddening, feathery purgatory on your phantom cock never goes away.  You\'re kept hard, on the verge of orgasm, all... night... long...', false );
 				//(+100 lust, +30 hours since last orgasm);
 				EngineCore.dynStats( 'sen', 3, 'lus=', 100 );
-				CoC.getInstance().player.hoursSinceCum += 30;
+				CoC.player.hoursSinceCum += 30;
 			}
 			//Cock Sandwich;
 			else {
@@ -1413,58 +1413,58 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 				EngineCore.outputText( '\n\nCeraph coos happily as she pinches your nipple.  "<i>Good pet.  You may cum... tomorrow.  For now, stay nice and hard.  You\'ve only been edged six days so far; another one won\'t be too big of a deal, will it?</i>"' );
 				EngineCore.outputText( '\n\nNo!  Anything but that!  You start to beg, but a gag fills your mouth.  It tastes sweet, like strawberries and cream, and the dribbling meat-stick pinned between the succubi\'s tight bods begins to drip even more.  What did she put on this gag?  There\'s no way to ask - Ceraph\'s heels click a few times as she wanders away, and the two tainted twats below are too busy rubbing your cock and making out to give you answer.  A moan of bliss reverberates through your gag, releasing more yummy, cock-thickening goodness.  Your torturers hear as well, and they slow their gyrations to make sure you don\'t cum yet.  After all, they get to abuse you for another day...' );
 				EngineCore.outputText( '\n\nYou wake with your heart pounding.  That was hot, but agonizing.  It will be hard to go back to sleep now.' );
-				EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 5, 'cor', 0.5 );
-				CoC.getInstance().player.hoursSinceCum += 100;
+				EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5, 'cor', 0.5 );
+				CoC.player.hoursSinceCum += 100;
 			}
 		}
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	CeraphScene.prototype.buttRapeCeraph = function() {
-		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
+		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
 		EngineCore.spriteSelect( 7 );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() );
+		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
 			x = 0;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Completely defeated, the haughty demoness lies face down in the dirt, ', false );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'her tail hanging limp between her legs.  She spits a wad of bloody saliva and says, "<i>What\'s the matter?  Beat a girl senseless and lose your nerve?  I thought you were going to rape me.</i>"', false );
 		} else {
 			EngineCore.outputText( 'her rump up in the air while her tail plunges violently into her cunt over and over again.  She moans up to you, "<i>What\'s the matter?  Are you nervous about putting it inside me?  Come on... rape me already!  Punish my gushing-wet cunt with your divine rod!</i>"', false );
 		}
 		EngineCore.outputText( '\n\nYou reach down and slap her ass hard, ', false );
-		if( CoC.getInstance().player.str < 75 ) {
+		if( CoC.player.str < 75 ) {
 			EngineCore.outputText( 'making her whole body jiggle', false );
 		} else {
 			EngineCore.outputText( 'making her jiggle and slide a few inches in the dirt', false );
 		}
-		EngineCore.outputText( ' and shutting her up while you tear off your ' + CoC.getInstance().player.armorName + '.\n\n', false );
+		EngineCore.outputText( ' and shutting her up while you tear off your ' + CoC.player.armorName + '.\n\n', false );
 		EngineCore.outputText( 'Now naked, you waste no time in grabbing her by her toned thighs and lifting her up, rubbing her face in the dirt while you get a nice look at her tightly-clenched asshole and ', false );
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'wet ', false );
 		} else {
 			EngineCore.outputText( 'achingly wet ', false );
 		}
 		EngineCore.outputText( 'demon-twat.  Her vulva flares out, massively engorging and unfolding like a flower, practically begging you to plunge into the dripping tunnel.\n\n', false );
 		EngineCore.outputText( '"<i>Nooooo... don\'t stick it in my pussy!  You\'ll get me pregnant!  Or is that what you\'re after?  Are you gonna keep cumming in my naughty hole until I\'m too pregnant to move?  Is that your plan, champion? Are you going to keep all the demons too pregnant to resist you?  Look at how wet you\'ve made my pussy... I\'m a high class demon, y-you can\'t make me pregnant!  Nooooo,</i>" groans Ceraph while her tail wraps around your ' + Descriptors.cockDescript( x ) + ', clearly trying to entice you, but you\'ve got a surprise in store for her.\n\n', false );
-		EngineCore.outputText( 'You rub your ' + CoC.getInstance().player.cockHead( x ) + ' against the demonic juice-fountain, letting Ceraph slather you with corrupted lubricants while you tease her whorishly-ready fuck-lips.  In seconds you\'re soaked from tip to hips, and before Ceraph can con you into filling her full of demonic children, you drop her low and ram your ' + Descriptors.hipDescript() + ' forward.  Her pucker, though tight, yields before your onslaught, gradually dilating to accept your ' + CoC.getInstance().player.cockHead( x ) + ' and the first few inches of your ' + Descriptors.cockDescript( x ) + '.', false );
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		EngineCore.outputText( 'You rub your ' + CoC.player.cockHead( x ) + ' against the demonic juice-fountain, letting Ceraph slather you with corrupted lubricants while you tease her whorishly-ready fuck-lips.  In seconds you\'re soaked from tip to hips, and before Ceraph can con you into filling her full of demonic children, you drop her low and ram your ' + Descriptors.hipDescript() + ' forward.  Her pucker, though tight, yields before your onslaught, gradually dilating to accept your ' + CoC.player.cockHead( x ) + ' and the first few inches of your ' + Descriptors.cockDescript( x ) + '.', false );
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( '  The other ' + Descriptors.cockDescript( x ) + ' rubs against her butt-cheeks, sliding through them with ease thanks to her copious secretions.', false );
-		} else if( CoC.getInstance().player.cockTotal() > 2 ) {
+		} else if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( '  The rest of your male genitals slide between the demoness\' pert butt-cheeks in one huge, femcum-slicked bundle.', false );
 		}
 		EngineCore.outputText( '  Ceraph squeaks in distress, taken completely by surprise and for once, completely lacking a witty retort.\n\n', false );
-		EngineCore.outputText( 'The demon grunts like a wounded animal underneath you, her long, demonic tongue hanging out to flop in the dirt while you rock her half-comatose form closer to your crotch.  Inside, your ' + CoC.getInstance().player.cockHead( x ) + ' squeezes past the tightness of her anal ring to the unusual warmth of a demon\'s innermost depths.  More and more of your ' + Descriptors.cockDescript( x ) + ' slips into the wonderfully tight, hot little hole, the penetration growing ever easier as the defeated demon relaxes into her role as a cum-dump unworthy of your children.', false );
-		if( CoC.getInstance().monster.HP < 1 ) {
-			EngineCore.outputText( '  Cunt-juice splatters over your ' + CoC.getInstance().player.legs() + ' as Ceraph\'s now-energetic tail plunges into her sodden box, pumping into it in time with the penetration of her asshole.', false );
+		EngineCore.outputText( 'The demon grunts like a wounded animal underneath you, her long, demonic tongue hanging out to flop in the dirt while you rock her half-comatose form closer to your crotch.  Inside, your ' + CoC.player.cockHead( x ) + ' squeezes past the tightness of her anal ring to the unusual warmth of a demon\'s innermost depths.  More and more of your ' + Descriptors.cockDescript( x ) + ' slips into the wonderfully tight, hot little hole, the penetration growing ever easier as the defeated demon relaxes into her role as a cum-dump unworthy of your children.', false );
+		if( CoC.monster.HP < 1 ) {
+			EngineCore.outputText( '  Cunt-juice splatters over your ' + CoC.player.legs() + ' as Ceraph\'s now-energetic tail plunges into her sodden box, pumping into it in time with the penetration of her asshole.', false );
 		} else {
-			EngineCore.outputText( '  Cunt-juice dribbles over your ' + CoC.getInstance().player.legs() + ' as Ceraph\'s tail slowly and purposefully plows her box, mimicking the penetration of her asshole.', false );
+			EngineCore.outputText( '  Cunt-juice dribbles over your ' + CoC.player.legs() + ' as Ceraph\'s tail slowly and purposefully plows her box, mimicking the penetration of her asshole.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Ceraph whimpers and begs, "<i>Noooo... you\'re raping my ass... g-get it out of there!  Aren\'t you supposed to be p-pure?  Untainted?  You\'re – unf – fucking a demon\'s butt like some kind of pervy animal!  Please... f-fuck my pussy.  I don\'t even mind if you don\'t wash it off... just stick it in my cunt.</i>"\n\n', false );
 		EngineCore.outputText( 'Like hell!  You pull harder, splitting her asscheeks until they\'re squished into your body, her cock-gaped asshole ', false );
-		if( !CoC.getInstance().player.hasSheath() ) {
+		if( !CoC.player.hasSheath() ) {
 			EngineCore.outputText( 'barely touching your groin', false );
 		} else {
 			EngineCore.outputText( 'rubbing your sheath', false );
@@ -1473,26 +1473,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appear
 		EngineCore.outputText( 'Without waiting, you slam it back home, burying it in the swelteringly hot backside.  Ceraph grunts, her tail locked in time with you and clearly bringing her great pleasure.  You take the time to reach down and pull it out – if she\'s going to cum, she\'s going to cum to the feel of you packing her bowels full of wasted seed.  She cries in distress, "<i>Noooooo... fuck you!  Please... at least let me cum from this.  You\'re fucking me so dominantly... so hard... by Lethice it\'s making me so soaking wet.  Please!  Let me cum, let me cum... letmecumletmecumletmecum!</i>"\n\n', false );
 		EngineCore.outputText( 'You don\'t let go of her tail.  She\'s going to pay for constantly trying to turn you into some kind of fetish-bound bitch!  You pump her hard, the echoes of your sweating bodies slamming together echoing over the mountainside, likely attracting all manner of demons and beasts.  A voice in the back of your mind warns you to hurry, lest you get caught unawares by another monster, and you speed up your thrusts in response.  Ceraph stops fighting after a few particularly powerful, hip-slamming hits, a string of pre-cum dangling from her half-limp cock.  Each frenzied butt-fuck squeezes out more of the stuff, but before she can cum, you feel your own orgasm hit.\n\n', false );
 		EngineCore.outputText( 'Ropes of jism splatter into the demon\'s rectum, and while it turns her tight back-door into a drooling wet fuck-hole, it actually lowers the temperature to a saner threshold.  ', false );
-		if( CoC.getInstance().player.cumQ() >= 500 && CoC.getInstance().player.cumQ() < 1500 ) {
+		if( CoC.player.cumQ() >= 500 && CoC.player.cumQ() < 1500 ) {
 			EngineCore.outputText( 'Her belly bulges slightly from the cummy deposit, marking her even more obviously as a cum-bucket for your cock.  ', false );
-		} else if( CoC.getInstance().player.cumQ() >= 1500 ) {
+		} else if( CoC.player.cumQ() >= 1500 ) {
 			EngineCore.outputText( 'Her belly burbles and swells, bulging out to look positively pregnant, though you know she\'s packed from the other end.  ', false );
 		}
 		EngineCore.outputText( 'You pull out, and Ceraph\'s ', false );
-		if( CoC.getInstance().player.cocks[ x ].cockThickness < 3 ) {
+		if( CoC.player.cocks[ x ].cockThickness < 3 ) {
 			EngineCore.outputText( 'slightly-gaped', false );
-		} else if( CoC.getInstance().player.cocks[ x ].cockThickness < 5 ) {
+		} else if( CoC.player.cocks[ x ].cockThickness < 5 ) {
 			EngineCore.outputText( 'gaped', false );
 		} else {
 			EngineCore.outputText( 'gaping-wide', false );
 		}
 		EngineCore.outputText( ' asshole leaks spunk everywhere. Disgusted with her', false );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( ' and a little bit by yourself', false );
 		}
 		EngineCore.outputText( ', you drop her like a discarded rag.  She moans and begins masturbating, half-insensate from the rough treatment.  You ignore her, get dressed, and get out of there before the mountain\'s beasts show up.  Ceraph is in for a wild night!', false );
-		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.player.orgasm();
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );

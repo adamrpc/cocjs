@@ -8,21 +8,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 	BrigidScene.prototype.pcDefeatsBrigid = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The harpy jailer collapses, ' );
-		if( CoC.getInstance().monster.lust > 99 ) {
+		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'too turned on' );
 		} else {
 			EngineCore.outputText( 'too badly beaten' );
 		}
 		EngineCore.outputText( ' to continue the fight.  You quickly snatch the keys from inside her shield, and hook them onto your own belt.' );
 		//(New Key Item: Harpy Key A);
-		CoC.getInstance().player.createKeyItem( 'Harpy Key A', 0, 0, 0, 0 );
+		CoC.player.createKeyItem( 'Harpy Key A', 0, 0, 0, 0 );
 		Combat.cleanupAfterCombat();
-		CoC.getInstance().flags[ kFLAGS.HEL_BRIGID_DEFEATED ] = 1;
+		CoC.flags[ kFLAGS.HEL_BRIGID_DEFEATED ] = 1;
 	};
 	//Brigid the Jailer -- PC Defeated;
 	BrigidScene.prototype.pcDefeatedByBrigid = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '"<i>Tsk tsk tsk,</i>" the harpy jailer croons, looming over you as you slump to the ground. "<i>You shouldn\'t have messed with me, bitch!</i>" she snaps, giving you a rough kick to the side. "<i>Now, let\'s see what Mother has to say about this...</i>"' );
 			//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 			EngineCore.menu();
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 	BrigidScene.prototype.brigitPostQueenDeathBadEndII = function() {
 		EngineCore.clearOutput();
 		//[(if M, U, or visibly pregnant F/H);
-		if( CoC.getInstance().player.gender <= 1 || CoC.getInstance().player.pregnancyIncubation > 0 ) {
+		if( CoC.player.gender <= 1 || CoC.player.pregnancyIncubation > 0 ) {
 			EngineCore.outputText( 'A soft, ticklish feeling against your [chest] is the first thing to bring you back to reality.  Your eyes open slowly, revealing a confusing blur of orange.  "<i>[name],</i>" murmurs a familiar voice from the unfocused smear, "<i>you\'re all right... thank god.</i>"  As your head clears, the picture slowly resolves into the tear-streaked face of Kiri, the little harpy from before; she smiles as you recognize her, and wraps her arms around your neck.  You try to hold her back, but find you cannot move your hands - looking at them, you notice your wrists secured to the table you\'re lying on with metal clasps!' );
 			EngineCore.outputText( '\n\n"<i>S-sorry,</i>" Kiri whispers, "<i>Brigid won, remember...</i>"  The results of the last fight return to you in a flash, explaining your current predicament.  Testing your whole body, you find all your limbs similarly bound to the stone table.' );
 			EngineCore.outputText( '\n\n"<i>The others?</i>" you ask, blearily.' );
@@ -49,19 +49,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 			EngineCore.outputText( '\n\n"<i>She\'s been first pick of the remaining women,</i>" Kiri mumbles, gesturing toward several satisfied harpy and phoenix matrons dozing along the walls.  "<i>They\'ve spend equal time fighting over and fucking her, poor sis-</i>"' );
 			EngineCore.outputText( '\n\nA sharp crack sounds and Kiri\'s eyes widen as her chest jerks forward; Brigid stands behind her, holding a leather crop.  "<i>You\'re here to fuck, not talk!</i>" the torturer screams, shaking the whip at you.  "<i>I don\'t care if it\'s salamanders, phoenixes, or just half-breed harpies, but you are going to help make me a new army to replace the one you wiped out!</i>"  Kiri grimaces at the brutal woman, but begins shifting her hips against you, sending a wave of pleasure to the base of your spine.' );
 			//[(if F or U);
-			if( !CoC.getInstance().player.hasCock() ) {
+			if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nYour eyes widen in shock at the sensation, and Kiri flinches at your expression.  "<i>What,</i>" Brigid asks, glowering at you, "<i>did you think we\'d let you go after what you did, just because we couldn\'t breed you?' );
-				if( CoC.getInstance().player.pregnancyIncubation > 0 ) {
+				if( CoC.player.pregnancyIncubation > 0 ) {
 					EngineCore.outputText( '  Once this disgusting thing you\'re carrying falls out of you, we\'ll use you more traditionally, but...</i>"  She pauses to press uncomfortably on your pregnant belly, then resumes speaking.  "<i>I have no intention of letting you sit idle for however long that takes.' );
 				}
 				EngineCore.outputText( '  For now, I\'ve given you the most obvious modification - I can think of something else later.</i>"' );
-				EngineCore.outputText( '\n\nShe squeezes Kiri\'s ass firmly with one hand, and lifts the girl partway out of your lap.  A smooth, hot sensation separates from your crotch and glides along nerves you hadn\'t noticed until now as Kiri\'s pussy slides upward, partially revealing the erect, ' + CoC.getInstance().player.skinTone + ' flesh of a brand new cock!  Brigid gloats at your confusion, laughing her delight to the roof of the chamber, then shoves Kiri\'s ass downward again, spearing her pussy on your new flesh and making the girl wince and grit her teeth.' );
-				CoC.getInstance().player.createCock();
+				EngineCore.outputText( '\n\nShe squeezes Kiri\'s ass firmly with one hand, and lifts the girl partway out of your lap.  A smooth, hot sensation separates from your crotch and glides along nerves you hadn\'t noticed until now as Kiri\'s pussy slides upward, partially revealing the erect, ' + CoC.player.skinTone + ' flesh of a brand new cock!  Brigid gloats at your confusion, laughing her delight to the roof of the chamber, then shoves Kiri\'s ass downward again, spearing her pussy on your new flesh and making the girl wince and grit her teeth.' );
+				CoC.player.createCock();
 			}
 			EngineCore.outputText( '\n\nThe jailer slaps the small half-breed on the butt, sending a pleasing tremor through your cock, then withdraws to a stool in the corner.  "<i>Fuck... or I\'ll make you fuck,</i>" she declares ominously, casting her riding crop aside and beckoning another harpy over.  She picks up a worn journal as the other woman sits on her leg, then begins turning the pages with a thumb as she plays with the harpy\'s pussy.  "<i>Watch them for me, sweet,</i>" Brigid says, kissing the woman on the neck.  "<i>Make sure they do their jobs while I\'m studying mom\'s notes.</i>"  Her lover shivers and nods nervously, fixing her eyes on you.' );
 			EngineCore.outputText( '\n\nKiri strokes your prick with her body vigorously, pushing you toward your limit and keeping up appearances even as she whispers to you.  "<i>Please, [name]... just endure it for now.  I\'ll think of a way to get you out of here, I promise.</i>"  She shifts her hips downward, engulfing your shaft again, and rolls her head passionately as her cheeks flush.  "<i>I-it may be a while, though,</i>" she says, kissing your chest.  "<i>I - ah! I\'m not very much by myself, so... the only thing I can do is make lots of loyal, strong daughters with your seed... s-someday there\'ll be enough to make a break for it!  J-just hold on and... and... fertilize me!  </i>Fertilize me<i>, [name]!</i>"' );
 			EngineCore.outputText( '\n\nThe harpy\'s eyes roll back in her head as she moans and sinks down one last time in orgasm, sucking at your cock with her vagina; your throbbing prick obeys, ejaculating a load of semen into the open-mouthed bird-girl.  "<i>Ohh god,</i>" Kiri gasps, "<i>YES!  Cover my eggs in your sticky cum!  Fill me up!</i>"' );
-			if( CoC.getInstance().player.cockTotal() > 1 || CoC.getInstance().player.cumQ() > 1000 ) {
+			if( CoC.player.cockTotal() > 1 || CoC.player.cumQ() > 1000 ) {
 				EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' holds forth for a while, until Kiri\'s ass, pussy, and tailfeathers are soaked with oozing, white cum.' );
 			}
 			EngineCore.outputText( '  Next to you, the salamander on the other table climaxes as well, dumping a load into Hel that sizzles when it leaks onto his fiery, iron-bound tail.  Your former lover squirms and shivers as the scalding-hot load fills her cunt, and her own prick twitches weakly, depositing a small string of bubbling jism on the stone table.' );
@@ -74,9 +74,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 		//(else if not visibly pregnant F or H);
 		else {
 			//hymen check];
-			CoC.getInstance().player.cuntChange( 15, false, false, false );
+			CoC.player.cuntChange( 15, false, false, false );
 			EngineCore.outputText( 'The heat in your [vagina] is the first thing to stir you.  Your eyes open painfully, fluttering with each soft pulse of your head; it feels like an imp was set loose inside, covering your brain with thick jizz, but eventually you manage to focus and look down.  What greets you is the sight of ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( Descriptors.sMultiCockDesc() + ' bobbing up and down, drooling pre-cum, as ' );
 			}
 			EngineCore.outputText( 'your red, sore pussy is pounded viciously by a thick cock dotted with scales.  Below it dangles a pair of swollen balls, bouncing as the shaft is thrust into you; with an inkling of understanding, you look back to confirm your suspicion.  Sure enough, you\'re mounted atop the table-bound salamander from before, who grunts as he pushes into you.  The hot cock, hotter than your body, slides in with a sizzle, and some of your juices roll down the shaft, only to evaporate when they hit the salamander\'s flaming, iron-bound tail.  Your own limbs are chained to the table via a massive iron ring and Brigid stands in front of you, watching you expectantly; behind her are arranged a score of assorted harpies and surviving phoenixes in various stages of coitus.' );
@@ -85,9 +85,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 			EngineCore.outputText( '\n\nAs Brigid turns away, Kiri scowls and leans forward again, pressing her modest breasts against her lover\'s and whispering something to the masked Hel, who nods and begins thrusting vigorously.  The sight returns your attention to the cock in your own [vagina], and your head rolls back as the salamander under you fucks faster, drawing closer to orgasm.  His thick, rough prick scrapes your walls angrily, the little lubrication you can generate overtaxed as it tries to cope with his sweltering body heat and the blistering pace of the sex.' );
 			EngineCore.outputText( '\n\nA muffled cry comes from the table beside you, as Hel achieves climax and buries her new dick as deeply into Kiri as she can.  As her body convulses, you can see her pussy squeezing out strings of white seed to drool between her legs - likely Kiri\'s, as the little harpy blushes when she notices the oozing mess over her shoulder.  The room is filled with the smell of semen as the goo hits Hel\'s tail and begins to bubble, and Kiri lets out a cry as well, falling backward onto her outstretched hands as her hips shake; a little squirt of cum lances from her cock, to land on Hel\'s tits.  "<i>F-fuck yeah, fertilize me!  Paint my eggs with your sperm!</i>" Kiri shouts in ecstasy, proving that she\'s still a harpy after all.' );
 			EngineCore.outputText( '\n\nThe dick in you twitches and a flood of painful warmth in your own womb tenses your body; you slide partway off of the shaft in agony, and you can see the man\'s wrists straining against his bonds, trying to break free so he can pull you back down.  He roars in frustration as you expose more than half of his cock to the air trying to get away from the intensely hot seed, but there\'s not enough slack in your bonds, and he finishes inside you, leaving your [face] tear-stained and pinched.  Brigid takes your chin in her hands.' );
-			EngineCore.outputText( '\n\n"<i>Aww, didn\'t come yet?  Too bad.  There\'s only one use for a trash ' + CoC.getInstance().player.race() + ' like you, anyway,</i>" your jailer coos sweetly, caressing your ' + CoC.getInstance().player.skin() + '.  "<i>You\'re going to make me more salamanders, so... better luck next time!</i>"  She unfastens your chains from the loop on the table, violently dragging you clear and covering your [butt] in the scalding seed pouring out of you.  "<i>I don\'t care what you bitches do with this one,</i>" Brigid says, yanking you toward the ongoing harpy orgy, "<i>just don\'t ruin her.  That breeding stock on the table won\'t last much longer once we start to make up for the soldiers we lost, and we might be able to get a replacement out of her womb.  And don\'t fucking bother me, I need to go over mom\'s notes and figure out how she was making the phoenixes!</i>"' );
+			EngineCore.outputText( '\n\n"<i>Aww, didn\'t come yet?  Too bad.  There\'s only one use for a trash ' + CoC.player.race() + ' like you, anyway,</i>" your jailer coos sweetly, caressing your ' + CoC.player.skin() + '.  "<i>You\'re going to make me more salamanders, so... better luck next time!</i>"  She unfastens your chains from the loop on the table, violently dragging you clear and covering your [butt] in the scalding seed pouring out of you.  "<i>I don\'t care what you bitches do with this one,</i>" Brigid says, yanking you toward the ongoing harpy orgy, "<i>just don\'t ruin her.  That breeding stock on the table won\'t last much longer once we start to make up for the soldiers we lost, and we might be able to get a replacement out of her womb.  And don\'t fucking bother me, I need to go over mom\'s notes and figure out how she was making the phoenixes!</i>"' );
 			EngineCore.outputText( '\n\nWith a shove from the pink-haired jailer, you\'re tumbled into a pair of lovers; the phoenix stops groping the harpy\'s tits to wrap her arm around you and pull you to the floor, and no sooner are you laid down than the harpy\'s stretched, semen-stuffed pussy is atop your mouth, grinding into your face and drooling warm phoenix seed down your throat' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ' as the phoenix\'s cunt slides onto your [cock smallest]' );
 			}
 			EngineCore.outputText( '.  Brigid makes her way up the stairs, leaving you and the others at the mercy of the assorted horde.  The harpy rides your mouth greedily, knocking your head into the hard stone floor, and the last thing you can see around her feathery thighs before you slip into unconsciousness again is Kiri being pulled roughly from her resting place atop Hel by a mean-looking, wide-hipped harpy matron who takes her place, sitting sideways and drawing her talons sadistically across Hel\'s vulnerable chest to smear Kiri\'s seed around...' );

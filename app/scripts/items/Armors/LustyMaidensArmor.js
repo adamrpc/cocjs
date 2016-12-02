@@ -9,11 +9,11 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 		Armor.prototype.init( that, [ 'LMArmor', 'LMArmor', 'lusty maiden\'s armor', 'a bikini-like set of armor that could only belong to a lusty maiden', 6, 400, 'This skimpy chain bikini barely qualifies as armor.  Indeed, the chain is made from links much finer and lighter than normal, so fine that it feels almost silken under your fingertips.  A simple seal in the g-string-like undergarment states, "Virgins only."', 'Light' ] );
 	};
 	LustyMaidensArmor.prototype.canUse = function() {
-		if( CoC.getInstance().player.biggestTitSize() < AppearanceDefs.BREAST_CUP_A ) { //{No titties}
+		if( CoC.player.biggestTitSize() < AppearanceDefs.BREAST_CUP_A ) { //{No titties}
 			EngineCore.outputText( 'You slide the bikini top over your chest and buckle it into place, but the material hangs almost comically across your flat chest.  The cold chain dangles away from you, swaying around ridiculously before smacking, cold and hard into your [nipples].  This simply won\'t do - it doesn\'t fit you, and you switch back to your old armor.\n\n' );
 			return false;
 		}
-		if( CoC.getInstance().player.biggestTitSize() < AppearanceDefs.BREAST_CUP_D ) { //{Too small titties}
+		if( CoC.player.biggestTitSize() < AppearanceDefs.BREAST_CUP_D ) { //{Too small titties}
 			EngineCore.outputText( 'You slide the bikini top over your chest, shivering when the cold chains catch on your nipples, stiffening them nicely. The material nicely accentuates your chest, but there\'s a definite problem.  Your [chest] aren\'t big enough!  Sure, they look nice done up in glittering silver and gold trim.  If only the metal wasn\'t hanging loosely around your underbust, flopping around whenever you move.  It doesn\'t even look that sexy on you!  You\'ll need a bigger chest to truly make use of this armor.  For now, you switch back to your old equipment.\n\n' );
 			return false;
 		}
@@ -22,30 +22,30 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 		EngineCore.outputText( '\n\nYou shake your head and smile ruefully - maybe once you finish getting dressed!  There\'s still a bottom to put on, after all.  Regardless, one of your hands keeps coming to rest on your boob, idly groping and fondling your heavy tit whenever you have a free moment.  This sure is some fun armor!' );
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		EngineCore.outputText( '\n\nNow, the bottom is a leather thong and skirt combination.  The thong itself is leather dyed radiant white, with intricate gold filigree covering the front triangle.  On the back triangle, there\'s a similar pattern, though you could swear that from a distance the pattern looks a bit like arrows pointing towards where your [asshole] will be with golden sperm surrounding them. No, that has to be your imagination.  All this time in this strange land must really be getting to you!  Both pieces are molded to accentuate the female form, with a crease in the gusset that will rest over your vagina, ensuring ' );
-		if( CoC.getInstance().player.hasCock() || CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.hasCock() || CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'that it won\'t fit you ' );
-			if( CoC.getInstance().player.hasCock() ) {
-				EngineCore.outputText( 'or your ' + CoC.getInstance().player.multiCockDescriptLight() );
+			if( CoC.player.hasCock() ) {
+				EngineCore.outputText( 'or your ' + CoC.player.multiCockDescriptLight() );
 			} else {
 				EngineCore.outputText( 'or your [balls]' );
 			}
 			EngineCore.outputText( ' at all!  <b>You put your old gear back on with a sigh</b>.' );
 			return false;
-		} else if( !CoC.getInstance().player.hasVagina() ) {
+		} else if( !CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'that it will dig uncomfortably into your featureless groin.  <b>You put your old gear back on with a sigh</b>.' );
 			return false;
 		}
 		EngineCore.outputText( 'your [vagina] is prominently displaying your camel-toe for all to see.' );
 		EngineCore.outputText( '\n\nYou don\'t give it a second thought, sliding the white thong snugly into place.  Snug warmth slides right up against your mound, the perfectly formed crease slipping right into your labia, where it belongs, ' );
-		if( CoC.getInstance().player.vaginas[ 0 ].virgin ) {
+		if( CoC.player.vaginas[ 0 ].virgin ) {
 			EngineCore.outputText( 'a tight seal over your chastity, displaying your womanly status while guarding your maidenhead at the same time.  A smug, smile tugs at the corners of your mouth - who would take your virginity when they can tit-fuck your tits or fuck your butt?' );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( '  Wait, that isn\'t right...' );
 			}
 		} else {
 			EngineCore.outputText( 'a tight seal over your previously-claimed cunt.  Regret fills you when you realize you could have kept your chastity intact simply by servicing the lusty studs and monsters with your ass and tits.' );
 		}
-		if( CoC.getInstance().player.wetness() >= 3 ) {
+		if( CoC.player.wetness() >= 3 ) {
 			EngineCore.outputText( '  The moisture you normally drip seems to soak right into the gusset instead of running down your [legs] like normal, giving you a much more chaste appearance in spite of the lewd garments that even now seem to shape your femininity and [butt] into perfectly arousing shapes.' );
 		}
 		EngineCore.outputText( '\n\nLast is the chain skirt - perhaps the easiest part to put on.  It\'s barely three inches long, such that it exposes your [butt] almost entirely, and when you bend over, fully.  The bottom of your vaginal crease can be spied as well, and should you desire to show yourself off, a simple stretch or tug would put you completely on display.  You wiggle about, watching the reflective material ripple almost hypnotically, one hand still on your boobs, mauling at your own tits with passion.  THIS is how a chaste champion should dress - perfectly modest but full of erotic energy to overwhelm her enemies with!\n\n' );
@@ -53,30 +53,30 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 	};
 	LustyMaidensArmor.prototype._superPlayerEquip = LustyMaidensArmor.prototype.playerEquip;
 	LustyMaidensArmor.prototype.playerEquip = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.SluttySeduction );
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
-		if( CoC.getInstance().player.hasVirginVagina() ) {
-			CoC.getInstance().player.createPerk( PerkLib.SluttySeduction, 10 + CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ], 0, 0, 0 );
+		if( CoC.player.hasVirginVagina() ) {
+			CoC.player.createPerk( PerkLib.SluttySeduction, 10 + CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ], 0, 0, 0 );
 		} else {
-			CoC.getInstance().player.createPerk( PerkLib.SluttySeduction, 6 + CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ], 0, 0, 0 );
+			CoC.player.createPerk( PerkLib.SluttySeduction, 6 + CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ], 0, 0, 0 );
 		}
 		return this._superPlayerEquip();
 	};
 	LustyMaidensArmor.prototype._superPlayerRemove = LustyMaidensArmor.prototype.playerRemove;
 	LustyMaidensArmor.prototype.playerRemove = function() {
-		while( CoC.getInstance().player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
-			CoC.getInstance().player.removePerk( PerkLib.SluttySeduction );
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
 		return this._superPlayerRemove();
 	};
 	//'Chaste' Paizuri - works for most foes with penises.;
 	LustyMaidensArmor.prototype.lustyMaidenPaizuri = function( player, monster ) {
 		if( player === null ) {
-			player = CoC.getInstance().player;
+			player = CoC.player;
 		}
 		if( monster === null ) {
-			monster = CoC.getInstance().monster;
+			monster = CoC.monster;
 		}
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You make sure ' + monster.a + monster.short + ' is comfortably lying down, ' + monster.pronoun3 + ' ' + monster.cockDescriptShort( 0 ) + ' exposed to the air' );
@@ -135,9 +135,9 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 		EngineCore.outputText( '\n\nThe stink of sperm slowly fades as you move, almost seeming to absorb into your skin.  It leaves you with a healthy glow and a surety to your movements, sure that your revealing armor is going to protect you.' );
 		//Slimefeed, minus slight corruption if PC is a virgin, raise sensitivity;
 		player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ] += 2;
-		if( CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ] > 8 ) {
-			CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ] = 8;
+		CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ] += 2;
+		if( CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ] > 8 ) {
+			CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ] = 8;
 		}
 		player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 			player.minoCumAddiction( 3 );
 		}
 		if( monster.short === 'Ceraph' ) {
-			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
+			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
 		}
 		//Usable on: Imps, Minotaurs, Satyrs, Incubus Mechanic, Anemones, Spider Guys, Akbal, Drider, Fetish Zealot, Sand Trap, Very Corrupt Jojo (Maybe slight decorruption to him), Ceraph, Red Kitsune if cock out.;
 		if( Combat.inCombat ) {
@@ -163,10 +163,10 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 			return new Proxy( target, {
 				get: function( target, name ) {
 					if( name === 'def' ) {
-						if( CoC.getInstance().player.hasVirginVagina() ) {
-							return 9 + CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ];
+						if( CoC.player.hasVirginVagina() ) {
+							return 9 + CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ];
 						}
-						return 6 + CoC.getInstance().flags[ kFLAGS.BIKINI_ARMOR_BONUS ];
+						return 6 + CoC.flags[ kFLAGS.BIKINI_ARMOR_BONUS ];
 					}
 					return target[ name ];
 				},

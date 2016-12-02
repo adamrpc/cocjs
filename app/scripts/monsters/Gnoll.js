@@ -16,25 +16,25 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			if( CoC.getInstance().player.spe - this.spe < 8 ) {
+		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+			if( CoC.player.spe - this.spe < 8 ) {
 				EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
-			} else if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+			} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 				EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!\n', false );
-			} else if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+			} else if( CoC.player.spe - this.spe >= 20 ) {
 				EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.\n', false );
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				EngineCore.outputText( '\' attacks.\n', false );
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			}
 		} else {
 			//Determine damage - str modified by enemy toughness!;
-			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage <= 0 ) {
 				damage = 0;
 				//hapies have their own shit;
@@ -51,8 +51,8 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 					EngineCore.outputText( 'The harpy dives at you with her foot-talons, but you deflect the attack, grasp onto her leg, and swing her through the air, tossing her away from you before she has a chance to right herself.', false );
 				}
 				//Due to toughness or amor...;
-				else if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( 'Your ' + CoC.getInstance().player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
+				else if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
 				} else {
 					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 				else {
 					EngineCore.outputText( 'The gnoll waves her club threateningly, but it\'s her foot that snaps up from the dusty plain to connect with your gut.', false );
 				}
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( ' (' + damage + ')\n', false );
 			}
 			EngineCore.statScreenRefresh();
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			EngineCore.outputText( 'The gnoll dances forward, then back, her whole body alive with sensual movement.  She catches the way you watch her and smirks, throwing in a hip-shake just for you.', false );
 			bonus += 6;
 		}
-		EngineCore.dynStats( 'lus', (bonus + 10 + CoC.getInstance().player.lib / 20 + Utils.rand( CoC.getInstance().player.cor / 20 )) );
+		EngineCore.dynStats( 'lus', (bonus + 10 + CoC.player.lib / 20 + Utils.rand( CoC.player.cor / 20 )) );
 		EngineCore.outputText( '\n', false );
 	};
 	Gnoll.prototype.eAttack = function() {
@@ -139,25 +139,25 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			if( CoC.getInstance().player.spe - this.spe < 8 ) {
+		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+			if( CoC.player.spe - this.spe < 8 ) {
 				EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
-			} else if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+			} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 				EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!\n', false );
-			} else if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+			} else if( CoC.player.spe - this.spe >= 20 ) {
 				EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.\n', false );
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				EngineCore.outputText( '\' attacks.\n', false );
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			}
 		} else {
 			//Determine damage - str modified by enemy toughness!;
-			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage <= 0 ) {
 				damage = 0;
 				//hapies have their own shit;
@@ -174,8 +174,8 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 					EngineCore.outputText( 'The harpy dives at you with her foot-talons, but you deflect the attack, grasp onto her leg, and swing her through the air, tossing her away from you before she has a chance to right herself.', false );
 				}
 				//Due to toughness or amor...;
-				else if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-					EngineCore.outputText( 'Your ' + CoC.getInstance().player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
+				else if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+					EngineCore.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
 				} else {
 					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 				else {
 					EngineCore.outputText( 'The gnoll waves her club threateningly, but it\'s her foot that snaps up from the dusty plain to connect with your gut.', false );
 				}
-				damage = CoC.getInstance().player.takeDamage( damage );
+				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( ' (' + damage + ')\n', false );
 			}
 			EngineCore.statScreenRefresh();
@@ -247,8 +247,8 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 			Combat.combatRoundOver();
 		}
 		//Exgartuan gets to do stuff!;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.getInstance().player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
-			CoC.getInstance().exgartuan.exgartuanCombatUpdate();
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
+			CoC.exgartuan.exgartuanCombatUpdate();
 			EngineCore.outputText( '\n\n', false );
 		}
 		if( this.findStatusAffect( StatusAffects.Constricted ) >= 0 ) {
@@ -273,25 +273,25 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 				EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
-			else if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
-				if( CoC.getInstance().player.spe - this.spe < 8 ) {
+			else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+				if( CoC.player.spe - this.spe < 8 ) {
 					EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
-				} else if( CoC.getInstance().player.spe - this.spe >= 8 && CoC.getInstance().player.spe - this.spe < 20 ) {
+				} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
 					EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!\n', false );
-				} else if( CoC.getInstance().player.spe - this.spe >= 20 ) {
+				} else if( CoC.player.spe - this.spe >= 20 ) {
 					EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.\n', false );
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+			else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 				EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			}
 			//('Misdirection';
-			else if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+			else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 				EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			}
 			//Determine if cat'ed;
-			else if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+			else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 				EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 				if( this.plural ) {
 					EngineCore.outputText( '\' attacks.\n', false );
@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 				}
 			} else {
 				//Determine damage - str modified by enemy toughness!;
-				damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+				damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 				if( damage <= 0 ) {
 					damage = 0;
 					//hapies have their own shit;
@@ -308,8 +308,8 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 						EngineCore.outputText( 'The harpy dives at you with her foot-talons, but you deflect the attack, grasp onto her leg, and swing her through the air, tossing her away from you before she has a chance to right herself.', false );
 					}
 					//Due to toughness or amor...;
-					else if( Utils.rand( CoC.getInstance().player.armorDef + CoC.getInstance().player.tou ) < CoC.getInstance().player.armorDef ) {
-						EngineCore.outputText( 'Your ' + CoC.getInstance().player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
+					else if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
+						EngineCore.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
 					} else {
 						EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 					}
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, Cha
 					else {
 						EngineCore.outputText( 'The gnoll waves her club threateningly, but it\'s her foot that snaps up from the dusty plain to connect with your gut.', false );
 					}
-					damage = CoC.getInstance().player.takeDamage( damage );
+					damage = CoC.player.takeDamage( damage );
 					EngineCore.outputText( ' (' + damage + ')\n', false );
 				}
 				EngineCore.statScreenRefresh();

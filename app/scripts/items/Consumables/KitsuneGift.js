@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, SceneLib, Cons
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, and to your delight, it is filled to the brim with shining gems!' );
 				var gems = 2 + Utils.rand( 20 );
 				EngineCore.outputText( '\n\n<b>You\'ve received ' + Utils.num2Text( gems ) + ' shining gems from the kitsune\'s gift!  How generous!</b>' );
-				CoC.getInstance().player.gems += gems;
+				CoC.player.gems += gems;
 				//add X gems to inventory;
 				EngineCore.statScreenRefresh();
 				break;
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, SceneLib, Cons
 				EngineCore.outputText( 'As the paper falls away, you carefully lift the cover of the box, your hands trembling nervously.  The inside of the box is lined with purple velvet, and sitting in the center is an artfully crafted paper doll.  Before your eyes, the doll springs to life, dancing about fancifully.  Without warning, it leaps into your item pouch, then hops away and gallavants into the woods, carting off a small fortune in gems.' );
 				EngineCore.outputText( '\n\n<b>The kitsune\'s familiar has stolen your gems!</b>' );
 				// Lose X gems as though losing in battle to a kitsune;
-				CoC.getInstance().player.gems -= 2 + Utils.rand( 15 );
+				CoC.player.gems -= 2 + Utils.rand( 15 );
 				EngineCore.statScreenRefresh();
 				break;
 			//[Prank];

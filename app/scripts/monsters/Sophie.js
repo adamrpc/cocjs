@@ -20,21 +20,21 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( 'Sophie changes direction in a flash, trying to slip inside your guard, but you manage to sidestep the incredibly fast harpy\'s attack.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			EngineCore.outputText( '\'s attack.\n', false );
 			return;
@@ -42,35 +42,35 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 		//YOU GOT HIT SON;
 		EngineCore.outputText( 'Before you can react, she gives you a chaste peck on the lips.  The harpy pulls back with a sultry smile, watching you expectantly.', false );
 		//Already affected by it;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
-			EngineCore.outputText( '  Blood rushes to ' + CoC.getInstance().player.sMultiCockDesc() + ' as you grow so hard so fast that it hurts.  ', false );
+		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
+			EngineCore.outputText( '  Blood rushes to ' + CoC.player.sMultiCockDesc() + ' as you grow so hard so fast that it hurts.  ', false );
 			SceneLib.sophieScene.luststickApplication( 2 );
-			EngineCore.dynStats( 'lus', (12 + CoC.getInstance().player.lib / 10) );
-			if( CoC.getInstance().player.lust < 70 ) {
+			EngineCore.dynStats( 'lus', (12 + CoC.player.lib / 10) );
+			if( CoC.player.lust < 70 ) {
 				EngineCore.outputText( 'The drugged lip-gloss is starting to get to you!\n', false );
-			} else if( CoC.getInstance().player.lust < 80 ) {
+			} else if( CoC.player.lust < 80 ) {
 				EngineCore.outputText( 'Her curvy thighs look so inviting.  You barely stop yourself before you climb in between them!\n', false );
-			} else if( CoC.getInstance().player.lust < 90 ) {
-				EngineCore.outputText( 'A trickle of pre-cum leaks from ' + CoC.getInstance().player.sMultiCockDesc() + '.  Sophie coos, "<i>Why don\'t you give in and let mommy Sophie drain out all that juicy cum?</i>"\n', false );
-			} else if( CoC.getInstance().player.lust < 100 ) {
-				EngineCore.outputText( CoC.getInstance().player.SMultiCockDesc() + ' twitches and bounces in time with your heartbeat, practically pulling you towards Sophie\'s gaping, pink-linked snatch.\n', false );
+			} else if( CoC.player.lust < 90 ) {
+				EngineCore.outputText( 'A trickle of pre-cum leaks from ' + CoC.player.sMultiCockDesc() + '.  Sophie coos, "<i>Why don\'t you give in and let mommy Sophie drain out all that juicy cum?</i>"\n', false );
+			} else if( CoC.player.lust < 100 ) {
+				EngineCore.outputText( CoC.player.SMultiCockDesc() + ' twitches and bounces in time with your heartbeat, practically pulling you towards Sophie\'s gaping, pink-linked snatch.\n', false );
 			} else {
-				EngineCore.outputText( 'So horny.  You need to copulate - no, fuck - right NOW.  Your hand touches your ' + CoC.getInstance().player.cockDescript( 0 ) + ' and you swoon, pumping your hips lewdly as you submit.\n', false );
+				EngineCore.outputText( 'So horny.  You need to copulate - no, fuck - right NOW.  Your hand touches your ' + CoC.player.cockDescript( 0 ) + ' and you swoon, pumping your hips lewdly as you submit.\n', false );
 			}
 		} else {
 			EngineCore.outputText( '  Your whole body blushes as your lips tingle with some unnatural sensation.  Her lips were drugged!  Your whole body flushes as arousal begins to course through your veins.  ', false );
 			SceneLib.sophieScene.luststickApplication( 2 );
-			EngineCore.dynStats( 'lus', 8 + CoC.getInstance().player.lib / 10 );
-			if( CoC.getInstance().player.lust < 70 ) {
+			EngineCore.dynStats( 'lus', 8 + CoC.player.lib / 10 );
+			if( CoC.player.lust < 70 ) {
 				EngineCore.outputText( 'The drugged lip-gloss is starting to get to you!\n', false );
-			} else if( CoC.getInstance().player.lust < 80 ) {
+			} else if( CoC.player.lust < 80 ) {
 				EngineCore.outputText( 'Her curvy thighs look so inviting.  You barely stop yourself before you climb in between them!\n', false );
-			} else if( CoC.getInstance().player.lust < 90 ) {
-				EngineCore.outputText( 'A trickle of pre-cum leaks from ' + CoC.getInstance().player.sMultiCockDesc() + '.  Sophie coos, "<i>Why don\'t you give in and let mommy Sophie drain out all that juicy cum?</i>"\n', false );
-			} else if( CoC.getInstance().player.lust < 100 ) {
-				EngineCore.outputText( CoC.getInstance().player.SMultiCockDesc() + ' twitches and bounces in time with your heartbeat, practically pulling you towards Sophie\'s gaping, pink-linked snatch.\n', false );
+			} else if( CoC.player.lust < 90 ) {
+				EngineCore.outputText( 'A trickle of pre-cum leaks from ' + CoC.player.sMultiCockDesc() + '.  Sophie coos, "<i>Why don\'t you give in and let mommy Sophie drain out all that juicy cum?</i>"\n', false );
+			} else if( CoC.player.lust < 100 ) {
+				EngineCore.outputText( CoC.player.SMultiCockDesc() + ' twitches and bounces in time with your heartbeat, practically pulling you towards Sophie\'s gaping, pink-linked snatch.\n', false );
 			} else {
-				EngineCore.outputText( 'So horny.  You need to copulate - no, fuck - right NOW.  Your hand touches your ' + CoC.getInstance().player.cockDescript( 0 ) + ' and you swoon, pumping your hips lewdly as you submit.\n', false );
+				EngineCore.outputText( 'So horny.  You need to copulate - no, fuck - right NOW.  Your hand touches your ' + CoC.player.cockDescript( 0 ) + ' and you swoon, pumping your hips lewdly as you submit.\n', false );
 			}
 		}
 	};
@@ -88,21 +88,21 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( this.a + this.short + '\'s movements are incredibly fast but you manage to sidestep them.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you determine ' + this.a + this.short + ' is aiming for your upper body and slide under the attack.\n', false );
 			return;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 40 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 40 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 40 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 40 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			EngineCore.outputText( '\'s attack.\n', false );
 			return;
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 		} else {
 			EngineCore.outputText( '  She runs her long fingernails through your hair as she whispers, "<i>Why fight it?  I\'ll make you feel so good.  Just relax and play with momma Sophie\'s tits.</i>"\n', false );
 		}
-		EngineCore.dynStats( 'lus', (13 + CoC.getInstance().player.sens / 10) );
+		EngineCore.dynStats( 'lus', (13 + CoC.player.sens / 10) );
 	};
 	//Compulsion (Male Only);
 	Sophie.prototype.sophieCompulsionAttack = function() {
@@ -123,10 +123,10 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 		//Autosucceeds if player inte < 40;
 		//autofails if player inte > 80;
 		//Player fails:;
-		if( CoC.getInstance().player.inte < 40 || (CoC.getInstance().player.inte < 80 && Utils.rand( 40 ) > (CoC.getInstance().player.inte - 40)) ) {
-			EngineCore.outputText( 'You moan out loud as your arms move of their own volition.  They reach inside your ' + CoC.getInstance().player.armorName + ' and stroke ' + CoC.getInstance().player.sMultiCockDesc() + ', caress the tip, and continue to fondle you a few moments.', false );
+		if( CoC.player.inte < 40 || (CoC.player.inte < 80 && Utils.rand( 40 ) > (CoC.player.inte - 40)) ) {
+			EngineCore.outputText( 'You moan out loud as your arms move of their own volition.  They reach inside your ' + CoC.player.armorName + ' and stroke ' + CoC.player.sMultiCockDesc() + ', caress the tip, and continue to fondle you a few moments.', false );
 			EngineCore.outputText( 'Even after regaining control of your limbs, you\'re left far more turned on by the ordeal.', false );
-			EngineCore.dynStats( 'lus', (15 + CoC.getInstance().player.cor / 20 + CoC.getInstance().player.lib / 20) );
+			EngineCore.dynStats( 'lus', (15 + CoC.player.cor / 20 + CoC.player.lib / 20) );
 		}
 		//Player resists;
 		else {
@@ -146,33 +146,33 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.getInstance().player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.getInstance().player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			EngineCore.outputText( this.a + this.short + '\'s tears through the air, but you manage to just barely dodge it.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
 			EngineCore.outputText( 'Using your skills at evading attacks, you watch ' + this.a + this.short + ' and deftly sidestep her brutal talons.\n', false );
 			return;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 30 && CoC.getInstance().player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 30 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			EngineCore.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.getInstance().player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 40 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 40 ) {
 			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			EngineCore.outputText( '\'s attack.\n', false );
 			return;
 		}
-		EngineCore.outputText( 'Her leg lashes forwards, lightning-quick, and tears bloody gashes into your ' + CoC.getInstance().player.skinDesc + ' with her razor-sharp talons! ', false );
+		EngineCore.outputText( 'Her leg lashes forwards, lightning-quick, and tears bloody gashes into your ' + CoC.player.skinDesc + ' with her razor-sharp talons! ', false );
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
 		damage += 40;
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( '(' + damage + ')\n', false );
 	};
 	//Batter (Female Only);
@@ -182,32 +182,32 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 		var damage = 0;
 		EngineCore.outputText( 'Sophie comes at you in a flurry of beating wings!  There\'s no way to dodge the flurry of strikes!\n', false );
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( this.str - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( this.str - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( 'Her left primary wing batters your head! (' + damage + ')\n', false );
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( this.str - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( this.str - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( 'Her right, wing-like arm slaps at your torso! (' + damage + ')\n', false );
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( this.str - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( this.str - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( 'Her other feathery arm punches at your shoulder! (' + damage + ')\n', false );
 		//Determine damage - str modified by enemy toughness!;
-		damage = Math.ceil( this.str - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
+		damage = Math.ceil( this.str - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( damage < 0 ) {
 			damage = 0;
 		}
-		damage = CoC.getInstance().player.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		EngineCore.outputText( 'Her right wing slams into the other side of your head! (' + damage + ')\n', false );
 	};
 	Sophie.prototype.performCombatAction = function() {
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 		SceneLib.sophieBimbo.sophieSprite();
 		var rando = 1;
 		//Update attacks for girls/neuters;
-		if( !CoC.getInstance().player.hasCock() || this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
+		if( !CoC.player.hasCock() || this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
 			//Talons;
 			this.special1 = this.talonsSophie;
 			//Batter;
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 			//compulsion;
 			this.special3 = this.sophieCompulsionAttack;
 		}
-		if( CoC.getInstance().player.hasCock() && this.findStatusAffect( StatusAffects.BimboBrawl ) < 0 ) {
+		if( CoC.player.hasCock() && this.findStatusAffect( StatusAffects.BimboBrawl ) < 0 ) {
 			rando = 1 + Utils.rand( 3 );
 		} else {
 			rando = 1 + Utils.rand( 2 );

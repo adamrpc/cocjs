@@ -6,7 +6,7 @@ angular.module('cocjs').factory('LungingAttacksPerk', function (PerkType, CoC) {
 	}
 	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
-		if(CoC.getInstance().player.spe >= 75) {
+		if(CoC.player.spe >= 75) {
 			return '<b>Grants 50% armor penetration for standard attacks.</b>';
 		}
 		return '<b>You are too slow to benefit from this perk.</b>';

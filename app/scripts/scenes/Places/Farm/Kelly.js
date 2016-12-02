@@ -18,13 +18,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Implementation of TimeAwareInterface;
 	Kelly.prototype.timeChange = function() {
 		this.pregnancy.pregnancyAdvance();
-		$log.debug( '\nKelly time change: Time is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
-		if( CoC.getInstance().time.hours > 23 ) {
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] > 0 && CoC.getInstance().time.days % 3 === 0 ) {
-				CoC.getInstance().flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] = 0;
+		$log.debug( '\nKelly time change: Time is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
+		if( CoC.time.hours > 23 ) {
+			if( CoC.flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] > 0 && CoC.time.days % 3 === 0 ) {
+				CoC.flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] = 0;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
-				CoC.getInstance().flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ]++;
+			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
+				CoC.flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ]++;
 			}
 		}
 		if( this.pregnancy.isPregnant && this.pregnancy.incubation === 0 ) {
@@ -39,19 +39,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//End of Interface Implementation;
 	Kelly.prototype.hasPinkEgg = function() {
-		return (CoC.getInstance().player.hasItem( ConsumableLib.PINKEGG ) || CoC.getInstance().player.hasItem( ConsumableLib.L_PNKEG ));
+		return (CoC.player.hasItem( ConsumableLib.PINKEGG ) || CoC.player.hasItem( ConsumableLib.L_PNKEG ));
 	};
 	//Encounters;
 	//First encounter;
 	Kelly.prototype.breakingKeltOptions = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 35 );
-		if( (!CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.getInstance().flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
+		if( (!CoC.player.hasCock() && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
 			SceneLib.keltScene.keltEncounter();
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] > 0 ) {
-			if( !CoC.getInstance().player.hasCock() ) {
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] > 0 ) {
+			if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( 'You can\'t keep trying to break Kelt without the proper tool to do it with.' );
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
@@ -70,10 +70,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.resistKeltsBSBreakHimIntro = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 35 );
-		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			EngineCore.outputText( 'You are more and more annoyed by Kelt\'s rudeness and dick-waving.  The centaur may be imposing at first and his archery skills are impressive, but you\'re sure that behind his false display of virility, there\'s nothing an experienced champion like you can\'t deal with.  With your superior strength and speed, you could probably take him by surprise and teach him a good lesson.  Of course, you won\'t ever be able to learn archery from him after that.' );
 			//[if (PC doesn't have items);
-			if( !(CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 15 ) || (CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 10 ) && this.hasPinkEgg()) || (CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 10 ) && this.hasPinkEgg()) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 15 )) ) {
+			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 15 ) || (CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) && this.hasPinkEgg()) || (CoC.player.hasItem( ConsumableLib.P_S_MLK, 10 ) && this.hasPinkEgg()) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 15 )) ) {
 				EngineCore.outputText( ' Unfortunately, you don\'t have anything that could be useful to tame his arrogant maleness.  You want items that would make his disgracious horsecock and balls shrink.  A nice set of breasts on his human chest would be fine, too.  You know you\'re going to need A LOT of such items - or very potent ones.' );
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
@@ -85,11 +85,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.addButton( 1, 'Not Yet', SceneLib.farmExploreEncounter );
 				EngineCore.addButton( 2, 'Never', this.neverBreakKeltIntoKelly );
 			}
-		} else if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
 			EngineCore.outputText( 'You set out to go get Kelt, eager to teach this slut another lesson of your own.  You explore the farm for a bit before spotting the centaur behind the barn.  However, Kelt seems to have changed since last time: he somehow changed back his gender.  That rebellious little bitch!  Although he doesn\'t look as aggressively masculine as before, and his chest still bears some man-tits, he has gotten back his stern, rude face and you can clearly see a fat prick hanging from his backside.  It doesn\'t seem to be as big as it was before, though.  He must have grown it in a hurry.' );
 			//back to farm];
 			//[if you don't have the items:;
-			if( !(CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 10 ) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 10 ) || (CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 5 ) && this.hasPinkEgg()) || (CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 5 ) && this.hasPinkEgg())) ) {
+			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 10 ) || (CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) && this.hasPinkEgg()) || (CoC.player.hasItem( ConsumableLib.P_S_MLK, 5 ) && this.hasPinkEgg())) ) {
 				EngineCore.outputText( '\n\nYou\'d gladly teach him another lesson so he can keep his true gender and learn his place, but you don\'t have anything to turn him female again.  You should fetch appropriate items to begin the \'lesson\'.</i>"' );
 				//back to farm];
 				EngineCore.menu();
@@ -100,10 +100,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.addButton( 0, 'Next', this.secondKeltBreaking );
 		}
 		//Third encounter;
-		else if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 2 ) {
 			EngineCore.outputText( 'You saunter up to the back of the farm, eager to meet the centaur-slut for another \'lesson\'.  The creature is quite a weird sight when you spot her: instead of the gorgeous woman whose face you had splattered with spooge, what you see is an androgynous hybrid sporting a tiny, ridiculous microdick and a little pair of tits that can\'t fill more than a B-cup bra.  Even the face is ambiguous about its gender.  Although Kelly is now strong in the centaur\'s body, Kelt seems to have regained a little control.  You have to fix this.' );
 			//[if (less than 5 succubi milk);
-			if( !(CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 5 ) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 5 )) ) {
+			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 5 )) ) {
 				EngineCore.outputText( 'You must acquire enough Succubi Milk to remove any male remnants off Kelly\'s body before confronting \'him\' again.' );
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			//[Start Combat];
 			Combat.startCombat( new Kelt() );
 			EngineCore.spriteSelect( 35 );
-		} else if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 3 ) {
+		} else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 3 ) {
 			EngineCore.spriteSelect( -1 );
 			this.finalKeltBreaking();
 		} else {
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.neverBreakKeltIntoKelly = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 35 );
-		CoC.getInstance().flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
+		CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
 		EngineCore.outputText( 'You decide that trying to break Kelt is something you\'d never want to do.  Besides, he\'s teaching you a useful skill, and there\'s just something charming about that bastard...' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Go To Kelt', SceneLib.keltScene.keltEncounter );
@@ -139,11 +139,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You approach the uppity centaur with glinting eyes, determined to take him down.  Kelt mistakes your anger for desire and sneers.' );
-		EngineCore.outputText( '\n\n"<i>What do you want, you little ' + CoC.getInstance().player.mf( 'sissy', 'bitch' ) + '?  I\'m done with you.  I\'m already doing you a favor by teaching you a skill sluts like you will never use nor master.</i>"' );
+		EngineCore.outputText( '\n\n"<i>What do you want, you little ' + CoC.player.mf( 'sissy', 'bitch' ) + '?  I\'m done with you.  I\'m already doing you a favor by teaching you a skill sluts like you will never use nor master.</i>"' );
 		EngineCore.outputText( '\n\nWith a cold, calm voice, you inform him that you don\'t want to learn archery from him anymore.' );
 		EngineCore.outputText( '\n\n"<i>Fine.  Why don\'t you just fuck off then? I don\'t have time to waste with bitchy sluts.  Unless you\'re craving my cock?  Is that why you\'re still staring at me like you\'re going to jump me at any second?  A good centaur dick, right down your throat, that\'s what you-</i>"' );
 		EngineCore.outputText( '\n\nWHAM!  ' );
-		if( CoC.getInstance().player.tallness < 70 ) {
+		if( CoC.player.tallness < 70 ) {
 			EngineCore.outputText( 'You jump up, and y' );
 		} else {
 			EngineCore.outputText( 'Y' );
@@ -164,18 +164,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>No, No - Fuck, no.  I know what you\'re going to do.  Don\'t even - don\'t even try.</i>"' );
 		//Skip ()s if PC was naked before engaging in the mindbreaking quest;
 		EngineCore.outputText( '\n\nYou keep stirring the ivory fluid, ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'pulling [eachCock] out of your [armor] and stroking yourself with your free hand' );
 		} else {
 			EngineCore.outputText( 'slapping your hardening dick' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' against your belly in anticipation' );
 		}
 		EngineCore.outputText( '.  You might as well add some flavor to the meal.' );
 		EngineCore.outputText( '\n\n"<i>You can\'t just tie me up and make me swallow a bunch of shit.  That\'s just... not the way it works - not here.  I\'m serious, don\'t do it.  You will regret it.</i>"' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nAs you masturbate the way only a half-horse can,' );
 		} else {
 			EngineCore.outputText( '\n\nAs you touch yourself,' );
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( ' small droplets of pre-cum begin dripping out of your ' + Descriptors.multiCockDescriptLight() + ' before being swallowed by the potent, feminine mixture down below.  The white spots are drowning in that milky goo, but you\'re confident that Kelt will be able to recognize the taste.' );
 		EngineCore.outputText( '\n\n"<i>Hey dipshit - I have a job here, and if you do this, you\'re going to fuck shit up for everybody.  Not to mention, I\'m gonna come back and kick your ass once I get loose!  Besides, I\'ve got a few sluts that need tending to.</i>"' );
 		EngineCore.outputText( '\n\nWhen you\'ve leaked a sufficient amount of pre, you stop masturbating.  [EachCock] is already rock-hard, and you will have to put ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'it' );
 		} else {
 			EngineCore.outputText( 'them' );
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>What have you done to me?!</i>"  Even the sound of her sobs is delightful to hear, as they\'re far from the rude, heavy tone the male Kelt used to insult you with.' );
 		EngineCore.outputText( '\n\n"<i>Shh... it\'s for your own good.</i>"' );
 		EngineCore.outputText( '\n\nWith a disarming smirk, you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'fully whip out your [cock biggest] and shove it between her busty tits and slowly start grinding' );
 		} else {
 			EngineCore.outputText( 'step over her, shoving your [cock biggest] between her busty tits, grinding it through that smooth valley' );
@@ -205,16 +205,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>Get... get your junk away from me!</i>"  Her voice sounds so girlish and cute now, and you can\'t help but laugh at her protests.  You stare at her incredulously.  "<i>You say that as if you weren\'t going to suck it right now.</i>"' );
 		EngineCore.outputText( '\n\nThe slut breaks eye-contact uncomfortably, before looking ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'back ' );
 		}
 		EngineCore.outputText( 'down ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'under you ' );
 		}
 		EngineCore.outputText( 'at your [cock biggest], still pressing against her heavy chest. She looks back up, fear and shame in her eyes, then back at your [cock biggest].  She then sticks her tongue out, understanding she has no choice but to endure this, and whimpers as she gets closer to your tip, giving it only a very quick lick.  Some time passes before she gives it another timid one.  Then another one, this time longer than the last.  Then a fourth one, bolder.  She goes little by little, but you can tell she\'s gradually getting accustomed to your own dick-scent.  You soon lose count of how often she licks your [cock biggest], and she never stops, as if she were somehow drawn to it - maybe that succubi milk was just what she needed.' );
 		EngineCore.outputText( '\n\nA few minutes later, she wraps her tongue around your length like a proper cocksucker, never daring to make eye-contact as she blows you.  Her tongue was tickling at first, but now you\'re starting to enjoy her tongue-fondling on your dick.  You encourage her, telling her to use her whole mouth.  She nods and sobs before holding her breath and trying to deepthroat you.  The first attempt fails pathetically: not used to dick-flesh knocking at the back of her throat, she drools helplessly as she spits back your meaty rod.  Annoyed at her clumsiness, you ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'dance your hindlegs about in order to ' );
 		}
 		EngineCore.outputText( 'cockslap her.' );
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nShe whines a miserable apology before trying to take you again in her mouth.' );
 		EngineCore.outputText( '\n\n"<i>No.  Since you can\'t suck cock to save your life, you are unfit to receive my cum.  Use these instead,</i>" you suggest, pointing at her luxurious chest.  "<i>You left me unsatisfied with your failed deepthroat, and the gods know I could use a proper tit-job.</i>"' );
 		EngineCore.outputText( '\n\nThe centauress nods weakly and proceeds to wrap her bountiful flesh orbs around your [cock biggest].  She is as awkward as she was with her mouth, but you don\'t actually need her to fuck her tits.  Groaning in frustrated lust, you ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'step over her, moving your hips back and forth to thrust through her more-than-ample cleavage.' );
 		} else {
 			EngineCore.outputText( 'grab her nipples and begin to thrust your pecker against her boob valley.' );
@@ -233,26 +233,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nYou walk away before she can uncover her eyes; you don\'t have any business here now that you\'ve used her.' );
 		//consume items for 1x scene.;
 		if( this.hasPinkEgg() ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.PINKEGG ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.PINKEGG );
+			if( CoC.player.hasItem( ConsumableLib.PINKEGG ) ) {
+				CoC.player.consumeItem( ConsumableLib.PINKEGG );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.L_PNKEG );
+				CoC.player.consumeItem( ConsumableLib.L_PNKEG );
 			}
-			if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 10 ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 10 );
+			if( CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) ) {
+				CoC.player.consumeItem( ConsumableLib.SUCMILK, 10 );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK, 10 );
+				CoC.player.consumeItem( ConsumableLib.P_S_MLK, 10 );
 			}
 		} else {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 15 ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 15 );
+			if( CoC.player.hasItem( ConsumableLib.SUCMILK, 15 ) ) {
+				CoC.player.consumeItem( ConsumableLib.SUCMILK, 15 );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK, 15 );
+				CoC.player.consumeItem( ConsumableLib.P_S_MLK, 15 );
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
-		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
+		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Second encounter;
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		//Cut these: You swing your [weapon], ready to use force against the restless centaur if necessary.;
 		//Cut these: "<i>Easy now, okay? You don't have your bow, and you know what I can do with my [weapon]. Now if you just calm down I promise I'll be much nicer this time.</i>";
 		//lust/HP: ;
-		if( CoC.getInstance().monster.lust > 99 ) {
+		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'Kelt moans, mauling at his mantits in his lust before he realizes what\'s going on' );
 		} else {
 			EngineCore.outputText( 'Kelt groans, slumping slightly from all the damage you\'ve done to him' );
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nLike hell! You aren\'t going to let him slip away like that.  ' );
 		//NO NEW PG.  FORK FOR CENTAURS AND NON};
 		//NON CENTAURS};
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Of course, your speed is no match to that of a four-legged warrior, but you don\'t actually need to outrun him.  You rush to Kelt\'s hindquarters and lunge at him, managing to get a good grip on his flanks.  You wriggle a bit in order to adopt a more comfortable position but a few seconds later you\'re on his back, effectively mounting him.' );
 			EngineCore.outputText( '\n\nNeedless to say, Kelt doesn\'t like this at all.  He arches his back, rears back, and fidgets repeatedly in desperate attempts to get you off him, but you latch on firmly.  Seeing that he won\'t get rid of you easily, he becomes enraged.  He snorts, whinnies and shakes his back like a horse gone crazy.  You do your best to cling to his neck and never let go of him, determined to tame the beast.  You let him exhaust himself, riding him out as his fits of rage become less and less violent.  At last he drops on his legs, yielding to you.' );
 			EngineCore.outputText( '\n\nSatisfied, you unmount him and begin to drag him again to the barn.  ' );
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nThe broken centauress manages to shake her head convulsively.  Satisfied, you stop slapping her.' );
 		EngineCore.outputText( '\n\n"<i>Good.  Kelly it is, then.</i>"' );
 		EngineCore.outputText( '\n\nWith a smile, you grab her head and ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'push her underneath you towards' );
 		} else {
 			EngineCore.outputText( 'pull her close to' );
@@ -320,62 +320,62 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( ' your erect ' + Descriptors.multiCockDescriptLight() + '.' );
 		EngineCore.outputText( '\n\n"<i>The first time I let you get accustomed to the taste, now you know how it\'s done.  Get to work, bitch.</i>"' );
 		EngineCore.outputText( '\n\nWork she does, much faster than last time.  Instead of shyly poking your junk with her tongue, she gives it long, sweet slurps, using her hands to get a better grip' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and fondling your [balls] with great care' );
 		}
 		EngineCore.outputText( '.  Her lips regularly wrap around your [cock biggest] in near-perfect sucking motions.  She\'s getting better at this.' );
 		EngineCore.outputText( '\n\nGroaning an encouragement, you pull her head closer and pin it against your groin, putting the cocksucker to the test.  Amazingly, she manages to keep your wang inside for a few seconds.  You close your eyes and moan, your whole body receiving rippling waves of pleasure from your deepthroated meat.  This heavenly moment doesn\'t last long, unfortunately; unable to take any more dick-flesh, the whore coughs again and withdraws from your length.  Your pulsating [cock biggest] suddenly feels cold, even as the centauress slavers on it.' );
 		EngineCore.outputText( '\n\n"<i>Better, but still not enough.</i>"  You ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'cock-' );
 		}
 		EngineCore.outputText( 'slap the bitch for good measure, but you don\'t really mean it, as you are still feeling the last tingles of pleasure from her deepthroating.  Kelly mumbles a nervous apology before taking you again in her mouth, trying to compensate by giving the sweetest dick-licking she can.  Unable to take you whole, she focuses on your tip, kissing it and caressing it with her tongue.  You can tell she\'s somewhat enjoying it too: her whining seems to have stopped somewhat and she is a little more passionate in her tongue slurps.' );
 		EngineCore.outputText( '\n\nHer ministrations have a certain effect on you, but you need more than a few tickles from a cocksucker apprentice.  You pull ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'your genitals and equine body back ' );
 		}
 		EngineCore.outputText( 'out of her mouth and grope her tits; since she couldn\'t deepthroat you for more than a few seconds, you won\'t give her your cum this time either.  However, as your hands knead the girl\'s soft melons, you can feel her nipples are noticeably stiffening.  Amused, you toy with them for a moment, twisting and tweaking them until you can hear Kelly sigh.  The sorrow on her face is gradually replaced by an expression of repressed, violent lust.  She\'s more than ready for her boob-job.' );
 		EngineCore.outputText( '\n\nA ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'quick step and ' );
 		}
 		EngineCore.outputText( 'heavy thrust' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' later' );
 		}
 		EngineCore.outputText( ', and your [cock biggest] is entrapped within Kelly\'s breast valley.  You grind against her chest, your tip repeatedly poking her mouth and forcing her to suck it.  However, the centauress does show a little more enthusiasm this time; she sometimes squeezes her tits on her own, and her lips are avidly clinging to your rod at every occasion they get.  You know the slut is starting to get off to it, even though she would never acknowledge it - for now.  This only makes you harder and hornier.' );
 		EngineCore.outputText( '\n\nYou fuck her tits faster and faster until your [cock biggest] can\'t take any more boobflesh: it quivers on its own, the ultimate signal of your incoming climax.  Before you know it, you blast Kelly\'s face with your spooge.  A seemingly endless stream pours from your dong and paints the centaur-slut white, even moreso than before.  The few ropes that make it into her mouth are quickly swallowed down by the eager whore, and her tongue shamelessly slurps all the cum she can reach from her mouth.  She\'s getting addicted to your juices, wherever they come from.  A couple more days with this treatment and she\'ll turn into a complete cumslut, only craving your baby-batter.  This sure would be a nice change from the arrogant dick you used to see before, you think to yourself as you squeeze out the last drops of goo onto her face.' );
 		EngineCore.outputText( '\n\nYou don\'t bother to speak anymore, just walking away as you pick up your [armor] and consider the future possibilities.  The bitch obviously enjoyed this \'lesson\' more than she did last time.  Could it be that she\'s finally learning her true place?  Now all you need is another bunch of succubi milk, just in case the old Kelt within her stirs up in your absence...' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
 		//consume items for 1x scene.;
 		if( this.hasPinkEgg() ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.PINKEGG ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.PINKEGG );
+			if( CoC.player.hasItem( ConsumableLib.PINKEGG ) ) {
+				CoC.player.consumeItem( ConsumableLib.PINKEGG );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.L_PNKEG );
+				CoC.player.consumeItem( ConsumableLib.L_PNKEG );
 			}
-			if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 5 ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 5 );
+			if( CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) ) {
+				CoC.player.consumeItem( ConsumableLib.SUCMILK, 5 );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK, 5 );
+				CoC.player.consumeItem( ConsumableLib.P_S_MLK, 5 );
 			}
 		} else {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 10 ) ) {
-				CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 10 );
+			if( CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) ) {
+				CoC.player.consumeItem( ConsumableLib.SUCMILK, 10 );
 			} else {
-				CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK, 10 );
+				CoC.player.consumeItem( ConsumableLib.P_S_MLK, 10 );
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
-		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 2;
+		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 2;
 		Combat.cleanupAfterCombat();
 	};
 	//Win Second Fight (Third Feminizing Encounter):;
 	Kelly.prototype.breakingKeltNumeroThree = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'Slumping down, ' );
 		} else {
 			EngineCore.outputText( 'Moaning, ' );
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nYou don\'t need any funnel to make him gulp down two more Succubi Milk vials.  Femininity is already powerfully ingrained in him due to your last two sessions, and when he\'s done drinking, Kelly is fully back.  You quickly check down below: no sign of any dick, no matter how absurdly small. On the other hand, a nice, young and fresh pussy is dripping with warm moisture.  Its pink presence seems to welcome you back.' );
 		EngineCore.outputText( '\n\nYou look back at her and ask bluntly: "<i>What\'s your name?</i>"' );
 		EngineCore.outputText( '\n\nShe remains silent.  She hasn\'t said a word since you spotted her, you remark.  But this time she\'s going to speak.  You pull her hair, slap her a few times - sometimes with your free hand' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( ', sometimes with your [cock] -' );
 		}
 		EngineCore.outputText( ' and yell: "<i>What\'s your name?</i>"' );
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>Then what in Lethice\'s name are you waiting for?  It ain\'t gonna suck itself.</i>"' );
 		EngineCore.outputText( '\n\nShe tries to grip your [cock biggest] with her thin hands but you\'ve grown too impatient: you vigorously force it through her lips and begin to fuck her face ruthlessly.  She coughs, drools and tries to scream, but you don\'t let her have any say in the matter.  You pump away, treating her mouth like a warm and wet onahole.  Your pecker is soon coated with her saliva and twitching with lust, but you don\'t care.  Besides, the slut is rapidly adapting to your [cock biggest].  Her tongue fondles you carefully, and her lips squeeze you as tightly as they can.  You can definitely tell her recent dick sucking experience made her skillful as a fellatrix. She\'ll make a good cumslut, you idly think as you move her head up and down your length.' );
 		EngineCore.outputText( '\n\nYou decide to test Kelly once more; with a mighty ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'push from behind' );
 		} else {
 			EngineCore.outputText( 'pull' );
@@ -412,30 +412,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>You\'re making a great effort, slut.  But I know you\'re not genuine.  You\'re ready to be a good cumslut, but not my good cumslut.  But don\'t worry, I\'ll take care of this in a minute.  Now jerk me off.</i>"' );
 		EngineCore.outputText( '\n\nYou move [oneCock] toward her face as you speak.  The centaur girl nods silently before seizing a handful of your junk and slowly stroking it.  Her hands move along your length, rubbing and massaging all the sensitive points.  She tries to use her mouth too but you don\'t let her; instead, you have her point your meat toward the old keg you used before.  Kelly\'s eyes widen slightly as she understands what you have in mind, but she doesn\'t slow down the dick-stroking pace.  You close your eyes and enjoy the sensation of Kelly\'s delicate palm and fingers handling your dick-flesh with great care.' );
 		EngineCore.outputText( '\n\nYou briskly reach ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'down, pushing her' );
 		} else {
 			EngineCore.outputText( 'forward to grab one of her tits and grope it' );
 		}
 		EngineCore.outputText( ' convulsively as you feel your lust rise.  ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Soon one breast isn\'t enough to contain your lust-driven energy and you reach for the other one with your free hand.  Your constant nipple-teasing has an effect on' );
 		} else {
 			EngineCore.outputText( 'Soon, you cannot contain your lust, and you begin to buck against her hands, whinnying with delight.  The rigid, pulsing dick-flesh in her mouth has an effect on' );
 		}
 		EngineCore.outputText( ' Kelly at last: you can hear her moan and sigh, and her hands move erratically on your ' + Descriptors.multiCockDescriptLight() + ', sometimes violently yanking it as she loses control.  This brings all kinds of painful yet pleasurable tingles to your body, and only entices you to feel her up even more.' );
 		EngineCore.outputText( '\n\nA familiar warmth builds in your loins ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'and your [balls] churn ' );
 		}
 		EngineCore.outputText( 'as you feel your climax coming.  ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You squeeze Kelly\'s boobs so harshly she screams in pain, and y' );
 		} else {
 			EngineCore.outputText( 'Y' );
 		}
 		EngineCore.outputText( 'ou release a loud groan yourself.  You cum hard, your quivering [cock biggest] spraying spooge in steady jets directly into the keg.  You maintain your grip on the centauress' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\' breasts' );
 		}
 		EngineCore.outputText( ', heedless of her pain and only caring about your own orgasm.  You feel her soft hands squeezing your junk there and there in order to milk the last drop of cum and making sure none of it remains stuck in your urethra.  When you\'re done riding out your orgasm, you walk up to the keg and pour down the two bottles of Succubi Milk you have left.  The copious amount of baby-batter mixes with the alright-alabaster fluid to form a bubbling ivory mixture that you bring close to Kelly\'s lips.' );
@@ -443,14 +443,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nShe obeys, albeit a little too slowly.  Impatient, you lift the keg and forcibly make her gulp down the sticky substance until she can barely breathe.  You spill some juice to the side and onto her legs but she\'s drunk most of it.  The potion has quick effects on her, rapidly taking over her body and making feel her dizzy.' );
 		EngineCore.outputText( '\n\n"<i>Ohhh...</i>" Her breasts expand further, her pussy drips even more rivulets in sheer arousal.  Her eyes roll back and her breath grows short as she stares longingly at you.  You marvel at the effects: she\'s finally being turned into a horny cumslut!  Now all you have to do is wait for her to digest the hefty potion and come back to deliver the last dose.' );
 		//consume items for 1x scene.;
-		if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 5 ) ) {
-			CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 5 );
+		if( CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) ) {
+			CoC.player.consumeItem( ConsumableLib.SUCMILK, 5 );
 		} else {
-			CoC.getInstance().player.consumeItem( ConsumableLib.P_S_MLK, 5 );
+			CoC.player.consumeItem( ConsumableLib.P_S_MLK, 5 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
-		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 3;
+		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 3;
 		Combat.cleanupAfterCombat();
 	};
 	//Fourth encounter;
@@ -464,31 +464,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nYou laugh triumphantly as you whip your ' + Descriptors.multiCockDescriptLight() + ' out of your [armor]; the slut is more than ready!' );
 		EngineCore.outputText( '\n\n"<i>While you were busy whining like a whore my junk has been aching for a good blowjob; how about you stop talking and start sucking?</i>"' );
 		EngineCore.outputText( '\n\nThe centauress cries in excitement and ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'kneels down' );
 		} else {
 			EngineCore.outputText( 'bends over' );
 		}
 		EngineCore.outputText( ' to reach for your [cock biggest].  She sucks with eagerness and passion; you don\'t even need to pull her head as it moves on its own around your length.  ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'Her free hands moves down on your groin and caresses your [balls] with expert care and precision; obviously her previous experience in groping has had an effect on her current skills.  ' );
 		}
 		EngineCore.outputText( 'Her hunger for your meaty junk seems to be insatiable, for after moments of dick kissing and licking, she decides to take the entirety of your length.  Her eyes are voracious as her fat lips swallow inch after inch of dick-flesh.' );
 		EngineCore.outputText( '\n\nYou savor this moment; your [cock biggest] is literally radiating with pleasure, and you find yourself staggering multiple times, your body almost unable to bear the sheer pleasure provided by the needy centaur-slut.  Her fingers cling to your ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'hindleg haunches' );
 		} else {
 			EngineCore.outputText( '[butt]' );
 		}
 		EngineCore.outputText( ', always pulling your groin closer to her avid mouth as she relentlessly throatfucks herself on you.  Your [cock biggest] is being squeezed and massaged in the most divine way as it knocks against her warm esophagus, and you\'re tempted to cum in her right now, right here. But you need to finish the \'lesson\'; with great regret, you softly ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'back away' );
 		} else {
 			EngineCore.outputText( 'push the centaur girl away' );
 		}
 		EngineCore.outputText( ' and pull out of her mouth. Wailing with displeasure, the cock-slut decides to give your meat a couple of sad licks, disappointed to see her phallic prize withdrawing from her.  She quickly regains her enthusiasm, however.' );
 		EngineCore.outputText( '\n\nYou don\'t even need to tell her to use her boobs; after a while of dick slurping, she wraps them around your rod and pumps ferociously, her eyes filled with raw need.  After being slathered with hot saliva from the long deepthroating, her breasts make all kind of squelching noises as they repeatedly squeeze your [cock biggest].' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You grope her bountiful tits and pull them closer to you as you fuck them.  ' );
 		}
 		EngineCore.outputText( 'Her breast valley feels almost as tight as a vagina; and due to the generous amounts of drool coating your lance, it is almost as wet.  Moreover, Kelly is now openly moaning from the tit-job, as if you were actually fucking her.  She obviously has no shame anymore in letting everyone in the farm know how much she enjoys grinding her soft melons against a stranger\'s junk.  These thoughts make you dreamingly wonder what her virgin pussy feels like, and make you even stiffer.  With a lust-filled grunt, you thrust deeper, your dick-flesh fighting for every inch between the girl\'s busty tits.  Your genitals are now dangerously pulsating in arousal, threatening to cum at any time.' );
@@ -515,9 +515,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>Never.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Good girl.</i>"' );
 		EngineCore.outputText( '\n\nSatisfied, you pat Kelly\'s butt and walk away, still recovering from the supernatural orgasm.  Now that you\'ve acquired a new pet, there\'s a whole new range of possibilities that are open for you...' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 8 );
-		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 4;
+		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 4;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -531,11 +531,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.keltFucksShitUpII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You awaken at the periphery of the farm, thankful to be alive.  Kelt is nowhere to be seen.  You have to wonder if Whitney saved you or the dumb beast was too stupid to finish you off.  Whatever the case, you head back to camp to lick your wounds.  <b>The worst indignity of all is that he broke a lot of your succubi milks.</b>  He\'ll likely have regained some more of his maleness by the time you\'re ready to attempt teaching him another lesson.' );
-		CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK, 5 );
+		CoC.player.consumeItem( ConsumableLib.SUCMILK, 5 );
 		//Roll Kelt back one obedience level - at the worst he drops to the level of the first fight;
-		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ]--;
-		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] < 1 ) {
-			CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
+		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ]--;
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] < 1 ) {
+			CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
 		}
 		Combat.cleanupAfterCombat();
 	};
@@ -543,12 +543,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Appearance;
 	Kelly.prototype.kellyAppearance = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'Kelly is a 6 foot 3 inch tall centauress with a svelte body and generous curves.  Her feminine face is pretty human in appearance, and her lovely traits would be adorably innocent if it weren\'t for her emerald eyes shining with lusty need whenever she looks at you.  Plump lips that seem to have been made for cock-sucking adorn her hungry mouth.  A long, single ' + CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] );
+		EngineCore.outputText( 'Kelly is a 6 foot 3 inch tall centauress with a svelte body and generous curves.  Her feminine face is pretty human in appearance, and her lovely traits would be adorably innocent if it weren\'t for her emerald eyes shining with lusty need whenever she looks at you.  Plump lips that seem to have been made for cock-sucking adorn her hungry mouth.  A long, single ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] );
 		//[chestnut brown/sable black/garish purple/bright pink/slutty blonde) ;
-		EngineCore.outputText( ' braid hangs between her shoulders, giving you easy leverage when you have your way with her.  Her torso is likewise human-looking, only stopping below her navel where her equine part starts growing.  She stands on four horse hooves, her lower body looking almost like a horse\'s- aside from the pointed ' + CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' demon\'s tail which sprouts where her horse tail should, and her cute, pink, human-like asshole.' );
+		EngineCore.outputText( ' braid hangs between her shoulders, giving you easy leverage when you have your way with her.  Her torso is likewise human-looking, only stopping below her navel where her equine part starts growing.  She stands on four horse hooves, her lower body looking almost like a horse\'s- aside from the pointed ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' demon\'s tail which sprouts where her horse tail should, and her cute, pink, human-like asshole.' );
 		//[chestnut brown/sable black/garish purple/bright pink/slutty blonde];
 		EngineCore.outputText( '\n\nShe sports a pair of soft DD-cup breasts.  Each one is ornate with a 0.5 inch nipple, often rock-hard in arousal.' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 			EngineCore.outputText( '  Beneath those, she has a second row of jiggly tits, just aching to be squeezed.' );
 		}
 		if( this.pregnancy.isPregnant ) {
@@ -557,16 +557,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		//[enter vagina text] ;
 		EngineCore.outputText( '\n\nKelly has a ' );
 		//[virgin];
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] === 0 ) {
 			EngineCore.outputText( 'virgin, ' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
 			EngineCore.outputText( 'pink pussy' );
 		} else {
 			EngineCore.outputText( 'puffy, black mare-cunt' );
 		}
 		EngineCore.outputText( ' placed below her hindquarters.  It is almost constantly dripping rivulets of moisture when you\'re around.  Its shining openness seems to welcome you in her warmth.' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_HEAT_TIME ] > 0 && !this.pregnancy.isPregnant ) {
+		if( CoC.flags[ kFLAGS.KELLY_HEAT_TIME ] > 0 && !this.pregnancy.isPregnant ) {
 			EngineCore.outputText( '<b>  There is so much leaking from her that you think she might be in heat, rendering her more receptive to impregnation.</b>' );
 		}
 		EngineCore.outputText( '\n\nShe has a human-like asshole, placed right between her horse butt-cheeks where it belongs.' );
@@ -596,40 +596,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 					EngineCore.outputText( 'She has ' );
 				}
 
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_COLLARBONE ] !== 0 ) {
-					EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_COLLARBONE ] + '\n' );
+				if( CoC.flags[ kFLAGS.KELLY_TATTOO_COLLARBONE ] !== 0 ) {
+					EngineCore.outputText( CoC.flags[ kFLAGS.KELLY_TATTOO_COLLARBONE ] + '\n' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_SHOULDERS ] !== 0 ) {
-					EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_SHOULDERS ] + '\n' );
+				if( CoC.flags[ kFLAGS.KELLY_TATTOO_SHOULDERS ] !== 0 ) {
+					EngineCore.outputText( CoC.flags[ kFLAGS.KELLY_TATTOO_SHOULDERS ] + '\n' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_LOWERBACK ] !== 0 ) {
-					EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_LOWERBACK ] + '\n' );
+				if( CoC.flags[ kFLAGS.KELLY_TATTOO_LOWERBACK ] !== 0 ) {
+					EngineCore.outputText( CoC.flags[ kFLAGS.KELLY_TATTOO_LOWERBACK ] + '\n' );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_BUTT ] !== 0 ) {
-					EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.KELLY_TATTOO_BUTT ] + '\n' );
+				if( CoC.flags[ kFLAGS.KELLY_TATTOO_BUTT ] !== 0 ) {
+					EngineCore.outputText( CoC.flags[ kFLAGS.KELLY_TATTOO_BUTT ] + '\n' );
 				}
 				EngineCore.outputText( '\n' );
 			}
 		}
 		//Kids flavour text;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] > 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELLY_KIDS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_KIDS ] === 1 ) {
 				EngineCore.outputText( '\nKelly\'s ' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] === 1 ) {
+				if( CoC.flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] === 1 ) {
 					EngineCore.outputText( 'son' );
 				} else {
 					EngineCore.outputText( 'daughter' );
 				}
 				EngineCore.outputText( ' is off in a separate field; still very young, you can see ' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] === 1 ) {
+				if( CoC.flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] === 1 ) {
 					EngineCore.outputText( 'him playing in the distance, lost in his own little world.' );
 				} else {
 					EngineCore.outputText( 'her playing in the distance, lost in her own little world.' );
 				}
-			} else if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] === 2 ) {
-				EngineCore.outputText( '\n\nThe ' + Utils.num2Text( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] ) + ' children you have had with Kelly are off in a separate field; the sound of their play drifts over the grasslands to your ears.  Kelly evidently prefers to keep her brood away from what you do with her, a remarkably sensible attitude coming from a centauress cumslut.  Maybe motherhood genuinely suits her?' );
+			} else if( CoC.flags[ kFLAGS.KELLY_KIDS ] === 2 ) {
+				EngineCore.outputText( '\n\nThe ' + Utils.num2Text( CoC.flags[ kFLAGS.KELLY_KIDS ] ) + ' children you have had with Kelly are off in a separate field; the sound of their play drifts over the grasslands to your ears.  Kelly evidently prefers to keep her brood away from what you do with her, a remarkably sensible attitude coming from a centauress cumslut.  Maybe motherhood genuinely suits her?' );
 			} else {
-				EngineCore.outputText( '\n\nThe ' + Utils.num2Text( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] ) + ' children you have had with Kelly are as ever off in a separate field, the distance sounds of their acting out the wars and drama of childhood drifting out over the grasslands to your ears.' );
+				EngineCore.outputText( '\n\nThe ' + Utils.num2Text( CoC.flags[ kFLAGS.KELLY_KIDS ] ) + ' children you have had with Kelly are as ever off in a separate field, the distance sounds of their acting out the wars and drama of childhood drifting out over the grasslands to your ears.' );
 			}
 			EngineCore.outputText( '\n' );
 		}
@@ -639,35 +639,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.approachKelly = function() {
 		EngineCore.clearOutput();
 		//Fix hair color!;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'chestnut brown';
+		if( CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] === 0 ) {
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'chestnut brown';
 		}
 		//PUNISH SCENES IF APPROPRIATE;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.TIMES_PUNISHED_KELLY ] === 0 && Utils.rand( 3 ) === 0 && CoC.getInstance().player.hasCock() ) {
-			CoC.getInstance().flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] = 0;
+		if( CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] > 0 && CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ] === 0 && Utils.rand( 3 ) === 0 && CoC.player.hasCock() ) {
+			CoC.flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] = 0;
 			this.punishKelly();
 			return;
 		}
 		//Descriptions and Flavour Text;
-		if( CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 0 ) {
 			EngineCore.outputText( 'You aren\'t welcome on the farm proper, but you can go visit Kelly\'s field.' );
 		}
 
 		//09:00-11:00, 2 or more children:;
-		if( CoC.getInstance().time.hours >= 9 && CoC.getInstance().time.hours <= 11 && CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] >= 2 ) {
+		if( CoC.time.hours >= 9 && CoC.time.hours <= 11 && CoC.flags[ kFLAGS.KELLY_KIDS ] >= 2 ) {
 			EngineCore.outputText( '\n\nKelly is standing in the shadow of her barn, an expression of blissful contentment on her face as she nurses your ' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] > 2 ) {
+			if( CoC.flags[ kFLAGS.KELLY_KIDS ] > 2 ) {
 				EngineCore.outputText( 'two youngest ' );
 			}
 			EngineCore.outputText( 'children with ' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 				EngineCore.outputText( 'the top row of ' );
 			}
 			EngineCore.outputText( 'her milk-laden tits.  When she dreamily opens her eyes and sees you standing there, she nudges them off gently.' );
 			EngineCore.outputText( '\n\n"<i>That\'s enough, little ones.  Mommy needs her daddy time now.</i>"  Your two centaur children make grumpy \'awww\'s as they are pulled away from her oozing nipples, but they freeze when they turn around and see you, their milk slathered mouths open in a kind of awe.  They clop off in a hurry as Kelly rearranges her hair and gets up to greet you, the peace in her emerald eyes slowly burnt away by desire.' );
 		}
 		//15:00-16:00, 4 or more children:;
-		else if( CoC.getInstance().time.hours >= 15 && CoC.getInstance().time.hours <= 16 && CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] >= 4 ) {
+		else if( CoC.time.hours >= 15 && CoC.time.hours <= 16 && CoC.flags[ kFLAGS.KELLY_KIDS ] >= 4 ) {
 			EngineCore.outputText( '\n\nYou see Kelly standing in the middle of her field, surrounded by her children.  She has the butts set up and, judging by the way she is talking and gesturing with the bow in her hand, is teaching your brood how to shoot.  Trying to, anyway: her big, bare boobs make things a bit difficult.  You see she\'s actually gone to the trouble of constructing adorable little mini-bows, which the group of centaur children are all threading mini-arrows on as she points, and with expressions of deep concentration, pulling tight, taking aim, and... there\'s a cacophony of whistling, and arrows wind up everywhere but the target.  The sound of shouting and crying echoes across the field as Kelly begins to ball out the one who somehow managed to shoot an arrow through her braid.' );
 			EngineCore.outputText( '\n\nYou decide to come back a bit later.  Your kids need all the help they can get.' );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -680,45 +680,45 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Appearance', this.kellyAppearance );
-		if( CoC.getInstance().player.lust < 33 ) {
+		if( CoC.player.lust < 33 ) {
 			EngineCore.outputText( '\n<b>You aren\'t aroused enough to pursue sex with your toy right now.</b>' );
 		} else {
 			EngineCore.addButton( 1, 'Sex', this.kellySexMenu );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.EQUINUM ) ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
+			if( CoC.player.hasItem( ConsumableLib.EQUINUM ) ) {
 				EngineCore.addButton( 5, 'Give Equinum', this.giveKellyEquinum );
 				EngineCore.outputText( '\nYou could give her equinum to gift her with a proper horse-cunt.' );
 			} else {
 				EngineCore.outputText( '\nIf you had equinum, you could give her a proper horse-cunt.' );
 			}
-		} else if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) ) {
+		} else if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+			if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
 				EngineCore.addButton( 5, 'Give SucMilk', this.giveKellySuccubiMilk );
 				EngineCore.outputText( '\nYou could give her a succubi milk to get rid of that horse-pussy you gave her before.' );
 			} else {
 				EngineCore.outputText( '\nIf you had succubi milk, you could use that to give her a more human-like vagina.' );
 			}
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.CANINEP ) ) {
+		if( CoC.player.hasItem( ConsumableLib.CANINEP ) ) {
 			EngineCore.outputText( '\nYou could give her a canine pepper' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
 				EngineCore.outputText( ', but who knows how it will change her' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.addButton( 6, 'Give CanineP', this.giveKellyAPepper );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] >= 3 && CoC.getInstance().player.hasCock() ) {
+		if( CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] > 0 && CoC.flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] >= 3 && CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n<b>It looks like Kelly has taken to pleasuring herself again in your absense.  Do you want to take care of that?</b>' );
 			EngineCore.addButton( 7, 'Punish', this.punishKelly );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PUNISHED_KELLY ] > 0 && CoC.getInstance().flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] === 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ] > 0 && CoC.flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] === 0 && Utils.rand( 3 ) === 0 ) {
 			EngineCore.outputText( '\n<b>Kelly looks in fine spirits today. Perhaps she\'s done something worth getting a reward?</b>\n' );
 			EngineCore.addButton( 8, 'Reward', this.rewardKelly );
 		}
 		//Showing up resets Kelly's desire not to fap without you;
-		CoC.getInstance().flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] = 0;
-		if( CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 0 ) {
+		CoC.flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] = 0;
+		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 0 ) {
 			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
@@ -726,27 +726,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	Kelly.prototype.kellySexMenu = function() {
 		EngineCore.menu();
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
-			if( CoC.getInstance().player.cockThatFits( 300 ) >= 0 || CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
+			if( CoC.player.cockThatFits( 300 ) >= 0 || CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 				if( this.pregnancy.isPregnant ) {
 					EngineCore.addButton( 0, 'Preg Fuck', this.kellyPregSex );
-				} else if( !CoC.getInstance().player.isTaur() ) {
+				} else if( !CoC.player.isTaur() ) {
 					EngineCore.addButton( 0, 'Fuck Cunt', this.fuckKellysCunt );
 				} else {
 					EngineCore.addButton( 0, 'Fuck Cunt', this.taurOnTaurSexKelly );
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] === 0 ) {
+				if( CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ] === 0 ) {
 					EngineCore.addButton( 0, 'VirginFuck', this.takeKellysVirginity );
 				}
-				if( CoC.getInstance().player.tentacleCocks() >= 2 ) {
+				if( CoC.player.tentacleCocks() >= 2 ) {
 					EngineCore.addButton( 1, 'TentaFuck', this.tentaFuckKelly );
 				}
 			} else {
 				EngineCore.outputText( '\n<b>You\'re too big to fuck her vagina.</b>' );
 			}
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 && CoC.getInstance().player.cockThatFits( 18, 'length' ) < 0 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 && CoC.player.cockThatFits( 18, 'length' ) < 0 && !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n<b>You\'re too big to fuck her tits.  Maybe if you gave her something to make her grow more...</b>' );
-			} else if( !CoC.getInstance().player.isTaur() ) {
+			} else if( !CoC.player.isTaur() ) {
 				EngineCore.addButton( 2, 'Titfuck', this.kellyTitJob );
 			}
 			EngineCore.addButton( 3, 'Blowjob', this.kellyBJsAhoy );
@@ -760,10 +760,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//[Not Virginal];
 	Kelly.prototype.fuckKellysCunt = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
-		var x = CoC.getInstance().player.cockThatFits( 300 );
+		CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
+		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You strip out of your [armor] in a hurry, intent on claiming your equine slut from behind.  As soon as [eachCock] flops free, Kelly takes notice, her hand coming in front of her mouth in surprise.' );
 		EngineCore.outputText( '\n\n"<i>Are we... are you going to fuck me, [Master]?</i>"  Kelly asks excitedly, pawing at the ground with a forehoof.' );
@@ -772,17 +772,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nKelly moans, "<i>Y-yes!  Yes, I\'m a submissive, cock-loving slut!</i>"  She swishes her tail fanning the scent of her moist slit everywhere.  "<i>Please, [Master], don\'t tease me any more!  I\'m so ready for you, and you\'re so right!</i>"' );
 		EngineCore.outputText( '\n\nYou pinch her nipple painfully and say, "<i>I\'ll take you when I\'m good and ready.  Now be a good little bitch and lift that tail - I want to make sure you\'re ready.</i>"  Kelly obeys without question, her tail immediately raising to reveal her glittering mound.  You don\'t even have to look to know she\'s utterly, achingly wet, dripping with girlish moisture.  It pays to keep your pets guessing, and you dip your fingers into that moist opening, prying it open to examine the interior.  Her smooth inner walls slowly ripple before your eyes.  Meanwhile, you can see more of her clear juices dripping down the walls and into a channel that drips out over her clit.  You prod the little nub, eliciting a whinny of pleasure from your centaur slut, even going so far to give it a gentle, little pinch.  Enough to make her rear back but not do any damage.' );
 		EngineCore.outputText( '\n\n"<i>Satisfactory,</i>" you flatly declare, wiping your hand on her haunches.  Kelly beams with pride, even though what you said really wasn\'t a compliment at all.  All she did is soak herself like a good slut should - that\'s nothing deserving of praise.  ' );
-		if( CoC.getInstance().player.tallness < 72 ) {
+		if( CoC.player.tallness < 72 ) {
 			EngineCore.outputText( 'You turn around to get a stool, since your ' );
-			if( CoC.getInstance().player.tallness < 52 ) {
+			if( CoC.player.tallness < 52 ) {
 				EngineCore.outputText( 'diminutive ' );
 			}
 			EngineCore.outputText( 'height makes reaching her pussy a difficult task.  ' );
 		}
-		EngineCore.outputText( 'Holding your ' + Descriptors.cockDescript( x ) + ' in one hand, you press your ' + CoC.getInstance().player.cockHead( x ) + ' against her entrance.   The steamy cunt pulses wetly around your girth, slowly spreading its thick lips to accept your rigid endowment.' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		EngineCore.outputText( 'Holding your ' + Descriptors.cockDescript( x ) + ' in one hand, you press your ' + CoC.player.cockHead( x ) + ' against her entrance.   The steamy cunt pulses wetly around your girth, slowly spreading its thick lips to accept your rigid endowment.' );
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '  Your other erection' );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 's hang' );
 			} else {
 				EngineCore.outputText( ' hangs' );
@@ -791,7 +791,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		}
 		EngineCore.outputText( '  You slowly slide inside the tight tunnel, feeling Kelly\'s powerful muscles squeeze delightfully around you, massaging your ' + Descriptors.cockDescript( x ) + ' with slow undulations.' );
 		EngineCore.outputText( '\n\nKelly moans unrepentantly, loud enough for anyone nearby to hear.  Her hands move to her nipples and pinch at the tight buds, tugging and squeezing the only erogenous zones she can reach.  You ' );
-		if( CoC.getInstance().player.cockArea( x ) >= 300 ) {
+		if( CoC.player.cockArea( x ) >= 300 ) {
 			EngineCore.outputText( 'bottom out inside her' );
 		} else {
 			EngineCore.outputText( 'slide as far into her as she can handle' );
@@ -800,21 +800,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>Yessss,</i>" Kelly moans as she\'s impaled, her breasts jiggling as she paws at them.  "<i>Ple-ooohhhh... please don\'t stop, [Master]!</i>"  She begins to push her body against you, the silken tunnel she calls a cunt twitching rhythmically around your ' + Descriptors.cockDescript( x ) + ' each time you hit the apex of your strokes.  You squeeze her haunches as you \'ride\' her.  She loves every moment of it, even when you slap her butt for good measure, spurring her to bounce herself atop your rod faster and faster.' );
 		EngineCore.outputText( '\n\nKelly\'s moans are getting louder and more passionate with every thrust.  Indeed, the contractions in her horse-like channel are more powerful each time you hit bottom, and tiny squirts of lube are escaping with each squeeze.  Bending over her back, you focus your attention completely on the feel of her velvety cock-sleeve, closing your eyes as you begin to jackhammer your hips in earnest.  Wet slaps echo out from each bone-jarring impact, the pleasure too great for you to slow now.' );
 		EngineCore.outputText( '\n\nA familiar throb of excitement in your loins' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and roiling balls' );
 		}
 		EngineCore.outputText( ' leaves no doubt that climax is fast approaching.  Kelly cums first, splattering your [hips] with her ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] > 0 ) {
 			EngineCore.outputText( 'fragrant ' );
 		}
 		EngineCore.outputText( 'centaur-cum, soaking your [legs] immediately.  Her pussy goes wild, the once-ordered spasms going wild, wringing your ' + Descriptors.cockDescript( x ) + ' with uncoordinated motions.  A moment later, all those wild contractions sync up into intense, dick-massaging waves.  The power of her equine lower half becomes obvious when her twat seems to suck you inside, squeezing you off to orgasm.' );
 		EngineCore.outputText( '\n\nJism sprays from your cock almost immediately, and you throw back your head and swat her ass again in your excitement, barely feeling her pussy-juices as they continue to squirt out in smaller sprays.  All of your attention is focused on the iron-hard, ecstatic tool between your legs as it pulses out fresh squirts of jism, one after another.' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( '  Her pussy seems like a soggy, cum-soaked sex-toy before you\'re even halfway done.' );
 		}
-		if( CoC.getInstance().player.cumQ() >= 1200 ) {
+		if( CoC.player.cumQ() >= 1200 ) {
 			EngineCore.outputText( '  The sheer amount of spunk exploding into her womb actually rounds her belly a little' );
-			if( CoC.getInstance().player.cumQ() >= 4000 ) {
+			if( CoC.player.cumQ() >= 4000 ) {
 				EngineCore.outputText( ', until she\'s so pregnant with spooge that she can barely stand' );
 			}
 			EngineCore.outputText( '.  ' );
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		}
 		EngineCore.outputText( '.</i>"' );
 		EngineCore.outputText( '\n\nYou slide back off, landing with a fresh spring in your step.  Then, you pick up your [armor] and head off to find Kelly\'s blanket - you need something to wipe all the cum and slime off your [legs] with.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		this.kellyPreggers();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -836,69 +836,69 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	/*Requires a centaur lower body.*/
 	Kelly.prototype.taurOnTaurSexKelly = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
-		var x = CoC.getInstance().player.cockThatFits( 300 );
+		CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
+		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'Admiring your [armor], you slowly remove the portions that cover your animal-like bottom half, wondering how you could ever handle having to wear pants.  Letting [eachCock] swing free below you, smacking against your belly when erect - now that\'s life.  That\'s how you were meant to be!  You go ahead and undo the top parts of your gear as well, not wanting anything to come between you and the slutty fem-centaur just a few feet away.  She\'s keeping her eyes down submissively, but she keeps casting glances under your lower half, licking her lips whenever she gets a good look at [oneCock].' );
 		EngineCore.outputText( '\n\nSeeking to tease her even more, you circle around her front, letting her admire your nudity as you drink her feminine curves, particularly the large swells of her chest.  You grope on without asking or warning, simply taking of what\'s yours, squeezing and testing your property.  Kelly bites her lower lip, her hindlegs trotting about, the attention obviously arousing her delicate, cum-hungry sensibilities.  She quietly mouths, "<i>Please,</i>" but you have no intention of giving it to her just yet.' );
 		EngineCore.outputText( '\n\n"<i>Lie down,</i>" you command, turning yourself around.  She does, of course.  It\'s not like she has any choice in the matter.  She\'s been broken as effectively as any saddle-trained pony, only her training is of a decidedly different nature.  You back up, presenting her with your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '[sack]' );
 		} else {
 			EngineCore.outputText( 'taint' );
 		}
 		EngineCore.outputText( ', pressing it into her face, letting your sweat and the scent of your groin smother as effectively as your presence.  Her tongue extends, knowing what you want even before you have to ask.  She licks you, tentatively and then with increasing levels of confidence, smearing saliva all over your flesh as she licks up every drop of sweat, orally lubricating you with hot, wet tongue.' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '  Your [balls] tingle pleasantly from the attention, and you groan when she sucks one into her mouth, worshipping it with her lips.' );
 		}
 		EngineCore.outputText( '\n\nSuitably turned on, you drag yourself away from Kelly, your skin popping out of her mouth with a lewd pop.  She\'s blushing when you turn around, openly groping her fat tits and casting lascivious looks towards your member' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( '.  You gesture for her to rise and turn around, which she does' );
-		if( CoC.getInstance().player.tallness < 60 ) {
+		if( CoC.player.tallness < 60 ) {
 			EngineCore.outputText( ' before sitting back down (she\'s too tall to take standing up) and lifting her tail' );
 		} else {
 			EngineCore.outputText( ' before lifting her tail' );
 		}
 		EngineCore.outputText( '.  You prance forward, and with a mighty lurch, you mount your mare, climbing atop her, wrapping your hands around her middle for leverage.  She wiggles under your weight, but tries to hold her back-end still while you try to align yourself with her.  Getting in position isn\'t as easy as it was when you had a humanoid lower body, but when you do finally feel your ' + Descriptors.cockDescript( x ) + ' butting up against that warm, wet orifice, the satisfaction is many times greater.' );
 		EngineCore.outputText( '\n\nYou lurch forward, plunging yourself deep inside the engorged, ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
 			EngineCore.outputText( 'pink pussy' );
 		} else {
 			EngineCore.outputText( 'black horse-cunt' );
 		}
 		EngineCore.outputText( ', sheathing yourself in that muscular, deep canal.  The lips cling snugly about your [sheath] as you slide into Kelly\'s velvet pussy, her inner walls squeezing rhythmically around you.  You adjust position, getting accustomed to mounting her like the mare she is, and get a handhold on her big, rounded breasts, squeezing her pebbly nipples between your thumb and forefinger.  She moans, placing her palms over your hands and pressing your harder into her chest, begging, "<i>Yes!  Fuck me, [Master]!  Give me your cum!</i>"' );
 		EngineCore.outputText( '\n\nYou can\'t see Kelly\'s face from here, but by the tone and inflection of her words, she\'s clearly loving it.  Her pussy seems to get hotter and wetter each time you mount her, letting your body slide back before pistoning up and inside again, your [sheath] bumping into her rigid clit with every thrust.  Dripping centaur-juice runs down your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '[sack]' );
 		} else {
 			EngineCore.outputText( 'hindlegs' );
 		}
 		EngineCore.outputText( ', splattering out in fresh waves from Kelly\'s ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] > 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] > 0 ) {
 			EngineCore.outputText( 'musky ' );
 		}
 		EngineCore.outputText( 'womanhood.  With her body firmly under your own, where it belongs, you firmly assert your control, grabbing her hair in one hand and yanking.  You tug her head back as you bottom out, your body filled with the pleasure of mating like the beasts that you are.' );
-		EngineCore.outputText( '\n\nKelly groans through her pain, "<i>Ooohh, yes, give me your foal, [Master]!  My pussy needs it!</i>"  True to her words, her walls begin to tug at your ' + Descriptors.cockDescript( x ) + ' with familiar, milking contractions, squeezing you from base to ' + CoC.getInstance().player.cockHead( x ) + ' again and again.  Her fluids gush out everywhere, turning the ground underneath her to mud as she climaxes.  You pinch her nipples as the heat builds within you, and when you can take it no more, you reward your cum-slut with the liquid orgasm she so craved.  Jism basts her inner walls when you explode.  Again and again, your muscles clench with ecstatic blast, ejaculating thick flows of your lust straight into the cum-dumpster\'s spasming cunny.  ' );
-		if( CoC.getInstance().player.cumQ() >= 1000 ) {
+		EngineCore.outputText( '\n\nKelly groans through her pain, "<i>Ooohh, yes, give me your foal, [Master]!  My pussy needs it!</i>"  True to her words, her walls begin to tug at your ' + Descriptors.cockDescript( x ) + ' with familiar, milking contractions, squeezing you from base to ' + CoC.player.cockHead( x ) + ' again and again.  Her fluids gush out everywhere, turning the ground underneath her to mud as she climaxes.  You pinch her nipples as the heat builds within you, and when you can take it no more, you reward your cum-slut with the liquid orgasm she so craved.  Jism basts her inner walls when you explode.  Again and again, your muscles clench with ecstatic blast, ejaculating thick flows of your lust straight into the cum-dumpster\'s spasming cunny.  ' );
+		if( CoC.player.cumQ() >= 1000 ) {
 			EngineCore.outputText( '  Her belly grows round with the liquid weight of your spunk' );
-			if( CoC.getInstance().player.cumQ() >= 4000 ) {
+			if( CoC.player.cumQ() >= 4000 ) {
 				EngineCore.outputText( ', and when she grows too full to hold any more, waves of alabaster spooge roll out of her abused nether-lips, adding to the messy sex-puddle below' );
 			}
 			EngineCore.outputText( '.  ' );
 		}
 		EngineCore.outputText( 'Thoroughly creamed, the centaur cum-dump sighs in satisfaction while you dismount her.' );
 		EngineCore.outputText( '\n\nKelly starts to move, then immediately slips in the lubed mud below, legs flailing wildly.' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  You feel a little bad for her and help her up - she did just milk your dick in the way that only a centaur can.' );
 		} else {
 			EngineCore.outputText( '  You snicker and walk away - she\'s already served her purpose.' );
 		}
 		this.kellyPreggers();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tentacle;
@@ -912,8 +912,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		var four = -4;
 		var five = -5;
 		var temp = 0;
-		while( temp < CoC.getInstance().player.totalCocks() ) {
-			if( CoC.getInstance().player.cocks[ temp ].cockType === CockTypesEnum.TENTACLE ) {
+		while( temp < CoC.player.totalCocks() ) {
+			if( CoC.player.cocks[ temp ].cockType === CockTypesEnum.TENTACLE ) {
 				if( one < 0 ) {
 					one = temp;
 				} else if( two < 0 ) {
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\nKelly still has a free hand, and your ' + Descriptors.cockDescript( five ) + ' is left alone, flustered.  The squirming tentacle quickly finds a comfortable spot near her boob, but this time you don\'t need to do anything; the eager slut catches the vegetal rod and begins to stroke it furiously.  Her hands pump along your lengths in turn; both pricks are so hard that you don\'t know which one will cum first.  Her fingers move across the surface of your meaty green dongs with expert care, teasing you more and more.  You enjoy the double handjob, your duo of plant-like dongs ready to explode in a mess of cum.' );
 		}
 		//[if (cocks > 5);
-		if( CoC.getInstance().player.tentacleCocks() > 5 ) {
+		if( CoC.player.tentacleCocks() > 5 ) {
 			EngineCore.outputText( '\n\nSadly, there is no body part to fill or grind against for your remaining tentacle junk; you just wrap it around her horny body, crawling against every spot of skin that isn\'t occupied by some tentacle dong.' );
 		}
 		EngineCore.outputText( '\n\nEventually the slutty mare\'s holes and flesh are starting to drain your stamina; a pressure builds in your crotch as the imminent release arrives. With a raging grunt, you pump harder and faster, not caring in the least about the fuck-toy within your tentacle embrace.  [EachCock] jiggles in extreme arousal as they have their way with the quivering lump of horny flesh that you call Kelly.  At last the pressure is too much to bear, and you blast her with everything you have.  Torrents of spunk boil as they find their way up your urethras and utterly fill the centauress\' holes.  Her lips contract lewdly around your ' + Descriptors.cockDescript( one ) + ', ready to swallow everything it squirts.  At the same time, her tight twat seems to be crunching your ' + Descriptors.cockDescript( two ) + ' like a vice; you can\'t help but pump more and more ropes of jism into the slut\'s waiting womb.' );
@@ -960,12 +960,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nWhen the flow of baby-batter eventually dries up, you\'d almost believe Kelly has had a shower if it weren\'t for the occasional lumps of white goo that stain her whole body.  She doesn\'t seem to mind looking like a cum-sponge, however; she smiles euphorically as she slurps all the spunk she can reach with her tongue.' );
 		EngineCore.outputText( '\n\n"<i>Ahhh... that was a good cum-bath.  Thank you Master, you can\'t believe how happy I am!</i>"' );
 		EngineCore.outputText( '\n\nKelly is really hooked up to your seed; she lays to her side and wallows in the puddle of juices, wanting to feel even more of your filth covering her body.  Pleased to see you have such a potent effect on her, ' );
-		if( CoC.getInstance().player.cor < 33 ) {
+		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'but also a bit disgusted to watch such shameless, wanton behavior, ' );
 		}
 		EngineCore.outputText( 'you walk away, letting the slut enjoy herself.' );
 		this.kellyPreggers();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -978,9 +978,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>Oh, right,</i>" Kelly demurely replies, lifting her tail to further expose her prominant, womanly folds, "<i>Whatever you want, [Master].</i>"' );
 		EngineCore.outputText( '\n\nSmiling cruelly, you give her bodacious rump a smack followed by a rough squeeze.  Kelly moans, shimmying her hindlegs and juicy bottom closer to you in response.  You immediately uncork the vial, place the flared bottle into that welcome honey-hole, and push it deep inside her.  Your centaur toy whinnies in delight, her wide-spread cunt rippling around the vial as it empties, convulsively milking it as if it was a tiny horse-cock.  You guess that even with a human cunt, some instincts must stay the same.  A trickle of her feminine ooze dripples out from her clenching snatch, mixed with a tiny amount of the potion.  Most of it seems to travel deeper inside her, and you can tell from the clear end of the bottle that it\'s fully emptied.  There\'s nothing to do now but pull it out and enjoy the changes as they happen.  You do so with a smile.' );
 		EngineCore.outputText( '\n\nAt first, all you observe is a disappointed moan.  Kelly backs up, hooves stamping impatiently as she tries to bring her pussy closer to you, eager for more.  "<i>What did you put in me, [Master]?  That didn\'t feel like cum,</i>"  she dares to ask.  You swat her square across her equine ass, sending her scampering a few feet away, still trailing dripping fem-slime.  She moans immediately, her plump pussy lips shining with a reflective sheen.  Her feminine odor gets slightly stronger as well, though each time you catch a whiff of it, it\'s a little bit different - less human and somehow more... potent.  Her glossy pink lips begin to bulge, thickening before your eyes.  Her slit lengthens as well, the clit growing bigger and harder than before to match the larger curtains that are her labia.  Bigger and bigger, her vulvae swell, until those plump, soaked outer lips leave you no doubt that they were designed to part for the biggest, fattest erections possible.  Their coloration darkens to purple, then jet black, a sloppy onyx veil just begging for a cock.' );
-		CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] = 1;
+		CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] = 1;
 		EngineCore.outputText( '\n\n<b>Kelly has now has a soaking-wet horsecunt!</b>' );
-		CoC.getInstance().player.consumeItem( ConsumableLib.EQUINUM );
+		CoC.player.consumeItem( ConsumableLib.EQUINUM );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.approachKelly );
 	};
@@ -992,18 +992,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nCircling behind her, you lift her tail and watch her pussy get smaller, more petite, even as it squirts fragrant discharges of lubricant behind it.  You\'re careful to enjoy it, but you enjoy watching its color lighten in hue to a rosy pink, the lips shrinking to more human-like proportions and shape.  Even her clitty gets a little smaller, looking exactly like something you\'d expect to find on one of the girls back home.  Of course, none of the girls back home were your person brood-mare sex-slave.' );
 		EngineCore.outputText( '\n\nKelly finishes the drink with a self-satisfied smile, and she cheerful says, "<i>Thank you for the treat, [Master].</i>"' );
 		EngineCore.outputText( '\n\nYou swat her rump affectionately and nod, not deigning to give her the pleasure of your praise.' );
-		CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] = 0;
+		CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] = 0;
 		EngineCore.outputText( '\n\n<b>Kelly now has a human-like pussy.</i>' );
-		CoC.getInstance().player.consumeItem( ConsumableLib.SUCMILK );
+		CoC.player.consumeItem( ConsumableLib.SUCMILK );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.approachKelly );
 	};
 	//Punish(C);
 	Kelly.prototype.punishKelly = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.TIMES_PUNISHED_KELLY ]++;
+		CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ]++;
 		//First time: ;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_PUNISHED_KELLY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ] === 1 ) {
 			EngineCore.outputText( 'You don\'t say anything immediately when Kelly prances to a bouncing halt in front of you; instead, you take your time to do a slow circuit around her, taking her in as if she were a piece of property, which of course she is.  You know the effect you have upon the centauress and you grin quietly to yourself as you draw in close to her without touching; your aura presses upon her and her breath quickens, her always-ready pussy moistening even further.  You pause next to her back end and gently press a finger against her labia.' );
 			EngineCore.outputText( '\n\n"<i>It must be difficult,</i>" you say as you gently trace the line of her wet opening, "<i>being this turned on and not being able to do anything about it.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Like you wouldn\'t believe, [Master] 0...oooh,</i>" she moans as you circle her clitoris, already bulging out of its hood.' );
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>Yes, [Master], I do,</i>" she says, slightly louder and straightening her back.  You smile softly.  Such a good girl.' );
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] > 0 && CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) < 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] > 0 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) < 1 ) {
 			EngineCore.outputText( 'You\'d like to take Kelly for a ride, but you don\'t have any good ideas for public places to humiliate her.' );
 		} else {
 			EngineCore.addButton( 1, 'Ride', this.rideKellyForPunishment );
@@ -1034,18 +1034,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Rimjob/Ride/Riding crop;
 	//Rimjob(C);
 	Kelly.prototype.getARimjobFromKelly = function() {
-		var x = CoC.getInstance().player.cockThatFits( 300 );
+		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.TIMES_RIM_JOBBED_BY_KELLY ]++;
+		CoC.flags[ kFLAGS.TIMES_RIM_JOBBED_BY_KELLY ]++;
 		EngineCore.outputText( '"<i>You aren\'t worthy of my dick,</i>" you say, as you slowly peel off your [armor]; you do it facing away from Kelly so that she can take in your [butt] as you slowly wriggle free of your underclothing.  "<i>But I still need servicing.  So...</i>"' );
 		//[Naga: ;
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '\n\nYou slither into her and, wriggling upwards, beginning the process of wrapping your long, patterned tail around her powerful form.  Kelly murmurs disquietly but stays still as you weave under and over her; you stop level to her face, her entire frame swaddled in your coils.  You trace the line of her chin with your hand as you take a moment to enjoy the sensation of this big, soft creature against your warm scales, at your mercy; then you slowly rise above her until her face is level with your genital slit before, with sinuous grace, twisting your body so that her mouth is now facing your [butt].' );
 		}//[Centaur:];
-		else if( CoC.getInstance().player.isTaur() ) {
+		else if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nYou gesture at the ground.  "<i>Lie down,</i>" you command.  Kelly carefully folds her body up to do so, until her horse half is prostrate and only her human half is propped up.  You lead yourself back until your rear end is near to her face; grinning to yourself, you slowly brush your semi-erect ' + Descriptors.cockDescript( x ) + ' against her soft face, teasing her with the idea that you\'ve changed your mind; you cannot see her but from the small bitten off grunts and moans you know she\'s struggling with the urge to wrap her lips around it.  Finally, you carefully lean downwards, so that instead of your dick she\'s faced with your [butt].' );
 		}//[Biped/Other:;
 		else {
@@ -1054,105 +1054,105 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 
 		EngineCore.outputText( '\n\nYou flare your [hips] and present your [asshole] to her.  "<i>So service me.</i>"  Without waiting for a response you press your butthole onto her mouth.' );
 		EngineCore.outputText( '\n\nShe is unpracticed at first; you feel her teeth rub against your hole and you hiss.  The mere sound of your annoyance makes her whimper around your [ass] and her teeth seem to vanish, replaced with a sucking, eager wetness.  ' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'With reptilian litheness, you slowly lean backwards and press your hands onto the back of her head, pushing her face further between your cheeks.  ' );
-		} else if( !CoC.getInstance().player.isTaur() ) {
+		} else if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You lean backwards and press your hands onto the back of her head, pushing her face further between your cheeks.  ' );
 		}
 		EngineCore.outputText( 'You laugh at the sensation of her tongue as it pushes into your anal passage, slathering it with worshipful attention, perhaps hoping the sooner she gets you off the sooner this can end.' );
 		//[Not Centaur: ;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '  You smirk and grip her hair, moving her head in rhythm with your own movements.' );
 		} else {
 			EngineCore.outputText( '  You gyrate your [butt] this way and that, moving her head in rhythm with your own movements.' );
 		}
 
 		//[Pussy: ;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\nYou feel thin fingers brush against your [vagina], slowly rubbing against the sensitive folds of your labia before circling your [clit] in virtually the same motion you used upon her earlier.  You decide to allow this; she\'s learnt a valuable lesson you weren\'t even aware you were teaching, and the dual movements of her tongue in your ass and her warm fingers slicking across your wet pussy are delightful.' );
 		}
 		EngineCore.outputText( '\n\nHer tongue probes deeper and deeper into you, her plump lips pressing into your [asshole] until she touches something sensitive.  Your ' + Descriptors.cockDescript( x ) + ' immediately reacts, twitching upwards restlessly.' );
 		EngineCore.outputText( '\n\n"<i>That\'s it,</i>" you breathe. "<i>Good girl.  Keep doing that...</i>"  As she gently pushes and flicks her warm mouth muscle against your prostate, your dick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's harden' );
 		} else {
 			EngineCore.outputText( ' hardens' );
 		}
 		EngineCore.outputText( ' until after minutes of blissful pleasure you are bulging with need.  Her saliva coats your opening as you clench your muscles and trap her tongue deep in you before roughly rubbing your [ass] against her, face fucking her for all you are worth; the soft, slippery sensation inside you is immense and you pick up the pace.' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '  You clench her almost bone crushingly tight in your coils as rut overtakes you.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Oh, you\'re soooo good at that,</i>" you sigh.  "<i>You are just as good an asslicker as you are a cocksucker.  Maybe we\'ll do it this way every time from now on.  Would you like that? Worshipping your [Master]\'s ass for your cumfix?  Should I keep you around just for when I need the sweat cleaned from my crack' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and balls' );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' and pussy' );
 		}
 		EngineCore.outputText( '?  I can\'t say it\'s something you don\'t deserve for being such a shameless slut, and I don\'t doubt you\'d enjoy every minute of it.</i>"' );
 		EngineCore.outputText( '\n\nIf anything your harsh words make Kelly work harder; she wriggles her tongue this way and that with your rough movements and moans, the vibrations translating straight down your cock' );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '; she slides as many fingers as she can into your [vagina] and frigs you as best she can' );
 		}
 		EngineCore.outputText( '.  Grunting, you reach your peak.  Your ' + Descriptors.cockDescript( x ) + ' opens wide and you ejaculate streams of cum, splattering into the dust in front of you, your whole body clenching and seizing around the warm, wet muscle wedged in your [butt].' );
 		//[Pussy:];
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your female sex orgasms in tandem, your wet flesh seizing up around Kelly\'s fingers and spattering her arm and chest with girl juices.' );
 		}
 		EngineCore.outputText( '\n\nYou give three final thrusts against Kelly\'s face to work out every last drop and then, spent, you slowly pull away, spit trailing from your ass to your slave\'s lips.  You insouciantly flare your cheeks in front of her after she has withdrawn, waiting, and grin when you feel a hesitant lick against one.  You turn around to take a good look at her.  She is panting for breath, her pupils dilated as she stares back up at you; her own arousal, of course, is unabated.  Finally, she finds some words.' );
 		//[First time: ;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_RIM_JOBBED_BY_KELLY ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_RIM_JOBBED_BY_KELLY ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Th- thank you for the lesson, [Master],</i>" she says.  You shake your head, smiling at her ignorance.' );
 			EngineCore.outputText( '\n\n"<i>That wasn\'t the lesson.</i>"  You wave at the rivulets of your own cum in front of you casually.  ' );
-			if( CoC.getInstance().player.cumQ() >= 700 ) {
+			if( CoC.player.cumQ() >= 700 ) {
 				EngineCore.outputText( 'You, as ever, have produced a veritable oozing lake of the stuff.  ' );
 			}
 			EngineCore.outputText( '"<i>That is your lesson.  You need your jizz and I don\'t want the camp to be untidy.  Off you go.</i>"  Kelly pauses for a moment as she stares at the off-white mess, and then slowly gets up, trots over to you, gets down again and begins to lick up your carelessly spent seed from the dirt.  You stand over for a moment until she looks up; you see nothing but total devotion in her eyes as she happily swallows one glob of the most delicious, most satisfying substance in the world to her and then starts on the next.  You rub her behind the ear and then leave her to her meal.' );
 			//[High cum:;
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  She is, after all, going to be here for a while.' );
 			}
 		}
 		//[Repeat: ;
 		else {
 			EngineCore.outputText( '\n\n"<i>Th-thank you for the lesson, [Master],</i>" she says.  She knows the drill by now; she quickly gets to her feet and then trots over to the off-white slimy mess you have created.  What a good girl.  Before she can get started you present your ' + Descriptors.cockDescript( x ) + '; she murmurs thanks for the gift and licks your oozing head spotless first before getting on with the main meal.  You rub her behind the ear as she licks away at the spent seed at your feet and then leave her to it.' );
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  She is, after all, going to be here for a while.' );
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3, 'cor', 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ride(C);
 	//(Assumes Kelly is at camp; minor revisions required otherwise);
 	Kelly.prototype.rideKellyForPunishment = function() {
-		var x = CoC.getInstance().player.cockThatFits( 300 );
+		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ]++;
+		CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ]++;
 		//First Time: ;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] === 1 ) {
+		if( CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] === 1 ) {
 			EngineCore.outputText( 'You stroke Kelly\'s side thoughtfully.  What would be a good punishment for a centaur? Several ideas immediately occur, but all require... equipment.  You tap your chin as a plan of action falls into place.' );
 			//[PC is 6'5</i>" or less, not a centaur:;
-			if( CoC.getInstance().player.tallness < 78 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.tallness < 78 && !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nWithout warning you suddenly swing yourself onto Kelly\'s back.  She squawks in surprise and almost rears, but you put a firm but comforting hand on her shoulder as you settle yourself and she calms down.' );
 				//[Naga:];
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( '  Your reptilian half is hardly ideal for riding a horse but eventually you reach a happy compromise; you perch upon her with your long tail wrapped around her barrel-like lower body.' );
 				}//[Drider:];
-				else if( CoC.getInstance().player.isDrider() ) {
+				else if( CoC.player.isDrider() ) {
 					EngineCore.outputText( '  Your spider half is hardly ideal for riding a horse but eventually you reach a happy compromise; you perch upon her with your long, chitinous legs wrapped carefully around her barrel-like lower body.  You must look utterly bizarre but feel reasonably comfortable.' );
 				}
 				EngineCore.outputText( '  You lean in close to her human half and wrap your arms around her waist, drinking in the sweet scent of her pale skin; you know your own smell and power is pressing upon her senses and she whimpers softly as you slide your hands up her stomach until they are clutching her ' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
+				if( CoC.flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
 					EngineCore.outputText( 'top row of ' );
 				}
 				EngineCore.outputText( 'breasts.' );
 				EngineCore.outputText( '\n\n"<i>All right, pony slut,</i>" you sigh into her ear.  "<i>I want you to ride us to the farm.  You remember where that is, don\'t you?  It\'s where I taught you who you really are.  We\'re going to learn some more lessons there.  Won\'t that be fun? Go gently because...</i>" you grip her breasts tighter, squeezing her nipples between your fingers' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_LACTATING ] > 0 ) {
+				if( CoC.flags[ kFLAGS.KELLY_LACTATING ] > 0 ) {
 					EngineCore.outputText( ' hard enough to produce thin arcs of milk' );
 				}
 				EngineCore.outputText( '.  The centauress gasps, her breath already ragged. "<i>...I\'ve got to hold onto something.  Now, giddy up!</i>" Kelly jolts into action, stumbles slightly at the extra weight, before righting and trotting in the direction of the farm; you keep yourself steady by maintaining a firm grip upon her breasts.' );
@@ -1163,8 +1163,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			else {
 				EngineCore.outputText( '\n\nYou consider for a moment making her ride you where you need to go; but no, your size makes that impossible.  Instead you sigh and slide an arm around her waist, breathing in her sweet scent.' );
 				EngineCore.outputText( '\n\n"<i>You\'re useless to me as a steed,</i>" you breathe into her ear, knowing your own smell and power are inundating her senses.  The centauress\'s breath comes ragged as your hand slides up and down her front, across her smooth stomach to lazily cup a breast and hold a nipple.  ' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_LACTATING ] > 0 ) {
-					if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
+				if( CoC.flags[ kFLAGS.KELLY_LACTATING ] > 0 ) {
+					if( CoC.flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
 						EngineCore.outputText( 'All four of h' );
 					} else {
 						EngineCore.outputText( 'H' );
@@ -1172,7 +1172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 					EngineCore.outputText( 'er swollen teats immediately begin to dribble milk, and she moans.  ' );
 				}
 				EngineCore.outputText( '"<i>So we will have to find some other way you can serve me.  We\'re going to go across to the farm.  You remember where that is, don\'t you?  It\'s where I taught you who you really are.  We\'re going to learn some more lessons there.  Won\'t that be fun?</i>" You let go and set off at a ' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( 'march' );
 				} else {
 					EngineCore.outputText( 'canter' );
@@ -1188,14 +1188,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>Ass,</i>" she says, this time just loud enough for you to hear.  You smile crookedly.' );
 			EngineCore.outputText( '\n\n"<i>How very appropriate.  Open wide.</i>" Tremblingly she does so, and you place the bit between her teeth.  It says a lot about Mareth, you think as you walk to her side, that it is shaped rather like a ball gag, holes and all.  You aren\'t quite finished; with some long, leather straps you take her arms and bind them tightly behind her back.' );
 			//[PC rider:];
-			if( CoC.getInstance().player.tallness < 78 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.tallness < 78 && !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nYou take a moment to admire your bound and gagged slut, replete with saddle, harness, reigns and blinkers.  There are a number of other things you found in Whitney\'s stable, but you\'ll save them for another day.  She gasps as you jump onto her back, but stays level; already she\'s learning.  You crack the reigns and she emits a muffled whimper.' );
 				EngineCore.outputText( '\n\n"<i>Giddy up then, ass,</i>" you say.  "<i>Once around the farm and then back to the camp.   Lift those legs high; fat titted sluts like you need plenty of exercise to burn off all that manfat you suck down.</i>"' );
 				EngineCore.outputText( '\n\nKelly sets off at a canter and you hold the reigns' );
-				if( CoC.getInstance().player.isBiped() ) {
+				if( CoC.player.isBiped() ) {
 					EngineCore.outputText( ', set your feet into the stirrups' );
 				}
-				EngineCore.outputText( ' and enjoy the ride.  The experience is greatly more comfortable and you luxuriate in the breeze upon your ' + CoC.getInstance().player.skinFurScales() + ', the gentle, comforting undulation of the farm and grasslands around you, and increasingly the smell of sweat and horniness rising off the rosy skin of your pony bitch.  Her boobs bounce up and down with her own movements, accentuated by having her arms tied behind her, and although she seems to resolve to suffer in silence to begin with, the air in front of you is soon full of muffled whines and moans.  You make a \'tchk-tchk\' noise and dig into her side, urging her to go faster.  Cows raise their heads from their grazing to stare at you incuriously as you gallop past; an utterly stunned Whitney watches you from her place underneath the tree, her book forgotten in her hands.  You wonder if she can recognise your mount, and you grin at the thought.' );
+				EngineCore.outputText( ' and enjoy the ride.  The experience is greatly more comfortable and you luxuriate in the breeze upon your ' + CoC.player.skinFurScales() + ', the gentle, comforting undulation of the farm and grasslands around you, and increasingly the smell of sweat and horniness rising off the rosy skin of your pony bitch.  Her boobs bounce up and down with her own movements, accentuated by having her arms tied behind her, and although she seems to resolve to suffer in silence to begin with, the air in front of you is soon full of muffled whines and moans.  You make a \'tchk-tchk\' noise and dig into her side, urging her to go faster.  Cows raise their heads from their grazing to stare at you incuriously as you gallop past; an utterly stunned Whitney watches you from her place underneath the tree, her book forgotten in her hands.  You wonder if she can recognise your mount, and you grin at the thought.' );
 				EngineCore.outputText( '\n\nEventually you arrive back at camp, and not a moment too soon.  Your nostrils are full of the smell of Kelly, and the sight of her hot, moist skin has you practically chomping at the bit yourself.  You slide off her, stagger slightly as you rip off your [armor], and then without any further ado grip her hindquarters and sink your straining ' + Descriptors.cockDescript( x ) + ' straight into her cunt.  It is absolutely soaked with arousal, and you encounter virtually no resistance as you thrust your hips into her soft butt, immediately beginning to fuck her as hard as you can.  In your sex-daze you realize you are still clutching the reigns; you pull at them intermittently as you push as much of yourself into the centauress\'s hot, grasping warmth as you can, making her rear, squeal, and then scream around her gag to the dual sensation of her [master]\'s dick burying itself into her and the harness pulling tight upon her head and bit, thrusting back into you as best she can.' );
 				EngineCore.outputText( '\n\nNeither of you are in any condition to keep this up for long, and after five minutes of fevered fucking, you groan as you clutch Kelly\'s ass hard, clenching and pouring yourself into her, your ' + Descriptors.cockDescript( x ) + ' surging line after line of cum into her.  She moans breathily and happily to the heavenly sensation of being filled with your seed, her vagina milking you for every drop it can get.  You don\'t even know how many times she orgasmed; her pussy dribbled and gushed the entire time you were in her.' );
 			}
@@ -1204,7 +1204,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\nYou take a moment to admire your slut, replete with saddle, harness, reigns and blinkers, bound and gagged.  There are a number of other things you found in Whitney\'s stable but you\'ll save them for another day.  You gather up the reigns and crack them; she emits a muffled whimper.' );
 				EngineCore.outputText( '\n\n"<i>Giddy up then, ass,</i>" you say.  "<i>I cannot ride you, so you shall have to be a show pony.  Once around the farm and then back to the camp.  Lift those legs high; fat titted sluts like you need plenty of exercise to burn off all that manfat you suck down.</i>"  You set off and give the reigns a stiff tug; Kelly quickly sets off at a trot behind you.' );
 				EngineCore.outputText( '\n\nIt\'s a lovely day and you luxuriate in the breeze upon the skin, the gentle, comforting undulation of the farm and grasslands around you, and increasingly the smell of sweat and horniness rising off the rosy skin of your pony bitch.  Her boobs bounce up and down with her own movements, accentuated by having her arms tied behind her, and although she seems to resolve to suffer in silence to begin with, the air behind you is soon full of muffled whines and moans.  You make a tchk tchk noise and urge her to go faster; such is your own size you are easily able to keep up with her as she begins a light gallop.  Cows raise their heads from their grazing to stare at you incuriously as you race past; an absolutely stunned Whitney watches you from her place underneath the tree, her book forgotten in her hands.  You wonder if she can recognise your mount and you grin at the thought.' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( '\n\nEventually you arrive back at camp, and not a moment too soon.  Your nostrils are full of the smell of Kelly, the sight of her hot, moist skin and you are practically champing at the bit yourself.  You bring her to a halt, rip off your [armor], and then without any further ado grip her hindquarters and sink your straining ' + Descriptors.cockDescript( x ) + ' straight into her cunt.  It is absolutely soaked with arousal and you encounter virtually no resistance as you thrust your hips into her soft butt and immediately begin to fuck her as hard as you can.  In your sex daze, you realize you are still clutching the reins; you pull at them intermittently as you push as much of yourself in the centauress hot, grasping warmth as you can, the force making her rear.  She squeals, then screams around her gag to the dual sensation of her [master]\'s dick burying itself in her and the harness pulling tight upon her head and bit, thrusting back into you as best she can.' );
 					EngineCore.outputText( '\n\nNeither of you are in any condition to keep this up for long, and after five minutes of fevered fucking, you groan as you clutch Kelly\'s ass firmly and pour yourself into her, your ' + Descriptors.cockDescript( x ) + ' surging line after line of cum into her.  She moans breathily and happily to the heavenly sensation of being filled with your seed, her vagina milking you for every drop it can get.  You don\'t even know how many times she orgasmed; her pussy dribbled and gushed the entire time you were inside her.' );
 				}
@@ -1222,22 +1222,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			//("<i>Horsewhip</i>" option opened in main "<i>Punish</i>" menu);
 		}
 		//First repeat: ;
-		else if( CoC.getInstance().flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] === 2 ) {
 			EngineCore.outputText( 'Without another word, you stride over to the stones underneath which you secreted the riding gear.  Kelly watches you with deep apprehension, and then bursts into protests as you return, carrying the heap of clinking leather and metal.' );
 			EngineCore.outputText( '\n\n"<i>No, [Master] please no, I don\'t want that, I\'ve learnt my lesson, I\'ll be good for now on, punish me any way you see fit but not that...</i>"' );
 			EngineCore.outputText( '\n\n"<i>Shush now, ass,</i>" you say calmly; the epithet immediately silences her. "<i>This is for your own good, you know that.  Hard lessons are the best lessons, and you will thank me for it later.  Now stay still.</i>"  She sets her jaw and does as you ask; you soothingly remark upon her bravery as you equip her as you did before, saddle, stirrups, harness, blinkers and bit, before firmly binding her arms behind her back.  You\'ve got an extra treat for her this time, though.  You rummage around in the saddlebags and then lift them up so she can see them in her limited sightline, and her eyes widen.' );
 			EngineCore.outputText( '\n\n"<i>I think they were originally supposed to be fixed upon a mantle for festivals or something,</i>" you say conversationally, as you fix the pink tassels to each of her erect nipples. "<i>But as you can see... they fit upon a slut\'s fuck pillows perfectly well.' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_TIT_ROWS ] > 0 ) {
 				EngineCore.outputText( '  Just as well there were four of them, eh?' );
 			}
 			EngineCore.outputText( '</i>" You step back to admire the effect.  Kelly stares back at you behind her leather straps and ball gag, her tasselled boobs forced outwards by her arms bound behind her back.  You laugh and stroke her face; she closes her eyes and bends into it, enjoying the simple motion of her [Master]\'s hand.' );
 			EngineCore.outputText( '\n\n"<i>You look so adorable like that,</i>" you say.  "<i>But it\'s no good if only I can see you, is it?</i>"  She opens her eyes wide to that.' );
 			//PC rider: ;
-			if( CoC.getInstance().player.tallness < 78 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.tallness < 78 && !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nWithout another word you grab hold of her waist and swing yourself onto her back.  "<i>Head towards the desert,</i>" you breathe into her ear as you take hold of the reigns.  "<i>I think you know where we\'re going,</i>" Kelly whimpers, and then sets off at a trot.' );
 				EngineCore.outputText( '\n\nThanks to Mareth\'s warped geography it doesn\'t take you long to arrive at the gates of Tel\'Adre.  The guards on duty raise their eyebrows at your mount, her tassels flicking and whipping gaily in the warm breeze, sweat beading on her skin.' );
 				EngineCore.outputText( '\n\n"<i>Don\'t worry about her,</i>" you call up casually. "<i>She\'s just learning a lesson.</i>" You have no idea how this works as a valid explanation, but already knowing your face and having seen all manner of centaur entering and leaving all day long, the cat and hare let her pass after a cursory magical examination.  The crystal glows, but not enough to straight-up deny Kelly entrance.' );
-				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.getInstance().player.race() + ' riding a practically naked, bound and gagged centauress draws a slight hush and open mouths.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
+				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.player.race() + ' riding a practically naked, bound and gagged centauress draws a slight hush and open mouths.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
 				EngineCore.outputText( '\n\n"<i>Did you come here before I owned you, ass?</i>" you wonder aloud.  "<i>You know, before I gave you those big bouncing tits everyone is staring at, or that nice succulent hole I replaced your dick with.   I bet you did- you knew exactly where I wanted you to go.  Perhaps you even found some of your "<i>wives</i>" here, back in the day.  Probably strode these cobbles like you owned them.  I bet you were kicked out for being that much of an asshole, or for raping the wrong person.  Awww, don\'t be upset!</i>" You kindly reach around her blinkers and wipe her tears away.  "<i>You\'re a different person now, and you\'re learning to be better, bit by bit.  Isn\'t that right?</i>" Kelly manages a choked "<i>uh huh</i>" and you grin.' );
 				EngineCore.outputText( '\n\nYou make her stop and leave her outside a cosmetics shop you spot; you return carrying a box of ribbons.  When you approach her back end, you are almost keeled over by the pheromone stench coming off it - her pussy is absolutely soaked.  The centauress is breathing heavily, trying valiantly to do what you are doing and not notice the clutches of people and centaur stopping, staring and muttering to themselves. What a masochist, you think to yourself in wonder.  The smell of her eager pussy has swarmed over your brain and then unstoppably down into your groin, leaving there a hot, leaden weight of need, and there\'s only one thing to do.' );
 				EngineCore.outputText( '\n\nYou lead her down a side alley - giving a hard look to the onlookers which makes most of them remember they have business elsewhere - and then, braced against her formidable weight, fuck her hard.  She mums and hums and whinnies around her gag, her tassels twirling merrily as you jerk her body furiously, lost in her mass and her wet, clenching tunnel.  It\'s a secluded area but you can still hear giggles and gasps at the fringes of your conscience; they are meaningless to you but you suspect to Kelly they are as loud as voices in her ear.  Her pussy spasms around your ' + Descriptors.cockDescript( x ) + ' and absolutely soaks your [hips] with girl juice; in response you grab her flanks and cum, sighing raggedly as you shoot your load deep into her, orgasm clenching your body.  You withdraw slowly, noting with satisfaction that her pussy is now drooling your ejaculate.' );
@@ -1246,10 +1246,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			//PC not rider: ;
 			else {
-				EngineCore.outputText( 'You grab hold of the reigns and stride off; after a short jerk Kelly follows behind you.  "<i>We\'re heading to the desert,</i>" you announce.  "<i>I think you can maybe guess where.  Remember; flick those legs high, prance a little, make those tassels whirl.  You represent your [Master], and you don\'t want ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' to look bad, do you?</i>"  There\'s a muffled whimper in response.' );
+				EngineCore.outputText( 'You grab hold of the reigns and stride off; after a short jerk Kelly follows behind you.  "<i>We\'re heading to the desert,</i>" you announce.  "<i>I think you can maybe guess where.  Remember; flick those legs high, prance a little, make those tassels whirl.  You represent your [Master], and you don\'t want ' + CoC.player.mf( 'him', 'her' ) + ' to look bad, do you?</i>"  There\'s a muffled whimper in response.' );
 				EngineCore.outputText( '\n\nThanks to Mareth\'s warped geography it doesn\'t take you long to arrive at the gates of Tel\'Adre.  The guards on duty raise their eyebrows at your partner, her tassels flicking and whipping gaily in the warm breeze, sweat beading on her skin.' );
 				EngineCore.outputText( '\n\n"<i>Don\'t worry about her,</i>" you call up casually.  "<i>She\'s just learning a lesson.</i>"  You have no idea how this works as a valid explanation, but already knowing you and having seen all manner of centaur entering and leaving all day long, the cat and hare morph turn away.' );
-				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.getInstance().player.race() + ' leading a practically naked bound and gagged centauress draws a slight hush and open mouths.  The centaurs you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation is soaking into Kelly when she makes a sobbing, muffled moan.' );
+				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.player.race() + ' leading a practically naked bound and gagged centauress draws a slight hush and open mouths.  The centaurs you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation is soaking into Kelly when she makes a sobbing, muffled moan.' );
 				EngineCore.outputText( '\n\n"<i>Did you come here before I owned you, ass?</i>" you wonder aloud.  "<i>You know, before I gave you those big bouncing tits everyone is staring at, or that nice succulent hole I replaced your dick with.  I bet you did - you knew exactly where I wanted you to go.  Perhaps you even found some of your "<i>wives</i>" here, back in the day.  Probably strode these cobbles like you owned them.  I bet you were kicked out for being that much of an asshole, or for raping the wrong person.  Awww, don\'t be upset!</i>"  You kindly reach around her blinkers and wipe her tears away.  "<i>You\'re a different person now, and you\'re learning to be better, bit by bit.  Isn\'t that right?</i>"  Kelly manages a choked "<i>uh huh</i>" and you grin.' );
 				EngineCore.outputText( '\n\nYou make her stop and leave her outside a cosmetics shop you spot; you return carrying a box of ribbons.  When you approach her back end, you are almost keeled over by the pheromone stench coming off it - her pussy is absolutely soaked.  The centauress is breathing heavily, trying valiantly to do what you are doing and not notice the clutches of people and centaurs stopping, staring and muttering to themselves. What a masochist, you think to yourself in wonder.  The smell of her eager pussy has swarmed over your brain and then unstoppably down into your groin, leaving there a hot, leaden weight of need, and there\'s only one thing to do.' );
 				EngineCore.outputText( '\n\nYou lead her down a side alley- giving a hard look to the onlookers which makes most of them remember they have business elsewhere - and then, braced against her formidable weight, fuck her hard.  She mums and hums and whinnies around her gag, her tassels twirling merrily as you jerk her body furiously, lost in her mass and her wet, clenching tunnel.  It\'s a secluded area but you can still hear giggles and gasps at the fringes of your conscience; they are meaningless to you but you suspect to Kelly they are as loud as voices in her ear.  Her pussy spasms around your ' + Descriptors.cockDescript( x ) + ' and absolutely soaks your [hips] with girl juice; in response you grab her flanks and cum, sighing raggedly as you shoot your load deep into her, orgasm clenching your body.  You withdraw slowly, noting with satisfaction that her pussy is now drooling with your ejaculate.' );
@@ -1258,7 +1258,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			EngineCore.outputText( '\n\nThis final humiliation has her breathing wetly and volubly into her gag by the time you are back to camp, somewhere between pants of desire and sobs of misery.  You strip her of her gear and to show you can be a kind [Master] too you let her suck you off, the hard, shame-tinted memory of the last couple of hours suffixed by the joy of what she does best.' );
 			//[Not centaur: ;
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '   You sigh and enjoy the sight of her pretty head bobbing over your groin, your ' + Descriptors.cockDescript( x ) + ' encapsulated in soft shifting blankets of wet mouth flesh, your ears filled with her slurps and muffled sighs.  You are quickly pushed towards a new high by the worshipful treatment; you give her what she wants and cum in her mouth, letting her savor your texture and flavor; she closes her eyes and swallows, orgasm shuddering through her as it hits her stomach.  You smile and hold her face as she basks in an afterglow earned from pure debasement.' );
 			} else {
 				EngineCore.outputText( '  You sigh and enjoy your ' + Descriptors.cockDescript( x ) + ' encapsulated in soft shifting blankets of wet mouth flesh, your ears filled with her slurps and muffled sighs.  You are quickly pushed towards a new high by the worshipful treatment; you give her what she wants and cum in her mouth, letting her savor your texture and flavor; she closes her eyes and swallows, orgasm shuddering through her as it hits her stomach.  You smile, turn and hold her face as she basks in an afterglow earned from pure debasement.' );
@@ -1275,10 +1275,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>Shush now, ass,</i>" you say calmly; the epithet immediately silences her.  "<i>This is for your own good, you know that.  Hard lessons are the best lessons, and you will thank me for it later.  Now stay still.</i>"  She sets her jaw and does as you ask; you soothingly remark upon her bravery as you equip her as you did before, saddle, stirrups, harness, blinkers and bit, before firmly binding her arms behind her back.  She does whine when you fit the tassels and ribbon upon her, which earns her a solid slap on the butt.' );
 			EngineCore.outputText( '\n\n"<i>I don\'t know why you have to be so difficult about this,</i>" you sigh.  "<i>You know you earned this, and you look adorable with it all on.</i>"' );
 			//PC rider: ;
-			if( CoC.getInstance().player.tallness < 78 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.tallness < 78 && !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nWithout another word you grab hold of her waist and swing yourself onto her back.  "<i>You know where you\'re going,</i>" you breathe into her ear.  Kelly whimpers, and then sets off at a trot.' );
 				EngineCore.outputText( '\n\nThanks to Mareth\'s warped geography it doesn\'t take you long to arrive at the gates of Tel\'Adre.  The guards on duty look at you, then look away.  Evidently word is getting around.' );
-				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.getInstance().player.race() + ' riding a practically naked bound and gagged centauress draws a slight hush and open mouths, even among the ones who have already seen this display.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
+				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.player.race() + ' riding a practically naked bound and gagged centauress draws a slight hush and open mouths, even among the ones who have already seen this display.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
 				EngineCore.outputText( '\n\n"<i>Awww, don\'t be upset!</i>"  You kindly reach around her blinkers and wipe her tears away.  "<i>Everyone might be able to see you\'re an owned little cocksleeve, you might see faces from back when you had things like dignity and respect, but this is how you\'ll learn to be better, bit by bit.  Isn\'t that right?</i>" Kelly manages a choked "<i>uh huh</i>" and you grin.' );
 				EngineCore.outputText( '\n\nYou make her stop and leave her outside a sex shop you spot; you return carrying an unmarked box.  When you approach her back end, you are almost keeled over by the pheromone stench coming off it - her pussy is absolutely soaked.  The centauress is breathing heavily, trying valiantly to do what you are doing and not notice the clutches of people and centaur stopping, staring and muttering themselves.  Although you were expecting it, the smell of her eager pussy still hits your bloodstream like a sugar high, racing down to your groin, leaving there a hot, leaden weight of need.' );
 				EngineCore.outputText( '\n\nYou lead her down a side alley - giving a hard look to the onlookers which makes most of them remember they have business elsewhere- and then, braced against her formidable weight, slowly dip your ' + Descriptors.cockDescript( x ) + ' into her cunt until it is completely slathered in girl slime.  She sighs to the agonisingly gentle treatment and then gives out a muffled cry out of shock as you withdraw completely and, using the lubrication she provided, push into her tight asshole.' );
@@ -1290,7 +1290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			else {
 				EngineCore.outputText( '\n\nWithout another word you grab hold of the reigns and jerk them.  "<i>You know where you\'re going,</i>" you breathe into her ear.  Kelly whimpers, and then sets off behind you at a trot.' );
 				EngineCore.outputText( '\n\nThanks to Mareth\'s warped geography it doesn\'t take you long to arrive at the gates of Tel\'Adre.  The guards on duty look at you, then look away.  Evidently word is getting around.' );
-				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.getInstance().player.race() + ' leading a practically naked bound and gagged centauress around like a show horse draws a slight hush and open mouths, even among the ones who have already seen this display.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
+				EngineCore.outputText( '\n\nUpon the close streets though everyone stares; even for as liberal a place as Tel\'Adre the sight of a ' + CoC.player.race() + ' leading a practically naked bound and gagged centauress around like a show horse draws a slight hush and open mouths, even among the ones who have already seen this display.  The centaur you canter past in particular look absolutely gobsmacked; by turns unbelieving, disgusted, or shocked into laughter.  Nobody attempts to stop you though and you affect to be completely unaware of the attention; you after all are a champion upon an important errand.  But you know the attention and pure humiliation are soaking into Kelly when she makes a sobbing, muffled moan.' );
 				EngineCore.outputText( '\n\n"<i>Awww, don\'t be upset!</i>" You kindly reach around her blinkers and wipe her tears away.  "<i>Everyone might be able to see you\'re an owned little cocksleeve, you might see faces from back when you had things like dignity and respect, but this is how you\'ll learn to be better, bit by bit.  Isn\'t that right?</i>" Kelly manages a choked "<i>uh huh</i>" and you grin.' );
 				EngineCore.outputText( '\n\nYou make her stop and leave her outside a sex shop you spot; you return carrying an unmarked box.  When you approach her back end, you are almost keeled over by the pheromone stench coming off it- her pussy is absolutely soaked.  The centauress is breathing heavily, trying valiantly to do what you are doing and not notice the clutches of people and centaur stopping, staring and muttering themselves.  Although you were expecting it, the smell of her eager pussy still hits your bloodstream like a sugar high, racing down to your groin to leaving there a hot, leaden weight of need.' );
 				EngineCore.outputText( '\n\nYou lead her down a side alley - giving a hard look to the onlookers which makes most of them remember they have business elsewhere - and then, braced against her formidable weight, slowly dip your ' + Descriptors.cockDescript( x ) + ' into her cunt until it is completely slathered in girl slime.  She sighs to the agonizing treatment and then gives out a muffled cry out in shock as you withdraw completely and, using the lubrication she provided, push into her tight asshole.' );
@@ -1301,7 +1301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			//All go to: ;
 			EngineCore.outputText( '\n\nThis final humiliation has her breathing wetly and volubly into her gag by the time you are back to camp, somewhere between pants of desire and sobs of misery.  You strip her of her gear, throw the butt plug away and to show you can be a kind [Master] too you let her suck you off, the hard, shame-tinted memory of the last couple of hours suffixed by the joy of what she does best.' );
 			//[Not centaur: ;
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '  You sigh and enjoy the sight of her pretty head bobbing over your groin, your ' + Descriptors.cockDescript( x ) + ' encapsulated in soft shifting blankets of wet mouth flesh, your ears filled with her slurps and muffled sighs.  You are quickly pushed towards a new high by the worshipful treatment; you give her what she wants and cum in her mouth, letting her savor your texture and flavor; she closes her eyes and swallows, orgasm shuddering through her as it hits her stomach.  You smile and hold her face as she basks in an afterglow earned from pure debasement.' );
 			}//[Centaur:];
 			else {
@@ -1311,20 +1311,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>What do you say?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Thank you, [Master],</i>" she says, smiling at you devotedly.  Her voice hardens. "<i>You were right.  I deserved that punishment, because from it I will learn to make sure you never have to do it again.  I will be the most obedient cumslut there ever was!</i>" You smile and tell her to run along for now.  Your grin widens as you watch the girl who never learns leave.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 0.5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Kelly.prototype.takeKellysVirginity = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 300 );
+		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 
 		EngineCore.outputText( 'You tell Kelly that you intend to come claim the prize you broke her for - her virgin ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 			EngineCore.outputText( 'horse-' );
 		}
 		EngineCore.outputText( 'cunt.' );
@@ -1332,18 +1332,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\n"<i>For a slut like you?  Kelly, you were made to be a sex toy.  Getting fucked will be as right and natural as breathing.</i>"  Your submissive little mare gives a wan smile, flushing hotly.  Her nipples have already perked up, and you can smell her feminine arousal in the air, the potent fragrance already stirring the burgeoning hardness concealed within your [armor].  Yes, this little filly is going to love it.' );
 		EngineCore.outputText( '\n\nYou command, "<i>Lie down on your flank.  I don\'t want your legs going out on me mid-fuck once you realize how good being my breeding bitch can be.</i>"' );
 		EngineCore.outputText( '\n\nNodding meekly, Kelly lowers herself to the ground and flops onto her side with an absolute lack of grace.   Her tail curls up behind her back in order to expose her ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 			EngineCore.outputText( 'lust-swollen, black-lipped fuck-hole' );
 		} else {
 			EngineCore.outputText( 'blooming, pink-tinged pussy' );
 		}
 		EngineCore.outputText( ' to your roving eyes.  She asks, "<i>Is th-th-this good, [Master]?</i>"' );
 		EngineCore.outputText( '\n\nYou kneel behind her, pushing a thumb into that slick entrance, testing it, rubbing in tiny circles, admiring the webs of moist lubricant that hang across that entrance as you slowly accustom it to penetration.  Kelly begins to make quiet sounds of pleasure, little "<i>Ahhhs</i>" and "<i>Oooohs</i>" that leave no doubt as to her state.  Her clitty quickly grows erect from your attentions, a taut bud that makes her moan whenever you brush a wet digit across it.  Her steamy hole is soon as ready as your thumb can make it, so you switch to inserting your middle and index fingers into the juicy slit, spreading her entrance around the dual intruders.  She whimpers as you forcibly open her, dilating her sodden' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 			EngineCore.outputText( ', equine' );
 		}
 		EngineCore.outputText( ' cunt until her hymen is easily visible.  You rub every sensitive fold that you can get to' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 			EngineCore.outputText( ', taking time to squeeze her plush, onyx vulva teasingly.  Kelly whinnies in response, overtaken by her potent equine instincts.' );
 		} else {
 			EngineCore.outputText( ', taking time to fondle her slick labia.  Kelly moans in response, overtaken by the sensations you\'re forcing through her.' );
@@ -1354,55 +1354,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.outputText( '\n\nThe four-legged slut cries out in displeasure as you stop fingerfucking her.  "<i>Please, please don\'t stop!</i>"  Her tanned cheeks are flushed ruddy red, and she\'s shamelessly toying with her nipples, shifting her hindlegs eagerly, her cunt squishing audibly with hunger.' );
 		EngineCore.outputText( '\n\n"<i>I\'m not stopping, you dumb horse-cunt,</i>" you answer, accompanied by a rough smack to her haunches.  "<i>You\'re mine, and to you there\'s no greater pleasure than serving me - even if you don\'t get to cum.  You got that, bitch?</i>"  You spank her again, watching the heavy flow of lubricant intensify.  The air is inundated with her rich, female odor, a testament to just how true your words ring.  Kelly pants, pleading with her eyes and lifting one of her hind-legs as high as her beastly body will allow, to spread herself as open as possible.  Her tail flicks about anxiously while your pet abuses her own nipples, lost in the throes of submissive bliss.' );
 		EngineCore.outputText( '\n\nDeciding that it\'s time to finally claim your new slut\'s maidenhead, you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'get down behind her and line your ' + Descriptors.cockDescript( x ) + ' with her dribbling lips.' );
 		} else {
 			EngineCore.outputText( 'lie down behind her, sliding your hindlegs behind hers in order to properly align your ' + Descriptors.cockDescript( x ) + ' with her dribbling lips.' );
 		}
-		EngineCore.outputText( '  The first contact of ' + CoC.getInstance().player.cockHead( x ) + ' on her feminine mound sends an electric current of pleasure through your member, one that has you immediately and heedlessly pushing forward, sliding your full, sensitive phallus as deeply into that slick opening as you can.  That turns out not to be very far, as you almost immediately hit her virginal hymen.  It blocks off the rest of that hot, dripping hole almost spitefully.' );
+		EngineCore.outputText( '  The first contact of ' + CoC.player.cockHead( x ) + ' on her feminine mound sends an electric current of pleasure through your member, one that has you immediately and heedlessly pushing forward, sliding your full, sensitive phallus as deeply into that slick opening as you can.  That turns out not to be very far, as you almost immediately hit her virginal hymen.  It blocks off the rest of that hot, dripping hole almost spitefully.' );
 		EngineCore.outputText( '\n\nYou squeeze Kelly\'s ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'breast as you snuggle up behind her, centaur to centaur,' );
 		} else {
 			EngineCore.outputText( 'ass' );
 		}
 		EngineCore.outputText( ' and laugh, "<i>Here it comes, you eager whore!</i>"  Then, you spear through her entrance with one powerful thrust.  In that second, her pussy somehow gets even hotter and warmer around your girth, and you sink yourself as deeply as you can' );
-		if( CoC.getInstance().player.cockArea( x ) <= 300 ) {
+		if( CoC.player.cockArea( x ) <= 300 ) {
 			EngineCore.outputText( ', nestling your [sheath] up against her ' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+			if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 				EngineCore.outputText( 'plump, equine cunt-lips' );
 			} else {
 				EngineCore.outputText( 'slippery, pink cunt-lips' );
 			}
 		} else {
-			EngineCore.outputText( ', pressing your ' + CoC.getInstance().player.cockHead( x ) + ' up against the barrier her cervix makes' );
+			EngineCore.outputText( ', pressing your ' + CoC.player.cockHead( x ) + ' up against the barrier her cervix makes' );
 		}
 		EngineCore.outputText( '.  A pinkish froth oozes out around you, tinted by the few drops of blood that claiming her generated.  Kelly made a pained face as you took her, but now, she\'s back to panting and moaning like a whore.' );
-		EngineCore.outputText( '\n\nYou pull on her tail as you begin to slide in and out, asking, "<i>Did you like that, slut?  Does your cunt like being broken in by a real ' + CoC.getInstance().player.mf( 'man', 'breeder' ) + '\'s cock?</i>"' );
+		EngineCore.outputText( '\n\nYou pull on her tail as you begin to slide in and out, asking, "<i>Did you like that, slut?  Does your cunt like being broken in by a real ' + CoC.player.mf( 'man', 'breeder' ) + '\'s cock?</i>"' );
 		EngineCore.outputText( '\n\nKelly moans, "<i>Y-yes!  My... pussy...  My pussy feels so good!  It\'s so good to be yours, [Master]!</i>"  Her eyes cross slightly as her pussy begins to squeeze down around you, driven by instinctual desires the lust-crazed centauress barely understands.  She\'s been so conditioned to obey that when her body tells her to do something (like milk your ' + Descriptors.cockDescript( x ) + '), she doesn\'t question - she simply, deliciously complies, her pussy growing ever-wetter from her submissiveness.' );
 		EngineCore.outputText( '\n\nWith the pain of her deflowering little more than a memory, Kelly is free to give in to the pleasure you\'re forcing through her powerful, centaur frame.  She cums almost immediately, moist fluids spattering your groin, the fruit of her passion mixed with all the wetness-enhancing drugs you force-fed her when you created her.  Her channel\'s gentle milking motions accelerate, squeezing tighter and tighter around you, more forcefully.  It feels good, but you endure, sawing your [hips] in and out of her again and again, determined to enjoy this pleasure as long as you can.' );
 		EngineCore.outputText( '\n\nKelly squirms and moans, shuddering again and again as you drive her to orgasm after orgasm.  After a few climaxes as juicy as the first, Kelly\'s eyes roll back and her tongue lolls out. She stops talking, simply grunting every time you slam against her and moaning with each draw back.  You fuck her until you\'re sure her body will never forget the feeling of wrapping around your ' + Descriptors.cockDescript( x ) + ', and then you fuck her some more.  You fuck her until her human half flops down on the ground like the rest of her, limply spasming while her well-plowed vagina nervelessly spasms around you.' );
 		EngineCore.outputText( '\n\nGlorying over your conquest, you finally allow yourself release, and the long-pent-up fruit of your mating rushes forth with a surge of accompanying bliss.  You throw your head back as you erupt inside the trembling horse-girl\'s pussy, basting the inside of her quim white, all the way from her slit to her cervix.' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( '  You even have enough jism to make sure that some is squirting into her womb and drizzling out of her entrance, mixing with her clear fluids to make a runny, off-wet mess down her rump.' );
-			if( CoC.getInstance().player.cumQ() >= 1500 ) {
+			if( CoC.player.cumQ() >= 1500 ) {
 				EngineCore.outputText( '  In no time flat, her belly has begun to round slightly, puffed up with spunk.' );
 			}
-			if( CoC.getInstance().player.cumQ() >= 3500 ) {
+			if( CoC.player.cumQ() >= 3500 ) {
 				EngineCore.outputText( '  That doesn\'t stop you from seeding it even further, pumping her poor horse-gut until it jiggles and jostles with your spermy cargo.  There\'s no way she\'ll forget this.' );
 			}
 		}
 		EngineCore.outputText( '\n\nYou pull out with a self-satisfied sigh, admiring ' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 0 ) {
 			EngineCore.outputText( 'the redness of her well-used cunt.' );
 		} else {
 			EngineCore.outputText( 'the shining juices that drip from her oh-so-equine entrance, gilding the smooth onyx lips with a slimey sheen.' );
 		}
 		EngineCore.outputText( '  Kelly has passed out in a puddle of her own making, and you leave her like that, getting dressed without a backwards glance.' );
 		this.kellyPreggers();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3, 'cor', 0.5 );
-		CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
+		CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TFs;
@@ -1410,21 +1410,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.giveKellyAPepper = function() {
 		EngineCore.clearOutput();
 		//First: ;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_PEPPERED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TIMES_PEPPERED ] === 0 ) {
 			EngineCore.outputText( 'You instruct Kelly to open wide; you\'ve got something that will allow her to serve her [master] even better.  You imagine she once saw Whitney farm these things, but if your centauress slave knows its properties she doesn\'t show it; dutifully she opens her mouth, making an "<i>aaaaaaah</i>" noise until you pop the glossy red fruit onto her tongue.  You stand back and watch as she munches thoughtfully and then swallows.' );
 			EngineCore.outputText( '\n\n"<i>S\'quite nice.  Spicy.  I don\'t know what it\'s supposed to do th-oh.  Ohhhh...</i>" She closes her eyes and moans as flesh burgeons and balloons underneath her tits.  Nubs form in the softness and then darken, leaving her finally with a second row of breasts- smaller than her first but still at least C cups.  You smirk and take a few steps back and forth to properly take in her new curves; the soft obscenity of it is perfect for a slaveslut like her, and [eachCock] begins to harden at the thought of sliding it between those four pillows.' );
 			EngineCore.outputText( '\n\nThe tits aren\'t the only thing the pepper has done to Kelly.  As her hands roam uncertainly over her new anatomy her breath comes in short gasps, her eyes locked upon you, even more filled with helpless lust than usual.  You can practically smell the pheromones radiating off her; she has gone into heat.' );
 			EngineCore.outputText( '\n\n"<i>[Master], please...</i>" she moans.  You draw into her, cup one of her new breasts and gently play with a nipple until you can hear the steady drip of her pussy juices on the dirt behind her, before saying maybe later; she needs to get used to her new body and you don\'t have time to satisfy the needs of a slut right now.  You turn and leave with a satisfied smile, the sound of the fitful hooves and whimper of a centaur impossibly turned on and incapable of doing anything about it in your ears.' );
 			//[Second row of breasts added];
 			//[Kelta 15% more likely to conceive for 2 days];
-			CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] = 1;
-			CoC.getInstance().flags[ kFLAGS.KELLY_HEAT_TIME ] = 48;
+			CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] = 1;
+			CoC.flags[ kFLAGS.KELLY_HEAT_TIME ] = 48;
 		}
 		//Repeat:;
 		else {
 			EngineCore.outputText( 'You grin and dangle the pepper in front of Kelly\'s face wordlessly.  The centauress knows what\'s coming and color spreads across her cheeks; however, she still opens wide and accepts the "<i>gift</i>", chewing slowly and swallowing.' );
 			//If no second row:;
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
 				EngineCore.outputText( '\n\nShe closes her eyes and moans as flesh burgeons and balloons underneath her tits.  Nubs form in the softness and then darken, leaving her finally with a second row of breasts- smaller than her first but still at least C cups.  You smirk and take a few steps back and forth to properly take in her new curves; the soft obscenity of it is perfect for a slaveslut like her and [eachCock] begins to harden at the thought of sinking it between those four pillows.' );
 				EngineCore.outputText( '\n\nThe tits aren\'t the only thing the pepper has done to Kelly.  As her hands roam uncertainly over her new anatomy her breath comes in short gasps, her eyes lock upon you, even more filled with helpless lust than usual.  You can practically smell the pheromones radiating off her; she has gone into heat.' );
 				EngineCore.outputText( '\n\n"<i>[Master], please...</i>" she moans.  You draw into her, cup one of her new breasts and gently play with a nipple until you can hear the steady drip of her pussy juices on the dirt behind her, before saying maybe later; she needs to get used to her new body and you don\'t have time to satisfy the needs of a slut right now.  You turn and leave with a satisfied smile, the sound of the fitful hooves and whimper of a centaur impossibly turned on and incapable of doing anything about it in your ears.' );
@@ -1435,10 +1435,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\n"<i>[Master], please fuck me,</i>" she whimpers. "<i>Fuck me until I can\'t walk anymore, fuck me until all I can taste is your essence, I need your seed anyway and being like this... this... is unbearable.</i>" You laugh and rub her flank, telling her she\'s so cute when she\'s desperate and who knows? If she\'s a good girl you might deign to meet her request.  You turn and leave.' );
 				//[Kelta 15% more likely to conceive for 2 days];
 			}
-			CoC.getInstance().flags[ kFLAGS.KELLY_HEAT_TIME ] += 48;
+			CoC.flags[ kFLAGS.KELLY_HEAT_TIME ] += 48;
 		}
-		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_PEPPERED ]++;
-		CoC.getInstance().player.consumeItem( ConsumableLib.CANINEP );
+		CoC.flags[ kFLAGS.KELLY_TIMES_PEPPERED ]++;
+		CoC.player.consumeItem( ConsumableLib.CANINEP );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Titjob;
@@ -1447,10 +1447,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.kellyTitJob = function() {
 		EngineCore.clearOutput();
 		var x;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
-			x = CoC.getInstance().player.cockThatFits( 18, 'length' );
+		if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
+			x = CoC.player.cockThatFits( 18, 'length' );
 		} else {
-			x = CoC.getInstance().player.biggestCockIndex();
+			x = CoC.player.biggestCockIndex();
 		}
 
 		EngineCore.outputText( 'As Kelly eagerly trots towards you your eyes are naturally drawn to her breasts, bouncing gently with her swaying canter.  They are just slightly too big and pert to be of non-demonic origin; every step she takes makes them palpitate, her fat, tan curves dancing for you in the sunlight, her erect nipples begging to be touched and teased' );
@@ -1459,10 +1459,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( ', glittering beads of milk flicking here and there as she advances' );
 		}
 		EngineCore.outputText( '.  The weight of them must be a constant reminder to her of the obscene changes you have wrought upon her body, of the deep need you have implanted into her mind, of the fact she is shaped the way she is because you have willed it.  Your ' + Descriptors.cockDescript( x ) + ' is straining against your [armor] by the time Kelly has come to a halt in front of you, her lips parting and her nipples hardening even further as she pushes into your aura.  She grins coquettishly when she sees where you\'re staring, turning her eyes downwards and then slowly back to yours.' );
-		EngineCore.outputText( '\n\n"<i>Does [Master] see something ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' likes?</i>" There is no question in your lust reddened mind of how you\'re going to satisfy yourself.' );
+		EngineCore.outputText( '\n\n"<i>Does [Master] see something ' + CoC.player.mf( 'he', 'she' ) + ' likes?</i>" There is no question in your lust reddened mind of how you\'re going to satisfy yourself.' );
 		EngineCore.outputText( '\n\n"<i>On the ground,</i>" you grunt, so quickened by need you can barely annunciate as you shed your clothes.  Kelly has her hooves folded obediently beneath her before you\'ve even got your undergarments off, her grin replaced by a solemn, needful expression as your ' + Descriptors.cockDescript( x ) + ' strains outwards, her pupils dilating, licking her plump lips unconsciously.  You smile and manage to control your urge long enough to tease her with your length a bit first, rubbing your prick slowly against her soft face, smearing her with your musk, pulling away slightly every time you feel her hot breath upon it, trying to latch her lips onto it or presenting her tongue.  You slide slowly downwards, resting it finally between her big, warm breasts.' );
 		//Dick 17 inches or less:;
-		if( CoC.getInstance().player.cocks[ x ].cockLength <= 18 ) {
+		if( CoC.player.cocks[ x ].cockLength <= 18 ) {
 			EngineCore.outputText( '\n\nYou hold her by the shoulders and begin to move your ' + Descriptors.cockDescript( x ) + ' up and down her valley, sighing as Kelly clasps her breasts and squashes her softness into your length, encapsulating it in her warm, yielding flesh.  Pre leaks from your tip to the shifting, pillowy pleasure inundating your hard cock, slicking Kelly\'s tender skin with your scent and providing you with the lubrication you need to pick up the pace.  The centauress coos as you grip her harder and begin to fuck her pillows, her eyes closed as she is swallowed by your presence and feral smell, each second you spend using her like this making her more and more sensitive and pliant to your touch.  She is an expert by now at servicing you; as you thrust into her she rolls her wrists so that your dick is caught in gentle boobquakes, her breasts pressing tightly upon your prick from all angles one second and then pulling away the next, pressing in like the tightest pussy imaginable and then pulling away to leave nothing but yielding softness...' );
 			if( this.pregnancy.isPregnant ) {
 				EngineCore.outputText( '\n\nThe constant drizzle of milk expressing from her engorged nipples is too delicious to leave alone; you force yourself to stop your rut for a moment to tweak her damp, brown nubs, rubbing and then pressing them firmly between thumb and forefinger until her deep sighs turn into throaty moans.  You gently rub your ' + Descriptors.cockDescript( x ) + ' over the milky streams you\'ve caused to run down her front in rivulets, coating it in warm whiteness before sliding back into her valley.  The added lubrication make her glisteningly wet orbs practically frictionless; you growl at the slippery, encompassing warmth, fucking her now for all your worth whilst her fingers replace yours on her nipples, her mouth open in ecstasy as she replicates the sensation you pressed upon her, squeezing thin streams of milk everywhere.' );
@@ -1470,12 +1470,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '  Her expression is one of deep concentration and as you quicken the pace and thrust further upwards she bends her chin down to lick at your head as it presents itself between her pressed together tits.' );
 			EngineCore.outputText( '\n\n"<i>Ooh...</i>" she moans as she rolls her tongue around her mouth. "<i>Why do you taste so godsdamn good, [Master]?</i>" You are too busy to reply; your cock bulging now with real need you thrust your cock between her cleavage with all you\'ve got, lost to everything but that sleeve of hot, wet flesh.' );
 			//[Kelly has four tits:;
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 				EngineCore.outputText( '\n\nYour [hips] press upon the softness of her lower pair of tits; it dimly occurs to you what a fine idea growing a few extra inches of dickmeat to take full advantage of the shape of your centauress slave might be.' );
 			}
 			EngineCore.outputText( '\n\nKelly\'s tongue flicks intermittently over your head and she moves her boobs up and down briskly, rubbing your dick in an alternating motion as you thrust yourself upwards to a body-seizing high.  Sweat beads your brow and you throw your head back as you cum; your ears are full of the slippery sound of prick against boob and the ecstatic, muffled sounds Kelly makes as she opens her mouth wide and swallows your first load whole.  Your seed rises upwards and outwards and you ride your pulsing orgasm, thrusting your [hips] with each surge to blast your slave with jizz.' );
 			//[Low cum: ;
-			if( CoC.getInstance().player.cumQ() <= 250 ) {
+			if( CoC.player.cumQ() <= 250 ) {
 				EngineCore.outputText( '\n\nWhen you have finally emptied yourself, you sigh and step back to admire your handiwork.  You\'ve given her a pretty impressive facial, her brow and cheeks splattered with your cream; however what is in range of her tongue is quickly disappearing.\n\n"<i>Mmm... thank you for the load, [Master]!</i>" She says, contented pleasure glittering in her eyes as she guides another oozing dollop of addiction down her throat.  You tell her she\'s quite welcome as you use her braid to wipe your dick clean, climb back into your [armor], and leave her to enjoy her fix.' );
 			} else {
 				EngineCore.outputText( '\n\nYou go on and on, driven by a deep impulse to coat her with your potency, your dick flexing out string after string of jism until it aches with pleasure and you are dripping with sweat.  After what seems like minutes upon end of orgasm, you finally sigh and step back to admire your handiwork.  Kelly\'s face, shoulders and hair are absolutely plastered with cum, her eyes pasted shut.  As you watch her tongue emerges and does a wide circuit of her mouth, drawing in a big dollop of jizz which is then swallowed with a hum of pure contentment.\n\n"<i>Mmm... I\'m so lucky to have a [Master] who is so virile,</i>" she purrs.  She unsticks her eyes with her fingers and gazes at you with contented pleasure as she licks her digits clean of oozing addiction. "<i>Thank you for giving this cumslut what she needs, [Master]!</i>" You tell her she\'s quite welcome as you use her braid to wipe your dick clean, climb back into your [armor], and leave her to enjoy her fix.' );
@@ -1492,14 +1492,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			EngineCore.outputText( '  Her expression is one of deep concentration and as you quicken the pace and thrust further upwards she bends her chin to lick at your head as it presents itself between her pressed together tits.' );
 			EngineCore.outputText( '\n\n"<i>Ooh...</i>" she moans as she rolls her tongue around her mouth. "<i>Why do you taste so godsdamn good, [Master]?</i>" You are too busy to reply; your cock bulging now with real need you thrust your cock between her extensive cleavage with all you\'ve got, lost to everything but that sleeve of hot, wet flesh.  Kelly\'s tongue flicks intermittently over your head and she moves her boobs up and down briskly, rubbing your dick in an alternating motion.  You squeeze her bottom row brutally hard, making her gasp as you thrust yourself upwards to a body-seizing high.  Sweat beads your brow and you throw your head back as you cum; your ears are full of the slimy sound of prick against boob and the ecstatic, muffled sounds Kelly makes as she opens her mouth wide and swallows your first load whole.  Your seed rises upwards and outwards and you ride your pulsing orgasm, thrusting your [hips] with each surge to blast your slave with jizz.' );
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( '\n\nWhen you have finally emptied yourself, you sigh and step back to admire your handiwork.  You\'ve given her a pretty impressive facial, her brow and cheeks splattered with your cream; however what is in range of her tongue is quickly disappearing.\n\n"<i>Mmm... thank you for the load, [Master]!</i>" she says, contented pleasure glittering in her eyes as she guides another oozing dollop of addiction down her throat.  You tell her she\'s quite welcome as you use her braid to wipe your dick clean, climb back into your [armor], and leave her to enjoy her fix.' );
 			}//High cum:;
 			else {
 				EngineCore.outputText( '\n\nYou go on and on, driven by a deep impulse to coat her with your potency, your dick flexing out string after string of jism until it aches with pleasure and you are dripping with sweat.  After what seems like minutes upon end of orgasm, you finally sigh and step back to admire your handiwork.  Kelly\'s face, shoulders and hair are absolutely plastered with cum, her eyes pasted shut.  As you watch her tongue emerges and does a wide circuit of her mouth, drawing in a big dollop of jizz which is then swallowed with a hum of pure contentment.\n\n"<i>Mmm... I\'m so lucky to have a [Master] who is so virile,</i>" she purrs.  She unsticks her eyes with her fingers and gazes at you with contented pleasure as she licks them clean of oozing addiction.  "<i>Thank you so much for giving me what I need, [Master]!</i>" You tell her she\'s quite welcome as you use her braid to wipe your dick clean, climb back into your [armor], and leave her to enjoy her fix.' );
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1510,11 +1510,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		if( this.pregnancy.isPregnant ) {
 			return;
 		}
-		var x = Math.round( CoC.getInstance().player.cumQ() / 20 );
+		var x = Math.round( CoC.player.cumQ() / 20 );
 		if( x > 80 ) {
 			x = 80;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_HEAT_TIME ] > 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_HEAT_TIME ] > 0 ) {
 			x += 15;
 		}
 		if( Utils.rand( 100 ) + 1 <= 80 ) {
@@ -1527,25 +1527,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.kellyPregSex = function() {
 		EngineCore.clearOutput();
 		var x;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
-			x = CoC.getInstance().player.biggestCockIndex();
+		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
+			x = CoC.player.biggestCockIndex();
 		} else {
-			x = CoC.getInstance().player.cockThatFits( 300 );
+			x = CoC.player.cockThatFits( 300 );
 		}
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'Maybe because of her pregnancy, the slut seems to release even more powerful scents out of her slick pussy; you actually have a clear view of her wide, parted lips exuding sexual musk.  You want to take her right now, right there, and deposit on her unborn offspring the load they truly deserve.  As if it weren\'t enough, Kelly is releasing copious amount of juices and whinnies meekly from time to time, as if her pregnancy makes her uneasy and she needs a big fat cock to release her tension.' );
 		EngineCore.outputText( '\n\nYou remove your [armor] and watch your ' + Descriptors.multiCockDescriptLight() + ' grow into a rock-hard erect state under the aphrodisiac scent; you\'re ready to stuff the breeding mare before you.  Driven mad with lust, you jump the centaur\'s behind and slap her angrily, making her moan and snort in submissive pleasure.  You can\'t take it anymore and with feverish excitement, you grab hold of [oneCock] and plunge it deep into Kelly\'s dark recesses.' );
 		EngineCore.outputText( '\n\nThe centauress moans, screams and arches her back, but you firmly slap her ass to keep her in control.  Grasping her motherly hips for leverage, you begin to thrust in and out of her unbelievably wide love-tunnel, knowing that its boiling warmth and size are made to accustom monstrous equine members.' );
 		//if you don't have a large horsecock:;
-		if( CoC.getInstance().player.cocks[ x ].cockType !== CockTypesEnum.HORSE ) {
+		if( CoC.player.cocks[ x ].cockType !== CockTypesEnum.HORSE ) {
 			EngineCore.outputText( '\n\nToo bad she gets yours instead.' );
 		}
 		EngineCore.outputText( '\n\nAs you pound her scented fuck-hole, you feel the hybrid slut gradually calming down and getting used to your ruthless manners; even when you slap her, the cries you hear are definitely due to lust- and pleasure-driven.  She begins to thrust in response, adapting her own hip movements to yours in order to receive more cock.  Her hot insides are sticky and smear your pole with all kinds of fluids, making obscene yet arousing squishing noises.  An enormous trail of juices leaks from her abused cunt, polluting the floor and turning it into a muddy puddle.  Your feet begin to slip in it as you move back and forth to get a better grip to fuck that centaur-pussy, but your mind doesn\'t register the dirtiness of the act.  Still entranced by Kelly\'s animalistic efflux, you solely focus on slamming as much of your [cock] as you can into her welcoming innards. You pound and pound until your legs feel wobbly and your arms grow sore, and you pound her a little more.' );
 		EngineCore.outputText( '\n\nAs you have your way with the slutty centauress, you notice her bloated belly swings from side to side, making her unable to keep a stable foothold.  The bitch can\'t even stand properly, it seems; encouraged by that display of weakness, you give her a particularly powerful dick-push, forcing her to drop on her hind legs; weighed down by the heavy centaur-load she\'s carrying, she\'s unable to get back up, and just wiggles her pussy at you as her face lies in the dirt. With ferocious joy, you keep impaling her in earnest until you\'re both groaning in raw animal pleasure.  Her belly is crushed by the rest of her own body, and she seemingly enjoys getting cunt-ravaged with little care for her offspring. Amazed by the power you have over her very instincts, you give her one last dong-piercing before pouring down your load.' );
 		EngineCore.outputText( '\n\nYou grasp her generous hips and lock yourself into her cunt as it milks you with inhuman contractions. Your ' + Descriptors.cockDescript( x ) + ' feels sucked in, squeezed and stretched to the point you believe it might rip.  However, this little worry is quickly drowned in a sea of never-ending ecstasy, as torrents after torrents of cum are being injected into the centauress\' waiting womb; you know you won\'t be able to knock her up more than she already is but you\'ve made her appear more pregnant than ever.  Kelly moans, whinnies and shudders as she absorbs more and more cum into her body until she looks ready to give birth to a full tribe.  When you\'re done and pull out, a fountain of various fluids spurts out of her manhandled cunt, and the slut sighs in satisfaction.  She does look more healthy than before despite having been forced to eat dirt like the whore she is.  Maybe your cum will have beneficial properties to your unborn centaur kids?' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -4 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1573,27 +1573,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 
 		EngineCore.outputText( '\n\nSatisfied to see your offspring will grow strong and healthy for you, you pat Kelly\'s head, tell her she\'s a good breeding slut and walk away; the motherly centaur sighs at the compliment.  "<i>Thank you, [name]!  You were right, this really is my place, being used and breeding beautiful sluts for you.  I hope you will treat them as well as you treated me!</i>"' );
 		//[if corr > 80];
-		if( CoC.getInstance().player.cor > 80 ) {
+		if( CoC.player.cor > 80 ) {
 			EngineCore.outputText( '\n\nYou grin as vivid pictures of how you\'ll be treating your soon-to-be-grown kids draw themselves in your mind. Right now they\'re still a little young, but someday...\n' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] = gender;
+		if( CoC.flags[ kFLAGS.KELLY_KIDS ] === 0 ) {
+			CoC.flags[ kFLAGS.KELLY_FIRST_KID_GENDER ] = gender;
 		}
-		CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ]++;
+		CoC.flags[ kFLAGS.KELLY_KIDS ]++;
 		if( gender === 1 ) {
-			CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ]++;
+			CoC.flags[ kFLAGS.KELLY_KIDS_MALE ]++;
 		}
 	};
 	//Talk n Hand;
 	Kelly.prototype.talkNHandToKelly = function() {
 		EngineCore.clearOutput();
 		//First: You tell her you'd just like to talk.;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TALK_N_HAND_TIMES ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TALK_N_HAND_TIMES ] === 0 ) {
 			EngineCore.outputText( '"<i>Talk?  Oh, that\'s the least interesting thing I can do with my mouth, [Master],</i>" Kelly purrs.  That may be, you say, but she can amuse you with her hands whilst she amuses you with her voice.  The centaur gets the picture and grins.  ' );
 			//Not Centaur: ;
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'She helps you take off the lower half of your [armor] as you set yourself down and then wraps her warm hand around ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( '[oneCock], gently tugging it.  It quickly hardens with the pleasing friction she coils around it.' );
 				} else {
 					EngineCore.outputText( 'first your [cock], then your [cock 2], gently tugging until they are both hard from the pleasing friction she coils around them.' );
@@ -1602,7 +1602,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			//Centaur:;
 			else {
 				EngineCore.outputText( 'You leisurely clop yourself around so your back end is facing her and sigh as ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'a warm hands wraps itself around your [cock] and then begins to gently tug, quickly hardening it with pleasing coils of friction.' );
 				} else {
 					EngineCore.outputText( 'a warm hand wraps around first your [cock] and then your [cock 2] before beginning to gently tug, both quickly hardening from the pleasing coils of friction.' );
@@ -1613,13 +1613,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		else {
 			EngineCore.outputText( 'You tell her you\'d like to... talk.' );
 			EngineCore.outputText( '\n\nGrinning, your centaur slave ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'slides off the lower half of your [armor] as you set yourself down and then grasps your cock' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' with her soft hands.  You sigh as she begins to gently pump, making ' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'them' );
 				} else {
 					EngineCore.outputText( 'it' );
@@ -1627,21 +1627,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( ' harden quickly.' );
 			} else {
 				EngineCore.outputText( 'trots around behind you.  You sigh as ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'a warm hands wraps itself around your [cock] and then begins to gently tug, quickly hardening it with pleasing coils of friction.' );
 				} else {
 					EngineCore.outputText( 'a warm hand wraps around first your [cock] and then your [cock 2] before beginning to gently tug, both quickly hardening from the pleasing coils of friction.' );
 				}
 			}
 		}
-		CoC.getInstance().flags[ kFLAGS.KELLY_TALK_N_HAND_TIMES ]++;
+		CoC.flags[ kFLAGS.KELLY_TALK_N_HAND_TIMES ]++;
 		//(Randomly generated);
 		var temp = Utils.rand( 5 );
 		//1.;
 		if( temp === 0 ) {
 			EngineCore.outputText( '\n\nYou ask what happened to the wives she mentioned she had.' );
 			EngineCore.outputText( '\n\n"<i>Who?</i>" Kelly says, stopping her pumping for a moment.  "<i>Oh, those two.  I wouldn\'t worry about them, [Master].  I never told them where I worked, because I never wanted them to know I worked for a woman.  Funny, isn\'t it.' );
-			if( !CoC.getInstance().player.hasVagina() ) {
+			if( !CoC.player.hasVagina() ) {
 				//Male: ;
 				EngineCore.outputText( '  Now I </i>do<i> work for a man, and I spend most days polishing his [cock biggest]!' );
 			}
@@ -1651,15 +1651,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			EngineCore.outputText( '</i>"  She laughs musically as she continues to rub your straining meat.  <i>"They\'ll be alright, [Master].  They were never bound to me as tightly as I am to you, I was never as strong or as clever as you- and I was always waiting for someone to make me into a submissive cockslave, I just never realized it.  They\'ll probably shake out of it and go their separate ways eventually, find new lives.  Unless...</i>"  She pauses again. "<i>Unless you want me to go find them, [Master]?  Make them part of your glorious harem instead?  Make them see how inferior a [master] I really was?</i>"  You tell her to keep pumping, close your eyes and imagine not one but three mare sluts serving you: imagining three plump, hungry mouths slathering up and down your [cock biggest] at the same time, ' );
 			//1< cock:;
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'imagining thrusting every single one of your cocks into a wet, willing hole, ' );
 			}//vagina:;
-			else if( CoC.getInstance().player.hasVagina() ) {
+			else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'imagining one of them tongue-fucking your [vagina] as you buck into another\'s tight cunt, ' );
 			}
 			EngineCore.outputText( 'imagining the symphony of feminine squeals and moans as you cum....  Kelly coos as you bark wordlessly, jizz surging powerfully out of your ' + Descriptors.multiCockDescriptLight() + '.  She keeps masturbating you, pumping you with gentle, insistent pressure until you are spent.  Once you\'re done, she bends in and licks you clean, humming happily as she laps at your [cockHead] with her soothing, seeking tongue.' );
 			EngineCore.outputText( '\n\nAble to think slightly clearer with your blood settled, you decide against telling Kelly to go fetch her erstwhile harem - it\'s dangerous to send such a vulnerable slave wandering around in the wilderness for something that\'s probably long gone, and taking care of just one centaur cumslut is draining enough as it is.' );
-			if( CoC.getInstance().player.cor < 70 ) {
+			if( CoC.player.cor < 70 ) {
 				EngineCore.outputText( '  Plus, the thought of making Kelt\'s victims pay the price for his own crimes makes you feel uncomfortable.' );
 			}
 			EngineCore.outputText( '  You tell Kelly you appreciate the thought as you pick yourself up and leave, but you think you need to save your energy and cum for the really special case that she is.  The centaur shivers with glee.' );
@@ -1672,7 +1672,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>Paid... paid you back? What do you mean?</i>"' );
 			EngineCore.outputText( '\n\n"<i>For all the trouble I went through, bringing out your true self.  That pretty, needy pussy, those big whorish jugs, that thirst for cum, all the things you enjoy so much....  Do you know how difficult getting all that succubus milk together was?  It doesn\'t grow on trees, slave.  Then there\'s all that rich jizz I have to keep feeding you.  I\'m rendering YOU a service when I use your wanton body, not the other way around.  Every time I deign to plug one of your slut-holes with hot cock, you are falling more and more in debt with me.</i>"' );
 			EngineCore.outputText( '\n\n"<i>I-I\'m sorry [Master],</i>" Kelly whispers, her hot hands sliding up and down your [cock]' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' and [cock 2]' );
 			}
 			EngineCore.outputText( '.  "<i>Of course I can never repay you for what you\'ve done for me.  I wasn\'t thinking.</i>"' );
@@ -1683,13 +1683,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		else if( temp === 2 ) {
 			EngineCore.outputText( '\n\nYou ask if all centaurs have sub-dom relationships.' );
 			EngineCore.outputText( '\n\n"<i>Oh, no [Master],</i>" Kelly replies as she continues to pump you.  "<i>We aren\'t like the demons if that\'s what you mean, we think about and treat sex just like anyone else.  We do go into heat or rut though, and combined with the problems with, y\'know, getting relief it makes some of us get... edgy.  In the old days when we ruled the plains you sometimes got bands of males roaming the countryside, raping and even enslaving everything with a warm hole they came across when it got real bad.  I guess that\'s where the image of the arrogant, aggressive centaur comes from.  But I don\'t think we\'re any worse than, say, humans when it comes to that kind of thing.</i>"  It\'s a fair point, you think, as you close your eyes and let your centaur slave masturbate you to the vinegar strokes, grunting wordlessly as you cum, jetting your spunk in long lines ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'into the air' );
 			} else {
 				EngineCore.outputText( 'onto the ground' );
 			}
 			EngineCore.outputText( '.  Kelly nuzzles your [cocks] when you\'re done, slurping obscenely as she polishes your nobhead' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' to a shine.  You thank her with a slap on the ass and leave.' );
@@ -1700,7 +1700,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>That\'s a long story, [Master].</i>"  Move your hands slowly then, you say.  Kelly tinkles with laughter and complies, moving her smooth hands up and down your [cocks] at an almost tortuously slow pace.  "<i>So, back before the demons showed up, I was in a small tribe of centaur who lived in the plains.  I hated the leader - I thought he was an old fuddy duddy that wouldn\'t let us do fun stuff like attack the gnolls, or let me do with the mares as I would.  I always thought I was well-respected because I was strong, and tough, and brought in lots of kills - but then one day they all turned around and told me they were kicking me out!  For being an asshole!  Oh man, was I pissed.  But there were a lot more of them than there were of me, so I had no choice but to hit the road.</i>"' );
 			EngineCore.outputText( '\n\nShe sighs, tracing a bulging vein on your [cock] absently.  "<i>I made out to myself that I was better off without them, a lone wolf with nothing holding him back - but it wasn\'t like that [Master], it sucks being on your own in the wilderness.  I was almost beside myself with loneliness and rage when the demon approached me.</i>"  She strokes your raphe with a single finger and you grunt a warning as your seed rises - she pulls back momentarily. "<i>He said he\'d been watching me, and his kind were interested in - how did he put it? - accommodating the centaur tribes.  He said he\'d give me a gift which would let me become a great leader of my kind - let me take my rightful place at the head of my tribe, with all the mares I could ever want.  Well, do you think I was going to turn that down after more than a year mooching around on my own, [Master]?</i>"' );
 			EngineCore.outputText( '\n\nShe pauses and you sigh as she bends in and ' );
-			if( CoC.getInstance().player.balls === 0 ) {
+			if( CoC.player.balls === 0 ) {
 				EngineCore.outputText( 'suckles and laps at the very base of your [cock] for a time' );
 			} else {
 				EngineCore.outputText( 'suckles and laps at your [balls] for a time' );
@@ -1709,7 +1709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>So yeah,</i>" she goes on once she\'s done, wrapping her hand around your [cock] again, "<i>I accepted the demon\'s blessing.  It made me feel... strong.  Made things a lot clearer in my mind.  I marched right back to my tribe, beat the old leader into a pulp, and declared myself the new leader - and anyone who disagreed, I\'d kill.  No one dared argue.  I guess even then my new aura was beginning to work.</i>"  She clicks her tongue thoughtfully as she continues to work your bulging meat.  "<i>I had made two of them into my full-time bitches before the rest had enough.  Woke up one morning and they had gone, to Tel\'Adre or who knows where.  Smarter and braver than I took them for.  I guess that demon of mine was pretty busy, because it seemed like what I did to my tribe happened all over for the centaur- we used to be everywhere in the plains, but after the demons took over we just disintegrated.</i>"' );
 			EngineCore.outputText( '\n\nYou want to concentrate on what she\'s saying but it\'s difficult when you\'re champing at the bit, your cock bulging urgently in Kelly\'s deliberately gentle wringing grasp.  Perhaps guessing this, the centaur goes quiet and begins to pump you hard, jerking you unrelentingly until you blow your load, sweat beading your brow as you spurt cum everywhere, your tensing, flexing orgasm going on for what seems like minutes.  It\'s a generous payload and Kelly makes appreciative noises as she licks up what hangs from [eachCock] when you\'re done.  In a husk you ask what happened after that.' );
 			EngineCore.outputText( '\n\n"<i>Well, you know most of the rest [Master],</i>" she says, smacking her lips.  "<i>I had to feed two breeding mares and my growing brood, and I already knew hunting on my own barely allowed just one centaur to get by, so eventually I fetched up with Whitney, who paid me to guard her farm.  And then I met you, who broke my aura and showed me who I truly was.</i>"  She looks at you reverently.  "<i>I was a miserable bastard, you know that?  Even when I was in charge of my tribe, I was miserable.  Now, worshipping your [cocks]' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_KIDS ] > 0 ) {
 				EngineCore.outputText( ' and bearing and raising your children' );
 			}
 			EngineCore.outputText( ', I\'m a hundred times happier.  I just used a demon\'s curse to get my way - you did it all on your own.  You showed me what true strength and dominance is, [Master]!</i>"' );
@@ -1721,7 +1721,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\nYou ask if she has had much to do with Whitney, before or now.' );
 				EngineCore.outputText( '\n\n"<i>Not really,</i>" says Kelly.  There\'s a hard note in her voice as she works her arms, masturbating your bulging meat.  "<i>Before we just kept away from each other.  She knew about my wives and my aura but she didn\'t care, as long as I kept the imps and gnolls away and I didn\'t try it on her.  Of course it occurred to me, but... there\'s a cold edge to that woman.  Keeps it hidden, but there is - how else has she lived out here on her own for this long?  I didn\'t want to find out what she\'s hiding, plus I really needed the job.</i>"  She\'s definitely pumping you aggressively, jerking your [cocks] with brisk movements until the flesh under her tight grasp is singing with blood.' );
 				EngineCore.outputText( '\n\nYou close your eyes and arch your neck to the sensation.  "<i>Now when she sees me, she just gives me this really disgusted look.  Fucking bitch.  She thinks I\'m so terrible now but thought everything was just great back when I was her pet demon-tainted rapist?  Bitch!</i>"  She\'s really rubbing you furiously now and you groan as you surge to your high, trapped in a warm, smooth paint-shaker of a handjob.  She keeps up her growl as you tense and cum, opening your mouth as you ride it, flexing out buckets of spunk ' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( 'into the air' );
 				} else {
 					EngineCore.outputText( 'onto the ground' );
@@ -1735,7 +1735,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\n“<i>You are so mean, [master]. I guess I will just have to imagine what it was like.</i>” Her voice has lowered to a playful husk. “<i>Did she resist? Did she spend days and weeks pretending she didn’t feel the creep of your influence, that she didn’t feel her heart quicken when you gave her orders? That she didn’t even notice you or the way you had taken possession of her home? I bet she did – stuck up bitch spent her whole life acting that way. Bet it became a struggle when heat began to run to her pussy every time you passed her.</i>”' );
 				EngineCore.outputText( '\n\nShe knows exactly what she’s doing. Her hand moves slowly but surely over your bulging meat, and you close your eyes allowing your slave’s gloating, lascivious tones fill your head. “<i>Did you make her get on her knees? Make her sit up and beg for it? No... you didn’t </i>make<i> her do anything, did you? Prissy britches did it all by herself when it got unbearable, didn’t she. She got out the deeds to this place. She smashed her toy crossbow. She made herself a collar, and handed the leash to you. That’s how it was for butter-wouldn’t-melt, wasn’t it? All... by... herself.</i>”' );
 				EngineCore.outputText( '\n\nYou tense and cum, opening your mouth as you ride it, flexing out buckets of spunk' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( ' into the air' );
 				} else {
 					EngineCore.outputText( ' onto the ground' );
@@ -1745,16 +1745,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\n“<i>Of course,</i>” replies Kelly innocently. “<i>Right hands are important things to have. I am certain that Mistress Whitney makes a very effective right hand for you, [master].</i>” You redress and give her a harder slap than usual on the ass as you leave.' );
 			}
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Reward;
 	//Requirements: PC used “punish” at least once, 3+ days have gone by and “punish” has not proced*;
 	Kelly.prototype.rewardKelly = function() {
-		CoC.getInstance().flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] = 1;
+		CoC.flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] = 1;
 		EngineCore.clearOutput();
 		//First time: ;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_REWARDED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TIMES_REWARDED ] === 0 ) {
 			EngineCore.outputText( 'There seems to be an added bounce to Kelly\'s canter today.  She prances a bit playfully in front of you, grinning, whipping her demonic tail so that the high, sweet smell of her gushing pussy is in the air.  You realize she is calling your attention to her backside, which is unmarked.' );
 			EngineCore.outputText( '\n\n"<i>I\'ve been good, [Master].  So very, very... good.</i>"  Color is high in her cheeks, and although she\'s smiling proudly there is real desperation burning in her green eyes as she gazes at you.  "<i>We\'ll fuck now, right?  It\'s so hard being good.  After a while I can\'t think of anything but your cock and how wonderful it tastes and feels.  Last night it was so bad I blew my own fingers thinking about you...</i>"  She demonstrates graphically.  "<i>But I didn\'t cum.  I\'ve learnt my lesson [Master], now please fuck me!</i>"' );
 			EngineCore.outputText( '\n\nIt\'s difficult not to laugh at this earnest outpouring, and yet you can\'t help but feel a fond glow for your centaur slave, who has fought against her slutty nature to keep herself locked into a constant state of burning arousal just to please you.  Maybe it\'s time for a bit of kind [Master]-ing and provide her with some sort of reward, aside from fucking her rotten.' );
@@ -1764,27 +1764,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( 'Kelly holds her head up proudly as you inspect her, running your hand slowly over her backside.   It\'s nice and smooth.  You smile at her benevolently and tell her that since she\'s been such a good cumslut, you\'re going to reward her.  She claps excitedly.' );
 			EngineCore.outputText( '  "<i>Hurray!</i>"' );
 		}
-		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_REWARDED ]++;
+		CoC.flags[ kFLAGS.KELLY_TIMES_REWARDED ]++;
 		//*Don't know how the current “punish” system works so leave the function up to you.  Ideally each option should turn up 50% of the time after first punish;
 		EngineCore.menu();
 		//Hair Dye/Apple Sauce;
 		//[chestnut brown/sable black/garish purple/bright pink/slutty blonde) ;
-		if( CoC.getInstance().player.cockThatFits( 300 ) >= 0 && CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.cockThatFits( 300 ) >= 0 && CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Applesauce', this.giveKellyAppleSauce );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BLACK_D ) && CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'sable black' ) {
+		if( CoC.player.hasItem( ConsumableLib.BLACK_D ) && CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'sable black' ) {
 			EngineCore.addButton( 1, 'Black Dye', this.dyeKellysBitchAssHair, ConsumableLib.BLACK_D );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BLOND_D ) && CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'slutty blonde' ) {
+		if( CoC.player.hasItem( ConsumableLib.BLOND_D ) && CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'slutty blonde' ) {
 			EngineCore.addButton( 2, 'Blond Dye', this.dyeKellysBitchAssHair, ConsumableLib.BLOND_D );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.PURPDYE ) && CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'garish purple' ) {
+		if( CoC.player.hasItem( ConsumableLib.PURPDYE ) && CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'garish purple' ) {
 			EngineCore.addButton( 3, 'Purple Dye', this.dyeKellysBitchAssHair, ConsumableLib.PURPDYE );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.PINKDYE ) && CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'bright pink' ) {
+		if( CoC.player.hasItem( ConsumableLib.PINKDYE ) && CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'bright pink' ) {
 			EngineCore.addButton( 4, 'Pink Dye', this.dyeKellysBitchAssHair, ConsumableLib.PINKDYE );
 		}
-		if( CoC.getInstance().player.hasItem( ConsumableLib.BROWN_D ) && CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'chestnut brown' ) {
+		if( CoC.player.hasItem( ConsumableLib.BROWN_D ) && CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] !== 'chestnut brown' ) {
 			EngineCore.addButton( 5, 'Brown Dye', this.dyeKellysBitchAssHair, ConsumableLib.BROWN_D );
 		}
 		EngineCore.addButton( 9, 'Back', this.approachKelly );
@@ -1795,47 +1795,47 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell her you\'ve brought her a gift as you rummage around in your pockets.  Kelly looks apprehensive but pleasant surprise forms on her face when she catches the small vial of dye you throw at her.' );
 		EngineCore.outputText( '\n\n"<i>Oh wow, thanks [Master]! It\'s been ages since I did my hair.' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_DIED_HAIR ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TIMES_DIED_HAIR ] === 0 ) {
 			EngineCore.outputText( '</i>"\n\nShe stops and thinks.  "<i>In fact, I don\'t think I\'ve ever done my hair.  ' );
 		}
 		EngineCore.outputText( 'This\'ll be so much fun!</i>"  You walk over to the barn with her and pour some water into a wide bucket.  She lets down her braid and you spend a pleasant quarter of an hour or so helping her work the sharp-smelling substance into her long, luscious hair.  When you\'re done, you step back to admire the effect.  Amazingly the color is not only sinking into her hair but also into her tail, her demon spade slowly bleaching with the hue you chose.' );
-		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_DIED_HAIR ]++;
+		CoC.flags[ kFLAGS.KELLY_TIMES_DIED_HAIR ]++;
 		//Black dye:;
 		if( color === ConsumableLib.BLACK_D ) {
 			EngineCore.outputText( '\n\nKelly whips her jet black hair to look at it, trotting back and forth and considering, swishing her equally black tail.\n\n"<i>Mmm.  Not sure how much I like this, [Master],</i>" she says eventually.  "<i>It\'s very... severe, isn\'t it?</i>"  You say you picked it because you think it will contrast well with the substance she\'s most often covered in.  Kelly laughs fondly as she begins the long process of retying her braid.\n\n"<i>Oh, [Master].  Always thinking two moves ahead.  Thank you for your reward!</i>"' );
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'sable black';
-			CoC.getInstance().player.consumeItem( ConsumableLib.BLACK_D );
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'sable black';
+			CoC.player.consumeItem( ConsumableLib.BLACK_D );
 		}
 		//Blonde dye: ;
 		else if( color === ConsumableLib.BLOND_D ) {
 			EngineCore.outputText( '\n\nKelly whips her bonny, flaxen hair to look at it, and then bounces it happily with her hands.  Her blonde tail whips back and forth briskly.' );
 			EngineCore.outputText( '\n\n"<i>This feels... right, [Master].  Very right.</i>"  She looks at you lustfully.  "<i>Wanna see if we have more fun?</i>"  You say you\'ll definitely be back later to test that theory out.' );
 			EngineCore.outputText( '\n\n"<i>Don\'t stay away too long,</i>" she purrs, as she begins the long process of retying her braid.  You feel your bottle blonde bitch\'s eyes on you for a long time after you head out of the field.' );
-			CoC.getInstance().player.consumeItem( ConsumableLib.BLOND_D );
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'slutty blonde';
+			CoC.player.consumeItem( ConsumableLib.BLOND_D );
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'slutty blonde';
 		}
 		//Purple dye: ;
 		else if( color === ConsumableLib.PURPDYE ) {
 			EngineCore.outputText( '\n\nKelly whips her virulently purple hair to look at it, trotting back and forth and considering, wagging her equally purple tail.' );
 			EngineCore.outputText( '\n\n"<i>Like the goblins, I guess?  I don\'t know how much I like this color, [Master].</i>"  You say it\'ll serve as a constant reminder to her that she\'s a cock hungry breeding machine.  Kelly nods thoughtfully as she begins the long process of retying her braid.' );
 			EngineCore.outputText( '\n\n"<i>You\'re right [Master], I would hate to ever forget that.  Thank you for your reward!</i>"' );
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'garish purple';
-			CoC.getInstance().player.consumeItem( ConsumableLib.PURPDYE );
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'garish purple';
+			CoC.player.consumeItem( ConsumableLib.PURPDYE );
 		}
 		//Pink dye:;
 		else if( color === ConsumableLib.PINKDYE ) {
 			EngineCore.outputText( '\n\nKelly smiles with delight as she whips her bubblegum pink hair around to look at it, even prancing a bit so that her equally pink tail bounces.' );
 			EngineCore.outputText( '\n\n"<i>Ooh I like this, it makes me feel so... girly.  I feel pink inside!</i>"  You certainly do, you say.  Kelly giggles as she begins the long process of retying her braid.  She even sounds bubblier.' );
 			EngineCore.outputText( '\n\n"<i>Thank you for your reward, [Master]!</i>"' );
-			CoC.getInstance().player.consumeItem( ConsumableLib.PINKDYE );
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'bright pink';
+			CoC.player.consumeItem( ConsumableLib.PINKDYE );
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'bright pink';
 		}
 		//Brown dye: Kelly smiles as she examines the regained chestnut brown color of her hair and tail.;
 		else if( color === ConsumableLib.BROWN_D ) {
 			EngineCore.outputText( '\n\n"<i>I\'d almost forgotten what it looked like.</i>"  She sighs, twisting a lock of it in a finger.  She looks quite different with her hair down - it reaches almost to her flanks.  "<i>You\'ll bring more dye, right?  I\'d love to do more colors.</i>"  That depends, you say, on her being good.  Kelly sets her jaw determinedly as she begins the long process of retying her braid.' );
 			EngineCore.outputText( '\n\n"<i>Of course, [Master].  Thank you for your reward!</i>"' );
-			CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'chestnut brown';
-			CoC.getInstance().player.consumeItem( ConsumableLib.BROWN_D );
+			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'chestnut brown';
+			CoC.player.consumeItem( ConsumableLib.BROWN_D );
 		} else {
 			EngineCore.outputText( '\n\nYO dog, ' + color + ' is definitely not working right. Please report this to fenoxo using the report a bug link on the site.' );
 		}
@@ -1847,7 +1847,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	Kelly.prototype.giveKellyAppleSauce = function() {
 		EngineCore.clearOutput();
 		//First time:;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ] === 0 ) {
 			EngineCore.outputText( 'You tap your chin idly and ask Kelly what she likes eating.  Aside from dick, you add, rolling your eyes as she opens her mouth eagerly.' );
 			EngineCore.outputText( '\n\n"<i>Oh.  Um.  Well...</i>" she furrows her brow as if remembering a very distant time.  "<i>I used to like fruit.</i>"  She laughs a bit.  "<i>A stereotype really, you know, horses and apples?  Whitney even planted me a couple of apple trees across the back, but I never took care of them because I was a bit of a jerk-off back then.</i>"' );
 			EngineCore.outputText( '\n\nAt least your jerk off-ing is put to good use these days, you say kindly.  "<i>That\'s nice of you to say, [Master],</i>" replies the centaur solemnly.  She\'s wringing her hands, her thoughts elsewhere.' );
@@ -1860,24 +1860,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>You will?  I- well, thank you so much [Master], but you\'ll be careful, won\'t you?</i>" she says fretfully, still wringing her hands.  You go into her barn, grab a metal bowl and then stride off gallantly, as if setting off to take on Lethice herself, when in fact your epic quest involves jumping over a fence and walking 200 yards through some light woodland.' );
 			EngineCore.outputText( '\n\nThe three or four apple trees the farm dog planted back here have long since gone wild, covered in lichen and fighting for space with the bigger trees which crowd them.  Despite that, they and the ground beneath them are speckled with ripe looking apples.  You quickly gather a few, munching on one speculatively as you do.  It\'s sweet and crunchy, but- could it use a kick of some sort?  You laugh as the devilish, filthy idea forms.  Well, why not?  Apples are a distant second when it comes to Kelly\'s favorite forms of sustenance after all....' );
 			EngineCore.outputText( '\n\nYou grab a smooth stone, wipe it clean, and then begin to mash the apples in the bowl, picking out the stalks and seeds where you can.  You look critically at the mush you\'ve created.  Yep, you\'re definitely going to need some form of syrupy substance to make this work.  ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You remove the bottom half of your [armor] and grip your [cock].  You close your eyes, begin to stroke yourself and sigh as you think of Kelly- her fine, bountiful curves, her cute, dimpling face, how she unconsciously licks her cock-sucking lips when she sees you coming, how she begs for it, how sweetly she moans when you thrust deep into her tight, wet holes... your body clenches as you orgasm, spurting streamer after streamer of spunk into the apple mash.' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '\n\nYour [vagina] quivers and clenches, and gasping with the dual orgasm which is clutching your body you stand over the bowl and let some of your femcum drip into it.  Taste my summer flavor Kelly, you think wildly, and laugh with a slightly manic edge.' );
 				}
 				//[High cum:];
-				if( CoC.getInstance().player.cumQ() >= 750 ) {
+				if( CoC.player.cumQ() >= 750 ) {
 					EngineCore.outputText( '  The bowl quickly begins to brim as your [cock] torrents out cum, and eventually you have to turn away, grunting out the last jets of filth into the undergrowth.' );
 				}
 			}
 			//[Centaur:];
 			else {
 				EngineCore.outputText( 'You position your lower half over the bowl.  Your [cock] is already semi-turgid with the idea of what you\'re going to do, and it begins to bulge as you close your eyes, sigh and think of Kelly- her fine, bountiful curves, her cute, dimpling face, how she unconsciously licks her cock-sucking lips when she sees you coming, how she begs for it, how sweetly she moans when you thrust deep into her tight, wet holes... your body clenches as you orgasm, spurting streamer after streamer of spunk into the apple mash.' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '\n\nYour [vagina] quivers and clenches, and gasping with the dual orgasm which is clutching your body you stand over the bowl and let some of your femcum drip into it.  Taste my summer flavor Kelly, you think wildly, and laugh with a slightly manic edge.' );
 				}
 				//[High cum:;
-				if( CoC.getInstance().player.cumQ() >= 750 ) {
+				if( CoC.player.cumQ() >= 750 ) {
 					EngineCore.outputText( '  Your [cock] torrents out cum, and eventually you have to clop away, grunting out the last jets of filth onto the ground to avoid overflowing the bowl.' );
 				}
 			}
@@ -1889,29 +1889,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		else {
 			EngineCore.outputText( '\n\nYou go to the barn and grab your trusty metal bowl.  Kelly knows what this means: she clasps her hands eagerly, her horse half clopping backwards and forwards impatiently as she watches you walk casually towards the forest.' );
 			EngineCore.outputText( '\n\nThe small grove of apple trees has changed significantly from when you first found it.  Somebody has begun cutting the encroaching wild trees right back and pruned the rosaceae themselves so they aren\'t tangling into each other anymore- they look considerably happier.' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] > 1 ) {
+			if( CoC.flags[ kFLAGS.KELLY_KIDS ] > 1 ) {
 				EngineCore.outputText( '  Somebody has even cleared an oblong patch of earth alongside the trees- a piece of card stuck into it is scrawled with a childish hand which declares it to be “CAROTS”.  You marvel at it all.  Who would have imagined your lust for horse pussy would have turned a pointless asshole into a loving mother who gardens with her children?  Really, you deserve a medal for your efforts.' );
 			}
 
 			EngineCore.outputText( '\n\nYou take your time picking the best apples which catch your eye before mashing them up, once again removing the seeds and stalks.  Then, with a wicked smile, you ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'grasp your semi-turgid cock and drift into a fond reverie of Kelly- the way her boobs bounce when she canters towards you, the way her green eyes burn when they fall upon your [eachCock], the way she gasps when you slap her ass, how sweetly she moans when you thrust deep into her tight, wet holes, the galaxy of filthy things you still have left to do to her....  Your body clenches as you orgasm, spurting streamer after streamer of spunk into the apple mash.' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  Your [vagina] quivers and clenches, and once again, gasping with the dual orgasm which is clutching your body, you stand over the bowl and let some of your femcum drip into it.' );
 				}
 				//[High cum:;
-				if( CoC.getInstance().player.cumQ() >= 750 ) {
+				if( CoC.player.cumQ() >= 750 ) {
 					EngineCore.outputText( '  The bowl quickly begins to brim as your [cock] torrents out cum, and eventually you have to turn away, grunting out the last jets of filth into the undergrowth.' );
 				}
 			}
 			//[Centaur:;
 			else {
 				EngineCore.outputText( 'position your lower half over the bowl, your [cock] already semi-turgid as you drift into a fond reverie of Kelly- the way her boobs bounce when she canters towards you, the way her green eyes burn when they fall upon your [eachCock], how sweetly she moans when you thrust deep into her tight, wet holes, the galaxy of filthy things you still have left to do to her....  Your body clenches as you orgasm, spurting streamer after streamer of spunk into the apple mash.' );
-				if( CoC.getInstance().player.hasVagina() ) {
+				if( CoC.player.hasVagina() ) {
 					EngineCore.outputText( '  Your [vagina] quivers and clenches, and once again, gasping with the dual orgasm which is clutching your body, you stand over the bowl and let some of your femcum drip into it.' );
 				}
 				//High cum:;
-				if( CoC.getInstance().player.cumQ() >= 750 ) {
+				if( CoC.player.cumQ() >= 750 ) {
 					EngineCore.outputText( '  Your [cock] torrents out cum, and eventually you have to clop away, grunting out the last jets of filth onto the ground to avoid overflowing the bowl.' );
 				}
 			}
@@ -1923,19 +1923,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '  Ooh!</i>"  You slap her ass and grab her around her supple, human waist as you pass her.  Laughing, you walk into the barn together.' );
 		}
 		//[merge];
-		var x = CoC.getInstance().player.cockThatFits( 300 );
-		var y = CoC.getInstance().player.cockThatFits2( 300 );
+		var x = CoC.player.cockThatFits( 300 );
+		var y = CoC.player.cockThatFits2( 300 );
 		//Not Centaur: ;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nThe mere smell of the apple sauce has got Kelly\'s vagina dribbling, and in the close, warm environment of the barn the cloying, sweet smell radiating off her has got [eachCock] rock hard again, and your arousal urges you to work quickly.  You lead her to a shelf roughly level with her collarbone and place the bowl of apples sauce on it.  Transfixed by it, swallowing audibly, the centaur reaches for it automatically.  You catch her hand.' );
-			EngineCore.outputText( '\n\n"<i>No.  Put them here.</i>"  You set each one on either side of the bowl so she is clasping it.  "<i>Don\'t lift it until you have to.  That\'s it...</i>"  You watch, pulling off piece after piece of your [armor], as she dips her head into the bowl, scoops up a long lap of the green mash with her tongue and guides it into her wet mouth.  Her throat works and she closes her eyes.  Behind her, the intermittent dripping of her femcum on the straw turns into a steady trickle and you shake off the last of your underclothes in a hurry, stride over to her hindquarters and push your ' + Descriptors.cockDescript( x ) + ' against her sopping pussy gently, gripping her ' + CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' tail to her side so she doesn\'t inadvertently flick you with it.' );
-			EngineCore.outputText( '\n\nShe is radiating heat and her wet depths suck at your ' + CoC.getInstance().player.cockHead( x ) + ' deliciously.  Still, you hold back on your pulsing need to bury your cock into her, pressing at her entrance softly until you see her head go down again, and the sloppy sound of a centaur trying to draw as much apple sauce into her mouth as she can reaches your ears.  With a contented sigh, you slide your ' + Descriptors.cockDescript( x ) + ' into her, exulting in the hot slickness which envelops your sex bit by bit.' );
-			if( CoC.getInstance().player.cocks[ x ].cockThickness >= 4 ) {
+			EngineCore.outputText( '\n\n"<i>No.  Put them here.</i>"  You set each one on either side of the bowl so she is clasping it.  "<i>Don\'t lift it until you have to.  That\'s it...</i>"  You watch, pulling off piece after piece of your [armor], as she dips her head into the bowl, scoops up a long lap of the green mash with her tongue and guides it into her wet mouth.  Her throat works and she closes her eyes.  Behind her, the intermittent dripping of her femcum on the straw turns into a steady trickle and you shake off the last of your underclothes in a hurry, stride over to her hindquarters and push your ' + Descriptors.cockDescript( x ) + ' against her sopping pussy gently, gripping her ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' tail to her side so she doesn\'t inadvertently flick you with it.' );
+			EngineCore.outputText( '\n\nShe is radiating heat and her wet depths suck at your ' + CoC.player.cockHead( x ) + ' deliciously.  Still, you hold back on your pulsing need to bury your cock into her, pressing at her entrance softly until you see her head go down again, and the sloppy sound of a centaur trying to draw as much apple sauce into her mouth as she can reaches your ears.  With a contented sigh, you slide your ' + Descriptors.cockDescript( x ) + ' into her, exulting in the hot slickness which envelops your sex bit by bit.' );
+			if( CoC.player.cocks[ x ].cockThickness >= 4 ) {
 				EngineCore.outputText( '  Your girth spreads her fuck tunnel wide and you grunt at the delicious tightness of it as you pack her full of cock.' );
 			}
 
 			EngineCore.outputText( '\n\n"<i>Oh [Master]...</i>" Kelly groans, arching her head back from her feed.  A series of clenches grip your [cock] and a sudden gush of fluid warms your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls]' );
 			} else {
 				EngineCore.outputText( 'thighs' );
@@ -1947,8 +1947,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\nYou wait for Kelly\'s head to descend towards the bowl again and then thrust forward, penetrating both her holes at the same time.  She cries out from the intense sensation and then bucks back into you, helping you sink your ' + Descriptors.cockDescript( x ) + ' deeper and deeper into her ass, spreading her deliciously tight anal passage whilst your ' + Descriptors.cockDescript( y ) + ' slides effortlessly into the fleshy folds of her cunt.  You slap her ass exultantly, making her squeak again, as you find your limit before resuming the same rhythm, fucking both her sopping vagina and tight, hot ass now with deep, slow strokes.' );
 			}
 			EngineCore.outputText( '\n\nYou keep driving into her nice and measured for long minutes, leisurely enjoying the hot mass of your mare whilst keeping a handle on your own lust, waiting for her to get close to finishing her meal.  You lose track of the number of times Kelly orgasms.  Devouring a fruity cum fix whilst being fucked by you completely overwhelms her senses, and she spasms around your cocks again and again, spurting femcum onto your legs and the ground helplessly, clopping her hooves feverishly as she quivers.  The sight of beads of sweat rolling down her rosy human back are almost too much, but you manage to hold back until finally she picks up the bowl and takes it to her lips to pour the last of the green sweet down her gullet.' );
-			EngineCore.outputText( '\n\nWith her head thrown back it\'s easy for you to grip her ' + CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' braid and use it for leverage as you fuck into her with everything you\'ve got, bucking into her tight, hot flesh ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			EngineCore.outputText( '\n\nWith her head thrown back it\'s easy for you to grip her ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' braid and use it for leverage as you fuck into her with everything you\'ve got, bucking into her tight, hot flesh ' );
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', your [balls] slapping into her thighs demandingly ' );
 			}
 			EngineCore.outputText( 'as you push towards your reward.  Panting, Kelly thrusts back into you as best she can, resisting your frenetic tugs to her hair so that the big, final slather of apple sauce can slide out of the bowl and into her mouth.  She screams around the wet, gooey mouthful and her vagina quivers and seizes your bulging ' + Descriptors.cockDescript( x ) + ' in milking ripples' );
@@ -1960,14 +1960,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		//Centaur: ;
 		else {
 			EngineCore.outputText( '\n\nThe mere smell of the apple sauce has got Kelly\'s vagina dribbling, and in the close, warm environment of the barn the cloying, sweet smell radiating off her has got [eachCock] rock hard again, and your arousal urges you to work quickly.  With a “hup” you mount her, settling yourself onto her warm, rippling back, surrounding her with your heavy flesh, smell and presence, your [chest] pressing into her back as you bring the bowl around her head.  Transfixed by it, swallowing audibly, the centaur reaches for it automatically.' );
-			EngineCore.outputText( '\n\nYou tut mockingly and pull it away until she lowers her hands, then bring it in close to her face.  Her hands fall on her erect nipples as she dips her head into the bowl, scoops up a long lap of the green mash with her tongue and guides it into her wet mouth.  Her throat works and she closes her eyes.  The intermittent dripping of her femcum on the straw behind you turns into a steady trickle and your own arousal urgent now, you push your ' + Descriptors.cockDescript( x ) + ' against her sopping pussy gently.  She is radiating heat and her wet depths suck at your ' + CoC.getInstance().player.cockHead( x ) + ' deliciously.' );
+			EngineCore.outputText( '\n\nYou tut mockingly and pull it away until she lowers her hands, then bring it in close to her face.  Her hands fall on her erect nipples as she dips her head into the bowl, scoops up a long lap of the green mash with her tongue and guides it into her wet mouth.  Her throat works and she closes her eyes.  The intermittent dripping of her femcum on the straw behind you turns into a steady trickle and your own arousal urgent now, you push your ' + Descriptors.cockDescript( x ) + ' against her sopping pussy gently.  She is radiating heat and her wet depths suck at your ' + CoC.player.cockHead( x ) + ' deliciously.' );
 			EngineCore.outputText( '\n\nStill, you hold back on your pulsing need to bury your cock into her, pressing at her entrance softly until you touch the brim of the bowl against her teeth and watch her tongue slide out again, the sloppy sound of a centaur trying to draw as much apple sauce into her mouth as she can inundating your ears.  With a contented sigh, you slide your ' + Descriptors.cockDescript( x ) + ' into her, exulting in the hot slickness which envelops your sex bit by bit.' );
-			if( CoC.getInstance().player.cocks[ x ].cockThickness >= 4 ) {
+			if( CoC.player.cocks[ x ].cockThickness >= 4 ) {
 				EngineCore.outputText( '  Your girth spreads her fuck tunnel wide and you grunt at the delicious tightness of it as you pack her full of cock.' );
 			}
 
 			EngineCore.outputText( '\n\n"<i>Oh [Master]...</i>" Kelly groans, arching her head back from her feed so it spoons into your neck.  A series of clenches grip your ' + Descriptors.cockDescript( x ) + ' and a sudden gush of fluid warms your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls]' );
 			} else {
 				EngineCore.outputText( 'thighs' );
@@ -1978,8 +1978,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				EngineCore.outputText( '\n\nYou think about her tight, puckered asshole beneath you as lust grips you closer, a tiny puddle of human pink buried in her heaving brown horse flesh.  Your breath coming heavily now you withdraw your ' + Descriptors.cockDescript( x ) + ' from her wet softness, dripping with her lubrication.  Quickly you push it against her puckered anus whilst lining up your ' + Descriptors.cockDescript( y ) + ' with her gaping vagina.  You wait for Kelly\'s head to descend towards the bowl again and then thrust forward, penetrating both her holes at the same time.  She cries out from the intense sensation and then bucks back into you, helping you sink your ' + Descriptors.cockDescript( x ) + ' deeper and deeper into her ass, spreading her deliciously tight anal passage whilst your ' + Descriptors.cockDescript( y ) + ' slides effortlessly into the fleshy folds of her cunt.  You grab one of her soft tits and squeeze exultantly, making her squeak again, as you find your limit before resuming the same rhythm, fucking both her sopping vagina and tight, hot ass now with deep, slow strokes.' );
 			}
 			EngineCore.outputText( '\n\nYou keep driving into her nice and measured for long minutes, leisurely enjoying the hot mass of your mare whilst keeping a handle on your own lust, waiting for her to get close to finishing her meal.  You lose track of the number of times Kelly orgasm\'s.  Being fed a fruity cum fix whilst being mounted by you has completely overwhelmed her senses, and she spasms around your cocks again and again, spurting femcum onto your legs and the ground helplessly clopping her hooves feverishly as she quivers.  The sight of beads of sweat rolling down her rosy human back are almost too much, but you manage to hold back until finally you see all that the bowl is a quarter empty.' );
-			EngineCore.outputText( '\n\nYou grip her ' + CoC.getInstance().flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' braid and force her head to arch back before pushing the bowl against her lips, tipping the last of the green sweet down her gullet whilst you begin to fuck into her with everything you\'ve got, bucking into her tight, hot flesh' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			EngineCore.outputText( '\n\nYou grip her ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' braid and force her head to arch back before pushing the bowl against her lips, tipping the last of the green sweet down her gullet whilst you begin to fuck into her with everything you\'ve got, bucking into her tight, hot flesh' );
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', your [balls] slapping into her thighs demandingly' );
 			}
 			EngineCore.outputText( ' as you push towards your reward.' );
@@ -1991,19 +1991,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		}
 		//[merge];
 		EngineCore.outputText( '\n\nYou pool onto the floor when you are finished, ' );
-		if( CoC.getInstance().player.isBiped() ) {
+		if( CoC.player.isBiped() ) {
 			EngineCore.outputText( 'giving at the knees, ' );
 		}
 		EngineCore.outputText( 'your aching cock still weakly clenching.  In a beatific daze you listen to the sound of a tongue eagerly exploring every inch of a metal surface, before a bowl hits the ground.  A hand is offered to you and woozily you take it.  As soon as you are up Kelly pulls you into a fervent, passionate kiss, her soft lips pushing into yours.  The smell of apples envelops you.  You tense for a moment but decide to allow it.  It\'s her treat, after all.' );
 		EngineCore.outputText( '\n\nYou bend your head, sink your fingers into her hair and gently tangle your tongue with hers.  ' );
-		if( CoC.getInstance().player.cor < 60 ) {
+		if( CoC.player.cor < 60 ) {
 			EngineCore.outputText( 'The taste of cum glazing her apple breath is off-putting but what did you really expect?' );
 		} else {
 			EngineCore.outputText( 'You don\'t like to admit it but you do taste pretty good, even to yourself.  You push your tongue further into Kelly\'s mouth hungrily, working your jaw as you savage her mouth with your lips and tongue in search of that fruity, horny flavour, making her \'mmm\' with delight and respond in kind.' );
 		}
 
 		//First:;
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ] === 0 ) {
 			EngineCore.outputText( '"<i>That was the best treat ever [Master],</i>" she murmurs when you break away, gazing into your eyes lovingly.  "<i>I liked apples but never quite as much as that.  Wow.</i>"  You hold her face and say she should look after that orchard: who knows, maybe she\'ll be good enough to deserve a second helping.  Kelly smiles eagerly.' );
 			EngineCore.outputText( '\n\n"<i>I will be [Master], you watch!</i>"  You dress yourself and amble out of the stable with her before sending her on her way with a loving, jiggling swat to her boobs.' );
 		}
@@ -2012,9 +2012,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '"<i>That tastes better every time you make it [Master],</i>" she purrs when you break away, gazing into your eyes lovingly.  "<i>You should go into business with it.</i>"  You grin at the idea and say who knows?  Maybe Mareth will eventually behave well enough to appreciate it as much as she does.  "<i>I long for that day every moment of every day,</i>" your slave replies fervently, stroking the hand you\'re holding her face with.' );
 			EngineCore.outputText( '\n\nYou dress yourself and amble back out of the stable with her before sending her on her way with a loving, jiggling swat to her boobs.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ]++;
+		CoC.flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob;
@@ -2022,99 +2022,99 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You step into Kelly, a question fading on her lips as you put your arms around her waist and answer it by drawing her face into yours.  You kiss her hungrily, pushing your tongue into her hot mouth.  It\'s almost an instinctive reaction - it\'s difficult to look at her face and not be drawn to her plump, pert lips, to not want to touch them, to use them.  And godsdamn, does she know how to use them.  She responds to your kiss in kind, humming blissfully as she eagerly accepts your tongue, rolling and curling it with her own, entwined like two lovers, drawing it further into her warm wetness as her pillowy boobs push into your [chest], her sweet, horny smell invading your nostrils as her overfull lips mash into your own, rubbing at your philtrum gently.' );
 		EngineCore.outputText( '\n\nYou are already ragingly hard, [eachCock] throbbing to the idea of those warm, expert folds of flesh sliding over ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'it' );
 		} else {
 			EngineCore.outputText( 'them' );
 		}
 		EngineCore.outputText( '.  You pull away, catching Kelly\'s tongue with your own lips teasingly as you do, so you can watch her very slowly withdraw it, licking her lips so they glisten, her eyes shining with a depthless, green desire.  You murmur that it\'s time to put that mouth to use it was made for.  She\'s folding her legs beneath her before you\'ve finished speaking, her hungry jade eyes never leaving yours.' );
 		//Not Centaur: ;
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nYour [cock biggest] strains outwards as you slide out of your [armor], and you grin as you draw in close to Kelly\'s face, letting the heavy, demanding smell of your musk envelop her.  Her skin flushes and her breath comes more rapidly as you brush her cheek with it.  You smile and gently but firmly tell her to put her hands under her tits, close her eyes, open her mouth and then be still.  You admire the sight as you languidly rub yourself, your pretty centaur slave presenting her big round breasts to you and her tongue out, waiting to take your load whole.' );
 			EngineCore.outputText( '\n\nYou step in and tease her with your [cock biggest], softly brushing her face with your [cockHead biggest], working the musky smell deep into her head.  She closes her eyes and breathes out deeply, enveloping your crotch in warm air.' );
-			if( CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockType === CockTypesEnum.HORSE ) {
+			if( CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockType === CockTypesEnum.HORSE ) {
 				EngineCore.outputText( '  You wonder whether the fact it is a horse cock, protruding proudly out of its sheath, makes it particularly difficult for her to resist, that it triggers some deep urge hardwired into her.  There\'s no way to really judge, but it seems like you\'ve only just begun to tantalize her with it that the air below you is filled with bitten off grunts and moans, her mouth and head unconsciously bending towards your flared stallion prick as you rub it into her, always keeping it tantalizingly out of reach of her mouth.' );
 			}
 			EngineCore.outputText( '  Finally, after about a minute of this tender torture, she groans from deep within her throat.' );
 			EngineCore.outputText( '\n\n"<i>Please [Master], let me swallow you, let me taste your strength, let me feel like a slut should,</i>" she begs.  "<i>I\'ll make it so good for you you\'ll never want anyone else, just like I will never want anyone else.  Just... let me drink your cum!</i>"  You let a long second go by.' );
 			EngineCore.outputText( '\n\n"<i>Go on then,</i>" you say, trying to keep the amused tone out of your voice.  "<i>Show me why you deserve it.  Nice and slow.</i>"  Her hands still holding up her gorgeous fuck udders, Kelly lets out a small whinny of pleasure and bends into your crotch, kissing the base of your bulging [cock biggest] longingly as she gets to work.' );
 			//If PC has anything else aside from cock:;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  You\'re in no hurry, and with a slight roll of your [hips] you direct her to start at the back and work her way up.' );
 			}
 			//Vagina and balls: ;
-			if( CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.balls > 0 && CoC.player.hasVagina() ) {
 				EngineCore.outputText( '\n\nKelly brushes your [balls] out of the way as she burrows deep into your groin, her hot tongue finally pressing against your [vagina], oozing already in sympathy to the lust which has gripped your male sex.  She is a bit of a stranger to your female anatomy but she\'s a quick and eager learner, tracing your entrance with the tip of her tongue before pushing her plush lips into your opening, covering your outer lips and your clit in shifting softness as she burrows into your tunnel with her tongue, curling deep into you as she worships every inch she can reach with her flexible mouth muscle, lapping up every trace of sweet moisture she finds with vocal pleasure.' );
 				EngineCore.outputText( '\n\nYou close your eyes and lose yourself for a while, very gently thrusting your [hips] into her hot mouth as she makes your [vagina] glow with pleasure, sending small spasms of ecstasy shooting through your core, keeping your [cock biggest] straining.  It\'d be so easy to ride her face to orgasm... but no, you signed up for the whole ten yards here and she isn\'t even close to being finished.  With a bit of encouragement with your hips, you get her to pull away from your beading muff and move on to your balls.  She sighs as she begins to lavish them with worshipful attention.' );
 				//[Normal balls:;
-				if( CoC.getInstance().player.ballSize <= 8 ) {
+				if( CoC.player.ballSize <= 8 ) {
 					EngineCore.outputText( '\n\nAfter curling her tongue here and there over each sensitive orb, bathing them in saliva, she envelops each one in her mouth, sucking gently first one, then the second' );
-					if( CoC.getInstance().player.balls > 2 ) {
+					if( CoC.player.balls > 2 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  She moans intermittently as she does it, and you\'re not sure if it\'s intentionally to send delightful shivers of sensation through your scrotum and up the spine of [eachCock], or it\'s simply because the sheer degradation of the act fills her with deep, shameful lust.  Supporting her soft, ' );
 					if( this.pregnancy.isPregnant ) {
 						EngineCore.outputText( 'milk-laden ' );
 					}
-					EngineCore.outputText( 'breasts whilst slavishly polishing the [balls] of the ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.  Whatever the cause the result is the same: pleasure thrums through your groin and up your [cock biggest], and you close your eyes, lost to the sensations of her skillful tongue.' );
+					EngineCore.outputText( 'breasts whilst slavishly polishing the [balls] of the ' + CoC.player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.  Whatever the cause the result is the same: pleasure thrums through your groin and up your [cock biggest], and you close your eyes, lost to the sensations of her skillful tongue.' );
 				}
 				//[Huge balls:;
 				else {
 					EngineCore.outputText( '\n\nAfter curling her tongue here and there over each sensitive orb, bathing them in saliva, she attempts to envelop one in her mouth.  She can\'t though- your testicles, bulging and tight with arousal, are simply too big.  After a short pause she goes back to licking them, lapping at their surface tenderly, licking all around each one for every trace of salt and musk, wetly caressing first one, then the second' );
-					if( CoC.getInstance().player.balls > 2 ) {
+					if( CoC.player.balls > 2 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  The warm air is punctuated with desperate \'ahh, ahn, ahh\'s as she surrenders herself to the deep, shameful lust of the act, supporting her soft' );
 					if( this.pregnancy.isPregnant ) {
 						EngineCore.outputText( ', milk laden' );
 					}
-					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.' );
+					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the ' + CoC.player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.' );
 					//[Dominika dreams:;
-					if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
+					if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
 						EngineCore.outputText( '  You are gripped by a sudden but thrilling velvet-edged sense of déjà vu.  Has this scene not repeated somewhere else?' );
 					}
 				}
 			}
 			//Vagina:;
-			else if( CoC.getInstance().player.hasVagina() ) {
+			else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '\n\nKelly\'s hot tongue presses against your [vagina], oozing already in sympathy to the lust which has gripped your male sex.  She is a bit of a stranger to your female anatomy but she\'s a quick and eager learner, tracing your entrance with the tip of her tongue before pushing her plush lips into your opening, covering your outer lips and your clit in shifting softness as she burrows into your tunnel with her tongue, curling deep into you as she worships every inch she can reach with her flexible mouth muscle, lapping up every trace of sweet moisture she finds with vocal pleasure.' );
 				EngineCore.outputText( '\n\nYou close your eyes and lose yourself for a while, very gently thrusting your [hips] into her hot mouth as she makes your [vagina] glow with pleasure, sending small spasms of ecstasy shooting through your core, keeping your [cock biggest] straining.  It\'d be so easy to ride her face to orgasm, but no, you signed up for the whole ten yards here and she isn\'t close to being finished.  With a bit of encouragement with your hips, you get her to pull away from your beading muff and move up to your cock.' );
 			}
 			//Balls:;
-			else if( CoC.getInstance().player.balls > 0 ) {
+			else if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '\n\nKelly\'s hot tongue presses against your [balls] and you sigh as she begins to lavish them with worshipful attention.  ' );
 				//[Normal balls:];
-				if( CoC.getInstance().player.ballSize <= 8 ) {
+				if( CoC.player.ballSize <= 8 ) {
 					EngineCore.outputText( 'After curling her tongue here and there over each sensitive orb, bathing them in saliva, she envelops each one in her mouth, sucking gently first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  She moans intermittently as she does it, and you\'re not sure if it\'s intentionally to send delightful shivers of sensation through your scrotum and up the spine of [eachCock], or it\'s simply because the sheer degradation of the act, supporting her soft, ' );
 					if( this.pregnancy.isPregnant ) {
 						EngineCore.outputText( 'milk-laden ' );
 					}
-					EngineCore.outputText( 'breasts whilst slavishly polishing the [balls] of the ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch, fills her with deep, shameful lust.  Whatever the cause, the result is the same: pleasure thrums through your groin and up your [cock biggest], and you close your eyes, lost to the sensations of her skillful tongue.' );
+					EngineCore.outputText( 'breasts whilst slavishly polishing the [balls] of the ' + CoC.player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch, fills her with deep, shameful lust.  Whatever the cause, the result is the same: pleasure thrums through your groin and up your [cock biggest], and you close your eyes, lost to the sensations of her skillful tongue.' );
 				}
 				//Huge balls:;
 				else {
 					EngineCore.outputText( 'After curling her tongue here and there over each sensitive orb, bathing them in saliva, she attempts to envelop one in her mouth.  She can\'t though; your testicles, bulging and tight with arousal, are simply too big.  After a short pause she goes back to licking them, lapping at their surface tenderly, licking all around each one for every trace of salt and musk, wetly caressing first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  The warm air is punctuated with desperate \'ahh, ahn, ahh\'s as she surrenders herself to the deep, shameful lust of the act, supporting her soft ' );
 					if( this.pregnancy.isPregnant ) {
 						EngineCore.outputText( ', milk laden' );
 					}
-					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.' );
+					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the ' + CoC.player.mf( 'man', 'woman' ) + ' who made her into, well, a ball-licking bitch.' );
 					//Dominika dreams:;
-					if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
+					if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
 						EngineCore.outputText( '  You are gripped by a sudden but thrilling, velvet-edged sense of déjà vu.  Has this scene not repeated somewhere else?' );
 					}
 				}
 			}
 			//[merge];
 			EngineCore.outputText( '\n\nBreathing heavily, she presses her lips against the base of your [cock biggest] again before slowly working her way up, licking here and kissing softly there as she goes.  ' );
-			if( CoC.getInstance().player.biggestCockLength() > 15 ) {
+			if( CoC.player.biggestCockLength() > 15 ) {
 				EngineCore.outputText( 'It\'s a long way up and the effect is like a lift slowly rising, turning on a glow of lights on each level as it goes.  ' );
 			}
 			EngineCore.outputText( 'Finally she reaches your [cockHead biggest], and after resting her lips on your crown for a short time, moving them ever-so-gently to tantalize the most sensitive part of your bulging erection, she opens wide and envelops you, gripping the end of your dick in a soft, wet cave of shifting pleasure.  She slowly impales herself on it, her plump lips encapsulating more and more of your dick in sucking mouth flesh, and then it recedes, eventually even retreating from the crown as she goes back to licking and kissing the length.' );
@@ -2122,7 +2122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\nGrinning, you fully take in the image of your big boobed cumslut barely able to control her arousal as she laps at the very end of your cock with her hot tongue, and close your eyes as it causes you to dribble out even more pre.  It\'s enough.  Kelly moans as she sips the tiny stream down and shudders, her eyes rolling as femcum volubly spatters the ground behind her.  You shake your head in amazement.  It\'s so tempting to join her in orgasm and coat her with the load that is now pressing insistently on your cock... but no.  You aren\'t done yet, not by a long shot.' );
 			EngineCore.outputText( '\n\n"<i>It\'s lovely that you\'re such a bitch you can cum just from lapping up the smallest trickle of my weakest juices,</i>" you say, letting amusement soak into your words.  "<i>But we aren\'t here for you.  What can you do for me?</i>"  The centaur only has eyes for your prick, licking her plump lips instinctively as she gathers her breath, her ardour and hunger not dimmed in the slightest.  She swathes your [cockHead biggest] in her mouth again, her head bobbing purposefully as your length is swallowed by the roiling wetness again, this time working rhythmically, ribbing it with pliant pleasure.  You sigh as you begin to lose yourself in the soft but purposeful motion, revolving your hips now with the pulse of her movements.' );
 			EngineCore.outputText( '\n\nBit by bit, she takes more and more of your [cock biggest] into her milking redness.' );
-			if( CoC.getInstance().player.biggestCockLength() > 12 ) {
+			if( CoC.player.biggestCockLength() > 12 ) {
 				EngineCore.outputText( '  She can\'t take all of your dick but she tries her best, thrusting her head down as she crams her mouth with your thick hardness until you are touching her tonsils.  Lust crowding you now, you take hold of her head and force her further down your [cock biggest], gently but purposefully pushing further into her tight throat with each thrust.  You manage to hold back on your urge to simply face fuck her as hard as you can, instead taking hold of the base of her braid and moving her back and forth on your length as sensually as you can, drawing your dick back from the delicious tightness of her throat so she can breathe deep and spend a moment worshipping your [cockHead biggest] with her tongue and lips, eliciting a moaned \'mmm\' from her each time before penetrating her gullet again.' );
 			}//[Cock <12: ;
 			else {
@@ -2130,18 +2130,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			EngineCore.outputText( '\n\nShe runs her tongue forward along the underbelly of your [cock biggest] as you thrust inwards and then backwards as you withdraw, creating the sweetest friction imaginable, and you find you are breathing hard, running close to the wind now as you thrust into her sucking, milking mouth harder and harder.  The more vigorously you do it, the louder Kelly\'s muffled sighs and slurps of pleasure become.' );
 			EngineCore.outputText( '\n\nShe has been holding her boobs out to you this whole time, and it seems churlish not to accept such a pleasant invitation.  You hold yourself right back, letting her tongue and caress your engorged cockhead for a long moment, waiting until her hums turn into outright gasps of arousal, then thrust as deep as you can into her juicy mouth, holding her head as you face fuck your way to your pent up high.  At the last moment' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', as you feel your [balls] clench' );
 			}
 			EngineCore.outputText( ', you pull out, grip your [cock biggest] at the base, point it at your cumslut\'s big creamy tits and groan as your bulging cock tenses.  She \'aww\'s in deep disappointment as the dick is torn away from her but she obediently presents her fat, pert breasts, and her breathy sigh is what you hear as orgasm clenches you.  Your cock slit dilates and you spurt out rope after rope of jizz' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 				EngineCore.outputText( ' onto all four of her tits' );
 			}
 			EngineCore.outputText( '.  The sensation of deep release is ecstatic, the sight of your cock cream pasting your slave\'s softness delicious.' );
-			if( CoC.getInstance().player.cumQ() >= 750 ) {
+			if( CoC.player.cumQ() >= 750 ) {
 				EngineCore.outputText( '\n\nAs ever you can barely control yourself once you get going, and it feels like you cum for minutes on end, painting not just her chest but her face and stomach, not stopping until she is absolutely caked and dripping with your potent sex.' );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '\n\nYour female sex clenches and orgasms in sympathy, and you feel fluid dribble down your [hips] as you continue to paint Kelly.  Your only dim regret is that there\'s no way of soaking her with that, too.' );
 			}
 			EngineCore.outputText( '  Finally you are spent.' );
@@ -2151,7 +2151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\nYou feel your [cock biggest] straining downwards as you slide out of your [armor], and you grin as you draw in close to Kelly, letting the smell of your demanding musk envelop her as you stand over her, drooping your cock against her face.  Her skin flushes and her breath comes more rapidly as you brush her cheek with it.  You smile, step back and gently but firmly tell her to put her hands under her tits, close her eyes, open her mouth and then be still.' );
 			EngineCore.outputText( '\n\nYou admire the sight for a moment.  Blood surges into your [cock biggest] as you look at your pretty centaur slave presenting her big, round breasts to you with her tongue out, waiting patiently to take your load whole.  You clop in and tease her again with your [cock biggest], softly brushing her face with your [cockHead biggest], working the musky smell deep into her head.  She closes her eyes and breathes out deeply, enveloping your crotch in warm air.' );
 			//Horse cock:;
-			if( CoC.getInstance().player.cocks[ CoC.getInstance().player.biggestCockIndex() ].cockType === CockTypesEnum.HORSE ) {
+			if( CoC.player.cocks[ CoC.player.biggestCockIndex() ].cockType === CockTypesEnum.HORSE ) {
 				EngineCore.outputText( '\n\nYou wonder whether the fact that you are a centaur and it is a horse cock, protruding proudly out of its sheath, makes it particularly difficult for her to resist, that your animal musk triggers some deep urge hardwired into her.  There\'s no way to really judge, but it seems like you\'ve only just begun to tantalize her with it that the air below your barrel-like body is filled with bitten off grunts and moans as you rub her with your flared stallion prick, always keeping it tantalizingly out of reach of her mouth.' );
 			}
 			EngineCore.outputText( '  Finally, after about a minute of this tender torture, you hear her groan from deep within her throat.' );
@@ -2159,17 +2159,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\nYou let a long second go by.' );
 			EngineCore.outputText( '\n\n"<i>Go on then,</i>" you say, trying to keep the amused tone out of your voice. "<i>Show me why you deserve it.  Nice and slow.  And keep your hands where they are.</i>"  Kelly lets out a small whinny of pleasure and bends into your crotch, kissing the base of your [cock biggest] longingly as she gets to work.' );
 			//If PC has anything else aside from a single cock:;
-			if( CoC.getInstance().player.cockTotal() > 1 || CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.cockTotal() > 1 || CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  You\'re in no hurry, and with a slight roll of your [hips] you direct her to start at the front and work her way down.' );
 			}
 			//Vagina and balls:;
-			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.hasVagina() && CoC.player.balls > 0 ) {
 				EngineCore.outputText( '\n\nKelly brushes your [balls] out of the way as she burrows deep into your groin, her hot tongue finally pressing against your [vagina], oozing already in sympathy to the lust which has gripped your male sex.  She is a bit of a stranger to your female anatomy but she\'s a quick and eager learner, tracing your entrance with the tip of her tongue before pushing her plush lips into your opening, covering your outer lips and your clit in shifting softness as she burrows into your tunnel with her tongue, curling deep into you as she worships every inch she can reach with her flexible mouth muscle, lapping up every trace of sweet moisture she finds with vocal pleasure.' );
 				EngineCore.outputText( '\n\nYou close your eyes and lose yourself for a while, very gently thrusting your [hips] into her hot mouth as she makes your [vagina] glow with pleasure, sending small spasms of ecstasy shooting through your core, keeping your [cock biggest] straining.  It\'d be so easy to ride her face to orgasm... but no, you signed up for the whole ten yards here and she isn\'t even close to being finished.  With a bit of encouragement with your hips, you get her to pull away from your beading muff and move on to your balls.  She sighs as she begins to lavish them with worshipful attention.' );
 				//[Normal balls:;
-				if( CoC.getInstance().player.ballSize <= 8 ) {
+				if( CoC.player.ballSize <= 8 ) {
 					EngineCore.outputText( '\n\nAfter curling her tongue here and there over each sensitive orb, bathing them in saliva, she envelops each one in her mouth, sucking gently first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  She moans intermittently as she does it, and you\'re not sure if it\'s intentionally to send delightful shivers of sensation through your scrotum and up the spine of [eachCock], or it\'s simply because the sheer degradation of the act fills her with deep, shameful lust- supporting her soft' );
@@ -2181,7 +2181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				//[Huge balls:;
 				else {
 					EngineCore.outputText( '\n\nAfter curling her tongue here and there over each sensitive orb, bathing them in saliva, she attempts to envelop one in her mouth.  She can\'t though - your testicles, bulging and tight with arousal, are simply too big.  After a short pause she goes back to licking them, lapping at their surface tenderly, licking all around each one for every trace of salt and musk, wetly caressing first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  The warm air is punctuated with desperate \'ahh, ahn, ahh\'s as she surrenders herself to the deep, shameful lust of the act, supporting her soft' );
@@ -2189,23 +2189,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 						EngineCore.outputText( ', milk laden' );
 					}
 					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the centaur who made her into, well, a ball-licking bitch.' );
-					if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
+					if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
 						EngineCore.outputText( '  You are gripped by a sudden but thrilling, velvet-edged sense of déjà vu.  Has this scene not repeated somewhere else?' );
 					}
 				}
 			}
 			//Vagina: ;
-			else if( CoC.getInstance().player.hasVagina() ) {
+			else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '\n\nKelly\'s hot tongue presses against your [vagina], oozing already in sympathy to the lust which has gripped your male sex.  She is a bit of a stranger to your female anatomy but she\'s a quick and eager learner, tracing your entrance with the tip of her tongue before pushing her plush lips into your opening. She covers your outer lips and your clit in shifting softness as she burrows into your tunnel with her tongue, curling deep into you as she worships every inch she can reach with her flexible mouth muscle.  Lapping up every trace of sweet moisture she finds, Kelly hums with vocal pleasure.' );
 				EngineCore.outputText( '\n\nYou close your eyes and lose yourself for a while, very gently thrusting your [hips] into her hot mouth as she makes your [vagina] glow with pleasure, sending small spasms of ecstasy shooting through your core, keeping your [cock biggest] straining.  It\'d be so easy to ride her face to orgasm... but no, you signed up for the whole ten yards here, and she isn\'t close to being finished.  With a bit of encouragement with your hips, you get her to pull away from your beading muff and move down to your cock.' );
 			}
 			//Balls: ;
-			else if( CoC.getInstance().player.balls > 0 ) {
+			else if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '\n\nKelly\'s hot tongue presses against your [balls] and you sigh as she begins to lavish them with worshipful attention.  ' );
 				//[Normal balls:;
-				if( CoC.getInstance().player.ballSize <= 8 ) {
+				if( CoC.player.ballSize <= 8 ) {
 					EngineCore.outputText( '  After curling her tongue here and there over each sensitive orb, bathing them in saliva, she envelops each one in her mouth, sucking gently first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  She moans intermittently as she does it, and you\'re not sure if it\'s intentionally to send delightful shivers of sensation through your scrotum and up the spine of [eachCock], or it\'s simply because the sheer degradation of the act, supporting her soft' );
@@ -2217,7 +2217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 				//[Huge balls:;
 				else {
 					EngineCore.outputText( '  After curling her tongue here and there over each sensitive orb, bathing them in saliva, she attempts to envelop one in her mouth.  She can\'t though - your testicles, bulging and tight with arousal, are simply too big.  After a short pause, she goes back to licking them, lapping at their surface tenderly, licking all around each one for every trace of salt and musk, wetly caressing first one, then the second' );
-					if( CoC.getInstance().player.balls >= 4 ) {
+					if( CoC.player.balls >= 4 ) {
 						EngineCore.outputText( ', then the third, then the fourth' );
 					}
 					EngineCore.outputText( ', then back to the first one, a slow and sensual repetition.  The warm air is punctuated with desperate \'ahh, ahn, ahh\'s as she surrenders herself to the deep, shameful lust of the act, supporting her soft' );
@@ -2225,7 +2225,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 						EngineCore.outputText( ', milk-laden' );
 					}
 					EngineCore.outputText( ' breasts whilst slavishly polishing the [balls] of the centaur who made her into, well, a ball-licking bitch.' );
-					if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
+					if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 ) {
 						EngineCore.outputText( '  You are gripped by a sudden but thrilling, velvet-edged sense of déjà vu.  Has this scene not repeated somewhere else?' );
 					}
 				}
@@ -2233,7 +2233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			//[merge];
 			EngineCore.outputText( '\n\nBreathing heavily, she presses her lips against the base of your [cock biggest] again before slowly working her way down, licking here and kissing softly there as she goes.' );
 			//[Cock >15 inches:;
-			if( CoC.getInstance().player.biggestCockLength() > 15 ) {
+			if( CoC.player.biggestCockLength() > 15 ) {
 				EngineCore.outputText( '  It\'s a long way down and the effect is like a lift slowly descending, turning on a glow of lights on each level as it goes.' );
 			}
 			EngineCore.outputText( '  Finally she reaches your [cockHead biggest], and after resting her lips on your crown for a short time, moving them ever-so-gently to tantalize the most sensitive part of your bulging erection, she opens wide and envelops you, gripping the end of your dick in a soft, wet cave of shifting pleasure.  She slowly impales herself on it, her plump lips encapsulating more and more of your dick in sucking mouth flesh... and then it recedes, eventually even retreating from the crown as she goes back to licking and kissing the length.' );
@@ -2242,7 +2242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			EngineCore.outputText( '\n\n"<i>It\'s lovely that you\'re such a bitch you can cum just from lapping up the smallest trickle of my weakest juices,</i>" you say, letting amusement soak into your words.  "<i>But we aren\'t here for you.  What can you do for me?</i>"  After a short pause, Kelly responds by swathing your [cockHead biggest] in her mouth again, her head bobbing purposefully as your length is swallowed by the roiling wetness again, this time working rhythmically, ribbing it with pliant pleasure.  You sigh as you begin to lose yourself in the soft but assiduous motion, revolving your hips now with the pulse of her movements.' );
 			EngineCore.outputText( '\n\nBit by bit, she takes more and more of your [cock biggest] into her milking redness.  ' );
 			//[Cock >12:;
-			if( CoC.getInstance().player.biggestCockLength() > 12 ) {
+			if( CoC.player.biggestCockLength() > 12 ) {
 				EngineCore.outputText( '  She can\'t take all of your dick but she tries her best, thrusting her head down as she crams her mouth with your thick hardness until you are touching her tonsils.  Lust crowding you now, you thrust your back haunches forward, forcing her further down your [cock biggest], gently but purposefully pushing further into her tight throat with each thrust.  You manage to hold back on your urge to simply face fuck her as hard as you can, instead moving her back and forth on your length as sensually as you can, drawing your dick back from the delicious tightness of her throat so she can breathe deep and spend a moment worshipping your [cockHead biggest] with her tongue and lips, eliciting a moaned “mmm” from her each time before penetrating her gullet again.' );
 			}
 			//[Cock <12: ;
@@ -2251,34 +2251,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 			}
 			EngineCore.outputText( '\n\nShe runs her tongue forward along the underbelly of your [cock biggest] as you thrust inwards and then backwards as you withdraw, creating the sweetest friction imaginable, and you find you are breathing hard, running close to the wind now as you thrust into her sucking, milking mouth harder and harder.  The more vigorously you do it the louder Kelly\'s muffled slurps and sighs of pleasure become.' );
 			EngineCore.outputText( '\n\nShe has been holding her boobs out to you this whole time, and it seems churlish not to accept such a pleasant invitation.  You hold yourself right back, letting her tongue and caress your engorged cockhead for a long moment, waiting until her hums turn into outright gasps of arousal, then thrust as deep as you can into her juicy mouth, fucking that juicy, slutty hole all the way up to your pent up high.  At the last moment' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', as you feel your [balls] clench' );
 			}
 			EngineCore.outputText( ', you pull out and point your [cock biggest] downwards.  She \'aww\'s in deep disappointment as the dick is torn away from her, but you shush her.' );
 			EngineCore.outputText( '\n\n"<i>I\'m going to cum now,</i>" you grit out, your pulse as heavy and hard in your head as the load in your cock is.  "<i>If you want to drink my leavings down like a shameless, whimpering, ' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'pussy-licking, ' );
 			}
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'ball-sucking ' );
 			}
 			EngineCore.outputText( 'cock addict, you will have to do a good job of catching it on those whore pillows of yours.</i>"  With that, you thrust your hindquarters forward.  Her breathy groan is what you hear as orgasm clenches you.' );
 			EngineCore.outputText( '\n\nYour cock slit dilates and you spurt out rope after rope of jizz' );
-			if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+			if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 				EngineCore.outputText( ' onto all four of her tits' );
 			}
 			EngineCore.outputText( '.  The sensation of deep release is ecstatic, the sound of your cock cream spattering onto your slave\'s softness delicious.' );
 			//[Vagina:;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Your female sex clenches and orgasms in sympathy, and you feel fluid dribble down your [hips] as you continue to paint Kelly.  Your only dim regret is that there\'s no way of soaking her with that, too.' );
 			}
 			EngineCore.outputText( '\n\nFinally you are spent.  You clop around to admire your handiwork.' );
 			//Low cum:;
-			if( CoC.getInstance().player.cumQ() < 750 ) {
+			if( CoC.player.cumQ() < 750 ) {
 				EngineCore.outputText( '  Kelly has done a sterling job of catching your load; you\'ve frosted her boobs with long strokes quite convincingly.' );
 			} else {
 				EngineCore.outputText( '  As ever, your virility has gotten the better of you.  Kelly looks like she\'s in an ecstatic trance.  You\'ve completely pasted not just ' );
-				if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+				if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 					EngineCore.outputText( 'all four of ' );
 				}
 				EngineCore.outputText( 'her boobs with alabaster ooze, but her stomach, face and hair.  She\'s holding a reservoir of the stuff in her cleavage.' );
@@ -2287,32 +2287,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		//[merge];
 		EngineCore.outputText( '\n\n"<i>Thank you for using me, [Master],</i>" she says once you\'re finished, grinning happily as she gazes at the off-white goo splattered across her breasts, her cheeks rosy with exertion.  "<i>But, couldn\'t you have made it in my mouth?  I would have swallowed it all down, you know.  I\'m a good girl.</i>"' );
 		EngineCore.outputText( '\n\nYou laugh as you settle yourself down facing towards her' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( ', still clutching your pleasantly aching prick' );
 		}
 		EngineCore.outputText( ', saying you know she is, but it\'s a lot more pleasing to you to see her get her fix this way.  Quickly cottoning on, the centaur stares at you with her lustful green eyes as she lifts a cum-spattered boob to her mouth.' );
 		EngineCore.outputText( '\n\nYou watch as Kelly licks herself clean, sending her mouth slowly sliding across her soft, sensitive curves, lapping up every rivulet of your thick seed she can reach.  At first, she does it to put on a show for you, holding your eyes with a winsome smile as she bends her tongue into her pliant flesh and hooks another stream of cum into her maw with an exaggerated smack of her lips.  But the effect your fluids have on her quickly takes over, and she laps at her boobs with increasing urgency, a flush high on her cheeks as your warm jizz slides down her throat, scratching her itch, making her yet more needy, more addicted to you with each load she swallows.' );
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] > 0 ) {
 			EngineCore.outputText( '\n\nShe can\'t reach her lower row of tits with her tongue, so she simply runs her hands over them, sighing as she rubs your musk into her horny skin and hard nipples before running her tongue across her palms.' );
 		}
 		EngineCore.outputText( '  She leaves a trail of cum leaking down a nipple until at last, closing her eyes, she tenses and orgasms with a muffled sigh as her wet tongue pushes over her erect nub and guides the last of your fix into her mouth.' );
 		//[Libido <50: ;
-		if( CoC.getInstance().player.lib < 50 ) {
+		if( CoC.player.lib < 50 ) {
 			EngineCore.outputText( '\n\nYou stroke yourself languidly to the obscene display and your [cock biggest] is hard again by the time she\'s finished.  It\'d be so easy to stay here and do it with her again, and again, and again... but no, there are plenty of other places you need to be and you are quite spent.  You say goodbye to your cumslut centaur with a fond kiss on the forehead and a slap on the ass before leaving the farm behind you.' );
 		}
 		//Libido >50:;
 		else {
 			EngineCore.outputText( '\n\nYou stroke yourself languidly to the obscene display, and your [cock biggest] is straining urgently again before she\'s even half done.  Although your intention was to leave once she had finished, you find yourself letting her gaze hungrily into your eyes again, letting her press her hands on your [chest]' );
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ', letting her sensually lick you out again until your [vagina] is gleaming with arousal' );
 			}
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( ', letting her needily suckle on your [balls] again until they are inflamed with renewed pressure' );
 			}
 			EngineCore.outputText( ', letting her engulf your [cock biggest] with her plump lips again, letting her soft, muffled moans fill your ears as her head bobs over your groin until you clench and cum again, jetting every last drop you have remaining into that beautiful, filthy, juicy little mouth.  Kelly swallows it all down, and goes on licking your clean [cockHead biggest] until you order her with a slight groan to stop.' );
 			EngineCore.outputText( '\n\n"<i>See?  I\'m a good girl, [Master].  Never doubt it!</i>" she says with a wide grin, putting her arms around your waist and gazing up at you, profoundly proud of herself.  You suppose you should be mad at her for taking advantage of your out-of-control libido, but it\'s difficult to get really angry with a slave who sucks dick quite as well as she does.  After you\'ve rested for a short while, you say goodbye to your cumslut centaur with a fond kiss on the forehead and a slap on the ass, before leaving the farm behind you.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

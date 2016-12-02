@@ -15,15 +15,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	//Implementation of TimeAwareInterface;
 	Cotton.prototype.timeChange = function() {
 		this.pregnancy.pregnancyAdvance();
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 0 && CoC.getInstance().time.hours === 23 ) {
-			CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_AGE ]++;
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 0 && CoC.time.hours === 23 ) {
+			CoC.flags[ kFLAGS.COTTON_OLDEST_KID_AGE ]++;
 		}
-		$log.debug( '\nCotton time change: Time is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
+		$log.debug( '\nCotton time change: Time is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
 		return false;
 	};
 	Cotton.prototype.timeChangeLarge = function() {
-		if( CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] === 1 && CoC.getInstance().player.biggestLactation() >= 2 ) {
-			CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 0;
+		if( CoC.time.hours === 6 && CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] === 1 && CoC.player.biggestLactation() >= 2 ) {
+			CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 0;
 			this.nomSomeTitMilkCereal();
 			return true;
 		}
@@ -38,34 +38,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 
 		//Okay, we have a chance!  Run the numbers!;
 		//Herbs off?  Good chances!;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] > 0 ) {
-			if( Utils.rand( 5 ) === 0 || CoC.getInstance().player.cumQ() > Utils.rand( 1000 ) || CoC.getInstance().player.virilityQ() >= 0.5 ) {
+		if( CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] > 0 ) {
+			if( Utils.rand( 5 ) === 0 || CoC.player.cumQ() > Utils.rand( 1000 ) || CoC.player.virilityQ() >= 0.5 ) {
 				this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_COTTON );
 			}
 		}
 		//HERBS ON - LESS CHANCE;
 		else {
 			//First kid is lucky!;
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
-				if( Utils.rand( 5 ) === 0 || CoC.getInstance().player.cumQ() * CoC.getInstance().player.virilityQ() >= Utils.rand( 1000 ) ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
+				if( Utils.rand( 5 ) === 0 || CoC.player.cumQ() * CoC.player.virilityQ() >= Utils.rand( 1000 ) ) {
 					this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_COTTON );
 				}
 			}
 			//NOT FIRST KID - LESS LUCKY!;
-			else if( CoC.getInstance().player.cumQ() * CoC.getInstance().player.virilityQ() >= Utils.rand( 1000 ) ) {
+			else if( CoC.player.cumQ() * CoC.player.virilityQ() >= Utils.rand( 1000 ) ) {
 				this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_COTTON );
 			}
 		}
 	};
 	Cotton.prototype.cottonPregPCChance = function() {
 		//No kids yet - lucky!;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 0 && CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] === 0 ) {
-			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 600 );
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 0 && CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] === 0 ) {
+			CoC.player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 600 );
 		} else {
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] === 0 ) {
-				CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 1000 );
+			if( CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] === 0 ) {
+				CoC.player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 1000 );
 			} else {
-				CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 100 );
+				CoC.player.knockUp( PregnancyStore.PREGNANCY_COTTON, PregnancyStore.INCUBATION_COTTON, 100 );
 			}
 		}
 	};
@@ -75,13 +75,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 
 	//Been told of naga book quest?;
 	Cotton.prototype.cottonsIntro = function() {
-		if( CoC.getInstance().time.hours >= 12 && CoC.getInstance().time.hours <= 18 ) {
+		if( CoC.time.hours >= 12 && CoC.time.hours <= 18 ) {
 			//Gym intro scene (haven't met):;
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] === 0 ) {
+			if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] === 0 ) {
 				EngineCore.outputText( '\n\nYou see a tall, busty horse-girl doing some stretches over on a nearby mat.  Even from this far away, you can tell from the bulge in her pants that she\'s no ordinary \'girl\'.', false );
 			}
 			//Gym intro scene (met, haven't had sex):;
-			else if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] === 1 ) {
+			else if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] === 1 ) {
 				EngineCore.outputText( '\n\nYou spot Cotton, the busty hermaphrodite horse-girl, doing her yoga on a nearby mat.', false );
 			}
 			//Gym intro scene (met, have had sex):;
@@ -98,19 +98,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-greeting' ) );
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( 'The centauress sees you starting for the horse-girl and says, "<i>Go ahead and talk, but if you want to work out with her I\'ll have to charge you.</i>"\n\n', false );
 		}
 		//Greeting (first time):;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 1;
+		if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] === 0 ) {
+			CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 1;
 			EngineCore.outputText( 'You wander over to the equine on the mat, curious as to what she\'s doing.  She stretches out on her mat, spine flexed.  Her head cranes backwards to see you approach.  "<i>Oh, hi there!</i>" She grins an upside-down grin at you and finishes her stretch before standing up.  ', false );
 			//(If PC height is greater than 6'6</i>";
-			if( CoC.getInstance().player.tallness > 78 ) {
+			if( CoC.player.tallness > 78 ) {
 				EngineCore.outputText( 'Despite her impressive stature, you still look down on her.', false );
 			}
 			//(If PC height is in between:;
-			else if( CoC.getInstance().player.tallness >= 76 ) {
+			else if( CoC.player.tallness >= 76 ) {
 				EngineCore.outputText( 'She\'s roughly your height, which is rather impressive in itself.', false );
 			}
 			//(If PC height is under 6'4</i>":;
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '  She\'s garbed in a white and pink form-fitting tank top along with a pair of black skintight pants that come down to about her mid-shin.  The pants do absolutely nothing to hide the enormous bulge in her crotch, if anything they only enhance it.  Her dark brown skin seems smooth and hairless, unlike most equines you\'ve met, and her red mane of hair falls just past her shoulders, though it\'s currently pulled back into an efficient ponytail.\n\n', false );
 			//(If player has a Centaur or Naga body, replace last line with:;
-			if( CoC.getInstance().player.isTaur() || CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isTaur() || CoC.player.isNaga() ) {
 				/*EngineCore.outputText('"<i>I\'d love to teach you, but I\'m afraid I don\'t know any good routines for your... body type. Sorry, pet.</i>"', false);
 				 //Back to gym!;
 				 EngineCore.doNext(13);
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				return;
 			}
 			//(If Centaur or Naga);
-			if( CoC.getInstance().player.isTaur() || CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isTaur() || CoC.player.isNaga() ) {
 				/*EngineCore.outputText('You approach Cotton, who gives you a friendly smile. "<i>Hey, there little pet. I\'m afraid I don\'t know any good stretches for your body... Maybe some other time.</i>"', false);
 				 EngineCore.doNext(13);
 				 return;*/
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		}
 	};
 	Cotton.prototype.cottonGreetingCommonEnd = function() {
-		if( CoC.getInstance().player.pregnancyIncubation <= 225 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_COTTON ) {
+		if( CoC.player.pregnancyIncubation <= 225 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_COTTON ) {
 			//Lamaze Class*;
 			//Approach Cotton, PC visibly pregnant (at least 2nd trimester, or whatever is equivalent in CoC-land);
 			EngineCore.outputText( 'As you approach Cotton, she smiles and looks at your round belly.  "<i>Hey there my pet, I\'m afraid in your condition, yoga is out of the question... but we can do some special stretches and lamaze, just get dressed as usual.</i>"' );
@@ -181,10 +181,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	Cotton.prototype.cottonMenu = function() {
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yoga', this.acceptYoga );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
 			EngineCore.addButton( 1, 'Visit Kids', this.visitCottonKids );
 		}
-		if( this.pregnancy.isPregnant || CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] >= 1 ) {
+		if( this.pregnancy.isPregnant || CoC.flags[ kFLAGS.COTTON_KID_COUNT ] >= 1 ) {
 			EngineCore.addButton( 2, 'Herbs', this.cottonContraceptionToggle );
 		}
 		EngineCore.addButton( 4, 'Leave', this.turnDownYogaWifCottonFirstTime );
@@ -193,29 +193,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	Cotton.prototype.centaurNagaBodyBookStuff = function() {
 		EngineCore.spriteSelect( 12 );
 		//Havent been told about the book yet?;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 0 ) {
 			EngineCore.outputText( '"<i>I\'d love to teach you, but I\'m afraid I don\'t know any good routines for your... body type. Sorry, pet...</i>" she trails off, as if considering something, and then turns back to you, saying, "<i>Actually, I think I might know where you could find a book of exercises that would work for you. A traveling salesman came by once, and I saw it in his wares, a book of advanced yoga techniques, aimed at the more exotically shaped denizens of Mareth. I didn\'t pick it up, of course, because I didn\'t need it. But if you could find the salesman and bring the book back to me, I\'d most definitely be able to coach you.</i>"', false );
 			//(Adds Yoga Book to Giacomo's inventory under Books);
-			CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
+			CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Come back wtih book first time;
-		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 && CoC.getInstance().player.hasKeyItem( 'Yoga Guide' ) >= 0 ) {
+		else if( CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 && CoC.player.hasKeyItem( 'Yoga Guide' ) >= 0 ) {
 			EngineCore.outputText( '"<i>Have you retrieved the book I mentioned?</i>" You nod and hand the leather-bound book over to her. She grins and flicks through the pages. "<i>Oooh, yes I thought as much... Mm-hm... Oh my, nagas can stretch like that?</i>" Suddenly remembering you\'re here, she says, "<i>I\'ll study this quickly. Come back later and I\'ll be able to give you a great workout.</i>"', false );
-			CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
+			CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Been told about the book but dont have it.;
-		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 ) {
+		else if( CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 ) {
 			EngineCore.outputText( '"<i>Have you retrieved the book I mentioned?</i>" You shake your head sadly, and she sighs. "<i>Well, until you do there\'s not much I can do for you.</i>"', false );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//First time with book;
-		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 2 ) {
+		else if( CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 2 ) {
 			//(On approach with Centaur/Naga body first time after giving the book);
 			EngineCore.outputText( 'You approach Cotton, who gives you an exuberant grin. "<i>I\'ve read through the book and I\'m pretty confident I can coach you now. What do you say we give it a go? I\'ve arranged for some proper yoga clothes for you. Well, really just the top, but that\'s what matters for you, isn\'t it?</i>"\n\n', false );
 			EngineCore.outputText( 'Do you want to engage in Yoga with her?', false );
-			CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
+			CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
 			this.cottonMenu();
 		} else {
 			this.cottonGreetingCommonEnd();
@@ -237,71 +237,71 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		var fuckHer = null;
 		var getFucked = null;
 		var option3 = null;
-		if( CoC.getInstance().player.fatigue > 80 ) {
+		if( CoC.player.fatigue > 80 ) {
 			EngineCore.outputText( 'You\'re way too tired to do any yoga right now.', false );
 			EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 && CoC.getInstance().player.gems < 10 ) {
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 && CoC.player.gems < 10 ) {
 			EngineCore.outputText( 'Before you can start the yogo the centauress steps in and says, "<i>Ten gems for gym fees.</i>"\n\nYou fish around in your pouches, but you just don\'t have enough.  Maybe some other time!', false );
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
-			CoC.getInstance().player.gems -= 10;
+		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
+			CoC.player.gems -= 10;
 			EngineCore.statScreenRefresh();
 			EngineCore.outputText( 'The centauress collects ten gems for gym fees before the two of you can get into it.\n\n', false );
 		}
 		//(Yes) LAMAZE;
-		if( CoC.getInstance().player.pregnancyIncubation <= 225 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_COTTON ) {
+		if( CoC.player.pregnancyIncubation <= 225 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_COTTON ) {
 			EngineCore.outputText( 'You change into your yoga clothes and approach Cotton, saying you\'d love a lamaze class. Cotton smiles and sets up a mat for you, then sits down, urging you to sit in front of her.  You do so, feeling the bulge in her pants pressing against your rump, and her breasts at your back.  You spend the next fifteen minutes doing breathing exercises like this, and another fifteen minutes doing stretches on an exercise ball.  As you\'re working out, Cotton presses her body against yours, running her hands around your swollen belly at every opportunity.\n\n' );
 			//CHAT STUFF!;
 			this.cottonChat();
 			EngineCore.outputText( 'Once you\'re done and about to hit the showers, Cotton pulls you aside and says with a grin, "<i>Up for some post-workout exercises?</i>"', false );
 			//[Shower Sex (Fuck Her) (As Male or Herm only)] [Shower Sex (Get Fucked)] [Tantric Sex (Only if Speed is 50+)] [Leave];
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				fuckHer = this.fuckCottonInShowerRepeat;
 			}
-			if( CoC.getInstance().player.gender > 0 ) {
+			if( CoC.player.gender > 0 ) {
 				getFucked = this.cottonFucksYouInShowerRepeat;
 			}
-			//if(CoC.getInstance().player.spe >= 50 && !CoC.getInstance().player.isTaur()) option3 = 2819;;
+			//if(CoC.player.spe >= 50 && !CoC.player.isTaur()) option3 = 2819;;
 			EngineCore.choices( 'Fuck Her', fuckHer, 'Get Fucked', getFucked, 'Tantric Sex', option3, '', null, 'Leave', this.leaveCotton );
 		}
 		//First time;
-		else if( CoC.getInstance().flags[ kFLAGS.TIMES_HAD_YOGA ] === 0 ) {
-			EngineCore.outputText( '"<i>Good, good, you won\'t regret it. First things first, pet, let\'s get you out of that dreadful clothing.</i>"  She leads you to the lockers and helps you strip out of your ' + CoC.getInstance().player.armorName + '.', false );
-			if( CoC.getInstance().player.gender === 3 ) {
+		else if( CoC.flags[ kFLAGS.TIMES_HAD_YOGA ] === 0 ) {
+			EngineCore.outputText( '"<i>Good, good, you won\'t regret it. First things first, pet, let\'s get you out of that dreadful clothing.</i>"  She leads you to the lockers and helps you strip out of your ' + CoC.player.armorName + '.', false );
+			if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '  She spies your crotch and smiles, "<i>Oh, best of both worlds, are we? Well you\'re in good company then.</i>"', false );
 			}
 			//(If PC is male:;
-			else if( CoC.getInstance().player.hasCock() ) {
+			else if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '  She cradles your ' + Descriptors.cockDescript( 0 ) + ' and smiles at you, "<i>Well, we might find a use for that later.</i>"', false );
 			}//(If PC is female:;
-			else if( CoC.getInstance().player.hasVagina() ) {
+			else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  She pats your groin and says, "<i>Y\'know, I know some good exercises that really work the vaginal muscles... perhaps we\'ll talk about that later.</i>"', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'She then helps you into an outfit identical to her own and you both return to the gym proper.\n\n', false );
 			EngineCore.outputText( 'She instructs you to lay on the mat, and you do. She proceeds to talk you through several poses, and hovers over you to correct your positioning here or there with a soft touch. Several times she bends over you, and her enormous bosom gets right in your face. At one point she stands over your head and you accidentally get a face full of her musky crotch. After about a half hour of this, the arousal and fatigue is too much and you explain you have to quit for now.\n\n', false );
-			EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.sens / 20) );
+			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 10 + CoC.player.sens / 20) );
 			EngineCore.outputText( '"<i>Oh, that\'s too bad. But you\'ve done pretty good for a beginner,</i>" she helps you up off the mat and pats you gently on the back. "<i>Want to hit the showers then?</i>" Despite having done little more than stretching, you find you are sweating quite a bit... but something makes you wonder if her idea of hitting the shower is the same as yours.', false );
 			//[Shower] or [Leave];
 			EngineCore.choices( 'Shower', this.cottonShowerFunTimes, '', null, '', null, '', null, 'Leave', this.leaveAfterYoga );
 		}
 		//(Repeat Encounter (Didn't have sex));
 		//Done yoga > 0 && met type = 1;
-		else if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] === 1 && CoC.getInstance().flags[ kFLAGS.TIMES_HAD_YOGA ] > 0 ) {
+		else if( CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] === 1 && CoC.flags[ kFLAGS.TIMES_HAD_YOGA ] > 0 ) {
 			EngineCore.outputText( 'You change into your yoga clothes and approach Cotton, saying you\'d love another yoga workout. Cotton smiles and sets up a mat for you. You spend the next half an hour trying different poses and stretches while she corrects you, sometimes pressing her body against yours to show you how it\'s done.\n\n', false );
 			EngineCore.outputText( 'Once you\'re done and about to hit the showers, Cotton pulls you aside and says, "<i>I know you weren\'t comfortable with our shower before, so I won\'t join you this time. But if you ever change your mind, just say the word.</i>"', false );
 			//[Shower Sex (Fuck Her)] [Shower Sex (Get Fucked)] [Tantric Sex (Only if Speed is 50+)] [Leave];
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				fuckHer = this.fuckCottonInShowerRepeat;
 			}
-			if( CoC.getInstance().player.gender > 0 ) {
+			if( CoC.player.gender > 0 ) {
 				getFucked = this.cottonFucksYouInShowerRepeat;
 			}
-			if( CoC.getInstance().player.spe >= 50 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.spe >= 50 && !CoC.player.isTaur() ) {
 				option3 = this.cottonTantricSex;
 			}
 			EngineCore.choices( 'Fuck Her', fuckHer, 'Get Fucked', getFucked, 'Tantric Sex', option3, '', null, 'Leave', this.leaveCotton );
@@ -309,10 +309,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//(Repeat Encounter (Had Sex));
 		else {
 			//(For Centaur Bodies: );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You change into your yoga clothes (just the tank top, really), and approach Cotton, saying you\'d love a yoga workout. Cotton smiles and sets up a large mat for you. You spend the next half hour trying different poses and stretches, mostly dealing with your upper half but occasionally requiring you to stretch out your legs or lay down. As you work out, Cotton presses her body against yours under the pretense of showing you how it\'s done, but really just to press her tits and crotch up against you.\n\n', false );
 			}//(For Naga Bodies: );
-			else if( CoC.getInstance().player.isNaga() ) {
+			else if( CoC.player.isNaga() ) {
 				EngineCore.outputText( 'You change into your yoga clothes (just the tank top, really), and approach Cotton, saying you\'d love a yoga workout. Cotton smiles and sets up a large mat for you. You spend the next half hour trying different poses and stretches, a lot of which involves coiling in certain ways, or creating shapes with your snake-like body. Cotton seems genuinely impressed at your range of flexibility. As you work out, she presses her body against yours under the pretense of showing you how it\'s done, but really just to press her tits and crotch up against you.\n\n', false );
 			}//(For Humanoid Bodies: );
 			else {
@@ -323,40 +323,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			this.cottonChat();
 			EngineCore.outputText( 'Once you\'re done and about to hit the showers, Cotton pulls you aside and says with a grin, "<i>Up for some post-workout exercises?</i>"', false );
 			//[Shower Sex (Fuck Her) (As Male or Herm only)] [Shower Sex (Get Fucked)] [Tantric Sex (Only if Speed is 50+)] [Leave];
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				fuckHer = this.fuckCottonInShowerRepeat;
 			}
-			if( CoC.getInstance().player.gender > 0 ) {
+			if( CoC.player.gender > 0 ) {
 				getFucked = this.cottonFucksYouInShowerRepeat;
 			}
-			if( CoC.getInstance().player.spe >= 50 && !CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.spe >= 50 && !CoC.player.isTaur() ) {
 				option3 = this.cottonTantricSex;
 			}
 			EngineCore.choices( 'Fuck Her', fuckHer, 'Get Fucked', getFucked, 'Tantric Sex', option3, '', null, 'Leave', this.leaveCotton );
 		}
 		//(Increases muscle tone up to 50, speed and feminine features.);
-		CoC.getInstance().player.modTone( 52, 1 );
-		CoC.getInstance().flags[ kFLAGS.TIMES_HAD_YOGA ]++;
+		CoC.player.modTone( 52, 1 );
+		CoC.flags[ kFLAGS.TIMES_HAD_YOGA ]++;
 		EngineCore.fatigue( 20 );
-		EngineCore.dynStats( 'spe', 1, 'lus', (5 + CoC.getInstance().player.lib / 20 + CoC.getInstance().player.sens / 20) );
+		EngineCore.dynStats( 'spe', 1, 'lus', (5 + CoC.player.lib / 20 + CoC.player.sens / 20) );
 	};
 	Cotton.prototype.cottonChat = function() {
 		EngineCore.spriteSelect( 12 );
 		var chats = [];
 		//Urta chance;
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 ) {
 			chats[ chats.length ] = 1;
 		}
 		//Edryn chance;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Edryn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) >= 0 ) {
 			chats[ chats.length ] = 2;
 		}
 		//(Scylla chat);
-		if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
+		if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
 			chats[ chats.length ] = 2;
 		}
 		//VALA;
-		if( CoC.getInstance().flags[ kFLAGS.FREED_VALA ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.FREED_VALA ] !== 0 ) {
 			chats[ chats.length ] = 3;
 		}
 		//(Jojo chat);
@@ -367,7 +367,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//(Urta Chat);
 		if( choice === 1 ) {
 			//(If you've rejected Urta's love or left her);
-			if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] < 0 || CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] < 0 ) {
+			if( CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] < 0 || CoC.flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] < 0 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Urta?</i>" Cotton says, "<i>She\'s a good woman, but she\'s been pretty depressed lately.</i>" Your yoga partner scowls at you, and presses you into an uncomfortable pose, "<i>I hear you upset her. The poor girl has had an awfully cruel life.  I hope you didn\'t make it any worse for her.</i>"\n\n', false );
 			}
 			//(If you've accepted Urta's love);
@@ -381,12 +381,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//(Edryn chat);
 		else if( choice === 2 ) {
 			//(If Edryn has been knocked up, and PC rejected it);
-			if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] > 0 ) {
+			if( CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] > 0 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Edryn?</i>" Cotton says, "<i>I hear you knocked her up, then left her with the kid. Well, I think she\'ll make a great mom by herself, but really pet, what were you thinking? It was awfully cruel of you.</i>" The rest of the workout is filled with more painful stretches, and Cotton assists you more roughly than normal.\n\n', false );
 			}
 			//(If Edryn has been knocked up, and PC didn't reject it);
-			else if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
-				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Edryn?</i>" Cotton says and giggles, "<i>I hear you knocked her up, good on you. I think she\'ll make a great mom, and you ' + CoC.getInstance().player.mf( 'a great dad', 'as well' ) + '.</i>"  She gives you a kiss on the cheek and continues the stretches.\n\n', false );
+			else if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
+				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Edryn?</i>" Cotton says and giggles, "<i>I hear you knocked her up, good on you. I think she\'ll make a great mom, and you ' + CoC.player.mf( 'a great dad', 'as well' ) + '.</i>"  She gives you a kiss on the cheek and continues the stretches.\n\n', false );
 			}
 			//(If Edryn hasn't been knocked up);
 			else {
@@ -396,18 +396,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//(Scylla chat);
 		else if( choice === 3 ) {
 			//(if Scylla hasn't formed support group);
-			if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] < 5 && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
+			if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] < 5 && CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Scylla?</i>" Cotton says, "<i>She\'s the oddly dressed woman at the Wet Bitch, right? Can\'t say I know much about her. She\'s so secretive.</i>"\n\n', false );
 			}
 			//(if Scylla has formed support group);
-			else if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 5 ) {
+			else if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 5 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Scylla?</i>" Cotton says, "<i>I hear she formed an addiction support group. Good on her, there\'s a lot of people in and around town who need help. I\'m glad she\'s stepping up.</i>"\n\n', false );
 			}
 		}
 		//(Vala chat);
 		else if( choice === 4 ) {
 			//(Only if Vala has been freed);
-			if( CoC.getInstance().flags[ kFLAGS.FREED_VALA ] !== 0 ) {
+			if( CoC.flags[ kFLAGS.FREED_VALA ] !== 0 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Vala?</i>" Cotton says, "<i>That\'s the new waitress at the Wet Bitch, right? She\'s cute. A shame what she\'s gone through. Sometimes I wish we could wipe out every last imp.</i>"\n\n', false );
 			}
 		}
@@ -441,10 +441,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'Without the clothes on, you can see her body is quite well toned. Not overly muscular, but you can easily make out the muscles on her belly. She sports a belly ring, and each nipple has a barbell piercing. Looking a bit lower, you finally take in her equine cock. It\'s quite large, at least a foot long flaccid, as it is now. You wonder how big it gets... She catches you looking and gives you a devilish grin.\n\n', false );
 		EngineCore.outputText( '"<i>Well? Care for a little... post-workout stretching?</i>"', false );
 		//[Fuck Her (Male or Herm only)] [Get Fucked] [Service her] [Refuse];
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			option1 = this.cottonFirstTimeFuckHer;
 		}
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			option2 = this.cottonFucksYou;
 		}
 		EngineCore.choices( 'Fuck Her', option1, 'Get Fucked', option2, 'ServiceHer', this.serviceFirstTimeCotton, '', null, 'Refuse', this.refuseFirstTimeCotton );
@@ -452,10 +452,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	//(Fuck Her);
 	Cotton.prototype.cottonFirstTimeFuckHer = function() {
 		EngineCore.spriteSelect( 12 );
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-first-fuck' ) );
-		var x = CoC.getInstance().player.cockThatFits( 100 );
+		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = 0;
 		}
@@ -467,48 +467,48 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'After another minute, you pull your flaccid cock out of your horse lover\'s hole and take the moment to carefully wash the both of you up.\n\n', false );
 		EngineCore.outputText( 'Your \'post-workout stretch\' and shower done, the two of you dry off, redress and leave the gym. Cotton takes you by the arm and says, "<i>That was great, pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.\n\n', false );
 		this.pregCottonChance();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Get fucked, as Male);
 	Cotton.prototype.cottonFucksYou = function() {
 		EngineCore.spriteSelect( 12 );
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-fucks-you' ) );
-		CoC.getInstance().player.slimeFeed();
-		if( CoC.getInstance().player.gender === 1 ) {
+		CoC.player.slimeFeed();
+		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'You nod your head in assent. Noticing you didn\'t take the initiative, Cotton smiles and moves behind you, pushing you under your own shower spray. "<i>Don\'t worry, my little pet, let Cotton take care of everything...</i>" She gets a handful of soap and gently rubs your back, massaging the soap in while relaxing your muscles. You lean forward resting your arms and torso against the wall in front of you.\n\n', false );
 			EngineCore.outputText( 'Cotton smiles, continuing to massage the soap in until she gets to your buttocks. There, she gets another handful of soap and presses it into your crack, gently soaping you up from taint to tailbone. Then she carefully inserts one finger into your ' + Descriptors.assholeDescript() + ' then two, three and before long her entire hand is exploring your depths. She giggles and withdraws her hand, "<i>My my, such an eager little ass you have, my pet.</i>"\n\n', false );
 			EngineCore.outputText( 'She reaches between her legs and lifts her cock, letting it rest on the small of your back while she wets it down with water from the shower and strokes it to its full length. You feel it inching across your back, growing hotter and harder. With a glance back, you estimate it must be at least two feet long! You gulp and put your head down, clenching your teeth for the inevitable.\n\n', false );
 			EngineCore.outputText( '"<i>Oh now pet, don\'t be so scared,</i>" Cotton whispers into your ear, then lifts her cock from your back and places it at your ' + Descriptors.assholeDescript() + '. She reaches forwards and you hear the squeak of the temperature nozzle being turned. Seconds later, the water pouring down on you gets hotter, causing your whole body to heat up in response. Using this time, Cotton presses forwards, her equine cock invading your ' + Descriptors.assholeDescript() + ' like a charging army. She thrusts in and out slowly, being careful not to hurt you.', false );
-			CoC.getInstance().player.buttChange( 72, true, true, false );
+			CoC.player.buttChange( 72, true, true, false );
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Before long you find yourself moaning beneath her, your ' + Descriptors.assholeDescript() + ' clenching and unclenching uncontrollably. "<i>Ooh, my little pet likes it now, hmmm?</i>" She whispers into your ear and nibbles on it ever-so-slightly. You can\'t help but give a breathless "<i>Yes</i>" in response. Cotton giggles and speeds up her thrusts. You find yourself pushing back into her, urging her to go deeper and deeper. Your own dick is completely limp in the presence of this godly cock, but tingles with pleasure and anticipation.\n\n', false );
 			EngineCore.outputText( 'After a few minutes of this, neither of you can take much more. Both of you give a deep moan of orgasmic pleasure as your ' + Descriptors.assholeDescript() + ' clenches and you feel your equine lover\'s cock twitch and spasm within you, flooding your hole with her hot seed. Your own limp member shudders with orgasm, but instead of spurting, it leaks a small torrent of cum right down onto the floor.', false );
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  You nearly clog the drain with all the spooge leaking from your flaccid shaft.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'The two of you slip down onto the floor, right into your puddle of cum, letting the water rinse you off for the time being. After a minute, Cotton pulls her now flaccid (but still impressive) cock from your rear, which gapes open for several minutes afterward, and proceeds to clean the both of you up.\n\n', false );
 			EngineCore.outputText( 'Your \'post-workout stretch\' and shower done, the two of you dry off, redress and leave the gym. Cotton takes you by the arm and says, "<i>That was great, little pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.\n\n', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', 2 );
 		}
 		//(Get fucked, as Female);
-		else if( CoC.getInstance().player.gender === 2 ) {
+		else if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( 'You nod your head in assent. Noticing you didn\'t take the initiative, Cotton smiles and moves behind you, pushing you under your own shower spray. "<i>Don\'t worry, my little pet, let Cotton take care of everything...</i>" She gets a handful of soap and gently rubs your back, massaging the soap in while relaxing your muscles. You lean forward resting your arms and torso against the wall in front of you.\n\n', false );
 			EngineCore.outputText( 'Cotton smiles, continuing to massage the soap in until she gets to your rear. There, she gets another handful of soap and presses it into your crevasse, gently soaping you up from ' + Descriptors.clitDescript() + ' to tailbone. Then she carefully inserts one finger into your pussy, then two, three, and before long her entire hand is exploring your most personal depths. She giggles and withdraws her hand, "<i>My my, such an eager little cunt you have, my pet.</i>"\n\n', false );
 			EngineCore.outputText( 'She reaches between her legs and lifts her cock, letting it rest on the small of your back while she wets it down with water from the shower and strokes it to its full length. You feel it inching across your back, growing hotter and harder. With a glance back, you estimate it must be at least two feet long! You gulp and put your head down, clenching your teeth for the inevitable.\n\n', false );
 			EngineCore.outputText( '"<i>Oh now pet, don\'t be so scared,</i>" Cotton whispers into your ear, then lifts her cock from your back and places it at your ' + Descriptors.vaginaDescript( 0 ) + '. She reaches forwards and you hear the squeak of the temperature nozzle being turned. Seconds later, the water pouring down on you gets hotter, causing your whole body to heat up in response. Using this time, Cotton presses forwards, her equine cock invading your ' + Descriptors.vaginaDescript( 0 ) + ' like a charging army. She thrusts in and out slowly, being careful not to hurt you.', false );
-			CoC.getInstance().player.cuntChange( 72, true, true, false );
+			CoC.player.cuntChange( 72, true, true, false );
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Before long you find yourself moaning beneath her, your cunt clenching and unclenching uncontrollably. "<i>Ooh, my little pet likes it now, hmmm?</i>" She whispers into your ear and nibbles on it ever-so-slightly. You can\'t help but give a breathless "<i>Yes</i>" in response. Cotton giggles and speeds up her thrusts. You find yourself pushing back into her, urging her to go deeper and deeper. Your clit twinges with pleasure after every thrust.\n\n', false );
 			EngineCore.outputText( 'After a few minutes of this, neither of you can take much more. Both of you give a deep moan of orgasmic pleasure as your pussy clenches and you feel your equine lover\'s cock twitch and spasm within you, flooding your hole with her hot seed. You gasp and reflexively arch your back, moaning into the shower walls.\n\n', false );
 			EngineCore.outputText( 'The two of you slip down onto the floor, letting the water rinse you off for the time being. After a minute, Cotton pulls her now flaccid (but still impressive) cock from your folds, which gapes open for several minutes afterward, and proceeds to clean the both of you up.\n\n', false );
 			EngineCore.outputText( 'Your \'post-workout stretch\' and shower done, the two of you dry off, redress and leave the gym. Cotton takes you by the arm and says, "<i>That was great, little pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			this.cottonPregPCChance();
 		}
@@ -518,13 +518,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( 'Cotton smiles, continuing to massage the soap in until she gets to your rear. There, she gets another handful of soap and presses it into your crevasse, gently soaping you up from ' + Descriptors.clitDescript() + ' to tailbone. Then she carefully inserts one finger into your pussy, then two, three, and before long her entire hand is exploring your most personal depths. She giggles and withdraws her hand, "<i>My my, such an eager little cunt you have, my pet.</i>"\n\n', false );
 			EngineCore.outputText( 'She reaches between her legs and lifts her cock, letting it rest on the small of your back while she wets it down with water from the shower and strokes it to its full length. You feel it inching across your back, growing hotter and harder. With a glance back, you estimate it must be at least two feet long! You gulp and put your head down, clenching your teeth for the inevitable.\n\n', false );
 			EngineCore.outputText( '"<i>Oh now pet, don\'t be so scared,</i>" Cotton whispers into your ear, then lifts her cock from your back and places it at your ' + Descriptors.vaginaDescript() + '. She reaches forwards and you hear the squeak of the temperature nozzle being turned. Seconds later, the water pouring down on you gets hotter, causing your whole body to heat up in response. Using this time, Cotton presses forwards, her equine cock invading your ' + Descriptors.vaginaDescript() + ' like a charging army. She thrusts in and out slowly, being careful not to hurt you.', false );
-			CoC.getInstance().player.cuntChange( 72, true, true, false );
+			CoC.player.cuntChange( 72, true, true, false );
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Before long you find yourself moaning beneath her, your cunt clenching and unclenching uncontrollably. "<i>Ooh, my little pet likes it now, hmmm?</i>" She whispers into your ear and nibbles on it ever-so-slightly. You can\'t help but give a breathless "<i>Yes</i>" in response. Cotton giggles and speeds up her thrusts. You find yourself pushing back into her, urging her to go deeper and deeper. Your ' + Descriptors.clitDescript() + ' twinges with pleasure after every thrust, and your own ' + Descriptors.cockDescript( 0 ) + ' is completely limp in the presence of this godly cock, but still it tingles with pleasure and anticipation.\n\n', false );
 			EngineCore.outputText( 'After a few minutes of this, neither of you can take much more. Both of you give a deep moan of orgasmic pleasure as your pussy clenches and you feel your equine lover\'s cock twitch and spasm within you, flooding your hole with her hot seed. You gasp and reflexively arch your back, moaning into the shower walls while your own limp member shudders with orgasm, but instead of spurting, it leaks a small torrent of cum right down onto the floor.\n\n', false );
 			EngineCore.outputText( 'The two of you slip down onto the floor, letting the water rinse you off for the time being. After a minute, Cotton pulls her now flaccid (but still impressive) cock from your folds, which gapes open for several minutes afterward, and proceeds to clean the both of you up.\n\n', false );
 			EngineCore.outputText( 'Your \'post-workout stretch\' and shower done, the two of you dry off, redress and leave the gym. Cotton takes you by the arm and says, "<i>That was great, little pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.\n\n', false );
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			this.cottonPregPCChance();
 		}
@@ -533,8 +533,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	//(Service her, any gender);
 	Cotton.prototype.serviceFirstTimeCotton = function() {
 		EngineCore.spriteSelect( 12 );
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
-		CoC.getInstance().player.slimeFeed();
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.player.slimeFeed();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-first-time-give-her-blowjob' ) );
 		EngineCore.outputText( 'You meekly nod your head in assent, staring at her cock. "<i>Ooh, interested in that, are we? Well, I wouldn\'t want to disappoint my little pet.</i>" She steps back a bit and lets you get under her shower spray before pushing you into a kneeling position. Running a hand along the length of her equine member, she pulls it up until you\'re face to face with it. "<i>How about you get it nice and ready to go first?</i>"\n\n', false );
@@ -544,7 +544,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'Cotton heaves forwards, pressing her hands against the wall behind you, "<i>Almost... almost...</i>" she whispers. You\'d grin if you could, but find it\'s rather difficult with a mouthful of cock. So instead you keep at it, bobbing on the dick in front of you. It doesn\'t take much longer. You feel the horse-girl tense, her cock stiffening in your mouth. You pull back, releasing your mouth\'s grip on the cock just as it explodes in a torrent of cum, coating your face and torso.\n\n', false );
 		EngineCore.outputText( 'You gulp it down, mildly surprised at how sweet it tastes. Taking two fingers you collect some of the cum deposited on your face and lick it off, then you carefully lick Cotton\'s rapidly shrinking member, until not a drop of cum remains.\n\n', false );
 		EngineCore.outputText( 'Cotton helps you up and gives you a warm kiss, tasting her own seed in your mouth. Wordlessly, you finish your shower, redress and head out of the gym. Cotton takes you by the arm and says, "<i>That was great, little pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.', false );
-		EngineCore.dynStats( 'sen', 1, 'lus', (10 + CoC.getInstance().player.lib / 20 + CoC.getInstance().player.sens / 20) );
+		EngineCore.dynStats( 'sen', 1, 'lus', (10 + CoC.player.lib / 20 + CoC.player.sens / 20) );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Refuse);
@@ -556,11 +556,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	};
 	//(Shower Sex, Fuck Her);
 	Cotton.prototype.fuckCottonInShowerRepeat = function() {
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-shower-fuck-repeat' ) );
-		var x = CoC.getInstance().player.cockThatFits( 60 );
+		var x = CoC.player.cockThatFits( 60 );
 		if( x < 0 ) {
 			x = 0;
 		}
@@ -572,7 +572,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		 EngineCore.outputText('After a moment you pull out, share a deep kiss, and wash each other up before redressing and leaving the gym.', false);
 		 */
 		//(Repeat Fuck Her, for centaurs);
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You decide to take her up on her offer and lead her into the showers, quickly disrobing and turning on an available shower-head. Cotton strips as well and you pull her under the stream of water, letting your horse body remain out of the water for now, sharing a kiss as steam begins to form around you. She runs a hand through your ' + Descriptors.hairDescript() + ' and grips the back of your neck, ' );
 			if( this.pregnancy.event > 1 ) {
 				EngineCore.outputText( 'pulling you gently towards her bulging belly, which you can\'t help but put your hands against as you kiss her. The bulge is firm and solid, almost a drum of solid muscle, and you caress it as you and the mare-morph make out, eliciting soft murmurs of appreciation for your efforts.\n\n' );
@@ -581,33 +581,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 
 			//(If PC has one cock);
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath your large body, while Cotton\'s remains curiously limp.  While her cock dangles, yours strains for attention.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath your large body, while Cotton\'s remains curiously limp.  While her cock dangles, your group of cocks strains for attention.', false );
 				}
 			} else {
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath your large body, while you watch Cotton\'s do the same. Her cock rubs against your stomach while yours strains for attention.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath your large body, while you watch Cotton\'s do the same. Her cock rubs against your stomach while your group of cocks strains for attention.', false );
 				}
 			}
 			//(If PC has a pussy, add the following);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Meanwhile, your ' + Descriptors.vaginaDescript( 0 ) + ' behind you moistens both from the steam and from arousal, and your ' + Descriptors.clitDescript() + ' aches, craving attention.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If PC has breasts);
-			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+			if( CoC.player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'Cotton leans down, groping your ' + Appearance.biggestBreastSizeDescript() + ', taking one ' + Descriptors.nippleDescript( 0 ) + ' into her mouth and sucking it greedily.', false );
 				//(and if PC is lactating);
-				if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+				if( CoC.player.biggestLactation() >= 1 ) {
 					EngineCore.outputText( '  Her efforts are soon rewarded as milk begins seeping from your ' + Descriptors.nippleDescript( 0 ) + '. Cotton\'s eyes turn up to your face in surprise, but she doesn\'t remove her mouth, instead taking the time to gulp down your tasty milk. It isn\'t long before she draws back, wipes her mouth and practically tackles your other breast, eager to drain it of its precious cargo. You can\'t help but moan as a draining sensation overwhelms you. After a moment, Cotton pulls away and smacks her lips. "<i>That is some tasty, tasty milk, pet, I might have to taste you more often.</i>"', false );
-					CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+					CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 				}
 				//(else is PC is not lactating);
 				else {
@@ -617,17 +617,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( 'Suitably turned on now, you look around and drag one of the nearby benches from the changing rooms into the showers and pull it under the water. Cotton grins, understanding what you plan to do with it, and gets onto all fours on top of it. You walk over the bench, getting your body under the spray of water, and get your cock into position. Your fellow equine lover helps with the fine movement, placing your cock at her entrance while giving your underside a reassuring pat. You slowly push forward, and Cotton bites her lip, again giving a reassuring pat.', false );
 			//(If player has two cocks, add);
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( '  With a slight grin, you begin poking your extra dick at Cotton\'s other hole. You hear an indignant grunt, followed by a sigh, and feel her hands on your member, guiding it all the way into her hole.', false );
 			}//(If the player has more cocks, add);
-			else if( CoC.getInstance().player.cockTotal() > 2 ) {
+			else if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( '  The rest of your cocks jiggle and bob, rubbing up against her thighs and butt wildly.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Though you are far too big for her, you make sure to stuff her as much as you can. Her cunt, big as it is, squeezes tightly on your ' + Descriptors.cockDescript( x ) + '. She shivers and quakes, and leans against the bench, gripping your forelegs for support. You thrust your overly large tool inside her over and over, stretching her already not-insignificant cunt even wider. Her tongue actually rolls out of her snout, lolling to the side while her eyes roll up into her head, lost in the pleasure. Her body rocks with an orgasm while you piston away under the spray of water.', false );
 			}//(if player is too small (under 4</i>");
-			else if( CoC.getInstance().player.cocks[ x ].cockLength < 4 ) {
+			else if( CoC.player.cocks[ x ].cockLength < 4 ) {
 				EngineCore.outputText( '  Her approval wavers and you hear from below you, "<i>Is it in yet?</i>" Your face flushes red and you confirm it is, looking down with embarrassment. Cotton rubs one of your forelegs reassuringly and says, "<i>' );
 				if( this.pregnancy.event > 1 ) {
 					EngineCore.outputText( 'Don\'t worry pet, it\'s plenty adequate for me.  And you\'ve got to admit,</i>" she smirks, rubbing her round belly, "<i>It gets the job done, doesn\'t it?' );
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You keep this up for a while, EngineCore.fatigue not really an issue with a body of your size and shape. Cotton, meanwhile, gasps for breath audibly and has taken to laying her front half down on the bench, her ass right up in the air. She strokes your forelegs lovingly, showing she\'s still ready for more.  ' );
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
 				EngineCore.outputText( 'Oblivious to you, her own limp cock leaks cum down onto the bench as an orgasm rocks her body.' );
 			} else if( this.pregnancy.event > 1 ) {
 				EngineCore.outputText( 'Oblivious to you, her own cock twitches and spasms, letting loose a spray of cum across her swollen, pregnant belly, breasts and the bench as an orgasm rocks her body.' );
@@ -650,13 +650,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'Oblivious to you, her own cock twitches and spasms, letting loose a spray of cum across her belly, breasts and the bench as an orgasm rocks her body.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Even with all the pounding you\'ve been doing, you can\'t fit your entire girth into her, but she doesn\'t care. Her eyes seem to roll back and forth like it\'s hard to focus, and her tongue drips water, sweat and saliva onto her body. She\'s panting for breath and you are able to make out faint, "<i>Oh gods, oh gods</i>" over the running water. Were you able to see her toned stomach, you\'re sure you could see the outline of your ' + Descriptors.cockDescript( x ) + ' in it. Her back arches under the shower, her red hair messily draped around her face and bench, and she bites her lip as another orgasm rocks her body.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Finally you just can\'t take any more. You give one last thrust into your partner and audibly gasp in relief as an orgasm rolls across your body, hitting your nerves with bolts of ecstatic lightning.', false );
 			//(If PC has a pussy);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( x ) + ' erupts inside Cotton\'s warm cunt which clenches you tightly, while your own femme sex twinges and clenches on air, drooling juices down your legs.', false );
 			}//(else);
 			else {
@@ -664,13 +664,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			//(regardless or above, add);
 			EngineCore.outputText( '  You give a couple more token thrusts and pull out. As you do, ', false );
-			if( CoC.getInstance().player.cumQ() < 200 ) {
+			if( CoC.player.cumQ() < 200 ) {
 				EngineCore.outputText( 'cum begins to seep from her folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 700 ) {
+			} else if( CoC.player.cumQ() < 700 ) {
 				EngineCore.outputText( 'a gush of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 1200 ) {
+			} else if( CoC.player.cumQ() < 1200 ) {
 				EngineCore.outputText( 'a small torrent of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 2000 ) {
+			} else if( CoC.player.cumQ() < 2000 ) {
 				EngineCore.outputText( 'cum surges from her abused hole', false );
 			} else {
 				EngineCore.outputText( 'a massive flood of cum escapes from her cunt', false );
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( 'You both bask in the afterglow for a few moments before you stand up and help Cotton up. You return to the task of cleaning yourselves, sensually washing each other\'s private areas. Yoga, sex and cleanup done, you get dressed and leave the gym, giving Cotton\'s hand a final squeeze before departing.', false );
 		}
 		//(Repeat fuck her, for nagas);
-		else if( CoC.getInstance().player.isNaga() ) {
+		else if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'You decide to take her up on her offer and lead her into the showers, quickly disrobing and turning on an available shower-head. Cotton strips as well and you pull her under the stream of water, sharing a kiss as steam begins to form around you. She runs a hand through your ' + Descriptors.hairDescript() + ' and grips the back of your neck, ' );
 			if( this.pregnancy.event > 1 ) {
 				EngineCore.outputText( 'pulling you gently towards her bulging belly, which you can\'t help but put your hands against as you kiss her. The bulge is firm and solid, almost a drum of solid muscle, and you caress it as you and the mare-morph make out, eliciting soft murmurs of appreciation for your efforts.' );
@@ -687,35 +687,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'pulling you closer.\n\n', false );
 			}
 
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
 				//(If PC has one cock);
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
-					EngineCore.outputText( '  You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  Your ' + CoC.getInstance().player.cockHead( x ) + ' rubs against her belly, sending ripples of pleasure up your spine.', false );
+				if( CoC.player.cockTotal() === 1 ) {
+					EngineCore.outputText( '  You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  Your ' + CoC.player.cockHead( x ) + ' rubs against her belly, sending ripples of pleasure up your spine.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '  You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  The group of cocks rubs together as you make out, sending ripples of pleasure up your spine.', false );
 				}
 			} else {
 				//(If PC has one cock);
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention alongside Cotton\'s equine member.  The two rub together as you make out, sending ripples of pleasure up your spine.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 'You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath you, slowly coming to attention alongside Cotton\'s equine member. The group of cocks rubs together as you make out, sending ripples of pleasure up your spine.', false );
 				}
 			}
 			//(If PC has a pussy, add the following);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'Your ' + Descriptors.vaginaDescript( 0 ) + ' meanwhile moistens both from the water and from arousal, and your ' + Descriptors.clitDescript() + ' aches, craving attention.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If PC has breasts);
-			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+			if( CoC.player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'Cotton leans down, groping your ' + Appearance.biggestBreastSizeDescript() + ', taking one ' + Descriptors.nippleDescript( 0 ) + ' into her mouth and sucking it greedily.', false );
 				//(and if PC is lactating);
-				if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+				if( CoC.player.biggestLactation() >= 1 ) {
 					EngineCore.outputText( '  Her efforts are soon rewarded as milk begins seeping from your ' + Descriptors.nippleDescript( 0 ) + '. Cotton\'s eyes turn up to your face in surprise, but she doesn\'t remove her mouth, instead taking the time to gulp down your tasty milk. It isn\'t long before she draws back, wipes her mouth and practically tackles your other breast, eager to drain it of its precious cargo. You can\'t help but moan as a draining sensation overwhelms you. After a moment, Cotton pulls away and smacks her lips. "<i>That is some tasty, tasty milk, pet, I might have to taste you more often.</i>"', false );
-					CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+					CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 				}
 				//(else is PC is not lactating);
 				else {
@@ -725,17 +725,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( 'Suitably turned on now, you coil your body around Cotton\'s torso, with your tail spreading her legs apart while you place your ' + Descriptors.cockDescript( x ) + ' at her pussy. You slowly push in, and Cotton bites her lip, looking at you in approval.', false );
 			//(If player has two cocks, add);
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( '  With a slight grin, you position your extra dick at Cotton\'s other hole. She quirks her eyebrow and a look of panic momentarily crosses her face, but you push forward anyway. Cotton\'s eyes roll up briefly and her lip quivers.', false );
 			}//(If the player has more cocks, add);
-			else if( CoC.getInstance().player.cockTotal() > 2 ) {
+			else if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( '  The rest of your cocks strain, aching for holes to fill. With none available, they throb as they rub against Cotton\'s smooth skin.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Though you are far too big for her, you make sure to stuff her as much as you can. Her cunt, big as it is, squeezes tightly on your ' + Descriptors.cockDescript( x ) + '. She shivers and quakes, and leans against the shower wall, gripping the shower-head for support. You thrust your overly large tool inside her over and over, stretching her already not insignificant cunt even wider. Her tongue actually rolls out of her snout, lolling to the side while her eyes roll up into her head, lost in the pleasure. Her body rocks with an orgasm while you piston away under the spray of water.', false );
 			}//(if player is too small (under 4</i>") add);
-			else if( CoC.getInstance().player.cocks[ x ].cockLength < 4 ) {
+			else if( CoC.player.cocks[ x ].cockLength < 4 ) {
 				EngineCore.outputText( '  Her approval wavers and she asks, "<i>Is it in yet?</i>" Your face flushes red and you confirm it is, looking down with embarrassment. Cotton lifts your chin and gives you a kiss, "<i>' );
 				if( this.pregnancy.event > 1 ) {
 					EngineCore.outputText( 'Don\'t worry pet, it\'s plenty adequate for me.  And you\'ve got to admit,</i>" she smirks, rubbing her round belly, "<i>It gets the job done, doesn\'t it?' );
@@ -750,7 +750,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You keep this up for a while, before fatigue takes over. You carefully lay Cotton down in the spray of water, coiling your body under her so her rear end is up in the air, hooves resting on the ground, and continue your work unhindered. She kisses your lips, neck, and whatever she can get her mouth on.  ' );
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
 				EngineCore.outputText( 'Her own cock, still limp, visibly twitches and begins leaking cum onto her belly as an orgasm rocks her body.' );
 			} else if( this.pregnancy.event > 1 ) {
 				EngineCore.outputText( 'Her own cock twitches and spasms, letting loose a spray of cum across her swollen, pregnant belly, breasts and face as an orgasm rocks her body.' );
@@ -758,13 +758,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'Her own cock twitches and spasms, letting loose a spray of cum across her belly, breasts and face as an orgasm rocks her body.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Even in this pseudo-missionary position you can\'t stuff your entire enormous girth into her, but she doesn\'t care. Her eyes seem to roll back and forth like it\'s hard to focus, and her tongue drips water, sweat and saliva onto her body. She\'s panting for breath and you are able to make out faint, "<i>Oh gods, oh gods</i>" over the running water. You can even make out the shape of your cock in Cotton\'s toned stomach, pumping back and forth, which brings a smile to your face. Her back arches under the shower, her hair messily spread out beneath her and she bites her lip as another orgasm rocks her body.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Finally you just can\'t take anymore. You give one last thrust into your partner and audibly gasp in relief as an orgasm rolls across your body, hitting your nerves with bolts of ecstatic lightning.', false );
 			//(If PC has a pussy);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( x ) + ' erupts inside Cotton\'s warm cunt, which clenches you tightly, while your own femme sex twinges and clenches on air, drooling juices down your legs.', false );
 			}//(else);
 			else {
@@ -772,13 +772,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			//(regardless or above, add);
 			EngineCore.outputText( '  You give a couple more token thrusts and pull out. As you do, ', false );
-			if( CoC.getInstance().player.cumQ() < 200 ) {
+			if( CoC.player.cumQ() < 200 ) {
 				EngineCore.outputText( 'cum begins to seep from her folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 700 ) {
+			} else if( CoC.player.cumQ() < 700 ) {
 				EngineCore.outputText( 'a gush of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 1200 ) {
+			} else if( CoC.player.cumQ() < 1200 ) {
 				EngineCore.outputText( 'a small torrent of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 2000 ) {
+			} else if( CoC.player.cumQ() < 2000 ) {
 				EngineCore.outputText( 'cum surges from her abused hole', false );
 			} else {
 				EngineCore.outputText( 'a massive flood of cum escapes from her cunt', false );
@@ -795,36 +795,36 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'pulling you closer.', false );
 			}
 
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
 				//(If PC has one cock);
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
-					EngineCore.outputText( '  You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  Your ' + CoC.getInstance().player.cockHead( x ) + ' rubs against her belly, sending ripples of pleasure up your spine.', false );
+				if( CoC.player.cockTotal() === 1 ) {
+					EngineCore.outputText( '  You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  Your ' + CoC.player.cockHead( x ) + ' rubs against her belly, sending ripples of pleasure up your spine.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '  You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath you, slowly coming to attention, though Cotton\'s remains curiously limp.  The group of cocks rubs together as you make out, sending ripples of pleasure up your spine.', false );
 				}
 				//(If PC has a pussy, add the following);
 			} else {
 				//(If PC has one cock);
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( '  You feel your ' + Descriptors.cockDescript( x ) + ' stirring beneath you, slowly coming to attention alongside Cotton\'s equine member. The two rub together as you make out, sending ripples of pleasure up your spine.', false );
 				}//(If PC has multiple cocks);
-				else if( CoC.getInstance().player.cockTotal() > 1 ) {
+				else if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '  You feel your ' + Descriptors.multiCockDescriptLight() + ' stirring beneath you, slowly coming to attention alongside Cotton\'s equine member. The group of cocks rubs together as you make out, sending ripples of pleasure up your spine.', false );
 				}
 				//(If PC has a pussy, add the following);
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' moistens both from the water and from arousal, and your ' + Descriptors.clitDescript() + ' aches, craving attention.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If PC has breasts);
-			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+			if( CoC.player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'Cotton leans down, groping your ' + Appearance.biggestBreastSizeDescript() + ', taking one ' + Descriptors.nippleDescript( 0 ) + ' into her mouth and sucking it greedily.', false );
 				//(and if PC is lactating);
-				if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+				if( CoC.player.biggestLactation() >= 1 ) {
 					EngineCore.outputText( '  Her efforts are soon rewarded as milk begins seeping from your ' + Descriptors.nippleDescript( 0 ) + '. Cotton\'s eyes turn up to your face in surprise but she doesn\'t remove her mouth, instead taking the time to gulp down your tasty milk. It isn\'t long before she draws back, wipes her mouth and practically tackles your other breast, eager to drain it of its precious cargo. You can\'t help but moan as a draining sensation overwhelms you. After a moment, Cotton pulls away and smacks her lips. "<i>That is some tasty, tasty milk, pet, I might have to taste you more often.</i>"', false );
-					CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+					CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 				}
 				//(else is PC is not lactating);
 				else {
@@ -834,18 +834,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( 'Suitably turned on now, you reach down and hook your arm under one of Cotton\'s legs, lifting it up while you position your ' + Descriptors.cockDescript( x ) + ' at her pussy. You slowly push in, and Cotton bites her lip, looking at you in approval.', false );
 			//(If player has two cocks, add);
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( '  With a slight grin, you position your other dick at Cotton\'s other hole. She quirks her eyebrow and a look of panic momentarily crosses her face, but you push forward anyway. Cotton\'s eyes roll up briefly and her lip quivers.', false );
 			}
 			//(If the player has more cocks, add);
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( '  The rest of your cocks strain, aching for holes to fill. With none available, they throb as they rub against Cotton\'s smooth skin.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Though you are far too big for her, you make sure to stuff her as much as you can. Her cunt, big as it is, squeezes tightly on your ' + Descriptors.cockDescript( x ) + '. She shivers and quakes, and leans against the shower wall, gripping the shower-head for support. You thrust your overly large tool inside her over and over, stretching her already not-insignificant cunt even wider. Her tongue actually rolls out of her snout, lolling to the side while her eyes roll up into her head, lost in the pleasure. Her body rocks with an orgasm while you piston away under the spray of water.', false );
 			}//(if player is too small (under 4</i>") add);
-			else if( CoC.getInstance().player.cocks[ x ].cockLength < 4 ) {
+			else if( CoC.player.cocks[ x ].cockLength < 4 ) {
 				EngineCore.outputText( '  Her approval wavers and she asks, "<i>Is it in yet?</i>" Your face flushes red and you confirm it is, looking down in embarrassment. Cotton lifts your chin and gives you a kiss, "<i>' );
 				if( this.pregnancy.event > 1 ) {
 					EngineCore.outputText( 'Don\'t worry pet, it\'s plenty adequate for me.  And you\'ve got to admit,</i>" she smirks, rubbing her round belly, "<i>It gets the job done, doesn\'t it?' );
@@ -860,7 +860,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You keep this up for a while before fatigue takes over. You carefully lay Cotton down in the spray of water and continue your work unhindered. She kisses your lips, neck, and whatever she can get her mouth on.  ' );
-			if( CoC.getInstance().player.cockArea( x ) >= 100 ) {
+			if( CoC.player.cockArea( x ) >= 100 ) {
 				EngineCore.outputText( 'Her own cock, still limp, visibly twitches and begins leaking cum onto her belly as an orgasm rocks her body.' );
 			} else if( this.pregnancy.event > 1 ) {
 				EngineCore.outputText( 'Her own cock twitches and spasms, loosing a spray of cum across her swollen, pregnant belly, breasts and face as an orgasm rocks her body.' );
@@ -868,13 +868,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'Her own cock twitches and spasms, letting loose a spray of cum across her belly, breasts and face as an orgasm rocks her body.', false );
 			}
 			//(If player is too big, add);
-			if( CoC.getInstance().player.cockArea( x ) > 70 ) {
+			if( CoC.player.cockArea( x ) > 70 ) {
 				EngineCore.outputText( '  Even in the missionary position you can\'t stuff your entire enormous girth into her, but she doesn\'t care. Her eyes seem to roll back and forth like it\'s hard to focus, and her tongue drips water, sweat and saliva onto her body. She\'s panting for breath and you are able to make out faint, "<i>Oh gods, oh gods</i>" over the running water. You can even make out the shape of your cock in Cotton\'s toned stomach, pumping back and forth, which brings a smile to your face. Her back arches under the shower, her hair messily spread out beneath her and she bites her lip as another orgasm rocks her body.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Finally you just can\'t take any more. You give one last thrust into your partner and audibly gasp in relief as an orgasm rolls across your body, hitting your nerves with bolts of ecstatic lightning.', false );
 			//(If PC has a pussy);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( x ) + ' erupts inside Cotton\'s warm cunt, which clenches you tightly while your own femme sex twinges and clenches on air, drooling juices down your legs.', false );
 			}//(else);
 			else {
@@ -882,13 +882,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			//(regardless or above, add);
 			EngineCore.outputText( '  You give a couple more token thrusts and pull out. As you do, ', false );
-			if( CoC.getInstance().player.cumQ() < 200 ) {
+			if( CoC.player.cumQ() < 200 ) {
 				EngineCore.outputText( 'cum begins to seep from her folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 700 ) {
+			} else if( CoC.player.cumQ() < 700 ) {
 				EngineCore.outputText( 'a gush of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 1200 ) {
+			} else if( CoC.player.cumQ() < 1200 ) {
 				EngineCore.outputText( 'a small torrent of cum escapes from Cotton\'s folds', false );
-			} else if( CoC.getInstance().player.cumQ() < 2000 ) {
+			} else if( CoC.player.cumQ() < 2000 ) {
 				EngineCore.outputText( 'cum surges from her abused hole', false );
 			} else {
 				EngineCore.outputText( 'a massive flood of cum escapes from her cunt', false );
@@ -897,52 +897,52 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( 'You both bask in the afterglow for a few moments before you stand up to an upright position and help Cotton up. You return to the task of cleaning yourselves, sensually washing each other\'s private areas. Yoga, sex and cleanup done, you get dressed and leave the gym, giving Cotton\'s hand a final squeeze before departing.', false );
 		}
 		this.pregCottonChance();
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Shower Sex, Get Fucked as Male or Herm);
 	Cotton.prototype.cottonFucksYouInShowerRepeat = function() {
 		EngineCore.spriteSelect( 12 );
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.player.slimeFeed();
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-shower-fucks-you-repeat' ) );
 		/*OLD SEX SCENES HERE
-		 if(CoC.getInstance().player.hasCock() && (CoC.getInstance().player.gender !== 3 || Utils.rand(2) === 0)) {
+		 if(CoC.player.hasCock() && (CoC.player.gender !== 3 || Utils.rand(2) === 0)) {
 		 EngineCore.outputText('You decide to take her up on her offer, and she pulls you towards the showers, quickly disrobing the both of you. She turns only one shower-head on and pulls you into an embrace underneath the rapidly heating stream. Cotton\'s cock stirs between you, and though yours tingles, it remains limp in her presence.\n\n', false);
 		 EngineCore.outputText('Finally breaking the kiss, Cotton reaches down and hooks her arms under both your legs. You quickly wrap your arms around her neck as she lifts you off the ground. You carefully grip her with your legs as she uses one arm to position her dick at your waiting entrance. You give her a kiss just as she presses into you, and moan into her mouth. She gives a couple careful thrusts before her free hand returns to holding you.\n\n', false);
 		 EngineCore.outputText('At this angle she can\'t quite get her entire girth into you, but that doesn\'t matter, as it feels absolutely exquisite.', false);
-		 CoC.getInstance().player.buttChange(72,true,true,false);
+		 CoC.player.buttChange(72,true,true,false);
 		 EngineCore.outputText('  You take turns kissing each other\'s necks and nibbling each other\'s ears while she thrusts in and out. And after several minutes neither of you can take much more. She gives one last thrust, pulling you down further onto her cock as it explodes within you. Your whole body shudders with orgasmic energy and you bury your head into her neck, stifling a scream.\n\n', false);
 		 EngineCore.outputText('After a moment, Cotton pulls you up, letting her shrinking member flop to the floor, and sets you down. Only now you notice your flaccid cock also came at some point, covering both your bodies in seed. You share a deep kiss again and wash each other up before redressing and leaving the gym.\n\n', false);
-		 CoC.getInstance().player.orgasm();
+		 CoC.player.orgasm();
 		 EngineCore.dynStats('sen', 1);
 		 }
 		 //(Shower Sex, Get Fucked as Female);
 		 else {
 		 EngineCore.outputText('You decide to take her up on her offer, and she pulls you towards the showers, quickly disrobing the both of you. She turns only one shower-head on and pulls you into an embrace underneath the rapidly heating stream. Cotton\'s cock stirs between you, and your ' + Descriptors.vaginaDescript() + ' burns with anticipation.\n\n', false);
 		 EngineCore.outputText('Finally breaking the kiss, Cotton reaches down and hooks her arms under both your legs. You quickly wrap your arms around her neck as she lifts you off the ground. You carefully grip her with your legs as she uses one arm to position her dick at your waiting entrance. You give her a kiss just as she presses into you, and moan into her mouth. She gives a couple careful thrusts before her free hand returns to holding you.', false);
-		 CoC.getInstance().player.cuntChange(72,true,true,false);
+		 CoC.player.cuntChange(72,true,true,false);
 		 EngineCore.outputText('\n\n', false);
 		 EngineCore.outputText('At this angle she can\'t quite get her entire girth into you, but that doesn\'t matter, as it feels absolutely exquisite. You take turns kissing each other\'s necks and nibbling each other\'s ears while she thrusts in and out. And after several minutes neither of you can take much more. She gives one last thrust, pulling you down further onto her cock as it explodes within you. Your whole body shudders with orgasmic energy and you bury your head into her neck, stifling a scream.\n\n', false);
 		 EngineCore.outputText('After a moment, Cotton pulls you up, letting her shrinking member flop to the floor, and sets you down. You share a deep kiss again and wash each other up before redressing and leaving the gym.', false);
-		 CoC.getInstance().player.orgasm();
+		 CoC.player.orgasm();
 		 EngineCore.dynStats('sen', -1);
 		 }*/
 		//(Repeat get fucked, for centaurs);
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You decide to take her up on her offer and she pulls you towards the showers, quickly disrobing you forcibly and then herself. She turns only one shower-head on and pulls you into an embrace underneath the rapidly heating water. She kisses up your neck and playfully bites you with a grin.', false );
 			//(If PC has a penis, no vagina);
-			if( CoC.getInstance().player.gender === 1 ) {
+			if( CoC.player.gender === 1 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' tingles betwixt your legs, but remains limp in the presence of Cotton\'s impressive member.', false );
 			}
 			//(If PC has a penis and vagina);
-			else if( CoC.getInstance().player.gender === 3 ) {
+			else if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' tingles betwixt your legs, but remains limp in the presence of Cotton\'s impressive member, while your ' + Descriptors.vaginaDescript( 0 ) + ' moistens almost immediately from the steam and arousal.', false );
 			}
 			//(If PC has a vagina and no penis);
-			else if( CoC.getInstance().player.gender === 2 ) {
+			else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' moistens almost immediately as you make out, both from the steam and your increasing arousal.', false );
 			}
 			//(If PC is genderless);
@@ -951,12 +951,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If PC has breasts);
-			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+			if( CoC.player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'Cotton\'s kisses lead down to your ' + Appearance.biggestBreastSizeDescript() + ', where she takes one ' + Descriptors.nippleDescript( 0 ) + ' into her mouth, sucking it greedily and teasing it masterfully.', false );
 				//(and if PC is lactating);
-				if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+				if( CoC.player.biggestLactation() >= 1 ) {
 					EngineCore.outputText( '  Her efforts are soon rewarded as milk begins seeping from your ' + Descriptors.nippleDescript( 0 ) + '. Cotton\'s eyes turn up to your face in surprise, but she doesn\'t remove her mouth, instead taking the time to gulp down your tasty milk. It isn\'t long before she draws back, wipes her mouth and practically tackles your other breast, eager to drain it of its precious cargo. You can\'t help but moan as the draining sensation overwhelms you. After a moment, Cotton pulls away and smacks her lips. "<i>That is some tasty, tasty milk, little pet.  I simply must have you for breakfast sometime.</i>"', false );
-					CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+					CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 				}
 				//(else is PC is not lactating);
 				else {
@@ -966,11 +966,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( 'She continues kissing down your belly, reaching your centaur body. She makes you turn around so your rear end is in the spray of water with her.', false );
 			//(If PC has a large penis, bigger than Cotton's capacity, add);
-			if( CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.cockArea( 0 ) > 70 ) {
+			if( CoC.player.hasCock() ) {
+				if( CoC.player.cockArea( 0 ) > 70 ) {
 					EngineCore.outputText( '  "<i>Oh my, what\'s this?</i>" She puts a hand under your enormous, yet embarrassingly limp cock and lifts it slightly. "<i>My little pet has such a big dick... Just how I like it. Perhaps next time I\'ll get to try it out... but not today, hm? This is all about you right now.</i>"', false );
 				}//(If PC has a penis under 4</i>", add);
-				else if( CoC.getInstance().player.longestCockLength() < 4 ) {
+				else if( CoC.player.longestCockLength() < 4 ) {
 					EngineCore.outputText( '  "<i>Awww, what\'s this?</i>" She puts a hand under your embarrassingly small and limp cock and lifts it slightly. "<i>It\'s so cute and tiny. And it certainly knows its place. Only room for one cock right now, not that this is much of a cock.</i>" She giggles and plants a kiss on the tip, "<i>It is cute though. I love it.</i>"', false );
 				}//(If PC has a penis neither large or small, add);
 				else {
@@ -978,21 +978,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				}
 			}
 			//(If PC has a vagina);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Spying your ' + Descriptors.vaginaDescript( 0 ) + ', Cotton smiles and flicks your ' + Descriptors.clitDescript() + ' teasingly before slipping two fingers inside your folds and bringing them to her mouth, licking them clean. "<i>Mmm... I love the taste of your juices, pet...</i>"', false );
 			}
 			//(if PC is genderless);
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( '  She places a hand on your bare crotch and quirks an eyebrow. "<i>Well this is new... Certainly not bad though.</i>" She runs a hand along your bare mound, which somehow manages to send ripples of pleasure up your spine.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
-			EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.getInstance().player.legs() + ' and stands, dragging over a bench from the locker room before standing on it and giving your ' + Descriptors.buttDescript() + ' a good smack. You turn back and give her a coy look, which she returns and gives your flank another smack.', false );
-			EngineCore.outputText( '  She takes a moment to get some water from the shower over your rear end before pressing her cock against your ' + CoC.getInstance().player.assholeOrPussy() + ', slipping it in gently, careful not to go too quick. You moan slightly and blush, whispering back at her, urging her to continue.', false );
+			EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.player.legs() + ' and stands, dragging over a bench from the locker room before standing on it and giving your ' + Descriptors.buttDescript() + ' a good smack. You turn back and give her a coy look, which she returns and gives your flank another smack.', false );
+			EngineCore.outputText( '  She takes a moment to get some water from the shower over your rear end before pressing her cock against your ' + CoC.player.assholeOrPussy() + ', slipping it in gently, careful not to go too quick. You moan slightly and blush, whispering back at her, urging her to continue.', false );
 			//(Stretch and appropriate virginity check);
-			if( CoC.getInstance().player.hasVagina() ) {
-				CoC.getInstance().player.cuntChange( 72, true, true, false );
+			if( CoC.player.hasVagina() ) {
+				CoC.player.cuntChange( 72, true, true, false );
 			} else {
-				CoC.getInstance().player.buttChange( 72, true, true, false );
+				CoC.player.buttChange( 72, true, true, false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'At this angle, she easily slips her entire length and girth into you, letting her balls slap against your crotch with a smack. She smacks your backside over and over while she thrusts, and you find yourself laying back on your centaur body in a blissful trance.  ' );
@@ -1007,15 +1007,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		else {
 			EngineCore.outputText( 'You decide to take her up on her offer, and she pulls you towards the showers, quickly disrobing you forcibly and then herself. She turns only one shower-head on and pulls you into an embrace underneath the rapidly heating water. She kisses up your neck and playfully bites you with a grin.', false );
 			//(If PC has a penis, no vagina);
-			if( CoC.getInstance().player.gender === 1 ) {
+			if( CoC.player.gender === 1 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' tingles beneath you, but remains limp in the presence of Cotton\'s impressive member.', false );
 			}
 			//(If PC has a penis and vagina);
-			else if( CoC.getInstance().player.gender === 3 ) {
+			else if( CoC.player.gender === 3 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' tingles beneath you, but remains limp in the presence of Cotton\'s impressive member while your ' + Descriptors.vaginaDescript( 0 ) + ' moistens almost immediately from the steam and arousal.', false );
 			}
 			//(If PC has a vagina and no penis);
-			else if( CoC.getInstance().player.gender === 2 ) {
+			else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' moistens almost immediately as you make out, both from the steam and your increasing arousal.', false );
 			}
 			//(If PC is genderless);
@@ -1024,12 +1024,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If PC has breasts);
-			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+			if( CoC.player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'Cotton\'s kisses lead down to your ' + Appearance.biggestBreastSizeDescript() + ', where she takes one ' + Descriptors.nippleDescript( 0 ) + ' into her mouth, sucking it greedily and teasing it masterfully.', false );
 				//(and if PC is lactating);
-				if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+				if( CoC.player.biggestLactation() >= 1 ) {
 					EngineCore.outputText( '  Her efforts are soon rewarded as milk begins seeping from your ' + Descriptors.nippleDescript( 0 ) + '. Cotton\'s eyes turn up to your face in surprise, but she doesn\'t remove her mouth, instead taking the time to gulp down your tasty milk. It isn\'t long before she draws back, wipes her mouth and practically tackles your other breast, eager to drain it of its precious cargo. You can\'t help but moan as a draining sensation overwhelms you. After a moment, Cotton pulls away and smacks her lips. "<i>That is some tasty, tasty milk, little pet.  I simply must have you for breakfast...</i>"', false );
-					CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+					CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 				}
 				//(else is PC is not lactating);
 				else {
@@ -1038,13 +1038,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( '\n\n', false );
 			}
 			EngineCore.outputText( 'She continues kissing a trail down your belly and to your crotch.', false );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				//(If PC has a large penis, bigger than Cotton's capacity, add);
-				if( CoC.getInstance().player.biggestCockArea() > 70 ) {
+				if( CoC.player.biggestCockArea() > 70 ) {
 					EngineCore.outputText( '  "<i>Oh my, what\'s this?</i>" She puts a hand under your enormous, yet embarrassingly limp cock and lifts it slightly. "<i>My little pet has such a big dick... Just how I like it. Perhaps next time I\'ll get to try it out... but not today, hm? This is all about you right now.</i>"', false );
 				}
 				//(If PC has a penis under 4</i>", add);
-				if( CoC.getInstance().player.longestCockLength() < 4 ) {
+				if( CoC.player.longestCockLength() < 4 ) {
 					EngineCore.outputText( '  "<i>Awww, what\'s this?</i>" She puts a hand under your embarrassingly small and limp cock and lifts it slightly. "<i>It\'s so cute and tiny. And it certainly knows its place. Only room for one cock right now, not that this is much of a cock.</i>" She giggles and plants a kiss on the tip, "<i>It is cute though. I love it.</i>"', false );
 				}//(If PC has a penis neither large or small, add);
 				else {
@@ -1052,17 +1052,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				}
 			}
 			//(If PC has a vagina);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  Spying your ' + Descriptors.vaginaDescript( 0 ) + ', Cotton smiles and flicks your ' + Descriptors.clitDescript() + ' teasingly before slipping two fingers inside your folds and bringing them to her mouth, licking them clean. "<i>Mmm... I love the taste of your juices, pet...</i>"', false );
 			}
 			//(if PC is genderless);
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( '  She places a hand on your bare crotch and quirks an eyebrow. "<i>Well this is new... Certainly not bad though.</i>" She runs a hand along your bare mound, which somehow manages to send ripples of pleasure up your spine.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			//(If Naga body);
-			if( CoC.getInstance().player.isNaga() ) {
-				EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.getInstance().player.legs() + ', and stands, grabbing you by the waist and lifting you up off the ground.  ' );
+			if( CoC.player.isNaga() ) {
+				EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.player.legs() + ', and stands, grabbing you by the waist and lifting you up off the ground.  ' );
 				if( this.pregnancy.event > 1 ) {
 					EngineCore.outputText( 'Moving quickly, you wrap your arms around Cotton\'s neck and coil your body around her waist, just below her round, pregnant belly, and down one leg.  You can feel her swollen midriff rubbing against the scales on your serpentine half with each motion you make.' );
 				} else {
@@ -1071,19 +1071,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			//(If Humanoid body);
 			else {
-				EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.getInstance().player.legs() + ' and stands, hooking an arm underneath each of your legs and lifting you up off the ground.  ' );
+				EngineCore.outputText( 'Cotton continues the kisses down to your ' + CoC.player.legs() + ' and stands, hooking an arm underneath each of your legs and lifting you up off the ground.  ' );
 				if( this.pregnancy.event > 1 ) {
 					EngineCore.outputText( 'Moving quickly, you wrap your arms and legs around Cotton so you don\'t fall over, carefully avoiding her pregnant belly, which is no mean feat. Her belly is pressed into yours, letting you feel the solid weight of it, gentle kicks from your unborn child within.' );
 				} else {
 					EngineCore.outputText( 'Moving quickly, you wrap your arms and legs around Cotton so you don\'t fall over.', false );
 				}
 			}
-			EngineCore.outputText( '  She gives you a quick kiss and moves her cock to your ' + CoC.getInstance().player.assholeOrPussy() + ', slipping it in gently, careful not to go too quick. You give her a submissive, but encouraging kiss, and whisper in her ear, urging her to continue.', false );
+			EngineCore.outputText( '  She gives you a quick kiss and moves her cock to your ' + CoC.player.assholeOrPussy() + ', slipping it in gently, careful not to go too quick. You give her a submissive, but encouraging kiss, and whisper in her ear, urging her to continue.', false );
 			//(Stretch and appropriate virginity check);
-			if( CoC.getInstance().player.hasVagina() ) {
-				CoC.getInstance().player.cuntChange( 72, true, true, false );
+			if( CoC.player.hasVagina() ) {
+				CoC.player.cuntChange( 72, true, true, false );
 			} else {
-				CoC.getInstance().player.buttChange( 72, true, true, false );
+				CoC.player.buttChange( 72, true, true, false );
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'She can\'t quite fit her entire girth into you at this angle, but that doesn\'t matter as it feels absolutely exquisite. You take turns kissing each other\'s necks and nibbling on each other\'s ears while she thrusts in and out.  ' );
@@ -1093,12 +1093,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( 'Your body shivers and quakes as a miniature orgasm rockets through you, somehow making your whole body more sensitive.  ' );
 			EngineCore.outputText( 'Your powerful partner holds you close, her jet black cock pistoning in and out of your hole. You feel safe in her arms, secure in a way you rarely feel elsewhere. You wrap your arms more tightly around her, hugging Cotton close and biting your lip, stifling your moans and groans of passion.\n\n', false );
 			EngineCore.outputText( 'Unable to take any more, Cotton gives one last thrust, pulling your body down onto her cock and giving a whinny of a moan. A full orgasm rocks through your body, like lightning striking every nerve. Your back arches, pressing your chest into Cotton\'s prodigious bosom and even biting your lip doesn\'t stifle the long, deep moan from escaping your lips. Your equine lover\'s cock erupts in you, coating your insides with her hot, sticky seed, which even now begins to leak from your hole around the invading cock.\n\n', false );
-			EngineCore.outputText( 'Exhausted, Cotton sets you down on the shower floor under the spray of water, though cum leaks from your abused hole and your ' + CoC.getInstance().player.legs() + ' quivering so much you nearly collapse. Your partner steadies you, however, and you regain your footing quickly. You return to the task of cleaning yourselves, sensually washing each other\'s most intimate areas. Yoga, sex and cleanup done, you get dressed and leave the gym, giving Cotton\'s hand a final squeeze before departing.', false );
+			EngineCore.outputText( 'Exhausted, Cotton sets you down on the shower floor under the spray of water, though cum leaks from your abused hole and your ' + CoC.player.legs() + ' quivering so much you nearly collapse. Your partner steadies you, however, and you regain your footing quickly. You return to the task of cleaning yourselves, sensually washing each other\'s most intimate areas. Yoga, sex and cleanup done, you get dressed and leave the gym, giving Cotton\'s hand a final squeeze before departing.', false );
 		}
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			this.cottonPregPCChance();
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -1107,13 +1107,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( ImageManager.showImage( 'cotton-tantric-sex' ) );
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
+		CoC.player.slimeFeed();
+		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		//OLD TANTRIC SMEX;
 		/*EngineCore.outputText('You decide to ask instead about using yoga to blow off some steam. She grins, "<i>I know just what you need. It\'s called tantric sex, and I think you\'re just limber and quick enough to try it.</i>"\n\n', false);
 		 EngineCore.outputText('She leads you to a private room in the gym and sets up a larger mat. She disrobes and you do the same. She sits on the mat and you sit opposite her. You spend a couple minutes just breathing, exploring your partner\'s body with your eyes only. Then Cotton slips her legs outwards, and leans backwards, letting her enormous member to waggle freely in the air. She curls a finger at you, and gives you your instructions.\n\n', false);
 		 EngineCore.outputText('You stand and straddle her hips, facing her, carefully lowering yourself down onto her length. You take your time, matching your breathing with hers, until you\'re completely impaled. Then you stretch your legs out behind your partner and also lean back. You both gyrate your hips as your bodies glisten with a light sheen of sweat.', false);
-		 CoC.getInstance().player.buttChange(72,true,true,false);
+		 CoC.player.buttChange(72,true,true,false);
 		 EngineCore.outputText('\n\n', false);
 		 EngineCore.outputText('After several minutes of this you switch positions, with Cotton leaning forward and grabbing you under the waist while you curl your legs under you. Then Cotton pulls herself up into a kneeling position while still inside you, pushing your head and shoulders down onto the mat and your legs up into the ceiling. Several more positions later, your breathing is a little ragged but still in sync, and it\'s clear neither of you can take much more of this.\n\n', false);
 		 EngineCore.outputText('With one last pose, you both stand, Cotton grabs your hips and you lean down to grab your ankles. Your whole body shivers with sexual energy, feeling like it\'s on fire with orgasmic light as your equine lover gives one final thrust into you and explodes, her own body shivering and shuddering. Unable to remain standing any longer, you flop down onto the mat, letting Cotton\'s seed slowly leak out of you, while Cotton lays down next to you, equally exhausted.\n\n', false);
@@ -1126,34 +1126,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '"<i>And our spirits are joined... for now,</i>" she laughs and runs her hands along her upper torso, and in a weird, sort of detached way, you feel it. You touch your chest, rubbing a ' + Descriptors.nippleDescript( 0 ) + ' experimentally, and you see Cotton visibly shiver and give you an approving nod. Whatever she did... you can feel what she feels, however faintly, and vice-versa!\n\n', false );
 		EngineCore.outputText( '"<i>Now comes the yoga portion of this little workout,</i>" she says as she uncurls her legs, spreading them wide and long on the mat. She bends her knees and leans back, propping herself up on her arms. Her jet-black equine cock stands at full attention, pulsing steadily. "<i>Come sit down on my cock, pet, and we\'ll get this party started right.</i>"\n\n', false );
 		EngineCore.outputText( 'Gulping slightly, you stand and approach her. Cotton runs a hand along her member, causing you to shiver with the', false );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' familiar', false );
 		} else {
 			EngineCore.outputText( ' alien', false );
 		}
-		EngineCore.outputText( ' sensations on an unfamiliar part of your body... well, her body. You stand over her hips and slowly lower yourself down, impaling your ' + CoC.getInstance().player.assholeOrPussy() + ' on her meaty tool. In addition to the beautiful sensation of being filled, you also get the sensation of warm, tight constriction on your phantom cock.', false );
+		EngineCore.outputText( ' sensations on an unfamiliar part of your body... well, her body. You stand over her hips and slowly lower yourself down, impaling your ' + CoC.player.assholeOrPussy() + ' on her meaty tool. In addition to the beautiful sensation of being filled, you also get the sensation of warm, tight constriction on your phantom cock.', false );
 		//(for Naga Body, add);
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '  You impale yourself fully, settling down and sitting on her lap, stretching your snake-like body out behind and to one side of her, with your arms propping you up as you lean back.', false );
 		}//(for Humanoid Body, add);
 		else {
 			EngineCore.outputText( '  You impale yourself fully, settling down and sitting on her lap, mimicking her pose with your legs stretched out behind her and your arms propping you up as you lean back.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
-		EngineCore.outputText( 'Though there\'s no real thrusting or vulgar movements of any kind, the feelings are intense, likely heightened by your tantric link. You can simultaneously feel Cotton\'s long equine cock pulse within you, as well as feel your own ' + CoC.getInstance().player.assholeOrPussy() + ' clamping down on a cock that is not your own.', false );
-		if( CoC.getInstance().player.hasVagina() ) {
-			CoC.getInstance().player.cuntChange( 72, true, true, false );
+		EngineCore.outputText( 'Though there\'s no real thrusting or vulgar movements of any kind, the feelings are intense, likely heightened by your tantric link. You can simultaneously feel Cotton\'s long equine cock pulse within you, as well as feel your own ' + CoC.player.assholeOrPussy() + ' clamping down on a cock that is not your own.', false );
+		if( CoC.player.hasVagina() ) {
+			CoC.player.cuntChange( 72, true, true, false );
 		} else {
-			CoC.getInstance().player.buttChange( 72, true, true, false );
+			CoC.player.buttChange( 72, true, true, false );
 		}
 		//(If PC has a penis, add);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Meanwhile, your own ' + Descriptors.cockDescript( 0 ) + ' hangs limply in front of you, tingling with arousal, but unable to harden. Cotton gives it a pat and says, "<i>Worry not, pet, there\'s only room for one cock right now, but I\'ll want it some other time.</i>"', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( '"<i>Now let\'s move on to the Lotus,</i>" Cotton says, and sits up.', false );
 		//(Naga body, add);
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '  You do the same, curling your arms around your partner while your lower body coils around her midsection. Cotton pulls her legs in as well, and it almost looks like you\'re both sitting normally, if it weren\'t for you being on her lap with her dick up inside you.', false );
 		}//(Humanoid body, add);
 		else {
@@ -1161,12 +1161,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		}
 		EngineCore.outputText( '  You take this opportunity to bury your face in Cotton\'s prodigious bosom, taking one black, perky nipple into your mouth, then the other. You can actually feel your own tongue on phantom nipples, flicking and teasing you mercilessly. You relinquish your hold on the nipples and pull back slightly, your saliva forming a slight bridge from nipple to lip.\n\n', false );
 		//(If PC has breasts);
-		if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
+		if( CoC.player.biggestTitSize() >= 2 ) {
 			EngineCore.outputText( 'Cotton returns the favor, her short-snouted mouth latching on to one ' + Descriptors.nippleDescript( 0 ) + ' and sucking it relentlessly. The sensations you get from this are, if anything, greater than normal. Your nipples feel like they\'re on fire, with every molecule aching to be touched, licked, sucked and teased.', false );
 			//(If PC is lactating, add);
-			if( CoC.getInstance().player.biggestLactation() >= 1 ) {
+			if( CoC.player.biggestLactation() >= 1 ) {
 				EngineCore.outputText( '  You feel a familiar sensation welling up in your breasts as milk begins pouring into Cotton\'s mouth. She grins as best she can without letting go of your tit, eagerly drinking down your milk. In yet another moment of trepidation, you realize you can taste your own milk slipping over Cotton\'s tongue. You smack your lips. It tastes sweet and creamy, and oh-so warm. Cotton moves to your next nipple, letting the first dribble milk onto the both of you. Again Cotton sucks on your ' + Descriptors.nippleDescript( 0 ) + ' for a moment before it begins dispensing its precious cargo into her mouth. You taste every gulp, each one sweeter than the next, before Cotton pulls back and smacks her lips together. "<i>You taste so sweet, pet. I simply must have you around for breakfast...</i>"', false );
-				CoC.getInstance().flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
+				CoC.flags[ kFLAGS.COTTON_BREAKFAST_CLUB ] = 1;
 			}
 			//(else if PC is not lactating);
 			else {
@@ -1176,21 +1176,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		}
 		EngineCore.outputText( '"<i>One last pose, pet, the head game.</i>"  She grips your ' + Descriptors.hipDescript() + ' and stands up in one fluid motion. You quickly latch on to her, making sure you don\'t fall. Cotton\'s cock shifts with the motion, going slightly deeper and you reflexively clench, which you feel on your phantom cock. "<i>Now we just lay you down...</i>" You gulp and release your hold on Cotton\'s neck, slowly letting yourself lean backwards. The cock shifts within you, feeling so strange and alien as you move down. Finally your head hits the floor, so you curve your neck slightly, letting your shoulders and head rest on the mat.\n\n', false );
 		//(for Naga bodies);
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'Cotton takes a firm grip on your hips and ass, making sure you don\'t slip, so you carefully uncoil your body and slip it between Cotton\'s legs, then coiling it around her waist, chest, and between her breasts. The feeling is quite intense, though at this angle Cotton\'s cock doesn\'t fit completely inside you.', false );
 		}//(for Humanoid bodies);
 		else {
-			EngineCore.outputText( 'Cotton takes a firm grip on your hips and ass, making sure you don\'t slip, so you carefully extend your ' + CoC.getInstance().player.legs() + ' out, then over and around Cotton\'s arms, only pausing to make sure she has a decent grip on your new position, and rest both of your feet on your equine lover\'s shoulders. The feeling is quite intense and unique, though at this angle Cotton\'s cock doesn\'t fit completely inside you.', false );
+			EngineCore.outputText( 'Cotton takes a firm grip on your hips and ass, making sure you don\'t slip, so you carefully extend your ' + CoC.player.legs() + ' out, then over and around Cotton\'s arms, only pausing to make sure she has a decent grip on your new position, and rest both of your feet on your equine lover\'s shoulders. The feeling is quite intense and unique, though at this angle Cotton\'s cock doesn\'t fit completely inside you.', false );
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Now comes the thrusting. Or rather, gyrating. Cotton begins making small circular motions with her hips, letting her cock thrust ever-so-slightly in and out of you. Despite the subtle motions, combined with the tantric link you\'re in complete and utter bliss. Soon, you too are gyrating your hips the best you can.\n\n', false );
 		EngineCore.outputText( 'It doesn\'t take much longer for the sensations to consume you, feeling yourself both getting fucked and fucking at the same time. Lightning fires through every nerve in your body as an orgasm begins to overtake you. Cotton doesn\'t look far behind. As your body begins to tremble and arch, so too does hers.', false );
 		//(If PC has a penis);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' twitches and tingles, releasing its pent up seed in a dribbling torrent down your belly and chest, right into your face and pooling around your head.', false );
 		}
 		//(If PC has a vagina);
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' shivers and clamps down hard on the invading cock, pulsing and milking it as it unloads directly into your womb.', false );
 		}//(If PC doesn't have a vagina);
 		else {
@@ -1201,9 +1201,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Then in a flash, it\'s gone. The lightning subsided, you both collapse sideways onto the floor, panting. The tantric link is apparently gone, and you suddenly feel very alone. Cotton, seemingly sensing this, pulls out and curls up next to you, cuddling you until the sudden feeling of loss dissipates.\n\n', false );
 		EngineCore.outputText( 'After a few minutes, you feel your strength ebbing back into you and you get up. Cotton does the same, and you both spend the time to clean the mat of the results of your escapades, before retreating to the showers to clean each other up. Once that\'s over, you both leave the gym hand-in-hand, with Cotton giving your hand a final squeeze before you depart to your camp.', false );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.25, 'spe', 0.25, 'lib', -0.25, 'sen', -0.25 );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			this.cottonPregPCChance();
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -1229,7 +1229,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'You quickly arise and ready your weapon, prepared for anything to come through the brush. After a moment, a large dark shape bursts through the bushes. You\'re about to strike when you recognize the figure! It\'s Cotton from the gym in Tel\'Adre! Rather than her normal yoga outfit, she\'s wearing a tight brown shirt and loose brown pants, along with a backpack slung across one shoulder.\n\n', false );
 		EngineCore.outputText( 'The horse girl holds up her hands in a nonthreatening manner. "<i>Whoa there, pet. I just came by to join you for breakfast.</i>" You sigh and put your weapon away. "<i>Jumpy huh?</i>" she says, looking around your camp. "<i>You\'ve got a pretty good setup here. I don\'t know why you don\'t just move into Tel\'Adre. I\'ve got a nice little place we could share... But no matter.</i>"\n\n', false );
 		EngineCore.outputText( 'You invite her over to your bedroll and sit down. She follows suit and removes her backpack, digging through it for a minute, retrieving a clay bowl and a large brown bag. She opens the bag and pours out a bowlful of grains and oats. "<i>Normally I just eat my breakfast raw... but today I want to try something a little different.</i>"', false );
-		EngineCore.outputText( 'Cotton sets the bowl down in your lap and pulls down the front of your ' + CoC.getInstance().player.armorName + ', exposing your ' + Descriptors.chestDesc() + ' to the cool morning breeze. A shiver runs down your spine and your nipples immediately begin to harden, as if knowing what this equine girl has in mind. Cotton leans down and wraps her lips around one ' + Descriptors.nippleDescript( 0 ) + ', sucking sensually and flicking the tip with her tongue.\n\n', false );
+		EngineCore.outputText( 'Cotton sets the bowl down in your lap and pulls down the front of your ' + CoC.player.armorName + ', exposing your ' + Descriptors.chestDesc() + ' to the cool morning breeze. A shiver runs down your spine and your nipples immediately begin to harden, as if knowing what this equine girl has in mind. Cotton leans down and wraps her lips around one ' + Descriptors.nippleDescript( 0 ) + ', sucking sensually and flicking the tip with her tongue.\n\n', false );
 		EngineCore.outputText( 'You feel the familiar sensation of fluids being drawn from you, and soon Cotton is suckling from your milky tit. She relinquishes her hold on the teat, smacks her lips, and brings the bowl up to your breast. With the other hand, she grabs your ' + Descriptors.nippleDescript( 0 ) + ' and breast firmly, pulling and squeezing it. Delicious white milk begins squirting from the ducts of your breast, dribbling and spraying into the bowl of grains. You can\'t help but moan, squirming in your seat as your tit is ruthlessly milked.\n\n', false );
 		EngineCore.outputText( 'Cotton gives the breast one last lick and moves on to the next. In no time, that one too is spraying a copious amount of milk into the bowl. The sensation is amazing, being milked by hand. So intimate and personal. Your body quakes and trembles as little earthquakes shake across your breasts and down your body. Your mouth forms an O and you let out little moans of pleasure as the boobgasm rolls throughout your body.\n\n', false );
 		EngineCore.outputText( 'Just like that, Cotton\'s hand leaves your breast, though the hot and aroused feeling doesn\'t leave. You open your eyes and look at her. She gives you a smile and takes a bite of grains.\n\n', false );
@@ -1238,11 +1238,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '"<i>Thanks, pet, that was delicious. I\'ll be sure to stop by another time so we can share a meal. Feel free to come by the gym too. We can get a little more... personal.</i>" She kisses you on the cheek, and then departs back towards Tel\'Adre.', false );
 		//(Event should increase lust (by 10?), or maybe reduce it if the player has the Feeder perk. Should also increase the character's lactation rating, or at least prevent it from decaying.);
 		EngineCore.dynStats( 'lib', -0.5, 'sen', -0.5, 'lus', -5 );
-		CoC.getInstance().player.boostLactation( 0.05 );
+		CoC.player.boostLactation( 0.05 );
 		//You've now been milked, reset the timer for that;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.Feeder, 1, 1 );
-			CoC.getInstance().player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
+			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -1268,11 +1268,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '"<i>Hello, pet,</i>" she says, and you notice worry in her voice.  There are slight bags under her eyes, and her crimson ponytail is a little unkempt, with hair jutting out at odd angles.  Something clearly has her frazzled.' );
 		EngineCore.outputText( '\n\n"<i>I\'ll just come right out with it. I went to the Covenant today...  I\'m pregnant,</i>" she says, matter-of-factly, "<i>and it\'s yours.</i>"' );
 		EngineCore.outputText( '\n\n"<i>I\'d been taking some herbs to counteract pregnancy, but I guess it was just no match for you.' );
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (SceneLib.telAdre.edryn.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (SceneLib.telAdre.edryn.pregnancy.isPregnant && CoC.flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
 			EngineCore.outputText( '  Should have figured as much after you got Edryn pregnant.' );
 		}
 		EngineCore.outputText( '</i>"  She wrenches her hands nervously and looks you in the eye. The cool, confident yoga instructor has clearly melted away, revealing the real her.  "<i>I know we\'re not serious, but ' );
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 ) {
 			EngineCore.outputText( 'you\'ll stick with me through this, right?' );
 		} else {
 			EngineCore.outputText( 'you won\'t abandon me like you did Edryn, will you?' );
@@ -1289,19 +1289,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'You shake your head.  You certainly can\'t deal with a kid.  You tell her point blank that you want nothing to do with the child.  Tears well up in her eyes, and her mouth opens and closes several times, without a single sound coming out.' );
 		EngineCore.outputText( '\n\nAfter a moment, she squares her jaw, and a determined look comes over her face.  The confident woman you first met seems to reappear.  She wipes the tears from each eye, and states, "<i>Fine then.  I can do this on my own.</i>"' );
 		EngineCore.outputText( '\n\nShe turns to walk away, then stops, swivels back towards you ' );
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 ) {
 			EngineCore.outputText( 'and slaps you as hard as she can' );
 		} else {
 			EngineCore.outputText( 'and punches you as hard as she can' );
 		}
 		EngineCore.outputText( '. "<i>Fuck you \'pet\'.' );
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] > 0 ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] > 0 ) {
 			EngineCore.outputText( '  That was for Edryn too.' );
 		}
 		EngineCore.outputText( '</i>"  With that, she turns on her hoof and leaves.' );
 		//bold;
 		EngineCore.outputText( '<b>(Cotton will no longer speak with you.)</b>' );
-		CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] = 1;
+		CoC.flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Stay)*;
@@ -1310,7 +1310,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'You take her by the shoulders and nod.  You confirm that of course you\'ll be there for her, whatever she needs.' );
 		EngineCore.outputText( '\n\nA smile spreads across her face and she hugs you, squeezing tightly, "<i>Oh thank Marae.  I don\'t expect you to just pack up and move in, I\'m totally fine with our current arrangement, but just having you around for emotional support would be wonderful.</i>"' );
 		EngineCore.outputText( '\n\nShe plants a kiss on your lips, and returns to the yoga section of the gym.' );
-		CoC.getInstance().flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] = 1;
+		CoC.flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Alternate Approach Cotton Scenes*;
@@ -1322,7 +1322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//(Replaces Yoga session);
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'cotton-giving-birth' ) );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
 			EngineCore.outputText( 'Cotton is waiting at her usual spot, sipping casually from a bottle of water, her hugely rounded, brown-skinned orb of a belly exposed as it has been since she outgrew her maternity shirt.  She winces and rubs her belly with a grimace as you approach, which prompts you to ask if she\'s been feeling all right.' );
 			EngineCore.outputText( '\n\n"<i>Just a little stomach pain,</i>" she says casually, "<i>I probably pulled something again.  This little foal has been murder on my muscles.  I\'ll be fine, lets start on your warm up stretches, shall we?</i>"  You nod, not entirely convinced, but you get down on the mat and begin stretching.' );
 			EngineCore.outputText( '\n\nYou\'re only minutes into your stretches when, with a sudden cry of pain from the equine herm, a gush of water spills forth from between Cotton\'s legs.  She looks down in a panic, nearly doubling over with her arms wrapped around her belly.  "<i>Oh my god, the baby\'s coming!</i>" she cries out, panic tinging her voice.' );
@@ -1336,11 +1336,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( 'Let\'s go.</i>"' );
 			//(Depending on PC height:;
-			if( CoC.getInstance().player.tallness < 60 ) {
+			if( CoC.player.tallness < 60 ) {
 				EngineCore.outputText( 'She wraps an arm around your neck' );
-			} else if( CoC.getInstance().player.tallness < 70 ) {
+			} else if( CoC.player.tallness < 70 ) {
 				EngineCore.outputText( 'She places a hand on your shoulder' );
-			} else if( CoC.getInstance().player.tallness < 86 ) {
+			} else if( CoC.player.tallness < 86 ) {
 				EngineCore.outputText( 'She wraps an arm around your midsection' );
 			} else {
 				EngineCore.outputText( 'She wraps an arm around your waist' );
@@ -1359,7 +1359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			} else {
 				kid = 3;
 			}
-			CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] = kid;
+			CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] = kid;
 			if( kid === 1 ) {
 				EngineCore.outputText( 'male' );
 			} else if( kid === 2 ) {
@@ -1419,9 +1419,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( '\n\n"<i>Oh no, pet,</i>" she whispers back, "<i>This baby was all you.</i>"  You smile at her, call her a flatterer, and then kiss her.  You ask if she needs any more help setting things up.  "<i>No, don\'t worry about a thing, everything\'s been taken care of.  But we can sit here a little longer if you want.</i>"' );
 			EngineCore.outputText( '\n\nYou tell her you\'d like that, taking a seat nearby with the \'mother\' of your child and watching as your baby foal sleeps soundly.  Eventually, though, you have to leave, and politely excuse yourself to head back to camp.' );
 			this.pregnancy.knockUpForce(); //Clear Pregnancy
-			CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ]++;
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
+			CoC.flags[ kFLAGS.COTTON_KID_COUNT ]++;
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				CoC.flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
 			}
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1522,9 +1522,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 			EngineCore.outputText( ' later.  The two of you head back out to the main section of the gym, while Cotton slaps you on the back, "<i>We sure do make \'em good, don\'t we?  Anyway, if you want to work out, just get changed and come on back.</i>"' );
 			this.pregnancy.knockUpForce(); //Clear Pregnancy
-			CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ]++;
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
+			CoC.flags[ kFLAGS.COTTON_KID_COUNT ]++;
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				CoC.flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
 			}
 
 			//Cotton menu here;
@@ -1538,7 +1538,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	Cotton.prototype.cottonContraceptionToggle = function() {
 		EngineCore.clearOutput();
 		//REPEATS;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] > 0 ) {
 			this.repeatContraceptionToggleCotton();
 			return;
 		}
@@ -1549,20 +1549,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( 'she-stallion if she\'s still taking her contraceptive herbs.' );
 		EngineCore.outputText( '\n\nCotton nods, but then visibly thinks about it for a moment.  "<i>I am, though I guess it hasn\'t been any match for you, hm?  You\'re too ' );
 		//(Cottonpreg:;
-		if( CoC.getInstance().player.gender !== 3 || this.pregnancy.isPregnant ) {
+		if( CoC.player.gender !== 3 || this.pregnancy.isPregnant ) {
 			EngineCore.outputText( 'virile' );
 		} else {
 			EngineCore.outputText( 'fertile' );
 		}
 		EngineCore.outputText( '; you actually broke right through the protection they were supposed to give me from ending up a mommy or a daddy.  I may as well not be taking them at all when I\'m with you, don\'t you think?</i>" she concludes.' );
 		EngineCore.outputText( '\n\nYou admit that kind of makes sense to you, but it\'s not as if you\'re guaranteed to get through their protection, right?\n\n"<i>' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] < 3 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] < 3 ) {
 			EngineCore.outputText( 'Well that\'s true,</i>" she admits.  "<i>But I leave it up to you, pet.' );
 		} else {
 			EngineCore.outputText( 'Well, considering the brood we have, they\'ve already proven pretty useless, haven\'t they?   So, while I\'ll keep taking them if you want me to, I don\'t see much point in it.' );
 		}
 		EngineCore.outputText( '</i>"' );
-		CoC.getInstance().flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] = 1;
+		CoC.flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] = 1;
 		//[Stop Taking] [Keep Taking];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Stop Taking', this.tellCottonStopEatingHorsePills );
@@ -1576,7 +1576,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nYou thank her for understanding you and change the subject.' );
 		//Display Cotton options;
 		//Starting from next day, Cotton fertility & potency are set to Unherbed levels - 80% chance of getting pregnant, 50% chance of impregnating PC (boosted to 80-100% if PC is in heat)?;
-		CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] = 1;
+		CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] = 1;
 		this.cottonMenu();
 	};
 	//[=Keep Taking=];
@@ -1593,16 +1593,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nYou thank her for understanding you and change the subject, ready to discuss other matters.' );
 		//Display Cotton options;
 		//Cotton remains at contraception fertility levels;
-		CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] = 0;
+		CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] = 0;
 		this.cottonMenu();
 	};
 	//Turn On;
 	Cotton.prototype.repeatContraceptionToggleCotton = function() {
 		EngineCore.clearOutput();
 		//Play this scene if Contraception chosen when Cotton Contraception is turned off;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] === 1 ) {
+		if( CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] === 1 ) {
 			EngineCore.outputText( 'You tell Cotton that, while you know it\'s not a perfect solution, you want her to start taking her herbs again.' );
-			CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] = 0;
+			CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] = 0;
 			EngineCore.outputText( '\n\nCotton nods, "<i>All right then.  As they say, better safe than ' );
 			if( !EngineCore.silly() ) {
 				EngineCore.outputText( 'sorry' );
@@ -1619,7 +1619,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( '\n\nShe nods and says, "<i>Starting tomorrow I\'ll go ahead and stop, then.</i>"' );
 			EngineCore.outputText( '\n\nYou thank her for understanding you and change the subject.' );
 			//Next day triggers Unherbed Cotton;
-			CoC.getInstance().flags[ kFLAGS.COTTON_HERBS_OFF ] = 1;
+			CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] = 1;
 		}
 		this.cottonMenu();
 	};
@@ -1638,17 +1638,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nYou tell her that\'s mostly up to her; does she want this baby?  Does she still want you?' );
 		EngineCore.outputText( '\n\n"<i>Yes!</i>" Cotton explodes.  "<i>What kind of woman do you think I am?  That I\'d abandon my child, or the mother of my child?</i>"  She looks thoughtful for a moment, then says, "<i>I think... Yes, don\'t worry about a thing.  I\'ll have everything ready by the time you\'re ready to pop, my little pet.</i>"  She places a hand upon your belly, whispering, "<i>And my littlest pet.</i>"  She moves her hand up to her chin, now apparently deep in thought, her mind no doubt going through all the preparations that need to be taken care of.' );
 		EngineCore.outputText( '\n\nYou thank her for breakfast and politely excuse yourself.  It\'s clear that she\'s got quite a bit of work ahead of her, and you\'ve got to get back.  You exit the little apartment, closing the door softly behind you, and strike off back towards camp.' );
-		CoC.getInstance().flags[ kFLAGS.COTTON_KNOCKED_UP_PC_AND_TALK_HAPPENED ] = 1;
+		CoC.flags[ kFLAGS.COTTON_KNOCKED_UP_PC_AND_TALK_HAPPENED ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Birthing*;
 	Cotton.prototype.birthingCottonsKids = function() {
 		EngineCore.outputText( '\nYou wake up suddenly to strong pains and pressures in your gut.  As your eyes shoot wide open, you look down to see your belly absurdly full and distended.  ' );
-		if( CoC.getInstance().player.vaginas.length === 0 ) {
+		if( CoC.player.vaginas.length === 0 ) {
 			EngineCore.outputText( 'You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ', false );
-			CoC.getInstance().player.createVagina();
-			CoC.getInstance().player.genderCheck();
+			CoC.player.createVagina();
+			CoC.player.genderCheck();
 		}
 		EngineCore.outputText( 'You can feel movement underneath the skin, and watch as it bulges and shifts as another living being moves independently inside you.' );
 		EngineCore.outputText( '\n\nOddly, there\'s no pain as you sit up and spread your [legs] in a birthing stance.  A wave of peace and tranquility descends over you, reminding you of your yoga sessions with Cotton.  You take a deep breath and push as hard as you can, pausing only to take small gasps for air.  You feel a sudden pressure against your cervix as your child begins to push its way through little by little.' );
@@ -1716,7 +1716,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '.  Eventually they remember you\'re here and disperse, waving you inside.  As you look back, you see one guard light up a cigar and pass others around.' );
 		EngineCore.outputText( 'You trek through the town, eventually finding Cotton\'s apartment nuzzled in between a tailor\'s shop and a deli.  You only have to wait a moment after knocking before seeing the familiar face of your yoga instructor and lover.  At first she looks surprised to see you, then her eyes fall upon the little bundle of joy held in your arms.  Her hazel eyes go wide and she stifles a squee of excitement.' );
 		//[Instead: If you've dumped Cotton];
-		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] > 0 ) {
+		if( CoC.flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] > 0 ) {
 			EngineCore.outputText( '\n\nHer excitement diminishes as she looks up at you, glaring.  "<i>I suppose you can\'t take care of this one either?</i>"  You nod, explaining the dangers of being Champion.  She nods her head, "<i>Of course I won\'t turn away my ' );
 			if( kid === 1 ) {
 				EngineCore.outputText( 'son' );
@@ -1734,8 +1734,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( '\n\nWith a sigh, you begin your long walk back to camp.' );
 		}
 		//[First Child with Cotton?];
-		else if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] = kid;
+		else if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
+			CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] = kid;
 			EngineCore.outputText( '\n\nAfter pulling you into a quick awkward hug, she ushers you inside and into a large nursery room painted with pastel pinks, blues and purples. You explain you can\'t keep the child with you, and Cotton nods understandably. "<i>' );
 			if( kid === 1 ) {
 				EngineCore.outputText( 'He\'ll' );
@@ -1802,11 +1802,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( '\n\n"<i>Of course, pet,</i>" she says, taking the bundle from you.  She quickly swaddles it, and settles it down in the crib before giving your forehead a kiss goodbye.  You give your equine lover one last cuddle, and then set off back to camp. You\'ve another busy day ahead, after all.' );
 		}
 		EngineCore.outputText( '\n' );
-		CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ]++;
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-			CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
+		CoC.flags[ kFLAGS.COTTON_KID_COUNT ]++;
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			CoC.flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
 		}
-		CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
+		CoC.player.knockUpForce(); //Clear Pregnancy
 	};
 
 	//Visit Kids*;
@@ -1816,14 +1816,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	Cotton.prototype.visitCottonKids = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Cotton that, if it\'s okay with her, you\'d like to skip exercising today; you were hoping that you could visit your ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 			EngineCore.outputText( 'kid' );
 		} else {
 			EngineCore.outputText( 'kids' );
 		}
 		EngineCore.outputText( ', instead? Cotton\'s eyes widen in surprise before a happy grin splits her face.  "<i>Sure, pet, all you had to do was ask!  Give me a minute to get my stuff, and then we\'ll go and see ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
 				EngineCore.outputText( 'him' );
 			} else {
 				EngineCore.outputText( 'her' );
@@ -1832,7 +1832,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( 'them' );
 		}
 		EngineCore.outputText( ', all right?</i>"  You nod your head and watch as the equine yoga instructor busies herself gathering her few daily belongings, then follow her as she heads back home, eager to see how your ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 			EngineCore.outputText( 'child is' );
 		} else {
 			EngineCore.outputText( 'children are' );
@@ -1843,51 +1843,51 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//Peek-a-boo;
 		if( scene === 0 ) {
 			EngineCore.outputText( '\n\nYour ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'baby girl is' );
 			} else {
 				EngineCore.outputText( 'baby boy is' );
 			}
 			EngineCore.outputText( ' sitting up in ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'his' );
 			}
 			EngineCore.outputText( ' crib when you both enter, cooing happily and babbling like babies do, clearly happy in ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'his' );
 			}
 
 			EngineCore.outputText( ' own little way to see you.  Cotton smiles at you, "<i>Watch this; ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'she' );
 			} else {
 				EngineCore.outputText( 'he' );
 			}
 			EngineCore.outputText( ' loves this game,</i>" she tells you, and then slowly kneels before the crib.  "<i>Hello, my little sweet, hellooo.</i>"  Cotton coos, patting the ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				EngineCore.outputText( 'baby' );
 			} else {
 				EngineCore.outputText( 'babies' );
 			}
 			EngineCore.outputText( ' on the nose and babbling to ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
 				EngineCore.outputText( 'him' );
 			} else {
 				EngineCore.outputText( 'her' );
 			}
 
 			EngineCore.outputText( ' in that way that parents of small children tend to do.  When the little ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
 				EngineCore.outputText( 'colt' );
 			} else {
 				EngineCore.outputText( 'filly' );
 			}
 			EngineCore.outputText( ' foal is giggling merrily, Cotton slowly cover her eyes with her hands.  "<i>Where\'s the baby? Where\'s the little baby?</i>" she asks, then quickly uncovers her eyes, adopting an exaggerated expression of surprise.  "<i>Why, there ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
 				EngineCore.outputText( 'he' );
 			} else {
 				EngineCore.outputText( 'she' );
@@ -1895,22 +1895,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			EngineCore.outputText( ' is!</i>"  She gasps, making the baby laugh in delight.  She repeats this several times, the baby enjoying it thoroughly.  You ask Cotton if you can try, and she agrees; ' );
 			EngineCore.outputText( 'your baby seems' );
 			EngineCore.outputText( ' a little surprised to see you, but that doesn\'t stop ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'him' );
 			}
 			EngineCore.outputText( ' from laughing just as hard at you as ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] === 1 ) {
 				EngineCore.outputText( 'he' );
 			} else {
 				EngineCore.outputText( 'she' );
 			}
 			EngineCore.outputText( ' did at Cotton.  Feeling a little left out, Cotton rejoins you and you start playing peek-a-boo together, much to the baby\'s delight.' );
 			//[Additional Kids:;
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 1 ) {
 				EngineCore.outputText( '\n\nYour other ' );
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 2 ) {
+				if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 2 ) {
 					EngineCore.outputText( 'baby is' );
 				} else {
 					EngineCore.outputText( 'babies are' );
@@ -1918,8 +1918,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( ' clearly enjoying it just as much as your first-born, giggling and clapping at yours and Cotton\'s antics, even clumsily trying to mimic the game themselves.' );
 			}
 			EngineCore.outputText( '\n\nEventually, though, ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'she grows tired' );
 				} else {
 					EngineCore.outputText( 'he grows tired' );
@@ -1928,12 +1928,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'they grow tired' );
 			}
 			EngineCore.outputText( ' and, still giggling, settle' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' down to sleep.  You and Cotton fuss over ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'her' );
 				} else {
 					EngineCore.outputText( 'him' );
@@ -1943,8 +1943,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 			}
 
 			EngineCore.outputText( ', tucking ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'her' );
 				} else {
 					EngineCore.outputText( 'him' );
@@ -1953,8 +1953,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'them' );
 			}
 			EngineCore.outputText( ' in and mussing ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'her' );
 				} else {
 					EngineCore.outputText( 'his' );
@@ -1963,8 +1963,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'their' );
 			}
 			EngineCore.outputText( ' hair gently, but watch until ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 					EngineCore.outputText( 'she goes' );
 				} else {
 					EngineCore.outputText( 'he goes' );
@@ -1973,7 +1973,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 				EngineCore.outputText( 'they go' );
 			}
 			EngineCore.outputText( ' to sleep.  You share a smile with your equine lover, kiss your ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				EngineCore.outputText( 'kid on the cheek' );
 			} else {
 				EngineCore.outputText( 'kids on the cheeks' );
@@ -1983,20 +1983,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//Little Angel;
 		else if( scene === 1 ) {
 			EngineCore.outputText( '\n\nHowever, it turns out that ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				EngineCore.outputText( 'your baby is' );
 			} else {
 				EngineCore.outputText( 'all your children are' );
 			}
 			EngineCore.outputText( ' fast asleep.  Rather than disturb ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'him' );
 			}
 			EngineCore.outputText( ', Cotton simply leans over the crib, gently stroking a cheek with a soft smile on her lips.  "<i>I\'d forgotten what it was like to be a parent... it\'s hard work, but it\'s definitely rewarding.</i>"  She gives you a sidelong look.  "<i>I can\'t say that this is exactly what I expected of our little relationship... but I\'m not complaining.</i>"' );
 			EngineCore.outputText( '\n\nYou can\'t resist a playful smirk and tell Cotton that she\'s a flatterer, giving her a quick kiss on the cheek before heading back to camp, leaving Cotton and the ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				EngineCore.outputText( 'baby' );
 			} else {
 				EngineCore.outputText( 'babies' );
@@ -2007,20 +2007,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		else if( scene === 2 ) {
 			//If player lactates, display "<i>Stay Quiet</i>" or "<i>Feed</i>" options; otherwise, skip straight to Stay Quiet option;
 			EngineCore.outputText( '\n\nAt the sight of Cotton, your ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'daughter' );
 			} else {
 				EngineCore.outputText( 'son' );
 			}
 			EngineCore.outputText( ' starts to wail and cry, the mare looking tired.  "<i>Oh, you\'re hungry again my little one?  All right, all right, mommy will get your milk, just give me a moment...</i>"' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 1 ) {
+			if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 1 ) {
 				EngineCore.outputText( '  Fortunately, your other kids don\'t seem to be hungry, so it\'s just the one who needs feeding.' );
 			}
 
 			//(If PC lactates:;
-			if( CoC.getInstance().player.lactationQ() >= 50 ) {
+			if( CoC.player.lactationQ() >= 50 ) {
 				EngineCore.outputText( '  You could probably offer to nurse your ' );
-				if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] !== 1 ) {
+				if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] !== 1 ) {
 					EngineCore.outputText( 'daughter' );
 				} else {
 					EngineCore.outputText( 'son' );
@@ -2039,51 +2039,51 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		//Cuddlebug;
 		else {
 			EngineCore.outputText( '\n\nYour ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'daughter' );
 			} else {
 				EngineCore.outputText( 'son' );
 			}
 			EngineCore.outputText( ' stares up at you with eyes wide and wet, sniffling audibly as ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'she' );
 			} else {
 				EngineCore.outputText( 'he' );
 			}
 			EngineCore.outputText( ' makes tiny little sobs.  "<i>Aw, looks like somebody was lonely,</i>" Cotton coos, then gives you a meaningful nudge.  Realising she wants you to hold your child, you step forward and gently lift ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'he' );
 			}
 			EngineCore.outputText( ' up into your arms, commenting on what a big, heavy ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'girl' );
 			} else {
 				EngineCore.outputText( 'he' );
 			}
 			EngineCore.outputText( '\'s getting to be.  The baby is scared and hesitant, and bursts into tears at first, but you croon and shush ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'he' );
 			}
 			EngineCore.outputText( ' gently, holding the foal close to your ' );
 			EngineCore.outputText( '[chest] and rocking ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'him' );
 			}
 			EngineCore.outputText( ' back and forwards; soon enough, the foal\'s cooing and snuggling eagerly against you as you cuddle ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'him' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nYou murmur soft nothings to your child, telling them how brave and healthy they are, and assuring them that you know they\'ll grow up to be big and strong, gently ruffling the foal\'s hair, an act that makes ' );
-			if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+			if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 				EngineCore.outputText( 'her' );
 			} else {
 				EngineCore.outputText( 'his' );
@@ -2097,27 +2097,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 	Cotton.prototype.feedYourCottonKids = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You interrupt Cotton by pointing out that you have breasts full of milk; you\'d be happy to nurse the little ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'filly ' );
 		} else {
 			EngineCore.outputText( 'cotton ' );
 		}
 		EngineCore.outputText( ' for her, if she wants.' );
 		EngineCore.outputText( '\n\nCotton blinks at you in surprise before giving you a relieved and admiring smile.  "<i>Thank you, pet - besides, a little bonding time would do you both some good,</i>"  she states.  Gently she picks the little horse-morph up before handing ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'he' );
 		}
 		EngineCore.outputText( ' to you, by which time you have already exposed your [chest].' );
 		EngineCore.outputText( '\n\nYou carefully take your child from Cotton\'s hands, feeling ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 		EngineCore.outputText( ' weight in your arms, before bringing ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'him' );
@@ -2125,46 +2125,46 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 
 		EngineCore.outputText( ' in close' );
 		EngineCore.outputText( '.  At first, the baby is confused and whimpers quietly in fear, but ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 
 		EngineCore.outputText( ' presence and weight make your boobs start releasing their sweet cargo.  As the scent of milk fills the air, the baby\'s instincts take over and it brings its little face in to first nuzzle your [nipple], and then finally close ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 		EngineCore.outputText( ' lips around it.' );
 		EngineCore.outputText( '\n\nYou let out a quiet moan of appreciation as the child - <b>your</b> child - starts to suckle, gently bringing her in as close as you can.  You start to slowly rock ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'him' );
 		}
 		EngineCore.outputText( ' back and forth, quietly starting to sing whatever dredges of lullabies you can remember overhearing from the nursing mothers back in your own village in Ingnam.  You can feel ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 		EngineCore.outputText( ' little heart beating inside ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 		EngineCore.outputText( ' breast, and you wonder if ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'she' );
 		} else {
 			EngineCore.outputText( 'he' );
 		}
 		EngineCore.outputText( ' can hear your heart inside of yours.' );
 		EngineCore.outputText( '\n\nCotton smiles, moving behind you and putting her hands on your shoulders, remarking, "<i>You\'re just a regular milk-machine, aren\'t you?  Good thing too, our child' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 			EngineCore.outputText( ' needs' );
 		} else {
 			EngineCore.outputText( 'ren need' );
@@ -2173,13 +2173,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nEventually the child releases its hold on your nipple and lets out a huge yawn for such a little thing.  Its eyelids drift closed and it settles in its blanket for a long milk-fueled nap.  You gently rock the child, still singing softly, and then quietly tell Cotton that her baby is a little angel.' );
 		EngineCore.outputText( '\n\nShe smiles and replies, "<i>Enjoy that while it lasts, pet.  Sooner than you think they\'ll be tearing across the house, more rambunctious than anything you\'ve seen.</i>"' );
 		EngineCore.outputText( '\n\nYou sigh and admit that\'s true.  However, right now, ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'she' );
 		} else {
 			EngineCore.outputText( 'he' );
 		}
 		EngineCore.outputText( ' is just a sleepy little thing who needs to go to bed, you tell her, and you gently put the baby back in ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
@@ -2189,11 +2189,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nYou kiss your equine lover, ruffle the sleeping child\'s hair, and quietly head back to camp, leaving Cotton to take care of things.' );
 		EngineCore.dynStats( 'lus', -10 );
 		//You've now been milked, reset the timer for that;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.Feeder, 1, 1 );
-			CoC.getInstance().player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
+			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
-		CoC.getInstance().player.boostLactation( 0.5 );
+		CoC.player.boostLactation( 0.5 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Stay Quiet;
@@ -2205,20 +2205,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance,
 		EngineCore.outputText( '\n\nYou notice Cotton can\'t help but let out a quiet moan from time to time as the child slurps and suckles.  She does her best to hide it, but not well enough.  Soon, though, you see the child growing more sluggish.  Eventually it lets out a big yawn and a prompt "<i>UURP</i>", before settling down in its blanket for a nap.' );
 		EngineCore.outputText( '\n\nCotton holds it for another minute, then hands it off to you, so that she can get dressed. You slowly rock your child in your arms, humming a soothing tune.  The child you\'re holding looks so different to the babies back in Ingnam...' );
 		EngineCore.outputText( '\n\nCotton slips on her normal tank top and looks down appreciatively at the child in your arms. "<i>How about you put ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her down for her nap, hm pet?</i>"' );
 		} else {
 			EngineCore.outputText( 'him down for his nap, hm pet?</i>"' );
 		}
 
 		EngineCore.outputText( '\n\nYou nod your head to her and gently place the sleepy baby back in ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );
 		}
 		EngineCore.outputText( ' crib.  You ruffle ' );
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
+		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'her' );
 		} else {
 			EngineCore.outputText( 'his' );

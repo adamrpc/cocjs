@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Cutting your way through the swamps in the hopes of finding something that isn\'t a spider, you are pleasantly surprised when you actually succeed.  You discover what seems to be a mossy stone door in a low hillside, adorned with some sort of complex puzzle lock composed of multiple stone circles decorated with animal symbols.  You don\'t know what lurks beyond the door, but if adventuring has taught you nothing else it is that something cool is always behind a puzzle.\n\n', false );
 		//[Intelligence less than 60];
-		if( CoC.getInstance().player.inte < 60 ) {
+		if( CoC.player.inte < 60 ) {
 			EngineCore.outputText( 'Unfortunately, try as you might, you cannot seem to figure the lock out.  You spin the stone circles around multiple times to try and discern the pattern to them, but find yourself continually disappointed.  Eventually you resort to trying to listen for the sound of tumblers behind the door indicating a shifting lock.  It is not as successful as you hope.  Disappointed but not undeterred, you resolve to return to the mysterious lock at a later point, when you are more capable of handling its clever riddle.', false );
 			//[Player leaves, room can be re-encountered];
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -52,21 +52,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 		EngineCore.outputText( 'Turning to leave, you\'re startled by apparitions standing between you and the stairwell.  Faceless, translucent figures wearing the same robes you just discovered watch you carefully.  You brace yourself for a fight, but one by one they step to the side.  Carefully, you continue forward.  Each one bows as you pass them.\n\n', false );
 		EngineCore.outputText( 'The display makes you feel righteous.\n\n', false );
 		//[Player receives: 1x Inquisitor's Robes];
-		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
+		CoC.flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
 		SceneLib.inventory.takeItem( ArmorLib.I_ROBES, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Carnality];
 	SymGear.prototype.carnalityArmorIsCoolShitToo = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'With your word, the chest clicks.  Moving to lift the lid, you start when it does so of its own will.  Gleaming, brilliant light floods the room.  You had expected there to be a bit of showiness from the magic, yes, but having the robes actually rise up out of the chest seems excessive.  A dark red posture collar attached to sleeves floats above it as though on a mannequin - or a ghost.  The corset that rises beneath it looks perfectly fitted to you', false );
-		if( CoC.getInstance().player.biggestTitSize() < 1 ) {
+		if( CoC.player.biggestTitSize() < 1 ) {
 			EngineCore.outputText( ', which strikes you as unusual given your flat chest', false );
 		}
 		EngineCore.outputText( '.  Red like dried blood, it looks devilishly tight.  A golden trim runs over the... well, the trim.  Similarly colored laces run down the back.  It connects naturally to a belt with a symbol you don\'t recognize emblazoned on the front, which in turn is affixed to a wavy skirt aligned to the side.  There don\'t actually seem to be any bottoms, and the skirt looks as though it will cover approximately nothing between your legs - but given your choice, that\'s probably to be expected.  A high pair of heeled boots completes the outfit, echoing a similar dark red lace along the side. You gather the ensemble and place them in your pack to inspect further at camp.\n\n', false );
 		EngineCore.outputText( 'Turning to leave you\'re startled by the apparitions standing between you and the stairwell.  Faceless, translucent figures wearing red and gold hooded robes, similar to the outfit just discovered, watch you carefully.  You brace yourself for a fight, but one by one they step to the side.  Carefully, you continue forward.  Each one bows as you pass them.\n\n', false );
 		EngineCore.outputText( 'The display makes you feel like a badass.\n\n', false );
 		//[Player receives 1x Inquisitor's Corset];
-		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
+		CoC.flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
 		SceneLib.inventory.takeItem( ArmorLib.I_CORST, SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 	SymGear.prototype.dominikaSpellblade = function() {
 		EngineCore.outputText( '', true );
 		//[Approach Dominika post-D2 in bar, on Dominika's "<i>I'm a racist bitch</i>" list];
-		if( (CoC.getInstance().player.minoScore() >= 3 && CoC.getInstance().player.faceType === AppearanceDefs.FACE_COW_MINOTAUR && CoC.getInstance().player.gender === 1) || !CoC.getInstance().player.isBiped() ) {
+		if( (CoC.player.minoScore() >= 3 && CoC.player.faceType === AppearanceDefs.FACE_COW_MINOTAUR && CoC.player.gender === 1) || !CoC.player.isBiped() ) {
 			EngineCore.outputText( 'You greet Dominika and make small talk, but as usual she seems distracted and the conversation is strained at best.  Drumming her fingers on the table and glancing outside her attention is constantly drawn away from you, and eventually she outright cuts the conversation off.  "<i>I need to go, I\'m afraid,</i>" she says quickly, and half-heartedly adds, "<i>It was nice talking to you.</i>"\n\n', false );
 			EngineCore.outputText( 'She exits, leaving you at the table alone.  You shrug a little and finish your drink, before noticing that she left something behind.  It looks like a wrapped sword and, while you don\'t know why she\'d have such a thing, you figure you might as well give it back to her.  Hell, maybe she\'ll actually be worth a goddamn conversation afterwards.\n\n', false );
 			EngineCore.outputText( 'You take the blade and head back out into the streets.  Off in the distance you can see her walking, and it takes a while to catch up with her.  Tapping her on the shoulder, you\'re preparing an explanation for yourself when she interrupts you with a surprisingly harsh "<i>What?</i>"\n\n', false );
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 		}
 		//(Player receives Spellblade);
 		SceneLib.inventory.takeItem( WeaponLib.S_BLADE, SceneLib.camp.returnToCampUseOneHour );
-		CoC.getInstance().flags[ kFLAGS.DOMINIKAS_SWORD_GIVEN ] = 1;
+		CoC.flags[ kFLAGS.DOMINIKAS_SWORD_GIVEN ] = 1;
 	};
 	SceneLib.registerScene( 'symGear', new SymGear() );
 } );

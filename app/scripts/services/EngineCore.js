@@ -4,7 +4,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	var EngineCore = {};
     var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
-		return CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
+		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
 	};
 	EngineCore.HPChange = function( changeNum, display ) {
 		if( changeNum === 0 ) {
@@ -12,47 +12,47 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		if( changeNum > 0 ) {
 			//Increase by 20%!
-			if( CoC.getInstance().player.findPerk( PerkLib.HistoryHealer ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistoryHealer ) >= 0 ) {
 				changeNum *= 1.2;
 			}
-			if( CoC.getInstance().player.HP + Math.parseInt( changeNum ) > CoC.getInstance().player.maxHP() ) {
-				if( CoC.getInstance().player.HP >= CoC.getInstance().player.maxHP() ) {
+			if( CoC.player.HP + Math.parseInt( changeNum ) > CoC.player.maxHP() ) {
+				if( CoC.player.HP >= CoC.player.maxHP() ) {
 					if( display ) {
 						EngineCore.outputText( 'You\'re as healthy as you can be.\n', false );
 					}
 					return;
 				}
 				if( display ) {
-					EngineCore.outputText( 'Your HP maxes out at ' + CoC.getInstance().player.maxHP() + '.\n', false );
+					EngineCore.outputText( 'Your HP maxes out at ' + CoC.player.maxHP() + '.\n', false );
 				}
-				CoC.getInstance().player.HP = CoC.getInstance().player.maxHP();
+				CoC.player.HP = CoC.player.maxHP();
 			} else {
 				if( display ) {
 					EngineCore.outputText( 'You gain ' + Math.parseInt( changeNum ) + ' HP.\n', false );
 				}
-				CoC.getInstance().player.HP += Math.parseInt( changeNum );
+				CoC.player.HP += Math.parseInt( changeNum );
 				MainView.statsView.showStatUp( 'hp' );
 			}
 		} else { //Negative HP
-			if( CoC.getInstance().player.HP + changeNum <= 0 ) {
+			if( CoC.player.HP + changeNum <= 0 ) {
 				if( display ) {
 					EngineCore.outputText( 'You take ' + Math.parseInt( changeNum * -1 ) + ' damage, dropping your HP to 0.\n', false );
 				}
-				CoC.getInstance().player.HP = 0;
+				CoC.player.HP = 0;
 			} else {
 				if( display ) {
 					EngineCore.outputText( 'You take ' + Math.parseInt( changeNum * -1 ) + ' damage.\n', false );
 				}
-				CoC.getInstance().player.HP += changeNum;
+				CoC.player.HP += changeNum;
 			}
 		}
 		EngineCore.statScreenRefresh();
 	};
 	EngineCore.clone = angular.copy;
 	EngineCore.clearOutput = function() {
-		CoC.getInstance().currentText = '';
+		CoC.currentText = '';
 		MainView.clearOutputText();
-		if( CoC.getInstance().gameState !== 3 ) {
+		if( CoC.gameState !== 3 ) {
 			MainView.hideMenuButton( MainView.MENU_DATA );
 		}
 		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
@@ -64,10 +64,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//OUTPUT!
 		if( purgeText ) {
 			EngineCore.clearOutput();
-			CoC.getInstance().currentText = output;
+			CoC.currentText = output;
 			MainView.setOutputText( output );
 		} else {
-			CoC.getInstance().currentText += output;
+			CoC.currentText += output;
 			MainView.appendOutputText( output );
 		}
 	};
@@ -84,30 +84,30 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		output = parser.recursiveParser( output, parseAsMarkdown );
 		//OUTPUT!
 		if( purgeText ) {
-			CoC.getInstance().currentText = output;
+			CoC.currentText = output;
 		} else {
-			CoC.getInstance().currentText += output;
+			CoC.currentText += output;
 		}
 	};
 	EngineCore.flushOutputTextToGUI = function() {
-		MainView.mainText.getTextFormat().size = CoC.getInstance().flags[ kFLAGS.CUSTOM_FONT_SIZE ];
-		MainView.setOutputText( CoC.getInstance().currentText );
+		MainView.mainText.getTextFormat().size = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
+		MainView.setOutputText( CoC.currentText );
 	};
 	EngineCore.displayPerks = function() {
 		EngineCore.outputText( '', true );
-		_.forEach(CoC.getInstance().player.perks, function(perk) {
+		_.forEach(CoC.player.perks, function(perk) {
 			EngineCore.outputText( '<b>' + perk.perkName + '</b> - ' + perk.perkDesc + '\n', false );
 		});
 		EngineCore.menu();
-		if( CoC.getInstance().player.perkPoints > 0 ) {
-			EngineCore.outputText( '\n<b>You have ' + Utils.num2Text( CoC.getInstance().player.perkPoints ) + ' perk point', false );
-			if( CoC.getInstance().player.perkPoints > 1 ) {
+		if( CoC.player.perkPoints > 0 ) {
+			EngineCore.outputText( '\n<b>You have ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point', false );
+			if( CoC.player.perkPoints > 1 ) {
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' to spend.</b>', false );
 			EngineCore.addButton( 1, 'Perk Up', EngineCore.perkBuyMenu );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
 			EngineCore.outputText( '\n<b>You can adjust your double attack settings.</b>' );
 			EngineCore.addButton( 2, 'Dbl Options', EngineCore.doubleAttackOptions );
 		}
@@ -116,13 +116,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.doubleAttackOptions = function() {
 		EngineCore.clearOutput();
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
+		if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
 			EngineCore.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
 			EngineCore.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
 			EngineCore.outputText( '\nYou can change it to always single attack.' );
 			EngineCore.addButton( 1, 'Dynamic', EngineCore.doubleAttackDynamic );
 			EngineCore.addButton( 2, 'Single', EngineCore.doubleAttackOff );
-		} else if( CoC.getInstance().flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 1 ) {
+		} else if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 1 ) {
 			EngineCore.outputText( 'You will currently double attack until your strength exceeds sixty, and then single attack.' );
 			EngineCore.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
 			EngineCore.outputText( '\nYou can change it to always single attack.' );
@@ -138,15 +138,15 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.addButton( 4, 'Back', EngineCore.displayPerks );
 	};
 	EngineCore.doubleAttackForce = function() {
-		CoC.getInstance().flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 0;
+		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 0;
 		EngineCore.doubleAttackOptions();
 	};
 	EngineCore.doubleAttackDynamic = function() {
-		CoC.getInstance().flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 1;
+		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 1;
 		EngineCore.doubleAttackOptions();
 	};
 	EngineCore.doubleAttackOff = function() {
-		CoC.getInstance().flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 2;
+		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 2;
 		EngineCore.doubleAttackOptions();
 	};
 	EngineCore.levelUpGo = function() {
@@ -154,17 +154,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.hideMenus();
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		//Level up
-		if( CoC.getInstance().player.XP >= (CoC.getInstance().player.level) * 100 ) {
-			CoC.getInstance().player.level++;
-			CoC.getInstance().player.perkPoints++;
-			EngineCore.outputText( '<b>You are now level ' + CoC.getInstance().player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
-			CoC.getInstance().player.XP -= (CoC.getInstance().player.level - 1) * 100;
+		if( CoC.player.XP >= (CoC.player.level) * 100 ) {
+			CoC.player.level++;
+			CoC.player.perkPoints++;
+			EngineCore.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
+			CoC.player.XP -= (CoC.player.level - 1) * 100;
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Strength', EngineCore.levelUpStatStrength );
 			EngineCore.addButton( 1, 'Toughness', EngineCore.levelUpStatToughness );
 			EngineCore.addButton( 2, 'Speed', EngineCore.levelUpStatSpeed );
 			EngineCore.addButton( 3, 'Intelligence', EngineCore.levelUpStatIntelligence );
-		} else if( CoC.getInstance().player.perkPoints > 0 ) { //Spend perk points
+		} else if( CoC.player.perkPoints > 0 ) { //Spend perk points
 			EngineCore.perkBuyMenu();
 		} else {
 			EngineCore.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.levelUpStatToughness = function() {
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
-		$log.trace( 'HP: ' + CoC.getInstance().player.HP + ' MAX HP: ' + CoC.getInstance().player.maxHP() );
+		$log.trace( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
 		EngineCore.statScreenRefresh();
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
@@ -201,8 +201,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.clearOutput();
 		var perkList = EngineCore.buildPerkList();
 		if( perkList.length === 0 ) {
-			EngineCore.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.getInstance().player.perkPoints ) + ' perk point' );
-			if( CoC.getInstance().player.perkPoints > 1 ) {
+			EngineCore.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point' );
+			if( CoC.player.perkPoints > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
@@ -216,14 +216,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.addButton( 1, 'Skip', EngineCore.perkSkip );
 	};
 	EngineCore.perkSelect = function( selected ) {
-		CoC.getInstance().stage.focus = null;
+		CoC.stage.focus = null;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			EngineCore.applyPerk( selected );
 		}
 	};
 	EngineCore.perkSkip = function() {
-		CoC.getInstance().stage.focus = null;
+		CoC.stage.focus = null;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			EventParser.playerMenu();
@@ -244,192 +244,192 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			perkList.push( { label: p.perkName, perk: p } );
 		}
 		//STRENGTH PERKS
-		if( CoC.getInstance().player.str >= 25 ) {
+		if( CoC.player.str >= 25 ) {
 			_add( new Perk( PerkLib.StrongBack ) );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.StrongBack ) >= 0 && CoC.getInstance().player.str >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.StrongBack ) >= 0 && CoC.player.str >= 50 ) {
 			_add( new Perk( PerkLib.StrongBack2 ) );
 		}
 		//Tier 1 Strength Perks
-		if( CoC.getInstance().player.level >= 6 ) {
+		if( CoC.player.level >= 6 ) {
 			//Thunderous Strikes - +20% basic attack damage while str > 80.
-			if( CoC.getInstance().player.str >= 80 ) {
+			if( CoC.player.str >= 80 ) {
 				_add( new Perk( PerkLib.ThunderousStrikes ) );
 			}
 			//Weapon Mastery - Doubles weapon damage bonus of \'large\' type weapons. (Minotaur Axe, M. Hammer, etc)
-			if( CoC.getInstance().player.str > 60 ) {
+			if( CoC.player.str > 60 ) {
 				_add( new Perk( PerkLib.WeaponMastery ) );
 			}
-			if( CoC.getInstance().player.str >= 75 ) {
+			if( CoC.player.str >= 75 ) {
 				_add( new Perk( PerkLib.BrutalBlows ) );
 			}
 		}
 		//Tier 2 Strength Perks
-		if( CoC.getInstance().player.level >= 12 ) {
-			if( CoC.getInstance().player.str >= 75 ) {
+		if( CoC.player.level >= 12 ) {
+			if( CoC.player.str >= 75 ) {
 				_add( new Perk( PerkLib.Berzerker ) );
 			}
 		}
 		//slot 2 - toughness perk 1
-		if( CoC.getInstance().player.findPerk( PerkLib.Tank ) < 0 && CoC.getInstance().player.tou >= 25 ) {
+		if( CoC.player.findPerk( PerkLib.Tank ) < 0 && CoC.player.tou >= 25 ) {
 			_add( new Perk( PerkLib.Tank ) );
 		}
 		//slot 2 - regeneration perk
-		if( CoC.getInstance().player.findPerk( PerkLib.Tank ) >= 0 && CoC.getInstance().player.tou >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Tank ) >= 0 && CoC.player.tou >= 50 ) {
 			_add( new Perk( PerkLib.Regeneration ) );
 		}
 		//Tier 1 Toughness Perks
-		if( CoC.getInstance().player.level >= 6 ) {
-			if( CoC.getInstance().player.findPerk( PerkLib.Tank ) >= 0 && CoC.getInstance().player.tou >= 60 ) {
+		if( CoC.player.level >= 6 ) {
+			if( CoC.player.findPerk( PerkLib.Tank ) >= 0 && CoC.player.tou >= 60 ) {
 				_add( new Perk( PerkLib.Tank2 ) );
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.Regeneration ) >= 0 && CoC.getInstance().player.tou >= 70 ) {
+			if( CoC.player.findPerk( PerkLib.Regeneration ) >= 0 && CoC.player.tou >= 70 ) {
 				_add( new Perk( PerkLib.Regeneration2 ) );
 			}
-			if( CoC.getInstance().player.tou >= 75 ) {
+			if( CoC.player.tou >= 75 ) {
 				_add( new Perk( PerkLib.ImmovableObject ) );
 			}
 		}
 		//Tier 2 Toughness Perks
-		if( CoC.getInstance().player.level >= 12 ) {
-			if( CoC.getInstance().player.tou >= 75 ) {
+		if( CoC.player.level >= 12 ) {
+			if( CoC.player.tou >= 75 ) {
 				_add( new Perk( PerkLib.Resolute ) );
 			}
-			if( CoC.getInstance().player.tou >= 60 ) {
+			if( CoC.player.tou >= 60 ) {
 				_add( new Perk( PerkLib.IronMan ) );
 			}
 		}
 		//slot 3 - speed perk
-		if( CoC.getInstance().player.spe >= 25 ) {
+		if( CoC.player.spe >= 25 ) {
 			_add( new Perk( PerkLib.Evade ) );
 		}
 		//slot 3 - run perk
-		if( CoC.getInstance().player.spe >= 25 ) {
+		if( CoC.player.spe >= 25 ) {
 			_add( new Perk( PerkLib.Runner ) );
 		}
 		//slot 3 - Double Attack perk
-		if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 && CoC.getInstance().player.spe >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.findPerk( PerkLib.Runner ) >= 0 && CoC.player.spe >= 50 ) {
 			_add( new Perk( PerkLib.DoubleAttack ) );
 		}
 		//Tier 1 Speed Perks
-		if( CoC.getInstance().player.level >= 6 ) {
+		if( CoC.player.level >= 6 ) {
 			//Speedy Recovery - Regain Fatigue 50% faster speed.
-			if( CoC.getInstance().player.findPerk( PerkLib.Evade ) >= 0 && CoC.getInstance().player.spe >= 60 ) {
+			if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.spe >= 60 ) {
 				_add( new Perk( PerkLib.SpeedyRecovery ) );
 			}
 			//Agility - A small portion of your speed is applied to your defense rating when wearing light armors.
-			if( CoC.getInstance().player.spe > 75 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 && (CoC.getInstance().player.armorPerk === 'Light' || CoC.getInstance().player.armorPerk === 'Medium') ) {
+			if( CoC.player.spe > 75 && CoC.player.findPerk( PerkLib.Runner ) >= 0 && (CoC.player.armorPerk === 'Light' || CoC.player.armorPerk === 'Medium') ) {
 				_add( new Perk( PerkLib.Agility ) );
 			}
-			if( CoC.getInstance().player.spe >= 60 ) {
+			if( CoC.player.spe >= 60 ) {
 				_add( new Perk( PerkLib.LightningStrikes ) );
 			}
 		}
 		//Tier 2 Speed Perks
-		if( CoC.getInstance().player.level >= 12 ) {
-			if( CoC.getInstance().player.spe >= 75 ) {
+		if( CoC.player.level >= 12 ) {
+			if( CoC.player.spe >= 75 ) {
 				_add( new Perk( PerkLib.LungingAttacks ) );
 			}
 		}
 		//Slot 4 - precision - -10 enemy toughness for damage calc
-		if( CoC.getInstance().player.inte >= 25 ) {
+		if( CoC.player.inte >= 25 ) {
 			_add( new Perk( PerkLib.Precision ) );
 		}
 		//Spellpower - boosts spell power
-		if( CoC.getInstance().player.inte >= 50 ) {
+		if( CoC.player.inte >= 50 ) {
 			_add( new Perk( PerkLib.Spellpower ) );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.getInstance().player.inte >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.inte >= 50 ) {
 			_add( new Perk( PerkLib.Mage ) );
 		}
 		//Tier 1 Intelligence Perks
-		if( CoC.getInstance().player.level >= 6 ) {
-			if( CoC.getInstance().player.inte >= 50 ) {
+		if( CoC.player.level >= 6 ) {
+			if( CoC.player.inte >= 50 ) {
 				_add( new Perk( PerkLib.Tactician ) );
 			}
-			if( Combat.spellCount() > 0 && CoC.getInstance().player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.getInstance().player.findPerk( PerkLib.Mage ) >= 0 && CoC.getInstance().player.inte >= 60 ) {
+			if( Combat.spellCount() > 0 && CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 60 ) {
 				_add( new Perk( PerkLib.Channeling ) );
 			}
-			if( CoC.getInstance().player.inte >= 60 ) {
+			if( CoC.player.inte >= 60 ) {
 				_add( new Perk( PerkLib.Medicine ) );
 			}
 		}
 		//Tier 2 Intelligence perks
-		if( CoC.getInstance().player.level >= 12 ) {
-			if( CoC.getInstance().player.findPerk( PerkLib.Mage ) >= 0 && CoC.getInstance().player.inte >= 75 ) {
+		if( CoC.player.level >= 12 ) {
+			if( CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 75 ) {
 				_add( new Perk( PerkLib.Archmage ) );
 			}
 		}
 		//LIBIDO PERKZ
 		//slot 5 - libido perks
 		//Slot 5 - Fertile+ increases cum production and fertility (+15%)
-		if( CoC.getInstance().player.lib >= 25 ) {
+		if( CoC.player.lib >= 25 ) {
 			_add( new Perk( PerkLib.FertilityPlus, 15, 1.75, 0, 0 ) );
 		}
 		//Slot 5 - minimum libido
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			_add( new Perk( PerkLib.HotBlooded, 20, 0, 0, 0 ) );
 		}
 		//Tier 1 Libido Perks
-		if( CoC.getInstance().player.level >= 6 ) {
+		if( CoC.player.level >= 6 ) {
 			//Slot 5 - minimum libido
-			if( CoC.getInstance().player.lib >= 60 ) {
+			if( CoC.player.lib >= 60 ) {
 				_add( new Perk( PerkLib.WellAdjusted ) );
 			}
 			//Slot 5 - minimum libido
-			if( CoC.getInstance().player.lib >= 60 && CoC.getInstance().player.cor >= 50 ) {
+			if( CoC.player.lib >= 60 && CoC.player.cor >= 50 ) {
 				_add( new Perk( PerkLib.Masochist ) );
 			}
 		}
 		//Corruption Perks - slot 7
 		//Slot 7 - Corrupted Libido - lust raises 10% slower.
-		if( CoC.getInstance().player.cor >= 25 ) {
+		if( CoC.player.cor >= 25 ) {
 			_add( new Perk( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
 		}
 		//Slot 7 - Seduction (Must have seduced Jojo
-		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && SceneLib.jojoScene.monk >= 5 ) {
+		if( CoC.player.findPerk( PerkLib.Seduction ) < 0 && CoC.player.cor >= 50 && SceneLib.jojoScene.monk >= 5 ) {
 			_add( new Perk( PerkLib.Seduction ) );
-		} else if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 75 ) { //Slot 7 - Nymphomania
+		} else if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 75 ) { //Slot 7 - Nymphomania
 			_add( new Perk( PerkLib.Nymphomania ) );
 		}
 		//Slot 7 - UNFINISHED :3
-		if( EngineCore.minLust() >= 20 && CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 50 ) {
+		if( EngineCore.minLust() >= 20 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 50 ) {
 			_add( new Perk( PerkLib.Acclimation ) );
 		}
 		//Tier 1 Corruption Perks - acclimation over-rides
-		if( CoC.getInstance().player.level >= 6 ) {
-			if( CoC.getInstance().player.cor >= 60 && CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
+		if( CoC.player.level >= 6 ) {
+			if( CoC.player.cor >= 60 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
 				_add( new Perk( PerkLib.Sadist ) );
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 70 ) {
+			if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 70 ) {
 				_add( new Perk( PerkLib.ArousingAura ) );
 			}
 		}
 		//Tier 1 Misc Perks
-		if( CoC.getInstance().player.level >= 6 ) {
+		if( CoC.player.level >= 6 ) {
 			_add( new Perk( PerkLib.Resistance ) );
 		}
 		// FILTER PERKS
 		perkList = _.filter(perkList, function( perk ) {
-			return CoC.getInstance().player.findPerk( perk.perk.ptype ) < 0;
+			return CoC.player.findPerk( perk.perk.ptype ) < 0;
 		});
 		MainView.aCb.dataProvider = perkList;
 		return perkList;
 	};
 	EngineCore.applyPerk = function( perk ) {
 		EngineCore.clearOutput();
-		CoC.getInstance().player.perkPoints--;
+		CoC.player.perkPoints--;
 		//Apply perk here.
 		EngineCore.outputText( '<b>' + perk.perkName + '</b> gained!' );
-		CoC.getInstance().player.createPerk( perk.ptype, perk.value1, perk.value2, perk.value3, perk.value4 );
+		CoC.player.createPerk( perk.ptype, perk.value1, perk.value2, perk.value3, perk.value4 );
 		if( perk.ptype === PerkLib.StrongBack2 ) {
-			CoC.getInstance().player.itemSlot5.unlocked = true;
+			CoC.player.itemSlot5.unlocked = true;
 		}
 		if( perk.ptype === PerkLib.StrongBack ) {
-			CoC.getInstance().player.itemSlot4.unlocked = true;
+			CoC.player.itemSlot4.unlocked = true;
 		}
 		if( perk.ptype === PerkLib.Tank2 ) {
-			EngineCore.HPChange( CoC.getInstance().player.tou, false );
+			EngineCore.HPChange( CoC.player.tou, false );
 			EngineCore.statScreenRefresh();
 		}
 		EngineCore.doNext( EventParser.playerMenu );
@@ -483,17 +483,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//combat
 		//wombat
 		if( buttonText === 'Attack' ) {
-			if( !CoC.getInstance().isInCombat() ) {
+			if( !CoC.isInCombat() ) {
 				toolTipText = '';
 			} else {
-				toolTipText = 'Attempt to attack the enemy with your ' + CoC.getInstance().player.weaponName + '.  Damage done is determined by your strength and weapon.';
+				toolTipText = 'Attempt to attack the enemy with your ' + CoC.player.weaponName + '.  Damage done is determined by your strength and weapon.';
 			}
 		}
 		if( buttonText === 'Kiss' ) {
 			toolTipText = 'Attempt to kiss your foe on the lips with drugged lipstick.  It has no effect on those without a penis.';
 		}
 		if( buttonText === 'Tease' ) {
-			if( !CoC.getInstance().isInCombat() ) {
+			if( !CoC.isInCombat() ) {
 				toolTipText = '';
 			} else {
 				toolTipText = 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.';
@@ -556,7 +556,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( buttonText.indexOf( 'Aroused' ) !== -1 ) {
 		}
 		if( buttonText.indexOf( 'Arouse' ) !== -1 ) {
-			if( !CoC.getInstance().isInCombat() ) {
+			if( !CoC.isInCombat() ) {
 				toolTipText = '';
 			} else {
 				toolTipText = 'The arouse spell draws on your own inner lust in order to enflame the enemy\'s passions.  (Fatigue Cost: ' + EngineCore.spellCost( 15 ) + ')';
@@ -569,16 +569,16 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			toolTipText = 'The Might spell draws upon your lust and uses it to fuel a temporary increase in muscle size and power.  It does carry the risk of backfiring and raising lust, like all black magic used on oneself.  (Fatigue Cost: ' + EngineCore.spellCost( 25 ) + ')';
 		}
 		//Wait
-		if( buttonText.indexOf( 'Wait' ) !== -1 && CoC.getInstance().isInCombat() ) {
+		if( buttonText.indexOf( 'Wait' ) !== -1 && CoC.isInCombat() ) {
 			toolTipText = 'Take no action for this round.  Why would you do this?  This is a terrible idea.';
 		}
 		//Sting
 		if( buttonText.length === 5 && buttonText.indexOf( 'Sting' ) !== -1 ) {
-			toolTipText = 'Attempt to use your venomous bee stinger on an enemy.  Be aware it takes quite a while for your venom to build up, so depending on your abdomen\'s refractory period, you may have to wait quite a while between stings.  Venom: ' + Math.floor( CoC.getInstance().player.tailVenom ) + '/100';
+			toolTipText = 'Attempt to use your venomous bee stinger on an enemy.  Be aware it takes quite a while for your venom to build up, so depending on your abdomen\'s refractory period, you may have to wait quite a while between stings.  Venom: ' + Math.floor( CoC.player.tailVenom ) + '/100';
 		}
 		//Web
 		if( buttonText.indexOf( 'Web' ) !== -1 ) {
-			toolTipText = 'Attempt to use your abdomen to spray sticky webs at an enemy and greatly slow them down.  Be aware it takes a while for your webbing to build up.  Web Amount: ' + Math.floor( CoC.getInstance().player.tailVenom ) + '/100';
+			toolTipText = 'Attempt to use your abdomen to spray sticky webs at an enemy and greatly slow them down.  Be aware it takes a while for your webbing to build up.  Web Amount: ' + Math.floor( CoC.player.tailVenom ) + '/100';
 		}
 		if( buttonText.indexOf( 'Infest' ) !== -1 ) {
 			toolTipText = 'The infest attack allows you to cum at will, launching a stream of semen and worms at your opponent in order to infest them.  Unless your foe is very aroused they are likely to simply avoid it.  Only works on males or herms.';
@@ -863,18 +863,18 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.hideUpDown = function() {
 		MainView.statsView.hideUpDown();
 		//Clear storage values so up/down arrows can be properly displayed
-		CoC.getInstance().oldStats.oldStr = 0;
-		CoC.getInstance().oldStats.oldTou = 0;
-		CoC.getInstance().oldStats.oldSpe = 0;
-		CoC.getInstance().oldStats.oldInte = 0;
-		CoC.getInstance().oldStats.oldLib = 0;
-		CoC.getInstance().oldStats.oldSens = 0;
-		CoC.getInstance().oldStats.oldLust = 0;
-		CoC.getInstance().oldStats.oldCor = 0;
+		CoC.oldStats.oldStr = 0;
+		CoC.oldStats.oldTou = 0;
+		CoC.oldStats.oldSpe = 0;
+		CoC.oldStats.oldInte = 0;
+		CoC.oldStats.oldLib = 0;
+		CoC.oldStats.oldSens = 0;
+		CoC.oldStats.oldLust = 0;
+		CoC.oldStats.oldCor = 0;
 	};
 	EngineCore.physicalCost = function( mod ) {
 		var costPercent = 100;
-		if( CoC.getInstance().player.findPerk( PerkLib.IronMan ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.IronMan ) >= 0 ) {
 			costPercent -= 50;
 		}
 		mod *= costPercent / 100;
@@ -883,21 +883,21 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.spellCost = function( mod ) {
 		//Addiditive mods
 		var costPercent = 100;
-		if( CoC.getInstance().player.findPerk( PerkLib.SpellcastingAffinity ) >= 0 ) {
-			costPercent -= CoC.getInstance().player.perkv1( PerkLib.SpellcastingAffinity );
+		if( CoC.player.findPerk( PerkLib.SpellcastingAffinity ) >= 0 ) {
+			costPercent -= CoC.player.perkv1( PerkLib.SpellcastingAffinity );
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.WizardsEndurance ) >= 0 ) {
-			costPercent -= CoC.getInstance().player.perkv1( PerkLib.WizardsEndurance );
+		if( CoC.player.findPerk( PerkLib.WizardsEndurance ) >= 0 ) {
+			costPercent -= CoC.player.perkv1( PerkLib.WizardsEndurance );
 		}
 		//Limiting it and multiplicative mods
-		if( CoC.getInstance().player.findPerk( PerkLib.BloodMage ) >= 0 && costPercent < 50 ) {
+		if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 && costPercent < 50 ) {
 			costPercent = 50;
 		}
 		mod *= costPercent / 100;
-		if( CoC.getInstance().player.findPerk( PerkLib.HistoryScholar ) >= 0 && mod > 2) {
+		if( CoC.player.findPerk( PerkLib.HistoryScholar ) >= 0 && mod > 2) {
 			mod *= 0.8;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.BloodMage ) >= 0 && mod < 5 ) {
+		if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 && mod < 5 ) {
 			mod = 5;
 		} else if( mod < 2 ) {
 			mod = 2;
@@ -914,146 +914,146 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( type === 1 ) {
 			mod = EngineCore.spellCost( mod );
 			//Blood mages use HP for spells
-			if( CoC.getInstance().player.findPerk( PerkLib.BloodMage ) >= 0 ) {
-				CoC.getInstance().player.takeDamage( mod );
+			if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 ) {
+				CoC.player.takeDamage( mod );
 				EngineCore.statScreenRefresh();
 				return;
 			}
 		} else if( type === 2 ) { //Physical special reductions
 			mod = EngineCore.physicalCost( mod );
 		}
-		if( (CoC.getInstance().player.fatigue >= 100 && mod > 0) || ( CoC.getInstance().player.fatigue <= 0 && mod < 0 ) ) {
+		if( (CoC.player.fatigue >= 100 && mod > 0) || ( CoC.player.fatigue <= 0 && mod < 0 ) ) {
 			return;
 		}
 		//Fatigue restoration buffs!
 		if( mod < 0 ) {
 			var multi = 1;
-			if( CoC.getInstance().player.findPerk( PerkLib.HistorySlacker ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistorySlacker ) >= 0 ) {
 				multi += 0.2;
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.ControlledBreath ) >= 0 && CoC.getInstance().player.cor < 30 ) {
+			if( CoC.player.findPerk( PerkLib.ControlledBreath ) >= 0 && CoC.player.cor < 30 ) {
 				multi += 0.1;
 			}
 			mod *= multi;
 		}
-		CoC.getInstance().player.fatigue += mod;
+		CoC.player.fatigue += mod;
 		if( mod > 0 ) {
 			MainView.statsView.showStatUp( 'fatigue' );
 		} else if( mod < 0 ) {
 			MainView.statsView.showStatDown( 'fatigue' );
 		}
-		if( CoC.getInstance().player.fatigue > 100 ) {
-			CoC.getInstance().player.fatigue = 100;
+		if( CoC.player.fatigue > 100 ) {
+			CoC.player.fatigue = 100;
 		}
-		if( CoC.getInstance().player.fatigue < 0 ) {
-			CoC.getInstance().player.fatigue = 0;
+		if( CoC.player.fatigue < 0 ) {
+			CoC.player.fatigue = 0;
 		}
 		EngineCore.statScreenRefresh();
 	};
 	EngineCore.changeFatigue = EngineCore.fatigue;
-	EngineCore.minLust = CoC.getInstance().player.minLust;
+	EngineCore.minLust = CoC.player.minLust;
 	EngineCore.displayStats = function( ) {
 		EngineCore.spriteSelect( -1 );
 		EngineCore.outputText( '', true );
 		// Begin Combat Stats
 		var combatStats = '';
-		if( CoC.getInstance().player.hasKeyItem( 'Bow' ) >= 0 ) {
-			combatStats += '<b>Bow Skill:</b> ' + Math.round( CoC.getInstance().player.statusAffectv1( StatusAffects.Kelt ) ) + '\n';
+		if( CoC.player.hasKeyItem( 'Bow' ) >= 0 ) {
+			combatStats += '<b>Bow Skill:</b> ' + Math.round( CoC.player.statusAffectv1( StatusAffects.Kelt ) ) + '\n';
 		}
 		combatStats += '<b>Lust Resistance:</b> ' + (100 - Math.round( EngineCore.lustPercent() )) + '% (Higher is better.)\n';
 		combatStats += '<b>Spell Effect Multiplier:</b> ' + (100 * Combat.spellMod()) + '%\n';
 		combatStats += '<b>Spell Cost:</b> ' + EngineCore.spellCost( 100 ) + '%\n';
-		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] > 0 ) {
-			combatStats += '<b>Rapier Skill (Out of 4):</b> ' + CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] + '\n';
+		if( CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] > 0 ) {
+			combatStats += '<b>Rapier Skill (Out of 4):</b> ' + CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] + '\n';
 		}
-		combatStats += '<b>Tease Skill (Out of 5):</b>  ' + CoC.getInstance().player.teaseLevel + '\n';
+		combatStats += '<b>Tease Skill (Out of 5):</b>  ' + CoC.player.teaseLevel + '\n';
 		if( combatStats !== '' ) {
 			EngineCore.outputText( '<b><u>Combat Stats</u></b>\n' + combatStats, false );
 		}
 		// End Combat Stats
 		// Begin Children Stats
 		var childStats = '';
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Birthed ) > 0 ) {
-			childStats += '<b>Times Given Birth:</b> ' + CoC.getInstance().player.statusAffectv1( StatusAffects.Birthed ) + '\n';
+		if( CoC.player.statusAffectv1( StatusAffects.Birthed ) > 0 ) {
+			childStats += '<b>Times Given Birth:</b> ' + CoC.player.statusAffectv1( StatusAffects.Birthed ) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.AMILY_MET ] > 0 ) {
-			childStats += '<b>Litters With Amily:</b> ' + (CoC.getInstance().flags[ kFLAGS.AMILY_BIRTH_TOTAL ] + CoC.getInstance().flags[ kFLAGS.PC_TIMES_BIRTHED_AMILYKIDS ]) + '\n';
+		if( CoC.flags[ kFLAGS.AMILY_MET ] > 0 ) {
+			childStats += '<b>Litters With Amily:</b> ' + (CoC.flags[ kFLAGS.AMILY_BIRTH_TOTAL ] + CoC.flags[ kFLAGS.PC_TIMES_BIRTHED_AMILYKIDS ]) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.BENOIT_EGGS ] > 0 ) {
-			childStats += '<b>Benoit Eggs Laid:</b> ' + CoC.getInstance().flags[ kFLAGS.BENOIT_EGGS ] + '\n';
+		if( CoC.flags[ kFLAGS.BENOIT_EGGS ] > 0 ) {
+			childStats += '<b>Benoit Eggs Laid:</b> ' + CoC.flags[ kFLAGS.BENOIT_EGGS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
-			childStats += '<b>Children With Cotton:</b> ' + CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] + '\n';
+		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
+			childStats += '<b>Children With Cotton:</b> ' + CoC.flags[ kFLAGS.COTTON_KID_COUNT ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
-			childStats += '<b>Children With Edryn:</b> ' + CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] + '\n';
+		if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
+			childStats += '<b>Children With Edryn:</b> ' + CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_MALES ] > 0 ) {
-			childStats += '<b>Ember Offspring (Males):</b> ' + CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_MALES ] + '\n';
+		if( CoC.flags[ kFLAGS.EMBER_CHILDREN_MALES ] > 0 ) {
+			childStats += '<b>Ember Offspring (Males):</b> ' + CoC.flags[ kFLAGS.EMBER_CHILDREN_MALES ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] > 0 ) {
-			childStats += '<b>Ember Offspring (Females):</b> ' + CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] + '\n';
+		if( CoC.flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] > 0 ) {
+			childStats += '<b>Ember Offspring (Females):</b> ' + CoC.flags[ kFLAGS.EMBER_CHILDREN_FEMALES ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_HERMS ] > 0 ) {
-			childStats += '<b>Ember Offspring (Herms):</b> ' + CoC.getInstance().flags[ kFLAGS.EMBER_CHILDREN_HERMS ] + '\n';
+		if( CoC.flags[ kFLAGS.EMBER_CHILDREN_HERMS ] > 0 ) {
+			childStats += '<b>Ember Offspring (Herms):</b> ' + CoC.flags[ kFLAGS.EMBER_CHILDREN_HERMS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
-			childStats += '<b>Ember Eggs Produced:</b> ' + CoC.getInstance().flags[ kFLAGS.EMBER_EGGS ] + '\n';
+		if( CoC.flags[ kFLAGS.EMBER_EGGS ] > 0 ) {
+			childStats += '<b>Ember Eggs Produced:</b> ' + CoC.flags[ kFLAGS.EMBER_EGGS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] > 0 ) {
-			childStats += '<b>Children With Izma (Sharkgirls):</b> ' + CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + '\n';
+		if( CoC.flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] > 0 ) {
+			childStats += '<b>Children With Izma (Sharkgirls):</b> ' + CoC.flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] > 0 ) {
-			childStats += '<b>Children With Izma (Tigersharks):</b> ' + CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] + '\n';
+		if( CoC.flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] > 0 ) {
+			childStats += '<b>Children With Izma (Tigersharks):</b> ' + CoC.flags[ kFLAGS.IZMA_CHILDREN_TIGERSHARKS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
-			childStats += '<b>Children With Kelly (Males):</b> ' + CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ] + '\n';
+		if( CoC.flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
+			childStats += '<b>Children With Kelly (Males):</b> ' + CoC.flags[ kFLAGS.KELLY_KIDS_MALE ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
-			childStats += '<b>Children With Kelly (Females):</b> ' + (CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ]) + '\n';
+		if( CoC.flags[ kFLAGS.KELLY_KIDS ] - CoC.flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
+			childStats += '<b>Children With Kelly (Females):</b> ' + (CoC.flags[ kFLAGS.KELLY_KIDS ] - CoC.flags[ kFLAGS.KELLY_KIDS_MALE ]) + '\n';
 		}
 		if( SceneLib.salon.lynnetteApproval() !== 0 ) {
-			childStats += '<b>Lynnette Children:</b> ' + CoC.getInstance().flags[ kFLAGS.LYNNETTE_BABY_COUNT ] + '\n';
+			childStats += '<b>Lynnette Children:</b> ' + CoC.flags[ kFLAGS.LYNNETTE_BABY_COUNT ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
-			childStats += '<b>Children With Marble:</b> ' + CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] + '\n';
+		if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
+			childStats += '<b>Children With Marble:</b> ' + CoC.flags[ kFLAGS.MARBLE_KIDS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] > 0 ) {
-			childStats += '<b>Ant Children With Phylla:</b> ' + CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] + '\n';
+		if( CoC.flags[ kFLAGS.ANT_KIDS ] > 0 ) {
+			childStats += '<b>Ant Children With Phylla:</b> ' + CoC.flags[ kFLAGS.ANT_KIDS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] > 0 ) {
-			childStats += '<b>Drider Children With Phylla:</b> ' + CoC.getInstance().flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] + '\n';
+		if( CoC.flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] > 0 ) {
+			childStats += '<b>Drider Children With Phylla:</b> ' + CoC.flags[ kFLAGS.PHYLLA_DRIDER_BABIES_COUNT ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
-			childStats += '<b>Children With Sheila (Joeys):</b> ' + CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] + '\n';
+		if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
+			childStats += '<b>Children With Sheila (Joeys):</b> ' + CoC.flags[ kFLAGS.SHEILA_JOEYS ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_IMPS ] > 0 ) {
-			childStats += '<b>Children With Sheila (Imps):</b> ' + CoC.getInstance().flags[ kFLAGS.SHEILA_IMPS ] + '\n';
+		if( CoC.flags[ kFLAGS.SHEILA_IMPS ] > 0 ) {
+			childStats += '<b>Children With Sheila (Imps):</b> ' + CoC.flags[ kFLAGS.SHEILA_IMPS ] + '\n';
 		}
 		var sophie = 0;
-		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 || CoC.getInstance().flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 || CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
 			childStats += '<b>Children With Sophie:</b> ';
-			if( CoC.getInstance().flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
+			if( CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
 				sophie++;
 			}
-			sophie += CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ];
-			if( CoC.getInstance().flags[ kFLAGS.SOPHIE_CAMP_EGG_COUNTDOWN ] > 0 ) {
+			sophie += CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ];
+			if( CoC.flags[ kFLAGS.SOPHIE_CAMP_EGG_COUNTDOWN ] > 0 ) {
 				sophie++;
 			}
 			childStats += sophie + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_EGGS_LAID ] > 0 ) {
-			childStats += '<b>Eggs Fertilized For Sophie:</b> ' + (CoC.getInstance().flags[ kFLAGS.SOPHIE_EGGS_LAID ] + sophie) + '\n';
+		if( CoC.flags[ kFLAGS.SOPHIE_EGGS_LAID ] > 0 ) {
+			childStats += '<b>Eggs Fertilized For Sophie:</b> ' + (CoC.flags[ kFLAGS.SOPHIE_EGGS_LAID ] + sophie) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
-			childStats += '<b>Children With Tamani:</b> ' + CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] + ' (after all forms of natural selection)\n';
+		if( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
+			childStats += '<b>Children With Tamani:</b> ' + CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] + ' (after all forms of natural selection)\n';
 		}
 		if( SceneLib.urtaPregs.urtaKids() > 0 ) {
 			childStats += '<b>Children With Urta:</b> ' + SceneLib.urtaPregs.urtaKids() + '\n';
 		}
 		//Mino sons
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] > 0 ) {
-			childStats += '<b>Number of Adult Minotaur Offspring:</b> ' + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] + '\n';
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] > 0 ) {
+			childStats += '<b>Number of Adult Minotaur Offspring:</b> ' + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] + '\n';
 		}
 		if( childStats !== '' ) {
 			EngineCore.outputText( '\n<b><u>Children</u></b>\n' + childStats, false );
@@ -1061,70 +1061,70 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		// End Children Stats
 		// Begin Body Stats
 		var bodyStats = '';
-		bodyStats += '<b>Anal Capacity:</b> ' + Math.round( CoC.getInstance().player.analCapacity() ) + '\n';
-		bodyStats += '<b>Anal Looseness:</b> ' + Math.round( CoC.getInstance().player.ass.analLooseness ) + '\n';
-		bodyStats += '<b>Fertility (Base) Rating:</b> ' + Math.round( CoC.getInstance().player.fertility ) + '\n';
-		bodyStats += '<b>Fertility (With Bonuses) Rating:</b> ' + Math.round( CoC.getInstance().player.totalFertility() ) + '\n';
-		if( CoC.getInstance().player.cumQ() > 0 ) {
-			bodyStats += '<b>Cum Production:</b> ' + Math.round( CoC.getInstance().player.cumQ() ) + 'mL\n';
+		bodyStats += '<b>Anal Capacity:</b> ' + Math.round( CoC.player.analCapacity() ) + '\n';
+		bodyStats += '<b>Anal Looseness:</b> ' + Math.round( CoC.player.ass.analLooseness ) + '\n';
+		bodyStats += '<b>Fertility (Base) Rating:</b> ' + Math.round( CoC.player.fertility ) + '\n';
+		bodyStats += '<b>Fertility (With Bonuses) Rating:</b> ' + Math.round( CoC.player.totalFertility() ) + '\n';
+		if( CoC.player.cumQ() > 0 ) {
+			bodyStats += '<b>Cum Production:</b> ' + Math.round( CoC.player.cumQ() ) + 'mL\n';
 		}
-		if( CoC.getInstance().player.lactationQ() > 0 ) {
-			bodyStats += '<b>Milk Production:</b> ' + Math.round( CoC.getInstance().player.lactationQ() ) + 'mL\n';
+		if( CoC.player.lactationQ() > 0 ) {
+			bodyStats += '<b>Milk Production:</b> ' + Math.round( CoC.player.lactationQ() ) + 'mL\n';
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
-			bodyStats += '<b>Hours Since Last Time Breastfed Someone:</b>  ' + CoC.getInstance().player.statusAffectv2( StatusAffects.Feeder );
-			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Feeder ) >= 72 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+			bodyStats += '<b>Hours Since Last Time Breastfed Someone:</b>  ' + CoC.player.statusAffectv2( StatusAffects.Feeder );
+			if( CoC.player.statusAffectv2( StatusAffects.Feeder ) >= 72 ) {
 				bodyStats += ' (Too long! Sensitivity Increasing!)';
 			}
 			bodyStats += '\n';
 		}
 		bodyStats += '<b>Pregnancy Speed Multiplier:</b> ';
 		var preg = 1;
-		if( CoC.getInstance().player.findPerk( PerkLib.Diapause ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Diapause ) >= 0 ) {
 			bodyStats += '? (Variable due to Diapause)\n';
 		} else {
-			if( CoC.getInstance().player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
 				preg++;
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
 				preg++;
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
 				preg++;
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.MagicalFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MagicalFertility ) >= 0 ) {
 				preg++;
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.FerasBoonWideOpen ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FerasBoonMilkingTwat ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) >= 0 || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) >= 0 ) {
 				preg++;
 			}
 			bodyStats += preg + '\n';
 		}
-		if( CoC.getInstance().player.cocks.length > 0 ) {
-			bodyStats += '<b>Total Cocks:</b> ' + CoC.getInstance().player.cocks.length + '\n';
+		if( CoC.player.cocks.length > 0 ) {
+			bodyStats += '<b>Total Cocks:</b> ' + CoC.player.cocks.length + '\n';
 			var totalCockLength = 0;
 			var totalCockGirth  = 0;
-			_.forEach(CoC.getInstance().player.cocks, function(cock) {
+			_.forEach(CoC.player.cocks, function(cock) {
 				totalCockLength += cock.cockLength;
 				totalCockGirth += cock.cockThickness;
 			});
 			bodyStats += '<b>Total Cock Length:</b> ' + Math.round( totalCockLength ) + ' inches\n';
 			bodyStats += '<b>Total Cock Girth:</b> ' + Math.round( totalCockGirth ) + ' inches\n';
 		}
-		if( CoC.getInstance().player.vaginas.length > 0 ) {
-			bodyStats += '<b>Vaginal Capacity:</b> ' + Math.round( CoC.getInstance().player.vaginalCapacity() ) + '\n' + '<b>Vaginal Looseness:</b> ' + Math.round( CoC.getInstance().player.looseness() ) + '\n';
+		if( CoC.player.vaginas.length > 0 ) {
+			bodyStats += '<b>Vaginal Capacity:</b> ' + Math.round( CoC.player.vaginalCapacity() ) + '\n' + '<b>Vaginal Looseness:</b> ' + Math.round( CoC.player.looseness() ) + '\n';
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.SpiderOvipositor ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
-			bodyStats += '<b>Ovipositor Total Egg Count: ' + CoC.getInstance().player.eggs() + '\nOvipositor Fertilized Egg Count: ' + CoC.getInstance().player.fertilizedEggs() + '</b>\n';
+		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 || CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+			bodyStats += '<b>Ovipositor Total Egg Count: ' + CoC.player.eggs() + '\nOvipositor Fertilized Egg Count: ' + CoC.player.fertilizedEggs() + '</b>\n';
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
-			if( CoC.getInstance().player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
+			if( CoC.player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 ) {
 				bodyStats += '<b>Slime Craving:</b> Active! You are currently losing strength and speed.  You should find fluids.\n';
 			} else {
-				if( CoC.getInstance().player.findPerk( PerkLib.SlimeCore ) >= 0 ) {
-					bodyStats += '<b>Slime Stored:</b> ' + ((17 - CoC.getInstance().player.statusAffectv1( StatusAffects.SlimeCraving )) * 2) + ' hours until you start losing strength.\n';
+				if( CoC.player.findPerk( PerkLib.SlimeCore ) >= 0 ) {
+					bodyStats += '<b>Slime Stored:</b> ' + ((17 - CoC.player.statusAffectv1( StatusAffects.SlimeCraving )) * 2) + ' hours until you start losing strength.\n';
 				} else {
-					bodyStats += '<b>Slime Stored:</b> ' + (17 - CoC.getInstance().player.statusAffectv1( StatusAffects.SlimeCraving )) + ' hours until you start losing strength.\n';
+					bodyStats += '<b>Slime Stored:</b> ' + (17 - CoC.player.statusAffectv1( StatusAffects.SlimeCraving )) + ' hours until you start losing strength.\n';
 				}
 			}
 		}
@@ -1134,17 +1134,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		// End Body Stats
 		// Begin Misc Stats
 		var miscStats = '';
-		if( CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ] > 0 ) {
-			miscStats += '<b>Eggs Traded For:</b> ' + CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ] + '\n';
+		if( CoC.flags[ kFLAGS.EGGS_BOUGHT ] > 0 ) {
+			miscStats += '<b>Eggs Traded For:</b> ' + CoC.flags[ kFLAGS.EGGS_BOUGHT ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0 ) {
-			miscStats += '<b>Times Had Fun with Feline Flexibility:</b> ' + CoC.getInstance().flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] + '\n';
+		if( CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0 ) {
+			miscStats += '<b>Times Had Fun with Feline Flexibility:</b> ' + CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.FAP_ARENA_SESSIONS ] > 0 ) {
-			miscStats += '<b>Times Circle Jerked in the Arena:</b> ' + CoC.getInstance().flags[ kFLAGS.FAP_ARENA_SESSIONS ] + '\n<b>Victories in the Arena:</b> ' + CoC.getInstance().flags[ kFLAGS.FAP_ARENA_VICTORIES ] + '\n';
+		if( CoC.flags[ kFLAGS.FAP_ARENA_SESSIONS ] > 0 ) {
+			miscStats += '<b>Times Circle Jerked in the Arena:</b> ' + CoC.flags[ kFLAGS.FAP_ARENA_SESSIONS ] + '\n<b>Victories in the Arena:</b> ' + CoC.flags[ kFLAGS.FAP_ARENA_VICTORIES ] + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SPELLS_CAST ] > 0 ) {
-			miscStats += '<b>Spells Cast:</b> ' + CoC.getInstance().flags[ kFLAGS.SPELLS_CAST ] + '\n';
+		if( CoC.flags[ kFLAGS.SPELLS_CAST ] > 0 ) {
+			miscStats += '<b>Spells Cast:</b> ' + CoC.flags[ kFLAGS.SPELLS_CAST ] + '\n';
 		}
 		if( miscStats !== '' ) {
 			EngineCore.outputText( '\n<b><u>Miscellaneous Stats</u></b>\n' + miscStats );
@@ -1153,20 +1153,20 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		// Begin Addition Stats
 		var addictStats = '';
 		//Marble Milk Addition
-		if( CoC.getInstance().player.statusAffectv3( StatusAffects.Marble ) > 0 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 ) {
 			addictStats += '<b>Marble Milk:</b> ';
-			if( CoC.getInstance().player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.getInstance().player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
-				addictStats += Math.round( CoC.getInstance().player.statusAffectv2( StatusAffects.Marble ) ) + '%\n';
-			} else if( CoC.getInstance().player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
+				addictStats += Math.round( CoC.player.statusAffectv2( StatusAffects.Marble ) ) + '%\n';
+			} else if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
 				addictStats += '0%\n';
 			} else {
 				addictStats += '100%\n';
 			}
 		}
 		// Mino Cum Addiction
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ] > 0 || CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
-			if( CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) < 0 ) {
-				addictStats += '<b>Minotaur Cum:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] * 10 ) / 10 + '%\n';
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ] > 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) < 0 ) {
+				addictStats += '<b>Minotaur Cum:</b> ' + Math.round( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] * 10 ) / 10 + '%\n';
 			} else {
 				addictStats += '<b>Minotaur Cum:</b> 100+%\n';
 			}
@@ -1177,20 +1177,20 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		// End Addition Stats
 		// Begin Interpersonal Stats
 		var interpersonStats = '';
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ARIAN_PARK ] > 0 ) {
 			interpersonStats += '<b>Arian\'s Health:</b> ' + Math.round( SceneLib.arianScene.arianHealth() ) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
-			interpersonStats += '<b>Arian Sex Counter:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] ) + '\n';
+		if( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
+			interpersonStats += '<b>Arian Sex Counter:</b> ' + Math.round( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] ) + '\n';
 		}
 		if( SceneLib.benoit.benoitAffection() > 0 ) {
 			interpersonStats += '<b>' + SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( SceneLib.benoit.benoitAffection() ) + '%\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] > 0 ) {
+		if( CoC.flags[ kFLAGS.BROOKE_MET ] > 0 ) {
 			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( SceneLib.brooke.brookeAffection() ) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ] > 0 ) {
-			interpersonStats += '<b>Body Parts Taken By Ceraph:</b> ' + (CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]) + '\n';
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ] > 0 ) {
+			interpersonStats += '<b>Body Parts Taken By Ceraph:</b> ' + (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]) + '\n';
 		}
 		if( SceneLib.emberScene.emberAffection() > 0 ) {
 			interpersonStats += '<b>Ember Affection:</b> ' + Math.round( SceneLib.emberScene.emberAffection() ) + '%\n';
@@ -1199,63 +1199,63 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			interpersonStats += '<b>Helia Affection:</b> ' + Math.round( SceneLib.helFollower.helAffection() ) + '%\n';
 		}
 		if( SceneLib.helFollower.helAffection() >= 100 ) {
-			interpersonStats += '<b>Helia Bonus Points:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.HEL_BONUS_POINTS ] ) + '\n';
+			interpersonStats += '<b>Helia Bonus Points:</b> ' + Math.round( CoC.flags[ kFLAGS.HEL_BONUS_POINTS ] ) + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ISABELLA_AFFECTION ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ISABELLA_AFFECTION ] > 0 ) {
 			interpersonStats += '<b>Isabella Affection:</b> ';
 			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
-				interpersonStats += Math.round( CoC.getInstance().flags[ kFLAGS.ISABELLA_AFFECTION ] ) + '%\n';
+				interpersonStats += Math.round( CoC.flags[ kFLAGS.ISABELLA_AFFECTION ] ) + '%\n';
 			} else {
 				interpersonStats += '100%\n';
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
+		if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
 			interpersonStats += '<b>Katherine Submissiveness:</b> ' + SceneLib.katherine.submissiveness() + '\n';
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
-			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
+			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
 				interpersonStats += '<b>Submissiveness To Kelt:</b> ' + 100 + '%\n';
 			} else {
-				interpersonStats += '<b>Submissiveness To Kelt:</b> ' + Math.round( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) / 130 * 100 ) + '%\n';
+				interpersonStats += '<b>Submissiveness To Kelt:</b> ' + Math.round( CoC.player.statusAffectv2( StatusAffects.Kelt ) / 130 * 100 ) + '%\n';
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
+		if( CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
 			interpersonStats += '<b>Kid A\'s Confidence:</b> ' + SceneLib.anemoneScene.kidAXP() + '%\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 2 ) {
+		if( CoC.flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 2 ) {
 			if( SceneLib.kihaFollower.followerKiha() ) {
 				interpersonStats += '<b>Kiha Affection:</b> ' + 100 + '%\n';
 			} else {
-				interpersonStats += '<b>Kiha Affection:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION ] ) + '%\n';
+				interpersonStats += '<b>Kiha Affection:</b> ' + Math.round( CoC.flags[ kFLAGS.KIHA_AFFECTION ] ) + '%\n';
 			}
 		}
 		//Lottie stuff
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + SceneLib.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + SceneLib.lottie.lottieTone() + ' (higher is better)\n';
 		}
 		if( SceneLib.salon.lynnetteApproval() !== 0 ) {
 			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + SceneLib.salon.lynnetteApproval() + '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 0 ) {
-			interpersonStats += '<b>Owca\'s Attitude:</b> ' + CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] + '\n';
+		if( CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] > 0 ) {
+			interpersonStats += '<b>Owca\'s Attitude:</b> ' + CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] + '\n';
 		}
 		if( SceneLib.rubi.rubiAffection() > 0 ) {
 			interpersonStats += '<b>Rubi\'s Affection:</b> ' + Math.round( SceneLib.rubi.rubiAffection() ) + '%\n' + '<b>Rubi\'s Orifice Capacity:</b> ' + Math.round( SceneLib.rubi.rubiCapacity() ) + '%\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] !== 0 ) {
 			interpersonStats += '<b>Sheila\'s Corruption:</b> ' + SceneLib.sheilaScene.sheilaCorruption();
 			if( SceneLib.sheilaScene.sheilaCorruption() > 100 ) {
 				interpersonStats += ' (Yes, it can go above 100)';
 			}
 			interpersonStats += '\n';
 		}
-		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] !== 0 ) {
+		if( CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] !== 0 ) {
 			if( SceneLib.urta.urtaLove() ) {
 				interpersonStats += '<b>Urta Status:</b> Lover\n';
-			} else if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
+			} else if( CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 				interpersonStats += '<b>Urta Status:</b> Ashamed\n';
-			} else if( CoC.getInstance().flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] < 30 ) {
-				interpersonStats += '<b>Urta\'s Affection:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] * 3.3333 ) + '%\n';
+			} else if( CoC.flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] < 30 ) {
+				interpersonStats += '<b>Urta\'s Affection:</b> ' + Math.round( CoC.flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] * 3.3333 ) + '%\n';
 			} else {
 				interpersonStats += '<b>Urta Status:</b> Ready To Confess Love\n';
 			}
@@ -1266,17 +1266,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		// End Interpersonal Stats
 		// Begin Ongoing Stat Effects
 		var statEffects = '';
-		if( CoC.getInstance().player.inHeat ) {
-			statEffects += 'Heat - ' + Math.round( CoC.getInstance().player.statusAffectv3( StatusAffects.Heat ) ) + ' hours remaining\n';
+		if( CoC.player.inHeat ) {
+			statEffects += 'Heat - ' + Math.round( CoC.player.statusAffectv3( StatusAffects.Heat ) ) + ' hours remaining\n';
 		}
-		if( CoC.getInstance().player.inRut ) {
-			statEffects += 'Rut - ' + Math.round( CoC.getInstance().player.statusAffectv3( StatusAffects.Rut ) ) + ' hours remaining\n';
+		if( CoC.player.inRut ) {
+			statEffects += 'Rut - ' + Math.round( CoC.player.statusAffectv3( StatusAffects.Rut ) ) + ' hours remaining\n';
 		}
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Luststick ) > 0 ) {
-			statEffects += 'Luststick - ' + Math.round( CoC.getInstance().player.statusAffectv1( StatusAffects.Luststick ) ) + ' hours remaining\n';
+		if( CoC.player.statusAffectv1( StatusAffects.Luststick ) > 0 ) {
+			statEffects += 'Luststick - ' + Math.round( CoC.player.statusAffectv1( StatusAffects.Luststick ) ) + ' hours remaining\n';
 		}
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
-			statEffects += 'Black Cat Beer - ' + CoC.getInstance().player.statusAffectv1( StatusAffects.BlackCatBeer ) + ' hours remaining (Lust resistance 20% lower, physical resistance 25% higher.)\n';
+		if( CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
+			statEffects += 'Black Cat Beer - ' + CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) + ' hours remaining (Lust resistance 20% lower, physical resistance 25% higher.)\n';
 		}
 		if( statEffects !== '' ) {
 			EngineCore.outputText( '\n<b><u>Ongoing Status Effects</u></b>\n' + statEffects, false );
@@ -1287,8 +1287,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.lustPercent = function() {
 		var lust = 100;
 		//2.5% lust resistance per level - max 75.
-		if( CoC.getInstance().player.level < 21 ) {
-			lust -= (CoC.getInstance().player.level - 1) * 3;
+		if( CoC.player.level < 21 ) {
+			lust -= (CoC.player.level - 1) * 3;
 		} else {
 			lust = 40;
 		}
@@ -1298,70 +1298,70 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//TOTAL IS LIMITED TO 75%!
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//Corrupted Libido reduces lust gain by 10%!
-		if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
 			lust -= 10;
 		}
 		//Acclimation reduces by 15%
-		if( CoC.getInstance().player.findPerk( PerkLib.Acclimation ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Acclimation ) >= 0 ) {
 			lust -= 15;
 		}
 		//Purity blessing reduces lust gain
-		if( CoC.getInstance().player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
 			lust -= 5;
 		}
 		//Resistance = 10%
-		if( CoC.getInstance().player.findPerk( PerkLib.Resistance ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Resistance ) >= 0 ) {
 			lust -= 10;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 ) {
 			lust -= SceneLib.umasShop.NEEDLEWORK_LUST_LUST_RESIST;
 		}
 		if( lust < 25 ) {
 			lust = 25;
 		}
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
 			if( lust >= 80 ) {
 				lust = 100;
 			} else {
 				lust += 20;
 			}
 		}
-		lust += Math.round( CoC.getInstance().player.perkv1( PerkLib.PentUp ) / 2 );
+		lust += Math.round( CoC.player.perkv1( PerkLib.PentUp ) / 2 );
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//MULTIPLICATIVE REDUCTIONS
 		//THESE PERKS ALSO RAISE MINIMUM LUST OR HAVE OTHER
 		//DRAWBACKS TO JUSTIFY IT.
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//Bimbo body slows lust gains!
-		if( (CoC.getInstance().player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BimboBody ) >= 0) && lust > 0 ) {
+		if( (CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody ) >= 0) && lust > 0 ) {
 			lust *= 0.75;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.BroBody ) >= 0 && lust > 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroBody ) >= 0 && lust > 0 ) {
 			lust *= 0.75;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.FutaForm ) >= 0 && lust > 0 ) {
+		if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 && lust > 0 ) {
 			lust *= 0.75;
 		}
 		//Omnibus\' Gift reduces lust gain by 15%
-		if( CoC.getInstance().player.findPerk( PerkLib.OmnibusGift ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.OmnibusGift ) >= 0 ) {
 			lust *= 0.85;
 		}
 		//Luststick reduces lust gain by 10% to match increased min lust
-		if( CoC.getInstance().player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
 			lust *= 0.9;
 		}
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
 			lust *= 0.6;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
 			lust *= 0.95;
 		}
 		// Lust mods from Uma\'s content -- Given the short duration and the gem cost, I think them being multiplicative is justified.
 		// Changing them to an additive bonus should be pretty simple (check the static values in UmasShop.as)
-		var statIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage );
+		var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			if( CoC.getInstance().player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELIEF || CoC.getInstance().player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_LUST ) {
-				lust *= CoC.getInstance().player.statusAffect( statIndex ).value2;
+			if( CoC.player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELIEF || CoC.player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_LUST ) {
+				lust *= CoC.player.statusAffect( statIndex ).value2;
 			}
 		}
 		lust = Math.round( lust );
@@ -1441,24 +1441,24 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		});
 		// Got this far, we have values to statsify
-		var newStr = EngineCore.applyOperator( CoC.getInstance().player.str, argOps[ 0 ], argVals[ 0 ] );
-		var newTou = EngineCore.applyOperator( CoC.getInstance().player.tou, argOps[ 1 ], argVals[ 1 ] );
-		var newSpe = EngineCore.applyOperator( CoC.getInstance().player.spe, argOps[ 2 ], argVals[ 2 ] );
-		var newInte = EngineCore.applyOperator( CoC.getInstance().player.inte, argOps[ 3 ], argVals[ 3 ] );
-		var newLib = EngineCore.applyOperator( CoC.getInstance().player.lib, argOps[ 4 ], argVals[ 4 ] );
-		var newSens = EngineCore.applyOperator( CoC.getInstance().player.sens, argOps[ 5 ], argVals[ 5 ] );
-		var newLust = EngineCore.applyOperator( CoC.getInstance().player.lust, argOps[ 6 ], argVals[ 6 ] );
-		var newCor = EngineCore.applyOperator( CoC.getInstance().player.cor, argOps[ 7 ], argVals[ 7 ] );
+		var newStr = EngineCore.applyOperator( CoC.player.str, argOps[ 0 ], argVals[ 0 ] );
+		var newTou = EngineCore.applyOperator( CoC.player.tou, argOps[ 1 ], argVals[ 1 ] );
+		var newSpe = EngineCore.applyOperator( CoC.player.spe, argOps[ 2 ], argVals[ 2 ] );
+		var newInte = EngineCore.applyOperator( CoC.player.inte, argOps[ 3 ], argVals[ 3 ] );
+		var newLib = EngineCore.applyOperator( CoC.player.lib, argOps[ 4 ], argVals[ 4 ] );
+		var newSens = EngineCore.applyOperator( CoC.player.sens, argOps[ 5 ], argVals[ 5 ] );
+		var newLust = EngineCore.applyOperator( CoC.player.lust, argOps[ 6 ], argVals[ 6 ] );
+		var newCor = EngineCore.applyOperator( CoC.player.cor, argOps[ 7 ], argVals[ 7 ] );
 		// Because lots of checks and mods are made in the stats(), calculate deltas and pass them. However, this means that the \'=\' operator could be resisted
 		// In future (as I believe) EngineCore.stats() should be replaced with dynStats(), and checks and mods should be made here
-		EngineCore.stats( newStr - CoC.getInstance().player.str,
-			newTou - CoC.getInstance().player.tou,
-			newSpe - CoC.getInstance().player.spe,
-			newInte - CoC.getInstance().player.inte,
-			newLib - CoC.getInstance().player.lib,
-			newSens - CoC.getInstance().player.sens,
-			newLust - CoC.getInstance().player.lust,
-			newCor - CoC.getInstance().player.cor,
+		EngineCore.stats( newStr - CoC.player.str,
+			newTou - CoC.player.tou,
+			newSpe - CoC.player.spe,
+			newInte - CoC.player.inte,
+			newLib - CoC.player.lib,
+			newSens - CoC.player.sens,
+			newLust - CoC.player.lust,
+			newCor - CoC.player.cor,
 			argVals[ 8 ], argVals[ 9 ] );
 	};
 	EngineCore.stats = function( stre, toug, spee, intel, libi, sens, lust2, corr, resisted, noBimbo ) {
@@ -1466,7 +1466,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			resisted = true;
 		}
 		//Easy mode cuts lust gains!
-		if( CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 && lust2 > 0 && resisted ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 && lust2 > 0 && resisted ) {
 			lust2 /= 2;
 		}
 		//Set original values to begin tracking for up/down values if
@@ -1474,20 +1474,20 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//These are reset when up/down arrows are hidden with
 		//hideUpDown();
 		//Just check str because they are either all 0 or real values
-		if( CoC.getInstance().oldStats.oldStr === 0 ) {
-			CoC.getInstance().oldStats.oldStr = CoC.getInstance().player.str;
-			CoC.getInstance().oldStats.oldTou = CoC.getInstance().player.tou;
-			CoC.getInstance().oldStats.oldSpe = CoC.getInstance().player.spe;
-			CoC.getInstance().oldStats.oldInte = CoC.getInstance().player.inte;
-			CoC.getInstance().oldStats.oldLib = CoC.getInstance().player.lib;
-			CoC.getInstance().oldStats.oldSens = CoC.getInstance().player.sens;
-			CoC.getInstance().oldStats.oldLust = CoC.getInstance().player.lust;
-			CoC.getInstance().oldStats.oldCor = CoC.getInstance().player.cor;
+		if( CoC.oldStats.oldStr === 0 ) {
+			CoC.oldStats.oldStr = CoC.player.str;
+			CoC.oldStats.oldTou = CoC.player.tou;
+			CoC.oldStats.oldSpe = CoC.player.spe;
+			CoC.oldStats.oldInte = CoC.player.inte;
+			CoC.oldStats.oldLib = CoC.player.lib;
+			CoC.oldStats.oldSens = CoC.player.sens;
+			CoC.oldStats.oldLust = CoC.player.lust;
+			CoC.oldStats.oldCor = CoC.player.cor;
 		}
 		//MOD CHANGES FOR PERKS
 		//Bimbos learn slower
 		if( !noBimbo ) {
-			if( CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BroBrains ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.BroBrains ) >= 0 ) {
 				if( intel > 0 ) {
 					intel /= 2;
 				}
@@ -1495,7 +1495,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					intel *= 2;
 				}
 			}
-			if( CoC.getInstance().player.findPerk( PerkLib.FutaForm ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BimboBody ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.BroBody ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody ) >= 0 || CoC.player.findPerk( PerkLib.BroBody ) >= 0 ) {
 				if( libi > 0 ) {
 					libi *= 2;
 				}
@@ -1505,162 +1505,162 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 		// Uma\'s Perkshit
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 && spee < 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 && spee < 0 ) {
 			spee *= SceneLib.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && libi > 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 && libi > 0 ) {
 			libi *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && sens > 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 && sens > 0 ) {
 			sens *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		//lust resistance
 		if( lust2 > 0 && resisted ) {
 			lust2 *= EngineCore.lustPercent() / 100;
 		}
-		if( libi > 0 && CoC.getInstance().player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( libi > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
 			libi *= 0.75;
 		}
-		if( corr > 0 && CoC.getInstance().player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( corr > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
 			corr *= 0.5;
 		}
-		if( corr > 0 && CoC.getInstance().player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
+		if( corr > 0 && CoC.player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
 			corr *= 0.75;
 		}
 		//Change original stats
-		CoC.getInstance().player.str += stre;
-		CoC.getInstance().player.tou += toug;
-		CoC.getInstance().player.spe += spee;
-		CoC.getInstance().player.inte += intel;
-		CoC.getInstance().player.lib += libi;
-		if( CoC.getInstance().player.sens > 50 && sens > 0 ) {
+		CoC.player.str += stre;
+		CoC.player.tou += toug;
+		CoC.player.spe += spee;
+		CoC.player.inte += intel;
+		CoC.player.lib += libi;
+		if( CoC.player.sens > 50 && sens > 0 ) {
 			sens /= 2;
 		}
-		if( CoC.getInstance().player.sens > 75 && sens > 0 ) {
+		if( CoC.player.sens > 75 && sens > 0 ) {
 			sens /= 2;
 		}
-		if( CoC.getInstance().player.sens > 90 && sens > 0 ) {
+		if( CoC.player.sens > 90 && sens > 0 ) {
 			sens /= 2;
 		}
-		if( CoC.getInstance().player.sens > 50 && sens < 0 ) {
+		if( CoC.player.sens > 50 && sens < 0 ) {
 			sens *= 2;
 		}
-		if( CoC.getInstance().player.sens > 75 && sens < 0 ) {
+		if( CoC.player.sens > 75 && sens < 0 ) {
 			sens *= 2;
 		}
-		if( CoC.getInstance().player.sens > 90 && sens < 0 ) {
+		if( CoC.player.sens > 90 && sens < 0 ) {
 			sens *= 2;
 		}
-		CoC.getInstance().player.sens += sens;
-		CoC.getInstance().player.lust += lust2;
-		CoC.getInstance().player.cor += corr;
+		CoC.player.sens += sens;
+		CoC.player.lust += lust2;
+		CoC.player.cor += corr;
 		//Bonus gain for perks!
-		if( CoC.getInstance().player.findPerk( PerkLib.Strong ) >= 0 && stre >= 0 ) {
-			CoC.getInstance().player.str += stre * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Strong ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Strong ) >= 0 && stre >= 0 ) {
+			CoC.player.str += stre * CoC.player.perk( CoC.player.findPerk( PerkLib.Strong ) ).value1;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Tough ) >= 0 && toug >= 0 ) {
-			CoC.getInstance().player.tou += toug * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Tough ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Tough ) >= 0 && toug >= 0 ) {
+			CoC.player.tou += toug * CoC.player.perk( CoC.player.findPerk( PerkLib.Tough ) ).value1;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Fast ) >= 0 && spee >= 0 ) {
-			CoC.getInstance().player.spe += spee * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Fast ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Fast ) >= 0 && spee >= 0 ) {
+			CoC.player.spe += spee * CoC.player.perk( CoC.player.findPerk( PerkLib.Fast ) ).value1;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Smart ) >= 0 && intel >= 0 ) {
-			CoC.getInstance().player.inte += intel * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Smart ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Smart ) >= 0 && intel >= 0 ) {
+			CoC.player.inte += intel * CoC.player.perk( CoC.player.findPerk( PerkLib.Smart ) ).value1;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Lusty ) >= 0 && libi >= 0 ) {
-			CoC.getInstance().player.lib += libi * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Lusty ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 && libi >= 0 ) {
+			CoC.player.lib += libi * CoC.player.perk( CoC.player.findPerk( PerkLib.Lusty ) ).value1;
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.Sensitive ) >= 0 && sens >= 0 ) {
-			CoC.getInstance().player.sens += sens * CoC.getInstance().player.perk( CoC.getInstance().player.findPerk( PerkLib.Sensitive ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Sensitive ) >= 0 && sens >= 0 ) {
+			CoC.player.sens += sens * CoC.player.perk( CoC.player.findPerk( PerkLib.Sensitive ) ).value1;
 		}
 		// Uma\'s Str Cap from Perks
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 ) {
-			if( CoC.getInstance().player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
-				CoC.getInstance().player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 ) {
+			if( CoC.player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
+				CoC.player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
 			}
 		}
-		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
-			if( CoC.getInstance().player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
-				CoC.getInstance().player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
+		if( CoC.player.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
+			if( CoC.player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
+				CoC.player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
 			}
 		}
 		//Keep EngineCore.stats in bounds
-		if( CoC.getInstance().player.cor < 0 ) {
-			CoC.getInstance().player.cor = 0;
+		if( CoC.player.cor < 0 ) {
+			CoC.player.cor = 0;
 		}
-		if( CoC.getInstance().player.cor > 100 ) {
-			CoC.getInstance().player.cor = 100;
+		if( CoC.player.cor > 100 ) {
+			CoC.player.cor = 100;
 		}
-		if( CoC.getInstance().player.str > 100 ) {
-			CoC.getInstance().player.str = 100;
+		if( CoC.player.str > 100 ) {
+			CoC.player.str = 100;
 		}
-		if( CoC.getInstance().player.str < 1 ) {
-			CoC.getInstance().player.str = 1;
+		if( CoC.player.str < 1 ) {
+			CoC.player.str = 1;
 		}
-		if( CoC.getInstance().player.tou > 100 ) {
-			CoC.getInstance().player.tou = 100;
+		if( CoC.player.tou > 100 ) {
+			CoC.player.tou = 100;
 		}
-		if( CoC.getInstance().player.tou < 1 ) {
-			CoC.getInstance().player.tou = 1;
+		if( CoC.player.tou < 1 ) {
+			CoC.player.tou = 1;
 		}
-		if( CoC.getInstance().player.spe > 100 ) {
-			CoC.getInstance().player.spe = 100;
+		if( CoC.player.spe > 100 ) {
+			CoC.player.spe = 100;
 		}
-		if( CoC.getInstance().player.spe < 1 ) {
-			CoC.getInstance().player.spe = 1;
+		if( CoC.player.spe < 1 ) {
+			CoC.player.spe = 1;
 		}
-		if( CoC.getInstance().player.inte > 100 ) {
-			CoC.getInstance().player.inte = 100;
+		if( CoC.player.inte > 100 ) {
+			CoC.player.inte = 100;
 		}
-		if( CoC.getInstance().player.inte < 1 ) {
-			CoC.getInstance().player.inte = 1;
+		if( CoC.player.inte < 1 ) {
+			CoC.player.inte = 1;
 		}
-		if( CoC.getInstance().player.lib > 100 ) {
-			CoC.getInstance().player.lib = 100;
+		if( CoC.player.lib > 100 ) {
+			CoC.player.lib = 100;
 		}
 		//Minimum libido = 15.
-		if( CoC.getInstance().player.lib < 50 && CoC.getInstance().player.armorName === 'lusty maiden\'s armor' ) {
-			CoC.getInstance().player.lib = 50;
-		} else if( CoC.getInstance().player.lib < 15 && CoC.getInstance().player.gender > 0 ) {
-			CoC.getInstance().player.lib = 15;
-		} else if( CoC.getInstance().player.lib < 10 && CoC.getInstance().player.gender === 0 ) {
-			CoC.getInstance().player.lib = 10;
+		if( CoC.player.lib < 50 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
+			CoC.player.lib = 50;
+		} else if( CoC.player.lib < 15 && CoC.player.gender > 0 ) {
+			CoC.player.lib = 15;
+		} else if( CoC.player.lib < 10 && CoC.player.gender === 0 ) {
+			CoC.player.lib = 10;
 		}
-		if( CoC.getInstance().player.lib < EngineCore.minLust() * 2 / 3 ) {
-			CoC.getInstance().player.lib = EngineCore.minLust() * 2 / 3;
+		if( CoC.player.lib < EngineCore.minLust() * 2 / 3 ) {
+			CoC.player.lib = EngineCore.minLust() * 2 / 3;
 		}
 		//Minimum sensitivity.
-		if( CoC.getInstance().player.sens > 100 ) {
-			CoC.getInstance().player.sens = 100;
+		if( CoC.player.sens > 100 ) {
+			CoC.player.sens = 100;
 		}
-		if( CoC.getInstance().player.sens < 10 ) {
-			CoC.getInstance().player.sens = 10;
+		if( CoC.player.sens < 10 ) {
+			CoC.player.sens = 10;
 		}
 		//Add HP for toughness change.
 		EngineCore.HPChange( toug * 2, false );
 		//Reduce hp if over max
-		if( CoC.getInstance().player.HP > CoC.getInstance().player.maxHP() ) {
-			CoC.getInstance().player.HP = CoC.getInstance().player.maxHP();
+		if( CoC.player.HP > CoC.player.maxHP() ) {
+			CoC.player.HP = CoC.player.maxHP();
 		}
 		//Combat bounds
-		if( CoC.getInstance().player.lust > 99 ) {
-			CoC.getInstance().player.lust = 100;
+		if( CoC.player.lust > 99 ) {
+			CoC.player.lust = 100;
 		}
 		//Update to minimum lust if lust falls below it.
-		if( CoC.getInstance().player.lust < EngineCore.minLust() ) {
-			CoC.getInstance().player.lust = EngineCore.minLust();
+		if( CoC.player.lust < EngineCore.minLust() ) {
+			CoC.player.lust = EngineCore.minLust();
 		}
 		//worms raise min lust!
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-			if( CoC.getInstance().player.lust < 50 ) {
-				CoC.getInstance().player.lust = 50;
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+			if( CoC.player.lust < 50 ) {
+				CoC.player.lust = 50;
 			}
 		}
-		if( CoC.getInstance().player.lust > 100 ) {
-			CoC.getInstance().player.lust = 100;
+		if( CoC.player.lust > 100 ) {
+			CoC.player.lust = 100;
 		}
-		if( CoC.getInstance().player.lust < 0 ) {
-			CoC.getInstance().player.lust = 0;
+		if( CoC.player.lust < 0 ) {
+			CoC.player.lust = 0;
 		}
 		//Refresh the stat pane with updated values
 		MainView.statsView.showUpDown();
@@ -1675,58 +1675,58 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.cuntChangeOld = function( cIndex, vIndex, display ) {
 		//Virginity check
-		if( CoC.getInstance().player.vaginas[ vIndex ].virgin ) {
+		if( CoC.player.vaginas[ vIndex ].virgin ) {
 			if( display ) {
 				EngineCore.outputText( '\nYour ' + Descriptors.vaginaDescript( vIndex ) + ' loses its virginity!', false );
 			}
-			CoC.getInstance().player.vaginas[ vIndex ].virgin = false;
+			CoC.player.vaginas[ vIndex ].virgin = false;
 		}
 		//If cock is bigger than unmodified vagina can hold - 100% stretch!
-		if( CoC.getInstance().player.vaginas[ vIndex ].capacity() <= CoC.getInstance().monster.cocks[ cIndex ].cArea() ) {
-			if( CoC.getInstance().player.vaginas[ vIndex ] < 5 ) {
+		if( CoC.player.vaginas[ vIndex ].capacity() <= CoC.monster.cocks[ cIndex ].cArea() ) {
+			if( CoC.player.vaginas[ vIndex ] < 5 ) {
 				$log.trace( 'CUNT STRETCHED: By cock larger than it\'s total capacity.' );
 				if( display ) {
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
 					}
 				}
-				CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness++;
+				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
 			}
 		}
 		//If cock is within 75% of max, streeeeetch 33% of the time
-		if( CoC.getInstance().player.vaginas[ vIndex ].capacity() * 0.75 <= CoC.getInstance().monster.cocks[ cIndex ].cArea() ) {
-			if( CoC.getInstance().player.vaginas[ vIndex ] < 5 ) {
+		if( CoC.player.vaginas[ vIndex ].capacity() * 0.75 <= CoC.monster.cocks[ cIndex ].cArea() ) {
+			if( CoC.player.vaginas[ vIndex ] < 5 ) {
 				$log.trace( 'CUNT STRETCHED: By cock @ 75% of capacity.' );
 				if( display ) {
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
 					}
-					if( CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
+					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
 					}
 				}
-				CoC.getInstance().player.vaginas[ vIndex ].vaginalLooseness++;
+				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
 			}
 		}
 	};
@@ -1734,7 +1734,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if(choice === undefined) {
 			choice = 0;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
 			MainView.selectSprite( choice );
 		} else if( choice >= 0 ) {
 			$log.trace( 'hiding sprite because flags' );

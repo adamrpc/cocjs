@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 	MinotaurLord.prototype.performCombatAction = function() {
 		if( this.HP < 300 && this.statusAffectv1( StatusAffects.MinoMilk ) < 4 ) {
 			this.minotaurDrankMalk();
-		} else if( Utils.rand( 4 ) === 0 && CoC.getInstance().player.weaponName !== 'fists' ) {
+		} else if( Utils.rand( 4 ) === 0 && CoC.player.weaponName !== 'fists' ) {
 			this.minotaurDisarm();
 		} else if( this.findStatusAffect( StatusAffects.Timer ) < 0 ) {
 			this.minotaurLordEntangle();
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 	MinotaurLord.prototype.minotaurDisarm = function() {
 		EngineCore.outputText( 'The giant of a minotaur raises his chain threateningly into the air, clearly intent on striking you down.  With your trained reflexes, you quickly move to block his blow with your halberd.  You recoil as the chain impacts your halberd with a loud clang, wrapping around it.  You smile triumphantly at the minotaur, only to glance at his smirk.  With a strong pull, he rips the halberd off your hands and into a corner of the room. Shit!' );
 		EngineCore.outputText( '\n\nThe succubus laughs maniacally.  "<i>Good boy, Fido!  Take that fox slut\'s toys away so she\'ll be easier to play with!</i>"  The minotaur puffs his chest, proud of himself for pleasing his mistress.' );
-		CoC.getInstance().player.setWeapon( WeaponLib.FISTS );
+		CoC.player.setWeapon( WeaponLib.FISTS );
 		Combat.combatRoundOver();
 	};
 	MinotaurLord.prototype.minotaurLordEntangle = function() {
@@ -65,13 +65,13 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 	};
 	MinotaurLord.prototype.minotaurCumPress = function() {
 		EngineCore.outputText( 'The minotaur lord tugs on the end of the chain, pulling you toward him, making you spin round and round so many times that you\'re dazed and dizzy.  You can feel the links coming free of your fur, and the closer you get, the more freedom of movement you have.  Yet, the dizziness makes it hard to do anything other than stumble.  You splat into something wet, sticky, and spongy.  You gasp, breathing a heavy gasp of minotaur musk that makes your head spin in a whole different way.  You pry yourself away from the sweaty, sperm-soaked nuts you landed on and look up, admiring the towering horse-cock with its three-rings of pre-puce along its length.  A droplet of pre-cum as fat as your head smacks into your face, staggering you back and dulling your senses with narcotic lust.' );
-		EngineCore.dynStats( 'lus', 22 + CoC.getInstance().player.lib / 8 + CoC.getInstance().player.sens / 8 );
+		EngineCore.dynStats( 'lus', 22 + CoC.player.lib / 8 + CoC.player.sens / 8 );
 		EngineCore.outputText( 'You tumble to your knees a few feet away, compulsively licking it up.  Once it\'s gone, ' );
-		if( CoC.getInstance().player.lust > 99 ) {
+		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'you rise up, horny and hungry for more.' );
 		} else {
 			EngineCore.outputText( 'you realize what you\'ve been doing.  Your embarrassment gives you the strength to re-adopt your fighting pose, but it\'s hard with how rigid' );
-			if( CoC.getInstance().player.lust >= 80 ) {
+			if( CoC.player.lust >= 80 ) {
 				EngineCore.outputText( ' and drippy' );
 			}
 			EngineCore.outputText( ' your cock has become.  You want another taste...' );
@@ -83,19 +83,19 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 		EngineCore.outputText( 'The minotaur smiles at you and lifts his loincloth, flicking it at you.  Thick ropes of pre-cum fly through the air in a swarm,' );
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( ' slapping into your face before you can react!  You wipe the slick snot-like stuff out of your eyes and nose, ' );
-			if( CoC.getInstance().player.lust >= 70 ) {
+			if( CoC.player.lust >= 70 ) {
 				EngineCore.outputText( 'swallowing it into your mouth without thinking.  You greedily guzzle the potent, narcotic aphrodisiac down, even going so far as to lick it from each of your fingers in turn, sucking every drop into your waiting gullet.' );
 			} else {
 				EngineCore.outputText( 'feeling your heart hammer lustily.' );
 			}
-			EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.lib / 8 + CoC.getInstance().player.sens / 8 );
+			EngineCore.dynStats( 'lus', 15 + CoC.player.lib / 8 + CoC.player.sens / 8 );
 		} else {
 			EngineCore.outputText( ' right past your head, but the smell alone is enough to make you weak at the knees.' );
 			EngineCore.outputText( '  The animalistic scent of it seems to get inside you, the musky aroma burning a path of liquid heat to your groin, stiffening your horse-cock to absurd degrees.' );
-			EngineCore.dynStats( 'lus', 11 + CoC.getInstance().player.lib / 10 );
+			EngineCore.dynStats( 'lus', 11 + CoC.player.lib / 10 );
 		}
 		//(1);
-		if( CoC.getInstance().player.lust <= 75 ) {
+		if( CoC.player.lust <= 75 ) {
 			EngineCore.outputText( '  You shiver with need, wanting nothing more than to bury your face under that loincloth and slurp out every drop of goopey goodness.' );
 		} else {
 			EngineCore.outputText( '  <b>You groan and lick your lips over and over, craving the taste of him in your mouth.</b>' );

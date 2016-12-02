@@ -4,7 +4,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 	var StartUp = {};
 	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {
-		CoC.getInstance().stage.focus = MainView.mainText;
+		CoC.stage.focus = MainView.mainText;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 		}
@@ -15,8 +15,8 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
 		MainView.showMenuButton( MainView.MENU_DATA );
 		//Sets game state to 3, used for determining back functionality of save/load menu.
-		CoC.getInstance().gameState = 3;
-		EngineCore.outputText( '<b>Corruption of Champions (' + CoC.getInstance().version + ')</b>', true );
+		CoC.gameState = 3;
+		EngineCore.outputText( '<b>Corruption of Champions (' + CoC.version + ')</b>', true );
 		if( CoC_Settings.debugBuild ) {
 			EngineCore.outputText( ' Debug Build.' );
 		} else {
@@ -25,7 +25,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		//doThatTestingThang();
 		StartUp.startupScreenBody();
 		var resume = null;
-		if( CoC.getInstance().player.str > 0 ) { // we're in a game, allow resume.
+		if( CoC.player.str > 0 ) { // we're in a game, allow resume.
 			resume = EventParser.playerMenu;
 		}
 		// I really wanted to only have the 'imageCreditsScreen' button if images were found, but it turns out
@@ -67,16 +67,16 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			'For more information see Fenoxo\'s Blog at <b><u><a href=\'http://www.fenoxo.com/\'>fenoxo.com</a></u></b>.<br><br>' + 
 			
 			'Also go play <u><a href=\'http://www.furaffinity.net/view/9830293/\'>Nimin</a></u> by Xadera on furaffinity.', false, true);
-		if( CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			EngineCore.outputText( '\n\n<b>Sprites disabled.</b>' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			EngineCore.outputText( '\n\n<b>Easy Mode On:  Bad-ends can be ignored.</b>' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] ) {
+		if( CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] ) {
 			EngineCore.outputText( '\n\n<b>SILLY MODE ENGAGED: Crazy, nonsensical, and possibly hilarious things may occur.</b>' );
 		}
-		if( CoC.getInstance().isEaster() ) {
+		if( CoC.isEaster() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Easter!  Enjoy the eggs!</b>' );
 		}
 		if( SceneLib.valentines.isValentine() ) {
@@ -92,19 +92,19 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.outputText( '<b>Settings toggles:</b>\n', true );
 		EngineCore.outputText( 'Debug mode enabled: <b>No</b>\n	Items consumption will occur as normal.' );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
 			EngineCore.outputText( 'Sprites enabled: <b>Yes</b>.\n	You like to look at pretty pictures.' );
 		} else {
 			EngineCore.outputText( 'Sprites enabled: <b>No</b>.\n	There are only words. Nothing else.' );
 		}
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			EngineCore.outputText( 'Easy Mode <b>On</b>\n	Bad-ends can be ignored and combat is easier.' );
 		} else {
 			EngineCore.outputText( 'Easy Mode <b>Off</b>\n	Bad-ends can ruin your game and combat is challenging.' );
 		}
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] ) {
+		if( CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] ) {
 			EngineCore.outputText( 'Silly Mode <b>On</b>\n	Crazy, nonsensical, and possibly hilarious things may occur.' );
 		} else {
 			EngineCore.outputText( 'Silly Mode <b>Off</b>\n	You\'re an incorrigable stick-in-the-mud with no sense of humor.' );
@@ -113,14 +113,14 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.outputText( '<b>The following flags are not fully implemented yet (e.g. they don\'t apply in <i>all</i> cases where they could be relevant).</b>\n' );
 		EngineCore.outputText( 'Additional note: You <b>must</b> be <i>in a game session</i> (e.g. load your save, hit "Main Menu", change the flag settings, and then hit "Resume") to change these flags. They\'re saved into the saveGame file, so if you load a save, it will clear them to the state in that save.' );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
+		if( CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] ) {
 			EngineCore.outputText( 'Low standards Mode <b>On</b>\n	NPCs ignore body type preferences.' );
 			EngineCore.outputText( '\n	(Not gender preferences though. You still need the right hole.)' );
 		} else {
 			EngineCore.outputText( 'Low standards Mode <b>Off</b>\n	NPCs have body-type preferences.' );
 		}
 		EngineCore.outputText( '\n\n' );
-		if( CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] ) {
+		if( CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
 			EngineCore.outputText( 'Hyper Happy mode <b>On</b>\n	Only reducto and humus shrink endowments.' );
 			EngineCore.outputText( '\n	Incubus draft doesn\'t affect breasts, and succubi milk doesn\'t affect cocks.' );
 		} else {
@@ -176,29 +176,29 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.doNext( StartUp.displayControls );
 	};
 	StartUp.toggleStandards = function() {
-		CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.getInstance().flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
+		CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
 		StartUp.settingsScreen();
 		return;
 	};
 	StartUp.toggleHyperHappy = function() {
-		CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ] = !CoC.getInstance().flags[ kFLAGS.HYPER_HAPPY ];
+		CoC.flags[ kFLAGS.HYPER_HAPPY ] = !CoC.flags[ kFLAGS.HYPER_HAPPY ];
 		StartUp.settingsScreen();
 		return;
 	};
 	StartUp.toggleEasyModeFlag = function() {
-		CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] = CoC.getInstance().flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 0 ? 1 : 0;
+		CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] = CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 0 ? 1 : 0;
 		StartUp.settingsScreen();
 		MainView.showMenuButton( MainView.MENU_DATA );
 		StartUp.settingsScreen();
 		return;
 	};
 	StartUp.toggleSpritesFlag = function() {
-		CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ] = !CoC.getInstance().flags[ kFLAGS.SHOW_SPRITES_FLAG ];
+		CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] = !CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ];
 		StartUp.settingsScreen();
 		return;
 	};
 	StartUp.toggleSillyFlag = function() {
-		CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] = !CoC.getInstance().flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
+		CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] = !CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
 		StartUp.settingsScreen();
 		return;
 	};

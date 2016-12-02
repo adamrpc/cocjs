@@ -7,13 +7,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 	//Restriction on meeting Essy I'd figure is you can't be genderless, Essy is a very sexual being and if she doesn't detect a sex in someone, she's bluntly not interested. I'd imagine she'd be more receptive to nagas, those rather cowish in species, and characters with very, very large breasts.
 	Essrayle.prototype.essrayleMeetingI = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.MET_ESSY ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MET_ESSY ] === 0 ) {
 			EngineCore.outputText( 'You blunder along through the thick foliage, swatting aside stray branches and the long grasses that try to impede your progress.  A clearing appears up ahead, giving you a goal to reach.  Honestly, you could use a brief break.  Forging through the brush, tromping, and causing a general ruckus, you practically burst into the glen in no time.' );
 			EngineCore.outputText( '\n\nYou realize you\'re not alone.  The other occupant looks at you a bit startled, and you look back with more awe than anything.  It is a woman, isn\'t it?  You can\'t be fully sure.  Her body is slender, soft green in hue, and she has an elfish, noseless face.  Green, grassy hair cascades down her back, and a large, wooden horn rises from her forehead, ornamented like something you would see on a beetle rather than a person.' );
 			EngineCore.outputText( '\n\nThe first thing to catch your gaze are her eyes; rich, deep amethyst things.  ' );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'Despite however chivalric you think yourself' );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'Despite your better sense' );
 			} else {
 				EngineCore.outputText( 'Perhaps best of all' );
@@ -21,16 +21,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( ', your attention falls to her chest.  This emerald maiden sports a pair of breasts that\'d make even a demon blush, gorgeous green globes that look like small watermelons resting upon her upper belly, capped with purple areolae.  Four, thick, teat-like nipples dangle a good three or four inches from each.' );
 			EngineCore.outputText( '\n\nLikewise, four slender, green arms grace her form.  Instead of legs, a single, serpentine, smooth stalk rises from what looks like a giant flower bulb resting on the grassy ground. With her movement it seems to quiver slightly, though not nearly as much as those gigantic breasts do.' );
 			EngineCore.outputText( '\n\nSeeing how you stare, the plant woman doesn\'t try to cover herself in shame, but thrusts her chest out a bit more, causing the pair to jiggle temptingly.  "<i>Like what you see?</i>" she coos, winking coyly and giggling to herself.  You fumble for the right words, ' );
-			if( CoC.getInstance().player.cor < 33 ) {
+			if( CoC.player.cor < 33 ) {
 				EngineCore.outputText( 'hastily looking away from her nude body' );
-			} else if( CoC.getInstance().player.cor < 66 ) {
+			} else if( CoC.player.cor < 66 ) {
 				EngineCore.outputText( 'looking away out of courtesy' );
 			} else {
 				EngineCore.outputText( 'letting your eyes roam over her as you search for even more depraved features on her nubile body' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nA soft, sweet-smelling hand rests under your chin and directs you to look back to her once more.  "<i>Don\'t be so shy,</i>" she coos, pressing those large, squishy things firmly against your ' );
-			if( CoC.getInstance().player.biggestTitSize() >= 10 ) {
+			if( CoC.player.biggestTitSize() >= 10 ) {
 				EngineCore.outputText( 'own' );
 			} else {
 				EngineCore.outputText( '[chest]' );
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( 'During your travels through the forest, you stumble upon a familiar face once again.  "<i>Oh, hello!</i>\ this.Essrayle cheerily waves to you, causing her ample tits to jiggle slightly.  "<i>I was wondering if you\'d be back.</i>"  She moves closer, massive melons wobbling mere inches away from you, "<i>I had a feeling you would though.</i>"  Cooing warmly, she brushes a lock of hair aside with enough of an exaggerated motion to set the bouncy pair to bobbing.' );
 			EngineCore.outputText( '\n\n"<i>So, did you come back just to say hi, or might there be some other reason?</i>"  Those slender, green hands fall upon her shapely hips as her gorgeous amethyst eyes peer deeply into yours.  "<i>If you came to give me a feeding, I simply must thank you this time, I insist.</i>"  Abruptly, those tits squish against your chest as she leans in close, asking seductively, "<i>So, feeling up for some gardening?</i>"' );
 		}
-		CoC.getInstance().flags[ kFLAGS.MET_ESSY ]++;
+		CoC.flags[ kFLAGS.MET_ESSY ]++;
 		//[Yes] [No]
 		EngineCore.menu();
 		EngineCore.addButton( 1, 'Yes', this.plantsForMe );
@@ -57,18 +57,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 	Essrayle.prototype.noPlantsForMe = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Essy pouts, ears flattening to the sides a bit.  "<i>I see,</i>" she nods, looking at you with thinly masked disappointment.  She seems to instantly put on a false smile and move aside, gesturing to the path ahead with a sweep of the arm.  "<i>Well, in that case, you must be going somewhere important.  Best not keep you waiting.  I do wish you luck in your adventures!</i>" She continues to beam as you head on off, leaving her behind you in no time.  Though as you leave, you swear you hear a mumbled, "<i>Leave it to me to find the prudish ones.</i>"' );
-		CoC.getInstance().flags[ kFLAGS.TURNED_DOWN_ESSY_FIRST_MEETING ] = 1;
+		CoC.flags[ kFLAGS.TURNED_DOWN_ESSY_FIRST_MEETING ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//>If Yes
 	Essrayle.prototype.plantsForMe = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] = 1;
+		if( CoC.flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] === 0 ) {
+			CoC.flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] = 1;
 			EngineCore.outputText( 'Essrayle giggles, sending ripples through her ample breasts.  "<i>Oh, why thank you!  It\'s nothing major - I doubt it\'ll be much of a burden to you.  But in my travels, I\'ve grown wilted and depleted of the energy to go on.  I\'m soooo hungry!  Would you please-?</i>"  She leaves the question hanging, looking to you imploringly.  Hastily your hand goes to where your supplies are housed, but you stop as she waves a hand dismissively.  "<i>No, no, I don\'t mean biscuits or the like.</i>"  Confused, you frown, but soften as you feel her hand rest upon your [chest].  "<i>I require a special kind of food to do what I do, one that won\'t exhaust your supplies in the least.</i>"\n\n' );
 		}
 		//(If breasts
-		if( CoC.getInstance().player.biggestTitSize() > 1 ) {
+		if( CoC.player.biggestTitSize() > 1 ) {
 			EngineCore.outputText( 'Your nipples stiffen, breasts puffing out with a heated breath' );
 		} else {
 			EngineCore.outputText( 'You arch your back gently, unconsciously pressing into her slender fingers a bit further' );
@@ -81,17 +81,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nUpon her back, apparently blooming from it, is a large, pink flower from which streams that pink mist,  blanketing the area.  Abruptly, Essy lifts you up, tilting your head gently as she presses her dainty, green lips to yours.  It doesn\'t take long before the two of you begin to passionately make out, as if you\'d cared for one another for years.  Her tongue pushes into your mouth, feeling unusually soft, a bit ticklish, and tasting of... mint?' );
 		EngineCore.outputText( '\n\nSlowly, you two separate, Essy sliding her leaf-like tongue over your lips, leaving them with a cool tingle for a time.  "<i>I\'m sooooo hungry... so very, very hungry,</i>" she whispers to you, her face touching your nose once more.  One of her hands begins to trail down your front, grasping and squeezing your nipples.' );
 		//(If breasts present)
-		if( CoC.getInstance().player.breastRows[ 0 ].breastRating >= 1 ) {
+		if( CoC.player.breastRows[ 0 ].breastRating >= 1 ) {
 			EngineCore.outputText( '\n\n"<i>Oooh, how I adore these,</i>" she coos to you, taking your breasts into two hands and beginning to squeeze and knead firmly into the pillowy flesh' );
-			if( CoC.getInstance().player.bRows() > 1 ) {
+			if( CoC.player.bRows() > 1 ) {
 				EngineCore.outputText( ' of your uppermost pair' );
 			}
 			EngineCore.outputText( '.  You moan, and this only seems to encourage her, as she takes your nipples between thumb and forefinger, twisting and turning them this way and that.  She giggles at how your moans seem to fluctuate by coincidence, continuing to tease them' );
-			if( CoC.getInstance().player.bRows() > 1 ) {
+			if( CoC.player.bRows() > 1 ) {
 				EngineCore.outputText( ', steadily working over the multitude of fleshy mounds on your body' );
 			}
 			EngineCore.outputText( '.' );
-			if( CoC.getInstance().player.hasFuckableNipples() ) {
+			if( CoC.player.hasFuckableNipples() ) {
 				EngineCore.outputText( '  Her fingers play with your nipples and press gently to tease at them.  She seems quite surprised as they sink in with minimal effort.  A grin spreads over her face as she begins to steadily thrust those digits in and out of your nipples, fingers swirling about the interiors all the while.' );
 			}
 			EngineCore.outputText( '  "<i>You certainly have a lovely pair, but they could always be better, don\'t you think?</i>"' );
@@ -123,15 +123,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( 'Essy\'s upper hands continue their work about your chest, toying around as one of her lower arms moves about your belly, snaking downward slowly all the while.  As you wiggle and writhe under her sensual ministrations, one of those hefty breasts abruptly plants itself in your face.  "<i>Why should you have all the fun?</i>" Essy coos, directing your mouth to one of her puffy nipples.  Without hesitation, you latch on and slide down its length with your lips.' );
 		EngineCore.outputText( '\n\nBeing rather large, it takes a moment to reorient yourself, but you manage to almost deepthroat the entirety of it.  Essy squeaks in surprise, moaning out as you take her nipple all the way and more as one hand kneads and squeezes through the almost doughy flesh of her other breast.  Clamping down with your lips, you begin to tug and suck as hard as you can.  You\'re briefly surprised when a long, loud, pleasured \'Moo\' comes from the plant girl, and thick, syrupy, milky sap spills into your mouth almost instantly.' );
 		EngineCore.outputText( '\n\nHer milk is a delightful substance, tasting like sweet cream, and you eagerly gulp it down, nursing hungrily for more.  The bovine utterances continue as Essy\'s lowest hand moves further down your waist, eventually coming to rest upon your crotch.  Though she\'s obviously highly distracted by your attentions to her breast, those lithe fingers ' );
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'find the dual sexes there.  Another hand joins the first, one gripping and tugging on your hardening cock as the other cups and squeezes over your pussy.' );
-		} else if( CoC.getInstance().player.hasCock() ) {
+		} else if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'circle about ' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'one of ' );
 			}
 			EngineCore.outputText( 'your shaft' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ', beginning to squeeze and slide about its length until your nursing is interrupted by moans of your own delight' );
@@ -139,29 +139,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( 'stroke about the puffy, now-inflamed lips of your own flower, taking the lips between two fingers and stroking up and down across their length fully before switching to your moist core.' );
 		}
 		EngineCore.outputText( '\n\nA firm hand cups your ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'back' );
 		} else {
 			EngineCore.outputText( 'butt' );
 		}
 		EngineCore.outputText( ' and pulls you close, forcing your [legs] against her bulb.  They sink in slightly as you go down, reluctantly relinquishing her nipple from your mouth.  As it springs free, a thick glob of sap splatters over your lips and nose.  Essy giggles softly as she wipes them off with a hand.' );
 		EngineCore.outputText( '\n\n"<i>I\'m glad you enjoy me, sweetie, I really want to enjoy more with you, but I need it so bad right now!</i>" Essy whines, her shivering, fat breasts jiggling about as she does.  A multitude of vine-like tentacles burst from her back flower and arc about her, coiling about your arms, waist, ' );
-		if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( 'tail, ' );
 		}
 		EngineCore.outputText( 'and [legs], ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'lifting you slowly into the air' );
 		} else {
 			EngineCore.outputText( 'forcing you to rear up' );
 		}
 		EngineCore.outputText( '.  Her lower hands grasp you, helping to raise you up until you\'re at the proper height, whence she abruptly plants her lips upon your crotch.' );
 		//Cock=
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nEssy drags her thin tongue over the length of [oneCock], flowing over every inch of it, bending about its curve as she licks from base to tip before engulfing it with her lips. Without a moment\'s hesitation, she slides down to the hilt, giving amazing pleasure from the surreal tightness, hitting you as you feel the plant\'s throat rippling and actually milking at your length.' );
 			EngineCore.outputText( '\n\nEssy just smiles as she begins to bob her head, slowly at first, but with increasing speed as your moans of delight egg her on.  Two tentacles rise up, funneling wide at the tips and engulfing your [nipples]' );
-			if( CoC.getInstance().player.breastRows[ 0 ].breastRating >= 1 ) {
-				EngineCore.outputText( ' and ' + CoC.getInstance().player.breastCup( 0 ) + ' breasts' );
+			if( CoC.player.breastRows[ 0 ].breastRating >= 1 ) {
+				EngineCore.outputText( ' and ' + CoC.player.breastCup( 0 ) + ' breasts' );
 			}
 			EngineCore.outputText( '.  The opaque cups pump and suck, Essy humming to herself as the base of her tongue continues to skillfully tease over every hot spot near the [cockHead biggest] of your [cock biggest], her length slithering about it skillfully.' );
 		}
@@ -170,20 +170,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( '\n\nSmiling as she inspects your now juicy folds first hand, her lips close over yours, tongue snaking and squirming into your quivering pussy.  The plant gives you a royal tongue-lashing, slurping away lewdly, lips plucking at your throbbing clit with amazing expertise.' );
 		}
 		//[if breasts then also=
-		if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+		if( CoC.player.biggestTitSize() >= 1 ) {
 			EngineCore.outputText( '\n\nYour breasts bounce and quiver wildly as you bounce up and down, held tightly by those tentacles, Essy dining happily down below.  Those opaque coverings ripple and squeeze hard about your breasts, pumping them for ' );
-			if( CoC.getInstance().player.lactationQ() >= 400 ) {
+			if( CoC.player.lactationQ() >= 400 ) {
 				EngineCore.outputText( 'your milk and ' );
 			}
 			EngineCore.outputText( 'your pleasure.  In time, their pumping increases in force and tempo just as her lips and tongue do.' );
 		}
 		EngineCore.outputText( '\n\nAnother tentacle momentarily rubs over her breast, growing slimy with the sap before it moves around behind you and abruptly shoves into your [asshole].  Like a professional, she takes it slow to start, letting you adjust to the unique girth and contours of the tentacle as it plunges in deep.  It smoothly pulls nearly out only to pump in deeply once more.' );
-		CoC.getInstance().player.buttChange( 10, true, true, false );
+		CoC.player.buttChange( 10, true, true, false );
 
 		EngineCore.outputText( '\n\nIt doesn\'t take long before you\'re screaming out in climax.  The pleasure swells and ebbs steadily, your planty friend making it sound like she\'s enjoying a four-course meal fit for a queen.  She continues to pump you on all fronts, not daring to stop until she\'s certain she\'s drained you for every drop she can get.' );
-		if( CoC.getInstance().player.cumQ() >= 500 && CoC.getInstance().player.cumQ() < 2000 ) {
+		if( CoC.player.cumQ() >= 500 && CoC.player.cumQ() < 2000 ) {
 			EngineCore.outputText( '  It takes some time for her to completely drain your virile reserves, humming happily as splurt after splurt bulges her cheeks and forces her throat to work.  By the time you start to go dry, you can swear the bulb that is her base looks a little bit bigger, and perhaps her breasts as well.' );
-		} else if( CoC.getInstance().player.cumQ() >= 2000 ) {
+		} else if( CoC.player.cumQ() >= 2000 ) {
 			EngineCore.outputText( '  This is a bit hard, as your virile cum-spout renders her trim belly bloated, and the bulb that forms her base rapidly swells with growth thanks to your fecund deposits.  The seed even trickles out around the corners of her mouth as she greedily attempts to devour it all, sighing around each cheek-stretching ejaculation.' );
 		}
 		EngineCore.outputText( '\n\nYou hang limply in her tentacles as she sucks firmly on you, a final pull before she pops off wetly.  Licking her lips to get every stray drop, she lowers you to the ground, tentacles disengaging and pulling back to where they came from.  She shivers gently, squishing her fat bosom in a self-hug.' );
@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( '\n\nEssy suddenly stops before leaving the clearing. Slowly, she pivots on the spot, smiling.  "<i>Say, it\'d be pretty rude of me to just dine and dash.  Why don\'t I give you a little reward for your kindness?</i>" Giggling softly, she draws close to you once more, mashing her green breasts to your own, overtaking them with her squishy girth.  You begin to speak when her finger falls upon your lips. "<i>Shhh,</i>" she silences you with a smile.' );
 			EngineCore.outputText( '\n\nThose massive tits begin to grind about your own, puffy nipples feeling warm against your flesh as they move up, down, and around in slow circular motions, their owner smiling knowingly all the while. It begins to grow soothing indeed, almost playful when a sudden pressure grips about your [nipples] tightly.  It feels almost as if they were being enclosed in some tight tubes, squeezed upon tightly but never painful.' );
 			EngineCore.outputText( '\n\nCurious, you look down to the source of the compression.  Gone are the flopping faux teats, and further down, a single massive, purple nipple seems to fatly squeeze about your own smaller one, engulfing it with ease.  A quick glance confirms the other' );
-			if( CoC.getInstance().player.totalNipples() > 2 ) {
+			if( CoC.player.totalNipples() > 2 ) {
 				EngineCore.outputText( 's have' );
 			} else {
 				EngineCore.outputText( ' has' );
@@ -204,34 +204,34 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( '\n\nBefore your eyes, the planty maiden\'s breasts seem to suddenly expand, a pleasured sigh coming from Essy as they shrink just as suddenly, and a warm pressure abruptly floods into your chest.  Amazingly, your own breasts seem to puff up a bit following this sensation, not simply shrinking back to normal as hers just did.  Rational thought is obliterated when her two upper hands move to your enlarged teats, beginning to squeeze into the sensitized flesh, kneading at them firmly.' );
 			EngineCore.outputText( '\n\nOnce more your [legs] shake some as the surreal experience continues. The pressure only grows with each throb of those fragrant, green breasts, your own only increasing in size with every pulse they give.  A third hand combs along your cheek, this.Essrayle cooing sweetly to you. "<i>Relax,</i>" she whispers, "<i>relax and enjoy.</i>"' );
 			EngineCore.outputText( '\n\nAs the weight in your chest steadily increases, her hands take hold of you, keeping you standing through the pleasurable procedure.' );
-			if( CoC.getInstance().player.bRows() > 1 ) {
+			if( CoC.player.bRows() > 1 ) {
 				EngineCore.outputText( '  She eventually dislodges with a wet pop, setting your new breasts to wobbling about as she moves down your body, repeating the gestures upon each set of breasts in return.' );
 			}
-			EngineCore.outputText( '\n\nWeak from the pleasure, the last thing you see is her smiling face before you fall forward into her embrace.  The next thing you know, you\'re alone in the glade, staring at the canopy above.  There\'s a heavy weight on your chest and you struggle to sit up.  ' + Utils.Num2Text( CoC.getInstance().player.bRows() * 2 ) + ' massive breasts jiggle and sway upon your chest, all full and aching to be milked' );
-			if( CoC.getInstance().player.bRows() > 1 ) {
+			EngineCore.outputText( '\n\nWeak from the pleasure, the last thing you see is her smiling face before you fall forward into her embrace.  The next thing you know, you\'re alone in the glade, staring at the canopy above.  There\'s a heavy weight on your chest and you struggle to sit up.  ' + Utils.Num2Text( CoC.player.bRows() * 2 ) + ' massive breasts jiggle and sway upon your chest, all full and aching to be milked' );
+			if( CoC.player.bRows() > 1 ) {
 				EngineCore.outputText( ', the top pair being largest, descending in size with each subsequent pair' );
 			}
 			EngineCore.outputText( '.' );
 			//Boost size, set lactation quantity.
-			CoC.getInstance().player.growTits( 7, CoC.getInstance().player.bRows(), false, 2 );
-			CoC.getInstance().player.boostLactation( CoC.getInstance().player.bRows() );
+			CoC.player.growTits( 7, CoC.player.bRows(), false, 2 );
+			CoC.player.boostLactation( CoC.player.bRows() );
 			EngineCore.outputText( '\n\nYou sit there for the next hour or two, milking your bloated bosom and giving the flora a generous watering in the process.  When all is taken care of, you stumble back upright with a brief struggle and don your gear once more.  The smell of fresh-cut flowers seems to linger on your [armor] as you depart.' );
 		}
-		if( CoC.getInstance().player.hasBreasts() && CoC.getInstance().player.isLactating() ) {
-			CoC.getInstance().player.milked();
-			CoC.getInstance().player.boostLactation( 0.01 );
+		if( CoC.player.hasBreasts() && CoC.player.isLactating() ) {
+			CoC.player.milked();
+			CoC.player.boostLactation( 0.01 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 		//Slimefeed!
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Look Closer
 	Essrayle.prototype.approachTrappedEssy = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.ESSY_DUNGEON_FUCKED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.ESSY_DUNGEON_FUCKED ] === 0 ) {
 			EngineCore.outputText( 'Where once the leafy maiden sported two enormous, watermelon sized breasts, she now is host to four mammoth jugs that put her former bust to shame.  The heaving tits glisten with moisture and almost seem to swell with every exhausted breath she takes.  Her hips - what you can see of them beyond the plant\'s gigantic udders - are immersed in a black, rich soil that fills the pot to its lip.  A glaze is prominent in her purple eyes, and she seems quite exhausted from something.' );
 			EngineCore.outputText( '\n\nAs you draw nearer she bolts upright, sending oceanic ripples through her bloated breasts that gives a liquid jiggle to her whole body.  "<i>Who\'s there?  It can\'t be time already!</i>" she blurts out frantically, before noticing you.  A violet blush stains her emerald cheeks as she recognizes you and her panic is swiftly replaced by a gentle smile.  "<i>Oh, hey, it\'s you again.</i>"' );
 			EngineCore.outputText( '\n\nYou ask the potted girl what happened to her, bringing an even deeper tinge to her cheeks.  "<i>Oh, uhh, well I was travelling about and when I reached the edge of the forest, I found this very attractive lady walking out of the desert.</i>"  Essy coos softly to herself, grinning at the memory.  "<i>And of course, we had some fun, she seemed to enjoy my breasts and especially my sap, so she suggested I come back with her and share it with her sisters.  I thought it\'d be fun to visit them, buuuut I guess they had other ideas.</i>"' );
@@ -246,10 +246,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		} else {
 			EngineCore.outputText( 'Essrayle sits here in her pot just like you left her.  She seems to be a bit out of it once more, not realizing you\'re there.  Her heavy breasts jiggle and ripple with the least amount of movement, apparently drawing nutrients from her soil to refill themselves.  Just watching the oblivious girl pant and swell with bovine surplus is oddly arousing, and having sampled her sap already... no wonder the sand witches keep her here.  Judging by the steady leak coming from her four breasts, it seems likely the ethereal hands have recently given her a good milking, but you\'re sure she wouldn\'t mind a more personal touch.' );
 		}
-		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
+		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.menu();
 		//Option: [Feed her] [leave]
-		if( CoC.getInstance().player.gender > 0 ) {
+		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 0, 'Feed Her', this.feedTrappedEssy );
 		}
 		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
@@ -259,14 +259,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Well, it\'s not like she\'s going anywhere right now, and she probably would love a good fuck from a friend anyway.' );
 		EngineCore.outputText( '\n\nYou approach Essrayle once more, taking advantage of her dazed state to disrobe and sidle up to the enchanted flower pot before she realizes your intentions.  From this angle you can clearly see that her hands are sunk deep into the soil around her bubbly hips.  She blinks, confused by your sudden forwardness, but soon moans out loudly as your palms sink into the girl\'s recently massaged teats, fingers sinking deeply into the tender flesh.' );
-		CoC.getInstance().flags[ kFLAGS.ESSY_DUNGEON_FUCKED ]++;
-		if( CoC.getInstance().player.gender === 1 ) {
+		CoC.flags[ kFLAGS.ESSY_DUNGEON_FUCKED ]++;
+		if( CoC.player.gender === 1 ) {
 			this.hasCockFeedEssy( false );
 		}
-		if( CoC.getInstance().player.gender === 2 ) {
+		if( CoC.player.gender === 2 ) {
 			this.hasPussyFeedEssy( false );
 		}
-		if( CoC.getInstance().player.gender === 3 ) {
+		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( '  How best to make use of this floral beauty?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Cock', this.hasCockFeedEssy, true );
@@ -284,19 +284,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nAs pliant as her mammaries are, a little extra lubrication couldn\'t hurt.  Grabbing two of her puffy, fist-sized teats, you begin to squeeze and tug at them as if you were milking a cow.  Essy pants with heated, bovine moans as syrupy, white sap gushes from her spouting nipples in thick, cascading gouts.  For being used so thoroughly by the sand witches, she seems remarkably receptive to your milking, as if her body\'s needed a more personal touch.  Not wanting to disappoint, you tighten your wringing grip and pump even harder.' );
 		EngineCore.outputText( '\n\nHer otherworldly, amethyst eyes lose their usual depth and become dull and dazed as the shadow of docility settles over her, Essy\'s expression softening to a blissful, cow-like contentment.  "<i>Mooooo,</i>" she languidly moans as her huge tits heave in oceanic jiggles.  They pulse under your siphoning caress, as if struggling to produce more sap.  While the oblivious girl seems lost in some private, torpid trance of delirious euphoria, her breasts almost appear to be swelling as if to embody her budding, enraptured exhilaration.' );
 		EngineCore.outputText( '\n\nAs appealing as it may be to have the plant girl water herself to a glossy shine, you\'re reluctant to let her fountaining ivory go to waste.  Taking care to keep the steady pace of your pumping, you lubricate your now hard cock in the thick, syrupy "milk."  Slick with the nourishing warmth of her nectar, you abandon all restraint, enjoying those verdant, pillowy, green breasts for all they\'re worth.  The wet sounds of squelching fill the air as you fuck ' );
-		if( CoC.getInstance().player.biggestCockLength() < 20 ) {
+		if( CoC.player.biggestCockLength() < 20 ) {
 			EngineCore.outputText( 'her lower pair of wobbling udders' );
 		} else {
 			EngineCore.outputText( 'both sets of milk-bloated breasts' );
 		}
 		EngineCore.outputText( ' faster and faster, the hot slapping of her bountiful bosom against your [cock]' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' and your swollen, heavy balls against her fecund belly' );
 		}
 		EngineCore.outputText( ' setting an inspiring drum beat to your feverish pace.' );
 		EngineCore.outputText( '\n\nIt doesn\'t take long before the gushing, milky embrace of Essy\'s flowering breasts coaxes you to paint the green girl\'s emerald flesh white with your ivory seed.  As you cum, her shuddering udders seem to experience their own release, massive teats bulging between your fingers as they swell with a tremendous, liquid weight.  Then, in a strangely synchronized discharge, surging gouts of milky sap shower out in pressured geysers that rain down around the two of you in a sticky deluge of rich passion.  The floor teems with sprouting undergrowth while the plant girl\'s shapely ass jiggles with orgasmic delight as the soil she\'s planted in turns a deep black, instantly enriched by her fertile cream.' );
 		EngineCore.outputText( '\n\nExhausted anew, Essy reclines in her pot, already dozing with an expression of happy contentment.  Though she\'s still imprisoned, you\'ve at least set her at ease.  While you might like to move her somewhere more private, the sheer weight of her pot is more than enough to frustrate any attempt you might make.  Best to just leave her and check in later.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	Essrayle.prototype.hasPussyFeedEssy = function( newPage ) {
@@ -306,9 +306,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( '\n\n' );
 		}
 		EngineCore.outputText( 'Repositioning one of Essy\'s massive tits, you opt to try something new, something different.  Essy\'s long, fat nipples glisten with plump promise as you climb up, over the lip of her ensorcelled flowerpot.  The soil is soft and moist with her milk as you gently push her back, leaning the girl\'s pliant form against the bulging swell of her pronounced ass.  She reclines, woozy and unable to process what it is that you\'re doing as you move over her ponderous bosom.  It takes almost no effort to guide one of the pert, fist-thick nipples into your womanly folds, sliding it into your [vagina] with ' );
-		if( CoC.getInstance().player.looseness() < 2 ) {
+		if( CoC.player.looseness() < 2 ) {
 			EngineCore.outputText( 'a gasping grunt of effort' );
-		} else if( CoC.getInstance().player.looseness() < 4 ) {
+		} else if( CoC.player.looseness() < 4 ) {
 			EngineCore.outputText( 'little resistance' );
 		} else {
 			EngineCore.outputText( 'virtually no resistance at all' );
@@ -318,9 +318,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nUp and down, back and forth you go, setting a steady rhythm and lactation and startled moos from the verdant girl as you go.  The intensity of her pleasure robs her udders of all moderation, the dairy-burdened tits letting loose heavy flows of creamy sap that ooze and spurt over the bloated swell of her milk-laden tits, dripping into the soil beneath her.  During your ride, you take note of the girl\'s eager, leaking nipples around you, and make a point of alternating your pumping grip to each teat in turn, squeezing splattering gouts of nectar in alabaster fountains, ensuring that the two of you are utterly soaked in her warm, rich sap.  With the squelching, moaning, flesh-slapping din the two of you are raising, it\'s simply amazing no one\'s come to check on the commotion.  Though, you suppose, the planty slut\'s orgasmic moos are likely to be the least weird noise in this cave.' );
 		EngineCore.outputText( '\n\nYour lewd, tit-humping labor swells to a fever pitch as her over-stimulated udder plumps inside you, fattening with her blossoming lust.  The cock-like knob inside you becomes swollen with milk, ballooning longer and thicker until your suckling inner walls strain to bear the girl\'s bloated nipple.  Feeling the trembling clench of your orgasm building, you tighten your grip and thrust yourself as deeply as you can on the cunny-stuffing mammary.  Her breast, unable to resist your peaking squeeze, gushes with pressurized jets of fertile sap, flooding your pussy with a warmth a bit too fluid to be cum, but still thick enough to send a shiver of fulfillment down your spine.  You watch your tummy grow pudgy, then plump, and finally obese as your womb is flooded with her tingling, fertile milk.  The two of you cry out in orgasmic bliss and, positively swollen with the plant-girl\'s bounty, you collapsing into her very soaked cleavage, still gripping her lactating nipples.  You lay there, panting softly with her for a time, just soaking in the stimulating thrill of your ponderous belly, giving Essy\'s tits a tender squeeze now and then just to hear her moo with delight.' );
 		EngineCore.outputText( '\n\nIt takes you a while, but you extricate yourself and clean off the best you can, leaving her with a friendly kiss on the cheek before you head on your way once more.  With visitors like you, she hardly seems like she\'ll mind being trapped in the enchanted flower pot.' );
-		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().player.fertility < 50 ) {
-			CoC.getInstance().player.fertility++;
+		CoC.player.orgasm();
+		if( CoC.player.fertility < 50 ) {
+			CoC.player.fertility++;
 		}
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -333,7 +333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nHer fingers continue to move, sliding to that gorgeous, purple areola and dragging the tip of her thumb and index finger over the puffy nipple, back and forth, from base to tip over and over again.  "<i>Perhaps some gems?  You guys seem to love those a lot.</i>"  Essy\'s lower arms settle on her broad hips while her free upper hand rests on one of her breasts, fingers drumming idly and sending quivering ripples through her milk-filled flesh.  The simple, fluid motions are almost hypnotic and your gaze once more fixates on the plant-girl\'s buxom bust.' );
 		EngineCore.outputText( '\n\nNoticing your drooping stare, a sly smile creeps over her lips.  "<i>But I think I\'ve got an idea that would make you very happy.</i>"  Both of her upper hands go to her cleavage, pulling her fat, squishy tits apart before releasing them, letting the girl\'s mammary mountains slap together in quivering wobbles.  "<i>Yes, something we could both be very happy with, that you\'d truly enjoy.</i>"  Her lower hands cup the bottoms of her lower breasts and begin to leisurely bounce them in her palms.  "<i>After all, that\'s the important thing yourself.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Now, I may be a visitor to this world, but I\'ve learned some things.</i>"  She grins and crosses her other two arms atop those jiggling, swaying, lush beauties.  "<i>Since you seem to like these four so much, perhaps you\'d like to join the club?</i>"  this.Essrayle winks coyly, "<i>How about it?</i>"' );
-		CoC.getInstance().flags[ kFLAGS.ESSRAYLE_ESCAPED_DUNGEON ] = 1;
+		CoC.flags[ kFLAGS.ESSRAYLE_ESCAPED_DUNGEON ] = 1;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.acceptEssyPrizes );
 		EngineCore.addButton( 1, 'No', this.declineEssyPrizes );
@@ -343,7 +343,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Essy sighs and shakes her head.  "<i>What a let down!</i>"  She shrugs, throwing all four arms into the air helplessly, and digs about in the pouch she keeps on her vine belt.  "<i>Here, hope this tickles your fancy.</i>"  She reaches out and places a number of glittering gems into your hand.  "<i>They don\'t do me much good anyway.</i>"' );
 		//(Player gains some more gems)
-		CoC.getInstance().player.gems += 100 + Utils.rand( 70 );
+		CoC.player.gems += 100 + Utils.rand( 70 );
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( '\n\n"<i>Well, maybe in the future you\'ll change your mind and find another way to do it on your own.  But I guess for now I\'ll just see you around!  Thanks for the save, hun!</i>"  The planty beauty blows you a kiss before she heads off, bulging breasts jiggling and bouncing steadily all the way.' );
 		EngineCore.doNext( EventParser.playerMenu );
@@ -355,32 +355,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 		EngineCore.outputText( '\n\nShe hurries out of the glade, a rather impressive feat for one with such an over-burdened bust, much less a bulb for legs!  Just as you\'re getting bored, she finally returns, bouncing into sight with a giddy air.  "<i>Sorry!</i>" she giggles, licking some pale, creamy fluid from her lips, "<i>I had to do a bit of negotiation.</i>"  She settles back next to you once more and produces a small scroll, opening it up and chanting in the tongue of the sand witches.' );
 		EngineCore.outputText( '\n\n"<i>Ytnuob ruoy htiw sdnas eht doolf. Edit yklim eht wolf tel!</i>"' );
 		EngineCore.outputText( '\n\nYou feel a sweltering heat fall over you. With a sudden urge you thrust your chest out as ' );
-		if( CoC.getInstance().player.biggestTitSize() <= 1 ) {
+		if( CoC.player.biggestTitSize() <= 1 ) {
 			EngineCore.outputText( 'four bulging tits erupt from your chest' );
-			CoC.getInstance().player.breastRows[ 0 ].breastRating = 4;
-			if( CoC.getInstance().player.bRows() === 1 ) {
-				CoC.getInstance().player.createBreastRow();
+			CoC.player.breastRows[ 0 ].breastRating = 4;
+			if( CoC.player.bRows() === 1 ) {
+				CoC.player.createBreastRow();
 			}
-			CoC.getInstance().player.breastRows[ 1 ].breastRating = 4;
+			CoC.player.breastRows[ 1 ].breastRating = 4;
 		}
 		//if two breasts:
-		else if( CoC.getInstance().player.bRows() === 1 ) {
+		else if( CoC.player.bRows() === 1 ) {
 			EngineCore.outputText( 'two more bulging tits erupt from your chest' );
-			if( CoC.getInstance().player.breastRows[ 0 ].breastRating < 4 ) {
+			if( CoC.player.breastRows[ 0 ].breastRating < 4 ) {
 				EngineCore.outputText( ' while your top row expands' );
-				CoC.getInstance().player.breastRows[ 0 ].breastRating = 4;
+				CoC.player.breastRows[ 0 ].breastRating = 4;
 			}
-			if( CoC.getInstance().player.bRows() === 1 ) {
-				CoC.getInstance().player.createBreastRow();
+			if( CoC.player.bRows() === 1 ) {
+				CoC.player.createBreastRow();
 			}
-			CoC.getInstance().player.breastRows[ 1 ].breastRating = CoC.getInstance().player.breastRows[ 0 ].breastRating;
+			CoC.player.breastRows[ 1 ].breastRating = CoC.player.breastRows[ 0 ].breastRating;
 		}
 		//if four+ breasts:
 		else {
 			EngineCore.outputText( 'your [fullChest] swell larger and larger under the expanding magic of the spell' );
-			CoC.getInstance().player.growTits( 6, CoC.getInstance().player.bRows(), false, 2 );
+			CoC.player.growTits( 6, CoC.player.bRows(), false, 2 );
 		}
-		CoC.getInstance().player.boostLactation( CoC.getInstance().player.bRows() );
+		CoC.player.boostLactation( CoC.player.bRows() );
 		EngineCore.outputText( ', filling with warm, fluid weight.  They jiggle and wobble against each other and your belly as they adjust to their brimming plumpness.  You now proudly sport [fullChest].' );
 		EngineCore.outputText( '\n\nGrinning, this.Essrayle nods happily, rolling the scroll back up.  "<i>Yes, that looks veeerry good on you!</i>\”  She ogles your chest for a while before glancing down at her own.  "<i>But I think I could do you one better, since you\'ve been so sweet to me,</i>" the all-natural beauty coos happily.  "<i>As a special bonus to you, how\'d you like to have these too?</i>" she moos, running her finger about her four, plump nipples, giving you a seductive smile.' );
 		EngineCore.dynStats( 'lus', 10 );
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 	};
 	Essrayle.prototype.askMotherToReleaseEssy = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.SAND_WITCHES_COWED ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SAND_WITCHES_COWED ] === 0 ) {
 			EngineCore.outputText( 'You point out that the witches have a friend of yours trapped here with magic and you\'d like her released.' );
 			EngineCore.outputText( '\n\nThe Sand Mother cocks her head to the side before understanding dawns on her luminescent eyes.  "<i>The plant-woman?  She seeks pleasure like a demon, yet lacks the corruption we would expect.  I can give the order to turn her loose, but see her out, and should she return, I cannot promise her freedom again.</i>"' );
 			EngineCore.outputText( '\n\nThat\'ll have to do.' );
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, Co
 			EngineCore.outputText( 'You command the Sand Mother to release your friend, this.Essrayle from her magical bondage.  The sorcerous queen looks about to protest, but after a brief pause, she admits, "<i>Fine, I\'ll see her released.  You can go pick her up.</i>"  She practically spits the last sentence.' );
 			EngineCore.outputText( '\n\nThat\'ll do.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] = 1;
+		CoC.flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	SceneLib.registerScene( 'essrayle', new Essrayle() );

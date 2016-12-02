@@ -50,72 +50,72 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 		// no need to duplicate them.
 		// Note: all key strings MUST be ENTIRELY lowercase.
 		"agility"					: function() { return "[Agility]"; },
-		"armor"						: function() { return CoC.getInstance().player.armorName;},
-		"armorname"					: function() { return CoC.getInstance().player.armorName;},
+		"armor"						: function() { return CoC.player.armorName;},
+		"armorname"					: function() { return CoC.player.armorName;},
 		"ass"						: function() { return Descriptors.buttDescript();},
 		"asshole"					: function() { return Descriptors.assholeDescript(); },
 		"balls"						: function() { return Descriptors.ballsDescriptLight(); },
-		"boyfriend"					: function() { return CoC.getInstance().player.mf("boyfriend", "girlfriend"); },
+		"boyfriend"					: function() { return CoC.player.mf("boyfriend", "girlfriend"); },
 		"butt"						: function() { return Descriptors.buttDescript();},
 		"butthole"					: function() { return Descriptors.assholeDescript();},
 		"chest"						: function() { return Descriptors.chestDesc(); },
 		"clit"						: function() { return Descriptors.clitDescript(); },
-		"cock"						: function() { return CoC.getInstance().player.cockDescript(0);},
-		"cockhead"					: function() { return CoC.getInstance().player.cockHead(0);},
-		"cocks"						: function() { return CoC.getInstance().player.multiCockDescriptLight(); },
+		"cock"						: function() { return CoC.player.cockDescript(0);},
+		"cockhead"					: function() { return CoC.player.cockHead(0);},
+		"cocks"						: function() { return CoC.player.multiCockDescriptLight(); },
 		"cunt"						: function() { return Descriptors.vaginaDescript(); },
-		"eachcock"					: function() { return CoC.getInstance().player.sMultiCockDesc();},
+		"eachcock"					: function() { return CoC.player.sMultiCockDesc();},
 		"evade"						: function() { return "[Evade]"; },
-		"face"						: function() { return CoC.getInstance().player.face(); },
-		"feet"						: function() { return CoC.getInstance().player.feet(); },
-		"foot"						: function() { return CoC.getInstance().player.foot(); },
-		"fullchest"					: function() { return CoC.getInstance().player.allChestDesc(); },
+		"face"						: function() { return CoC.player.face(); },
+		"feet"						: function() { return CoC.player.feet(); },
+		"foot"						: function() { return CoC.player.foot(); },
+		"fullchest"					: function() { return CoC.player.allChestDesc(); },
 		"hair"						: function() { return Descriptors.hairDescript(); },
 		"hairorfur"					: function() { return Descriptors.hairOrFur(); },
-		"he"						: function() { return CoC.getInstance().player.mf("he", "she"); },
-		"he2"						: function() { return CoC.getInstance().player2.mf("he", "she"); },
-		"him"						: function() { return CoC.getInstance().player.mf("him", "her"); },
-		"him2"						: function() { return CoC.getInstance().player2.mf("him", "her"); },
-		"himself"					: function() { return CoC.getInstance().player.mf("himself", "herself"); },
-		"herself"					: function() { return CoC.getInstance().player.mf("himself", "herself"); },
+		"he"						: function() { return CoC.player.mf("he", "she"); },
+		"he2"						: function() { return CoC.player2.mf("he", "she"); },
+		"him"						: function() { return CoC.player.mf("him", "her"); },
+		"him2"						: function() { return CoC.player2.mf("him", "her"); },
+		"himself"					: function() { return CoC.player.mf("himself", "herself"); },
+		"herself"					: function() { return CoC.player.mf("himself", "herself"); },
 		"hips"						: function() { return Descriptors.hipDescript();},
-		"his"						: function() { return CoC.getInstance().player.mf("his", "her"); },
-		"his2"						: function() { return CoC.getInstance().player2.mf("his","her"); },
-		"leg"						: function() { return CoC.getInstance().player.leg(); },
-		"legs"						: function() { return CoC.getInstance().player.legs(); },
-		"man"						: function() { return CoC.getInstance().player.mf("man", "woman"); },
-		"men"						: function() { return CoC.getInstance().player.mf("men", "women"); },
-		"master"					: function() { return CoC.getInstance().player.mf("master","mistress"); },
+		"his"						: function() { return CoC.player.mf("his", "her"); },
+		"his2"						: function() { return CoC.player2.mf("his","her"); },
+		"leg"						: function() { return CoC.player.leg(); },
+		"legs"						: function() { return CoC.player.legs(); },
+		"man"						: function() { return CoC.player.mf("man", "woman"); },
+		"men"						: function() { return CoC.player.mf("men", "women"); },
+		"master"					: function() { return CoC.player.mf("master","mistress"); },
 		"misdirection"				: function() { return "[Misdirection]"; },
-		"multicock"					: function() { return CoC.getInstance().player.multiCockDescriptLight(); },
-		"multicockdescriptlight"	: function() { return CoC.getInstance().player.multiCockDescriptLight(); },
-		"name"						: function() { return CoC.getInstance().player.short;},
+		"multicock"					: function() { return CoC.player.multiCockDescriptLight(); },
+		"multicockdescriptlight"	: function() { return CoC.player.multiCockDescriptLight(); },
+		"name"						: function() { return CoC.player.short;},
 		"nipple"					: function() { return Descriptors.nippleDescript(0);},
 		"nipples"					: function() { return Descriptors.nippleDescript(0) + "s";},
-		"onecock"					: function() { return CoC.getInstance().player.oMultiCockDesc();},
+		"onecock"					: function() { return CoC.player.oMultiCockDesc();},
 		"pg"						: function() { return "\n\n";},
 		"pussy"						: function() { return Descriptors.vaginaDescript(); },
-		"race"						: function() { return CoC.getInstance().player.race(); },
+		"race"						: function() { return CoC.player.race(); },
 		"sack"						: function() { return Descriptors.sackDescript(); },
-		"sheath"					: function() { return CoC.getInstance().player.sheathDescription(); },
-		"skin"						: function() { return CoC.getInstance().player.skin(); },
-		"skinfurscales"				: function() { return CoC.getInstance().player.skinFurScales(); },
+		"sheath"					: function() { return CoC.player.sheathDescription(); },
+		"skin"						: function() { return CoC.player.skin(); },
+		"skinfurscales"				: function() { return CoC.player.skinFurScales(); },
 		"teasetext"					: function() { return Combat.teaseText(); },
 		"tongue"					: function() { return Descriptors.tongueDescript(); },
 		"vag"						: function() { return Descriptors.vaginaDescript(); },
 		"vagina"					: function() { return Descriptors.vaginaDescript(); },
-		"vagorass"					: function() { return (CoC.getInstance().player.hasVagina() ? Descriptors.vaginaDescript() : Descriptors.assholeDescript()); },
-		"weapon"					: function() { return CoC.getInstance().player.weaponName;},
-		"weaponname"				: function() { return CoC.getInstance().player.weaponName; },
+		"vagorass"					: function() { return (CoC.player.hasVagina() ? Descriptors.vaginaDescript() : Descriptors.assholeDescript()); },
+		"weapon"					: function() { return CoC.player.weaponName;},
+		"weaponname"				: function() { return CoC.player.weaponName; },
 		                                         
-		"latexyname"				: function() { return CoC.getInstance().flags[kFLAGS.GOO_NAME]; },
-		"bathgirlname"				: function() { return CoC.getInstance().flags[kFLAGS.MILK_NAME]; },
-		"cockplural"				: function() { return (CoC.getInstance().player.cocks.length === 1) ? "cock" : "cocks"; },
-		"dickplural"				: function() { return (CoC.getInstance().player.cocks.length === 1) ? "dick" : "dicks"; },
-		"headplural"				: function() { return (CoC.getInstance().player.cocks.length === 1) ? "head" : "heads"; },
-		"prickplural"				: function() { return (CoC.getInstance().player.cocks.length === 1) ? "prick" : "pricks"; },
-		"boy"						: function() { return CoC.getInstance().player.mf("boy", "girl"); },
-		"guy"						: function() { return CoC.getInstance().player.mf("guy", "girl"); },
+		"latexyname"				: function() { return CoC.flags[kFLAGS.GOO_NAME]; },
+		"bathgirlname"				: function() { return CoC.flags[kFLAGS.MILK_NAME]; },
+		"cockplural"				: function() { return (CoC.player.cocks.length === 1) ? "cock" : "cocks"; },
+		"dickplural"				: function() { return (CoC.player.cocks.length === 1) ? "dick" : "dicks"; },
+		"headplural"				: function() { return (CoC.player.cocks.length === 1) ? "head" : "heads"; },
+		"prickplural"				: function() { return (CoC.player.cocks.length === 1) ? "prick" : "pricks"; },
+		"boy"						: function() { return CoC.player.mf("boy", "girl"); },
+		"guy"						: function() { return CoC.player.mf("guy", "girl"); },
 		"wings"						: function() { return Descriptors.wingsDescript(); },
 		"tail"						: function() { return Descriptors.tailDescript(); },
 		"onetail"					: function() { return Descriptors.oneTailDescript(); }
@@ -221,27 +221,27 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 		"breasts"	: function() {return SceneLib.rubi.rubiBreasts();}
 	};
 	Parser.cockLookups = { // For subject: "cock"
-		"all"		: function() { return CoC.getInstance().player.multiCockDescriptLight(); },
-		"each"		: function() { return CoC.getInstance().player.sMultiCockDesc(); },
-		"one"		: function() { return CoC.getInstance().player.oMultiCockDesc(); },
-		"largest"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.biggestCockIndex()); },
-		"biggest"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.biggestCockIndex()); },
-		"biggest2"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.biggestCockIndex2()); },
-		"biggest3"  : function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.biggestCockIndex3()); },
-		"smallest"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.smallestCockIndex()); },
-		"smallest2" : function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.smallestCockIndex2()); },
-		"longest"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.longestCock()); },
-		"shortest"	: function() { return CoC.getInstance().player.cockDescript(CoC.getInstance().player.shortestCockIndex()); }
+		"all"		: function() { return CoC.player.multiCockDescriptLight(); },
+		"each"		: function() { return CoC.player.sMultiCockDesc(); },
+		"one"		: function() { return CoC.player.oMultiCockDesc(); },
+		"largest"	: function() { return CoC.player.cockDescript(CoC.player.biggestCockIndex()); },
+		"biggest"	: function() { return CoC.player.cockDescript(CoC.player.biggestCockIndex()); },
+		"biggest2"	: function() { return CoC.player.cockDescript(CoC.player.biggestCockIndex2()); },
+		"biggest3"  : function() { return CoC.player.cockDescript(CoC.player.biggestCockIndex3()); },
+		"smallest"	: function() { return CoC.player.cockDescript(CoC.player.smallestCockIndex()); },
+		"smallest2" : function() { return CoC.player.cockDescript(CoC.player.smallestCockIndex2()); },
+		"longest"	: function() { return CoC.player.cockDescript(CoC.player.longestCock()); },
+		"shortest"	: function() { return CoC.player.cockDescript(CoC.player.shortestCockIndex()); }
 	};
 	Parser.cockHeadLookups = { // For subject: "cockHead"
-		"biggest"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.biggestCockIndex()); },
-		"biggest2"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.biggestCockIndex2()); },
-		"biggest3"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.biggestCockIndex3()); },
-		"largest"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.biggestCockIndex()); },
-		"smallest"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.smallestCockIndex()); },
-		"smallest2"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.smallestCockIndex2()); },
-		"longest"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.longestCock()); },			// the *head* of a cock has a length? Wut?
-		"shortest"	: function() { return CoC.getInstance().player.cockHead(CoC.getInstance().player.shortestCockIndex()); }
+		"biggest"	: function() { return CoC.player.cockHead(CoC.player.biggestCockIndex()); },
+		"biggest2"	: function() { return CoC.player.cockHead(CoC.player.biggestCockIndex2()); },
+		"biggest3"	: function() { return CoC.player.cockHead(CoC.player.biggestCockIndex3()); },
+		"largest"	: function() { return CoC.player.cockHead(CoC.player.biggestCockIndex()); },
+		"smallest"	: function() { return CoC.player.cockHead(CoC.player.smallestCockIndex()); },
+		"smallest2"	: function() { return CoC.player.cockHead(CoC.player.smallestCockIndex2()); },
+		"longest"	: function() { return CoC.player.cockHead(CoC.player.longestCock()); },			// the *head* of a cock has a length? Wut?
+		"shortest"	: function() { return CoC.player.cockHead(CoC.player.shortestCockIndex()); }
 	};
 	// These tags take a two-word tag with a **numberic** attribute for lookup.
 	// [object NUMERIC-attribute]
@@ -252,67 +252,67 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 	// if attribute cannot be case to a number, the parser looks for "object" in twoWordTagsLookup.
 	Parser.twoWordNumericTagsLookup = {};
 	Parser.twoWordNumericTagsLookup.cockfit = function(thisPtr, aspect) {
-		if(!CoC.getInstance().player.hasCock()) {
+		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
 		} else {
-			if(CoC.getInstance().player.cockThatFits(aspect) >= 0) {
-				return CoC.getInstance().player.cockDescript(CoC.getInstance().player.cockThatFits(aspect));
+			if(CoC.player.cockThatFits(aspect) >= 0) {
+				return CoC.player.cockDescript(CoC.player.cockThatFits(aspect));
 			} else {
-				return CoC.getInstance().player.cockDescript(CoC.getInstance().player.smallestCockIndex());
+				return CoC.player.cockDescript(CoC.player.smallestCockIndex());
 			}
 		}
 	};
 	Parser.twoWordNumericTagsLookup.cockfit2 = function(thisPtr, aspect) {
-		if(!CoC.getInstance().player.hasCock()) {
+		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
 		} else {
-			if(CoC.getInstance().player.cockThatFits2(aspect) >= 0) {
-				return CoC.getInstance().player.cockDescript(CoC.getInstance().player.cockThatFits2(aspect));
+			if(CoC.player.cockThatFits2(aspect) >= 0) {
+				return CoC.player.cockDescript(CoC.player.cockThatFits2(aspect));
 			} else {
-				return CoC.getInstance().player.cockDescript(CoC.getInstance().player.smallestCockIndex());
+				return CoC.player.cockDescript(CoC.player.smallestCockIndex());
 			}
 		}
 	};
 	Parser.twoWordNumericTagsLookup.cockheadfit = function(thisPtr, aspect) {
-		if (!CoC.getInstance().player.hasCock()) {
+		if (!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockhead when none present.)</b>";
 		} else {
-			if(CoC.getInstance().player.cockThatFits(aspect) >= 0) {
-				return CoC.getInstance().player.cockHead(CoC.getInstance().player.cockThatFits(aspect));
+			if(CoC.player.cockThatFits(aspect) >= 0) {
+				return CoC.player.cockHead(CoC.player.cockThatFits(aspect));
 			} else {
-				return CoC.getInstance().player.cockHead(CoC.getInstance().player.smallestCockIndex());
+				return CoC.player.cockHead(CoC.player.smallestCockIndex());
 			}
 		}
 	};
 	Parser.twoWordNumericTagsLookup.cockheadfit2 = function(thisPtr, aspect) {
-		if(!CoC.getInstance().player.hasCock()) {
+		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockhead when none present.)</b>";
 		} else {
-			if(CoC.getInstance().player.cockThatFits2(aspect) >= 0) {
-				return CoC.getInstance().player.cockHead(CoC.getInstance().player.cockThatFits2(aspect));
+			if(CoC.player.cockThatFits2(aspect) >= 0) {
+				return CoC.player.cockHead(CoC.player.cockThatFits2(aspect));
 			} else {
-				return CoC.getInstance().player.cockHead(CoC.getInstance().player.smallestCockIndex());
+				return CoC.player.cockHead(CoC.player.smallestCockIndex());
 			}
 		}
 	};
 	Parser.twoWordNumericTagsLookup.cock = function(thisPtr, aspect) {
-		if(!CoC.getInstance().player.hasCock()) {
+		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
 		} else {
-			if(aspect-1 >= 0 && aspect-1 < CoC.getInstance().player.cockTotal()) {
-				return CoC.getInstance().player.cockDescript(aspect - 1);
+			if(aspect-1 >= 0 && aspect-1 < CoC.player.cockTotal()) {
+				return CoC.player.cockDescript(aspect - 1);
 			} else {
 				return "<b>(Attempt To Parse CockDescript for Invalid Cock)</b>";
 			}
 		}
 	};
 	Parser.twoWordNumericTagsLookup.cockhead = function(thisPtr, aspect) {
-		if(!CoC.getInstance().player.hasCock()) {
+		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockHead when none present.)</b>";
 		} else {
 			var intAspect = Math.ceil(aspect - 1);
-			if (intAspect >= 0 && intAspect < CoC.getInstance().player.cockTotal()) {
-				return CoC.getInstance().player.cockHead(intAspect);
+			if (intAspect >= 0 && intAspect < CoC.player.cockTotal()) {
+				return CoC.player.cockHead(intAspect);
 			} else {
 				return "<b>(Attempt To Parse CockHeadDescript for Invalid Cock)</b>";
 			}
@@ -425,49 +425,49 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 	};
 	// Provides the conditionalOptions object
 	Parser.conditionalOptions = {
-		"strength"			: function() {return  CoC.getInstance().player.str;},
-		"toughness"			: function() {return  CoC.getInstance().player.tou;},
-		"speed"				: function() {return  CoC.getInstance().player.spe;},
-		"intelligence"		: function() {return  CoC.getInstance().player.inte;},
-		"libido"			: function() {return  CoC.getInstance().player.lib;},
-		"sensitivity"		: function() {return  CoC.getInstance().player.sens;},
-		"corruption"		: function() {return  CoC.getInstance().player.cor;},
-		"fatigue"			: function() {return  CoC.getInstance().player.fatigue;},
-		"hp"				: function() {return  CoC.getInstance().player.HP;},
-		"hour"				: function() {return  CoC.getInstance().time.hours;},
-		"days"				: function() {return  CoC.getInstance().time.days;},
-		"tallness"			: function() {return  CoC.getInstance().player.tallness;},
-		"hairlength"		: function() {return  CoC.getInstance().player.hairLength;},
-		"femininity"		: function() {return  CoC.getInstance().player.femininity;},
-		"masculinity"		: function() {return  100 - CoC.getInstance().player.femininity;},
-		"cocks"				: function() {return  CoC.getInstance().player.cockTotal();},
-		"breastrows"		: function() {return  CoC.getInstance().player.bRows();},
-		"biggesttitsize"	: function() {return  CoC.getInstance().player.biggestTitSize();},
-		"vagcapacity"		: function() {return  CoC.getInstance().player.vaginalCapacity();},
-		"analcapacity"		: function() {return  CoC.getInstance().player.analCapacity();},
-		"balls"				: function() {return  CoC.getInstance().player.balls;},
-		"cumquantity"		: function() {return  CoC.getInstance().player.cumQ();},
-		"milkquantity"		: function() {return  CoC.getInstance().player.lactationQ();},
-		"hasvagina"			: function() {return  CoC.getInstance().player.hasVagina();},
-		"istaur"			: function() {return  CoC.getInstance().player.isTaur();},
-		"isnaga"			: function() {return  CoC.getInstance().player.isNaga();},
-		"isgoo"				: function() {return  CoC.getInstance().player.isGoo();},
-		"isbiped"			: function() {return  CoC.getInstance().player.isBiped();},
-		"hasbreasts"		: function() {return  (CoC.getInstance().player.biggestTitSize() >= 1);},
-		"hasballs"			: function() {return  (CoC.getInstance().player.balls > 0);},
-		"hascock"			: function() {return  CoC.getInstance().player.hasCock();},
-		"isherm"			: function() {return  (CoC.getInstance().player.gender === 3);},
-		"cumnormal"			: function() {return  (CoC.getInstance().player.cumQ() <= 150);},
-		"cummedium"			: function() {return  (CoC.getInstance().player.cumQ() > 150 && CoC.getInstance().player.cumQ() <= 350);},
-		"cumhigh"			: function() {return  (CoC.getInstance().player.cumQ() > 350 && CoC.getInstance().player.cumQ() <= 1000);},
-		"cumveryhigh"		: function() {return  (CoC.getInstance().player.cumQ() > 1000 && CoC.getInstance().player.cumQ() <= 2500);},
-		"cumextreme"		: function() {return  (CoC.getInstance().player.cumQ() > 2500);},
-		"issquirter"		: function() {return  (CoC.getInstance().player.wetness() >= 4);},
-		"ispregnant"		: function() {return  (CoC.getInstance().player.pregnancyIncubation > 0);},
-		"isbuttpregnant"	: function() {return  (CoC.getInstance().player.buttPregnancyIncubation > 0);},
-		"hasnipplecunts"	: function() {return  CoC.getInstance().player.hasFuckableNipples();},
-		"canfly"			: function() {return  CoC.getInstance().player.canFly();},
-		"islactating"		: function() {return  (CoC.getInstance().player.lactationQ() > 0);},
+		"strength"			: function() {return  CoC.player.str;},
+		"toughness"			: function() {return  CoC.player.tou;},
+		"speed"				: function() {return  CoC.player.spe;},
+		"intelligence"		: function() {return  CoC.player.inte;},
+		"libido"			: function() {return  CoC.player.lib;},
+		"sensitivity"		: function() {return  CoC.player.sens;},
+		"corruption"		: function() {return  CoC.player.cor;},
+		"fatigue"			: function() {return  CoC.player.fatigue;},
+		"hp"				: function() {return  CoC.player.HP;},
+		"hour"				: function() {return  CoC.time.hours;},
+		"days"				: function() {return  CoC.time.days;},
+		"tallness"			: function() {return  CoC.player.tallness;},
+		"hairlength"		: function() {return  CoC.player.hairLength;},
+		"femininity"		: function() {return  CoC.player.femininity;},
+		"masculinity"		: function() {return  100 - CoC.player.femininity;},
+		"cocks"				: function() {return  CoC.player.cockTotal();},
+		"breastrows"		: function() {return  CoC.player.bRows();},
+		"biggesttitsize"	: function() {return  CoC.player.biggestTitSize();},
+		"vagcapacity"		: function() {return  CoC.player.vaginalCapacity();},
+		"analcapacity"		: function() {return  CoC.player.analCapacity();},
+		"balls"				: function() {return  CoC.player.balls;},
+		"cumquantity"		: function() {return  CoC.player.cumQ();},
+		"milkquantity"		: function() {return  CoC.player.lactationQ();},
+		"hasvagina"			: function() {return  CoC.player.hasVagina();},
+		"istaur"			: function() {return  CoC.player.isTaur();},
+		"isnaga"			: function() {return  CoC.player.isNaga();},
+		"isgoo"				: function() {return  CoC.player.isGoo();},
+		"isbiped"			: function() {return  CoC.player.isBiped();},
+		"hasbreasts"		: function() {return  (CoC.player.biggestTitSize() >= 1);},
+		"hasballs"			: function() {return  (CoC.player.balls > 0);},
+		"hascock"			: function() {return  CoC.player.hasCock();},
+		"isherm"			: function() {return  (CoC.player.gender === 3);},
+		"cumnormal"			: function() {return  (CoC.player.cumQ() <= 150);},
+		"cummedium"			: function() {return  (CoC.player.cumQ() > 150 && CoC.player.cumQ() <= 350);},
+		"cumhigh"			: function() {return  (CoC.player.cumQ() > 350 && CoC.player.cumQ() <= 1000);},
+		"cumveryhigh"		: function() {return  (CoC.player.cumQ() > 1000 && CoC.player.cumQ() <= 2500);},
+		"cumextreme"		: function() {return  (CoC.player.cumQ() > 2500);},
+		"issquirter"		: function() {return  (CoC.player.wetness() >= 4);},
+		"ispregnant"		: function() {return  (CoC.player.pregnancyIncubation > 0);},
+		"isbuttpregnant"	: function() {return  (CoC.player.buttPregnancyIncubation > 0);},
+		"hasnipplecunts"	: function() {return  CoC.player.hasFuckableNipples();},
+		"canfly"			: function() {return  CoC.player.canFly();},
+		"islactating"		: function() {return  (CoC.player.lactationQ() > 0);},
 		"true"				: function() {return  true;},
 		"false"				: function() {return  false;}
 	};

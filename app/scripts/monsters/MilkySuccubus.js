@@ -10,9 +10,9 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 			this.cowCubiMilkSprayAttack();
 		} else if( this.HP < 400 ) {
 			this.drinkMinoCum();
-		} else if( CoC.getInstance().player.HP < 100 ) {
+		} else if( CoC.player.HP < 100 ) {
 			this.eAttack();
-		} else if( CoC.getInstance().player.lust >= 90 ) {
+		} else if( CoC.player.lust >= 90 ) {
 			this.succubusTease();
 		} else if( Utils.rand( 2 ) === 0 ) {
 			this.succubusTease();
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 		//Lasts a couple turns like the goblin lust poison?;
 		EngineCore.outputText( '"<i>How about a taste?</i>"  The succubus asks, pressing her tits together.  Before you can reply, a veritable jet of milk sprays in your direction!\n' );
 		//Miss:;
-		if( Utils.rand( 20 ) + 1 + CoC.getInstance().player.spe / 20 > 17 ) {
+		if( Utils.rand( 20 ) + 1 + CoC.player.spe / 20 > 17 ) {
 			EngineCore.outputText( 'With your trained reflexes, you manage to duck and roll, narrowly avoiding getting sprayed with milk.' );
 			EngineCore.outputText( '\n\n"<i>Such a waste.</i>"  The succubus pouts.  "<i>No worries, I\'ll just have Fido clean it up later... perhaps I\'ll even have you do it later, when you become mine.</i>"  The succubus giggles.' );
 			EngineCore.dynStats( 'lus', 6 );

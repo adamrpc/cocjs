@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 	//Intro
 	FrogGirlScene.prototype.findTheFrogGirl = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ] === 0 ) {
 			EngineCore.outputText( 'You begin your trudge through the bog, slogging through the soupy muck.  Insects buzz by every second, spinning in hectic spirals around your head.' );
 			EngineCore.outputText( '\n\nYou soon become aware of a new sound behind the buzzing - a musical chirping.  Step by step, you move toward it, pushing aside hanging curtains of gray moss until the dark trees of the swamp give way to the wide roots of mangroves.  The sporadic notes trickle into your ears, and you feel unusually relaxed as you move toward their source.' );
 			EngineCore.outputText( '\n\nThe wide roots of the trees create separate, tiny ponds, where it looks like condensed water has collected into pools of pristine, blue water.  The chirping echoes from the high walls of mangrove roots, coming from a slim figure seated in the largest pool.  Vaguely feminine, it sits cross-legged and waist-deep in the pool, arms open wide and welcoming.  Light glints off the smooth skin of the lithe form as her lips part, issuing out another stream of alluring, musical notes.' );
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 			EngineCore.outputText( '\n\nShe purses her lips, blowing out another stream of oddly alluring notes, and they float through the air, wrapping around your head and submerging you in a heady, musical fog.  Despite yourself, you feel your eyes half-close as the musical notes ripple through your brain.' );
 			EngineCore.outputText( '\n\nShe smiles, a three-foot tongue uncoiling from her mouth, trailing down over her flat chest, a patina of slime smearing across her torso.  With one upraised hand, she crooks a finger towards you, beckoning you closer to her pool.' );
 		}
-		CoC.getInstance().flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ]++;
+		CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ]++;
 		EngineCore.outputText( '\n\nDo you follow the music into the arms of the frog girl, or resist her melody?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Follow', this.followDatFrog );
@@ -35,9 +35,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( 'You splash your way up the terrace of pools, shedding your [armor] as you do so, leaving your gear draped over the mangrove ridges.  She holds her arms out to you as you step naked into her pool.  She rises to meet you, and you notice that the water concealed a swollen, pregnant belly.' );
 		EngineCore.outputText( '\n\nHer skin is slimy to the touch, and as she pulls you in close, she leaves her ichor on your arms and [chest].  It tingles where it touches you, and the sunlight seems to grow a bit brighter around you.  Her song continues, and you swear that you can see the music floating in the air, every different note a different neon light drifting through the air.  Half focused, your eyes dart back and forth, tracking the tiny motes of light.' );
 		EngineCore.outputText( '\n\nHer round belly rubs against ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[eachCock]' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your [vagina]' );
 		} else {
 			EngineCore.outputText( 'your bare but sensitive groin' );
@@ -53,11 +53,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nCompletely lost in sensation, you pant as you feel slick fingers working at your [asshole], under the water.  Lovely, fluttery sensations accent your high as the frog girl takes a position between your legs.  A cool softness presses against your asshole, and some kind of thick goo adheres it to your twitching hole.' );
 		EngineCore.outputText( '\n\nYou cross and uncross your eyes, trying to focus on the frog girl as she grips your hips adjusting herself.  She’s in some kind of scissoring pose, her pussy glued to your asshole.  With a grunt, she wraps her arms around her pale belly, hugging herself.  You feel her soft pussy twitching against you as something gooey and large pushes against your bud.' );
 		EngineCore.outputText( '\n\n"<i>Anh!  Unnnh!</i>" she moans, shuddering and bearing down on her pregnant belly.  A round, gooey mass oozes from her cunt, stretching your asshole as it moves into you.' );
-		CoC.getInstance().player.buttChange( 30, true, true, false );
+		CoC.player.buttChange( 30, true, true, false );
 		EngineCore.outputText( '\n\nYou giggle drunkenly to yourself as a frog egg the size of an apple squeezes inside you.  If you weren’t so lost in mind-bending pleasure, you might be concerned at the pressure.  Instead, you just feel more dizzy - those eggs must be lubed with the frog girl’s slime - and with one inside you, the world begins to spin.' );
 		EngineCore.outputText( '\n\n"<i>One down...</i>" the frog girl hisses through gritted teeth.  But you can’t find the wherewithal to even raise an eyebrow at her words.  Pressure builds again against your asshole, and the frog girl pushes another massive, squishy egg into you.  "<i>Unff!</i>" she grunts, shaking with the effort of forcing her eggs into your body.' );
 		EngineCore.outputText( '\n\nYou giggle again, loving the way the world spins with every egg fed into you.  She lays egg after egg into you.  It’s finally too much for you and your mind collapses.  The world completely dissolves into a swirling collage of color, sensation, and sound.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.getFrogButtFilled );
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nWrapping your arms under your heavy belly, you clamber out of the pool.  Water sluices down your naked body, leaving the last of the slime behind you in the no-longer pristine water.' );
 		EngineCore.outputText( '\n\nYou don your [armor] with some difficulty over your massive stomach, and venture back towards your camp, a little sore, but wiser for the ordeal.' );
 		EngineCore.dynStats( 'int', 1 );
-		CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
+		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Anal stretch +1/Anal Moistness +1, sensitivity +1, int +1]
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nYou wonder what it would be like to carry the massive load of eggs. Do you want to offer to carry the frog’s eggs or continue on your way?' );
 		EngineCore.menu();
 		EngineCore.addButton( 4, 'Leave', this.continueOnYourWay );
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 0, 'Vaginally', this.superBonusFrogEggsInYerCooch );
 		}
 		EngineCore.addButton( 1, 'Carry', this.carryBeeGirlsEggsVoluntarilyYouButtSlut );
@@ -127,9 +127,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\n"<i>Omigosh, really?</i>" she says, lunging forward with a splash.  She throws her arms around your shoulders.  "<i>I promise to make it absolutely amazing for you.</i>"' );
 		EngineCore.outputText( '\n\nThe slime on her arms tingles against you, and as she undresses you, peeling away your [armor], she leaves slimy, tingly prints on your arms, stomach, and [chest].  As you watch her, her movements seem to leave trails of light, and the sunlight seems to grow a bit brighter around you.  She hums to herself, and you swear that you can see the music floating in the air, every different note a different neon light drifting through the air.  Half focused, your eyes dart back and forth, tracking the tiny motes of light.' );
 		EngineCore.outputText( '\n\nHer round belly rubs against ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[eachCock]' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'your [vagina]' );
 		} else {
 			EngineCore.outputText( 'your bare but sensitive groin' );
@@ -142,13 +142,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nYou lay back, shuddering in the water, mouth agape as your eyes focus loosely on the frog girl over you.  Your vision is full of colors and as she opens her mouth to sing again, nebulas of colors and sounds saturating the very air.' );
 		EngineCore.outputText( '\n\n"<i>Oooh, you liked that, didn’t you?</i>" she asks, as the world dissolves into colors with no name.  Her voice bizarrely echoes across the surface of the pool.' );
 		EngineCore.outputText( '\n\nCompletely lost in sensation, you pant as you feel slick fingers working at your [asshole], under the water.  Lovely, fluttery sensations accent your high as the frog girl takes a position between your legs.  A cool softness presses against your asshole, and some kind of thick goo slathers across your twitching hole.' );
-		CoC.getInstance().player.buttChange( 20, true, true, false );
+		CoC.player.buttChange( 20, true, true, false );
 		EngineCore.outputText( '\n\nYou cross and uncross your eyes, trying to focus on the frog girl as she grips your hips adjusting herself.  She’s in some kind of scissoring pose, her pussy glued to your asshole.  With a grunt, she wraps her arms around her pale belly, hugging herself.  You feel her soft pussy twitching against you as something gooey and large pushes against your bud.' );
 		EngineCore.outputText( '\n\n"<i>Anh!  Unnnh!</i>" she moans, shuddering and bearing down on her pregnant belly.  A round, gooey mass oozes from her cunt, stretching your asshole as it moves into you.' );
 		EngineCore.outputText( '\n\nYou giggle drunkenly to yourself as a frog egg the size of an apple squeezes inside you.  If you weren’t so lost in mind-bending pleasure, you might be concerned at the pressure.  Instead, you just feel more dizzy - those eggs must be lubed with the frog girl’s slime - and with one inside you, the world begins to spin.' );
 		EngineCore.outputText( '\n\n"<i>One down...</i>" the frog girl hisses through gritted teeth.  But you can’t find the wherewithal to even raise an eyebrow at her words.  Pressure builds again against your asshole, and the frog girl pushes another massive, squishy egg into you.  "<i>Unff!</i>" she grunts, shaking with the effort of forcing her eggs into your body.' );
 		EngineCore.outputText( '\n\nYou giggle again, loving the way the world spins with every egg fed into you.  She lays egg after egg into you.  It’s finally too much for you and your mind collapses.  The world completely dissolves into a swirling collage of color, sensation, and sound.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.voluntarilyGetEggedEpilogue );
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nWrapping your arms under your heavy belly, you clamber out of the pool.  Water sluices down your naked body, leaving the last of the slime behind you in the no-longer pristine water.' );
 		EngineCore.outputText( '\n\nYou don your [armor] with some difficulty over your massive stomach, and venture back towards your camp, feeling a little sore, but proud of yourself for helping out a mother in need.' );
 		//[Anal stretch +1/Anal Moistness +1, sensitivity +1, corruption -1]
-		CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
+		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
 		EngineCore.dynStats( 'sen', 1, 'cor', -1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -192,18 +192,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nWater - you need to be near water!  The instinct is sudden and clear, and you stagger toward the small creek near your camp.  You crouch low on the river bank, hands on the ground, and knees angled up in an oddly frog-like pose.' );
 		EngineCore.outputText( '\n\nSlime pools beneath you, running down into the water as he first egg begins shoving out of you.  It feels... weird.  The pressure isn’t as intense as some of the things you’ve encountered in Mareth, but it’s still incredibly large.  Your asshole stretches wide, numbed a bit by the slime, but still far larger than you would have thought possible.  As the egg squelches to the ground, you realize that the eggs are jelly-like, and pliant enough to give you some leeway in laying them.' );
 		EngineCore.outputText( '\n\nThe first egg rolls down into the water, anchored by the pooling slime, but you can’t spare it more than a moment’s glance.  The next egg pushes against you, and you groan, shuddering and panting as you try to force it out.  Your asshole aches with every lurch of your body, but finally, the second watermelon-sized egg wobbles free from your ass.  You’re already exhausted as you feel the next one coming, but you manage to force this one out, too, collapsing face-forward onto the ground.' );
-		CoC.getInstance().player.buttChange( 80, true, true, false );
+		CoC.player.buttChange( 80, true, true, false );
 		EngineCore.outputText( '\n\nNature pushes onward, though, and your body works to push the next egg out.  You moan, only half conscious, the frog slime on your skin once again lifting you into a state of hazy awareness as egg after egg pushes out of your body.' );
 		EngineCore.outputText( '\n\n<b>Later, you wake up to the sound of splashing....</b>\nIn the river are a dozen tiny figures, each no more than a foot long, and each one a mirror of the frog girl from the waist-up, but oddly featureless from the waist-down. Their lower halves ending in vaguely-finned tails, like tadpoles.' );
 		EngineCore.outputText( '\n\nThe tadgirls splash each other, playing in the water, but take notice as you wake up.  It seems that they were waiting for you - displaying a level of concern that their original mother lacked.  Maybe they got that from you?  They wave and swim away downstream, and you notice that a few of them have a few unusual splashes of color in their hair and skin, looking a bit more like you than their mother.' );
 		EngineCore.outputText( '\n\nYou nod to yourself, happy to be finished with that ordeal.  As you stand, you notice a bit of heaviness to your hips, and some added slickness to your asshole.\n' );
 		//[Anal moistness +2, Hips +1]
-		CoC.getInstance().player.hipRating++;
-		CoC.getInstance().player.ass.analWetness += 1;
-		if( CoC.getInstance().player.ass.analWetness > 5 ) {
-			CoC.getInstance().player.ass.analWetness = 5;
+		CoC.player.hipRating++;
+		CoC.player.ass.analWetness += 1;
+		if( CoC.player.ass.analWetness > 5 ) {
+			CoC.player.ass.analWetness = 5;
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 	};
 	//Superbonus Vaginal Eggs!
@@ -217,28 +217,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nYou hear the frog girl coo as she touches her pussy against yours, smearing her slickness against your mound.  Her touch sends shivery, silvery sensations up your spine, and you feel your own wetness oozing out against her.' );
 		EngineCore.outputText( '\n\nThicker slime adheres her pussy to yours, making every grind and shove a shared sensation. As she squeezes down on her belly, pressure builds against your opening, and her pussy lips spread against yours, parting you open to take the first of her eggs.  As the jelly-like mass over her egg begins to squeeze into you, the world goes purple, then blue, then the water around you seems to rise slowly up into the air.' );
 		EngineCore.outputText( '\n\nIf you could think clearly at this point, you would attribute this to the mind-bending frog slime, but all you can think about is the sensation of your pussy spreading wider and wider, taking in another goo-covered egg.  The frog girl’s thighs clamp around you, one against your belly, the other' );
-		if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 			EngineCore.outputText( ' hooked over your tail,' );
 		} else {
 			EngineCore.outputText( ' clasped against your [ass],' );
 		}
 		EngineCore.outputText( ' smearing more and more of her slime against your body.' );
-		CoC.getInstance().player.cuntChange( 25, true, true, false );
+		CoC.player.cuntChange( 25, true, true, false );
 		EngineCore.outputText( '\n\nYou feel your brain turn happy little cartwheels as egg after egg pushes into you.  Somewhere along the way you cum, but you’re not even sure of that - your mind is too fogged by the hallucinogenic slime.' );
 		EngineCore.outputText( '\n\nYou’re not sure when the frog girl finishes.  By the time the trees stop dancing and the sky stops rippling, you’re floating face-up in the pool, watching the curve of your now-swollen belly as you bob gently in the water.' );
 		EngineCore.outputText( '\n\nAs awareness slowly starts to trickle in to your head, you blink, groaning slightly as you sit up, clutching your massive, pregnant belly, feeling the jelly-eggs inside shifting when you step up out of the water.  You pause as a tiny trickle of slime oozes out from your vagina, sending a brief rainbow flash across your vision and the echo of an orgasm through your system, before you put your [armor] back on and stagger back toward camp.' );
 		//[Vaginal wetness +1, Sensitivity +1]
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
+		CoC.player.knockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vaginal Egg birth
 	FrogGirlScene.prototype.layFrogEggs = function() {
-		if( CoC.getInstance().player.vaginas.length === 0 ) {
+		if( CoC.player.vaginas.length === 0 ) {
 			EngineCore.outputText( 'You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold vagina.  ', false );
-			CoC.getInstance().player.createVagina();
-			CoC.getInstance().player.genderCheck();
+			CoC.player.createVagina();
+			CoC.player.genderCheck();
 		}
 		EngineCore.outputText( 'You shudder as you feel the familiar tingle of stimulant slime running down your thighs.' );
 		EngineCore.outputText( '\n\nAs your swollen belly churns, the instinctive need for water ripples through you.' );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\n"<i>Let’s relax your muscles and free your mind, dear,</i>" says the frog girl with a smile.  You try to focus on her, but yours eyes just seem to cross and uncross on their own.  Her slick lips press against yours once more, and you feel a massive load of her slime force its way into your mouth, her muscular tongue right behind it.' );
 		EngineCore.outputText( '\n\nLacking the muscle control to resist, you swallow, your vision brightening with dancing motes of light and swirls of color.  You barely feel her lips pull away, but you feel the trickle of slime as it runs down your chin and onto your [chest].' );
 		EngineCore.outputText( '\n\nThe forest around you turns upside down as you lean forward and giggle, trying to make sense of what’s going on.  You feel your pussy stretch wider and wider, but there’s no pain, just a warm numbness and happy clouds at the corners of your eyes.  Between your legs you catch sight of the frog girl’s fingertips pushing between your lips, gently cradling large, grapefruit-sized eggs as they squish out of your body.' );
-		CoC.getInstance().player.cuntChange( 80, true, true, false );
+		CoC.player.cuntChange( 80, true, true, false );
 		EngineCore.outputText( '\n\nYou lose count of the squishy eggs passing through your vagina, distracted by the mesmerizing way they bob along in the water, anchored to the frog girl’s side.' );
 		EngineCore.outputText( '\n\nYou don’t even remember passing out, only awaking to the familiar sound of humming.  A chorus of alluring chirrups suffuses the air as you open your eyes.  Blinking to clear your vision, you find yourself lying atop a patch of riverbank ferns.' );
 		EngineCore.outputText( '\n\n"<i>Sorry, did we wake you up?</i>" queries the voice of the frog girl.  You push yourself up, seeing her floating mid-stream, surrounded by a half-dozen frog girl nymphs. From the waist-up, they’re miniature versions of their mother with varying haircolors, but from the waist down, they resemble large tadpoles.  No more than  few feet long, they bob along next to their mother as she conducts their song.' );
@@ -267,15 +267,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nYou shake your head wearily as you sit up, your head still spinning slightly.' );
 		EngineCore.outputText( '\n\nWith a wince, you head back to camp, hoping that the frog slime hasn’t affected you permanently.' );
 		//[Vaginal gape +1/Vaginal Moistness +1/Hips +1, Sensitivity +1]
-		if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness < AppearanceDefs.VAGINA_WETNESS_SLAVERING ) {
-			CoC.getInstance().player.vaginas[ 0 ].vaginalWetness++;
+		if( CoC.player.vaginas[ 0 ].vaginalWetness < AppearanceDefs.VAGINA_WETNESS_SLAVERING ) {
+			CoC.player.vaginas[ 0 ].vaginalWetness++;
 			EngineCore.outputText( '  It rapidly becomes clear that it has.  <b>Your pussy is wetter than ever.</b>' );
 		}
-		if( CoC.getInstance().player.hipRating < 25 ) {
-			CoC.getInstance().player.hipRating++;
+		if( CoC.player.hipRating < 25 ) {
+			CoC.player.hipRating++;
 			EngineCore.outputText( '  There\'s an extra thickness to your [hips] as well.' );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};

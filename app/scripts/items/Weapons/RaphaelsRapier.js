@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'RaphaelsRapier', function( CoC, Weapon, kFLA
 			return new Proxy( target, {
 				get: function( target, name ) {
 					if( name === 'attack' ) {
-						return 8 + CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] * 2;
+						return 8 + CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] * 2;
 					}
 					return target[ name ];
 				},

@@ -3,7 +3,7 @@
 angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, Sheila, CockTypesEnum, CoC_Settings, PerkLib, Appearance, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat ) {
 	//Cautious around strangers; doesn't want anything much to do with other people. She'll greet you and introduce herself, but if you begin to pry into her business she'll ask you to leave (on first contact). Her people's bodies transfer emotional energy during sex in an osmotic fashion, pulling it from concentrated sources and pushing it to diffuse ones despite the will of the partner. By repeated contact and respecting her space you may befriend her. Or you may refuse to leave from the get-go and she'll try to drive you off forcefully, allowing you to whoop her and sexcrime her.;
 	//Pseudo-code shit:;
-	//CoC.getInstance().flags required: sheila xp, sheila corruption, demon sheila, sheila clock, sheilapreg, joeycount, sheilacite, sheilaforge;
+	//CoC.flags required: sheila xp, sheila corruption, demon sheila, sheila clock, sheilapreg, joeycount, sheilacite, sheilaforge;
 	//functions to run at 00:00 each day;
 	//	-sheila clock + 1;
 	//		-makes encounter available only once per day in conjunction with functions afterward; allows timing manipulations for her to get mad at PC for a while;
@@ -63,12 +63,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//Implementation of TimeAwareInterface;
 	SheilaScene.prototype.timeChange = function() {
 		this.pregnancy.pregnancyAdvance();
-		if( CoC.getInstance().time.hours > 23 ) {
-			if( CoC.getInstance().flags[ kFLAGS.SHEILA_CLOCK ] < 0 ) {
-				CoC.getInstance().flags[ kFLAGS.SHEILA_CLOCK ]++;
+		if( CoC.time.hours > 23 ) {
+			if( CoC.flags[ kFLAGS.SHEILA_CLOCK ] < 0 ) {
+				CoC.flags[ kFLAGS.SHEILA_CLOCK ]++;
 			}
 		}
-		$log.debug( '\nShiela time change: Time is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation );
+		$log.debug( '\nShiela time change: Time is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation );
 		return false;
 	};
 	SheilaScene.prototype.timeChangeLarge = function() {
@@ -81,11 +81,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			return;
 		}
 		var chance = 5;
-		chance += CoC.getInstance().player.cumQ() / 66;
+		chance += CoC.player.cumQ() / 66;
 		if( chance > 20 ) {
 			chance = 20;
 		}
-		chance += CoC.getInstance().player.virilityQ() * 100;
+		chance += CoC.player.virilityQ() * 100;
 		if( chance > 75 ) {
 			chance = 75;
 		}
@@ -100,118 +100,118 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( arg === undefined ) {
 			arg = 0;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] + arg < 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 0;
+		if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] + arg < 0 ) {
+			CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 0;
 		} else {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] += arg;
+			CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] += arg;
 		}
-		return CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ];
+		return CoC.flags[ kFLAGS.SHEILA_CORRUPTION ];
 	};
 	//Sheila's cup function!;
 	SheilaScene.prototype.sheilaCup = function() {
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 10 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 10 ) {
 			return 'tiny, almost-absent';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 20 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 20 ) {
 			return 'A-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 30 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 30 ) {
 			return 'B-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 40 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 40 ) {
 			return 'C-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 50 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 50 ) {
 			return 'D-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 60 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 60 ) {
 			return 'DD-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 70 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 70 ) {
 			return 'E-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 80 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 80 ) {
 			return 'EE-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 90 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 90 ) {
 			return 'front-running';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 100 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 100 ) {
 			return 'FF-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 110 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 110 ) {
 			return 'G-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 120 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 120 ) {
 			return 'GG-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 130 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 130 ) {
 			return 'H-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 140 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 140 ) {
 			return 'HH-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 150 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 150 ) {
 			return '\'Holy Honkin\' Hooters!\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 160 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 160 ) {
 			return 'I \'want to squeeze them\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 170 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 170 ) {
 			return 'II-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 180 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 180 ) {
 			return 'Jiggle-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 190 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 190 ) {
 			return 'JJ-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 200 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 200 ) {
 			return 'K-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 210 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 210 ) {
 			return 'KK-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 220 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 220 ) {
 			return 'L-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 230 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 230 ) {
 			return '\'Ladylove\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 240 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 240 ) {
 			return 'M-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 250 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 250 ) {
 			return '\'Mega Milk\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 260 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 260 ) {
 			return 'N-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 270 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 270 ) {
 			return 'NN-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 280 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 280 ) {
 			return 'O-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 290 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 290 ) {
 			return '\'so big it makes you say\' OO-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 300 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 300 ) {
 			return 'P-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 310 && CoC.getInstance().player.cocks.length > 0 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 310 && CoC.player.cocks.length > 0 ) {
 			return '\'would feel great around your\' PP-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 310 && CoC.getInstance().player.cocks.length === 0 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 310 && CoC.player.cocks.length === 0 ) {
 			return 'PP-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 320 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 320 ) {
 			return 'Q-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 330 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 330 ) {
 			return 'QQ-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 340 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 340 ) {
 			return 'R-u-serious?-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 350 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 350 ) {
 			return 'RR-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 360 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 360 ) {
 			return 'S-rank';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 370 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 370 ) {
 			return '\'Shooting Star\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 380 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 380 ) {
 			return 'T-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 390 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 390 ) {
 			return '\'damn, those are some big\' TT-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 400 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 400 ) {
 			return '\'bigger than\' U-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 410 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 410 ) {
 			return 'UU-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 420 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 420 ) {
 			return 'V-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 430 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 430 ) {
 			return '\'Va-Va-Voom\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 440 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 440 ) {
 			return '\'War Head\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 450 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 450 ) {
 			return 'World-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 460 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 460 ) {
 			return 'X-Buster-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 470 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 470 ) {
 			return 'XXXX-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 480 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 480 ) {
 			return '\'Yay\'-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 490 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 490 ) {
 			return 'YY-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 500 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 500 ) {
 			return 'Z-Saber-cup';
-		} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 510 ) {
+		} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 510 ) {
 			return 'ZZ-cup';
 		} else {
 			return 'fuckin\' magic';
@@ -219,57 +219,57 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	};
 	SheilaScene.prototype.sheilaEncounterRouter = function() {
 		$log.debug( 'Sheila Encounter:' );
-		$log.debug( 'Sheila Corruption: ' + Math.round( this.sheilaCorruption() * 10 ) / 10 + ' Sheila Preg: ' + CoC.getInstance().flags[ kFLAGS.SHEILA_PREGNANCY_INCUBATION ] + ' Sheila XP: ' + CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] );
+		$log.debug( 'Sheila Corruption: ' + Math.round( this.sheilaCorruption() * 10 ) / 10 + ' Sheila Preg: ' + CoC.flags[ kFLAGS.SHEILA_PREGNANCY_INCUBATION ] + ' Sheila XP: ' + CoC.flags[ kFLAGS.SHEILA_XP ] );
 		//UNFUCK FLAGS;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_CLOCK ] > 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_CLOCK ] = 0;
+		if( CoC.flags[ kFLAGS.SHEILA_CLOCK ] > 0 ) {
+			CoC.flags[ kFLAGS.SHEILA_CLOCK ] = 0;
 		}
-		if( this.sheilaCorruption() >= 100 && CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] = 1;
+		if( this.sheilaCorruption() >= 100 && CoC.flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
+			CoC.flags[ kFLAGS.SHEILA_DEMON ] = 1;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
+			CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		}
 		//ACTUALLY PICK ENCOUNTER!;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 0 ) {
 			//PREG SHIT;
-			if( this.pregnancy.isPregnant && this.pregnancy.incubation === 0 && CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] >= -2 ) {
-				if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] === 0 ) {
+			if( this.pregnancy.isPregnant && this.pregnancy.incubation === 0 && CoC.flags[ kFLAGS.SHEILA_XP ] >= -2 ) {
+				if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] === 0 ) {
 					this.normalSheilaPregNotifNumberOne();
 				} else {
 					this.normalSheilaPregNotifREPEATEDED();
 				}
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 0 ) {
+			if( CoC.flags[ kFLAGS.SHEILA_XP ] === 0 ) {
 				this.sheilaFirstEncounter();
-			} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === -1 ) {
+			} else if( CoC.flags[ kFLAGS.SHEILA_XP ] === -1 ) {
 				this.sheilaApology();
 			}
 			//XP-2 Sheila's apology (sheila xp = -2 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === -2 ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === -2 ) {
 				this.sheilaIsSorrySheRapedYou();
 			}
 			//XP-3 or XP-4 She-mad (Sheila XP <= -3 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === -3 || CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === -4 ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === -3 || CoC.flags[ kFLAGS.SHEILA_XP ] === -4 ) {
 				this.sheilaReallyMad();
 			}
 			//XP1: Reconciliation encounter (sheila xp = 1 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 1 ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === 1 ) {
 				this.sheilaReconcile();
 			}
 			//XP2: Familiarizing (Sheila XP = 2; or Sheila XP = 3 AND time =/= 20:00 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 2 || (CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 3 && CoC.getInstance().time.hours !== 20) ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === 2 || (CoC.flags[ kFLAGS.SHEILA_XP ] === 3 && CoC.time.hours !== 20) ) {
 				this.sheilaGettingFamiliar();
 			}//XP3: Sexy Time (sheila xp = 3 AND time = 20:00 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 3 && CoC.getInstance().time.hours === 20 ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === 3 && CoC.time.hours === 20 ) {
 				this.sheilaXPThreeSexyTime();
 			}
 			//XP4: Fancy meeting you here (sheila xp >= 4 and demon sheila = 0):;
-			else if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 4 ) {
+			else if( CoC.flags[ kFLAGS.SHEILA_XP ] === 4 ) {
 				this.fuckBuddySheilaMeeting();
 			} else {
-				EngineCore.outputText( 'A BUG HAPPENED.  YOUR SHEILA_XP: ' + CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] + '. <b>Value should be between -3 to 4.</b>' );
+				EngineCore.outputText( 'A BUG HAPPENED.  YOUR SHEILA_XP: ' + CoC.flags[ kFLAGS.SHEILA_XP ] + '. <b>Value should be between -3 to 4.</b>' );
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
@@ -289,46 +289,46 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	};
 	SheilaScene.prototype.sheilaCorruptionUpdate = function() {
 		//Always dump 10 points.;
-		if( CoC.getInstance().player.cor > 90 ) {
+		if( CoC.player.cor > 90 ) {
 			EngineCore.dynStats( 'cor', -10 );
 			this.sheilaCorruption( 10 );
-		} else if( CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+		} else if( CoC.player.cor > this.sheilaCorruption() ) {
 			//Big change, dump ten.;
-			if( CoC.getInstance().player.cor - this.sheilaCorruption() >= 10 ) {
+			if( CoC.player.cor - this.sheilaCorruption() >= 10 ) {
 				EngineCore.dynStats( 'cor', -10 );
 				this.sheilaCorruption( 10 );
 			} else {
 				//Small change, do as much as possible.;
-				while( Math.round( CoC.getInstance().player.cor ) !== Math.round( this.sheilaCorruption() ) ) {
-					CoC.getInstance().player.cor -= 1;
-					if( Math.round( CoC.getInstance().player.cor ) <= Math.round( this.sheilaCorruption() ) ) {
+				while( Math.round( CoC.player.cor ) !== Math.round( this.sheilaCorruption() ) ) {
+					CoC.player.cor -= 1;
+					if( Math.round( CoC.player.cor ) <= Math.round( this.sheilaCorruption() ) ) {
 						break;
 					} else {
 						this.sheilaCorruption( 1 );
 					}
 				}
-				CoC.getInstance().player.cor = Math.round( CoC.getInstance().player.cor );
+				CoC.player.cor = Math.round( CoC.player.cor );
 				MainView.statsView.showStatDown( 'cor' );
 				// corUp.visible = false;;
 				// corDown.visible = true;;
 				EngineCore.statScreenRefresh();
 			}
-		} else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+		} else if( CoC.player.cor < this.sheilaCorruption() ) {
 			//Big Change!;
-			if( this.sheilaCorruption() - CoC.getInstance().player.cor >= 10 ) {
+			if( this.sheilaCorruption() - CoC.player.cor >= 10 ) {
 				EngineCore.dynStats( 'cor', 10 );
 				this.sheilaCorruption( -10 );
 			} else {
 				//Small change, do as much as possible.;
-				while( Math.round( CoC.getInstance().player.cor ) !== Math.round( this.sheilaCorruption() ) ) {
-					CoC.getInstance().player.cor += 1;
-					if( Math.round( CoC.getInstance().player.cor ) >= Math.round( this.sheilaCorruption() ) ) {
+				while( Math.round( CoC.player.cor ) !== Math.round( this.sheilaCorruption() ) ) {
+					CoC.player.cor += 1;
+					if( Math.round( CoC.player.cor ) >= Math.round( this.sheilaCorruption() ) ) {
 						break;
 					} else {
 						this.sheilaCorruption( -1 );
 					}
 				}
-				CoC.getInstance().player.cor = Math.round( CoC.getInstance().player.cor );
+				CoC.player.cor = Math.round( CoC.player.cor );
 				MainView.statsView.showStatUp( 'cor' );
 				// corUp.visible = true;;
 				// corDown.visible = false;;
@@ -336,7 +336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 		}
 		//Get one for demon Sheila regardless.;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
 			EngineCore.dynStats( 'cor', 1 );
 		}
 	};
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaFirstEncounter = function() {
 		EngineCore.clearOutput();
 		//set sheila corruption = 30;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 30;
+		CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 30;
 		EngineCore.outputText( 'A strange sight meets your eyes and you drop behind some brush to examine it carefully.  It looks like a dog, though all you can see is a pair of furry hindquarters and a stubby tail draped over them.  But as you get closer, it unbends, revealing a decidedly humanoid upper body!  The creature seems to be wearing a white shirt and a dirty brown vest; what looked like a dog\'s shoulders from afar is actually a small pack carried on its back.  On its head is a dusty slouch hat, which it presently takes off and begins to fan itself with.  With the hat off, you can see a pair of long reddish-brown ears sticking out from its hair, pointing to each side.  As it turns its body to look around it, you can actually make out a shapely pair of breasts.  What you thought were a dog\'s hindlegs from the rear are actually a pair of auburn, furry digitigrade appendages only passingly resembling a canine\'s, and bearing feet with elongated metatarsals.  The animalistic legs come up only as far as the thigh; above them you can make out a band of skin between the fur and the very short shorts that it wears to cover the rest of its posterior.  Its hips are a bit wider than its waist, and the stubby tapered tail sticks out of a tear in the fabric, just below a belt holding them up.' );
 		EngineCore.menu();
 		//[Look Closer][Stay Hidden];
@@ -372,18 +372,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You subject yourself to her examination; she seems to take professional interest in the way you hold your [weapon].  ' );
 		//[(PC weapon = Scarred Blade)];
-		if( CoC.getInstance().player.weaponName === 'Scarred Blade' ) {
+		if( CoC.player.weaponName === 'Scarred Blade' ) {
 			EngineCore.outputText( 'As the blade feels her gaze, it vibrates eagerly toward her, sliding partway out of the oiled scabbard; she stares into the exposed metal transfixed, as if looking into the diary of a past life.  Abruptly, she shakes her head and turns away, and the saber calms down.  ' );
 		}
 		EngineCore.outputText( 'Meanwhile, you use the opportunity to take your own look at her.  She\'s about six and a half feet unbent, though her legs are crooked like an animal\'s and could conceivably push her up to seven if straightened.  Her tapered tail only reaches a little past her hips.  The straight hair on her head is colored like her fur and chopped off at the jawline, and her bangs are tucked behind one of her long ears.  They slip forward whenever she bends her head down, only to be retucked with a free hand when she looks up again.  Her face is rather pretty overall, with an egg or oval shape that tapers at the chin and slight cheekbones, but falls short of true beauty by being a shade too commonplace.  She has a small, even nose, and her eyes are a very light brown - amber, even, depending on the angle of the light.  Looking downwards, you can see her shirt is cut with a v-neck, revealing cleavage from a pair of medium-sized breasts; probably C-cup, though it\'s hard to say with the vest in the way.  Her body is toned and her skin is somewhat tan, you\'d guess she spends a lot of time out of doors.' );
 		EngineCore.outputText( '\n\nFinally satisfied with looking you over, she says, "<i>She\'ll be apples.  Sorry to put y\'out, but you never know what sort you\'ll find in the back of nowhere, right?</i>"' );
 		//[(libido>=50);
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( '  Noting you still checking out her body, she smirks and says, "<i>Enjoying your lookie, then?  Up here, cobber,</i>" causing you to snap your head up sheepishly.' );
 		}
 		EngineCore.outputText( '  You nod at the strange woman and introduce yourself.' );
-		if( CoC.getInstance().player.short !== 'Sheila' ) {
-			EngineCore.outputText( '  "<i>' + CoC.getInstance().player.short + ', eh?  My mates just call me Sheila.  Bunch of jokers, the bastards.</i>"' );
+		if( CoC.player.short !== 'Sheila' ) {
+			EngineCore.outputText( '  "<i>' + CoC.player.short + ', eh?  My mates just call me Sheila.  Bunch of jokers, the bastards.</i>"' );
 		} else {
 			EngineCore.outputText( '  "<i>You too, eh?  Sheila\'s what my mates call me for a nickname.  Don\'t suppose you got yours from a bunch of adolescent-minded wankers, though.</i>"' );
 		}
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nShe nods, frowning in a way that discourages you from dwelling on it.  You proffer some of your own food, but she just stares at you.  "<i>Nah, mate; never take food from strangers.  But good onya for offering.</i>"' );
 		EngineCore.outputText( '\n\nCurious and eager to change the subject, you ask her where exactly her aforementioned \'mates\' are.  She narrows her eyes at the question.  "<i>Don\'t expect that\'s any of your bizzo, eh stickybeak?  No offense, but I don\'t know you from Marae an\' I\'m not about to give info to some dipstick demon dag in disguise.' );
 		//[(high demon score);
-		if( CoC.getInstance().player.demonScore() >= 4 ) {
+		if( CoC.player.demonScore() >= 4 ) {
 			EngineCore.outputText( '  I mean, take a squizz at yourself.  It\'s like you\'re not even trying to hide it; I\'ve seen imps that look more like normal people.' );
 		}
 		EngineCore.outputText( '  Forget it.</i>"  You deny the accusation, but she continues to glare at you.' );
@@ -410,16 +410,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Good onya.  Maybe I\'ll see you around.</i>"  With that, you take your leave of the strange woman.' );
 		//set sheila xp = 1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP0 - Look Closer - Talk];
 	//set sheila xp = -1;
 	SheilaScene.prototype.sheila1ndEncLookCloserPtIITalk = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -1;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -1;
 		EngineCore.outputText( '"<i>Alright, my earbashing mug, have it your own way.  I get mean when I get hungry; don\'t say I didn\'t warn ya.</i>"  With that, Sheila takes a swing at you!  You jerk backwards to avoid the punch but move too slowly, she clips the end of your [face].  What a wind!  If she\'d been trying to hit you, that sucker punch would likely have laid you out.  Just as you open your mouth to speak again, she rears back on one leg and kicks you away hard with the other, knocking the air out of you.  You land painfully on your back.' );
-		CoC.getInstance().player.takeDamage( 2 );
+		CoC.player.takeDamage( 2 );
 		EngineCore.outputText( '\n\n"<i>Feel like leaving now?</i>" she asks, grinning mirthlessly and raising her fists in front of her.  You rub your smarting nose and sit up, looking angrily at her.  She\'s proven that she\'s very fast and probably quite strong, though you have no idea how experienced she is at actually fighting - and there\'s a bit of a regretful look in her eyes, to boot.  Do you turn tail or fight back?' );
 		//[Leave][Fight];
 		EngineCore.menu();
@@ -463,18 +463,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'You shake your head at the leery girl, and tell her you\'d be just as happy as she would if you never saw each other again.' );
 		EngineCore.outputText( '\n\n"<i>Well... I expect I could arrange that if you\'ll play along,</i>" she says, ears twitching in irritation.  "<i>Take care of yourself, mate.</i>"  She resets the trap and lays down in her spot in the tall grass again, pointedly turning over on her side to show you her back.' );
 		//set sheilapreg = -1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DISABLED ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP-1 - Apologize];
 	SheilaScene.prototype.apologySheilaApology = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You scratch your ' + CoC.getInstance().player.skinFurScales() + ' absently behind an ear, not sure how to broach the topic of reconciliation when you feel like she was the aggressor, but mumble something about being sorry things started off on the wrong foot.' );
+		EngineCore.outputText( 'You scratch your ' + CoC.player.skinFurScales() + ' absently behind an ear, not sure how to broach the topic of reconciliation when you feel like she was the aggressor, but mumble something about being sorry things started off on the wrong foot.' );
 		EngineCore.outputText( '\n\nSheila quirks an eyebrow at your apology.  "<i>Alright,</i>" she says simply, passing over your reluctance to assign blame for the situation.  "<i>I guess I can\'t fault you for being gobsmacked that someone in this land didn\'t immediately smother you in kisses and spend the day boffing you like a newlywed at your first meeting, but don\'t take so much for granted.  You can\'t stay free from the demons by trusting strangers.</i>"' );
 		EngineCore.outputText( '\n\nShe smiles wanly and motions you away from the vicinity of the snare, then resets it and returns to her cover in the long grass.  Before you can address her again, she shoots you a warning glance.  "<i>I\'ve still got dinner to catch, so don\'t run your mouth at me right now.  I don\'t need your jawing to chase off every bit of tucker that comes close.</i>"' );
 		EngineCore.outputText( '\n\nWell... it looks like you\'re back to square one.' );
 		//set sheila xp = 1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP-1 - Slap'n'sult];
@@ -483,11 +483,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'You say nothing as she finishes with the snare and stands back up.' );
 		EngineCore.outputText( '\n\n"<i>Well?</i>" she asks, setting her mouth in a hard line and looking straight into your eyes.' );
 		EngineCore.outputText( '\n\nBefore she can do more than flinch, you bring your hand up from your side and across her face, sending the sharp crack of a slap rolling across the dry, open landscape.  Several spur-of-the-moment comments about xenophobia and bigotry find their way out in the pause before she recovers the presence of mind to speak.' );
-		EngineCore.outputText( '\n\n"<i>Fuck you, arsehole!</i>" she counters, breaking in.  "<i>I\'m not about to stand here and take a bollocking from some mullet who rolls up and expects everyone ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' meets to fall over ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' charming self like ' + CoC.getInstance().player.mf( 'he', 'she' ) + '\'s the storybook hero' + CoC.getInstance().player.mf( '', 'ine' ) + '!  If you want a girl who\'ll be your soulmate at the word \'hello\' you can go look for sloppy seconds from one of those goblin slags!</i>"' );
+		EngineCore.outputText( '\n\n"<i>Fuck you, arsehole!</i>" she counters, breaking in.  "<i>I\'m not about to stand here and take a bollocking from some mullet who rolls up and expects everyone ' + CoC.player.mf( 'he', 'she' ) + ' meets to fall over ' + CoC.player.mf( 'his', 'her' ) + ' charming self like ' + CoC.player.mf( 'he', 'she' ) + '\'s the storybook hero' + CoC.player.mf( '', 'ine' ) + '!  If you want a girl who\'ll be your soulmate at the word \'hello\' you can go look for sloppy seconds from one of those goblin slags!</i>"' );
 		EngineCore.outputText( '\n\nShe raises a fist and takes a swing at you again, but without the element of surprise this time; you lean inside the hook and catch her upper arm harmlessly on the side of your face, then shove her away roughly before she can kick you.  She stumbles backwards, nearly falling over.' );
 		EngineCore.outputText( '\n\n"<i>So that\'s how it\'ll be, then!  I\'m done trying to talk sense to you, ya clacker!</i>"  The incensed woman assumes a fighting posture, and you respond in kind.' );
 		//set sheila xp = -3, go to fight;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -3;
 		Combat.startCombat( new Sheila() );
 	};
 	//[XP-1 - Nothing];
@@ -510,7 +510,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[Forgive][Fight][Cast Arouse][Leave Me Alone];
 		EngineCore.addButton( 0, 'Forgive', this.sheilaIsSorryAndYouForgive );
 		EngineCore.addButton( 1, 'Fight', this.sheilaPologyFight );
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.KnowsArouse ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) >= 0 ) {
 			EngineCore.addButton( 2, 'CastArouse', this.sheilaPologyCastArouse );
 		}
 		EngineCore.addButton( 3, 'LemmeAlone', this.sheilaIsSorryButLeaveMeAlone );
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head and turn away, dismissing Sheila with a pointed gesture.  "<i>H-hey!</i>" the girl calls angrily from behind you.  "<i>Dammit, I said I was sorry, you bastard!  Screw you!  See if I talk to you again!</i>"' );
 		//set sheilapreg = -1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DISABLED ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP-2 - Forgive];
@@ -532,10 +532,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nShe brightens a bit.  "<i>Bonzer!  Load off my mind.  Um... hate to be a piker but I have to get my catch back home so... I\'ll see you later?</i>"' );
 		EngineCore.outputText( '\n\nYou nod and she turns, loping away on her long legs.' );
 		//set sheila xp to 4 if joeycount > 0, else set sheila xp to 1;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
+			CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		} else {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 1;
+			CoC.flags[ kFLAGS.SHEILA_XP ] = 1;
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -544,7 +544,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Saying nothing, you raise your [weapon] and take a swing!  Sheila starts a bit and dodges just in time, then with a look of resignation, raises her fists as well.  "<i>That\'ll be right, I guess.  For what it\'s worth, I really am sorry.</i>"' );
 		//go to fight, set sheila xp = -3;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -3;
 		Combat.startCombat( new Sheila() );
 	};
 	//[XP-2 - Cast Arouse];
@@ -563,7 +563,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Can I what?  What do you want me to do?</i>" you ask, narrowing your eyes.  Sheila lowers her head, embarrassed, until she\'s peering out at you from under hair that\'s fallen over her face.  "<i>Well?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Please... let me fuck you!</i>" she blurts, and then colors bright red.  "<i>If I can\'t work this off and a demon finds me, I\'m as good as dead!</i>"' );
 		EngineCore.outputText( '\n\nBetter and better.' );
-		EngineCore.dynStats( 'lus', (CoC.getInstance().player.lib / 5), 'resisted', false );
+		EngineCore.dynStats( 'lus', (CoC.player.lib / 5), 'resisted', false );
 		//[Let Her][Leave];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Let Her', this.castArouseAndLetHer );
@@ -577,9 +577,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>You\'re being melodramatic.  I\'m sure it\'ll be fine.</i>"' );
 		EngineCore.outputText( '\n\nTurning away again, you leave the woman calling after you.  Not a very good way to avoid attention for someone who says she doesn\'t want to be discovered.' );
 		//set sheila corruption = 100 and demon sheila = 1 and sheilacite = -1, increase PC corruption + 10;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 100;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] = 1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CITE ] = -1;
+		CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 100;
+		CoC.flags[ kFLAGS.SHEILA_DEMON ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_CITE ] = -1;
 		EngineCore.dynStats( 'cor', 10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -589,7 +589,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'As soon as you nod, the girl bounds to her feet and jumps you, driving you slightly downward in her ardor.' );
 		//increase PC corruption +10, output loss scene consonant with player's sex, set sheila xp = 4;
 		EngineCore.dynStats( 'cor', 10 );
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		//Call appropriate loss router;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.sheilaLossRapeRouter );
@@ -601,11 +601,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nIt doesn\'t take long, of course, until she realizes she\'s forgotten her catch; when you pick the bundle of game up and hold it out to her, Sheila trots guiltily back and stops a few paces in front.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t want anything to do with you,</i>" she says, sulking and staring downward.  "<i>' );
 		//[(sheila corruption >= 90);
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] >= 90 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] >= 90 ) {
 			EngineCore.outputText( 'It\'s so hard to remember myself anymore, and the taint you\'ve put in my body goes crazy when you touch me.  Do you want me to get on my hands and knees?</i>"  The woman lowers herself to the ground.  "<i>I beg you.  ' );
 		}
 		EngineCore.outputText( 'Please, please leave me alone.' );
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === -3 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] === -3 ) {
 			EngineCore.outputText( '  I know you... you\'re not as bad as the rest of the monsters out here, so... please.' );
 		}
 		EngineCore.outputText( '</i>"' );
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//go to fight; if silly mode, heal 20 hp and 10 fatigue on PC and set sheila HP = 120%;
 		Combat.startCombat( new Sheila() );
 		if( EngineCore.silly() ) {
-			CoC.getInstance().monster.HP *= 1.2;
+			CoC.monster.HP *= 1.2;
 			EngineCore.fatigue( -10 );
 			EngineCore.HPChange( 20, false );
 		}
@@ -676,7 +676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaReconcileKay2 = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Soon enough you\'ve got a firepit going in a small clearing.  "<i>Ahh, classic bush theater,</i>" Sheila says, admiring it.  The woman dextrously spits two liberated and skinned rabbit quarters on a long stick and twirls them over the lapping flame, and soon the air is full of the sizzle and pop of meat juices dripping on the hot stones and the simple tune your cook hums.  You stare at ' );
-		if( CoC.getInstance().player.lib < 50 ) {
+		if( CoC.player.lib < 50 ) {
 			EngineCore.outputText( 'the beckoning hunks of meat' );
 		} else {
 			EngineCore.outputText( 'her rising and falling breasts under the pretext of watching her work' );
@@ -689,26 +689,26 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nShe stops humming and looks absently at the meat for a while, as if deciding whether to answer, and for a moment you despair of ever piercing the veil of her bluffness.' );
 		EngineCore.outputText( '\n\n"<i>You make it sound like it\'s only the three blokes and yours truly huddled in a cave for warmth,</i>" she responds, finally.  "<i>Sorry, I know I\'ve never said otherwise; just a funny thought.  Actually we\'re part of a little hidden alcove, village-sized, with over fifteen families.  Everyone I\'ve ever met that\'s like me lives in a similar enclave, led by a political and quasi-religious yobbo' );
 		//[(pc is kangaroo);
-		if( CoC.getInstance().player.race() === 'kangaroo-morph' ) {
+		if( CoC.player.race() === 'kangaroo-morph' ) {
 			EngineCore.outputText( ' - except you, I suppose' );
 		}
 		EngineCore.outputText( '.  We trade our goods in prearranged op shops and dead drops but avoid bringing outsiders into our own settlements, even when they\'re right corkers.</i>"' );
 		EngineCore.outputText( '\n\nYou press her on the last point.  "<i>Well, what you don\'t know, you can\'t reveal when the demons take you, right?</i>" she answers.  "<i>I dunno if I should tell you this, but... the other reason has to do with our bodies.</i>"  She looks over at you, searching your face for something inscrutable; you compose a mask of patient, perfect attention as you chew another mouthful of meat.  "<i>Y\'see, we\'re very empathetic to and conductive of emotions under certain circumstances - namely, during a shag.</i>"  She looks away again, into the fire; as you peer closer, she actually appears to be blushing.  "<i>When we, er... orgasm,</i>" she resumes, still not meeting your eyes, "<i>we give or take emotion and feeling from our partner depending on whether they have more or less than us.  For example, it means that horny buggers' );
 		//[(lib >50)];
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( ' like yourself - I saw you perving -' );
 		}
 		EngineCore.outputText( ' make us a little hornier, and evil buggers make us a bit more evil.  Our bodies tend to change on their own to reflect how tainted we are... which is as much as saying there are a sad lot among us who flirt with demonic energy to up our sizes to suit our egos.  But versus the sexual appetite and limitless rapacity of the demons themselves...?</i>"' );
 		EngineCore.outputText( '\n\n"<i>We were never prolific, but they tore through us like parchment when they first attacked.  Open-air villages disappeared overnight, leaving only those run by xenophobic, isolationist, stealth nutters.  You\'ve likely met my ex-tribe before if you\'ve met any number of demons; a mug unlucky enough to be caught turns pretty much instantly when he or she climaxes and is flooded with their feelings.</i>"  She pulls the remaining meat out of the fire and examines it, then hands you half.  At the look in your eyes, she grins.  "<i>It\'s not as bad as all that.  Unhappy marriages are almost unheard of, since emotional intensity evens out inside couples.  Bit of a \'build-your-own-soulmate\' workshop, right?  Demons are the problem, as always.</i>"' );
 		//[(if PC has Tel'Adre)];
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
 			EngineCore.outputText( '\n\nYou interject here to mention the city you found in the desert.  Sheila grimaces and nods, then answers, "<i>We got word of that from one of our trading partners near the desert a while back.  Seems like they had a wild blue in a town meeting after finding out and half the younger residents grabbed swag and hiked there, tired of hiding.</i>"  She chews morosely, anticipating the end to her own story.' );
 			EngineCore.outputText( '\n\n"<i>A few of the kids lobbed in ten months later... they were just courtin\' when they left, but they got married in the city; one of the girls was preggers and almost due when a hunting team picked them up.  The Covenant found out about our ability early and there was pressure on the expats to produce new generations and turn them over for \'proper civic education\'; pressure in the form of both stick and carrot.  Preferred housing, deferred prosecution for bludging or criminality, you know.  Some of the bachelors even swore there was subtle public censure for those that chose celibacy or isolation - it\'d be easy enough to establish that mindset in a town full of hookers where everybody\'s getting some.</i>"  Sheila spits some gristle onto the ground emphatically.  "<i>Dunno what they wanted the babes for, but speculation ran wild among our little community when the story came back.  At least one whacker\'s theory has it that the Covenant mages themselves wanted a literal dumping ground for their impure thoughts, but more people think they just wanted to raise them true blue, then pair the kids off with hotheaded young knockers who won\'t stop agitating, both to dob on them and root them into line.  Wherever the truth is, our young sheila didn\'t want to feel like she handed her joey over to the Covenant schools in exchange for a dole, and her man supported her.  So that mob is more or less no-go for anyone who doesn\'t want kids or wants to raise them by their own hands.</i>"' );
 		}
 		EngineCore.outputText( '\n\nShe drops her last bone onto the ground between her knees; you\'re still not halfway through your own second helping, thanks to being absorbed in her story.  "<i>Sorry, ya bastard,</i>" she laughs, "<i>did I spoil your appetite with my sad tale?  You\'re the yobbo for askin\'.</i>"' );
 		EngineCore.outputText( '\n\nA broad smile lets you know she\'s just joking as she scatters the cooling fire with her spit, stirring and dispersing the ashes.  "<i>Thanks for the chatter.  Maybe I\'ll see you again.</i>"  Picking up her catch, she turns and lopes off.' );
 		//set sheila xp to 2;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 2;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 2;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//XP2: Familiarizing (Sheila XP = 2; or Sheila XP = 3 AND time =/= 20:00 and demon sheila = 0):;
@@ -733,12 +733,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaFriendlyNoQuestions = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide to hold your tongue and simply mimic her pose as best you can, relaxing on the grass.  The sun is hot but its angle not insistent here, thanks to the shelter from a broad tree nearby.  Its soft rays almost reduce you to sleep over the next forty-five minutes before your companion speaks, rousing you.' );
-		EngineCore.outputText( '\n\n"<i>Didn\'t take ya for a quiet ' + CoC.getInstance().player.mf( 'bloke', 'sheila' ) + ' when we met, [name]... but I find you peaceful company.</i>"' );
+		EngineCore.outputText( '\n\n"<i>Didn\'t take ya for a quiet ' + CoC.player.mf( 'bloke', 'sheila' ) + ' when we met, [name]... but I find you peaceful company.</i>"' );
 		EngineCore.outputText( '\n\nYou raise your head to look, and see Sheila already on her feet, adjusting her catch to sit across her shoulders for easy carrying.' );
 		EngineCore.outputText( '\n\n"<i>You off, then?</i>" you ask, trying not to sound too obviously like someone just awakened.' );
 		EngineCore.outputText( '\n\n"<i>Yeah.</i>"  Sheila turns and departs with her long-legged gait.' );
 		//set sheila xp to 3;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 3;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP2 - Come Here Often?];
@@ -752,7 +752,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>So, the bush it is for most of us.  The gnolls and satyrs, despite being mean as cat\'s piss, are mostly harmless when you can run and hide, and they usually beat down the rare imp or demon who wanders out of that weird caravan - once they catch it.</i>"' );
 		EngineCore.outputText( '\n\nExplanation concluded, she folds her hands over her stomach and resumes staring at the clouds.  You join her for a while, then get up and depart.' );
 		//set sheila xp to 3;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 3;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP2 - Her People];
@@ -767,14 +767,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>It only happens at orgasm, right?  What if one doesn\'t?</i>" you ask.' );
 		EngineCore.outputText( '\n\n"<i>... Not really a problem,</i>" she replies, considering.  "<i>If one\'s frigid, the partner will donate some of their... erm, excess ardor.  If they\'re both frigid, they\'re already the perfect couple in that sense.  The non-sexual rough spots always even out once they actually get in the nuddy.  Newlyweds are still newlyweds and dongers still dongers, right?  Bound to.</i>"' );
 		//[(pc femininity < 35 or whatever it takes to look manly);
-		if( CoC.getInstance().player.femininity < 35 ) {
+		if( CoC.player.femininity < 35 ) {
 			EngineCore.outputText( '  She looks absently at your crotch.' );
 		}
 
 		EngineCore.outputText( '\n\n"<i>Er,</i>" you interject.  "<i>What about same-sex couples?</i>"' );
 		EngineCore.outputText( '\n\nSheila seems taken unawares by the question and a while passes before the reply comes.  "<i>Doesn\'t usually happen.  We\'re pretty clannish and our captains are always whinging on about the need for every young person to bear children and carry on the family line.  But they can be persuaded to look the other way for two blokes or sheilas who\'re set on it - provided one is willing to use chemicals to jury-rig a fertile coupling.  Grow a pair, as it were.  If neither is, then they get the cold shoulder!</i>"  Seeing your look of surprise, she elaborates.  "<i>Not roughly; we\'re always short of labor.  The captains set them up in a space of their own, away from the hurly-burly of those in the family persuasion.  Hard to just flick on someone you\'ve watched over all their life.  And they\'re always welcome to change their minds.</i>"' );
 		//[(lib<50)];
-		if( CoC.getInstance().player.lib < 50 ) {
+		if( CoC.player.lib < 50 ) {
 			EngineCore.outputText( '\n\n"<i>And,</i>" you persist, "<i>what if demons find a village with a transferee?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Well... by agreement, policy usually has the poor reffo being shoved out the back door with a tucker-bag and matilda at the first sign of trouble.  Most captains keep long, collapsible escape tunnels in each wing that can be pulled down after someone passes through and the end is thin enough for one bloke to dig his way out; sometimes they even make the new family build or clear one themselves.  Be surprised how many kids were started in a half-finished evac tunnel when the big digger put his little digger to work during a break.</i>"  Sheila beams a shit-eating grin at you after this comment, and you wonder if she numbers herself among them.' );
 			EngineCore.outputText( '\n\n"<i>Anyway,</i>" she resumes, sobering up, "<i>it\'s no more precarious than anyone else\'s situation as long as the demons control the skies and poison the world.</i>"  She climbs to her feet and picks up the bundle of caught game.  "<i>You\'re making me wanna check on my mob, [name].  I\'ll catch you later.</i>"' );
@@ -787,16 +787,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nYou pretend to a serious, impartial air.  "<i>No, I\'m only wondering what would happen if you decide you love me.  Will you come live with me after enough orgasms?</i>"' );
 			EngineCore.outputText( '\n\nThe girl is now beet red.  "<i>E-even if I liked you, I wouldn\'t leave my mob short-handed like that.</i>"' );
 			EngineCore.outputText( '\n\n"<i>So we just meet up and have fantastic sex in the outdoors' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', and you raise the kids at home?  Or put them with a nanny' );
 			}
 			EngineCore.outputText( '?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Yeah, I suppose that\'ll work' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', and I\'ll turn the kids over to' );
 			}
 			EngineCore.outputText( ' - no, I mean, ' );
-			if( !CoC.getInstance().player.hasCock() ) {
+			if( !CoC.player.hasCock() ) {
 				EngineCore.outputText( 'if I decide' );
 			} else {
 				EngineCore.outputText( 'I\'m not ready for' );
@@ -805,7 +805,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nShe gets to her feet, lips pressed tight and face flushed with embarrassment, and leaves without another word, the bundle of game animals hanging over her shoulder... but what\'s said is said.' );
 			//set sheila xp to 3;
 		}
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 3;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP2 - Curfew?];
@@ -818,7 +818,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nHer people must be quite adept at tunneling, which is strange considering how she at least appears to be designed to run in big open spaces.' );
 		EngineCore.outputText( '\n\n"<i>Bet your ass!  Moles haven\'t got anything on us; we could dig right under you and you\'d never know it until the invasion popped up under your butt and moved in,</i>" the girl answers proudly, when you mention it.  "<i>You\'re not wrong, though... we love the surface and sun; there\'s not one person on the dig crew now who\'s not dreaming of the day he or she gets to rotate off of it and onto hunting or war crew.  Exigencies, you know?  The first shelters were only half-underground when the demons attacked and survived by the grace of whatever gods are left, but we took the hint.</i>"  Sheila climbs to her feet, and nods at you.  "<i>Enough for now... I should really get back.  Catch me later and we can talk more, ok?</i>"' );
 		//set sheila xp to 3;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 3;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 3;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//XP3: Sexy Time (sheila xp = 3 AND time = 20:00 and demon sheila = 0):;
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>What\'s wrong?</i>"' );
 		EngineCore.outputText( '\n\nSheila clings to you, wrapping her arms around, and answers, "<i>I... imp... there was an imp.  He snuck up on me and cast that spell they use, and my body just went soft!  I kicked him and ran, but... but he\'s still following me!  I\'ve seen him...</i>"' );
 		//[(lib < 50)];
-		if( CoC.getInstance().player.lib < 50 ) {
+		if( CoC.player.lib < 50 ) {
 			EngineCore.outputText( '\n\nAn imp?  Really?  Your incredulity must show on your face, because Sheila squeezes harder.  "<i>Please, [name]!  Don\'t leave me alone... I don\'t want to be ruined by an imp just because he got lucky!</i>"  You idly lay a hand on her head as you consider.' );
 		}
 		//(else lib >=50);
@@ -851,9 +851,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'You shake your head, pulling away from the woman and telling her she\'ll be fine.  "<i>No!</i>" she shrieks.  "<i>You gotta help me!</i>"' );
 		EngineCore.outputText( '\n\nYou don\'t have to do any such thing.  It\'s getting darker and you should head home, so you bid the girl farewell and depart, leaving Sheila calling your name - until the sound suddenly cuts off.' );
 		//set sheila corruption = 100 and demon sheila = 1 and sheilacite = -1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 100;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] = 1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CITE ] = -1;
+		CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 100;
+		CoC.flags[ kFLAGS.SHEILA_DEMON ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_CITE ] = -1;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[XP3 - Sex];
@@ -872,14 +872,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Pulling away from you, Sheila gathers her clothing and departs, looking satisfied.  The glance she gives you over her shoulder is even a little warmer than before.' );
 		//i had snoo-snoo!;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[XP3 - Sex - any sex scene - Stay With Her];
 	SheilaScene.prototype.shielaXPThreeSexyTimePostSexStay = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		EngineCore.outputText( 'You grab her tail, provoking a curious, but not discouraging, look from the woman who was planning to spend the night alone.  "<i>What is it, [name]?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Oh... oh Sheila; let me love you \'til the morning comes!</i>"' );
 		EngineCore.outputText( '\n\nSheila blushes.  "<i>You dork... you know that\'s not my real name, right?</i>"  She lowers herself next you, allowing you to slip your hands around her waist.  "<i>Do you really want to stay up with me?</i>"  You answer her with a kiss on the cheek, and she sighs, finally relaxing into your arms.  Sheila snuggles up, then turns and kisses you back.  Breaking the connection only at length, she hums to herself.  "<i>It\'s strange... how you feel so comfortable,</i>" she says, and then halfheartedly adds, "<i>I must have been lonely, right?</i>"' );
@@ -895,35 +895,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.shielaXPThreeSexyTimePostSexStayII = function() {
 		EngineCore.clearOutput();
 		//(has cockfit 32);
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 32 ) >= 0 ) {
 			EngineCore.outputText( 'Her hand slips down to your groin and, overcoming its trepidation, grabs your [cockFit 32] and begins to pump languidly, slowly stimulating blood back into it.  "<i>I don\'t know what\'s come over me,</i>" she says, giggling.  "<i>Maybe I\'m just greedy, but... I want you again.</i>"  She pushes you' );
 			//[(horse)];
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' and you playfully roll' );
 			}
 			EngineCore.outputText( ' onto your back; Sheila slips her leg over you' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'r own' );
 			}
 			EngineCore.outputText( ', positioning herself atop your crotch and guiding your tip to her pussy.  It pokes through the labia slightly, welcomed with warm wetness.  "<i>Is... this ok, [name]?  Can I?</i>"' );
 			EngineCore.outputText( '\n\nYou hold her gaze for half a minute, saying nothing as you wait to see how wanton the woman has become.  She flushes redder, rolling her hips to stimulate herself on your dick as she awaits your answer, but her restraint breaks and she shudders.  "<i>S-sorry!  I can\'t wait anymore!</i>" Sheila cries, sinking onto your cock jerkily and smothering it in her hot insides.  "<i>Ah-ah-ah!  You feel so good.</i>"' );
 			EngineCore.outputText( '\n\nShe slumps against you and swivels, stirring herself with your tool.  "<i>[name], you\'re awful... making me beg for it,</i>" Sheila says, kissing you' );
 			//[(not horse)];
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' just above one ' + Descriptors.nippleDescript( 0 ) );
 			} else {
 				EngineCore.outputText( ' on the thigh' );
 			}
 			EngineCore.outputText( '.  "<i>I\'m gonna have to punish you for it, you dag.</i>"  Excusing herself thusly, she sits up and begins to slide up and down your [cockFit 32].  ' );
 			//[(not horse)];
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'Your hands squeeze her hips almost of their own volition, helping her slam down with force, and her head rolls back on her neck.  ' );
 			}
 			EngineCore.outputText( 'Her ' );
 			//[(sheila corruption < 30)];
-			if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] < 30 ) {
+			if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] < 30 ) {
 				EngineCore.outputText( 'little breasts rise and fall with increasing frequency atop her ribcage as her pace picks up and her breaths come short and shallow.' );
-			} else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] > 60 ) {
+			} else if( CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] > 60 ) {
 				EngineCore.outputText( 'huge tits jiggle magnificently as she rocks, nearly slapping her in the face as she plunges down and then falling back into place with waves of rippling flesh.' );
 			} else {
 				EngineCore.outputText( 'breasts quiver invitingly as she pumps your cock, but before you can think of grabbing one yourself, both of her hands are squeezing and caressing them, drawing sighs from the woman as she toys with her erect nipples.' );
@@ -932,17 +932,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nSheila struggles against her own impulses, trying to make good on her promise to \'punish\' you, but it\'s a losing battle.  Her hips slide back and forth even as she pulls in and out now, shifting angle to aim the tip of your dick against her vaginal walls when she sinks down on it, and her mouth hangs open constantly.  You grit your teeth, trying to endure the sensations as she uses your tool to scratch every one of her itches, but your lover has no such reserve left.  "<i>No... n-no,</i>" Sheila moans, "<i>too soon!  Oh, too soon!</i>"' );
 			EngineCore.outputText( '\n\nGod, this girl really is easy.  Sheila\'s vagina convulses around your dick, and she falls forward again as most of her body locks up, covering your ' );
 			//(horse);
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'barrel' );
 			} else {
 				EngineCore.outputText( 'chest' );
 			}
 			EngineCore.outputText( ' in her soft hair - but her hips keep pumping, incredibly.  ' );
 			//(pc corr >= 90 or > sheila corruption);
-			if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
-				EngineCore.outputText( '  The tight, rippling muscles of her pussy clamp down on you, nearly holding your cock in place as she tries to ride you still but only manages to jerk your dick up and down and squeeze pre-cum from it.  "<i>S-so full,</i>" Sheila groans, "<i>did you just get bigger in me?</i>"  Her lungs inflate as she sucks in her breath, and her hard nipples push into your ' + CoC.getInstance().player.skinFurScales() + '.' );
-			} else if( CoC.getInstance().player.cor < CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
-				EngineCore.outputText( '  Her pussy clamps down around you, the rippling muscles so tight that she wouldn\'t even be able to pump if it weren\'t for the hot river of juice you feel around your tool.  "<i>A-ah,</i>" Sheila groans, "<i>you thrust too!  Rail me silly!</i>"  She tries to push against you with her hands, to return herself to an upright position, but can barely pull her chest apart from you - her nipples just narrowly recede from the surface of your ' + CoC.getInstance().player.skinFurScales() + ' as her efforts peak.' );
+			if( CoC.player.cor >= 90 || CoC.player.cor > CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+				EngineCore.outputText( '  The tight, rippling muscles of her pussy clamp down on you, nearly holding your cock in place as she tries to ride you still but only manages to jerk your dick up and down and squeeze pre-cum from it.  "<i>S-so full,</i>" Sheila groans, "<i>did you just get bigger in me?</i>"  Her lungs inflate as she sucks in her breath, and her hard nipples push into your ' + CoC.player.skinFurScales() + '.' );
+			} else if( CoC.player.cor < CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+				EngineCore.outputText( '  Her pussy clamps down around you, the rippling muscles so tight that she wouldn\'t even be able to pump if it weren\'t for the hot river of juice you feel around your tool.  "<i>A-ah,</i>" Sheila groans, "<i>you thrust too!  Rail me silly!</i>"  She tries to push against you with her hands, to return herself to an upright position, but can barely pull her chest apart from you - her nipples just narrowly recede from the surface of your ' + CoC.player.skinFurScales() + ' as her efforts peak.' );
 			}
 			//(else if magically equal but < 90);
 			else {
@@ -950,67 +950,67 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( '  Your dick twitches and swells, as if to fulfill her words, and your pelvis rocks into Sheila\'s as you begin to ejaculate.  "<i>No... pull out, or you\'ll get me pregnant,</i>" she cries, when ' );
 			//[(single cox);
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'your dick twitches inside her' );
 			}//(multicox);
 			else {
 				EngineCore.outputText( 'she spies the first bead of pearly semen exiting' );
 			}
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( ' your lonely, unused prick' );
 			}
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( ' each of your lonely, unused pricks' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\n"<i>You do it!  You\'re on top!</i>" you retort, suppressing your climax for a scant few seconds with willpower alone.' );
 			EngineCore.outputText( '\n\nSheila attempts to lift her still-spasming pussy off of your shaft, but wracked by her own orgasm, goes tense again.  "<i>F-fuck it!  Can\'t!  Come inside me, [name]!</i>"  At the invitation, your walls break down, and your penis sprays your held-back semen into your lover' );
 			//[(multi)];
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ', to be joined shortly by a messy external eruption that covers her thighs and belly in blotches of gooey white' );
 			}
 			EngineCore.outputText( '.' );
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '  It rolls out of you in waves, packing Sheila\'s cunt until she fills to capacity and the excess is forced out, sliming your own crotch.' );
 			}
 			//reduce lust/lib and reset hours since cum; if sheila corruption >= 90 and pc corruption >= 90, redirect to demonization; else continue;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -2 );
-			if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+			if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 				return;
 			}
 			EngineCore.outputText( '\n\nFinally spending yourselves, Sheila slides forward and lets your dick flop free; a warm, wet patch spreads on your stomach as her pussy drools out some of your deposit.  She kisses you repeatedly, fairly glowing with satisfaction, until she exhausts her affection and rolls off of you.  The two of you lie there again, peaceful for the most part - though as she nervously recounts what just happened in her head, her hands keep darting to her midriff.' );
 			//[(corr < 30)];
-			if( CoC.getInstance().player.cor < 30 ) {
+			if( CoC.player.cor < 30 ) {
 				EngineCore.outputText( '\n\n"<i>Relax,</i>" you say, capturing one and squeezing it.  She looks over at you, her amber eyes measuring you carefully, and at length rewards you with a smile and a shy nod.' );
 			}
 			//sheilapreg check, reset hours since cum; if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
 			this.sheilaPreg();
 			this.sheilaCorruptionUpdate();
-			/*if(CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			/*if(CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -5);
 			 this.sheilaCorruption(5);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 5);
 			 this.sheilaCorruption(-5);
 			 }*/
 		}
 		//(if no cockFit 32 and yes vag);
-		else if( CoC.getInstance().player.hasVagina() ) {
-			EngineCore.outputText( 'Her hand slips to your groin and, overcoming its trepidation, slides two fingers into your [vagina], stimulating you and forcing hardness back into your [clit].  "<i>I don\'t know what\'s the matter with me,</i>" Sheila says, nervously.  "<i>I\'m not usually aroused by ' + CoC.getInstance().player.mf( 'hermaphrodites unless they have a donger that\'ll fit', 'girls' ) + ', but you\'re different.  I wonder what this feeling is...</i>"' );
+		else if( CoC.player.hasVagina() ) {
+			EngineCore.outputText( 'Her hand slips to your groin and, overcoming its trepidation, slides two fingers into your [vagina], stimulating you and forcing hardness back into your [clit].  "<i>I don\'t know what\'s the matter with me,</i>" Sheila says, nervously.  "<i>I\'m not usually aroused by ' + CoC.player.mf( 'hermaphrodites unless they have a donger that\'ll fit', 'girls' ) + ', but you\'re different.  I wonder what this feeling is...</i>"' );
 			EngineCore.outputText( '\n\n"<i>Love, of course,</i>" you answer, smiling smugly despite the pleasure tightening your body.' );
 			EngineCore.outputText( '\n\nSheila\'s hand stops and she looks upset for a moment, as if she were worried that might actually be the case.  "<i>Do you really think so, mate?</i>"' );
 			EngineCore.outputText( '\n\nIrritated, you pull away from her and sit up, then push the timorous woman onto her back.  "<i>Don\'t dwell on it so much.  Be happy you have someone who wants you as well.</i>"  Spreading her legs, you expose her slight, smooth labia and tickle them with a finger, opening them gently.  Sheila gasps, tensing and relaxing in the waves of sensation, and her pussy begins to drool clear lubricant onto your finger.  "<i>If you can get into it like this, what\'s the problem?</i>"' );
 			EngineCore.outputText( '\n\n"<i>R-right,</i>" she pants, as she releases another trickle of fluid.  "<i>Ohh god... fuck me.  I don\'t care how, just fuck me, please!</i>"' );
 			EngineCore.outputText( '\n\nSmiling, you kiss her softly on the inner thigh, then withdraw your hand.  ' );
 			//[(horse)];
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You turn around and straddle a leg, squatting to bring your [vagina] atop her crotch.  "<i>Push up,</i>" you order, and Sheila obeys eagerly, twisting her body to connect her excited pussy with yours.' );
 			}//(else if naga);
-			else if( CoC.getInstance().player.isNaga() ) {
+			else if( CoC.player.isNaga() ) {
 				EngineCore.outputText( 'You slide it under her and lift gently; Sheila plays along with a disquieted expression, rolling over and raising her pussy into the air, and you press your own against her butt as your tail slides between her legs.  "<i>See, you just need to be more... flexible,</i>" you quip.' );
 			}//(else if not horse and not naga);
 			else {
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '; I worry that they\'re getting too mountainous' );
 			}
 			EngineCore.outputText( '.</i>"  A hand drifts up to her nipple, pinching it as her mouth hangs open.  She rolls it in her palm, then presses the breast against her ribcage, and her shiver of arousal transmits to you through' );
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' her taut buttcheek' );
 				EngineCore.outputText( '.' );
 				EngineCore.outputText( '\n\nYou smile at her insecurity, and slide your hands under her chest to cup her tits.  "<i>Do you like having your breasts touched?  Does it make you feel womanly?</i>"  Sheila answers by writhing in your grip, moaning again and pushing her ass against your [vagina].' );
@@ -1041,7 +1041,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>[name],</i>" Sheila pants, "<i>I\'m gonna come soon if you keep doing that!</i>"' );
 			EngineCore.outputText( '\n\nIn answer, you thrust even harder against her, crossing her netherlips furiously with your' );
 			//[(naga) ;
-			if( CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.isNaga() ) {
 				EngineCore.outputText( ' tail, drawing it up the hot opening and coiling it so you can return the warm, lube-slicked length for another pass even as you hump her butt.' );
 			} else {
 				EngineCore.outputText( ' cunt, grinding her like a sex toy in search of your own climax.' );
@@ -1049,29 +1049,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  "<i>Do it!</i>" you order, anxious to feel her pussy convulsing against you, anxious to feel your own squeezing her.  "<i>Come with your lesbian lover!</i>"' );
 			EngineCore.outputText( '\n\nSheila\'s skin turns ruddy red in embarrassment as her body locks up, and her climax starts.  "<i>Oh god... oh... I wish you\'d kiss me!</i>"' );
 			//[(pc corr >= 90 or > sheila corruption);
-			if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+			if( CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption() ) {
 				EngineCore.outputText( '  Her vagina doesn\'t wait for romance, spasming and opening wide to try to suck you in, pulling at your ' );
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( 'scales' );
 				} else {
 					EngineCore.outputText( 'pussy' );
 				}
 				EngineCore.outputText( ' until you can take no more of the heat and come as well.' );
 				//[(naga)];
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( '  Her breasts swell in your hands as she sucks in her breath sharply, feeling your pussy drool its juice onto her ass.' );
 				}
 			}
 			//(else if PC corr < sheila corruption);
-			else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+			else if( CoC.player.cor < this.sheilaCorruption() ) {
 				EngineCore.outputText( '  Her vagina doesn\'t wait for symbolism, dumping a wave of orgasm that splashes almost audibly against you.  Your pussy answers with your own climax, and begins wetting the woman underneath' );
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( '; it feels like her breasts are pulling away from you as she tries to push her ass further into your quivering quim' );
 				}
 				EngineCore.outputText( '.' );
 			} else {
 				EngineCore.outputText( '  Her vagina drools and spasms, not interested in gestures so much as release, and coats ' );
-				if( CoC.getInstance().player.isNaga() ) {
+				if( CoC.player.isNaga() ) {
 					EngineCore.outputText( 'your tail' );
 				} else {
 					EngineCore.outputText( 'your own' );
@@ -1079,9 +1079,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( ' with a fresh coat of her hot fluids which trigger the expected response from you.' );
 			}
 			//(if cock);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '  Your neglected ' );
-				if( CoC.getInstance().player.cockTotal() === 1 ) {
+				if( CoC.player.cockTotal() === 1 ) {
 					EngineCore.outputText( 'prick quakes and spurts' );
 				} else {
 					EngineCore.outputText( 'pricks quake and spurt' );
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( ' weakly, drooling semen that pools on her skin.' );
 			}
 			//[(not horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '\n\nLeaning down as your cunt works through your climax and pulling Sheila\'s head up to yours, you kiss her softly on the lips.  She draws you in with an eagerness mirroring her pussy\'s, probing your mouth with her little pink tongue, and holds you lip-locked like that until her orgasm ends and she slumps in your arms.  You lower her to the ground as your last strokes fire, then fall beside her.' );
 			}//(else if horse);
 			else {
@@ -1097,16 +1097,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 
 			//reduce lust/lib and reset hours since cum; if sheila corruption >= 90 and PC corr >= 90 go to demonization here, else continue;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -2 );
-			if( this.sheilaCorruption() >= 90 && CoC.getInstance().player.cor >= 90 ) {
+			if( this.sheilaCorruption() >= 90 && CoC.player.cor >= 90 ) {
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 				return;
 			}
 			EngineCore.outputText( '\n\nSheila cuddles up to you, slipping an arm over your body, and you lie like that for a while before she speaks.  "<i>[name]... ' );
 			//(not horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'maybe I do love you...</i>"\n\nYou turn over and look in her eyes and she abandons the thought.  "<i>Only having you on,</i>" she says, smiling and caressing your cheek.' );
 			} else {
 				EngineCore.outputText( 'you didn\'t kiss me.</i>"\n\nYou turn over and look into her eyes.  "<i>Of course not,</i>" you answer.  "<i>I\'m a horse.</i>"  You grimace and lift  your lips away from your teeth, giving her your best impression of a horse\'s gummy smile, and she cracks up.' );
@@ -1115,10 +1115,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
 			this.sheilaCorruptionUpdate();
 			/*
-			 if(CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			 if(CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -5);
 			 this.sheilaCorruption(5);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 5);
 			 this.sheilaCorruption(-5);
 			 }*/
@@ -1127,17 +1127,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			EngineCore.outputText( 'Her hand lowers to her crotch and slides her middle finger into her pussy.  "<i>I don\'t know what\'s wrong with me,</i>" Sheila says, nervously.  "<i>I\'m not even sure why I get hot when I think of you... you don\'t have anything I can use.</i>"' );
 			EngineCore.outputText( '\n\nYou smile at the admission' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', stroking your oversized tool despite her dismissal' );
 			}
 			EngineCore.outputText( '.  "<i>But you do?</i>"' );
 			EngineCore.outputText( '\n\nSheila reddens a bit and nods again, still frigging herself.  "<i>But I feel like an arse, ogling you without reason or sense; like I\'m a goblin or something, getting wet for anyone she meets.</i>"' );
 			EngineCore.outputText( '\n\n"<i>And yet,</i>" you reply.  Emphasizing your unspoken point, you grab Sheila\'s hand and pull it out of her crotch, popping the finger into your mouth.  Sheila shivers as you roll it on your tongue, and her pussy drools a drop of lube.  Smiling, you substitute your own hand for hers, penetrating the slick hole.  The woman\'s free hand quickly goes to yours, but simply rests atop it, caressing you and offering no resistance as you draw your fingers in and out of her.  Her mouth forms the word \'no\', but the only sound that comes out is a soft sigh.' );
 			//[(coc, new PG);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nSheila pulls her finger from your mouth as she shifts closer to you, giving you yet more leverage over her vagina.  The hand ' );
 				//(mans);
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( 'falls into your lap' );
 				}//(horse);
 				else {
@@ -1149,74 +1149,74 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//(new PG);
 			EngineCore.outputText( '\n\nYou work her soaked pussy over, plunging fingers in deep with little regard for anything but hitting nerves, and caressing her small, erect clitoris with your palm as you go.  At every touch, you whisper to her what a naughty girl she is; she responds by flicking her ear at you, but you reverse by blowing and nibbling on the long auricles, sending shivers through her body.  "<i>Oh, my... seems this wanton woman has sensitive ears, doesn\'t it?</i>" you tease, drawing out the syllables to hum into her skin.  Soon Sheila\'s melting against you, crying out her climax into your shoulder.' );
 			//[(pc corr >= 90 or > sheila corruption)];
-			if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+			if( CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption() ) {
 				EngineCore.outputText( '  Her vagina heats up, squeezing your fingers so hard that you nearly can\'t pull out to rub her again, and you have a clear view of her breasts swelling up - arguable proof of your prowess, considering what she told you earlier.  Her people must be terrible at faking orgasm.' );
 			}//(pc corr < sheila corruption);
-			else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+			else if( CoC.player.cor < this.sheilaCorruption() ) {
 				EngineCore.outputText( '  Her vagina gushes with clear fluid, filling the bowl made by your hand with warmth, and you think you can see her breasts tightening up slightly as her back arches, though it\'s hard to be sure with how she\'s shaking.' );
 			} else {
 				EngineCore.outputText( '  Her pussy quivers around you, and you draw the fingers out and pop them into Sheila\'s mouth.  The woman sucks on them greedily, and you raise an eyebrow at her.  She blushes again, but it\'s evidently not the first time she\'s done the same thing!' );
 			}
 
 			//if sheila corruption >= 90 and PC corruption >= 90, go to demonization, else continue;
-			if( this.sheilaCorruption() >= 90 && CoC.getInstance().player.cor >= 90 ) {
+			if( this.sheilaCorruption() >= 90 && CoC.player.cor >= 90 ) {
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 				return;
 			}
 			//[(cocks);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '\n\nYou reclaim your hand and rest it atop Sheila\'s, forcing the climax-addled woman to stroke again; she gasps apologetically and resumes with jerky, weak motions.  Irritated and almost at your peak, you up the pace, getting your hips into it until you\'re practically fucking her palm.  You tilt your pelvis toward Sheila, angling your prick at her face as you prepare to blow your load; she recoils slightly at first, but guiltily moves her mouth to your [cockHead], kissing the tip and playing her tongue over the hole.  The tingle of nerves pushes you over the brink, and you grab her head and hold it as you squirt seed past her lips.' );
 				//[(big skeet);
-				if( CoC.getInstance().player.cumQ() > 1000 ) {
+				if( CoC.player.cumQ() > 1000 ) {
 					EngineCore.outputText( '  Her mouth fills quickly, and she writhes in your grip, managing to turn her head.  "<i>Oh god, no way!</i>" she coughs, spitting up enough semen to coat her chin as your ongoing orgasm spatters against her cheek.' );
 				}
 				//[(mega skeet);
-				if( CoC.getInstance().player.cumQ() >= 2000 ) {
+				if( CoC.player.cumQ() >= 2000 ) {
 					EngineCore.outputText( '  Not satisfied with that alone, you turn her head the other way for your finish, ejaculating on the rest of her face and completing her gooey, white beard as she squirms.' );
 				}
 				//[(multicock);
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '  The other strokes not coming from this cock do their part to decorate your lover as well, turning her hair into a slimy mess.' );
 				}
 				EngineCore.outputText( '  She escapes from your hand as you spend yourself, leaning away and gagging up seed onto the dry grass.' );
 			}
 			EngineCore.outputText( '\n\nThe woman falls weakly backward' );
 			//(cock.length > 0);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', her face still covered in globby white smears' );
 			}
 			EngineCore.outputText( '.  "<i>Fuck...</i>" she groans.  "<i>You\'re a jerk, [name].' );
 			//[(cock.length > 0);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( '  I can\'t believe you called me a goblin, you arsehole.' );
 			}
 			EngineCore.outputText( '</i>"' );
 			EngineCore.outputText( '\n\nYou ' );
 			//[(cock.length > 0);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'can\'t believe how much she acts like one sometimes... but you ' );
 			}
 			EngineCore.outputText( 'just laugh and tug her ear; she flicks it and pulls away from you, backhanding you softly in the gut.  "<i>Knock it off!</i>"' );
 			EngineCore.outputText( '\n\n"<i>Are you really so worried about it?</i>" you ask.  No answer comes' );
 			//[(cock.length > 0);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', even after Sheila finishes wiping her face clean and stares at you' );
 			}
 			EngineCore.outputText( ', so you just content yourself with lying next to the woman for a while.' );
 			//reset hours since cum and reduce lust/lib since cum if cock, else add mild lib-based lust damage if no cock; if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
-			if( CoC.getInstance().player.hasCock() ) {
-				CoC.getInstance().player.orgasm();
+			if( CoC.player.hasCock() ) {
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', -2 );
 			} else {
-				EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 4 );
+				EngineCore.dynStats( 'lus', CoC.player.lib / 4 );
 			}
 			this.sheilaCorruptionUpdate();
 			/*
-			 if(CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			 if(CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -5);
 			 this.sheilaCorruption(5);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 5);
 			 this.sheilaCorruption(-5);
 			 }*/
@@ -1228,11 +1228,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nYou nod sagely and get up to dress.  Sheila, or Harriet, does the same, shimmying into her panties and shorts quickly and pulling her top on.  Finished, she drags you off to the night\'s lodgings anxiously, hat in hand and body language more closely resembling a giddy girl\'s on her first date than a grizzled, solitary hunter\'s.' );
 		//advance time to 6:00, gain 3 hours rest;
 		EngineCore.fatigue( -20 );
-		EngineCore.HPChange( CoC.getInstance().player.maxHP() / 2, false );
-		if( CoC.getInstance().time.hours > 6 ) {
-			CoC.getInstance().time.days++;
+		EngineCore.HPChange( CoC.player.maxHP() / 2, false );
+		if( CoC.time.hours > 6 ) {
+			CoC.time.days++;
 		}
-		CoC.getInstance().time.hours = 6;
+		CoC.time.hours = 6;
 		EngineCore.statScreenRefresh();
 		EngineCore.doNext( EventParser.playerMenu );
 	};
@@ -1243,12 +1243,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Whatever you think best,</i>" you answer, turning your back to her.  "<i>I\'ll watch out for trouble; </i>you<i> decide how to get out of this.</i>"' );
 		EngineCore.outputText( '\n\nSheila releases you and turns around as well, folding her legs under herself and sitting on her knees to consider.  True to your word, you scan the horizon and sky for anything that could pose a threat' );
 		//[(PC level >=8);
-		if( CoC.getInstance().player.level >= 8 ) {
+		if( CoC.player.level >= 8 ) {
 			EngineCore.outputText( ' - which, you suppose, must include imps even though they\'re so far beneath you they might as well be underground' );
 		}
 		EngineCore.outputText( '.  You stand there for so long that you nearly slip into a daydream, and are only roused by the noise of a leather belt being carefully unfastened.  Focused again, you can hear Sheila\'s ragged breathing and her thighs rubbing together, then a hand sliding against skin and fabric... seems like she\'s made her decision.' );
 		//[(lib<40);
-		if( CoC.getInstance().player.lib < 40 ) {
+		if( CoC.player.lib < 40 ) {
 			EngineCore.outputText( '\n\nWell, that\'s none of your concern.  Although you wouldn\'t really consider these erotic surroundings, the choice does make a certain kind of sense, based on what she\'s told you.  You continue studiously monitoring the plains, trying to ignore the wet sounds of female masturbation.  The scrapes of cloth intensify as well, as another hand is slipped into something else - the new noises seem to coincide with Sheila\'s breaths, as each sound is followed by the soft \'haahh\' of her exhalation.' );
 			EngineCore.outputText( '\n\nThis continues for several minutes, the wet sounds gradually drowning out all the others, increasing in tempo and volume, until suddenly they stop.  "<i>Nnnn...</i>" Sheila moans, quietly.  "<i>Oh god, [name], you\'re amazing!</i>"' );
 			EngineCore.outputText( '\n\nOk, that\'s too much.  You turn back; Sheila\'s seated with shorts pulled down slightly and legs spread, one hand in her crotch and another roughly groping her breast, and is staring over her shoulder at you with an expression of total horror.  "<i>Did you-</i>" you begin, only to be cut off as she shakes her head violently.' );
@@ -1262,7 +1262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nThat seems to tear down a dam in the woman; her eyes widen and she nods, sitting up again.  You circle around to her front side, and she bites her lip and looks away guiltily - but still tugs the wet cloth free of her entrance, revealing her smooth labia.  A strand of moisture connects them to the panties briefly, but falls away when she reinserts her fingers, spreading herself and searching out her entrance once more.  "<i>Is... is this what you meant?</i>" she asks, shyly.' );
 			EngineCore.outputText( '\n\nYou smile approvingly.  "<i>That looks just about right.  Perfect, almost.  It\'s only missing one thing.</i>"  Sheila stares at you without understanding, fingering herself only halfheartedly while she tries to work out your meaning, until you ' );
 			//[(cock.length > 0);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'shift your pelvis forward' );
 			}//(cock.length === 0);
 			else {
@@ -1276,8 +1276,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>[name],</i>" Sheila begins, leaving the thought unfinished.  She puts out a hand, and you absently reach out to shake it, until you notice the glistening wetness at the tips of her fingers.  Sheila looks down, following your gaze, then starts and wipes the liquid hurriedly on her shorts.  "<i>... can\'t believe I did that,</i>" she mumbles.  "<i>Um, I\'ll be alright now.  Bye.</i>"' );
 		EngineCore.outputText( '\n\nYou smile and offer to stay with her a bit longer, but Sheila turns beet-red and shakes her head, departing without another word.' );
 		//set sheila xp = 4, small lib-based lust damage if lib < 40, or large if lib >= 40; advance time 1 hr;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
-		if( CoC.getInstance().player.lib < 40 ) {
+		CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
+		if( CoC.player.lib < 40 ) {
 			EngineCore.dynStats( 'lus', 5 );
 		} else {
 			EngineCore.dynStats( 'lus', 15 );
@@ -1315,7 +1315,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'In answer, you reach down to pinch her butt and then ' );
 		//[(not horse or drider);
-		if( !CoC.getInstance().player.isTaur() && !CoC.getInstance().player.isDrider() ) {
+		if( !CoC.player.isTaur() && !CoC.player.isDrider() ) {
 			EngineCore.outputText( 'scoot your own forward' );
 		} else {
 			EngineCore.outputText( 'fold your legs under you' );
@@ -1342,7 +1342,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.addButton( 1, 'Old Loves', this.fuckBuddySheilaMeetingChatOldLoves );
 		EngineCore.addButton( 2, 'Why Hide?', this.fuckBuddySheilaMeetingChatWhyHide );
 		EngineCore.addButton( 3, 'LiveWithMe', this.fuckBuddySheilaMeetingChatLiveWithMe );
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] > 0 ) {
 			EngineCore.addButton( 4, 'Kids', this.fuckBuddySheilaMeetingChatKids );
 		}
 	};
@@ -1362,7 +1362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nWatching her jaw work angrily, you decide on a change of subject.  "<i>What about your friends?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Guess you\'d call them work buddies.  I\'m the girl in the group, so eventually I got upgraded from \'the sheila\' to just \'Sheila\'.  Like I said... wankers.  They\'re mostly blokes who glued themselves to me when they heard who my mum was, probably hoping I\'d take after her eventually.  Too bad for them, I always wanted to be like my dad instead.</i>"  She grins wickedly.' );
 		//[(lib>=50)];
-		if( CoC.getInstance().player.lib >= 50 ) {
+		if( CoC.player.lib >= 50 ) {
 			EngineCore.outputText( '\n\n"<i>Oh,</i>" you say, leaning in conspiratorially, "<i>not so interested in sex?</i>"' );
 			EngineCore.outputText( '\n\n"<i>We need food and shelter, [name].  My job is important.  It\'s no good to have thirty kids and only one adult on her feet doing work.  I wish my mum got that... it\'s not that I don\'t want to find someone, it\'s that I don\'t want to be another lazy bludger who sits at home all day with a babe at her breast and her legs open, depending on her man for everything.</i>"' );
 			EngineCore.outputText( '\n\nTrue as that may be, she didn\'t answer the question; you draw closer, raising an eyebrow.' );
@@ -1390,17 +1390,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.fuckBuddySheilaMeetingChatOldLoves = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>[name], I don\'t want to talk about that,</i>" Sheila says, "<i>it leaves a bad taste in my mouth.</i>"' );
-		EngineCore.outputText( '\n\nYou offer to tell her about your own history, as an enticement, but she shakes her head.  "<i>I don\'t want to talk about that either!  Look, no matter how cosmopolitan, nobody really wants to hear about the dicks ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' girl\'s had growing out of her face.  I mean, how many is the right answer?</i>"' );
+		EngineCore.outputText( '\n\nYou offer to tell her about your own history, as an enticement, but she shakes her head.  "<i>I don\'t want to talk about that either!  Look, no matter how cosmopolitan, nobody really wants to hear about the dicks ' + CoC.player.mf( 'his', 'her' ) + ' girl\'s had growing out of her face.  I mean, how many is the right answer?</i>"' );
 		EngineCore.outputText( '\n\nChanging tack, you point out that Sheila would have inherited some personality from them, thanks to her... situational empathy... so it\'s only fair if you know a little bit, right?' );
 		EngineCore.outputText( '\n\nShe lowers her eyelids at you.  "<i>That\'s a boomer of an assumption.  And, it\'s not like you can do anything special even if you know, mate.  What I am is what I am.  It doesn\'t really matter anyway, since I\'ll be getting closer to </i>your<i> personality if... well.</i>"  Sheila looks at you coquettishly.' );
 		EngineCore.outputText( '\n\n"<i>Does that mean that eventually you </i>will<i> be comfortable talking about it?</i>" you ask, with a broad smile.' );
 		EngineCore.outputText( '\n\nThe woman stifles a laugh.  "<i>[name], that\'s not funny.  I... guess I would, though it\'ll take a while since I feel so strongly.  Deadset, there\'s not much to know; I promise.  Ask again after we\'ve been together so much we have the same accent - after ten years of happy marriage, maybe.</i>"' );
 		//[(lib < 50)];
-		if( CoC.getInstance().player.lib < 50 ) {
+		if( CoC.player.lib < 50 ) {
 			EngineCore.outputText( '\n\n"<i>Does that actually happen?  Couples sounding alike?</i>"  Privately, you can\'t even imagine understanding, let alone using, half the words she does.' );
 			EngineCore.outputText( '\n\n"<i>It does... my mum used to talk like a rich girl.  Still did, when I was coming up.  But after being with my dad for so long and so... often, they\'re pretty much the same person now, no matter how much I separate them in my head.  It\'s not that the words bleed over, just that they stop sounding wrong to you.  I already catch myself thinking of what you might call a thing once in a while and have to correct it before I say it to one of my mates - it might just be because I think you\'re bonzer, though.</i>"  Sheila grins toothily, pressing your hand.' );
 			EngineCore.outputText( '\n\nLike that... what does \'bonzer\' even mean?' );
-			EngineCore.outputText( '\n\nThe woman colors a bit and looks down.  "<i>Er...</i>" she mumbles, "<i>it means you\'re great, [name].  Top shelf.  My favorite ' + CoC.getInstance().player.mf( 'bloke', 'sheila' ) + '.</i>"' );
+			EngineCore.outputText( '\n\nThe woman colors a bit and looks down.  "<i>Er...</i>" she mumbles, "<i>it means you\'re great, [name].  Top shelf.  My favorite ' + CoC.player.mf( 'bloke', 'sheila' ) + '.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Oh.  Is that so?</i>" you ask, facetiously.' );
 			EngineCore.outputText( '\n\n"<i>Don\'t tease me so much,</i>" she says, pulling your arm around her.  "<i>You drive me crazy.</i>"' );
 			EngineCore.outputText( '\n\n"<i>You\'ll get used to it.</i>"' );
@@ -1412,14 +1412,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>Well you should soon, if you want to get started on those ten years.</i>"' );
 			EngineCore.outputText( '\n\nThe woman looks away and folds her arms over her chest' );
 			//[(sheila corruption >=60)];
-			if( CoC.getInstance().player.cor >= 60 ) {
+			if( CoC.player.cor >= 60 ) {
 				EngineCore.outputText( ' - though it\'s probably meant to be a defensive gesture, all it does is push her tits together under her white shirt and frame them in light-brown skin' );
 			}
 			EngineCore.outputText( '.  "<i>[name], you horny whacker, I\'m not gonna marry you.  Having to bull my way through a horde of monsters to see you and stand watch in shifts just to sleep together at night may be romantic once, but it\'s no kind of thing to do every day for the rest of my life.</i>"' );
 			EngineCore.outputText( '\n\nA bit unnerved, you ask if she really means that - if she intends to stop seeing you because your relationship will be a difficult one if the demons aren\'t defeated.' );
 			EngineCore.outputText( '\n\nSheila seems increasingly distraught as she considers that logical conclusion.  "<i>N-no... I don\'t wanna!</i>" she finally blurts childishly, dropping her posture and throwing her arms around you.  "<i>I don\'t want to let you go, and I don\'t want to have to hide in the ground while you\'re out here in danger; I want to stay with you!  I wish the demons would all just go to hell so I could have a proper life!</i>"  She remains like that for several minutes, face pressed against you until her sniffling and shaking stop' );
 			//[(corr < 30);
-			if( CoC.getInstance().player.cor < 30 ) {
+			if( CoC.player.cor < 30 ) {
 				EngineCore.outputText( '; you lay a hand on her shoulder reassuringly' );
 			}
 			EngineCore.outputText( '.  Eventually she pulls away again, nose slightly red.  "<i>Sorry, mate; didn\'t mean to have a tantrum on you.</i>"' );
@@ -1435,7 +1435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Her eyes cloud as she looks at you dubiously.  "<i>Well, it\'s like I said before.  If a demon catches one of us, we\'re done for.  You know, I\'m sure, that when a demon manages to get a mug to want pleasure more than anything and turn into a demon as well, they get a free souvenir in the form of those little  crystals that grant them powers.  Imagine how many of those arses would love to find a hundred or so of us in one place, just lacking some stimulation to turn us into a birthday party and a pile of free godlike power trinkets.  That\'d be all of them, y\'see.</i>"' );
 		EngineCore.outputText( '\n\nYou wave off her glare.  Seems like it\'d still be better to have everyone in one place, to watch out for each other instead of shriveling up slowly without support.' );
 		//(if T'A);
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
+		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
 			EngineCore.outputText( '  After all, the city in the desert seems to be bustling and bristling with weapons to resist the demons, whatever her feelings may be about it.' );
 			EngineCore.outputText( '\n\nSheila snorts dismissively, considers, then speaks again.  "<i>Suppose so... but one bad apple and the whole lot\'s spoiled from inside.  Next time you go there, try asking how often they\'ve come close to being homeless because some horny or greedy hoon put himself first and tracked in dirt.  We may be weak enough that you can close down a cave or two, but we breed fast and we\'ll survive until we\'re numerous enough to fight.</i>"  She shakes her head.' );
 		}
@@ -1458,17 +1458,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.fuckBuddySheilaMeetingChatKids = function() {
 		EngineCore.clearOutput();
 		//if joeycount = 1;
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] === 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] === 1 ) {
 			EngineCore.outputText( '"<i>Ah?</i>" Sheila says, turning toward you sheepishly.' );
 			EngineCore.outputText( '\n\n"<i>I said, \'how\'s the kid doing?\',</i>" you repeat.' );
 			EngineCore.outputText( '\n\n"<i>I heard you, mate... I was just a little surprised.</i>"  Sheila wraps her arm around yours.  "<i>The baby\'s fine.  Eats well and loves attention.  The other day I stuck my finger into that chubby little hand and it closed around me and wouldn\'t let go... I sat there for about an hour, just watching and sighing.  Sometimes it feels like I\'m turning into one of those mush-headed new moms that always embarrassed me before, though.</i>"  She looks at you with a half-smile.' );
 			EngineCore.outputText( '\n\n"<i>Strong grip?</i>" you ask.' );
 			EngineCore.outputText( '\n\n"<i>You really are serious about this, aren\'t you?</i>" Sheila mumbles.  You nod, and she continues.  "<i>You remind me of my dad... once I brought the joey home and told him about us, he was in the nursery to check on it all the time.  He says he wants to meet the man who was able to father such a healthy baby with his little girl - ' );
 			//[(if PC femininity > androgynous)];
-			if( CoC.getInstance().player.femininity > 50 ) {
+			if( CoC.player.femininity > 50 ) {
 				EngineCore.outputText( 'I don\'t know how he\'ll react when he sees a pretty face like yours, though; he doesn\'t know that I\'m-' );
 				//[(PC is herm, fem);
-				if( CoC.getInstance().player.gender >= 2 ) {
+				if( CoC.player.gender >= 2 ) {
 					EngineCore.outputText( '</i>"\n\n"<i>A lesbian?  Attracted to women?  A clam diver?</i>"' );
 				}
 				//(else PC is male or unsex);
@@ -1482,7 +1482,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			else {
 				EngineCore.outputText( 'I\'m not sure if he intends to shake your hand or punch you, though.</i>"' );
 				//[(PC is male or neuter)];
-				if( CoC.getInstance().player.gender <= 1 ) {
+				if( CoC.player.gender <= 1 ) {
 					EngineCore.outputText( '\n\n"<i>Sounds... protective.</i>"' );
 				} else {
 					EngineCore.outputText( '\n\n"<i>Think he\'d really punch a girl?  He must be very protective,</i>" you tease.' );
@@ -1500,25 +1500,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nShaking your head, you lean against her; the two of you remain like that until she gets up to leave and bids you farewell.' );
 		}
 		//if 1 < joeycount < 10;
-		else if( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] < 10 ) {
+		else if( CoC.flags[ kFLAGS.SHEILA_JOEYS ] < 10 ) {
 			EngineCore.outputText( '"<i>So how are the kids?</i>"' );
 			EngineCore.outputText( '\n\nSheila smiles under her downcast eyes.  "<i>They\'re fine, love.  Some are getting pretty big.</i>"' );
 			EngineCore.outputText( '\n\nShe holds her hands eight or ten inches apart.  When your eyebrows register surprise at that, she elaborates.  "<i>Remember how small they come out, though... only about four inches when they\'re born.  We tuck them in little pouches to keep them warm and up against the teat.</i>"' );
 			EngineCore.outputText( '\n\nFour inches?  That explains how she keeps her slim figure' );
-			if( CoC.getInstance().player.lib > 50 ) {
+			if( CoC.player.lib > 50 ) {
 				EngineCore.outputText( ' and tight, hot cunt' );
 			}
 			EngineCore.outputText( ' so well...  "<i>How long does it take them to grow up?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Well,</i>" Sheila says, "<i>I dunno about yours, but two years or so is enough for purebred kids to be up and helping around the colony - they\'re about three or four feet then.  Just basic stuff, like carrying small bags of food home from the storage for their mum or dad.  Two more years and they\'re basically adults... not as wise as one, of course, but they start perving and pairing off around then, no matter how much their oldies urge them not to.  Magic of hormones, world\'s your oyster, and all that.</i>"' );
 			EngineCore.outputText( '\n\nThe implications come to you in a hurry.  "<i>So... how old are you?  Five?  Ten?</i>"' );
-			EngineCore.outputText( '\n\nSheila laughs.  "<i>No, mate; much older than that.  I\'m not going to tell you how much, though.</i>"  Her eyes narrow in mock suspicion, and she smiles broadly.  "<i>A ' + CoC.getInstance().player.mf( 'gentleman', 'lady' ) + ' doesn\'t ask a' );
-			if( CoC.getInstance().player.gender >= 3 ) {
+			EngineCore.outputText( '\n\nSheila laughs.  "<i>No, mate; much older than that.  I\'m not going to tell you how much, though.</i>"  Her eyes narrow in mock suspicion, and she smiles broadly.  "<i>A ' + CoC.player.mf( 'gentleman', 'lady' ) + ' doesn\'t ask a' );
+			if( CoC.player.gender >= 3 ) {
 				EngineCore.outputText( 'nother' );
 			}
 			EngineCore.outputText( ' lady\'s age, after all.</i>"' );
 			//[(lib >=50);
-			if( CoC.getInstance().player.lib >= 50 ) {
-				EngineCore.outputText( '\n\n"<i>But I\'m no ' + CoC.getInstance().player.mf( 'gentleman', 'lady' ) + ',</i>" you retort, leaning in to tickle her ear with your words.  "<i>Though, I was only asking because your skin is so smooth and your nipples so perky...</i>"  You nip at her lobe.  "<i>And your pussy still squeezes like it\'s your first time.</i>"' );
+			if( CoC.player.lib >= 50 ) {
+				EngineCore.outputText( '\n\n"<i>But I\'m no ' + CoC.player.mf( 'gentleman', 'lady' ) + ',</i>" you retort, leaning in to tickle her ear with your words.  "<i>Though, I was only asking because your skin is so smooth and your nipples so perky...</i>"  You nip at her lobe.  "<i>And your pussy still squeezes like it\'s your first time.</i>"' );
 				EngineCore.outputText( '\n\n"<i>[name]!</i>" Sheila shrieks, pulling back and slapping you across the face.  "<i>You nasty root rat!</i>"' );
 				EngineCore.outputText( '\n\nYou grin, rubbing your cheek.  The woman blushes and her ears slump; she looks away and mumbles, "<i>Sorry... didn\'t mean to swat you.  You surprised me, that\'s all.</i>"' );
 				EngineCore.outputText( '\n\n"<i>Don\'t kill the messenger,</i>" you tease, slipping your arm around her waist.  She shivers but doesn\'t resist, allowing you to play your fingers along her shirt hem until she gets up to leave.' );
@@ -1540,17 +1540,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>That\'s-</i>" you begin, attempting to demur, but she waves your comment off.' );
 			EngineCore.outputText( '\n\n"<i>I\'m not fishing, mate... don\'t worry about it.  I wouldn\'t trade you or a single one of your kids for all the beauty of the assembled succubus corps.</i>"  She slips her hand into yours.  "<i>Not even the little hellion.</i>"' );
 			//[(lib < 50)];
-			if( CoC.getInstance().player.lib < 50 ) {
+			if( CoC.player.lib < 50 ) {
 				EngineCore.outputText( '\n\n"<i>Don\'t you have someone else that can watch them for you?</i>" you ask.' );
 				EngineCore.outputText( '\n\nSheila\'s eyes harden.  "<i>Yeah... my mum has volunteered.  A few of my neighbors tried to as well, but my mum quietly chased those off, saying she\'d be happy to handle it and keep it in family.</i>"' );
 				EngineCore.outputText( '\n\n"<i>So...?</i>"' );
 				EngineCore.outputText( '\n\n"<i>The kids already spend all day in the nursery listening to her and her crones - just a constant flow of pork about how \'women\'s work\' is in the home and girls like me are wrong to be outside and away from them.  Of course she never says it in so many words, but kids pick up what they see.  I don\'t want mine going home with her at night to get the private lesson just because I was too lazy to fetch them.  I can hear her now... \'Your mum is all tired out from working at her job and needs to rest before she sees you, so you just come home with me and Nana will take care of you.\'  Pig\'s arse.</i>"' );
 				EngineCore.outputText( '\n\nThat\'s... eerily bitter.' );
-				if( CoC.getInstance().player.cor < 40 ) {
+				if( CoC.player.cor < 40 ) {
 					EngineCore.outputText( '  You pat her shoulder carefully and suggest, "<i>I could watch them for a while.</i>"' );
 				}
 
-				EngineCore.outputText( '\n\n"<i>God, that\'d be nice.  But I can\'t take them out of the colony until they\'re ready to train a trade; those are the rules.  Only nurses can, when they need to teach a class basic stuff - up is up, rocks are rocks, that sort - and they get a soldier detail when they go.  I wouldn\'t want to anyway... nothing on you, but there are only two of us and ' + Utils.num2Text( CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ] ) + ' of them.  I wish I could bring you in, though.</i>"' );
+				EngineCore.outputText( '\n\n"<i>God, that\'d be nice.  But I can\'t take them out of the colony until they\'re ready to train a trade; those are the rules.  Only nurses can, when they need to teach a class basic stuff - up is up, rocks are rocks, that sort - and they get a soldier detail when they go.  I wouldn\'t want to anyway... nothing on you, but there are only two of us and ' + Utils.num2Text( CoC.flags[ kFLAGS.SHEILA_JOEYS ] ) + ' of them.  I wish I could bring you in, though.</i>"' );
 				EngineCore.outputText( '\n\n"<i>Well... why can\'t you?</i>" you ask.  "<i>I mean, I\'d think it\'s clear by now that I\'m not some monster.</i>"' );
 				EngineCore.outputText( '\n\nYour companion looks profoundly unhappy.  "<i>Don\'t ask me to explain a policy I hate.  I\'d like nothing more than to fall asleep at night in an actual bed with you instead of staying up alone, worrying if you\'ll be alright' );
 				//[(EngineCore.silly)];
@@ -1562,7 +1562,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				}
 				EngineCore.outputText( '\n\nSheila sighs and gets up, nodding to you, and collects her stuff.  "<i>Love you.  See you soon.</i>"' );
 				//corruption down if corr < 40;
-				if( CoC.getInstance().player.cor < 40 ) {
+				if( CoC.player.cor < 40 ) {
 					EngineCore.dynStats( 'cor', -1 );
 				}
 			}
@@ -1571,7 +1571,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\n"<i>I\'m still turned on by you,</i>" you persist with a whisper.  "<i>I want your body any time, anywhere.  Here, for example.  Or... here.</i>"  This last comment is accompanied by your hand sliding into her shirt and over a ' + this.sheilaCup() + ' breast.  Sheila blushes.' );
 				EngineCore.outputText( '\n\n"<i>[name], trust you to never change.  Do... you really want to make love?</i>"  Her care-worn eyes look into yours, regaining a bit of their former enthusiasm, and her skin heats up under your fingers.' );
 				//apply small lib-based lust damage and display [Sex] choices with [Rest For Now] instead of [Back];
-				EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 10 + 5, 'resisted', false );
+				EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 5, 'resisted', false );
 				this.sheilaXP4Sex( false );
 				EngineCore.addButton( 9, 'RestForNow', this.fuckBuddySheilaMeetingChatKidsRest4Now );
 				return;
@@ -1584,7 +1584,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Always,</i>" you answer, "<i>but if you need to relax and sleep for a bit, I\'m here for that too.</i>"  You draw your hand back out, patting her on the cheek.' );
 		EngineCore.outputText( '\n\nSheila kisses you on the forehead and then lays her head against your ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'back' );
 		} else {
 			EngineCore.outputText( 'lap' );
@@ -1609,16 +1609,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//Consensual scenes (normal Sheila's vaginal capacity is 32, for reference):;
 		//[Consensual - Either 69] - Fenoxo beware, omnibus scene!(req. vag or dix; both buttons direct here but decide the focus);
 		EngineCore.menu();
-		if( CoC.getInstance().player.gender > 0 ) {
-			if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.gender > 0 ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.addButton( 0, '69WithWang', this.consensualSheila69, true );
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.addButton( 1, '69WithCooch', this.consensualSheila69, false );
 			}
 		}
 		//[Consensual - Vaginal Sex] (req. cock <= 32 area):;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 32 ) >= 0 ) {
 			EngineCore.addButton( 2, 'Fuck Her', this.consentacleVagSexForKangarooSlutBitches );
 		}
 		//da scene;
@@ -1635,14 +1635,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'As you lean into the woman and buzz her ear, her skin flushes.  "<i>[name], you\'re incorrigible.  Don\'t taunt me so much this time, just get into it.</i>"  Smiling and humming, you sit up and begin unfastening your armor; Sheila takes the opportunity to do the same, and finishes denuding herself before you do.' );
 		EngineCore.outputText( '\n\nA raised eyebrow from you greets her exposed flesh.  She turns up a red face in response, staring close-mouthed with quiet embarrassment as she waits for you to finish disrobing.' );
 		if( cock ) {
-			if( CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 32 ) >= 0 ) {
 				EngineCore.outputText( '  Though, she smiles openly when you produce your [cockFit 32].' );
 				EngineCore.outputText( '\n\n"<i>Will you be putting that in me, then?</i>" Sheila asks, spreading her labia softly in anticipation.  You make no reply, drawing a look of surprise.' );
 			} else {
 				//(all big cox > 32);
 				EngineCore.outputText( '\n\nIncreasingly wide eyes offset her thin, pressed lips as you reveal ' + Descriptors.sMultiCockDesc() + ', the voluminous flesh swaying softly to the breeze.' );
 				EngineCore.outputText( '\n\n"<i>[name]... you really do take it too far.  There\'s no way I can... I mean, the size of it!</i>"  Even despite a point-blank refusal, Sheila\'s eyes don\'t leave your crotch, drinking in the sight of your dick' );
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' as she rubs her small, smooth labia vigorously.  "<i>What do you expect me to do with one of those?</i>"' );
@@ -1652,20 +1652,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			EngineCore.outputText( '  When you finally drop your bottoms, revealing your wet ' + Descriptors.vaginaDescript( 0 ) + ', she smiles softly.' );
 			EngineCore.outputText( '\n\n"<i>Cute little flower...</i>" Sheila says, playing with her own.  You mimic her, slipping a finger between your labia to stimulate yourself' );
-			if( CoC.getInstance().player.clitLength > 8 ) {
+			if( CoC.player.clitLength > 8 ) {
 				EngineCore.outputText( ' and bring your ' + Descriptors.clitDescript() + ' to its erect state.  "<i>... And quite a stem,</i>" your lover concludes.  "<i>You sure that\'s not a dick?</i>"' );
 			} else {
 				EngineCore.outputText( ', producing a slight sigh and a wet finger.  "<i>And I\'m the eager one, right?</i>" your lover asks, wryly - though her finger is just as wet.' );
 			}
 		}
 		EngineCore.outputText( '\n\nSmiling still, you draw close to Sheila and slip a hand under her butt, coaxing it forward until she\'s lying down on the grass.  She seems to take your inscrutable silence in stride, kissing you softly, until you spread her thighs.' );
-		if( cock && CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+		if( cock && CoC.player.cockThatFits( 32 ) < 0 ) {
 			EngineCore.outputText( '  "<i>[name], I\'m telling you it won\'t fit!</i>"' );
 		} else {
 			EngineCore.outputText( '  "<i>Not talking, then?  Please yourself.</i>"' );
 		}
 		EngineCore.outputText( '  Her commentary cuts off as you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'turn around and hang your ' );
 		} else {
 			EngineCore.outputText( 'straddle her and squat down to dangle your ' );
@@ -1681,7 +1681,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( cock ) {
 			EngineCore.outputText( 'wrapping a hand around your shaft' );
 			//(big) ;
-			if( CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+			if( CoC.player.cockThatFits( 32 ) < 0 ) {
 				EngineCore.outputText( ' and guiding it to bend comfortably against her chest, drooling a trail of pre-cum as she slides it into position' );
 			}
 			EngineCore.outputText( '.' );
@@ -1692,7 +1692,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '  She pumps you once, eliciting a trickle of fluid, and then speaks once more.  "<i>Bring it lower...</i>"' );
 		EngineCore.outputText( '\n\nYou oblige, ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'flattening your back' );
 		} else {
 			EngineCore.outputText( 'squatting lower' );
@@ -1701,7 +1701,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( cock ) {
 			EngineCore.outputText( 'cock sinks down' );
 			//[(small cock) ;
-			if( CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 32 ) >= 0 ) {
 				EngineCore.outputText( ' into her warm, waiting mouth' );
 			} else {
 				EngineCore.outputText( '; she lets go of it to grab her breasts instead, trying to push them around the sensitive shaft as she runs her tongue up the underside' );
@@ -1709,7 +1709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '.' );
 		} else {
 			EngineCore.outputText( 'pussy dangles just over her face; she ' );
-			if( CoC.getInstance().player.clitLength > 8 ) {
+			if( CoC.player.clitLength > 8 ) {
 				EngineCore.outputText( 'nips and sucks at the tip of your clit, rolling it with her tongue' );
 			} else {
 				EngineCore.outputText( 'parts your labia with her tongue, stroking them gently and tickling your little clitoris' );
@@ -1717,7 +1717,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '  Not to be outdone in creativity, technique, or audacity, you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'lean down and bury your own tongue all the way inside Sheila, forcing her labia open with your mouth' );
 		} else {
 			EngineCore.outputText( 'reach as far as you can to bring both hands into play, stroking and pulling Sheila\'s labia apart with one as you tease her exposed clitoris or slip inside her vagina with the other' );
@@ -1728,22 +1728,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( !cock ) {
 			EngineCore.outputText( 'slipping her tongue back into you' );
 			//[(bigclit);
-			if( CoC.getInstance().player.clitLength > 8 ) {
+			if( CoC.player.clitLength > 8 ) {
 				EngineCore.outputText( ' and stroking your ' + Descriptors.clitDescript() + ' rapidly with one hand' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		//(smallcox);
-		else if( CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+		else if( CoC.player.cockThatFits( 32 ) >= 0 ) {
 			EngineCore.outputText( 'taking you into her mouth once again and licking away a neglected drop of pre-cum.' );
 		} else {
 			EngineCore.outputText( 'stroking your cock with one hand as she pushes an erect nipple against its side to trace a line.' );
 		}
 
 		//[(no horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nHaving ensured that embarrassment, if nothing else, will keep her working away on your orgasm, you prepare to torment Sheila with an all-out siege of her pussy.  Your fingers join your busy mouth, taking up slack by stroking and pulling open the woman\'s small labia and allowing your lips to begin brushing her clitoris as you tongue-fuck her.  You can feel her shivering along your length as you force her steadily toward her pleasure threshold, which vibrations are transferred unintentionally to you through her ' );
-			if( cock && CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+			if( cock && CoC.player.cockThatFits( 32 ) < 0 ) {
 				EngineCore.outputText( 'shaking, teasing nipples and heaving chest' );
 			} else {
 				EngineCore.outputText( 'mouth, humming in delight' );
@@ -1753,7 +1753,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//(horse);
 		else {
 			EngineCore.outputText( '\n\nFeeling sure that Sheila will keep working on your sex after your remonstration, you focus on bringing her more sensation than she can possibly endure.  Two fingers of one hand hold her labia open, exposing her vagina to your questing middle digits; the other hand works busily at her clitoris, alternately rolling the petit button with a thumb and dragging it against the flat surface of the palm.  You make sure to collect the moisture oozing from Sheila to keep the nub slippery at all times and work it faster, stroking it up, down, and all over.  The poor woman under you moans and shudders, transferring the vibration to you with her ' );
-			if( cock && CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+			if( cock && CoC.player.cockThatFits( 32 ) < 0 ) {
 				EngineCore.outputText( 'hard nipples' );
 			} else {
 				EngineCore.outputText( 'throat' );
@@ -1762,16 +1762,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//merge horse with rider;
 		//[(big cox);
-		if( cock && CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+		if( cock && CoC.player.cockThatFits( 32 ) < 0 ) {
 			EngineCore.outputText( '\n\n"<i>[name]!  I\'m coming!</i>" Sheila cries.' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>Mmmh!  Mm mmnnn!</i>" Sheila moans, muffled by your body.  The import doesn\'t hit you until a second later.' );
 		}
 		EngineCore.outputText( '  Her vagina convulses, ' );
 		//(pc corr >= 90 or > sheila corruption;
-		if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		if( CoC.player.cor >= 90 || CoC.player.cor > CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( 'trying to pull your ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'tongue' );
 			} else {
 				EngineCore.outputText( 'fingers' );
@@ -1779,9 +1779,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( ' in ravenously.  You can literally feel her internal muscles rippling and undulating, stroking you as if they could coax out an ejaculation.  Sheila sucks in her breath as she climaxes, filling her chest; you can feel her tits pushing harder and harder against you.' );
 		}
 		//(PC corr < sheila corruption);
-		else if( CoC.getInstance().player.cor < CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		else if( CoC.player.cor < CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( 'pushing out a gush of fluid.  For what seems like several minutes, her pussy deluges your ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'mouth, filling you with her taste.' );
 			} else {
 				EngineCore.outputText( 'hands, completely soaking them in her orgasm.' );
@@ -1789,12 +1789,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '   Her thighs tense, forcing her pelvis into the air and her cunt toward you as her chest slumps; slowly, you feel the perky nipples pressing into your stomach pull away.' );
 		}
 		//(else if equal but below 90);
-		else if( CoC.getInstance().player.cor === CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] && CoC.getInstance().player.cor < 90 ) {
+		else if( CoC.player.cor === CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] && CoC.player.cor < 90 ) {
 			EngineCore.outputText( 'drooling a trickle of fluid and licking at you as she screams her ecstasy into your crotch.' );
 		}
 		EngineCore.outputText( '  Sheila jams her face upward, ' );
 		//[(big cox);
-		if( cock && CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+		if( cock && CoC.player.cockThatFits( 32 ) < 0 ) {
 			EngineCore.outputText( 'pressing her lips and tongue to the base of your shaft as she masturbates it vigorously.' );
 		}///(small cox);
 		else if( cock ) {
@@ -1807,13 +1807,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( cock ) {
 			EngineCore.outputText( '\n\nStroke after stroke of semen passes down ' + Descriptors.sMultiCockDesc() + ', ' );
 			//[(cock fits);
-			if( CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+			if( CoC.player.cockThatFits( 32 ) >= 0 ) {
 				EngineCore.outputText( 'pouring out into your lover\'s waiting throat.  She gags and you can feel the gooey seed oozing back against your [cockHeadFit 32]' );
 				//[(small cum);
-				if( CoC.getInstance().player.cumQ() < 250 ) {
+				if( CoC.player.cumQ() < 250 ) {
 					EngineCore.outputText( '; you withdraw from her, allowing her throat to force your ejaculate back up and over her lips and cheeks with a splutter.' );
 				}//(big cum);
-				else if( CoC.getInstance().player.cumQ() < 2000 ) {
+				else if( CoC.player.cumQ() < 2000 ) {
 					EngineCore.outputText( ', but your relentless orgasm forces it down again, dumping more jism into her throat.  You can feel her hands clawing at your [butt] as you relieve your buildup.' );
 				}//[(mega cum);
 				else {
@@ -1824,13 +1824,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			else {
 				EngineCore.outputText( ' squirting onto and between your intertwined bodies to soak your [chest] and neck, and Sheila\'s softly pumping crotch.' );
 				//(big skeet);
-				if( CoC.getInstance().player.cumQ() > 1000 ) {
+				if( CoC.player.cumQ() > 1000 ) {
 					EngineCore.outputText( '  A wellspring of seed, your body continues producing until the fuzz on her thighs and tail is completely matted down with the whiteness drooling between you.' );
 				}
 				//(multicocks);
-				if( CoC.getInstance().player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() > 1 ) {
 					EngineCore.outputText( '  Your other cock' );
-					if( CoC.getInstance().player.cockTotal() === 2 ) {
+					if( CoC.player.cockTotal() === 2 ) {
 						EngineCore.outputText( ' spasms' );
 					} else {
 						EngineCore.outputText( 's spasm' );
@@ -1842,9 +1842,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//(else if vag-focus);
 		else {
 			EngineCore.outputText( '\n\nYour pussy quakes and latches onto her tongue as your orgasm takes over, caressing the wet muscle.  Sheila waggles and stretches it, trying to score your convulsing insides with the tip even as she torments your sensitized clit in revenge for her own.  Your juices ' );
-			if( CoC.getInstance().player.wetness() <= 2 ) {
+			if( CoC.player.wetness() <= 2 ) {
 				EngineCore.outputText( 'trickle out, and are quickly sucked up by her greedy mouth' );
-			} else if( CoC.getInstance().player.wetness() <= 4 ) {
+			} else if( CoC.player.wetness() <= 4 ) {
 				EngineCore.outputText( 'gush freely, leaving her face slick' );
 			} else {
 				EngineCore.outputText( 'overflow, soaking her hair even as she shuts her eyes tight against the cataract' );
@@ -1853,7 +1853,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '\n\nSpent, you roll off of Sheila' );
 		//[(smallcox);
-		if( cock && CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+		if( cock && CoC.player.cockThatFits( 32 ) >= 0 ) {
 			EngineCore.outputText( ', pulling free of her throat.  She immediately turns over as well and forces herself to her hands and knees, then gags and coughs up a large amount of your jism.  When she\'s dumped enough to clear her passageway, she collapses forward, smearing the mess onto her chest as she spends a few minutes to catch her breath.  Once she\'s got it, she turns back over and sits up, strands of your slime linking her breasts to the grass.' );
 		}//(else not smallcox);
 		else {
@@ -1861,18 +1861,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 
 		//if sheila corruption >= 90 and PC corr >= 90, go to demonization, else continue;
-		if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+		if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 			return;
 		}
 		//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3);
-		else if( (CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
+		else if( (CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
 			this.sheilaCorruptionUpdate();
-			/*if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			/*if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -10);
 			 this.sheilaCorruption(10);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 10);
 			 this.sheilaCorruption(-10);
 			 }	*/
@@ -1880,9 +1880,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nYour climax-fogged brain settles on Sheila\'s breasts, as requested.  They are definitely looking enormous and squeezable, and you reach out a hand to rub one without a thought.  Sheila quivers as you touch her flushed skin, but grabs your wrist.  "<i>Dammit, [name], stop!  How much fucking taint are you toting, you slut?</i>"  Having gained your attention, she lets go.  "<i>I\'m sorry for that, but I can\'t keep being with you if you contaminate me like this!  I have responsibilities and mates counting on me, and already all I can think about is pushing them down and turning them into captive dongs to stuff me whenever I want!</i>"' );
 			EngineCore.outputText( '\n\nEr... well, there\'s definitely something to be said against tying up her friends and fucking them silly... without sharing them with you, anyway.  Ah, wait, that slippery thought you were trying to hold onto just got away from you again when Sheila\'s breast heaved in your hand.  Speaking of things to grab hold of and tie up...' );
 			//minus lust, minus small libido; if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption and slimefeed;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -0.5 );
-			CoC.getInstance().player.slimeFeed();
+			CoC.player.slimeFeed();
 			//[Fondle Her][Listen to Her];
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Listen2Her', this.sheilaCorruptionWarningListenToHer );
@@ -1892,9 +1892,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//(else if no corruption warning);
 		EngineCore.outputText( '\n\n"<i>Gods damn, [name],</i>" Sheila coughs, staring at you.  Still slack-muscled from your orgasm, you look over at her.  ' );
-		if( cock && CoC.getInstance().player.balls > 0 ) {
+		if( cock && CoC.player.balls > 0 ) {
 			EngineCore.outputText( 'What you see manages to pull an explosive laugh from you, tired as you are.  Sheila gives you the stink-eye until you\'ve recovered enough to explain the source of your mirth: on her forehead, making a perfect ' );
-			if( CoC.getInstance().player.balls === 2 ) {
+			if( CoC.player.balls === 2 ) {
 				EngineCore.outputText( 'infinity' );
 			} else {
 				EngineCore.outputText( 'double infinity' );
@@ -1903,20 +1903,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '"<i>You could give a girl a bloody warning before that sort of behavior.  I thought you were going to kill me!</i>"' );
 		//minus lust, minus small libido; if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption and slimefeed;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -0.5 );
 		this.sheilaCorruptionUpdate();
-		/*if(CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > CoC.getInstance().flags[kFLAGS.SHEILA_CORRUPTION]) {
+		/*if(CoC.player.cor >= 90 || CoC.player.cor > CoC.flags[kFLAGS.SHEILA_CORRUPTION]) {
 		 EngineCore.dynStats('cor', -10);
 		 this.sheilaCorruption(10);
-		 } else if(CoC.getInstance().player.cor < CoC.getInstance().flags[kFLAGS.SHEILA_CORRUPTION]) {
+		 } else if(CoC.player.cor < CoC.flags[kFLAGS.SHEILA_CORRUPTION]) {
 		 EngineCore.dynStats('cor', 10);
 		 this.sheilaCorruption(-10);
 		 }*/
-		CoC.getInstance().player.slimeFeed();
+		CoC.player.slimeFeed();
 		EngineCore.outputText( '\n\nShe unruffles for a moment, and then pulls in close beside you.  ' );
 		//[(sheila xp = 3);
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 3 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] === 3 ) {
 			EngineCore.outputText( '"<i>[name]... thanks.  Even being covered in your mess is better than being stuck outside all night, too scared to touch myself and too horny to run.</i>"  Sheila kisses you on the cheek.  "<i>My sloppy hero, eh?  I\'m okay now; I can make it \'til morning when the gate reopens.</i>"' );
 			EngineCore.outputText( '\n\nWhatever that means... does she plan to spend all night outside, alone and covered in drying sexual fluids?' );
 			EngineCore.outputText( '\n\n"<i>Er... pretty much, yeah?  It won\'t be the first time - the staying up all night, I mean.</i>"  Sheila colors a bit.  "<i>That\'s how it goes if I can\'t make curfew; gotta watch out for myself.  But it\'ll be okay now that you\'ve... helped, and I can actually focus.</i>"' );
@@ -1931,7 +1931,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//(else if sheila xp =/= 3);
 		else {
 			EngineCore.outputText( '"<i>Forget it.  With the way you worked me, I forgive you.  Just be careful, you wanker.</i>"  Sheila closes her eyes and pulls your arm around her shoulder' );
-			if( cock && CoC.getInstance().player.cockThatFits( 32 ) >= 0 ) {
+			if( cock && CoC.player.cockThatFits( 32 ) >= 0 ) {
 				EngineCore.outputText( ', smearing your dangling hand into the mess on her tits' );
 			}
 			EngineCore.outputText( '.  The two of you lie like that for a while, until she gets up.  "<i>I should really go... need to cure my catch.  Not to mention I\'ll have to clean up before I can even put my damn clothes back on.</i>"  Sheila picks up her stuff.  "<i>Hehe... see you soon.</i>"' );
@@ -1941,9 +1941,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//[Consensual - Vaginal Sex] (req. cock <= 32 area):;
 	SheilaScene.prototype.consentacleVagSexForKangarooSlutBitches = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( 48 );
+		var x = CoC.player.cockThatFits( 48 );
 		if( x < 0 ) {
-			x = CoC.getInstance().player.smallestCockIndex();
+			x = CoC.player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'Sheila doffs her hat and lowers her light eyes shyly as you lean in, then looks up and puts her arms around your neck as you slip your own about her waist.  She blushes a bit, then leans in as well; you quickly capture her lips with a small kiss, then another.  The tiniest murmur escapes as you break away from this second kiss, and then she\'s diving in again, locking her mouth together with yours and exploring it with her tongue.  You return her passionate kiss with one of your own as your hand drifts up from her waist, under her shirt. It reaches her semi-erect nipple quickly and you begin pinching and rubbing it between your fingers; her mouth quivers on yours as you tease, then eventually breaks away as she tilts her head back and lets out a low moan.  Taking the opportunity to escape from her kisses, you move your mouth down her long neck as your fingers trace the outline of her teat.' );
 		EngineCore.outputText( '\n\n"<i>Ahh, god...</i>" she sighs, as you continue tickling her neck with your lips.  She breaks her embrace and hurriedly pulls her vest and shirt over her head, revealing her ' + this.sheilaCup() + ' breasts; both her nipples are fully erect, sticking up like little \'touch me\' signs.  You oblige them and caress her ' );
@@ -1953,7 +1953,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'jiggly' );
 		}
 		EngineCore.outputText( ' breasts as she fiddles with your own clothing.  She manages to remove the top of your [armor], exposing your [chest]; she then returns your favor by ' );
-		if( !CoC.getInstance().player.hasFuckableNipples() ) {
+		if( !CoC.player.hasFuckableNipples() ) {
 			EngineCore.outputText( 'squeezing and fondling' );
 		} else {
 			EngineCore.outputText( 'plunging two fingers into' );
@@ -1961,7 +1961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' your own ' + Descriptors.nippleDescript( 0 ) + 's.  You shiver as she paws at the sensitive nubs on your chest, but don\'t let up your assault, moving your mouth down to tickle one of hers with your teeth and tongue.  Soon she\'s quaking and twitching beneath your ministrations; rubbing at her crotch with one hand as she half-heartedly tries to tease you back with the other.' );
 		EngineCore.outputText( '\n\n"<i>Please... I can\'t take any more,</i>" she whines.  "<i>Stop pashing on my nips and put it in, mate.</i>"  The hand at her crotch begins trying to unfasten her belt while the other grabs and fondles her breast; you smirk and complete your own undressing quickly with both hands.  As ' + Descriptors.sMultiCockDesc() + ' emerges, engorged with blood, from your clothing, she switches from undressing back to rubbing, breathing heavily and stroking herself through the fabric as she stares at your ' );
 		//[(if wangaroo);
-		if( CoC.getInstance().player.cocks[ CoC.getInstance().player.cockThatFits( 32 ) ].cockType === CockTypesEnum.KANGAROO ) {
+		if( CoC.player.cocks[ CoC.player.cockThatFits( 32 ) ].cockType === CockTypesEnum.KANGAROO ) {
 			EngineCore.outputText( 'tapered, fleshy penis.  "<i>Wow... you never see those.</i>"' );
 		} else {
 			EngineCore.outputText( Descriptors.multiCockDescriptLight() + '.' );
@@ -1972,7 +1972,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>S-stop teasing me, you drongo!</i>" she gasps as you stimulate her eager vagina.  "<i>Just... just fuck me already!</i>"' );
 		EngineCore.outputText( '\n\nYou grin.  ' );
 		//[(no centaur);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Taking hold of your ' + Descriptors.cockDescript( x ) );
 		}//(centard);
 		else {
@@ -1980,13 +1980,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( ', you rub the head along her dripping snatch, smearing her fluid over it.  ' );
 		//[(non-cent);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Gripping her fuzzy thighs next, you lift her bottom and line' );
 		}//(hoers);
 		else {
 			EngineCore.outputText( 'She lifts her bottom and lines' );
 		}
-		EngineCore.outputText( ' her slippery passage up with your cock.  "<i>Here it comes!</i>" you cry.  With that announcement, you thrust into her, parting her lips with your swollen ' + CoC.getInstance().player.cockHead( x ) + '.  She moans in relief as you finally enter her, but said relief is short-lived as you begin pumping at her slick vagina.  Gasping weakly, she lies back on the ground; ' );
+		EngineCore.outputText( ' her slippery passage up with your cock.  "<i>Here it comes!</i>" you cry.  With that announcement, you thrust into her, parting her lips with your swollen ' + CoC.player.cockHead( x ) + '.  She moans in relief as you finally enter her, but said relief is short-lived as you begin pumping at her slick vagina.  Gasping weakly, she lies back on the ground; ' );
 		if( this.sheilaCorruption() <= 30 ) {
 			EngineCore.outputText( 'her perky breasts rock back and forth' );
 		} else {
@@ -1995,7 +1995,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' as you draw in and out of her warm, moist pussy.' );
 		EngineCore.outputText( '\n\nShe rubs and squeezes her breasts vigorously as you thrust, and the sight of her sensitive tit-flesh being shaped and massaged gives an extra impetus to your lust.  ' );
 		//[(non-cent)];
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You pause briefly, adjusting your angle and leaning down to kiss her deeply once again and help caress her ' );
 			if( this.sheilaCorruption() <= 30 ) {
 				EngineCore.outputText( 'firm' );
@@ -2005,16 +2005,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( ' tits, then resume thrusting from your new position; her nipples now brush against your [chest] as you pump.  ' );
 		}
 		//(if balls/vag);
-		if( CoC.getInstance().player.balls > 0 || CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.balls > 0 || CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'Her stubby tail curls inward toward you, rubbing up against your ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( '[balls]' );
 			} else {
 				EngineCore.outputText( Descriptors.vaginaDescript( 0 ) );
 			}
 			EngineCore.outputText( ' and tickling you as she writhes in pleasure.  ' );
 			//(if vag);
-			if( CoC.getInstance().player.balls === 0 && CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.balls === 0 && CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'Your cunt twitches and drools a bit of fluid on the furry intruder.  ' );
 			}
 		}
@@ -2026,12 +2026,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '.  "<i>Ohhh,</i>" she moans, "<i>YES!</i>"  At that moment you feel her vagina clamp around your [cockFit 32], wringing it frantically as she reaches her climax.  You continue pumping as best you\'re able, but you can\'t stand up to the siege of her spasming pussy for long; ' );
 		//[(pc corr >= 90 or > sheila corruption) ;
-		if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		if( CoC.player.cor >= 90 || CoC.player.cor > CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( 'something builds to a painful intensity in your crotch.  It feels like two mind-blowing orgasms arriving together and fighting over which one gets to come out first.  You rise toward climax quickly and then are drawn back in moments of maddening frustration, over and over.  In response you intensify your thrusts even more, sawing in and out of the girl at a pace that would be blistering if the two of you weren\'t leaking enough pre-cum and pussy juice to put out a brushfire.  Eventually the pleasure overwhelms the strange reticence of your orgasm; you cry out loudly as you peak, and squeeze a tiny trickle of cum into her grasping vagina.' );
 			//[(multi);
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '  Your other ' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'dick erupts' );
 				} else {
 					EngineCore.outputText( 'dicks erupt' );
@@ -2041,7 +2041,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  The intense sensation begins to ascend your dick slowly; your body works itself into overdrive and your partner\'s moans increase sympathetically as it nears the tip.  Finally, it exits your body with an enormous squeeze, alongside a jet of jism.  Sheila gives a complementary gasp as this pulse enters her, and her pussy convulses in a second orgasm, causing her back to arch.  Her breasts seem to jiggle more wildly than before as she thrashes on the ground in the grip of her pleasure.' );
 		}
 		//(PC corruption < sheila corruption);
-		else if( CoC.getInstance().player.cor < CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		else if( CoC.player.cor < CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( 'your resistance is condemned to die in failure as Sheila lets out a quavering scream of pleasure and wraps her arms and legs around you, pinning you inside.  Her vagina convulses around your cock powerfully; you could swear you feel yourself stretching longer and longer as her rippling pussy pulls you deeper in.  Just when you think that your dick must be a mile long, her whole body tenses up and her fingernails dig into your back.  Wearing a madwoman\'s expression, Sheila stares open-mouthed at you as her muscles lock and her pussy quivers out its fitful orgasm; even her ' );
 			if( this.sheilaCorruption() < 30 ) {
 				EngineCore.outputText( 'perky' );
@@ -2053,22 +2053,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//(else if equal but below 90);
 		else {
 			EngineCore.outputText( 'your orgasm quickly supersedes your control as she wrings you and rubs her nipples against your [chest].  ' + Descriptors.SMultiCockDesc() + ' begins to twitch as it unloads its first squirt of semen into her spasming pussy' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' or onto her thighs and belly' );
 			}
 			EngineCore.outputText( '.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Oh god!</i>" she yells.  "<i>Pull out, before you get me pregnant!</i>"  ' );
 		//[(non-dog cock);
-		if( !CoC.getInstance().player.hasKnot( x ) ) {
-			EngineCore.outputText( 'You oblige shakingly, pulling your ' + Appearance.cockNoun( CoC.getInstance().player.cocks[ x ].cockType ) + ' out of her clenching pussy with a wet, sucking noise.  A trickle of semen drools from between her lips as you unburden yourself of the rest of your load, squirting it onto her groin' );
+		if( !CoC.player.hasKnot( x ) ) {
+			EngineCore.outputText( 'You oblige shakingly, pulling your ' + Appearance.cockNoun( CoC.player.cocks[ x ].cockType ) + ' out of her clenching pussy with a wet, sucking noise.  A trickle of semen drools from between her lips as you unburden yourself of the rest of your load, squirting it onto her groin' );
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() > 500 ) {
+			if( CoC.player.cumQ() > 500 ) {
 				EngineCore.outputText( ', breasts, and face' );
 			}
 			EngineCore.outputText( '.' );
 			//[(Huge skeet);
-			if( CoC.getInstance().player.cumQ() >= 1500 ) {
+			if( CoC.player.cumQ() >= 1500 ) {
 				EngineCore.outputText( '  More and more globs of semen shoot from the end of ' + Descriptors.sMultiCockDesc() + ', pasting Sheila to the dry grass as you paint her body white.' );
 			}
 		}
@@ -2076,40 +2076,40 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			EngineCore.outputText( 'You attempt to oblige her, but your swollen knot sticks firmly in her squeezing pussy, locking you into place.  After a few fruitless tugs, you give yourself up to your orgasm with an apology, slumping against her heaving chest and helplessly dumping the rest of your load into the twitching woman. ' );
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( 'Her belly begins to round as your overproductive gonads push out your massive store of semen' );
 				//[(huge skeet);
-				if( CoC.getInstance().player.cumQ() >= 3000 ) {
+				if( CoC.player.cumQ() >= 3000 ) {
 					EngineCore.outputText( ', until it\'s stretched as far as possible and each successive jet forces out squirts of frothy jism from the tight seal her pussy makes around the knot' );
 				}
 				EngineCore.outputText( '. ' );
 			}
 			//[(multi);
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( 'Your other cocks erupt as well, soaking her crotch and matting down the fur on her thighs with whiteness. ' );
 			}
 		}
 		EngineCore.outputText( 'Both of your orgasms finish up' );
 		//(dog-c) ;
-		if( CoC.getInstance().player.hasKnot( x ) ) {
+		if( CoC.player.hasKnot( x ) ) {
 			EngineCore.outputText( ' and you finally manage to pull out of her' );
 		}
 		EngineCore.outputText( '; the two of you lie there breathing raggedly for several minutes.  Sheila breaks the silence first.' );
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -0.5 );
 		//if sheila corruption >= 90 and pc corr >= 90, go to demonization, else continue;
-		if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+		if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 			return;
 		}
 		//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3);
-		else if( (CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
+		else if( (CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
 			this.sheilaCorruptionUpdate();
-			/*if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			/*if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -10);
 			 this.sheilaCorruption(10);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 10);
 			 this.sheilaCorruption(-10);
 			 }*/
@@ -2120,7 +2120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>Fucking seriously?  Did you even hear what I just said about my tits?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Yeah, you\'re right.  They\'re... nice.</i>"' );
 			EngineCore.outputText( '\n\nSheila appears to stagger at this, sending a pleasing jiggle through her huge breasts.  You can feel yourself getting ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'hard' );
 			} else {
 				EngineCore.outputText( 'wet' );
@@ -2139,7 +2139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Sorry,</i>" you gasp, almost too spent to speak.' );
 		EngineCore.outputText( '\n\n"<i>You better be, mate,</i>" she teases.  Kissing your cheek gingerly, she murmurs, almost too quietly to hear, "<i>... you\'re still the best.</i>"' );
 		//[(sheila xp = 3);
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 3 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] === 3 ) {
 			EngineCore.outputText( '  Sheila looks over, thankfulness written on every inch of her brow.  "<i>[name]... I really appreciate what you did.  I\'d rather be knocked up than caught by some nightmare because I was too horny to hide properly until the colony opened - er, not that I want to be knocked up by you, sweet as you are.</i>"' );
 			EngineCore.outputText( '\n\nHuh... so she\'s planning to hide the rest of the night?' );
 			EngineCore.outputText( '\n\n"<i>Yeah,</i>" Sheila answers, when prompted.  "<i>It\'s not really so hard, you know, in the dark.  I can just dig a hole or something.</i>"  She squeezes your hand, then gets up.  This girl actually wants to hide alone in a hole for the entire night...' );
@@ -2154,8 +2154,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			EngineCore.outputText( '\n\nYou lie in the sun for some time ' );
 			//[(norm skeet);
-			if( CoC.getInstance().player.cumQ() < 500 ) {
-				EngineCore.outputText( 'as she strokes the ' + CoC.getInstance().player.skinFurScales() + ' of your chest' );
+			if( CoC.player.cumQ() < 500 ) {
+				EngineCore.outputText( 'as she strokes the ' + CoC.player.skinFurScales() + ' of your chest' );
 			} else {
 				EngineCore.outputText( 'as she wipes off as much jizz as she can' );
 			}
@@ -2166,10 +2166,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//this.sheilaPreg stuff;
 		this.sheilaPreg();
 		this.sheilaCorruptionUpdate();
-		/*if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+		/*if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 		 EngineCore.dynStats('cor', -10);
 		 this.sheilaCorruption(10);
-		 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+		 } else if(CoC.player.cor < this.sheilaCorruption()) {
 		 EngineCore.dynStats('cor', 10);
 		 this.sheilaCorruption(-10);
 		 }*/
@@ -2188,18 +2188,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		var target = '';
 		var choices = [];
-		if( CoC.getInstance().player.hasCock() ) {
-			if( (CoC.getInstance().player.isTaur() && CoC.getInstance().player.tallness * (5 / 6) < CoC.getInstance().player.cocks[ CoC.getInstance().player.longestCock() ].cockLength) || CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
+			if( (CoC.player.isTaur() && CoC.player.tallness * (5 / 6) < CoC.player.cocks[ CoC.player.longestCock() ].cockLength) || CoC.player.hasCock() ) {
 				choices[ choices.length ] = 'cock';
 			}
 		}
-		if( CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.hasVagina() && !CoC.player.isTaur() ) {
 			choices[ choices.length ] = 'vagina';
 		}
-		if( CoC.getInstance().player.hasFuckableNipples() ) {
+		if( CoC.player.hasFuckableNipples() ) {
 			choices[ choices.length ] = 'nipplecunt';
 		}
-		if( CoC.getInstance().player.gender === 0 || choices.length === 0 ) {
+		if( CoC.player.gender === 0 || choices.length === 0 ) {
 			choices[ choices.length ] = 'ass';
 		}
 
@@ -2218,7 +2218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Hehe,</i>" she giggles, admiring your nudity and the reckless way you\'ve undressed her and scattered the garments.  "<i>Fantastic; there\'s clothing everywhere.  You want to brush my hair, next?</i>"' );
 		EngineCore.outputText( '\n\nYou lie down next to Sheila' );
 		//[(horse);
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ', folding your legs under you,' );
 		}
 		EngineCore.outputText( ' and begin ' );
@@ -2235,7 +2235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'plunging your fingers into one of your awkward, distended nipples' );
 		}
 		//(Unsexed non-centaur only);
-		else if( target === 'ass' && !CoC.getInstance().player.isTaur() ) {
+		else if( target === 'ass' && !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'licking a finger and teasing your asshole with shallow strokes, gently circling the ring' );
 		}//(centaur who hasn't got shit);
 		else {
@@ -2269,7 +2269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'Your hand returns to your chest, slipping inside the sensitive flesh of your nipple, and you groan into Sheila\'s as a trickle of moisture falls from your chest.' );
 		}
 		//(else if non-centaur asshole);
-		else if( !CoC.getInstance().player.isTaur() ) {
+		else if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Your hand reaches back to your [asshole], neglected for too long, and a finger spears your pucker, stroking the nerves inside as you hurry to bring your arousal in line with Sheila\'s.' );
 		}///(else if fucking nothing);
 		else {
@@ -2288,7 +2288,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '.  "<i>Just... say I\'m always yours!</i>"  She turns you toward her face again, locking you in a kiss, and your ' );
 		//[(if cock);
 		if( target === 'cock' ) {
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'prick begins' );
 			} else {
 				EngineCore.outputText( 'pricks begin' );
@@ -2298,7 +2298,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//(vag);
 		else if( target === 'cunt' ) {
 			EngineCore.outputText( 'pussy convulses, ' );
-			if( CoC.getInstance().player.wetness() < 4 ) {
+			if( CoC.player.wetness() < 4 ) {
 				EngineCore.outputText( 'drooling' );
 			} else {
 				EngineCore.outputText( 'squirting' );
@@ -2314,11 +2314,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'fingers are pulled into her vagina by her muscles as her orgasm begins.' );
 		}
 		//[( pc corr >= 90 or > sheila corruption) ;
-		if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		if( CoC.player.cor >= 90 || CoC.player.cor > CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( '\n\nHer lips seem to draw yours in when she comes, until it feels like you\'ve been pressing them into her since time began; her chest rises as she sucks, and you can clearly see her breasts swelling up - it\'s too much to bear, and you grab one with your free hand and squeeze.  Sheila answers you by sticking her tongue even deeper into your mouth.' );
 		}
 		//(else pc corr < sheila corruption);
-		else if( CoC.getInstance().player.cor < CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
+		else if( CoC.player.cor < CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] ) {
 			EngineCore.outputText( '\n\nThe kiss breaks as the girl loses muscle control, and she leans forward, pressing her forehead into yours and looking up into your eyes with a smile and a  heavy-lidded stare.  She shivers again, and you can feel heat gathering in your face and fogging your brain even as she seems to curl up in your arms.' );
 		}
 		//(else if equal corr but under 90);
@@ -2331,22 +2331,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//if not fucking nothing, reduce lust and reset hours since cum; if sheila corr = 90 and pc corr >= 90, go to demonization, else continue;
 		if( target === 'cunt' || target === 'cock' || target === 'nipplecunt' ) {
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 		} else {
 			EngineCore.dynStats( 'lus', 50 );
 		}
-		if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+		if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 			return;
 		}
 		//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3);
-		else if( (CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
+		else if( (CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) && this.sheilaCorruption() >= 80 && CoC.flags[ kFLAGS.SHEILA_XP ] !== 3 ) {
 			this.sheilaCorruptionUpdate();
-			/*if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			/*if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -10);
 			 this.sheilaCorruption(10);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 10);
 			 this.sheilaCorruption(-10);
 			 }*/
@@ -2365,10 +2365,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			this.sheilaCorruptionUpdate();
 			/*
-			 if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			 if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -10);
 			 this.sheilaCorruption(10);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 10);
 			 this.sheilaCorruption(-10);
 			 }*/
@@ -2380,12 +2380,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( '.  "<i>Oh, I had so much fun, mate.' );
 			//[(if sex =U and sillymode);
-			if( CoC.getInstance().player.gender === 0 && EngineCore.silly() ) {
+			if( CoC.player.gender === 0 && EngineCore.silly() ) {
 				EngineCore.outputText( '  I love you, my Ken doll.' );
 			}
 			EngineCore.outputText( '</i>"' );
 			//[(if sheila xp = 3);
-			if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] === 3 ) {
+			if( CoC.flags[ kFLAGS.SHEILA_XP ] === 3 ) {
 				EngineCore.outputText( '\n\nShe sighs and slips out from under you.' );
 				EngineCore.outputText( '\n\n"<i>What\'s up?</i>" you ask, sitting up.' );
 				EngineCore.outputText( '\n\n"<i>Still gotta find a place to hide tonight,</i>" Sheila replies.  "<i>Then I can hit the town again in the morning.  I\'ll remember you the next time I feel like hanky-panky, though.</i>"  The girl\'s cheeks color a bit.' );
@@ -2409,9 +2409,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Fuck it.  You move your hand right to her entrance.  "<i>Don\'t be like that...</i>" you say softly into her neck.  She shivers under your touch as her resistance begins to subside, and you slide two fingers into her gently.  "<i>No,</i>" she says quietly, and then, as you slip in, "<i>NO!</i>"  Violently coming to herself, she pushes you away and scrambles to her feet.' );
 		EngineCore.outputText( '\n\n"<i>That\'s it, [name]!  Bloody well listen when I speak!  I can NOT do this again with you while you are like this or I will fall over the edge and never come back!  I need to get myself under control and I don\'t need you making it harder, so rack off if you don\'t get that!</i>"' );
 		EngineCore.outputText( '\n\nShe turns her back on you and walks away briskly with her clothes, leaving you ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'erect' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'wet' );
 		} else {
 			EngineCore.outputText( 'aching' );
@@ -2419,8 +2419,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '.  Even as she goes, you can still see the edges of her amazing, swaying rack around the sides of her torso.' );
 		EngineCore.outputText( '\n\nBitch tease.' );
 		//set sheila xp to -3 and sheila corruption to 90, PC corr - 10;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -3;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 90;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -3;
+		CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 90;
 		EngineCore.dynStats( 'cor', -10 );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -2433,7 +2433,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Thank you,</i>" she says.  With a peck on your cheek, she stands up and gathers her clothes, then sighs.  "<i>I know it\'s not just your fault; it takes two to tango.  I\'m going to try to get myself under control for these next couple of weeks.  Please, please do the same.  When I feel like I\'m ready, you\'ll see me again.  I... love you.  Bye.</i>"' );
 		//no change in sheila corruption (remains at 80), PC corr -10, set sheila clock = -13;
 		EngineCore.dynStats( 'lus', -10 );
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CLOCK ] = -4;
+		CoC.flags[ kFLAGS.SHEILA_CLOCK ] = -4;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -2446,7 +2446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sheila collapses, ' );
 		//[(HP);
-		if( CoC.getInstance().monster.HP < 1 ) {
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'completely spread-eagled from her injuries' );
 		}
 		///(lust);
@@ -2455,7 +2455,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '.  As you stand over her, she forces herself to her elbows and tries to scoot away from you, fear written on her face.  "<i>I\'m sorry... please, no...' );
 		//[(sheila xp > -4);
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] > -4 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] > -4 ) {
 			EngineCore.outputText( '  I\'ll forgive you for everything else, but please, not this!' );
 		}
 		EngineCore.outputText( '</i>" she implores.' );
@@ -2464,7 +2464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  "<i>I-if you touch me again... god, I can\'t even think straight anymore!  Don\'t do this!</i>"' );
 		}
 		//(lust >= 30);
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.outputText( '\n\nWill you take advantage of the terrified girl or let her go?' );
 		} else {
 			EngineCore.outputText( '\n\nYou\'re not really horny enough to take advantage of her, anyway...' );
@@ -2473,16 +2473,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[Rape Pussy][Forced Oral][Dildo Time][Let Her Go];
 		//Let Her Go is default choice if player hits spacebar or has PC lust < 30/no qualified options;
 		EngineCore.menu();
-		if( CoC.getInstance().player.lust >= 33 ) {
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 48 ) >= 0 ) {
+		if( CoC.player.lust >= 33 ) {
+			if( CoC.player.hasCock() && CoC.player.cockThatFits( 48 ) >= 0 ) {
 				EngineCore.addButton( 0, 'Fuck Pussy', this.rapeSheilasCooter );
 			}
-			if( CoC.getInstance().player.hasCock() ) {
-				if( (!CoC.getInstance().player.isTaur() && CoC.getInstance().player.shortestCockLength() <= CoC.getInstance().player.tallness * 0.35) || (CoC.getInstance().player.isTaur() && CoC.getInstance().player.tallness * 1.2 <= CoC.getInstance().player.shortestCockLength() && CoC.getInstance().player.shortestCockLength() <= CoC.getInstance().player.tallness * 1.55) ) {
+			if( CoC.player.hasCock() ) {
+				if( (!CoC.player.isTaur() && CoC.player.shortestCockLength() <= CoC.player.tallness * 0.35) || (CoC.player.isTaur() && CoC.player.tallness * 1.2 <= CoC.player.shortestCockLength() && CoC.player.shortestCockLength() <= CoC.player.tallness * 1.55) ) {
 					EngineCore.addButton( 1, 'Forced BJ', this.forcedSheilaOral, true );
 				}
 			}
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.addButton( 2, 'Forced Lick', this.forcedSheilaOral, false );
 			}
 		}
@@ -2490,8 +2490,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	};
 	//if choosing Let Her Go and sheila xp > -3, set sheila xp = -1, then give xp/gems and Next button to camp;
 	SheilaScene.prototype.letSheilaGo = function() {
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] >= -3 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -1;
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] >= -3 ) {
+			CoC.flags[ kFLAGS.SHEILA_XP ] = -1;
 		}
 		Combat.cleanupAfterCombat();
 	};
@@ -2499,11 +2499,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.rapeSheilasCooter = function() {
 		EngineCore.clearOutput();
 		//set sheila xp = -4;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -4;
-		var x = CoC.getInstance().player.cockThatFits( 48 );
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -4;
+		var x = CoC.player.cockThatFits( 48 );
 		EngineCore.outputText( 'You grab the girl by her fuzzy leg; she tries to kick away from you, but you pull her back, pinning her' );
 		//[(horse);
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' by planting your forehooves just above her hips' );
 		}
 		EngineCore.outputText( '.  Reaching down, you take the neck of her shirt in your hand, then rip it open, exposing her ' );
@@ -2516,51 +2516,51 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( 'breasts, which jiggle from the force.  She tries to cover herself with her arms, but you grab and pull them aside, revealing her chest again.  As you appraise her naked flesh, she looks away, shame coloring her cheek.  Her mouth tightens and her eyes shut as you squeeze her tits roughly, flicking the nipples until they\'re erect.' );
 		EngineCore.outputText( '\n\nSliding down her body a bit, you devote your attention to her waist, unfastening her belt and unbuttoning her dusty shorts.  A triangle of white fabric greets you as you pull the flaps apart, and you tug the bottoms down quickly to expose her panties.  You place one finger at the entrance to her pussy, ' );
-		//[(CoC.getInstance().monster HP < 1);
-		if( CoC.getInstance().monster.HP < 1 ) {
+		//[(CoC.monster HP < 1);
+		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'sliding it between her labia and producing a damp spot, then ' );
 		}
 		EngineCore.outputText( 'dragging the wet fabric around her vulva.' );
-		EngineCore.outputText( '\n\nSatisfying yourself as to her readiness, you unfasten your [armor] to extract your [cockFit 48]; the ' + CoC.getInstance().player.cockHead( x ) + ' drips with pre-cum as you pull it loose, and you lay it on her crotch, letting the goo soak the white fabric until you can see her light-brown skin through it.  She squirms under it, bringing up another droplet with her motion, and you place the tip at the entrance to her pussy, pressing eagerly against the fabric.  "<i>Please...</i>" she whimpers, "<i>I\'m begging you; don\'t.</i>"' );
+		EngineCore.outputText( '\n\nSatisfying yourself as to her readiness, you unfasten your [armor] to extract your [cockFit 48]; the ' + CoC.player.cockHead( x ) + ' drips with pre-cum as you pull it loose, and you lay it on her crotch, letting the goo soak the white fabric until you can see her light-brown skin through it.  She squirms under it, bringing up another droplet with her motion, and you place the tip at the entrance to her pussy, pressing eagerly against the fabric.  "<i>Please...</i>" she whimpers, "<i>I\'m begging you; don\'t.</i>"' );
 		//fuck-fork;
 		//[(corruption < 50);
-		if( CoC.getInstance().player.cor < 50 ) {
-			EngineCore.outputText( '\n\nYou frown at the girl.  She still wants to escape, even though her body is eager for this?  You can feel her wet pussy twitching at your ' + CoC.getInstance().player.cockHead( x ) + '.  Dragging the oozing tip along her soaked panties provokes a shiver and another bloom of fluid from the girl, but she bites her lip and refuses to meet your eye.' );
+		if( CoC.player.cor < 50 ) {
+			EngineCore.outputText( '\n\nYou frown at the girl.  She still wants to escape, even though her body is eager for this?  You can feel her wet pussy twitching at your ' + CoC.player.cockHead( x ) + '.  Dragging the oozing tip along her soaked panties provokes a shiver and another bloom of fluid from the girl, but she bites her lip and refuses to meet your eye.' );
 			EngineCore.outputText( '\n\n"<i>Are you serious?</i>" you ask, thrusting gently to part her labia and push the sodden cloth into her.  You can already see every outline of her pussy though it.' );
 			EngineCore.outputText( '\n\n"<i>Y-yes...</i>" she moans, "<i>please don\'t touch my skin.  Through the fabric is fine, if you must, but please... don\'t put it inside!</i>"  What a strange thing to ask... you narrow your eyes at her, but she actually meets your gaze now that you\'ve heard her out.  Honest desperation is all over her flushed face; she\'s really serious about this!' );
-			EngineCore.outputText( '\n\nMan, whatever.  Experimentally, you push in again, testing how far her panties will let you go, and her labia accept you smoothly, rubbing the fabric against your ' + CoC.getInstance().player.cockHead( x ) + '.  With lips spread open, even her small clitoris can be felt through the cloth, and you take the opportunity to rub at it' );
-			if( CoC.getInstance().player.isTaur() ) {
+			EngineCore.outputText( '\n\nMan, whatever.  Experimentally, you push in again, testing how far her panties will let you go, and her labia accept you smoothly, rubbing the fabric against your ' + CoC.player.cockHead( x ) + '.  With lips spread open, even her small clitoris can be felt through the cloth, and you take the opportunity to rub at it' );
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' with your belly' );
 			}
 			EngineCore.outputText( ', to be answered with a shy gasp from the girl and the soft, welcoming feeling of her vagina coating your tip with a new layer of moisture.  Covered in warm, slick fluids, the panties feel pretty good against your dick... you could actually get off like this.  "<i>Move your hips,</i>" you command hesitantly, "<i>make this fun for me.</i>"  Her uncertain eyes light up when she understands that you\'re accepting her conditions, and she parts her thighs wide to gyrate against you, using the end of your prick to caress her small genitalia through the nearly-transparent panties.' );
 			EngineCore.outputText( '\n\n"<i>Is this... okay?</i>" Sheila asks, grinding the cloth-covered hole of her vagina against your slit and smearing the drop of pre-cum that issues from it.  You want to say no, to pretend like it\'s not enough, but the way her tight, clothed vulva is rubbing at the nerve-laden end of your prick is robbing you of your words.  Heat is transmitting to you through the soaked fabric as her body temperature rises; the lewd girl actually begins to grab at her tits and caress herself now that you\'ve granted her a reprieve from whatever it is she was worried about.  Her skin reddens as her body heats up, and she begins to let out soft moans as she pushes harder against your shaft, nearly - but not completely - taking the head inside her pussy.  "<i>Ah...!  N-no... gonna come!</i>"  As her labia squeeze your cock hungrily, you feel the same way.' );
-			EngineCore.outputText( '\n\nHer knees clasp around you until she remembers her injunction against skin contact and forces them apart again; her hands, which she had reached out to you briefly, are pulled back as her arms fold tightly against her chest, pressing her breasts together.  "<i>S-sorry!</i>" she cries, and you feel her drooling through the panties as she spasms.  At your limit as well, you slide your ' + CoC.getInstance().player.cockHead( x ) + ' down to the entrance to her vagina and push it partway in, rubbing the tip against the fabric to work the nerves and cross the last step to your own orgasm.' );
+			EngineCore.outputText( '\n\nHer knees clasp around you until she remembers her injunction against skin contact and forces them apart again; her hands, which she had reached out to you briefly, are pulled back as her arms fold tightly against her chest, pressing her breasts together.  "<i>S-sorry!</i>" she cries, and you feel her drooling through the panties as she spasms.  At your limit as well, you slide your ' + CoC.player.cockHead( x ) + ' down to the entrance to her vagina and push it partway in, rubbing the tip against the fabric to work the nerves and cross the last step to your own orgasm.' );
 			EngineCore.outputText( '\n\n"<i>Take it out!</i>" the girl wails, still shaking with climax.  "<i>D-don\'t come in me!</i>"' );
 			EngineCore.outputText( '\n\n"<i>Shut up,</i>" you retort, through gritted teeth, "<i>I gave you what you wanted, now do the same for me!</i>"  Your [cockFit 48] twitches and your muscles quake as the first stroke of semen erupts; it takes all your effort to hold yourself up and avoid sinking onto your lover while the permeable barrier of her panties collects its toll from your spilling cum, thickening with the goo you pump into the girl.  She reddens as your warm seed squirts through the fabric to invade her body, but makes no further protest.' );
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( '  Soon you\'ve filled her as fully as the shallow penetration will allow, and the panties begin to press back against your cock, oozing onto you whatever semen the porous dam can\'t contain.' );
 			}//(mega skeet);
-			else if( CoC.getInstance().player.cumQ() >= 1500 ) {
+			else if( CoC.player.cumQ() >= 1500 ) {
 				EngineCore.outputText( '  It sags and bows around the tip of your spear, pulsing with each new stroke as the hemlines leak jizz onto her legs and butt.' );
 			}
 			EngineCore.outputText( '  Idly, you imagine what it must look like inside, each squirt having its momentum arrested by the cloth, drooling lazily into her until the next one displaces it a bit further forward, and wonder if it\'ll be enough to get her pregnant.  You pull away from the girl, leaving her gasping and once again averting her gaze.' );
 			EngineCore.outputText( '\n\nShe attempts to stand, holding her midriff and looking at you unhappily.  ' );
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( 'So much cum fills her pussy that it slips out, once again restoring the opacity, though not the dryness, of her panties.  ' );
 			}
 			EngineCore.outputText( 'You return her gaze, turning your nose up dismissively.  Conscious of her nudity, she pulls up her shorts and buttons her vest to conceal herself as you leave her behind.' );
 			//end scene, sheilapreg check, reduce lust and libido;
 			this.sheilaPreg();
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
 		} else {
 			EngineCore.outputText( '\n\n"<i>Why shouldn\'t I?</i>"  You back away and slip a hand into her panties, letting the fingertips dangle against her opening; every inch of her flesh is hot with arousal, betraying her words.  Even her pussy lips stroke and caress your fingers gently.  "<i>The only part of you that doesn\'t want this is your lying mouth.</i>"' );
 			EngineCore.outputText( '\n\nSheila shivers and tries to speak again, but her head jerks as you crook your fingers abruptly into her, then yank your hand back.  Her panties stretch as you tug, taut against her ass.  "<i>S-stop!</i>" she cries.  "<i>Please!</i>"' );
 			EngineCore.outputText( '\n\n"<i>No.</i>"  Tensing your arm, you pull harder, and the sound of ripping fabric fills the space between you as her panties tear in half.  Casting the ruined garment away, you resume your position, jabbing at her vulva with your [cockFit 48]; it drools lubrication over your tip as you nose into it, reinforcing your decision.' );
 			EngineCore.outputText( '\n\nThe girl\'s struggles resume as you finally push in, spurred on by the intimate contact' );
-			if( CoC.getInstance().player.cockArea( x ) > 32 ) {
+			if( CoC.player.cockArea( x ) > 32 ) {
 				EngineCore.outputText( ' and the pain of taking a cock slightly too large for her' );
 			}
 			EngineCore.outputText( ', and she actually rears back to scratch at you with her fingernails.  You catch her hand and hold it, and she responds by spitting at you!  "<i>Fuck you, arsehole!</i>" Sheila shrieks.  "<i>Take it out!</i>"  Reaching down, you slap her in the face.' );
@@ -2571,58 +2571,58 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( ' clenches her jaw.  A bloom of red colors her cheeks, one brighter than the other from the blow... though she still refuses to look at you.  Doesn\'t matter; having sex.  You begin to pump her pussy vigorously, the wetness enough to allow quick, smooth thrusts without any warmup.  "<i>You\'re a godawful liar,</i>" you grunt' );
 			//[(not centaur);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ', leaning down to kiss her long neck and collarbone' );
 			}
 			EngineCore.outputText( '.  Sheila quivers again, still looking away, as you continue.  "<i>I can actually feel you stroking me with your vagina already.  Are you going to come soon?  Will you tell me how much you\'re hating this when you do, and wrap your legs around me to punish me by holding me inside?</i>"  The girl\'s blush deepens, and she bites her lip in embarrassment.  Confidently, you release her hand' );
 			//[(nothors);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ', transferring yours to her breast while brushing her torn shirt to the side' );
 			}
 			EngineCore.outputText( '; without struggling further, she slowly lowers it' );
 			//[(nothors);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' to rest atop your own' );
 			}
 			EngineCore.outputText( ', confirming your suspicion.  Her eyes close and her chin raises resignedly' );
 			//[(nothors);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' as you triumphantly squeeze the flesh in your hand and kiss her under the jaw' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nThe rough fuck won\'t last much longer; you can feel your orgasm drawing close and the lewd squelches of your lover\'s pussy suggest you\'re not alone.  "<i>Please...</i>" she whispers, almost unheard.  You lean closer and wait for her to speak again.  "<i>Please... pull out...</i>"' );
 			EngineCore.outputText( '\n\nAlmost affectionately, you ' );
 			//[(mans);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'place a hand along her face, tuning it toward you, and kiss her on the lips.' );
 			} else {
 				EngineCore.outputText( 'bend down, lowering your torso until you can caress her cheek.' );
 			}
 			EngineCore.outputText( '  "<i>Of course I won\'t,</i>" you answer sweetly.  "<i>What would be the point?</i>"  Sheila winces as you hilt yourself, sinking your [cockFit 48] so far into her that your crotch meets hers.  You shudder' );
 			//[(nonhors);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' and squeeze her breast' );
 			}
 			EngineCore.outputText( ' as your climax arrives and the first of your seed pours into her grasping pussy.  While you fill her, her back arches' );
 			//[(nonhors) ;
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' and she presses your hand uncomfortably' );
 			}
 			EngineCore.outputText( ', gasping as her own orgasm begins.  Her knees wrap around your sides, satisfying your predicition, and her vagina' );
 			//[(pc corr >= 90 or > sheila corruption);
-			if( CoC.getInstance().player.cor >= 90 || this.sheilaCorruption() < CoC.getInstance().player.cor ) {
+			if( CoC.player.cor >= 90 || this.sheilaCorruption() < CoC.player.cor ) {
 				EngineCore.outputText( ' pulls greedily at your [cockFit 48], drinking up your semen as fast as you can squirt it.  She sucks in breath as she climaxes, finally opening her eyes as her head tilts back' );
 				//[(nonhors);
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( '; you can almost feel her breast heating up and swelling with blood under your hand, as the nipple pokes into your palm' );
 				}
 				EngineCore.outputText( '.' );
 			}
 			//(PC corr < sheila corruption);
-			else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+			else if( CoC.player.cor < this.sheilaCorruption() ) {
 				EngineCore.outputText( ' floods you with juices, dumping so much around your twitching cock that you feel like you\'re lowering it into a hot spring.' );
 				//[(nonhors);
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( '  She squeezes your hand so hard that you swear you can feel her breast compressing under it as she screams her pleasure.' );
 				}
 			}
@@ -2631,13 +2631,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( ' drools eagerly as you mingle your juices with hers, until the fluid begins to thicken with white seed.' );
 			}
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( '  Overabundant as always, your semen quickly fills her to capacity and begins to squirt out around your shaft, staining her thighs.' );
 			}
 			//[(multicock);
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '  Your other ' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( 'dick spits' );
 				} else {
 					EngineCore.outputText( 'dicks spit' );
@@ -2646,7 +2646,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( '\n\n"<i>Haha,</i>" you laugh softly.  "<i>You wanted this as much as I thought.</i>"' );
 			//if sheila corr >= 90 and PC corr > 90, go to demonization scene, else continue;
-			if( this.sheilaCorruption() >= 90 && CoC.getInstance().player.cor >= 90 ) {
+			if( this.sheilaCorruption() >= 90 && CoC.player.cor >= 90 ) {
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 				return;
@@ -2655,13 +2655,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//end scene, sheilapreg check, lose lust and libido, if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
 			//pregcheck;
 			this.sheilaPreg();
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
 			this.sheilaCorruptionUpdate();
-			/*if(CoC.getInstance().player.cor > 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+			/*if(CoC.player.cor > 90 || CoC.player.cor > this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', -10);
 			 this.sheilaCorruption(10);
-			 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+			 } else if(CoC.player.cor < this.sheilaCorruption()) {
 			 EngineCore.dynStats('cor', 10);
 			 this.sheilaCorruption(-10);
 			 }*/
@@ -2676,7 +2676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.clearOutput();
 		//set sheila xp = -4;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -4;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -4;
 		EngineCore.outputText( 'You lean down and grab the girl by her shirt-front, raising her to her knees; her hands automatically go to yours.' );
 		EngineCore.outputText( '\n\n"<i>Let go!</i>" she shrieks, trying to pull free of your grip.' );
 		EngineCore.outputText( '\n\n"<i>Now, now; calm yourself,</i>" you admonish.  Your other hand slips up her shirt, caressing her stomach and searching out her' );
@@ -2716,7 +2716,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nYou seize the girl by her hair, cutting off her escape and depositing her in front of you once again.  Still holding her tight, you guide her shut mouth to the tip of your [cock shortest].  "<i>Oral,</i>" you demand tersely, grabbing your shaft and smearing her lips with the pre-cum you\'re beginning to drip.  Sheila\'s eyes close like her mouth and she tries to pull away, but you shake her until she\'s looking at you again and point at your cock insistently.  "<i>Oral,</i>" you repeat, pulling her hair harder.  "<i>Or we can slip you out of those pants instead, if you prefer...</i>"' );
 			EngineCore.outputText( '\n\nHer mouth opens in either pain or alarm; you take advantage of the accommodation and shove your prick at it, ' );
 			//[(cock width <= 6");
-			if( CoC.getInstance().player.cocks[ CoC.getInstance().player.shortestCockIndex() ].cockThickness <= 6 ) {
+			if( CoC.player.cocks[ CoC.player.shortestCockIndex() ].cockThickness <= 6 ) {
 				EngineCore.outputText( 'parting her lips to pop neatly between them.  It feels good, but one-sided, and you order Sheila to get to work.' );
 			} else {
 				EngineCore.outputText( 'jabbing at her undersized mouth with your enormous [cockHead shortest].  "<i>It\'s too thick!</i>" she complains, trying to turn away.' );
@@ -2725,16 +2725,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  The reticent woman brings her lips into play, sucking gingerly, ' );
 			//start length fork, no new PG;
 			//[(dick length <= 8);
-			if( CoC.getInstance().player.cocks[ CoC.getInstance().player.shortestCockIndex() ].cockLength <= 8 ) {
+			if( CoC.player.cocks[ CoC.player.shortestCockIndex() ].cockLength <= 8 ) {
 				EngineCore.outputText( 'and the warm embrace of her mouth is welcome stimulation.' );
 				EngineCore.outputText( '\n\n"<i>G-good,</i>" you encourage, "<i>use your tongue more!</i>"  Sheila obliges, rubbing the breadth of the little pink muscle along the underside of your glans.  One of her hands slides up your body, stroking ' );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'your [sack]' );
 				} else {
 					EngineCore.outputText( 'the base of your shaft' );
 				}
 				EngineCore.outputText( ', and the other hesitantly makes its way to her breasts as she gets into the sex.  The woman tweaks her nipple, softly at first but with mounting passion as her attentions on your dick become more lavish.  Catching this from the corner of your eye, you move ' );
-				if( !CoC.getInstance().player.isNaga() ) {
+				if( !CoC.player.isNaga() ) {
 					EngineCore.outputText( 'a [foot]' );
 				} else {
 					EngineCore.outputText( 'the tip of your tail' );
@@ -2743,7 +2743,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\n"<i>So you like having your ears touched?</i>" you ask, shuddering and stroking them again.' );
 				EngineCore.outputText( '\n\nSheila withdraws your dick from her mouth to speak, looking up at you with a shy half-smile - but then freezes.  Her eyes widen and the color drains from her face as she returns to the present.  "<i>N-no...</i>" she replies, looking away in shame.  Her hips still and her one hand drops away from her breast; the motion of the other becomes mechanical again, changing from affectionate caresses to simple strokes up and down your shaft with none of the feeling from before.  "<i>Please, just... finish and let me go.</i>"' );
 				EngineCore.outputText( '\n\nOh, for fuck\'s sake... and just as it was starting to warm up.  "<i>Fine!</i>" you grunt.  Glowering, you tighten your grip, pressing her ears flush against her head; she flinches at the rough contact, but you pull her forward and ram her mouth into your dick, intent on making up the progress you lost from her frigid behavior.  Mashing your pelvis against her, you face-fuck the girl, using her mouth like any wet cunt; it doesn\'t take long before the soft lips and tongue on your prick tease you to climax, and Sheila begins to panic as your cock twitches' );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( ' and your [balls] tighten up' );
 				}
 				EngineCore.outputText( '.  She pushes against you with her hands, trying to get free, but you just hold her against your crotch as you lean over her head.' );
@@ -2754,10 +2754,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\n"<i>God,</i>" you groan, "<i>you\'re terrible at this.</i>"  Sheila\'s eyes widen with concern and her palms turn toward you in a futile defensive gesture, but too late; ' );
 				//start width fork, no new PG;
 				//[(cock width <= 6);
-				if( CoC.getInstance().player.cocks[ CoC.getInstance().player.shortestCockIndex() ].cockThickness <= 6 ) {
+				if( CoC.player.cocks[ CoC.player.shortestCockIndex() ].cockThickness <= 6 ) {
 					EngineCore.outputText( 'you grab her by both ears and force your [cock shortest] down her throat!  You can feel her esophageal muscles rippling around you as she gags and retches, and you pull it out again to be sure she\'s not going to throw up on your dick.  Nothing seems forthcoming, so you drag her head forward again, once more sliding into the convulsing warmth of her throat.  A groan escapes you as it closes around your crown; her squeezing passageway feels for all the world like a tight cunt, and your eager hips begin to use it as exactly that, pumping in and out of Sheila as she shudders and struggles weakly.' );
 					EngineCore.outputText( '\n\n"<i>Maybe,</i>" you grunt, "<i>you should work on your oral skills if you don\'t want to get fucked in the pussy.  As long as you stuff the cocks in your mouth before they can get your pants off, it won\'t matter that you can\'t fight for shit.</i>"  Sheila looks at you with wet, resentful eyes, but you simply increase the force of your thrusts, pulling her head forward to have a straighter angle down her throat.  You can feel your climax bubbling as you coat her passage with smears of slippery pre-cum and push your prick into it, working the wet hole - as can she.  When your dick twitches' );
-					if( CoC.getInstance().player.balls > 0 ) {
+					if( CoC.player.balls > 0 ) {
 						EngineCore.outputText( ' and your [balls] begin to rise' );
 					}
 					EngineCore.outputText( ', the woman starts to panic, re-upping her struggle to push away from you.' );
@@ -2767,7 +2767,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 					EngineCore.outputText( 'you grab the shaft and stroke once, forcing out a truly impressive dollop of backed-up pre-cum that dribbles onto Sheila\'s face and into her open maw.  The woman coughs and sputters, drooling the slick fluid from mouth and nose, then tries to scrub it away with the back of her hand; she only succeeds in smearing it into a complete mess.' );
 					EngineCore.outputText( '\n\n"<i>That\'s a good look for you,</i>" you taunt, stroking your [cock] vigorously while you hold her in position to receive her painting.  She tries to pull away as the next drop beads and oozes down the trail blazed by the first, but settles for closing her eyes tightly and whimpering when your grip on her ear tightens painfully.' );
 					EngineCore.outputText( '\n\nThe next drop covers more of her face, as does the one after it... you get so engrossed in jerking yourself off and rubbing your tip in Sheila\'s tightly-shut eyes and along her now-slippery cheeks that your orgasm steals up on you without warning.  Your prick swells' );
-					if( CoC.getInstance().player.balls > 0 ) {
+					if( CoC.player.balls > 0 ) {
 						EngineCore.outputText( ' and your [balls] draw closer to your body' );
 					}
 					EngineCore.outputText( '; still intent on calling this oral sex, you squeeze Sheila\'s jaw, forcing her mouth open, then push your drooling slit right up to it as the first squirt of white peeks out.' );
@@ -2776,20 +2776,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//end width fork and length fork;
 			//begin corruption worms fork;
 			//(if corr >= 70 and Infest command is unlocked);
-			if( CoC.getInstance().player.cor >= 70 && CoC.getInstance().player.statusAffectv1( StatusAffects.Infested ) === 5 ) {
+			if( CoC.player.cor >= 70 && CoC.player.statusAffectv1( StatusAffects.Infested ) === 5 ) {
 				EngineCore.outputText( '\n\nA wicked idea flits through your head, brought on by the squirming annoyances ' );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( 'packing your [balls] and driving up your lust in their zeal to multiply' );
 				} else {
 					EngineCore.outputText( 'deep inside your body, trailing sensation along the nerves in your most intimate places and ramping up your production' );
 				}
 				EngineCore.outputText( ', and you decide to indulge it.  "<i>Don\'t worry about rations for the day,</i>" you cry out, "<i>I\'ve got more than enough to feed you!</i>"  Sheila\'s resigned expression registers this as little more than masculine braggadocio - all the better for your surprise.  Pulling deep inside yourself, you force out a thick load of wormy jism, depositing it directly into the woman\'s throat; her body tenses at the texture and she tries again to pull away.  As the writhing mass is pushed down her gullet by yet more arriving after it, she begins to struggle violently, hitting you with tired fists and trying to wrench her head free of your grip, even at the cost of her ears.  Luckily, she lacks the energy to do permanent damage to either you or herself after the fight and the cruel face-fucking, and you pour your infested load into her with abandon.' );
 				//[(big skeet);
-				if( CoC.getInstance().player.cumQ() >= 2500 ) {
+				if( CoC.player.cumQ() >= 2500 ) {
 					EngineCore.outputText( '  The volume of semen and slimy worms you pack her with is so great that it strains her stomach; you can actually see dozens of the annelids slithering around in a tight ball under the taut skin of her swollen midriff.' );
 				}
 				EngineCore.outputText( '  Eventually you finish and pull out, after pushing up every worm you can.  Your ' );
-				if( CoC.getInstance().player.balls > 0 ) {
+				if( CoC.player.balls > 0 ) {
 					EngineCore.outputText( '[sack]' );
 				} else {
 					EngineCore.outputText( 'body' );
@@ -2801,25 +2801,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			else {
 				EngineCore.outputText( '\n\n"<i>Swallow it, bitch!</i>" you cry, holding Sheila\'s head against your cock as your ejaculation begins.  Not like she has much choice, with the way you\'re holding her; she can either swallow or drown in semen.  Your orgasm fills her mouth, forcing its way down her throat' );
 				//[(big skeet);
-				if( CoC.getInstance().player.cumQ() >= 1000 ) {
+				if( CoC.player.cumQ() >= 1000 ) {
 					EngineCore.outputText( ', and soon you can feel it lapping at the end of your shaft' );
 				}
 				EngineCore.outputText( '.' );
 				//[(mega skeet);
-				if( CoC.getInstance().player.cumQ() >= 3000 ) {
+				if( CoC.player.cumQ() >= 3000 ) {
 					EngineCore.outputText( '  Your body\'s not done with that, though, and keeps pushing out cum until it spurts around your prick and out Sheila\'s nose in little squirts.' );
 				}
 				EngineCore.outputText( '  Emptying yourself, you pull Sheila\'s mouth away from your [cock shortest] and drag the slimy member on her chest, smearing her tits with spit and semen and wiping away the last of the mess on her shirt.' );
 				EngineCore.outputText( '\n\nYou pull the soiled garment down over Sheila\'s breasts' );
 				//[(big+ skeet);
-				if( CoC.getInstance().player.cumQ() >= 1000 ) {
+				if( CoC.player.cumQ() >= 1000 ) {
 					EngineCore.outputText( ', though it\'s so wet with seed now that you can see them almost as well through it' );
 				}
 				EngineCore.outputText( '.  "<i>This really is a nice fabric.  You should take better care of it.</i>"  With that parting shot, you leave the queasy-looking woman to digest your load and the humiliation.' );
 			}
 			//end worm fork;
 			//end forced fellatio branch, reset hours since cum, lower lust and libido, add corruption;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1, 'cor', 1 );
 		} else {
 			//(else if no qualified cocks);
@@ -2831,53 +2831,53 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( '.  Straddling her, you lower your [vagOrAss] to her face.  "<i>Lick,</i>" you order, rubbing your [butt] on Sheila\'s nose' );
 			//[(not horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( ' as you fondle her tits' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\nThe unhappy woman complies, inserting her tongue.  The little pink triangle works your hole only haltingly, stroking past the nerves of the entrance with a jerky, mechanical motion.  It\'s clear from the feeling that she\'s just pistoning it in and out, imitating the world\'s smallest cock.' );
-			if( (CoC.getInstance().player.hasVagina() && CoC.getInstance().player.vaginalCapacity() >= 100) || (!CoC.getInstance().player.hasVagina() && CoC.getInstance().player.analCapacity() >= 100) ) {
+			if( (CoC.player.hasVagina() && CoC.player.vaginalCapacity() >= 100) || (!CoC.player.hasVagina() && CoC.player.analCapacity() >= 100) ) {
 				EngineCore.outputText( '  She keeps hitting the same spot again, too - she\'s not even bothering to adjust her angle and touch the rest of your stretched opening.' );
 			}
 			EngineCore.outputText( '\n\n"<i>You are awful at this,</i>" you gripe, sitting heavily on her head.  A muffled complaint comes from under you, but you pay it no mind.  "<i>No boy parts, tail too stubby to insert... and now no oral skills either.  Seriously, what are you good for except taking the dick and making babies?  Why don\'t you just stay home with your legs open and hold out a begging bowl?' );
 			//[(PC has met hellhound master);
-			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] > 0 ) {
+			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] > 0 ) {
 				EngineCore.outputText( '  I know a nice boy in the mountains who keeps dogs, and I\'m sure he\'d love to have a womb like yours for their seed.  By this time tomorrow, you could have a cock in both holes, filling you with hellhound babies since you can\'t please a person.' );
 			}
 			EngineCore.outputText( '</i>"' );
 			EngineCore.outputText( '\n\nYou can feel her face heating up under your [butt] as she flushes with shame; seems like you struck a nerve.  You ' );
 			//[(no horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'pinch her nipple for emphasis, then grind your hips across her face, mauling her nose with your ass.  "<i>I could fuck a tree and it wouldn\'t be as wooden as you in the sack' );
 			}
 			//[(PC has found corrupt glade);
-			if( CoC.getInstance().player.exploredForest >= 40 ) {
+			if( CoC.player.exploredForest >= 40 ) {
 				EngineCore.outputText( ' - in fact, there are quite a few I\'ve seen who look like better lovers than you.  Maybe I should carry you to the forest and tie you to a nice pussy-shaped giant flower to give you lessons' );
 			}
 			EngineCore.outputText( '.  ' );
 			//[(minotaur addiction score =/= 0%);
-			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
 				EngineCore.outputText( 'Perhaps I\'ll turn you over to a minotaur; you\'re bound to get better at using your tongue when you\'re addicted to their amazing seed.  Would you like that?  The first thing you\'d see in the morning would be a huge flared cock, right in front of you, dripping with heavenly precum and waiting for your mouth... or your cunt.  You could be just another minotaur-fucking slut of the plains.  ' );
 			}
 			EngineCore.outputText( 'Or I could take you home and give you personal training myself, whenever I feel like it, and invite travelers to do the same' );
 			//[(PC has Izma with cock);
-			if( SceneLib.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
+			if( SceneLib.izmaScene.izmaFollower() && CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
 				EngineCore.outputText( '; I personally know fifteen inches of fat, orange dick and four heavy balls that\'d love to get in at your other end while I ride your face' );
 			}
 			EngineCore.outputText( '.</i>"' );
 			EngineCore.outputText( '\n\nYour [vagOrAss] squeezes around Sheila\'s hesitant tongue, turned on more by the spectacle of selling her body than by any of her poor efforts.  She squirms under you, rubbing her thighs together as you paint the worst pictures of her future you can imagine, and you climax' );
 			//[(PC has met Lumi or Lynette);
-			if( CoC.getInstance().player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 || CoC.getInstance().flags[ kFLAGS.LUMI_MET ] > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 || CoC.flags[ kFLAGS.LUMI_MET ] > 0 ) {
 				EngineCore.outputText( ' while imagining her turned over to the goblins for experiments, forced to drink potion after potion - most would be dedicated to growing cocks on her or increasing semen production, of course' );
 			}
 			EngineCore.outputText( '.  Your hole clenches and drools on her, and the woman\'s rude tongue retreats from the pressure, leaving you painfully empty.' );
 			//[(no horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '  Even squeezing her breasts viciously can\'t compel her to reinsert it, though you amuse yourself trying.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Worthless,</i>" you spit, climbing off.  She turns a disconsolate, wet face to you as you redress and leave, but doesn\'t defend herself.' );
 			//end lingus branch, reduce lust, lower libido, add corruption;
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1, 'cor', 1 );
 		}
 		Combat.cleanupAfterCombat();
@@ -2886,7 +2886,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//set sheila xp = -4;
 	SheilaScene.prototype.sheilaGetsRapedWithADildont = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -4;
+		CoC.flags[ kFLAGS.SHEILA_XP ] = -4;
 		EngineCore.outputText( 'Looking down at the woman below you, a cruel idea forms in your head.  You extract the absurd pink goblin dildo from your pack; Sheila\'s eyes darken as she recognizes the manufacture.  She tries to scoot further away from you, but you grab her leg and turn her over callously, then slide a hand under her and force her ass into the air by lifting her crotch.' );
 		EngineCore.outputText( '\n\n"<i>What are you doing?</i>" she asks, panicked.  Ignoring her, you unfasten her belt and yank down both her shorts and her panties; as you pull the fabric away from her vulva, she squirms uncomfortably.  "<i>Stop it, please!</i>"' );
 		EngineCore.outputText( '\n\n"<i>Why?</i>" you reply coldly.  Grabbing her tail and yanking it upward, you produce a shriek from the woman at the same time as you jam the dildo into her cunt without warning.' );
@@ -2901,13 +2901,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>You change your mind a lot, you know that?</i>"  The woman\'s skin flushes as you work your dildo, pistoning it in her rectum, and she moans lightly.  It doesn\'t take long before she\'s as into it as she was when you had it in her cunt and rams her ass into your hand, helping you fuck her wide-open, stretched hole.' );
 		EngineCore.outputText( '\n\n"<i>G-gonna... gonna cum...</i>" she groans, rolling her head on her neck and tossing her hair.' );
 		EngineCore.outputText( '\n\nYou lean forward until your face is level with her ear, and whisper, "<i>From anal alone?  You really are a slut!</i>"  Sheila doesn\'t even seem to care, pumped with goblin drugs; she raises one hand and places it alongside your face, leaning in to kiss your cheek as she sinks herself on the dildo one last time.' );
-		EngineCore.outputText( '\n\n"<i>Nnnnn,</i>" she moans, humming into your ' + CoC.getInstance().player.skinFurScales() + '.  ' );
+		EngineCore.outputText( '\n\n"<i>Nnnnn,</i>" she moans, humming into your ' + CoC.player.skinFurScales() + '.  ' );
 		//[(PC corr >= 90 and sheila corr >= 90);
-		if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+		if( CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption() ) {
 			EngineCore.outputText( 'Your face heats as she kisses you sloppily, and not all of the temperature is from her mouth.  It feels like she\'s pulling energy right out of you, and you can swear that her breasts are growing.' );
 		}
 		//(else PC corr < sheila corruption);
-		else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+		else if( CoC.player.cor < this.sheilaCorruption() ) {
 			EngineCore.outputText( 'Her lips heat up and your body tingles; you can see her breasts shrinking as she shivers and slobbers on your face - or so it seems from the angle.' );
 		}
 		//(else if magically equal but < 90);
@@ -2917,25 +2917,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 
 		EngineCore.outputText( '\n\n"<i>Well done, my little butt-slut,</i>" you quip, pulling the dildo free of the woman\'s ass.  A stream of pink faux-jizz slides out in its wake, mingling with the liquid that squirted from her pussy when she came.' );
 		//(cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  "<i>Perhaps next time you\'d like to try a real cock in there?</i>"  Even exhausted and messed up on goblin drugs, she has the presence of mind to shake her head at that.  You laugh.' );
 		}
 		//go to demonization if PC corr >= 90 and sheila corruption >= 90, else continue;
-		if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+		if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 			return;
 		}
 		EngineCore.outputText( '\n\nTurning around, you walk away from the woman, holding the used dildo out at an angle to make sure she can see it until you disappear.  Privately, you\'re also waiting to wash it before you put it away again - or use it on yourself, imagining the scene again in your head.' );
 		//end scene, gain lib-based lust, if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
-		if( CoC.getInstance().player.cor >= 90 || this.sheilaCorruption() < CoC.getInstance().player.cor ) {
+		if( CoC.player.cor >= 90 || this.sheilaCorruption() < CoC.player.cor ) {
 			EngineCore.dynStats( 'cor', -10 );
 			this.sheilaCorruption( 10 );
-		} else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+		} else if( CoC.player.cor < this.sheilaCorruption() ) {
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaCorruption( -10 );
 		}
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 3, 'resisted', false );
+		EngineCore.dynStats( 'lus', CoC.player.lib / 3, 'resisted', false );
 		Combat.cleanupAfterCombat();
 	};
 	//loss in combat: ;
@@ -2945,9 +2945,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.getBeatUpBySheila = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You slump down before Sheila, breathing heavily; the woman ' );
-		if( CoC.getInstance().monster.lust < 75 ) {
+		if( CoC.monster.lust < 75 ) {
 			EngineCore.outputText( 'takes the opportunity to grab her catch and take off running!  Even if you wanted to, you couldn\'t catch her now... you collapse, head swimming in ' );
-			if( CoC.getInstance().player.HP < 1 ) {
+			if( CoC.player.HP < 1 ) {
 				EngineCore.outputText( 'colorful spots' );
 			} else {
 				EngineCore.outputText( 'fantasies of her, stark naked but for her hat and waiting with her legs open' );
@@ -2962,10 +2962,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>[name]... you\'re not a demon?</i>" Sheila asks, with smoldering eyes.' );
 			EngineCore.outputText( '\n\nYou shake your head, lost in a fog.  No sooner do you than she jumps you, pressing her body to yours and stealing a long passionate kiss that focuses your thoughts.' );
 			//[(sheila xp > -4);
-			if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] > -4 ) {
+			if( CoC.flags[ kFLAGS.SHEILA_XP ] > -4 ) {
 				EngineCore.outputText( '\n\n"<i>Don\'t hate me for this...</i>" she whispers.' );
 				//if sheila xp > -4, set sheila xp = -2, go to loss rape;
-				CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = -2;
+				CoC.flags[ kFLAGS.SHEILA_XP ] = -2;
 			}
 			//TO ZE SCENE;
 			EngineCore.addButton( 0, 'Next', this.sheilaLossRapeRouter );
@@ -2976,7 +2976,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//RNG biased against giving this scene to men/herms, but it should still be possible;
 		//boilerplate face-in-cunt shit;
 		//if sheila xp >= -3, set sheila xp = -2;
-		if( (!CoC.getInstance().player.hasCock() || Utils.rand( 3 ) === 0) ) {
+		if( (!CoC.player.hasCock() || Utils.rand( 3 ) === 0) ) {
 			this.sheilaForcedOralGeneric();
 		}//loss scene - cowgirl (for M,H);
 		//if sheila xp >= -3, set sheila xp = -2;
@@ -2990,7 +2990,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaCowgirlRapesYou = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sheila pushes insistently, and you allow her to force you to the ground and then onto your back' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '; your hooves stick awkwardly out to one side' );
 		}
 		EngineCore.outputText( '.  She blushes furiously and won\'t meet your eyes, but it doesn\'t stop her from stripping off her vest and shirt in one smooth motion, revealing her ' + this.sheilaCup() + ' chest.  "<i>T-touch me,</i>" she demands, "<i>rub me.</i>"  Almost as an afterthought, she adds "<i>... please.</i>"' );
@@ -3002,43 +3002,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( 'breast in each, squeezing them softly and rubbing the hard nipples with your thumbs.  Sheila shudders as you amuse yourself with her body, placing her hands atop yours and guiding you to her favorite spots.  You watch her as she moans; your gazes meet as she rolls her head, and she quickly restrains herself and looks away again.  "<i>Stop staring at me...</i>"' );
 		EngineCore.outputText( '\n\nEager to see anything but your curious face, Sheila pushes your hands away from her breasts and turns to your crotch.  She ' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'pulls your legs apart' );
 		} else {
 			EngineCore.outputText( 'unfastens and strips off your [armor]' );
 		}
 		EngineCore.outputText( ', revealing your ' + Descriptors.multiCockDescriptLight() + '; ' );
 		//[(if no cock fit 32);
-		if( CoC.getInstance().player.cockThatFits( 32 ) < 0 ) {
+		if( CoC.player.cockThatFits( 32 ) < 0 ) {
 			EngineCore.outputText( 'her eyes widen as ' + Descriptors.sMultiCockDesc() + ' bobs free, half-erect monster meat that fills her with frustration.' );
 			EngineCore.outputText( '\n\n"<i>Dammit!</i>" she cries, punching the dirt.  "<i>Another wanker with more dick than brain... how do you expect to ever love a woman?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Problem?</i>" you ask, innocently.' );
 			EngineCore.outputText( '\n\nSheila bites her lip and nods.  "<i>I could never fit that inside... I can\'t use it.</i>"' );
 			EngineCore.outputText( '\n\nRather, she means she\'s not imaginative enough to use it?  Sheila seems to see some of your assumed insult in your eyes, and she sets her jaw.  "<i>Alright,</i>" she says ominously, "<i>challenge accepted.</i>"  The woman unfastens her belt, stripping off her shorts and panties with the same haste as her top.  Her underwear comes away with ease, sticking hardly a bit - maybe she plans to make up the deficit in her arousal with willpower?  Sheila pushes your back flat against the ground again' );
 			//[(horse);
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ', or at least as flat as you can get it' );
 			}
 			EngineCore.outputText( ', then sits on your stomach' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ', sliding her long legs between yours' );
 			}
 			EngineCore.outputText( '.  She scoots forward slowly, and gasps as her pussy comes to rest against your hot, blood-engorged shaft.' );
 			EngineCore.outputText( '\n\n"<i>Ahh... ah.  N-not bad,</i>" she sighs.  She wraps her thighs lightly around your [cock] and begins to shift up and down, stroking herself.  The space between her legs is nearly the perfect size, and when she squeezes you, you moan as well.  "<i>So,</i>" Sheila whispers, shuddering, "<i>enjoying this, are you?</i>"' );
 			EngineCore.outputText( '\n\nYou pant in agreement as your hips begin to aid the stimulation by thrusting; your ' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'forelegs fold over her torso affectionately' );
 			} else {
 				EngineCore.outputText( 'hands search out her breasts, caressing and squeezing' );
 			}
 			EngineCore.outputText( ' as her gasps and the picture in your head both intensify.  Sheila grabs one with her own hand, pulling it up to her mouth to smother it in kisses' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'and suck on your fingers' );
 			}
 			EngineCore.outputText( '.  "<i>Oh... [name]...</i>"' );
 			EngineCore.outputText( '\n\nYou grunt a response, too involved in thrusting between her warm, juice-slicked thighs to form sentences.  "<i>[name]... I-I\'m... coming!</i>" Sheila shrieks.' );
 			//[(sens >=50);
-			if( CoC.getInstance().player.sens >= 50 ) {
+			if( CoC.player.sens >= 50 ) {
 				EngineCore.outputText( '\n\n"<i>Come!</i>" you order, close to your own orgasm as well.  ' );
 			}
 			//(sens < 50);
@@ -3047,31 +3047,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			EngineCore.outputText( 'Sheila shivers and leans back, hair dangling, as her hips buck and her thighs squeeze your shaft.  ' );
 			//(PC corr >=90 or > sheila corruption);
-			if( CoC.getInstance().player.cor >= 90 || this.sheilaCorruption() < CoC.getInstance().player.cor ) {
+			if( CoC.player.cor >= 90 || this.sheilaCorruption() < CoC.player.cor ) {
 				EngineCore.outputText( 'You can feel your prick heating up where her pussy rubs against it... it almost feels like the rest is cooling down at the same time.  The woman atop you arches her back and sucks in her breath sharply, and her tits seem to claim your field of vision, swelling up - though that could just be the angle.' );
-			} else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+			} else if( CoC.player.cor < this.sheilaCorruption() ) {
 				EngineCore.outputText( 'Her orgasm wets your prick, coating it with fluid as she comes.  Sheila wraps herself tighter in your limbs, squeezing her breasts against her chest, and you think you can feel them get a little smaller as your head fuzzes over with her excess emotion.' );
 			} else {
 				EngineCore.outputText( 'Her hips lock up when she comes, leaving you to try and finish yourself as she heats up around your shaft.' );
 			}
 
 			//[(sens >=50);
-			if( CoC.getInstance().player.sens >= 50 ) {
+			if( CoC.player.sens >= 50 ) {
 				EngineCore.outputText( '\n\nThe warm, smooth, wetness of her thighs is enough to bring out your own climax, and ' + Descriptors.sMultiCockDesc() + ' unburdens itself, forcing globs of semen into the air to rain down on your entwined bodies.  Sheila laughs as you coat her midriff with your mess, and playfully strokes your sensitized [cock] with one hand, sending shivers through you as she helps force your cum up your shaft.' );
 				//[(mega skeet);
-				if( CoC.getInstance().player.cumQ() >= 2000 ) {
+				if( CoC.player.cumQ() >= 2000 ) {
 					EngineCore.outputText( '  The giggles and the strokes stop long before your orgasm, though; eventually Sheila just lies there, dumbfounded, as you deposit layer after layer of white lattice on her skin.  "<i>Bloody hell,</i>" she mumbles vaguely, either stone-sober or drunk from the sight of it.' );
 				}
 				EngineCore.outputText( '  Once the rain of semen peters out, she pulls apart from you, slimy and dripping.' );
 				//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue;
-				if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+				if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 					EngineCore.menu();
 					EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 					return;
 				}
 				EngineCore.outputText( '\n\n"<i>Well... what do you think of that, then?</i>"  Sheila laughs and cleans herself on the grass, then picks up her stuff and leaves you to sleep off the fatigue and defeat.' );
 				//reset hours since cum, pass 1 hr if lust loss or 8 if HP;
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', 1 );
 				Combat.cleanupAfterCombat();
 			}
@@ -3079,7 +3079,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			else {
 				EngineCore.outputText( '\n\nYou thrust vigorously, trying to push yourself over the edge, but Sheila\'s orgasm is already winding down - she scoots up and pulls her pussy away from your rubbing, tormenting shaft, leaving you alone in a painful vacuum of sensation.' );
 				//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue;
-				if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+				if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 					EngineCore.menu();
 					EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 					return;
@@ -3088,11 +3088,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\nShe looks over her shoulder at you, and the drawn expression on your face tells the whole story.  Her eyes glimmer with mischief, and she leans down to you.  "<i>I told you a donger like that wasn\'t suitable for loving a woman,</i>" Sheila says, tracing a circle on your chest.  "<i>Don\'t suppose you have anyone to blame but yourself, eh?</i>"' );
 				EngineCore.outputText( '\n\nYour partner parts from you and stands up, redressing as you lie on your back.  She looks at you once more and rubs your [cock] one last time, right below the glans, before taking off with her bounding run.' );
 				//[(HP loss);
-				if( CoC.getInstance().player.HP < 1 ) {
+				if( CoC.player.HP < 1 ) {
 					EngineCore.outputText( '\n\nFatigue and desire contest in your head, but eventually you slip into unconsciousness, tormented by memories of soft, wet skin.' );
 				}
 				//huge sens-based lust damage and lose 8 hrs if HP loss or plus med libido and return to camp if lust loss;
-				EngineCore.dynStats( 'sen', 3, 'lus', 50 + CoC.getInstance().player.lib / 10, 'resisted', false );
+				EngineCore.dynStats( 'sen', 3, 'lus', 50 + CoC.player.lib / 10, 'resisted', false );
 				//end cock don't fit branch;
 				Combat.cleanupAfterCombat();
 			}
@@ -3104,7 +3104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>Where shall I look?</i>" you ask, innocently.' );
 			EngineCore.outputText( '\n\nSheila\'s ears prick up, but she doesn\'t answer, instead ' );
 			//[(multicock)];
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 'separating out and ' );
 			}
 			EngineCore.outputText( 'stroking your [cockFit 32].  A drop of precum forms, and she touches it with the index finger of her free hand, sending a tingle through you; she pulls the finger away, drawing a string of slick moisture out.  Sheila passes the finger between her breasts, wiping the fluid away on her chest and shivering.  The display is too much for you, and you reach forward, navigating your hands around her waist quietly until you can reach the buckle of her belt.  The girl sighs as you begin to unfasten it, but an errant thought brings her back to reality - she grabs your hands abruptly.' );
@@ -3113,7 +3113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>Sorry,</i>" you reply, "<i>were you only getting ready for a swim?  This is what you wanted, right?</i>"  You begin to move your hands again, undaunted by her meager resistance.' );
 			EngineCore.outputText( '\n\n"<i>What I want...</i>" Sheila trails off; shaking herself free she stands up, shorts half-unfastened.  "<i>Fine!  If you\'re intent on seeing it, then look!</i>"  She quickly pulls her belt apart and drops her bottoms to the ground, followed more carefully by her underwear.  "<i>Here!</i>"' );
 			//[(lib < 25);
-			if( CoC.getInstance().player.lib < 25 ) {
+			if( CoC.player.lib < 25 ) {
 				EngineCore.outputText( '\n\nInstead of focusing on her pussy, you continue to stare into her guilty face.  Sheila\'s lips quaver and her eyes water; she seems almost on the verge of crying as your unceasing scrutiny breaks down her resolve.  "<i>Please...</i>" she whimpers unhappily, "<i>stop staring at me like that.</i>"' );
 				EngineCore.outputText( '\n\n"<i>But you\'re using me just for my dick?</i>"' );
 				EngineCore.outputText( '\n\n"<i>No, I\'m...</i>" she attempts, frowning, then slumps her shoulders in defeat.  "<i>You\'re right.  This is wrong.  I\'m sorry.</i>"  Sheila turns and quietly pulls her shorts back up, fastening her belt, then locates her top and slips it over her breasts.  She picks up the rest of her stuff, looks back at you once, then lopes off.  You watch her go with high energy and mixed feelings - of all things, the image of her pulling the shirt down over her flushed, sweating back sticks in your head, taunting you and keeping your prick hard long after she\'s gone.' );
@@ -3128,30 +3128,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\n"<i>Bastard,</i>" Sheila whispers under her breath as your body pushes out another drop of precum.  "<i>You want this... I knew it.</i>"' );
 				EngineCore.outputText( '\n\nYou look up at her face again, smiling coyly.  "<i>Just an autonomous reaction, I swear.</i>"' );
 				EngineCore.outputText( '\n\nShe frowns and straddles your crotch' );
-				if( CoC.getInstance().player.isTaur() ) {
+				if( CoC.player.isTaur() ) {
 					EngineCore.outputText( ', pushing your legs apart' );
 				}
-				EngineCore.outputText( '; looking into your face, her frown evolves into a mischievous grin.  Sheila about-faces, turning her back to you.  "<i>Blame yourself for this; it\'s rude to stare,</i>" she giggles, hovering over your [cockHeadFit 32].  The woman sinks down with an audible sigh, parting her slick, smooth labia with your tip and swallowing your ' + Utils.num2Text( Math.round( CoC.getInstance().player.cocks[ CoC.getInstance().player.cockThatFits( 32 ) ].cockLength ) ) + ' inches.  "<i>Ohh...</i>" Sheila moans.  She slips a hand down to your crotch to check how much of your prick is left to go, and starts a bit when she realizes she\'s taken the entire shaft on the first stroke!' );
+				EngineCore.outputText( '; looking into your face, her frown evolves into a mischievous grin.  Sheila about-faces, turning her back to you.  "<i>Blame yourself for this; it\'s rude to stare,</i>" she giggles, hovering over your [cockHeadFit 32].  The woman sinks down with an audible sigh, parting her slick, smooth labia with your tip and swallowing your ' + Utils.num2Text( Math.round( CoC.player.cocks[ CoC.player.cockThatFits( 32 ) ].cockLength ) ) + ' inches.  "<i>Ohh...</i>" Sheila moans.  She slips a hand down to your crotch to check how much of your prick is left to go, and starts a bit when she realizes she\'s taken the entire shaft on the first stroke!' );
 				EngineCore.outputText( '\n\n"<i>Guess I wasn\'t the only one,</i>" you tease softly.  Sheila\'s neck turns red, but she only begins to move her hips, saying nothing.  Her snub tail dances in the air as she pumps your cock, beating out a tattoo on your stomach' );
-				if( !CoC.getInstance().player.isTaur() ) {
+				if( !CoC.player.isTaur() ) {
 					EngineCore.outputText( ', and your hands go to her waist, fairly pushing her up and slamming her back down in your eagerness' );
 				}
 				EngineCore.outputText( '.  She rolls her head as the fuck gets wetter and faster, dangling her hair over her shoulders as her back muscles shift and flex with her strokes; her ears flick whenever she descends and rubs your neck against one of the sweet spots on her vulva.' );
 				EngineCore.outputText( '\n\nThe stimulation is too much, and on one of the downthrusts, the tingling nerves at your tip trigger your climax and you ejaculate wordlessly into the distracted woman, who is still busy pumping her soaking pussy, not noticing the extra moisture.  She moans and gasps, rubbing her clitoris with two fingers, and begins to twitch as well, fucking you messily with her increasingly slimy pussy.  ' );
 				//(PC corr >= 90 or > sheila corruption);
-				if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+				if( CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption() ) {
 					EngineCore.outputText( 'You can feel her cum-slick inner walls pulling at you as she begins to orgasm, and your mind clears as you blow your load inside her, wondering when she\'ll likewise return to sense.' );
 				}//(else PC corr < sheila corruption);
-				else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+				else if( CoC.player.cor < this.sheilaCorruption() ) {
 					EngineCore.outputText( 'Her pussy gushes with her orgasm, pushing out your semen and soaking her inner lips even as she continues riding your cock, and your mind clouds as you think of little except sneaking as much of your cum inside her as possible.' );
 				}//else equal but < 90);
 				else {
 					EngineCore.outputText( 'Even as she comes mindlessly something makes you hold in your own moans, wondering how long it will take her to notice her pussy being filled with your egg-hunting sperm.' );
 				}
 				//[(small cum)];
-				if( CoC.getInstance().player.cumQ() <= 250 ) {
+				if( CoC.player.cumQ() <= 250 ) {
 					EngineCore.outputText( '  Sheila continues moving her hips even as she comes, lost in bliss; on one particularly lofty ascent, your cock flops out, squirting a line of jizz along ' );
-					if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
+					if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
 						EngineCore.outputText( 'your tail' );
 					} else {
 						EngineCore.outputText( 'the grass' );
@@ -3163,13 +3163,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 					EngineCore.outputText( '  With how much Sheila is still moving her hips, it\'s only a matter of time before she notices the mounting pressure in her cunt... on one particularly deep push, she forces out a squirt of white, and her eyes go wide as she pulls off and lets you finish on the grass.' );
 				}
 				//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue;
-				if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+				if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 					EngineCore.menu();
 					EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 					return;
 				}
 				EngineCore.outputText( '\n\n"<i>What the fuck?!</i>" she yells.  "<i>How much of your cum did you just shoot in me?</i>"' );
-				if( CoC.getInstance().player.cumQ() <= 250 ) {
+				if( CoC.player.cumQ() <= 250 ) {
 					EngineCore.outputText( '\n\n"<i>A-all of it...</i>"' );
 				} else {
 					EngineCore.outputText( '\n\n"<i>A little...</i>"' );
@@ -3179,17 +3179,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				EngineCore.outputText( '\n\nAs she panics and fusses her way back into her clothes, you lie there on the grass, tranquilly slipping into a doze.  Even if she does, what of it?  It was her idea in the first place...' );
 				//reduce lust and lib, reset hrs since cum, lose 8 hrs if HP or 2-3 if lust loss?;
 				this.sheilaPreg( true );
-				CoC.getInstance().player.orgasm();
+				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', -1 );
 				Combat.cleanupAfterCombat();
 			}
 		}
 		//if not ended prematurely by small cock and lib < 25, PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
 		this.sheilaCorruptionUpdate();
-		/*if(CoC.getInstance().player.cor > this.sheilaCorruption() || CoC.getInstance().player.cor >= 90) {
+		/*if(CoC.player.cor > this.sheilaCorruption() || CoC.player.cor >= 90) {
 		 EngineCore.dynStats('cor', -10);
 		 this.sheilaCorruption(10);
-		 } else if(this.sheilaCorruption() > CoC.getInstance().player.cor) {
+		 } else if(this.sheilaCorruption() > CoC.player.cor) {
 		 EngineCore.dynStats('cor', 10);
 		 this.sheilaCorruption(-10);
 		 }*/
@@ -3201,31 +3201,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaForcedOralGeneric = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sheila kisses you once more, forcing her tongue into your mouth, and slides a hand into your [armor]; you stare wonderingly into her affectionate, hungry eyes at the sudden change.  It isn\'t until ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'her hand slips around your [cock]' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'her fingers slip between your labia' );
 		} else {
 			EngineCore.outputText( 'she rubs your bare crotch for a few seconds' );
 		}
 		EngineCore.outputText( ' that her reverie breaks; her face colors and she looks away, averting her gaze in shame.  She draws her hand back out guiltily, then begins to doff her shorts and panties.  "<i>S-sorry... didn\'t mean to get familiar.  I\'ll have this over with quickly.</i>"' );
 		EngineCore.outputText( '\n\n"<i>That\'s-</i>"  Your words are cut off as she suddenly climbs atop you, bringing her pussy to eye level' );
-		if( CoC.getInstance().player.str < 61 ) {
+		if( CoC.player.str < 61 ) {
 			EngineCore.outputText( '; her weight bears you slowly to the ground' );
 		}
 		EngineCore.outputText( '.  Sheila rubs the smooth slit on your [face], trying to part her labia on you, and shivers a bit when your lips brush hers.' );
 		EngineCore.outputText( '\n\n"<i>Lick...</i>" she whispers, almost apologetically, "<i>... please.  Or... or I\'ll have to hit you again.</i>"  She sets her face and takes a handful of your hair, twisting it' );
-		if( CoC.getInstance().player.hairType === 4 ) {
+		if( CoC.player.hairType === 4 ) {
 			EngineCore.outputText( ' and flushing as your stingers release their payloads into her palm' );
 		}
 		EngineCore.outputText( '.  You obediently stick out your tongue' );
-		if( CoC.getInstance().player.cor > 60 ) {
+		if( CoC.player.cor > 60 ) {
 			EngineCore.outputText( ', motivated more by whimsy than the meager, almost playful pain,' );
 		}
 		EngineCore.outputText( ' and shallowly penetrate Sheila\'s vagina with it.' );
 		EngineCore.outputText( '\n\nThe woman jerks a bit as you enter her, but sighs in relaxation.  "<i>That\'s good... come on mate, lick me more.</i>"  She pushes her cunt against your [face], trying to take your tongue deeper.' );
 		//[(if d-mon/dragon/naga or other future long tongue);
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( '  A sly look crosses your face at her request; she notices it but has no time to dismount before your long tongue shoots into her, stroking the nerves around her entrance as you unspool.  "<i>Ah-ahhh!</i>" she moans, "<i>What the hell... is with your mouth?</i>"' );
 			EngineCore.outputText( '\n\nPetulantly you stare at her as you work, unable to speak with your tongue unrolled in her cunt.  She blushes under your gaze, then leans forward and wraps her arms around you, brushing the top of your head with her shirt-clad ' + this.sheilaCup() + ' breasts.  "<i>You\'re r-right, mate... rude to talk with your mouth f-full... aaah!</i>"  A little firm spot inside of her provokes this last reaction; you experimentally run your tongue over it again, and the woman shudders violently.' );
 			EngineCore.outputText( '\n\n"<i>N-no... what are you t-touching?  That feels so...</i>"  Sheila\'s unable to complete a thought as you assault your new find with your oral explorer, and just clings to your head as if it were a family heirloom.  You rub and rub, but she steadfastly refuses to climax; eventually your tongue actually gets tired and sore, yet every time you try to draw it out and rest she pulls your hair again, begging you not to stop, to stroke that spot again, and again.' );
@@ -3240,10 +3240,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '\n\nThe woman\'s pussy clenches as she finishes, ' );
 		//[(PC corr >= 90 or > sheila corruption)];
-		if( CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption() ) {
+		if( CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption() ) {
 			EngineCore.outputText( 'strangling your tongue with muscles attempting to lock onto it, trying to pull it in.' );
 			//[(demon/dragon tongue);
-			if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+			if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 				EngineCore.outputText( '  As tired as you are, you simply go along with it, allowing her rippling walls to slowly draw your tip deeper inside until it bumps against her cervix; she shivers and kisses the top of your head as you groggily run your tongue over the entrance to her womb.' );
 			} else {
 				EngineCore.outputText( '  However, it doesn\'t get very far; you lazily flop it around inside her as she works through her arousal.' );
@@ -3251,11 +3251,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  Sheila groans loudly and your vision fades; through the fog, you can swear you feel her breasts growing larger against your forehead.' );
 		}
 		//(else PC corr < sheila corruption);
-		else if( CoC.getInstance().player.cor < this.sheilaCorruption() ) {
+		else if( CoC.player.cor < this.sheilaCorruption() ) {
 			EngineCore.outputText( 'filling your mouth with her liquid love.  Your lips and throat heat up as you\'re forced to drink it from the nearness of her pussy; as she bucks her hips weakly into your face, trying to draw out her climax, you increasingly wish that you could return the favor, ' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'face-fucking her and blowing a load into her mouth, then holding her jaw shut until she swallows it unhappily.' );
-			} else if( CoC.getInstance().player.hasVagina() ) {
+			} else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'smearing your gash on her face until you come and drown her in your squirting girl-jizz.' );
 			} else {
 				EngineCore.outputText( 'forcing her to tongue your asshole until you come, writhing and pressing her head into the grass with your [butt].' );
@@ -3265,14 +3265,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 
 		//if both sheila corruption and PC corr >= 90, go to demonization, else continue;
-		if( CoC.getInstance().player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
+		if( CoC.player.cor >= 90 && this.sheilaCorruption() >= 90 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.sheilaGoesDemon );
 			return;
 		}
 		EngineCore.outputText( '\n\nSheila twitches her last twitch and pulls apart from you slowly, ' );
 		//[(str < 61);
-		if( CoC.getInstance().player.str < 61 ) {
+		if( CoC.player.str < 61 ) {
 			EngineCore.outputText( 'climbing off and kneeling next to you.' );
 		} else {
 			EngineCore.outputText( 'letting herself down your body until she can put her long legs on the ground once more.' );
@@ -3280,19 +3280,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '  She looks into your eyes contentedly, rubbing your cheek... but then starts and looks away, guilty once more.  "<i>Shit...</i>" she mumbles.  "<i>I did it again.  Even after I promised myself I wouldn\'t...</i>"' );
 		EngineCore.outputText( '\n\nBefore you can ask for her meaning, she backs away and slips on her bottoms.  Studiously avoiding further eye contact, Sheila gathers her things and leaves you behind with her long, bounding run; tired from the struggle, you try to turn her words over in your head, but only muddle them further as you slip into a doze.' );
 		//end scene, add fatigue if long tongue, very big lib-based lust gain, gain libido if lust hits 100; if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption and slimefeed;
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.fatigue( 15 );
 		}
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 3 + 30, 'resisted', false );
-		if( CoC.getInstance().player.lust >= 100 ) {
+		EngineCore.dynStats( 'lus', CoC.player.lib / 3 + 30, 'resisted', false );
+		if( CoC.player.lust >= 100 ) {
 			EngineCore.dynStats( 'lib', 1 );
 		}
 		this.sheilaCorruptionUpdate();
 		/*
-		 if(CoC.getInstance().player.cor >= 90 || CoC.getInstance().player.cor > this.sheilaCorruption()) {
+		 if(CoC.player.cor >= 90 || CoC.player.cor > this.sheilaCorruption()) {
 		 EngineCore.dynStats('cor', -10);
 		 this.sheilaCorruption(10);
-		 } else if(CoC.getInstance().player.cor < this.sheilaCorruption()) {
+		 } else if(CoC.player.cor < this.sheilaCorruption()) {
 		 EngineCore.dynStats('cor', 10);
 		 this.sheilaCorruption(-10);
 		 }*/
@@ -3307,7 +3307,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Traipsing through the grass, you can see Sheila sitting under the shade of a low tree from a long way off.  The reverse is also true, as she waves to you from her seat, beckoning you over.  You make your way to her curiously.' );
 		EngineCore.outputText( '\n\n"<i>G\'day, [name],</i>" she opens, slightly nervous.  "<i>I needta tell you something.  Sit down?</i>"' );
 		EngineCore.outputText( '\n\nYou oblige, planting yourself next to her.  She leans affectionately against you, though her nervousness doesn\'t disappear - if anything, it becomes more acute.' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  A hand placed around her shoulder seems to steady her a bit.' );
 		}
 
@@ -3325,8 +3325,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '"<i>I see,</i>" Sheila says, nonplussed.  "<i>I\'m sorry you feel that way...  Truth be told, I\'m not keen myself on the idea of having a kid, but what\'s out is out.</i>"' );
 		EngineCore.outputText( '\n\nShe stands up suddenly and starts walking away.  "<i>Nice knowing you, mate.  You won\'t see me again - I\'ll make sure of that.</i>"  Within seconds of speaking, she\'s broken into a fast, bounding run, beyond any hope of catching.' );
 		//set sheilapreg = -1, and set joeycount + 1 if you plan to track that stat even after Sheila's disabled;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DISABLED ] = 2;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ]++;
+		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 2;
+		CoC.flags[ kFLAGS.SHEILA_JOEYS ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Normal Preg Notif #1 - Nah];
@@ -3335,18 +3335,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Sheila exhales explosively when you gently shake your head, then wraps her arms around you and buries her face in your shoulder.  "<i>Oh, thank god,</i>" she says, muffled.  "<i>Truth be told, I\'m not keen yet on the idea of having a joey.  Motherhood feels like something that happens to MY mum.</i>"  She snuggles closer.  "<i>But I like holding it.</i>"' );
 		EngineCore.outputText( '\n\nShe releases you; a small wet spot marks the space her face just occupied.  Seeing it, she wipes her tears on the back of her hand.  "<i>Sorry.  Didn\'t mean to leak on you.</i>"' );
 		//[(sheila xp < 0);
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] < 0 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] < 0 ) {
 			EngineCore.outputText( '\n\nShe sniffs a bit.  "<i>I didn\'t really expect warm approbation, y\'know?  I mean, we\'re not the best of friends, so I appreciate it.  Can\'t really bring you two together to show you how it\'s doing yet, and I feel all kinds of bad about not having the dad nearby while it\'s growing up, but... if you want, we can keep in touch and I\'ll tell you the news.  Do... would you be okay with seeing more of each other?</i>"' );
 			EngineCore.outputText( '\n\nEarnest eyes turn on you, and you put a hand on the girl\'s head.  She smiles, taking your answer for granted.  "<i>Spiffy... you\'re me mate, now.</i>"  Sheila cuddles a bit closer, resting her head on your chest and making you wonder just which interpretation of the word she was using.  You sit there for several minutes before she gets up and bids you goodbye with a shy glance.' );
 		} else {
 			EngineCore.outputText( '\n\nSheila sits for a while, sniffling and rubbing her nose, before she speaks again.  "<i>Ah... something ya might like.  My captain was always as cross as a frog in a sock that I hadn\'t contributed more hands to the colony yet, so when I showed up with a joey and told him where it... uh, came from, he decided to extend my time on the hunting crew.  We can see each other for a good while longer before I get shuffled back to digging or soldiering - if you want to, that is.</i>"  Sheila slips an arm around you possessively.  "<i>I wasn\'t sure enough to mention it before, but... if you really fancy me, I reckon I could convince him to extend it for as long as we\'re together.</i>"  The woman blushes crimson.  "<i>... So long as we keep making more.</i>"' );
 			EngineCore.outputText( '\n\nYou slide a finger into her belt and ask if that was an invitation.' );
-			EngineCore.outputText( '\n\n"<i>Randy ' + CoC.getInstance().player.mf( 'bloke', 'sheila' ) + ',</i>" she answers, "<i>as much fun as that would be, I\'m feeling clucky and I need to go check on your baby.  I don\'t want to be one of those mums that leave their nippers with the help and never see them.</i>"  She kisses you, and then stands up to walk away - though when she glances over her shoulder at you, it\'s obvious by the fond look in her eyes she\'s eager for the next meeting.' );
+			EngineCore.outputText( '\n\n"<i>Randy ' + CoC.player.mf( 'bloke', 'sheila' ) + ',</i>" she answers, "<i>as much fun as that would be, I\'m feeling clucky and I need to go check on your baby.  I don\'t want to be one of those mums that leave their nippers with the help and never see them.</i>"  She kisses you, and then stands up to walk away - though when she glances over her shoulder at you, it\'s obvious by the fond look in her eyes she\'s eager for the next meeting.' );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] < 4 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] = 4;
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] < 4 ) {
+			CoC.flags[ kFLAGS.SHEILA_XP ] = 4;
 		}
-		CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ]++;
+		CoC.flags[ kFLAGS.SHEILA_JOEYS ]++;
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//if sheila xp < 4, set sheila xp = 4; increment joeycount + 1;
 	};
@@ -3364,18 +3364,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '  She looks over at you, giving you the benefit of her fatigue-lined eyes.' );
 		EngineCore.outputText( '\n\nSheila slips her hand into yours' );
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( ', and you give it a squeeze' );
 		}
 		EngineCore.outputText( '.  "<i>I just wanted to tell you about your baby.  Can\'t stay... have to catch up to quota still.</i>"  She drags to her feet and turns to go, tail listlessly hanging.  Even her ears are drooping; this girl is tired.' );
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		CoC.getInstance().flags[ kFLAGS.SHEILA_JOEYS ]++;
+		CoC.flags[ kFLAGS.SHEILA_JOEYS ]++;
 		if( this.sheilaCorruption() > 80 ) {
-			CoC.getInstance().flags[ kFLAGS.SHEILA_CORRUPTION ] = 80;
+			CoC.flags[ kFLAGS.SHEILA_CORRUPTION ] = 80;
 		}
 		EngineCore.menu();
 		//[Help(requires >80 speed, centaur >= 5', naga, or big wings and archery)][Walk With Her][Let Her Go];
-		if( (CoC.getInstance().player.spe > 80 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0) || (CoC.getInstance().player.isTaur()) || CoC.getInstance().player.isNaga() || (CoC.getInstance().player.canFly && CoC.getInstance().player.hasKeyItem( 'Bow' ) >= 0) ) {
+		if( (CoC.player.spe > 80 && CoC.player.findPerk( PerkLib.Runner ) >= 0) || (CoC.player.isTaur()) || CoC.player.isNaga() || (CoC.player.canFly && CoC.player.hasKeyItem( 'Bow' ) >= 0) ) {
 			EngineCore.addButton( 0, 'Help', this.normalSheilaPregNotifREPEATEDEDHelpABitchOut );
 		}
 		EngineCore.addButton( 1, 'WalkWithHer', this.normalSheilaPregNotifREPEATEDEDWalkWithHer );
@@ -3385,7 +3385,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.normalSheilaPregNotifREPEATEDEDLetHerGo = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Nothing you can do about that - even if you wanted to watch your baby for her, she\'s keeping it hidden in a hole in the ground.  You hand her the parcel back' );
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( ', imploring her to eat the rest and keep up her strength' );
 		}
 		EngineCore.outputText( '.  Sheila smiles weakly and takes it, folding the grass around again.  "<i>Thanks, [name].  I\'ll see you soon... ish.</i>"' );
@@ -3400,7 +3400,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pick up her forgotten hat and rise as well, carefully refolding the grass around Sheila\'s uneaten lunch and tucking it back into her pack for her.  She takes her hat back from you distantly.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, mate... forget my own head next.</i>"  She doesn\'t even put it on, simply holds it in her hand as she plods on.  You ' );
-		if( !CoC.getInstance().player.isNaga() ) {
+		if( !CoC.player.isNaga() ) {
 			EngineCore.outputText( 'walk' );
 		} else {
 			EngineCore.outputText( 'slither' );
@@ -3422,7 +3422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Let me help you,</i>" you insist quietly, into her ear.' );
 		EngineCore.outputText( '\n\nIt twitches in front of your face and the woman pulls away, peering at you with curiosity from under her heavy eyelids.  "<i>I\'m not against it, but... how are you going to?</i>"' );
 		//[(outputs in order of preference; first, horse and >=5ft);
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nYou look into her dull amber eyes for a minute to nerve yourself, and then speak.  "<i>Climb on.</i>"' );
 			EngineCore.outputText( '\n\nSheila stares muzzily as you jerk a thumb toward your equine half, slowly turning red as your intention penetrates her sleep-deprived psyche.' );
 			EngineCore.outputText( '\n\n"<i>This... uh, are you sure?</i>" she asks.  Sighing, you lower yourself slightly, to make the leg up a bit easier.  She rests her arm on your back, then bends herself and hops atop you easily, sliding one foot over.  One of her hands grabs at your torso to keep the tired woman from falling right off the other side, and the other joins it once she steadies herself.  She takes her hat off again and hangs it around your neck, then mumbles, "<i>Okay... I\'m ready.</i>"' );
@@ -3434,7 +3434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nWaving off her embarrassment dismissively, you allow Sheila to hug you once more and hang the game animals - and hat - around her shoulders, then leave her to head back.' );
 		}
 		//(else naga);
-		else if( CoC.getInstance().player.isNaga() ) {
+		else if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '\n\n"<i>Just do what you normally do and I\'ll think of something.</i>"' );
 			EngineCore.outputText( '\n\nSheila nods slowly and takes your hand, pulling you forward.  You slither alongside the woman for several minutes until she stops suddenly, putting a hand over your mouth before you can ask why.  Following her gaze, you see what caused her to pull up short: two large pheasants sit up cautiously, eyes on Sheila and yourself as they prepare to bolt at the slightest sign of aggression.  The woman next to you is already cursing under her breath at losing the element of surprise.' );
 			EngineCore.outputText( '\n\nThis is more than enough surprise for you, though.  Staring down the animals, you begin to glide slowly toward them.  Sheila tries to grab your hand again, but you\'re already past her, closing in on the birds even as their bodies relax.  You stop around fifteen yards away, and begin undulating your body, shaping patterns even as you hold their eyes with your own.  Your coils shift to circles, then squares, then oozy triangles, over and over, as you compel the prey with your stare.  Unable to stir hand or foot without your permission, the animals come forward as you beckon until they\'re sitting in front of you.' );
@@ -3446,7 +3446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//(else wings and archery skill);
 		//less QQ, more pew pew;
-		else if( CoC.getInstance().player.canFly() && CoC.getInstance().player.hasKeyItem( 'Bow' ) >= 0 ) {
+		else if( CoC.player.canFly() && CoC.player.hasKeyItem( 'Bow' ) >= 0 ) {
 			EngineCore.outputText( '\n\n"<i>Just wander around and flush game; point out animals you see.</i>"' );
 			EngineCore.outputText( '\n\nSheila looks a little confused, but glumly nods.  "<i>Alright, [name]; we\'ll do it your way.</i>"  She begins to walk, then turns back when you don\'t follow.  "<i>Are you com-</i>"' );
 			EngineCore.outputText( '\n\nHer question cuts off when she sees you, arrow nocked on your bow, beating your wings against the ground and pushing yourself into the air.  Without so much as a how-do-you do, you ascend until you\'re high in the sky with the sun on your quarter.  Almost imperceptibly, Sheila shrugs below you and resumes walking.' );
@@ -3457,13 +3457,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.fatigue( 20 );
 		}
 		//(else spd >= 80 and Runner perk);
-		else if( CoC.getInstance().player.spe >= 80 && CoC.getInstance().player.findPerk( PerkLib.Runner ) >= 0 ) {
+		else if( CoC.player.spe >= 80 && CoC.player.findPerk( PerkLib.Runner ) >= 0 ) {
 			EngineCore.outputText( '\n\n"<i>Just do what you normally do, and I\'ll help.</i>"' );
 			EngineCore.outputText( '\n\nSheila looks at you blankly, but takes your hand and begins walking.  Or rather, more like meandering.  Her head turns listlessly as she drags you onward.' );
 			EngineCore.outputText( '\n\n"<i>So what are we looking for?</i>" you ask.' );
 			EngineCore.outputText( '\n\nSheila starts, then mumbles out her answer.  "<i>Uh.  Whatever\'s useful - spoor, live animals, fresh kills... a quiet place to curl up and die...</i>"' );
 			EngineCore.outputText( '\n\nNo use in her moping like that; ' );
-			if( CoC.getInstance().player.lib < 50 ) {
+			if( CoC.player.lib < 50 ) {
 				EngineCore.outputText( 'you pinch her ear, provoking an annoyed flick from it.' );
 			} else {
 				EngineCore.outputText( 'you slap her on the ass, grabbing a handful and taking her mind off her own misery.' );
@@ -3473,7 +3473,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nSheila simply grunts at that, but sobers up a bit.  You walk together a bit longer until a rustling in the grass startles you both; a hare breaks from cover and bolts away, and your companion swears an oath at missing quarry so close to hand.' );
 			EngineCore.outputText( '\n\n"<i>Go that way and keep still... lay a trap or something,</i>" you interrupt, pointing at a perpendicular to the hare\'s path.' );
 			EngineCore.outputText( '\n\nSheila pulls a queer face, but complies, loping off in the indicated direction.  After stretching yourself, you break into an easy ' );
-			if( !CoC.getInstance().player.isGoo() ) {
+			if( !CoC.player.isGoo() ) {
 				EngineCore.outputText( 'run' );
 			} else {
 				EngineCore.outputText( 'glide' );
@@ -3488,7 +3488,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//pass 4 hours and reduce corruption or something, give 3 hrs rest if naga, increase archery skill and increase fatigue by a lot (50-60+) if angel of death;
 		EngineCore.dynStats( 'cor', -2 );
-		if( CoC.getInstance().time.hours + 4 < 21 ) {
+		if( CoC.time.hours + 4 < 21 ) {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		} else {
 			//(if time after adding 4 hours >= 21:00 or = 0:00, additionally output);
@@ -3498,7 +3498,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//[Stay With Her][To Camp(excluded for PCs with Vapula or Holli)][Welp];
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'StayWithHer', this.normalSheilaPregNotifREPEATEDEDHelpABitchOutANDSTAYDERE );
-			if( !(CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0) && !SceneLib.vapula.vapulaSlave() ) {
+			if( !(CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0) && !SceneLib.vapula.vapulaSlave() ) {
 				EngineCore.addButton( 1, 'To Camp', this.normalSheilaPregNotifREPEATEDEDHelpABitchOutTOCAMP );
 			}
 			EngineCore.addButton( 2, 'Welp', this.normalSheilaPregNotifREPEATEDEDHelpABitchOutANDWELP );
@@ -3509,7 +3509,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Welp,</i>" you say softly.' );
 		//[(corr <50);
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  You set a hand on Sheila\'s shoulder to steady her a bit as the tears start to fall.' );
 		}
 		EngineCore.outputText( '  "<i>It\'ll be alright.</i>"' );
@@ -3529,7 +3529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Something cozy,</i>" you affirm.' );
 		EngineCore.outputText( '\n\nSheila smiles a bit at that, but forces her face into a stern expression.  "<i>Usually I like a thatch of tall grass - you can beat down or dig up the middle and pull the sides in with some string so it looks normal from the air, and you can tear out of there fast if something finds you.  We\'ll need a big patch for two mugs... like that one,</i>" she decides, pointing off a ways.' );
 		EngineCore.outputText( '\n\nIt doesn\'t take long to arrange the grass and place yourselves inside, though there\'s not enough room for both of you to lie down.  Sheila snuggles up to you after you ' );
-		if( CoC.getInstance().player.isNaga() ) {
+		if( CoC.player.isNaga() ) {
 			EngineCore.outputText( 'coil' );
 		} else {
 			EngineCore.outputText( 'seat' );
@@ -3537,9 +3537,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' yourself, then grabs your arms and pulls them around her waist.' );
 		//forks in order of priority, no new pg at start;
 		//[(full gooey body);
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '  She considers for a moment, rubbing away some of the slime you\'ve deposited on her shorts, and pulls free from your slimy skin again.  "<i>Um... do you... would you be offended if I took my kit off, so it doesn\'t get ruined?</i>"' );
-			if( CoC.getInstance().player.lib >= 40 ) {
+			if( CoC.player.lib >= 40 ) {
 				EngineCore.outputText( '  The leer you display is so prurient that she seems on the verge of reconsidering, but you compose yourself and' );
 			} else {
 				EngineCore.outputText( '  You' );
@@ -3548,44 +3548,44 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nYou roll your eyes skyward.  "<i>We have kids together.  I\'ve seen it.</i>"' );
 			EngineCore.outputText( '\n\nSheila\'s blush deepens, but she nods and finishes undressing, pulling down her shorts and panties to expose her smooth pussy, then puts the clothing in a pile.  She turns her back to you and scoots in once more, leaving a tingle that spurs you to hold her closer when her flushed, embarrassed skin touches yours. "<i>This feels good,</i>" she says, "<i>like a warm bath.</i>"  Sheila giggles nervously as you instinctively pull her naked body deeper into your own.  "<i>H-hey, [name].  Don\'t swallow me, mate.</i>"  You bubble happily as you relax around her, covering most of the exposed skin below her collarbone with a thin layer of yourself.' );
 			//(apply libido AND sens-based lust damage);
-			EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 5 + CoC.getInstance().player.sens / 3, 'resisted', false );
+			EngineCore.dynStats( 'lus', CoC.player.lib / 5 + CoC.player.sens / 3, 'resisted', false );
 		}
 		//(naga);
-		else if( CoC.getInstance().player.isNaga() ) {
+		else if( CoC.player.isNaga() ) {
 			EngineCore.outputText( '\n\nYou wrap your tail around her as she settles in position, and Sheila wriggles against it.  "<i>This is... weird,</i>" she says, "<i>but not bad.  Kinda like a smooth, firm blanket.  Can you loosen a bit, mate?</i>"  With an unseen smile, you slacken the loops around her waist and hips' );
-			if( CoC.getInstance().player.lib >= 40 ) {
+			if( CoC.player.lib >= 40 ) {
 				EngineCore.outputText( ' - but tighten the one sliding across her breasts just slightly.  Sheila\'s neck turns red and her ears twitch as you rub her nipples, and you plant a kiss on her nape' );
 			}
 			EngineCore.outputText( '.  "<i>Ahh,</i>" she sighs, shifting in your coils.  "<i>Hold it right there...</i>"' );
 			//(apply libido-based lust damage if lib >= 40);
-			if( CoC.getInstance().player.lib >= 40 ) {
-				EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 4, 'resisted', false );
+			if( CoC.player.lib >= 40 ) {
+				EngineCore.dynStats( 'lus', CoC.player.lib / 4, 'resisted', false );
 			}
 		}
 		//(horse and >=5ft);
-		else if( CoC.getInstance().player.isTaur() && CoC.getInstance().player.tallness >= 60 ) {
+		else if( CoC.player.isTaur() && CoC.player.tallness >= 60 ) {
 			EngineCore.outputText( '\n\nStrapped for space, her long feet still poke a good way out of the grass canopy, and she gets back up, tucking them under her body.  "<i>Uh... [name], not to be forward but...</i>"  Her eyes dart toward your broad back, and you sigh and fold your legs as comfortably as you can before nodding.  She giggles and climbs atop you, then spreads herself generally around.' );
 			EngineCore.outputText( '\n\n"<i>You like horses, don\'t you?</i>" you ask.' );
 			EngineCore.outputText( '\n\n"<i>I used to love watching the ponies, growing up,</i>" she answers, nuzzling into your shoulder.  "<i>I always wanted a little one.</i>"' );
 			EngineCore.outputText( '\n\nThe way she rubs your lower half affectionately is even a little bit endearing' );
-			if( CoC.getInstance().player.sens >= 40 ) {
+			if( CoC.player.sens >= 40 ) {
 				EngineCore.outputText( '... or would be, if you weren\'t distracted by the nipples poking into you and the thighs squeezing your flank' );
 			}
 			EngineCore.outputText( '.' );
 			//(apply sens-based lust damage if sens >=40);
-			if( CoC.getInstance().player.sens >= 40 ) {
-				EngineCore.dynStats( 'lus', CoC.getInstance().player.sens / 4, 'resisted', false );
+			if( CoC.player.sens >= 40 ) {
+				EngineCore.dynStats( 'lus', CoC.player.sens / 4, 'resisted', false );
 			}
 		}
 		//(harpy - minimum score for birdlegs at least);
-		else if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_HARPY ) {
+		else if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_HARPY ) {
 			EngineCore.outputText( '\n\nShe shifts in your embrace, pushing up and down and giving you fits.  "<i>Good lord, woman, what is the matter?</i>" you ask.' );
 			EngineCore.outputText( '\n\n"<i>Sorry, mate... your feathers are tickling me,</i>" Sheila protests.' );
 			EngineCore.outputText( '\n\nWith barely any room to move, you wouldn\'t know how to stop them from rustling against her even if you knew where the tickle was, but take your arms from around her.  "<i>Slide down.</i>"' );
 			EngineCore.outputText( '\n\nShe does so, resting in your downy lap for a moment, but gets up again.  You raise an eyebrow at her, but she just takes off her vest and sets it under her head, then settles, evidently at ease.  This is somewhat irritating; you\'re basically sitting up straight, with perfect posture.  A bit of an uncomfortable pose to hold for hours on end.' );
 		}
 		//(bees with boots);
-		else if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BEE ) {
+		else if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BEE ) {
 			EngineCore.outputText( '\n\nNo sooner does she get her head down than it\'s back up again.  You look a question at her.' );
 			EngineCore.outputText( '\n\n"<i>Your legs are so bloody hard and cold, [name],</i>" she clarifies brutally, tapping on the chitin digging into her back.' );
 			EngineCore.outputText( '\n\n"<i>Well, sorry,</i>" you answer, almost offended.  "<i>Can\'t help the way god made me.</i>"' );
@@ -3593,16 +3593,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nAs she drifts off to sleep, you\'re stuck wondering if that was intentional...' );
 		}
 		//(eight-legged freaks);
-		else if( CoC.getInstance().player.isDrider() ) {
+		else if( CoC.player.isDrider() ) {
 			EngineCore.outputText( '\n\nShe shivers against you, even with your arms around her body.  "<i>Cold?</i>" you ask.' );
 			EngineCore.outputText( '\n\nSheila nods.  You push her upright and get up, unfolding your legs with little click-clack noises.  Your companion seems alternately alarmed and fascinated as you expel long strings of silk from your abdomen, weaving them into a wide, crude sheet on the grass and gathering up the finished sections with your legs.  Once it\'s almost eight feet long, you shake it out.  It\'s still slightly clingy, but soft; you sit and drape your bodies with it.  "<i>For you,</i>" you announce grandly.' );
 			EngineCore.outputText( '\n\n"<i>[name]... wow,</i>" she mumbles, snuggling against you and looking over her shoulder.  "<i>Do you cover all your girlfriends in sticky white strings?</i>"' );
 			EngineCore.outputText( '\n\nYou raise an eyebrow at her assumptions, and Sheila turns her face downward, staring at the ground as her ears twitch furiously in embarrassment.  Resting your head against hers seems to calm her a bit.' );
 			EngineCore.outputText( '\n\n"<i>I\'m keeping this,</i>" Sheila whispers.  And so softly you can barely hear it, adds, "<i>It\'s the nicest thing someone\'s given me lately.</i>"' );
 			//(reduce spinneret charge by 1-2 levels);
-			CoC.getInstance().player.tailVenom -= 10;
-			if( CoC.getInstance().player.tailVenom < 0 ) {
-				CoC.getInstance().player.tailVenom = 1;
+			CoC.player.tailVenom -= 10;
+			if( CoC.player.tailVenom < 0 ) {
+				CoC.player.tailVenom = 1;
 			}
 		}
 		//(else);
@@ -3612,7 +3612,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 
 		//merge forks;
 		EngineCore.outputText( '\n\nYou adjust yourself occasionally to keep your ' );
-		if( !CoC.getInstance().player.isGoo() ) {
+		if( !CoC.player.isGoo() ) {
 			EngineCore.outputText( 'blood' );
 		} else {
 			EngineCore.outputText( 'goo' );
@@ -3620,18 +3620,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' flowing, unsure if you\'ll be able to get to sleep, but Sheila has no such problems.  Within minutes, the woman is out, head nodding forward.  You suppose that means the first watch is yours... it passes slowly, despite the scenery, but eventually you nudge your partner awake when you can stay up no longer.' );
 		EngineCore.outputText( '\n\n"<i>Mmm... lemme sleep for fifteen minutes more, mate,</i>" she mumbles.' );
 		//(corr <60);
-		if( CoC.getInstance().player.cor < 60 ) {
+		if( CoC.player.cor < 60 ) {
 			EngineCore.outputText( '\n\nYou nearly consider it, tired as you are, until you remember that a sleeping person\'s fifteen minutes are two hours in the waking world and shake her again until she gets up.' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>I don\'t mind,</i>" you whisper, "<i>but this imp seems to have an urgent message for you.</i>"' );
 			EngineCore.outputText( '\n\nSheila\'s head jerks up instantly, looking around in panic; when no imp appears, she turns, staring daggers at you, and slaps you in the face!  "<i>That\'s not funny, arsehole!  Goddammit, I thought my heart was going to jump out of my chest!</i>"' );
 			EngineCore.outputText( '\n\nYou rub your smarting jaw, glaring back, and tell Sheila that it\'s her turn to watch.  Well, the adrenaline will keep her up, at least.' );
 		}
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '  She grudgingly repositions, allowing you to rest against her.' );
 		}
-		CoC.getInstance().time.days++;
-		CoC.getInstance().time.hours = 2;
+		CoC.time.days++;
+		CoC.time.hours = 2;
 		EngineCore.statScreenRefresh();
 		//--Next--;
 		EngineCore.menu();
@@ -3640,24 +3640,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//advance time to 5:00;
 	SheilaScene.prototype.normalSheilaPregNotifREPEATEDEDHelpABitchOutANDSTAYDERE2 = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().time.hours = 5;
+		CoC.time.hours = 5;
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( 'Your sleep is fitful, but not totally useless, and you yawn and stir a few hours later when Sheila wakes you' );
-		if( CoC.getInstance().player.isGoo() ) {
+		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( '; she\'s already dressed and appears to have just been outside' );
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>It\'s almost dawn,</i>" she says, "<i>and we should be safe to go out now.</i>"  The girl begins untying the grassy cover, rubbing against you in the confined space.' );
-		if( CoC.getInstance().player.lust < 30 ) {
+		if( CoC.player.lust < 30 ) {
 			EngineCore.outputText( '  You give her a hand, then help her load up.  She gives you a peck on the cheek before she departs.  "<i>Thanks, love.</i>"' );
 		}
-		if( CoC.getInstance().player.lust >= 30 ) {
+		if( CoC.player.lust >= 30 ) {
 			EngineCore.outputText( '  Part of you is actually sad to see your cozy hovel being disassembled if it means her warm body won\'t be pressed up against yours anymore, and your hands begin to rove over her as she works.' );
 			EngineCore.outputText( '\n\n"<i>[name], stop,</i>" she laughs.' );
 			EngineCore.outputText( '\n\nYou look up at her and ask if she\'d care to put off leaving for a bit.  She looks a little fatigued, but allows herself to be pulled down until she\'s seated next to you.  "<i>I\'m still stuffed...</i>" she sighs.  "<i>I don\'t think I have it in me right now.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Well,</i>" you answer, "<i>perhaps that\'s why it\'s called \'making\' love.</i>"  Sheila doesn\'t answer, but smiles shyly.' );
 			//end scene if lust <30, else add minor lib-based lust damage and display choices for consensual sex plus [Leave Her Be];
-			EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 10 + 5, 'resisted', false );
+			EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 5, 'resisted', false );
 			EngineCore.menu();
 			this.sheilaXP4Sex( false );
 			EngineCore.addButton( 9, 'LeaveHerBe', this.normalSheilaPregNotifREPEATEDEDHelpABitchOutANDSTAYDEREBUTLEAVEHERBE );
@@ -3682,14 +3682,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nIn no time at all you\'re back at your familiar campsite in the wastes; the place is quiet and asleep, so you carefully drop the game animals on the ground next to the fire pit, then plop yourself down as well.' );
 		EngineCore.outputText( '\n\n"<i>Seems... nice,</i>" Sheila says quietly, taking a seat, "<i>but it\'s exposed - not to mention the big target sign.</i>"  She looks at the portal, casting an ominous silhouette against the sky.  "<i>I dunno about this.</i>"' );
 		//[(if PC has thorn canopy on);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
 			EngineCore.outputText( '\n\nYou shrug off her objections, pointing at the thorns already growing over your point of entry.  Sheila seems duly impressed by the quasi-magical display.' );
 		}//(else if PC has Jojo and Jojo's n.watch is on);
-		else if( CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			EngineCore.outputText( '\n\nYou wave Jojo over, introducing them and explaining that the monk watches the camp at night and you check it during the day.  The small white mouse bows politely to your guest, then seats himself nearby.  "<i>Hello, Sheila,</i>" he says.' );
 		}
 		//(else if PC has Kid A and Kid's n.watch is on);
-		else if( CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
+		else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
 			EngineCore.outputText( '\n\nYou wave off Sheila\'s objections, pointing to the large barrel housing your skinny tenant and explaining that she watches the camp at night for you in exchange for a place to stay.  Sheila looks dubious as the tall blue girl shuffles over and sits down, shyly hiding herself behind you.  "<i>Um... hi,</i>" the anemone mumbles.' );
 		}
 		//(else if PC has no night watch turned on);
@@ -3698,27 +3698,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '\n\nSoon you\'ve got a small fire lit and Sheila has numbly plucked and spitted some small birds from the catch.  As she twirls them in the flames, she sighs occasionally.  ' );
 		//[(int >=60)];
-		if( CoC.getInstance().player.inte >= 60 ) {
+		if( CoC.player.inte >= 60 ) {
 			EngineCore.outputText( '"<i>The baby will be fine,</i>" you venture, hazarding a guess.  "<i>It\'s what the nurses are there for.</i>"' );
 		} else {
 			EngineCore.outputText( 'You slip an arm around her, and ask if she\'s okay.' );
 		}
 		EngineCore.outputText( '  She nods mutely and pulls the food out of the fire.' );
 		//[(if Jojo present);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			EngineCore.outputText( '  She extends one bird to you and another to Jojo.  He raises his hand and shakes his head, but politely.' );
-		} else if( CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
+		} else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
 			EngineCore.outputText( '  Sheila offers you one of the birds, then extends another to your odd tenant.  The anemone\'s mouth tightens and she shakes her head vigorously, blushing a deep blue.' );
 		}
 		EngineCore.outputText( '  You eat in silence until the food is gone, and Sheila clears her throat.' );
 		EngineCore.outputText( '\n\n"<i>I need to go before dawn, so I\'ll get this out in case you\'re asleep when I do,</i>" she announces, still looking at the ground.  "<i>I appreciate the help... now, and from before.  Really, you\'re a bottler.</i>"' );
 		//[(if no watch);
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 || CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 || CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
 			EngineCore.outputText( '\n\nShe gets to her feet as you grin, then makes her way over to your bedroll.  It doesn\'t take her long to fall asleep; you amuse yourself watching her toss and turn... and drool on your pillow.' );
 		}//(if watch);
 		else {
 			EngineCore.outputText( '\n\nYou grin and get up, and Sheila tails you to your bed.  ' );
-			if( CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] !== 0 && CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] !== '' ) {
+			if( CoC.flags[ kFLAGS.SLEEP_WITH ] !== 0 && CoC.flags[ kFLAGS.SLEEP_WITH ] !== '' ) {
 				EngineCore.outputText( 'She looks with some distaste at the nearby sleeper, and steps past.  You pick up the bedroll and follow her, reasoning that if she keeps her promise to be gone before dawn, it shouldn\'t raise any questions.  "<i>Making friends, I see,</i>" Sheila mutters... but as you unroll the bed again, her eyes zero in on it like a drowning man\'s on a raft, and she says nothing else.  ' );
 			}
 			EngineCore.outputText( 'She lies down first, allowing you to cozy up to her as far as you dare.  Just as you\'re about to drift off, you feel Sheila take your hand and pull your arm over her body.' );
@@ -3728,8 +3728,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//if no nightwatch, 4 hours sleep and suppress any imp rapes;
 		//lparchive.org/Deadly-Premonition;
 		SceneLib.camp.sleepRecovery( false );
-		CoC.getInstance().time.hours = 7;
-		CoC.getInstance().time.days++;
+		CoC.time.hours = 7;
+		CoC.time.days++;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//demonization Sheila transformation (output when demon sheila = 0 and sheila corruption is about to hit 100 with the PC):;
@@ -3741,7 +3741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Sheila pulls away from you, showing her back; she remains quiet for a few minutes, shivering occasionally.  By the position of her arm, she\'s already touching herself again!  Her elbow dances and her head rolls as she works her cunt, but she gives up.  "<i>Nnnn...</i>" the woman finally whispers, "<i>... it\'s not enough.  I have to have another go.</i>"  She looks around and settles on you with half-focused, wild eyes, and she stands up and advances on you with obvious intent.' );
 		EngineCore.outputText( '\n\nYou\'re barely upright before Sheila\'s pressed up against you again; she pushes you back down insistently with strength borne of desire, staring at you.  "<i>[name], I still can\'t clear my head... I need to get off again, so I\'ve gotta use your body.  You\'re okay with it, yeah?</i>"' );
 		EngineCore.outputText( '\n\nBefore you can answer, Sheila jumps on you and wraps her thighs around your face!  Her pussy is already slick with fluids, and she grinds it relentlessly against your lips.  "<i>Fucking... lick me or something, before I go crazy!  Come on, you\'re ' );
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] < -2 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_XP ] < -2 ) {
 			EngineCore.outputText( 'always so bloody eager to fuck me!' );
 		} else {
 			EngineCore.outputText( 'me best mate!' );
@@ -3753,7 +3753,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nHer legs tense around your head, suddenly hard as all the muscles in them lock up.  Sheila\'s head rolls and you can feel her hot hole squeeze as her feet dig into your back; the nails on them begin to lengthen and curve, leaving several shallow gouges while she holds them close, and a small talon emerges from her heel, poking into you uncomfortably.  "<i>Ah... ah!</i>" she moans, convulsing to the new growth as your eyebrows knit with the pain and your attention flags.  "<i>I\'m sorry!  I\'m so sorry!  I can\'t help it; please don\'t be mad!  Don\'t stop... I need you!</i>"' );
 		EngineCore.outputText( '\n\nThe woman\'s stubby tail thrashes wildly as she begs, leaving shed fur all over your [chest] and lashing at your hands; you grab the end, trying to restrain it, and can feel it growing a bit longer.  "<i>My tail... don\'t pull my tail!</i>" Sheila pleads, pushing her cunt into you once more.  "<i>It\'s driving me starkers!</i>"  None of it is your doing, however, and the tail continues to grow - until it stops and bulges obscenely.  The end swells in your hand, growing rounded lobes that shift just under the skin as if a creature were inside.  It strains again and Sheila screams in pleasure as the skin tears and her tail splits in two; one half comes away with your hand and the outer skin falls apart, sloughing off with the remainder of the fur.  Tentative exploration reveals two distinct, slender tails.  They sway under her, giving you a glimpse as she resumes pumping at your face; one is the same color as her now-hairless skin but the other is so dark-brown it\'s almost black - as it peeks at you, the lobes reveal themselves to be a stubby spade.  A little slit on the end drools a dark, oily fluid and it jabs at you, trying to get inside your mouth; you\'re forced to fend it off with one hand as you lick and suck at the cunt in front of you, trying to turn Sheila to goo in your arms.' );
 		EngineCore.outputText( '\n\n"<i>Oh god... yes... stick it out farther, so I can hit all the good spots!  I\'m almost there!</i>" Sheila says encouragingly, squeezing and massaging her breasts, strange changes already forgotten.  You try, ' );
-		if( CoC.getInstance().player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
+		if( CoC.player.tongueType > AppearanceDefs.TONUGE_HUMAN ) {
 			EngineCore.outputText( 'extending your oral muscle until it\'s all the way to the back of her pussy.  ' );
 		} else {
 			EngineCore.outputText( 'but only manage to scrape her entrance; she shudders and seems satisfied with that, judging by what she says next.  ' );
@@ -3763,13 +3763,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>You look fine,</i>" you say dismissively, standing and tucking away your new crystal.  Gathering your things, you turn to leave with your prize.' );
 		EngineCore.outputText( '\n\n"<i>Really?</i>" she calls after you, eagerly.  "<i>Will you still make love to me next time we meet?  Because... I could go again anytime, you know?  I don\'t care about hunting anymore... we could just root all day!  As long as I\'m with you!</i>"  Sheila\'s voice cuts off abruptly as the magic of the realm brings you out of the plains and back to camp.' );
 		//reduce lust and lib, raise corr slightly, gain key item Sheila's Lethicite, set sheilacite = 1;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'cor', 3 );
-		CoC.getInstance().player.createKeyItem( 'Sheila\'s Lethicite', 0, 0, 0, 0 );
-		CoC.getInstance().flags[ kFLAGS.SHEILA_CITE ] = 1;
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] = 1;
+		CoC.player.createKeyItem( 'Sheila\'s Lethicite', 0, 0, 0, 0 );
+		CoC.flags[ kFLAGS.SHEILA_CITE ] = 1;
+		CoC.flags[ kFLAGS.SHEILA_DEMON ] = 1;
 		//good place to cut off content if you don't have time to code it all in one go;
-		if( !CoC.getInstance().isInCombat() ) {
+		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
@@ -3783,7 +3783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[Talk][Let Her Fuck(req. lust >=30)][Resist][Run];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Talk', this.demonSheilaTalk );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'LetHerFuck', this.sheilaLetHerFuckYou );
 		}
 		EngineCore.addButton( 2, 'Resist', this.demonSheilaResist );
@@ -3813,27 +3813,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Questions nag at you, and you ask Sheila if she wouldn\'t mind answering a few of them.  She struts over and ' );
 		//[(not horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'takes your arm in hers, then slips the other hand into your armor' );
 		}//[(horse);
 		else {
 			EngineCore.outputText( 'between your legs' );
 		}
 		EngineCore.outputText( ' to touch your ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '[cock]' );
-		} else if( CoC.getInstance().player.hasVagina() ) {
+		} else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '[vagina]' );
 		} else {
 			EngineCore.outputText( 'smooth skin' );
 		}
 		//[(lib <20);
-		if( CoC.getInstance().player.lib < 20 ) {
+		if( CoC.player.lib < 20 ) {
 			EngineCore.outputText( ', giggling as your expression petrifies' );
 		}
 		EngineCore.outputText( '.  "<i>Anything for you; I\'ll just find something to occupy my attention.  What\'s on your mind, love?</i>"' );
 		//plus lust depending on sens;
-		EngineCore.dynStats( 'lus', 2 + CoC.getInstance().player.sens / 5, 'resisted', false );
+		EngineCore.dynStats( 'lus', 2 + CoC.player.sens / 5, 'resisted', false );
 		//[The Change][Her Colony][What Now?][Fuck Off];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'The Change', this.askDemonSheilaAboutDahChange );
@@ -3861,29 +3861,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.askDemonSheilaAboutDahChange = function() {
 		EngineCore.clearOutput();
 		//[(if sheilacite >= 1)];
-		if( CoC.getInstance().flags[ kFLAGS.SHEILA_CITE ] >= 1 ) {
+		if( CoC.flags[ kFLAGS.SHEILA_CITE ] >= 1 ) {
 			EngineCore.outputText( 'Sheila blushes deeply.  "<i>Silly.  You were there.</i>"  She looks at you, pupils dancing as she remembers the lovemaking session that led to her current form.  "<i>I suppose that\'s not what you\'re asking, though.</i>"' );
 			EngineCore.outputText( '\n\n"<i>How can I say this?  It felt... monumental.  As I came with you, all my cares slipped away.</i>"  Sheila lowers a hand to her crotch and begins to tease herself' );
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( ', and you feel a monument of your own being erected' );
 			}
 			EngineCore.outputText( '.  "<i>Every squeeze of my pussy compressed my focus, too, until my mind was clearer than the juice you made me flow with.  I realized my purpose there, with you.</i>"' );
 			EngineCore.outputText( '\n\nYou raise an eyebrow at that.  Sheila smiles and explains, "<i>Strange to say, but the captain was right.  My purpose in life really is to fuck.  When you and I were together, I forgot about all the whining, the unimportant nagging that was dumped on me all my life.  The digging, the worrying, the hiding... it never mattered.  Any of it.  You were what made that clear for me; having you is what I care about.</i>"  She blows you a kiss.  "<i>So... we could do something real, if you like.</i>"' );
 		}
 		//(else if sheilacite <= -1);
-		else if( CoC.getInstance().flags[ kFLAGS.SHEILA_CITE ] <= -1 ) {
+		else if( CoC.flags[ kFLAGS.SHEILA_CITE ] <= -1 ) {
 			EngineCore.outputText( 'Sheila looks wistful.  "<i>Well... I wish it could have been with you.  But after you left me, I fingered myself so hard that my voice attracted an imp.  Not a gnoll, or a satyr, or even one of those scary fuckin\' salamanders that are on fire all the time, but an honest-to-god imp.  Just this ragged little beat-up thing, one step away from dead but still trying to get his old fella in something to fill it with his seed and carry on his line.</i>"' );
 			EngineCore.outputText( '\n\n"<i>He was inside me in a blink, thrusting away like it was all that mattered, like his life wasn\'t worth shit if he couldn\'t ejaculate in me.  And...</i>"  She looks at you shyly, and blushes.  "<i>He was right.  Sex really is all he was good for, all anyone is good for.  As he came and flooded me with that hot spunk, something twigged in me.  I just let go of everything: the worries, the pretense, the effort to be a good, obedient worker.  God, that orgasm!  I sucked him dry!  And the whole time I lay there twitching and squeezing his little whacker, I just cried, and cried, as I realized how wrong I was to ever have cared about any of it.  Fucking is what matters, [name].  It\'s the real thing.  Even the basest imp knows that.  I could show you...</i>"' );
 		}
 		//[(additional PG if PC looks masculine or has Bulge Armor perk);
-		if( CoC.getInstance().player.femininity < 50 ) {
+		if( CoC.player.femininity < 50 ) {
 			EngineCore.outputText( '\n\nThe girl leans in and lowers her voice.  "<i>I feel most rapt, you know, when a bloke ejaculates in me.  It feels... pure, and right, like he\'s admitting his purpose in life is to give me babies.  Without pretense or bullshit.  I love it, and if you come inside me, I love you too.</i>"  Sheila blushes again.  "<i>That sounds sappy, but... would you like to be loved?</i>"' );
 		}
 		//plus lust, present choices [Another Question][Let Her Fuck(req lust >=30)][Resist];
 		EngineCore.dynStats( 'lus', 12, 'resisted', false );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Another Q.', this.demonSheilaTalkAnotherQuestion );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'LetHerFuck', this.sheilaLetHerFuckYou );
 		}
 		EngineCore.addButton( 2, 'Resist', this.demonSheilaResist );
@@ -3891,10 +3891,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//[ Demon Sheila - Talk - Her Colony];
 	SheilaScene.prototype.askDemonSheilaAboutHerColony = function() {
 		EngineCore.clearOutput();
-		EngineCore.outputText( '"<i>That place?  Do you wanna go there?</i>"  Sheila smiles duplicitously, then lifts your chin and steals a kiss before you can pull away.  "<i>Got no qualms about showing you the way to that nest of prudes, but...</i>"  Her eyes darken.  "<i>There\'s nothing left now.  A shame you didn\'t insist earlier, they could have stood to learn what a ripper ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' is.</i>"' );
+		EngineCore.outputText( '"<i>That place?  Do you wanna go there?</i>"  Sheila smiles duplicitously, then lifts your chin and steals a kiss before you can pull away.  "<i>Got no qualms about showing you the way to that nest of prudes, but...</i>"  Her eyes darken.  "<i>There\'s nothing left now.  A shame you didn\'t insist earlier, they could have stood to learn what a ripper ' + CoC.player.mf( 'man', 'woman' ) + ' is.</i>"' );
 		EngineCore.outputText( '\n\nShe giggles.  "<i>The first thing I did when I got my new gift was to go home and share it with my loved ones, of course.  It felt incredible, [name]!  When we climaxed and they drank of me, it pulled away all my lust and longing and left me full of happiness and complete oneness.  And every time one drained me dry, I would fill back up again, to pour myself into another.  Thanks to you opening the door, I was able to express my feelings for them like I never could.</i>"  The girl leans her head against you and closes her eyes.  "<i>Especially to the captain.</i>"' );
 		//(corr <30);
-		if( CoC.getInstance().player.cor < 30 ) {
+		if( CoC.player.cor < 30 ) {
 			EngineCore.outputText( '\n\nHorrified' );
 		} else {
 			EngineCore.outputText( '\n\nInterested despite yourself' );
@@ -3903,7 +3903,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nSheila reaches up to tug at her earring.  "<i>This is his... the lethicite, I mean.  The remains of his mortality after he devoted himself to my pussy and became a demon.  Small, right?  I nearly laughed when I saw how piddly and meager his soul really was.</i>"' );
 		EngineCore.outputText( '\n\nImagining the number of souls that were ' );
 		//(corr >=75);
-		if( CoC.getInstance().player.cor >= 75 ) {
+		if( CoC.player.cor >= 75 ) {
 			EngineCore.outputText( 'harvested that day, you sigh wistfully' );
 		} else {
 			EngineCore.outputText( 'stolen that day, you wince' );
@@ -3911,13 +3911,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '.  Sheila, peeking at you with one eye from under her bangs, interprets your expression correctly.  "<i>Wondering where the others went, love?</i>"  She releases her grip on your arm and holds out the hand that\'s not exploring your [armor], displaying several rings.  "<i>The rings are my closest.  I kept them for sentimental reasons.  The rest, well... I ate them.</i>"' );
 		EngineCore.outputText( '\n\nAs you stare at her, she opens both eyes and meets your gaze defiantly.  Flashes of lavender dance in her cold irises, inclining you to believe her words.  "<i>They were delicious, [name].  Every one I consumed made me feel more powerful, bigger, more important, more like a sex goddess.  By the time I got to the colony\'s inner sanctum, I was knocking people over with a touch.  Weaker blokes were soaking their dacks with precum when they saw in my eyes what I wanted to do to them.  On that note...</i>"  She looks harder at you, and you can feel a fantasy making its way into your mind, one where ' );
 		//[(cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'she ties you down and rides you until she\'s so full of your spunk that she can push it back out just by pressing on her stomach' );
 		} else {
 			EngineCore.outputText( 'she binds your hands and sits on you, teasing your helpless body with her oozing, throbbing spade until she comes all over you, spraying dark slimy fluid from it' );
 		}
 		EngineCore.outputText( '.  You ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'break eye contact, blushing' );
 		} else {
 			EngineCore.outputText( 'stare into her shining eyes, getting hotter and hotter as the vision plays out to the very end' );
@@ -3925,10 +3925,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>Did you like my idea, lover?</i>" she laughs.' );
 		//plus lots of libido-based lust, display choices [Another Question][Let Her Fuck(req lust >=30)][Resist];
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 3 + 5, 'resisted', false );
+		EngineCore.dynStats( 'lus', CoC.player.lib / 3 + 5, 'resisted', false );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Another Q.', this.demonSheilaTalkAnotherQuestion );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'LetHerFuck', this.sheilaLetHerFuckYou );
 		}
 		EngineCore.addButton( 2, 'Resist', this.demonSheilaResist );
@@ -3940,17 +3940,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '"<i>What will I do now?  What else, my silly love?</i>"  Sheila looks out over the plains.  "<i>I\'m always hot for you.  We could have a bit of a naughty, and make each other feel good.</i>"' );
 		EngineCore.outputText( '\n\nThe woman leans in confidentially.  "<i>Since you asked, mate, I\'ll spell it out... I have a lot more control over my power now.  I can use a little of it when I\'m not coming, as long as we\'re touching... don\'t even have to use it at all, if I focus.  I could send all of my sensation to you as I finish.  Or I could sip at yours and use it to extend my climax instead, and let you ride the edge as long as we\'re together.  We could literally spend the day in one long orgasm...</i>"' );
 		//(lib>=30);
-		if( CoC.getInstance().player.lib >= 30 ) {
+		if( CoC.player.lib >= 30 ) {
 			EngineCore.outputText( '\n\nYour eyebrows rise.  "<i>Got your attention, did I?  But,</i>"' );
 		} else {
 			EngineCore.outputText( '\n\nYour mouth hardens.  "<i>You\'re right,</i>"' );
 		}
-		EngineCore.outputText( ' Sheila says, "<i>I\'m going to save that one for our honeymoon, instead.</i>"  Her eyes twinkle with infatuation.  "<i>I could even pull the taint of this land out of your body and use it to make mine more lewd for you, my ' + CoC.getInstance().player.mf( 'knight-champion', 'great lady' ) + '...</i>"' );
+		EngineCore.outputText( ' Sheila says, "<i>I\'m going to save that one for our honeymoon, instead.</i>"  Her eyes twinkle with infatuation.  "<i>I could even pull the taint of this land out of your body and use it to make mine more lewd for you, my ' + CoC.player.mf( 'knight-champion', 'great lady' ) + '...</i>"' );
 		EngineCore.outputText( '\n\nShe raises her hand and takes your chin, bringing your gaze over to meet hers.  As the seconds stretch into minutes, it\'s unclear whether she\'s trying to be romantic or if she\'s taking your measure somehow.  Finally, she speaks.  ' );
 		//(corr<50);
-		if( CoC.getInstance().player.cor < 50 ) {
-			EngineCore.outputText( '"<i>I don\'t think I will, though, my sooky mate... I\'d rather stain you in my colors, even if it costs my body to do it.  Or, would you like me more if my proportions were modest?  You, my confident, courtly ' + CoC.getInstance().player.mf( 'lord', 'dame' ) + ', and I, your worshipful, tomboyish ' + CoC.getInstance().player.mf( 'squire', 'lady-in-waiting' ) + ', secretly in love with you and game to follow you anywhere and do anything for you to make you acknowledge me and accept ' );
-			if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.cor < 50 ) {
+			EngineCore.outputText( '"<i>I don\'t think I will, though, my sooky mate... I\'d rather stain you in my colors, even if it costs my body to do it.  Or, would you like me more if my proportions were modest?  You, my confident, courtly ' + CoC.player.mf( 'lord', 'dame' ) + ', and I, your worshipful, tomboyish ' + CoC.player.mf( 'squire', 'lady-in-waiting' ) + ', secretly in love with you and game to follow you anywhere and do anything for you to make you acknowledge me and accept ' );
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'my pussy' );
 			} else {
 				EngineCore.outputText( 'the dick I grow for you' );
@@ -3961,7 +3961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '</i>"' );
 		EngineCore.outputText( '\n\nSheila releases your face and looks forward again.  "<i>I want you.  I want children with you too, if you\'ll ' );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'give them to me' );
 		} else {
 			EngineCore.outputText( 'have them for me' );
@@ -3969,20 +3969,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '.  I dunno what could be simpler.</i>"' );
 		EngineCore.outputText( '\n\nShe\'s so fixated on having children now, more so than anyone you\'ve met' );
 		//[(PC has been propositioned by Amily)];
-		if( CoC.getInstance().flags[ kFLAGS.AMILY_OFFER_ACCEPTED ] > 0 ) {
+		if( CoC.flags[ kFLAGS.AMILY_OFFER_ACCEPTED ] > 0 ) {
 			EngineCore.outputText( ' save one.  Actually, the two are a bit reminiscent of each other..' );
 		}
 		EngineCore.outputText( '.  Yet, any offspring a demon makes will be imps, right?' );
 		EngineCore.outputText( '\n\n"<i>Imps are trustworthy, like dogs,</i>" she retorts, frowning.  "<i>Count on them to care about exactly one thing, and they\'re always honest about it.  Not so with the rest of the pretentious trash dirtying this world, lying with a smile like they know what\'s best for the others around them.</i>"  Sheila begins tracing meaningless shapes on your arm.  "<i>It\'s what I like about you too, mate' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '; even though you hide it, I\'ve seen it lurking' );
 		}
 		EngineCore.outputText( '.  Feel like flying your colors for a while?</i>"' );
 		//plus libido-based lust damage, output choices [Another Question][Let Her Fuck(req lust >=30)][Resist];
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 15, 'resisted', false );
+		EngineCore.dynStats( 'lus', CoC.player.lib / 15, 'resisted', false );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Another Q.', this.demonSheilaTalkAnotherQuestion );
-		if( CoC.getInstance().player.lust >= 33 ) {
+		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'LetHerFuck', this.sheilaLetHerFuckYou );
 		}
 		EngineCore.addButton( 2, 'Resist', this.demonSheilaResist );
@@ -3991,19 +3991,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.demonSheilaTalkAnotherQuestion = function() {
 		EngineCore.clearOutput();
 		//(if lust <=99);
-		if( CoC.getInstance().player.lust <= 99 ) {
+		if( CoC.player.lust <= 99 ) {
 			EngineCore.outputText( 'Sheila reaches farther down, ' );
 			//(cock);
-			if( CoC.getInstance().player.hasCock() ) {
+			if( CoC.player.hasCock() ) {
 				EngineCore.outputText( 'slipping more of her finger and thumb around your penis' );
-			} else if( CoC.getInstance().player.hasVagina() ) {
+			} else if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( 'parting your lips more' );
 			} else {
 				EngineCore.outputText( 'rubbing your bare groin' );
 			}
 			EngineCore.outputText( ' even as she smiles encouragingly.  "<i>Sure, mate.  Amuse yourself.  I certainly intend to.</i>"' );
 			//plus sens-based lust damage, display talk options again;
-			EngineCore.dynStats( 'lus', CoC.getInstance().player.sens / 10 );
+			EngineCore.dynStats( 'lus', CoC.player.sens / 10 );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'The Change', this.askDemonSheilaAboutDahChange );
 			EngineCore.addButton( 1, 'Her Colony', this.askDemonSheilaAboutHerColony );
@@ -4046,9 +4046,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n"<i>Guess what?  I had your baby!  He was the most darling little thing.</i>"' );
-		EngineCore.outputText( '\n\nShe takes your look of surprise as permission to elaborate.  "<i>Mmm, why the wide eyes, mate?  Our people always pushed them out fast.  Except instead of tucking him into a snuggly against my tits, I tucked him into somewhere a bit... lower.</i>"  She hugs your arm closer, fairly rubbing her pussy on the back of your hand and leaving a trail of her lube as she slides her own fingers into your [armor].  "<i>He has his ' + CoC.getInstance().player.mf( 'daddy', 'other mommy' ) + '\'s cock.' );
+		EngineCore.outputText( '\n\nShe takes your look of surprise as permission to elaborate.  "<i>Mmm, why the wide eyes, mate?  Our people always pushed them out fast.  Except instead of tucking him into a snuggly against my tits, I tucked him into somewhere a bit... lower.</i>"  She hugs your arm closer, fairly rubbing her pussy on the back of your hand and leaving a trail of her lube as she slides her own fingers into your [armor].  "<i>He has his ' + CoC.player.mf( 'daddy', 'other mommy' ) + '\'s cock.' );
 		//(if no cock);
-		if( !CoC.getInstance().player.hasCock() ) {
+		if( !CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Or, had...</i>" she finishes with a frown as she reaches your bare groin.  "<i>Where\'d you leave that magnificent old fella?  I was lookin\' forward to another go.</i>"  She pulls her hand out, then leans toward you with a pout.  "<i>I\'m so horny, too...</i>"' );
 		}//(if cock);
 		else {
@@ -4063,15 +4063,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '.  Impatiently, she rubs her stubby, drooling, phallic spade against the hole, accentuating the imagery.  You can feel the blood rushing to your groin as she gives herself shallow, teasing strokes.' );
 		}
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		CoC.getInstance().flags[ kFLAGS.SHEILA_IMPS ]++;
+		CoC.flags[ kFLAGS.SHEILA_IMPS ]++;
 		//plus lust if PC has cock;
-		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10, 'resisted', false );
+		if( CoC.player.hasCock() ) {
+			EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10, 'resisted', false );
 		}
 		//[Other Sex][Knock Up(cock only)][Leave];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Other Sex', this.pregDemonSheilaOtherSex );
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 1, 'Knock Up', this.pregDemonSheilaKnockUp );
 		}
 		//leave should be default spacebar option;
@@ -4082,11 +4082,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head at her, backing away.  She sulks a bit, then speaks.  "<i>I guess I\'ll let you off, since you sexed me up so well before.  Next time, though, you\'re gonna give me some... satisfaction.</i>"  She runs a finger teasingly down her chest, giving you half a smile.' );
 		//(if cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '  Your refusal doesn\'t stop her from consummating the affair herself by slipping the oozing spade past her entrance and thrusting vigorously.  "<i>What?</i>" she says, shaking you from your distracted stare.  "<i>I\'m always randy now, and you\'re not going to spend time with me, so... move along.  Maybe someone fun will find me and join in.</i>"  She throws her head back as her slippery tail makes a particularly deep push, crying her pleasure carelessly to the glaring sun.  The wet schlicks of her self-love follow you until the magic of the realm brings you abruptly back to camp.' );
 		}
 		//plus more lust if cock, go to camp;
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.dynStats( 'lus', 10 );
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4096,7 +4096,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Her eyebrows knit as you propose an alternative.  ' );
 		//[(if cock);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '"<i>Well now, I think I get a say, don\'t I?  I was really hoping to have your seed inside me... it\'s practically worth bottling.</i>"  She ' );
 			if( this.sheilaCorruption() >= 80 ) {
 				EngineCore.outputText( 'heaves onto her feet, heavy breasts swaying' );
@@ -4107,7 +4107,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			Combat.startCombat( new Sheila() );
 		}
 		//(if no cock);
-		else if( CoC.getInstance().player.hasVagina() ) {
+		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '"<i>Well, that doesn\'t sound as good as having your amazing self inside me, but I\'ll take what I can get, love.</i>"  Sheila snuggles closer to your arm, using one hand to turn your fingers out and slip them between her soft, hot labia, then kisses you on the cheek.  "<i>So, what do you have in mind?  I\'m all yours.</i>"  She pulls your fingers out and sits down on the grass, spreading her thighs and looking at you expectantly.' );
 			//go to fight if cock, else plus lust and present victory sex menu;
 			EngineCore.dynStats( 'lus', 15 );
@@ -4122,7 +4122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'As she smears the entrance to her snatch with the slippery slime drooling out of her slitted spade, your [cock] hardens painfully.  The eye-fucking she\'s giving you while teasing her breasts doesn\'t help matters, and soon you\'re so erect that you have to expose your shaft just to relieve the pressure.  With the bulk of your dick bobbing free of your [armor], Sheila waggles her eyebrows at you.  "<i>So... yes?</i>"' );
 		//output demon Sheila cock victory sex scene consonant with player's length and suppress gems/xp/item gain;
 		EngineCore.menu();
-		if( CoC.getInstance().player.cockThatFits( 56 ) >= 0 ) {
+		if( CoC.player.cockThatFits( 56 ) >= 0 ) {
 			EngineCore.addButton( 0, 'Next', this.missionaryForThePurposesOfCreatingImpsWithSheila );
 		} else {
 			EngineCore.addButton( 0, 'Next', this.bigDickAndThighs );
@@ -4137,32 +4137,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.loseToSheila = function( consensual ) {
 		EngineCore.clearOutput();
 		//Loss - if PC manages to lose by HP somehow (overrides all other losses);
-		if( CoC.getInstance().player.HP < 1 && !consensual ) {
+		if( CoC.player.HP < 1 && !consensual ) {
 			EngineCore.outputText( 'Your erstwhile opponent\'s eyes glimmer with excitement as you collapse from your injuries, and she runs over to you.  The demon strips off your [armor] eagerly, but you can\'t stay awake for the fun.  Consciousness slips away and you pass out.' );
 			//--Next--;
-			CoC.getInstance().time.hours += 8;
-			if( CoC.getInstance().time.hours > 23 ) {
-				CoC.getInstance().time.hours -= 24;
-				CoC.getInstance().time.days++;
+			CoC.time.hours += 8;
+			if( CoC.time.hours > 23 ) {
+				CoC.time.hours -= 24;
+				CoC.time.days++;
 			}
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.loseToDemonSheila );
 		} else {
 			var choices = [];
 			//Loss - normal cocks get rode (for cockarea <= 56);
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 56 ) >= 0 ) {
+			if( CoC.player.hasCock() && CoC.player.cockThatFits( 56 ) >= 0 ) {
 				choices[ choices.length ] = this.loseToNormalSheilaAndGetRidden;
 			}
 			//Loss - tail-spade sounding for fuckhueg cock (for cockarea > 56);
-			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.biggestCockArea() > 56 ) {
+			if( CoC.player.hasCock() && CoC.player.biggestCockArea() > 56 ) {
 				choices[ choices.length ] = this.tailSpadeSoundingForFuckHugeDongsWithDemonSheila;
 			}
 			//Loss - clit-swelling and clit-sounding or clit-anal;
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				choices[ choices.length ] = this.clitSwellingDemonSheilaClitSoundingAnal;
 			}
 			//Loss - unsexed joke scene;
-			if( CoC.getInstance().player.gender === 0 ) {
+			if( CoC.player.gender === 0 ) {
 				choices[ choices.length ] = this.aintGotNoGenderAndKangarooRaped;
 			}
 			//RUN DAT SHIT, YO!;
@@ -4175,10 +4175,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nThe fog in your head begins to clear.  Were you really just watched over by a demon?' );
 		EngineCore.outputText( '\n\nSheila hems and haws nervously.  "<i>Well, no one\'s allowed to use your body unless I let them.  I forbid it.  And... and I get off best when I can see the face you make as you come.  It\'s so cute.  I\'m not just going to boff you while you\'re asleep.  U-unless you want me to, ah...</i>"' );
 		EngineCore.outputText( '\n\nThe woman nerves herself and her expression hardens as she re-rails her train of thought.  "<i>No; nevermind that.  If you\'re going to get into blues all the time, I won\'t wait for you to ask for my help.  I\'ll take you with me whether you want it or not.  You\'re mine, and I can\'t bear the thought of you trying to tussle with some standover goon and carking it.  Get up.</i>"' );
-		EngineCore.outputText( '\n\nStill shaken, you stand and let Sheila do the same.  She narrows her eyes at you before speaking again.  "<i>Be more careful, mate.  The idea of my ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ' being fucked by trash makes me ill.</i>"  Saying nothing more, the woman turns and leaves you to walk back to your camp.' );
+		EngineCore.outputText( '\n\nStill shaken, you stand and let Sheila do the same.  She narrows her eyes at you before speaking again.  "<i>Be more careful, mate.  The idea of my ' + CoC.player.mf( 'boy', 'girl' ) + ' being fucked by trash makes me ill.</i>"  Saying nothing more, the woman turns and leaves you to walk back to your camp.' );
 		//suppress the 'you\'ll probably come to in eight hours blah blah' message, subtract gems and add 8 hours, go to camp;
-		CoC.getInstance().player.orgasm();
-		CoC.getInstance().player.HP = CoC.getInstance().player.maxHP();
+		CoC.player.orgasm();
+		CoC.player.HP = CoC.player.maxHP();
 		EngineCore.fatigue( -50 );
 		Combat.cleanupAfterCombat();
 	};
@@ -4186,7 +4186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.loseToNormalSheilaAndGetRidden = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sheila pushes you onto the ground' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' and you\'re forced to put your forelegs down for support as you come to rest on your haunches' );
 		} else {
 			EngineCore.outputText( ', spreading your legs.  The demon unfastens your [armor] and strips it from your bottoms easily' );
@@ -4194,12 +4194,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ', exposing your ' + Descriptors.multiCockDescriptLight() + '.' );
 		EngineCore.outputText( '\n\n' );
 		//[(multi);
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '"<i>All of these look ripper, but... I want this one today,</i>" she says, selecting your [cockFit 56].  ' );
 		}
 		EngineCore.outputText( 'She wraps her hand around it and begins pumping up and down, squeezing out a drop of precum that she smears onto her palm.  "<i>You\'re so eager,</i>" Sheila giggles.  "<i>Are you already about to burst?  That\'s no good... I wanted to play a bit more.</i>"' );
 		EngineCore.outputText( '\n\nThe demon releases your dick, watching raptly as it bobs and twitches, then scoots up to you and' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ', draping your forelegs over her shoulders,' );
 		}
 		EngineCore.outputText( ' presses her ' + this.sheilaCup() + ' breasts' );
@@ -4208,42 +4208,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		} else {
 			EngineCore.outputText( ' against you so forcefully that they part around your chest.  ' );
 		}
-		EngineCore.outputText( '"<i>Such a ' + CoC.getInstance().player.mf( 'handsome bloke', 'pretty sheila' ) + ', with such a nice dong,</i>" she whispers, "<i>I\'m going to have to take you for a ride.  Try not to come as soon as you get in!</i>"' );
+		EngineCore.outputText( '"<i>Such a ' + CoC.player.mf( 'handsome bloke', 'pretty sheila' ) + ', with such a nice dong,</i>" she whispers, "<i>I\'m going to have to take you for a ride.  Try not to come as soon as you get in!</i>"' );
 		EngineCore.outputText( '\n\nSheila grins viciously and sinks down on your [cockFit 56], sliding it into her pussy at a painstaking pace' );
 		//[(multi);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and slipping the unused remainder of your manhood between her thighs' );
 		}
 		EngineCore.outputText( '; you can feel every new inch of heat as she lowers her body.  The woman moans, gyrating her hips, and ' + Descriptors.sMultiCockDesc() + ' twitches in painful erectness.' );
 		//balls fork;
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '\n\n"<i>Oh my,</i>" she says, looking into your rolling eyes.  "<i>Can\'t hold it?  Well, if you\'re going to squirt so soon, mate, let\'s at least make sure you squirt a lot!</i>"' );
 			EngineCore.outputText( '\n\nBehind the demon, her black, stubby spade dangles ominously above your [sack] and its brown neighbor wraps around it, squeezing and stroking.  A drizzle of dark, oily secretion falls from the end; as it lands, your [balls] begin to heat up painfully.  Your stomach turns as another drop of hot slime drools from your demonic lover onto your tender nuts; it feels like something is inside them, trying to push outwards in all directions.' );
 			//(not horse);
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '  Sheila takes your face in her hands and presses it into her breasts as she reassures you.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Be over soon, my love...</i>" the demon coos, jerking her tail vigorously to coat your scrotum.' );
 			EngineCore.outputText( '\n\nIt\'s not long before the awful queasiness subsides, though the pressure only becomes evenly distributed; if anything, it\'s a bit more intense.  Looking below the woman\'s cunt curiously, you\'re met with a swollen, red sack that\'s covered in a dark sheen of oil and nearly twice its former size!' );
 			EngineCore.outputText( '\n\n"<i>Ahaha,</i>" Sheila laughs, "<i>got lots of little spermies for my pussy now?</i>"  Indeed, you feel pent-up just looking at your newly-enlarged [balls]... like if you don\'t blow your load soon, it\'s going to start leaking from your pores!  Your [cockFit 56] hardens again, more from desperate necessity than from pure arousal; your demon hums in pleasure as it fills her vagina, and she begins to raise and lower her hips, slapping her ass against your sensitive [sack] and whispering to you.  "<i>[name]... I\'m getting off on just the idea of you flooding me with all that semen.</i>"' );
 			EngineCore.outputText( '\n\nYou groan in agreement as she slides your turgid shaft back into her pussy on a particularly well-angled stroke, dragging the [cockHeadFit 56] against her vaginal wall and forcing out a thick stream of lubricant.  "<i>God,</i>" the demon gasps, "<i>even your prostate is working overtime, mate!  Your precum feels like an ejaculation by itself... I can\'t wait for you to come any longer!  Give your seed to me, now!</i>"' );
-			EngineCore.outputText( '\n\nSheila\'s pussy spasms around you and she looks into your eyes; you feel a wave of compulsion from them, and arousal flows into you from each place your ' + CoC.getInstance().player.skin() + ' touches her body.  Unable to withstand her orgasm-fueled power, your [balls] pull close to your shaft and you let go of your climax, grabbing her hips and dumping semen into her cunt' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			EngineCore.outputText( '\n\nSheila\'s pussy spasms around you and she looks into your eyes; you feel a wave of compulsion from them, and arousal flows into you from each place your ' + CoC.player.skin() + ' touches her body.  Unable to withstand her orgasm-fueled power, your [balls] pull close to your shaft and you let go of your climax, grabbing her hips and dumping semen into her cunt' );
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' and lap' );
 			}
 			EngineCore.outputText( ' just like she\'s dumping feelings into your head.  "<i>Lover!</i>" she screams.  "<i>Pack me with your babies!</i>"' );
 			EngineCore.outputText( '\n\nAs if you could help it at this point... your [cockFit 56] fills her pussy with thick spunk and the pressure begins forcing it into her womb; as Sheila\'s mouth hangs open in awe, your balls shift upwards again and a second orgasm begins!  You force her down to the base of your cock using your ' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'forelegs' );
 			} else {
 				EngineCore.outputText( 'hands' );
 			}
 			EngineCore.outputText( ', displacing a glob of cum from her pussy that\'s soon followed by others as you ejaculate once more.  The jizz is so dense with sperm that it\'s thick, almost colloidal; it jiggles on her skin, barely sliding downward as your hips ram against hers.  It takes nearly ' );
 			//(normal skeet);
-			if( CoC.getInstance().player.cumQ() < 250 ) {
+			if( CoC.player.cumQ() < 250 ) {
 				EngineCore.outputText( 'ten minutes and two' );
 			}//(big skeet);
-			else if( CoC.getInstance().player.cumQ() < 1000 ) {
+			else if( CoC.player.cumQ() < 1000 ) {
 				EngineCore.outputText( 'thirty minutes and four' );
 			} else {
 				EngineCore.outputText( 'fifty minutes and eight' );
@@ -4252,15 +4252,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>I don\'t think I\'ve ever felt so full in my life...</i>" Sheila says, dreamily holding her stomach as an avalanche of cum-clumps rolls slowly out of her cunt.  You fall flat and are already passed out by the time she stops rubbing her midriff, imagining the child she\'ll mother.  She leans down.  "<i>Falling asleep after coming... for shame, mate.  I didn\'t even get to tell you I love you.</i>"  The demon plants a kiss on your cheek, squeezes your scrotum once more, and walks away, bottom half completely stained white.  Your swollen nuts slowly deflate as you doze, though they don\'t shrink down quite as far as their original size.' );
 			//end scene, reduce lust, increment sheilapreg by 1 (in other words, 100% preg chance), increase ball size by ~10% and increase cum multiplier very slightly, reduce sheila corruption by 10 and increase PC corr by 10;
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SHIELA );
-			CoC.getInstance().player.ballSize++;
-			if( CoC.getInstance().player.ballSize < 10 ) {
-				CoC.getInstance().player.ballSize++;
+			CoC.player.ballSize++;
+			if( CoC.player.ballSize < 10 ) {
+				CoC.player.ballSize++;
 			}
-			CoC.getInstance().player.cumMultiplier++;
-			CoC.getInstance().player.orgasm();
+			CoC.player.cumMultiplier++;
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaCorruption( -10 );
-			if( CoC.getInstance().isInCombat() ) {
+			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4272,19 +4272,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>... What?</i>" you ask.' );
 			EngineCore.outputText( '\n\n"<i>Well.  You have no balls,</i>" the demon continues, slowly beginning to slide her pussy back up your tool.  "<i>So... how do you have sperm?  How can you get people pregnant?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Ughh...</i>" you groan, as she sinks back down.  "<i>I don\'t know... aren\'t you from here?  I wasn\'t like this before I came through the portal for the first time.</i>"  ' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You force her downward with your forelegs to' );
 			} else {
 				EngineCore.outputText( 'You grab her hips and' );
 			}
 			EngineCore.outputText( ' help her impale herself on your tool.' );
-			EngineCore.outputText( '\n\nThe demon shudders as your [sheath] bumps up against her vulva.  "<i>Y-yeah, but I never paid attention to growing dongers without balls and that kinda arcane stuff, mate... didn\'t think I\'d end up fucking a strange ' + CoC.getInstance().player.race() + ' like you until you stuck it in me.  I always wanted to marry a normal bloke like my dad.</i>"' );
+			EngineCore.outputText( '\n\nThe demon shudders as your [sheath] bumps up against her vulva.  "<i>Y-yeah, but I never paid attention to growing dongers without balls and that kinda arcane stuff, mate... didn\'t think I\'d end up fucking a strange ' + CoC.player.race() + ' like you until you stuck it in me.  I always wanted to marry a normal bloke like my dad.</i>"' );
 			EngineCore.outputText( '\n\n"<i>Pardon,</i>" you interrupt irritably, pushing her back up, "<i>but </i>you\'re<i> the one who\'s sticking it in you.  And if you want to fuck your father so badly, go find him and leave me alone.</i>"' );
 			EngineCore.outputText( '\n\nSheila\'s eyes twinkle mischievously.  "<i>I will when I see him, love.  In the meanwhile, you get all the benefits of my misplaced affection.</i>"  She descends your cock again, shifting her hips to rub you against a different side of her pussy.  "<i>I notice our little conversation kept you from shooting your wad too early, like a virgin...</i>"' );
 			//corr fork;
 			//[(corr < 70)];
-			if( CoC.getInstance().player.cor < 70 ) {
-				EngineCore.outputText( '\n\nYou stiffen in embarrassment.  Sheila smiles and plants a kiss on your ' + CoC.getInstance().player.skinFurScales() + ', then looks at you innocently.  "<i>Don\'t be mad, mate.  I just wanted our time together to last.</i>"' );
+			if( CoC.player.cor < 70 ) {
+				EngineCore.outputText( '\n\nYou stiffen in embarrassment.  Sheila smiles and plants a kiss on your ' + CoC.player.skinFurScales() + ', then looks at you innocently.  "<i>Don\'t be mad, mate.  I just wanted our time together to last.</i>"' );
 				EngineCore.outputText( '\n\n"<i>Is that so?</i>" you reply, beginning to fuck the demon harder to make up the arousal she frittered away.  Sheila moans as you work your [cockFit 56] into her hole vigorously, dragging it against the entrance and smearing your intermingled fluids on her groin.' );
 				EngineCore.outputText( '\n\n"<i>Yesss...</i>" she hisses, passing air through her teeth as you hit a sweet spot.  "<i>You\'re my one and only.</i>"' );
 			}
@@ -4298,24 +4298,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>You know I don\'t really care which of us is on top in the relationship, right?</i>" she says.  "<i>Stuff like dominance and submissiveness is all shit; it doesn\'t matter.  I\'d gladly do anything you like and be a filthy slave for you as long as I knew you\'d never flick me on.</i>"  Sheila wraps her arms around your chest and uses the leverage to ascend your dick, eyes glassy with excitement.  "<i>The thing I want is what\'s best for you, mate... and what\'s best for you is me, and only me.  A-as soon as you agree to that, I\'ll stop teasing you and marry you on the spot so we can start our life together!</i>"' );
 			EngineCore.outputText( '\n\nThe demon releases you and allows gravity and your pressure to force her back down once more, and her pussy begins to drool and squirt in orgasm.  "<i>Ohh... c-coming!  You too!  Finish with me, love!</i>"  Sheila leans forward and presses her lips against you, half-kissing and half-drooling; a foreign wave of climax passes into you where her skin contacts yours, and you begin to ejaculate with the demon\'s borrowed sensation.  Your semen pools in her pussy' );
 			//[(multi);
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( ' and lap' );
 			}
 			//[(big skeet);
-			if( CoC.getInstance().player.cumQ() >= 1000 ) {
+			if( CoC.player.cumQ() >= 1000 ) {
 				EngineCore.outputText( '; she quickly reaches capacity and pulls off, jerking your messy, slimy [cockFit 56] and letting you squirt the last of your strokes all over her face and chest' );
 			}
-			if( CoC.getInstance().player.cumQ() >= 6000 ) {
+			if( CoC.player.cumQ() >= 6000 ) {
 				EngineCore.outputText( '.  So much is left that she\'s practically underwater by the time you\'re finished; she giggles and bubbles form in the oozing liquid covering her lips' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\n"<i>That was fun,</i>" Sheila laughs, scooting backward away from you and leaving a trail of white on the grass.  "<i>I\'ll see you later... remember what I said, mate.  Sack up and propose to me soon.</i>"  She laughs at her own joke, then blows you a sloppy kiss and stands up to leave.  Having done most of the actual work, you take the opportunity to keel over and pass out.' );
 			//end scene, reduce lust, normal sheilapreg check, reduce sheila corruption by 10 and increase PC corr by 10];
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaPreg();
 			this.sheilaCorruption( -10 );
-			if( CoC.getInstance().isInCombat() ) {
+			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4335,32 +4335,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Nnnn,</i>" she moans, "<i>c-coming!</i>"  The woman\'s cunt drools and her tail twitches and swells; you can literally see the latter thickening progressively as something forces its way past the brown noose and into your urethra, stretching it wide.  As the bulge reaches the point where you can feel her spade lodged, the end of her tail swells and disgorges a stream of hot, thick slime; it agitates inside your cock as it slides down, pushing past precum with its greater density and sinking into you.  You wait with mounting horror as it passes the [sheath] of your cock and enters your body - as if spurred on by your reticence or the closeness of your innermost places, the voracious slime seems to speed up, racing toward your prostate.  In a wave, the foreign substance passes through it, trying to press outward and tickling the organ; in response to the hot stimulation, your body begins dumping cum into your urethra to fight back.' );
 		EngineCore.outputText( '\n\n"<i>Hahh,</i>" Sheila laughs, out of breath.  "<i>I can feel your dick jerking, mate... did my climax find your insides, then?</i>"  She pulls her spent tail limply from you, letting it hang between her legs, and turns around to watch the fireworks.  The last half of the demon\'s climax slides down your dick, trying to push its vanguard up against your prostate for as long as possible, but your body eventually wins out; you can feel your own involuntary orgasm forcing hers back toward the open end of your [cock biggest].  The demon grins and slips a hand beneath you, stroking the underside of your prick just behind the glans, and the stimulation pushes you over the edge.  Your nerves fire, sending another load after the first, and a messy multi-shaded fan of fluid is ejected.' );
 		EngineCore.outputText( '\n\nSheila\'s eyes gloss over with desire, and she turns around once more, raising her pussy to your [cockHead biggest].  "<i>Inside...</i>" she mumbles, and then more loudly, "<i>Squirt it inside!</i>"  She guides your tip to her pussy with both tails now, spreading her labia with two fingers, and the next splat goes into her.  Black and white liquid drools from Sheila\'s messy cunt as your oversized cock ejaculates into and onto the woman' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( '; unguided, the ' );
 		}
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( 'other twitches and sprays' );
-		} else if( CoC.getInstance().player.cockTotal() > 2 ) {
+		} else if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( 'others twitch and spray' );
 		}
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' all over, coating her back, you, the grass, and anything ' );
 		}
-		if( CoC.getInstance().player.cockTotal() > 2 ) {
+		if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( 'else they happen to point at' );
 		}
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( 'else it happens to point at' );
 		}
 		EngineCore.outputText( '.  Your hips automatically try to push your dick further into her warm hole but only succeed in unbalancing her, forcing the demon onto her hands.  As your climax winds down, your head leans back and your cock slips from her vulva, squirting the last stroke onto her ass.' );
 		EngineCore.outputText( '\n\nSheila sighs happily as she stands back up, and two intermingled colors stain her thighs.  "<i>That was... mmm.  I wonder if it feels the same for you as it does for me, love?</i>"  She walks up to you and takes your face in her hands; planting a passionate kiss on your lips, then lowers your nerveless form to the ground.  "<i>Rest for now, [name]... I want to do that again soon.</i>"' );
 		EngineCore.outputText( '\n\nExhausted, you pass out, wondering what sort of permanent changes her fluids are wreaking on your body.' );
 		//increase only biggest cock size by ~2-3% if possible, increase cum multiplier, reduce lust, increase PC corr by 10 and reduce sheila corruption by 10;
-		CoC.getInstance().player.cumMultiplier++;
-		CoC.getInstance().player.orgasm();
+		CoC.player.cumMultiplier++;
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
 		this.sheilaCorruption( -10 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		}
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4369,7 +4369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.clitSwellingDemonSheilaClitSoundingAnal = function() {
 		EngineCore.clearOutput();
 		//(no horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Sheila places her hand in the small of your back and leans in, drawing closer to your face even as she pulls your waist inward.' );
 		} else {
 			EngineCore.outputText( 'Sheila sets her hand atop your withers, pressing down gently as she looks into your eyes.' );
@@ -4377,7 +4377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '  "<i>Why don\'t you relax, [name]?  Lie down and let me take care of you...</i>"  Her eyelids lower and her mouth spreads in a sly smile, and for just a moment you lose your nerve, looking into her devilish expression.  "<i>Don\'t worry, love,</i>" she says, straightening her face.  "<i>I promise you\'ll enjoy this.</i>"' );
 		EngineCore.outputText( '\n\nBefogged but still reserved, you nonetheless allow Sheila to lower you to the grass and remove your [armor].  She ' );
 		//[(not horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'turns around, then straddles your groin and looks over her shoulder.' );
 		}//(Equus ferus caballus);
 		else {
@@ -4385,29 +4385,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		EngineCore.outputText( '  Her black, spaded tail lifts from between her thighs and snakes toward your pussy,' );
 		//[(if manparts);
-		if( CoC.getInstance().player.hasCock() ) {
+		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' caressing ' );
-			if( CoC.getInstance().player.balls > 0 ) {
+			if( CoC.player.balls > 0 ) {
 				EngineCore.outputText( 'your [balls]' );
 			} else {
 				EngineCore.outputText( 'the underside of your [cock biggest], before' );
 			}
 		}
 		EngineCore.outputText( ' forcing your lips apart and lingering on your rapidly-swelling ' + Descriptors.clitDescript() + '.  "<i>Oh, my.  What\'s with this ' );
-		if( CoC.getInstance().player.clitLength <= 6 ) {
+		if( CoC.player.clitLength <= 6 ) {
 			EngineCore.outputText( 'lewd little' );
 		} else {
 			EngineCore.outputText( 'grotesque' );
 		}
 		EngineCore.outputText( ' thing doing growing from a pretty girl like you?  It\'s just the perfect size for some fun.</i>"' );
 		EngineCore.outputText( '\n\nYour eyes open in alarm at the same time as her mouth does in pleasure; she jams the slit of her spade onto your button' );
-		if( CoC.getInstance().player.clitLength > 6 ) {
+		if( CoC.player.clitLength > 6 ) {
 			EngineCore.outputText( ', taking it several inches deep' );
 		}
 		EngineCore.outputText( '.  Your head swims as pleasure from your engulfed clitoris overwhelms you, then toes the line to genuine pain.  The copious demonic fluid backing up inside her tail begins to leak around the tip, coating your clit and drooling onto your labia; your muscles tighten as the heat escalates past comfortable levels, and you begin shifting violently, trying to pull your swollen chick-stick free from the demon\'s anatomy.  "<i>Ah, ah, god, [name], stop!  Don\'t thrash so!  You\'re teasing me too fast!</i>"  Sheila\'s words are lost on you, sunken as you are into a hell of oversensitized skin and constant stimulation.  It feels like the nerves exposed to the torment are even multiplying, as if skin you weren\'t even feeling before suddenly appears to be immersed into the tainted slime.' );
 		EngineCore.outputText( '\n\nYour eyes roll in temporary shock as her tail squeezes around your ' + Descriptors.clitDescript() + ' tighter and tighter; the siege lifts slightly, allowing you to focus with supreme effort and see that the demon is similarly affected!  Her head sags between her shoulders, even as she places two hands on the ground in front of her to steady herself.  The two tails on her butt whip spastically, squeezing another wave of painful pleasure into your crotch.  Staring, you can only watch as Sheila\'s thrashing black spade describes a clipped arc, a long, thick rod of flesh growing out of it to join your bodies.' );
 		//[(<=6");
-		if( CoC.getInstance().player.clitLength <= 6 ) {
+		if( CoC.player.clitLength <= 6 ) {
 			EngineCore.outputText( '\n\nAwareness comes to you slowly; that flesh is your clitoris, gratuitously mutated by Sheila\'s fluids!' );
 		} else {
 			EngineCore.outputText( 'Though you\'re by now accustomed to the sight of your clitoris, more like a cock than a dainty feminine bump, this is something else altogether!  The huge thing poking into her tail is almost twice the thickness of the slim growth you remember and bulges with blood vessels; as you watch it, transfixed, a trickle of Sheila\'s oily, dark secretion slides down it, then is absorbed into some flesh near your groin, adding another layer of width with a pulse!' );
@@ -4416,24 +4416,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nThe burning has tapered off near the end of your clitoris, now more properly a lever than a button; only the base still tingles with the barely-bearable sensation that you realize to be new growth.  "<i>Bloody hell, [name],</i>" Sheila calls, forcing her elbows to straighten under her again.  "<i>If you get much thicker, you\'ll split me off another tail.</i>"  Your mouth only opens dumbly at this.' );
 		//divide scene here by clit size;
 		//(clit<=6" initially);
-		if( CoC.getInstance().player.clitLength <= 6 ) {
+		if( CoC.player.clitLength <= 6 ) {
 			EngineCore.outputText( '\n\nShe sits up on her knees, then turns to face you.  ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'Taking your face into her hand, she closes your jaw and then leans in to plant a kiss on your chin.' );
 			} else {
 				EngineCore.outputText( 'Her eyes glitter with mirth.' );
 			}
 			EngineCore.outputText( '  "<i>Why the look, mate?  Seems like you\'re saturated for now, and just in time.  This... is...</i>"  She pulls her tail up from the end of your clitoris, then slides it back down, slowly.  "<i>... perfect!</i>"  As her tight hole swallows your sensitive distaff staff once again, your eyes roll and her head drops, dragging her hair' );
 			//[(horse);
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' through the grass' );
-			} else if( CoC.getInstance().player.biggestTitSize() >= 1 ) {
+			} else if( CoC.player.biggestTitSize() >= 1 ) {
 				EngineCore.outputText( ' between your ' + Descriptors.allBreastsDescript() );
 			} else {
 				EngineCore.outputText( ' along your flat chest' );
 			}
 			EngineCore.outputText( '.  "<i>Ffuck, even your girl parts are amazing.</i>"  Sheila plants kiss after kiss on your ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( '[chest]' );
 			} else {
 				EngineCore.outputText( Descriptors.buttDescript() );
@@ -4441,10 +4441,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( ' as she shallowly pumps your ' + Descriptors.clitDescript() + ' in and out of her spade.  Your pelvis twitches uselessly; with her tail waving in the air instead of braced against her, controlling the pace of the fuck is beyond you.  "<i>Naughty sheila,</i>" she says, squeezing your wiggling hip with a hand.  You think privately that she could just as easily be talking about herself.  "<i>Am I not going fast enough for you?  Let me speed up.</i>"' );
 			EngineCore.outputText( '\n\nYour demon lover turns around again and, planting her hands once more against the ground, lifts her backside.  Her snubby spade plunges onto your rod with aplomb, going so fast that the lubrication begins to dissipate as quick strokes force fluid out of the tight confines.  Heat overtakes your clit again, not from chemicals but simply from your growing body temperatures and the friction between you.  Soon, you can feel the hot sensation of dry skin-on-skin contact closer to her tip, where the lube has been pushed out completely.  "<i>God... yes... fuck you, fuck my filthy tail, fuck it raw, rub all my dirty cum out with your freaky clit, penetrate me, show me who\'s the man!</i>"  Sheila\'s voice reaches the pitch of a scream as she finishes her demands.  "<i>F-fuck!  I\'m coming!</i>"  She slumps forward as ' );
 			//[(PC corr<50);
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'her tail quakes and you feel something hot licking at the tip of your clitoris.  The spade pulls back and then sinks down again, and the heat gains several inches; she repeats this twice more until you can feel what must be her cum all the way down to her tail-tip, but as she attempts to pull back again and force her climax past the raw, hot skin at the edge, her tail simply jerks at your clit and she falls weakly onto the ground.' );
 				EngineCore.outputText( '\n\n"<i>N-no... no!  So close!</i>"  The black stalk thrashes weakly as her body loses muscle control everywhere except the parts responsible for forcing her cum out of it.  She moans piteously and babbles as her tail swells around your clit and engulfs you in her liquid climax, doubling in thickness behind the spade from the mounting fluids.  It\'s too much for you to watch, this arrogant woman trying to use you to get off but only managing to tease herself while suffusing your clit with her hot fluid, and combined with the temperature, pushes you over the edge you\'d been flirting with.  Your ' + Descriptors.vaginaDescript( 0 ) + ' squeezes and squirts, depositing your own orgasm onto the ' );
-				if( CoC.getInstance().player.wetness() >= 4 ) {
+				if( CoC.player.wetness() >= 4 ) {
 					EngineCore.outputText( 'demon\'s legs' );
 				} else {
 					EngineCore.outputText( 'grass' );
@@ -4455,7 +4455,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			//(else PC corr>=50);
 			else {
 				EngineCore.outputText( 'her tail quakes, then pushes her pussy into yours.  "<i>God, yes!</i>"  A spatter of hot fluid hits your ' + Descriptors.vaginaDescript( 0 ) + ' as your demon lover climaxes, and another begins to drool around the tip of your clit, still suspended inside her writhing tail.  The sudden labial heat is too much for you, and you answer her with a climax of your own, ' );
-				if( CoC.getInstance().player.wetness() >= 4 ) {
+				if( CoC.player.wetness() >= 4 ) {
 					EngineCore.outputText( 'drizzling' );
 				} else {
 					EngineCore.outputText( 'copiously soaking' );
@@ -4469,55 +4469,55 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nShe pulls her tail free of your clit, watching nervously as the coating of dark oil left behind is absorbed into the skin and it widens another half-inch.  Sheila turns uncertain eyes on you and speaks again.  "<i>Eh-heh.  Even as a woman, it looks like you\'re too much of a man for my little hole.</i>"  She plays with her nipples idly, watching as your breathing causes the abnormally elongated skin to bob in the warm air, then leans down and blows on it with a grin; you squirm, raising a giggle from her.  "<i>I could just jerk you off like any old cock... would you like that?</i>"  The demon caresses you with her hand and considers a bit.  "<i>Ahh, no good.  I\'m horny too, after having you inside me.  But this absurd thing... oh, I know.</i>"' );
 			EngineCore.outputText( '\n\nYou stare at Sheila as she turns around' );
 			//[(horse);
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ' and rolls onto her back' );
 			}
 			EngineCore.outputText( ', then wraps her tails around your thickened clit.  They twist and pull, sending spirals of pleasure along the numerous nerves, and begin gently but insistently tugging you toward her tan butt.  Sheila directs the tip right between her cheeks, and you can feel her using it to rub the ring around her hole.  "<i>I think this should be about the right size for you, love,</i>" she teases, spearing herself on your ' + Descriptors.clitDescript() + '.  Inch after inch slides into her slowly, maddening you with warmth, until ' );
-			if( CoC.getInstance().player.clitLength <= 12 ) {
+			if( CoC.player.clitLength <= 12 ) {
 				EngineCore.outputText( 'all of it is in her bowels and her hot cunt rests against yours' );
 			} else {
 				EngineCore.outputText( 'she\'s taken as much as she can' );
 			}
 			EngineCore.outputText( '.  She half-smiles and half-winces at you.  "<i>Don\'t usually take it in this hole, but I wanted to feel your pussy going crazy for me.</i>"  ' );
-			if( CoC.getInstance().player.clitLength <= 12 ) {
+			if( CoC.player.clitLength <= 12 ) {
 				EngineCore.outputText( 'Her hips shift, dragging her lips across yours and stirring your clit through her asshole even as it squeezes you; your pussy twitches at the stimulation.' );
 			} else {
 				EngineCore.outputText( 'Her tails, one still swollen from being stretched and tormented by your growing clit, slip into you abruptly, bringing their mild burning sensation with them; if you hadn\'t been saturated with it already, you\'d probably pass out.' );
 				//[(if virgin vagina);
-				if( CoC.getInstance().player.hasVirginVagina() ) {
+				if( CoC.player.hasVirginVagina() ) {
 					EngineCore.outputText( '  "<i>What\'s this?</i>" Sheila teases.  "<i>Why, your virtue is still intact, little girl!  I wouldn\'t want anything to happen to it!</i>"  She pulls her tails out a bit, contenting herself with simply teasing your lips and driving you mad for penetration.' );
 				}
 				EngineCore.outputText( '  The demon shifts around your clit, sending a wave through you that makes your lips wrap around the invaders.' );
 			}
 			EngineCore.outputText( '\n\nSheila places her long-taloned feet against ' );
 			//(not naga);
-			if( !CoC.getInstance().player.isNaga() ) {
+			if( !CoC.player.isNaga() ) {
 				EngineCore.outputText( 'your thighs, spreading your [legs] wide and then hooking them over top to touch ' );
 			}
 			EngineCore.outputText( 'the ground next to your ass, and uses the leverage to begin pumping your clit out of and into her asshole, caressing your ' + Descriptors.vaginaDescript( 0 ) + ' every time she slides home.  "<i>I could get used to this, love.  What say I keep you dosed up like this and you become my dildo?  I\'ll ride you with a different hole every time!</i>"  Your eyes roll back in your head, at least partially from the irregular pace at which she\'s stroking your clit.  Sheila grabs her breasts as she slows down drastically once again, mashing them with her hands and sinking onto you an inch at a time.  "<i>Fuck... I love your junk, [name].  Maybe I should catch a goblin, too, and make her tease my pussy while you fill my ass.</i>"  She raises back up and ' );
 			//[(clit>12");
-			if( CoC.getInstance().player.clitLength > 12 ) {
+			if( CoC.player.clitLength > 12 ) {
 				EngineCore.outputText( 'pulls her black tail free, dripping with your juice, then ' );
 			}
 			EngineCore.outputText( 'begins to work her drooling spade along your clit again, smearing her goo along your chunky chick-stick.  You can feel the edges of the stretched hole in her tip working on your skin, opening and closing ever so slightly as her copious tainted lube oozes out.  Your ' + Descriptors.clitDescript() + ' must be completely saturated already, because the slippery goo lingers on the surface instead of wicking into it.  "<i>Gonna g-get you nice and wet, love...  Ohh,</i>" Sheila says, affected to distraction by the pleasure of tracing the slick end of her stubby tail along you.' );
 			EngineCore.outputText( '\n\nFinally coating you to satisfaction with the oily secretions, Sheila begins pumping again.  The heated friction from before evaporates, replaced with a dull, distributed warmth as she slides her asshole along your clit.  With less resistance, she\'s able to up the tempo to frantic, scraping along the ground so fast that she begins to tear up the grass.  You bear up as much as you can under the onslaught of pumping and gyrating hips, but eventually the sensation is too much, and your nerves take over as your climax begins.  Your ' + Descriptors.vaginaDescript( 0 ) + ' spasms, drooling onto her ' );
-			if( CoC.getInstance().player.clitLength <= 12 ) {
+			if( CoC.player.clitLength <= 12 ) {
 				EngineCore.outputText( 'pussy; her smooth, small labia greedily lap at the fluid when they touch, brushing against yours and drawing further twitches and squirts.' );
 			} else {
 				EngineCore.outputText( 'teasing tails; they shift from stroking your labia to holding them open, allowing your pussy to squirt as it pleases.' );
 			}
 			EngineCore.outputText( '  Suddenly she stops mid-stroke as her asshole quivers, sending shivers up your orgasm-sensitized clitoris.  "<i>Fffuck!  So soon!  I\'m coming too, [name]!</i>"  Sheila sinks down, burying your ' + Descriptors.clitDescript() + ' into her asshole.' );
 			//(clit>12");
-			if( CoC.getInstance().player.clitLength <= 12 ) {
+			if( CoC.player.clitLength <= 12 ) {
 				EngineCore.outputText( '  Her tails sink into you as she squirms, parting your lips and pushing their way inside.' );
 				//[output hymen check, but don't remove virgin flag yet]  ;
-				if( CoC.getInstance().player.hasVirginVagina() ) {
+				if( CoC.player.hasVirginVagina() ) {
 					EngineCore.outputText( '  <b>You\'ve lost your virginity!</b>' );
 				}
 				EngineCore.outputText( '  Buried in your pussy, the spade begins drooling its black fluids in greater and greater volume as Sheila is wracked by her orgasm.' );
 			}
 			//(PC corr<50);
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( '  The demon\'s pussy gushes and pours with unnatural levels of fluids, soaking your crotch as a miniature cataract makes its way out of her lower lips.  Sheila spills herself onto you for at least a minute, producing more hot fluid than you thought possible, until she looks utterly dehydrated - even her breasts seem to be smaller and less jiggly.' );
 			} else {
 				EngineCore.outputText( '  The demon\'s skin seems to parch as she grinds into you relentlessly, evaporating your fluids so fast that most of them don\'t even have time to fall.  Her hot flesh lays heavily across your netherlips, prolonging your climax and coaxing out more fem-spray than you thought was in you.  Even your mouth seems to dry as she drinks your essence up.' );
@@ -4525,11 +4525,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 
 			EngineCore.outputText( '\n\n"<i>Ahh, [name],</i>" Sheila says, after a minute to recover.  "<i>It feels good in my butt.</i>"  Slowly, she pulls apart from you, letting your clit out of her backdoor at an agonizing pace, and stands up.' );
 			//[(if clit >12" and virgin vag);
-			if( CoC.getInstance().player.clitLength > 12 && CoC.getInstance().player.hasVirginVagina() ) {
+			if( CoC.player.clitLength > 12 && CoC.player.hasVirginVagina() ) {
 				EngineCore.outputText( '  "<i>Sorry about your hymen, love, but I just couldn\'t resist making a sweet little slut like you into my girl.  I hope you\'ll remember me - I only wish I had a proper donger so I could give you my baby, too.</i>"' );
 			}
 			EngineCore.outputText( '  Even as tired as you are, what you see on the demon girl makes you laugh.  She starts at this, then follows the direction of your gaze; ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'her tits are covered by grass stains from her frenetic pumping.' );
 			} else {
 				EngineCore.outputText( 'craning around shows her that her asscheeks are completely green and wet with torn grass from slamming into you so violently and repeatedly.' );
@@ -4537,24 +4537,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  "<i>... Oh, god dammit,</i>" Sheila gripes.  She walks over and forces your face into them with a long, slow shake, then giggles as a joke comes to her.  "<i>There, [name]; I\'ve stained you with my colors!</i>"  She plants a long kiss on your grass-smeared forehead, then drops you back to the ground, straightens up, and departs.  Exhausted, you slip into a doze, wondering if you\'ll be able to fit your swollen clit back into your clothing when you wake or if you\'ll have to walk back to camp with it sticking out.  It slowly deflates as you sleep, but does retain a bit of additional length.' );
 		}
 		//reduce lust and libido, increase sensitivity, remove virgin vag if PC clit>12', slimefeed if PC clit>12' or PC corr <50, increase clit by 1" before perk mod; if PC corr <50 then +10 corr and -10 sheila corruption, else if PC corr >=50 then -10 corr and +10 sheila corruption;
-		if( CoC.getInstance().player.clitLength > 12 || CoC.getInstance().player.cor < 50 ) {
-			CoC.getInstance().player.cuntChange( 12, false, false, false );
-			CoC.getInstance().player.slimeFeed();
+		if( CoC.player.clitLength > 12 || CoC.player.cor < 50 ) {
+			CoC.player.cuntChange( 12, false, false, false );
+			CoC.player.slimeFeed();
 		}
-		CoC.getInstance().player.clitLength++;
-		if( CoC.getInstance().player.findPerk( PerkLib.BigClit ) >= 0 ) {
-			CoC.getInstance().player.clitLength += 0.5;
+		CoC.player.clitLength++;
+		if( CoC.player.findPerk( PerkLib.BigClit ) >= 0 ) {
+			CoC.player.clitLength += 0.5;
 		}
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaCorruption( -10 );
 		} else {
 			this.sheilaCorruption( 10 );
 			EngineCore.dynStats( 'cor', -10 );
 		}
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -2 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4571,8 +4571,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Hah,</i>" she says as her irises flare with lavender light, "<i>you don\'t have to decide right now.  Just think it over; you could even be both.</i>"  An odd fantasy washes through your mind as she stares, one of Sheila tucking your penis into your own vagina and pouring vial after vial into you, forcing you to come inside yourself every time a draft pushes you to your peak.  The sadistic quality of the vision she\'s sending suggests that she\'s not nearly as laid-back about being unable to play with you right now as she\'s affecting to be, and you can feel your body heating up as cock after chemically-granted cock sprouts on you and is shoved inside your cunt by your demon captor.  Suddenly, the demon blinks and the fantasy is suspended; she\'s lowered you to the ground while you were lost in her daydream, and plants a chaste kiss on your lips before pulling away.' );
 		EngineCore.outputText( '\n\n"<i>I\'ll see you later, [name]... think about me.</i>"  You slip into a brief, tired doze as her lingering magic guarantees fulfillment of her request.' );
 		//big lib-based lust gain, med lib gain if lust hits 100, pass 1 hour;
-		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 4, 'resisted', false );
-		if( CoC.getInstance().isInCombat() ) {
+		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 4, 'resisted', false );
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4584,7 +4584,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			output = true;
 			EngineCore.clearOutput();
 			EngineCore.outputText( '"<i>Ahh, you win, mate.  I give up.</i>"  Sheila slumps to the ground, ' );
-			if( CoC.getInstance().monster.HP < 1 ) {
+			if( CoC.monster.HP < 1 ) {
 				EngineCore.outputText( 'and her wounds begin to close with a soft lilac glow.  "<i>So fuckin\' strong.  I don\'t suppose you\'ve got any sperm for me, do you?  I\'d love to have some of your kids...</i>"  She looks at you beseechingly, gently fingering herself.' );
 			}
 			//(lust);
@@ -4593,12 +4593,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 		}
 		//[(lust < 30)];
-		if( CoC.getInstance().player.lust <= 33 && output ) {
+		if( CoC.player.lust <= 33 && output ) {
 			EngineCore.outputText( '\n\nYou\'re just not horny enough to consider fucking her right now, though, and she wilts a bit as you turn away.  "<i>Sorry, I was just having fun... I\'ll see you soon, then?</i>" she calls, hopefully.' );
 			Combat.cleanupAfterCombat();
 			return;
 		}
-		if( CoC.getInstance().player.gender === 0 ) {
+		if( CoC.player.gender === 0 ) {
 			Combat.cleanupAfterCombat();
 			return;
 		}
@@ -4606,21 +4606,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.menu();
 		//Win - [Missionary] - for the purpose of procreation;
 		//requires a cockarea <= 56;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 56 ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 56 ) >= 0 ) {
 			EngineCore.addButton( 0, 'Missionary', this.missionaryForThePurposesOfCreatingImpsWithSheila );
 		}
 		//Win - [Anal Hate-fuck] - peg-knocking with optional corr >=80 break-up (for your cock or C. Jojo's);
 		//if PC has both a dick and corrupted Jojo, output this scene and choice; else skip this output and go right to appropriate option;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 56 ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 56 ) >= 0 ) {
 			EngineCore.addButton( 1, 'AnalHateFuck', this.analHateFuck );
 		}
 		//Win - [Big Dick+Thighs] (usable for dicks with cockarea > 56) (all 10 of them);
 		//penis envy, go!;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.biggestCockArea() > 56 ) {
+		if( CoC.player.hasCock() && CoC.player.biggestCockArea() > 56 ) {
 			EngineCore.addButton( 2, 'UseHerThighs', this.bigDickAndThighs );
 		}
 		//Win - [Penetration, in Spades] - for self-loathing vaginas;
-		if( CoC.getInstance().player.hasVagina() ) {
+		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 3, 'Clit-Fuck', this.winAgainstDemoNSheilaForVaginas );
 		}
 	};
@@ -4630,14 +4630,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You unfasten your [armor] and strip down completely, as Sheila\'s eyes drink up your bare flesh.  Denuded, you caress your cock with several strokes, producing a drop of precum.' );
 		EngineCore.outputText( '\n\n"<i>Oh my, are you going to force that slimy thing into my little flower?  How awful!</i>" Sheila shrieks, throwing an arm across her forehead and swooning.  ' );
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( 'Your ardor subsides a bit at her performance, but seeing your look of contrition, ' );
 		} else {
 			EngineCore.outputText( 'Your scowl hardens at her shameless playacting, and ' );
 		}
 		EngineCore.outputText( 'she breaks into laughter.  "<i>I\'m just having you on, love.  You know my body\'s yours for the using.</i>"' );
 		EngineCore.outputText( '\n\nShe tosses her hair out of her face and extends her hand to you.  "<i>No need to be coy about wanting me, my best mate.</i>"  When you place your own hand in hers grudgingly, she pulls you forward until you\'re positioned atop her.  You can feel a gentle pressure on the underside of your [cockFit 56] as one of her slick tails guides it into position.  "<i>This is where you belong, after all.  Welcome home.</i>"  She wraps her arms around your ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'shoulders' );
 		} else {
 			EngineCore.outputText( 'flanks' );
@@ -4649,14 +4649,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'and her soft breasts jiggle ' );
 		}
 		EngineCore.outputText( 'as a twinge of sensation from your thrust provokes a gasp and forces her to reposition herself, to better find it again.  "<i>That\'s the spot!  Your dick is the <b>best!</b>  Pound me, you fucking cum-hose!</i>"' );
-		EngineCore.outputText( '\n\nRestraint evaporates as she reaches up and kisses your chest, dancing her lips across your ' + CoC.getInstance().player.skinFurScales() + ' and leaving a trail of tingling nerves behind.  Your ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		EngineCore.outputText( '\n\nRestraint evaporates as she reaches up and kisses your chest, dancing her lips across your ' + CoC.player.skinFurScales() + ' and leaving a trail of tingling nerves behind.  Your ' );
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'arms' );
 		} else {
 			EngineCore.outputText( 'forelegs' );
 		}
 		EngineCore.outputText( ' wobble and it takes all your focus not to collapse onto the woman and melt into a boneless puddle; there\'s little left to prevent your twitching hips from granting her request, and you slam your pelvis into hers repeatedly, provoking delighted cries from your shameless partner.  "<i>Ohh, yes!  Fill me with your baby batter, asshole!</i>"  Sheila wraps her arms and legs around your back' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ', practically lifting herself off of the ground] as she impales her cunt on your [cockFit 56] to prevent you from pulling out.' );
 		}
 		//[(EngineCore.silly);
@@ -4672,13 +4672,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'soft' );
 		}
 		EngineCore.outputText( ' chest against you' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( ' as you slump forward' );
 		}
 		EngineCore.outputText( '.  Your cock ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and its ' );
-			if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() === 2 ) {
 				EngineCore.outputText( 'brother' );
 			} else {
 				EngineCore.outputText( 'brethren' );
@@ -4688,37 +4688,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( 'swells and squirts' );
 		}
 		EngineCore.outputText( ', pouring your semen into Sheila\'s ravenous pussy' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( ' and coating her crotch with a glaze of white' );
 		}
 		EngineCore.outputText( '; her eyes glow and it briefly feels as though her body is sucking the ejaculate right out of you' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( ', until she fills up and the rest of your orgasm is drooled out at its own lazy pace' );
 		}
 		EngineCore.outputText( '.  She kisses you' );
-		if( CoC.getInstance().player.isTaur() ) {
+		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'r forelegs' );
 		}
 		EngineCore.outputText( ' lovingly and deeply' );
-		if( CoC.getInstance().player.cockTotal() > 1 || CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cockTotal() > 1 || CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( ' as the spare seed dribbles from her crotch' );
 		}
 		EngineCore.outputText( ', then breaks away and looks up into your face.' );
 		EngineCore.outputText( '\n\n"<i>[name], you ' );
-		if( CoC.getInstance().player.cumQ() >= 500 || CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cumQ() >= 500 || CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'spilled some.  I can\'t have your baby if you\'re fucking the grass.  And you ' );
 		}
 		EngineCore.outputText( 'came too soon; I wasn\'t done.</i>"' );
 		EngineCore.outputText( '\n\nDid this bitch just...  Sheila breaks into a wide grin as your eyes pop out.  "<i>Kidding, mate!  Stay cool!  ' );
 		//[(RNG decides if scene ends here, bias toward short scene);
 		if( Utils.rand( 10 ) <= 6 ) {
-			EngineCore.outputText( 'I used a bit of power to help you finish.  Don\'t hate me for it; your orgasm face is just so cute when you\'re giving up your seed to me.</i>"  The woman places her hand on her stomach, below her navel.  "<i>Thank you for this.  I hope it takes, so I can raise a big strong imp to be just as ' + CoC.getInstance().player.mf( 'productive as his father', 'sexy as his mother' ) + '.</i>"  She kisses you softly again, and you roll off with a groan.  "<i>Your sperm are the best,</i>" Sheila whispers, "<i>so come see me again soon.  I\'ll be wantin\' more.</i>"  Your demon stands up and winks at you, then walks off, tails swishing happily as a trickle of white runs down the brown skin of her naked thigh.' );
+			EngineCore.outputText( 'I used a bit of power to help you finish.  Don\'t hate me for it; your orgasm face is just so cute when you\'re giving up your seed to me.</i>"  The woman places her hand on her stomach, below her navel.  "<i>Thank you for this.  I hope it takes, so I can raise a big strong imp to be just as ' + CoC.player.mf( 'productive as his father', 'sexy as his mother' ) + '.</i>"  She kisses you softly again, and you roll off with a groan.  "<i>Your sperm are the best,</i>" Sheila whispers, "<i>so come see me again soon.  I\'ll be wantin\' more.</i>"  Your demon stands up and winks at you, then walks off, tails swishing happily as a trickle of white runs down the brown skin of her naked thigh.' );
 			//(end scene);
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
 			this.sheilaPreg();
 			//if short scene, sheilapreg check, reduce PC lust and libido;
-			if( CoC.getInstance().isInCombat() ) {
+			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4728,21 +4728,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		else {
 			EngineCore.outputText( 'I gave you a little push, because I wanted your semen inside me so bad... but we could keep going, if you like?  Look into my eyes, lover, and see how much I still need you.</i>"  Spent by climax as you are, you can\'t really focus elsewhere, and stare dully at the girl under you.  A slow smile spreads across her face, as her eyes glitter and a picture forms in your mind: one of you fucking Sheila over and over, pumping abnormally-enhanced levels of jizz into her pussy every day' );
 			//(if vag);
-			if( CoC.getInstance().player.hasVagina() ) {
+			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( ' as her imp spawn take turns doing the same to you from behind' );
 			} else {
 				EngineCore.outputText( ' as her imp spawn gather around, stroking themselves and occasionally squirting their hot, tainted cum on her body or yours as orgasm takes them' );
 			}
 			EngineCore.outputText( '.  ' );
-			if( CoC.getInstance().player.lib < 40 ) {
+			if( CoC.player.lib < 40 ) {
 				EngineCore.outputText( 'Shocked' );
 			} else {
 				EngineCore.outputText( 'Flushing hotly' );
 			}
 			EngineCore.outputText( ', you look away and break the connection, but Sheila\'s smile only widens.' );
-			EngineCore.outputText( '\n\n"<i>Did you see it?  Our future together?</i>"  The demon reaches up and plays with your hair.  "<i>Our wonderful family... our children... so full of seed to give, just like their ' + CoC.getInstance().player.mf( 'father', 'mother' ) + '.  I can feel you getting hard again inside me - am I exciting you?</i>"  Her hand drifts down to your mouth, and she brushes your lips gently with her thumb.  "<i>Why don\'t you go ahead and do me again?  Show me how you feel, mate; I won\'t do anything except touch you, so you can take your time.  I\'m your obedient, loving wife, here to make you happy.</i>"  She caresses your cheek one last time and lowers her hand to your chest, tracing a meaningless pattern as she turns expectant eyes on you.' );
+			EngineCore.outputText( '\n\n"<i>Did you see it?  Our future together?</i>"  The demon reaches up and plays with your hair.  "<i>Our wonderful family... our children... so full of seed to give, just like their ' + CoC.player.mf( 'father', 'mother' ) + '.  I can feel you getting hard again inside me - am I exciting you?</i>"  Her hand drifts down to your mouth, and she brushes your lips gently with her thumb.  "<i>Why don\'t you go ahead and do me again?  Show me how you feel, mate; I won\'t do anything except touch you, so you can take your time.  I\'m your obedient, loving wife, here to make you happy.</i>"  She caresses your cheek one last time and lowers her hand to your chest, tracing a meaningless pattern as she turns expectant eyes on you.' );
 			EngineCore.outputText( '\n\nIt\'s too much.  ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'You kiss Sheila on the lips, pushing your tongue through to play with hers, as your arms push your spent body into position to thrust again.' );
 			} else {
 				EngineCore.outputText( 'You reach down with a hand and place it alongside Sheila\'s face; her ear twitches as she looks at you brightly, and for a moment you recapture your earlier impression of her as a sweet, devoted lover.  Your legs struggle to push your equine bulk upwards as you return to a thrusting position, dragging her groin into the air by your erect cock.' );
@@ -4751,17 +4751,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\nThe demon groans in approval.  "<i>So you ended up doing me fast after all... g-god, you know just how I like it!  Keep going!</i>"  She brings her other hand up and begins tweaking both nipples in excitement.  Her vagina squeezes your cock, making poor purchase at first thanks to the copious fluids inside, but doing better and better as her contractions intensify.  You oblige her by increasing the strength of your own thrusts, EngineCore.fatigue forgotten as you watch the woman quake and writhe in her ecstasy.  "<i>Ah-ah-ah, gonna finish soon, gonna fin-ish, come on [name], keep it up, hit all the right spots...</i>"' );
 			EngineCore.outputText( '\n\n"<i>Oh, <b>[name]</b>!  Come with me!</i>" Sheila screams, as she wraps her body around you again and a foreign wave of arousal washes over you.  ' );
 			//[(PC corr <50);
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'Her pussy convulses as she orgasms, and you feel a wave of heat overtaking your [cock biggest], starting at the tip and moving down the shaft.  As it reaches the base, a gush of her fluids breaches the seal her pussy makes around you, forcing your jizz out along with it in a mixed white and clear squirt.  The demon\'s vagina squeezes and drools for half a minute, pouring her tainted liquid love out against your tightly-held body until your crotch is soaked with her sticky heat and responds with its own.' );
 			} else {
 				EngineCore.outputText( 'Her pussy sucks you in as she climaxes, and you can feel larger and larger waves of precum being pulled from your shaft; it almost feels like she\'s tugging at your entire being.  It\'s not long before your cock twitches and begins giving her greedy sex a second helping of your semen.' );
 			}
 			EngineCore.outputText( '  She goes limp as her twitching cunt takes over and begins drinking every drop it can get from your dick to replace the goo you pushed out' );
-			if( CoC.getInstance().player.cumQ() >= 500 ) {
+			if( CoC.player.cumQ() >= 500 ) {
 				EngineCore.outputText( '; you nearly manage to fit it all into her this time, with your production still flagging from the last session' );
 			}
 			EngineCore.outputText( '.  Muscles weakening again, you lower yourself onto her once more and allow her to stroke your ' );
-			if( !CoC.getInstance().player.isTaur() ) {
+			if( !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'back' );
 			} else {
 				EngineCore.outputText( 'sides' );
@@ -4773,20 +4773,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '\n\n"<i>This is where our baby will grow, lover.  Thank you for it.  See you soon.</i>"  Her eyes soften as she releases her grip, then she stands up and departs with tails waving happily.  After a few minutes to regain your strength, you collect your things and leave as well.' );
 			//if long scene, sheilapreg check, reduce lust, reduce libido, slimefeed if corr < 50; if PC corr <50 then +10 corr and -10 sheila corruption, else if PC corr >=50 then -10 corr and +10 sheila corruption;
 			this.sheilaPreg();
-			CoC.getInstance().player.orgasm();
+			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
-			CoC.getInstance().player.slimeFeed();
-			if( CoC.getInstance().player.cor < 50 ) {
-				CoC.getInstance().player.slimeFeed();
+			CoC.player.slimeFeed();
+			if( CoC.player.cor < 50 ) {
+				CoC.player.slimeFeed();
 			}
-			if( CoC.getInstance().player.cor < 50 ) {
+			if( CoC.player.cor < 50 ) {
 				EngineCore.dynStats( 'cor', 10 );
 				this.sheilaCorruption( -10 );
 			} else {
 				EngineCore.dynStats( 'cor', -10 );
 				this.sheilaCorruption( 10 );
 			}
-			if( CoC.getInstance().isInCombat() ) {
+			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4812,7 +4812,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( 'Your [cockFit 56] gets hard in your [armor] as you watch her diddle her pussy, but you set your jaw to resist giving her what she wants - a better idea is taking shape in your head.  "<i>Turn around,</i>" you demand.' );
 		EngineCore.outputText( '\n\nSheila bites her lip and blushes, then turns her back to you, pressing her chest into the ground and waving her ass in the air, twin tails bobbing over her round cheeks and drooling, eager cunt.  "<i>Heehee, I\'m ready for you, mate... look how wet I am!</i>"  You strip, releasing your ' + Descriptors.multiCockDescriptLight() + ', and approach.  She hums in anticipation as you rub against her smooth labia, smearing her moisture onto your [cockHeadFit 56].  "<i>Come on; time to put it in already!  Don\'t tease me!</i>"' );
 		EngineCore.outputText( '\n\nYour smile widens, unseen, as you silently agree.  ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'Slipping one hand around your [cockFit 32]' );
 		} else {
 			EngineCore.outputText( 'Straddling her' );
@@ -4820,7 +4820,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ', you pull your hips back and line the [cockHeadFit 32] up, then thrust - right into her asshole.  Her head raises and her teeth grit as you force the slick tip past her ring.  "<i>[name], what the fuck?!  That hurts!  Go easy if you\'re going to use that hole; I\'m not good at stretching my body yet!</i>"' );
 		EngineCore.outputText( '\n\n"<i>No.</i>"  You ' );
 		//(not centaur);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'grab her thrashing legs, using them for leverage as you ' );
 		}
 		EngineCore.outputText( 'force your dick into the angry woman.  "<i>You talk a good game about how you love being full of cock, but when I shove one in you, you get all bitchy and act like you\'re not ready; why don\'t you just shut up and get fucked, slut?</i>"' );
@@ -4838,7 +4838,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nWords, words, words.  You start pumping again, teasing her asshole; the woman shifts her hips and rubs against your crotch gratuitously as you do, giving you the benefit of seeing her pleasure so you won\'t stop thrusting.  "<i>Decided to finally shut up, I see,</i>" you taunt.  Sheila says nothing in reply, though her cheeks tingle and flush with shame.  With her mouth finally quiet, you actually manage to get into the fuck, rubbing your dick against her hot insides.  Your head leans back as you feel your orgasm creeping closer, and Sheila notices, staring at you out of the corner of her eye.' );
 		EngineCore.outputText( '\n\n"<i>[name]!  Finish in my pussy, please!  I want to raise your baby!  You\'re the only one that suits me!</i>"' );
 		//if corruption >= 80 and PC has worms, present choices ;
-		if( CoC.getInstance().player.cor >= 80 && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.cor >= 80 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.menu();
 			//[No][Worms Suit You], else auto-output text from [No];
 			EngineCore.addButton( 0, 'No', this.sheilaAnalHateFuckAGoGoNO );
@@ -4854,13 +4854,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Go to hell.</i>"  You bury yourself in the demon\'s ass as your dick begins to spasm.  Her tails writhe as the first trickle sinks into her.  "<i>What?  Say something, I dare you.</i>"' );
 		EngineCore.outputText( '\n\nLosers don\'t get to decide how they get fucked.  If she has a problem with that, she can do better.  With surprising grace, she buttons her lip and takes it, allowing you to unburden yourself.  Her hot guts feel heavenly as you smear your slick cum into them, and she even makes small little gasps as you release each new stroke.  Her tight asshole fills quickly, and you feel the semen lapping at the tip of your cock.' );
-		if( CoC.getInstance().player.cumQ() >= 500 ) {
+		if( CoC.player.cumQ() >= 500 ) {
 			EngineCore.outputText( '  Your overproduction floods her insides, and Sheila groans as it begins to leak back out, drooling over her pussy.  "<i>Hey, you got your wish,</i>" you tease.  The wanton woman tries to tilt her ass higher, to tip more of your overflow into her cunt, but you laugh and slap her hard on the hip, sending her to one knee again.' );
 		}
 		EngineCore.outputText( '\n\n"<i>Fucking... bastard,</i>" Sheila groans, as you pull your spent [cockFit 56] from her with a sucking noise.  Her tails droop over her abused hole, parting the ' );
-		if( CoC.getInstance().player.cumQ() < 250 ) {
+		if( CoC.player.cumQ() < 250 ) {
 			EngineCore.outputText( 'trickle' );
-		} else if( CoC.getInstance().player.cumQ() < 1000 ) {
+		} else if( CoC.player.cumQ() < 1000 ) {
 			EngineCore.outputText( 'stream' );
 		} else {
 			EngineCore.outputText( 'waterfall' );
@@ -4868,9 +4868,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' of semen made when her body pushes out some of the foreign substance.' );
 		EngineCore.outputText( '\n\n"<i>Write a poem about your feelings.</i>"' );
 		//minus lust, minus libido, plus small corruption;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'cor', 2 );
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4880,7 +4880,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.sheilaAnalHateFuckAGoGoGETYOUSOMEWORMS = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Mmm...</i>" you answer, noncommittally.  Your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '[balls]' );
 		} else {
 			EngineCore.outputText( 'insides' );
@@ -4888,13 +4888,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' squirm, giving you pause, and you pop your [cockFit 56] out.  "<i>Actually... I don\'t think I suit you at all.</i>"' );
 		EngineCore.outputText( '\n\n"<i>You do!  God, you do, mate!  Your donger belongs in my pussy!</i>"  Sheila rubs her cunt against your wet prick, trying to coax you.' );
 		//(mans);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nPlacing a hand on' );
 		} else {
 			EngineCore.outputText( '\n\nSqueezing your thighs around' );
 		}
 		EngineCore.outputText( ' your ' );
-		if( CoC.getInstance().player.balls > 0 ) {
+		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( '[sack]' );
 		} else {
 			EngineCore.outputText( '[cockFit 56]' );
@@ -4902,14 +4902,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ', you can actually feel your pent-up pets, eager to be let out to play.  "<i>No,</i>" you say, "<i>I know what\'s more your speed.  Trash like you should be cast down into the dirt, and should keep company with the creatures of it.</i>"  Sheila seems alarmed, but as you slip into her grasping pussy, she forgets her question, grinding her hips into you to milk you dry.  You focus, forcing a wave of slimy annelids down your shaft.  "<i>Here come your new babies!</i>"' );
 		EngineCore.outputText( '\n\nSheila shivers as your dick erupts, packing her cunt with sperm and parasites.  "<i>God, yes!  Stuff me!  I\'m coming, [name]!  I\'ll take in all your anger and hate; let it all out!  I\'m your bitch!</i>"  Oh, indeed.  The demon screams, and her pussy begins lapping at your shaft, pulling in more of the tainted mix; your body obliges by sending up another load, filling her so full of slithering infestations that worms begin to poke out from between her labia.  "<i>Ah!  Ah!  A-uh...</i>"  Sheila stops moving and clutches her stomach, a blank look pasted across her face as her vagina convulses around you in orgasm.  A particularly large bulge ascends your [cockFit 56], and your slit stretches wide when all of the fattest worms jump ship at once and are drawn into the woman in an unbroken string, rendering you clearheaded.  As you empty yourself and pull free of the squirming, slimy mess in her vagina, your body is left without a single parasite - not a twitch can be felt.' );
 		EngineCore.outputText( '\n\nThe demon rolls over slowly and sits up, then looks up at you, head cocked slightly to the side and mouth trying to shape words.  "<i>W-wuuu...</i>"  She reaches down and picks up a handful of the wriggling, jizz-soaked worms oozing from her pussy, examines them, and then holds them out to you as an offering.  You shake your head and she drops them negligently, then zeroes in on your drooling, stretched dickhole.  Sheila leans in so close that she\'s staring into it, then begins to slip a finger down your urethra.  You flinch at the sensation and pull away, and she pouts and reaches for it again.  The proffered worms, meanwhile, actually slither back toward her, smearing jizz and slime on her thighs, migrating to her crotch and then wandering around aimlessly on the bare skin, as if confused by her lack of a penis.  Her leaking spade stretches out to them absently, and some of the wandering worms curiously slip inside, producing another shiver.' );
-		EngineCore.outputText( '\n\n"<i>Mmm...</i>" she hums, reaching eagerly for your [cockHeadFit 56] with her finger as if getting it inside were the only thing that mattered.  You back up again, and she crawls over and onto you, rubbing her slimy cunt against your [legs].  Her strokes trigger a small orgasm in her, and as her pussy sprays a load of worms onto your ' + CoC.getInstance().player.skinFurScales() + ' she kisses you affectionately, looking right into your eyes; you\'re flooded with nebulous mental images of fucking a slender, sickly pale Sheila as both of you are covered and hidden from the sunlight by a massive colony, of her riding you with her slithering, wormy pussy until the semen spitting from your [cockFit 56] leads the parasites within right to your slit, and, most disturbingly, of Sheila stretching your slick urethra wide open and climbing into your penis herself!  Shaking it off, you quickly break contact, pick up your stuff, and depart, leaving the infested woman behind... but the visions don\'t go away.' );
+		EngineCore.outputText( '\n\n"<i>Mmm...</i>" she hums, reaching eagerly for your [cockHeadFit 56] with her finger as if getting it inside were the only thing that mattered.  You back up again, and she crawls over and onto you, rubbing her slimy cunt against your [legs].  Her strokes trigger a small orgasm in her, and as her pussy sprays a load of worms onto your ' + CoC.player.skinFurScales() + ' she kisses you affectionately, looking right into your eyes; you\'re flooded with nebulous mental images of fucking a slender, sickly pale Sheila as both of you are covered and hidden from the sunlight by a massive colony, of her riding you with her slithering, wormy pussy until the semen spitting from your [cockFit 56] leads the parasites within right to your slit, and, most disturbingly, of Sheila stretching your slick urethra wide open and climbing into your penis herself!  Shaking it off, you quickly break contact, pick up your stuff, and depart, leaving the infested woman behind... but the visions don\'t go away.' );
 		//reduce lust to min and then take 20 libido-based lust damage, lower PC corruption by 10, remove dickworm infestation, set sheilapreg = -2 (yes, -2; in case I want to use Worm Sheila later);
-		CoC.getInstance().player.removeStatusAffect( StatusAffects.Infested );
-		CoC.getInstance().player.orgasm();
+		CoC.player.removeStatusAffect( StatusAffects.Infested );
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 5 );
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DISABLED ] = 3;
-		if( CoC.getInstance().isInCombat() ) {
+		EngineCore.dynStats( 'lus', CoC.player.lib / 5 );
+		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 3;
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -4938,7 +4938,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Sorry isn\'t the word for what you are.  Why don\'t you try asking again, without pretending you\'re anything but a dumpster or acting like it matters which hole you use to warm a cock?</i>"' );
 		EngineCore.outputText( '\n\nHer face fills with defiant bitterness as she digests this last statement, looking at the ground.  "<i>Please... [master],</i>" she says, finally, "<i>will you have your slave come in my unworthy pussy instead?</i>"  She\'s still obviously resisting the lesson.' );
 		//present [No][Ruin Them]choices only if corruption >= 80, else output text from [No];
-		if( CoC.getInstance().player.cor >= 80 ) {
+		if( CoC.player.cor >= 80 ) {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.analHateFucksWithJojoNo, true );
 			EngineCore.outputText( '\n\n<b>You could really ruin them, but you\'d probably never see Jojo again.</b>' );
@@ -4960,8 +4960,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>You may finish yourself off, but spill your seed on the ground.  Don\'t let a drop touch this failure.</i>"  Jojo nods eagerly, wrapping his tail around his shaft and stroking; soon his dick twitches and his balls tighten as he begins to ejaculate onto the grass.  Sheila watches dumbly as the copious mouse cum collects in a white puddle before her, until the ex-SceneLib.jojoScene.monk finishes and slides out from under her ass.  Grabbing a clump of her auburn hair and yanking it painfully, you hiss in the demon\'s ear.  "<i>Maybe if you were worth a damn, I\'d let you breed.  As it is, the only thing you\'re remotely good for is storing a slave\'s dick until it\'s ready to come in a real woman.</i>"  You twist, provoking a shriek, and then jerk her off-balance and forward so she lands face-down in Jojo\'s mess.  "<i>Come, Jojo; we\'re leaving.</i>"' );
 		EngineCore.outputText( '\n\nResponding quickly, Jojo falls into formation beside you as you back away from the debased demon.  As she pushes herself upright, covered in liquid filth, the only glow you can see in her eyes now is one of simmering anger.  Satisfied with ruining her fun, you depart.' );
 		//lust raised, plus some corruption;
-		EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 3, 'cor', 2 );
-		if( CoC.getInstance().isInCombat() ) {
+		EngineCore.dynStats( 'lus', CoC.player.lib / 3, 'cor', 2 );
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -5002,9 +5002,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\nSmiling grimly, you leave the wet sounds of sex behind you, wondering if Jojo will ever come when you call again.' );
 		//set lust to 100, huge corruption gain (like it matters), set sheilapreg to -3 and disable Jojo unless and until new corrupted content is written to reflect changes;
 		EngineCore.dynStats( 'lus=', 100, 'cor', 10, 'resisted', false );
-		CoC.getInstance().flags[ kFLAGS.SHEILA_DISABLED ] = 4;
-		CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] = 1;
-		if( CoC.getInstance().isInCombat() ) {
+		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 4;
+		CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] = 1;
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -5016,9 +5016,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As Sheila diddles herself, you ' );
 		//[(not horse);
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'doff your [armor]; the demon\'s eyebrows climb as you haul out ' + Descriptors.sMultiCockDesc() );
-			if( CoC.getInstance().player.cockTotal() > 2 ) {
+			if( CoC.player.cockTotal() > 2 ) {
 				EngineCore.outputText( ' one at a time, practically stacking them atop each other' );
 			}
 			EngineCore.outputText( '.' );
@@ -5030,19 +5030,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>Oh no...</i>" she says, blushing.  "<i>[name], you\'re massive... are you really going to try to put something like that in my poor little pussy?</i>"' );
 		//corr split;
 		//[(corr < 40);
-		if( CoC.getInstance().player.cor < 40 ) {
+		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( '\n\nWell... her hole does look a bit lilliputian compared to your towering tool.  "<i>Where shall I put it, then?</i>" you reply.' );
 			EngineCore.outputText( '\n\nSheila smiles and rolls over, then spreads her legs apart on all fours.  "<i>There\'s something I want to do... it\'ll feel good for you too, so could you come here, mate?</i>"  She slips her hand between her thighs but, instead of plunging into her pussy as you expect, gives you a little finger wave from below it.  "<i>Here; bring it here.</i>"' );
 			EngineCore.outputText( '\n\nCuriously, you ' );
-			if( !CoC.getInstance().player.isNaga() ) {
+			if( !CoC.player.isNaga() ) {
 				EngineCore.outputText( 'walk' );
 			} else {
 				EngineCore.outputText( 'slither' );
 			}
 			EngineCore.outputText( ' toward her and aim underneath her cunt to rub your [cockHead biggest] against her palm, smearing a glob of precum on it.  You can see her shivering wordlessly, sliding her fingers together to play with the hot, clingy fluid, making translucent webbing between them.' );
 			//[(multi);
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+			if( CoC.player.cockTotal() > 1 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( '  Both' );
 				} else {
 					EngineCore.outputText( '  All' );
@@ -5052,18 +5052,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  She takes the tip of your [cock biggest] in her hand and pulls gently, coaxing your forward; you close the distance until ' + Descriptors.sMultiCockDesc() + ' is peeking through her legs and your crotch is pressed against hers.' );
 			EngineCore.outputText( '\n\n"<i>I\'m going to borrow a bit of your sensation...</i>" Sheila announces quietly.  ' );
 			//[(not horse and not < 5"0);
-			if( !CoC.getInstance().player.isTaur() && CoC.getInstance().player.tallness >= 60 ) {
+			if( !CoC.player.isTaur() && CoC.player.tallness >= 60 ) {
 				EngineCore.outputText( 'She unbends and kisses you on the cheek, and your face feels a bit fuzzy where her lips touch.  ' );
 			}
 			EngineCore.outputText( '"<i>It\'ll still be amazing for you, I hope, but... this way I can join in too.</i>"  The demon gives you a few experimental rubs with her slippery hand; you can barely feel anything.  She, however, seems to be falling over herself; her pussy squirms against you and her knees buckle, leaving her partly draped over your rod.' );
 			EngineCore.outputText( '\n\n"<i>Ripper... that\'s really...</i>"  Your partner blushes and shudders.  "<i>S-sorry, uh... just wanted to know what you get to feel once.  I\'ll be good.</i>"' );
 			EngineCore.outputText( '\n\n"<i>You\'re a bit of a quick shot, I think,</i>" you rejoin.  Sheila smiles wickedly' );
-			if( CoC.getInstance().player.isTaur() ) {
+			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( ', unseen' );
 			}
 			EngineCore.outputText( '.' );
 			EngineCore.outputText( '\n\n"<i>We\'ll see who finishes first.</i>"  Resting herself against your ' + Descriptors.multiCockDescriptLight() + ' for support, she brings her other hand up and touches you; almost the full sensation is there this time, and you sign in happiness.  Sheila begins stroking with the new hand as well as the old, grabbing ' );
-			if( CoC.getInstance().player.cockTotal() === 1 ) {
+			if( CoC.player.cockTotal() === 1 ) {
 				EngineCore.outputText( 'your dick with both' );
 			} else {
 				EngineCore.outputText( 'a prick in each' );
@@ -5071,16 +5071,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( ' and angling upward so the precum drools downward and lubes her fingers.' );
 		}
 		//(else corr >= 40);
-		else if( CoC.getInstance().player.cor >= 40 ) {
+		else if( CoC.player.cor >= 40 ) {
 			EngineCore.outputText( '\n\nThe fuck does it matter?  She\'s a demon.  You set your face and advance, and Sheila turns over with a grimace, raising her ass in the air.  "<i>Just... go slowly so I can stretch,</i>" she insists.' );
 			EngineCore.outputText( '\n\nPfft.  You angle your [cock biggest] toward her vagina and thrust, heedless of the woman\'s pleasure.  She tries to focus and spread her pussy open; indeed you can see it widen several inches before you mercilessly slam your [cockHead biggest] into it.  Sheila gasps, then grits her teeth as you batter her entrance, demanding entry but being denied at each push.' );
 			EngineCore.outputText( '\n\n"<i>Useless,</i>" you gripe.  "<i>What kind of sex demon can\'t even open up her pussy?</i>"' );
 			EngineCore.outputText( '\n\n"<i>Goddamnit, [name]; I\'m trying, but it\'s bloody hard yakka with you touching all my fucking nerves and setting me off,</i>" she fires back, shaking while you twist and roll your [cockHead biggest] inside her hot, stretched hole, smearing it with slippery precum.  Her tails hang down and wrap around your shaft, trying to hold it still; defiantly, you push and shift your hips harder.  Elbows buckling, Sheila drops to the ground.  Her head hangs in defeat as you smugly torment her vulnerable womanhood.  "<i>Nnnn... fuck...</i>"' );
 			EngineCore.outputText( '\n\nThe two tails release their grip on your [cock biggest] and arch above it, pushing it suddenly out of alignment so your next thrust slips it between her thighs and bumps it up against her midriff.  The demon\'s hands dart to it, holding it in place and preventing you from pulling back out.  "<i>Sorry, mate... can\'t focus like that...</i>" she mumbles, looking over her shoulder at you.  "<i>I\'ll make it up to you, though... promise.</i>"  Her fingers search out your pre-bubbling urethra, dancing over it and sending a tingle up your tool.' );
 			//[(multi);
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( '\n\nYou shudder at her surprising facility, but your mind still latches onto a way to get even more pleasure.  "<i>Fine,</i>" you agree, "<i>but it won\'t be easy for you.</i>"  Lining up your other prick' );
-				if( CoC.getInstance().player.cockTotal() === 2 ) {
+				if( CoC.player.cockTotal() === 2 ) {
 					EngineCore.outputText( ', you slide it through her legs between your first cock and her cunt, plowing through her entrance like a furrow; she quakes and you can feel it contracting against your skin.  ' );
 				} else {
 					EngineCore.outputText( 's, you push them through the woman\'s legs one by one, smearing warm precum on her thighs as you do; her pussy squeezes against the top of your [cock biggest] as you coat her skin with your fluids.  ' );
@@ -5093,14 +5093,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		//end corr split;
 		EngineCore.outputText( '\n\nThe woman quickly becomes lost in her own little world, searching out the nerves on your prick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' and teasing each one; you thrust weakly into her hand, helping guide her hands, but your lonely tip wants for stimulation.  As the feeling becomes so acute that you prepare to say something, Sheila uncannily anticipates you and scoots her pussy along your shaft, popping your [cockHead biggest] into her mouth.  Her tongue dabs at your slit, tasting your fluid, and her hands ' );
-		if( CoC.getInstance().player.cockTotal() > 2 ) {
+		if( CoC.player.cockTotal() > 2 ) {
 			EngineCore.outputText( 'relinquish your other pricks and ' );
 		}
-		if( CoC.getInstance().player.cockTotal() === 2 ) {
+		if( CoC.player.cockTotal() === 2 ) {
 			EngineCore.outputText( 'relinquish your other prick and ' );
 		}
 		EngineCore.outputText( 'focus on squeezing more drops out of you.  She fairly coats her lips with it, rubbing your hole against them before popping the whole [cockHead biggest] back into her mouth.  A moan escapes you just as another one returns from Sheila\'s throat, transmitted through your [cock biggest].' );
@@ -5112,12 +5112,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.outputText( '  Her large ' + this.sheilaCup() + ' breasts encompass your girth easily, and she pushes the soft, flushed skin together as she slides it up and down your cock.' );
 		} else {
 			EngineCore.outputText( '  The demon\'s ridiculously enormous breasts easily cover the entire length of your cock' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ' falling between her crotch and her mouth, making her whole body feel like a huge, wet fuckhole' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
-				EngineCore.outputText( ' built for ' + Utils.num2Text( CoC.getInstance().player.cockTotal() ) + ' pricks' );
+			if( CoC.player.cockTotal() > 1 ) {
+				EngineCore.outputText( ' built for ' + Utils.num2Text( CoC.player.cockTotal() ) + ' pricks' );
 			}
 			EngineCore.outputText( '.' );
 		}
@@ -5125,37 +5125,37 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[(sheila corruption >= 150);
 		if( this.sheilaCorruption() >= 150 ) {
 			EngineCore.outputText( 'Her enormous breasts dangle all the way to the ground, forming a second, softer hole to push into with your swollen prick' );
-			if( CoC.getInstance().player.cockTotal() > 1 ) {
+			if( CoC.player.cockTotal() > 1 ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.  ' );
 		}
 		EngineCore.outputText( '"<i>Y-yes,</i>" she mumbles, "<i>gonna fuck her... harder...</i>"' );
 		EngineCore.outputText( '\n\nThe apparent answer to your question passes you by as you obliviously force your tool' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' through the vise of her legs; losing yourself further and further to pleasure, you don\'t even notice when Sheila\'s hips begin to buck in time with your own, pressing her mons down against your ' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'topmost ' );
 		}
 		EngineCore.outputText( 'dick.  With an enormous, final thrust, you mash your crotch up against hers and begin to ejaculate.  ' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( 'The sensation seems to reawaken Sheila; she angles her body up to press her pussy close and your embezzled sensation floods back into you - along with an unexpected gift.  You can feel your... no, <i>her</i> demonic pussy convulsing repeatedly, trying to suck up sperm in vain as her own orgasm comes off, and she looks at you with sly eyes.  "<i>A little reciprocity for my love,</i>" the woman coos, "<i>to show you how much I care.</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>Oh god!</i>" Sheila shrieks.  "<i>I\'m coming!  Jizz is going everywhere!</i>"  Indeed, as your body releases streams of cum, Sheila directs them by aiming ' + Descriptors.sMultiCockDesc() + ', covering herself and moaning as her hands press out as much as possible.' );
 		}
 
 		EngineCore.outputText( '\n\nFinished, you pull your sensitive, soaked shaft' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' from between her still-squeezing thighs with a shudder; Sheila shudders with you until you finally draw free and break skin contact, then lowers herself carefully to the ground.  The demon turns toward you, exposing a face and chest splattered with your semen.  She stares at your deflating prick' );
-		if( CoC.getInstance().player.cockTotal() > 1 ) {
+		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ', looking almost wistful to see ' );
-		if( CoC.getInstance().player.cockTotal() === 1 ) {
+		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.outputText( 'it' );
 		} else {
 			EngineCore.outputText( 'them' );
@@ -5163,22 +5163,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' go.' );
 		EngineCore.outputText( '\n\n"<i>If you love cock so much, why don\'t you grow one?</i>" you ask.' );
 		EngineCore.outputText( '\n\nSheila giggles at that and raises her eyes, meeting your gaze.  "<i>But it\'s only yours I love, [name].  I might take it off you as long as you promise ' );
-		if( !CoC.getInstance().player.hasVagina() ) {
+		if( !CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'to grow a nice pussy for me so that ' );
 		}
 		EngineCore.outputText( 'I can put it in you any time I want.</i>"  She sticks her tongue out at you, and the seed dripping from her lips oozes onto it.' );
 		EngineCore.outputText( '\n\nShaking your head, you leave her behind.' );
 		//reduce lust, reduce libido, reduce sens, +10 corr and sheila corruption -10 if corr <50 or -10 corr and sheila corruption +10 if corr >= 50;
-		CoC.getInstance().player.orgasm();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -1 );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaCorruption( -10 );
 		} else {
 			EngineCore.dynStats( 'cor', -10 );
 			this.sheilaCorruption( 10 );
 		}
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
@@ -5188,11 +5188,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	SheilaScene.prototype.winAgainstDemoNSheilaForVaginas = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You drop onto the woman\'s lap without hesitation, ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'mauling her tits roughly with your hands, ' );
 		}
 		EngineCore.outputText( 'and grind your pussy desperately against her midriff.  She slips two fingers into you obligingly, but you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'grab her face, plunging one thumb into the corner of her mouth in your haste, and' );
 		} else {
 			EngineCore.outputText( 'turn your head and' );
@@ -5200,10 +5200,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' stare right into her eyes.  Focusing as hard as you can on your fantasy, you try to transmit your desire for something more to the demon by sheer force of will.  A sly smile parts her lips as she stares back - could this actually work?' );
 		EngineCore.outputText( '\n\n"<i>So... you like it when people come inside you, too?</i>" she says, turning red.  "<i>I can\'t give you babies, but if you want my juice all over your womb, I can do that.</i>"' );
 		EngineCore.outputText( '\n\nSuccess!  You can feel something firming up in her lap underneath your [butt], and you ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'crawl away on your hands' );
 			//[(tail or naga);
-			if( CoC.getInstance().player.tailType > AppearanceDefs.TAIL_TYPE_NONE && CoC.getInstance().player.isNaga() ) {
+			if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE && CoC.player.isNaga() ) {
 				EngineCore.outputText( ' and raise your tail' );
 			}
 		} else {
@@ -5212,13 +5212,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( ' to present your eager [vagina].  Sheila sits up and places her hands on your [hips], then slides her pelvis up, teasing your lower lips with something bulbous and warm.  They sting slightly as it smears its slime along them, a not-entirely-pleasant sensation.' );
 		EngineCore.outputText( '\n\n"<i>I\'m told this hurts, at first,</i>" your demon lover says.  "<i>Sorry.</i>"' );
 		EngineCore.outputText( '\n\nBefore you can utter a word to temporize, she slams her hips into yours, penetrating you neatly with her spade.' );
-		CoC.getInstance().player.cuntChange( 10, true, true, false );
+		CoC.player.cuntChange( 10, true, true, false );
 		EngineCore.outputText( '  Oh, god, it burns!  You shake violently as your pussy is assaulted by the fluid from Sheila\'s black tail, waves of pain twisting through it and forcing its walls to clamp down on the invader.  The demon gasps as you squeeze and leans forward onto your back' );
 		if( this.sheilaCorruption() > 0 ) {
 			EngineCore.outputText( ', squashing her tits into you' );
 		}
 		EngineCore.outputText( '.  "<i>Calm down!</i>" she barks, grabbing your arms and pulling them toward her.  With hands held behind you like this, you can do little to check her enthusiasm... but Sheila doesn\'t begin thrusting yet.  "<i>It\'ll fade soon, love, and you\'ll start feeling it,</i>" she promises, kissing your ' );
-		if( !CoC.getInstance().player.isTaur() ) {
+		if( !CoC.player.isTaur() ) {
 			EngineCore.outputText( 'neck' );
 		} else {
 			EngineCore.outputText( 'withers' );
@@ -5229,43 +5229,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.outputText( '\n\n"<i>I\'d visit you every day and spread you open; you\'d drool your puddle on the ground, ready for me, and I\'d rub my dong as you played with yourself, putting on a nice show... and then, when I couldn\'t stand it anymore,</i>" Sheila whispers, breathlessly, "<i>I\'d climb on top of you, and I\'d root you silly... like <b>this!</b></i>"  The woman slides her hands up to seize your waist and begins reaming you, pounding your cunt with her tail so hard that the patters of fluid change to waves, silent for a second on the in-stroke and then splashing out all at once as the bulbous tip pulls back.  Your tongue lolls from your mouth as you roll your head, and Sheila takes the opportunity to grab a handful of your hair.  "<i>Does that sound good, bitch?</i>" she demands, yanking your head back.  "<i>Do you want to be my sperm dumpster?  Do you want me to force myself into you and fill you with my jizz, day after day, whenever I damn well feel like it?  To come in you and tell you I love you and then leave you until I\'m horny again, like a man?  Do you want to birth my babies one after the other, to make a swarm of imps to fill the sky and stain the world with our colors?</i>"' );
 		EngineCore.outputText( '\n\nYour [vagina] convulses in climax at the thought of being so debased - ' );
 		//[(lib <20);
-		if( CoC.getInstance().player.lib < 20 ) {
+		if( CoC.player.lib < 20 ) {
 			EngineCore.outputText( 'even as proud as you are, ' );
 		}
 		EngineCore.outputText( 'there\'s something appealing about the picture, something powerful in being cherished and used in equal measure.  Sheila screams and releases your hair, digging her fingers into your hips, spraying the inside of your pussy with a thick, oozing heat that spreads out and then dulls as your own pouring juices force her cum out.  Peering between your legs, you can see it falling to the ground; viscous black sludge that bubbles and steams as if it were trying to reach back up to your sex.' );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			EngineCore.outputText( '  She pumps and pumps again, forcing more of the muck into your [vagina] even as she calls you the most filthy things she can think of' );
 			if( this.sheilaCorruption() > 0 ) {
 				EngineCore.outputText( '; her tits wobble violently as she thrusts, and then still as she arches her back and jams her spade all the way in' );
 			}
 			EngineCore.outputText( '.  Sheila howls to the sky as she pours her demonic slime into you in one final, solid stream.  You can feel it pushing eagerly through even your copious fluids until it\'s at the entrance to your womb... and then inside.' );
 			//[fertility up if not capped; tingle deep within body, instinctively you know you have become blah blah];
-			if( CoC.getInstance().player.fertility < 50 ) {
+			if( CoC.player.fertility < 50 ) {
 				EngineCore.outputText( '  There is a tingle deep inside you, making you more fertile.' );
-				CoC.getInstance().player.fertility++;
+				CoC.player.fertility++;
 			}
 		} else {
 			EngineCore.outputText( '  She stops pumping, falling against your back and panting as the last of her goo seeps out and is ejected around her shaft by your fountainhead of girl-cum.  You are clearer-headed than before as your orgasm dwindles, though, illogically, you could swear you felt her tits growing against you.' );
 		}
 		EngineCore.outputText( '\n\n"<i>God damn,</i>" she says, rubbing your [butt] and withdrawing her spade, to produce a splat as your pussy forces out the excess black slime.  "<i>I love you so much, [name].</i>"  You both collapse; your [vagina] continues to drool its dark-tinged lube for some time as you lay face-down with Sheila resting atop you, but eventually returns to nearly normal.' );
 		//[(if not wetness-capped);
-		if( CoC.getInstance().player.wetness() < 5 ) {
+		if( CoC.player.wetness() < 5 ) {
 			EngineCore.outputText( '\n\nYou think you may be a little wetter than before, though.' );
 			//[wetness level up]];
-			CoC.getInstance().player.vaginas[ 0 ].vaginalWetness++;
+			CoC.player.vaginas[ 0 ].vaginalWetness++;
 		}
 		//slimefeed, reduce lust, reduce libido, +10 corr and sheila corruption -10 if corr <50 or -10 corr and sheila corruption +10 if corr >= 50, also fertility and wetness increases as denoted in the text;
-		CoC.getInstance().player.slimeFeed();
-		CoC.getInstance().player.orgasm();
+		CoC.player.slimeFeed();
+		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1 );
-		if( CoC.getInstance().player.cor < 50 ) {
+		if( CoC.player.cor < 50 ) {
 			this.sheilaCorruption( -10 );
 			EngineCore.dynStats( 'cor', 10 );
 		} else {
 			this.sheilaCorruption( 10 );
 			EngineCore.dynStats( 'cor', -10 );
 		}
-		if( CoC.getInstance().isInCombat() ) {
+		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );

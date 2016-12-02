@@ -15,16 +15,16 @@ angular.module( 'cocjs' ).factory( 'ArmorWithPerk', function( Armor, CoC ) {
 	};
 	ArmorWithPerk.prototype._superPlayerEquip = ArmorWithPerk.prototype.playerEquip;
 	ArmorWithPerk.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc.
-		while( CoC.getInstance().player.findPerk( this.playerPerk ) >= 0 ) {
-			CoC.getInstance().player.removePerk( this.playerPerk );
+		while( CoC.player.findPerk( this.playerPerk ) >= 0 ) {
+			CoC.player.removePerk( this.playerPerk );
 		}
-		CoC.getInstance().player.createPerk( this.playerPerk, this.playerPerkV1, this.playerPerkV2, this.playerPerkV3, this.playerPerkV4 );
+		CoC.player.createPerk( this.playerPerk, this.playerPerkV1, this.playerPerkV2, this.playerPerkV3, this.playerPerkV4 );
 		return this._superPlayerEquip();
 	};
 	ArmorWithPerk.prototype._superPlayerRemove = ArmorWithPerk.prototype.playerRemove;
 	ArmorWithPerk.prototype.playerRemove = function() { //This item is being removed by the player. Remove any perks, etc.
-		while( CoC.getInstance().player.findPerk( this.playerPerk ) >= 0 ) {
-			CoC.getInstance().player.removePerk( this.playerPerk );
+		while( CoC.player.findPerk( this.playerPerk ) >= 0 ) {
+			CoC.player.removePerk( this.playerPerk );
 		}
 		return this._superPlayerRemove();
 	};

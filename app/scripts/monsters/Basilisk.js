@@ -9,17 +9,17 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 		if( amount === undefined ) {
 			amount = 0;
 		}
-		if( CoC.getInstance().player.spe - amount < 1 ) {
-			amount = CoC.getInstance().player.spe - 1;
+		if( CoC.player.spe - amount < 1 ) {
+			amount = CoC.player.spe - 1;
 			if( amount < 0 ) {
 				amount = 0;
 			}
 		}
-		CoC.getInstance().player.spe -= amount;
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
-			CoC.getInstance().player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
+		CoC.player.spe -= amount;
+		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
 		} else {
-			CoC.getInstance().player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
+			CoC.player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
 		}
 		MainView.statsView.showStatDown( 'spe' );
 	};
@@ -29,12 +29,12 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	Basilisk.prototype.compulsion = function() {
 		EngineCore.outputText( 'The basilisk opens its mouth and, staring at you, utters words in its strange, dry, sibilant tongue.  The sounds bore into your mind, working and buzzing at the edges of your resolve, suggesting, compelling, then demanding you look into the basilisk\'s eyes.  ', false );
 		//Success:
-		if( CoC.getInstance().player.inte / 5 + Utils.rand( 20 ) < 24 ) {
+		if( CoC.player.inte / 5 + Utils.rand( 20 ) < 24 ) {
 			EngineCore.outputText( 'You can\'t help yourself... you glimpse the reptile\'s grey, slit eyes. You look away quickly, but you can picture them in your mind\'s eye, staring in at your thoughts, making you feel sluggish and unable to coordinate. Something about the helplessness of it feels so good... you can\'t banish the feeling that really, you want to look in the basilisk\'s eyes forever, for it to have total control over you.', false );
 			EngineCore.dynStats( 'lus', 3 );
 			//apply status here
-			Basilisk.basiliskSpeed( CoC.getInstance().player, 20 );
-			CoC.getInstance().player.createStatusAffect( StatusAffects.BasiliskCompulsion, 0, 0, 0, 0 );
+			Basilisk.basiliskSpeed( CoC.player, 20 );
+			CoC.player.createStatusAffect( StatusAffects.BasiliskCompulsion, 0, 0, 0, 0 );
 		}
 		//Failure:
 		else {
@@ -45,9 +45,9 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 
 	//Special 3 tail swipe (Small physical damage):
 	Basilisk.prototype.basiliskTailSwipe = function() {
-		var damage = Math.ceil( (this.str + 20) - Math.random() * (CoC.getInstance().player.tou + CoC.getInstance().player.armorDef) );
-		damage = CoC.getInstance().player.takeDamage( damage );
-		EngineCore.outputText( 'The basilisk suddenly whips its tail at you, swiping your ' + CoC.getInstance().player.feet() + ' from under you!  You quickly stagger upright, being sure to hold the creature\'s feet in your vision. (' + damage + ')', false );
+		var damage = Math.ceil( (this.str + 20) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
+		damage = CoC.player.takeDamage( damage );
+		EngineCore.outputText( 'The basilisk suddenly whips its tail at you, swiping your ' + CoC.player.feet() + ' from under you!  You quickly stagger upright, being sure to hold the creature\'s feet in your vision. (' + damage + ')', false );
 		if( damage === 0 ) {
 			EngineCore.outputText( '  The fall didn\'t harm you at all.', false );
 		}
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	//basilisk physical attack: With lightning speed, the basilisk slashes you with its index claws!
 	//Noun: claw
 	Basilisk.prototype.performCombatAction = function() {
-		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BasiliskCompulsion ) < 0 && Utils.rand( 3 ) === 0 && this.findStatusAffect( StatusAffects.Blind ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BasiliskCompulsion ) < 0 && Utils.rand( 3 ) === 0 && this.findStatusAffect( StatusAffects.Blind ) < 0 ) {
 			this.compulsion();
 		} else if( Utils.rand( 3 ) === 0 ) {
 			this.basiliskTailSwipe();
