@@ -1,17 +1,20 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Farmers', function( CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat ) {
-	var Farmers = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Farmers', function( SceneLib, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat ) {
+	function Farmers() {
+		this.init(this, arguments);
+	}
+	angular.extend(Farmers.prototype, Monster.prototype);
 	Farmers.prototype.performCombatAction = function() {
 		this.createStatusAffect( StatusAffects.Attacks, 4, 0, 0, 0 );
 		this.eAttack();
 		Combat.combatRoundOver();
 	};
 	Farmers.prototype.defeated = function() {
-		CoC.getInstance().scenes.owca.beatUpOwca();
+		SceneLib.owca.beatUpOwca();
 	};
 	Farmers.prototype.won = function() {
-		CoC.getInstance().scenes.owca.loseToOwca();
+		SceneLib.owca.loseToOwca();
 	};
 	Farmers.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, Descriptors, WeightedDrop, ConsumableLib, Appearance, WeaponLib ) {
-	var FetishCultist = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, Descriptors, WeightedDrop, ConsumableLib, Appearance, WeaponLib ) {
+	function FetishCultist() {
+		this.init(this, arguments);
+	}
+	angular.extend(FetishCultist.prototype, Monster.prototype);
 	var NAUGHTY_NURSES_UNIFORM = 'naughty nurse\'s uniform';
 	var TEACHERS_OUTFIT = 'teacher\'s outfit';
 	var SWIMSUIT = 'swimsuit';
@@ -133,7 +136,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineC
 	FetishCultist.prototype.defeated = function( hpVictory ) {
 		var temp2 = null;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
-			temp2 = CoC.getInstance().scenes.fetishCultistScene.fetishCultistHasAMilkFetish;
+			temp2 = SceneLib.fetishCultistScene.fetishCultistHasAMilkFetish;
 		}
 		if( hpVictory ) {
 			EngineCore.outputText( 'Hurt too much to continue controlling her powers, the cultist collapses helplessly.', true );
@@ -142,7 +145,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineC
 		}
 		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
 			EngineCore.outputText( '  You realize she\'d make a perfect receptacle for your lusts.  Do you have your way with her?', false );
-			EngineCore.choices( 'Sex', CoC.getInstance().scenes.fetishCultistScene.playerRapesCultist, '', null, '', null, 'B. Feed', temp2, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Sex', SceneLib.fetishCultistScene.playerRapesCultist, '', null, '', null, 'B. Feed', temp2, 'Leave', Combat.cleanupAfterCombat );
 		} else {
 			if( temp2 !== null ) {
 				EngineCore.outputText( '  She looks like she might take some of your milk if you offered it to her.  What do you do?', false );
@@ -160,7 +163,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, CoC, EngineC
 			if( pcCameWorms ) {
 				EngineCore.outputText( '\n\nThe cultist giggles as she watches you struggling.\n\n', false );
 			}
-			CoC.getInstance().scenes.fetishCultistScene.cultistRapesYou();
+			SceneLib.fetishCultistScene.cultistRapesYou();
 		}
 	};
 	FetishCultist.prototype.performCombatAction = function() {

@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooGirl', function( CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, WeaponLib, UsableLib ) {
-	var GooGirl = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, WeaponLib, UsableLib ) {
+	function GooGirl() {
+		this.init(this, arguments);
+	}
+	angular.extend(GooGirl.prototype, Monster.prototype);
 	/*Fight-
 	 You are fighting a goo-girl.
 	 The goo-girl has a curious expression on her youthful, shimmering face. Her body is slender and globs of slime regularly drip from her limbs, splattering into the goo puddle pooling beneath her hips. A small, heart-shaped nucleus pulses in her chest with a red glow. [if the player has a c-cup or larger chest has apparently made herself a bit more like you, as her chest appears to be a perfect copy of your ' + biggestBreastSizeDescript()+ '.]
@@ -141,14 +144,14 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( CoC, EngineCore, Monster
 		}
 	};
 	GooGirl.prototype.defeated = function() {
-		CoC.getInstance().scenes.gooGirlScene.beatUpGoo();
+		SceneLib.gooGirlScene.beatUpGoo();
 	};
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.gooGirlScene.getBeatByGooGirl();
+			SceneLib.gooGirlScene.getBeatByGooGirl();
 		}
 	};
 	GooGirl.prototype.teased = function( lustDelta ) {

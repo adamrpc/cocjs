@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineThreesome() {
 	}
 
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( '“<i>First, you gotta win,</i>” Kath grins, Urta nodding her head in agreement.  “<i>And if we win... hmm... what will you do, vixxy?</i>”\n\n' );
 		EngineCore.outputText( '“<i>I don’t know... I’ve never thought about it,</i>” Urta admits.\n\n' );
 		EngineCore.outputText( '“<i>Well, I know what I want to do to [him]...</i>” Kath laughs, leering at you, but she doesn’t continue; evidently, she wants to unsettle you by letting your mind fill in the blanks.  Well, you won’t have to worry about that if you just focus on winning!  With that in mind, you redouble your efforts, doing your best to stroke Urta in all the sensitive spots you’ve come to know, ever since you started fooling around with her.\n\n' );
-		EngineCore.outputText( 'The vixen yelps in shock, trailing off into a throaty moan of pleasure, but shakes her head, eager to win as well.  Her hand promptly starts sliding up and down Katherine’s prick, but her lack of familiarity with the ' + CoC.getInstance().scenes.katherine.cockType( 'canine shape, especially the swelling knot at its base,', 'feline shape and the swelling knot at its base' ) + ' means it’s not as effective as it might have been.  Still, she struggles admirably, fingers flexing and caressing even as her palm glides up and down, stroking and teasing ' + CoC.getInstance().scenes.katherine.cockType( 'the canine-cocked cat', 'Kath\'s shaft and knot' ) + '.\n\n' );
+		EngineCore.outputText( 'The vixen yelps in shock, trailing off into a throaty moan of pleasure, but shakes her head, eager to win as well.  Her hand promptly starts sliding up and down Katherine’s prick, but her lack of familiarity with the ' + SceneLib.katherine.cockType( 'canine shape, especially the swelling knot at its base,', 'feline shape and the swelling knot at its base' ) + ' means it’s not as effective as it might have been.  Still, she struggles admirably, fingers flexing and caressing even as her palm glides up and down, stroking and teasing ' + SceneLib.katherine.cockType( 'the canine-cocked cat', 'Kath\'s shaft and knot' ) + '.\n\n' );
 		EngineCore.outputText( 'You moan yourself as Kath starts struggling through her pleasure haze, not willing to be beaten without a fight.' );
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.outputText( '   Her hand teases your [cock] with the soft pads on the tips of her fingers; every once in awhile, she reaches up to collect a dollop of pre and smear it along your shaft, making it easier for her to tease you into defeat.' );
@@ -69,10 +69,10 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( '\n\nThe three of you moan, groan, growl, yowl and buck in a chorus of sounds that leaves no doubt about what is taking place within the watch’s safe-house.  For a moment you let the pleasure of the moment overtake you... here you are, pleasuring and being pleasured by two sexy herms... they look so beautiful, moaning in pleasure at your mutual ministrations, naked and exposed, their differences bare before your eyes... as well as their similarities... but that is enough musing for now; you have a contest to win.\n\n' );
 		EngineCore.outputText( 'You reach down to fondle Urta’s balls, rubbing and caressing the heavy orbs in your palms, then with a smirk, you extend your middle finger... and suddenly plunge it into Urta’s opening.  The fox lets out a very wolf-like howl of equal parts shock and pleasure at your bold action, her walls eagerly clamping down on the intruding digit and trying to suck you further inside.  “<i>T-that’s cheating, ' + CoC.getInstance().player.short + '!</i>” she whimpers.\n\n' );
 		EngineCore.outputText( 'Smiling, you retort that what wouldn’t be fair is stroking only her cock, when she clearly has a sweet, tight honeypot just yearning for some attention.  With that said you wiggle your finger inside her, feeling her walls contract and grasp at your intruding digit.  Wriggling in her seat, femcum now beginning to ooze forth to join the puddle of pre already spreading out from around her balls, she shifts to better face Katherine, her free hand spearing through the space between them and schlicking its way wetly into the kitty-cat’s cunt.  The cat yowls in pleasured shock, and unthinkingly removes her hands from your ' + CoC.getInstance().player.genderText( 'cock', 'cunt', 'cock and cunt' ) + ', apparently so she can brace herself on the floor with greater ease.\n\n' );
-		EngineCore.outputText( 'No longer held down by Kath, a devilish plan forms on your mind, and you quickly put it into motion.  Releasing Urta’s cock and pulling your finger out of her pussy, you quickly ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'reach for Kath’s balls to give them a fondle,' : 'slide the slick digit into Katherine\'s ass, rubbing her prostate') + ' while your femcum-slick hand grabs Urta’s cock, giving it a squeeze and a pump.  Both girls gasp and you brace for the oncoming onslaught.\n\n' );
-		EngineCore.outputText( 'Kath cums first; whether because Urta is that good or because she’s just that inexperienced with being masturbated, you can’t say.  She arches her back and lets out a very feline shriek of ecstasy, her body quaking as her feminine orgasm pours onto the floor under her, wetting her ass with her sexual leavings, while gouts of cum spray from her ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'twin ' ) + CoC.getInstance().scenes.katherine.cockType( 'pointy-tipped', 'barbed' ) + ' prick' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.\n\n' );
+		EngineCore.outputText( 'No longer held down by Kath, a devilish plan forms on your mind, and you quickly put it into motion.  Releasing Urta’s cock and pulling your finger out of her pussy, you quickly ' + (SceneLib.katherine.hasBalls() ? 'reach for Kath’s balls to give them a fondle,' : 'slide the slick digit into Katherine\'s ass, rubbing her prostate') + ' while your femcum-slick hand grabs Urta’s cock, giving it a squeeze and a pump.  Both girls gasp and you brace for the oncoming onslaught.\n\n' );
+		EngineCore.outputText( 'Kath cums first; whether because Urta is that good or because she’s just that inexperienced with being masturbated, you can’t say.  She arches her back and lets out a very feline shriek of ecstasy, her body quaking as her feminine orgasm pours onto the floor under her, wetting her ass with her sexual leavings, while gouts of cum spray from her ' + SceneLib.katherine.cockMultiple( '', 'twin ' ) + SceneLib.katherine.cockType( 'pointy-tipped', 'barbed' ) + ' prick' + SceneLib.katherine.cockMultiple( '', 's' ) + '.\n\n' );
 		EngineCore.outputText( 'Urta, meanwhile, manages to hold it a little longer, but even as the first few splatters of Kath’s kitten-cum land on her black-nippled breasts, the vulpine herm is launching her own assault, great gobbets of jizz belching from her cock-head, spraying right across Kath’s face and breasts and oozing down to paint her stomach.  Meanwhile, Kath ' );
-		var kathCumQ = CoC.getInstance().scenes.katherine.cumQ();
+		var kathCumQ = SceneLib.katherine.cumQ();
 		if( kathCumQ < 500 ) {
 			EngineCore.outputText( 'stains Urta’s two-toned breasts with her creamy silver jizz' );
 		} else if( kathCumQ < 1500 ) {
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( '“<i>You cheated, ' + CoC.getInstance().player.short + '!</i>” Urta complains.\n\n' );
 		EngineCore.outputText( '“<i>Yeah, what she said!</i>” Kath agrees.\n\n' );
 		EngineCore.outputText( 'Cheated!?  Feigning hurt, you tell them you would never do something like that!  Especially not when it involves a special prize, such as their undivided attention as they focus on YOUR orgasm... speaking of which...  you will be taking your prize right now if they don’t mind.  Getting up and stepping up towards Urta and Kath you raise a brow as if questioning when they intend to get started.\n\n' );
-		EngineCore.outputText( 'They look at each other, look at you, then look at each other again and grin.  “<i>Alright... if you insist...</i>” they say, their tones ringing with blatantly false innocence, before they suddenly get on all fours, slinking towards you.  Uh oh... you barely have time to turn tail and run before you see a pair of blurs, one ' + CoC.getInstance().scenes.katherine.catGirl( 'of pale flesh and ' + CoC.getInstance().scenes.katherine.hairColor + 'hair', 'black' ) + ' and the other ' + CoC.getInstance().scenes.katherine.catGirl( 'gray', 'of gray fur' ) + ', jump right at you; with a scream you’re dragged to the ground in a frenzy of cum-slickened limbs, touched, caressed, and kissed.  You moan as a pair of lips close on your own, so overwhelmed you are that you can’t tell who it is until a canine tongue intrudes upon your mouth.  You kiss Urta back with abandon; moments later she breaks the kiss, only for her lips to be replaced with Kath’s as she kisses and humps you.\n\nYou feel the cum soaking their bodies rubbing off on your own, their breasts massaging your ' + (CoC.getInstance().player.hasBreasts() ? CoC.getInstance().player.breastDescript( 0 ) : 'chest') + '.  For a moment you feel utter bliss, and then ' );
+		EngineCore.outputText( 'They look at each other, look at you, then look at each other again and grin.  “<i>Alright... if you insist...</i>” they say, their tones ringing with blatantly false innocence, before they suddenly get on all fours, slinking towards you.  Uh oh... you barely have time to turn tail and run before you see a pair of blurs, one ' + SceneLib.katherine.catGirl( 'of pale flesh and ' + SceneLib.katherine.hairColor + 'hair', 'black' ) + ' and the other ' + SceneLib.katherine.catGirl( 'gray', 'of gray fur' ) + ', jump right at you; with a scream you’re dragged to the ground in a frenzy of cum-slickened limbs, touched, caressed, and kissed.  You moan as a pair of lips close on your own, so overwhelmed you are that you can’t tell who it is until a canine tongue intrudes upon your mouth.  You kiss Urta back with abandon; moments later she breaks the kiss, only for her lips to be replaced with Kath’s as she kisses and humps you.\n\nYou feel the cum soaking their bodies rubbing off on your own, their breasts massaging your ' + (CoC.getInstance().player.hasBreasts() ? CoC.getInstance().player.breastDescript( 0 ) : 'chest') + '.  For a moment you feel utter bliss, and then ' );
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ) { //Herm
 			EngineCore.outputText( 'you\'re overcome.  Your pussy and hips lock up and you dribble femcum as Urta and Kath\'s efforts pay off.  You feel hot liquid rushing up from your ' + (CoC.getInstance().player.balls > 0 ? 'balls' : 'prostate') + ', then an explosion...\n\n' );
 		} else if( CoC.getInstance().player.hasVagina() ) { //Female
@@ -118,63 +118,63 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( '.  With twin moans of tired relief, the two girls flop, none-too-gently, onto your cum-soaked body, splattering jizz everywhere and instinctively snuggling against you, one face cuddling into either crook of your neck.\n\n' );
 		EngineCore.outputText( 'You hug the girls close, enjoying your shared afterglow.  Panting as you fight to remain awake.  Looking down, you see the sleeping visage of both Urta and Kath, snuggled tightly against you, and you smile.  Well... it doesn’t seem like you’re going anywhere... so might as well as let go and join them...' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( false );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( false );
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 2;
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour ); //An additional scene plays afterward if Kath is still being trained by Urta
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //An additional scene plays afterward if Kath is still being trained by Urta
 		}
 	};
 	KatherineThreesome.prototype.threeSixtyNine = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ) {
-			EngineCore.outputText( 'You drag the ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'eager herms' : 'lusty pair') + ' to one of the backrooms.  Urta locks the door' );
+		if( SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK ) ) {
+			EngineCore.outputText( 'You drag the ' + (SceneLib.katherine.hasCock() ? 'eager herms' : 'lusty pair') + ' to one of the backrooms.  Urta locks the door' );
 		} else {
 			EngineCore.outputText( 'Urta grabs Kath from behind' );
 		}
 		EngineCore.outputText( ' and gets to work exposing every inch of Kath’s body.  You put on a little show of taking off your clothes, which both Kath and Urta appreciate.\n\n' );
 		EngineCore.outputText( 'Once the three of you are naked Kath drops to her knees and sucks Urta’s cock into her mouth.  Urta gives her a pat on the head and starts to scratch Kath’s ears which causes Kath to start teasing the tip with her rough tongue - if Urta’s reaction is anything to go by.\n\n' );
 		EngineCore.outputText( 'Urta allows herself to sink to the ground, Kath taking her cock deeper and deeper as she descends.  You move closer and ask Urta if she plans to ‘thank’ Kath.  She gives you a wolfish grin and twists around until she’s lying in the opposite direction.  She grabs ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( 'Katherine’s cock', 'the lower of Katherine’s cocks' ) + ' and rolls her tongue around its head.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( SceneLib.katherine.cockMultiple( 'Katherine’s cock', 'the lower of Katherine’s cocks' ) + ' and rolls her tongue around its head.\n\n' );
 		} else {
 			EngineCore.outputText( 'Katherine\'s hips and buries her tongue in that wet pussy.\n\n' );
 		}
-		EngineCore.outputText( 'Kath moans and tries to thrust her hips forward but Urta holds her back.  ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'While she continues to toy with Kath’s cock Urta uses her other hand to slip a couple of fingers into Kath’s pussy.  Not to be outdone Kath returns the favor' : 'While her tongue explores the depths of Kath\'s love tunnel Urta rubs her nose against Kath\'s clit.  Not to be outdone Kath jams her fingers into Urta\'s slick cunt') + '.  In no time it’s like they’re locked in combat - each trying to force the other to lose control' + (CoC.getInstance().scenes.katherine.hasCock() ? '; trying to push their shaft deep down the other’s throat' : '') + '.\n\n' );
+		EngineCore.outputText( 'Kath moans and tries to thrust her hips forward but Urta holds her back.  ' + (SceneLib.katherine.hasCock() ? 'While she continues to toy with Kath’s cock Urta uses her other hand to slip a couple of fingers into Kath’s pussy.  Not to be outdone Kath returns the favor' : 'While her tongue explores the depths of Kath\'s love tunnel Urta rubs her nose against Kath\'s clit.  Not to be outdone Kath jams her fingers into Urta\'s slick cunt') + '.  In no time it’s like they’re locked in combat - each trying to force the other to lose control' + (SceneLib.katherine.hasCock() ? '; trying to push their shaft deep down the other’s throat' : '') + '.\n\n' );
 		EngineCore.outputText( 'Of course it would be rude of you not to offer some ‘encouragement’.  You get behind Katherine and motion to Urta so she knows what you’re up to.  She grins' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( ' and sucks on Kath’s prick', ', switches to Kath’s other cock and sucks on it' ) );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( SceneLib.katherine.cockMultiple( ' and sucks on Kath’s prick', ', switches to Kath’s other cock and sucks on it' ) );
 		} else {
 			EngineCore.outputText( ' and traps Kath\'s clit between her thumbs, forcing it to stand proud so she can suck on it' );
 		}
-		EngineCore.outputText( ' like it’s a lollipop.  While Kath is distracted you come from behind and force your shaft between her thighs.  Urta ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'uses her hand to guide' : 'pulls her tongue out at the last second, guiding') + ' you into Kath’s quim and you feel the cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + ' stiffen up.\n\n' );
+		EngineCore.outputText( ' like it’s a lollipop.  While Kath is distracted you come from behind and force your shaft between her thighs.  Urta ' + (SceneLib.katherine.hasCock() ? 'uses her hand to guide' : 'pulls her tongue out at the last second, guiding') + ' you into Kath’s quim and you feel the cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + ' stiffen up.\n\n' );
 		EngineCore.outputText( 'You start to enjoy the feeling of filling Kath while watching her suck on Urta’s shaft.  Kath’s grip on the base of Urta’s shaft starts to weaken and with every thrust her lips go further and further down until she’s able to lick Urta’s balls.\n\n' );
-		EngineCore.outputText( 'Looking over Kath’s shoulder you can see that Urta has thrown her head back to moan.  That’s a little inconsiderate given what Katherine is doing for her.  You pull out, swap sides, and before Urta realizes what’s going on you push your cock between her thighs and plunge into her depths.  Urta lets out a little “<i>Ah!</i>” and goes back to licking Kath’s ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'cockhead' : 'pussy') + '.\n\n' );
+		EngineCore.outputText( 'Looking over Kath’s shoulder you can see that Urta has thrown her head back to moan.  That’s a little inconsiderate given what Katherine is doing for her.  You pull out, swap sides, and before Urta realizes what’s going on you push your cock between her thighs and plunge into her depths.  Urta lets out a little “<i>Ah!</i>” and goes back to licking Kath’s ' + (SceneLib.katherine.hasCock() ? 'cockhead' : 'pussy') + '.\n\n' );
 		EngineCore.outputText( 'With your shaft inside Urta you get to watch and feel the lust overcome her.  The combination of your cock and Kath’s delightful tongue soon drive Urta over the edge and she ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( 'sucks down Kath’s entire cock in one fluid motion', 'surprises you by gobbling both of Kath’s shafts' ) + '.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( SceneLib.katherine.cockMultiple( 'sucks down Kath’s entire cock in one fluid motion', 'surprises you by gobbling both of Kath’s shafts' ) + '.\n\n' );
 		} else {
 			EngineCore.outputText( 'starts slurping and sucking on Kath\'s pussy like she\'s dying of thirst.\n\n' );
 		}
 		EngineCore.outputText( 'With all the stimulation Urta is the first to cum, her dick exploding into Kath’s throat.  Kath holds it deep inside and you see her stomach swell with Urta’s spooge.' );
-		if( CoC.getInstance().scenes.katherine.pregSize() > 0 ) {
+		if( SceneLib.katherine.pregSize() > 0 ) {
 			EngineCore.outputText( ' Even her pregnancy is eclipsed by the volume of cum Urta pumps out.' );
 		}
 		EngineCore.outputText( '\n\nThe feeling of being filled must have been enough to push her over the edge because Kath ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'thrusts forward, nearly driving her knot' + CoC.getInstance().scenes.katherine.cockMultiple( ' past Urta’s lips.  It', 's past Urta’s lips.  With two shafts to carry the load it' ) + ' doesn’t take long before Urta’s belly starts to round as well.  The two herms start to look like a yin and yang symbol, but' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'thrusts forward, nearly driving her knot' + SceneLib.katherine.cockMultiple( ' past Urta’s lips.  It', 's past Urta’s lips.  With two shafts to carry the load it' ) + ' doesn’t take long before Urta’s belly starts to round as well.  The two herms start to look like a yin and yang symbol, but' );
 		} else {
 			EngineCore.outputText( 'locks her legs around Urta\'s head.  A vacant, pleased expression crosses Kath\'s face as she tongues Urta\'s balls, coaxing out every last drop.  Now' );
 		}
 		EngineCore.outputText( ' after that display you’re desperate to add your contribution.\n\n' );
-		var canImpregUrta = (CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] === 1) && (!CoC.getInstance().scenes.urta.pregnancy.isPregnant);
+		var canImpregUrta = (CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] === 1) && (!SceneLib.urta.pregnancy.isPregnant);
 		var doKath;
-		if( CoC.getInstance().scenes.katherine.fertile && (CoC.getInstance().scenes.katherine.pregSize() === 0) ) {
+		if( SceneLib.katherine.fertile && (SceneLib.katherine.pregSize() === 0) ) {
 			if( canImpregUrta ) {
 				doKath = (Utils.rand( 2 ) === 0);
 			} else {
@@ -192,7 +192,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		}
 		EngineCore.outputText( 'You bury yourself to the root and give ' + (doKath ? 'Kath' : 'Urta') + ' all you’ve got, filling her with your seed.  ' );
 		if( CoC.getInstance().player.cumQ() < 1500 ) {
-			if( !doKath && !CoC.getInstance().scenes.katherine.hasCock() ) {
+			if( !doKath && !SceneLib.katherine.hasCock() ) {
 				EngineCore.outputText( 'Urta\'s flat belly swells to match Kath\'s.  Your girls start to look like a yin and yang symbol, but your cum went where it counts.' );
 			} else {
 				EngineCore.outputText( 'It’s barely noticeable compared with the load ' + (doKath ? 'Urta' : 'Kath') + ' pumped into her belly, but your cum went where it counts.' );
@@ -200,31 +200,31 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		} else {
 			EngineCore.outputText( 'Your overpowered ' + (CoC.getInstance().player.balls > 0 ? 'balls produce' : 'prostate produces') + ' jet after boiling jet of cum.  ' );
 		}
-		if( doKath || CoC.getInstance().scenes.katherine.hasCock() ) {
+		if( doKath || SceneLib.katherine.hasCock() ) {
 			EngineCore.outputText( 'You feel a bit of resistance - after all there’s little space left for ' + (doKath ? 'Katherine' : 'Urta') + '’s belly to expand.  ' );
 		}
 		EngineCore.outputText( 'Most of your load ends up shooting back out of ' + (doKath ? 'Kath' : 'Urta') + '’s pussy, covering you, her and the floor with a massive puddle of sperm.' );
 		EngineCore.outputText( '  You give ' + (doKath ? 'Kath' : 'Urta') + '’s belly a little pat and she moans appreciatively.\n\n' );
-		EngineCore.outputText( 'You pull free and roll away.  It’s not that you want to, but you’ve got things to attend to.  ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'The two herms' : 'Kath and Urta') + ' separate and lie back on the floor exhausted.  As you pass them, heading for the door, you notice they’re holding hands.  It’s actually quite a romantic scene.' );
+		EngineCore.outputText( 'You pull free and roll away.  It’s not that you want to, but you’ve got things to attend to.  ' + (SceneLib.katherine.hasCock() ? 'The two herms' : 'Kath and Urta') + ' separate and lie back on the floor exhausted.  As you pass them, heading for the door, you notice they’re holding hands.  It’s actually quite a romantic scene.' );
 		if( !doKath ) {
-			CoC.getInstance().scenes.urta.knockUpUrtaChance();
+			SceneLib.urta.knockUpUrtaChance();
 		}
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( false );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( false );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.roastYou = function() { //Not available if Kath has no cock
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ) {
+		if( SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK ) ) {
 			EngineCore.outputText( 'You lead the horny herms toward one of the bar’s backrooms.  You get inside and lock the door but as you turn around Urta jumps you from behind, twisting your arm and pulling you to the floor.  Kath laughs and starts helping Urta as she removes your clothes.\n\n“<i>You’re too slow today ' + CoC.getInstance().player.short + '.  I’m horny as anything and I can tell from her scent that Katherine is dying for a good fuck too.  Just relax and we’ll take really good care of you.</i>”' );
 		} else {
 			EngineCore.outputText( 'You start to move towards the door.  It’s not that you don’t want to help Kath, but you really ought to get back to camp.  You think Urta is still distracted by Kath, who is now running her fingers along her sides seductively.\n\n' );
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			if( !CoC.getInstance().player.hasVagina() ) {
 				EngineCore.outputText( 'your ass' );
 			} else {
-				EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( 'your pussy', 'both your pussy and your ass' ) );
+				EngineCore.outputText( SceneLib.katherine.cockMultiple( 'your pussy', 'both your pussy and your ass' ) );
 			}
 			EngineCore.outputText( '.  May Marae help your innards.</i>”' );
 		}
@@ -250,40 +250,40 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'plays with your asshole' );
 		}
 		EngineCore.outputText( ', warming you up.  Soon you see the last of Kath’s clothes hit the wall in front of you and the head' );
-		if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		if( SceneLib.katherine.cockNumber > 1 ) {
 			EngineCore.outputText( 's of her cocks press firmly against ' + (CoC.getInstance().player.hasVagina() ? 'both your holes' : 'your ass') );
 		} else {
 			EngineCore.outputText( ' of her cock presses firmly against your ' + (CoC.getInstance().player.hasVagina() ? 'cunt' : 'ass') );
 		}
 		EngineCore.outputText( '.\n\nKath pushes your legs apart with her knees and starts to force ' );
-		if( CoC.getInstance().scenes.katherine.cockNumber === 1 ) {
-			EngineCore.outputText( 'her ' + CoC.getInstance().scenes.katherine.cockLength + ' inch ' + CoC.getInstance().scenes.katherine.cockType( 'doggy dick', 'cat cock' ) + ' into your ' + (CoC.getInstance().player.hasVagina() ? 'pussy' : 'rectum') );
+		if( SceneLib.katherine.cockNumber === 1 ) {
+			EngineCore.outputText( 'her ' + SceneLib.katherine.cockLength + ' inch ' + SceneLib.katherine.cockType( 'doggy dick', 'cat cock' ) + ' into your ' + (CoC.getInstance().player.hasVagina() ? 'pussy' : 'rectum') );
 		} else if( CoC.getInstance().player.hasVagina() ) {
-			EngineCore.outputText( 'her twin ' + CoC.getInstance().scenes.katherine.cockType() + ' shafts into your body' );
+			EngineCore.outputText( 'her twin ' + SceneLib.katherine.cockType() + ' shafts into your body' );
 		} else {
-			EngineCore.outputText( 'her ' + CoC.getInstance().scenes.katherine.cockType() + '  cocks into your body, caring little that your ass wasn’t built to take her twin ' + CoC.getInstance().scenes.katherine.cockLength + ' inch shafts' );
+			EngineCore.outputText( 'her ' + SceneLib.katherine.cockType() + '  cocks into your body, caring little that your ass wasn’t built to take her twin ' + SceneLib.katherine.cockLength + ' inch shafts' );
 		}
 		EngineCore.outputText( '.  Kath gets a firm grip on your hips and starts to rock gently, slowly opening you up.  From her purring you know she’s enjoying every second.\n\n' );
 		EngineCore.outputText( 'Now that Kath has you in hand Urta stands and starts to strip, teasing both you and Kath as she exposes herself.  Even when she’s naked she continues, stroking her cock with one hand and lifting her balls out of the way with the other to give you and Katherine a good look at her soaking wet twat.\n\n' );
 		EngineCore.outputText( 'Kath pushes a little deeper before pulling you off the floor and onto your hands and knees.  “<i>Don’t be a tease Urta, give ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' all you’ve got!</i>”  Urta gives you a grin, grips her cock tightly near the base and pulls her fingers up its length slowly, forcing out a hefty supply of pre.  She gets to her knees in front of you and smears the pre up and down the length of her shaft.\n\n' );
-		EngineCore.outputText( 'She moves close enough and gestures toward her glistening horsecock.  “<i>Salted enough for your tastes?</i>” she asks.  By now Kath’s ' + CoC.getInstance().scenes.katherine.cockMultiple( 'shaft has done its work', 'twin shafts have done their work' ) + ' and you’re too horny to resist.  You wrap your mouth around Urta’s spooge cannon and suck on it like a hot, meaty saltlick.\n\n' );
-		EngineCore.outputText( '“<i>Oh yeah, that’s a good ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '!</i>” Urta shouts, loud enough for ' + (CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK ) ? 'anyone at the bar' : 'people on the street') + ' to hear.  The two herms start to work in tandem - Kath pulling out as Urta shoves her cock deeper and then Urta pulling back far enough for you to tongue the tip of her cock while Kath sinks in up to her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.\n\n' );
-		EngineCore.outputText( 'They keep up this pace until you decide to push some of Urta’s buttons.  Reaching up blind your hand finds her balls and you begin to rub her sperm filled sack.  Urta shudders, reverses herself and thrusts forward at the same time as Kath.  All of a sudden you’ve got a foot of horsecock down your throat and Katherine’s ' + CoC.getInstance().scenes.katherine.cockType() + CoC.getInstance().scenes.katherine.cockMultiple( ' shlong', ' meatsticks' ) + ' buried knot deep in' );
+		EngineCore.outputText( 'She moves close enough and gestures toward her glistening horsecock.  “<i>Salted enough for your tastes?</i>” she asks.  By now Kath’s ' + SceneLib.katherine.cockMultiple( 'shaft has done its work', 'twin shafts have done their work' ) + ' and you’re too horny to resist.  You wrap your mouth around Urta’s spooge cannon and suck on it like a hot, meaty saltlick.\n\n' );
+		EngineCore.outputText( '“<i>Oh yeah, that’s a good ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + '!</i>” Urta shouts, loud enough for ' + (SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK ) ? 'anyone at the bar' : 'people on the street') + ' to hear.  The two herms start to work in tandem - Kath pulling out as Urta shoves her cock deeper and then Urta pulling back far enough for you to tongue the tip of her cock while Kath sinks in up to her knot' + SceneLib.katherine.cockMultiple( '', 's' ) + '.\n\n' );
+		EngineCore.outputText( 'They keep up this pace until you decide to push some of Urta’s buttons.  Reaching up blind your hand finds her balls and you begin to rub her sperm filled sack.  Urta shudders, reverses herself and thrusts forward at the same time as Kath.  All of a sudden you’ve got a foot of horsecock down your throat and Katherine’s ' + SceneLib.katherine.cockType() + SceneLib.katherine.cockMultiple( ' shlong', ' meatsticks' ) + ' buried knot deep in' );
 		if( !CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( ' your ass' );
-		} else if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		} else if( SceneLib.katherine.cockNumber > 1 ) {
 			EngineCore.outputText( ' both your other holes' );
 		} else {
 			EngineCore.outputText( 'side your cunt' );
 		}
 		EngineCore.outputText( '.\n\nAfter that it’s a wild ride.  Kath and Urta start hammering in and out, concentrating on cumming.  You get used as a living cocksleeve and you enjoy it.  Urta’s monster cock is so wide and thrusts in and out so quickly that it overwhelms your gag reflex, your throat deciding that it’s normal to be packed full of salami.  Down below, Kath’s ' );
 		var wasButtStretched = false;
-		if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		if( SceneLib.katherine.cockNumber > 1 ) {
 			if( CoC.getInstance().player.hasVagina() ) {
-				wasButtStretched = CoC.getInstance().player.buttChange( CoC.getInstance().scenes.katherine.cockArea(), false );
+				wasButtStretched = CoC.getInstance().player.buttChange( SceneLib.katherine.cockArea(), false );
 				EngineCore.outputText( 'knots seat themselves inside both your pussy and ass' );
 			} else {
-				wasButtStretched = CoC.getInstance().player.buttChange( 2 * CoC.getInstance().scenes.katherine.cockArea(), false );
+				wasButtStretched = CoC.getInstance().player.buttChange( 2 * SceneLib.katherine.cockArea(), false );
 				EngineCore.outputText( 'twin knots hammer against your sphincter.  At last it gives out and opens wide, allowing first one, then the other inside.  They puff up to full size, stretching your tortured ass ' + (wasButtStretched ? 'even wider' : 'to its limit') );
 			}
 			EngineCore.outputText( ', sealing you up' );
@@ -291,13 +291,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			if( CoC.getInstance().player.hasVagina() ) {
 				EngineCore.outputText( 'knot slides inside your pussy and expands to full size just as nature intended, sealing up your pussy' );
 			} else {
-				wasButtStretched = CoC.getInstance().player.buttChange( CoC.getInstance().scenes.katherine.cockArea(), false );
+				wasButtStretched = CoC.getInstance().player.buttChange( SceneLib.katherine.cockArea(), false );
 				EngineCore.outputText( 'knot squeezes past your sphincter and pops into your rectum.  It quickly expands to full size, sealing up your colon' );
 			}
 		}
 		EngineCore.outputText( ' for her coming deposit' + (CoC.getInstance().player.hasVagina() && !CoC.getInstance().player.isPregnant() ? ' and ensuring your uterus will be awash with her seed' : '') + '.\n\n' );
 		if( CoC.getInstance().player.hasVagina() ) {
-			if( CoC.getInstance().player.cuntChange( CoC.getInstance().scenes.katherine.cockArea(), true ) ) {
+			if( CoC.getInstance().player.cuntChange( SceneLib.katherine.cockArea(), true ) ) {
 				EngineCore.outputText( '\n\n' );
 			}
 		}
@@ -305,11 +305,11 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			CoC.getInstance().player.buttChangeDisplay();
 			EngineCore.outputText( '\n\n' );
 		}
-		EngineCore.outputText( 'A little twitch in Urta’s balls tells you she’s ready to fire.  As encouragement you find her pussy by feel and twist her clit between your fingers.  Urta grabs your head in both hands and yanks, pressing your ' + (CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'forehead against her swollen belly' : 'face against her groin') + '.  The first load creates such a bulge in Urta’s cock that it actually forces your jaws open even wider.  With her cock so far down your throat all her cum shoots straight into your stomach, bloating you until you look ' + (CoC.getInstance().player.isPregnant() ? 'like you’re a few months further along than you are' : 'several months pregnant') + '.\n\n' );
+		EngineCore.outputText( 'A little twitch in Urta’s balls tells you she’s ready to fire.  As encouragement you find her pussy by feel and twist her clit between your fingers.  Urta grabs your head in both hands and yanks, pressing your ' + (SceneLib.urta.pregnancy.isPregnant ? 'forehead against her swollen belly' : 'face against her groin') + '.  The first load creates such a bulge in Urta’s cock that it actually forces your jaws open even wider.  With her cock so far down your throat all her cum shoots straight into your stomach, bloating you until you look ' + (CoC.getInstance().player.isPregnant() ? 'like you’re a few months further along than you are' : 'several months pregnant') + '.\n\n' );
 		EngineCore.outputText( 'Urta falls back on the floor, letting you cough up some cum and take a few breaths.  “<i>Whew!</i>” she says, wiping her brow, “<i>that was great.  Looks like we really stuffed you.</i>”  Then her eyes shift upward and she says “<i>Oh. I guess I really stuffed you.  Kath hasn’t cum yet.</i>”\n\n' );
-		EngineCore.outputText( 'Kath rocks her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' back and forth and whines.  Urta grins like a wolf and says “<i>You can do it Kath.  ' + CoC.getInstance().player.short + ' asked for it, now give it to ' + CoC.getInstance().player.mf( 'him', 'her' ) + '.</i>”  Urta stands on wobbly legs and moves out of sight.  You’re still so full and out of breath that you can’t do anything to stop her, even if you wanted.\n\n' );
+		EngineCore.outputText( 'Kath rocks her knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' back and forth and whines.  Urta grins like a wolf and says “<i>You can do it Kath.  ' + CoC.getInstance().player.short + ' asked for it, now give it to ' + CoC.getInstance().player.mf( 'him', 'her' ) + '.</i>”  Urta stands on wobbly legs and moves out of sight.  You’re still so full and out of breath that you can’t do anything to stop her, even if you wanted.\n\n' );
 		EngineCore.outputText( 'You hear a surprised “<i>Oh</i>” from Katherine.  Then Urta’s voice, low and sexy, “<i>' );
-		if( CoC.getInstance().scenes.katherine.ballSize > 0 ) {
+		if( SceneLib.katherine.ballSize > 0 ) {
 			EngineCore.outputText( 'These balls of yours are so nice and full' );
 		} else {
 			EngineCore.outputText( 'Mmmm, your prostate is just so hot and swollen' );
@@ -319,41 +319,41 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		switch( CoC.getInstance().player.gender ) {
 			case  0: //Genderless
 				EngineCore.outputText( '“<i>Yes, of course I’ll help you,</i>” says Urta.  You don’t know what she’s doing back there, but you can hear Katherine’s breaths getting faster and sharper.  “<i>Kath, I’m going to keep milking your prostate until you pump every drop inside ' + CoC.getInstance().player.short + '’s ass to remind ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' how much fun genitals can be.</i>”\n\n' );
-				EngineCore.outputText( 'Kath’s ' + CoC.getInstance().scenes.katherine.catGirl( 'nails', 'claws' ) + ' dig into your hips and you feel jet after jet of cum filling your colon.  Combined with the load Urta pumped into your belly it bloats you enough to make you feel green.  Yet at the same time the pulsing cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' buried in your ass finally grant you release and you cum and cum, your featureless crotch tingling with pleasure.' );
+				EngineCore.outputText( 'Kath’s ' + SceneLib.katherine.catGirl( 'nails', 'claws' ) + ' dig into your hips and you feel jet after jet of cum filling your colon.  Combined with the load Urta pumped into your belly it bloats you enough to make you feel green.  Yet at the same time the pulsing cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' buried in your ass finally grant you release and you cum and cum, your featureless crotch tingling with pleasure.' );
 				break;
 			case  2: //Female
-				EngineCore.outputText( 'You feel Urta’s hand between your legs.  She takes hold of your clit, just as you did to her.  “<i>Yes, of course I’ll help you,</i>” says Urta, gently rolling your clit between her fingers.  “<i>You just need a little something - like ' + CoC.getInstance().player.short + '’s wonderful pussy ' + CoC.getInstance().scenes.katherine.cockMultiple( 'squeezing your cock', 'and tight little bum squeezing your cocks' ) + ' as she cums.</i>”\n\n' );
-				EngineCore.outputText( 'Urta’s playful fingers quickly cause you to cum and, as Urta predicted, your orgasm triggers Kath’s.  ' + (CoC.getInstance().player.hasCock() ? 'Your own cock sprays the floor uselessly while Katherine' : 'With one last mighty heave she') + ' buries her cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' just a tiny bit deeper.  Then the flood begins.  Already stuffed with Urta’s load your belly expands even further.  Your ' + (CoC.getInstance().player.isPregnant() ? 'birth canal' : 'womb') + CoC.getInstance().scenes.katherine.cockMultiple( ' throbs', ' and colon throb' ) + ' painfully in protest but with Kath’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' mercilessly blocking the exit' + CoC.getInstance().scenes.katherine.cockMultiple( ' it has', 's they have' ) + ' no choice but to take every drop.' );
+				EngineCore.outputText( 'You feel Urta’s hand between your legs.  She takes hold of your clit, just as you did to her.  “<i>Yes, of course I’ll help you,</i>” says Urta, gently rolling your clit between her fingers.  “<i>You just need a little something - like ' + CoC.getInstance().player.short + '’s wonderful pussy ' + SceneLib.katherine.cockMultiple( 'squeezing your cock', 'and tight little bum squeezing your cocks' ) + ' as she cums.</i>”\n\n' );
+				EngineCore.outputText( 'Urta’s playful fingers quickly cause you to cum and, as Urta predicted, your orgasm triggers Kath’s.  ' + (CoC.getInstance().player.hasCock() ? 'Your own cock sprays the floor uselessly while Katherine' : 'With one last mighty heave she') + ' buries her cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' just a tiny bit deeper.  Then the flood begins.  Already stuffed with Urta’s load your belly expands even further.  Your ' + (CoC.getInstance().player.isPregnant() ? 'birth canal' : 'womb') + SceneLib.katherine.cockMultiple( ' throbs', ' and colon throb' ) + ' painfully in protest but with Kath’s knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' mercilessly blocking the exit' + SceneLib.katherine.cockMultiple( ' it has', 's they have' ) + ' no choice but to take every drop.' );
 				break;
 			default: //Male or Herm
-				EngineCore.outputText( 'Urta’s fingers wrap around your cock.  Ignored until now it jumps at the attention.  “<i>Yes, of course I’ll help you,</i>” says Urta, softly stroking your member.  “<i>You just need a little something - like ' + CoC.getInstance().player.short + '’s tight little bum squeezing your cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' as he cums.</i>”\n\n' );
-				EngineCore.outputText( 'Urta’s playful fingers slide up and down your shaft.  You were already on edge and the added pleasure soon causes your ' + (CoC.getInstance().player.ballSize > 0 ? 'balls' : 'prostate') + ' to tighten, spraying your load across the floor uselessly.  As Urta predicted, your orgasm triggers Kath’s.  With one last mighty heave she buries her prick' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' just a tiny bit deeper.  Then the flood begins.  Already stuffed with Urta’s load your belly expands even further.  Your colon throbs painfully, but with Kath’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' mercilessly blocking the exit it has no choice but to take every drop.' );
+				EngineCore.outputText( 'Urta’s fingers wrap around your cock.  Ignored until now it jumps at the attention.  “<i>Yes, of course I’ll help you,</i>” says Urta, softly stroking your member.  “<i>You just need a little something - like ' + CoC.getInstance().player.short + '’s tight little bum squeezing your cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' as he cums.</i>”\n\n' );
+				EngineCore.outputText( 'Urta’s playful fingers slide up and down your shaft.  You were already on edge and the added pleasure soon causes your ' + (CoC.getInstance().player.ballSize > 0 ? 'balls' : 'prostate') + ' to tighten, spraying your load across the floor uselessly.  As Urta predicted, your orgasm triggers Kath’s.  With one last mighty heave she buries her prick' + SceneLib.katherine.cockMultiple( '', 's' ) + ' just a tiny bit deeper.  Then the flood begins.  Already stuffed with Urta’s load your belly expands even further.  Your colon throbs painfully, but with Kath’s knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' mercilessly blocking the exit it has no choice but to take every drop.' );
 		}
 		EngineCore.outputText( '\n\nKath collapses on top of you, spent.  Urta twists you around enough to give you and Kath each a kiss.  “<i>Thanks ' + CoC.getInstance().player.short + ', that’s exactly what I needed.</i>”\n\n' );
-		EngineCore.outputText( '“<i>Me too,</i>” purrs Kath as she snuggles up against your back for a nap.  You stick around long enough for ' + CoC.getInstance().scenes.katherine.cockMultiple( 'Katherine’s knot', 'Kath’s knots' ) + ' to slide out, then you’re on your way - leaving Kath and Urta to take care of each other.' );
+		EngineCore.outputText( '“<i>Me too,</i>” purrs Kath as she snuggles up against your back for a nap.  You stick around long enough for ' + SceneLib.katherine.cockMultiple( 'Katherine’s knot', 'Kath’s knots' ) + ' to slide out, then you’re on your way - leaving Kath and Urta to take care of each other.' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( false );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( false );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.spitroastKath = function() { //Works for all except genderless characters
 		EngineCore.clearOutput();
-		var atBar = CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR ) || CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_BAR_DRUNK );
+		var atBar = SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK );
 		if( atBar ) {
-			EngineCore.outputText( 'You lead the ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'horny herms' : 'lusty pair') + ' toward one of the bar’s backrooms.  You get inside, lock the door and when you turn around you see that Urta has grabbed Kath from behind to make sure she couldn’t jump you.' );
+			EngineCore.outputText( 'You lead the ' + (SceneLib.katherine.hasCock() ? 'horny herms' : 'lusty pair') + ' toward one of the bar’s backrooms.  You get inside, lock the door and when you turn around you see that Urta has grabbed Kath from behind to make sure she couldn’t jump you.' );
 		} else {
 			EngineCore.outputText( 'Urta grabs Kath from behind, locking her arms so she can’t advance on you.' );
 		}
-		EngineCore.outputText( '  Never one to look a gift horse in the mouth you start to play with Kath’s nipples ' + CoC.getInstance().scenes.katherine.clothesChoice( 'through her ' + (atBar ? 'blouse' : 'uniform'), 'through the thin fabric of her bodysuit', 'through her top', 'through her silken robe', 'by reaching inside her tube top', 'by reaching inside that sexy nurse’s outfit' ) + '.  Kath\'s ' + (CoC.getInstance().scenes.katherine.breasts.lactating() ? 'teats start leaking cream, her ' : '') + 'knees soon buckle and Urta has to go from holding her back to holding her up.\n\n' );
-		EngineCore.outputText( 'Even though you’re only playing with Katherine’s nipples you hear both your girls start to moan.  It seems that Kath’s fine ass is grinding against Urta’s horsecock.  Your fox has probably already started to leak.  When you begin stripping Kath’s clothes off Urta is eager to help and the two of you bare the ' + CoC.getInstance().scenes.katherine.catGirl( 'cat girl', 'feline' ) + ' in record time.\n\n' );
+		EngineCore.outputText( '  Never one to look a gift horse in the mouth you start to play with Kath’s nipples ' + SceneLib.katherine.clothesChoice( 'through her ' + (atBar ? 'blouse' : 'uniform'), 'through the thin fabric of her bodysuit', 'through her top', 'through her silken robe', 'by reaching inside her tube top', 'by reaching inside that sexy nurse’s outfit' ) + '.  Kath\'s ' + (SceneLib.katherine.breasts.lactating() ? 'teats start leaking cream, her ' : '') + 'knees soon buckle and Urta has to go from holding her back to holding her up.\n\n' );
+		EngineCore.outputText( 'Even though you’re only playing with Katherine’s nipples you hear both your girls start to moan.  It seems that Kath’s fine ass is grinding against Urta’s horsecock.  Your fox has probably already started to leak.  When you begin stripping Kath’s clothes off Urta is eager to help and the two of you bare the ' + SceneLib.katherine.catGirl( 'cat girl', 'feline' ) + ' in record time.\n\n' );
 		EngineCore.outputText( 'You put Kath back in the same position as before and Urta ' );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] <= 15 ) {
 			{ //They’ve had little or no sex together sober
@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			}
 			EngineCore.outputText( 'gives you a big smile as she pulls Kath down onto her shaft, impaling her.  Kath twists around and gives Urta a kiss before looking back to you expectantly.  A giant sized horsecock between her folds just isn’t enough for Kath these days - she wants you both' );
 		}
-		EngineCore.outputText( '.\n\nSince Kath isn’t going anywhere Urta grabs her ' + CoC.getInstance().scenes.katherine.catGirl( 'smooth', 'fuzzy' ) + ' hips and controls the pace.  Kath starts playing with her own nipples, giving you a show.  In return you tease them both by slowly stripping off your gear.  When you’re completely naked you start to rub Kath’s ears and use them to gently pull her head lower and lower until ' );
+		EngineCore.outputText( '.\n\nSince Kath isn’t going anywhere Urta grabs her ' + SceneLib.katherine.catGirl( 'smooth', 'fuzzy' ) + ' hips and controls the pace.  Kath starts playing with her own nipples, giving you a show.  In return you tease them both by slowly stripping off your gear.  When you’re completely naked you start to rub Kath’s ears and use them to gently pull her head lower and lower until ' );
 		if( CoC.getInstance().player.isTaur() ) {
 			EngineCore.outputText( 'her back is horizontal.  You carefully step over her, closing the distance with Urta until you feel your submissive pussy cat ' + (CoC.getInstance().player.hasCock() ? 'swallow the tip of your cock' : 'latch onto your cunt like a remora') + '.  You pull Urta in for a kiss and think to yourself that this is how a centaur was meant to fuck' );
 		} else {
@@ -397,7 +397,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			}
 		}
 		EngineCore.outputText( '.\n\nWhen you recover you rub Kath’s thigh appreciatively but your display only drives Urta to fuck her even harder.  Between you Kath’s tail flicks back and forth, so you grab it and start massaging it near the base.  Kath pushes back against Urta and you see Urta’s eyes roll back.  ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
+		if( SceneLib.katherine.hasCock() ) {
 			EngineCore.outputText( 'A hot spray of cum lands on and around your ' + (CoC.getInstance().player.isTaur() ? 'rear ' : '') + (CoC.getInstance().player.isNaga() ? 'tail' : 'feet') + '.  ' );
 		}
 		EngineCore.outputText( 'Kath just came and if you had to guess her clenching pussy sent Urta over the edge.\n\n' );
@@ -409,39 +409,39 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( '.\n\nUrta pants like she’s just run a marathon and Kath' + (CoC.getInstance().player.hasCock() ? ', her mouth still occupied by your shaft,' : '') + ' just moans contentedly.  You’re quite happy yourself and sit down with them for a minute to rest.\n\n' );
 		EngineCore.outputText( 'Urta doesn’t say anything but she laces her fingers with yours and rests your entwined hands on top of Kath’s bulging belly.  Kath puts her arms around you both and you soon hear snoring from your exhausted friend.  Urta offers to stay with Kath and clean up the mess so you leave her to it.  You’d love to stay but duty calls.' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( false );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( false );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3 ) {
 			if( CoC.getInstance().time.hours >= 13 ) {
-				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+				CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuck = function() { //Kath is sober, Urta is drunk //Not available if Kath has no cock
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'When you get to Urta’s table she pulls you both in for a hug and takes the opportunity to bury her head between Katherine’s breasts' + (CoC.getInstance().player.hasBreasts() ? ' and then between yours' : '') + '.  Not wanting to fuck your herms at the table you get Urta’s attention by tugging on her ear and motion at one of the vacant backrooms.  The drunken fox herm gets up and wanders toward the door, her arms around you both.  It’s not for support but so that she can grope all your favorite bits.  On Urta’s other side you can see Kath smiling as Urta massages the base of her tail.\n\n' );
-		EngineCore.outputText( 'Once the three of you get inside the room together Urta gets aggressive.  She shoves both you and Kath against the wall and starts trying to pull your clothes off.  As she concentrates on ' + CoC.getInstance().scenes.katherine.clothesChoice( 'unbuttoning Kath’s blouse', 'sliding her hands inside Kath’s bodysuit', 'unlacing Kath’s dress', 'pulling the robe off Kath’s shoulders', 'slipping the stretchy tube top over Kath’s head', 'reaching inside the nurse’s top to grope Kath’s breasts' ) + ' you decide that today Urta won’t be setting the pace.\n\n' );
+		EngineCore.outputText( 'Once the three of you get inside the room together Urta gets aggressive.  She shoves both you and Kath against the wall and starts trying to pull your clothes off.  As she concentrates on ' + SceneLib.katherine.clothesChoice( 'unbuttoning Kath’s blouse', 'sliding her hands inside Kath’s bodysuit', 'unlacing Kath’s dress', 'pulling the robe off Kath’s shoulders', 'slipping the stretchy tube top over Kath’s head', 'reaching inside the nurse’s top to grope Kath’s breasts' ) + ' you decide that today Urta won’t be setting the pace.\n\n' );
 		EngineCore.outputText( 'You sweep her legs out from under her and she falls sideways into your arms.  Twisting her around you push Urta to the floor facedown and ' );
 		if( CoC.getInstance().player.isTaur() ) {
 			EngineCore.outputText( 'rest your belly on top of' );
 		} else {
 			EngineCore.outputText( (CoC.getInstance().player.isNaga() ? 'quickly coil your tail over' : 'kneel atop') );
 		}
-		EngineCore.outputText( ' her prone form.  She growls playfully and squirms, trying to get herself free from your grapple.  You look behind you and see that Kath has been quick to strip off her clothes.  Her throbbing cock' + CoC.getInstance().scenes.katherine.cockMultiple( ' stands', 's stand' ) + ' proud in the cool air.\n\n' );
-		EngineCore.outputText( 'You lift Urta’s skirt and tell Kath that her captain needs some help.  She claps her hands together gleefully as you pull aside Urta’s panties.  From beneath you Urta shouts, “<i>No!  It’s my turn.  Present pussy, damn it.</i>”  She shudders as Kath’s cockhead' + CoC.getInstance().scenes.katherine.cockMultiple( ' brushes against her pussy, which is', 's brush against her slit and her tight sphincter.  Kath reaches under Urta, scoops a little pre from the tip of her dripping horsecock and smears it over Urta’s asshole.  Urta’s cunt needs no such attention, it’s' ) + ' already glistening.\n\n' );
-		EngineCore.outputText( 'Kath gently turns your head and gives you a kiss before sheathing herself inside her captain.  Urta groans as her body is invaded' + CoC.getInstance().scenes.katherine.cockMultiple( ' by Kath’s ' + CoC.getInstance().scenes.katherine.cockType( 'canine', 'unusual feline' ) + ' member', ', not once but twice' ) + '.  You tweak Katherine’s nipples and tell her that Urta needs a rough ride.  Urta pants and looks up but she doesn’t disagree.  Kath’s fingers wrap around Urta’s waist and she starts to fuck her like a wild stallion.  Some thrusts are hard enough that Urta moves along the floor.\n\n' );
+		EngineCore.outputText( ' her prone form.  She growls playfully and squirms, trying to get herself free from your grapple.  You look behind you and see that Kath has been quick to strip off her clothes.  Her throbbing cock' + SceneLib.katherine.cockMultiple( ' stands', 's stand' ) + ' proud in the cool air.\n\n' );
+		EngineCore.outputText( 'You lift Urta’s skirt and tell Kath that her captain needs some help.  She claps her hands together gleefully as you pull aside Urta’s panties.  From beneath you Urta shouts, “<i>No!  It’s my turn.  Present pussy, damn it.</i>”  She shudders as Kath’s cockhead' + SceneLib.katherine.cockMultiple( ' brushes against her pussy, which is', 's brush against her slit and her tight sphincter.  Kath reaches under Urta, scoops a little pre from the tip of her dripping horsecock and smears it over Urta’s asshole.  Urta’s cunt needs no such attention, it’s' ) + ' already glistening.\n\n' );
+		EngineCore.outputText( 'Kath gently turns your head and gives you a kiss before sheathing herself inside her captain.  Urta groans as her body is invaded' + SceneLib.katherine.cockMultiple( ' by Kath’s ' + SceneLib.katherine.cockType( 'canine', 'unusual feline' ) + ' member', ', not once but twice' ) + '.  You tweak Katherine’s nipples and tell her that Urta needs a rough ride.  Urta pants and looks up but she doesn’t disagree.  Kath’s fingers wrap around Urta’s waist and she starts to fuck her like a wild stallion.  Some thrusts are hard enough that Urta moves along the floor.\n\n' );
 		EngineCore.outputText( 'Before Kath can cum Urta grunts, tenses and a gushing sound tells you she’s just flooded her panties with a massive load of cum.  It seems you were right about prescribing a good dose of hard fucking, Urta must have needed that.  After her orgasm she’s unable to move, let alone escape, so you get up and encourage Kath, telling her to fill this fox slut' );
-		if( CoC.getInstance().scenes.urta.pregnancy.isPregnant && CoC.getInstance().scenes.urta.pregnancy.type !== PregnancyStore.PREGNANCY_BEE_EGGS && CoC.getInstance().scenes.urta.pregnancy.type !== PregnancyStore.PREGNANCY_DRIDER_EGGS ) {
+		if( SceneLib.urta.pregnancy.isPregnant && SceneLib.urta.pregnancy.type !== PregnancyStore.PREGNANCY_BEE_EGGS && SceneLib.urta.pregnancy.type !== PregnancyStore.PREGNANCY_DRIDER_EGGS ) {
 			EngineCore.outputText( '.  She’s already carrying a baby in that big belly of hers, so Kath must know how much Urta loves cum.  Urta pats her belly and says, “<i>Maybe there’s room for one more' );
 		} else {
 			EngineCore.outputText( ' - she needs a womb full of seed.  Urta laughs and says “<i>' + (CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] > 0 ? 'Yeah, fill me up, maybe you’ll get to be a daddy' : 'Oh please fill me up.  It’s so good') );
 		}
-		EngineCore.outputText( '.</i>”  Katherine doesn’t take long to give Urta what she wants.  Kath’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( ' swells up and with one last hard thrust she forces it inside Urta’s abused pussy', 's swell up and with one last hard thrust she forces them inside Urta’s stretched holes' ) + '.\n\n' );
-		EngineCore.outputText( 'It looks so fucking good as Urta’s belly grows ' + (CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'even larger than before, her pregnancy eclipsed by' : 'larger and larger, trying to hold back' ) + ' the ocean of cum inside her.  Urta’s whole lower body and her skirt are soaked with her own cum and now an equally large load is sloshing around inside her.  Her ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls drained' : 'prostate empty') + ', Kath collapses on top of Urta and gives her a hug.\n\n' );
+		EngineCore.outputText( '.</i>”  Katherine doesn’t take long to give Urta what she wants.  Kath’s knot' + SceneLib.katherine.cockMultiple( ' swells up and with one last hard thrust she forces it inside Urta’s abused pussy', 's swell up and with one last hard thrust she forces them inside Urta’s stretched holes' ) + '.\n\n' );
+		EngineCore.outputText( 'It looks so fucking good as Urta’s belly grows ' + (SceneLib.urta.pregnancy.isPregnant ? 'even larger than before, her pregnancy eclipsed by' : 'larger and larger, trying to hold back' ) + ' the ocean of cum inside her.  Urta’s whole lower body and her skirt are soaked with her own cum and now an equally large load is sloshing around inside her.  Her ' + (SceneLib.katherine.hasBalls() ? 'balls drained' : 'prostate empty') + ', Kath collapses on top of Urta and gives her a hug.\n\n' );
 		EngineCore.outputText( 'You stroke your fingers up and down ' );
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.outputText( 'your cock' );
@@ -451,9 +451,9 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'the barren flesh between your legs' );
 		}
 		EngineCore.outputText( ', looking over your partners.  The sight of Katherine drilling Urta has you ever so horny' + (CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ? ', you just have to figure out what you’re going to do about it.  Both your lovers are spent and happy, so it’s a toss up as to which one should receive your attention.' : ' and it’s time for you to take your fill.') );
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.choices( 'Stuff Kath', this.pinAndFuckStuffKath, 'Mount Urta', this.pinAndFuckMountUrta, '', null, '', null, '', null );
 		} else {
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 	};
 	KatherineThreesome.prototype.pinAndFuckMountUrta = function() { //Plays for anyone without a cock and for herms who select this option
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You roll Kath and Urta over so you can get access to Urta’s equine cock.  It’s a little soft but a couple of strokes along its cum slicked length start to change that.  Urta opens her eyes and tries to focus on you but you’re already ' + (CoC.getInstance().player.hasVagina() ? 'sliding your pussy against her shaft' : 'rubbing her horsecock against your anus') + '.  Underneath you both Kath lets out a happy “<i>Oh!</i>”  You’re guessing Urta’s muscles are clamping down on Kath’s cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.\n\n' );
+		EngineCore.outputText( 'You roll Kath and Urta over so you can get access to Urta’s equine cock.  It’s a little soft but a couple of strokes along its cum slicked length start to change that.  Urta opens her eyes and tries to focus on you but you’re already ' + (CoC.getInstance().player.hasVagina() ? 'sliding your pussy against her shaft' : 'rubbing her horsecock against your anus') + '.  Underneath you both Kath lets out a happy “<i>Oh!</i>”  You’re guessing Urta’s muscles are clamping down on Kath’s cock' + SceneLib.katherine.cockMultiple( '', 's' ) + '.\n\n' );
 		EngineCore.outputText( 'As you sink onto Urta’s cock ' );
 		if( !CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( 'you enjoy the sensation of your colon stretching and straightening to take Urta’s enormous girth and length.  You feel a pulse of hot pre soaking into your deepest depths.' );
@@ -499,20 +499,20 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'it forces its way inside your womb.  The feeling is exquisite as your belly expands outward into a pregnant looking dome.  As more of Urta’s seed fills your pussy' );
 		}
 		EngineCore.outputText( ' you kiss her and give in to your long overdue orgasm.' );
-		EngineCore.outputText( '\n\nUrta puts one hand on your stretched stomach and places your hand on her own bloated belly.  She just smiles contentedly, her cock buried in your pussy and Katherine’s dick' + CoC.getInstance().scenes.katherine.cockMultiple( ' knotted inside her pussy', 's knotted inside her pussy and ass' ) + '.  She doesn’t seem to have a care in the world.  Then Kath rocks her hips.  Urta looks over her shoulder and you both see that Kath has a determined look in her eyes.\n\n' );
+		EngineCore.outputText( '\n\nUrta puts one hand on your stretched stomach and places your hand on her own bloated belly.  She just smiles contentedly, her cock buried in your pussy and Katherine’s dick' + SceneLib.katherine.cockMultiple( ' knotted inside her pussy', 's knotted inside her pussy and ass' ) + '.  She doesn’t seem to have a care in the world.  Then Kath rocks her hips.  Urta looks over her shoulder and you both see that Kath has a determined look in her eyes.\n\n' );
 		EngineCore.outputText( '“<i>Again?</i>” says Urta, “<i>No, no, I can’t do it again!  I’ve already cum twice.</i>”\n\n' );
 		EngineCore.outputText( 'Kath laughs and continues to gently fuck Urta.  You pull off Urta’s cock and wait for her massive load to finish gushing from your ' + (CoC.getInstance().player.hasVagina() ? 'pussy' : 'ass') + ' before putting on your clothes.  Before you leave you give Urta a kiss and squeeze her belly a little.  Her only reply is to moan.  You tell Kath to take good care of Urta and then leave.  You know that if you stay much longer their display will get you excited enough that you’d stay around all afternoon and unfortunately you’ve got things you need to do.\n\n' );
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 8 + Utils.rand( 2 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuckStuffKath = function() { //Plays for any males and for herms who select this option
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'When Kath flopped on top of Urta her legs spread apart and gave you a great view of ' + (CoC.getInstance().player.cocks.length > 1 ? 'three' : 'two') + ' things.  Her' + CoC.getInstance().scenes.katherine.cockMultiple( '', ' lower' ) + ' knot, hot and hard, buried in Urta’s pussy' + CoC.getInstance().scenes.katherine.cockMultiple( ' and her dripping slit', ', her dripping slit and her supple sphincter, both' ) + ' waiting for your cock.  ' + (CoC.getInstance().player.cocks.length > 1 ? 'They look' : 'It looks') + ' so wet, so empty.  Neither Katherine nor Urta notice as you ' + (CoC.getInstance().player.isNaga() ? 'slither' : 'step') + ' around them, position yourself behind Kath, line up your dick' + (CoC.getInstance().player.cocks.length > 1 ? 's and feed them' : ' and feed it') + ' into Kath\'s body.\n\n' );
+		EngineCore.outputText( 'When Kath flopped on top of Urta her legs spread apart and gave you a great view of ' + (CoC.getInstance().player.cocks.length > 1 ? 'three' : 'two') + ' things.  Her' + SceneLib.katherine.cockMultiple( '', ' lower' ) + ' knot, hot and hard, buried in Urta’s pussy' + SceneLib.katherine.cockMultiple( ' and her dripping slit', ', her dripping slit and her supple sphincter, both' ) + ' waiting for your cock.  ' + (CoC.getInstance().player.cocks.length > 1 ? 'They look' : 'It looks') + ' so wet, so empty.  Neither Katherine nor Urta notice as you ' + (CoC.getInstance().player.isNaga() ? 'slither' : 'step') + ' around them, position yourself behind Kath, line up your dick' + (CoC.getInstance().player.cocks.length > 1 ? 's and feed them' : ' and feed it') + ' into Kath\'s body.\n\n' );
 		EngineCore.outputText( 'Kath may be tired but she’s still in the mood.  She clenches her pussy ' + (CoC.getInstance().player.cocks.length > 1 ? 'and ass around your cocks' : 'around your cock') + ' and lets out a low moan.  You ' );
 		if( CoC.getInstance().player.cor < 25 ) {
 			EngineCore.outputText( 'hold your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + ' still for a moment, letting Kath adjust her hips so she’s in a more comfortable position.  You massage the base of her tail which draws even more moans of pleasure from Kath.  When you finally start to thrust again Kath weakly tries to push her hips back toward you and her pussy ' + (CoC.getInstance().player.cocks.length > 1 ? 'and ass do their' : 'does its') + ' best to pull you in deeper.' );
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		} else {
 			EngineCore.outputText( 'just start pounding in and out.  Kath tends to like it rough and right now you don’t really care if she enjoys it or not.' );
 		}
-		EngineCore.outputText( '\n\nUnderneath both of you Urta tries to look over her shoulder to see why Kath’s cock' + CoC.getInstance().scenes.katherine.cockMultiple( ' is', 's are' ) + ' rocking back and forth inside her overstuffed belly.  Kath gives her a kiss and says “<i>You like feeling ' + CoC.getInstance().player.short + ' through me?</i>”  Urta’s eyes roll back as she realizes she’s trapped and in for a fucking by proxy.\n\n' );
+		EngineCore.outputText( '\n\nUnderneath both of you Urta tries to look over her shoulder to see why Kath’s cock' + SceneLib.katherine.cockMultiple( ' is', 's are' ) + ' rocking back and forth inside her overstuffed belly.  Kath gives her a kiss and says “<i>You like feeling ' + CoC.getInstance().player.short + ' through me?</i>”  Urta’s eyes roll back as she realizes she’s trapped and in for a fucking by proxy.\n\n' );
 		EngineCore.outputText( 'Having just watched your girlfriends fuck it’s no surprise that you don’t last very long.  Your ' + (CoC.getInstance().player.balls > 0 ? 'balls ache to add their' : 'prostate aches to add its') + ' contribution to Katherine’s hot pussy' + (CoC.getInstance().player.cocks.length > 1 ? ' and inviting ass' : '') + '.  You grab Kath’s waist and bury yourself inside as that now familiar feeling races from your ' + (CoC.getInstance().player.balls > 0 ? 'balls, through your' : '') + ' prostate and runs along your cock.\n\n' );
 		EngineCore.outputText( 'Your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's erupt inside Kath' : ' erupts inside Kath') );
 		if( CoC.getInstance().player.cumQ() < 500 ) {
@@ -530,17 +530,17 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'and you feel ' + (CoC.getInstance().player.cocks.length > 1 ? 'little lakes of cum forming around the tips of your cocks' : 'a little lake of cum forming around the tip of your cock') + '.  Her belly swells just a bit and Kath puts her hand on it, a smile on her lips.' );
 		} else if( CoC.getInstance().player.cumQ() < 3000 ) {
 			EngineCore.outputText( 'and her body is pushed away from Urta by the sheer volume of cum you’re filling her with.  Kath gasps and uses one hand to steady herself while the other clutches her expanding belly.  ' );
-			if( CoC.getInstance().scenes.katherine.pregSize() > 0 ) {
+			if( SceneLib.katherine.pregSize() > 0 ) {
 				EngineCore.outputText( 'It must be particularly painful since her womb is closed for business.' );
 			} else {
 				EngineCore.outputText( 'She starts to look a little pregnant as her womb ' + (CoC.getInstance().player.cocks.length > 1 ? ' and colon' : '') + ' fill with your seed.' );
 			}
 		} else {
 			EngineCore.outputText( 'with such force that she has the wind is knocked out of her. ' );
-			if( CoC.getInstance().scenes.katherine.pregSize() === 0 ) {
+			if( SceneLib.katherine.pregSize() === 0 ) {
 				EngineCore.outputText( 'Even from behind her you can see her womb expanding, filling out as if she were eight months pregnant.' );
 			}
-			if( CoC.getInstance().scenes.katherine.pregSize() > 0 ) {
+			if( SceneLib.katherine.pregSize() > 0 ) {
 				EngineCore.outputText( 'Without an empty womb to take the load from ' );
 				if( CoC.getInstance().player.cocks.length > 1 ) {
 					EngineCore.outputText( 'your lower shaft Kath’s vagina quickly reaches its limit and you feel all your cum running down your other cock' + (CoC.getInstance().player.cocks.length > 2 ? 's, blasting all over the room.' : ' stuffing her colon with cum.') );
@@ -548,17 +548,17 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 					EngineCore.outputText( 'your supercharged ' + (CoC.getInstance().player.balls > 0 ? 'balls' : 'prostate') + ' you quickly fill her cunt to its limit, the rest of your seed blasting back against your groin.' );
 				}
 			}
-			EngineCore.outputText( '  The bulge in Kath’s belly is large enough to lift her off Urta, though not enough to release Katherine’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  Now that Kath is almost sitting upright above Urta she turns and kisses you.' );
+			EngineCore.outputText( '  The bulge in Kath’s belly is large enough to lift her off Urta, though not enough to release Katherine’s knot' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  Now that Kath is almost sitting upright above Urta she turns and kisses you.' );
 		}
-		EngineCore.outputText( '\n\nAt the bottom of the pile you hear Urta say “<i>Oh - ' + CoC.getInstance().scenes.katherine.cockMultiple( 'its', 'they’re' ) + ' getting bigger again!</i>”\n\n' );
-		EngineCore.outputText( 'A quick check with your fingers tells you she’s right, Kath’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( ' has', 's have' ) + ' returned to full strength, binding the two herms together.\n\n' );
-		EngineCore.outputText( 'You pull out of Kath and give her a pat on the back.  You tell Urta that there are two ways to shrink ' + CoC.getInstance().scenes.katherine.cockMultiple( 'that knot', 'those knots' ) + ' and it’s up to them to decide which to use.  Kath looks tired, but her tail wags back and forth.  Urta just groans and says, “<i>I can’t, I’m so full.</i>”\n\n' );
+		EngineCore.outputText( '\n\nAt the bottom of the pile you hear Urta say “<i>Oh - ' + SceneLib.katherine.cockMultiple( 'its', 'they’re' ) + ' getting bigger again!</i>”\n\n' );
+		EngineCore.outputText( 'A quick check with your fingers tells you she’s right, Kath’s knot' + SceneLib.katherine.cockMultiple( ' has', 's have' ) + ' returned to full strength, binding the two herms together.\n\n' );
+		EngineCore.outputText( 'You pull out of Kath and give her a pat on the back.  You tell Urta that there are two ways to shrink ' + SceneLib.katherine.cockMultiple( 'that knot', 'those knots' ) + ' and it’s up to them to decide which to use.  Kath looks tired, but her tail wags back and forth.  Urta just groans and says, “<i>I can’t, I’m so full.</i>”\n\n' );
 		EngineCore.outputText( 'You lock the door on the way out, ' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] >= 31 ? 'knowing that with those two the sex option will eventually win out.' : 'hoping your sated girlfriends will bond over this.') );
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.watch = function( urtaIsDrunk ) { //Kath is sober (or drunk), Urta is drunk
 		EngineCore.clearOutput();
@@ -570,12 +570,12 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		this.watchMainBody( urtaIsDrunk );
 	};
 	KatherineThreesome.prototype.watchMainBody = function( urtaIsDrunk ) { //Kath is sober, Urta is drunk
-		EngineCore.outputText( 'The three of you quickly commandeer one of the back rooms.  Urta is ' + (urtaIsDrunk ? 'a little unsteady' : 'pretty horny') + ' so she sits down on a spare chair in the corner and yanks off her clothes.  You kiss Kath and concentrate on getting her naked, giving Urta a show as you ' + CoC.getInstance().scenes.katherine.clothesChoice( 'first remove her blouse and then slip off her skirt', 'peel the sheer bodysuit off her lithe form', 'unlace her dress and slide it off her sexy body', 'undo her robe and pull it from her shoulders', 'pull the tube top over her head and then ' + CoC.getInstance().scenes.katherine.clothesLowerChoice( 'peel off her tight shorts', 'slip off her skirt', '', '', '' ), 'unbutton her tight blouse, slip off her skirt and finally pluck the cute white hat from her head' ) + '.  Urta’s interest is obvious from her panting and the throbbing of her horsecock.\n\n' );
+		EngineCore.outputText( 'The three of you quickly commandeer one of the back rooms.  Urta is ' + (urtaIsDrunk ? 'a little unsteady' : 'pretty horny') + ' so she sits down on a spare chair in the corner and yanks off her clothes.  You kiss Kath and concentrate on getting her naked, giving Urta a show as you ' + SceneLib.katherine.clothesChoice( 'first remove her blouse and then slip off her skirt', 'peel the sheer bodysuit off her lithe form', 'unlace her dress and slide it off her sexy body', 'undo her robe and pull it from her shoulders', 'pull the tube top over her head and then ' + SceneLib.katherine.clothesLowerChoice( 'peel off her tight shorts', 'slip off her skirt', '', '', '' ), 'unbutton her tight blouse, slip off her skirt and finally pluck the cute white hat from her head' ) + '.  Urta’s interest is obvious from her panting and the throbbing of her horsecock.\n\n' );
 		EngineCore.outputText( 'Kath poses for Urta and asks, “<i>Like what you see?</i>”\n\n' );
 		EngineCore.outputText( 'Urta strokes her cock, smearing some pre along the shaft and says, “<i>Come over and find out!</i>”  It looks like Urta’s in the mood to put on a show so you give Kath a gentle push toward the fox.  As soon as she comes within arm’s reach Urta grabs her and pulls Katherine into her lap.\n\n' );
-		EngineCore.outputText( 'After a short and one sided grappling match Urta has Kath’s arms locked behind her body.  She turns Kath to face you, then pulls the cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + ' backwards, downwards and onto her lap.  Urta’s cock now juts out from between Kath’s legs, rubbing against ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'the underside of Kath’s own ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'lower ' ) + 'cock.\n\n' );
+		EngineCore.outputText( 'After a short and one sided grappling match Urta has Kath’s arms locked behind her body.  She turns Kath to face you, then pulls the cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + ' backwards, downwards and onto her lap.  Urta’s cock now juts out from between Kath’s legs, rubbing against ' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'the underside of Kath’s own ' + SceneLib.katherine.cockMultiple( '', 'lower ' ) + 'cock.\n\n' );
 		} else {
 			EngineCore.outputText( 'Kath\'s dripping slit.\n\n' );
 		}
@@ -583,27 +583,27 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'Urta moans and lifts Kath high enough to plant her cockhead against Kath’s pussy.  “<i>You were asking for this all through our last shift,</i>” she growls in Kath’s ear.  Urta roughly yanks Kath back again, this time impaling her on Urta’s massive shaft.  Urta closes her eyes and starts talking to herself as she lifts Kath’s hips up and down.  “<i>Always flicking your thin black tail at me,</i>” she says, “<i>giving me that big toothy smile when you hand in your paperwork' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 20 ? ', then ‘I’ll see you at the bar’, and that cute little wave goodbye' : '') + '.  Admit it - you’ve been gagging for a nice fat cock.</i>”\n\n' );
 		EngineCore.outputText( 'Kath just bites her lip as Urta’s jackhammering forces her hole open wider and wider.  At last the pain in her face eases up and she gives you a grin before saying, “<i>Maybe.</i>”\n\n' );
 		EngineCore.outputText( '“<i>Not maybe!</i>” bellows Urta.  “<i>You’re the sexiest little kitty in the Watch and you spend all day teasing me.  Don’t give me maybe.</i>”\n\n' );
-		EngineCore.outputText( 'Kath has started to fuck back and she pulls Urta’s hands away from her hips.  With her cat-like flexibility she manages to turn around and face Urta while still grinding atop her cock.  “<i>Okay,</i>” she says, teasingly, “<i>maybe a lot.</i>”  She takes Urta’s hands and places them against ' + (CoC.getInstance().scenes.katherine.breasts.cupSize > AppearanceDefs.BREAST_CUP_DD ? 'the sides of ' : '') + 'her ' + CoC.getInstance().scenes.katherine.breasts.adj() + ' breasts.\n\n' );
+		EngineCore.outputText( 'Kath has started to fuck back and she pulls Urta’s hands away from her hips.  With her cat-like flexibility she manages to turn around and face Urta while still grinding atop her cock.  “<i>Okay,</i>” she says, teasingly, “<i>maybe a lot.</i>”  She takes Urta’s hands and places them against ' + (SceneLib.katherine.breasts.cupSize > AppearanceDefs.BREAST_CUP_DD ? 'the sides of ' : '') + 'her ' + SceneLib.katherine.breasts.adj() + ' breasts.\n\n' );
 		EngineCore.outputText( 'Urta looks like she’s getting close to blowing her load.  She pants “<i>Does that turn you on?  Getting your captain all hot and bothered?</i>”\n\n' );
 		EngineCore.outputText( 'Kath reaches between her legs and you realize she’s rolling Urta’s balls between her fingers.  “<i>Maybe,</i>” she replies again, infuriating Urta, who bites the back of Kath’s neck.  A few more deep thrusts and Urta’s hands go to Kath’s shoulders so she can pull Kath’s whole body down once more.  Her head tips back and bangs the wall.  At the same time Kath puts a hand against her belly and purrs as you watch it bulge with Urta’s copious seed.\n\n' );
 		EngineCore.outputText( 'Once Urta is finished Kath gives Urta a poke and says, “<i>Aren’t you going to help me?  I still haven’t got off, you know.</i>”\n\n' );
 		EngineCore.outputText( 'Urta raises her head just long enough to grin at Kath and say, “<i>Maybe,</i>” in a mocking tone.\n\n' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
+		if( SceneLib.katherine.hasCock() ) {
 			EngineCore.outputText( 'Kath looks your way and rubs one of her hard cocks but you point out that Urta just offered to help.  Katherine needs no further encouragement.  She stands up, depositing a river of cum on Urta’s lap.  Urta is too tired to resist much, so Katherine picks her up and drapes her over the chair.\n\n' );
-			EngineCore.outputText( 'Urta looks up at you just in time to feel Kath slip her ' + CoC.getInstance().scenes.katherine.cockType() + ' shaft' + CoC.getInstance().scenes.katherine.cockMultiple( ' into her pussy', 's into her cunt and rectum' ) + '.\n\n' );
+			EngineCore.outputText( 'Urta looks up at you just in time to feel Kath slip her ' + SceneLib.katherine.cockType() + ' shaft' + SceneLib.katherine.cockMultiple( ' into her pussy', 's into her cunt and rectum' ) + '.\n\n' );
 		} else {
 			EngineCore.outputText( 'Kath looks your way and runs one of her fingers over her breasts but you point out that Urta just offered to help.  Katherine needs no further encouragement.  She plants her feet and starts to roll her hips, grinding her clit against Urta\'s still hard horsecock.\n\n' );
 			EngineCore.outputText( 'Urta\'s head rolls forward again and she rubs Katherine\'s bloated belly.  “<i>Wasting your time kitty,</i>” she says mockingly.\n\n' );
 		}
 		EngineCore.outputText( 'Kath is already close to cumming but she tries to hold back by taking it slow.  She whispers, “<i>You want it too.  I know cause every time I give you a smile or wiggle my bum you smile back' );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 20 ) {
-			EngineCore.outputText( ' and the tip of your tail does that little wiggle you don’t think anyone notices.  And you rush through all your paperwork once you know I’ll be at the bar because you love staring at my body' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] === CoC.getInstance().scenes.katherine.KDATE_LITTLE ? ' and you’re hoping like crazy ' + CoC.getInstance().player.short + ' will be here so we can fuck all through the night' : '') );
+			EngineCore.outputText( ' and the tip of your tail does that little wiggle you don’t think anyone notices.  And you rush through all your paperwork once you know I’ll be at the bar because you love staring at my body' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] === SceneLib.katherine.KDATE_LITTLE ? ' and you’re hoping like crazy ' + CoC.getInstance().player.short + ' will be here so we can fuck all through the night' : '') );
 		}
 		EngineCore.outputText( '.</i>”\n\nUrta gives you a smirk and says, “<i>Maybe,</i>” once more.  Kath doesn’t like getting a dose of her own medicine, so she grabs ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'the chair and pushes hard.  Urta lets out a surprised “<i>Ah!</i>” as Kath’s ' + CoC.getInstance().scenes.katherine.cockMultiple( 'knot forces its', 'twin knots force their' ) + ' way inside.  Then Kath pushes on the chair, yanking ' + CoC.getInstance().scenes.katherine.cockMultiple( 'it', 'them' ) + ' back out.  It doesn’t take long for the knot-fucking to drive Kath over the edge and she slams home one more time.  Urta’s body lifts off the chair as her belly stretches from the heavy load Kath’s pumping into her ' + (CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'pussy' : 'uterus') + CoC.getInstance().scenes.katherine.cockMultiple( '', 'and colon' ) + '.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'the chair and pushes hard.  Urta lets out a surprised “<i>Ah!</i>” as Kath’s ' + SceneLib.katherine.cockMultiple( 'knot forces its', 'twin knots force their' ) + ' way inside.  Then Kath pushes on the chair, yanking ' + SceneLib.katherine.cockMultiple( 'it', 'them' ) + ' back out.  It doesn’t take long for the knot-fucking to drive Kath over the edge and she slams home one more time.  Urta’s body lifts off the chair as her belly stretches from the heavy load Kath’s pumping into her ' + (SceneLib.urta.pregnancy.isPregnant ? 'pussy' : 'uterus') + SceneLib.katherine.cockMultiple( '', 'and colon' ) + '.\n\n' );
 		} else {
-			EngineCore.outputText( 'Urta\'s balls and strokes them gently with her sharp ' + CoC.getInstance().scenes.katherine.catGirl( 'nails', 'claws' ) + '.  “<i>You don\'t understand, foxy - I\'m not done, so you\'re not done.  It\'s impolite to leave a girl wanting.  So you think about all those times I\'ve wiggled my ass at you or \'accidentally\' let my towel slip.  You\'ve got me here and now, so no excuses, no whiskey dick.  I came here to get fucked.</i>”\n\n' );
+			EngineCore.outputText( 'Urta\'s balls and strokes them gently with her sharp ' + SceneLib.katherine.catGirl( 'nails', 'claws' ) + '.  “<i>You don\'t understand, foxy - I\'m not done, so you\'re not done.  It\'s impolite to leave a girl wanting.  So you think about all those times I\'ve wiggled my ass at you or \'accidentally\' let my towel slip.  You\'ve got me here and now, so no excuses, no whiskey dick.  I came here to get fucked.</i>”\n\n' );
 			EngineCore.outputText( 'Urta moans, but you can tell Kath\'s words and her clenching pussy have worked their magic.  Urta reaches up with shakey hands and gropes Kath\'s breasts, pulling the stuffed kitty against her.\n\n' );
 			EngineCore.outputText( '“<i>That\'s more like it!</i>” cries Kath.  “<i>Now make me pay for being a little tease!</i>”\n\n' );
 			EngineCore.outputText( 'Urta shudders and her hands move back to Kath\'s hips.  “<i>Oh, fuck!  You\'re not gonna be able to walk after this.</i>”\n\n' );
@@ -611,19 +611,19 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		}
 		EngineCore.outputText( 'You ' + (CoC.getInstance().player.gender === AppearanceDefs.GENDER_NONE ? 'rub your featureless groin unhappily, wishing you could have been part of this.  Then you' : '') + 'give each of your tired lovers a kiss and tell them to look after each other.  That earns a guilty look from Urta who says, “<i>We can have any kind of sex you want next time ' + CoC.getInstance().player.short + ' - or maybe you want to stick around and have your fill?</i>”\n\n' );
 		EngineCore.outputText( 'Much as you’d like to you have to check on the portal once more, so you just tell them you’re going to take them up on that offer, probably sooner rather than later.' );
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 20 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.kathLicksOutUrta = function() { //Kath is drunk, Urta is sober
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'Kath begins to twitch and pant as Urta plays with her ears, which leads her to start stroking Urta\'s tail.  Pretty soon a deep \'thunk\' from beneath the table lets you know how much Urta appreciates the attention.  There\'s no need to get involved, so you smile at Urta and lean back.  You can have fun with either of them later and right now you\'re content to watch and see what develops as the ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'girls') + ' get more and more aroused.\n\n' );
+		EngineCore.outputText( 'Kath begins to twitch and pant as Urta plays with her ears, which leads her to start stroking Urta\'s tail.  Pretty soon a deep \'thunk\' from beneath the table lets you know how much Urta appreciates the attention.  There\'s no need to get involved, so you smile at Urta and lean back.  You can have fun with either of them later and right now you\'re content to watch and see what develops as the ' + (SceneLib.katherine.hasCock() ? 'herms' : 'girls') + ' get more and more aroused.\n\n' );
 		EngineCore.outputText( 'The show gets underway when Urta lets go long enough to shift in her seat.  Apparently her cock was getting stiff enough to make her position uncomfortable.  Kath blinks out of her slightly dazed state and gives you an evil grin.  Before Urta can notice or react Kath ducks under the table and Urta\'s eyes go wide.  Her hands snap to her chair, holding her steady as you hear sounds of wet fabric sliding from below.\n\n' );
 		EngineCore.outputText( '"<i>Oh - oh yeah - that\'s a good kitty, you want to take care of my cock?</i>" moans Urta, throwing her head back.\n\n' );
 		EngineCore.outputText( 'From under the table you hear Kath\'s reply, "<i>Mmmmm, nope!</i>" and then a snicker.  A thin black tail whips back and forth in front of you, brushing against your waist.  Urta wraps her fingers more tightly around the edge of her chair and bites her lip.  Whatever Kath\'s doing it\'s certainly making Urta feel good.\n\n' );
@@ -631,31 +631,31 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'Urta shakes her head and tries to clear the lusty haze long enough to do something about it.  She fumbles with a condom, but drops the packet on the ground as Katherine does something naughty.  In an embarrassed whisper Urta tells her, "<i>Just... just put a condom on me.  Please Kath.  I\'ll spray everywhere.</i>"\n\n' );
 		EngineCore.outputText( 'The only reply from beneath the table is a long, low, "<i>Mmmmmmmm</i>".  Urta\'s jaw snaps shut and her eyes cross.  She gives up all thoughts of stopping Kath and instead her hands move to her lap, quite obviously pulling the sexy kitten\'s head against her groin.\n\n' );
 		EngineCore.outputText( 'Urta lasts longer than you expected, but she can\'t resist Kath\'s silver tongue forever.  She gasps and you hear a wet splattering noise from the table.  It goes on and on as Urta\'s balls release her pent up load.  Most of the bar is looking her way but Urta doesn\'t notice.  She convulses again and again as Kath\'s tongue tries to reach even deeper.  At last it ends and, to the sound of her sperm dripping onto the floor, Urta mumbles, "<i>lovely.</i>"\n\n' );
-		EngineCore.outputText( 'Kath snakes back up from under the table, her whole head wet with spunk.  She works quickly to clean herself up using her tongue and some napkins, then looks at Urta.  "<i>Awww, I think I broke her,</i>" she giggles drunkenly.  Say, ' + CoC.getInstance().scenes.katherine.playerText() + ', you wanna have some fun while one-shot here recovers?\n\n' );
+		EngineCore.outputText( 'Kath snakes back up from under the table, her whole head wet with spunk.  She works quickly to clean herself up using her tongue and some napkins, then looks at Urta.  "<i>Awww, I think I broke her,</i>" she giggles drunkenly.  Say, ' + SceneLib.katherine.playerText() + ', you wanna have some fun while one-shot here recovers?\n\n' );
 		EngineCore.outputText( '"<i>No fair,</i>" Urta mutters weakly.\n\n' );
 		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 20 );
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.drainedByKath = true;
-		EngineCore.doNext( CoC.getInstance().scenes.katherine.katherineSex );
+		SceneLib.urta.drainedByKath = true;
+		EngineCore.doNext( SceneLib.katherine.katherineSex );
 	};
 	KatherineThreesome.prototype.knothole = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'Urta scratches behind Kath’s ear and suggests slipping into one of the back rooms.  As soon as you get her inside Kath strips off her clothes and tackles Urta.  Urta is unprepared, but her combat experience is more than enough to deal with Kath when she’s drunk.  Urta laughs and easily gains control of the horny ' + CoC.getInstance().scenes.katherine.catGirl( 'cat girl', 'feline' ) + '.  Katherine starts to struggle, so Urta sweeps her legs out from under her, presses Kath to the floor and asks if she’s going to be good.\n\n' );
+		EngineCore.outputText( 'Urta scratches behind Kath’s ear and suggests slipping into one of the back rooms.  As soon as you get her inside Kath strips off her clothes and tackles Urta.  Urta is unprepared, but her combat experience is more than enough to deal with Kath when she’s drunk.  Urta laughs and easily gains control of the horny ' + SceneLib.katherine.catGirl( 'cat girl', 'feline' ) + '.  Katherine starts to struggle, so Urta sweeps her legs out from under her, presses Kath to the floor and asks if she’s going to be good.\n\n' );
 		EngineCore.outputText( 'Kath mutters, “<i>Yes,</i>” but keeps trying to get loose.\n\n' );
-		EngineCore.outputText( 'Urta just sighs and looks up at you with an expression that asks ‘will she ever learn?’  She twists Kath’s arms behind her back, but that doesn’t stop her struggling either.  Then Urta snickers to herself.  She hauls Kath along the floor toward a large knothole.  “<i>Gonna cooperate?</i>” she asks the struggling cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + '.\n\n' );
+		EngineCore.outputText( 'Urta just sighs and looks up at you with an expression that asks ‘will she ever learn?’  She twists Kath’s arms behind her back, but that doesn’t stop her struggling either.  Then Urta snickers to herself.  She hauls Kath along the floor toward a large knothole.  “<i>Gonna cooperate?</i>” she asks the struggling cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + '.\n\n' );
 		EngineCore.outputText( '“<i>No!  Gonna fuck you,</i>” says Kath.\n\n' );
-		EngineCore.outputText( 'Urta slides her a little further forward, gets one hand free and uses it to angle Katherine’s ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'lower ' ) + 'cock into the hole.  Kath is so surprised at suddenly having an opening around ' + CoC.getInstance().scenes.katherine.cockMultiple( 'her prick', 'one of her pricks' ) + ' that she stops struggling for a second.  Urta uses the opportunity to spread Kath’s legs and sink the rest of her length into the hole.\n\n' );
+		EngineCore.outputText( 'Urta slides her a little further forward, gets one hand free and uses it to angle Katherine’s ' + SceneLib.katherine.cockMultiple( '', 'lower ' ) + 'cock into the hole.  Kath is so surprised at suddenly having an opening around ' + SceneLib.katherine.cockMultiple( 'her prick', 'one of her pricks' ) + ' that she stops struggling for a second.  Urta uses the opportunity to spread Kath’s legs and sink the rest of her length into the hole.\n\n' );
 		EngineCore.outputText( '“<i>Not fair,</i>” mumbles Kath, trying and failing to get up.\n\n' );
 		EngineCore.outputText( '“<i>You should start behaving,</i>” says Urta.  She sits on top of Kath’s ass, causing her tail to brush against Kath’s.  Kath squirms, but you can see between her legs and that knot is starting to swell.\n\n' );
 		EngineCore.outputText( 'Kath’s eyes go wide.  “<i>You wouldn’t!</i>”\n\n' );
 		EngineCore.outputText( '“<i>Wouldn’t what?</i>” asks Urta in her most innocent tone.\n\n' );
 		EngineCore.outputText( '“<i>Please don’t let me knot!</i>” says Kath, trying to buck hard enough to throw the fox off of her.\n\n' );
-		EngineCore.outputText( 'Urta reaches down and rubs ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'Kath’s balls' : 'the base of Kath’s cock') + '.  “<i>I think it’s a bit late to ask me that,</i>” Urta replies.  Kath groans and thumps her fist against the ground.  With the cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + ' trapped Urta stands up and takes your hand.  She leads you to the corner opposite the door, where Kath can watch the two of you.\n\n' );
+		EngineCore.outputText( 'Urta reaches down and rubs ' + (SceneLib.katherine.hasBalls() ? 'Kath’s balls' : 'the base of Kath’s cock') + '.  “<i>I think it’s a bit late to ask me that,</i>” Urta replies.  Kath groans and thumps her fist against the ground.  With the cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + ' trapped Urta stands up and takes your hand.  She leads you to the corner opposite the door, where Kath can watch the two of you.\n\n' );
 		EngineCore.outputText( 'Urta grins evilly at the captive kitty and then starts to undress herself and you slowly and seductively.  As her fingers slide down your naked back she whispers, “<i>How about we share? There’s enough pussy for both of us.</i>”\n\n' );
 		EngineCore.outputText( 'She swings around, her heavy horsecock free to bob side to side in the open air.  She walks behind Kath and inserts a few fingers into Kath’s pussy.  Kath sighs and her tail flicks from side to side.  After a moment Urta pulls her fingers free and licks them.  “<i>Mmmm, you sure taste ready.  So do you want to cum today?</i>”\n\n' );
-		EngineCore.outputText( '“<i>Yes.  Yes, please,</i>” begs Kath, spreading her legs wider than anyone but a cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + ' could manage.  Urta strokes her horsecock a few times, building up a heavy coating of precum, then presses it against Kath’s dripping cunt.  She pushes it in slowly, only an inch at a time, driving Kath wild.\n\n' );
+		EngineCore.outputText( '“<i>Yes.  Yes, please,</i>” begs Kath, spreading her legs wider than anyone but a cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + ' could manage.  Urta strokes her horsecock a few times, building up a heavy coating of precum, then presses it against Kath’s dripping cunt.  She pushes it in slowly, only an inch at a time, driving Kath wild.\n\n' );
 		EngineCore.outputText( 'You can see the lust developing in Urta’s eyes.  The feeling of Kath’s tight passage is going to make her cum sooner rather than later, so you decide it’s time you got involved.  All you have to do is ' );
 		if( CoC.getInstance().player.isTaur() ) {
 			EngineCore.outputText( 'stand over' );
@@ -676,23 +676,23 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'You all lie there in a tangle, spent and happy.  Urta is the first to recover, gently turning Katherine’s head around so she can give her a long kiss.  She smiles at you and says “<i>Thanks again for introducing the two of us ' + CoC.getInstance().player.short + '.  Now how about you get back to your camp and I take care of this trapped kitty, hmmm?</i>”\n\n' );
 		EngineCore.outputText( 'You get dressed, watching the two herms snuggle together.  With Urta stroking Kath’s heavy belly like that you have to wonder if your horny fox is already thinking about a round two.  If she is you know Katherine isn’t about to complain.\n\n' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.sandwich = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Urta scratches behind Kath’s ear and suggests slipping into one of the back rooms.  As soon as you close the door behind you Kath jumps into Urta’s arms and gives her a long kiss.\n\n' );
 		EngineCore.outputText( 'When they come up for air Urta says, “<i>Just a minute Kath, let me get ready,</i>” in a playful tone, trying to push Kath away long enough to get her clothes off.  Kath locks lips with Urta again while her fingers work on the laces of Urta’s clothes.\n\n' );
-		EngineCore.outputText( 'When Urta is mostly naked Kath gets behind her and puts her cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' between Urta’s thighs.  Taken by surprise Urta closes her legs.  Kath grabs Urta’s hips and purrs in her ear as she starts to slide her member' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' in and out.  You see them start to glisten with Urta’s juices and when Kath next pulls back she winks at you.  Her ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'upper cock pressing against Urta’s ass and her lower ' ) + 'cock ' + (CoC.getInstance().scenes.katherine.cockNumber === 1 && CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'pressing against Urta’s ass' : 'slipping between the folds of Urta’s dripping snatch') + '.  Urta’s jaw quivers and she holds her breath, waiting for her fucking to begin.\n\n' );
-		EngineCore.outputText( 'You put your hands on Urta’s shoulders, pushing her back towards Katherine.  When Kath sinks her shaft' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' into Urta you comment that they’re really getting along well.  You’re glad to see there isn’t much friction between them.\n\n' );
-		EngineCore.outputText( '“<i>How could there be when she’s cumming buckets?</i>” asks Kath, her cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' bottoming out inside Urta.  “<i>Now how about you give her something to do?</i>”' );
+		EngineCore.outputText( 'When Urta is mostly naked Kath gets behind her and puts her cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' between Urta’s thighs.  Taken by surprise Urta closes her legs.  Kath grabs Urta’s hips and purrs in her ear as she starts to slide her member' + SceneLib.katherine.cockMultiple( '', 's' ) + ' in and out.  You see them start to glisten with Urta’s juices and when Kath next pulls back she winks at you.  Her ' + SceneLib.katherine.cockMultiple( '', 'upper cock pressing against Urta’s ass and her lower ' ) + 'cock ' + (SceneLib.katherine.cockNumber === 1 && SceneLib.urta.pregnancy.isPregnant ? 'pressing against Urta’s ass' : 'slipping between the folds of Urta’s dripping snatch') + '.  Urta’s jaw quivers and she holds her breath, waiting for her fucking to begin.\n\n' );
+		EngineCore.outputText( 'You put your hands on Urta’s shoulders, pushing her back towards Katherine.  When Kath sinks her shaft' + SceneLib.katherine.cockMultiple( '', 's' ) + ' into Urta you comment that they’re really getting along well.  You’re glad to see there isn’t much friction between them.\n\n' );
+		EngineCore.outputText( '“<i>How could there be when she’s cumming buckets?</i>” asks Kath, her cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' bottoming out inside Urta.  “<i>Now how about you give her something to do?</i>”' );
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.choices( 'Mount Urta', this.sandwichGetFucked, 'Get Licked', (CoC.getInstance().player.isTaur() ? this.sandwichMaleCentaurLicked : this.sandwichGetLicked), '', null, '', null, '', null );
 		} else {
@@ -708,9 +708,9 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		}
 		EngineCore.outputText( '.  Urta, already horny thanks to Kath’s ministrations, wastes no time.\n\n' );
 		EngineCore.outputText( 'You feel her hands latch onto your ' + (CoC.getInstance().player.isTaur() ? 'flanks' : 'hips') + ' and her meaty cock presses against your [vagOrAss].  You moan and try to open yourself for this invader, but Urta is in a hurry.  Her fingers dig into your sides and she reels you in, relentlessly feeding you inch after inch of her prick.  When she bottoms out you hear a deep sigh.  It must feel amazing to be both completely filled and completely filling someone at the same time.\n\n' );
-		EngineCore.outputText( 'Kath doesn’t wait for you or Urta to adjust.' + (CoC.getInstance().scenes.katherine.cockLength > 14 ? '  You can actually feel a little bump just above Urta’s cock every time Kath thrusts inside her.' : '') + '  She pounds Urta, picking up the pace, and you know it can’t be long before Katherine knots.\n\n' );
+		EngineCore.outputText( 'Kath doesn’t wait for you or Urta to adjust.' + (SceneLib.katherine.cockLength > 14 ? '  You can actually feel a little bump just above Urta’s cock every time Kath thrusts inside her.' : '') + '  She pounds Urta, picking up the pace, and you know it can’t be long before Katherine knots.\n\n' );
 		EngineCore.outputText( 'Urta must also know Kath is close as she gets to work on your [vagOrAss], but she’s not quick enough.  You hear a strangled ‘meyowr’ from Kath and you feel Urta’s belly ' );
-		if( CoC.getInstance().scenes.katherine.cumQ() <= 1500 ) {
+		if( SceneLib.katherine.cumQ() <= 1500 ) {
 			EngineCore.outputText( 'grow warm as it fills with Katherine\'s seed.  Urta stops for just a moment, sighing contentedly, before she once again grips your ' + (CoC.getInstance().player.isTaur() ? 'flanks' : 'hips') );
 		} else {
 			EngineCore.outputText( 'expanding against ' + (CoC.getInstance().player.isTaur() ? 'your rump' : 'the small of your back') + '.  The air is forced from Urta’s lungs and you get pushed to the ground as both your lovers collapse against you.\n\nYou smile to yourself and flex ' + (CoC.getInstance().player.hasVagina() ? 'the muscles in your pussy' : 'your sphincter') + ', milking Urta’s cock.  She may be packed with Kath’s sperm but Urta is still Urta.  She responds by gripping your ' + (CoC.getInstance().player.isTaur() ? 'flanks' : 'hips') + ' once more' );
@@ -722,13 +722,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 	KatherineThreesome.prototype.sandwichGetLicked = function() {
 		EngineCore.outputText( '\n\nYou massage Urta’s shoulders and ask if she could help you out.  She’s not sure what you mean until you apply a little pressure, gently angling her head toward your ' + (CoC.getInstance().player.hasCock() ? 'cock' : 'pussy') + '.  Once she gets the idea Urta quickly gets down on all fours.  You have to smile to yourself as Urta ' + (CoC.getInstance().player.hasCock() ? 'licks your cock and sucks out some pre' : 'digs in') + '.  She puts her hands on your hips so that Katherine’s thrusts don’t ' + (CoC.getInstance().player.hasCock() ? 'impale her' : 'force her face into your pussy') + '.\n\n' );
 		EngineCore.outputText( 'It’s hard to just stand there.  Before you Kath is lost in pleasure, drunkenly slamming ' );
-		if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		if( SceneLib.katherine.cockNumber > 1 ) {
 			EngineCore.outputText( 'both her cocks into Urta’s willing holes' );
 		} else {
-			EngineCore.outputText( 'her cock into Urta’s willing ' + (CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'ass' : 'pussy') );
+			EngineCore.outputText( 'her cock into Urta’s willing ' + (SceneLib.urta.pregnancy.isPregnant ? 'ass' : 'pussy') );
 		}
 		EngineCore.outputText( '.  Every time she thrusts her rack jiggles delightfully.  At the same time Urta’s expert tongue is ' + (CoC.getInstance().player.hasCock() ? 'sliding around your cockhead' : 'busy teasing your folds') + ', nudging you towards an orgasm.\n\n' );
-		EngineCore.outputText( 'With a powerful thrust Kath manages to force her partially inflated knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' inside Urta.  Urta gasps, but more importantly she also loses her grip on your hips.  Kath is so lost in pleasure she doesn’t even notice.  She pulls back and you hear her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' pop out.  Then she rams ' + CoC.getInstance().scenes.katherine.cockMultiple( 'it', 'them' ) + ' back in.  Urta is driven forward and ' + (CoC.getInstance().player.hasCock() ? 'she ends up taking your entire cock down her throat in one stroke' : 'her face gets mashed into your pussy') + '.\n\n' );
+		EngineCore.outputText( 'With a powerful thrust Kath manages to force her partially inflated knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' inside Urta.  Urta gasps, but more importantly she also loses her grip on your hips.  Kath is so lost in pleasure she doesn’t even notice.  She pulls back and you hear her knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' pop out.  Then she rams ' + SceneLib.katherine.cockMultiple( 'it', 'them' ) + ' back in.  Urta is driven forward and ' + (CoC.getInstance().player.hasCock() ? 'she ends up taking your entire cock down her throat in one stroke' : 'her face gets mashed into your pussy') + '.\n\n' );
 		EngineCore.outputText( 'It’s the pleading look Urta gives you that sends you over the edge.  That and ' + (CoC.getInstance().player.hasCock() ? 'the feeling of her whole throat clamping down on your member' : 'her nose tickling your clit while her tongue probes your depths.  You cum hard, soaking her face with fem-cum') + '.\n\n' );
 		if( CoC.getInstance().player.hasCock() ) {
 			if( CoC.getInstance().player.cumQ() < 500 ) {
@@ -747,18 +747,18 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 				EngineCore.outputText( 'Urta doesn’t have a chance to get used to the huge load you pumped into her' );
 			}
 		}
-		EngineCore.outputText( ' before Kath slams forward once again and knots her.  You see Kath’s tail go rigid and you know Urta is about to receive another contribution.  You get a front row seat as Kath’s hyperactive ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls start' : 'prostate starts') + ' to fill the foxy herm.\n\n' );
-		if( CoC.getInstance().scenes.urta.pregnancy.isPregnant ) {
-			if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		EngineCore.outputText( ' before Kath slams forward once again and knots her.  You see Kath’s tail go rigid and you know Urta is about to receive another contribution.  You get a front row seat as Kath’s hyperactive ' + (SceneLib.katherine.hasBalls() ? 'balls start' : 'prostate starts') + ' to fill the foxy herm.\n\n' );
+		if( SceneLib.urta.pregnancy.isPregnant ) {
+			if( SceneLib.katherine.cockNumber > 1 ) {
 				EngineCore.outputText( 'You watch as a bump forms beneath Urta’s belly.  Her cervix must be blocking Kath’s semen, so it’s pooling at the top of Urta’s birth canal with enough pressure to leave stretch marks on Urta’s skin.  That will probably serve Urta well when the baby is born, but at the moment she’s clutching the bump wordlessly and taking in shallow breaths.\n\n' );
 			}
-			EngineCore.outputText( 'The cock Katherine has planted in Urta’s ass ' + CoC.getInstance().scenes.katherine.cockMultiple( 'must be pumping in a torrent of cum', 'faces no such restriction' ) + '.  Urta’s belly gets bigger and bigger as her womb and organs are forced forward by the mass of cum bubbling through her colon.\n\n' );
-			if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+			EngineCore.outputText( 'The cock Katherine has planted in Urta’s ass ' + SceneLib.katherine.cockMultiple( 'must be pumping in a torrent of cum', 'faces no such restriction' ) + '.  Urta’s belly gets bigger and bigger as her womb and organs are forced forward by the mass of cum bubbling through her colon.\n\n' );
+			if( SceneLib.katherine.cockNumber > 1 ) {
 				EngineCore.outputText( 'Suddenly Kath lets out a surprised “<i>Ahhh!</i>” and the hard bulge just above Urta’s cock shrinks quickly while her belly gets even rounder.  “<i>Oh, oh it went backwards.</i>” says Kath, her eyes taking on a glazed look.\n\n' );
 			}
-			EngineCore.outputText( 'Kath collapses as her ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls channel their' : 'prostate channels its') + ' last few squirts into Urta’s ass.  ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'Urta has gone from clutching the bulge to rubbing her sides.' ) + '  When it’s over Katherine' );
+			EngineCore.outputText( 'Kath collapses as her ' + (SceneLib.katherine.hasBalls() ? 'balls channel their' : 'prostate channels its') + ' last few squirts into Urta’s ass.  ' + SceneLib.katherine.cockMultiple( '', 'Urta has gone from clutching the bulge to rubbing her sides.' ) + '  When it’s over Katherine' );
 		} else {
-			EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( 'Sure enough Katherine’s cock starts to release its torrent of cum inside Urta and her', 'Sure enough, the twin shafts inside Urta release a torrent of cum and her' ) + ' belly bulges larger and larger with every squirt.  You have to smile at the look on their faces - Kath focusing intently each time her ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls contract' : 'prostate clenches') + ' and a moment later Urta’s eyes bulging as her belly gets ever rounder.\n\n' );
+			EngineCore.outputText( SceneLib.katherine.cockMultiple( 'Sure enough Katherine’s cock starts to release its torrent of cum inside Urta and her', 'Sure enough, the twin shafts inside Urta release a torrent of cum and her' ) + ' belly bulges larger and larger with every squirt.  You have to smile at the look on their faces - Kath focusing intently each time her ' + (SceneLib.katherine.hasBalls() ? 'balls contract' : 'prostate clenches') + ' and a moment later Urta’s eyes bulging as her belly gets ever rounder.\n\n' );
 			EngineCore.outputText( 'Finally Kath runs out of juice and collapses backward.  She' );
 		}
 		EngineCore.outputText( ' puts a hand on Urta’s belly and moves her belly button back and forth as if she’s playing with a nipple.\n\n' );
@@ -768,16 +768,16 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 	KatherineThreesome.prototype.sandwichMaleCentaurLicked = function() {
 		EngineCore.outputText( '\n\nYou massage Urta’s shoulders and ask if she could help you out.  She’s not sure what you mean until you apply a little pressure.  Once she gets the idea Urta quickly gets down on all fours.  You give her a big smile and carefully walk over her.\n\n' );
 		EngineCore.outputText( 'You wind up in an unusual, but very pleasant situation.  Beneath you Urta is greedily slurping at your cock.  Katherine, who is lodged in Urta’s ' );
-		if( CoC.getInstance().scenes.katherine.cockNumber > 1 ) {
+		if( SceneLib.katherine.cockNumber > 1 ) {
 			EngineCore.outputText( 'ass and pussy' );
 		} else {
-			EngineCore.outputText( CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'ass' : 'pussy' );
+			EngineCore.outputText( SceneLib.urta.pregnancy.isPregnant ? 'ass' : 'pussy' );
 		}
 		EngineCore.outputText( ', is in just the right position to give you a kiss.  Since your hands are free you embrace her, enjoying the feeling of her breasts rubbing against you while your other partner pleasures your shaft.\n\n' );
-		EngineCore.outputText( 'Kath pulls herself free and gives you a wink.  Then she shoves forward, catching Urta by surprise and ramming your cock down Urta’s gullet.  When Urta pulls back Kath grabs her hips and pulls the fox back onto her own cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  Urta barely has time to suck in another breath before the drunken pussycat drives her back onto your meatstick.\n\n' );
+		EngineCore.outputText( 'Kath pulls herself free and gives you a wink.  Then she shoves forward, catching Urta by surprise and ramming your cock down Urta’s gullet.  When Urta pulls back Kath grabs her hips and pulls the fox back onto her own cock' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  Urta barely has time to suck in another breath before the drunken pussycat drives her back onto your meatstick.\n\n' );
 		EngineCore.outputText( 'You know Urta can’t be that uncomfortable - if she just lowered her head she wouldn’t have to swallow you when Kath shoves her forward.  That and the fox tail that’s wagging between your front legs tells you your favourite fox herm has surrendered herself to being used as a living sex toy.\n\n' );
-		EngineCore.outputText( 'Kath really starts to pant and her hips start to jackhammer into Urta.  Looking down you get a front row seat as Kath slams her knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' in and out of Urta’s abused hole' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  Then the knots stay in and Kath’s upper body seems to liquify in your arms, an exultant expression on her face.  Urta, still pinned between the two of you, lets out a happy gurgle as her belly is filled with Katherine’s seed and you hear spraying and splashing as her horse cock blows its load all over the floor.\n\n' );
-		EngineCore.outputText( 'Since Kath and Urta are now solidly joined you take hold of the exhausted cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + '’s hips and work her forwards and backwards.  You find it easy to drag Urta back and forth.  Presumably her bloated belly is sliding across the floor on a thick layer of cum.\n\n' );
+		EngineCore.outputText( 'Kath really starts to pant and her hips start to jackhammer into Urta.  Looking down you get a front row seat as Kath slams her knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' in and out of Urta’s abused hole' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  Then the knots stay in and Kath’s upper body seems to liquify in your arms, an exultant expression on her face.  Urta, still pinned between the two of you, lets out a happy gurgle as her belly is filled with Katherine’s seed and you hear spraying and splashing as her horse cock blows its load all over the floor.\n\n' );
+		EngineCore.outputText( 'Since Kath and Urta are now solidly joined you take hold of the exhausted cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + '’s hips and work her forwards and backwards.  You find it easy to drag Urta back and forth.  Presumably her bloated belly is sliding across the floor on a thick layer of cum.\n\n' );
 		EngineCore.outputText( 'Urta slides her tongue around inside her mouth, trying her best to help you cum.  For her part Kath locks her hands around the back of your head and weakly pulls your face down into her breasts.  At last you feel that familiar tensing in your ' + (CoC.getInstance().player.balls > 0 ? 'sac' : 'prostate') + ' and you push as far forward as you can.  Urta’s tongue darts out of her mouth and she’s just able to lick ' + (CoC.getInstance().player.balls > 0 ? 'your balls' : 'the base of your cock') + '.\n\n' );
 		EngineCore.outputText( 'All four of your knees go weak as your body devotes all of its energy to filling this foxy lady.  ' );
 		if( CoC.getInstance().player.cumQ() < 500 ) {
@@ -786,20 +786,20 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'You pump shot after shot down Urta’s throat.  With each blast you fire you feel her innards stretch more and more.   By the time your ' + (CoC.getInstance().player.balls > 0 ? 'balls are' : 'prostate is') + ' empty there’s a distinct warmth and wetness in her throat.  Thank goodness she has no gag reflex.' );
 		} else if( CoC.getInstance().player.cumQ() < 3000 ) {
 			EngineCore.outputText( 'Urta tenses up as you release a fountain of cum into her stomach.\n\n' );
-			EngineCore.outputText( 'It doesn’t take long before you feel her belly expanding under pressure, making her look three months pregnant, four months, five!  There’s serious backpressure, as the cum in her other hole' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' has nowhere to go.  Stuffed like a turkey Urta can do nothing but wait as you expand her stomach and belly beyond their normal limits.' );
+			EngineCore.outputText( 'It doesn’t take long before you feel her belly expanding under pressure, making her look three months pregnant, four months, five!  There’s serious backpressure, as the cum in her other hole' + SceneLib.katherine.cockMultiple( '', 's' ) + ' has nowhere to go.  Stuffed like a turkey Urta can do nothing but wait as you expand her stomach and belly beyond their normal limits.' );
 		} else {
-			EngineCore.outputText( 'When you release your load your cock expands in girth under the pressure.  You knock the wind out of Urta as you explode inside her throat.  A long stream of cum sprays directly into her stomach' + (CoC.getInstance().scenes.katherine.cockNumber > 1 || CoC.getInstance().scenes.urta.pregnancy.isPregnant ? ', seemingly racing to meet the deposit Kath left in Urta’s colon' : '') + '.  Urta’s hands and feet scrabble across the floor, trying to find some escape.  Kath’s deposit' + CoC.getInstance().scenes.katherine.cockMultiple( ' has', 's have' ) + ' nowhere to go so when Urta’s body finally reaches its limit it’s your cock that has to give.\n\n' );
+			EngineCore.outputText( 'When you release your load your cock expands in girth under the pressure.  You knock the wind out of Urta as you explode inside her throat.  A long stream of cum sprays directly into her stomach' + (SceneLib.katherine.cockNumber > 1 || SceneLib.urta.pregnancy.isPregnant ? ', seemingly racing to meet the deposit Kath left in Urta’s colon' : '') + '.  Urta’s hands and feet scrabble across the floor, trying to find some escape.  Kath’s deposit' + SceneLib.katherine.cockMultiple( ' has', 's have' ) + ' nowhere to go so when Urta’s body finally reaches its limit it’s your cock that has to give.\n\n' );
 			EngineCore.outputText( 'The tidal wave of cum inside Urta forces you to take a step back and your cock, despite its stiffness, buckles in the face of the pressure inside Urta.  The pain, combined with the pressure from within your shaft and without, forces you to take another step back and your cock springs out of Urta’s mouth.  While she coughs up the last portion of your contribution your cock continues erupting, coating your belly, Urta and even the front of Kath with a tremendous geyser of semen.' );
 		}
 		this.sandwichCommonEnd(); //Play the common end
 	};
 	KatherineThreesome.prototype.sandwichCommonEnd = function() {
 		EngineCore.outputText( '\n\nYou pull yourself free from your knotted lovers and take in the scene.  The two herms are panting happily.  Urta is stuffed like she’s nine months along and Kath’s tail is flicking from side to side.  Occasionally it lands in a puddle of spunk and flicks a glob of spooge across the room.  It’s going to take a while to clean up, but you have people to see and places to be.\n\n' );
-		EngineCore.outputText( 'To ‘make up’ for skipping out on the cleaning you decide to give them a little treat.  ' + (CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] === 1 && !CoC.getInstance().scenes.urta.pregnancy.isPregnant ? 'First you pat Urta’s belly and ask if she’s trying to get herself knocked up.  She just mumbles something incoherent.  Then you' : 'You') + ' get behind Kath and rub the base of the drunken kitty’s tail.  She purrs appreciatively.  You reach further down and start playing with ' );
-		if( CoC.getInstance().scenes.katherine.ballSize > 0 ) {
+		EngineCore.outputText( 'To ‘make up’ for skipping out on the cleaning you decide to give them a little treat.  ' + (CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] === 1 && !SceneLib.urta.pregnancy.isPregnant ? 'First you pat Urta’s belly and ask if she’s trying to get herself knocked up.  She just mumbles something incoherent.  Then you' : 'You') + ' get behind Kath and rub the base of the drunken kitty’s tail.  She purrs appreciatively.  You reach further down and start playing with ' );
+		if( SceneLib.katherine.ballSize > 0 ) {
 			EngineCore.outputText( 'her recently drained balls' );
 		} else {
-			EngineCore.outputText( 'the base of her ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'lower ' ) + 'cock' );
+			EngineCore.outputText( 'the base of her ' + SceneLib.katherine.cockMultiple( '', 'lower ' ) + 'cock' );
 		}
 		EngineCore.outputText( '.\n\n' );
 		EngineCore.outputText( '“<i>You’ve got to show the Captain here that you’ve got endurance,</i>” you tell her.\n\n' );
@@ -810,20 +810,20 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'You kiss Kath again and ask her, “<i>Don’t you want to see how big you can make her?</i>”  Despite having just cum you see the drunken lust reignite in Kath’s eyes.  She digs her claws into Urta’s hips and starts gently rocking her shaft in and out.\n\n' );
 		EngineCore.outputText( 'Urta clutches her belly and moans, “<i>Oh no,</i>” but you think she’s starting to get into it.  Before you get too turned on you leave your lovers to it.' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] >= 31 ? '  They really need some more time together and you’re sure this qualifies as a ‘bonding experience’.' : '') );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.orgy = function() { //Both Kath and Urta are drunk
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your attempt to draw them off into one of the backrooms comes too late.  Urta kisses Kath and Kath responds by undoing Urta’s belt.  Her massive schlong smacks the underside of the table on its way to freedom.  The deep wooden ‘knock’ silences most of the bar and everyone looks your way to see what’s going on.\n\n' );
-		EngineCore.outputText( 'Urta is so drunk that she doesn’t care that her prick is standing erect and waving free in the open air.  Kath cares even less about what people think and slowly draws her hand down Urta’s cock, from the tip to the root.  Urta shudders under the attention and quickly undoes ' + CoC.getInstance().scenes.katherine.clothesLowerChoice( 'Kath’s blouse', 'Kath’s blouse', 'the upper part of Kath’s bodysuit', 'the laces on Kath’s dress', 'the front of Kath’s robe' ) + ', freeing her ' + CoC.getInstance().scenes.katherine.breasts.adj() + ' breasts.\n\n' );
+		EngineCore.outputText( 'Urta is so drunk that she doesn’t care that her prick is standing erect and waving free in the open air.  Kath cares even less about what people think and slowly draws her hand down Urta’s cock, from the tip to the root.  Urta shudders under the attention and quickly undoes ' + SceneLib.katherine.clothesLowerChoice( 'Kath’s blouse', 'Kath’s blouse', 'the upper part of Kath’s bodysuit', 'the laces on Kath’s dress', 'the front of Kath’s robe' ) + ', freeing her ' + SceneLib.katherine.breasts.adj() + ' breasts.\n\n' );
 		EngineCore.outputText( 'Urta’s next move is to grab you by the hand and twist your arm, drawing you over to the seat next to the one she and Kath are sharing.  For her part, Kath slides off the rest of her outfit and then starts eagerly groping your ' );
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.outputText( 'crotch' );
@@ -844,7 +844,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 				EngineCore.outputText( '“<i>Hi ' + CoC.getInstance().player.short + ',</i>” she says cheerfully, “<i>I see you brought a friend.  Did you save her too?</i>”\n\n' );
 				EngineCore.outputText( 'Kath stops kissing Urta for a second and says, “<i>Uh... kinda, yeah,</i>” before Urta pulls her back into the kiss.\n\n' );
 				EngineCore.outputText( '“<i>That sure sounds like my hero,</i>” says Vala, grinning ear to ear.  “<i>Oh, I’m Vala,</i>” she adds, extending a hand which Kath shakes, looking surprised.\n\n' );
-				EngineCore.outputText( 'You tell Vala that this is Katherine.  You hear a muffled “<i>Hi</i>” from the locked lips of your two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'lovers') + '.\n\n' );
+				EngineCore.outputText( 'You tell Vala that this is Katherine.  You hear a muffled “<i>Hi</i>” from the locked lips of your two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'lovers') + '.\n\n' );
 			}
 		}
 		EngineCore.outputText( 'After that things get out of hand.  You lose track of both time and people.  Certainly you, Katherine' + (valaHere ? ', Urta and Vala' : ' and Urta') + ' tend to be at the center of things, but there’s a mess of other people involved.  You’re sure some extras participants came in from the street.  Over an hour later you find yourself lying in a pool of slowly cooling spunk.\n\n' );
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( ' sport huge, cum-stuffed bellies - as do so many others.\n\n' );
 		EngineCore.outputText( 'Too tired to move, you go through some of the highlights in your mind: A huge minotaur in bondage straps eagerly sucking on a bunny morph’s cock, swallowing her entire load' );
 		if( valaHere ) {
-			EngineCore.outputText( '... Vala surprising Kath by ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'settling on top of her ' + CoC.getInstance().scenes.katherine.cockAdj() + 'shaft and then taking it, knot and all, inside her tiny body' : 'diving between her thighs and sucking on Kath\'s clit while pushing her whole hand inside Kath\'s dripping twat') );
+			EngineCore.outputText( '... Vala surprising Kath by ' + (SceneLib.katherine.hasCock() ? 'settling on top of her ' + SceneLib.katherine.cockAdj() + 'shaft and then taking it, knot and all, inside her tiny body' : 'diving between her thighs and sucking on Kath\'s clit while pushing her whole hand inside Kath\'s dripping twat') );
 		}
 		EngineCore.outputText( '... A heavily pregnant drider fisting a centaur and at the same time forcing her eggs into an eager looking canine-morph... a tiny little spider girl, no more than 4’4" tall, taking three huge horse-morphs in a row, her chitin creaking as her belly expands far past her normal limits... a woman who looked demonic, lost in ecstasy, sucking on a pair of dog cocks and jerking them off onto herself while riding Urta’s monster prick... and of course the moment when Katherine ' );
 		if( CoC.getInstance().player.hasCock() ) {
@@ -869,44 +869,44 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'Vala manages to pull herself free from the sticky floor.  Her wings flap wetly, splattering gobs of cum across the bar.  She gives you a kiss and turns to inspect Katherine and Urta.  “<i>You sure know how to start a party,</i>” she says, pressing on her belly to force out some of the cum.\n\n' );
 			EngineCore.outputText( 'She looks around the bar at all the collapsed bodies and says, “<i>This is gonna take a long time to clean up, but boy oh boy was it ever worth it.</i>”  She gives each of you a kiss and then wobbles toward the cupboard with the cleaning supplies.\n\n' );
 			EngineCore.outputText( 'Kath mumbles, “<i>Worth it,</i>” at the floor, then seems to pass out.\n\n' );
-			CoC.getInstance().scenes.katherine.katherineAndValaHadSex();
+			SceneLib.katherine.katherineAndValaHadSex();
 		}
 		EngineCore.outputText( 'Using one of the room’s columns as support Urta pulls herself upright and surveys the damage.  “<i>I’m going to have to sort this out.  Oh yeah, this was worth it, but now I’m going to need to sweep it all under the rug.  Yeesh.</i>”\n\n' );
 		EngineCore.outputText( 'She tosses a spermy bit of your clothing to you and says, “<i>You should get out of here ' + CoC.getInstance().player.short + '.  Don’t you worry, I’ll take care of this.</i>”  Poking Katherine with her foot, she adds, “<i>Besides, Kath needs a bit more education on the subject of Watch paperwork.</i>”\n\n' );
 		EngineCore.outputText( '“<i>Aw - not paperwork,</i>” groans Kath as you wave and escape out the door.' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 10 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	KatherineThreesome.prototype.doubleStuffKath = function() { //Both Kath and Urta are drunk
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You ask your two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'lovers') + ' if they want to go somewhere more private.\n\n' );
+		EngineCore.outputText( 'You ask your two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'lovers') + ' if they want to go somewhere more private.\n\n' );
 		var urtaHasHouse = CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0;
-		EngineCore.outputText( 'Urta ' + CoC.getInstance().scenes.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (CoC.getInstance().scenes.katherine.hasCock() ? CoC.getInstance().scenes.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and says, “<i>That’s a good idea.  My ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment’s close enough.</i>”\n\n' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT;
-		EngineCore.outputText( 'It’s an interesting walk.  Both Urta and Kath need your support and both are horny.  They’re constantly groping and kissing you or each other.  When you get to Urta’s ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment the two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'girls') + ' don’t even make it to the bed.  They crash to the floor and start tearing each other’s clothes off while you close the door.\n\n' );
+		EngineCore.outputText( 'Urta ' + SceneLib.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (SceneLib.katherine.hasCock() ? SceneLib.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and says, “<i>That’s a good idea.  My ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment’s close enough.</i>”\n\n' );
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT;
+		EngineCore.outputText( 'It’s an interesting walk.  Both Urta and Kath need your support and both are horny.  They’re constantly groping and kissing you or each other.  When you get to Urta’s ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment the two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'girls') + ' don’t even make it to the bed.  They crash to the floor and start tearing each other’s clothes off while you close the door.\n\n' );
 		EngineCore.outputText( '“<i>You want to see us fuck?  Is that it?</i>” Kath asks.\n\n' );
-		EngineCore.outputText( 'Urta strokes Katherine’s ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'cock' : 'tail') + ' and says, “<i>Yeah, [he] loves ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms so much' : 'it when we fuck') + ', let’s give [him] a show!</i>”\n\n' );
-		EngineCore.outputText( 'Urta lifts Kath’s leg and presses the flat face of her cock against Kath’s dripping pussy.  Kath distracts her by squeezing Urta’s breasts, then ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'presses her own cock against' : 'slides her finger over') + ' Urta’s sex.\n\n' );
-		EngineCore.outputText( 'You’re barely out of your clothes by the time your two vixens slam their hips against each other.  It’s like a small thunderclap' + (CoC.getInstance().scenes.katherine.hasCock() ? '.  Both of them look down at where their respective cocks disappear into each other’s bodies' : ' and they both seem well pleased with the result') + '.\n\n' );
-		EngineCore.outputText( 'Kath starts to laugh.  “<i>' + (CoC.getInstance().scenes.katherine.hasCock() ? 'No room left for you' : 'Too slow' + CoC.getInstance().player.short) + ',</i>” she says, “<i>but I bet we can still make you feel good.</i>”\n\n' );
+		EngineCore.outputText( 'Urta strokes Katherine’s ' + (SceneLib.katherine.hasCock() ? 'cock' : 'tail') + ' and says, “<i>Yeah, [he] loves ' + (SceneLib.katherine.hasCock() ? 'herms so much' : 'it when we fuck') + ', let’s give [him] a show!</i>”\n\n' );
+		EngineCore.outputText( 'Urta lifts Kath’s leg and presses the flat face of her cock against Kath’s dripping pussy.  Kath distracts her by squeezing Urta’s breasts, then ' + (SceneLib.katherine.hasCock() ? 'presses her own cock against' : 'slides her finger over') + ' Urta’s sex.\n\n' );
+		EngineCore.outputText( 'You’re barely out of your clothes by the time your two vixens slam their hips against each other.  It’s like a small thunderclap' + (SceneLib.katherine.hasCock() ? '.  Both of them look down at where their respective cocks disappear into each other’s bodies' : ' and they both seem well pleased with the result') + '.\n\n' );
+		EngineCore.outputText( 'Kath starts to laugh.  “<i>' + (SceneLib.katherine.hasCock() ? 'No room left for you' : 'Too slow' + CoC.getInstance().player.short) + ',</i>” she says, “<i>but I bet we can still make you feel good.</i>”\n\n' );
 		EngineCore.outputText( 'Urta licks her lips and says, “<i>Oh yeah, we’re gonna make you feel so good.</i>”  She reaches out for your hand and pulls you closer.  She mumbles “<i>If I’m fucking your girl’s pussy this is the least I can do.</i>”  Her tongue licks the ' + (CoC.getInstance().player.hasCock() ? 'tip of your cock before she takes it into her mouth' : 'length of your pussy before she sucks on your clit') + '.\n\n' );
 		EngineCore.outputText( 'Urta’s alcohol consumption must have loosened her up.  She sucks ' + (CoC.getInstance().player.hasCock() ? 'your cock right down her throat, barely gagging at all' : 'and rolls her tongue over your clit like a possessed woman') + '.  Kath looks ' + (CoC.getInstance().player.hasCock() ? 'impressed as Urta deepthroats you' : 'a little envious, despite the horse cock that\'s filling her') + '.  When Urta finally pulls back for some air Kath gleefully shouts, “<i>My turn!</i>” and ' + (CoC.getInstance().player.hasCock() ? 'takes your whole length in one gulp' : 'dives in, her rough tongue attacking your clit as she tries to one-up her captain') + '.\n\n' );
 		EngineCore.outputText( '“<i>Show off,</i>” says Urta.  She tweaks Katherine’s nipples, causing a low moan that vibrates ' + (CoC.getInstance().player.hasCock() ? 'your dick' : 'through your pussy') + ' in a pleasing way.  Soon Kath ' + (CoC.getInstance().player.hasCock() ? 'has to release' : 'has to release') + ' you and coughs as she sucks in a new breath.\n\n' );
-		EngineCore.outputText( 'Before she can ' + (CoC.getInstance().player.hasCock() ? 'swallow your meat' : 'go down on you') + ' again Urta grabs your ' + (CoC.getInstance().player.hasCock() ? 'pole and directs it between her own lips' : 'hips and presses her face against your groin') + '.  “<i>Hey! I wasn’t finished,</i>” says Kath.  She starts to ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'thrust her ' + CoC.getInstance().scenes.katherine.cockType() + ' member into Urta’s hole' : 'rock her hips, her hand rolling Urta\'s balls between her fingers') + '.  Urta’s eyes close and she lets Kath' + (CoC.getInstance().scenes.katherine.hasCock() ? '’s thrusts rock' : 'do as she likes with') + ' her body, ' + (CoC.getInstance().player.hasCock() ? 'sliding her throat up and down your shaft' : 'her tongue burrowing deep inside you') + '.\n\n' );
-		EngineCore.outputText( 'You were horny before these insatiable ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'sluts') + ' started fighting over your ' + (CoC.getInstance().player.hasCock() ? 'cock' : 'cunt') + ' and the feeling brings you to your knees.  By the time Urta lets go Kath is ready.  In a single stroke her nose starts rubbing against your belly and you look down to witness her slight smile and horny gaze as her rough tongue starts doing unspeakable things ' + (CoC.getInstance().player.hasCock() ? 'to your cock' : 'deep inside your sex') + '.  Meanwhile Urta is ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'providing the same ‘service’ Kath did,' : '') + ' hammering her cock into Kath’s cunt like it owes her money.\n\n' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
+		EngineCore.outputText( 'Before she can ' + (CoC.getInstance().player.hasCock() ? 'swallow your meat' : 'go down on you') + ' again Urta grabs your ' + (CoC.getInstance().player.hasCock() ? 'pole and directs it between her own lips' : 'hips and presses her face against your groin') + '.  “<i>Hey! I wasn’t finished,</i>” says Kath.  She starts to ' + (SceneLib.katherine.hasCock() ? 'thrust her ' + SceneLib.katherine.cockType() + ' member into Urta’s hole' : 'rock her hips, her hand rolling Urta\'s balls between her fingers') + '.  Urta’s eyes close and she lets Kath' + (SceneLib.katherine.hasCock() ? '’s thrusts rock' : 'do as she likes with') + ' her body, ' + (CoC.getInstance().player.hasCock() ? 'sliding her throat up and down your shaft' : 'her tongue burrowing deep inside you') + '.\n\n' );
+		EngineCore.outputText( 'You were horny before these insatiable ' + (SceneLib.katherine.hasCock() ? 'herms' : 'sluts') + ' started fighting over your ' + (CoC.getInstance().player.hasCock() ? 'cock' : 'cunt') + ' and the feeling brings you to your knees.  By the time Urta lets go Kath is ready.  In a single stroke her nose starts rubbing against your belly and you look down to witness her slight smile and horny gaze as her rough tongue starts doing unspeakable things ' + (CoC.getInstance().player.hasCock() ? 'to your cock' : 'deep inside your sex') + '.  Meanwhile Urta is ' + (SceneLib.katherine.hasCock() ? 'providing the same ‘service’ Kath did,' : '') + ' hammering her cock into Kath’s cunt like it owes her money.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
 			EngineCore.outputText( 'You hear an “<i>Oh!</i>” from Urta and the long thrusts are reduced to much shorter strokes.  It seems Kath, in all the excitement, has knotted your foxy friend.  Kath doesn’t sound very sincere when she giggles and says, “<i>I am <b>so</b> sorry.</i>”  Urta just grunts and tries to force more of her equine shaft inside Kath.  They both cum and you get to watch as their bellies fill.  The two herms are forced apart by their bulges and have to take a moment to recover from their orgasms.  They both rub their bellies, obviously content with the situation.\n\n' );
 		} else {
-			EngineCore.outputText( 'You hear an “<i>Oh!</i>” from Urta and she plants her equine shaft as deep as she can inside Kath\'s pussy.  Kath\'s eyes glaze over as Urta grunts and holds Kath in place while her seed flows, filling Katherine\'s belly \'til it takes the shape of a ' + CoC.getInstance().scenes.katherine.catGirl( '', 'fuzzy ' ) + ' watermelon.  The two girls are forced apart by Kath\'s new bulge and have to take a moment to recover from their orgasms.\n\n' );
+			EngineCore.outputText( 'You hear an “<i>Oh!</i>” from Urta and she plants her equine shaft as deep as she can inside Kath\'s pussy.  Kath\'s eyes glaze over as Urta grunts and holds Kath in place while her seed flows, filling Katherine\'s belly \'til it takes the shape of a ' + SceneLib.katherine.catGirl( '', 'fuzzy ' ) + ' watermelon.  The two girls are forced apart by Kath\'s new bulge and have to take a moment to recover from their orgasms.\n\n' );
 		}
 		EngineCore.outputText( 'Kath regains her strength first and forces herself up onto her elbows.  She smiles at you and simply opens her mouth.  You smile back, ' + (CoC.getInstance().player.hasCock() ? 'feed her your cock' : 'press your crotch against her face') + ' and relax, enjoying the slower pace' + (CoC.getInstance().player.hasCock() ? ', the texture of Kath’s tongue and the inside of her throat' : ' and the texture of Kath’s tongue') + '.\n\n' );
 		EngineCore.outputText( 'Your two lovers trade you' + (CoC.getInstance().player.hasCock() ? 'r cock' : '') + ' back and forth a few times until you feel that you’re about to cum.  ' );
@@ -915,13 +915,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		} else if( CoC.getInstance().player.cockTotal() > 1 ) {
 			EngineCore.outputText( 'You put a hand behind each of their heads and pull them both towards your groin.  Kath and Urta hungrily gobble your cocks until their cheeks are pressed together.  That’s when you let loose.  They both feel the first stream hit their throat and the sight of two pairs of eyes looking up at you ensures you’ll provide them both with a good-sized helping.\n\n' );
 			if( CoC.getInstance().player.cumQ() < 500 ) {
-				EngineCore.outputText( 'They both swallow your additional contribution easily.' + (CoC.getInstance().scenes.katherine.hasCock() ? '  It’s nothing compared to the amount they pumped into each other’s pussies.' : '') );
+				EngineCore.outputText( 'They both swallow your additional contribution easily.' + (SceneLib.katherine.hasCock() ? '  It’s nothing compared to the amount they pumped into each other’s pussies.' : '') );
 				if( CoC.getInstance().player.cockTotal() > 2 ) {
 					EngineCore.outputText( '  Your other cock' + (CoC.getInstance().player.cockTotal() > 3 ? 's' : '') + ' produce a few squirts which coat both Kath and Urta’s bodies.' );
 				}
-				EngineCore.outputText( '  As you pull out they give each other a tired hug and giggle drunkenly ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'as they compare their swollen bellies' : 'as Urta rubs Kath\'s swollen belly proudly') + '.' );
+				EngineCore.outputText( '  As you pull out they give each other a tired hug and giggle drunkenly ' + (SceneLib.katherine.hasCock() ? 'as they compare their swollen bellies' : 'as Urta rubs Kath\'s swollen belly proudly') + '.' );
 			} else if( CoC.getInstance().player.cumQ() < 1500 ) {
-				if( CoC.getInstance().scenes.katherine.hasCock() ) {
+				if( SceneLib.katherine.hasCock() ) {
 					EngineCore.outputText( 'Both your lovers have a little difficulty taking your deposit.  Each already has a full tummy thanks to the other’s efforts.  They gulp it all down but afterwards they cradle their full bellies and rub their sides, trying to reduce the pressure.' );
 				} else {
 					EngineCore.outputText( 'Urta swallows your load with ease; Kath, her tummy already brimming thanks to Urta\'s efforts, has more trouble.  They gulp it all down but afterwards Kath cradles her overstuffed belly and Urta massages her sides, trying to reduce the pressure.' );
@@ -931,7 +931,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 				}
 				EngineCore.outputText( '  Urta looks at you, then Kath and back at you and just laughs at where her lust has taken her.' );
 			} else {
-				if( CoC.getInstance().scenes.katherine.hasCock() ) {
+				if( SceneLib.katherine.hasCock() ) {
 					EngineCore.outputText( 'Urta’s gut starts to expand under the added pressure from your contribution.  Kath’s does too, but without a knot in the way quite a bit of Urta’s cum starts to leak out.  Urta makes a worried “<i>Mmph</i>” noise, but you’re too involved in filling them to stop.  She leans back and her stomach grows enough to develop some stretch marks.' );
 				} else {
 					EngineCore.outputText( 'Urta’s gut starts to expand, your deposit soon rounding her belly just as much as Kath\'s.  Kath’s belly swells a little too, but under the added pressure quite a bit of Urta’s cum starts to leak out.' );
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 				if( CoC.getInstance().player.cockTotal() > 2 ) {
 					EngineCore.outputText( '  Your other cock' + (CoC.getInstance().player.cockTotal() > 3 ? 's' : '') + ' release a torrent of cum, coating Kath, Urta, the floor and a few of the walls.  Though it’s messy you’re sure both your lovers are happy that at least some of your sperm didn’t wind up inside them.' );
 				}
-				EngineCore.outputText( '\n\nWhen it’s over you pull your cocks free and Kath giggles at Urta’s faux pregnancy.  “<i>Too full,</i>” Urta croaks.' + (CoC.getInstance().scenes.katherine.hasCock() ? '  Kath rubs Urta’s larger belly and then flicks her finger against it, watching the waves ripple across Urta’s skin' : '\n\nKath\'s jaw drops and she point at her own, even larger, belly.  “<i>You do <b>not</b> get to complain,</i>” she says, pressing her hand none too gently against Urta\'s stomach') + '.  “<i>Oh - not fair!</i>” cries Urta, clutching her overstuffed gut.' );
+				EngineCore.outputText( '\n\nWhen it’s over you pull your cocks free and Kath giggles at Urta’s faux pregnancy.  “<i>Too full,</i>” Urta croaks.' + (SceneLib.katherine.hasCock() ? '  Kath rubs Urta’s larger belly and then flicks her finger against it, watching the waves ripple across Urta’s skin' : '\n\nKath\'s jaw drops and she point at her own, even larger, belly.  “<i>You do <b>not</b> get to complain,</i>” she says, pressing her hand none too gently against Urta\'s stomach') + '.  “<i>Oh - not fair!</i>” cries Urta, clutching her overstuffed gut.' );
 			}
 		} else {
 			{ //Just one cock
@@ -948,12 +948,12 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 				EngineCore.outputText( 'Urta had just swallowed you again, the ride down her throat setting you off.  You grip the back of her head and your ' + (CoC.getInstance().player.balls > 0 ? 'balls start' : 'prostate starts') + ' pumping.  Her eyes go wide but she accepts her fate, trying to swallow your load as fast as you can produce it.\n\n' );
 				EngineCore.outputText( 'Kath realizes what’s happened' + (CoC.getInstance().player.balls > 0 ? ' and rubs your balls' : ', quicky inserts her finger into your ass and starts milking your prostate') + ', trying to coax an even bigger load out of ' + (CoC.getInstance().player.balls > 0 ? 'them' : 'it') + '.  ' );
 				if( CoC.getInstance().player.cumQ() < 500 ) {
-					EngineCore.outputText( 'Urta swallows all of it easily.  Your contribution does nothing to ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'her expanded' : 'expand her') + ' abdomen, but she rubs your leg and smiles contentedly.' );
+					EngineCore.outputText( 'Urta swallows all of it easily.  Your contribution does nothing to ' + (SceneLib.katherine.hasCock() ? 'her expanded' : 'expand her') + ' abdomen, but she rubs your leg and smiles contentedly.' );
 				} else if( CoC.getInstance().player.cumQ() < 1500 ) {
-					EngineCore.outputText( 'Urta has a little difficulty taking your deposit' + (CoC.getInstance().scenes.katherine.hasCock() ? ' since her belly is already filled with Kath’s seed' : '') + '.  She gulps it all down but rubs her sides afterward, trying to reduce the pressure.' );
+					EngineCore.outputText( 'Urta has a little difficulty taking your deposit' + (SceneLib.katherine.hasCock() ? ' since her belly is already filled with Kath’s seed' : '') + '.  She gulps it all down but rubs her sides afterward, trying to reduce the pressure.' );
 				} else {
-					EngineCore.outputText( 'Urta’s gut starts to expand ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'under the added' : 'thanks to the') + ' pressure from your contribution.  She makes a worried “<i>Mmph</i>” noise, but you’re busy right now.  She leans back and her stomach grows enough to develop some stretch marks.' );
-					EngineCore.outputText( 'When it’s over you pull your cock free and Kath giggles at Urta’s faux pregnancy.  “<i>Too full,</i>” Urta croaks.  Kath rubs Urta’s ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'larger ' : '') + 'belly and then flicks her finger against it, watching the waves ripple across Urta’s skin.  “<i>Oh - not fair!</i>” cries Urta, clutching her overstuffed gut.' );
+					EngineCore.outputText( 'Urta’s gut starts to expand ' + (SceneLib.katherine.hasCock() ? 'under the added' : 'thanks to the') + ' pressure from your contribution.  She makes a worried “<i>Mmph</i>” noise, but you’re busy right now.  She leans back and her stomach grows enough to develop some stretch marks.' );
+					EngineCore.outputText( 'When it’s over you pull your cock free and Kath giggles at Urta’s faux pregnancy.  “<i>Too full,</i>” Urta croaks.  Kath rubs Urta’s ' + (SceneLib.katherine.hasCock() ? 'larger ' : '') + 'belly and then flicks her finger against it, watching the waves ripple across Urta’s skin.  “<i>Oh - not fair!</i>” cries Urta, clutching her overstuffed gut.' );
 				}
 			} else {
 				{ //Kath takes it
@@ -966,11 +966,11 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 					EngineCore.outputText( 'Kath has a little difficulty taking your deposit since her belly is already filled with Urta’s seed.  She gulps it all down but rubs her sides afterward, trying to reduce the pressure.' );
 				} else {
 					EngineCore.outputText( 'Kath’s gut starts to expand under the added pressure from your contribution.  She makes a worried “<i>Mmph</i>” noise, but you’re busy right now.  She leans back and her stomach grows enough to develop some stretch marks.  You start to see Urta’s load being forced back out, despite the fact Urta’s huge cock hasn’t started to shrink yet.' );
-					EngineCore.outputText( 'When it’s over you pull your cock free and Urta starts to rub Katherine’s ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'larger ' : '') + 'belly.  Kath lies back on the floor and moans, her tail lazily moving from side to side.' );
+					EngineCore.outputText( 'When it’s over you pull your cock free and Urta starts to rub Katherine’s ' + (SceneLib.katherine.hasCock() ? 'larger ' : '') + 'belly.  Kath lies back on the floor and moans, her tail lazily moving from side to side.' );
 				}
 			}
 		}
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
+		if( SceneLib.katherine.hasCock() ) {
 			EngineCore.outputText( '\n\nYou’re now spent, but the sight of these two cum-stuffed herms knotted together gives you an idea.  You reach down and start rubbing the back end of Kath’s swollen knot.  “<i>Hey.  No no no - please!  If you do that I’ll - Oh! - We’ll be tied for hours.</i>”  You smile and tell her that’s the plan.\n\n' );
 			EngineCore.outputText( 'Urta wriggles, trying to pull away from Kath, but you’re too fast.  You feel Kath’s knot engorge again, sealing Kath to her mate.  You give them each a kiss and tell them it’s time they got to know each other better.  Then you pull on your clothes and head back to camp, feeling you’ve already accomplished quite a bit today.\n\n' );
 		} else {
@@ -982,28 +982,28 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			}
 		}
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.urta.urtaLove( 1 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.doublePenetrateKath = function() { //Both Kath and Urta are drunk
 		EngineCore.clearOutput();
-		EngineCore.outputText( 'You ask your two ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'sluts') + ' if it’s time to commandeer one of the back rooms.\n\n' );
-		EngineCore.outputText( 'Urta ' + CoC.getInstance().scenes.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (CoC.getInstance().scenes.katherine.hasCock() ? CoC.getInstance().scenes.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and gives you a wolfish smile.\n\n' );
+		EngineCore.outputText( 'You ask your two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'sluts') + ' if it’s time to commandeer one of the back rooms.\n\n' );
+		EngineCore.outputText( 'Urta ' + SceneLib.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (SceneLib.katherine.hasCock() ? SceneLib.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and gives you a wolfish smile.\n\n' );
 		EngineCore.outputText( 'You have to help them both to one of the backrooms and you can feel the eyes of many of the bar’s patrons on your back.  As soon as the door is closed and barred Urta presses Kath against the wall and starts giving her tongue.\n\n' );
 		EngineCore.outputText( 'You watch the show, your cock beginning to strain against the confines of your clothes' + (CoC.getInstance().player.hasVagina() ? ' as your pussy begins to wet them' : '') + '.  Katherine starts to tug at Urta’s clothes and despite her drunkenness she does a good job of removing them.\n\n' );
-		EngineCore.outputText( 'Urta rips off the last few bits of her own clothing and then starts on Kath’s garments.  She looks over at you and says, “<i>Better hurry up ' + CoC.getInstance().player.short + '.  I don’t think you want to get left out of this.</i>”  Just as she says the final word she pulls off the last of Kath’s clothes and cups both Kath’s ' + CoC.getInstance().scenes.katherine.breasts.adj() + ' breasts in her hands.\n\n' );
+		EngineCore.outputText( 'Urta rips off the last few bits of her own clothing and then starts on Kath’s garments.  She looks over at you and says, “<i>Better hurry up ' + CoC.getInstance().player.short + '.  I don’t think you want to get left out of this.</i>”  Just as she says the final word she pulls off the last of Kath’s clothes and cups both Kath’s ' + SceneLib.katherine.breasts.adj() + ' breasts in her hands.\n\n' );
 		EngineCore.outputText( 'Kath lets out a happy moan as her ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( CoC.getInstance().scenes.katherine.cockMultiple( 'cock, now in the open air, rises until it’s', 'twin cocks, now in the open air, rise until they’re' ) + ' poking Urta’s belly.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( SceneLib.katherine.cockMultiple( 'cock, now in the open air, rises until it’s', 'twin cocks, now in the open air, rise until they’re' ) + ' poking Urta’s belly.\n\n' );
 		} else {
-			EngineCore.outputText( 'breasts are manhandled.  You watch as ' + (CoC.getInstance().scenes.katherine.breasts.lactating() ? 'cream runs down her front and' : 'some of her') + ' femcum dribbles down her thigh.\n\n' );
+			EngineCore.outputText( 'breasts are manhandled.  You watch as ' + (SceneLib.katherine.breasts.lactating() ? 'cream runs down her front and' : 'some of her') + ' femcum dribbles down her thigh.\n\n' );
 		}
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'Urta twists ' + CoC.getInstance().scenes.katherine.cockMultiple( 'it', 'them' ) + ' out of the way, causing Kath to let out a little squeak.  She tells Kath, “<i>Oh, not today cutie.  Today I’m gonna use this.</i>”  Urta props the tip of her huge horsecock against Kath’s clit.  Kath looks down between her breasts and then over at you.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'Urta twists ' + SceneLib.katherine.cockMultiple( 'it', 'them' ) + ' out of the way, causing Kath to let out a little squeak.  She tells Kath, “<i>Oh, not today cutie.  Today I’m gonna use this.</i>”  Urta props the tip of her huge horsecock against Kath’s clit.  Kath looks down between her breasts and then over at you.\n\n' );
 		} else {
 			EngineCore.outputText( 'Urta props the tip of her huge horsecock against Kath’s clit and tells her, “<i>No teasing today kitty.  Today I am gonna use this monster on you.</i>”  Kath looks down between her breasts and then over at you.\n\n' );
 		}
@@ -1011,21 +1011,21 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'Urta jerks forward in surprise and then they both let out a little yelp.  Kath’s up on tiptoes with her mouth wide open.  Urta looks over her shoulder like she’s about to complain, but then her brain finally registers the hot, tight passage her cock has just sunk into.  The anger disappears from her face and she puts her hands on Katherine’s shoulders.\n\n' );
 		EngineCore.outputText( '“<i>I’m so full,</i>” is all Kath can say.\n\n' );
 		EngineCore.outputText( '“<i>Not yet you aren’t,</i>” replies Urta.  She pushes down on Kath’s shoulders and forces another few inches inside.\n\n' );
-		EngineCore.outputText( 'Katherine’s tongue lolls out of her mouth as her cunt stretches wider.  When Urta starts to pull back Kath looks at you lustily and asks, “<i>What about you, ' + CoC.getInstance().scenes.katherine.playerText() + '?</i>”\n\n' );
-		EngineCore.outputText( 'You pull the joined ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'lovers') + ' away from the wall and tell Kath you’re here to give her support.  She looks a bit confused, so you step behind her and spread her cheeks with your hands.\n\n' );
+		EngineCore.outputText( 'Katherine’s tongue lolls out of her mouth as her cunt stretches wider.  When Urta starts to pull back Kath looks at you lustily and asks, “<i>What about you, ' + SceneLib.katherine.playerText() + '?</i>”\n\n' );
+		EngineCore.outputText( 'You pull the joined ' + (SceneLib.katherine.hasCock() ? 'herms' : 'lovers') + ' away from the wall and tell Kath you’re here to give her support.  She looks a bit confused, so you step behind her and spread her cheeks with your hands.\n\n' );
 		EngineCore.outputText( '“<i>Oh, I see,</i>” she pants.\n\n' );
 		EngineCore.outputText( 'When Urta pushes forward again you press your cock against Kath’s asshole.  You brace your legs, and as Urta fills Kath from the front your cock begins to fill her behind.  Kath hugs Urta and lets out a deep, long purr of satisfaction.\n\n' );
 		EngineCore.outputText( 'Inside her, through your cock, you can feel the large hot intrusion that could only be Urta’s equine member.  You thrust a bit deeper.  The strained membranes between Urta’s cock and yours allow you to feel the bumps of the veins on her cock.  When you both stop you can feel Urta’s pulse.\n\n' );
 		EngineCore.outputText( 'Kath is only along for the ride as you and Urta build a rhythm together.  Sometimes she withdraws as you enter, sometimes you both push your cocks in at the same time - all the way to the root.  When you both withdraw you can feel Katherine’s belly pulling inwards from the sudden suction.\n\n' );
 		EngineCore.outputText( 'The wet squishing, slapping, dripping, purring, and moaning makes it sound like you’re using Kath as an obscene orchestra, an instrument built for two.  She clearly doesn’t care.  With two cocks in her she cums quickly, her ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' matting Urta’s furry belly and coating the floor beneath you.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' matting Urta’s furry belly and coating the floor beneath you.\n\n' );
 		} else {
-			EngineCore.outputText( 'pussy releasing a flood of girl cum that ' + CoC.getInstance().scenes.katherine.catGirl( 'wets her skin', 'mats her fur' ) + ' all the way to her feet and soaks into the floor beneath you.\n\n' );
+			EngineCore.outputText( 'pussy releasing a flood of girl cum that ' + SceneLib.katherine.catGirl( 'wets her skin', 'mats her fur' ) + ' all the way to her feet and soaks into the floor beneath you.\n\n' );
 		}
 		EngineCore.outputText( 'You’re getting close to cumming yourself when you feel Katherine’s sphincter beginning to clasp around your cock a second time.  Kath’s hips are trapped but they try to move nonetheless, ' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( 'uselessly humping as her dick' + CoC.getInstance().scenes.katherine.cockMultiple( ' sprays', 's spray' ) + ' her seed against Urta once again.\n\n' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( 'uselessly humping as her dick' + SceneLib.katherine.cockMultiple( ' sprays', 's spray' ) + ' her seed against Urta once again.\n\n' );
 		} else {
 			EngineCore.outputText( 'weakly grinding against Urta\'s cock as her body begs for more.\n\n' );
 		}
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			} else if( CoC.getInstance().player.cor < 75 ) {
 				EngineCore.outputText( 'You hope Kath is enjoying this as much as you are.' );
 			} else {
-				EngineCore.outputText( 'Secretly you try to force even more sperm from your ' + (CoC.getInstance().player.balls > 0 ? 'heavy balls' : 'monstrous prostate') + '.  You want to see just how far you can stretch out your cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + '’s belly.  Even more, you want to see if you can get her addicted to the feeling of being overfilled.' );
+				EngineCore.outputText( 'Secretly you try to force even more sperm from your ' + (CoC.getInstance().player.balls > 0 ? 'heavy balls' : 'monstrous prostate') + '.  You want to see just how far you can stretch out your cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + '’s belly.  Even more, you want to see if you can get her addicted to the feeling of being overfilled.' );
 			}
 			EngineCore.outputText( '\n\nKath whimpers at being so completely filled, but her tail is wagging.  You’re pretty sure she’s enjoying herself - and if not, well she can’t do anything about it anyway.' );
 		}
@@ -1054,19 +1054,19 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'Kath nods her head slowly.  It’s almost like she’s under Urta’s spell.\n\n' );
 		EngineCore.outputText( '“<i>Don’t worry, cutie.  I’m really close to giving you a big present of my own.</i>”  Urta doesn’t wait for any kind of response.  She just grabs Kath’s hips and starts to ram deeper, harder and faster than before.  Inside Kath you can feel your cum sloshing around, probably frothing as Urta does whatever it takes to blow her load.\n\n' );
 		EngineCore.outputText( 'Kath has already cum twice and been filled once.  You have to hold her shoulders to keep her from falling over.  Urta just keeps on fucking like Kath is a big feline onahole.  You can see it in Urta’s eyes - she’s so horny and so drunk that nothing but cumming matters right now.\n\n' );
-		EngineCore.outputText( 'At last Urta plants her cock as deep as possible.  You’re sure the tip must be ' + (CoC.getInstance().scenes.katherine.pregSize() > 0 ? 'pressed against Kath’s cervix' : 'inside Kath’s womb') + '.  Urta tilts her head back and cries out.  You can feel the heat from her balls and inside Kath your cock can sense the increasing pressure.\n\n' );
+		EngineCore.outputText( 'At last Urta plants her cock as deep as possible.  You’re sure the tip must be ' + (SceneLib.katherine.pregSize() > 0 ? 'pressed against Kath’s cervix' : 'inside Kath’s womb') + '.  Urta tilts her head back and cries out.  You can feel the heat from her balls and inside Kath your cock can sense the increasing pressure.\n\n' );
 		EngineCore.outputText( 'Luckily for Kath, Urta is off balance.  She falls back towards the floor, her vice-like grip on Kath’s hips dragging her down with Urta.  Your cock gets pulled free and your load begins to spill from Katherine’s ass at the same time Urta begins to inject her own.\n\n' );
 		if( CoC.getInstance().player.cumQ() < 500 ) {
-			EngineCore.outputText( 'You see dribbles of your sperm leak down Kath’s legs while Urta’s much larger deposit forces its way into Kath’s cunt.  It doesn’t take long before ' + (CoC.getInstance().scenes.katherine.pregSize() > 0 ? 'the puddle of spunk below them starts to grow' : 'Kath looks like she’s with child') + '.\n\n' );
+			EngineCore.outputText( 'You see dribbles of your sperm leak down Kath’s legs while Urta’s much larger deposit forces its way into Kath’s cunt.  It doesn’t take long before ' + (SceneLib.katherine.pregSize() > 0 ? 'the puddle of spunk below them starts to grow' : 'Kath looks like she’s with child') + '.\n\n' );
 		} else if( CoC.getInstance().player.cumQ() < 1500 ) {
-			EngineCore.outputText( 'With each contraction of Urta’s balls a stream of your cum gushes from Kath’s gaping asshole.  Everything you forced in is now forced back out as Urta’s load fills Katherine’s ' + (CoC.getInstance().scenes.katherine.pregSize() > 0 ? 'vagina and then begins to squirt onto the ground below' : 'womb, stretching her belly a little more than you did and making it look like Kath’s ready to deliver') + '.\n\n' );
+			EngineCore.outputText( 'With each contraction of Urta’s balls a stream of your cum gushes from Kath’s gaping asshole.  Everything you forced in is now forced back out as Urta’s load fills Katherine’s ' + (SceneLib.katherine.pregSize() > 0 ? 'vagina and then begins to squirt onto the ground below' : 'womb, stretching her belly a little more than you did and making it look like Kath’s ready to deliver') + '.\n\n' );
 		} else if( CoC.getInstance().player.cumQ() < 3000 ) {
-			EngineCore.outputText( 'A fountain of cum bursts from Kath’s gaping asshole.  Everything you forced in is now forced back out as Urta’s load fills Katherine’s ' + (CoC.getInstance().scenes.katherine.pregSize() > 0 ? 'vagina and then begins to squirt onto the ground below.  Soon the whole floor is coated in cum.  Some yours, some Kath’s, some Urta’s and all slick' : 'womb, making it look like she’s ready to deliver twins') + '.\n\n' );
+			EngineCore.outputText( 'A fountain of cum bursts from Kath’s gaping asshole.  Everything you forced in is now forced back out as Urta’s load fills Katherine’s ' + (SceneLib.katherine.pregSize() > 0 ? 'vagina and then begins to squirt onto the ground below.  Soon the whole floor is coated in cum.  Some yours, some Kath’s, some Urta’s and all slick' : 'womb, making it look like she’s ready to deliver twins') + '.\n\n' );
 		} else {
 			EngineCore.outputText( 'Your cum erupts from Katherine’s ass like a geyser.  You’re a little bit proud, both of the amount you produced and the fact your favorite kitty managed to hold it all.  But Urta’s balls aren’t waiting.  They pump their own contribution deep inside Kath’s pussy, keeping her belly fully inflated.\n\n' );
-			EngineCore.outputText( (CoC.getInstance().scenes.katherine.pregSize() > 0 ? 'The load soon' : 'When her belly is big enough to hold a centaur filly the load') + ' starts to leak out, coating the whole floor in cum.  Some yours, some Kath’s, some Urta’s and all slick.\n\n' );
+			EngineCore.outputText( (SceneLib.katherine.pregSize() > 0 ? 'The load soon' : 'When her belly is big enough to hold a centaur filly the load') + ' starts to leak out, coating the whole floor in cum.  Some yours, some Kath’s, some Urta’s and all slick.\n\n' );
 		}
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		EngineCore.outputText( 'Urta and Kath both start giggling and Urta starts patting Kath’s belly.  When she sees that you’re still standing Urta traps your feet with her legs and pulls you down into the sticky pile.\n\n' );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 1 ) {
 			{ //First time they’ve ever had sex together
@@ -1090,20 +1090,20 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'Kath sniffs and says, “<i>Yeah, before you found me I never got any love.  Now I have to take breaks cause my pussy gets sore.</i>”  She snuggles up to you and Urta and you’re pretty sure she falls asleep right away, secure in the arms of her lovers.' );
 		}
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndUrtaHadSex( true );
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndUrtaHadSex( true );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		if( CoC.getInstance().time.hours >= 13 ) {
-			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = CoC.getInstance().scenes.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
+			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.doubleStuffVala = function() { //Not available if Kath has no cock
 		this.valaCommonStart();
-		EngineCore.outputText( 'When Katherine finally rips off her bra you push her back onto an old table that’s sitting in the corner.  Before she has a chance to react you spin Vala around and place her on top of Kath’s thighs, her pussy close enough to feel the heat from Kath’s shaft' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  The two of them look at each other' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] >= 8 ? ' with lust and try to pull closer together so they can mate' : ', uncertain - but too turned on to turn back') + '.\n\n' );
-		EngineCore.outputText( 'You pull apart Vala’s folds, giving her pleasure and Kath a good look.  With your other hand you stroke Kath’s ' + CoC.getInstance().scenes.katherine.cockType() + ' cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' and feel Vala wiggle her hips, trying to impale herself.  It’s what you want so you grip Kath’s cock' + CoC.getInstance().scenes.katherine.cockMultiple( ' tightly and guide it', 's tightly, forcing the tips together, and guide them' ) + ' into Vala’s passage.  Both girls moan as the head' + CoC.getInstance().scenes.katherine.cockMultiple( ' sinks', 's sink' ) + ' in.  Then you put your hands on Vala’s ass and push her forward.  You know from experience how elastic she can be and sure enough ' + CoC.getInstance().scenes.katherine.cockMultiple( 'Kath’s cock buries itself', 'both Kath’s cocks bury themselves' ) + ' to the hilt.\n\n' );
+		EngineCore.outputText( 'When Katherine finally rips off her bra you push her back onto an old table that’s sitting in the corner.  Before she has a chance to react you spin Vala around and place her on top of Kath’s thighs, her pussy close enough to feel the heat from Kath’s shaft' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  The two of them look at each other' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] >= 8 ? ' with lust and try to pull closer together so they can mate' : ', uncertain - but too turned on to turn back') + '.\n\n' );
+		EngineCore.outputText( 'You pull apart Vala’s folds, giving her pleasure and Kath a good look.  With your other hand you stroke Kath’s ' + SceneLib.katherine.cockType() + ' cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' and feel Vala wiggle her hips, trying to impale herself.  It’s what you want so you grip Kath’s cock' + SceneLib.katherine.cockMultiple( ' tightly and guide it', 's tightly, forcing the tips together, and guide them' ) + ' into Vala’s passage.  Both girls moan as the head' + SceneLib.katherine.cockMultiple( ' sinks', 's sink' ) + ' in.  Then you put your hands on Vala’s ass and push her forward.  You know from experience how elastic she can be and sure enough ' + SceneLib.katherine.cockMultiple( 'Kath’s cock buries itself', 'both Kath’s cocks bury themselves' ) + ' to the hilt.\n\n' );
 		EngineCore.outputText( 'Vala’s head lolls back and you give her another kiss as your hands pull apart her asscheeks.  You certainly don’t intend to miss out on this.  You press your ' );
 		if( CoC.getInstance().player.cocks.length === 1 ) {
 			EngineCore.outputText( 'cock against Vala’s sphincter and slowly push it inside.' );
@@ -1114,44 +1114,44 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		} else {
 			EngineCore.outputText( 'three largest cocks against Vala’s ass.  Her well trained sphincter relaxes completely and you manage to get all three of them inside.' );
 		}
-		EngineCore.outputText( '  It feels wonderful, especially since you can feel ' + CoC.getInstance().scenes.katherine.cockMultiple( 'Kath’s shaft', 'both of Kath’s shafts' ) + ' through Vala’s thin inner walls.\n\n' );
+		EngineCore.outputText( '  It feels wonderful, especially since you can feel ' + SceneLib.katherine.cockMultiple( 'Kath’s shaft', 'both of Kath’s shafts' ) + ' through Vala’s thin inner walls.\n\n' );
 		EngineCore.outputText( 'Katherine has been holding back despite her lust, waiting for you to get your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + ' in place.  Now she attacks Vala’s pussy in a frenzy.  Vala’s velvety innards tug and squeeze your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + ' in such a wonderful way that you start thrusting as well.\n\n' );
 		EngineCore.outputText( 'Between you and Kath Vala has turned into a rag doll.  Her ecstatic screams are the only proof that she loves this as much as either of you.  In fact she cums first.  Her ass starts to milk your shaft' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + ' and you can see from the blissful expression on Kath that Vala’s pussy is giving her the same treat.\n\n' );
-		EngineCore.outputText( 'You grab Vala’s slender hips and yank her down onto your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + '.  Kath’s hands slap down on top of yours and she does exactly the same thing.  Inside you feel Kath’s knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' inflate to full size just as the first streams of cum jet down your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + '.\n\n' );
+		EngineCore.outputText( 'You grab Vala’s slender hips and yank her down onto your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + '.  Kath’s hands slap down on top of yours and she does exactly the same thing.  Inside you feel Kath’s knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' inflate to full size just as the first streams of cum jet down your cock' + (CoC.getInstance().player.cocks.length > 1 ? 's' : '') + '.\n\n' );
 		if( CoC.getInstance().player.cumQ() < 1500 ) {
-			EngineCore.outputText( 'Your ' + (CoC.getInstance().player.balls > 0 ? 'balls have' : 'prostate has') + ' to work much harder than usual to force your cum past Katherine’s engorged knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  It’s somewhat painful, but after a while you can feel a small pool of your seed forming in Vala’s colon.\n\n' );
-			EngineCore.outputText( 'Her belly stretches out' + (CoC.getInstance().scenes.katherine.cumQ() > CoC.getInstance().player.cumQ() ? ' - more from Kath’s contribution than yours.  It\'s' : ' - it\'s') + ' incredible that Vala can hold so much.  Even on a normal woman that belly would suggest a baby on the way but on Vala it’s massive.\n\n' );
+			EngineCore.outputText( 'Your ' + (CoC.getInstance().player.balls > 0 ? 'balls have' : 'prostate has') + ' to work much harder than usual to force your cum past Katherine’s engorged knot' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  It’s somewhat painful, but after a while you can feel a small pool of your seed forming in Vala’s colon.\n\n' );
+			EngineCore.outputText( 'Her belly stretches out' + (SceneLib.katherine.cumQ() > CoC.getInstance().player.cumQ() ? ' - more from Kath’s contribution than yours.  It\'s' : ' - it\'s') + ' incredible that Vala can hold so much.  Even on a normal woman that belly would suggest a baby on the way but on Vala it’s massive.\n\n' );
 		} else {
-			EngineCore.outputText( 'Despite Katherine’s engorged knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' your ' + (CoC.getInstance().player.balls > 0 ? 'balls are' : 'prostate is') + ' more than up to the task of filling Vala’s rear.  You have to fight against backpressure as Kath’s ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls fight' : 'prostate fights') + ' you for the right to fill the faerie waitress.\n\n' );
+			EngineCore.outputText( 'Despite Katherine’s engorged knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' your ' + (CoC.getInstance().player.balls > 0 ? 'balls are' : 'prostate is') + ' more than up to the task of filling Vala’s rear.  You have to fight against backpressure as Kath’s ' + (SceneLib.katherine.hasBalls() ? 'balls fight' : 'prostate fights') + ' you for the right to fill the faerie waitress.\n\n' );
 			EngineCore.outputText( 'You could say that both of you win and Vala loses.  Her belly stretches more than you thought possible.  By the end she looks like she’s carrying a centaur filly.\n\n' );
 		}
 		EngineCore.outputText( '“<i>Oh yes,</i>” Vala says weakly, “<i>it feels so good.</i>”  She rests her hand on her wobbling belly and rubs her protruding belly button.  “<i>I feel so close to both of you,</i>” she says, looking dreamily over her shoulder.\n\n' );
-		this.valaCommonPostSex( CoC.getInstance().scenes.katherine.hasCock() );
+		this.valaCommonPostSex( SceneLib.katherine.hasCock() );
 		EngineCore.outputText( 'She’s right, of course.  You get dressed and only pause before leaving to take a mental picture of Vala cuddling against Katherine, belly still swollen, your cum dripping from her ass.' );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndValaHadSex();
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.getInstance().flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.eatOutVala = function() { //Not available if Kath has no cock
 		this.valaCommonStart();
-		EngineCore.outputText( 'You pull Vala into your arms and then walk her backwards, toward Kath.  Vala doesn’t notice what you’re doing and Kath backs up into a wall.  You keep moving and press Vala against Kath.  Neither of them have anywhere to go and you feel the tip' + CoC.getInstance().scenes.katherine.cockMultiple( ' of Kath’s cock', 's of Kath’s cocks' ) + ' poking out from between Vala’s legs.\n\n' );
-		EngineCore.outputText( 'Perfect!  You give each of them a kiss and then grab Vala’s ass with both hands, lifting her off the ground and spreading her cheeks as far apart as you can manage.  You tell Kath to line her ' + CoC.getInstance().scenes.katherine.cockMultiple( '', 'twin ' ) + CoC.getInstance().scenes.katherine.cockType() + ' member' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' up with Vala’s ass but it’s Vala who reacts first.  With the speed and agility you’d expect from a faerie she takes Kath’s cock' + CoC.getInstance().scenes.katherine.cockMultiple( ', spreads some pre over the shaft and lines it', 's, spreads some pre over the shafts and and lines them' ) + ' up with her butt.\n\n' );
-		EngineCore.outputText( 'You lower her and Vala sighs as Kath’s rod' + CoC.getInstance().scenes.katherine.cockMultiple( ' rams', 's ram' ) + ' home.  You take Katherine’s hands and place them on Vala’s tiny waist, telling Kath to give her a good hard fucking, Vala can take it.\n\n' );
+		EngineCore.outputText( 'You pull Vala into your arms and then walk her backwards, toward Kath.  Vala doesn’t notice what you’re doing and Kath backs up into a wall.  You keep moving and press Vala against Kath.  Neither of them have anywhere to go and you feel the tip' + SceneLib.katherine.cockMultiple( ' of Kath’s cock', 's of Kath’s cocks' ) + ' poking out from between Vala’s legs.\n\n' );
+		EngineCore.outputText( 'Perfect!  You give each of them a kiss and then grab Vala’s ass with both hands, lifting her off the ground and spreading her cheeks as far apart as you can manage.  You tell Kath to line her ' + SceneLib.katherine.cockMultiple( '', 'twin ' ) + SceneLib.katherine.cockType() + ' member' + SceneLib.katherine.cockMultiple( '', 's' ) + ' up with Vala’s ass but it’s Vala who reacts first.  With the speed and agility you’d expect from a faerie she takes Kath’s cock' + SceneLib.katherine.cockMultiple( ', spreads some pre over the shaft and lines it', 's, spreads some pre over the shafts and and lines them' ) + ' up with her butt.\n\n' );
+		EngineCore.outputText( 'You lower her and Vala sighs as Kath’s rod' + SceneLib.katherine.cockMultiple( ' rams', 's ram' ) + ' home.  You take Katherine’s hands and place them on Vala’s tiny waist, telling Kath to give her a good hard fucking, Vala can take it.\n\n' );
 		EngineCore.outputText( 'Vala squirms and locks her legs behind Kath.  She starts to beg, “<i>Yes, fill me, use me!  Give me all you’ve got!</i>”  You wait for them to develop a rhythm and then you bend down, sinking your tongue into Vala’s empty pussy.  She cries out as you lap up her sweet nectar.\n\n' );
 		EngineCore.outputText( 'When Vala starts to cum you back off, letting her body twist and turn under the effects of her orgasm.  You stand and take Katherine by the shoulders, leading her toward a table.  She’s concentrating so hard on fucking Vala that she just goes along with whatever you want.\n\n' );
-		EngineCore.outputText( 'They reach the table and you push them forward.  If you didn’t know how tough Vala is you’d worry that Kath was going to crush her.  Instead you hear moans from beneath the cat ' + CoC.getInstance().scenes.katherine.catGirl( 'girl', 'morph' ) + ' as Vala continues to cum.\n\n' );
+		EngineCore.outputText( 'They reach the table and you push them forward.  If you didn’t know how tough Vala is you’d worry that Kath was going to crush her.  Instead you hear moans from beneath the cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + ' as Vala continues to cum.\n\n' );
 		EngineCore.outputText( 'But it’s not Vala you’re interested in.  Instead you stick your tongue into Kath’s pussy, which has been ignored until now.  You find it ripe, her juices dripping out and trailing down her thighs.  Kath is ready for harvest and you’re happy to oblige.\n\n' );
-		EngineCore.outputText( 'As you run your tongue across her clit you feel a surge of heat in the knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ' just above your head.  Kath slams into Vala and her ' + (CoC.getInstance().scenes.katherine.hasBalls() ? 'balls go' : 'prostate goes') + ' to work, injecting a salty filling into Vala’s ass.  Both of them are lifted away from the table as Vala’s belly grows larger and larger.\n\n' );
+		EngineCore.outputText( 'As you run your tongue across her clit you feel a surge of heat in the knot' + SceneLib.katherine.cockMultiple( '', 's' ) + ' just above your head.  Kath slams into Vala and her ' + (SceneLib.katherine.hasBalls() ? 'balls go' : 'prostate goes') + ' to work, injecting a salty filling into Vala’s ass.  Both of them are lifted away from the table as Vala’s belly grows larger and larger.\n\n' );
 		EngineCore.outputText( 'The first to recover is Vala, who says, “<i>that feels so good.</i>”  She rests her hand on her wobbling belly and rubs her protruding belly button.' );
-		this.valaCommonPostSex( CoC.getInstance().scenes.katherine.hasCock() );
+		this.valaCommonPostSex( SceneLib.katherine.hasCock() );
 		EngineCore.outputText( 'Kath flips over so that she’s lying on her back with Vala sitting upright on top of her.  Vala smiles at you and mouths, “<i>thank you,</i>” before collapsing herself, causing an “<i>Oof</i>” from Katherine.  You leave your lovers to it and step out into the bar, only remembering at the last second to wipe their fluids from your chin.' );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndValaHadSex();
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.getInstance().flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.fistKathAndVala = function() {
 		this.valaCommonStart();
@@ -1159,32 +1159,32 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 		EngineCore.outputText( 'Next you deal with the horny kitty.  You get behind Kath and wrap your arms around her naked body, teasing her nipples and putting on a show.  Vala lets out an appreciative, “<i>Mmmm, yeah,</i>” as she watches you bring Kath\'s lust to the boil.  When Kath melts into your arms, giving up any hope of control, you drag her to another battered chair and plop her down.\n\n' );
 		EngineCore.outputText( 'You grab Vala\'s seat and drag both it and the lightweight faerie closer, so that she and Kath are sitting side by side.  In their state proximity is enough; the two girls lean in and lock lips.  You wait for them to become distracted by their dueling tongues, then you simultaneously slide your fingers between their hot, wet labia.  Slowly, gently, you slip in more and more fingers on each hand, managing to get everything but your thumbs in before their heads pull apart.\n\n' );
 		EngineCore.outputText( '“<i>' + CoC.getInstance().player.short + '?</i>” Vala asks, “<i>aren\'t you going to... to... oh!</i>”  You never learn what she was trying to say.  Your talented fingers keep her busy until Kath decides she\'s tired of waiting.  She grabs Vala\'s head and pulls her in for another kiss.\n\n' );
-		EngineCore.outputText( 'Vala gets back to kissing but her hands find Katherine\'s tail.  It\'s been flicking back and forth, sometimes coiling itself around Vala\'s waist, but now the faerie starts using her delicate fingers to tease the tip.  Kath groans and ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'her ignored manhood jiggles in time with her heartbeat' : 'her whole body shakes from the unexpected stimulation') + '.\n\n' );
+		EngineCore.outputText( 'Vala gets back to kissing but her hands find Katherine\'s tail.  It\'s been flicking back and forth, sometimes coiling itself around Vala\'s waist, but now the faerie starts using her delicate fingers to tease the tip.  Kath groans and ' + (SceneLib.katherine.hasCock() ? 'her ignored manhood jiggles in time with her heartbeat' : 'her whole body shakes from the unexpected stimulation') + '.\n\n' );
 		EngineCore.outputText( 'Since Vala isn\'t playing fair Kath slides her hands across the faerie\'s sensitive nipples, then reaches around Vala and begins to massage the muscles near the roots of her wings.\n\n' );
 		EngineCore.outputText( 'With both girls doing all they can to drive the other mad their pussies are becoming totally drenched.  You think they\'re loose enough, so you bend your fingers and thumbs and push your palm inside each of them.  Their flesh yields just enough and when the girls break their kiss again they look down to see you\'ve worked your hands in up to your wrists.\n\n' );
 		EngineCore.outputText( '“<i>Gently,</i>” begs Kath, but you\'re having none of it.  You know what these girls like and you twist your fists back and forth within them, your knuckles sliding past their sensitive nerves.  They stop arguing and throw back their heads.  Only Kath\'s death grip around Vala prevents them both from falling off their chairs.\n\n' );
 		EngineCore.outputText( 'Vala releases Kath\'s tail and hugs her back, lost in ecstasy.  You get quite a show as Kath and Vala play with each other\'s bodies, but you concentrate most on the feelings from the digits you\'ve crammed inside them.\n\n' );
 		EngineCore.outputText( 'You map out their favorite spots and wait until you belive they\'re both on the edge of cumming.  Then you hit all the good spots one after the other and are rewarded as two pussies clamp down on your fists.  The girls jerk and shake as one orgasm after another slams through their bodies.' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( '  Kath\'s cock' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + ', which you\'ve ignored this whole time, ' + CoC.getInstance().scenes.katherine.cockMultiple( 'springs to life and blasts', 'spring to life and blast' ) + ' you and the surrounding area with a hefty load of spooge.' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( '  Kath\'s cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ', which you\'ve ignored this whole time, ' + SceneLib.katherine.cockMultiple( 'springs to life and blasts', 'spring to life and blast' ) + ' you and the surrounding area with a hefty load of spooge.' );
 		}
 		EngineCore.outputText( '\n\nAfter some gasping and panting both girls find the power of speech and thank you profusely for the ride you just took them on.' );
 		EngineCore.outputText( 'Vala gets a mischevious gleam in her eye.  ' );
 		this.valaCommonPostSex( false );
 		EngineCore.outputText( 'After you extract your hands and clean yourself off you notice Kath has pulled Vala into her lap and is just holding her.  Vala smiles at you like all is right with the world and you give each of them a kiss before leaving.' );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 20 );
-		CoC.getInstance().scenes.katherine.orgasm();
-		CoC.getInstance().scenes.katherine.katherineAndValaHadSex();
+		SceneLib.katherine.orgasm();
+		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.getInstance().flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.valaCommonStart = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You put your arms around both of them and cop a feel.  From Kath you get a pleased purr and from Vala a contented sigh.  You tell them both that you’ve got an idea and lead them toward the back of the bar.\n\n' );
 		EngineCore.outputText( 'As soon as you lock the door you decide to concentrate on Vala.  Pinching her nipples and kissing her deeply gets her in the mood awfully quickly.  Looks like she wasn’t just bored but horny too.\n\n' );
 		EngineCore.outputText( 'You turn, expecting ' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 5 ? 'Kath to have readied herself.  Sure enough' : 'to have to convince Kath of what you want.  Instead') + ' you find her part way through stripping her clothes off.' );
-		if( CoC.getInstance().scenes.katherine.hasCock() ) {
-			EngineCore.outputText( '  Her cock' + CoC.getInstance().scenes.katherine.cockMultiple( ' is hard enough that it\'s', 's are hard enough that they\'re' ) + ' jutting out horizontally.' );
+		if( SceneLib.katherine.hasCock() ) {
+			EngineCore.outputText( '  Her cock' + SceneLib.katherine.cockMultiple( ' is hard enough that it\'s', 's are hard enough that they\'re' ) + ' jutting out horizontally.' );
 		}
 		EngineCore.outputText( '\n\n' );
 	};
@@ -1194,13 +1194,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, AppearanceDefs, Utils, 
 			EngineCore.outputText( 'Kath’s jaw drops and she stammers, “<i>Hi, I’m Kath, Katherine.  I’m sorry, I don’t usually do stuff like this.</i>”\n\n' );
 			if( theyWereFucking ) {
 				EngineCore.outputText( 'Vala giggles and puts Kath’s hand on her belly before replying, “<i>You mean like knotting a girl and filling her belly with your seed without even knowing her name?</i>”\n\n' );
-				EngineCore.outputText( 'Kath looks totally embarrassed until Vala reaches down and rubs the base of Kath\'s knot' + CoC.getInstance().scenes.katherine.cockMultiple( '', 's' ) + '.  ' );
+				EngineCore.outputText( 'Kath looks totally embarrassed until Vala reaches down and rubs the base of Kath\'s knot' + SceneLib.katherine.cockMultiple( '', 's' ) + '.  ' );
 			}
 			EngineCore.outputText( 'She gives Kath a kiss and says, “<i>I don’t do this kind of thing either.  Lets just keep this our little secret, huh?</i>”' );
 		} else {
 			EngineCore.outputText( 'She gives you and then Kath kisses in turn ' + (theyWereFucking ? 'before patting her massive belly and saying' : 'and says') + ', “<i>This was a lot of fun and I hope it isn’t a one time kind of thing.' + (theyWereFucking ? '  I love feeling full like this.' : '') + '</i>”' );
 		}
-		EngineCore.outputText( '\n\nKath sighs and rubs Vala’s ' + (theyWereFucking ? 'belly' : 'chest') + '.  She’s so relaxed that she looks half-asleep.  “<i>Mmmm - ' + CoC.getInstance().scenes.katherine.playerText() + (theyWereFucking ? '... I think we’re going to be here together for a while.  Maybe' : '... maybe') + ' you should get going and check up on that portal of yours.  We’ll deal with the mess.</i>”\n\n' );
+		EngineCore.outputText( '\n\nKath sighs and rubs Vala’s ' + (theyWereFucking ? 'belly' : 'chest') + '.  She’s so relaxed that she looks half-asleep.  “<i>Mmmm - ' + SceneLib.katherine.playerText() + (theyWereFucking ? '... I think we’re going to be here together for a while.  Maybe' : '... maybe') + ' you should get going and check up on that portal of yours.  We’ll deal with the mess.</i>”\n\n' );
 	};
-	CoC.getInstance().registerScene( 'katherineThreesome', new KatherineThreesome() );
+	SceneLib.registerScene( 'katherineThreesome', new KatherineThreesome() );
 } );

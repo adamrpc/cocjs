@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Minerva', function( CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, WeightedDrop, ConsumableLib ) {
-	var Minerva = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, WeightedDrop, ConsumableLib ) {
+	function Minerva() {
+		this.init(this, arguments);
+	}
+	angular.extend(Minerva.prototype, Monster.prototype);
 	//Normal Attacks for all Minerva Types
 	//Shark-bite:
 	Minerva.prototype.minervaBite = function() {
@@ -163,9 +166,9 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( CoC, kFLAGS, EngineCore,
 		}
 	};
 	Minerva.prototype.defeated = function(){
-		CoC.getInstance().scenes.minervaScene.beatUpDatSharpie();
+		SceneLib.minervaScene.beatUpDatSharpie();
 	};
-	Minerva.prototype.won = CoC.getInstance().scenes.minervaScene.loseToMinerva;
+	Minerva.prototype.won = SceneLib.minervaScene.loseToMinerva;
 	Minerva.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
 		that.a = '';

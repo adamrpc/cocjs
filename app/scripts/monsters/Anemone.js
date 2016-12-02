@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Anemone', function( CockTypesEnum, WeightedDrop, ConsumableLib, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Anemone = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum, WeightedDrop, ConsumableLib, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Anemone() {
+		this.init(this, arguments);
+	}
+	angular.extend(Anemone.prototype, Monster.prototype);
 	Anemone.prototype._superEAttack = Anemone.prototype.eAttack;
 	Anemone.prototype.eAttack = function() {
 		EngineCore.outputText( 'Giggling playfully, the anemone launches several tentacles at you.  Most are aimed for your crotch, but a few attempt to caress your chest and face.\n', false );
@@ -50,14 +53,14 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( CockTypesEnum, WeightedD
 	};
 
 	Anemone.prototype.defeated = function() {
-		CoC.getInstance().scenes.anemoneScene.defeatAnemone();
+		SceneLib.anemoneScene.defeatAnemone();
 	};
 	Anemone.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to mind at all...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.anemoneScene.loseToAnemone();
+			SceneLib.anemoneScene.loseToAnemone();
 		}
 	};
 	Anemone.prototype.outputAttack = function() {

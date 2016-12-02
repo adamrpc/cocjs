@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	//176 TIMES HAD YOGA;
 	//177 MET/FUCKED - 0 = never met.  1 = met but not fucked. 2 = fucked;
 	//24'x3' wang;
@@ -197,18 +197,18 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			EngineCore.outputText( '"<i>I\'d love to teach you, but I\'m afraid I don\'t know any good routines for your... body type. Sorry, pet...</i>" she trails off, as if considering something, and then turns back to you, saying, "<i>Actually, I think I might know where you could find a book of exercises that would work for you. A traveling salesman came by once, and I saw it in his wares, a book of advanced yoga techniques, aimed at the more exotically shaped denizens of Mareth. I didn\'t pick it up, of course, because I didn\'t need it. But if you could find the salesman and bring the book back to me, I\'d most definitely be able to coach you.</i>"', false );
 			//(Adds Yoga Book to Giacomo's inventory under Books);
 			CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Come back wtih book first time;
 		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 && CoC.getInstance().player.hasKeyItem( 'Yoga Guide' ) >= 0 ) {
 			EngineCore.outputText( '"<i>Have you retrieved the book I mentioned?</i>" You nod and hand the leather-bound book over to her. She grins and flicks through the pages. "<i>Oooh, yes I thought as much... Mm-hm... Oh my, nagas can stretch like that?</i>" Suddenly remembering you\'re here, she says, "<i>I\'ll study this quickly. Come back later and I\'ll be able to give you a great workout.</i>"', false );
 			CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Been told about the book but dont have it.;
 		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 1 ) {
 			EngineCore.outputText( '"<i>Have you retrieved the book I mentioned?</i>" You shake your head sadly, and she sighs. "<i>Well, until you do there\'s not much I can do for you.</i>"', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//First time with book;
 		else if( CoC.getInstance().flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 2 ) {
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>That\'s all right, to each their own.  I\'ll be here if you ever change your mind.</i>"  With that, Cotton returns to her mat and continues stretching in various poses.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Yes. Improves muscle tone up to 50, speed and feminine features.);
 	Cotton.prototype.acceptYoga = function() {
@@ -239,12 +239,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		var option3 = null;
 		if( CoC.getInstance().player.fatigue > 80 ) {
 			EngineCore.outputText( 'You\'re way too tired to do any yoga right now.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+			EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 && CoC.getInstance().player.gems < 10 ) {
 			EngineCore.outputText( 'Before you can start the yogo the centauress steps in and says, "<i>Ten gems for gym fees.</i>"\n\nYou fish around in your pouches, but you just don\'t have enough.  Maybe some other time!', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
@@ -360,7 +360,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			chats[ chats.length ] = 3;
 		}
 		//(Jojo chat);
-		if( CoC.getInstance().scenes.jojoScene.monk > 0 ) {
+		if( SceneLib.jojoScene.monk > 0 ) {
 			chats[ chats.length ] = 4;
 		}
 		var choice = chats[ Utils.rand( chats.length ) ];
@@ -371,7 +371,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Urta?</i>" Cotton says, "<i>She\'s a good woman, but she\'s been pretty depressed lately.</i>" Your yoga partner scowls at you, and presses you into an uncomfortable pose, "<i>I hear you upset her. The poor girl has had an awfully cruel life.  I hope you didn\'t make it any worse for her.</i>"\n\n', false );
 			}
 			//(If you've accepted Urta's love);
-			else if( CoC.getInstance().scenes.urta.urtaLove() ) {
+			else if( SceneLib.urta.urtaLove() ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Urta?</i>" Cotton says, "<i>She\'s a good woman. I hear you two have been quite the couple lately.</i>" You blush. "<i>No need to be embarrassed, from what I hear you\'ve been a good influence on her. She\'s not nearly as high-strung or stressed anymore. Whatever you\'re doing with her, keep it up, pet.</i>"\n\n', false );
 			}//(If Urta's relationship with PC is low, so she's still uncomfortable with her body);
 			else {
@@ -414,12 +414,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		//(Jojo chat);
 		else if( choice === 5 ) {
 			//(If Jojo hasn't been corrupted);
-			if( CoC.getInstance().scenes.jojoScene.monk === 1 ) {
+			if( SceneLib.jojoScene.monk === 1 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre and beyond. "<i>Jojo?</i>" Cotton says, "<i>You know Jojo too? I met him a while back. He taught me the finer points of meditation, which I incorporate into my yoga. Here, let\'s try.</i>" You spend the rest of the workout in meditative poses, and by the time you\'re done, you feel... lighter somehow.\n\n', false );
 				EngineCore.dynStats( 'cor', -1 );
 			}
 			//(If Jojo has been corrupted);
-			else if( CoC.getInstance().scenes.jojoScene.monk > 1 ) {
+			else if( SceneLib.jojoScene.monk > 1 ) {
 				EngineCore.outputText( 'While you\'re doing your stretches, you find yourself chatting about the folks of Tel\'Adre. "<i>Jojo?</i>" Cotton says, "<i>You know Jojo too? I met him a while back. He taught me the finer points of meditation. I haven\'t seen him much lately, though. I wonder where he\'s gone to.</i>" You smile inwardly, knowing exactly where he\'s gone to.\n\n', false );
 			}
 		}
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>Suit yourself. You can run around all stinky, meanwhile I\'m going to go wash. Feel free to drop by later for some more yoga if you\'d like.</i>"  With that, Cotton heads off to the showers and you leave the gym.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Shower);
 	Cotton.prototype.cottonShowerFunTimes = function() {
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		this.pregCottonChance();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Get fucked, as Male);
 	Cotton.prototype.cottonFucksYou = function() {
@@ -528,7 +528,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			EngineCore.dynStats( 'sen', -1 );
 			this.cottonPregPCChance();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Service her, any gender);
 	Cotton.prototype.serviceFirstTimeCotton = function() {
@@ -545,14 +545,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.outputText( 'You gulp it down, mildly surprised at how sweet it tastes. Taking two fingers you collect some of the cum deposited on your face and lick it off, then you carefully lick Cotton\'s rapidly shrinking member, until not a drop of cum remains.\n\n', false );
 		EngineCore.outputText( 'Cotton helps you up and gives you a warm kiss, tasting her own seed in your mouth. Wordlessly, you finish your shower, redress and head out of the gym. Cotton takes you by the arm and says, "<i>That was great, little pet. Come by the gym anytime. I\'ll be waiting.</i>"  Then, she heads back home.  With a little grin on your face, you do the same.', false );
 		EngineCore.dynStats( 'sen', 1, 'lus', (10 + CoC.getInstance().player.lib / 20 + CoC.getInstance().player.sens / 20) );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Refuse);
 	Cotton.prototype.refuseFirstTimeCotton = function() {
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'She looks at you a little sad, "<i>You certain pet? Well, all right. But you don\'t know what you\'re missing.</i>" The two of you continue your shower with no funny business, then redress and leave the gym. Cotton stops you before you go too far and says, "<i>Hey, if you want to stop by the gym later for some more yoga, I\'d be happy to help.</i>" Then she heads off down the street, and you head back to camp.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Shower Sex, Fuck Her);
 	Cotton.prototype.fuckCottonInShowerRepeat = function() {
@@ -899,7 +899,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		this.pregCottonChance();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Shower Sex, Get Fucked as Male or Herm);
 	Cotton.prototype.cottonFucksYouInShowerRepeat = function() {
@@ -1100,7 +1100,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Tantric Sex);
 	Cotton.prototype.cottonTantricSex = function() {
@@ -1206,14 +1206,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		if( CoC.getInstance().player.hasVagina() ) {
 			this.cottonPregPCChance();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Leave);
 	Cotton.prototype.leaveCotton = function() {
 		EngineCore.spriteSelect( 12 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You thank Cotton for her time, shower and head back to camp.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//New repeating scene where Cotton visit's the PC at camp;
@@ -1268,7 +1268,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.outputText( '"<i>Hello, pet,</i>" she says, and you notice worry in her voice.  There are slight bags under her eyes, and her crimson ponytail is a little unkempt, with hair jutting out at odd angles.  Something clearly has her frazzled.' );
 		EngineCore.outputText( '\n\n"<i>I\'ll just come right out with it. I went to the Covenant today...  I\'m pregnant,</i>" she says, matter-of-factly, "<i>and it\'s yours.</i>"' );
 		EngineCore.outputText( '\n\n"<i>I\'d been taking some herbs to counteract pregnancy, but I guess it was just no match for you.' );
-		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (CoC.getInstance().scenes.telAdre.edryn.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
+		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (SceneLib.telAdre.edryn.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
 			EngineCore.outputText( '  Should have figured as much after you got Edryn pregnant.' );
 		}
 		EngineCore.outputText( '</i>"  She wrenches her hands nervously and looks you in the eye. The cool, confident yoga instructor has clearly melted away, revealing the real her.  "<i>I know we\'re not serious, but ' );
@@ -1302,7 +1302,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		//bold;
 		EngineCore.outputText( '<b>(Cotton will no longer speak with you.)</b>' );
 		CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Stay)*;
 	Cotton.prototype.beAGoodCottonDad = function() {
@@ -1311,7 +1311,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.outputText( '\n\nA smile spreads across her face and she hugs you, squeezing tightly, "<i>Oh thank Marae.  I don\'t expect you to just pack up and move in, I\'m totally fine with our current arrangement, but just having you around for emotional support would be wonderful.</i>"' );
 		EngineCore.outputText( '\n\nShe plants a kiss on your lips, and returns to the yoga section of the gym.' );
 		CoC.getInstance().flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Alternate Approach Cotton Scenes*;
 	//(New scenes to show off Cotton's pregnancy);
@@ -1423,7 +1423,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			if( CoC.getInstance().flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 				CoC.getInstance().flags[ kFLAGS.COTTON_OLDEST_KID_AGE ] = 1;
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Cotton Repeat Births*;
 		//(Replaces the Approach scenes);
@@ -1639,7 +1639,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		EngineCore.outputText( '\n\n"<i>Yes!</i>" Cotton explodes.  "<i>What kind of woman do you think I am?  That I\'d abandon my child, or the mother of my child?</i>"  She looks thoughtful for a moment, then says, "<i>I think... Yes, don\'t worry about a thing.  I\'ll have everything ready by the time you\'re ready to pop, my little pet.</i>"  She places a hand upon your belly, whispering, "<i>And my littlest pet.</i>"  She moves her hand up to her chin, now apparently deep in thought, her mind no doubt going through all the preparations that need to be taken care of.' );
 		EngineCore.outputText( '\n\nYou thank her for breakfast and politely excuse yourself.  It\'s clear that she\'s got quite a bit of work ahead of her, and you\'ve got to get back.  You exit the little apartment, closing the door softly behind you, and strike off back towards camp.' );
 		CoC.getInstance().flags[ kFLAGS.COTTON_KNOCKED_UP_PC_AND_TALK_HAPPENED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Birthing*;
@@ -2091,7 +2091,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			EngineCore.outputText( ' little ears flick in the most adorable manner.  So caught up are you in cuddling your child that you don\'t notice Cotton until she has her arms wrapped around you, leaning her head against you as she embraces the pair of you.' );
 			EngineCore.outputText( '\n\nYou hold your child close and allow yourself to be embraced in turn, simply enjoying the moment of closeness, as odd as your relationship may be.  Eventually, the foal drifts off to sleep in your embrace and you quietly tell Cotton that she needs to let go.  Instead, she playfully squeezes you and whispers, "<i>Mine...</i>" in your ear.  Turning your neck, you look into her eyes, whereupon she gives you a soft, playful grin and lets you go, allowing you to put the sleepy foal back to bed.  She just smiles at you without saying a word, and you nod your head and excuse yourself without a word.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed;
 	Cotton.prototype.feedYourCottonKids = function() {
@@ -2194,7 +2194,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 			CoC.getInstance().player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
 		CoC.getInstance().player.boostLactation( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Stay Quiet;
 	Cotton.prototype.letCottonFeedKids = function() {
@@ -2225,7 +2225,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Appearance, EventPars
 		}
 		EngineCore.outputText( ' hair and tell Cotton that she makes some gorgeous little foals.  She just nods and gives your shoulder a little squeeze, content to watch in silence for a moment.' );
 		EngineCore.outputText( '\n\nEventually, and apologetically, you tell her that you have to go; places to go, monsters to fight, she knows how it is.  She nods, understanding, and you give her a quick kiss before departing back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'cotton', new Cotton() );
+	SceneLib.registerScene( 'cotton', new Cotton() );
 } );

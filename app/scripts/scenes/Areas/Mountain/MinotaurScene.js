@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, EventParser, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore, LustyMaidensArmor ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, EventParser, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore, LustyMaidensArmor ) {
 	function MinotaurScene() {
 	}
 
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, C
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, C
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	MinotaurScene.prototype.minoGetsTitFucked = function() {
@@ -986,7 +986,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, C
 			}
 			EngineCore.outputText( 'Do you follow the minotaur-scent like the addict that you are?', false );
 			//[Yes] [No]
-			EngineCore.doYesNo( this.minoAddictionBadEnd2, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this.minoAddictionBadEnd2, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	MinotaurScene.prototype.minoAddictionBadEnd2 = function() {
@@ -1263,5 +1263,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, C
 		this.minoCumAddiction( 5 );
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'minotaurScene', new MinotaurScene() );
+	SceneLib.registerScene( 'minotaurScene', new MinotaurScene() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('KeyItemClass').factory('Perk', function () {
+angular.module('cocjs').factory('Perk', function () {
 	function Perk() {
 		this.init(this, arguments);
 	}

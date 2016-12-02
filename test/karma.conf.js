@@ -30,6 +30,8 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/Chart.js/dist/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
+      'bower_components/showdown/dist/showdown.js',
+      'bower_components/ng-showdown/dist/ng-showdown.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

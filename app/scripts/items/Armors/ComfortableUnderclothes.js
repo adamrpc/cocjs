@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'ComfortableUnderclothes', function( Armor ) {
-	var ComfortableUnderclothes = angular.copy( Armor );
+	function ComfortableUnderclothes() {
+		this.init(this, arguments);
+	}
+	angular.extend(ComfortableUnderclothes.prototype, Armor.prototype);
 	ComfortableUnderclothes.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'c.under', 'c.under', 'comfortable underclothes', 'comfortable underclothes', 0, 0, 'comfortable underclothes', '' ] );
 	};

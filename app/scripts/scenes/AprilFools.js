@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function AprilFools() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, AppearanceDefs, kFLAGS
 	AprilFools.prototype.leavePonies = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Deciding it must be some demonic trick, you decide to retreat from the scene before they notice your presence.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.approachPonies = function() {
 		EngineCore.outputText( '', true );
@@ -44,14 +44,14 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, AppearanceDefs, kFLAGS
 	AprilFools.prototype.derpPolitely = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You hold out your arms and stop the ponies.  Once you have their attention you let them know you have something important you need to do for now, but will come back soon.  With a wave you turn and walk back into the trees to a chorus of disappointed "<i>ahhhs</i>", mostly from the pink one.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.derpCreepy = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Cocks, horns and slavering vaginas is one thing, but this is almost too much cute to process.  You determine to leave this grove and never EVER come back again.  Still disturbed by the mental images running through your head, as you make your way back to camp, you callously slaughter an imp. Yeah, that feels better.\n\n(+10 XP!  +5 Gems!)', false );
 		CoC.getInstance().player.XP += 10;
 		CoC.getInstance().player.gems += 5;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.derpyParty = function() {
 		EngineCore.outputText( '', true );
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, AppearanceDefs, kFLAGS
 		EngineCore.outputText( 'Time passed, and the rest of the day was a blur, mostly caused by, you assume, the large quantity of Pony Punch you drank.  As you shakily attempt to get up, snippets of the evening\'s events flash through your mind funny joke told by the pink one; the yellow one coming out of hiding to orchestrate an impromptu concerto sung by a choir of songbirds; losing a race to the blue one, (flying is definitely cheating): a derpy looking grey one who was knocking over everything in a two meter radius around her.  Your mind slowly returns to the present and as it does you take a look at yourself.  A first glance at your attire shows the magical \'improvements\' the white one made are already fading away, crumbling into a cloud of pink dust that blows away, leaving you back in your ' + CoC.getInstance().player.armorName + '.  Watching your clothes change was rather distracting, but now that you are up, and ooh what a headache THAT caused, you see your clothes weren\'t the only thing that changed!!\n\n', false );
 		EngineCore.outputText( 'Your strong lower body has shrunk, the firm musculature replaced by an oddly cartoonish looking form.  In fact, from the waist down you look just like one of the ponies!  Everything looks to still be in the same general place, and a quick test of your new lower body proves it still functions somewhat the same. The new shape of your hooves takes a little while to get used to, but other than that you get used to your new lower body almost with no effort\n\n(<i>*Note:You should really check the character viewer</i>)', false );
 		CoC.getInstance().player.lowerBody = AppearanceDefs.LOWER_BODY_TYPE_PONY;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
 	/*Notes:
 	 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,5 +72,5 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, AppearanceDefs, kFLAGS
 	 If you don't accept you never encounter them again
 	 the way i explain this one time event is that you accidently stumbled across this place, which is protected by magic. after that you never encounter them again.
 	 */
-	CoC.getInstance().registerScene( 'aprilFools', new AprilFools() );
+	SceneLib.registerScene( 'aprilFools', new AprilFools() );
 } );

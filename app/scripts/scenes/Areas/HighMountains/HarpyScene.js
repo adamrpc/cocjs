@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Descriptors, Utils, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Combat, Descriptors, Utils, AppearanceDefs ) {
 	function HarpyScene() {
 	}
 
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Descri
 				EngineCore.outputText( '.\n\n', false );
 			}
 			//Apply harpy status.
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
+			SceneLib.sophieScene.luststickApplication( 8 );
 		}
 		//[(Female)
 		else {
@@ -594,7 +594,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Descri
 			}
 			EngineCore.outputText( '  For one last time, you feel the rising intensity of the pleasure, galloping headlong towards an explosive final orgasm.  Reaching down, you plant both your hands on the back of her head and violently thrust your ' + Descriptors.hipDescript() + ' forward to cram the full length of your cocks into her gagging, clenching throat. A final detonation of seed escapes down her esophagus and into her already-swollen belly.  You shiver, biting on your lower lip, as your orgasm gradually subsides and you collapse backwards as your leg muscles give way, wrenching your ' + Descriptors.multiCockDescriptLight() + ' away from the breathless bird-girl. Your vision becomes hazy as her beautiful face comes into view above you, descending to softly smooch across your lips, giving a last dose of those drugs into your brain. You black out, catching one final glimpse of her fine, feathered rear before you do.\n\n', false );
 			//Apply harpy status.
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
+			SceneLib.sophieScene.luststickApplication( 8 );
 		}
 		CoC.getInstance().monster.lust = 98;
 		CoC.getInstance().monster.HP = 2;
@@ -760,5 +760,5 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Descri
 			Combat.cleanupAfterCombat();
 		}
 	};
-	CoC.getInstance().registerScene( 'harpyScene', new HarpyScene() );
+	SceneLib.registerScene( 'harpyScene', new HarpyScene() );
 } );

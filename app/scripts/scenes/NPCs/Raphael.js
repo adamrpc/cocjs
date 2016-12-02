@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descriptors, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLib, Descriptors, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, StatusAffects, EngineCore ) {
 	//The event itself:;
 	//Requirement: Player has found Desert storage chest &;
 	//Tel'Adre has been found.;
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		//{Third encounter unlocked};
 		//Set 'time to wear dress' countdown.;
 		CoC.getInstance().flags[ kFLAGS.RAPHAEL_DRESS_TIMER ] = 7;
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.R_BDYST, EventParser.playerMenu );
 	};
 	/*DRESS HERE
 	 Descriptive high society bodysuit. It is as easy to mistake it for ballroom apparel as it is for boudoir lingerie. The thin transparent fabric is so light and airy that it makes avoiding blows a second nature.
@@ -650,7 +650,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex} ;
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss. He\'s bound it with his red sash around the length like a ribbon, like he has now gifted it to you. Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] === 4 ) {
 			EngineCore.outputText( 'The only thing left behind is his rapier, sticking out of the moss.  He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.\n\n', false );
 			//[Weapon: Rapier. Speed, instead of strength, influences the damage rating. Never as strong as the heavier weapons or sword, but works great with speed & evasion, encouraged by the rapier.]);
-			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( WeaponLib.RRAPIER, EventParser.playerMenu );
 		}
 		//({When player has reached the INT Conversation apex};
 		if( CoC.getInstance().flags[ kFLAGS.RAPHAEL_INTELLIGENCE_TRAINING ] === 4 ) {
@@ -1022,14 +1022,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Talk', this.talkWithRedFoxLooksOutHesASpy );
 				EngineCore.addButton( 1, 'Sex', this.raphaelOrphanageSexMenu );
-				EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+				EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.telAdreMenu );
 				//build a menu here!;
 			} else {
 				//When the orphanage is selected on any other time;
 				EngineCore.outputText( 'You walk into the alley to the side of the orphanage and look up expectantly, brushing by shady looking teens who enjoy patting you down, but leaving you and your possessions alone otherwise.  They seem to make a game out of it.  It\'s hard to see if any of the rooms are lit because it\'s still quite bright outside.  There probably aren\'t.  Still, you begin to search for the one rope out of many that will hoist you up there by pulling it.  You stay clear of the other ones, not quite sure what they\'d do, but half expect them to fire a crossbow bolt or drop an anvil on your head.  Anxious, you grab the right one and hold on tight when you pull it, but oddly enough, nothing happens.  You\'re sure it\'s the right one, but something is preventing the system from kicking into gear.  You shake your head and step back in silent admiration.  You\'re not sure what mechanical marvel is responsible for it, but the orphanage must be decked with all manner of clever contraptions that even manage to factor time into the system.' );
 				//[nothing happens];
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Back', CoC.getInstance().scenes.telAdre.telAdreMenu );
+				EngineCore.addButton( 0, 'Back', SceneLib.telAdre.telAdreMenu );
 			}
 		}
 		//PLACEHOLDER UNTIL VIXENS ARE DONE;
@@ -1065,7 +1065,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You politely inform Raphael that you have to go, and though he seems crestfallen, he demurs, "<i>Very well then, ma chère.  I shall await you in the hours of late evening, in case you change your mind.</i>"' );
 		EngineCore.outputText( '\n\nWell, that went well.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//RaphSex;
 	//Sex1;
@@ -1095,7 +1095,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		EngineCore.outputText( '\n\n"<i>Before you ask.</i>"  Raphael winks and lays on finger on your lips.  "<i>Not right now.  I must confess to having brought over women before... but one such as you?</i>"  His snout moves slowly and deliberately to form the heavily accented words, "<i>I would need the time to prepare a proper introduction, to properly reflect how impressed I am with having met you.  Also, we\'re entertaining guests for the foreseeable future.  I wouldn\'t want your introduction to the group to be eclipsed by the bustle.  Give me a few weeks.</i>" and the rogue turns around, puts his rapier to his belt and prepares to jump out of the window by squatting on the sill.  Before he does, he throws one last look back across his shoulder.' );
 		EngineCore.outputText( '\n\n"<i>Do you think you can remember which rope I pulled?</i>" he asks you.  You think you can and Raphael nods.  "<i>Good.  I wouldn\'t recommend pulling any other when you want to visit me in the meantime.</i>" he winks.  "<i>The russet rogue, he never leaves a lady wanting.  Visit me whenever you see this room lit at dusk, when it\'s still light enough for you to make your way back to camp afterwards and already dark enough for me to have woken up and prepare to leave for work.</i>"  He turns his head and upper body around enough for him to look you in the eyes.  "<i>I would be looking forward to it if you could make it.  Who knows?  Maybe this is your chance to steal into my room for a change and take me by surprise instead, no?</i>"' );
 		EngineCore.outputText( 'With a wink, Raphael disappears as he lets himself drop from the window.  You walk after him, to see where he went.  It\'s quite the way down, but he appears to have vanished.  With your promise in hand, you decide you\'d better do the same and head back to the portal by way of a nearby extendable ladder that pops right back up the building the moment you remove your weight.  You take care to memorize what room you came from and confirm which rope it was, cleverly hidden alongside a drainpipe.  You may not have gotten much closer to uncovering the secrets of the orphanage, but at least this won\'t be the last you see of him.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Cunnilingus;
@@ -1119,7 +1119,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		EngineCore.outputText( '.  Raphael backs off a bit afterwards, giving you a few more laps of admiration around the throbbing fissure and cleaning you of any spillage. He ends with a tiny kiss, just inside your inner thigh.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Second Raphael variable sex scene on top:;
 	Raphael.prototype.girlOnTopOfRedFoxesOhMy = function() {
@@ -1135,7 +1135,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		EngineCore.outputText( '\n\nLooking him in the eyes again, you slaver on top of the fox.  Raphael simply lays back, lazily fondles your breasts and ass and looks at you to put in the effort around his cock.  Only after minutes of this, almost driving yourself towards the brink, does Raphael suddenly sit up sharply - an anguished snarl on his face - to hold you in a tight embrace and groan conceitedly.  You can feel his cock jerk up and grow an inch in size, before his passion escapes into your womanhood.  Allowing yourself as well, you follow him with a lazy orgasm and join him in his growl, while he squeezes you on your waist.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Available side by side to having sex: Dialogue scenes.;
 	Raphael.prototype.talkWithRedFoxLooksOutHesASpy = function() {
@@ -1150,14 +1150,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, WeaponLib, PerkLib, Descrip
 		EngineCore.outputText( '\n\nRaphael smirks and turns towards you, leans on one paw and gazes into your eyes.  "<i>I just can\'t get enough of tweaking knobs, hitting a lock\'s sweet spot, or getting my fingers in places where they don\'t belong, amidst all that splendor.</i>"' );
 		EngineCore.menu();
 		this.raphaelOrphanageSexMenu();
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Raphael.prototype.raphaelOrphanageSexMenu = function() {
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Cunnilingus', this.cunnilingusWithRaphael );
 		EngineCore.addButton( 1, 'Ride Him', this.girlOnTopOfRedFoxesOhMy );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
-	CoC.getInstance().registerScene( 'raphael', new Raphael() );
+	SceneLib.registerScene( 'raphael', new Raphael() );
 } );

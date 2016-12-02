@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('KeyItemClass').factory('kFLAGS', function () {
+angular.module('cocjs').factory('KeyItemClass', function () {
 	//constructor
 	function KeyItemClass() {
 		this.init(this, arguments);

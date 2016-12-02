@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, $showdown, Descriptors, Combat) {
+angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAGS, $showdown, Descriptors, Combat) {
 	function Parser() {
 		this.init( this, arguments );
 	}
@@ -195,30 +195,30 @@ angular.module( 'cocjs' ).factory( 'Parser', function($log, CoC, kFLAGS, $showdo
 	// Feminine  | she laughs | I hugged her | her heart warmed     | that is hers       | she loves herself |
 	// (Is it bad that half my development time so far has been researching non-gendered nouns? ~~~~Fake-Name)
 	Parser.arianLookups = { // For subject: "arian"
-		"man"		: function() {return CoC.getInstance().scenes.arianScene.arianMF("man","woman");},
+		"man"		: function() {return SceneLib.arianScene.arianMF("man","woman");},
 		// argh! "Man" is the mass-noun for humanity, and I'm loathe to choose an even more esoteric variant.
 		// Elverson/Spivak terminology is already esoteric enough, and it lacks a ungendered mass noun.
-		"ey"		: function() {return CoC.getInstance().scenes.arianScene.arianMF("he","she");},
-		"em"		: function() {return CoC.getInstance().scenes.arianScene.arianMF("him","her");},
-		"eir"		: function() {return CoC.getInstance().scenes.arianScene.arianMF("his","her");},
-		"eirs"		: function() {return CoC.getInstance().scenes.arianScene.arianMF("his","hers");},
-		"emself"	: function() {return CoC.getInstance().scenes.arianScene.arianMF("himself","herself");},
-		"chestadj"	: function() {return CoC.getInstance().scenes.arianScene.arianChestAdjective();},
-		"chest"		: function() {return CoC.getInstance().scenes.arianScene.arianChest();}
+		"ey"		: function() {return SceneLib.arianScene.arianMF("he","she");},
+		"em"		: function() {return SceneLib.arianScene.arianMF("him","her");},
+		"eir"		: function() {return SceneLib.arianScene.arianMF("his","her");},
+		"eirs"		: function() {return SceneLib.arianScene.arianMF("his","hers");},
+		"emself"	: function() {return SceneLib.arianScene.arianMF("himself","herself");},
+		"chestadj"	: function() {return SceneLib.arianScene.arianChestAdjective();},
+		"chest"		: function() {return SceneLib.arianScene.arianChest();}
 	};
 	// Arian unhandled terms (I have not decided how to support them yet):
 	// arianMF("mas","mis")
 	// arianMF("master","mistress")
 	// arianMF("male","girly")
 	Parser.rubiLookups = { // For subject: "rubi"
-		"man"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("man","woman");},
-		"ey"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("he","she");},
-		"em"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("him","her");},
-		"eir"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("his","her");},
-		"eirs"		: function() {return CoC.getInstance().scenes.rubi.rubiMF("his","hers");},
-		"emself"	: function() {return CoC.getInstance().scenes.rubi.rubiMF("himself","herself");},
-		"cock"		: function() {return CoC.getInstance().scenes.rubi.rubiCock();},
-		"breasts"	: function() {return CoC.getInstance().scenes.rubi.rubiBreasts();}
+		"man"		: function() {return SceneLib.rubi.rubiMF("man","woman");},
+		"ey"		: function() {return SceneLib.rubi.rubiMF("he","she");},
+		"em"		: function() {return SceneLib.rubi.rubiMF("him","her");},
+		"eir"		: function() {return SceneLib.rubi.rubiMF("his","her");},
+		"eirs"		: function() {return SceneLib.rubi.rubiMF("his","hers");},
+		"emself"	: function() {return SceneLib.rubi.rubiMF("himself","herself");},
+		"cock"		: function() {return SceneLib.rubi.rubiCock();},
+		"breasts"	: function() {return SceneLib.rubi.rubiBreasts();}
 	};
 	Parser.cockLookups = { // For subject: "cock"
 		"all"		: function() { return CoC.getInstance().player.multiCockDescriptLight(); },

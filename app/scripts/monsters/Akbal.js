@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Akbal', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
-	var Akbal = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
+	function Akbal() {
+		this.init(this, arguments);
+	}
+	angular.extend(Akbal.prototype, Monster.prototype);
 
 	Akbal.prototype.eAttack = function() {
 		//Chances to miss:
@@ -68,10 +71,10 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, CoC, Monster, Utils,
 		Combat.combatRoundOver();
 	};
 	Akbal.prototype.defeated = function( hpVictory ) {
-		CoC.getInstance().scenes.akbalScene.akbalDefeated( hpVictory );
+		SceneLib.akbalScene.akbalDefeated( hpVictory );
 	};
 	Akbal.prototype.won = function( hpVictory, pcCameWorms ) {
-		CoC.getInstance().scenes.akbalScene.akbalWon( hpVictory, pcCameWorms );
+		SceneLib.akbalScene.akbalWon( hpVictory, pcCameWorms );
 		Combat.cleanupAfterCombat();
 	};
 	Akbal.prototype.akbalLustAttack = function() {

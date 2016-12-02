@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, WeaponLib, Combat, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dungeon2Supplimental() {
 	}
 
@@ -18,14 +18,14 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 	//-Zetaz - 'Zetaz Start';
 	//-Items - 'Items Start';
 	Dungeon2Supplimental.prototype.enterZetazsLair = function() {
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE );
+		SceneLib.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE );
 	};
 	Dungeon2Supplimental.prototype.leaveZetazsLair = function() {
 		//	inDungeon = false;;
 		OnLoadVariables.dungeonLoc = 0;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You leave the cave behind and take off through the deepwoods back towards camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Dungeon2Supplimental.prototype.impHordeStartCombat = function() {
 		Combat.startCombat( new ImpHorde(), true );
@@ -488,7 +488,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			EngineCore.doNext( EventParser.playerMenu );
 			return;
 		} else {
-			CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
+			SceneLib.dungeonCore.dungeonEnterRoom( Dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
 		}
 	};
 	//Encapsulation Start;
@@ -1242,8 +1242,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			EngineCore.addButton( 1, 'Use', this.useValaOHYEAHSNAPINTOASLIMJIM );
 			EngineCore.addButton( 2, 'Wake', this.wakeValaUpBeforeYouGoGo );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().scenes.shouldraFollower.followerShouldra() ) {
-			EngineCore.addButton( 3, 'ShouldraVala', CoC.getInstance().scenes.shouldraFollower.shouldraMeetsCorruptVala );
+		if( CoC.getInstance().player.lust >= 33 && SceneLib.shouldraFollower.followerShouldra() ) {
+			EngineCore.addButton( 3, 'ShouldraVala', SceneLib.shouldraFollower.shouldraMeetsCorruptVala );
 		}
 		EngineCore.addButton( 4, 'Leave', EventParser.playerMenu );
 	};
@@ -1459,20 +1459,20 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			if( CoC.getInstance().flags[ kFLAGS.WEEKLY_FAIRY_ORGY_COUNTDOWN ] === 0 ) {
 				EngineCore.outputText( '\n\nA thought occurs to her and she leans in, conspiratorially. "<i>Actually, some of my sisters are visiting from the forest today. Should we spend some time with them, or do I get you all for myself?</i>"', false );
 				//[Fairies][You][Leave];
-				EngineCore.choices( 'Faeries', this.faerieOrgyFuck, 'You', this.cleansedValaRepeatBrainFucking, 'Cum Bath', cumBath, '', null, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.choices( 'Faeries', this.faerieOrgyFuck, 'You', this.cleansedValaRepeatBrainFucking, 'Cum Bath', cumBath, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
 			} else {
-				EngineCore.choices( 'You', this.cleansedValaRepeatBrainFucking, '', null, 'Cum Bath', cumBath, '', null, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.choices( 'You', this.cleansedValaRepeatBrainFucking, '', null, 'Cum Bath', cumBath, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
 			}
 			if( CoC.getInstance().flags[ kFLAGS.WEEKLY_FAIRY_ORGY_COUNTDOWN ] === 0 ) {
 				EngineCore.addButton( 1, 'Faeries', this.faerieOrgyFuck );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_MET_VALA ] > 0 && CoC.getInstance().scenes.shouldraFollower.followerShouldra() ) {
+		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_MET_VALA ] > 0 && SceneLib.shouldraFollower.followerShouldra() ) {
 			EngineCore.addButton( 3, 'Big You', this.valaBigYou );
 		}
 		EngineCore.addButton( 0, 'You', this.cleansedValaRepeatBrainFucking );
 		EngineCore.addButton( 2, 'Cum Bath', cumBath );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.barTelAdre );
 	};
 	Dungeon2Supplimental.prototype.cleansedFirstRemeet = function() {
 		EngineCore.spriteSelect( 60 );
@@ -1486,7 +1486,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.outputText( 'In turn, she listens to you relate your latest adventures eagerly, gazing a little too deeply into your eyes and laughing a little too hard at your jokes. Before too long, it\'s clear the girl has one thing on her mind. She reaches a hand out and touches your shoulder gently. "<i>Surely you didn\'t think the drink would be your only reward?</i>" she murmurs, windy voice husky with desire. Her pink eyes stare into yours, no longer lost to mindless lust, but full of want and intellect, a doll no longer.\n\n', false );
 		EngineCore.outputText( '"<i>I\'ve been looking forward to this,</i>" she whispers, flying up to steal a kiss from you, her soft, fey lips leaving a taste of pure, spring rain on the tip of your tongue. Piece by piece, she strips the clothes from your shoulders and hips, leaving warm kisses on your exposed skin with every piece she removes. When your body is laid bare before her, the pixie raises her hands to her own dress. She hesitates to expose the permanent scars the imps left on her, but sighing, she laughs and a sweet wind sweeps through the storeroom. "<i>Silly to be bashful around you, of all people,</i>" she chuckles, sliding out of her verdant silk, pulling pins from her bun to let long, violet tresses spill down her shoulders with a shake of her head. She bats her eyes at you over one shoulder and flashes a wry little smile. "<i>If we can replace every hash mark on my back with one of your visits, I\'ll switch to backless dresses,</i>" she teases. Flying over you, she lands her delicate legs and plump, breeder\'s rear in your lap, wrapping her arms around your shoulders and hugging you tightly. "<i>So, what\'s on your mind, hero?</i>"', false );
 		//[You][Leave];
-		EngineCore.choices( 'You', this.cleansedValaFuckHerBrainsOut, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.choices( 'You', this.cleansedValaFuckHerBrainsOut, '', null, '', null, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
 	};
 	//[You] ;
 	Dungeon2Supplimental.prototype.cleansedValaFuckHerBrainsOut = function() {
@@ -1614,7 +1614,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		}
 		//[End Encounter];
 		EventParser.cheatTime( 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 
 	//[You];
@@ -1667,7 +1667,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.outputText( '"<i>You see?</i>" Vala asks, holding the organic device aloft with a mischievous smile. "<i>They don\'t last forever, but while they do, these little toys give us a very intimate connection to loved ones. This way, I can go all week with a reminder of you inside me.</i>" She gives you a kiss on the lips and the fairies give you a tiny chorus of applause for the entertaining show. It\'s good that her little friends aren\'t around more often, you pant to yourself, or you\'d be a drooling vegetable in no time.\n\n', false );
 		EventParser.cheatTime( 1 );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//[Female];
 	Dungeon2Supplimental.prototype.faerieOrgyFuckFemaleContinue = function() {
@@ -1684,12 +1684,12 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.outputText( '"<i>You see?</i>" Vala asks, holding the organic device aloft with a mischievous smile. "<i>They don\'t last forever, but while they do, these little toys give us a very intimate connection to loved ones. This way, I can go about all week with a reminder of you inside me.</i>" She gives you a kiss on the lips and the fairies give you a tiny chorus of applause for the entertaining show. It\'s good that her little friends aren\'t around more often, you gasp to yourself, or you\'d be a drooling vegetable in no time.', false );
 		EventParser.cheatTime( 1 );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	Dungeon2Supplimental.prototype.takeBondageStraps = function() {
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[ kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS ]++;
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
 	};
 	//ZETAZ START;
 	Dungeon2Supplimental.prototype.zetazTaunt = function() {
@@ -2318,7 +2318,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 	Dungeon2Supplimental.prototype.incubusShop = function() {
 		EngineCore.spriteSelect( 52 );
 		if( CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] === 1 ) {
-			CoC.getInstance().scenes.telAdre.niamh.getBimboozeFromSean();
+			SceneLib.telAdre.niamh.getBimboozeFromSean();
 			return;
 		}
 		EngineCore.clearOutput();
@@ -2332,7 +2332,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 			EngineCore.outputText( '\n\nSean could probably do something with the Bimbo Champagne if you had enough of it...' );
 			if( CoC.getInstance().player.hasItem( ConsumableLib.BIMBOCH, 5 ) ) {
 				EngineCore.outputText( '  Luckily, you do!' );
-				EngineCore.addButton( 4, ConsumableLib.BIMBOLQ.shortName, CoC.getInstance().scenes.telAdre.niamh.seanBimboBrewing );
+				EngineCore.addButton( 4, ConsumableLib.BIMBOLQ.shortName, SceneLib.telAdre.niamh.seanBimboBrewing );
 			}
 		}
 		EngineCore.addButton( 9, 'Leave', EventParser.playerMenu );
@@ -2353,7 +2353,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.clearOutput();
 		CoC.getInstance().player.gems -= itype.value * 3;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.incubusShop );
+		SceneLib.inventory.takeItem( itype, this.incubusShop );
 	};
 	//[Cum Bath];
 	Dungeon2Supplimental.prototype.valaCumBath = function() {
@@ -2430,7 +2430,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		CoC.getInstance().flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Big Vala Intro;
 	Dungeon2Supplimental.prototype.valaBigYou = function() {
@@ -2466,7 +2466,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.addButton( 1, 'Lick Me', this.bigValaLicksOffDudes );
 		}
-		if( CoC.getInstance().scenes.vapula.vapulaSlave() && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.hasCock() || (CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasKeyItem( 'Demonic Strap-On' ) >= 0)) ) {
+		if( SceneLib.vapula.vapulaSlave() && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.hasCock() || (CoC.getInstance().player.hasVagina() && CoC.getInstance().player.hasKeyItem( 'Demonic Strap-On' ) >= 0)) ) {
 			EngineCore.addButton( 2, 'Dom Vapula', this.valaDommyVapula3Some );
 			EngineCore.addButton( 3, 'Vapula3Some', this.valaLoveyVapula3Some );
 		}
@@ -2537,7 +2537,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.outputText( '\n\nYou lift her up out of the mess and carry her to the stream where you both clean up.  Vala murmurs, "<i>My hero...</i>" as you wash her, too wiped out to do it herself.  Vala recovers by the time you\'re getting re-dressed, and she gives you a surprisingly chaste, blushing kiss before she gets ready to depart.  The faerie seems to have some degree of magical affinity, as she\'s able to knit her dress back together with a bit of mental effort, and then she\'s fluttering away, calling out her goodbyes to you as she journeys back to Tel\'Adre.' );
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Big Vala: Lick Me (Requires Penor);
 	Dungeon2Supplimental.prototype.bigValaLicksOffDudes = function() {
@@ -2608,7 +2608,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.outputText( '\n\nWhile you stand there, dripping oral juices, Vala diminishes further.  Sadly, her breasts seem to return to normal faster than the rest, which leaves her disproportional while she journeys towards her normal shape.  The smaller she gets, the faster her change progresses.  Then, with an alarming abruptness, she falls flat in the lake of lady-spunk she left behind, moaning pleasantly.' );
 		EngineCore.outputText( '\n\nYou lift her up out of the mess and carry her to the stream where you both clean up.  Vala murmurs, "<i>My hero...</i>" as you wash her, too wiped out to do it herself.  Vala recovers by the time you\'re getting re-dressed, and she gives you a surprisingly chaste, blushing kiss before she gets ready to depart.  The faerie seems to have some degree of magical affinity, as she\'s able to knit her dress and your [armor] back together with a bit of mental effort, and then she\'s fluttering away, calling out her goodbyes to you as she journeys back to Tel\'Adre.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Intro to Vala + Vapula Threesomes;
 	Dungeon2Supplimental.prototype.valaVapulaThreesome = function() {
@@ -2692,7 +2692,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Giant Vala + Vapula Threesome - Vala Lovey Dovey;
 	Dungeon2Supplimental.prototype.valaLoveyVapula3Some = function() {
@@ -2736,7 +2736,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Dungeon2Supplimental.prototype.kinathisValaStuff = function() {
 		EngineCore.clearOutput();
@@ -2849,14 +2849,14 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, WeaponLib, Combat, Preg
 		EngineCore.clearOutput();
 		CoC.getInstance().time.hours = 6;
 		CoC.getInstance().time.days++;
-		CoC.getInstance().scenes.camp.sleepRecovery( false );
+		SceneLib.camp.sleepRecovery( false );
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( 'Letting out a yawn, you curl up in the warm covers of the bed.  You sigh and smile as the smell of food wafts over you; it reminds you of your time back home.  The scent of frying meat and eggs soon becomes too much for your sleeping mind and rouses you from your slumber.  Stretching your body out, you look around and remember your night with Vala; you must have fallen asleep in her bed.  Unable to help yourself, you follow the mouth watering aroma to the kitchen and find the loving fairy-girl there.  Her gossamer wings flutter as she hovers at the stove, naked save for the apron she wears.  The sound of grease popping and crackling fills the air along with the smell of a savory, home cooked breakfast.' );
 		EngineCore.outputText( '\n\nYou can\'t help but grin, the sweet girl treating you to breakfast after spending the night with her.  Approaching her, you slip your arms around her and hug her gently.  Despite your surprise hug, Vala keeps working, though she is more than happy to press her ass against you.  "<i>Mmmm... good morning, did you sleep well, [name]?</i>" she asks as she looks up at you with a bright smile of her face.  You smile back at her and slide your hands into her apron to grope and fondle her oversized breasts, the rough touch pulling a squeak and a soft moan from her lips.  "<i>H-hey! You\'re supposed to be enjoying my food, not me!</i>" she says with a blush on her cheeks, clearly not really minding your hands on her.  Looking back at the food she is preparing, Vala reluctantly pulls away.  "<i>Breakfast is done - my treat, now let’s eat!</i>" she cheerfully announces as she takes the food off the stove and plates the mouth-watering feast.  Each plate is blessed with a trio of bacon strips, two fried eggs and two plump sausages.  Shivering in delight at the meal ahead of you, you say a heartfelt thanks to Vala before digging in with her.' );
 		EngineCore.outputText( '\n\nIt’s a wonderful change of pace from the usual food you have in the morning.  The salty, savory meats and eggs fill you up, spreading a satisfied warmth through you as you eat.  Unfortunately for you, the deliciousness of the filling meal means it’s devoured quickly, leaving you almost uncomfortably full.  Letting out a sigh, you slide an arm around your fairy lover and pull her closer, cuddling with her at the table for a moment before pulling her into your lap.  Your hands run over her body and stroke her softly as you settle into the intimate, post-meal moment.  Vala smiles and presses herself against you, her arms curling around you as she snuggles you.  "<i>My hero...  I wish we could stay like this forever, [name]</i>" she says as she nuzzles her face into your [chest].' );
 		EngineCore.outputText( '\n\nWith her being as affectionate she is, you can\'t help but smile and stroke her.  This really was nice; you could see yourself enjoying many more times like this, but unfortunately you do have to get back to your duty.  Pulling Vala into a kiss, you squeeze her and hold her tightly against you for a moment before lifting her off you, telling the girl that you have to go.  She sighs, knowing that you have to get back to being her hero.  "<i>I know, go and be the big strong hero I know you are, just make sure you come and visit me at the bar whenever you want,</i>" she says before kissing you one last time and showing you to the door.  Breathing in the morning air, you head back to camp to check up on the place.' );
 		//[return to camp][set clock to 7am];
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'dungeon2Supplimental', new Dungeon2Supplimental() );
+	SceneLib.registerScene( 'dungeon2Supplimental', new Dungeon2Supplimental() );
 } );

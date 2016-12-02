@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Combat, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function CeraphFollowerScene() {
 	}
 
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			sexMenu = this.ceraphSexMenu;
 		}
 		EngineCore.choices( 'Sex', sexMenu, '', null, '', null, '', null, 'Partswap', this.giveFollowerBodyBits,
-			'Roleplay', rp, 'Get Fetish', gainFetish, 'RemoveFetish', loseFetish, dickToggle, this.cawkTawgle, 'Leave', CoC.getInstance().scenes.camp.campSlavesMenu );
+			'Roleplay', rp, 'Get Fetish', gainFetish, 'RemoveFetish', loseFetish, dickToggle, this.cawkTawgle, 'Leave', SceneLib.camp.campSlavesMenu );
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_CERAPH ] === 0 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
 			EngineCore.addButton( 1, 'Farm Work', this.helpWithFarm );
 		}
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		this.ceraphSprite();
 		EngineCore.outputText( '“<i>I’ll go over there tonight then,</i>” she says. There’s a far-away gleam of excitement in her eyes as she tugs on a nipple; only now does it occur to you what ‘marked as being under demon protection’ might entail. “<i>Anything else, [master]?</i>”' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_CERAPH ] = 1;
-		CoC.getInstance().scenes.farmCorruption.whitneyCorruption( 10 );
+		SceneLib.farmCorruption.whitneyCorruption( 10 );
 		this.ceraphFollowerAppearance( false );
 	};
 	CeraphFollowerScene.prototype.noFarmShitYet = function() {
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		var marbles = null;
 		var dominika = null;
 		if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 && (CoC.getInstance().player.hasCock() || CoC.getInstance().player.hasVagina()) && CoC.getInstance().player.lust >= 33 ) {
-			CoC.getInstance().scenes.urta = this.ceraphUrtaRoleplay;
+			SceneLib.urta = this.ceraphUrtaRoleplay;
 		}
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 70 ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.getInstance().player.lust >= 33 ) {
 			marbles = this.sweetieNOOOO;
@@ -160,12 +160,12 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		if( CoC.getInstance().player.gender > 0 ) {
 			EngineCore.addButton( 8, 'Be A Pet', this.sumissivenessToCeraphFollower );
 		}
-		EngineCore.addButton( 0, 'Defeat Her', CoC.getInstance().scenes.ceraphScene.winRapeChoices );
-		EngineCore.addButton( 1, 'Lose to Her', CoC.getInstance().scenes.ceraphScene.ceraphRapesYouBADDAWGYODIGGITY );
+		EngineCore.addButton( 0, 'Defeat Her', SceneLib.ceraphScene.winRapeChoices );
+		EngineCore.addButton( 1, 'Lose to Her', SceneLib.ceraphScene.ceraphRapesYouBADDAWGYODIGGITY );
 		EngineCore.addButton( 5, 'Dominika', dominika );
 		EngineCore.addButton( 6, 'Marble Play', marbles );
-		EngineCore.addButton( 7, 'Urta Play', CoC.getInstance().scenes.urta );
-		//EngineCore.choices('Defeat Her',winRapeChoices,'Lose to Her',ceraphRapesYouBADDAWGYODIGGITY,'',0,'',0,'',0,'',0,'Dominika P.',dominika,'Marble Play',marbles,'Urta Play',CoC.getInstance().scenes.urta,'Back',this.ceraphFollowerAppearance);;
+		EngineCore.addButton( 7, 'Urta Play', SceneLib.urta );
+		//EngineCore.choices('Defeat Her',winRapeChoices,'Lose to Her',ceraphRapesYouBADDAWGYODIGGITY,'',0,'',0,'',0,'',0,'Dominika P.',dominika,'Marble Play',marbles,'Urta Play',SceneLib.urta,'Back',this.ceraphFollowerAppearance);;
 		EngineCore.addButton( 9, 'Back', this.ceraphFollowerAppearance );
 	};
 	//*Ceraph is Defeated #4 - Offers Funtimes (Zeddited);
@@ -202,16 +202,16 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			var buttsmexing = null;
 			//Dickings ahoyu!;
 			if( CoC.getInstance().player.hasCock() ) {
-				dicking = CoC.getInstance().scenes.ceraphScene.maleFuckCeraphsPussy;
+				dicking = SceneLib.ceraphScene.maleFuckCeraphsPussy;
 				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() ) !== -1 ) {
-					buttsmexing = CoC.getInstance().scenes.ceraphScene.buttRapeCeraph;
+					buttsmexing = SceneLib.ceraphScene.buttRapeCeraph;
 				} else {
 					EngineCore.outputText( '  <b>There\'s no way you could fit inside her ass - you\'re too big.</b>', false );
 				}
 			}
 			var cunting = null;
 			if( CoC.getInstance().player.hasVagina() ) {
-				cunting = CoC.getInstance().scenes.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
+				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
 
 			EngineCore.choices( 'Collar Her', this.collarCeraph, 'Fuck Her', dicking, 'Ride Her', cunting, 'FuckHerAss', buttsmexing, 'Leave', Combat.cleanupAfterCombat );
@@ -266,16 +266,16 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			var buttsmexing = null;
 			//Dickings ahoyu!;
 			if( CoC.getInstance().player.hasCock() ) {
-				dicking = CoC.getInstance().scenes.ceraphScene.maleFuckCeraphsPussy;
+				dicking = SceneLib.ceraphScene.maleFuckCeraphsPussy;
 				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() ) !== -1 ) {
-					buttsmexing = CoC.getInstance().scenes.ceraphScene.buttRapeCeraph;
+					buttsmexing = SceneLib.ceraphScene.buttRapeCeraph;
 				} else {
 					EngineCore.outputText( '  <b>There\'s no way you could fit inside her ass - you\'re too big.</b>', false );
 				}
 			}
 			var cunting = null;
 			if( CoC.getInstance().player.hasVagina() ) {
-				cunting = CoC.getInstance().scenes.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
+				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
 			EngineCore.choices( 'Fuck Her', dicking, 'Ride Her', cunting, 'FuckHerAss', buttsmexing, '', null, 'Leave', Combat.cleanupAfterCombat );
 		} else {
@@ -305,16 +305,16 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			var buttsmexing = null;
 			//Dickings ahoyu!;
 			if( CoC.getInstance().player.hasCock() ) {
-				dicking = CoC.getInstance().scenes.ceraphScene.maleFuckCeraphsPussy;
+				dicking = SceneLib.ceraphScene.maleFuckCeraphsPussy;
 				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().monster.analCapacity() ) !== -1 ) {
-					buttsmexing = CoC.getInstance().scenes.ceraphScene.buttRapeCeraph;
+					buttsmexing = SceneLib.ceraphScene.buttRapeCeraph;
 				} else {
 					EngineCore.outputText( '  <b>There\'s no way you could fit inside her ass - you\'re too big.</b>', false );
 				}
 			}
 			var cunting = null;
 			if( CoC.getInstance().player.hasVagina() ) {
-				cunting = CoC.getInstance().scenes.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
+				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
 			EngineCore.choices( 'Fuck Her', dicking, 'Ride Her', cunting, 'FuckHerAss', buttsmexing, '', null, 'Leave', Combat.cleanupAfterCombat );
 		} else {
@@ -637,7 +637,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( 'Nodding, you give her ass a slap and send her off, noting Ceraph has freed her hands at some point and returned them to their normal position.  She hasn\'t done anything about the sexual filth coating her body, but knowing her, she probably doesn\'t want to.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 0.25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//*Ceraph TongueFucks The PC (Zeddited);
 	CeraphFollowerScene.prototype.followerCeraphTongueFucking = function() {
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00289 ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 0.25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//*Ceraph goes full tentacle and double penetrates herms (+ standard dick BJ if ceraph dick toggle is on) (Zeddited);
 	CeraphFollowerScene.prototype.ceraphTentacleGrape = function() {
@@ -756,12 +756,12 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61 ); //Ceraph causes faster pregnancies
 		if( CoC.getInstance().flags[ kFLAGS.CERAPH_HIDING_DICK ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00290 ] === 0 ) {
 			EngineCore.outputText( 'You smirk and wonder if you should punish her for stuffing her cock down your throat.  Do you?', false );
-			EngineCore.choices( 'Punish', this.punishCeraphForSurpriseThroatFuck, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Punish', this.punishCeraphForSurpriseThroatFuck, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//ELSE: ;
 		else {
 			EngineCore.outputText( 'You nod graciously and begin to clean up, dismissing your personal demon... for now.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Punish Her];
@@ -771,7 +771,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You grab hold of Ceraph, bending the surprised demoness over a rock and laying into her ass.  She whimpers, but manages not to cry, even as you turn her purple butt into a black and blue canvas.  With each slap you deliver, you dictate that her cock is only allowed near your mouth at YOUR discretion, not a worthless slave\'s.  By the end, she\'s sniffling and nodding, murmuring, "<i>Yes ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ',</i>" over and over again.</i>"\n\n', false );
 		EngineCore.outputText( 'You let the demon go with her pride bruised.  There\'s little doubt to be had - she\'ll never make that mistake again.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Siamese Catgirl Twins - TDM (Zeddited, nya);
 	CeraphFollowerScene.prototype.catgirlEncounter = function() {
@@ -842,11 +842,11 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1 );
 		//end scene;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	CeraphFollowerScene.prototype.ceraphUrtaRoleplay = function() {
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>Roleplay? My ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ' is wonderfully exploitative with ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' pet\'s lewd body,</i>" Ceraph purrs, lips curling into a sly smile. Holding your arms at your sides, you nod at the subjugated demon, indicating that she should strip you. Keeping her eyes averted, she obediently complies, removing your ' + CoC.getInstance().player.armorName + ' piece by piece until you stand nude, in all your splendor. Turning upon her, you issue your curt command, briefly describing the form that she is to take. Surprisingly, she knows exactly who you\'re talking about. "<i>Ah, the fox-bitch,</i>" she muses, eyes flashing solid black again for a moment. "<i>She\'s been such a thorn in my side for so long... letting you defile her will be a particularly intense pleasure, ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + '.</i>"\n\n', false );
 		EngineCore.outputText( 'Breathing deeply, she shudders, her whole body shaking like a dog coming out of the rain. When she finishes her spasm, you see that her lavender skin is now covered by a fine coat of grey fur which grows and thickens in seconds until there is no trace of her smooth flesh or her latex outfit. She bites her lower lip and the long, thin appendage curling from the demon\'s ass puffs outward into a bushy fox tail while the hair on her scalp fades to a smoky, ashen color, streaked with black highlights. Seizing her curling horns, Ceraph strokes them languidly, the bone melting in her grasp like putty, allowing her to sculpt them into sharp, narrow ears that twitch uncertainly. Placing her fingers at the bridge of her nose and her thumb under her jaw, she cocks her head to one side and yanks forward, her skull deforming as the front of her face is pulled into a vulpine muzzle, lips thickening into a glistening black pucker as she blows you a kiss.\n\n', false );
@@ -867,7 +867,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 	//[Drunk] (female/herm only. No centaurs);
 	CeraphFollowerScene.prototype.ceraphUrtaRoleplayDrunk = function() {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( 'You wish her a cheerful \'bottom\'s up,\' relief washing over her face as she seeks shelter in the blissful oblivion of alcohol. Lifting the bottle\'s fluted neck to her polished lips, Urta throws back her head and begins swallowing. Her throat bulges in rhythmic gulps, air bubbling up through the liquor as the whiskey steadily vanishes into her shame-thirsty gullet. Her face flushes deeper, the bitter sting of booze taking her mind off of the embarrassment of her equine attributes. Her cock throbs in the open air with each noisy glug, dollops of cum still drooling from her engorged member. Finishing the entire bottle, the fox-morph wetly sucks down a fresh lungful of air, her expression floating somewhere between stimulated joy and dazed confusion. She looks closely at the bottle and blinks several times. "<i>Wh- what did you put in this?</i>"\n\n', false );
 		EngineCore.outputText( 'With a shrug, you admit that you\'re impressed she noticed the little additive. It seemed unlikely she would\'ve tasted much of anything with how quickly she slurped down her liquid vice.  Grinning, you ask her how the black egg tasted. Urta\'s mouth hangs open, inebriation sinking its talons into her brain one by one, but after a moment, the realization dawns on her. Before she can voice her outrage, the change begins, Urta\'s body cringing with twisting spasms. She drops the bottle and clutches at her stomach, but when she raises her hands again, strands of light grey fur scatter into the wind from between her fingers. Falling to her knees, she begins itching, frantically, more of her ashen hair sloughing off as if she were shedding uncontrollably. Watching the girl paw at herself wildly, you bend down, close to her face, and when her head turns up to speak, you give the vixen a flick across her nose. She snatches her sensitive muzzle with a whine, hands wrapping around it as she writhes on the ground, fur falling away with each trembling shake.\n\n', false );
 		EngineCore.outputText( 'When Urta finally stops shuddering, the vulpine guard looks very different. The silken coat of grey fur that once patterned her lean, athletic torso has been removed, to reveal the soft caramel of her dusky-hued skin. While her lower legs and pawed feet retain their leaden pelt, they now more closely resemble stockings than natural body hair. Her tail seems unaffected as well, fluffy fur twitching from the junction just above her taut ass, raw sienna globes shining from the sweat of her transformation. Moving your gaze further along her dark amber body, you find two sharp, sliver fox ears poking out of the black-striped argentine hair on her head. Beyond these spots, however, it seems the girl has lost all of the fox hair that previously covered her, from her knees up to her eyebrows. Shaking her head, the Captain of Tel\'Adre\'s city guard takes her hands from her face and almost leaps backward in surprise. Her muzzle is gone, replaced with a small, humanoid nose and plump, ebony lips just beneath it. Her startlingly human features cause the intoxicated girl to press her fingers against the burnt sugar of her skin, soft flesh highlighting the high cheekbones of her feminine face. She runs a hand through her hair, not sure what to think and too drunk to form an opinion.\n\n', false );
@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 	};
 	CeraphFollowerScene.prototype.ceraphUrtaRoleplayDrunk2 = function() {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( 'The cock sliding up your backside throbs in anticipation and you realize that Urta\'s over-stimulated herself. Lips parting in a whorish moan, she climaxes, her fingers digging into her soft, smooth skin as her massive shaft flares thicker than you\'ve seen before, gouts of thick jizz arcing from her head. You can feel the voluminous loads surging between your cheeks before bursting from her tip and cresting through the air before splattering down in cords of creamy cum. All along your back, neck, hair, and face, sticky wads of spunk douse you in the fox-girl\'s excitement and you squeeze your rear as tightly as you can to massage out every last ladle of her rich seed. She bathes you a pale off-white but to your surprise, she\'s still moaning and stroking the skin of her changed body. "<i>It\'s not enough,</i>" she mumbles, "<i>I need more.</i>" You start to rise, but the drunk girl slams her palms onto your shoulders, planting you back into the ground, body horizontal beneath her. Sliding backwards, her engorged cockhead presses insistently against the juncture of your hips, still bubbling with dollops of cum.  "<i>It\'s too sensitive,</i>" she whines, pinning your lower body between her muscled legs.  Your struggles to get out from under the drunk, horny girl are fruitless, so you turn your head and see that her throbbing sac is- if anything- even larger than before, her cock still rock hard as she guides it up against your ' + Descriptors.vaginaDescript() + '.\n\n', false );
 		EngineCore.outputText( '"<i>Oh damnit, damnit, damnit,</i>" Utra chants as she presses her erection against your drooling slit, the equine inches slipping along the sweat-oiled plumpness of your thighs. Inching forward, she presses the flared tip of her head against your tender lips, the distended flesh struggling against the tightness of your snatch, lubricated depths unwillingly parting bit by bit until finally, the bulbous cockhead slips into you, your cunt tightening down around it, firmly locking the guard captain inside you. "<i>Ah! Ffffffuck!</i>" she curses.  "<i>How are you always so tight?</i>" she groans, happily. Unable to restrain herself, she begins bucking in place, sliding the first three inches of her throbbing member back and forth inside you, savoring the ripples her rocking motion sends through your ' + Descriptors.buttDescript() + ', your hypnotic hips mesmerizing the girl riding you. Raising an amber hand, she cracks an open palm against your tender ass as she drives another two inches inside you, your gut lurching with the force. You try to ', false );
 		if( CoC.getInstance().player.isGoo() || CoC.getInstance().player.isNaga() ) {
@@ -890,7 +890,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.cuntChange( 60, true, true, false );
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Pounding you faster and faster, you can feel her cock swelling within you dangerously. Rutting frantically, she leans down, pressing her smooth sienna skin against your jizz-soaked back, her tits rubbing the fox-girl\'s spunk into your ' + CoC.getInstance().player.skin() + '. Lowering her head, she whispers into your ear, "<i>No condoms for sneaky bitches who spike drinks,</i>" her husky voice right on the edge.  "<i>Fur isn\'t the only thing I\'ve lost. I\'m potent again,</i>" she drunkenly insists. "<i>I can feel it in my big, swollen balls.', false );
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() || CoC.getInstance().scenes.marbleScene.marbleFollower() || CoC.getInstance().scenes.izmaScene.izmaFollower() ) {
+		if( SceneLib.amilyScene.amilyFollower() || SceneLib.marbleScene.marbleFollower() || SceneLib.izmaScene.izmaFollower() ) {
 			EngineCore.outputText( '  After I knock you up, try explaining the fox tails on your kids to those other bitches.', false );
 		}
 		EngineCore.outputText( '</i>"  Reaching out to brace herself, Urta grabs your shoulder with her left hand, but her right goes wild and she ends up hooking her fingers in your mouth, jerking your cheek to the side. With the added grip, she wriggles deeper, the remaining inches snaking into your uterus until the elephantine flare rubs against your cervix, the bottom ridge of her fleshy sheath teasingly flicking against your swollen clit. Sensations crash over you gentle curves of her fit abdomen stroking your ass, her wobbling chest pressing button-stiff nipples into your back, the sweet taste of your tongue stroking the fingers in your mouth. It is too much and your body clenches down in a gushing orgasm on the invading member, drool leaking from your gaping mouth as your heavily lidded eyes lose focus, allowing the fox-girl to use you to her heart\'s content.\n\n', false );
@@ -907,11 +907,11 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61 ); //Ceraph causes faster pregnancies
 			$log.debug( 'PC KNOCKED UP WITH CERAPH IMPS' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Sober];
 	CeraphFollowerScene.prototype.ceraphUrtaRoleplaySober = function() {
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell Urta to put the bottle down. She won\'t need that, not any more. She looks at you in confusion, setting the whiskey to one side, curling her tail between her legs to cover her throbbing member. Closing the distance between the two of you, she stiffens when you wrap an arm around the small of her back and bring the other hand up to her chin. She doesn\'t have to be ashamed any more, you explain, because you know the cure for her curse. The fox-morph\'s eyes light up, her mouth parting but not daring to speak or even breathe. Stroking a thumb along the line of her jaw, you close your eyes and nod slowly, pulling her into an embrace tight enough for you to feel the fluttering pulse of her body heat sinking through your ' + CoC.getInstance().player.skinFurScales() + '. You can tell by the wobbling of her lower lip that she is dying to ask how, but you merely brush the dappled-grey bangs from her eyes, staring into the guard\'s emerald irises. You can feel the soft intake of her breath as it catches in her throat and she leans toward you ever so slightly, blushing. You meet her halfway, obsidian-warm lips pressing against yours tentatively at first, before gaining confidence. She sinks deeper into the embrace, the tight tension knotting her back slowly easing as surrenders her self-conscious shame for unabashed passion, relishing the intimacy of your caress. When you draw back from the intoxicating fever of the fox girl, you whisper one word to her: "<i>Love.</i>"\n\n', false );
 		EngineCore.outputText( 'Urta stares silently, her expression shocked at first, before her restraint crumbles, tears welling in her eyes. "<i>Th-thank you ' + CoC.getInstance().player.short + '. I love you too! From the moment I met you, I barely dared to hope, but... oh thank you!</i>" She throws her arms around your shoulders and hugs you with all her might, body trembling with joy. A moment later, her strength gives out and she sinks to her knees. "<i>Ah!</i>" she gasps in surprise, her cock twitching in the air. The massive, rock-hard shaft begins to shrink, inches of flesh sinking upward into her midnight sheath while her throbbing balls recede upward, into her abdomen, growing smaller with each passing moment. The horsecock shrinks down to twelve inches, then six, then three, the flared tip barely poking above the fine, ebony fuzz of her groin before her sheath too is pulled between her legs. Her balls vanish, body sealing over the purified orbs, the skin of her sac pulled tight until there is no trace they ever existed. Her cock is similarly cleansed, flesh healing over the blight of her male organ in the blink of an eye, leaving her pussy untouched, glistening with excitement.\n\n', false );
@@ -926,7 +926,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 	};
 	CeraphFollowerScene.prototype.ceraphUrtaRoleplaySober2 = function() {
 		EngineCore.hideUpDown();
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You rise and run your hands along the lighter fur of her toned abs. "<i>Please,</i>" she whispers, "<i>I want to feel you inside me.</i>"  Your ' + Descriptors.cockDescript( 0 ) + ' is all too willing, throbbing meat sliding up and down her lubricated lips as you slowly rock back and forth. Bracing your tip at the pucker of her honey-slick passage, you take one of her hands in yours, entwining your fingers with a squeeze as you push into her. Urta jolts with a sharp intake of breath before relaxing herself and closing her eyes to focus on the sensation of your inflamed shaft parting her inner walls. You push in deeper, amazed at how wet she is already, the strength of her love for you intensifying every motion. Despite all the sexual encounters she\'s had before this moment, in this single instant, it\'s as if she\'s experiencing pleasure for the first time. Aching bliss coursing through her limbs, it\'s all she can do to gasp and slowly toss her head side to side as you sink deeper into the girl, her recesses filling with the almost liquid heat of your throbbing member.', false );
 		if( CoC.getInstance().player.cockArea( 0 ) > 150 ) {
@@ -938,7 +938,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( 'Retrieving your ' + CoC.getInstance().player.armorName + ', when you turn around again, Urta is gone, the moment vanishing like a drop of water in an endless sea. "<i>Thank you, ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ',</i>" Ceraph\'s voice demurely whispers, gratitude floating on the wind.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -2, 'cor', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Corrupting the Innocent with optional gangbang -Luka (Zeddited) (with Shake N' Bake) (and Shambles helped);
 	//Demon cock supplied for PCs without one.;
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You wave the imps away and tell them that you\'re not interested.  One of the imps protests, "<i>But, ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + '-</i>"  You cut him off before he has a chance to finish, saying that you wanted Ceraph, not some human girl!  Then, you toss the potion away and tell them to take the girl away.\n\n', false );
 		EngineCore.outputText( '"<i>Y-Yes, ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + '...</i>" the imps reply meekly, pulling on the collar to drag the girl away.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.campSlavesMenu );
+		EngineCore.doNext( SceneLib.camp.campSlavesMenu );
 	};
 	//[=Yes=];
 	CeraphFollowerScene.prototype.ceraphLackeyCorruption = function() {
@@ -1056,14 +1056,14 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( 'Chagrined, she unfurls her wings and flies off, the imps quickly wilting and following suit.', false );
 		//(disable repeat of scene);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00293 ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=No=];
 	CeraphFollowerScene.prototype.declineCeraphFauxCorruption = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell her you have no interest in granting release to lowly imps.  If they want pleasure, then they should earn it themselves.\n\n', false );
 		EngineCore.outputText( '"<i>Sorry boys, ' + CoC.getInstance().player.mf( 'Master\'s', 'Mistress' ) + ' orders.</i>"  She extends her wings and flies away, and the horny imps follow suit, still busy masturbating.  A \'pit-pat-pat\' sound follows them, the noise of their pre-cum hitting the dry dirt from on high.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Yes=];
 	CeraphFollowerScene.prototype.acceptMoreCeraphFauxCorruption = function() {
@@ -1075,7 +1075,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '"<i>Look at what happened to me... used and transformed, then forced to service a bunch of dirty imps...  Thank you, ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ',</i>" she moans with a lewd smile.\n\n', false );
 		EngineCore.outputText( 'Licking the cum off her body, she sashays towards you to give you a little peck on the cheek.  "<i>Hmm, you\'re such a good ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ', I might have to leave Ceraph\'s harem and join yours instead.  See you around, hot stuff.</i>"  She rounds up the tired imps and extends her wings, setting off alongside them.', false );
 		EngineCore.dynStats( 'lus', 5, 'cor', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(not optimized in any way for centaur);
 	//(should probably add a cock-limit of like, whatever you want, cuz you're fucking her butt);
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		//end (stat changes?);
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -5, 'cor', 3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//NOTES:;
 	//Ceraph roleplay. [Dominika] option. There is text for the first time you do it, then transformation text that is intended to play at the front of every scene.;
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 2 );
 		CoC.getInstance().flags[ kFLAGS.CERAPH_ROLEPLAY_AS_DOMINIKA_COUNT ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*Ceraph's Harem
 	 [Introduction]
@@ -1434,7 +1434,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '"<i>Zetsuko hopes to taste ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ' again sometime...</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -5, 'cor', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//▶[GetTongued] requires vagina;
 	CeraphFollowerScene.prototype.getTonguedByZetsuko = function() {
@@ -1493,7 +1493,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '"<i>Zetsuko hopes to taste ' + CoC.getInstance().player.mf( 'Master', 'Mistress' ) + ' again sometime...</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -5, 'cor', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//▶[Banana?] silly mode;
 	CeraphFollowerScene.prototype.zetsukoBanana = function() {
@@ -1509,13 +1509,13 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( 'Oh, so a banana is a fruit? *THUD*\n\n', false );
 		EngineCore.outputText( '"<i>FUCK!</i>"\n\n', false );
 		EngineCore.outputText( 'You\'ll take that as a yes.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	CeraphFollowerScene.prototype.noZetsukoLoveToday = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell her to be gone; you wanted Ceraph, not some lowly slave that can\'t even be bothered to show you proper respect.  You order her to tell Ceraph not to waste your time with undisciplined servants that she\'s too inept to properly break.\n\n', false );
 		EngineCore.outputText( '"<i>Oohoh, Mistress is certain to be FURIOUS with Zetsuko...</i>" she says, licking her lips and showing off the numerous studs that line her normal tongue as well.  "<i>Zetsuko cannot wait...</i>"', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.campSlavesMenu );
+		EngineCore.doNext( SceneLib.camp.campSlavesMenu );
 	};
 	CeraphFollowerScene.prototype.giveFollowerBodyBits = function() {
 		EngineCore.spriteSelect( 87 );
@@ -1603,7 +1603,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ]++;
 		CoC.getInstance().player.removeCock( x, 1 );
 		CoC.getInstance().player.genderCheck();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	CeraphFollowerScene.prototype.ceraphFollowerCuntTaking = function() {
 		EngineCore.spriteSelect( 87 );
@@ -1619,7 +1619,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'sen', -2, 'cor', 5 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	CeraphFollowerScene.prototype.ceraphFollowerTitTaking = function( rowNum ) {
 		if( rowNum === undefined ) {
@@ -1684,7 +1684,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		//(-1 fetish, +1 tit toy status);
 		EngineCore.dynStats( 'lus', 20, 'cor', 5 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//NippleCunt Stuffing (Ceraph grows dick-nipples to plow your lusty twats!);
 	CeraphFollowerScene.prototype.stuffSomeNippleCunts = function() {
@@ -1746,7 +1746,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '\n\n"<i>Delicious, my [Master],</i>" the demoness coos as her wings unfurl, "<i>Please, let\'s do this again.</i>"  She leaps into the sky and flies off, no doubt to tend to her own pets.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2, 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Portal Fuck (AKA Ceraph Hung Out With Cinnabar, Req's PC dick);
 	CeraphFollowerScene.prototype.portalFuckWithFollowerCeraph = function() {
@@ -1799,7 +1799,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.getInstance().flags[ kFLAGS.TIMES_CERAPH_PORTAL_FUCKED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	CeraphFollowerScene.prototype.layEggsInSlaveCeraph = function() {
 		EngineCore.clearOutput();
@@ -1847,7 +1847,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '\n\nHumming a happy tune to yourself as you walk around Ceraph\'s twitching form, you grab a handful of her hair and pull her up off the ground.  Her face is crusted with dirt and her sparkling, gem-like eyes stare senselessly at you.  You rub your ovipositor over her head, carefully wiping your mingled lubes off on her hair before retracting the organ back into its holding sleeve.  "<i>That will be all,</i>" you tell her, and she smiles dreamily at you.  You turn around to gather your things, and don\'t bother to look back.' );
 		CoC.getInstance().player.dumpEggs();
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Ceraph Pegging + Bonus Petplay!;
@@ -1917,7 +1917,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		EngineCore.outputText( '\n\nCeraph gets up with a shocked expression painted on her violet features.  "<i>Didn\'t you have any fun?</i>" she asks.  "<i>We were just about to the good part!</i>"' );
 		EngineCore.outputText( '\n\nYou tell her that it wasn\'t fun in the slightest, and you want out.' );
 		EngineCore.outputText( '\n\n"<i>Well, okay then... [Master]...</i>" she grumbles.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Either Once];
 	CeraphFollowerScene.prototype.barkToCeraphOnce = function( dog ) {
@@ -2133,7 +2133,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2, 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Either Twice];
 	CeraphFollowerScene.prototype.barkOrMeowTwiceToCeraph = function( dog ) {
@@ -2167,9 +2167,9 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 ) {
 			choices.push(0);
 		}
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
+		if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
 			choices.push(1);
-		} else if( CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+		} else if( SceneLib.jojoScene.campCorruptJojo() ) {
 			choices.push(1);
 		}
 		choices.push(2);
@@ -2231,7 +2231,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 		//Corrupt Jojo or Amily;
 		else if( select === 1 ) {
 			//Both;
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+			if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && SceneLib.jojoScene.campCorruptJojo() ) {
 				//Both Corrupt Jojo & Amily;
 				EngineCore.outputText( '\n\nBefore long, you come across both of your corrupt, mouse-like slaves.  They stop fondling each other\'s genitals long enough to ask, "<i>[Master], what are you doing?</i>"' );
 				EngineCore.outputText( '\n\nCeraph looks down at you with her hand tight on your leash.' );
@@ -2244,7 +2244,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 				EngineCore.outputText( '</i>"' );
 				EngineCore.outputText( '\n\n"<i>[Master] is Ceraph\'s pet?  Then... then, we\'re her pets too...</i>" Amily says as the spokeswoman for the group.  They both proceed to drop down on all fours and crawl up alongside you.  Ceraph nonchalantly tears off strips of Amily\'s clothing and fixes them into a pair of improvised collars, connected to her whip with simple knots.  The four of you then continue the walk together, though you\'re scolded again and again when you let the mice rub up against you sensually.  Having sister and brother pets is somewhat comforting, but being constantly exposed to their sexual scent is more than distracting.  Ceraph squirts the two of you with water a half-dozen times to keep you from fucking, and each time the shame is greater.  You really are a pet, one that can\'t even keep ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' most basic needs in check.' );
 			} else {
-				var jojo = CoC.getInstance().scenes.jojoScene.campCorruptJojo();
+				var jojo = SceneLib.jojoScene.campCorruptJojo();
 				EngineCore.outputText( 'Before long, your corrupt, mouse-like slave sees you awkwardly clambering after the purple-hued dominatrix.  ' );
 				if( jojo ) {
 					EngineCore.outputText( 'He' );
@@ -2294,22 +2294,22 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			}
 			//Mice finisher;
 			EngineCore.outputText( '\n\nYou go for an exhausting walk around the nearby wasteland with your companion' );
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+			if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && SceneLib.jojoScene.campCorruptJojo() ) {
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( ', and you thoroughly enjoy the degrading experience.  Lust and humiliation are all jumbled up inside you into one big mass of sex, such that getting turned on from this humiliates you, and being humiliated gets you even more aroused' );
 			EngineCore.outputText( '.  It\'s an endless feedback loop of sexual excitement that has you about to blow, except you\'re back in camp.  The collar is untied, and your owner\'s sweet voice whispers, "<i>Good walk, pet.</i>" before vanishing into the wind.' );
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+			if( SceneLib.jojoScene.campCorruptJojo() ) {
 				EngineCore.outputText( 'Jojo' );
-				if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
+				if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
 					EngineCore.outputText( ' and ' );
 				}
 			}
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
+			if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
 				EngineCore.outputText( 'Amily' );
 			}
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+			if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && SceneLib.jojoScene.campCorruptJojo() ) {
 				EngineCore.outputText( 'look around uncertainly before darting back to their usual places, knowing you\'ll give the command if you want them to take care of your desires.' );
 			} else {
 				EngineCore.outputText( 'looks around uncertainly before darting back to the usual places, knowing you\'ll give the command if you want a slave to take care of your desires.' );
@@ -2454,7 +2454,7 @@ angular.module( 'cocjs' ).run( function( $log, Combat, PregnancyStore, PerkLib, 
 			EngineCore.outputText( '\n\nYour collar is removed, and you look around realizing your owner is gone.  Your muscles are sore from the journey and you NEED to masturbate...  You aren\'t even sure why you did that.' );
 		}
 		EngineCore.dynStats( 'sen', 4, 'lus=', 100, 'resisted', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'ceraphFollowerScene', new CeraphFollowerScene() );
+	SceneLib.registerScene( 'ceraphFollowerScene', new CeraphFollowerScene() );
 } );

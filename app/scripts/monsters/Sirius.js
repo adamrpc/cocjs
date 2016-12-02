@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Sirius', function( Naga, CoC, Monster, Utils, StatusAffects, AppearanceDefs, Combat, EngineCore ) {
-	var Sirius = angular.copy( Naga );
+angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, Naga, CoC, Monster, Utils, StatusAffects, AppearanceDefs, Combat, EngineCore ) {
+	function Sirius() {
+		this.init(this, arguments);
+	}
+	angular.extend(Sirius.prototype, Naga.prototype);
 	Sirius.prototype._superEAttack = Sirius.prototype.eAttack;
 	Sirius.prototype._superOutputAttack = Sirius.prototype.outputAttack;
 	Sirius.prototype.eAttack = function() {
@@ -83,10 +86,10 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( Naga, CoC, Monster, Utils
 		Combat.combatRoundOver();
 	};
 	Sirius.prototype.defeated = function() {
-		CoC.getInstance().scenes.urtaQuest.urtaBeatsUpSiriusRadio();
+		SceneLib.urtaQuest.urtaBeatsUpSiriusRadio();
 	};
 	Sirius.prototype.won = function() {
-		CoC.getInstance().scenes.urtaQuest.urtaLosesToSirriusSnakeRadio();
+		SceneLib.urtaQuest.urtaLosesToSirriusSnakeRadio();
 	};
 	Sirius.prototype.init = function( that ) {
 		Naga.prototype.init( that, [ true ] );

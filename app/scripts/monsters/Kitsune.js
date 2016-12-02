@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Kitsune', function( CoC, PerkLib, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, SandWitch, kFLAGS, CockTypesEnum ) {
-	var Kitsune = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, CoC, PerkLib, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, SandWitch, kFLAGS, CockTypesEnum ) {
+	function Kitsune() {
+		this.init(this, arguments);
+	}
+	angular.extend(Kitsune.prototype, Monster.prototype);
 
 	// Combat Abilities:
 	// the kitsune are an almost purely magical mob, relying mainly on tease attacks and spells that raise lust.
@@ -178,14 +181,14 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( CoC, PerkLib, Monster, U
 	};
 
 	Kitsune.prototype.defeated = function() {
-		CoC.getInstance().scenes.kitsuneScene.defeatTheKitsunes();
+		SceneLib.kitsuneScene.defeatTheKitsunes();
 	};
 	Kitsune.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe kitsune recoils before running off, no longer interested in you...' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.kitsuneScene.loseToKitsunes();
+			SceneLib.kitsuneScene.loseToKitsunes();
 		}
 	};
 	SandWitch.prototype.init = function( that, args ) {

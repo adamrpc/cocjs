@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, BreastStore, Appearance, ArmorLib, PerkLib, ConsumableLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageManager, BreastStore, Appearance, ArmorLib, PerkLib, ConsumableLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function Rubi() {
 	}
 
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n"<i>I—Thank you, [name].  Just don\'t tell anyone about my secret, OK?  No sense in complicating my life here any further.</i>"  You nod, and swear to keep his secret.' );
 		EngineCore.outputText( '\n\nRubi gives you one last hug and walks back towards the bakery, his devilish tail swishing happily behind him.  "<i>See you soon... babe,</i>" he says, trying the name on for size.  You smile, and continue your journey back to camp.' );
 		this.rubiAffection( 3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Reject];
 	Rubi.prototype.rejectRubi = function() {
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nSniffing slightly, Rubi turns away and returns to the bakery, his devilish tail sullenly drooping behind him.' );
 		//(Will no longer encounter Rubi at the bakery.);
 		CoC.getInstance().flags[ kFLAGS.RUBI_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Bakery Intro scenes;
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			place = this.rubisFuckingHouseYouPervert;
 		}
 		//[Milk] [Tea] [Chat] [Rubi's Place (Relationship 20+)] [Leave];
-		EngineCore.choices( 'Milk', milk, 'Tea', tea, 'Chat', this.chatWithRubi, 'Rubi\'s Place', place, 'Leave', CoC.getInstance().scenes.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.choices( 'Milk', milk, 'Tea', tea, 'Chat', this.chatWithRubi, 'Rubi\'s Place', place, 'Leave', SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
 	};
 	//Choose Milk?;
 	Rubi.prototype.buyRubiMilk = function() {
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		if( this.rubiAffection() >= 30 && CoC.getInstance().flags[ kFLAGS.RUBI_ADMITTED_GENDER ] === 0 ) {
 			EngineCore.doNext( this.specialRelationship20scene );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Choose Tea?;
@@ -609,7 +609,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		if( this.rubiAffection() >= 30 && CoC.getInstance().flags[ kFLAGS.RUBI_ADMITTED_GENDER ] === 0 ) {
 			EngineCore.doNext( this.specialRelationship20scene );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Choose Chat?;
@@ -647,7 +647,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		if( this.rubiAffection() >= 30 && CoC.getInstance().flags[ kFLAGS.RUBI_ADMITTED_GENDER ] === 0 ) {
 			EngineCore.doNext( this.specialRelationship20scene );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Choose Rubi's Place?;
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 				EngineCore.outputText( '\n\n"<i>Ooh, that looks so sexy, babe.  Let me get that for you.  My treat, for such a sexy beast,</i>" Rubi exclaims, and passes the money to the tailor.  As you leave the shop, you thank your lover profusely, and then head back to camp.' );
 				EngineCore.outputText( '\n\nIt\'s only once you get back tbat you realize you meant to fuck Rubi while you were in town!  You giggle and curse your airheadedness.  Oh well, you can always go into town again, there\'s always more shopping to be done!' );
 				//(Add Bimbo Skirt to inventory);
-				CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BIMBOSK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ArmorLib.BIMBOSK, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(If Bimbo Skirt not found);
@@ -730,7 +730,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			EngineCore.outputText( '\n\n<b>You could use your snake-like motions to hypnotize Rubi and turn [rubi em] into a more complacent, eager slut. Doing so is likely irreversible.</b>' );
 			EngineCore.addButton( 5, 'Hypno', this.hypnoBimboficationForRubiSloots );
 		}
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rubi.prototype.rubiSexMenu = function() {
 		//[Fuck Rubi (if player has cock, OR at least a 4</i>" clit)] [Dildo Fuck (If player has Deluxe Dildo)] [Tease] [Release (Only if Normal or Incubus Rubi who has been teased)] [Titfuck (Bimbo Rubi only)] [Give Item];
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( 'fantastic babe,</i>" [rubi ey] murmurs before drifting off into a sex-filled dreamland.' );
 		EngineCore.outputText( '\n\nYou\'re tempted to drift off as well, but as they say, you\'ve got things to see and people to do.  So you peel yourself away from Rubi, grab a quick shower, and head off back to camp.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		this.rubiAffection( 1 );
 		if( CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] > 0 ) {
 			CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ]++;
@@ -1166,7 +1166,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		if( CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] > 0 ) {
 			CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ] += 2;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tease;
 	Rubi.prototype.teaseRubi = function() {
@@ -1251,7 +1251,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			EngineCore.outputText( '\n\nWith your devious fun accomplished, you stand, make yourself look presentable, and head out the door.  Your last sight of Rubi is that of [rubi em] sitting spread eagle on the couch with a supremely satisfied look on [rubi eir] face.' );
 		}
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Release;
 	Rubi.prototype.releaseRubi = function() {
@@ -1349,7 +1349,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		this.rubiAffection( CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ] );
 		CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ] = 0;
 		CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cheating Rubi;
 	Rubi.prototype.cheatingRubi = function() {
@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( 'You shrug your shoulders.  It\'s not really your problem, is it?  You\'re free to fuck who you choose, and so is she.' );
 		EngineCore.outputText( '\n\nYou stand up and leave the bakery, deciding to wander around Tel\'Adre a bit more.' );
 		//(Kicks PC back out to Tel'Adre; PC can still get the Cheating Rubi event);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Find Her);
 	Rubi.prototype.findBimboCheatster = function() {
@@ -1466,7 +1466,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n"<i>Of course, baby.  Whatever you say,</i>" then she giggles, "<i>At least I\'ll have you to look forward to, whenever you roll into town.</i>"' );
 		EngineCore.outputText( '\n\nThat\'s that then, Rubi will refrain from sleeping around.  With that settled, you decide to let her get dressed and mull it over.  You head out of the house, and make your way back to camp.' );
 		CoC.getInstance().flags[ kFLAGS.RUBI_PROSTITUTION ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Yes);
 	Rubi.prototype.yesBimboNTR = function() {
@@ -1476,7 +1476,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n"<i>Ohh baby I love you so much!</i>"  She plants a fury of kisses all over your face, giggling constantly.  "<i>None of them could ever compare to you, but they will help.</i>"' );
 		EngineCore.outputText( '\n\nThat\'s that then, Rubi will be free to sleep with anyone, just as you are.  With that settled, you decide to let her get dressed.  You head out of the house, and make your way back to camp.' );
 		CoC.getInstance().flags[ kFLAGS.RUBI_PROSTITUTION ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Break Up);
 	Rubi.prototype.breakUpWithRubi = function() {
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nAnd with that, she slams the door behind you.  Well, that could have gone better.  With an exasperated sigh you head back to your camp.' );
 		CoC.getInstance().flags[ kFLAGS.RUBI_PROSTITUTION ] = -2;
 		CoC.getInstance().flags[ kFLAGS.RUBI_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Pimp);
 	Rubi.prototype.pimpOutRubi = function() {
@@ -1497,7 +1497,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nRubi thinks it over and finally nods happily, "<i>Oh, it\'s such a great idea, baby!  I\'ll be like Edryn then!  And I\'ll give you your \'cut\' whenever you come by as well.</i>"  She giggles and plants a kiss right on your lips.  "<i>Oooh, I\'ll need more outfits, and make up, and...</i>" her voice trails off as she excitedly hurries off to her bedroom.' );
 		EngineCore.outputText( '\n\nThat\'s that then, Rubi will officially prostitute herself and share the profits with you.  With that settled, you decide to let her go through her wardrobe in peace.  You head out of the house, and make your way back to camp.' );
 		CoC.getInstance().flags[ kFLAGS.RUBI_PROSTITUTION ] = 2;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Chocolate Covered Strawberries, Oil, Massage?;
 	//Rubi;
@@ -1561,7 +1561,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n[rubi Ey] gratefully says, "<i>Thanks, babe,</i>" and though [rubi eir] body is still warm with almost feverish desire, [rubi ey] won\'t be cumming any time soon.' );
 		CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 1;
 		CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Release/Not Pent Up;
 	Rubi.prototype.releaseRubiMassage = function() {
@@ -1591,7 +1591,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		}
 		CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 0;
 		CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Closet;
 	Rubi.prototype.goInRubisClosetSoThatYouCanComeOutOfTheCloset = function() {
@@ -2325,7 +2325,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 	};
 	Rubi.prototype.cookingDate = function() {
 		EngineCore.outputText( '\n\n<b>Third forgot to write this one!</b>' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dates;
 	Rubi.prototype.dateIntro = function( date ) {
@@ -2377,7 +2377,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nOnce you\'re back in the house, Rubi sprawls out on the couch, a devilish grin on [rubi eir] face.  "<i>So, you plan on giving me a good "kiss" good night?"' );
 		//[Go to Sex menu];
 		this.rubiSexMenu();
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fancy Dinner Date;
 	//For Suitclothes, Long Dress.;
@@ -2413,7 +2413,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			EngineCore.outputText( '\n\nOnce you\'re back in the house, Rubi sprawls out on the couch, a devilish grin on [rubi eir] face.  "<i>So, you plan on giving me a good "kiss" good night?"' );
 			//[to sex menu];
 			this.rubiSexMenu();
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Can't Afford It?;
 		else {
@@ -2444,7 +2444,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n[rubi Ey] grips your arm and gives you a wild kiss on the lips, saying, "<i>Oh gods that was so exhilarating, babe.  I can\'t wait until we do that again.  It got me really, </i>really<i> hot... what are you going to do about it?</i>"' );
 		//[Go to sex menu];
 		this.rubiSexMenu();
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bar Date;
 	//For Rubber Fetish Clothes, Bodysuit, Inquisitor's Corset.;
@@ -2466,7 +2466,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nBy the time you enter Rubi\'s bedroom, [rubi eir] lips are locked with yours.  "<i>So babe, what are we going to do about this?</i>"' );
 		//[Goto Sex menu];
 		this.rubiSexMenu();
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Anal Training;
 	//Requires 75 Affection.;
@@ -2722,7 +2722,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			EngineCore.outputText( '\n\nYou decide this is the best time to head out as well, and make your way out of the apartment and back to camp.' );
 			CoC.getInstance().player.orgasm();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Fucked;
 	//PC gets fucked by Rubi;
@@ -2868,7 +2868,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\nYou waggle a finger at [rubi em] hazily, and [rubi ey] climbs up onto the bed next to you.  You wrap your arms around [rubi em] and kiss [rubi em] passionately before pulling [rubi em] into a cuddling hug.  The two of you drift off into a short nap, contentedly wrapped up in each other\'s arms.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Hotdogging;
 	//PC hotdogs Rubi's ass;
@@ -2992,7 +2992,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ]++;
 		CoC.getInstance().flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 1;
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Pop;
 	Rubi.prototype.popButtjobs = function() {
@@ -3063,7 +3063,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		EngineCore.outputText( '\n\n"<i>No, babe, I\'m lucky to have found you,</i>" [rubi ey] says, snuggling [rubi eir] naked body up against yours as the two of you drift off into a lazy, sex-induced nap.' );
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().flags[ kFLAGS.RUBI_BLU_BALLS ] = 0; //Since he just came so he should be cured of blue balls
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Give Item;
 	//(Can give him Purified Succubus Milk, grows boobs, shrinks penis.);
@@ -3308,7 +3308,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			CoC.getInstance().flags[ kFLAGS.RUBI_BIMBO ] = 1;
 			CoC.getInstance().flags[ kFLAGS.RUBI_HAIR ] = 1;
 			this.rubiSexMenu();
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Equinum;
@@ -3831,7 +3831,7 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 			EngineCore.outputText( 's' );
 		}
 		EngineCore.outputText( ' whipped out and swaying with your sinuous movements, and all he has is his comparatively undersized little pecker. You rock your whole body with the snake-like grace given to you by your naga body, swaying rhythmically as you meet his eyes. Knowing full well just what kinds of depravity you\'d like to force him into, you feel a ' );
-		if( CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
+		if( SceneLib.jojoScene.monk >= 5 ) {
 			EngineCore.outputText( 'familiar ' );
 		} else {
 			EngineCore.outputText( 'strange ' );
@@ -3908,5 +3908,5 @@ angular.module( 'cocjs' ).run( function( $log, CockTypesEnum, ImageManager, Brea
 		this.rubiSexMenu();
 		this.rubiAffection( 100 );
 	};
-	CoC.getInstance().registerScene( 'rubi', new Rubi() );
+	SceneLib.registerScene( 'rubi', new Rubi() );
 } );

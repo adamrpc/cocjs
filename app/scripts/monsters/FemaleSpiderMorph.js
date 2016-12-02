@@ -1,17 +1,20 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UsableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
-	var FemaleSpiderMorph = angular.copy( AbstractSpiderMorph );
+angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UsableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+	function FemaleSpiderMorph() {
+		this.init(this, arguments);
+	}
+	angular.extend(FemaleSpiderMorph.prototype, AbstractSpiderMorph.prototype);
 
 	FemaleSpiderMorph.prototype.defeated = function() {
-		CoC.getInstance().scenes.femaleSpiderMorphScene.defeatASpiderBitch();
+		SceneLib.femaleSpiderMorphScene.defeatASpiderBitch();
 	};
 	FemaleSpiderMorph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe spider flashes a predatory grin while she waits it out...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.femaleSpiderMorphScene.loseToFemaleSpiderMorph();
+			SceneLib.femaleSpiderMorphScene.loseToFemaleSpiderMorph();
 		}
 	};
 	FemaleSpiderMorph.prototype.init = function( that, args ) {

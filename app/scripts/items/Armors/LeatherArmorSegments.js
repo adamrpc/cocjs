@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'LeatherArmorSegments', function( Armor, EngineCore, ArmorLib ) {
-	var LeatherArmorSegments = angular.copy( Armor );
+	function LeatherArmorSegments() {
+		this.init(this, arguments);
+	}
+	angular.extend(LeatherArmorSegments.prototype, Armor.prototype);
 	LeatherArmorSegments.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'UrtaLta', 'UrtaLta', 'leather armor segments', 'leather armor segments', 5, 76, null, 'Light', true ] );
 	};

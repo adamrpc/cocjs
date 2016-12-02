@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kFLAGS, WeaponLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
-	var AbstractSpiderMorph = angular.copy( Monster );
+	function AbstractSpiderMorph() {
+		this.init(this, arguments);
+	}
+	angular.extend(AbstractSpiderMorph.prototype, Monster.prototype);
 	AbstractSpiderMorph.prototype.performCombatAction = function() {
 		if( CoC.getInstance().player.spe >= 2 && Utils.rand( 2 ) === 0 ) {
 			this.spiderMorphWebAttack();

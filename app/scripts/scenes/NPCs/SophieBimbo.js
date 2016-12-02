@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieBimbo() {
 		this.eggColors = [
 			'Black',
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		return (CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && CoC.getInstance().flags[ kFLAGS.SOPHIE_DEBIMBOED ] === 0);
 	};
 	SophieBimbo.prototype.sophieIsInSeason = function() {
-		return (CoC.getInstance().flags[ kFLAGS.SOPHIE_HEAT_COUNTER ] > 551 && !CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant);
+		return (CoC.getInstance().flags[ kFLAGS.SOPHIE_HEAT_COUNTER ] > 551 && !SceneLib.sophieScene.pregnancy.isPregnant);
 	};
 	SophieBimbo.prototype.sophiePregChance = function() {
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 ) {
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 
 		//25% + gradually increasing cumQ bonus;
 		if( Utils.rand( 4 ) === 0 || CoC.getInstance().player.cumQ() > Utils.rand( 1000 ) ) {
-			CoC.getInstance().scenes.sophieScene.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_HARPY );
+			SceneLib.sophieScene.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_HARPY );
 		}
 	};
 	SophieBimbo.prototype.sophieCapacity = function() {
@@ -108,8 +108,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( '', true );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] = 1;
 		//If she's already pregnant then convert the incubation from her wild 48 + Utils.rand(48) [95 to 0] to her follower incubation [168 to 0]. Your first daughter may already be on the way.;
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant ) {
-			CoC.getInstance().scenes.sophieScene.pregnancy.knockUpForce( CoC.getInstance().scenes.sophieScene.pregnancy.type, Math.ceil( CoC.getInstance().scenes.sophieScene.pregnancy.incubation * 1.75 ) );
+		if( SceneLib.sophieScene.pregnancy.isPregnant ) {
+			SceneLib.sophieScene.pregnancy.knockUpForce( SceneLib.sophieScene.pregnancy.type, Math.ceil( SceneLib.sophieScene.pregnancy.incubation * 1.75 ) );
 		}
 		EngineCore.outputText( 'You nod, and Sophie springs forward on her powerful legs, the strength undiminished by the effects of her bimbo transformation.  She tackles you in a bear-hug, kissing your ' + Descriptors.chestDesc() + ' over and over as her momentum carries you both off the side of the mountain.  You tumble in the air, screaming as you fall', false );
 		if( CoC.getInstance().player.canFly() ) {
@@ -131,13 +131,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			} else {
 				EngineCore.outputText( 'flushes hotly and wiggles her hips Sophie\'s way.  The slutty, corrupted mouse and Sophie will clearly be helping to sate each other\'s needs in your absence.', false );
 			}
-		} else if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+		} else if( SceneLib.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 			EngineCore.outputText( '  Afterwards, she offers to suck Jojo\'s cock.  The corrupted slut-mouse nods and stiffens in delight, though he keeps glancing back your way.  Those two will probably spend a lot of time together...', false );
 		} else if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			EngineCore.outputText( '  Afterwards, she offers to suck Jojo\'s cock.  The chaste mouse\'s jaw drops, but when he picks it up, he answers, "<i>Never.  My body is as pure as my soul!</i>"', false );
-		} else if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+		} else if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			EngineCore.outputText( '  Afterwards, she offers to lick Isabella\'s cunt.  Isabella answers sternly, ' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i> Nein!  But you can drink mein milk from time to time.</i>"' );
 			} else {
 				EngineCore.outputText( '“<i>No! But you can still drink my milk from time to time.</i>”' );
@@ -181,8 +181,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 					//Normal Menu + Impregnate;
 					//Big lust boost;
 					EngineCore.dynStats( 'lus', 20 );
-				} else if( CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant ) {
-					switch( CoC.getInstance().scenes.sophieScene.pregnancy.event ) {
+				} else if( SceneLib.sophieScene.pregnancy.isPregnant ) {
+					switch( SceneLib.sophieScene.pregnancy.event ) {
 						case 3: //Medium Bump*
 							EngineCore.outputText( 'As usual, Sophie is laying on your bedroll.  Each day the fertile swell in her stomach seems to grow bigger with the egg inside.  The positively pregnant woman idly strokes her egg-bearing belly with motherly affection.  She even coos to the growing bump as she caresses her body, clearly loving the fact that she is pregnant with another egg.  It\'s not long before she catches sight of you; a big silly smile breaking across her puffy lips as she hurriedly gets up from your blankets and bounds over to you.  With each step, her voluptuous body jiggles and bounces, her big bountiful bosom heaving and shaking, her ripe round rump quivering like jelly as she sways her fecund hips for you.' );
 							EngineCore.outputText( '\n\n"<i>There you are [name]!  Like, look at me!  Your egg is getting soooo big inside me!  Like, just look at how big and sexy I am!</i>" the bimbo brained woman tweets as she presses her curvaceous body against you, making sure you can feel her big soft tits and growing baby bump.  From how her body feels, you\'re sure her already bountiful bimbo-like breasts have only gotten bigger thanks to her pregnancy.  "<i>Thanks for getting me all pregnant and stuff!</i>"' );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.addButton( 0, 'Sex', this.bimboSophieSexMenu );
 		}
 		if( CoC.getInstance().player.hasItem( ConsumableLib.DEBIMBO ) ) {
-			EngineCore.addButton( 4, 'Debimbo', CoC.getInstance().scenes.sophieFollowerScene.unbimboSophie );
+			EngineCore.addButton( 4, 'Debimbo', SceneLib.sophieFollowerScene.unbimboSophie );
 			if( output ) {
 				EngineCore.outputText( '\n\n<b>You could use the bottle of debimbo to return Sophie\'s intellect...</b>' );
 			}
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			}
 		}
 		//EngineCore.choices('Nice Fuck',vag2,'Mean Fuck',vag,'FuckHerAss',anal,'Get Licked',getLicked,'Ovi Elixer',ovi,'Titty-Fuck',titFuck,'',0,'',0,'',0,'Leave',campSlavesMenu);;
-		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && !CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
+		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && !SceneLib.sophieScene.pregnancy.isPregnant && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
 			EngineCore.addButton( 1, 'Farm Work', this.sendToFarm );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 ) {
@@ -287,10 +287,10 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 
 		EngineCore.addButton( 7, 'Appearance', this.sophieBimboAppearance );
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.campSlavesMenu );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.campSlavesMenu );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 	};
 	//Appearance:;
@@ -320,12 +320,12 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 
 		EngineCore.outputText( '\n\nShe has a glittering, moist pussy concealed between her thick thighs, both of which start the feathery covering that reaches all the way to her bird-like, taloned feet.  Her jiggly backside wobbles slightly with every exaggerated step she takes, with her long tailfeathers fanning above it.  You\'re sure there\'s a tight butthole located between them, where it belongs, but you can\'t really get a look at it with all the plump ass surrounding it.' );
 		EngineCore.outputText( '\n\nSophie\'s arms are covered in feathers as well, and are somewhat wing-like in appearance, though she has human hands at the ends of them.  Her primary wings are larger and sprout out above her shoulder blades.  She often keeps them folded out of the way behind her, but she can kick up a huge dust-storm with them when she wants.' );
-		if( CoC.getInstance().scenes.farmCorruption.hasTattoo( 'sophie' ) ) {
+		if( SceneLib.farmCorruption.hasTattoo( 'sophie' ) ) {
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().scenes.farmCorruption.sophieFullTribalTats() ) {
+			if( SceneLib.farmCorruption.sophieFullTribalTats() ) {
 				EngineCore.outputText( 'She is covered from head to tail in tribal tattoos, erotic lines snaking all over her naked frame, giving her the look of a barely tamed savage.' );
 			} else {
-				if( CoC.getInstance().scenes.farmCorruption.numTattoos( 'sophie' ) > 1 ) {
+				if( SceneLib.farmCorruption.numTattoos( 'sophie' ) > 1 ) {
 					EngineCore.outputText( 'She has the following tattoos emblazoned across her body:\n' );
 				} else {
 					EngineCore.outputText( 'She has ' );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			CoC.getInstance().flags[ kFLAGS.FARM_EGG_STORED ] = 0;
 			CoC.getInstance().flags[ kFLAGS.FARM_EGG_COUNTDOWN ] = 7;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.stopHarvest = function() {
 		EngineCore.clearOutput();
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.sendToFarm = function() {
 		EngineCore.clearOutput();
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( '\n\nIt takes you a while and you need to draw several diagrams in the dust, but eventually Sophie gets the picture.' );
 		EngineCore.outputText( '\n\n“<i>Ooh, I’m going on, like, an adventure!</i>” She giggles excitedly, bouncing up and down. If there is one thing the harpy can do, it’s bounce. “<i>I’m gonna milk cows and lay lotsa eggs for the nice dog lady and, and you’ll visit sometimes and we’ll fuck, right?</i>” You confirm that will be the case. Sophie claps with glee, and then begins to hop-glide her way towards the lake. She’ll be pretty useless as a worker or a protector for Whitney, you think, but she will easily make up for that in egg production.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieBimbo.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'You tell her to head back to camp; there are things you need to do to her you can’t do whilst she’s here. Repeatedly. Sophie’s face falls a bit.' );
 		EngineCore.outputText( '\n\n“<i>Aww, I was having fun here, too. Oh well!</i>” Her disappointment lasts for as long as it takes her to flap over the gate, after which one of her own feathers distracts her. Luckily, the wind is blowing in the direction of your camp.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.bimboSophieSexMenu = function() {
 		EngineCore.clearOutput();
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 				EngineCore.outputText( '\n\n<b>You\'re too big to butt-fuck her.</b>', false );
 			}
 			//TIT FUCKS!;
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.addButton( 5, 'Titty-Fuck', this.sophiePreggoTitJobs );
 			} else {
 				EngineCore.addButton( 5, 'Titty-Fuck', this.fuckBimboSophiesTits );
@@ -447,8 +447,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( CoC.getInstance().player.hasVagina() ) {
 			EngineCore.addButton( 3, 'Get Licked', this.bimboSophieLicksRugs );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_SOPHIE_HAS_DRUNK_OVI_ELIXIR ] > 0 && (CoC.getInstance().player.gender > 0) && !CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant ) {
-			if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) || CoC.getInstance().scenes.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
+		if( CoC.getInstance().flags[ kFLAGS.TIMES_SOPHIE_HAS_DRUNK_OVI_ELIXIR ] > 0 && (CoC.getInstance().player.gender > 0) && !SceneLib.sophieScene.pregnancy.isPregnant ) {
+			if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) || SceneLib.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
 				EngineCore.addButton( 4, 'Ovi Elixir', this.sophieEggApocalypse );
 			} else {
 				EngineCore.outputText( '\n\n<b>If you had an Oviposition Elixir in your inventory or camp storage, Sophie could have some fun with it...</b>', false );
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.addButton( 7, 'Visit Izma', this.tellSophieToVisitIzma );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] > 0 && CoC.getInstance().player.cockThatFits( this.sophieCapacity() ) >= 0 && CoC.getInstance().player.hasCock() ) {
-			EngineCore.addButton( 8, 'DaughterFuck', CoC.getInstance().scenes.sophieFollowerScene.sophieIncestInHerCooterOrSomethingIDunno );
+			EngineCore.addButton( 8, 'DaughterFuck', SceneLib.sophieFollowerScene.sophieIncestInHerCooterOrSomethingIDunno );
 		}
 		EngineCore.addButton( 9, 'Leave', this.approachBimboSophieInCamp );
 	};
@@ -468,7 +468,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'You suggest she visit Izma again.  Maybe this time she won\'t get tied up again?' );
 		EngineCore.outputText( '\n\nSophie squeals, "<i>REAAALLY?</i>" before taking off towards the other side of camp.  This should be good.' );
 		CoC.getInstance().flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Lipstick Resistance Building;
@@ -486,7 +486,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 				EngineCore.outputText( 'You shiver, ' + Descriptors.sMultiCockDesc() + ' growing hard and ready to submit to the feathery blond\'s love.  Perhaps you\'ll take care of that soon...', false );
 				EngineCore.dynStats( 'lus', 15 );
 			}
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 		} else if( select === 1 ) {
 			this.sophieSprite();
 			EngineCore.outputText( 'During an idle moment, you feel heavy breasts squeezing against your back.  Sophie caresses your ' + Descriptors.chestDesc() + ' and nibbles at your ear.  She asks, "<i>Can we like, fuck soon, babe?  I\'ve been so wet here all by myself, just stroking my pussy and dreaming of you.</i>"  You can\'t help but turn and smile at her, but as soon as you do, she plants a kiss full on your lips.  ', false );
@@ -497,7 +497,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 				EngineCore.outputText( 'Pushing her back, you try not to make contact against her with ' + CoC.getInstance().player.oMultiCockDesc() + '.  Your lips tingle dangerously, and you know you\'ll be lusting after harpies for at least a few hours.', false );
 				EngineCore.dynStats( 'lus', 15 );
 			}
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 		} else if( select === 2 ) {
 			this.sophieSprite();
 			if( CoC.getInstance().player.hasCock() ) {
@@ -512,7 +512,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 					EngineCore.outputText( 'smooth groin, eventually licking at your [asshole].  Those gold, slobbery lickers look good pressed against you.  It might be time to fuck her soon...', false );
 				}
 			}
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 		} else {
 			this.sophieSprite();
 			EngineCore.outputText( 'Sophie glides down from atop a rock, landing roughly atop you.  She plants a wet, smacking kiss on you and asks, "<i>Didja miss me?  I totally missed you!</i>"  ', false );
@@ -522,7 +522,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			}
 			EngineCore.outputText( 'You nod and Sophie gets up, beaming a radiant smile as she prances away, her booty swaying enticingly behind her.', false );
 			EngineCore.dynStats( 'lus', 2 );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 		}
 		EngineCore.outputText( '\n', false );
 	};
@@ -552,7 +552,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( this.bimboSophie() ) {
 			EngineCore.addButton( 4, 'Back', this.approachBimboSophieInCamp );
 		} else {
-			EngineCore.addButton( 4, 'Back', CoC.getInstance().scenes.sophieFollowerScene.followerSophieMainScreen );
+			EngineCore.addButton( 4, 'Back', SceneLib.sophieFollowerScene.followerSophieMainScreen );
 		}
 	};
 	//Unlock resistance:;
@@ -647,13 +647,13 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'again!  You want to tackle her onto the ground and smash your crotch into her face!  Fuck, is she trying to use her compulsion on you? It\'s working!\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 4 );
+		SceneLib.sophieScene.luststickApplication( 4 );
 		if( CoC.getInstance().player.inte * 2 < CoC.getInstance().player.cor + CoC.getInstance().player.lib ) {
 			EngineCore.outputText( 'There\'s no way you could ever turn her down at this point... just look at her lips... they\'d never lie to you.  It\'ll feel so good...', false );
 			EngineCore.doNext( this.bimboSophieSixtyNineAfterCunnilingus );
 		} else {
 			EngineCore.outputText( 'What do you do?', false );
-			EngineCore.choices( 'Sixtynine', this.bimboSophieSixtyNineAfterCunnilingus, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Sixtynine', this.bimboSophieSixtyNineAfterCunnilingus, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//SixtyNine Continuation - GOILS you're a wreckin' machine;
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		//NON WANG;
 		if( !CoC.getInstance().player.hasCock() || CoC.getInstance().player.cockThatFits( this.sophieCapacity() ) === -1 ) {
 			EngineCore.outputText( 'You throw yourself at Sophie, compelled by thoughts of pleasure and her delicious-looking pussy, wanting nothing more than to place your lips on her cunt and slurp with reckless abandon.  She takes the hit like a champ, tumbling with you through the dirt and dust until you land on your ' + Descriptors.buttDescript() + ', bouncing to a stop with the harpy\'s feathery thighs clenching around your head.  ' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( 'Her pregnant belly rests against your middle, untouched by the rough fall.  ' );
 			}
 			EngineCore.outputText( 'How did she do that?  Your questions fade away as you look up and spot your target - the cum-slicked delta of Sophie\'s cunt, so moist it seems to fog the air, beckoning you to plunge your tongue inside and taste it.\n\n', false );
@@ -682,12 +682,12 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.outputText( 'Sophie parts her silken lips from your gold-glazed groin with a moist *pop*.  "<i>You\'re totally great at licking pussy, babe!  Mmmmhmmm, just, like, keep doing it like that.  You\'ll mmm-make Momma Sophie cum in no time!  Make me cum, baby!  Oooh, does trying to make cum make you hot for my pussy?  You\'re gonna cum... I know it... you\'ll cum with me,</i>" utters the bimbo bitch while she stirs your pussy with a finger, stroking around it and dragging her long nails over the sensitive flesh of your loins.  Her words hit you like a wave, and with renewed vigor, you thrust your entire tongue deep inside the harpy and rub your lower lip back and forth across her pleasure-bud.  Pulling hard on her hips, you orally ravage her cunt with no regard for anything around yourself, your body burning hot from how good it feels to get your pet off.\n\n', false );
 			EngineCore.outputText( 'At long last, the bimbo\'s bald cunt climaxes from your work, splattering you with a flood of musky girl-spunk.  You still need her pussy so bad that you can\'t stop.  You lick, lap, and swallow with inhuman eagerness until the box atop you is emptied of everything save your saliva.  Then, and only then, do you finally feel release.  Your ' + Descriptors.vaginaDescript() + ' climaxes for Sophie, soaking her fingers and wringing them as if your life depended on it.  She giggles, coming down from her own orgasm and feeling quite pleased with the effects her words have had on you.\n\n', false );
 			EngineCore.outputText( 'The harpy gets up, but only long enough to turn around and lay atop you, face to face' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( ', egg-swollen belly smushing between you' );
 			}
 			EngineCore.outputText( '.  "<i>That was sooo fun!  Like, we\'ll totally do this sometime soon, but I need a drink, and you smell like pussy.  Mmmm, I like that smell.  It means fun stuff!</i>"  Sophie kisses you full on the mouth, her puffy, quim-stained lips coloring your own with her amber lipstick.  "<i>You\'re like, the best pussy-licker ever, ya know?</i>"\n\n', false );
 			EngineCore.outputText( 'Sophie struts off, touching a finger to her cunt before licking it, tasting the remnants of your saliva.', false );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 		}
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 				x = CoC.getInstance().player.smallestCockIndex();
 			}
 			EngineCore.outputText( 'You throw yourself at Sophie, compelled by thoughts of pleasure and her delicious-looking pussy.  Imagining yourself placing your lips on her cunt and slurping with reckless abandon, you tackle her, hard.  She takes the hit like a champ, tumbling with you through the dirt and dust until you land on your ' + Descriptors.buttDescript() + ', bouncing to a stop with the harpy\'s feathery thighs clenching around your head.  ' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( 'Her gravid belly bumps up against your own, somehow untouched by the rough-and-tumble fall.  ' );
 			}
 			EngineCore.outputText( 'How did she do that?  Your questions fade away as you look up and spot your target - the cum-slicked delta of Sophie\'s cunt, so moist it seems to fog the air, beckoning you to plunge your tongue inside and taste it.\n\n', false );
@@ -718,7 +718,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			}
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Sophie gives an airheaded giggle and jumps up, ignoring the slosh of your sexual fluids in her belly' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( ' and the way her egg-stuffed womb jiggles' );
 			}
 			EngineCore.outputText( '.  Shining in the light, a web of harpy-lube stretches between her groin and your soaked face.  You try to sit up and get your tongue back where it belongs, inside her, but she steps one of her clawed feet down on your chest to playfully pin you to the ground.\n\n', false );
@@ -726,9 +726,9 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.outputText( 'Sophie leans down to kiss you on the lips, smearing more of her lust-enhancing lipstick over your mouth.  ' + Descriptors.SMultiCockDesc() + ' stays hard as a rock, but the need to service her pussy with your tongue slowly fades.  You feel oddly sated in spite of your erection, yet you know that a peek at your vapid harpy mistress will likely throw you into a rutting frenzy all over again thanks to the properties of her lipstick.', false );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', -1 );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+			SceneLib.sophieScene.luststickApplication( 5 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieBimbo.prototype.buttFuckBimboSophie = function() {
 		this.sophieSprite();
@@ -754,7 +754,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.outputText( 'sheath', false );
 		}
 		EngineCore.outputText( '.  Sophie\'s breasts sway underneath her, the pendulous globes occasionally dipping low enough to drag her thumb-sized nipples through the rough dirt.' );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+		if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 			EngineCore.outputText( '  Just like her breasts, her gravid tummy sways a little as well, plush with the weight of the egg you\'ve given her.' );
 		}
 		EngineCore.outputText( '  The bimbo moans harder every time it happens and sounds more whorish and lurid with each passing second - a true anal slut.  She looks back at you with lust in her eyes and a gleeful grin on her face.  Suddenly, one of the ditz\'s fingernails is dragging ', false );
@@ -783,7 +783,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		EngineCore.outputText( '  With a few final clenches of pleasure, your dick\'s flow of cum trickles down to a dribble.  You sigh and muse that you must\'ve completely emptied your ' + Descriptors.ballsDescriptLight() + ' by now, and you slump back against a rock to watch your jizz flood out of Sophie\'s ass.  She pushes some inside her pink nether-lips with a triumphant smile, clearly pleased with herself.\n\n', false );
 		EngineCore.outputText( 'Still full of energy, the big-tittied ditz bounces around and catches the cum as it drains from her gaped ass, shoving more and more into her soaked quim.  She even licks her fingers once she bores of that and says, "<i>Thanks for making my asshole so creamy!  You even left me enough to like, stuff up my twat so I can have an egg!  Yay!</i>"\n\n', false );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+		if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 			EngineCore.outputText( 'Sophie giggles again, rubbing her already well-filled belly and winking at you, like you\'re sharing in some absurd joke.  You roll your eyes - bimbos!' );
 		}
 		if( this.sophieIsInSeason() ) {
@@ -791,7 +791,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TitFuck;
 	SophieBimbo.prototype.fuckBimboSophiesTits = function() {
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'You grab Sophie\'s tits in a squeezing grip and pull her towards you, flicking your thumbs across the bimbo\'s nipples.  She stumbles toward you and purrs, "<i>Who\'s being forward now, huh?  If you wanted to play with Momma Sophie\'s tits, all you had to do was, like, ask!</i>"\n\n', false );
 		EngineCore.outputText( 'The harpy grabs at your ' + CoC.getInstance().player.armorName + ' and removes it, leaving your hands free to continue the fondling of her breasts.  Once you\'re as a nude as your salacious slut, you finally release the huge, watermelon-like breasts and admire your handiwork.  Sophie\'s ditzy, empty eyes are dilated, her mouth is open and drooling, and her nipples are easily as big as your thumbs.  She\'s panting softly and just staring at you with her eyes glazed.  You can only assume that her simple mind has slipped into some kind of erotic trance, but if anything it only makes the idea of releasing yourself with her big, soft mammaries that much more appealing.\n\n', false );
 		EngineCore.outputText( 'You grab hold of her nipples and sit down on a nearby rock; the dazed harpy is pulled onto her knees.  ' );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+		if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 			EngineCore.outputText( 'Her swollen tummy pushes against your [legs] as she assumes the position, the weighty egg-distorted lump pressing against you.  ' );
 		}
 		EngineCore.outputText( 'She wobbles forward and her massive mounds easily slide to either side of ' + CoC.getInstance().player.oMultiCockDesc() + ', completely engulfing it.  Still holding on to her nipples, you pull them together and ', false );
@@ -828,14 +828,14 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' thickens and bloats, a rush of warmth rushing up the base as your internal muscles clench tight, squeezing out a globby rope of jism.  It explodes from your cum-slit, taking Sophie full on the face.\n\n', false );
 		EngineCore.outputText( 'You\'re just getting started.  Sophie smirks and opens her mouth, letting her tongue slide out to taste your jizm as you launch the next rope, so long it trails from her hair to her chin and so thick it rolls in drops from the side of her face.  She hums in delight and squeezes her breasts tight around your ' + Descriptors.cockDescript( x ) + ', the next blast backing up inside you from the pressure.  A moment of buildup later, and your seed germinates and blooms over the harpy\'s tits, soaking them with spunk.  Droplets of the stuff splatter onto the ground around the both of you, but you just keep coming.  In your mind you have visions of yourself knocking up harpy after harpy, the slutty bird-girls mounting your fountaining fuck-stick long enough for their bellies to bloat with seed before moving on.  Like this, you could inseminate a whole tribe...\n\n', false );
 		EngineCore.outputText( 'Once the thought passes, you sag back, utterly spent and more than a little parched.  Blinking the haze from your eyes, you look over at Sophie.  She\'s on her back, frigging herself non-stop and utterly lost to the world.  Her pretty blonde hair is plastered against her, her boobs are covered in a thick layer of white, ' );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+		if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 			EngineCore.outputText( 'her swollen midriff is glazed, ' );
 		}
 		EngineCore.outputText( 'and her eyes are closed, held shut by a thick layer of your sperm.  She\'s been well and truly bukkaked, drenched in ejaculate, and judging by how furiously she\'s schlicking away at her pussy, she couldn\'t be happier.  As for you, ' + Descriptors.sMultiCockDesc() + ' is still erect, even though you feel like you don\'t have a drop left in you.  Of course, the drugs soaking into your gold-tinted cock will probably keep you hard and ready to breed for hours.\n\n', false );
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
+		SceneLib.sophieScene.luststickApplication( 5 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bimbo Sophie Camp Event – (If the player has an Ovi Elixir);
 	//1 in 700 proc chance (roughly once a month? or flat 30 days);
@@ -872,8 +872,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
 			CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
-		} else if( CoC.getInstance().scenes.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
-			CoC.getInstance().scenes.inventory.consumeItemInStorage( ConsumableLib.OVIELIX );
+		} else if( SceneLib.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
+			SceneLib.inventory.consumeItemInStorage( ConsumableLib.OVIELIX );
 		}
 		EngineCore.outputText( 'Giving Sophie a sly smile, you pluck the Ovi Elixir from her talons and run a fingertip along her sharp jaw line as you move around her in slow, contemplative circles. The anticipation drives the slutty harpy mad, her chest heaving and mouth agape as she puffs moist breath over her thickly-lacquered, golden lips. Pausing behind her, you seize the enraptured woman\'s feathery hair with one hand, jerking her head back so suddenly she gasps before giggling uncontrollably. Popping the delicate glass stopper from the hexagonal bottle, you hold it several feet above her waiting mouth, tilting the vial ever so slowly until a tiny drop of the viridian ichor bubbles at the elixir\'s tip. Sophie sticks out her tongue, impatiently, wriggling it in the air, as if her sheer, lascivious desire could pull the potion into her gullet. Finally, agonizingly, you upend the potent brew into her gluttonous maw, the whore\'s expertly honed instincts catching the emerald fluid in her drool-slick mouth without missing a single drop. She rolls the mixture over her tongue, savoring the promise of the concoction before sealing her glistening mouth in the pleased pucker of a kiss, swallowing the load with a single, satisfied gulp.\n\n', false );
 		EngineCore.outputText( 'Settling down next to Sophie, you can\'t help but notice that she looks thicker already. "<i>OoOoOo...</i>" she moans, "<i>I can feel them inside my tummy! Sweet little eggs growing in mommy\'s belly.</i>" She guides your hand to her midsection, your fingers stroking the soft flesh of her pouting abdomen. Sure enough, you can feel a tremor rippling through her womb as it expands with the surging growth of eggs. Cupping her dripping sex, you delight in the heat pouring off of her pussy, the promise of pregnancy thrilling the simple, sex-starved slut to vulgar wetness. You slip a few fingers into her creaming cunny, provoking a high-pitched squeal of pleasure from the squirming milf. She grinds her hips into you, drawing your honey-slick hand out from between her legs and pressing it against her belly again. It seems the eggs are still growing, and quite rapidly! Her gut has already expanded into an unmistakable bulge and every gurgling grumble from her body adds another inch to her waistline. "<i>You have to fertilize me,</i>" she begs with half-lidded eyes. "<i>Mommy needs that thick spunk inside her,</i>" she moans, face flushed, hands sliding between her legs, frantically rubbing her sopping snatch with both thumbs.\n\n', false );
@@ -887,9 +887,9 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'Basking in the afterglow for a moment longer, she begins preening herself, pride plastered on her face thicker than her golden makeup. "<i>Momma Sophie\'s so good at birthing eggs,</i>" she brags, wrapping her arms around your shoulders. "<i>But you were so great too, Daddy,</i>" the older woman remarks, affectionately slathering your face with kisses.  Some birds cannot change.  You sigh as the aphrodisiac sinks into your skin and ' + Descriptors.sMultiCockDesc() + ' hardens to tender stiffness again.  For the rest of the hour, the two of you fuck like newlyweds, only bothering to take stock of the inert eggs once you\'re both sore and exhausted.\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 2 );
+		SceneLib.sophieScene.luststickApplication( 2 );
 		//[CoC.getInstance().player gains random large egg];
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LARGE_EGGS[ Utils.rand( ConsumableLib.LARGE_EGGS.length ) ], CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.LARGE_EGGS[ Utils.rand( ConsumableLib.LARGE_EGGS.length ) ], SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mommy];
 	SophieBimbo.prototype.beBimboSophiesSugarMommy = function() {
@@ -897,8 +897,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( '', true );
 		if( CoC.getInstance().player.hasItem( ConsumableLib.OVIELIX ) ) {
 			CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
-		} else if( CoC.getInstance().scenes.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
-			CoC.getInstance().scenes.inventory.consumeItemInStorage( ConsumableLib.OVIELIX );
+		} else if( SceneLib.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
+			SceneLib.inventory.consumeItemInStorage( ConsumableLib.OVIELIX );
 		}
 		EngineCore.outputText( 'Grinning, you playfully shrug. You suppose you can make a gift of it, if she\'s a good girl. Nodding energetically, Sophie puffs out her chest and stretches out her arms and wings, displaying her silvery plumage, vainly. "<i>Don\'t you worry, Momma Sophie\'s done this a hundred times!</i>" She flicks the bottle open and pours the green fluid into her mouth, her expression one of intense delight as the thick liquid splashes across her tongue, full of promise. She flutters into the air, barely able to lift her tremendous tits, and wraps her arms around your shoulders, legs hooking around your waist. Smiling sweetly, she leans in for a kiss and presses her glistening lips against yours, the heat of her aphrodisiac-laced lipstick coursing through your body instantly. You part your mouth to gasp softly and she uses the opening to deepen the kiss. Through the drugged excitement, you almost don\'t notice the cool elixir trickling into your mouth. You start to back away, but Sophie\'s muscular tongue forces your lips open and she eagerly snowballs more of the potion past your teeth, into your throat. Then, taking a big gulp herself, she nuzzles your nose with hers, gleefully. "<i>Now we\'ll both be mommies!</i>"\n\n', false );
 		EngineCore.outputText( 'You try to throw the bimbo off of you in annoyance, but a trembling lurch from your abdomen robs you of your anger. Something strange is going on with the Ovi Elixir- the gradual process of its effects seem to be wildly accelerated. You\'re not sure if it\'s the drugged lipstick or something about Harpy saliva, but Sophie\'s kiss has clearly affected the potion. It seems she\'s suffering the same effects, at least: the harpy\'s belly swells against your skin with every passing moment, the skinny slut\'s waist ballooning under the impregnating draft. Your own tummy grows against hers and a wave of contentment thrills down your ' + CoC.getInstance().player.skin() + ', the weight of your swelling womb making your ' + Descriptors.vaginaDescript( 0 ) + ' drool in anticipation. Even your ' + Descriptors.allBreastsDescript() + ' feels heavier as your body is kicked into the depths of pregnancy in a matter of minutes. The mischievous harpy moans, stroking her belly with one hand while she grinds her pert nipples into your ' + Descriptors.nippleDescript( 0 ) + ', getting off on the tension of your jutting bellies, distended with eggs, mushrooming against each other. Through her groping contact, you can feel the contents of your stretching womb gaining shape and firmness within you, the suddenness of the conception robbing you of your restraint. Despite yourself, you let out a whorish moan, your body clenching down in orgasm at your bloating growth.\n\n', false );
@@ -909,8 +909,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		//[CoC.getInstance().player gains random large egg];
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 2 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LARGE_EGGS[ Utils.rand( ConsumableLib.LARGE_EGGS.length ) ], CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.sophieScene.luststickApplication( 2 );
+		SceneLib.inventory.takeItem( ConsumableLib.LARGE_EGGS[ Utils.rand( ConsumableLib.LARGE_EGGS.length ) ], SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Butts McGee;
@@ -937,7 +937,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		if( nice ) {
 			EngineCore.outputText( 'Before you can decide what, exactly, you\'re going to do with your harpy slut, Sophie jiggles her way over to you, the insides of her thighs dripping with every step.  You watch as the plump bird wobbles, too aroused and too damn big to walk straight, but eventually she does manage to make it to you.' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( '  Her pregnancy-imbued middle doesn\'t really help, either.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Like, hey, babe...</i>" she coos, leaning forward and pressing her plushy, oversized breasts against you. Her nipples in particular push hard against your [armor], the harpy completely aroused, and before you can do anything else - she leans in and kisses you, drug-ringed lips smacking desperately against yours again and again.' );
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			//((Still uses same cumshots and post-coitus text as before))*/;
 		} else {
 			EngineCore.outputText( 'Before you can decide what, exactly, you\'re going to do with your harpy slut, Sophie jiggles her way over to you, the insides of her thighs dripping with every step.  You watch as the plump bird wobbles, too aroused and too damn big to walk straight, but eventually she does manage to make it to you.' );
-			if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 				EngineCore.outputText( '  Her pregnancy-imbued middle doesn\'t really help, either.' );
 			}
 			EngineCore.outputText( '\n\n"<i>Like, hey, babe...</i>" she coos, leaning forward and pressing her plushy, oversized breasts against you.  Her nipples in particular push hard against your [armor], the harpy completely aroused, and before you can do anything else - she leans in and kisses you, drug-ringed lips smacking desperately against yours again and again.' );
@@ -1028,7 +1028,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 				EngineCore.outputText( '\n\nYour hips jump and shudder as your huge load of spunk begins to well up inside of you, and you find yourself moaning into Sophie\'s tits as the bird-slut eggs you on, muttering "<i>Cum!  Cum!  Cum!</i>" over and over.  You groan as the first spurt of your seed shoots out into the harpy\'s twat - and then the floodgates open.  Your hips buck repeatedly into the bird-whore as she moans her pleasure, each thrust met with a gout of your seed - which quickly starts to pour out of her.\n\nSophie\'s own climax quickly kicks off as her belly starts to swell with your orgasm, and your spunk paints her insides, her thighs, and the crack of her ass white along with your crotch, her belly bloated out into a little hump by the time you\'re done. She shudders, hips still twitching, and rubs your back lovingly.' );
 			} else {
 				EngineCore.outputText( '\n\nYou flop over, lost in sensation for a few moments, and Sophie seems almost puzzled, still letting out the occasional coo but otherwise going silent.  Just as it seems she\'s about to ask what\'s wrong, your hips jump, giving you the last bit of stimulation you need - and the first massive gout of your spunk fires a blisteringly hot arc of pleasure down your [cock ' + (x + 1) + '], the fluids spurting out and filling Sophie\'s cunt in a single go.  She lets out a shrill cry, head tilting back, and her entire body shudders.  You let out a desperate, needy moan and pull your hips back, then piston into her again, another gout of your spunk loosing inside of her already-overfilled tunnel, and the excess gushes out around your cock as you thrust into her again and again, each push accompanied by another gout of your hot cum.\n\nHer belly quickly bloats from the treatment, your seed spilling into her womb' );
-				if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+				if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 					EngineCore.outputText( ' (or at least all over her channel, since her womb is bound up with your egg)' );
 				}
 				EngineCore.outputText( ' as your [cock ' + (x + 1) + '] plugs it all from going out, and Sophie\'s cries get louder as she comes again, her belly bloating with your thick, hot semen and pushing against your [chest].  You finally hilt out in her, letting out a few more surges, this time with nowhere to go - so they all spill directly out around your cock, high-pressure gushes of white cream that paint your crotch and the ground underneath of it with sticky seed.' );
@@ -1071,7 +1071,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.outputText( 'with its own juices; you barely notice it over the orgasm from your male half, but, as you readjust your position, the slickness dripping down your thighs is unmistakable.' );
 		}
 		EngineCore.outputText( '\n\nSophie coos and rubs your head, extremely grateful for the (rough, sexy, abusive) fucking, and she tilts your head up to plant a number of bubbly kisses all over your face, seemingly forgetting about the drugged cocktail she has smeared all over them.  You\'d be worried about having to fuck her some more to get rid of the effect, but you\'re so drained that right now you couldn\'t fuck her again if you wanted to.  Instead you collapse against your slutty harpy milf once more, ' );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.event >= 2 ) {
+		if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
 			EngineCore.outputText( 'resting your head on her gravid tummy and smiling to yourself.' );
 		} else {
 			EngineCore.outputText( 'hugging her tight as she tries her best to show her appreciation.' );
@@ -1084,8 +1084,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( !nice && CoC.getInstance().player.cor < 50 ) {
 			EngineCore.dynStats( 'cor', 1 );
 		}
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.sophieScene.luststickApplication( 5 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PREGNANCY EXPACK;
 	//Sophie Pregger;
@@ -1331,7 +1331,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( CoC.getInstance().player.cumQ() < 5000 ) {
 			CoC.getInstance().player.cumMultiplier += 3;
 		}
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
+		SceneLib.sophieScene.luststickApplication( 8 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.postSophieImpreg );
 	};
@@ -1339,7 +1339,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'When you wake, Sophie is snuggled up next to you, her arms and legs wrapped around you affectionately.  A cup full of water, along with several strips of dried meat sit nearby... apparently she got them while you were out, knowing how thirsty and hungry you\'d be.  You run your fingers through her platinum, down-soft hair.  Having a live-in bimbo isn\'t really all that bad.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
 	//Too Big Impregnation Sex*;
 	//Sophie starts grinding on top, hypno-compelling you to get hornier and hornier until you flip her over and full-body titfuck her.  After the first jizz, you get a little winded and lay back, she remounts you and gets you to cum against her entrance, then she snuggles with you and slowly teases and orgasm denials you until you fucking explode and pass out cuddling with her.;
@@ -1374,7 +1374,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( CoC.getInstance().player.cumQ() < 5000 ) {
 			CoC.getInstance().player.cumMultiplier += 3;
 		}
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
+		SceneLib.sophieScene.luststickApplication( 8 );
 		//[Next];
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.postSophieTooBigImpreg );
@@ -1383,7 +1383,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'Sophie milks you through three more orgasms before she finally tires, and by that point, you\'re equally exhausted.  You snuggle up next to her and pass out, barely rousing when she begins kissing your manhood during the nap for a fourth helping of your spillable seed.  When you awaken nearly eight hours later, she\'s snoring soundly, with a skin of water and strips of dried meat left nearby for you to restore yourself.  Life with a bimbo isn\'t so bad!' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
 	//Sophie Move In Request Scene*;
 	SophieBimbo.prototype.sophieMoveInAttempt = function() {
@@ -1402,7 +1402,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'Sophie claps her hands excitedly when you give your assent, immediately launching into a hug that presses her ' );
-		switch( CoC.getInstance().scenes.sophieScene.pregnancy.event ) {
+		switch( SceneLib.sophieScene.pregnancy.event ) {
 			case 1:
 				EngineCore.outputText( 'burgeoning' );
 				break;
@@ -1418,7 +1418,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		EngineCore.outputText( ' midriff and cushiony tits against you.  "<i>You\'re awesome, [name], you know that?  You\'re totally ' + CoC.getInstance().player.mf( 'hunky', 'cute' ) + ' AND awesome!</i>"  She spins about, dancing happily and shaking her voluptuous backside in your direction as she goes.' );
 		CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = 'Sophie';
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//No (Also Used To Kick Her Out Of Bed)*;
 	SophieBimbo.prototype.noSophieSleepWith = function() {
@@ -1428,21 +1428,21 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] === 'Sophie' ) {
 			CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = '';
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Option To Move Her In Any Time If Initially Declined*;
 	SophieBimbo.prototype.moveSophieInRepeat = function() {
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'You go up to the feathery bimbo and idly question if she still wants to share your bed with you' );
-		if( !CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant ) {
+		if( !SceneLib.sophieScene.pregnancy.isPregnant ) {
 			EngineCore.outputText( ' even though she\'s not pregnant any more' );
 		}
 		EngineCore.outputText( '.  Sophie\'s voluminous, painted lips curl into a radiant smile, an effect enhanced even more by the gold gloss she coats them with.' );
 		EngineCore.outputText( '\n\n"<i>Really?  Like, I can snuggle up next to you when you sleep while you use my boobs as pillows?!</i>" she asks, unable to keep a girlish squeal of delight out of her voice.  Sophie bounces up and down; her wings flapping with wild excitement, nearly blinding you from the cloud of dust they kick up.  "<i>I promise I won\'t bother while you sleep or anything, but maybe we could like, have quickies in the morning?</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes and give her a thumbs up.  After all, you can\'t really sleep with a sex-crazed bimbo and NOT expect to be \'mounted\' at some point.' );
 		CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = 'Sophie';
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sophie Morning Sex*;
 	//Alternate Intro/Outro for consensual fucking when it isn't morning?;
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			EngineCore.outputText( 'chest' );
 		}
 		EngineCore.outputText( ', as she kisses you passionately, moaning into your mouth.  The effects of her potent lip-gloss hit you immediately, fortifying your pleasure into a tsunami wave of excitement, one that\'s cresting whether you want it to or not.  You cry out into Sophie\'s tongue, hips lifting her off the ground, as you cum, hard.  Your ejaculate fires out in long, thick ropes of white, painting the harpy\'s sodden innards white.  With her folds coated in spunk, your spasming ' + Descriptors.cockDescript( x ) + ' pours the rest of your lusts into her, emptying your [balls] completely.' );
-		if( CoC.getInstance().scenes.sophieScene.pregnancy.isPregnant ) {
+		if( SceneLib.sophieScene.pregnancy.isPregnant ) {
 			EngineCore.outputText( '  The thorough seeding fills her up completely - her womb is too full of egg for there to be any room for spunk, and it all drips out with each fresh injection.' );
 			if( CoC.getInstance().player.cumQ() >= 500 ) {
 				EngineCore.outputText( '  You cum so hard that torrents of spooge wash out of her slit, her womb obstructed by the egg you made with her.' );
@@ -1514,7 +1514,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( morning ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Pregnant Sophie Morning Sex*;
@@ -1600,7 +1600,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		if( morning ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Very Pregnant Sophie Tit Jobs*;
@@ -1705,8 +1705,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( '\n\n"<i>Ooooh, like, thank you!</i>" she calls after you, "<i>Give my pussy some next time, okay?  It totally misses you!</i>"' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -2 );
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.sophieScene.luststickApplication( 8 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Let Her*;
 	SophieBimbo.prototype.letSophieMilkYoDick = function() {
@@ -1787,8 +1787,8 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -2 );
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.sophieScene.luststickApplication( 8 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sophie Births Egg*;
 	SophieBimbo.prototype.sophieBirthsEgg = function() {
@@ -2042,7 +2042,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 			else {
 				EngineCore.outputText( '\n\nYou smile ruefully and direct her to turn her attentions back to her mother, who even now is flapping her wings excitedly, promising her daughter the many delights of adulthood she\'ll get to sample, once she gets her own mate.  You just hope she doesn\'t cause any trouble in camp.' );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//FIRST TIME:;
 		else {
@@ -2067,14 +2067,14 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.outputText( 'is more than happy to return the sudden affection, her hands running over your body as she grinds against you teasingly.  With a firm open-palm spank to her rump, you release her, telling both harpies that you will play with them again very soon.  The two horny girls giggle together before talking about all the fun they will have.' );
 		EngineCore.dynStats( 'lus', 5 );
 		CoC.getInstance().flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[nono];
 	SophieBimbo.prototype.noToSophieIncest = function() {
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'Sliding your hand up to your daughter\'s cheek, you stroke her softly before running your fingers through her feathery hair.  Your soft touch draws a gentle, bird-like coo from your daughter.  You guide her down and tell her she should rest after such a transformation.  She should seek mates outside her family.  You don\'t want to encourage such blatantly sexual behavior so soon, and you sit her down in Sophie\'s nest to rest.  Instantly, her mother is at her side, fluttering excitedly and drawing her daughter into a conversation about you and all the fun she can have once she finds a mate of her own.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Izma dominating Sophie bondage.;
 	//have izma get irritated with Sophies constant advances.;
@@ -2161,5 +2161,5 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, ConsumableLib, Combat, 
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'sophieBimbo', new SophieBimbo() );
+	SceneLib.registerScene( 'sophieBimbo', new SophieBimbo() );
 } );

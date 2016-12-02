@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Izumi', function( $log, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat ) {
-	var Izumi = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat ) {
+	function Izumi() {
+		this.init(this, arguments);
+	}
+	angular.extend(Izumi.prototype, Monster.prototype);
 	// Set trace outout for this classes' content.
 	Izumi.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
@@ -37,17 +40,17 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( $log, CoC, kFLAGS, EngineC
 	// Override won/lost calls
 	Izumi.prototype.defeated = function( ) {
 		this.cleanup();
-		CoC.getInstance().scenes.izumiScenes.touchThatFluffyHorn();
+		SceneLib.izumiScenes.touchThatFluffyHorn();
 	};
 	// Monster won, not player, gg for descriptive method names
 	Izumi.prototype.won = function() {
 		CoC.getInstance().flags[ kFLAGS.IZUMI_TIMES_LOST_FIGHT ]++;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Titsmother ) >= 0 ) {
 			this.cleanup();
-			CoC.getInstance().scenes.izumiScenes.deathBySnuSnuIMeanGiantOniTits();
+			SceneLib.izumiScenes.deathBySnuSnuIMeanGiantOniTits();
 		} else {
 			this.cleanup();
-			CoC.getInstance().scenes.izumiScenes.fuckedUpByAFuckhugeOni();
+			SceneLib.izumiScenes.fuckedUpByAFuckhugeOni();
 		}
 	};
 	// Override combat AI

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, FetishCultist, Descriptors, EventParser, kFLAGS, Combat, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, FetishCultist, Descriptors, EventParser, kFLAGS, Combat, CockTypesEnum ) {
 	function FetishCultistScene() {
 	}
 
@@ -769,5 +769,5 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		CoC.getInstance().player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'fetishCultistScene', new FetishCultistScene() );
+	SceneLib.registerScene( 'fetishCultistScene', new FetishCultistScene() );
 } );

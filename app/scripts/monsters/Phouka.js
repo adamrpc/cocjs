@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, PhoukaScene, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
-	var Phouka = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, PhoukaScene, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+	function Phouka() {
+		this.init(this, arguments);
+	}
+	angular.extend(Phouka.prototype, Monster.prototype);
 	Phouka.prototype.phoukaFightAttack = function() {
 		var damage;
 		//Only the bunny, goat and horse forms make physical attacks
@@ -135,7 +138,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, Stat
 		this.applyTease( lustDelta );
 	};
 	Phouka.prototype.defeated = function( hpVictory ) {
-		CoC.getInstance().scenes.phoukaScene.phoukaPlayerWins( hpVictory );
+		SceneLib.phoukaScene.phoukaPlayerWins( hpVictory );
 	};
 	Phouka.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
@@ -149,13 +152,13 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( CoC, Monster, Utils, Stat
 		} else {
 			if( CoC.getInstance().player.hasVagina() ) { //Phouka prefer vaginal if they can get it
 				if( CoC.getInstance().player.isTaur() || Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.phoukaScene.phoukaSexHorse( true, !hpVictory );
+					SceneLib.phoukaScene.phoukaSexHorse( true, !hpVictory );
 				}//And they love mating with female or herm centaurs in their horse form
 				else {
-					CoC.getInstance().scenes.phoukaScene.phoukaSexBunny( true, !hpVictory );
+					SceneLib.phoukaScene.phoukaSexBunny( true, !hpVictory );
 				}
 			} else {
-				CoC.getInstance().scenes.phoukaScene.phoukaSexGoat( true, !hpVictory );
+				SceneLib.phoukaScene.phoukaSexGoat( true, !hpVictory );
 			}
 		}
 	};

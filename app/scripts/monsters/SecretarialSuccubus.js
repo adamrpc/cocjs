@@ -1,18 +1,21 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( AbstractSuccubus, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects, ConsumableLib ) {
-	var SecretarialSuccubus = angular.copy( AbstractSuccubus );
+angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, AbstractSuccubus, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects, ConsumableLib ) {
+	function SecretarialSuccubus() {
+		this.init(this, arguments);
+	}
+	angular.extend(SecretarialSuccubus.prototype, AbstractSuccubus.prototype);
 	SecretarialSuccubus.prototype.defeated = function( hpVictory ) {
 		if( CoC.getInstance().player.gender > 0 ) {
-			var dildo = (CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? CoC.getInstance().scenes.dungeonCore.succubusGetsDildoed : null);
+			var dildo = (CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.dungeonCore.succubusGetsDildoed : null);
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you rape her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', CoC.getInstance().scenes.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
 			} else if( CoC.getInstance().player.lust >= 33 ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' gives up on fighting you and starts masturbating, begging for you to fuck her.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you fuck her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', CoC.getInstance().scenes.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
 			} else {
 				Combat.finishCombat();
 			}
@@ -25,7 +28,7 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( AbstractSucc
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.dungeonCore.succubusLossRape();
+			SceneLib.dungeonCore.succubusLossRape();
 		}
 	};
 	SecretarialSuccubus.prototype.init = function( that, args ) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, EngineCore, AppearanceDefs ) {
 	function FrogGirlScene() {
 	}
 
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		EngineCore.outputText( '\n\nYou don your [armor] with some difficulty over your massive stomach, and venture back towards your camp, a little sore, but wiser for the ordeal.' );
 		EngineCore.dynStats( 'int', 1 );
 		CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Anal stretch +1/Anal Moistness +1, sensitivity +1, int +1]
 	//Resist:
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 	FrogGirlScene.prototype.leaveFrogBe = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shrug and leave the pouting frog girl in her pond, hopping back down the terrace of pools and walking back towards your camp, hoping that your [hair] will dry by the time you get back.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Question the frog girl
 	FrogGirlScene.prototype.questDatFrogGirl = function() {
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You nod in sympathy, patting the frog girl on her head, but decide not to inquire any further.  She sighs and sinks down further into the water, resigned to her maternal duties.' );
 		EngineCore.outputText( '\n\nYou leave down the terrace of pools, heading back to your camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Offer to carry her eggs
 	FrogGirlScene.prototype.carryBeeGirlsEggsVoluntarilyYouButtSlut = function() {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		//[Anal stretch +1/Anal Moistness +1, sensitivity +1, corruption -1]
 		CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
 		EngineCore.dynStats( 'sen', 1, 'cor', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Teach Her a Lesson
 	FrogGirlScene.prototype.teachDatFrogALesson = function() {
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		EngineCore.outputText( 'You wake up two hours later, floating alone in the pool, with a migraine and soggy clothes.  You slog your way out, clutching your head, and head back to camp.' );
 		//[Toughness -1]
 		EngineCore.dynStats( 'tou', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Laying the Eggs
 	FrogGirlScene.prototype.birthFrogEggsAnal = function() {
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vaginal Egg birth
 	FrogGirlScene.prototype.layFrogEggs = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, PregnancyStore, EngineCore
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'frogGirlScene', new FrogGirlScene() );
+	SceneLib.registerScene( 'frogGirlScene', new FrogGirlScene() );
 } );

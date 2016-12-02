@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('KeyItemClass').factory('Cock', function ($log, CockTypesEnum, Utils) {
+angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 	function Cock() {
 		this.init(this, arguments);
 	}

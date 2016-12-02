@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function HelFollower() {
 	}
 
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			if( CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION_FOLLOWER ] < 0 ) {
 				CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION_FOLLOWER ] = 0;
 			}
-		} else if( CoC.getInstance().scenes.helScene.followerHel() ) {
+		} else if( SceneLib.helScene.followerHel() ) {
 			CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION_FOLLOWER ] = 100;
 			CoC.getInstance().flags[ kFLAGS.HEL_BONUS_POINTS ] += diff * 3;
 			if( diff > 0 ) {
@@ -139,13 +139,13 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\n<i>"Sure will."</i>' );
 		EngineCore.outputText( '\n\nYou wave as Hel retreats back toward her own home.' );
 		CoC.getInstance().flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] = 0.5;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Hel Comes to Camp -- Intro Scenes (Play in Order);
 	HelFollower.prototype.helFollowersIntro = function() {
 		EngineCore.clearOutput();
 		//(If Kiha is at camp & has 'met' Hel before);
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 1 ) {
+		if( SceneLib.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 1 ) {
 			CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] = 1;
 			EngineCore.outputText( 'You pace around camp, awaiting the return of your new companion.  After several minutes, you notice Kiha sitting behind you, eyeing you with an eyebrow cocked.  Suddenly self-conscious, you stop and face the dragon-girl.' );
 			EngineCore.outputText( '\n\nKiha smirks slightly. <i>"What the hell are you doing, doofus?  Expecting someone?"</i>' );
@@ -164,13 +164,13 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\n<i>"Catch you later, hot wings!"</i>  Hel yells after her, giggling girlishly before asking you to show her around.' );
 		}
 		//If Isabella ;
-		else if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 2 ) {
+		else if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 2 ) {
 			CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] = 2;
 			//is at Camp (She and Hel are cool);
 			if( CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] > 0 ) {
 				EngineCore.outputText( 'Showing Hel around, you eventually come to the part of your camp inhabited by the towering cowgirl Isabella.  When you arrive, you find Isabella reclining in her armchair, humming a sweet melody as she cleans her tower shield.' );
 				//(If you suppressed Isabella's main character trait:);
-				if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( !SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Ah!</i>"  Isabella says with a slight smile as you and Hel walk by arm in arm.  <i>"And what have we here?  My little Hel come to pay a visit?"</i>' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"Ah!</i>"  Isabella says with a slight smile as you and Hel walk by arm in arm.  <i>"And vat have we here?  Mein little Helia come to pay a visit?"</i>' );
@@ -178,14 +178,14 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 
 				EngineCore.outputText( '\n\n<i>"Heyya, Izzy!"</i> Hel yells gleefully, leaping into the cowgirl\'s lap.  Isabella makes an exaggerated <i>"OOMPH"</i> as Hel jumps onto her, though she manages to laugh and wrap her arms around the smaller salamander, letting Hel snuggle into her lap.' );
 				EngineCore.outputText( '\n\nGrinning at the two of them, you mention to Isabella that no, Hel isn\'t just paying a visit...  She\'s going to be a permanent addition.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Oh, ja?  Iz zis true, Helia?"</i>' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"Oh, really?  Is that true, Helia?"</i>' );
 				}
 
 				EngineCore.outputText( '\n\n<i>"Mmhm,"</i> the salamander nods, using the motion to further nestle her head between Isabella\'s massive mammaries until she practically disappears between them.  Muffled by titflesh, she adds, <i>"[name] invited me to stick around, so...  Looks like I won\'t have to walk so far to get my favorite milk!"</i>' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Vell, I look forward to having you around, mein Hel,"</i> the warrior-cow laughs, running her hand through Hel\'s hair.  You seat yourself on the arm of Isabella\'s chair and join in, giving both girls a bit of (heavy) petting until you practically have to drag Hel out from the canyon of Isabella\'s cleavage.  The tour still needs to be finished, and Hel needs to get settled.' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"Well, I look forward to having you around, Hel,"</i> the warrior-cow laughs, running her hand through Hel\'s hair.  You seat yourself on the arm of Isabella\'s chair and join in, giving both girls a bit of (heavy) petting until you practically have to drag Hel out from the canyon of Isabella\'s cleavage.  The tour still needs to be finished, and Hel needs to get settled.' );
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 				EngineCore.outputText( 'Showing Hel around, you eventually come to the part of your camp inhabited by the towering cowgirl Isabella.  When you arrive, you find Isabella reclining in her armchair, humming a sweet melody as she cleans her tower shield.' );
 				EngineCore.outputText( '\n\nYou only have a moment to remember Hel\'s disdain for the cowgirl before...' );
 				EngineCore.outputText( '\n\n<i>"Oh, what the fuck is SHE doing here!?  OI, BITCH!"</i>  Hel yells, dropping her shit and grabbing her scimitar.  Isabella has only a moment to react before Hel sinks her blade into the cowgirl\'s shield, nearly punching through it.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Y-You!"</i>  Isabella stammers.  She recovers from her surprise a moment later, throwing Hel back and slinging her arm through the shield\'s straps.  <i>"Vhat are YOU doing here?"</i>' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"Y-You!"</i>  Isabella stammers.  She recovers from her surprise a moment later, throwing Hel back and slinging her arm through the shield\'s straps.  <i>"What are YOU doing here?"</i>' );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 					EngineCore.outputText( 'glower balefully at them, as if to challenge either to invite your opinion of their own sexual \'résumé\' with an ill-considered comment.' );
 				}
 
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Zo,"</i> Isabella finally says, shifting her gaze from you to the salamander.  <i>"You two are... lovers, ja?  Und here Isabella vas about to thrash you!"</i>' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"So,"</i> Isabella finally says, shifting her gaze from you to the salamander.  <i>"You two are... lovers, huh?  And here I was about to thrash you!"</i>' );
@@ -228,14 +228,14 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 
 				EngineCore.outputText( '\n\n"<i>Yeah,</i>" Hel answers with a little scoff, <i>"And, I guess if you\'re [name]\'s friend...  you\'re probably alright.  Although I was winning, you impertinent bitch."</i>' );
 				EngineCore.outputText( '\n\nA dopey smile spreads across your face as Hel offers Isabella her hand.  Warily, the cow-girl shakes it.  The girls increase the tempo of the handshake competitively until both their pairs of massive tits are jiggling.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Oh... und here,"</i> Isabella says, breaking the (milk)shake to pull the blue bow from her tail and hand it over to Hel.  With a happy gasp, Hel grabs it and ties it around her forehead - making herself look like some kind of half-naked commando in the process - though it\'s quickly hidden under her long red hair.' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"Oh... and here,"</i> Isabella says, breaking the (milk)shake to pull the blue bow from her tail and hand it over to Hel.  With a happy gasp, Hel grabs it and ties it around her forehead - making herself look like some kind of half-naked commando in the process - though it\'s quickly hidden under her long red hair.' );
 				}
 
 				EngineCore.outputText( '\n\n<i>"Yeah.  You\'re alright."</i>  Hel says, finally sheathing her sword.  <i>"Thanks for giving me my mom\'s bandana back."</i>' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '<i>"You are... velcome,"</i> Isabella says before collecting some of the scattered belongings from the ground.  You continue your tour, now that the girls are...  not going to murder each other in the middle of the night, at least.' );
 				} else {
 					EngineCore.outputText( '<i>"You\'re... welcome,"</i> Isabella says before collecting some of the scattered belongings from the ground.  You continue your tour, now that the girls are...  not going to murder each other in the middle of the night, at least.' );
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nLaughing, you lead Hel along towards her new home.' );
 		}
 		//If Bimbo Sophie is at Camp:;
-		else if( CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 4 && CoC.getInstance().scenes.sophieBimbo.bimboSophie() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
+		else if( CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] < 4 && SceneLib.sophieBimbo.bimboSophie() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			CoC.getInstance().flags[ kFLAGS.HEL_INTROS_LEVEL ] = 4;
 			EngineCore.outputText( 'As you help Hel string up her hammock between a few of the rocks inside your perimeter, you hear the tell-tale flapping of useless wings and a clattering of claws on the hard-packed dirt.  You brace for impact as your bimbo harpy prances up to you, planting a big, wet kiss on your cheek' );
 			//{PC lust goes up if not immunized to luststick};
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nGod DAMMIT, Hel.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Boot Hel];
 	HelFollower.prototype.bootHelOutForBimboSophie = function() {
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		//Block future move ins;
 		CoC.getInstance().flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] = 1;
 		//Reduces her encounter rate;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Work it Out];
 	HelFollower.prototype.workItOutWithSophieAndFireTits = function() {
@@ -354,7 +354,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nHel sighs, and rolls her eyes.  <i>"I dunno, [name]. I don\'t like having her around, but - hey, get off - I guess if you\'re sure she\'s harmle- DAMMIT woman get your tits out of my face - I guess I can live with he- okay, okay, gimme a minute to settle in and I\'ll fuck ya already!  Damn!"</i>' );
 		EngineCore.outputText( '\n\nWell, maybe they\'ll get along after all...' );
 		CoC.getInstance().flags[ kFLAGS.KEEP_HELIA_AND_SOPHIE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//If Hel is at Camp and Isabella Arrives, neither are cool;
 	HelFollower.prototype.angryHelAndIzzyCampHelHereFirst = function() {
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nYou only have a moment to remember Hel\'s disdain for the cowgirl before...' );
 		EngineCore.outputText( '\n\n<i>"Oh, what the fuck is SHE doing here!?  OI, BITCH!"</i>  Hel yells, dropping her whetstone and grabbing her scimitar.  Isabella has only a moment to react before Hel sinks her blade into the cowgirl\'s shield, nearly punching through it.' );
 		EngineCore.outputText( '\n\n<i>"Y-you!"</i> Isabella stammers.  She recovers from her surprise a moment later, throwing Hel back and slinging her arm through the shield\'s straps.  <i>"' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'V' );
 		} else {
 			EngineCore.outputText( 'W' );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nGlaring at Isabella, Hel says, <i>"This...  cow...  stole my bandanna a few months ago and won\'t give it back."</i>' );
 		EngineCore.outputText( '\n\nIsabella makes an indignant huff and turns her nose up at the salamander.  <i>"Do not listen to this little liar, [name].  I found it in ze hands of ze gnolls, und most certainly did not \'steal\' it."</i>' );
 		EngineCore.outputText( '\n\n<i>"And what the fuck is SHE doing here anyway!?"</i>  Hel demands.' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '\n\nThe cow-girl\'s brow furrows.  <i>"Ja!  I could ask much ze same question."</i>' );
 		} else {
 			EngineCore.outputText( '\n\nThe cow-girl\'s brow furrows.  <i>"Yeah!  I could ask you much the same question."</i>' );
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( 'glower balefully at them, as if to challenge either to invite your opinion of their own sexual \'résumé\' with an ill-considered comment.' );
 		}
 
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '\n\n<i>"Zo,"</i> Isabella finally says, shifting her gaze from you to the salamander.  <i>"You two are... lovers, ja?  Und here Isabella vas about to thrash you!"</i>' );
 		} else {
 			EngineCore.outputText( '\n\n<i>"So,"</i> Isabella finally says, shifting her gaze from you to the salamander.  <i>"You two are... lovers, huh?  And here I was about to thrash you!"</i>' );
@@ -401,20 +401,20 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 
 		EngineCore.outputText( '\n\n"<i>Yeah,</i>" Hel answers with a little scoff, <i>"And, I guess if you\'re [name]\'s friend...  you\'re probably alright.  Although I was winning, you impertinent bitch."</i>' );
 		EngineCore.outputText( '\n\nA dopey smile spreads across your face as Hel offers Isabella her hand.  Warily, the cow-girl shakes it.  The girls increase the tempo of the handshake competitively until both their pairs of massive tits are jiggling.' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '\n\n<i>"Oh... und here,"</i> Isabella says, breaking the (milk)shake to pull the blue bow from her tail and hand it over to Hel.  With a happy gasp, Hel grabs it and ties it around her forehead - making herself look like some kind of half-naked commando in the process - though it\'s quickly hidden under her long red hair.' );
 		} else {
 			EngineCore.outputText( '\n\n<i>"Oh... and here,"</i> Isabella says, breaking the (milk)shake to pull the blue bow from her tail and hand it over to Hel.  With a happy gasp, Hel grabs it and ties it around her forehead - making herself look like some kind of half-naked commando in the process - though it\'s quickly hidden under her long red hair.' );
 		}
 
 		EngineCore.outputText( '\n\n<i>"Yeah.  You\'re alright."</i>  Hel says, finally sheathing her sword.  <i>"Thanks for giving me my mom\'s bandana back."</i>' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '<i>"You are... velcome,"</i> Isabella says before collecting some of the scattered belongings from the ground.  You continue your tour, now that the girls are...  not going to murder each other in the middle of the night, at least.' );
 		} else {
 			EngineCore.outputText( '<i>"You\'re... welcome,"</i> Isabella says before collecting some of the scattered belongings from the ground.  You continue your tour, now that the girls are...  not going to murder each other in the middle of the night, at least.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Introduction -- Followers -> Helia;
@@ -446,24 +446,24 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			//Threesomes;
 			//Take a Bath;
 			//Appearance;
-			EngineCore.addButton( 0, 'Appearance', CoC.getInstance().scenes.helSpawnScene.heliasAppearanceScreen );
+			EngineCore.addButton( 0, 'Appearance', SceneLib.helSpawnScene.heliasAppearanceScreen );
 			EngineCore.addButton( 1, 'Sex', this.heliaRoughSex );
 			EngineCore.addButton( 2, 'Threesomes', this.heliaThreesomes );
 			EngineCore.addButton( 4, 'Talk', this.heliaOptions );
-			if( !CoC.getInstance().scenes.helScene.pregnancy.isPregnant ) {
+			if( !SceneLib.helScene.pregnancy.isPregnant ) {
 				EngineCore.addButton( 5, 'Spar', this.sparWithHeliaFirebuttsAreHot );
 			} else {
 				EngineCore.outputText( '\n\n<b>Helia will not spar or box while pregnant.</b>' );
 			}
-			if( !CoC.getInstance().scenes.helScene.pregnancy.isPregnant ) {
+			if( !SceneLib.helScene.pregnancy.isPregnant ) {
 				EngineCore.addButton( 6, 'Box', this.boxWithInCampHel );
 			}
 			if( CoC.getInstance().flags[ kFLAGS.HEL_LOVE ] === 1 || CoC.getInstance().flags[ kFLAGS.HEL_LOVE ] === -1 ) {
-				if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.heliaCapacity() ) >= 0 && CoC.getInstance().player.lust >= 33 && !CoC.getInstance().scenes.helSpawnScene.helPregnant() && CoC.getInstance().flags[ kFLAGS.HELSPAWN_AGE ] === 0 ) {
-					EngineCore.addButton( 7, 'Have A Kid', CoC.getInstance().scenes.helSpawnScene.haveAKid );
+				if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.heliaCapacity() ) >= 0 && CoC.getInstance().player.lust >= 33 && !SceneLib.helSpawnScene.helPregnant() && CoC.getInstance().flags[ kFLAGS.HELSPAWN_AGE ] === 0 ) {
+					EngineCore.addButton( 7, 'Have A Kid', SceneLib.helSpawnScene.haveAKid );
 				}
 			}
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp.campLoversMenu );
 		} else if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 ) {
 			if( CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 1 ) {
 				if( display ) {
@@ -477,17 +477,17 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 					EngineCore.outputText( '\n\n"<i>Heya, [name]! Ready to hit the road?</i>"' );
 				}
 				//(Display Options: [Dungeon] [Not Yet]);
-				EngineCore.choices( 'Dungeon', CoC.getInstance().scenes.dungeonHelSupplimental.goToHeliaDungeon, '', null, '', null, '', null, 'Not Yet', CoC.getInstance().scenes.dungeonHelSupplimental.notYet );
+				EngineCore.choices( 'Dungeon', SceneLib.dungeonHelSupplimental.goToHeliaDungeon, '', null, '', null, '', null, 'Not Yet', SceneLib.dungeonHelSupplimental.notYet );
 			}
 		}
 	};
 	HelFollower.prototype.heliaOptions = function() {
-		if( CoC.getInstance().scenes.helScene.pregnancy.event >= 3 && CoC.getInstance().flags[ kFLAGS.HELIA_TALK_SEVEN ] === 0 ) {
-			CoC.getInstance().scenes.helSpawnScene.heliaTalkSeven();
+		if( SceneLib.helScene.pregnancy.event >= 3 && CoC.getInstance().flags[ kFLAGS.HELIA_TALK_SEVEN ] === 0 ) {
+			SceneLib.helSpawnScene.heliaTalkSeven();
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_AGE ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_TALK_EIGHT ] === 0 ) {
-			CoC.getInstance().scenes.helSpawnScene.heliaTalkEight();
+			SceneLib.helSpawnScene.heliaTalkEight();
 			return;
 		}
 		EngineCore.menu();
@@ -502,7 +502,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		}
 		EngineCore.addButton( 5, 'Bathe', this.takeABath );
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_AGE ] === 1 ) {
-			EngineCore.addButton( 7, CoC.getInstance().flags[ kFLAGS.HELSPAWN_NAME ], CoC.getInstance().scenes.helSpawnScene.playWithYourKid );
+			EngineCore.addButton( 7, CoC.getInstance().flags[ kFLAGS.HELSPAWN_NAME ], SceneLib.helSpawnScene.playWithYourKid );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 ) {
 			EngineCore.addButton( 8, 'GuardCamp', this.helGuardToggle );
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nYou scowl and tell Hel to finish the damn story.' );
 			EngineCore.outputText( '\n\n"<i>What?  That\'s how it ended -- I\'m just a spooky ghost come to haunt sexy adventurers!</i>"' );
 			//If Shouldra follower: ;
-			if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() ) {
+			if( SceneLib.shouldraFollower.followerShouldra() ) {
 				EngineCore.outputText( '\n\nSuddenly, Shouldra pops out, seemingly from nowhere, and snaps, "<i>Hey!  That\'s my job!</i>" before vanishing.' );
 			}
 			EngineCore.outputText( '\n\nYou give her a little punch on the shoulder.' );
@@ -651,33 +651,33 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '<i>"Hey, [name],"</i> Hel says, slipping out of your grasp with a come-hither wag of her finger, <i>"wanna have a drink with me?"</i>' );
 			EngineCore.outputText( '\n\n<i>"Sure,"</i> you say, following Hel over to her still.' );
 			EngineCore.outputText( '\n\nShe pours out two tankards of ' );
-			if( CoC.getInstance().scenes.helSpawnScene.helPregnant() ) {
+			if( SceneLib.helSpawnScene.helPregnant() ) {
 				EngineCore.outputText( 'beer ' );
 			} else {
 				EngineCore.outputText( 'fizzy, non-alcoholic beer ' );
 			}
 			EngineCore.outputText( 'and, swinging onto your lap, clinks her glass against yours.  <i>"To loving friends and an awesome new home,"</i> she says, raising her tankard high before knocking it back.  Before you can finish yours, Hel belches loudly and violently shakes her head' );
-			if( !CoC.getInstance().scenes.helSpawnScene.helPregnant() ) {
+			if( !SceneLib.helSpawnScene.helPregnant() ) {
 				EngineCore.outputText( ', her eyes crossing a little.  Looks like she was dipping in before you got here...' );
 			} else {
 				EngineCore.outputText( '.' );
 			}
 
 			EngineCore.outputText( '\n\nHel laughs ' );
-			if( !CoC.getInstance().scenes.helSpawnScene.helPregnant() ) {
+			if( !SceneLib.helSpawnScene.helPregnant() ) {
 				EngineCore.outputText( 'drunkenly' );
 			} else {
 				EngineCore.outputText( 'happily' );
 			}
-			if( !CoC.getInstance().scenes.helSpawnScene.helPregnant() ) {
+			if( !SceneLib.helSpawnScene.helPregnant() ) {
 				EngineCore.outputText( ', filling her cup up again and, with a wide smile, jumping out of your lap.  <i>"Hey, lover, check this out!"</i> she shouts, grabbing her fiery tail in one hand and swirling a mouth-full of alcohol.  You have just enough time to take cover before Hel swings her tail around and spits a stream of pure-grain over it, resulting in a great gout of flame that streaks into the heavens.' );
 				//if Kiha is in camp: ;
-				if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+				if( SceneLib.kihaFollower.followerKiha() ) {
 					EngineCore.outputText( '  From across camp, you hear a certain dusky dragoness shout <i>"HEY! That\'s MY trick, firebutt!"</i>' );
 				}
 				EngineCore.outputText( '\n\nHel giggles, and spews another fireball into the sky.  <i>"Heh.  Hey, this is pretty fun.  C\'mere, [name], try it!"</i>' );
 				EngineCore.outputText( '\n\nWith a little encouragement from your salamander lover, you gulp down a bit of booze and, lining your mouth up with her tail, spit out a combustible spray.  You stumble back as the sky alights with fire, ' );
-				if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+				if( SceneLib.kihaFollower.followerKiha() ) {
 					EngineCore.outputText( 'further pissing off Kiha, who throws a rock at Hel, and ' );
 				}
 				EngineCore.outputText( 'shooting up like a beacon over the wasteland.' );
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\n<i>"Mmm, you\'re a cutie, you know that?"</i>  Hel giggles, planting a kiss on your brow before letting you go.  By the time you get turned around again, Hel\'s already breathing fire again.' );
 		}
 		//Hel Talk 6 (Needs Isabella and Kiha at camp; at least 1 gem)(C);
-		else if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_HEL_TALKS ] === 5 && CoC.getInstance().player.gems >= 1 && CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+		else if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_HEL_TALKS ] === 5 && CoC.getInstance().player.gems >= 1 && SceneLib.isabellaFollowerScene.isabellaFollower() && SceneLib.kihaFollower.followerKiha() ) {
 			var gems = 0;
 			EngineCore.outputText( '<i>"Hey, [name],"</i> Hel says with a sly grin.  <i>"Me, Izzy, and spitfire were just playing a little game.  Wanna deal in?"</i>' );
 			EngineCore.outputText( '\n\n<i>"Maybe.  What\'re you playing?"</i>' );
@@ -702,18 +702,18 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\n<i>"Poker?"</i> You suggest.' );
 			EngineCore.outputText( '\n\n<i>"Yeah, sure, whatever.  Wanna play!?"</i>' );
 			EngineCore.outputText( '\n\nYou shrug and follow Hel over to Kiha\'s nest.  The dragoness\'s table has been cleared off and stacked full of glittering gems, paper cards, and half-empty glasses of beer and wine.  Hel clears a spot for you before joining the other two busty redheads around the table and picking up a hand of five ancient-looking cards.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\n<i>"Ze game ist Poker, mein freunds,"</i> Isabella says, passing you a set of cards.' );
 			} else {
 				EngineCore.outputText( '\n\n<i>"The game is Poker, my friends,"</i> Isabella says, passing you a set of cards.' );
 			}
 
 			EngineCore.outputText( '\n\n<i>"Polkawha?"</i> Kiha asks, turning her cards one way and her head the other' );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( !SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( ', obviously only somewhat interested' );
 			}
 			EngineCore.outputText( '.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\n<i>"Poker, zilly girl!"</i> Isabella snaps.' );
 			} else {
 				EngineCore.outputText( '\n\n<i>"Poker, EngineCore.silly girl!"</i> Isabella snaps.' );
@@ -727,7 +727,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 				//[Successful];
 				EngineCore.outputText( '\n\nAbout an hour later, you sit proudly behind a massive pile of gems, collected from all three of your friends - as well as Hel\'s bikini and Isabella\'s corset.' );
 				EngineCore.outputText( '\n\n<i>"Fucking shit cunt bitch,"</i> Hel declares, covering her chest with her scaly arms.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Und I thought you vere a beginner..."</i> Isabella moans, her milky mammaries quivering in the cool air.' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"And I thought you were a beginner..."</i> Isabella moans, her milky mammaries quivering in the cool air.' );
@@ -739,7 +739,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			else if( Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( '\n\n<i>"Booyah, bitches,"</i> Hel yells an hour later, raking in the last of the gems you cared to wager.  Isabella and Kiha glower at the salamander as she scoops her new wealth into a haversack.' );
 				EngineCore.outputText( '\n\n<i>"Y-you cheated!"</i> Kiha yells, lurching to her feet.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Nein, zilly girl,"</i> Isabella groans, crossing her arms, <i>"Ve vere beaten by ze luck of ze draw."</i>' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"No, EngineCore.silly girl,"</i> Isabella groans, crossing her arms, <i>"We were beaten by the luck of the draw."</i>' );
@@ -750,7 +750,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			}
 			//[Fail 2];
 			else if( Utils.rand( 2 ) === 0 ) {
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Ja, ja, come to mama Isabella,"</i> your feisty cow-girl laughs, throwing down a stunning, crushing hand.  Groaning, you, Hel, and Kiha all relinquish the last of the gems you can spare for the game.' );
 					EngineCore.outputText( '\n\n<i>"Oh, I zee ein new skirt in ze future!"</i> Isabella laughs, dumping your gems into her pouch before sauntering off.' );
 				} else {
@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			else {
 				EngineCore.outputText( '\n\n<i>"I won?"</i>  Kiha says, staring incredulously at the cards laid down on the table.  <i>"Er, of course I won!  You idiots never had a chance!"</i>' );
 				EngineCore.outputText( '\n\n<i>"Wax on, wax off, take my gems and piss off,"</i> Hel grumbles, shoving her pile of currency to the dragoness.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n<i>"Nein, you cannot rhyme a vord vith ze zame vord,"</i> Isabella huffs, crossing her arms as Kiha rakes up all of the gems the three of you cared to lose that night.' );
 				} else {
 					EngineCore.outputText( '\n\n<i>"No!  You can\'t rhyme a word with the same word!"</i> Isabella huffs, crossing her arms as Kiha rakes up all of the gems the three of you cared to lose that night.' );
@@ -792,7 +792,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			return;
 		}
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_HEL_TALKS ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Shut up, slut;
 	HelFollower.prototype.shutUpHelTalks = function() {
@@ -809,7 +809,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nAfter a moment, Hel adds, <i>"Sorry, lover. I just... get carried away with stories.  Wanted to be a bard, once.  Anyway, uh, sorry.  Didn\'t wanna make you uncomfortable... I\'m sorry, lover.  I\'ll just, uh, wander off, then."</I.  Excusing herself, Hel gets up and heads off to attend to something else.  You don\'t really know how to feel about Hel\'s little romp with a gnoll village.  Perhaps it\'s best that you not dwell on it for too long.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_HEL_TALKS ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Listen In;
 	HelFollower.prototype.listenToHelTalkAboutGnolls = function() {
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		//Sex options here maybe?;
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_HEL_TALKS ]++;
 		this.heliaRoughSex( false );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		//	EngineCore.doNext(13);;
 	};
 
@@ -854,7 +854,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nHel smiles prettily as you give your assent.  <i>"On a night like this, there\'s no one I\'d rather be with, [name]..."</i>\n\n' );
 			CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = 'Helia';
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.doSleep );
+			EngineCore.addButton( 0, 'Next', SceneLib.camp.doSleep );
 			return;
 		}
 		//[If PC is >8ft tall];
@@ -873,7 +873,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			EngineCore.outputText( '\n\nAfter a few moments, Hel puts a hand on your back and leans you back, like a gentleman in a storybook, cupping your cheek before pressing her lips to yours.  She holds you in a long, affectionate kiss, her slender tongue wrapping playfully around your own.' );
 			EngineCore.outputText( '\n\n<i>"Oh, [name],"</i> Hel sighs happily, holding you back against her bosom.  <i>"My cute little [name]."</i>' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//What a horrible night to have a canyon vagina;
@@ -902,33 +902,33 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
 			//85 vag capacity by base;
 			if( CoC.getInstance().player.cockThatFits( this.heliaCapacity() ) >= 0 && buttons < 9 ) {
-				EngineCore.addButton( buttons, 'FuckVag', CoC.getInstance().scenes.helScene.beatUpHelAndStealHerWalletFromHerVagina );
+				EngineCore.addButton( buttons, 'FuckVag', SceneLib.helScene.beatUpHelAndStealHerWalletFromHerVagina );
 				buttons++;
 			}
 			//85 ass capacity;
 			if( CoC.getInstance().player.cockThatFits( this.heliaAnalCapacity() ) >= 0 && buttons < 9 ) {
-				EngineCore.addButton( buttons, 'Anal', CoC.getInstance().scenes.helScene.fuckHelsAss );
+				EngineCore.addButton( buttons, 'Anal', SceneLib.helScene.fuckHelsAss );
 				buttons++;
 			}
 			if( buttons < 9 ) {
-				EngineCore.addButton( buttons, 'Get Blown', CoC.getInstance().scenes.helScene.helBlowsYou );
+				EngineCore.addButton( buttons, 'Get Blown', SceneLib.helScene.helBlowsYou );
 				buttons++;
 			}
 			if( CoC.getInstance().player.cockThatFits( this.heliaCapacity() ) >= 0 && CoC.getInstance().player.cockThatFits2( this.heliaCapacity() ) >= 0 && buttons < 9 ) {
-				EngineCore.addButton( buttons, 'DoublePen', CoC.getInstance().scenes.helScene.dpHel );
+				EngineCore.addButton( buttons, 'DoublePen', SceneLib.helScene.dpHel );
 				buttons++;
 			}
 			if( buttons < 9 ) {
-				EngineCore.addButton( buttons, 'Tail Wank', CoC.getInstance().scenes.helScene.helTailWanksYourDickBecauseSheLovesYouDesuDesuHoraHora );
+				EngineCore.addButton( buttons, 'Tail Wank', SceneLib.helScene.helTailWanksYourDickBecauseSheLovesYouDesuDesuHoraHora );
 				buttons++;
 			}
 		}
 		if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 && buttons < 9 ) {
-			EngineCore.addButton( buttons, 'GetLicked', CoC.getInstance().scenes.helScene.getLickedByHel );
+			EngineCore.addButton( buttons, 'GetLicked', SceneLib.helScene.getLickedByHel );
 			buttons++;
 		}
 		if( CoC.getInstance().player.lust >= 33 && buttons < 9 ) {
-			EngineCore.addButton( buttons, 'TailPeg', CoC.getInstance().scenes.helScene.helTailPegging );
+			EngineCore.addButton( buttons, 'TailPeg', SceneLib.helScene.helTailPegging );
 			buttons++;
 		}
 		//Morph-based: [Possession] [Mount Her] [Hanging 69] [Coil Her Up] [Tentafuck]);
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 				buttons++;
 			}
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 && CoC.getInstance().scenes.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && buttons < 9 ) {
+		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.findPerk( PerkLib.Incorporeality ) >= 0 && SceneLib.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && buttons < 9 ) {
 			EngineCore.addButton( buttons, 'Possess', this.heliaCampPossession );
 			buttons++;
 		}
@@ -1032,7 +1032,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -1066,7 +1066,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//'Rough' Sex -- Naga Coil (Female w/ Naga Lower Body);
@@ -1087,7 +1087,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -1127,7 +1127,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//'Rough Sex' -- Centauress-PC & Hel (PC must have Centaur Pole);
@@ -1150,7 +1150,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Rough Sex -- Tentafuck;
@@ -1174,7 +1174,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Boxing;
@@ -1193,7 +1193,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			//[Display Rough Sex menu];
 			EngineCore.dynStats( 'str', 1, 'tou', 1 );
 			this.heliaRoughSex( false );
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//If STR check succeeds:;
 		else if( CoC.getInstance().player.str / 20 + 1 + Utils.rand( 20 ) >= 13 ) {
@@ -1203,7 +1203,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			//Display Rough Sex menu;
 			EngineCore.dynStats( 'str', 2 );
 			this.heliaRoughSex( false );
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//If PC fails the Check:  ;
 		else {
@@ -1218,7 +1218,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 				}
 			}
 			this.heliaRoughSex( false );
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//THE LONG AWAITED APPEARANCE OF MUDDY LIZARD FEET (Or, Hel is a Seriously Dirty, Filthy Girl; and We Love Her for it);
@@ -1268,7 +1268,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nYou brush her hair and nod, happy to enjoy the loving embrace of your lover.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Take a Bath;
 	HelFollower.prototype.takeABath = function() {
@@ -1308,7 +1308,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 			//Swim With Hel -- Lust less than 33;
 			else {
 				EngineCore.outputText( '\n\nYou and Helia cuddle in the steaming river, the minutes passing pleasantly in each other\'s embrace.  Eventually Hel looks up at you, her bright eyes shining in the misty air, a small smile on her lips.  You kiss her, leaning in as the salamander presses herself against you, ardently returning your show of passion.  "<i>I wish we could stay like this forever,</i>" Hel whispers, breaking the kiss to nuzzle against your neck. You stroke her hair and hold her close until your duties as Champion call you back to your work.' );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -1330,7 +1330,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nYou spend the next few minutes urging and coaxing Hel to give it a try, telling her you\'ll be right there with her, ready to help if she needs it.  It takes some doing, but eventually, you see your friend visibly relax until she finally says, "<i>Well... alright, I guess.  I trust you, [name].  Just... keep an eye on me, alright?  I don\'t want to drown.</i>"  You assure her she won\'t drown, and wrapping your arm around the salamander\'s waist, lead her out of camp and down to the stream.' );
 		EngineCore.outputText( '\n\nBy the time you arrive at the riverbed, you\'ve already helped Helia out of her skimpy clothes, leaving her in a surprisingly bashful pose, covering her bare breasts with her arm as she approaches the river.  With a bit of urging, the salamander gingerly sticks her foot out, the long pale claw touching the water for the briefest instant before she recoils.' );
 		//If PC has Izma follower:;
-		if( CoC.getInstance().scenes.izmaScene.izmaFollower() ) {
+		if( SceneLib.izmaScene.izmaFollower() ) {
 			EngineCore.outputText( '\n\nJust as Hel is about to put her foot in, a large red fin pokes out of the water.  You have just enough time to grab Hel and yank her back before a familiar shark-girl breaches the water, leaping onto shore with a wolfish grin.  "<i>Heyya, Alpha,</i>" Izma says, inclining her head to you as she wrings her hair out, grabbing a towel from behind a nearby rock.  "<i>Oh, hi, Hel.  Don\'t see you around here much!</i>"' );
 			EngineCore.outputText( '\n\n"<i>Uh, yeah,</i>" Hel groans, blushing a brighter shade of red.  With a chuckle, Izma gives the two of you a wink and wanders off back to camp, leaving you alone with Hel once more.' );
 		}
@@ -1346,7 +1346,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nBefore you know it, you and Hel are splashing each other with abandon, her former fears utterly forgotten as the two of you play happily in the water...' );
 		EngineCore.outputText( '\n\n(You can now go swimming with Hel!)' );
 		CoC.getInstance().flags[ kFLAGS.HEL_CAN_SWIM ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Threesomes;
@@ -1360,20 +1360,20 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		//[Vapula];
 		//[Kiha];
 		EngineCore.menu();
-		if( CoC.getInstance().scenes.vapula.vapulaSlave() && CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.hasCock() ) {
+		if( SceneLib.vapula.vapulaSlave() && CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.hasCock() ) {
 			if( CoC.getInstance().player.cockThatFits( this.heliaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 1, 'Vapula', this.heliaAndVapula );
 			} else {
 				EngineCore.outputText( '\n\nYou\'re too big to fuck Helia and Vapula with your cock.' );
 			}
 		}
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() && CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
+		if( SceneLib.kihaFollower.followerKiha() && CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
 			EngineCore.addButton( 0, 'Kiha', this.campHelAndKihaThreeSome );
 		}
 		if( (CoC.getInstance().player.armorName === 'goo armor' || CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1) && CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Valeria', this.helAndValeriaCampThreesomes );
 		}
-		if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+		if( CoC.getInstance().player.lust >= 33 && SceneLib.sophieBimbo.bimboSophie() ) {
 			EngineCore.addButton( 3, 'Sophie', this.helAndSluttyHarpy );
 		}
 		if( CoC.getInstance().player.lust < 33 ) {
@@ -1431,13 +1431,13 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nYour hot anal embrace knows no bounds but that of your respective staminas, and with a raging groan of pleasure, you cum. The huge, sticky jet of hot spunk splatters against her colon, making her screech in delight.  Your ' + Descriptors.cockDescript( x ) + ' twitches as it releases rope after rope of jism.  Your semen nearly vaporizes as it hits the reptile\'s interior; you can actually see steam escaping from her cock-filled anal ring.  Her ass clenches and wobbles insanely, desperate to receive everything you have; unfortunately, there is only so much baby-batter that can fit her backdoor, and the few spurts of cum that escape are quickly gulped by Vapula as they rain in sticky globs of goo down Hel\'s thighs.' );
 		EngineCore.outputText( '\n\nSince your salamander lover wants your cum so much, you keep your ' + Descriptors.cockDescript( x ) + ' buried in her until it stops pulsing, her anal hotness accelerating and intensifying your orgasm.  At last, you pull out and plunge your cum-coated junk in Vapula\'s waiting mouth below.  The two girls had been squirting so often that the succubus\' face is now sopping with juices.  In her current state of pleasure, Vapula doesn\'t protest and engulfs all your dickflesh at once, sucking the remaining bits of goo out of your urethra.  You let the demoness feed until she is sated and your ' + Descriptors.cockDescript( x ) + ' is only covered with her saliva.' );
 		EngineCore.outputText( '\n\nSatisfied, you help your salamander lover to her feet.  She is still dazed from the two violent fucks and keeps chuckling softly as sexual juices are dribbling down every part of her body.' );
-		if( !CoC.getInstance().scenes.helScene.followerHel() ) {
+		if( !SceneLib.helScene.followerHel() ) {
 			EngineCore.outputText( '  You kiss her and ask if she\'ll be able to find her way back to her home.' );
 			EngineCore.outputText( '\n\n"<i>Don\'t worry, I can take care of myself.  And if I get stuck in your camp, who cares?  If we did this every time I stumbled upon your place I would get lost more often!</i>" she says with a cute little wink; she\'s still limping and giggling as she heads toward the plains.  Meanwhile, Vapula is a sorry mess.  Still digesting her copious cum-meal, she doesn\'t seem to mind the sexual filth coating her face.  You shrug and leave your pet to her digestion.' );
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Helia + Kiha;
 	//[Needs a gender. See the Male scene for Hel and Kiha Footjobs: Rematch Edition];
@@ -1492,7 +1492,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nWith the two lizard-girls distracted, you languidly pull their limp tails out of your holes, relishing the blessedly empty feeling left before you collapse into a pool of your own juices... just to catch your breath, you insist.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Male Helia + Kiha Threesome (Episode III: Revenge of the Footjobs);
 	HelFollower.prototype.dudeHeliaAndKihaThreeSome = function() {
@@ -1524,7 +1524,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\n"<i>FIREBUUUUUUUTTT!!!</i>"' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Hel x Valeria Threesome;
 	HelFollower.prototype.helAndValeriaCampThreesomes = function() {
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nHanging her head, Hel moves with you so that you can both get on all fours. Hel swings a leg over your ass, making it so that you\'re sitting butt-to-butt, the knots in both your asses slowly deflating - a bit too realistically for comfort...' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Guard Camp / Unguard Camp;
 	HelFollower.prototype.helGuardToggle = function() {
@@ -1669,7 +1669,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		CoC.getInstance().player.consumeItem( ConsumableLib.GOB_ALE, 1 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelFollower.prototype.heliaGapeSceneChoices = function() {
 		if( CoC.getInstance().flags[ kFLAGS.HELIA_ANAL_TRAINING ] === 0 ) {
@@ -1698,7 +1698,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( 'You step up and kiss Helia, telling her that she doesn’t have to this for you, at least not right now.' );
 		EngineCore.outputText( '\n\n“<i>Seriously, lover mine? I thought you’d like to do a little anal adventuring with that massive pole you’re packin’,</i>” the salamander asks while looking at you with some concern. A huge smile suddenly spreads across her mouth as she realizes just what’s going on. “<i>You’re worried about me!</i>” Helia slugs you on the shoulder none too softly before slamming you into a tight hug, pressing you into her heavy breasts and lifting you off the ground, her face nuzzling tenderly against you.' );
 		EngineCore.outputText( '\n\nYour [feet] hit the ground when the confident salamander drops you, and she says, “<i>Your call. I’m gonna pour these into my still to give it a little extra kick. Don’t fret, the transformative shit should burn off right quick.</i>” She turns and depart, her tail giving you a heat slap on the [butt]. “<i>Catch ya later, [name].</i>”' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Buttdevastation Ahoy!;
@@ -1732,7 +1732,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( ' Helia burps. “<i>Fuck me that was awesome! Whoah, don’t mind me, but I, uh... I think I’m gonna stay here for a little while, maybe just rock up and down till I come down off this buzz. She blushes and begins to finger her snatch again. Just let me... just let me get used to.</i>” She shoos you away and goes back to toying with herself, getting used to her new “flexibility”.' );
 		EngineCore.outputText( '\n\n“<i>You’re gonna fall in love with my asshole, lover mine,</i>” Helia calls after you.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//It's Helia's Birthday, Bitch (Or, how Helia officially crossed the Mary Sue line);
 	//{Play the evening of on August 24. Must have completed Tower of the Phoenix & have unlocked Tel'Adre.};
@@ -1786,9 +1786,9 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Sounds like fun.  Let\'s go,</i>" you say, offering your arm to Hel.  She grins and takes it, holding herself close as she takes the lead, steady paces quickly drawing you out into the vast deserts of Mareth beside your lover.' );
 		//{If Kiha, Isabella, and/or Valeria are at camp:};
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() || CoC.getInstance().scenes.kihaFollower.followerKiha() || CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
+		if( SceneLib.isabellaFollowerScene.isabellaFollower() || SceneLib.kihaFollower.followerKiha() || CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
 			EngineCore.outputText( '  Looking over your shoulder as you depart, though, you notice that camp looks particularly... empty. Perhaps your other camp-mate' );
-			if( CoC.getInstance().scenes.camp.companionsCount() > 1 ) {
+			if( SceneLib.camp.companionsCount() > 1 ) {
 				EngineCore.outputText( 's are' );
 			} else {
 				EngineCore.outputText( ' is' );
@@ -1822,10 +1822,10 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
 			list.push( 'Valeria' );
 		}
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+		if( SceneLib.kihaFollower.followerKiha() ) {
 			list.push( 'Kiha' );
 		}
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			list.push( 'Isabella' );
 		}
 		list.push( 'a handful of her wide-hipped and winged half-sisters, the phoenixes' );
@@ -1901,7 +1901,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		}
 		EngineCore.outputText( ', he thought it would be good to try and at least... know each other.  I\'m not complaining.  Things like this party... never would have seen anything like this under Queen Calais.  It\'s nice to see new things, meet new people.</i>"' );
 		EngineCore.outputText( '\n\nYou see a few glances going toward Edryn and the fox twins' );
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() && CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+		if( SceneLib.kihaFollower.followerKiha() && SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			EngineCore.outputText( ', then to the fiery dragoness and the ultra-busty cowgirl talking in the corner' );
 		}
 		EngineCore.outputText( ', and you figure you know what they mean.' );
@@ -1933,7 +1933,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nShe stands and, turning toward the crowd, announces: "<i>Thank you all so very, very much for coming out.  I can\'t even begin to tell you how much it means to me to see you all... I honestly didn\'t know anybody would come.  I hardly remembered myself.  I love you all, and thanks again.</i>"' );
 		EngineCore.outputText( '\n\nThere\'s a general murmur of approval as Hel picks up another beer, kicks it back, and then takes your hand. You follow your lover through the crowd, shaking hands and getting patted on the shoulder - and hearing more than a few immature catcalls from the increasingly drunk phoenixes and fox-girls.' );
 		EngineCore.outputText( '\n\nWhen you get to the door, Hel holds you close, snuggling against you as you walk.  "<i>Thanks for coming, [name].  I love you.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave w/ Girls;
 	HelFollower.prototype.leaveWithGirls = function() {
@@ -1945,11 +1945,11 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		if( CoC.getInstance().player.gender === 3 ) {
 			EngineCore.outputText( '\n\n"<i>So what parts do you want to use?</i>" she asks, looking to your mixed endowments.', false );
 			//(Display Options: [As Male] [As Female]);
-			EngineCore.choices( 'As Male', CoC.getInstance().scenes.helScene.foxyFluffsFoursomeAsMale, 'As Female', CoC.getInstance().scenes.helScene.foxyFluffGirlsFuckSex, '', null, '', null, '', null );
+			EngineCore.choices( 'As Male', SceneLib.helScene.foxyFluffsFoursomeAsMale, 'As Female', SceneLib.helScene.foxyFluffGirlsFuckSex, '', null, '', null, '', null );
 		} else if( CoC.getInstance().player.gender === 2 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.helScene.foxyFluffGirlsFuckSex );
+			EngineCore.doNext( SceneLib.helScene.foxyFluffGirlsFuckSex );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.helScene.foxyFluffsFoursomeAsMale );
+			EngineCore.doNext( SceneLib.helScene.foxyFluffsFoursomeAsMale );
 		}
 	};
 	HelFollower.prototype.helAndSluttyHarpy = function() {
@@ -2054,7 +2054,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\n<i>“Don’t think I’ll just do this whenever you want”</i> She says when the kiss is broken, but she’s smiling as she says it, so you smile back and retrieve your armor. Sophie has fallen asleep on top of Helia, who seems to also have resigned to take a nap.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelFollower.prototype.helAndSluttyHarpyFemale = function() {
 		EngineCore.clearOutput();
@@ -2089,7 +2089,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\n<i>“But don\'t think this means I want to do it again,”</i> she says before shakily sauntering off to find somewhere to collapse. Sophie simply giggles and curls up to sleep in the puddle of juices the three of you made. You massage your aching muscles and get back to your champion duties.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelFollower.prototype.helAndSluttyHarpyGenderless = function() {
 		EngineCore.clearOutput();
@@ -2103,7 +2103,7 @@ angular.module( 'cocjs' ).run( function( $log, OnLoadVariables, Hel, Combat, Per
 		EngineCore.outputText( '\n\nYour hand slides across Sophie’s stomach to squeeze one of her massive mammaries. The busty harpy responds by doing the same to Hel, squeezing one of her sizeable tits. You double your efforts on Helia and she practically melts despite her natural body heat. The steamy salamander crumples, falling to the side and pulling Sophie with her. You lean over and kiss both girls on the forehead before leaving them to rest, and hopefully feel more open about each other.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'helFollower', new HelFollower() );
+	SceneLib.registerScene( 'helFollower', new HelFollower() );
 } );

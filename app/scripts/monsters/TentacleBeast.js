@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, WeightedDrop, Combat, PerkLib, Descriptors ) {
-	var TentacleBeast = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, WeightedDrop, Combat, PerkLib, Descriptors ) {
+	function TentacleBeast() {
+		this.init(this, arguments);
+	}
+	angular.extend(TentacleBeast.prototype, Monster.prototype);
 	TentacleBeast.prototype.tentaclePhysicalAttack = function() {
 		EngineCore.outputText( 'The shambling horror throws its tentacles at you with a murderous force.\n', false );
 		var temp = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.getInstance().player.tou) - CoC.getInstance().player.armorDef );
@@ -54,11 +57,11 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineC
 		}
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
-			CoC.getInstance().scenes.antsScene.phyllaTentacleDefeat();
+			SceneLib.antsScene.phyllaTentacleDefeat();
 		} else {
 			if( !hpVictory && CoC.getInstance().player.gender > 0 ) {
 				EngineCore.outputText( '  Perhaps you could use it to sate yourself?', true );
-				EngineCore.doYesNo( CoC.getInstance().scenes.tentacleBeastScene.tentacleVictoryRape, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.tentacleBeastScene.tentacleVictoryRape, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -70,18 +73,18 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineC
 			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
 				EngineCore.outputText( '...and make it into the nearby tunnel.  ' );
-				CoC.getInstance().scenes.antsScene.phyllaTentaclePCLoss();
+				SceneLib.antsScene.phyllaTentaclePCLoss();
 			} else {
-				CoC.getInstance().scenes.tentacleBeastScene.tentacleLossRape();
+				SceneLib.tentacleBeastScene.tentacleLossRape();
 			}
 		} else {
 			EngineCore.outputText( 'You give up on fighting, too aroused to resist any longer.  Shrugging, you walk into the writhing mass...\n\n' );
 			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
 				EngineCore.outputText( '...but an insistent voice rouses you from your stupor.  You manage to run into a nearby tunnel.  ' );
-				CoC.getInstance().scenes.antsScene.phyllaTentaclePCLoss();
+				SceneLib.antsScene.phyllaTentaclePCLoss();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.tentacleBeastScene.tentacleLossRape );
+				EngineCore.doNext( SceneLib.tentacleBeastScene.tentacleLossRape );
 			}
 		}
 	};

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'LustStick', function( CoC, StatusAffects, ConsumableLib, PerkLib, Utils, Consumable, EngineCore ) {
-	var LustStick = angular.copy( Consumable );
+	function LustStick() {
+		this.init(this, arguments);
+	}
+	angular.extend(LustStick.prototype, Consumable.prototype);
 	LustStick.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'LustStk', 'LustStk', 'a tube of golden lipstick', ConsumableLib.DEFAULT_VALUE, 'This tube of golden lipstick is used by harpies to keep males aroused.  It has aphrodisiac properties on anyone with male genitalia and is most effective when applied to the lips or groin.' ] );
 	};

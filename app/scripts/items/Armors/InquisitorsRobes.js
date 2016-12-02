@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'InquisitorsRobes', function( ArmorWithPerk, PerkLib, EngineCore ) {
-	var InquisitorsRobes = angular.copy( ArmorWithPerk );
+	function InquisitorsRobes() {
+		this.init(this, arguments);
+	}
+	angular.extend(InquisitorsRobes.prototype, ArmorWithPerk.prototype);
 	InquisitorsRobes.prototype.init = function( that ) {
 		ArmorWithPerk.prototype.init( that, [ 'I.Robes', 'I.Robes', 'inquisitor\'s robes', 'inquisitor\'s robes', 8, 2000, 'These foreboding red and gold robes are embroidered with the symbols of a lost kingdom.  Wearing them will cause spells to tax your health instead of exhausting you.', 'Light', PerkLib.BloodMage, 0, 0, 0, 0 ] );
 	};

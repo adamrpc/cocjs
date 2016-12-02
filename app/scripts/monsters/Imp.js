@@ -1,23 +1,26 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Imp', function( $log, CockTypesEnum, Descriptors, EventParser, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
-	var Imp = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Imp', function( SceneLib, $log, CockTypesEnum, Descriptors, EventParser, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+	function Imp() {
+		this.init(this, arguments);
+	}
+	angular.extend(Imp.prototype, Monster.prototype);
 	Imp.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
-			CoC.getInstance().scenes.kitsuneScene.winKitsuneImpFight();
+			SceneLib.kitsuneScene.winKitsuneImpFight();
 		} else {
-			CoC.getInstance().scenes.impScene.impVictory();
+			SceneLib.impScene.impVictory();
 		}
 	};
 	Imp.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
-			CoC.getInstance().scenes.kitsuneScene.loseKitsuneImpFight();
+			SceneLib.kitsuneScene.loseKitsuneImpFight();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe imp grins at your already corrupted state...', false );
 			CoC.getInstance().player.lust = 100;
-			EngineCore.doNext( CoC.getInstance().scenes.impScene.impRapesYou );
+			EngineCore.doNext( SceneLib.impScene.impRapesYou );
 		} else {
-			CoC.getInstance().scenes.impScene.impRapesYou();
+			SceneLib.impScene.impRapesYou();
 		}
 	};
 	Imp.prototype.lustMagicAttack = function() {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonCore() {
 	}
 
@@ -246,62 +246,62 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			}
 		}
 		//DUNGEON 2 START: ROOM 10;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE ) {
 			EngineCore.outputText( '<b><u>The Cave Entrance</u></b>\n', true );
 			EngineCore.outputText( 'The entrance to this cave is far bigger than the cave itself.  It looks to be a totally natural formation.  Outside, to the south, is a veritable jungle of plant-life.  There are massive trees, vines, and ferns everywhere.  The cave grows narrower the further north you go, until it\'s little more than a claustrophobic tunnel burrowing deep into the earth.', false );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL );
-			EngineCore.addButton( 5, 'Leave', CoC.getInstance().scenes.dungeon2Supplimental.leaveZetazsLair );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL );
+			EngineCore.addButton( 5, 'Leave', SceneLib.dungeon2Supplimental.leaveZetazsLair );
 			//Zetaz gone?  Alchemist shits!;
 			if( CoC.getInstance().flags[ kFLAGS.DEFEATED_ZETAZ ] > 0 ) {
 				if( CoC.getInstance().flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] === 0 ) {
 					EngineCore.outputText( '\n\nThere\'s a demon lazing around outside the cave entrance.  Judging by his size and apparent gender, he must be an incubus.  You try to stay hidden for now, but all he\'s doing is throwing darts at a dartboard he\'s set up across the way from himself.  What kind of demon sits around playing darts?' );
-					EngineCore.addButton( 0, 'Investigate', CoC.getInstance().scenes.dungeon2Supplimental.theSeanShopOffer );
+					EngineCore.addButton( 0, 'Investigate', SceneLib.dungeon2Supplimental.theSeanShopOffer );
 				} else if( CoC.getInstance().flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] > 0 ) {
 					EngineCore.outputText( '\n\nThe incubus known as Sean has set up a small stall around the cave entrance, and is busy tending to his shelves and wares.  He\'s dressed in an incredibly modest, three-piece suit, and nods to you as you approach, "<i>Let me know if you want to buy anything.  I haven\'t done much with the cave, so feel free to poke around if you missed anything on your first pass.  I barely use the first room.</i>"' );
-					EngineCore.addButton( 2, 'Shop', CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
+					EngineCore.addButton( 2, 'Shop', SceneLib.dungeon2Supplimental.incubusShop );
 				}
 			}
 		}
 		//D2: Tunnel;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL ) {
 			EngineCore.outputText( '<b><u>Cave Tunnel</u></b>\n', true );
 			EngineCore.outputText( 'This cave tunnel slants downwards to the north, and upwards to the south.  You can see sunlight and feel a fresh breeze from the latter direction, though the walls and air around you are damp with moisture.  You realize that the floor of this cave is fairly smooth and even, as if some attempt had been made to level it out.  You can see a bricked up wall along the north end of the tunnel.  It has a crudely fashioned wooden door in the center of it.', false );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_ENTRANCE );
 		}
 		//D2: [GATHERING HALL];
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL ) {
 			EngineCore.outputText( '<b><u>Gathering Hall</u></b>\n', true );
 			EngineCore.outputText( 'This room is clearly some kind of dining or gathering hall.  The chamber\'s shape has been hewn from the surrounding stone, and judging by the visible tool-marks, it wasn\'t done with a great deal of care.  Two long wooden tables fill out the room.  They\'re surprisingly well made, though it appears that part of their legs were hacked off with axes to lower their overall height.  You can\'t help but wonder where they were stolen from.  The tables haven\'t been cleaned in ages, as evidenced by their many stains and a number of half-rotten bones that still rest on their battered surfaces.  Two rows of crudely crafted chairs flank their better-made brethren, made to accommodate very short beings.', false );
 			//[Imp Mob Fight];
 			if( CoC.getInstance().flags[ kFLAGS.ZETAZ_IMP_HORDE_DEFEATED ] === 0 ) {
 				EngineCore.outputText( '\n\nThe place is swarming with two dozen imps, and none of them look happy to see you.  A number of them take flight while the rest form a ring around you, trapping you!  It looks like you\'ll have to fight your way out!', false );
-				EngineCore.addButton( 0, 'FIGHT!', CoC.getInstance().scenes.dungeon2Supplimental.impHordeStartCombat );
+				EngineCore.addButton( 0, 'FIGHT!', SceneLib.dungeon2Supplimental.impHordeStartCombat );
 			} else {
-				EngineCore.addButton( 0, 'North', CoC.getInstance().scenes.dungeon2Supplimental.enterZetazsRoomFromTheSouth );
-				EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM );
-				EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_FUNGUS_CAVERN );
-				EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL );
+				EngineCore.addButton( 0, 'North', SceneLib.dungeon2Supplimental.enterZetazsRoomFromTheSouth );
+				EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM );
+				EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_FUNGUS_CAVERN );
+				EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TUNNEL );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_FUNGUS_CAVERN ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_FUNGUS_CAVERN ) {
 			EngineCore.outputText( '<b><u>Fungus Cavern</u></b>\n', true );
 			if( CoC.getInstance().flags[ kFLAGS.ZETAZ_FUNGUS_ROOM_DEFEATED ] === 0 ) {
 				EngineCore.outputText( 'This cavern is huge!  Though you can see the edge of a large stalactite to the west, the rest of the cave disappears into darkness beyond twenty or thirty feet away.  The floor is covered in spongy, leaf-shaped fungus.  They\'re huge, shiny, and purple, and they cover the cavern floor for as far as the illumination will reach.  A strange, sweet smell hangs in the cavern\'s humid air, probably coming from the copious fungal flora.  At the edge of your vision you can see a humanoid skeleton propped up against a stalagmite.  There\'s a rapier laying a few feet in front of it, and it still looks as good as new.  What do you do?', false );
 				//[Get It] [Fly-Get It];
-				EngineCore.addButton( 2, 'Get Sword', CoC.getInstance().scenes.dungeon2Supplimental.getSwordAndGetTrapped );
+				EngineCore.addButton( 2, 'Get Sword', SceneLib.dungeon2Supplimental.getSwordAndGetTrapped );
 				if( CoC.getInstance().player.canFly() ) {
-					EngineCore.addButton( 3, 'Fly to Sword', CoC.getInstance().scenes.dungeon2Supplimental.flyToSwordAndGetTrapped );
+					EngineCore.addButton( 3, 'Fly to Sword', SceneLib.dungeon2Supplimental.flyToSwordAndGetTrapped );
 				}
 			}
 			//Fungus creature dealt with!;
 			else {
 				EngineCore.outputText( 'This cavern is huge!  Though you can see the edge of a large stalactite to the west, the rest of the cave disappears into darkness beyond twenty or thirty feet away.  The floor is covered in spongy, leaf-shaped fungus.  They\'re huge, shiny, and purple, and they cover the cavern floor for as far as the illumination will reach.  The familiar, sweet smell of them hangs in the cavern\'s humid air, but you\'re fairly certain they won\'t trouble you again.', false );
 			}
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
 		}
 		//Vala's bitch room;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM ) {
 			EngineCore.outputText( '<b><u>Filthy Torture Room</u></b>\n', true );
 			EngineCore.outputText( 'You step into a dank room, outfitted somewhere between a prison cell and a torture chamber. The ceiling of the sulfur-lined room is hung with an inventive variety of shackles, chains, and devices whose intent are not clear to you. Against the north wall, there appears to be an alchemy lab, laden with a dizzying collection of vials, flasks, and beakers. Against the south, there is a long, sinister-looking wooden rack bearing a sequence of progressively larger and thicker devices, carved to resemble monstrous cocks.  ', false );
 			//Vala here?;
@@ -315,29 +315,29 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 					EngineCore.outputText( 'It isn\'t until you get closer that you notice the large, dragon-fly wings attached to her back and the ephemeral glow of sunlight faintly radiating from her pale skin. If the girl wasn\'t almost 4\' tall, you\'d swear she was a fairy, like the ones you\'ve met in the forest. If the cum-clogged drain in the center of the room is any indication, the imps must be using her for their perverted desires. You begin to get an appreciation for what she\'s endured when you get near enough to see the small, black marks staining her luminance. On her right shoulder blade, the imps have tattooed "pussy" and on the left, "ass." All along her back, the imps have tattooed two columns of hash marks, from her shoulders all the way down her ribs, over her ass, down her legs, and even onto the soles of her feet.\n\n', false );
 					EngineCore.outputText( 'You step around her and are startled to see that while the fey girl is whip-thin, her breasts are disproportionately huge. They\'d be at least a DD-cup on a normal human, but for her height and body type, they\'re practically as large as her head. They jiggle at her slow, uneven breathing, tiny drops of milk bubbling at her nipples with every heartbeat. If she weren\'t chained to the ceiling, you suspect she wouldn\'t even be able to stand under her own power. Her eyes are open, but she\'s staring blankly ahead, unaware of the world around her, pupils constricted to pinpricks amid the ocean of her dulled pink irises. Like this, she\'s no threat to anybody. You suppose you could let her go, though it\'s unclear if she\'s self-aware enough to even move. Alternately, you could blow off a little steam.', false );
 					//[Free] [Use] [Leave];
-					EngineCore.addButton( 2, 'Free', CoC.getInstance().scenes.dungeon2Supplimental.freeValazLooseCoochie );
+					EngineCore.addButton( 2, 'Free', SceneLib.dungeon2Supplimental.freeValazLooseCoochie );
 					if( CoC.getInstance().player.gender > 0 ) {
-						EngineCore.addButton( 3, 'Use', CoC.getInstance().scenes.dungeon2Supplimental.useVala );
+						EngineCore.addButton( 3, 'Use', SceneLib.dungeon2Supplimental.useVala );
 					}
-					if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().scenes.shouldraFollower.followerShouldra() ) {
-						EngineCore.addButton( 4, 'ShouldraVala', CoC.getInstance().scenes.shouldraFollower.shouldraMeetsCorruptVala );
+					if( CoC.getInstance().player.lust >= 33 && SceneLib.shouldraFollower.followerShouldra() ) {
+						EngineCore.addButton( 4, 'ShouldraVala', SceneLib.shouldraFollower.shouldraMeetsCorruptVala );
 					}
 				}
 				//Zetaz defeated ;
 				else {
 					EngineCore.outputText( 'In the far corner, there is a small woman, her back to you, hanging limply by manacles that keep her suspended in a half-kneel. Rich purple hair hangs in long, clumped strands that sparkle occasionally with a pink glitter. Above her, there is a tarnished bronze nameplate that you think reads \'Vala,\' but it\'s impossible to tell for sure under all the imp graffiti. She does not seem to be conscious.\n\n', false );
-					EngineCore.addButton( 2, 'Faerie', CoC.getInstance().scenes.dungeon2Supplimental.leftValaAlone );
+					EngineCore.addButton( 2, 'Faerie', SceneLib.dungeon2Supplimental.leftValaAlone );
 				}
 			}
 			//Not here;
 			else {
 				EngineCore.outputText( 'In the far corner, there are a set of empty manacles, originally set up to contain Vala, who you\'ve long since freed.', false );
 			}
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
 		}
 		//Backdoor Banditos!;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL ) {
 			EngineCore.outputText( '<b><u>Secret Tunnel</u></b>\n', true );
 			EngineCore.outputText( 'This passage is the least livable area that you\'ve seen out of the entire cave.  The walls and floor are little more than dirt and rocks, and explosions of dust burst from the ceiling with each tentative movement you make.  For a moment, a wave of claustrophobia threatens to rob you of your nerve, but you blink the pervasive particles from your eyes and focus on why you\'re here.  ', false );
 			//If zetaz not yet defeated;
@@ -347,15 +347,15 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			EngineCore.outputText( 'A crude door on the southern edge of the tunnel leads back to the imp\'s sleeping chambers, but the tunnel continues away, curving sharply to the west where a far more lavish door marks the far side of the subterranean passage.', false );
 			if( CoC.getInstance().flags[ kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS ] === 0 ) {
 				EngineCore.outputText( '\n\nA pair of fetishy, discarded straps lies on the floor, half obscured by dust.  It looks like something a goblin would wear.  Sexy!' );
-				EngineCore.addButton( 2, 'B.Straps', CoC.getInstance().scenes.dungeon2Supplimental.takeBondageStraps );
+				EngineCore.addButton( 2, 'B.Straps', SceneLib.dungeon2Supplimental.takeBondageStraps );
 			}
 			//(Item: sexy bondage straps/a set of sexy bondage straps/B.Straps? - Seduce ability?);
 			//(Possible effect: +lust every round in combat if afflicted with Ceraph's bondage!);
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_TORTURE_ROOM );
 		}
 		//Zetaz' Lair!;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeon2Supplimental.DUNGEON_CAVE_ZETAZ_CHAMBER ) {
 			EngineCore.outputText( '<b><u>Zetaz\'s Chambers</u></b>\n', true );
 			EngineCore.outputText( 'You\'ve stepped into the most lavish room in the entire cave system, and marvel at the difference between this magnificent abode and your own crudely constructed campsite.  The stone walls are covered in stolen tapestries that each look to have been liberated from a unique source.  Judging by the variety of depictions and art styles in this one room, you\'ve barely met a fraction of the races that once inhabited the lands of Mareth.  A pair of bright, smokeless lanterns hang from each wall, lit from within by obviously magical spheres of luminescence.  Various pieces of stolen furniture decorate the room, surrounding a four-post bed decorated with masterfully done carvings of various carnal acts.', false );
 			if( CoC.getInstance().flags[ kFLAGS.ZETAZ_DOOR_UNLOCKED ] === 0 ) {
@@ -369,12 +369,12 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				Combat.startCombat( new Zetaz(), true );
 				return;
 			} else {
-				EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL );
-				EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
+				EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL );
+				EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_GATHERING_HALL );
 			}
 		}
 		//HELIA DUNGEONNNNNOOOO 1;
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL ) {
 			//ROOM 1: Guard Hall;
 			EngineCore.outputText( '<b><u>Guard Hall</u></b>\n', true );
 			//Room Description:;
@@ -382,14 +382,14 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			//[If Armor has not been taken/fought with: ;
 			if( CoC.getInstance().flags[ kFLAGS.WON_GOO_ARMOR_FIGHT ] + CoC.getInstance().flags[ kFLAGS.LOST_GOO_ARMOR_FIGHT ] === 0 ) {
 				EngineCore.outputText( '  However, a suit of half-plate armor has been left up against the eastern wall, hanging loosely on a rack; it seems to be in usable shape.' );
-				EngineCore.addButton( 3, 'Armor', CoC.getInstance().scenes.dungeonHelSupplimental.takeGooArmor );
+				EngineCore.addButton( 3, 'Armor', SceneLib.dungeonHelSupplimental.takeGooArmor );
 			}
 			EngineCore.outputText( '  You see a pair of heavy iron doors leading northward, though they seem so rusty and heavy that opening them is sure to alert anyone nearby, and a small trapdoor leading down.' );
 			//(Display Options: [North Door] [Trapdoor] [Armor]);
-			EngineCore.addButton( 0, 'North Door', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
-			EngineCore.addButton( 2, 'Trapdoor', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_WINE_CELLAR );
+			EngineCore.addButton( 0, 'North Door', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
+			EngineCore.addButton( 2, 'Trapdoor', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_WINE_CELLAR );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_WINE_CELLAR ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_WINE_CELLAR ) {
 			EngineCore.outputText( '<b><u>Wine Cellar</u></b>\n', true );
 			//(Accessed from the Trapdoor button);
 			EngineCore.outputText( 'You\'ve dropped down into a small underground hidey-hole, with ' );
@@ -401,12 +401,12 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			EngineCore.outputText( '.  To your surprise, nothing horrifying jumps out and tries to rape you.  You see a few horns of mead slung up in a wine rack - they smell a bit pungent, but alcohol improves with age they say...' );
 			if( CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ] < 5 ) {
 				EngineCore.outputText( ' (There are ' + (5 - CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]) + 'x God\'s Mead horns here to take.)\n\n' );
-				EngineCore.addButton( 3, 'God\'sMead', CoC.getInstance().scenes.dungeonHelSupplimental.takeGodsMead );
+				EngineCore.addButton( 3, 'God\'sMead', SceneLib.dungeonHelSupplimental.takeGodsMead );
 			}
 			//Display Options: [GodsMead] [Climb Up];
-			EngineCore.addButton( 2, 'Climb Up', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
+			EngineCore.addButton( 2, 'Climb Up', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL ) {
 			EngineCore.clearOutput();
 			//Room 3: Stair Well;
 			EngineCore.outputText( '<b><u>Stair Well</u></b>\n', true );
@@ -420,20 +420,20 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 			} else {
 				if( CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
 					EngineCore.outputText( 'There\'s a pile of drugged, unconscious harpies you\'ve already defeated on the floor, as well as Kiri, the only one that didn\'t attack you.  You recall that she knows Hel and is here to help the both of you.' );
-					EngineCore.addButton( 0, 'Sex', CoC.getInstance().scenes.dungeonHelSupplimental.kiriSexIntro );
-					EngineCore.addButton( 3, 'Talk', CoC.getInstance().scenes.dungeonHelSupplimental.talkToKiri );
+					EngineCore.addButton( 0, 'Sex', SceneLib.dungeonHelSupplimental.kiriSexIntro );
+					EngineCore.addButton( 3, 'Talk', SceneLib.dungeonHelSupplimental.talkToKiri );
 					if( CoC.getInstance().player.armorName === 'goo armor' ) {
-						EngineCore.addButton( 4, 'Valeria', CoC.getInstance().scenes.dungeonHelSupplimental.talkToValeria );
+						EngineCore.addButton( 4, 'Valeria', SceneLib.dungeonHelSupplimental.talkToValeria );
 					}
 				} else {
 					EngineCore.outputText( 'There\'s a pile of drugged, unconscious harpies you\'ve already defeated on the floor.  Kiri appears to have left.' );
 				}
-				EngineCore.addButton( 2, 'Go Upstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE );
-				EngineCore.addButton( 5, 'South Door', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
-				EngineCore.addButton( 7, 'Go Downstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_DUNGEON );
+				EngineCore.addButton( 2, 'Go Upstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE );
+				EngineCore.addButton( 5, 'South Door', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
+				EngineCore.addButton( 7, 'Go Downstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_DUNGEON );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_DUNGEON ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_DUNGEON ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Dungeon</u></b>\n', true );
 			//(Intro -- Before Fight);
@@ -448,21 +448,21 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				EngineCore.outputText( 'You\'re standing in a small dungeon room, nearly gagging on the smells of burnt meat and smoke.  A number of nasty torture devices hang on the walls, and a table sits in the middle of the room, ' );
 				if( CoC.getInstance().flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] === 0 ) {
 					EngineCore.outputText( 'on which the salamander prisoner lies' );
-					EngineCore.addButton( 3, 'Prisoner', CoC.getInstance().scenes.dungeonHelSupplimental.helDungeonPrisonerTalk );
+					EngineCore.addButton( 3, 'Prisoner', SceneLib.dungeonHelSupplimental.helDungeonPrisonerTalk );
 				} else {
 					EngineCore.outputText( 'on which Hakon lies' );
-					EngineCore.addButton( 3, 'Hakon', CoC.getInstance().scenes.dungeonHelSupplimental.helDungeonPrisonerTalk );
+					EngineCore.addButton( 3, 'Hakon', SceneLib.dungeonHelSupplimental.helDungeonPrisonerTalk );
 				}
 				EngineCore.outputText( '.' );
 				if( CoC.getInstance().player.hasKeyItem( 'Harpy Key A' ) >= 0 && CoC.getInstance().player.hasKeyItem( 'Harpy Key B' ) >= 0 ) {
 					EngineCore.outputText( '\n\n<b>You have the keys to release the prisoner, but you may want to make sure you have everything from this place that you want before you make your escape.  You doubt you\'ll be able to return in the future.</b>' );
 				}
 				//(Display Options: [Go Upstairs](Back to Stairwell & Kiri) [Prisoner] [Torture Gear];
-				EngineCore.addButton( 2, 'Upstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
-				EngineCore.addButton( 4, 'Torture Gear', CoC.getInstance().scenes.dungeonHelSupplimental.tortureGear );
+				EngineCore.addButton( 2, 'Upstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
+				EngineCore.addButton( 4, 'Torture Gear', SceneLib.dungeonHelSupplimental.tortureGear );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Mezzanine</u></b>\n', true );
 			//(Intro; Before Battle);
@@ -474,12 +474,12 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				EngineCore.outputText( 'You\'re standing in the Mezzanine of the tower, a small terrace with a magnificent view of the High Mountains and the valleys below.  There are stairs leading up and down from here, as well as a pile of defeated phoenixes that don\'t look like they\'ll be recovering for a bit.' );
 				//(Display Options: [Go Upstairs] [Go Downstairs] [Phoenixes]);
 				//(Go Downstairs returns you to the Stairwell; Go Up takes you to the throne room);
-				EngineCore.addButton( 2, 'Upstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_THRONE_ROOM );
-				EngineCore.addButton( 3, 'Phoenixes', CoC.getInstance().scenes.dungeonHelSupplimental.checkOutDemBirdBitches );
-				EngineCore.addButton( 7, 'Downstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
+				EngineCore.addButton( 2, 'Upstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_THRONE_ROOM );
+				EngineCore.addButton( 3, 'Phoenixes', SceneLib.dungeonHelSupplimental.checkOutDemBirdBitches );
+				EngineCore.addButton( 7, 'Downstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_THRONE_ROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_THRONE_ROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Throne Room</u></b>\n' );
 			//Throne Room Descript (Before Combat!);
@@ -504,21 +504,21 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				//[if PC hasn't executed the queen: ;
 				if( CoC.getInstance().flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
 					EngineCore.outputText( '  The Harpy Queen slumps in her throne, insensate.' );
-					EngineCore.addButton( 3, 'Helia', CoC.getInstance().scenes.dungeonHelSupplimental.HeliaThroneRoom );
-					EngineCore.addButton( 4, 'Harpy Queen', CoC.getInstance().scenes.dungeonHelSupplimental.harpyQueenAdvantage );
+					EngineCore.addButton( 3, 'Helia', SceneLib.dungeonHelSupplimental.HeliaThroneRoom );
+					EngineCore.addButton( 4, 'Harpy Queen', SceneLib.dungeonHelSupplimental.harpyQueenAdvantage );
 				} else if( CoC.getInstance().flags[ kFLAGS.TOOK_QUEEN_STAFF ] === 0 ) {
-					EngineCore.addButton( 4, 'Take Staff', CoC.getInstance().scenes.dungeonHelSupplimental.takeQueensStaff );
+					EngineCore.addButton( 4, 'Take Staff', SceneLib.dungeonHelSupplimental.takeQueensStaff );
 				}
 				//(Display Options: [Helia] [Harpy Queen] [Go Downstairs]);
-				EngineCore.addButton( 7, 'Downstairs', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE );
+				EngineCore.addButton( 7, 'Downstairs', this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Strange Gateway in the Sands</u></b>\n' );
 			if( CoC.getInstance().flags[ kFLAGS.SANURA_DISABLED ] > 0 ) {
 				EngineCore.outputText( 'Just ahead, in one of the larger dunes, is a square stone doorway, built into the side of a large, sparkling mountain of sand.  You never would have noticed it if the sun hadn\'t been at the perfect angle to trace a rectangular shadow down the side of the incline.  As you approach, you notice a familiar obsidian orb embedded into the side of it.  It\'s obviously the mechanism to open it.' );
-				EngineCore.addButton( 0, 'North', CoC.getInstance().scenes.dungeonSandWitch.openZeDoorToParadize );
+				EngineCore.addButton( 0, 'North', SceneLib.dungeonSandWitch.openZeDoorToParadize );
 			} else if( CoC.getInstance().flags[ kFLAGS.MET_SANURA ] === 0 ) {
 				CoC.getInstance().flags[ kFLAGS.MET_SANURA ] = 1;
 				EngineCore.outputText( 'Just ahead, in one of the larger dunes, is a square stone doorway, built into the side of a large, sparkling mountain of sand.  You never would have noticed it if the sun hadn\'t been at the perfect angle to trace a rectangular shadow down the side of the incline.  As you approach, you notice a smooth obsidian orb embedded into the side of it.  Perhaps that\'s the mechanism to open it?' );
@@ -530,8 +530,8 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 					CoC.getInstance().flags[ kFLAGS.DISCOVERED_WITCH_DUNGEON ] = 1;
 				}
 				//(Display Options: [Riddle Game] [Fight] [Leave]);
-				EngineCore.addButton( 2, 'Riddle Game', CoC.getInstance().scenes.dungeonSandWitch.riddleGameGo );
-				EngineCore.addButton( 3, 'Uh, FIGHT!', CoC.getInstance().scenes.dungeonSandWitch.fuckItAttack );
+				EngineCore.addButton( 2, 'Riddle Game', SceneLib.dungeonSandWitch.riddleGameGo );
+				EngineCore.addButton( 3, 'Uh, FIGHT!', SceneLib.dungeonSandWitch.fuckItAttack );
 			} else {
 				if( CoC.getInstance().flags[ kFLAGS.TIMES_SUBMITTED_TO_SANURA ] + CoC.getInstance().flags[ kFLAGS.TIMES_WINFUCKED_SANURA ] > 0 ) {
 					EngineCore.outputText( 'You approach Sanura the sphinx as she pads around the great stone doorframe.  A playful grin spreads across her thin lips as you approach.  "<i>O-ho!  Back again, I see.  Mmm, it\'s been so dull since last you <i>came</i>.  There\'s no one more fun to play out here in the wastes.  So... care to try your hand at my game once more?' );
@@ -542,15 +542,15 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				} else {
 					EngineCore.outputText( 'The sphinx, Sanura, is padding around the stone doorframe.  Occasionally she beats her leonine wings or gives a mighty yawn, obviously bored by a present lack of stimulation.  Seeing you standing about, however, Sanura gives you a sultry come-hither look and a seductive wink.  You\'re not sure if she wants to tempt your mind or your body.' );
 				}
-				EngineCore.addButton( 2, 'Riddle Game', CoC.getInstance().scenes.dungeonSandWitch.riddleGameGo );
+				EngineCore.addButton( 2, 'Riddle Game', SceneLib.dungeonSandWitch.riddleGameGo );
 				if( CoC.getInstance().flags[ kFLAGS.BEATEN_SANURA_COUNT ] > 0 ) {
-					EngineCore.addButton( 0, 'North', CoC.getInstance().scenes.dungeonSandWitch.openZeDoorToParadize );
-					EngineCore.addButton( 3, 'Fuck', CoC.getInstance().scenes.dungeonSandWitch.fuckDatSphinx );
+					EngineCore.addButton( 0, 'North', SceneLib.dungeonSandWitch.openZeDoorToParadize );
+					EngineCore.addButton( 3, 'Fuck', SceneLib.dungeonSandWitch.fuckDatSphinx );
 				}
 			}
-			EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.dungeonSandWitch.leaveBoobsDungeon );
+			EngineCore.addButton( 4, 'Leave', SceneLib.dungeonSandWitch.leaveBoobsDungeon );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Cavernous Commons</u></b>\n' );
 			EngineCore.outputText( 'Dancing lights swirl around the roof of the cavern, twirling around each other in patterns too intricate to follow.  Whatever they are, they\'re clearly magical, and they lend this place an otherworldly ambience unmatched by anything you\'ve seen.  This huge room reminds you of your village commons in a way - it\'s clearly a communal area.  There\'s a water-pump in the northwest corner and a blazing purple bonfire in the center of the chamber, heating the cool underground air.  The ground is dirt, rather than sand, and hard-packed as any road.  Various chairs and benches are set up for witches to relax in.  ' );
@@ -566,40 +566,40 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				EngineCore.outputText( '\n\nA huge stone doorway blocks the path north.  You cannot see a way to open it.' );
 			} else {
 				EngineCore.outputText( '\n\nAn open doorway opens up to the north.  You can faintly see some kind of altar beyond it.' );
-				EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
+				EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
 			}
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Main Hall</u></b>\n' );
 			EngineCore.outputText( 'The supernatural illumination so prevalent to the east is present here as well, though in smaller quantity and vastly diminished brightness.  Swirls of bluish-white hue slide along the ceiling in slow, measured motions, a stark contrast to the jubilant dancing of the preceding cavern.  The ceiling is almost twelve feet high in places, with the sides of the east-west passage dipping down the lowest.  The floor is sandstone here, as you would expect in a desert cave, though it is liberally obfuscated with an array of woven rugs.  Sand Witches march by on errands, only pausing to give you disinterested glances.  Most of them bear the signs of pregnancy or have young girls in tow.  Whatever the case, there doesn\'t seem to be any fight in these women.  Along the north and south walls are small, door-sized openings, draped with heavy curtains that easily muffle any noise.  To the west, the tunnel bores on unimpeded.  However, to the east the cave opens up into a much, much larger chamber.' );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM );
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Eastern Portion North Side (Children\'s Play Room)</u></b>\n' );
 			EngineCore.outputText( 'Behind the thick curtain is the last thing you would expect to see.  There\'s nearly a dozen children and three busty, pregnant sand witches watching them.  Toys have been scattered everywhere by the young blonde children.  Their wardens were busy knitting when you intruded, but they glare at you balefully and make shooing gestures.  Unless you had planned to rob children of their toys and beat up pregnant women, there\'s nothing to be had here.' );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Eastern Portion South Side (Lust Room)</u></b>\n' );
 			EngineCore.outputText( 'This room is surprisingly large - big enough to hold the ' + Utils.num2Text( Utils.rand( 6 ) + 5 ) + ' heavily pregnant women inside plus perhaps a dozen more.  Like the outer tunnel, this room is lit by magic, though its contents are equally mundane, if a great deal more... interesting.  There\'s female sex-toys of every variety on almost every surface.  They sit in piles on the floor, they hang from the walls, and there are even some mounted on the wall, to be fucked in place.  Many such toys have multiple shafts and come in shapes from standard to canine to obscenely equine.  All of the witches are presently engaged in coitus with each other or their \'marital aids\', but once you enter, they glance at you with hungry, lust-filled eyes.' );
 			if( EngineCore.silly() ) {
 				EngineCore.outputText( '  Clearly, if you wanted to, you could put some extra meat in a sand witch.' );
 			}
-			EngineCore.addButton( 1, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
+			EngineCore.addButton( 1, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
 			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.lust >= 33 ) {
-				EngineCore.addButton( 2, 'FuckWitches', CoC.getInstance().scenes.dungeonSandWitch.knockUpSomeDoubleStuffedSandWitches );
+				EngineCore.addButton( 2, 'FuckWitches', SceneLib.dungeonSandWitch.knockUpSomeDoubleStuffedSandWitches );
 			}
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Main Hall (Western Portion)</u></b>\n' );
 			EngineCore.outputText( 'The smooth tunnel comes to an end here, blocked by the omnipresent sandstone.  The sapphire light plays beautifully across the rough-hewn stone as you watch, but you don\'t take the time to give it much thought.  To the east, the arching hallway leads back towards a large common area of a cave.  Along the north and south walls are door-sized openings, blocked with rugs of fine make and thick fabric.  They don\'t leave enough of a gap for any light or sound to bleed into the hall.  You\'ll have to take a peek if you want to see what\'s going on.' );
@@ -607,76 +607,76 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] = 1;
 				if( CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] > 0 ) {
 					EngineCore.outputText( '\n\n<b>Your attention is immediately drawn to Essrayle...</b>' );
-					EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.essrayle.essyWitchVictory );
+					EngineCore.addButton( 0, 'Next', SceneLib.essrayle.essyWitchVictory );
 					CoC.getInstance().flags[ kFLAGS.ESSRAYLE_ESCAPED_DUNGEON ] = 1;
 					return;
 				}
 				EngineCore.outputText( '\n\nQuite an unusual sight awaits you in this chamber.  Sitting in an oversized pot is what looks to be the overly busty, plant girl you encountered earlier, Essrayle.  She\'s changed quite a bit since you last saw her, however.  While her inhumanly smooth, elfin face seems to be unchanged, the rest of her verdant body seems to have been warped into a hyper-sexual parody of a fertility idol, with features that echo the nomadic sand witch tribe.' );
-				EngineCore.addButton( 2, 'Essrayle', CoC.getInstance().scenes.essrayle.approachTrappedEssy );
+				EngineCore.addButton( 2, 'Essrayle', SceneLib.essrayle.approachTrappedEssy );
 			}
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_NURSERY );
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_PHARMACY );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_NURSERY );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_PHARMACY );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_NURSERY ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_NURSERY ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Western Portion North Side (Nursery)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you clear the curtain, you realize there\'s nothing of interest to you here.  The room is lit with rose pink globes, and the furniture in the room is filled with sleeping mothers, nursing infants, or older children taking naps.  The room is packed with bodies, and while it smells strongly of femininity, there\'s nothing worth looking into present here.' );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_PHARMACY ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_PHARMACY ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Western Portion South Side (Pharmacy)</u></b>\n' );
 			EngineCore.outputText( 'This room is so tiny it can barely get away with being called that.  If anything, it\'s more of a small, cozy nook.  There isn\'t anyone else here, though the room is illuminated by the same omnipresent magics found elsewhere in this little cave of wonders.  Standing silent vigil on the southern wall, a large chest looms over you, stretching most of the way to the ceiling.  It is completely, almost impossibly neat, with every drawer fully and completely closed.  Spurred on by this strangeness, you pop a few of them open.  One drawer has pink pills, another brown.  Searching drawer by drawer until you discover that every single compartment houses the same dual medicines.  You glance about the room and spy a faded parchment on the wall.  It reads "<i>Tnangerp rof knip, nerrab rof nworb.</i>"  There is an opening in the wall to the north.' );
 			if( CoC.getInstance().flags[ kFLAGS.SANDWITCH_THRONE_UNLOCKED ] === 0 ) {
 				EngineCore.outputText( '\n\nThere is also a lever on the floor.  Looking closely at it, it appears that it connects with machinery that leads to the east...' );
-				EngineCore.addButton( 1, 'Pull Lever', CoC.getInstance().scenes.dungeonSandWitch.pullLever );
+				EngineCore.addButton( 1, 'Pull Lever', SceneLib.dungeonSandWitch.pullLever );
 			}
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
-			EngineCore.addButton( 2, 'Brown Pill', CoC.getInstance().scenes.dungeonSandWitch.takeBarrenPills );
-			EngineCore.addButton( 3, 'Pink Pill', CoC.getInstance().scenes.dungeonSandWitch.takeFertilePills );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
+			EngineCore.addButton( 2, 'Brown Pill', SceneLib.dungeonSandWitch.takeBarrenPills );
+			EngineCore.addButton( 3, 'Pink Pill', SceneLib.dungeonSandWitch.takeFertilePills );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens Main Hall (Western Portion)</u></b>\n' );
 			EngineCore.outputText( 'This smooth, sandstone tunnel proceeds in a perfectly straight line from east to west, as if aligned to some titanic, invisible compass buried below the floor.  Flickering white plumes of illumination undulate through the air along the arched ceiling, trailing streamers of pearl incandescence that light the entire chamber with ghostly brightness.  You are at the entrance to the eastern warrens - the commons are still clearly visible to the west, and the pathway to the east goes on a-ways.  Hand woven tapestries adorn the walls, telling the history of this enclave in pictographic form, from its inception to present day.  Further east, you can see a few empty places, ready to be covered with more cloth, once the next chapter of history is ready to be told.  To the north, there is a small opening in the wall, blocked off by plain white curtains.' );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens West Portion North Side (Sleeping Chamber)</u></b>\n' );
 			EngineCore.outputText( 'Inside this expansive but cosy chamber are a few dozen beds, arranged in neat patterns marred only by a few cots that dare to be positioned adjacent to one another.  Clearly this is the tribe\'s primary sleeping area.  The floor is obscured by heavy, hand-woven rugs that ruffle oh so softly against your [feet].  Instead of the usual ghostly lights you\'ve grown to expect, the interior of this dwelling is lit by glass-paneled constructs resembling lanterns.  There is no fuel or wick of course, only flicking phantasmal illumination trapped as if it were a flame.  Shutters allow the lanterns to be dimmed, but as you are alone in here for now, there\'s no reason to make it harder to see.  There is a door to the east and a curtained off opening to the south.' );
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens East Portion North Side (Bath Room)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you step in, you can smell a sweet, dairy-like scent in the air, but as your eyes adjust to the dimmer lighting, you realize you\'ve stumbled into the sand witches\' bathroom!  Fluffy towels hang from the wall, ready for use.  There\'s one giant tub in the center of the room, recessed deep into the floor.  It has a number of seats carved into the side with a small, open hole in the bottom.  Hanging from the ceiling, a long chain dangles down, topped with a plug.' );
 			CoC.getInstance().flags[ kFLAGS.MET_MILK_SLAVE ] = 1;
 			if( !isNaN( CoC.getInstance().flags[ kFLAGS.MILK_NAME ] ) ) {
 				EngineCore.outputText( '  There are no faucets or water sources that you can see, but your unasked questions are answered when a heavy, liquid sloshing sound emanates from the corner.  The source of the noise reveals itself to be a tit-encumbered, black-skinned human girl.  She drags her milk-swollen mammaries up to the edge of the tub and asks in a breathy, excited voice, "<i>Bath time?</i>"  Whoever she was, the witches seem to have broken her utterly - she\'s interested in nothing but being milked or lounging in her corner.  The way out lies west.' );
-				EngineCore.addButton( 2, 'Bath Time', CoC.getInstance().scenes.dungeonSandWitch.milkBathsAhoy );
+				EngineCore.addButton( 2, 'Bath Time', SceneLib.dungeonSandWitch.milkBathsAhoy );
 			}
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens Main Hall (Eastern Portion)</u></b>\n' );
 			EngineCore.outputText( 'Coming to an end here, the eastern warrens\' main hall ends in little more than a bare, flat stone wall.  The area is well illuminated by the familiar magical lights, giving you a good view of the historical tapestries and blank spaces yet to be filled in.  You can\'t help but wonder if the Witches will simply stop recording their history once this area is full, or if they will expand in order to give themselves more room.  Looking over the events depicted here, it\'s clear that this enclave is one of the oldest, roughly two decades old.  There are pictures of a blond haired woman in fluttering, golden robes leaving a town of demons behind and journeying towards the desert.  Could that be how the sand witches began?  You shake your head and look over the rest of the room.  There\'s a curtained off doorway to the south, and of course, the tunnel leads back to the west.' );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens East Portion South Side (Cum Witch\'s Bedroom)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you brush back the curtain, you\'re assaulted by a pungent, salty smell.  It almost reminds you of tepid ocean water... or cum.  Regardless, you force your way in and take a look around.  This area has all the furnishings of a small domicile and comes complete with a solid oak bed and mattress.  The mattress and sheets seem to be cared for with immaculate precision, perhaps magically aided.  There is a simple dresser here, and though it looks to have been fashioned by crude tools, the wood looks sturdy and serviceable.  All of the drawers are closed, of course.  A few books sit on a nearby table, but it\'s obvious they\'re written in a language beyond your comprehension.  Whoever wrote them either did so in a different tongue or a magical language that would take years to decipher.  A thick curtain walls this chamber off from the eastern warrens\' main hall, to the north.  To the west, there is a thinner, gauzy sheet hanging from an opening in the rock - likely leading to a similar room.' );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST );
-			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST );
+			EngineCore.addButton( 5, 'West', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens West Portion South Side (Cum Witch\'s Office)</u></b>\n' );
 			if( CoC.getInstance().flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] > 0 ) {
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				EngineCore.outputText( 'The cum witch is here, pounding away at one of her sister\'s cunts, like usual.  She seems to CONSTANTLY excrete her jism into her partner\'s many cunt-folds, but as her passion and speed rises, the flow thickens, eventually filling the poor milk-witch\'s wombs entirely.  They go at it like animals for a few seconds more, then separate after a climactic orgasm that leaves a puddle of spooge inches deep on part of the uneven floor.  The cum-witch moves her insensate sister to rest on a nearby bench before putting on her hat and robes.  She winks at you and offers, "<i>Well, I hope you enjoyed the show, interloper.  Did you come here for some of my gift, or something else?</i>"' );
 				//{VOLUNTEER FOR SERVICE, BLESSING: +CUM PRODUCTION};
 				if( CoC.getInstance().flags[ kFLAGS.BEEN_BLESSED_BY_CUM_WITCH ] === 0 ) {
-					EngineCore.addButton( 2, 'Blessing', CoC.getInstance().scenes.dungeonSandWitch.friendlyCumWitchBlessing );
+					EngineCore.addButton( 2, 'Blessing', SceneLib.dungeonSandWitch.friendlyCumWitchBlessing );
 				}
 			} else {
 				//{CUM WITCH UNDEFEATED};
@@ -711,28 +711,28 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 					//Lust:;
 					if( CoC.getInstance().player.lust >= 33 ) {
 						EngineCore.outputText( '\n\nYou could probably pull the cum witch up and sate yourself on her, if you wanted.  She doesn\'t seem in any shape to resist.' );
-						EngineCore.addButton( 2, 'Sex', CoC.getInstance().scenes.dungeonSandWitch.cumWitchDefeated );
+						EngineCore.addButton( 2, 'Sex', SceneLib.dungeonSandWitch.cumWitchDefeated );
 					}
 				}
 			}
-			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
+			EngineCore.addButton( 1, 'East', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Sacrificial Altar</u></b>\n' );
 			EngineCore.outputText( 'This chamber clearly holds some kind of important significance to the witch coven.  The floor and walls are covered in shining white, reflective tiles, and a large number of carved jugs ring the outer edge of the room.  The entire place smells faintly of milk.  Sniffing, you close in on the source of the aroma.  It\'s emanating from what looks like a golden well, positioned dead-center before you.  The various containers also smell faintly of the alabaster treat, and oddly, you can\'t catch even a single whiff of spoilage; it all smells fresh.  There must be some magic at work.  Peeping over the edge of the well, you can barely make out what seems like a sea of milk stored below: white-capped ivory waves sloshing around in a chamber so large you can\'t see the walls of it.  It must be preserved through magic.\n\nThere is a doorway to the south and one on the north wall.' );
-			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
+			EngineCore.addButton( 0, 'North', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
 		}
-		if( OnLoadVariables.dungeonLoc === CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM ) {
+		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b><u>Sand Mother\'s Throne</u></b>\n' );
 			EngineCore.outputText( 'This chamber is lit by swirling vortexes of magical colors, each hue dancing around another in coordinated motions.  The walls are made of hewn sandstone inlaid with ivory engravings that appear to depict what must be flowing milk.  Ahead there is a huge, white throne, also made from ivory.  It is a magnificent piece of craftsmanship.  Clearly, you have found the leader\'s throne room.  There is a robed figure atop it.' );
-			EngineCore.addButton( 2, 'Approach', CoC.getInstance().scenes.dungeonSandWitch.sandMotherStuffGOA );
-			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, CoC.getInstance().scenes.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
+			EngineCore.addButton( 2, 'Approach', SceneLib.dungeonSandWitch.sandMotherStuffGOA );
+			EngineCore.addButton( 6, 'South', this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
 		}
-		EngineCore.addButton( 8, 'Items', CoC.getInstance().scenes.inventory.inventoryMenu );
-		EngineCore.addButton( 9, 'Masturbate', CoC.getInstance().scenes.masturbation.masturbateMenu );
+		EngineCore.addButton( 8, 'Items', SceneLib.inventory.inventoryMenu );
+		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation.masturbateMenu );
 	};
 	DungeonCore.prototype.enterFactory = function() {
 		EngineCore.clearOutput();
@@ -747,7 +747,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 				CoC.getInstance().player.createStatusAffect( StatusAffects.FoundFactory, 0, 0, 0, 0 );
 			}
 		}
-		EngineCore.choices( 'Enter', this.actuallyEnterFactory, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Enter', this.actuallyEnterFactory, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	DungeonCore.prototype.dungeonEnterRoom = function( room ) {
 		OnLoadVariables.dungeonLoc = room;
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 		OnLoadVariables.dungeonLoc = 0;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You slip out the door and disappear, heading back towards your camp, leaving the hellish factory behind.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	DungeonCore.prototype.factoryShutdown = function() {
 		EngineCore.clearOutput();
@@ -2474,7 +2474,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.TakenLactaid, 4, 0, 0, 0 );
 		}
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
 	};
 	DungeonCore.prototype.storageTakeGroPlus = function() {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.TakenGroPlus ) >= 0 ) {
@@ -2482,7 +2482,7 @@ angular.module( 'cocjs' ).run( function( MainView, Zetaz, HarpyMob, Brigid, Phoe
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.TakenGroPlus, 4, 0, 0, 0 );
 		}
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'dungeonCore', new DungeonCore() );
+	SceneLib.registerScene( 'dungeonCore', new DungeonCore() );
 } );

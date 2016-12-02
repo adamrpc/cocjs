@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function Wanderer() {
 	}
 
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 	Wanderer.prototype.wandererLeave = function() {
 		EngineCore.spriteSelect( 42 );
 		EngineCore.outputText( 'Marcus looks disappointed and sighs, hefting his wheelbarrow and waddling away.  Lucia bounces after him, looking like the cat that got the cream.  You wonder what all that was about.   What a strange land.', true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Repeated encounter if he left
 	Wanderer.prototype.wandererRepeatMeeting = function() {
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'Marcus sighs, though you think you spy the hint of a smile on his lips, "<i>As you wish... thanks for your guidance traveler, and may you find what you seek in this strange land.</i>"\n\nAs they turn to leave, Lucia scowls at you over her shoulder...', false );
 		EngineCore.dynStats( 'lib', -1, 'lus', 1, 'cor', -5 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WandererHuman, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ask marcus to go demon
 	Wanderer.prototype.wandererGoDemon = function() {
@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'Marcus raises an eyebrow at the exchange, but smiles as his demonic lover returns to his side.  Lucia winks again, and huge wings explode from her back.  She grabs Marcus, who bleats in surprise, and lifts off, flying away with her prize to her lair.', false );
 		EngineCore.dynStats( 'lus', 5, 'cor', 1 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WandererDemon, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Demonic epilogue v1
 	Wanderer.prototype.wandererDemonEpilogue = function() {
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				EngineCore.outputText( 'Lucia places a small bottle in your hand.  "<i>So thank you, and have this present.  Perhaps you can create some lethicite for us later... oh, and before I forget, Marcus is loving his new existence.</i>"\n\n', false );
 				EngineCore.outputText( 'She steps away and blows a kiss as her wings unfurl.  With a powerful downstroke she scatters sand everywhere, forcing you to throw an arm in front of your eyes.  When the debris settles, she\'s gone.\n\n', false );
 				EngineCore.dynStats( 'lus', 5 );
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.SDELITE, SceneLib.camp.returnToCampUseOneHour );
 				CoC.getInstance().player.statusAffect( CoC.getInstance().player.findStatusAffect( StatusAffects.WandererDemon ) ).value1 = 1;
 			}
 			//Second Encounter
@@ -100,12 +100,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				//Catch it
 				if( 50 < (CoC.getInstance().player.spe + Utils.rand( 60 )) ) {
 					EngineCore.outputText( 'You handily catch a small potion vial.  When you look up, she\'s gone.\n\n', false );
-					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					SceneLib.inventory.takeItem( ConsumableLib.SDELITE, SceneLib.camp.returnToCampUseOneHour );
 				}
 				//Drop it
 				else {
 					EngineCore.outputText( 'You dive for the falling bottle, but miss, and it shatters into the sands, the fluids wicking away nearly instantaneously.', false );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 			}
 		}
@@ -127,14 +127,14 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				EngineCore.dynStats( 'lus', 10 );
 				//Value 1 is used to track the status of the end state.
 				CoC.getInstance().player.statusAffect( CoC.getInstance().player.findStatusAffect( StatusAffects.WandererHuman ) ).value1 = 1;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 			//Human Epilogue 2
 			else if( CoC.getInstance().player.statusAffectv1( StatusAffects.WandererHuman ) === 1 ) {
 				EngineCore.outputText( 'While exploring the desert, you find a strange bottle half-buried in the sand.  A small note is tied to it just knew you\'d find this.  Try this a few times and I think you might change your mind about Marcus\' situation.\n  -Lovely Lucia</i>"\n\n', true );
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SDELITE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.SDELITE, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
-	CoC.getInstance().registerScene( 'wanderer', new Wanderer() );
+	SceneLib.registerScene( 'wanderer', new Wanderer() );
 } );

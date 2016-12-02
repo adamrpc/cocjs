@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, ConsumableLib, Combat, EngineCore, MainView, PerkLib ) {
-	var Naga = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, ConsumableLib, Combat, EngineCore, MainView, PerkLib ) {
+	function Naga() {
+		this.init(this, arguments);
+	}
+	angular.extend(Naga.prototype, Monster.prototype);
 	//2a)  Ability -  Poison Bite - poisons player
 	Naga.prototype.nagaPoisonBiteAttack = function() {
 		//(Deals damage over 4-5 turns, invariably reducing
@@ -69,7 +72,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, 
 		Combat.combatRoundOver();
 	};
 	Naga.prototype.defeated = function( ) {
-		CoC.getInstance().scenes.nagaScene.nagaRapeChoice();
+		SceneLib.nagaScene.nagaRapeChoice();
 	};
 	Naga.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
@@ -77,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( $log, CoC, Monster, Utils, 
 			CoC.getInstance().player.orgasm();
 			EngineCore.doNext( Combat.cleanupAfterCombat );
 		} else {
-			CoC.getInstance().scenes.nagaScene.nagaFUCKSJOOOOOO();
+			SceneLib.nagaScene.nagaFUCKSJOOOOOO();
 		}
 	};
 	Naga.prototype.init = function( that, args ) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('ConsumableLib', function (SimpleConsumable, Mutations, CoC, BeeHoney, BimboLiqueur, DeBimbo, HairExtensionSerum, GroPlus, KitsuneGift, LustStick, OvipositionElixir, PhoukaWhiskey, Reducto, RizzaRoot, WingStick, Utils) {
+angular.module('cocjs').factory('ConsumableLib', function (SceneLib, SimpleConsumable, Mutations, CoC, BeeHoney, BimboLiqueur, DeBimbo, HairExtensionSerum, GroPlus, KitsuneGift, LustStick, OvipositionElixir, PhoukaWhiskey, Reducto, RizzaRoot, WingStick, Utils) {
 	var ConsumableLib = {DEFAULT_VALUE: 6};
 	/**
 	 * A handy function to create SimpleConsumables (useable by any player, effect is a function accepting player:Player,
@@ -20,9 +20,9 @@ angular.module('cocjs').factory('ConsumableLib', function (SimpleConsumable, Mut
 	ConsumableLib.AUBURND = mk('AuburnD','AuburnD', 'a vial of auburn hair dye', Utils.curry(Mutations.hairDye, 'auburn'),'This bottle of dye will allow you to change the color of your hair.  Of course if you don\'t have hair, using this would be a waste.');
 	ConsumableLib.B__BOOK = mk('B. Book','B. Book', 'a small book with a midnight-black cover', Mutations.blackSpellbook, 'This solid black book is totally unmarked, saved for a blood red clasp that holds the covers closed until you are ready to read it.  The pages are edged with gold, like some of the fancy books in the monastary back home.', 40);
 	ConsumableLib.B_GOSSR = mk('B.Gossr','B.Gossr', 'a bundle of black, gossamer webbing', Utils.curry(Mutations.sweetGossamer, 1), 'These strands of gooey black gossamer seem quite unlike the normal silk that driders produce.  It smells sweet and is clearly edible, but who knows what it might do to you?');
-	ConsumableLib.BC_BEER = mk('BC Beer','BC Beer', 'a mug of Black Cat Beer', function(player){CoC.getInstance().scenes.niamh.blackCatBeerEffects(player);}, 'A capped mug containing an alcoholic drink secreted from the breasts of Niamh.  It smells tasty.', 1);
+	ConsumableLib.BC_BEER = mk('BC Beer','BC Beer', 'a mug of Black Cat Beer', function(player){SceneLib.niamh.blackCatBeerEffects(player);}, 'A capped mug containing an alcoholic drink secreted from the breasts of Niamh.  It smells tasty.', 1);
 	ConsumableLib.BEEHONY = new BeeHoney(false, false);
-	ConsumableLib.BIMBOCH = mk('BimboCh','BimboCh', 'a bottle of bimbo champagne', Utils.curry(function(player){CoC.getInstance().scenes.niamh.bimboChampagne(player,true,true);}), null, 1);
+	ConsumableLib.BIMBOCH = mk('BimboCh','BimboCh', 'a bottle of bimbo champagne', Utils.curry(function(player){SceneLib.niamh.bimboChampagne(player,true,true);}), null, 1);
 	ConsumableLib.BIMBOLQ = new BimboLiqueur();
 	ConsumableLib.BLACK_D = mk('Black D','Black D', 'a vial of black hair dye', Utils.curry(Mutations.hairDye, 'black'),'This bottle of dye will allow you to change the color of your hair.  Of course if you don\'t have hair, using this would be a waste.');
 	ConsumableLib.BLACKEG = mk('BlackEg','BlackEg', 'a rubbery black egg', Utils.curry(Mutations.blackRubberEgg, false), 'This is an oblong egg, not much different from a chicken egg in appearance (save for the color).  Something tells you it\'s more than just food.');

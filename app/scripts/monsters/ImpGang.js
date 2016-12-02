@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'ImpGang', function( CockTypesEnum, Monster ) {
-	var ImpGang = angular.copy( Monster );
+	function ImpGang() {
+		this.init(this, arguments);
+	}
+	angular.extend(ImpGang.prototype, Monster.prototype);
 	ImpGang.prototype.getCapitalA = function() {
 		return 'gang of imps';
 	};

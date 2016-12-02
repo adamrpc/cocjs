@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( MainView, Descriptors, EventParser, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
-	var GnollSpearThrower = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, MainView, Descriptors, EventParser, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
+	function GnollSpearThrower() {
+		this.init(this, arguments);
+	}
+	angular.extend(GnollSpearThrower.prototype, Monster.prototype);
 	GnollSpearThrower.prototype.hyenaPhysicalAttack = function() {
 		var damage = 0;
 		//return to combat menu when finished;
@@ -353,7 +356,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( MainView, Desc
 			EngineCore.addButton( 1, 'Succ Milk', CoC.getInstance().urtaQuest.useSuccubiMilkOnGnollPrincesses );
 			EngineCore.addButton( 4, 'Leave', CoC.getInstance().urtaQuest.urtaNightSleep );
 		} else {
-			CoC.getInstance().scenes.gnollSpearThrowerScene.hyenaVictory();
+			SceneLib.gnollSpearThrowerScene.hyenaVictory();
 		}
 	};
 	GnollSpearThrower.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -363,7 +366,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( MainView, Desc
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.gnollSpearThrowerScene.hyenaSpearLossAnal();
+			SceneLib.gnollSpearThrowerScene.hyenaSpearLossAnal();
 		}
 	};
 	GnollSpearThrower.prototype.init = function(that, args) {

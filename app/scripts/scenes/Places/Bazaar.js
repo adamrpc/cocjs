@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, ConsumableLib, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function Bazaar() {
 	}
 
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		}
 		EngineCore.outputText( '\n\nDo you approach?', false );
 		//[YES] [NOOOO];
-		EngineCore.doYesNo( this.approachBazaarGuard, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this.approachBazaarGuard, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK YES I WILL PUT IT IN YOUR BIZARRE ANUS];
 	Bazaar.prototype.approachBazaarGuard = function() {
@@ -30,9 +30,9 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		}
 		EngineCore.outputText( '</i>"', false );
 		if( CoC.getInstance().player.cor < 33 ) {
-			EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.choices( 'Enter', this.enterTheBazaar, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Enter', this.enterTheBazaar, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Bazaar.prototype.enterTheBazaar = function() {
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		}
 		EngineCore.outputText( 'You breeze past the crimson guard and enter the interior of the Bizarre Bazaar.  The ground is hard-packed, trampled as if walked over by hundreds of hooves, paws, and feet.  A massive bonfire rages in the center of the clearing, crackling and popping as it consumes its fuel gluttonously.  Surrounding the blazing behemoth are tiny, wheeled food-carts with vendors hawking everything from sausage to something called a \'marshmallow\'.  Huge wagons ring the clearing, many set up to display exotic wares or services.  You can see everything from dancing centaurs to demons browsing the wares, but it seems an uneasy truce of sorts reigns here.  Then again, maybe the demons have just not had the chance to openly attack this place yet.', false );
 		EngineCore.outputText( '\n\nOne of the wagons proudly proclaims itself to be "Greta\'s Garments," though both \'G\'s are emphasized with cute, stylized devil horns, and the \'S\' is shaped in the form of a spaded, demonic tail.  Obviously it must some kind of clothing shop.' );
-		var roxanne2 = CoC.getInstance().scenes.roxanne.RoxanneAppearance();
+		var roxanne2 = SceneLib.roxanne.RoxanneAppearance();
 		var roxanneT = 'Lizans';
 		var demon = null;
 		var tent;
@@ -73,14 +73,14 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 				if( CoC.getInstance().flags[ kFLAGS.TIMES_IN_BENOITS ] === 0 ) {
 					EngineCore.outputText( '\n\nYou notice a large market stall wedged between two wagons, swaddled in carpets and overflowing with all manner of objects.  On top of its looming fabric canopy is a wooden sign with the words "<b>Geckos Garbidg</b>" crudely scrawled upon them.  You wonder what that\'s all about.' );
 				} else {
-					EngineCore.outputText( '\n\n' + CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' the basilisk\'s stall looks open for business.  You could go see what\'s on offer.' );
-					benoitT = CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' );
+					EngineCore.outputText( '\n\n' + SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' the basilisk\'s stall looks open for business.  You could go see what\'s on offer.' );
+					benoitT = SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' );
 				}
-				benoit2 = CoC.getInstance().scenes.benoit.benoitIntro;
+				benoit2 = SceneLib.benoit.benoitIntro;
 			}
 		}
-		tent = CoC.getInstance().scenes.fapArena.fapArenaGOOOO;
-		CoC.getInstance().scenes.fapArena.fapAppearance();
+		tent = SceneLib.fapArena.fapArenaGOOOO;
+		SceneLib.fapArena.fapAppearance();
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00221 ] > 0 ) {
 			roxanneT = 'Roxanne';
 		}
@@ -101,21 +101,21 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			if( CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 				EngineCore.outputText( '\n\nThe sounds of voices raised in song and girlish laughter makes it obvious where Niamh is holding a perpetual party.' );
 			}
-			niamh = CoC.getInstance().scenes.niamh.bazaarNiamh;
+			niamh = SceneLib.niamh.bazaarNiamh;
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, benoitT, benoit2 );
-		EngineCore.addButton( 1, rat, CoC.getInstance().scenes.cinnabar.cinnabarAppearance( false ) );
+		EngineCore.addButton( 1, rat, SceneLib.cinnabar.cinnabarAppearance( false ) );
 		EngineCore.addButton( 2, 'Greta\'s', this.gretasGarments );
 		EngineCore.addButton( 3, 'GripingDemons', demon );
-		if( CoC.getInstance().scenes.lilium.LiliumText( false ) !== null ) {
-			EngineCore.addButton( 4, lilium2, CoC.getInstance().scenes.lilium.LiliumText( false ) );
+		if( SceneLib.lilium.LiliumText( false ) !== null ) {
+			EngineCore.addButton( 4, lilium2, SceneLib.lilium.LiliumText( false ) );
 		}
 		EngineCore.addButton( 5, 'Niamh', niamh );
 		EngineCore.addButton( 6, roxanneT, roxanne2 );
 		EngineCore.addButton( 7, 'S. Squeeze', this.theSlipperySqueeze );
 		EngineCore.addButton( 8, 'Tent', tent );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Semen Bukkake and Massage Parlor;
 	//-Femboi Bunny owner - Joey;
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( 'Thanking the cute bunny-boy for his help, you hand over the payment and head back to check on camp.', false );
 		CoC.getInstance().player.createPerk( PerkLib.Androgyny, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Joey];
 	Bazaar.prototype.joeyMassage = function() {
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		if( CoC.getInstance().player.sens > 40 ) {
 			EngineCore.dynStats( 'lib', -0.5 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[CONTINUE – DRANK JOEY'S SPECIAL POTION];
 	Bazaar.prototype.joeysMassageWithEXTRASpooge = function() {
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		if( CoC.getInstance().player.sens > 40 ) {
 			EngineCore.dynStats( 'sen', -4 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Bazaar.prototype.joeyBigBalls = function() {
 		EngineCore.outputText( '', true );
@@ -468,9 +468,9 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( '', true );
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00349 ] === 0 ) {
 			EngineCore.outputText( 'You tell Joey that if he masturbates to erectness, his body should be able to shoot it out faster.  He smacks his forehead and runs into a back room, his thong disintegrating around his growing testes as he runs. The door slams, leaving you in peace.  A little freaked out, you head back to camp for now.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+			SceneLib.camp.returnToCampUseOneHour();
 		}
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00349 ]++;
 	};
@@ -509,7 +509,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( '"<i>I cleaned out your balls; you can clean up the floor,</i>" you joke as you leave, kissing him one last time on the mouth before you go.\n\n', false );
 		EngineCore.outputText( 'Joey blushes again and begins looking for a mop.', false );
 		EngineCore.dynStats( 'lus', 70 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Bazaar.prototype.overHearDemonsAboutSyrena = function() {
 		EngineCore.outputText( '', true );
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( '\n\nYou nod and pull out your gems, counting out the exact amount for her.  As soon as you finish, Greta pulls you over the counter and kisses you on the lips, her tongue sensually assaulting your surprised palate. Before you can react, she pulls back with a hum of pleasure.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, sugar!  Have fun and be safe, and if you don\'t want to be safe, come visit me sometime!</i>"' );
 		EngineCore.outputText( '\n\nYou\'ll have to keep that in mind...  ' );
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.LMARMOR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ArmorLib.LMARMOR, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cock-socks Available - First Time;
 	Bazaar.prototype.browseDemSocksSon = function() {
@@ -992,7 +992,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 		EngineCore.outputText( '\n\nJoey leaves, his rabbit tail bobbing to and fro.  You see his thong is distended, practically packed to the brim with more of his still-drooling chocolatey cum.  As usual, the waterproof thong seems to be pumping it all between his soft thighs and right into his already egg-filled asshole.  He really does like feeling full back there.  Kinky.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Visit the Bizarre Bazaar at night.;
 	Bazaar.prototype.nightBazaarButtfuck = function() {
@@ -1264,7 +1264,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.L_DRAFT, SceneLib.camp.returnToCampUseOneHour );
 			//Time set to morning;
 			EngineCore.statScreenRefresh();
 		}
@@ -1301,7 +1301,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.L_DRAFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.L_DRAFT, SceneLib.camp.returnToCampUseOneHour );
 			//Time set to morning;
 			EngineCore.statScreenRefresh();
 		}
@@ -1337,10 +1337,10 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, ArmorLib, ConsumableLib
 			CoC.getInstance().time.hours = 6;
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.BIMBOLQ, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.statScreenRefresh();
 			//Time set to morning;
 		}
 	};
-	CoC.getInstance().registerScene( 'bazaar', new Bazaar() );
+	SceneLib.registerScene( 'bazaar', new Bazaar() );
 } );

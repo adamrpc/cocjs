@@ -1,26 +1,29 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Minotaur', function( $log, CoC, EngineCore, Appearance, ChainedDrop, CockTypesEnum, Monster, Utils, WeightedDrop, AppearanceDefs, StatusAffects, Combat, ConsumableLib ) {
-	var Minotaur = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, EngineCore, Appearance, ChainedDrop, CockTypesEnum, Monster, Utils, WeightedDrop, AppearanceDefs, StatusAffects, Combat, ConsumableLib ) {
+	function Minotaur() {
+		this.init(this, arguments);
+	}
+	angular.extend(Minotaur.prototype, Monster.prototype);
 
 	Minotaur.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			EngineCore.outputText( 'You defeat a minotaur!  ', true );
-			CoC.getInstance().scenes.antsScene.phyllaBeatAMino();
+			SceneLib.antsScene.phyllaBeatAMino();
 		} else {
-			CoC.getInstance().scenes.minotaurScene.minoVictoryRapeChoices();
+			SceneLib.minotaurScene.minoVictoryRapeChoices();
 		}
 	};
 	Minotaur.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
-			CoC.getInstance().scenes.antsScene.phyllaPCLostToMino();
+			SceneLib.antsScene.phyllaPCLostToMino();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe minotaur picks you up and forcibly tosses you from his cave, grunting in displeasure.', false );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.minotaurScene.getRapedByMinotaur();
+			SceneLib.minotaurScene.getRapedByMinotaur();
 		}
 	};
 	Minotaur.prototype.init = function( that, args ) {
@@ -71,7 +74,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( $log, CoC, EngineCore, 
 				.add( ConsumableLib.MINOBLO, 1 / 2 )
 				.elseDrop( null );
 		}
-		that.special1 = CoC.getInstance().scenes.minotaurScene.minoPheromones;
+		that.special1 = SceneLib.minotaurScene.minoPheromones;
 		that.tailType = AppearanceDefs.TAIL_TYPE_COW;
 		that.checkMonster();
 	};

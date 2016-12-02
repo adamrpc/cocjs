@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, EngineCore ) {
 	function Jasun() {
 	}
 
@@ -34,9 +34,9 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 		}
 		//[Look Around];
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00181 ] === 0 ) {
-			EngineCore.choices( 'Look Around', this.meetJasun, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Look Around', this.meetJasun, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.choices( 'Jasun', this.meetJasun, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Jasun', this.meetJasun, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//AT CHANGING ROOM (SELECTING TO SEE THE SHARK OR LOOK AROUND IF FIRST TIME);
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 				EngineCore.outputText( '"<i>Eyes to yourself, boy. Try to play any games and I\'ll tear you apart limb from limb. Now get out of here before I do it anyway.</i>" The shark-morph snarls threateningly before turning back to the mirror.\n\n', false );
 				EngineCore.outputText( 'You doubt he\'d have the nerve to murder someone here, but you feel like you\'ve wasted your time.', false );
 				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ] = 0;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//IF FEMALE;
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 					//(+15 Lust, back to gym entrance);
 					EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 10) );
 					EngineCore.outputText( 'You book it out of there.  What a waste.', false );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				//IF PASS FITNESS CHECK;
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 					//(+15 Lust, back to gym entrance);
 					EngineCore.dynStats( 'lus', (10 + CoC.getInstance().player.lib / 10) );
 					EngineCore.outputText( 'You book it out of there.  What a waste.', false );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				//IF YOU HAVE THE BIKINI ON;
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 				EngineCore.outputText( 'Jasun walks out of a stall, his thick and muscular figure still as glorious as the last time you set eyes upon it.  He glances your way and smirks.\n\n', false );
 				EngineCore.outputText( '"<i>Eyes to yourself, boy. Try to play any games and I\'ll tear you apart limb from limb. Now get out of here before I do it anyway.</i>" The shark-morph snarls threateningly before turning to walk away.\n\n', false );
 				EngineCore.outputText( 'You doubt he\'d have the nerve to murder someone here, but you feel like you\'ve wasted your time.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//IF YOU FAIL TO MEET ANY OF HIS CRITERIA NOW;
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 				EngineCore.outputText( ', we can go swim.</i>" He hesitates for a moment at the mirror, and then walks past you quickly without making eye contact. Feeling dejected and suddenly very alone, you ignore the sensation caused by his skin brushing against yours and walk back to the gym\'s entrance. Maybe you can work yourself back into Jasun\'s graces with time.\n\n', false );
 				//(-15 Lust, back to gym entrance);
 				EngineCore.dynStats( 'lus', -15 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			EngineCore.outputText( 'Jasun comes out of his stall and smiles when he sees you, already beginning to strain against the skimpy fabric of his bottom.  He asks, "<i>Would you like to come swimming with me?</i>" though his tone indicates that swimming may involve more than a few laps.', false );
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 				EngineCore.outputText( 'Jasun walks out of a stall, his thick and muscular figure still as glorious as the last time you set eyes upon it.  He glances your way and smirks.\n\n', false );
 				EngineCore.outputText( '"<i>Eyes to yourself, boy. Try to play any games and I\'ll tear you apart limb from limb. Now get out of here before I do it anyway.</i>" The shark-morph snarls threateningly before turning to walk away.\n\n', false );
 				EngineCore.outputText( 'You doubt he\'d have the nerve to murder someone here, but it\'s clear that so long as you lack a vagina Jasun will have no interest in you.  What a waste.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//IF YOU FAIL TO MEET ANY OF HIS CRITERIA NOW;
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 				EngineCore.outputText( '"<i>' + CoC.getInstance().player.short + ', you know, I see that a lot has changed with you. That\'s fine, and it\'s entirely up to you, but I think today I should probably swim alone. You can come and visit me anytime, of course, maybe things will be like they were before in time.</i>" He hesitates for a moment at the mirror, and then walks past you quickly without making eye contact. Feeling dejected and suddenly very alone, you ignore the sensation caused by his skin brushing against yours and walk back to the gym\'s entrance. Maybe you can work yourself back into Jasun\'s graces with time.\n\n', false );
 				//(-15 Lust, back to gym entrance);
 				EngineCore.dynStats( 'lus', -15 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//IF YOU MEET ALL CRITERIA STILL;
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 		EngineCore.outputText( '"<i>I understand,</i>" he says dejectedly. He steps up and walks back toward the door. He perks up at the last minute, not letting his being rejected hurt his pride in the least, and says, "<i>If you ever would like to swim, you know where to find me. Farewell.</i>" He stands at the door and waits for you to leave before leaping into the water alone, as he has done no doubt many times in the past.\n\n', false );
 		//(Back to gym entrance);
 		EngineCore.outputText( 'You book it out of there.  What a waste.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//IF YOU ACCEPT;
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, EngineCore ) {
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00180 ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'jasun', new Jasun() );
+	SceneLib.registerScene( 'jasun', new Jasun() );
 } );

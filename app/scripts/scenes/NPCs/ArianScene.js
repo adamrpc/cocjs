@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	/*Design Notes
 	 Arian has a "<i>health</i>" stat that goes from 0 to 100. Where 0 equals very sick and 100 equals healthy. This also works as a sort of affection meter.
 	 Interacting with the PC will improve Arian's health; be it talking, giving items or sex.
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ]++;
 		}
 		if( CoC.getInstance().time.hours > 23 ) {
-			if( CoC.getInstance().scenes.arianScene.arianFollower() && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
+			if( SceneLib.arianScene.arianFollower() && CoC.getInstance().flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_EVENT ]++;
 			}
 			CoC.getInstance().flags[ kFLAGS.ARIAN_LESSONS ] = 0;
@@ -155,7 +155,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		//Player enters Tel'Adre main screen;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
 	};
 	//[=Help=];
 	ArianScene.prototype.helpArianWhenYouMeetHim = function() {
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		//(Park added to TA's Menu.  It will later be replaced by Arian's house.);
 		EngineCore.outputText( '\n\n(<b>The park has been added to Tel\'Adre\'s menu.</b>)' );
 		this.arianHealth( 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Further Park Visits;
 	//You need to get through the entirety of Arian's park dialogue before you can do anything meaningful with him.;
@@ -246,14 +246,14 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			EngineCore.outputText( '\n\nYou decide that it wouldn\'t be too much trouble, and tell Arian that you\'ll give him a hand to get home.' );
 			EngineCore.outputText( '\n\nArian leads you to the doorsteps of his house, and unhooking his arm from around your shoulder he takes your hands in [Arian eir] own and smiles at you.  "<i>Thank you for the help, and for listening to my story.</i>"  Then looking into you eyes expectantly, he asks, "<i>Listen [name].  I would love it if you could visit me once in awhile.  It can be very lonely here and although my aides are always by my side there are things I simply can\'t talk about with them.  So... could you find time to visit a sickly mage?</i>"' );
 			EngineCore.outputText( '\n\nYou assure him you\'ll think about it; it\'s time he went inside and had some rest.  "<i>Thank you, I\'ll be seeing you then.</i>"  He releases your hand and slowly walks inside, barely getting the door open before two pairs of arms grab him and drag him in, closing the door behind him.  You shrug it off and head back towards camp; that diversion was nice, but you have other things to do.' );
-			//Player returns to (Tel'Adre / CoC.getInstance().scenes.camp).;
+			//Player returns to (Tel'Adre / SceneLib.camp).;
 			//Arian's House replaces Park in Tel'Adre menu.;
 			EngineCore.outputText( '\n\n(<b>The park has been removed from Tel\'Adre\'s menu.  Arian\'s house has been added to the homes submenu.</b>' );
 			this.arianHealth( 5 );
 		}
 		this.arianHealth( 1 );
 		CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//First Visit;
 	ArianScene.prototype.visitAriansHouse = function() {
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 				//PC returns to Tel'Adre menu screen;
 				//PC begins Arian romance quest;
 				//1 hour passes.;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} else {
 				//Subsequent Visits;
 				//His health affects the greeting you receive when seeing him.;
@@ -494,9 +494,9 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 				EngineCore.addButton( 8, 'NoSleepWith', this.dontSleepWithArian );
 			}
 			if( !this.arianFollower() ) {
-				EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.telAdre.telAdreMenu );
+				EngineCore.addButton( 9, 'Back', SceneLib.telAdre.telAdreMenu );
 			} else {
-				EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+				EngineCore.addButton( 9, 'Back', SceneLib.camp.campLoversMenu );
 			}
 		}
 	};
@@ -541,7 +541,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\n"<i>Busy, huh?  Well if you want I could call him for you; master Arian is always happy to see you any time.</i>"  Boon smiles starting on his way towards Arian\'s bedroom.  You quickly stop him though, explaining that it\'s best to let Arian have some privacy for now. "<i> Are you sure, [name]?  It\'s no trouble at all, I assure you.</i>"  You insist that he shouldn\'t bother Arian right now.  Boon shrugs.  "<i>If you say so... anyways, do come visit later.  Ever since you started visiting master Arian, he has been a lot less rebellious, not to mention he seems to be getting healthier and happier.</i>"' );
 		EngineCore.outputText( '\n\nYou promise to return later and bid him farewell.  You step outside and make your way back to your camp.' );
 		//Return to camp;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Barge in=];
 	ArianScene.prototype.bargeInOnArian = function() {
@@ -715,7 +715,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		//ArianSDialogue++;;
 		CoC.getInstance().flags[ kFLAGS.ARIAN_S_DIALOGUE ]++;
 		//CoC.getInstance().player returns to camp.;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	////((if ArianHealth >= 20) && (ArianSDialogue === 1)) ;
 	//Can sex Arian.;
@@ -746,7 +746,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Though you do feel a little curious, you decide to stop making him uncomfortable, and tell him that it\'s okay, you\'ll let him get some sleep now.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, [name].  I\'ll see you later then.</i>"  Arian tucks himself in.  You watch until he\'s settled in, and then start the trek back to your home-away-from home in the Marethian wilderness.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//=Pry=;
 	ArianScene.prototype.arianStoryPry = function() {
@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nArian closes [Arian eir] eyes and admits.  "<i>It\'s someone close!</i>"  He blurts out, hiding himself under the covers.' );
 		EngineCore.outputText( '\n\nWell, now, that\'s intriguing... still, no matter how you try, he won\'t say anything more and he won\'t come out.  It\'s quite clear what\'s going on so all you can do is sigh, do your best to pat [Arian eir] head through the covers, and tell him you\'ll come back another day and that you\'re sorry for being so nosey.  You then turn and walk out the door, heading down the stairs and back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//((if ArianHealth >= 30) && (ArianSDialogue === 2));
 	//Will Teach Magic;
@@ -857,7 +857,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\n"<i>I wanted to ask you if we could... well... live together?</i>"  Arian bites [Arian eir] lower lip.' );
 		EngineCore.outputText( '\n\nYou explain to Arian about the portal, and your mission as the champion - how due to your duties, you cannot just move here and live with [Arian em].' );
 		EngineCore.outputText( '\n\nArian quickly adds, "<i>Oh... no....  You wouldn\'t be moving here.  I would be the one moving in with you....' );
-		if( CoC.getInstance().scenes.camp.companionsCount() > 1 ) {
+		if( SceneLib.camp.companionsCount() > 1 ) {
 			EngineCore.outputText( '  There are other people living with you already, so what\'s one more?  Right?' );
 		}
 		EngineCore.outputText( '</i>"' );
@@ -916,7 +916,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_LESSONS ] >= 4 ) {
 			EngineCore.outputText( '\n\nArian raises [Arian eir] hand, stopping you in your tracks.  "<i>I appreciate your enthusiasm, [name].  But first you must rest and let the lessons of the day sink in.  I promise I\'ll teach you more tomorrow.</i>"  Arian smiles at you.' );
 			EngineCore.outputText( '\n\nMaybe [Arian ey]\'s right... you tell [Arian em] you\'ll ask [Arian em] to teach you more tomorrow and excuse yourself.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '\n\nArian nods.  "<i>Of course!  Now where do I begin....</i>"' );
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		if( CoC.getInstance().player.inte < 50 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sex:;
 	//Available after the first time you have sex. (ArianVirgin > 0);
@@ -1147,7 +1147,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			EngineCore.outputText( '\n\n' );
 		}
 		EngineCore.outputText( 'Satisfied with your little chat, you pat the lizan\'s head and excuse yourself, heading back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Invite to Camp:;
 	//Only available if ArianHealth === 100.;
@@ -1207,7 +1207,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nArian slowly walks towards the entrance and holds the tarp for you.  "<i>Care to take a peek inside?</i>"  You nod and follow the lizan into the tent.' );
 		EngineCore.outputText( '\n\nAs you walk inside you can\'t help but gasp in amazement... clearly you have underestimated the lizan.  The inside of the tent is pretty big comparing to the outside, and you see all the tools and facilities one would need to live in the wilderness with relative comfort.' );
 		EngineCore.outputText( '\n\nIn one corner you see what looks like a small kitchen of sorts, complete with a wide assortment of utensils.  In the opposite corner you see a work desk much like the one Arian had set up in [Arian eir] house.  Sitting in the middle of the room is a comfy-looking couch with a small table in front of it.  Further inside you see a comfortable looking bed with a few bookshelves and a small wardrobe sitting nearby.  A soft rug covers the floor of the tent and looking up you see what looks like a small magic lamp, lighting up the whole tent so you can clearly see how comfortable Arian is going to be compared to you' );
-		if( CoC.getInstance().scenes.camp.followersCount() > 1 ) {
+		if( SceneLib.camp.followersCount() > 1 ) {
 			EngineCore.outputText( ' and your other companions' );
 		}
 		EngineCore.outputText( '.' );
@@ -1218,7 +1218,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nYou politely excuse yourself, saying you should let the lizan make [Arian emself] comfortable in [Arian eir] new home, and step back outside.' );
 		//flag arian as follower;
 		CoC.getInstance().flags[ kFLAGS.ARIAN_FOLLOWER ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sex;
 	//ArianHealth must be at least 20 before you can even pick Sex as an option.;
@@ -1618,7 +1618,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Blown:;
 	//PC must have a cock.;
@@ -1698,7 +1698,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().flags[ kFLAGS.ARIAN_HAS_BLOWN ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Penetrate:;
 	//Arian must be herm/female.;
@@ -1830,7 +1830,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nEventually, though, you announce that you should probably get going.  As nice as it is to stay here with her, you have duties to attend to.  Arian smiles at you, and gives you a little peck on the lips.  "<i>I understand, but come see me again soon, please.</i>"  You promise her you will and extract yourself from the affectionate lizan\'s embrace.  You quickly find your clothes and get dressed, then leave.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Anal:;
 	//Arian must have a cock.;
@@ -1999,7 +1999,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 				} else {
 					EngineCore.outputText( '.  You\'re too big to fit inside Arian\'s ass, though.' );
 				}
-				EngineCore.addButton( 1, 'No', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.addButton( 1, 'No', SceneLib.camp.returnToCampUseOneHour );
 				return;
 			} else {
 				EngineCore.outputText( '\n\nYou chuckle at [Arian eir] eagerness, but point out you\'re not properly equipped to help [Arian em] at the moment, so maybe later.' );
@@ -2010,7 +2010,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blow:;
 	//Arian must have a cock.;
@@ -2117,7 +2117,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\n"<i>Uuuh... see you soon?</i>"' );
 		EngineCore.outputText( '\n\nYou throw [Arian em] a smirk over your shoulder, shake your [ass] for [Arian eir] benefit, and head on out.' );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Penetrated:;
 	//PC must have a vagina.;
@@ -2295,7 +2295,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nGrinning, you pull [Arian em] into a final kiss, telling [Arian em] this is just something for [Arian em] to think about.  Having said that, you quickly redress and excuse yourself, leaving one flustered lizan behind to rest.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Double Pen Arian:;
 	//PC must have at least 2 cocks that fit. That means two cocks with a cock area of <= 50.;
@@ -2402,7 +2402,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Docking;
 	//ArianCockSize needs to be below 3. (ArianDblCock does not affect this decision.) ;
@@ -2509,7 +2509,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		//Player returns to camp;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Give Item;
 	ArianScene.prototype.giveArianAnItem = function() {
@@ -2879,7 +2879,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			EngineCore.outputText( '\n\nArian smiles tiredly.  "<i>I think I\'ll rest for a little bit now... maybe you should too?</i>"  She suggests, pointing at your bloated belly.' );
 			EngineCore.outputText( '\n\nYou agree, and ask if she\'ll be okay if you show yourself out.  Arian nods and yawns.  "<i>I\'ll see you later then, [name].</i>"' );
 			EngineCore.outputText( '\n\nYou leave her to get some sleep and quietly show yourself out, planning to work off your meal elsewhere.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Reducto:;
@@ -3194,7 +3194,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nThe lizan looks at you in confusion, and is about to ask you something when a yawn interrupts [Arian eir] line of thought.  "<i>Ok... I\'m glad you liked whatever we did...  -gonna take a nap now.</i>"' );
 		EngineCore.outputText( '\n\nYou gently pull the covers up over the tired lizan, stroke [Arian eir] head fondly, and quietly excuse yourself from [Arian eir] sleeping quarters.' );
 		//Player gains Lust.;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Treat Corruption;
 	//Not with the power of friendship, but with magic!;
@@ -3226,7 +3226,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			EngineCore.outputText( '\n\n"<i>You\'re welcome,</i>" [Arian ey] replies with a smile.  "<i>Just remember that we can only do this once per day.  Any more and it would be hazardous, for both of us.</i>"' );
 			EngineCore.outputText( '\n\nYou acknowledge what [Arian ey] is saying, promise you\'ll try and be more careful in the future, thank [Arian em] once more, and then excuse yourself.' );
 			CoC.getInstance().flags[ kFLAGS.ARIAN_TREATMENT ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -3292,7 +3292,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			CoC.getInstance().player.removeKeyItem( 'Arian\'s Talisman' );
 			CoC.getInstance().player.createKeyItem( 'Arian\'s Charged Talisman', 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ArianScene.prototype.clearCharges = function() {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.ShieldingSpell ) >= 0 ) {
@@ -3376,7 +3376,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//[=Listen=];
 	ArianScene.prototype.listenToLowAnalXPArian = function() {
@@ -3398,15 +3398,15 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nYou wonder if maybe Arian always dreamed of being a baker instead of a wizard... or if [Arian ey] just had a midnight craving for pastries  With a soft sigh, you make yourself settle down and try to get back to sleep.' );
 		EngineCore.dynStats( 'lus', 15 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//[=Sleep=];
 	ArianScene.prototype.dontListenToMediumAnalXPArian = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
-		CoC.getInstance().scenes.camp.sleepRecovery( false );
+		SceneLib.camp.sleepRecovery( false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//[=Listen=];
 	ArianScene.prototype.listenToMediumAnalXPArian = function() {
@@ -3446,14 +3446,14 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		}
 		EngineCore.dynStats( 'lus', 15 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//[=Sleep=];
 	ArianScene.prototype.dontTeaseHighAnalXPArian = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//[=Tease=];
 	ArianScene.prototype.TeaseHighAnalXPArian = function() {
@@ -3493,7 +3493,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 			EngineCore.dynStats( 'lus', 15 );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.sleepWrapper );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.sleepWrapper );
 	};
 	//Waking up;
 	//Always happens the morning after sleeping with Arian.;
@@ -3731,13 +3731,13 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nYou thank her for her efforts, give her a quick peck on the cheek, and then encourage her to get some rest.  Arian nods.  "<i>I should be ready to lay tomorrow, so don\'t forget to visit.</i>"' );
 		EngineCore.outputText( '\n\nYou nod in understanding and wave to her as you leave her tent.' );
 		CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave;
 	ArianScene.prototype.leaveEggs = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell her that you don\'t want any colored eggs from her this month.  The lizan nods, deciding it\'s not necessary for her to spell out that this means she\'ll just produce ordinary eggs and eat them for breakfast after she\'s laid them.  "<i>So, do you want something?</i>" she asks.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Display Arian options;
 	//Arian Lays Colored Eggs;
@@ -3795,7 +3795,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_EGG_COLOR ] === 'rubbery black' ) {
 			itype = ConsumableLib.L_BLKEG;
 		}
-		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//DildoFun;
 	ArianScene.prototype.arianDildoFun = function() {
@@ -3887,7 +3887,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, $rootScope, Descriptors, Ima
 		EngineCore.outputText( '\n\nYou heave a sigh of contentment and authoritatively drag your little lizan slut into your arms, wrapping yourself around her in a cuddle and making it quite clear you don\'t intend to let her go anywhere any time soon.  Fortunately, she seems quite eager to be there, and so you shut your eyes and allow yourself to slowly drift off to sleep.  Before you fully embrace unconsciousness, though, you place a gentle hand on Arian\'s pussy, stroking her softly - not to arouse her yet again, but just to let her feel a loving touch there, in the place that brings you both such pleasures....' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'arianScene', new ArianScene() );
+	SceneLib.registerScene( 'arianScene', new ArianScene() );
 } );

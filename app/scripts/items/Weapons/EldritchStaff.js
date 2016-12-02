@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'EldritchStaff', function( CoC, Weapon, WeaponLib, PerkLib ) {
-	var EldritchStaff = angular.copy( Weapon );
+	function EldritchStaff() {
+		this.init(this, arguments);
+	}
+	angular.extend(EldritchStaff.prototype, Weapon.prototype);
 	EldritchStaff.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'E.Staff', 'E.Staff', 'eldritch staff', 'an eldritch staff', 'thwack', 10, WeaponLib.DEFAULT_VALUE, 'This eldritch staff once belonged to the Harpy Queen, who was killed after her defeat at your hands.  It fairly sizzles with magical power.', 'Wizard\'s Focus' ] );
 	};

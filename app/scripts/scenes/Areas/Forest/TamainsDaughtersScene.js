@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
 	function TamainsDaughtersScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			if( CoC.getInstance().flags[ kFLAGS.TIMES_ENCOUNTED_TAMANIS_DAUGHTERS ] > 1 ) {
 				EngineCore.outputText( 'They really must not be paying much attention to what you look like.', false );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The leader stamps her foot in a fit of rage.  It would be more imposing if she wasn\'t three feet tall... Her eyes lock onto your crotch and she says, "<i>Last chance.   We\'re getting our ', false );
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				EngineCore.outputText( '\n\n', false );
 				if( this.tamaniPresent ) {
 					EngineCore.outputText( 'Tamani pushes the slut on your face off and plants herself there, smearing your ' + CoC.getInstance().player.face() + ' with a mixture of cum and vaginal wetness.  ', false );
-					if( CoC.getInstance().scenes.tamaniScene.pregnancy.isPregnant ) {
+					if( SceneLib.tamaniScene.pregnancy.isPregnant ) {
 						EngineCore.outputText( 'She rubs her pregnancy swollen belly', false );
 					} else {
 						EngineCore.outputText( 'She fondles her nipples', false );
@@ -374,14 +374,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		EngineCore.dynStats( 'lib', 1, 'cor', 1 );
 		//Knock the bitches up, boost libido, corruption
 		if( this.tamaniPresent ) {
-			CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
+			SceneLib.tamaniScene.tamaniKnockUp();
 		} //If she wasn't pregnant she will be now
 		this.knockUpDaughters();
 		CoC.getInstance().player.cumMultiplier += 0.3;
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//[Let them]
@@ -495,7 +495,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				//increase hypno value
 				CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 				//preggo up tamani
-				CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
+				SceneLib.tamaniScene.tamaniKnockUp();
 			}
 			//NO TAMANI:
 			else {
@@ -829,7 +829,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 				EngineCore.outputText( ', until an orgasm wracks your body and derails your train of thought, drowning it in a sea of pleasure.  She moans and slides down, pressing her entrance against your urethra as your internal muscles clench, pumping thick spurts into the goblin\'s womb.  A new-found sense of satisfaction and pleasure spreads through you.  It feels so good to knock Tamani up that your orgasm drags on forever, until you feel empty and exhausted.   Looking back, you realize just how much more pleasurable her box is in comparison to the other holes you\'ve tasting in your travels, even her daughter\'s.  As Tamani rises up off of you, dripping with cum, the memories of everything but the sex slowly slip away, leaving behind happiness and anticipation of your next chance to fill her.\n\n', false );
 				EngineCore.outputText( 'Your mistress steps away, swaying her more-than ample hips from side to side as she saunters off.  You shake your head, feeling a little out of sorts, but before you get a chance to puzzle it out, the exhaustion of the encounter overwhelms you, blacking you out.', false );
 				//knock up tamani chance
-				CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
+				SceneLib.tamaniScene.tamaniKnockUp();
 				//increase hypno value
 				CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 			}
@@ -838,13 +838,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'str', -0.5, 'int', -0.5, 'lib', 1, 'cor', 1 );
 		if( this.tamaniPresent ) {
-			CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
+			SceneLib.tamaniScene.tamaniKnockUp();
 		} //If she wasn't pregnant she will be now
 		this.knockUpDaughters();
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//[Lose Combat, Get Your Dick DRAINED]
@@ -1215,7 +1215,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		}
 		//Chance of tamani pregnancy, chance of daughter preggers
 		this.knockUpDaughters();
-		CoC.getInstance().scenes.tamaniScene.tamaniKnockUp();
+		SceneLib.tamaniScene.tamaniKnockUp();
 		CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ]++;
 		//daughter countdown reset.
 		CoC.getInstance().player.orgasm();
@@ -1223,7 +1223,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -1289,7 +1289,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		if( CoC.getInstance().player.lust > 99 ) {
 			//worms r gross mmmmkay?
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-				CoC.getInstance().scenes.worms.infestOrgasm();
+				SceneLib.worms.infestOrgasm();
 				EngineCore.outputText( '\n\nThe goblins sigh and say, "<i>Dad, that\'s just gross.  Don\'t get me wrong, we\'re still gonna have you knock us up, but I hate the feeling of those worms inside me.</i>"', false );
 				CoC.getInstance().player.orgasm();
 			}
@@ -1336,5 +1336,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			}
 		}
 	};
-	CoC.getInstance().registerScene( 'tamainsDaughtersScene', new TamainsDaughtersScene() );
+	SceneLib.registerScene( 'tamainsDaughtersScene', new TamainsDaughtersScene() );
 } );

@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
-	var Sophie = angular.copy( Harpy );
+angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, PerkLib, CoC, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+	function Sophie() {
+		this.init(this, arguments);
+	}
+	angular.extend(Sophie.prototype, Harpy.prototype);
 	//Combat Attacks;
 	//ON DICK'ED PCz;
 	//Kiss (Only used on males) - +10 lust on kiss.  25% chance;
@@ -9,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	//+20 lust.  Each kiss adds 2 hours to length of status;
 	//affect.;
 	Sophie.prototype.sophieKissAttack = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		EngineCore.outputText( 'Sophie bobs and weaves as she closes the distance between you in an instant.  ', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
@@ -41,7 +44,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 		//Already affected by it;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
 			EngineCore.outputText( '  Blood rushes to ' + CoC.getInstance().player.sMultiCockDesc() + ' as you grow so hard so fast that it hurts.  ', false );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 2 );
+			SceneLib.sophieScene.luststickApplication( 2 );
 			EngineCore.dynStats( 'lus', (12 + CoC.getInstance().player.lib / 10) );
 			if( CoC.getInstance().player.lust < 70 ) {
 				EngineCore.outputText( 'The drugged lip-gloss is starting to get to you!\n', false );
@@ -56,7 +59,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 			}
 		} else {
 			EngineCore.outputText( '  Your whole body blushes as your lips tingle with some unnatural sensation.  Her lips were drugged!  Your whole body flushes as arousal begins to course through your veins.  ', false );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 2 );
+			SceneLib.sophieScene.luststickApplication( 2 );
 			EngineCore.dynStats( 'lus', 8 + CoC.getInstance().player.lib / 10 );
 			if( CoC.getInstance().player.lust < 70 ) {
 				EngineCore.outputText( 'The drugged lip-gloss is starting to get to you!\n', false );
@@ -77,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	//for a few moments.;
 	//Easily dodged with evade or flexibility.;
 	Sophie.prototype.sophieHarpyBoatsPC = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		EngineCore.outputText( this.getCapitalA() + this.short + ' flaps her wings and launches herself forwards with her talons up.  ', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
@@ -115,7 +118,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	};
 	//Compulsion (Male Only);
 	Sophie.prototype.sophieCompulsionAttack = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		EngineCore.outputText( 'Sophie spreads her thick thighs and slips four fingers into her slippery sex.  She commands, "<i>Touch yourself for me.  Be a good pet and masturbate for me.</i>"  ', false );
 		//Autosucceeds if player inte < 40;
 		//autofails if player inte > 80;
@@ -134,7 +137,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	//Talons (Female Only);
 	//High damage attack easily avoided by evade/flexibility.;
 	Sophie.prototype.talonsSophie = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		EngineCore.outputText( 'Sophie pulls her leg up, cocking her thigh dangerously.  Look out!  ', false );
 		var damage = 0;
 		//Blind dodge change;
@@ -175,7 +178,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	//Batter (Female Only);
 	//Batters PC with wings – 4x attack impossible to dodge.*/;
 	Sophie.prototype.batterAttackSophie = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		var damage = 0;
 		EngineCore.outputText( 'Sophie comes at you in a flurry of beating wings!  There\'s no way to dodge the flurry of strikes!\n', false );
 		//Determine damage - str modified by enemy toughness!;
@@ -209,7 +212,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	};
 	Sophie.prototype.performCombatAction = function() {
 		//Sophie has special AI in harpySophie.as;
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		var rando = 1;
 		//Update attacks for girls/neuters;
 		if( !CoC.getInstance().player.hasCock() || this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
@@ -247,19 +250,19 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( $log, Harpy, PerkLib, CoC
 	};
 	Sophie.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
-			CoC.getInstance().scenes.sophieFollowerScene.beatUpDebimboSophie();
+			SceneLib.sophieFollowerScene.beatUpDebimboSophie();
 		} else {
-			CoC.getInstance().scenes.sophieScene.sophieLostCombat();
+			SceneLib.sophieScene.sophieLostCombat();
 		}
 	};
 	Sophie.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
-			CoC.getInstance().scenes.sophieFollowerScene.debimboSophieBeatsYouUp();
+			SceneLib.sophieFollowerScene.debimboSophieBeatsYouUp();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe seems disgusted by the display and leaves you to recover alone...' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.sophieScene.sophieWonCombat();
+			SceneLib.sophieScene.sophieWonCombat();
 		}
 	};
 	Sophie.prototype.init = function( that ) {

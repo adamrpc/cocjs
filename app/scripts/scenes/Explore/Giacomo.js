@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EventParser, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EventParser, EngineCore, ConsumableLib ) {
 	function Giacomo() {
 		this.checkedSuccubi = 0;
 		$rootScope.$on( 'time-change', this.timeChange );
@@ -20,9 +20,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 	Giacomo.prototype.timeChangeLarge = function() {
 		if( this.checkedSuccubi++ === 0 && CoC.getInstance().time.hours === 4 && CoC.getInstance().player.findStatusAffect( StatusAffects.SuccubiNight ) >= 0 && (CoC.getInstance().player.hasCock() || CoC.getInstance().player.gender === 0) ) { //Call secksins!
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.RepeatSuccubi ) >= 0 ) {
-				if( CoC.getInstance().scenes.vapula.vapulaSlave() && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.VAPULA_THREESOMES ] > 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 ) //VapulaSurprise
+				if( SceneLib.vapula.vapulaSlave() && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.VAPULA_THREESOMES ] > 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 ) //VapulaSurprise
 				{
-					CoC.getInstance().scenes.vapula.vapulaAssistsCeruleanSuccubus();
+					SceneLib.vapula.vapulaAssistsCeruleanSuccubus();
 				} else {
 					this.nightSuccubiRepeat(); //Normal night succubi shit
 				}
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 			EngineCore.outputText( 'Giacomo\'s grin is nothing short of creepy as he offers his wares to you. What are you interested in?' );
 		}
 		var deworm = (CoC.getInstance().player.findStatusAffect( StatusAffects.WormOffer ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ? this.wormRemovalOffer : null);
-		EngineCore.choices( 'Potions', this.potionMenu, 'Books', this.bookMenu, 'Erotica', this.eroticaMenu, 'Worm Cure', deworm, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Potions', this.potionMenu, 'Books', this.bookMenu, 'Erotica', this.eroticaMenu, 'Worm Cure', deworm, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.statScreenRefresh();
 	};
 	Giacomo.prototype.firstEncounter = function() {
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 			EngineCore.doNext( this.potionMenu );
 		} else {
 			CoC.getInstance().player.gems -= 15;
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.VITAL_T, this.potionMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.VITAL_T, this.potionMenu );
 			EngineCore.statScreenRefresh();
 		}
 	};
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 			EngineCore.doNext( this.potionMenu );
 		} else {
 			CoC.getInstance().player.gems -= 15;
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SMART_T, this.potionMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.SMART_T, this.potionMenu );
 			EngineCore.statScreenRefresh();
 		}
 	};
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 75 - CoC.getInstance().player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this.potionMenu );
 		} else {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CERUL_P, this.potionMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, this.potionMenu );
 			CoC.getInstance().player.gems -= 75;
 			EngineCore.statScreenRefresh();
 		}
@@ -470,7 +470,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 		EngineCore.dynStats( 'lib', -1, 'lus', -99, 'cor', -4 );
 		CoC.getInstance().player.gems -= 175;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.VITAL_T, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.VITAL_T, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Giacomo.prototype.wormRemovalOffer = function() {
 		EngineCore.spriteSelect( 23 );
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 			EngineCore.outputText( 'She gives a giggle and disappears before your eyes.  At that moment the fatigue from the massive fucking you received catches up with you and you pass out in a slump.' );
 			EngineCore.dynStats( 'str', 0.5, 'lus', 4 );
 		}
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
 	};
 	Giacomo.prototype.nightSuccubiRepeat = function() {
 		EngineCore.spriteSelect( 8 );
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Descriptors, CoC, kFLAGS, U
 		EngineCore.outputText( '\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'tou', Utils.rand( 2 ), 'spe', Utils.rand( 2 ), 'int', Utils.rand( 2 ), 'cor', 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'giacomo', new Giacomo() );
+	SceneLib.registerScene( 'giacomo', new Giacomo() );
 } );

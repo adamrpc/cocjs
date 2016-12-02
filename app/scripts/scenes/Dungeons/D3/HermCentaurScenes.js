@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Utils, PregnancyStore, Descriptors, HermCentaur, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
 	function HermCentaurScenes() {
 	}
 
@@ -51,14 +51,14 @@ angular.module( 'cocjs' ).run( function( Utils, PregnancyStore, Descriptors, Her
 		EngineCore.outputText( 'Sighing, you advance on the downed demon, trying to ignore the horrified look in her eyes as you end her.' );
 		CoC.getInstance().flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_KILLED;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.letHerGo = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You dust off your [armor] and wave nonchalantly at the equine demoness.  She slowly staggers up, watching you warily.  Dismissively, you tell her to leave before she earns your ire - her queen will be dealt with soon enough.  She clops off in a huff towards the exit.' );
 		CoC.getInstance().flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_RELEASED;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.maleFuckHer = function() {
 		CoC.getInstance().flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_FUCKED;
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( Utils, PregnancyStore, Descriptors, Her
 		EngineCore.outputText( '.  Well, she might have gotten away, but she won\'t be able to stop you from getting to Lethice.  Indeed, it seems she was running for the exit.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	var HORZGOG = 0;
 	var DOGGECOCK = 1;
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( Utils, PregnancyStore, Descriptors, Her
 		EngineCore.dynStats( 'cor+', 5 );
 		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP );
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.inSovietCoCPonyRidesYou = function( hpVictory ) {
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.hasVagina() ) {
@@ -379,5 +379,5 @@ angular.module( 'cocjs' ).run( function( Utils, PregnancyStore, Descriptors, Her
 		EngineCore.outputText( 'As the years roll by, you see lots of pussy, and lots of injections.  They test all kinds of cocktails on you.  Ones that makes your balls swell, or your seed runny, or thick, or even black.  Eventually, one of your children comes out as something other than an imp.  The first proper demon infant.  Too fucked up to feel anything but pride, you can only marvel at your amazing virility as you seed the birth of a new species, knocking up every demon with a cunt in a month-long orgy.  Your jism fuels the ascendency of an entire race, dooming Mareth.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'hermCentaurScenes', new HermCentaurScenes() );
+	SceneLib.registerScene( 'hermCentaurScenes', new HermCentaurScenes() );
 } );

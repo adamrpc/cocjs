@@ -7,7 +7,11 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, EngineCore, MainView, StartUp) {
+angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, CoC, EngineCore, MainView, StartUp) {
+	CoC.getInstance().player = new Player();
+	CoC.getInstance().player2 = new Player();
+	CoC.getInstance().monster = new Monster();
+	CoC.getInstance().playerEvent = new PlayerEvents();
 	this.statsView = MainView.statsView;
 	this.bindingPane = MainView.bindingPane;
 	this.sprite = MainView.sprite;

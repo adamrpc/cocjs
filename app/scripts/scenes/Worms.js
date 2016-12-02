@@ -29,14 +29,14 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 			EngineCore.outputText( 'You stop dead in your tracks, wondering what this swarm will do. After a few tense moments, the mass crawls away in a direction opposite of both you and your current path. You breathe a sigh of relief as you are confident that no good could have come from confronting such a zoological travesty.' );
 			EngineCore.dynStats( 'lus', -10 );
 			CoC.getInstance().player.createStatusAffect( StatusAffects.MetWorms, 0, 0, 0, 0 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else if( CoC.getInstance().player.hasCock() ) {
 			EngineCore.outputText( 'Minding your own business, you make your way through the mountain and you find yourself stopped by another mass of the sickly worms. The collective stops, apparently sensing your presence and briefly ebbs in your direction. After a few tense moments, the mass begins moving again... straight towards you at an alarming rate!\n\n' );
 			EngineCore.outputText( 'What do you do?' );
 			EngineCore.choices( 'Confront', this.wormsConfront, 'Do Nothing', this.wormsDoNothing, '', null, '', null, 'Run', this.wormsRun );
 		} else {
 			EngineCore.outputText( 'Making your way, you stumble on another gross mass of worms. The countless struggling creatures bar the path before you. Again, you freeze in place as the horror gropes about on the ground. It appears to have no real interest in your presence and it makes its way in a direction other than yours, much to your relief.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Worms.prototype.wormToggle = function() {
@@ -49,20 +49,20 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You actually think it\'s kind of a hot idea, and wonder if such creatures actually exist in this land as you make your way back to camp.' );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WormsOn, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsPartiallyOn = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shrug and keep walking, not sure how you feel about the strange sign.' );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WormsOn, 0, 0, 0, 0 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WormsHalf, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsOff = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shudder in revulsion and figure the sign to be the result of someone\'s perverted fantasy.' );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.WormsOff, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsConfront = function() {
 		EngineCore.spriteSelect( 76 );
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 		EngineCore.clearOutput();
 		if( CoC.getInstance().player.spe > Utils.rand( 35 ) ) {
 			EngineCore.outputText( 'Your instincts overwhelm you and you immediately turn around and run like hell in the opposite direction. You look behind you as your heart feels as if it is about to burst only to discover that the creature did not follow you. You take a moment to catch your breath and consider yourself fortunate.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You turn to run, but before your ' + CoC.getInstance().player.feet() + ' can get you away, the worms are upon you!  You turn to face them, lest they launch onto your unprotected back.' );
 			Combat.startCombat( new WormMass() );
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 				}
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Worms.prototype.wormAttack = function() {
 		EngineCore.spriteSelect( 76 );
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 			//clear status;
 			CoC.getInstance().setInCombat( false );
 			Combat.clearStatuses( false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.getInstance().monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
@@ -328,5 +328,5 @@ angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, 
 		}
 		EngineCore.doNext( EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'worms', new Worms() );
+	SceneLib.registerScene( 'worms', new Worms() );
 } );

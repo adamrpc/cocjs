@@ -15,7 +15,7 @@
  */
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffects, ConsumableLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Combat, Clara, EventParser, StatusAffects, ConsumableLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function MarblePurification() {
 	}
@@ -53,11 +53,11 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		}
 		EngineCore.outputText( ' head still in her hands, and sighs loudly. <i>"I’m sorry, sweetie, I just... I’ve tried to ignore it, but I just don’t feel comfortable here."</i>' );
 		EngineCore.outputText( '\n\nYou ask her what’s wrong; doesn’t she like being with you?' );
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && !CoC.getInstance().scenes.amilyScene.amilyCorrupt() || CoC.getInstance().scenes.kihaFollower.followerKiha() || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1 ) {
+		if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() || SceneLib.kihaFollower.followerKiha() || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1 ) {
 			EngineCore.outputText( '  0...Has she been fighting with ' );
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && !CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+			if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() ) {
 				EngineCore.outputText( 'Amily' );
-			} else if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			} else if( SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( 'Kiha' );
 			} else {
 				EngineCore.outputText( 'Izma' );
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//While on her Purification Route, Marble’s Presents will always be LaBova;
 		//Once Marble is purified, the 'get presents' option reverts to its default options.;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PC Gives P.Labova;
 	//Play this scene when PC chooses the 'P.Labova' button in Marble’s options;
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			EngineCore.outputText( ' nipples begin spray milk everywhere - you have to take a step back to avoid being squirted yourself. Finally, Marble’s breasts stop their spraying, leaving the two of you standing in a milky puddle of mud. The cowgirl pulls her shirt back on over her body. "<i>That stuff still tastes vile, but I guess it’s worth it. I just hope it finishes working soon.</i>" she tells you. You assure her that you believe in her ability to get through this, and then head back to the main part of your camp.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.TIMES_GIVEN_MARBLE_PURE_LABOVA ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	
 	//Display default Marble interaction options;
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( '\n\nYou thank him for his help, tell him that Marble will also appreciate it, and then calmly head back to camp. Behind you, Rathazul begins busying himself with the strange equipment he does his work with.' );
 		CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] = 3;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ] = 24;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Rathazul’s Report;
 	//This scene occurs automatically the first morning after Rathazul receives Marble’s milk;
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ] = 0;
 		EngineCore.outputText( 'When you wake and join Marble ' );
-		if( CoC.getInstance().scenes.camp.companionsCount() > 2 ) {
+		if( SceneLib.camp.companionsCount() > 2 ) {
 			EngineCore.outputText( 'and your other followers ' );
 		}
 		EngineCore.outputText( 'for breakfast this morning, you find a bleary-eyed Rathazul waiting at the campfire. Marble clucks her tongue and gives him a mug of something strong, which he accepts gratefully, noisily slurping down a mouthful. He takes a seat, staring into his mug, and then sighs softly.' );
@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( '\n\nWith that said, the three of you finish your meals.  Rathazul shambles off to get some much-needed sleep.  Marble prepares for her morning training, and you prepare yourself for another day in Mareth.' );
 		//Marble now has the 'Go' option in her buttons when interacting with her through the 'followers' menu;
 		//The 'Go' button links to the same 'Go' scene as choosing 'Go' when Rathazul first makes his report;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Go=];
 	MarblePurification.prototype.murbleShouldGoRunAlongAndGetHerCuntySisterSoTheyCanBeCuntsTogether = function() {
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] = 4;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_2 ] = 240;
 		CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] = '';
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clara Appears in Camp;
 	//happens at the start of the sixth day after sending Marble to her family.;
@@ -266,11 +266,11 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//Set a temp integer variable that will track the number of followers agreeing to come for tea.;
 		//if (any of the following followers are in camp);
 		var teaDrinkers = 0;
-		if( CoC.getInstance().scenes.camp.companionsCount() >= 3 ) {
+		if( SceneLib.camp.companionsCount() >= 3 ) {
 			EngineCore.outputText( '\n\nMarble suggests that you should gather up the others while Clara is still making it, it shouldn’t take too long.  You nod, and head off, leaving Clara and Marble at the campfire.' );
 			//Go to each of the followers you have in turn, and ask them if they want some morning tea.  All followers capable of fighting must agree to the tea, non-fighters can agree or refuse.  Remember that this scene cannot come up if the PC is very corrupted, and scenes for the very corrupt followers don’t necessarily need to be written.;
 			//(Amily is in camp);
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() && !CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+			if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() ) {
 				//Amily’s response to being asked to have tea;
 				EngineCore.outputText( '\n\nWhen you approach Amily about having tea with Clara, she smiles brightly. "<i>I haven’t enjoyed something like that in ages... it kind of reminds me of the old days.</i>" She trails off, looking a little sad, but then shakes it off. "<i>Sure, I’m game.</i>"' );
 				//temp follower variable ++;
@@ -278,22 +278,22 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			}
 			//if (Bimbo Sophie is in camp);
 			//Bimbo Sophie’s response to being asked to have tea;
-			if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+			if( SceneLib.sophieBimbo.bimboSophie() ) {
 				EngineCore.outputText( '\n\nYou aren’t sure why you’re bothering, but you find Sophie off doing her thing and ask her if she wants to have some tea.  "<i>Sure thing, sounds fun,</i>" she giggles.  Well, you suppose that wasn’t exactly the response you were expecting, but you tell her where to go anyway and continue on.' );
 				//temp follower variable ++;
 				teaDrinkers++;
 			}
 			//if (Helia is in camp);
 			//Helia’s response to being asked to have tea;
-			if( CoC.getInstance().scenes.helScene.followerHel() ) {
+			if( SceneLib.helScene.followerHel() ) {
 				EngineCore.outputText( '\n\nYou walk over to Hel\'s hammock at the edge of camp and ask the fiery berserker if she\'d like to join you for a cup of tea.  She cocks an eyebrow, "<i>Don\'t you have something a little, uh, stronger somewhere?</i>"  Still, with a little urging, she agrees to go to the campfire.' );
 				//temp follower variable ++;
 				teaDrinkers++;
 			}
 			// if (isabella is in camp);
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				EngineCore.outputText( '\n\nYou head towards the corner of the camp that Isabella claims as her own and ask if the cow-girl warrioress would like to share some tea with the rest of you.' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '  Isabella jumps from her chair, “<i>Tea?  Ooh, ja!  I hear tea und milk iz sehr gut combination, ja?</i>”  Well, she seems rather enthusiastic if nothing else.' );
 				} else {
 					EngineCore.outputText( '  Isabella jumps from her chair, “<i>Tea? Ooh, yes!  I hear tea and milk is a really good combination, yes? I\'ve never had the opportunity to try it though...</i>”  Well, she seems rather enthusiastic if nothing else.' );
@@ -315,7 +315,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			}
 			//if (Kiha is in camp);
 			//Kiha’s response to being asked to have tea;
-			if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			if( SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( '\n\nKiha rolls her eyes. "<i>Tea, doofus? Next you\'re going to be offering me crumpets and scones while we discuss economics. Shouldn\'t we be getting ready to battle Lethice instead?</i>" Seeing the disappointment on your face, she relents. <i>"Oh all right, I\'ll come along, but only because I\'m feeling a little thirsty.</i>"' );
 				//temp follower variable ++;
 				teaDrinkers++;
@@ -440,7 +440,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 	MarblePurification.prototype.mediumIntelligenceDoesntDrinkCowCuntsTea = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You can’t shake the feeling that there is something wrong with this tea, and just consider it for a few moments.  "<i>Uh, aren’t you going to drink your tea, charmer?  It is really goood,</i>" your server says slowly, looking over at you with a nervous expression on her face.  You start to say something, but are interrupted when you hear Marble suddenly gasp and cry out, "<i>Clara, what the hell did you put in this stuff?</i>" before gasping for breath a few more times and falling over.' );
-		if( CoC.getInstance().scenes.camp.companionsCount() ) {
+		if( SceneLib.camp.companionsCount() ) {
 			EngineCore.outputText( '\n\nYou rush over to your fallen companion' );
 		} else {
 			EngineCore.outputText( '\n\nYou rush over to one of your fallen companions' );
@@ -497,18 +497,18 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//proceed to one of the following depending on whether or not a combat ready follower is in camp.  Sorry for the trouble this is to code...;
 		//Other fighters in camp;
 		//if there are any other fighting companions in camp, they overwhelm Clara with the PC resulting in an auto-win.;
-		if( CoC.getInstance().scenes.camp.companionsCount() >= 3 ) {
+		if( SceneLib.camp.companionsCount() >= 3 ) {
 			EngineCore.outputText( '\n\nClara starts to advance on you with her mace out, and eyes in rage, but hesitates when she realizes that other guests to the tea party have stood up as well, and readied their weapons.' );
 			//if (Amily is in camp);
-			if( CoC.getInstance().scenes.amilyScene.amilyFollower() ) {
+			if( SceneLib.amilyScene.amilyFollower() ) {
 				EngineCore.outputText( '\n\nSnarling with a surprisingly savage expression for such a normally meek mouse, Amily whips out her familiar blowgun and loads it with a dart from somewhere about her person, falling back to ensure she is a safe distance for firing.' );
 			}
 			//if (Helia is in camp);
-			if( CoC.getInstance().scenes.helScene.followerHel() ) {
+			if( SceneLib.helScene.followerHel() ) {
 				EngineCore.outputText( '\n\n"<i>You bitch, you\'ll pay for that,</i>" Hel growls, drawing the scimitar from her hip and leveling it right at the woman in defiant challenge.' );
 			}
 			//if (Isabella is in camp);
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				EngineCore.outputText( '\n\n"<i>Little bitch!</i>"  The cowgirl snarls, standing up to her full impressive height.  "<i>I will teach you not to try something like this again.</i>"  Isabella grabs her shield and brandishes it prominently, ready to use it for defense and to bludgeon.' );
 			}
 			//if (Jojo is in camp);
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 				EngineCore.outputText( '\n\n"<i>I wouldn’t have done that if I were you,</i>" Jojo says, rising off the ground and retrieving his staff.  Falling into a combat pose, his face contorts into an almost uncharacteristic visage of anger directed at the woman before you.' );
 			}
 			//if (Kiha is in camp);
-			if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			if( SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( '\n\nThe dragon-girl Kiha wastes no time; unceremoniously spitting flames and swinging her axe with murderously brutal intent, radiating threat even as she waits for the moment to spring into attack.' );
 			}
 			EngineCore.outputText( '\n\nYou stand up as well and ready your ' + CoC.getInstance().player.weaponName + ', since even with such opposition it looks like the mad cow-girl still plans on fighting you.  A few minutes and bruises later, her beaten body proves this to have been a bit of a mistake on her part.' );
@@ -588,7 +588,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		}
 		EngineCore.outputText( 'This woman is nothing like her sister, she loves the power she has over you, and loves to show you just how much she has.' );
 		EngineCore.outputText( '\n\nClara leans down and puts her face right in front of yours.  "<i>I think that if you want to drink some of my milk, you’re going to have to do some things for me.</i>  Her voice is soft, but the meaning couldn’t be harder.  "<i>From now on, you aren’t allowed to go anywhere without my say so, and I’m the only one you’re allowed to love.  Either emotionally or physically.  Understand?</i>"  You shudder, and think of ' );
-		if( CoC.getInstance().scenes.camp.loversCount() === 1 ) {
+		if( SceneLib.camp.loversCount() === 1 ) {
 			EngineCore.outputText( 'Marble' );
 		} else {
 			EngineCore.outputText( 'the others' );
@@ -689,7 +689,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		}
 		EngineCore.outputText( ' too big for a virgin like me to fit!  How the hell am I suppose to get that inside me?</i>"  Clara stands up and starts stomping around the room.  ' );
 		//if (PC has at least one dick that will fit inside Marble’s current capacity);
-		if( CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.marbleScene.marbleCuntCapacity() ) >= 0 ) {
+		if( CoC.getInstance().player.cockThatFits( SceneLib.marbleScene.marbleCuntCapacity() ) >= 0 ) {
 			EngineCore.outputText( '"<i>‘It’s not a flaw, it’s a feature,’ she said, ‘This is why we train ourselves to take big endowments,’ she said!  Fuck you Marble!  I’m not sticking that stupid big thing inside me.</i>"  ' );
 		} else {
 			EngineCore.outputText( '\n\n"<i>Now it seems Marble’s frustrations are also my frustrations.  ‘Oh he is just a wonderful person!’ she said, ‘I could never force him to change his body for me,’ she said!  Fuck you Marble!  What good is a lover if you can’t actually fuck them!</i>"  ' );
@@ -789,7 +789,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			//PC gets to rape Clara with Marble, if they wish to.;
 			else {
 				//if (PC either stopped Clara from drugging everyone, or Marble was the only one drugged);
-				if( CoC.getInstance().scenes.camp.companionsCount() <= 2 ) {
+				if( SceneLib.camp.companionsCount() <= 2 ) {
 					EngineCore.outputText( 'With Clara incapacitated for now, you go to check on Marble and make sure she is all right.  Thankfully she seems to be fine.  You don\'t plan on underestimating a bovine\'s fortitude again in the near future.  Since her sister won\'t be going anywhere soon, you wait for a while to let her recover.  This doesn\'t take too long, and soon you and your lover are standing over the defeated form of the young bovine.' );
 				} else {
 					EngineCore.outputText( 'With Clara incapacitated for now, you go and check on your followers to make sure they\'re alright.  Thankfully, it seems that they\'re just asleep.  On a whim, you check through the calculating cow\'s pack to see if she has anything to counter the effects of her drug.  As luck would have it, she does have a conveniently labeled pouch of herbs for just that purpose.  Since the young bovine won\'t be going anywhere soon, you administer the wake up herbs to your camp crew.  This doesn\'t take long, and soon you and Marble are standing over the defeated form of your lover\'s sister.' );
@@ -814,7 +814,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( '\n\n"<i>Admit it, you don\'t feel like \'' + CoC.getInstance().player.mf( 'lover-boy', 'lover-girl' ) + '\' here actually cares for you.  How could they if they won\'t drink your milk?  You\'re a Lacta Bovine, giving your milk is the most important thing in the world to you.  This isn\'t love.  Without ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' actually being addicted to you, it\'s just a one sided infatuation.  I was doing you a favor by taking ' + CoC.getInstance().player.mf( 'him', 'her' ) + ' away from you.</i>"' );
 		EngineCore.outputText( '\n\nYour cow-girl companion continues to shake in anger, but also fear and frustration.  "<i>I, I, YES!  I want to addict ' + CoC.getInstance().player.short + ' to my milk!  I want to so much!  I\'m so afraid that ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' won\'t stay by my side, but I also feel so bottled up.  ' ); //no new paragraph
 		//if (PC has another lover in camp);
-		if( CoC.getInstance().scenes.camp.loversCount() > 1 ) {
+		if( SceneLib.camp.loversCount() > 1 ) {
 			EngineCore.outputText( 'I\'m not even ' + CoC.getInstance().player.short + '\'s only mate.  ' + CoC.getInstance().player.mf( 'He', 'She' ) + ' can satisfy their needs, but can\'t satisfy mine?  ' ); //no new paragraph
 		}
 		EngineCore.outputText( 'The frustration of not being able to nurse, someone, anyone, but especially my mate is tearing me apart!</i>"  Marble stops screaming and her head drops.  All that\'s coming out of her now is heavy breathing.' );
@@ -841,7 +841,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			EngineCore.outputText( 'use Marble\'s unstable state of mind to get her into a forceful threesome with Clara, ' );
 		}
 		//(if PC either has a cock that will fit Marble, or has a vagina);
-		if( (CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.marbleScene.marbleCuntCapacity() ) >= 0) || CoC.getInstance().player.hasVagina() ) {
+		if( (CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( SceneLib.marbleScene.marbleCuntCapacity() ) >= 0) || CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( 'have sex in front of Clara so she can see what your love really is, ' );
 		}
 		//(if Marble is a futa);
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		if( (CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( 20 ) >= 0) || CoC.getInstance().player.hasVagina() ) {
 			EngineCore.addButton( 1, 'Threesome', this.pcAndMurbleDoubleTeamCowButt );
 		}
-		if( (CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.marbleScene.marbleCuntCapacity() ) >= 0) || CoC.getInstance().player.hasVagina() ) {
+		if( (CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( SceneLib.marbleScene.marbleCuntCapacity() ) >= 0) || CoC.getInstance().player.hasVagina() ) {
 			EngineCore.addButton( 2, 'NTR', this.NTRIsClearlyTheWorstFetishWhyWouldYouWriteThisOMG );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_TYPE ] > 0 ) {
@@ -961,7 +961,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( '\n\nFrom there, you decide it is time to let your partner lead for a while.  She is quite happy to roll her massive melons around your face while you snuggle against the wonderfully smooth skin.  Abruptly, you feel the woman whose breasts you\'re trapped within turn around.  "<i>The fuck is this, sis?</i>"  The voice is spitting mad now.  You can hear that it\'s behind you, evidently someone wants to make sure the audience gets a full view of your sexual escapade.' );
 		EngineCore.outputText( '\n\nAfter a little more rack riding, Marble decides that it is time to get onto the main event.  She uncharacteristically violently forces you into a sitting position and tears the rest of your garments off.  You don\'t even get a chance to pull off her skirt before ' );
 		//if (PC has a cock that fits);
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.marbleScene.marbleCuntCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.marbleScene.marbleCuntCapacity() );
 		if( CoC.getInstance().player.hasCock() && x >= 0 ) {
 			EngineCore.outputText( 'she drops herself onto your ' + Descriptors.cockDescript( x ) + '.  Since your bovine mate isn\'t in the habit of wearing any form of undergarments, her skirt doesn\'t really do much to get in the way of penetration.  A shriek of dismay accompanies this act.' );
 			EngineCore.outputText( '\n\nThere is no hesitation after you\'ve been mounted.  Instantly you\'re being roughly ridden by a beast that has been awakened in Marble, and there is nothing that can stop it.  A loud slapping sound fills the air with each drop of her hips, then they rise up again and drop once more.  What is essentially a hollow jackhammer seems to be running on your lap right now, and its operator\'s hands are holding firm to your shoulders to make sure you stay in place.' );
@@ -1178,7 +1178,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( '\n\nYou guess you could also build a cage in the camp if you really want to keep an eye on her yourself.  That will make her another mouth to feed, and you\'ll have to hear her ranting every day.  Still, the saying does go, "keep your enemies closer."' );
 		EngineCore.outputText( '\n\nIf you\'re feeling especially generous, you could just let her go, with not more than a promise to never come back or try to kidnap you again.' );
 		CoC.getInstance().flags[ kFLAGS.CLARA_PURIFIED ] = 1;
-		//PC makes their choice: Tel'Adre, CoC.getInstance().scenes.camp cage, let go.";
+		//PC makes their choice: Tel'Adre, SceneLib.camp cage, let go.";
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Cage', this.cageDatCowCunt );
 		EngineCore.addButton( 1, 'Let Go', this.letGoOfMarblesCowCuntSister );
@@ -1210,7 +1210,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( 'No, you\'ll offer her the mercy of letting her keep her precious corruption.  Marble tells you she will respect your decision on that matter.  Now the question is what to do with her.' );
 		EngineCore.outputText( '\n\nYou guess you could also build a cage in the camp if you really want to keep an eye on her yourself.  That will make her another mouth to feed, and you\'ll have to hear her ranting every day.  Still, the saying does go, "keep your enemies closer."' );
 		EngineCore.outputText( '\n\nIf you\'re feeling especially generous, you could just let her go, with not more than a promise to never come back or try to kidnap you again.' );
-		//PC makes their choice: Tel'Adre, CoC.getInstance().scenes.camp cage, let go.";
+		//PC makes their choice: Tel'Adre, SceneLib.camp cage, let go.";
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Cage', this.stickUnpurifiedClaraInACage );
 		EngineCore.addButton( 1, 'Let Go', this.letCorruptCowCuntGo );
@@ -1254,7 +1254,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//Marble's breast size is set to 0 (integer, 0=DD cups, 1=G cups, 2=HH, 3=J);
 		//advance time of day by 4 hours;
 		//end event;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Purified Succubus milk;
 	//Used to increase Marble's bust size.;
@@ -1264,7 +1264,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//PC chooses yes or no;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.actuallyGrowPureMarblesTittiesForFunzies );
-		EngineCore.addButton( 1, 'No', CoC.getInstance().scenes.marbleScene.giveItem );
+		EngineCore.addButton( 1, 'No', SceneLib.marbleScene.giveItem );
 	};
 	//if yes;
 	MarblePurification.prototype.actuallyGrowPureMarblesTittiesForFunzies = function() {
@@ -1272,10 +1272,10 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( 'You offer Marble a bottle of purified succubus milk and tell her that you\'d like her to make her bust bigger.' );
 		//if (Marble's breast size < 3);
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ] < 3 ) {
-			EngineCore.outputText( '\n\n"<i>Alright, if you say so.</i>"  Marble lifts the bottle to her mouth, and drinks the substance down.  She lets out a soft sigh and starts massaging her bouncy tit flesh as it expands outwards.  Through her shirt, you can see her ' + CoC.getInstance().scenes.marbleScene.marbleBreastSize() + ' breasts balloon into ' );
+			EngineCore.outputText( '\n\n"<i>Alright, if you say so.</i>"  Marble lifts the bottle to her mouth, and drinks the substance down.  She lets out a soft sigh and starts massaging her bouncy tit flesh as it expands outwards.  Through her shirt, you can see her ' + SceneLib.marbleScene.marbleBreastSize() + ' breasts balloon into ' );
 			//increase Marble's breast size by 1;
 			CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ]++;
-			EngineCore.outputText( CoC.getInstance().scenes.marbleScene.marbleBreastSize() + ' melons!' );
+			EngineCore.outputText( SceneLib.marbleScene.marbleBreastSize() + ' melons!' );
 			//if (Marble's breast size === 1);
 			if( CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ] === 1 ) {
 				EngineCore.outputText( '\n\nYour mate examines her now larger bust, and gets a feel for it.  "<i>Hmm, not quite what I\'m used too, but it\'s better than those tiny things that I used to have.  Thank you sweetie!</i>"' );
@@ -1297,7 +1297,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			EngineCore.outputText( '\n\n"<i>Sorry sweetie,</i>" she says handing the bottle back to you, "<i>I think my breasts are big enough as they are.</i>"' );
 			//no effect;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.marbleScene.giveItem );
+		EngineCore.doNext( SceneLib.marbleScene.giveItem );
 	};
 	//Reducto;
 	//Used to shrink Marble's breasts;
@@ -1306,17 +1306,17 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		EngineCore.outputText( 'Do you want to ask Marble to shrink her breasts down?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this.pureMurblePCChoosesYesToShrinkeyTits );
-		EngineCore.addButton( 1, 'No', CoC.getInstance().scenes.marbleScene.giveItem );
+		EngineCore.addButton( 1, 'No', SceneLib.marbleScene.giveItem );
 	};
 	//if yes;
 	MarblePurification.prototype.pureMurblePCChoosesYesToShrinkeyTits = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You offer Marble a jar of reducto and tell her you\'d like her to reduce her bust\'s size a bit.' );
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ] > 0 ) {
-			EngineCore.outputText( '\n\n"<i>Alright, if you say so.</i>"  Marble opens the jar of reducto, lifts up her top, and slathers the green gel onto her breasts.  She lets out a soft sigh as the substance takes effect, and her tremendous ' + CoC.getInstance().scenes.marbleScene.marbleBreastSize() + ' tits slowly shrink in size, becoming a pair of more modest ' );
+			EngineCore.outputText( '\n\n"<i>Alright, if you say so.</i>"  Marble opens the jar of reducto, lifts up her top, and slathers the green gel onto her breasts.  She lets out a soft sigh as the substance takes effect, and her tremendous ' + SceneLib.marbleScene.marbleBreastSize() + ' tits slowly shrink in size, becoming a pair of more modest ' );
 			//decrease Marble's breast size by 1;
 			CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ]--;
-			EngineCore.outputText( CoC.getInstance().scenes.marbleScene.marbleBreastSize() + ' sized breasts.' );
+			EngineCore.outputText( SceneLib.marbleScene.marbleBreastSize() + ' sized breasts.' );
 			if( CoC.getInstance().flags[ kFLAGS.MARBLE_BREAST_SIZE ] === 0 ) {
 				EngineCore.outputText( '\n\nYour mate grips one of her sizable DDs, and gives an exaggerated sigh.  "<i>This is just so tiny.  Remember that I\'m only doing this because I care about you sweetie.  I\'m not going to shrink them any further.</i>"' );
 			}
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		} else {
 			EngineCore.outputText( '\n\n"<i>What?  Sweetie, I\'m already so tiny, I\'m afraid I couldn\'t bring myself to get any smaller.  Sorry.</i>"  She hands you back the jar of reducto.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.marbleScene.giveItem );
+		EngineCore.doNext( SceneLib.marbleScene.giveItem );
 	};
 	//Lactaid;
 	//Increase Marble's time since last nursed/milked by 10 hours, allowing a PC to instantly nurse from her again.;
@@ -1351,7 +1351,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] = 0;
 		}
 		CoC.getInstance().player.consumeItem( ConsumableLib.LACTAID );
-		EngineCore.doNext( CoC.getInstance().scenes.marbleScene.giveItem );
+		EngineCore.doNext( SceneLib.marbleScene.giveItem );
 	};
 	//Nursing from Pure Marble;
 	MarblePurification.prototype.nursingFromPureMarble = function() {
@@ -1359,10 +1359,10 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//if(time since last nursing is < 4 hours);
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_TIME_SINCE_NURSED_IN_HOURS ] < 4 ) {
 			EngineCore.outputText( 'Feeling a bit thirsty, you ask Marble if there’s any chance she has some milk for you.  She gives you a sad look and informs you that no, she hasn\'t yet built up enough milk for you to have more.  Purifying her has made it take a bit longer for her to produce milk.' );
-			EngineCore.doNext( CoC.getInstance().scenes.marbleScene.interactWithMarbleAtCamp );
+			EngineCore.doNext( SceneLib.marbleScene.interactWithMarbleAtCamp );
 		} else {
 			EngineCore.outputText( 'Feeling a bit thirsty, you ask Marble if theres any chance she has some milk for you.  She smiles at you and tells you she was worried you\'d never ask, then leads you to a familiar, secluded part of the rocks around the camp.' );
-			EngineCore.outputText( '\n\nOnce you arrive, your lover teases you a bit by grabbing her ' + CoC.getInstance().scenes.marbleScene.marbleBreastSize() + ' breasts through her top and playing around with them for a moment.  The bouncy flesh rolls around her hands in a very pleasant manner, and you feel your mouth water in anticipation of the delicious milk hidden within.' );
+			EngineCore.outputText( '\n\nOnce you arrive, your lover teases you a bit by grabbing her ' + SceneLib.marbleScene.marbleBreastSize() + ' breasts through her top and playing around with them for a moment.  The bouncy flesh rolls around her hands in a very pleasant manner, and you feel your mouth water in anticipation of the delicious milk hidden within.' );
 			EngineCore.outputText( '\n\nYou\'re given a sultry smile, and Marble hooks her shirt with her thumb pulling it up over her chest, letting her bovine bust spill forth.  The invitation to partake in her revitalizing and rich fluids comes not long after, and you waste no time in doing just that.  ' );
 			if( CoC.getInstance().player.tallness < 65 ) {
 				EngineCore.outputText( 'The tall cow-lady takes a seat on the rocks and you jump onto her lap, ' );
@@ -1388,7 +1388,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			if( CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] = 100;
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Marble leaves because you’re too corrupted (above 60);
@@ -1426,7 +1426,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		//Marble and her kids (if any) are removed from the farm and camp, she will only return once the PC's corruption is below 40, and Vapula, Holi, Corrupted Jojo, and Corrupted Amily are not in camp.;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_LEFT_OVER_CORRUPTION ] = 1;
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.CampMarble );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Marble comes back after your corruption drops below 40;
 	MarblePurification.prototype.pureMarbleDecidesToBeLessOfABitch = function() {
@@ -1448,7 +1448,7 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 		CoC.getInstance().flags[ kFLAGS.MARBLE_LEFT_OVER_CORRUPTION ] = 0;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_WARNED_ABOUT_CORRUPTION ] = 0;
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clara prison camp descriptions;
 	//displayed in the camp description if Clara was imprisoned in camp.;
@@ -1475,5 +1475,5 @@ angular.module( 'cocjs' ).run( function( Combat, Clara, EventParser, StatusAffec
 			}
 		}
 	};
-	CoC.getInstance().registerScene( 'marblePurification', new MarblePurification() );
+	SceneLib.registerScene( 'marblePurification', new MarblePurification() );
 } );

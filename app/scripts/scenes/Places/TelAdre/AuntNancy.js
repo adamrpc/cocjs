@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils, Descriptors, CoC, EngineCore ) {
 	function AuntNancy() {
 	}
 
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descript
 				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00263 ] = 1;
 			}
 			//[Choice: Strong, Light];
-			EngineCore.choices( 'Strong', this.strongStuff, 'Light', this.lightStuff, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.choices( 'Strong', this.strongStuff, 'Light', this.lightStuff, '', null, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
 		}
 	};
 	//[Strong:];
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descript
 			//[+5 Relationship with Aunt Nancy];
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] += 5;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Light:];
 	AuntNancy.prototype.lightStuff = function() {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descript
 			}
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] += 20;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Decline];
 	AuntNancy.prototype.declineAuntNancyMassage = function() {
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descript
 		EngineCore.outputText( 'Aunt Nancy listens as you politely turn her down, and nods her head, the hungry look fading from her eyes.  "<i>I understand completely.  Sorry to have bothered you.</i>"  She starts to walk out of the bar, stops, and turns back to size you up again.  "<i>Of course,</i>" she says, "<i>if you ever change your mind... just come by whenever my shift\'s over.</i>"\n\n', false );
 		EngineCore.outputText( 'Aunt Nancy raises one of her black-covered hands in front of her mouth, and blows you a kiss before scuttling away.', false );
 		//[Gain 20 Lust.];
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Agree];
 	AuntNancy.prototype.timeForAuntNancySpiderCooch = function() {
@@ -499,7 +499,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, Utils, Descript
 		}
 		//Increment times boned!;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00266 ] += 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
-	CoC.getInstance().registerScene( 'auntNancy', new AuntNancy() );
+	SceneLib.registerScene( 'auntNancy', new AuntNancy() );
 } );

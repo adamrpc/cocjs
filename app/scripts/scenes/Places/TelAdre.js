@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		} else {
 			EngineCore.outputText( 'While out prowling the desert dunes you manage to spy the desert city of Tel\'Adre again.  You could hike over to it again, but some part of you fears being rejected for being \'impure\' once again.  Do you try?', false );
 		}
-		EngineCore.doYesNo( this.encounterTelAdre, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this.encounterTelAdre, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//CoC.getInstance().player chose to approach the city in the distance;
 	TelAdre.prototype.encounterTelAdre = function() {
@@ -71,11 +71,11 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.getInstance().player.cor >= 70 ) {
 			EngineCore.outputText( 'The crystal pendant begins to vibrate in the air, swirling around and glowing dangerously black.  Edryn snatches her hand back and says, "<i>I\'m sorry, but you\'re too far gone to step foot into our city.  If by some miracle you can shake the corruption within you, return to us.</i>"\n\n', false );
 			EngineCore.outputText( 'You shrug and step back.  You could probably defeat these two, but you know you\'d have no hope against however many friends they had beyond the walls.  You turn around and leave, a bit disgruntled at their hospitality.  After walking partway down the dune you spare a glance over your shoulder and discover the city has vanished!  Surprised, you dash back up the dune, flinging sand everywhere, but when you crest the apex, the city is gone.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//-50+ corruption or corrupted Jojo;
-		else if( CoC.getInstance().player.cor >= 50 || CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
+		else if( CoC.getInstance().player.cor >= 50 || SceneLib.jojoScene.monk >= 5 ) {
 			EngineCore.outputText( 'The crystal pendant shimmers, vibrating in place and glowing a purple hue.  Edryn steps back, watching you warily, "<i>You\'ve been deeply touched by corruption.  You balance on a razor\'s edge between falling completely and returning to sanity.  You may enter, but we will watch you closely.</i>"\n\n', false );
 		}
 		//-25+ corruption or corrupted Marae;
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 	TelAdre.prototype.telAdreTour = function() {
 		CoC.getInstance().player.changeStatusValue( StatusAffects.TelAdre, 1, 1 );
 		EngineCore.outputText( '', true );
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( 'Urta leads you into the streets of Tel\'Adre, giving you a brief run-down of her and her city, "<i>You see, about two decades back, the demons were chewing their way through every settlement and civilization in Mareth.  The covenant, a group of powerful magic-users, realized direct confrontation was doomed to fail.  They hid us in the desert with their magic, and the demons can\'t corrupt what they can\'t find.  So we\'re safe, for now.</i>"\n\n', false );
 		EngineCore.outputText( 'The two of you find yourselves in the center of a busy intersection.  Urta explains that this is the main square of the city, and that, although the city is large, a goodly portion of it remains empty.  Much of the population left to assist other settlements in resisting the demons and was lost.  She brushes a lock of stray hair from her eye and guides you down the road, making sure to point out her favorite pub - "The Wet Bitch".  You ', false );
 		if( CoC.getInstance().player.cor < 25 ) {
@@ -108,16 +108,16 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.doNext( this.telAdreMenu );
 	};
 	TelAdre.prototype.telAdreMenu = function() {
-		if( CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && CoC.getInstance().scenes.valentines.isValentine() ) {
-			CoC.getInstance().scenes.valentines.crazyVDayShenanigansByVenithil();
+		if( CoC.getInstance().flags[ kFLAGS.VALENTINES_EVENT_YEAR ] < OnLoadVariables.date.fullYear && CoC.getInstance().player.balls > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] >= 4 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] > 0 && SceneLib.valentines.isValentine() ) {
+			SceneLib.valentines.crazyVDayShenanigansByVenithil();
 			return;
 		}
-		if( !CoC.getInstance().scenes.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] === 0 && Utils.rand( 15 ) === 0 && CoC.getInstance().time.hours > 15 ) {
+		if( !SceneLib.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] === 0 && Utils.rand( 15 ) === 0 && CoC.getInstance().time.hours > 15 ) {
 			this.urtaIsABadass();
 			return;
 		}
-		if( !CoC.getInstance().scenes.urtaQuest.urtaBusy() && CoC.getInstance().scenes.urta.pregnancy.event > 5 && Utils.rand( 30 ) === 0 ) {
-			CoC.getInstance().scenes.urtaPregs.urtaIsAPregnantCopScene();
+		if( !SceneLib.urtaQuest.urtaBusy() && SceneLib.urta.pregnancy.event > 5 && Utils.rand( 30 ) === 0 ) {
+			SceneLib.urtaPregs.urtaIsAPregnantCopScene();
 			return;
 		}
 		switch( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
@@ -125,9 +125,9 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			case  0: //Still potentially recruitable
 				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_RANDOM_RECRUITMENT_DISABLED ] === 0 && CoC.getInstance().player.gems > 34 && Utils.rand( 25 ) === 0 ) {
 					if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 0 ) {
-						CoC.getInstance().scenes.katherine.ambushByVagrantKittyKats();
+						SceneLib.katherine.ambushByVagrantKittyKats();
 					} else {
-						CoC.getInstance().scenes.katherine.repeatAmbushKatherineRecruitMent();
+						SceneLib.katherine.repeatAmbushKatherineRecruitMent();
 					}
 					return;
 				}
@@ -137,23 +137,23 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			case  3: //You and Urta are training her
 				break;
 			case  4: //Employed
-				if( !CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_KATHS_APT ) && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
-					CoC.getInstance().scenes.katherineEmployment.katherineGetsEmployed();
+				if( !SceneLib.katherine.isAt( SceneLib.katherine.KLOC_KATHS_APT ) && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
+					SceneLib.katherineEmployment.katherineGetsEmployed();
 					return;
 				}
 				if( CoC.getInstance().time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
-					CoC.getInstance().scenes.katherine.katherineOnDuty();
+					SceneLib.katherine.katherineOnDuty();
 					return;
 				}
 				break;
 			default: //Has given you a spare key to her apartment
 				if( CoC.getInstance().time.hours < 10 && Utils.rand( 12 ) === 0 ) { //If employed or housed she can sometimes be encountered while on duty
-					CoC.getInstance().scenes.katherine.katherineOnDuty();
+					SceneLib.katherine.katherineOnDuty();
 					return;
 				}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] === 0 && CoC.getInstance().player.level >= 4 && Utils.rand( 10 ) === 0 && CoC.getInstance().flags[ kFLAGS.NOT_HELPED_ARIAN_TODAY ] === 0 ) {
-			CoC.getInstance().scenes.arianScene.meetArian();
+			SceneLib.arianScene.meetArian();
 			return;
 		}
 		//Display Tel'adre menu options//;
@@ -162,48 +162,48 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		//Must have Urta's Key.;
 		//Urta must be pregnant to trigger this scene.;
 		//Play this scene upon entering Tel'Adre.;
-		if( CoC.getInstance().scenes.urta.pregnancy.event > 2 && Utils.rand( 4 ) === 0 && CoC.getInstance().flags[ kFLAGS.URTA_PREGNANT_DELIVERY_SCENE ] === 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
-			CoC.getInstance().scenes.urtaPregs.urtaSpecialDeliveries();
+		if( SceneLib.urta.pregnancy.event > 2 && Utils.rand( 4 ) === 0 && CoC.getInstance().flags[ kFLAGS.URTA_PREGNANT_DELIVERY_SCENE ] === 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
+			SceneLib.urtaPregs.urtaSpecialDeliveries();
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === -1 ) {
-			CoC.getInstance().scenes.maddie.runAwayMaddieFollowup();
+			SceneLib.maddie.runAwayMaddieFollowup();
 			return;
 		}
 		EngineCore.spriteSelect( -1 );
 		EngineCore.outputText( 'Tel\'Adre is a massive city, though most of its inhabitants tend to hang around the front few city blocks.  It seems the fall of Mareth did not leave the city of Tel\'Adre totally unscathed.  A massive tower rises up in the center of the city, shimmering oddly.  From what you overhear in the streets, the covenant\'s magic-users slave away in that tower, working to keep the city veiled from outside dangers.  There does not seem to be a way to get into the unused portions of the city, but you\'ll keep your eyes open.\n\n', true );
 		EngineCore.outputText( 'A sign depicting a hermaphroditic centaur covered in piercings hangs in front of one of the sandstone buildings, and bright pink lettering declares it to be the \'Piercing Studio\'.  You glance over and see the wooden facade of Urta\'s favorite bar, \'The Wet Bitch\'.  How strange that those would be what she talks about during a tour.  In any event you can also spot some kind of wolf-man banging away on an anvil in a blacksmith\'s stand, and a foppishly-dressed dog-man with large floppy ears seems to be running some kind of pawnshop in his stand.  Steam boils from the top of a dome-shaped structure near the far end of the street, and simple lettering painted on the dome proclaims it to be a bakery.  Perhaps those shops will be interesting as well.', false );
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && !CoC.getInstance().scenes.raphael.RaphaelLikes() ) {
+		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && !SceneLib.raphael.RaphaelLikes() ) {
 			EngineCore.outputText( '\n\nYou remember Raphael\'s offer about the Orphanage, but you might want to see about shaping yourself more to his tastes first.  He is a picky fox, after all, and you doubt he would take well to seeing you in your current state.' );
 		}
 		this.telAdreMenuShow();
 	};
 	TelAdre.prototype.telAdreMenuShow = function() { //Just displays the normal Tel'Adre menu options, no special events, no description. Useful if a special event has already played
 		var homes = false;
-		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && CoC.getInstance().scenes.raphael.RaphaelLikes() ) {
+		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && SceneLib.raphael.RaphaelLikes() ) {
 			homes = true;
 		} else if( CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
 			homes = true;
 		} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
 			homes = true;
-		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !CoC.getInstance().scenes.arianScene.arianFollower() ) {
+		} else if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
 			homes = true;
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Shops', this.armorShops );
-		EngineCore.addButton( 1, 'Bakery', CoC.getInstance().scenes.bakeryScene.bakeryuuuuuu );
+		EngineCore.addButton( 1, 'Bakery', SceneLib.bakeryScene.bakeryuuuuuu );
 		EngineCore.addButton( 2, 'Bar', this.enterBarTelAdre );
 		EngineCore.addButton( 3, 'Gym', this.gymDesc );
 		if( homes ) {
 			EngineCore.addButton( 4, 'Homes', this.houses );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] > 0 && CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] < 4 ) {
-			EngineCore.addButton( 5, 'Park', CoC.getInstance().scenes.arianScene.visitThePark );
+			EngineCore.addButton( 5, 'Park', SceneLib.arianScene.visitThePark );
 		}
 		EngineCore.addButton( 6, 'Pawn', this.oswaldPawn );
-		EngineCore.addButton( 7, 'Tower', CoC.getInstance().scenes.library.visitZeMagesTower );
+		EngineCore.addButton( 7, 'Tower', SceneLib.library.visitZeMagesTower );
 		EngineCore.addButton( 8, 'Weapons', this.weaponShop );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	TelAdre.prototype.armorShops = function() {
 		EngineCore.menu();
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.addButton( 1, 'Piercing', this.piercingStudio );
 		EngineCore.addButton( 2, 'Tailor', this.tailorShoppe );
 		if( CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 1 ) {
-			EngineCore.addButton( 3, 'Clinic', CoC.getInstance().scenes.umasShop.enterClinic );
+			EngineCore.addButton( 3, 'Clinic', SceneLib.umasShop.enterClinic );
 		}
 		EngineCore.addButton( 4, 'Back', this.telAdreMenu );
 	};
@@ -220,22 +220,22 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( 'Whose home will you visit?' );
 		var orphanage = null;
 		if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 ) {
-			if( CoC.getInstance().scenes.raphael.RaphaelLikes() ) {
-				orphanage = CoC.getInstance().scenes.raphael.orphanageIntro;
+			if( SceneLib.raphael.RaphaelLikes() ) {
+				orphanage = SceneLib.raphael.orphanageIntro;
 			} else {
 				EngineCore.outputText( '\n\nYou remember Raphael\'s offer about the Orphanage, but you might want to see about shaping yourself more to his tastes first.  He is a picky fox, after all, and you doubt he would take well to seeing you in your current state.' );
 			}
 		}
 		EngineCore.menu();
-		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !CoC.getInstance().scenes.arianScene.arianFollower() ) {
-			EngineCore.addButton( 0, 'Arian\'s', CoC.getInstance().scenes.arianScene.visitAriansHouse );
+		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
+			EngineCore.addButton( 0, 'Arian\'s', SceneLib.arianScene.visitAriansHouse );
 		}
 		EngineCore.addButton( 1, 'Orphanage', orphanage );
-		if( CoC.getInstance().scenes.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
-			EngineCore.addButton( 2, 'Urta\'s House', (CoC.getInstance().scenes.katherine.isAt( CoC.getInstance().scenes.katherine.KLOC_URTAS_HOME ) ? CoC.getInstance().scenes.katherine.katherineAtUrtas : CoC.getInstance().scenes.urtaPregs.visitTheHouse) );
+		if( SceneLib.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0 ) {
+			EngineCore.addButton( 2, 'Urta\'s House', (SceneLib.katherine.isAt( SceneLib.katherine.KLOC_URTAS_HOME ) ? SceneLib.katherine.katherineAtUrtas : SceneLib.urtaPregs.visitTheHouse) );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 5 ) {
-			EngineCore.addButton( 3, 'Kath\'s Apt', CoC.getInstance().scenes.katherine.visitAtHome );
+			EngineCore.addButton( 3, 'Kath\'s Apt', SceneLib.katherine.visitAtHome );
 		}
 		EngineCore.addButton( 9, 'Back', this.telAdreMenu );
 	};
@@ -1002,13 +1002,13 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		switch( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] ) {
 			case 1:
 			case 2:
-				EngineCore.addButton( 5, 'Kath\'s Alley', CoC.getInstance().scenes.katherine.visitKatherine );
+				EngineCore.addButton( 5, 'Kath\'s Alley', SceneLib.katherine.visitKatherine );
 				break;
 			case 3:
-				EngineCore.addButton( 5, 'Safehouse', CoC.getInstance().scenes.katherineEmployment.katherineTrainingWithUrta );
+				EngineCore.addButton( 5, 'Safehouse', SceneLib.katherineEmployment.katherineTrainingWithUrta );
 				break;
 			case 4:
-				EngineCore.addButton( 5, 'Kath\'s Alley', CoC.getInstance().scenes.katherineEmployment.postTrainingAlleyDescription ); //Appears until Kath gives you her housekeys
+				EngineCore.addButton( 5, 'Kath\'s Alley', SceneLib.katherineEmployment.postTrainingAlleyDescription ); //Appears until Kath gives you her housekeys
 		}
 		EngineCore.addButton( 9, 'Back', this.telAdreMenu );
 	};
@@ -1053,8 +1053,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		return button;
 	};
 	TelAdre.prototype.enterBarTelAdre = function() {
-		if( CoC.getInstance().scenes.thanksgiving.isThanksgiving() ) {
-			CoC.getInstance().scenes.thanksgiving.pigSlutRoastingGreet();
+		if( SceneLib.thanksgiving.isThanksgiving() ) {
+			SceneLib.thanksgiving.pigSlutRoastingGreet();
 		} else {
 			this.barTelAdre();
 		}
@@ -1067,7 +1067,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		var button = 0;
 		EngineCore.clearOutput();
 		if( CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] === 0 && Utils.rand( 10 ) === 0 ) {
-			CoC.getInstance().scenes.loppe.loppeFirstMeeting();
+			SceneLib.loppe.loppeFirstMeeting();
 			return;
 		}
 		EngineCore.outputText( 'The interior of The Wet Bitch is far different than the mental picture its name implied.  It looks like a normal tavern, complete with a large central hearth, numerous tables and chairs, and a polished dark wood bar.  The patrons all seem to be dressed and interacting like normal people, that is if normal people were mostly centaurs and dog-morphs of various sub-species.  The atmosphere is warm and friendly, and ' );
@@ -1075,31 +1075,31 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			EngineCore.outputText( 'despite your altered appearance, ' );
 		}
 		EngineCore.outputText( 'you hardly get any odd stares.  There are a number of rooms towards the back, as well as a stairway leading up to an upper level.' );
-		CoC.getInstance().scenes.scylla.scyllaBarSelectAction(); //Done before anything else so that other NPCs can check scylla.action to see what she's doing
+		SceneLib.scylla.scyllaBarSelectAction(); //Done before anything else so that other NPCs can check scylla.action to see what she's doing
 		//Thanks to this function and edryn.edrynHeliaThreesomePossible() the bar menu will always display the same possible options until the game time advances.;
 		//So it's safe to return to this menu, Helia or Urta can't suddenly disappear or appear just from leaving and re-entering the bar.;
 		EngineCore.menu();
 		//AMILY!;
 		if( CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 ) {
-			button = this.anotherButton( button, 'Ask4Amily', CoC.getInstance().scenes.followerInteractions.askAboutAmily );
+			button = this.anotherButton( button, 'Ask4Amily', SceneLib.followerInteractions.askAboutAmily );
 		}
 		//DOMINIKA;
 		if( CoC.getInstance().time.hours > 17 && CoC.getInstance().time.hours < 20 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] !== -1 ) {
-			button = this.anotherButton( button, 'Dominika', CoC.getInstance().scenes.dominika.fellatrixBarApproach );
+			button = this.anotherButton( button, 'Dominika', SceneLib.dominika.fellatrixBarApproach );
 		}
 		//EDRYN!;
-		if( CoC.getInstance().scenes.edryn.pregnancy.type !== PregnancyStore.PREGNANCY_TAOTH ) {
+		if( SceneLib.edryn.pregnancy.type !== PregnancyStore.PREGNANCY_TAOTH ) {
 			{ //Edryn is unavailable while pregnant with Taoth
 			}
-			if( CoC.getInstance().scenes.edryn.edrynBar() ) {
-				if( CoC.getInstance().scenes.edryn.pregnancy.isPregnant ) {
+			if( SceneLib.edryn.edrynBar() ) {
+				if( SceneLib.edryn.pregnancy.isPregnant ) {
 					if( CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] = 1;
 						if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] === 0 ) {
 							{ //Edryn panic appearance! (First time mom)
 							}
 							EngineCore.outputText( '\n\nEdryn smiles when she sees you and beckons you towards her.  Fear and some kind of frantic need are painted across her face, imploring you to come immediately.  Whatever the problem is, it doesn\'t look like it can wait.', false );
-							EngineCore.doNext( CoC.getInstance().scenes.edryn.findOutEdrynIsPregnant );
+							EngineCore.doNext( SceneLib.edryn.findOutEdrynIsPregnant );
 							return;
 						} else {
 							{ //Edryn re-preggers appearance!
@@ -1124,33 +1124,33 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 				} else {
 					EngineCore.outputText( '\n\nEdryn the centauress is here, sipping wine at a table by herself.  She looks up and spots you, her eyes lighting up with happiness.  She gives you a wink and asks if you\'ll join her.', false );
 				}
-				button = this.anotherButton( button, 'Edryn', CoC.getInstance().scenes.edryn.edrynBarTalk );
+				button = this.anotherButton( button, 'Edryn', SceneLib.edryn.edrynBarTalk );
 			}
 		}
-		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] === CoC.getInstance().scenes.katherine.KLOC_BAR ) {
+		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] === SceneLib.katherine.KLOC_BAR ) {
 			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 4 ) {
-				CoC.getInstance().scenes.katherine.barFirstEncounter();
+				SceneLib.katherine.barFirstEncounter();
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 31 && CoC.getInstance().scenes.urta.urtaAtBar() && !CoC.getInstance().scenes.urta.urtaDrunk() && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0 ) {
-				CoC.getInstance().scenes.katherine.barKathUrtaLoveAnnounce();
+			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 31 && SceneLib.urta.urtaAtBar() && !SceneLib.urta.urtaDrunk() && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0 ) {
+				SceneLib.katherine.barKathUrtaLoveAnnounce();
 				return;
 			}
-			CoC.getInstance().scenes.katherine.barDescription();
-			button = this.anotherButton( button, 'Katherine', CoC.getInstance().scenes.katherine.barApproach );
+			SceneLib.katherine.barDescription();
+			button = this.anotherButton( button, 'Katherine', SceneLib.katherine.barApproach );
 		}
 		//HELIA;
-		if( CoC.getInstance().scenes.edryn.edrynHeliaThreesomePossible() ) {
-			CoC.getInstance().scenes.edryn.helAppearance();
-			button = this.anotherButton( button, 'Helia', CoC.getInstance().scenes.edryn.approachHelAtZeBitch );
+		if( SceneLib.edryn.edrynHeliaThreesomePossible() ) {
+			SceneLib.edryn.helAppearance();
+			button = this.anotherButton( button, 'Helia', SceneLib.edryn.approachHelAtZeBitch );
 		}
 		//NANCY;
-		if( CoC.getInstance().scenes.auntNancy.auntNancy( false ) ) {
-			CoC.getInstance().scenes.auntNancy.auntNancy( true );
+		if( SceneLib.auntNancy.auntNancy( false ) ) {
+			SceneLib.auntNancy.auntNancy( true );
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00263 ] > 0 ) {
-				button = this.anotherButton( button, 'Nancy', CoC.getInstance().scenes.auntNancy.interactWithAuntNancy );
+				button = this.anotherButton( button, 'Nancy', SceneLib.auntNancy.interactWithAuntNancy );
 			} else {
-				button = this.anotherButton( button, 'Barkeep', CoC.getInstance().scenes.auntNancy.interactWithAuntNancy );
+				button = this.anotherButton( button, 'Barkeep', SceneLib.auntNancy.interactWithAuntNancy );
 			}
 		} else {
 			EngineCore.outputText( '\n\nIt doesn\'t look like there\'s a bartender working at the moment.', false );
@@ -1158,86 +1158,86 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 
 		//NIAMH;
 		if( CoC.getInstance().time.hours >= 8 && CoC.getInstance().time.hours <= 16 && CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] === 0 ) {
-			CoC.getInstance().scenes.niamh.telAdreNiamh();
+			SceneLib.niamh.telAdreNiamh();
 			if( CoC.getInstance().flags[ kFLAGS.MET_NIAMH ] === 0 ) {
-				button = this.anotherButton( button, 'Beer Cat', CoC.getInstance().scenes.niamh.approachNiamh );
+				button = this.anotherButton( button, 'Beer Cat', SceneLib.niamh.approachNiamh );
 			} else {
-				button = this.anotherButton( button, 'Niamh', CoC.getInstance().scenes.niamh.approachNiamh );
+				button = this.anotherButton( button, 'Niamh', SceneLib.niamh.approachNiamh );
 			}
 		}
 		//ROGAR #1;
 		if( CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] === 3 && CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
-			button = this.anotherButton( button, 'HoodedFig', CoC.getInstance().scenes.rogar.rogarThirdPhase );
+			button = this.anotherButton( button, 'HoodedFig', SceneLib.rogar.rogarThirdPhase );
 			//Wet Bitch screen text when Ro'gar phase = 3:;
 			EngineCore.outputText( '\n\nYou notice a cloaked figure at the bar, though you\'re quite unable to discern anything else as its back is turned to you.', false );
 		}
 		//ROGAR #2;
 		else if( CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] >= 4 && CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] === 0 ) {
-			button = this.anotherButton( button, 'Rogar', CoC.getInstance().scenes.rogar.rogarPhaseFour );
+			button = this.anotherButton( button, 'Rogar', SceneLib.rogar.rogarPhaseFour );
 			//Wet Bitch bar text when Ro'gar phase = 4:;
 			EngineCore.outputText( '\n\nRo\'gar is here with his back turned to the door, wearing his usual obscuring cloak.', false );
 		}
-		switch( CoC.getInstance().scenes.scylla.action ) { //Scylla - requires dungeon shut down
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FIRST_TALK:
+		switch( SceneLib.scylla.action ) { //Scylla - requires dungeon shut down
+			case SceneLib.scylla.SCYLLA_ACTION_FIRST_TALK:
 				EngineCore.outputText( '\n\nThere is one nun sitting in a corner booth who catches your eye.  She sits straight-backed against the dark, wood chair, her thin waist accentuating the supple curve of her breasts. She\'s dressed in a black robe that looks a few sizes too small for her hips and wears a black and white cloth over her head.' );
-				button = this.anotherButton( button, 'Nun', CoC.getInstance().scenes.scylla.talkToScylla );
+				button = this.anotherButton( button, 'Nun', SceneLib.scylla.talkToScylla );
 				break;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_TWO:
-				CoC.getInstance().scenes.scylla.scyllaRoundII();
+			case SceneLib.scylla.SCYLLA_ACTION_ROUND_TWO:
+				SceneLib.scylla.scyllaRoundII();
 				return;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_THREE:
-				CoC.getInstance().scenes.scylla.scyllaRoundThreeCUM();
+			case SceneLib.scylla.SCYLLA_ACTION_ROUND_THREE:
+				SceneLib.scylla.scyllaRoundThreeCUM();
 				return;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ROUND_FOUR:
-				CoC.getInstance().scenes.scylla.scyllaRoundIVGo();
+			case SceneLib.scylla.SCYLLA_ACTION_ROUND_FOUR:
+				SceneLib.scylla.scyllaRoundIVGo();
 				return;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_MEET_CATS:
+			case SceneLib.scylla.SCYLLA_ACTION_MEET_CATS:
 				EngineCore.outputText( '\n\nIt looks like Scylla is here but getting ready to leave.  You could check and see what the misguided nun is up to.' );
-				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.Scylla6 );
+				button = this.anotherButton( button, 'Scylla', SceneLib.scylla.Scylla6 );
 				break;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_ADICTS_ANON:
+			case SceneLib.scylla.SCYLLA_ACTION_ADICTS_ANON:
 				EngineCore.outputText( '\n\nYou see Scylla\'s white and black nun\'s habit poking above the heads of the other patrons.  The tall woman seems unaware of her effect on those around her, but it\'s clear by the way people are crowding she\'s acquired a reputation by now.  You\'re not sure what she\'s doing, but you could push your way through to find out.' );
-				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.scyllaAdictsAnonV );
+				button = this.anotherButton( button, 'Scylla', SceneLib.scylla.scyllaAdictsAnonV );
 				break;
-			case CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FLYING_SOLO:
+			case SceneLib.scylla.SCYLLA_ACTION_FLYING_SOLO:
 				EngineCore.outputText( '\n\nIt looks like Scylla is milling around here this morning, praying as she keeps an eye out for someone to \'help\'.' );
-				button = this.anotherButton( button, 'Scylla', CoC.getInstance().scenes.scylla.scyllasFlyingSolo );
+				button = this.anotherButton( button, 'Scylla', SceneLib.scylla.scyllasFlyingSolo );
 				break;
 			default:
 		}
 		//Nun cat stuff!;
-		if( CoC.getInstance().scenes.katherine.needIntroductionFromScylla() ) {
-			CoC.getInstance().scenes.katherine.catMorphIntr();
-			button = this.anotherButton( button, 'ScyllaCats', CoC.getInstance().scenes.katherine.katherineGreeting );
+		if( SceneLib.katherine.needIntroductionFromScylla() ) {
+			SceneLib.katherine.catMorphIntr();
+			button = this.anotherButton( button, 'ScyllaCats', SceneLib.katherine.katherineGreeting );
 		}
 		//URTA;
-		if( CoC.getInstance().scenes.urta.urtaAtBar() ) {
+		if( SceneLib.urta.urtaAtBar() ) {
 			//Scylla & The Furries Foursome;
-			if( CoC.getInstance().scenes.scylla.action === CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FURRY_FOURSOME ) {
-				$log.debug( 'SCYLLA ACTION: ' + CoC.getInstance().scenes.scylla.action );
+			if( SceneLib.scylla.action === SceneLib.scylla.SCYLLA_ACTION_FURRY_FOURSOME ) {
+				$log.debug( 'SCYLLA ACTION: ' + SceneLib.scylla.action );
 				EngineCore.outputText( '\n\nScylla’s spot in the bar is noticeably empty. She’s usually around at this time of day, isn’t she? Urta grabs your attention with a whistle and points to a back room with an accompanying wink. Oh... that makes sense. Surely the nun won’t mind a little help with her feeding...' );
-				button = this.anotherButton( button, 'Back Room', CoC.getInstance().scenes.scylla.openTheDoorToFoursomeWivScyllaAndFurries );
+				button = this.anotherButton( button, 'Back Room', SceneLib.scylla.openTheDoorToFoursomeWivScyllaAndFurries );
 			}
 			//Urta X Scylla threesome;
-			if( CoC.getInstance().scenes.scylla.action === CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FUCKING_URTA ) {
+			if( SceneLib.scylla.action === SceneLib.scylla.SCYLLA_ACTION_FUCKING_URTA ) {
 				if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00143 ] === 0 ) {
 					EngineCore.outputText( '\n\n<b>Though Urta would normally be here getting sloshed, her usual spot is completely vacant.  You ask around but all you get are shrugs and giggles.  Something isn\'t quite right here.  You see an empty bottle of one of her favorite brands of whiskey still rolling on her table, so she can\'t have been gone long.  Maybe she had guard business, or had to head to the back rooms for something?</b>' );
 				} else {
 					EngineCore.outputText( '\n\nUrta\'s usual place is vacant, though her table still holds a half-drank mug of something potent and alcoholic.  If it\'s anything like the last time this happened, she\'s snuck into a back room with Scylla to relieve some pressure.  It might not hurt to join in...' );
 				}
 				CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 4;
-				button = this.anotherButton( button, 'Back Room', CoC.getInstance().scenes.urta.scyllaAndUrtaSittingInATree );
-			} else if( CoC.getInstance().scenes.urta.urtaBarDescript() ) {
-				if( CoC.getInstance().scenes.auntNancy.auntNancy( false ) && CoC.getInstance().flags[ kFLAGS.URTA_INCUBATION_CELEBRATION ] === 0 && CoC.getInstance().scenes.urta.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
-					CoC.getInstance().scenes.urtaPregs.urtaIsHappyAboutPregnancyAtTheBar();
+				button = this.anotherButton( button, 'Back Room', SceneLib.urta.scyllaAndUrtaSittingInATree );
+			} else if( SceneLib.urta.urtaBarDescript() ) {
+				if( SceneLib.auntNancy.auntNancy( false ) && CoC.getInstance().flags[ kFLAGS.URTA_INCUBATION_CELEBRATION ] === 0 && SceneLib.urta.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
+					SceneLib.urtaPregs.urtaIsHappyAboutPregnancyAtTheBar();
 					return;
 				}
-				button = this.anotherButton( button, 'Urta', CoC.getInstance().scenes.urta.urtaBarApproach );
+				button = this.anotherButton( button, 'Urta', SceneLib.urta.urtaBarApproach );
 			}
 		}
 		//VALA;
-		if( CoC.getInstance().scenes.dungeon2Supplimental.purifiedFaerieBitchBar() ) {
-			button = this.anotherButton( button, 'Vala', CoC.getInstance().scenes.dungeon2Supplimental.chooseValaInBar );
+		if( SceneLib.dungeon2Supplimental.purifiedFaerieBitchBar() ) {
+			button = this.anotherButton( button, 'Vala', SceneLib.dungeon2Supplimental.chooseValaInBar );
 		}
 		EngineCore.addButton( 9, 'Leave', this.telAdreMenu );
 	};
@@ -1306,7 +1306,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.spriteSelect( 61 );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.tailorShoppe );
+		SceneLib.inventory.takeItem( itype, this.tailorShoppe );
 	};
 	TelAdre.prototype.armorShop = function() {
 		EngineCore.outputText( '', true );
@@ -1320,7 +1320,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			if( CoC.getInstance().player.gems < 200 ) {
 				EngineCore.outputText( '\n\nYou can\'t afford that!' );
 			} else {
-				egg = CoC.getInstance().scenes.emberScene.getSomeStuff;
+				egg = SceneLib.emberScene.getSomeStuff;
 			}
 		}
 		EngineCore.choices( ArmorLib.CHBIKNI.shortName, EngineCore.createCallBackFunction( this.armorBuy, ArmorLib.CHBIKNI ),
@@ -1365,7 +1365,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.spriteSelect( 80 );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.weaponShop );
+		SceneLib.inventory.takeItem( itype, this.weaponShop );
 	};
 	TelAdre.prototype.armorBuy = function( itype ) {
 		EngineCore.spriteSelect( 64 );
@@ -1388,7 +1388,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( '', true );
 		CoC.getInstance().player.gems -= itype.value;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.armorShop );
+		SceneLib.inventory.takeItem( itype, this.armorShop );
 	};
 	TelAdre.prototype.urtaIsABadass = function() {
 		CoC.getInstance().flags[ kFLAGS.PC_SEEN_URTA_BADASS_FIGHT ] = 1;
@@ -1399,7 +1399,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 	//[Invetigate];
 	TelAdre.prototype.watchUrtaBeABadass = function() {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().scenes.urta.urtaSprite();
+		SceneLib.urta.urtaSprite();
 		EngineCore.outputText( 'You shoulder past the bulky centaurs, ignore the rough fur of the nearby wolves and hounds as it brushes against you, and press your way through to the center of the crowd.  Eventually the throng parts, revealing the embattled combatants.  A snarling wolf, nearly eight feet tall, towers over Urta.  The comparatively diminutive fox-woman is girded in light leather armor and dripping with sweat.  The larger wolf-man is staggering about, and his dark brown fur is matted with blood.\n\n', false );
 		EngineCore.outputText( 'The bigger canid charges, snarling, with his claws extended.  Urta sidesteps and pivots, her momentum carrying her foot around in a vicious kick.  Her foot hits the side of the beast\'s knee hard enough to buckle it, and the wolf goes down on his knees with an anguished cry.  Urta slips under his arm and twists, turning his slump into a fall.  A cloud of dust rises from the heavy thud of the beast\'s body as it slams into the cobblestone street.\n\n', false );
 		EngineCore.outputText( 'Now that it\'s immobile, you get can get a better look at the defeated combatant, and you\'re ', false );
@@ -1418,8 +1418,8 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 	};
 	TelAdre.prototype.gymDesc = function() {
 		//PREGGO ALERT!;
-		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] + CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 && CoC.getInstance().scenes.cotton.pregnancy.isPregnant ) {
-			CoC.getInstance().scenes.cotton.cottonPregnantAlert();
+		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_GOOD_COTTON_DAD ] + CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 && SceneLib.cotton.pregnancy.isPregnant ) {
+			SceneLib.cotton.cottonPregnantAlert();
 			return;
 		}
 		EngineCore.outputText( '', true );
@@ -1447,12 +1447,12 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			EngineCore.doNext( this.telAdreMenu );
 			return;
 		}
-		CoC.getInstance().scenes.lottie.lottieAppearance();
+		SceneLib.lottie.lottieAppearance();
 		if( CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
 			EngineCore.outputText( '\n\nYou spot Loppe the laquine wandering around, towel slung over her shoulder.  When she sees you, she smiles and waves to you and you wave back.' );
 		}
 		if( CoC.getInstance().time.hours > 9 && CoC.getInstance().time.hours < 14 ) {
-			CoC.getInstance().scenes.heckel.heckelAppearance();
+			SceneLib.heckel.heckelAppearance();
 		}
 		this.gymMenu();
 	};
@@ -1464,20 +1464,20 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		var hyenaB = 'Hyena';
 		var ifris2 = null;
 		var ifrisB = 'Girl';
-		var lottie2 = CoC.getInstance().scenes.lottie.lottieAppearance( false );
+		var lottie2 = SceneLib.lottie.lottieAppearance( false );
 		var lottieB = 'Pig-Lady';
 		var loppe2 = null;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
 			lottieB = 'Lottie';
 		}
-		if( CoC.getInstance().scenes.ifris.ifrisIntro() ) {
-			ifris2 = CoC.getInstance().scenes.ifris.approachIfris;
+		if( SceneLib.ifris.ifrisIntro() ) {
+			ifris2 = SceneLib.ifris.approachIfris;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MET_IFRIS ] > 0 ) {
 			ifrisB = 'Ifris';
 		}
 		if( CoC.getInstance().time.hours > 9 && CoC.getInstance().time.hours <= 15 ) {
-			hyena = CoC.getInstance().scenes.heckel.greetHeckel;
+			hyena = SceneLib.heckel.greetHeckel;
 			if( CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 ) {
 				hyenaB = 'Heckel';
 			}
@@ -1486,17 +1486,17 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 			membership = this.buyGymLifeTimeMembership;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.PC_IS_A_DEADBEAT_COTTON_DAD ] === 0 ) {
-			if( CoC.getInstance().scenes.cotton.cottonsIntro() ) {
-				cotton2 = CoC.getInstance().scenes.cotton.cottonGreeting;
+			if( SceneLib.cotton.cottonsIntro() ) {
+				cotton2 = SceneLib.cotton.cottonGreeting;
 			}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.COTTON_MET_FUCKED ] > 0 ) {
 			cottonB = 'Cotton';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.LOPPE_MET ] > 0 && CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] === 0 ) {
-			loppe2 = CoC.getInstance().scenes.loppe.loppeGenericMeetings;
+			loppe2 = SceneLib.loppe.loppeGenericMeetings;
 		}
-		EngineCore.choices( 'ChangeRoom', CoC.getInstance().scenes.jasun.changingRoom,
+		EngineCore.choices( 'ChangeRoom', SceneLib.jasun.changingRoom,
 			cottonB, cotton2,
 			hyenaB, hyena,
 			ifrisB, ifris2,
@@ -1578,11 +1578,11 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
 		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] === 1 ) {
 			EngineCore.menu();
-			EngineCore.addButton( 0, '"Showers"', CoC.getInstance().scenes.sexMachine.exploreShowers );
-			EngineCore.addButton( 1, 'Showers', CoC.getInstance().scenes.brooke.repeatChooseShower );
-			EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine.exploreShowers );
+			EngineCore.addButton( 1, 'Showers', SceneLib.brooke.repeatChooseShower );
+			EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.doYesNo( CoC.getInstance().scenes.sexMachine.exploreShowers, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( SceneLib.sexMachine.exploreShowers, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	TelAdre.prototype.goJogging = function() {
@@ -1675,11 +1675,11 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
 		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] === 1 ) {
 			EngineCore.menu();
-			EngineCore.addButton( 0, '"Showers"', CoC.getInstance().scenes.sexMachine.exploreShowers );
-			EngineCore.addButton( 1, 'Showers', CoC.getInstance().scenes.brooke.repeatChooseShower );
-			EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine.exploreShowers );
+			EngineCore.addButton( 1, 'Showers', SceneLib.brooke.repeatChooseShower );
+			EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.doYesNo( CoC.getInstance().scenes.sexMachine.exploreShowers, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( SceneLib.sexMachine.exploreShowers, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	TelAdre.prototype.yaraSex = function( girl ) {
@@ -1875,7 +1875,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.YVONNE_FUCK_COUNTER ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//*Typical buy text goes here. Options are now Yes/No/Flirt*;
 	//[Flirt];
@@ -1934,7 +1934,7 @@ angular.module( 'cocjs' ).run( function( $log, ArmorLib, Combat, OnLoadVariables
 		EngineCore.outputText( '\n\nA few seconds later your body finally gives out completely and you pass out.  You wake up about an hour later, still on the floor with Vicky on the ground near you, leaning up against the counter with her legs splayed, cum still dripping from her used pussy.  <i>"I uh... s\'pose you wanna leave now?"</i>  She asks, still sounding a bit loopy.  She climbs unsteadily to her feet, and walks, a bit bowlegged to the door, unlocking it before slumping back down the wall.  <i>"Do come back for a visit, love!"</i>  You pull your pants back up and crawl back out into the street.  Climbing back to your feet, you notice a few passersby chuckling at you before you close the door.  Before you leave, you think you can make out Victoria muttering, <i>"Gonna have to clean this place up..."</i>' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'telAdre', new TelAdre() );
+	SceneLib.registerScene( 'telAdre', new TelAdre() );
 } );

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat, Descriptors ) {
-	var Doppleganger = angular.copy( Monster );
+	function Doppleganger() {
+		this.init(this, arguments);
+	}
+	angular.extend(Doppleganger.prototype, Monster.prototype);
 	Doppleganger.prototype.mirrorAttack = function( damage ) {
 		this.createStatusAffect( StatusAffects.MirroredAttack, 0, 0, 0, 0 );
 		EngineCore.outputText( 'As you swing your [weapon] at the doppleganger, ' + CoC.getInstance().player.mf( 'he', 'she' ) + ' smiles mockingly, and mirrors your move exactly, lunging forward with ' + CoC.getInstance().player.mf( 'his', 'her' ) + ' duplicate ' + this.weaponName + '.' );

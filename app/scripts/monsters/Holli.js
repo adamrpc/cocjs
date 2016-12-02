@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Holli', function( CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Holli = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Holli() {
+		this.init(this, arguments);
+	}
+	angular.extend(Holli.prototype, Monster.prototype);
 	/*Fight -Z
 	 Marae's offshoot, [monster] stands rooted in front of you.  Solid black eyes with golden pupils stare out at you.  Her normally-nude body is concealed inside her tree, though occasionally she will flash you the devilish grin of a sadistic temptress and the bark will split to reveal a pale, jiggling bit of flesh.  A pair of gnarled oak horns sprout from her forehead; leaves and flowers alternately bloom and wither on them as her face contorts with emotion.
 	 stats:
@@ -205,10 +208,10 @@ angular.module( 'cocjs' ).factory( 'Holli', function( CockTypesEnum, CoC, Monste
 		this.holliBonusHealing();
 	};
 	Holli.prototype.defeated = function() {
-		CoC.getInstance().scenes.holliScene.defeatHolli();
+		SceneLib.holliScene.defeatHolli();
 	};
 	Holli.prototype.won = function() {
-		CoC.getInstance().scenes.holliScene.enjoyYourBadEndBIYAAAATCH();
+		SceneLib.holliScene.enjoyYourBadEndBIYAAAATCH();
 	};
 
 	Holli.prototype.teased = function( lustDelta ) {

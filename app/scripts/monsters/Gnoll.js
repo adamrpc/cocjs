@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Gnoll', function( EventParser, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
-	var Gnoll = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Gnoll', function( SceneLib, EventParser, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
+	function Gnoll() {
+		this.init(this, arguments);
+	}
+	angular.extend(Gnoll.prototype, Monster.prototype);
 	//Gnoll Description;
 	Gnoll.prototype.gnollAttackText = function() {
 		var damage = 0;
@@ -355,20 +358,20 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( EventParser, ChainedDrop, 
 	Gnoll.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
-			CoC.getInstance().scenes.antsScene.phyllaPCBeatsGnoll();
+			SceneLib.antsScene.phyllaPCBeatsGnoll();
 			return;
 		}
-		CoC.getInstance().scenes.gnollScene.defeatHyena();
+		SceneLib.gnollScene.defeatHyena();
 	};
 	Gnoll.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
-			CoC.getInstance().scenes.antsScene.phyllaGnollBeatsPC();
+			SceneLib.antsScene.phyllaGnollBeatsPC();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.gnollScene.getRapedByGnoll();
+			SceneLib.gnollScene.getRapedByGnoll();
 		}
 	};
 	Gnoll.prototype.init = function(that, args) {

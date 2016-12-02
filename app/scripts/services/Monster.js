@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, PerkLib, kFLAGS ) {
-	var Monster = angular.copy( Creature );
+angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, PerkLib, kFLAGS ) {
+	function Monster() {
+		this.init(this, arguments);
+	}
+	angular.extend(Monster.prototype, Creature.prototype);
 	Monster.prototype.init = function( that, args ) {
 		Creature.prototype.init( that, args );
 		that.bonusHP = 0;
@@ -532,7 +535,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 		}
 		EngineCore.outputText( '\n\nYou\'ll probably wake up in eight hours or so, missing ' + temp + ' gems.', false );
 		CoC.getInstance().player.gems -= temp;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 	};
 	/**
 	 * Final method to handle hooks before calling overriden method
@@ -640,7 +643,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( Creature, AppearanceDefs
 	};
 	Monster.prototype.combatRoundUpdate = function() {
 		if( this.findStatusAffect( StatusAffects.MilkyUrta ) >= 0 ) {
-			CoC.getInstance().scenes.urtaQuest.milkyUrtaTic();
+			SceneLib.urtaQuest.milkyUrtaTic();
 		}
 		//Countdown
 		if( this.findStatusAffect( StatusAffects.TentacleCoolDown ) >= 0 ) {

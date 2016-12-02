@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, GnollSpearThrower, AppearanceDefs, Combat, ConsumableLib, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, GnollSpearThrower, AppearanceDefs, Combat, ConsumableLib, CoC, EngineCore, Descriptors ) {
 	function GnollSpearThrowerScene() {
 	}
 
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, GnollSpearThrower, AppearanceDe
 		EngineCore.spriteSelect( 54 );
 		//Oh shit get anal raped.;
 		if( CoC.getInstance().player.hasItem( ConsumableLib.S_DREAM ) ) {
-			CoC.getInstance().scenes.gnollScene.yoDawgIHeardULiekGNollBallzzzdahdakjldh();
+			SceneLib.gnollScene.yoDawgIHeardULiekGNollBallzzzdahdakjldh();
 			return;
 		}
 		EngineCore.outputText( '', true );
@@ -295,5 +295,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, GnollSpearThrower, AppearanceDe
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'gnollSpearThrowerScene', new GnollSpearThrowerScene() );
+	SceneLib.registerScene( 'gnollSpearThrowerScene', new GnollSpearThrowerScene() );
 } );

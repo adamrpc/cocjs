@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors, Combat, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors, Combat, EventParser ) {
 	function GreenSlimeScene() {
 	}
 
@@ -879,5 +879,5 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, CoC_Settings, CockTyp
 		Combat.cleanupAfterCombat();
 		return;
 	};
-	CoC.getInstance().registerScene( 'greenSlimeScene', new GreenSlimeScene() );
+	SceneLib.registerScene( 'greenSlimeScene', new GreenSlimeScene() );
 } );

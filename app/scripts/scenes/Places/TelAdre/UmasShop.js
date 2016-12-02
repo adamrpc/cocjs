@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] = 1;
 		// Player returns to Camp;
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Repeat visits.
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.addButton( 3, 'Sex', this.sexMenu );
 		}
 		//EngineCore.addButton(4, 'Train Loppe', this.trainLoppe); // Unfinished in the doc;
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
 	/**
 	 * MASSAGEU
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( 'You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n' );
 			EngineCore.outputText( 'Wishing her well, you calmly let yourself out of the shop and head back to camp.' );
 			EngineCore.menu();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You tell her that sounds fair, withdrawing the gems and handing them to her.\n\n' );
@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		// Apply bonus & back to camp!;
 		this.applyMassageBonus( selectedMassage );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.MAX_MASSAGE_BONUS_DURATION = 24;			// Duration of the bonus
 	/**
@@ -589,7 +589,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 			EngineCore.outputText( 'You click your tongue and apologize to Uma, but you don\'t have enough gems to pay for your treatment...\n\n' );
 			EngineCore.outputText( 'Uma sighs, "It\'s okay, dear.  Just come back when you do, my doors are always open."' );
 			EngineCore.menu();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You nod in understanding... now you stop and consider your options, ' );
@@ -657,7 +657,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your camp.\n\n' );
 		this.applyNeedlework( selectedSession );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * LIPFLAP COMMENCE.
@@ -696,7 +696,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '"<i>It\'s always pleasure speaking to the [man] that wooed my little Loppe, dear.  Come visit soon, will you?</i>"\n\n' );
 		EngineCore.outputText( 'You promise you\'ll try, and then head back to camp.' );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Talk Sexuality
@@ -720,7 +720,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You laugh at that, thanking her for her generosity and her time, and then tell her it\'s time for you to go.  Uma smiles at you and says, "<i>Come visit me again soon.</i>"\n\n' );
 		EngineCore.outputText( 'You promise that you will, and then head out of the quaint little clinic and back to camp.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Talk about Loppe. Randomly selects a specific scene after selection.
@@ -738,7 +738,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 */
 	UmasShop.prototype.talkLoppeJoiner = function() {
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//EngineCore.addButton(1, 'Debugz', this.talkMenu);;
 	};
 	/**
@@ -1136,7 +1136,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'Uma nods thoughtfully at your words.  "<i>A sister or two?  Definitely.  Hey, why not go out on a limb and say five or six little sisters?  I loved being a mom, being pregnant was actually kind of hot, and I\'m still young enough to do some serious breeding.</i>"  She pats her belly with a defiant expression.  But then she slumps and sighs longingly.  "<i>But I want my Usagi back first...</i>" She mourns.\n\n' );
 		EngineCore.outputText( 'You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to camp.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Main sex menu
@@ -1211,7 +1211,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You tell Uma you\'d enjoy one of her erotic massages, please.\n\n' );
 		EngineCore.outputText( 'The milf mare smiles at you.  "<i>Very well, dear.  Follow me,</i>" she turns to leave her office and head down the corridor, towards the far back of the clinic, equine tail swishing lazily side to side.  You follow closely in her wake, looking forward to her "special treatment."\n\n' );
 		EngineCore.outputText( 'The room she leads you to is quite simple; wooden walls and floor, a couple of drains set in the floor that are probably for the more fluid generous clientele, ' );
-		if( CoC.getInstance().scenes.urta.urtaLove() ) {
+		if( SceneLib.urta.urtaLove() ) {
 			EngineCore.outputText( 'something that makes you wonder if Urta would like to come and take a spin here, ' );
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo. It\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
@@ -1284,14 +1284,14 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.getInstance().player.hoursSinceCum = Math.ceil( hoursSinceCum * 0.75 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexGetFingered = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You give a knowing wink to the mare masseur and say you\'d like to see her magic fingers put to work. You particularly want to see if she can pick the locks and open your secret treasure box.\n\n' );
 		EngineCore.outputText( '"<i>Very well, dear.  Come with me,</i>" she turns to leave her office and head down the corridor, towards the far back of the clinic, equine tail swishing lazily side to side.  You follow closely in her wake, looking forward to her "special treatment".\n\n' );
 		EngineCore.outputText( 'The room she leads you to is quite simple; wooden walls and floor, a couple of drains set in the floor that are probably for the more... fluid generous clientele, ' );
-		if( CoC.getInstance().scenes.urta.urtaLove() ) {
+		if( SceneLib.urta.urtaLove() ) {
 			EngineCore.outputText( 'something that makes you wonder if Urta would like to come and take a spin here, ' );
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo. It\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
@@ -1397,14 +1397,14 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexHandjob = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rubbing your crotch for a moment, you ask her if she\'s willing to handle a more masculine element of your body for you?\n\n' );
 		EngineCore.outputText( '"<i>Hmm, I suppose I could, come with me,</i>" the mare leads you away, out her office and head down the corridor, towards the far back of the clinic, equine tail swishing lazily side to side.  You follow closely in her wake, looking forward to her "<i>special treatment</i>".\n\n' );
 		EngineCore.outputText( 'The room she leads you to is quite simple; wooden walls and floor, a couple of drains set in the floor that are probably for the more... fluid generous clientele, ' );
-		if( CoC.getInstance().scenes.urta.urtaLove() ) {
+		if( SceneLib.urta.urtaLove() ) {
 			EngineCore.outputText( 'something that makes you wonder if Urta would like to come and take a spin here, ' );
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo; it\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
@@ -1465,7 +1465,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( '.  See you later, dear.  And don\'t be a stranger,</i>" the mare tells you as she waves you goodbye.\n\n' );
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Needs Cock.;
 	UmasShop.prototype.sexGetABJFromDisMilfyLesboSlut = function() {
@@ -1491,7 +1491,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		}
 		EngineCore.outputText( ' grinding and growing is well-worth the obvious discomfort.' );
 		EngineCore.outputText( '\n\nThe room she leads you to is quite simple: wooden walls and floor, a couple of drains set in the boards that are probably for the more... fluid generous clientele, ' );
-		if( CoC.getInstance().scenes.urta.urtaLove() ) {
+		if( SceneLib.urta.urtaLove() ) {
 			EngineCore.outputText( 'something that makes you wonder if Urta would like to come and take a spin here, ' );
 		}
 		EngineCore.outputText( 'and a sizable bamboo table.  It\'s covered in a white cloth and has an upraised board with a hole in it that looks like it’s big enough to fit your head through.  It is the only piece of furniture in the room apart from a small cupboard in the corner. Though spartan in its layout, this odd chamber is quite comfortably warm.' );
@@ -1709,7 +1709,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.getInstance().flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ]++;
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexEatHerOut = function() {
 		EngineCore.clearOutput();
@@ -1719,7 +1719,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You consider your options, and then pointedly lick your lips, musing aloud how Uma tastes.  "<i>Hmm, so that\'s what you were thinking about, huh?  Very well, dear.  Come with me.</i>"  \n\n' );
 		EngineCore.outputText( 'The mare leads you away, out her office and down the corridor, towards the far back of the clinic, equine tail swishing lazily side to side.  You follow closely in her wake, looking forward to her "special treatment".\n\n' );
 		EngineCore.outputText( 'The room she leads you to is quite simple; wooden walls and floor, a couple of drains set in the floor that are probably for the more fluid generous clientele, ' );
-		if( CoC.getInstance().scenes.urta.urtaLove() ) {
+		if( SceneLib.urta.urtaLove() ) {
 			EngineCore.outputText( 'something that makes you wonder if Urta would like to come and take a spin here, ' );
 		}
 		EngineCore.outputText( 'and a sizable table, made from bamboo; it\'s covered in a white cloth, and has an upraised headboard with a hole in it that looks like it\'s big enough to fit your head through.  This is the only piece of furniture in the room, apart from a small cupboard in the corner.  Though spartan in its layout, the room is quite comfortably warm.\n\n' );
@@ -1766,7 +1766,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 		EngineCore.outputText( 'You rub her thigh affectionately, promising to do so, then redress yourself and head back to camp.\n\n' );
 		EngineCore.dynStats( 'lust', 30 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Incomplete in the doc
@@ -1778,5 +1778,5 @@ angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Ut
 	 [We should probably try and brainstorm how this will work.]
 	 [Should we move this to its own doc? Give the rest over to Fen to implement?]
 	 }*/
-	CoC.getInstance().registerScene( 'umasShop', new UmasShop() );
+	SceneLib.registerScene( 'umasShop', new UmasShop() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
+angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
 	function CharCreation() {
 		this.customPlayerProfile = null;
 	}
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.nosePShort = '';
 		CoC.getInstance().player.nosePLong = '';
 		//PLOTZ
-		CoC.getInstance().scenes.jojoScene.monk = 0;
+		SceneLib.jojoScene.monk = 0;
 		CoC.getInstance().whitney = 0;
 		CoC.getInstance().sand = 0;
 		CoC.getInstance().giacomo = 0;
@@ -173,10 +173,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 			CoC.getInstance().player.removeStatuses();
 		}
 		//Clear old camp slots
-		CoC.getInstance().scenes.inventory.clearStorage();
-		CoC.getInstance().scenes.inventory.clearGearStorage();
+		SceneLib.inventory.clearStorage();
+		SceneLib.inventory.clearGearStorage();
 		//Initialize gearStorage
-		CoC.getInstance().scenes.inventory.initializeGearStorage();
+		SceneLib.inventory.initializeGearStorage();
 	};
 	CharCreation.prototype.chooseName = function() {
 		if( MainView.nameBox.value === '' ) {
@@ -2004,12 +2004,12 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 100, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
 		CoC.getInstance().player.createKeyItem( 'Camp - Chest', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Equipment Rack - Weapons', 0, 0, 0, 0 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00254 ] = 1;
@@ -2056,7 +2056,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		// Amily
 		CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] = 2;
 		// Jojo
-		CoC.getInstance().scenes.jojoScene.monk = 5;
+		SceneLib.jojoScene.monk = 5;
 		// Bimbo Sophie
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] = 1;
 		// Isabella
@@ -2199,12 +2199,12 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		//Bow skill 100 (Sorry Kelt, I can't hear your insults over my mad Robin Hood skillz)
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Kelt, 100, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Bow', 0, 0, 0, 0 );
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
-		CoC.getInstance().scenes.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
+		SceneLib.inventory.createStorage();
 		CoC.getInstance().player.createKeyItem( 'Camp - Chest', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Equipment Rack - Weapons', 0, 0, 0, 0 );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00254 ] = 1;
@@ -2235,5 +2235,5 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( $log, CoC, kFLAGS, 
 		CoC.getInstance().player.gems += 300;
 		EngineCore.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
 	};
-	return CharCreation;
+	return new CharCreation();
 } );

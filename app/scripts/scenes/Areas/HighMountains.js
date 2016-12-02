@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, EventParser, ConsumableLib, Combat, Harpy ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, EventParser, ConsumableLib, Combat, Harpy ) {
 	function HighMountains() {
 	}
 	//Explore High Mountain
 	HighMountains.prototype.exploreHighMountain = function() {
 		CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
 		EngineCore.doNext( EventParser.playerMenu );
-		if( CoC.getInstance().scenes.d3.discoverD3() === true ) {
+		if( SceneLib.d3.discoverD3() === true ) {
 			return;
 		}
 		var chooser = Utils.rand( 4 );
@@ -16,24 +16,24 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 			chooser = 1;
 		}
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !CoC.getInstance().scenes.helScene.followerHel() ) {
-			CoC.getInstance().scenes.helScene.helSexualAmbush();
+		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		//Gats xmas adventure!
-		if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 || CoC.getInstance().player.hasKeyItem( 'North Star Key' ) >= 0) ) {
-			CoC.getInstance().scenes.xmasGatsNotAnAngel.gatsSpectacularRouter();
+		if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && SceneLib.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] === 0 || CoC.getInstance().player.hasKeyItem( 'North Star Key' ) >= 0) ) {
+			SceneLib.xmasGatsNotAnAngel.gatsSpectacularRouter();
 			return;
 		}
 		//Minerva
 		if( CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] % 8 === 0 && CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] < 4 ) {
-			CoC.getInstance().scenes.minervaScene.encounterMinerva();
+			SceneLib.minervaScene.encounterMinerva();
 			return;
 		}
 		//25% minotaur sons!
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] >= 3 && Utils.rand( 4 ) === 0 && CoC.getInstance().player.hasVagina() ) {
 			EngineCore.spriteSelect( 44 );
-			CoC.getInstance().scenes.minotaurMobScene.meetMinotaurSons();
+			SceneLib.minotaurMobScene.meetMinotaurSons();
 			return;
 		}
 		//Harpy odds!
@@ -56,10 +56,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
 			//Withdrawl auto-fuck!
 			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
-				CoC.getInstance().scenes.minotaurScene.minoAddictionFuck();
+				SceneLib.minotaurScene.minoAddictionFuck();
 				return;
 			}
-			CoC.getInstance().scenes.minotaurScene.getRapedByMinotaur( true );
+			SceneLib.minotaurScene.getRapedByMinotaur( true );
 			EngineCore.spriteSelect( 44 );
 			return;
 		}
@@ -73,26 +73,26 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 		}
 		//Basilisk!
 		if( chooser === 1 ) {
-			CoC.getInstance().scenes.basiliskScene.basiliskGreeting();
+			SceneLib.basiliskScene.basiliskGreeting();
 			return;
 		}
 		//Sophie
 		if( chooser === 2 ) {
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ||
-				CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+				SceneLib.sophieFollowerScene.sophieFollower() ) {
 				EngineCore.outputText( 'A harpy wings out of the sky and attacks!', true );
 				Combat.startCombat( new Harpy() );
 				EngineCore.spriteSelect( 26 );
 			} else {
 				if( CoC.getInstance().flags[ kFLAGS.MET_SOPHIE_COUNTER ] === 0 ) {
-					CoC.getInstance().scenes.sophieScene.meetSophie();
+					SceneLib.sophieScene.meetSophie();
 				} else {
-					CoC.getInstance().scenes.sophieScene.meetSophieRepeat();
+					SceneLib.sophieScene.meetSophieRepeat();
 				}
 			}
 		}
 		if( chooser === 3 ) {
-			CoC.getInstance().scenes.izumiScenes.encounter();
+			SceneLib.izumiScenes.encounter();
 		}
 	};
 	//"<i>Chicken Harpy</i>" by Jay Gatsby and not Savin he didn't do ANYTHING
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 		EngineCore.spriteSelect( 90 );
 		CoC.getInstance().flags[ kFLAGS.EGGS_BOUGHT ]++;
 		EngineCore.outputText( 'You take ' + itype.longName + ', and the harpy nods in regards to your decision.  Prepping her cart back up for the road, she gives you a final wave goodbye before heading back down through the mountains.\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.chickenHarpy );
+		SceneLib.inventory.takeItem( itype, this.chickenHarpy );
 	};
 	//If No
 	HighMountains.prototype.leaveChickenx = function() {
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, P
 		EngineCore.spriteSelect( 90 );
 		EngineCore.outputText( 'At the polite decline of her offer, the chicken harpy gives a warm smile before picking her cart back up and continuing along the path through the mountains.' );
 		EngineCore.outputText( '\n\nYou decide to take your own path, heading back to camp while you can.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'highMountains', new HighMountains() );
+	SceneLib.registerScene( 'highMountains', new HighMountains() );
 });

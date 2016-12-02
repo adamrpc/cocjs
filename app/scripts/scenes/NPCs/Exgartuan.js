@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, PerkLib, $rootScope, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, $log, CockTypesEnum, Combat, PerkLib, $rootScope, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	//EXGARTUAN STATUS;
 	//v1 - Location - 1 = dick, 2 = tits;
 	//v2 - Sleep counter - 0 = awake, positive numbers = hours of sleep;
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 		EngineCore.outputText( 'You come closer and discover a placard.  It reads, "Fountain of Endowment".  Well, clearly it\'s supposed to enhance something, but at what cost?\n\n', false );
 		EngineCore.outputText( 'Do you drink from the fountain?', false );
 		//[Yes] [No];
-		EngineCore.doYesNo( this.drinkFountainEndowment, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this.drinkFountainEndowment, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Exgartuan.prototype.drinkFountainEndowment = function() {
 		EngineCore.outputText( '', true );
@@ -221,7 +221,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 			EngineCore.outputText( ' now!', false );
 			changed = true;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Exgartuan.prototype.exgartuanInfestDick = function() {
 		EngineCore.spriteSelect( 15 );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 			EngineCore.outputText( 'You blush and redress, noting that Exgartuan seems to be silent and sleeping...  maybe you\'ll get a little peace now?', false );
 		}
 		CoC.getInstance().player.changeStatusValue( StatusAffects.Exgartuan, 2, (12 + Utils.rand( 7 )) );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//(NOT PLAYED WITH RECENTLY: +LUST MESSAGE);
@@ -798,14 +798,14 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 	Exgartuan.prototype.freeBeePostRape = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You take pity on the slut and untie her.  Hopefully she\'ll recover before something worse finds her.  You\'d hate to let a tentacle-beast get your sloppy seconds.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'cor', -1 );
 	};
 	//[Leave Her];
 	Exgartuan.prototype.leaveBeePostRape = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You smile cruelly and give her glittering vulva a gentle smack before you walk away, leaving her tied up there.  Maybe some lonely imps will find a use for her...', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'cor', 0.5 );
 	};
 	Exgartuan.prototype.exgartuanSleepSurprise = function() {
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 			}
 			EngineCore.outputText( '  Liquid-hot pressure slides over the underside of your ' + Descriptors.cockDescript( 0 ) + ', licking wetly at the pulsating, need-filled demon-prick.  Your rogue tongue\'s attentions have the desired effect, and the cries of your pleasure are muffled by your own thick flesh and its rapidly distending urethra.\n\n', false );
 			EngineCore.outputText( 'If someone were watching', false );
-			if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( SceneLib.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				EngineCore.outputText( ', and judging by Jojo\'s high pitched whines, he certainly is,', false );
 			}
 			EngineCore.outputText( ' they\'d see dick-flesh bulging with a heavy load as it\'s pumped into your lips.  The fully-inflated cum-tube distends your mouth, stretching your jaw painfully, and dumps its creamy cargo into its willing receptacle.  Your belly burbles as it adjusts to the ', false );
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 				}
 			}
 			EngineCore.outputText( '\n\n', false );
-			if( CoC.getInstance().scenes.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( SceneLib.jojoScene.monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				EngineCore.outputText( 'The splatter of mouse-cum erupting in the wood reaches your ears, bringing a wistful smile to your face.  That slutty mouse is such a peeping tom!  ', false );
 			}
 			EngineCore.outputText( 'Your eyes slowly roll back down while Exgartuan deflates, leaving a trail of pleased, white submission ', false );
@@ -1155,7 +1155,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 		}
 		EngineCore.outputText( '.  As you rise to your feet, a few streams of cum run down your ' + CoC.getInstance().player.legs() + '.', false );
 		//[If any followers];
-		if( CoC.getInstance().scenes.camp.hasCompanions() ) {
+		if( SceneLib.camp.hasCompanions() ) {
 			EngineCore.outputText( '  For a moment, you consider asking someone outside if they remember anything from last night.  But you decide it\'s better to just keep it to yourself, afraid of what you might find out.', false );
 		}//[else];
 		else {
@@ -1611,7 +1611,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, $log, CockTypesEnum, Combat, 
 		CoC.getInstance().player.changeStatusValue( StatusAffects.Exgartuan, 2, (16 + Utils.rand( 7 )) );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'exgartuan', new Exgartuan() );
+	SceneLib.registerScene( 'exgartuan', new Exgartuan() );
 } );

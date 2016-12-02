@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function GoblinScene() {
 	}
 
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( $log, ImageManager, PerkLib, CockTypesE
 		//Dick stuff:;
 		if( CoC.getInstance().player.hasCock() ) {
 			//Corrupt too big scene;
-			if( CoC.getInstance().player.cockArea( CoC.getInstance().player.biggestCockIndex() ) > CoC.getInstance().monster.vaginalCapacity() && CoC.getInstance().player.cor > 80 && CoC.getInstance().scenes.jojoScene.monk > 2 ) {
+			if( CoC.getInstance().player.cockArea( CoC.getInstance().player.biggestCockIndex() ) > CoC.getInstance().monster.vaginalCapacity() && CoC.getInstance().player.cor > 80 && SceneLib.jojoScene.monk > 2 ) {
 				corruptTooBig = this.rapeAGoblinCorruptTooBig;
 			}
 			//Regular too big scene;
@@ -856,5 +856,5 @@ angular.module( 'cocjs' ).run( function( $log, ImageManager, PerkLib, CockTypesE
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'goblinScene', new GoblinScene() );
+	SceneLib.registerScene( 'goblinScene', new GoblinScene() );
 } );

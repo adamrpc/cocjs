@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Helspawn', function( kFLAGS, MainView, Appearance, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
-	var Helspawn = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainView, Appearance, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+	function Helspawn() {
+		this.init(this, arguments);
+	}
+	angular.extend(Helspawn.prototype, Monster.prototype);
 	Helspawn.prototype.doAI = function() {
 		var choices = [];
 		choices.push(this.helspawnTwinStrikes);
@@ -144,11 +147,11 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( kFLAGS, MainView, Appea
 		this.addHP( this.eMaxHP() / 3.0 );
 	};
 	Helspawn.prototype.defeated = function() {
-		CoC.getInstance().scenes.helSpawnScene.beatUpYourDaughter();
+		SceneLib.helSpawnScene.beatUpYourDaughter();
 	};
 
 	Helspawn.prototype.won = function() {
-		CoC.getInstance().scenes.helSpawnScene.loseSparringToDaughter();
+		SceneLib.helSpawnScene.loseSparringToDaughter();
 	};
 	Helspawn.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

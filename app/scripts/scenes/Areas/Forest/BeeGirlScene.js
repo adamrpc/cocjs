@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
 	function BeeGirlScene() {
 	}
 
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		if( CoC.getInstance().player.hasKeyItem( 'Traveler\'s Guide' ) >= 0 && CoC.getInstance().player.inte / 2 > Utils.rand( 40 ) ) {
 			EngineCore.outputText( 'You suddenly remember a passage from the Traveler\'s Guide about monstrous bees that lay eggs in unmentionable places.  Of course, a brave champion would face any danger.\n\n<b>Do you proceed?</b>' );
 			//Yes goes to beeEncounterLevel2(), no goes to camp
-			EngineCore.choices( 'Yes', this.beeEncounterSelect, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Yes', this.beeEncounterSelect, '', null, '', null, '', null, 'Back', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//If not smart enough, proceed.
 		else {
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 					//Chance to avoid raaaaeeeeep
 					if( (CoC.getInstance().player.lib + CoC.getInstance().player.cor < 140) || Utils.rand( 2 ) === 0 ) {
 						EngineCore.outputText( 'You barely stop yourself from gleefully throwing yourself into her arms.  You realize the harmonic buzzing of her wings and the unearthly scent of her honey briefly robbed you of your reason.  Feeling momentarily more clear-headed, what do you do?' );
-						EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeTalk, 'Seduce', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeTalk, 'Seduce', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 					} else {
 						this.beeEncounterClassic( false );
 					}
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		//Chance to avoid raaaaeeeeep
 		if( (CoC.getInstance().player.lib + CoC.getInstance().player.cor < 140) || Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( '\n\nYou just barely hold yourself back and shake your head to clear the smell and buzzing from your mind.  Something about your ' + (isBeeMorph ? 'new bee body seems to have drawn' : 'massive member has attracted') + ' her attention, and she is staring at your crotch in anticipation.  You steady yourself and decide what you should do next.' );
-			EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Sex', this.beeSexForCocks, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Sex', this.beeSexForCocks, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			this.beeSexForCocks( false );
 		}
@@ -125,12 +125,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 	BeeGirlScene.prototype.beeEncounterAsBeeMorphFemaleLeave = function() {
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( '\n\nYou shake your head at her, and she gives you a look of disappointment.  You’re a little disappointed yourself, but you already decided to leave.  You turn away from the bee and resume your explorations.  Nothing else of note happens over the rest of the hour.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraid = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her face breaks into a smile at the sight of you.  Her buzzing dies down and you notice that the mind numbing smell in the glade isn’t as strong as you were last here.  The handmaiden turns to the side and shows you that her bee abdomen is quite slender today; it doesn’t look like she has any eggs this time.  <i>“Zzzo, the queen hazzz zzzaid that we can try a little experiment with you, if thingzzz work out, maybe we won’t use zzzo much buzzzing and honey.”</i>  She giggles, <i>“Firzzzt time, no eggzzz, zzzo you don’t have to worry.  Are you ready to have zzzome fun?”</i>' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Have Sex', this.beeEncounterAfraidFirstTimeSex, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Have Sex', this.beeEncounterAfraidFirstTimeSex, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraidFirstTimeSex = function() {
 		EngineCore.clearOutput();
@@ -163,12 +163,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( 'You aren’t able to regain your wits until she has pulled back out of you and sent you on your way back to camp.  The whole situation was very vivid now that you’ve had a chance to think about it.  You know you came at least 3 times from her tongue, that she told you to come back soon for the full experience next time, and that you actually feel better than you have in a long time!\n\n' );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraidRepeat = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her face breaks into a smile at the sight of you and her buzzing dies down.  Once again, the smell in the grove is much weaker than it was when you first came to this grove.  Those same flowers have been scattered around to ease off on the scent’s mind affecting powers.  She turns to the side to give you a full view of her now swollen abdomen and gives it a gentle pat.  <i>“Are you ready to carry zzzome eggzzz now?  I won’t hurt you, and I promizzzizz I won’t uzzze my buzzzing and honey to make you do it.  Thezzze where zzzaved zzzpecially for you, and I’ve got a little gift for you too if you zzzay yezzz.  Are you up for a little zzzex and eggzzz up your butt?”</i>' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Have Sex', this.beeEncounterAfraidRepeatSex, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Have Sex', this.beeEncounterAfraidRepeatSex, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraidRepeatSex = function() {
 		EngineCore.clearOutput();
@@ -220,29 +220,29 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		CoC.getInstance().player.slimeFeed();
 		switch( Utils.rand( 10 ) ) {
 			case  0:
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W__BOOK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.W__BOOK, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			case  1:
 			case  2:
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.OVIELIX, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.OVIELIX, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			case  3:
 			case  4:
-				CoC.getInstance().scenes.inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( UseableLib.B_CHITN, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			default:
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.PURHONY, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterDisgusted = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her face breaks into a frown at the sight of you.  At once her buzzing stops and she looks at you and says <i>“Oh, it’zzz you again, juzzzt go away; I need to find zzzomeone that actually will carry my queen’zzz eggzzz.”</i>  Your mind is pulled from its stupor, as she directs you out of the clearing with a dismissive look.' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterDuty = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her face breaks into a smile and her buzzing dies down.  You shake your head slightly to clear away the effect that you were under and look back at the smiling bee girl.' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeEncounterDutyTalk, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeEncounterDutyTalk, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterDutyTalk = function() {
 		EngineCore.clearOutput();
@@ -257,26 +257,26 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You decline her offer, and shortly afterwards you take your leave to return to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterSheFearsYou = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her mouth opens wide in panic as she catches sight of you.  She drops the flower and starts to draw back yelling <i>“Pleazzze don\'t hurt me again!  I won\'t try to lay eggzzz in you any more, just let me go!”</i>\n\n' );
 		EngineCore.outputText( 'What will you do with her?' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterSheDesiresYou = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her mouth opens wide in panic as she catches sight of you.  She drops the flower and starts to draw back yelling <i>“No!  I won\'t give in to the dezzzire!  Go away!”</i>\n\n' );
 		EngineCore.outputText( 'What will you do with her?' );
-		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.fightTheBeeGirl, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterSheBeatsYouRegularly = function() {
 		EngineCore.outputText( ' in the light.\n\n' );
 		EngineCore.outputText( 'Her mouth breaks out in a grin at the sight of you.  <i>“Hello again naughty ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ',”</i> her buzzing really starting to get inside your head as she stands up and beckons to you.  <i>“Juzzzt make it eazzier on yourzzzelf and let me lay my eggzzz in you.  No fuzzzzz, no fighting.  Just let yourzzzelf be carried away.”</i>\n\n' );
 		if( (CoC.getInstance().player.lib + CoC.getInstance().player.cor < 70) || Utils.rand( 4 ) === 0 ) { //Chance to avoid raaaaeeeeep
 			EngineCore.outputText( 'With great difficulty you manage to stop yourself from throwing yourself into her arms.  Losing to this girl isn’t helping you resist her charms at all.  You’re finding It harder and harder to fight the call of her incredible song and unnatural scent, it may be wise to run now; but what will you do now that you have your senses again?' );
-			EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeEncounterSheBeatsYouRegularlyTalk, '', null, '', null, 'Run', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fight', this.fightTheBeeGirl, 'Talk', this.beeEncounterSheBeatsYouRegularlyTalk, '', null, '', null, 'Run', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'Unable to control yourself in her presence, you throw yourself into her arms and she lifts you up a little into the air before setting you face down onto the flower and landing on your back.  <i>“That’zzz the way it should be, it’zzz zzzo much easier when you juzzzt let go.  Are you ready?”</i>' );
 			this.beeEncounterSheBeatsYouRegularlyLastChance();
@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You barely manage to shake off her wiles and roll to the side.  You give her one last look before picking yourself up and running away from the clearing.  That really could have gone better.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterSheBeatsYouRegularlyAndYouLetHerLaysEggs = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
@@ -334,7 +334,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			CoC.getInstance().player.buttKnockUp( PregnancyStore.PREGNANCY_BEE_EGGS, PregnancyStore.INCUBATION_BEE, 1, 1 );
 		} //Anal bee pregnancy!
 		CoC.getInstance().player.buttChange( 25, true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	BeeGirlScene.prototype.beeEncounterWithExgartuan = function() {
 		EngineCore.outputText( ', bending into a smile as she sees you approach.  Standing, she welcomes you in, her wings giving a small buzz as her arms spread open for a welcoming embrace.\n\n' );
@@ -342,7 +342,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' wriggles free of your ' + CoC.getInstance().player.armorName + ', as you keep walking forward.  A bodiless voice yells, "<i>Honeypot, honeypot, ME LOOOOVE HONEYPOOOOOT!</i>"\n\n' );
 			EngineCore.outputText( 'The bee-girl\'s eyes widen at the sight, shocked by your over-endowed form being dragged towards her as if there were a magnet in your ' + Descriptors.cockDescript( 0 ) + '.  She presses herself against the flower\'s petals, terrified and afraid to put up any meaningful resistance.  The nagging voice pipes up, "<i>So are we gonna rape her or what, ' + CoC.getInstance().player.short + '?  I need some honeyyy!</i>"\n\n' );
 			EngineCore.outputText( 'She seems too surprised to resist.  Will you go along with Exgartuan and rape her?' );
-			EngineCore.doYesNo( CoC.getInstance().exgartuan.exgartuanBeeRape, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( CoC.getInstance().exgartuan.exgartuanBeeRape, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'The bee-girl\'s eyes widen at the sight,  shocked by your over-endowed form being dragged towards her as if there were a magnet in your ' + Descriptors.cockDescript( 0 ) + '.   She flutters into the air and aims her stinger towards you, ready to fight!' );
 			//start combat
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'She lifts off, hovering a few feet off the ground.  <i>“Good luck getting rid of thozzze thingzzz.  When you do, come find me and I\'ll fill you zzzo full of lovely eggzzz,”</i> she promises, her fingers idly stroking her sex.  She shakes her head, deliberately getting control of herself and forcing her fingers away from her slit, then flies up through a hole in the canopy.\n\n' );
 		EngineCore.outputText( 'Alone and aroused, all you can do is put your clothes back on and travel back to your camp, hoping no imps ambush you on the way.' );
 		EngineCore.dynStats( 'lus', 0.5 * CoC.getInstance().player.lib + 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.fightTheBeeGirl = function() {
 		EngineCore.clearOutput();
@@ -669,9 +669,9 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			CoC.getInstance().player.buttChange( 25, true );
 		}
 		if( postCombat === undefined || postCombat ) {
-			Combat.cleanupAfterCombat( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			Combat.cleanupAfterCombat( SceneLib.camp.returnToCampUseFourHours );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	BeeGirlScene.prototype.beeSexForCocks = function( clearScreen ) {
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( 'In moments, her hands are covered with your usual level of cum, though this gets not much more than a nod of approval from the giver of your pleasure.  She gently sets you to the side of her and pulls the bottle from her lower lips and puts a cork on the bottle before setting it down on your stomach.  <i>“Take thizzz after it hazzz had an hour to zzzet.”</i> she tells you before picking up her bag and flying away.  Thanks to the after effects of her scent, you don’t really have a chance to react before you drift off to sleep for several hours.\n\n' );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', 3, 'cor', -2 );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			SceneLib.inventory.takeItem( ConsumableLib.SPHONEY, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	BeeGirlScene.prototype.beeSexForCocksPart2 = function( giantCockIndex ) {
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( '”</i> she says handing you the bottle with a wink.  Then she wipes off some of the dried cum from her face, takes her bag, and flies off.  Just before she is out of sight she calls back to you, <i>“I look forward to zzzeeing you again zzzoon!”</i>  After cumming so many times it\'s no surprise that you wake up hours later, having drifted off to sleep.\n\n' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2, 'cor', -3 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SPHONEY, CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		SceneLib.inventory.takeItem( ConsumableLib.SPHONEY, SceneLib.camp.returnToCampUseFourHours );
 	};
 	BeeGirlScene.prototype.beeDroneBadEnd = function() {
 		EngineCore.outputText( 'Her face breaks into a wide knowing smile.  <i>“Hello again, my fine cocked friend,”</i> she says rising and gently hovering over to you.  <i>“You know, the queen izzz eagerly waiting to meet you.  Zzzhe will be able to take care of you much better than I ever could, but I think we can zzztill zzzpend zzzome time together if you’re up for it.”</i>\n\n' );
@@ -816,12 +816,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			}
 			EngineCore.outputText( '\n\nDo you accept her offer?' );
 			this.attitude = BEE_GIRL_TALKED; //Replaced beeProgress
-			EngineCore.doYesNo( this.beeEncounterClassic, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this.beeEncounterClassic, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//If you get lucky, chance for free honey and -corruption in exchange for lust.
 			if( Utils.rand( 2 ) === 0 ) {
 				EngineCore.outputText( '"<i>Awww, it zzzeemz you\'ve caught me with my \'pants\' down,</i>" she giggles, "<i>I\'m all out of eggzzz.</i>"  She pats her smaller-sized abdomen for a moment, thinking.\n\nHer eyes light up with inspiration, "<i>Zzzince I\'m ztill zzzo horny, would you like pure undiluted honey? Itzzz very good,</i>" she says, spreading her legs and exposing the source of the scent – her puffy black vulva dripping with sticky amber fluid.\n\nDo you collect her honey?' );
-				EngineCore.doYesNo( this.freeHoneyEvent, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( this.freeHoneyEvent, SceneLib.camp.returnToCampUseOneHour );
 			}
 			//If you get unlucky you just get the choice of getting egg-laid.
 			else {
@@ -861,21 +861,21 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		}
 		EngineCore.outputText( '\n\nHer face falls at your refusal, but she makes no move against you.  <i>“Okay, I won’t try to forzzze you, maybe you’ll be more willing next time?”</i>  You give a half hearted chuckle before going back to your camp.' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterRefusedHerEggsAfraid = function() {
 		EngineCore.spriteSelect( 6 );
 		this.attitude = BEE_GIRL_PLAYER_AFRAID;
 		EngineCore.outputText( '\n\nYou move away from her and explain that it isn’t that you don’t like the idea of bearing the eggs, it’s that you’re afraid of the effect she has on your mind.  You’re uncomfortable that you can’t think clearly around her, and you really can’t agree to anything when you can’t remember it and thus can’t really enjoy it.  She tips her head to the side in surprise, before pursing her glossy lips in worry and saying, <i>“Really?  You mean there are people who don’t like it when they lozzze themzzzelvezzz?  Hmm, maybe I should tell my queen about thizzz.”</i>  She smiles back at you and starts to fly away, before stopping in midair and floating over to you and saying <i>“Come back another time, and maybe I can work out zzzomething you’ll be comfortable with, ok?”</i>' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterRefusedHerEggsDisgusted = function() {
 		EngineCore.spriteSelect( 6 );
 		this.attitude = BEE_GIRL_PLAYER_DISGUSTED;
 		EngineCore.outputText( '\n\nYou tell her that you find the idea of her laying eggs in you repulsive, and that you’re tired of her trying to constantly tempt you into accepting against your will.  She gives you an annoyed look before stomping her foot down on the flower she is standing on, almost causing her to tumble over to the side while saying, <i>“Fine, ah!”</i> before righting herself with her wings.  <i>“If I ever zzzee you again, you can forget about getting a good time.”</i>  Before directing you away from the clearing.  You smile as you leave, now you don’t have to worry about her song getting to you anymore.' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterRefusedHerEggsDuty = function() {
 		EngineCore.spriteSelect( 6 );
@@ -883,20 +883,20 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( '\n\nYou explain to her that you are a champion of your village, and what that means.  You explain your duty, and that you can’t do anything that might push you away from accomplishing that.\n\n' );
 		EngineCore.outputText( 'The bee girl nods and seems to smile in understanding.  <i>“I zzzee, I’m bound to a duty too.  I have to find people to lay my queen’zzz eggzzz.  If you have a duty too, I won’t get in your way, and I won’t forzzze you to carry them.”</i>  You thank the bee girl for her considerations and apologize that you can’t help her more directly.  She smiles at you and says, <i>“That’zzz ok champion; if you ever want to just talk, feel free to come vizzzit.  Our queen is againzzzt the demon, zzzo we will zzzuport you in our heartzzz.”</i>' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterRefusedHerEggsLeave = function() {
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( '\n\nYou aren’t going to deal with this girl right now, so you just turn and walk away.' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/* Not called anywhere
 	 BeeGirlScene.prototype.declineBeeTalk = function() {
 	 EngineCore.spriteSelect(6);
 	 EngineCore.outputText('She pouts and returns to her sing-song buzzing.  Her fingers trace circles between her thighs and the sweet scent intensifies.  You beat a hasty retreat before her efforts overcome your reason.', true);
 	 EngineCore.dynStats('lus', (20 + CoC.getInstance().player.lib / 15));
-	 EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+	 EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 	 }
 	 */
 	BeeGirlScene.prototype.beeMaidenPlay = function() {
@@ -946,12 +946,12 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			case  0:
 				this.conversation = 1;
 				EngineCore.outputText( 'After giving you a chance to recover from the ordeal, your chitinous partner turns to you.  <i>“That wazzz fun, wazzzn’t it?  We zzzhoud do thizzz again zzzome time, maybe get to know each other too?”</i> she says before handing you a small bottle filled with honey.  <i>“Zzzome of mine for you, take it.”</i>  With that, she spreads her wings and flies off giving you one last wave.\n\n' );
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.PURHONY, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			case  1:
 				this.conversation = 2;
 				EngineCore.outputText( 'Once you’ve recovered, she gives a happy stretch.  <i>“It’zzz alwayzzz zzzo fun playing with zzzomeone more than onzzze.  Don’t you agree?”</i> she says as she puts one of her arms around your shoulders.  You don’t hesitate to tell her that it certainly was a fun experience.  <i>“Hey, what hive are you from?”</i> she asks you, <i>“Maybe I could come bring you a zzzurprise zzzome time?”</i>  You hesitate for a moment before telling her that you aren’t actually from a hive, you aren’t even actually a full bee girl.  Her eyes go wide before clapping her hand to her forehead in realization, <i>“Right!  Of course, no wonder you zzzeemed a bit off to me.”</i>  Suddenly she freezes, <i>“Zzzomeone is coming, they probably want my eggzzz and honey, let’zzz talk again zzzome other time.”</i>  She hands you another bottle of amber liquid before shooing you off.  You put your ' + CoC.getInstance().player.armorName + ' back on before going too far.  You turn back just in time to see an imp jump into the bee’s arms.\n\n' );
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.PURHONY, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			case  2:
 				this.conversation = 3;
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 					EngineCore.outputText( '<i>“I’ve been thinking zzzizzzter, I feel zzzo bad that you don’t know the joy of hearing the mother’zzz voizzze.”</i>  You look at her confused and ask her what she means.  <i>“All uzzz beezzz can hear the voizzze of our mother, the queen.  It makezzz me feel zzzo bad when I think about how you can’t hear her voizzze.”</i>  She looks down with a sad expression on her face.  You wonder if maybe you should say something to her, but her feelings are so alien to you that you aren’t sure what exactly you should say.\n\n' );
 					EngineCore.outputText( 'She looks back up at you with an excited look on her face and hands you another bottle of her honey before saying, <i>“Don’t worry zzzizzzter, I’ll try to think of zzzomthing!”</i>   With that she spreads her wings and flies off.  You’re surprised to see she left so suddenly like that.  Her abdomen is still full of eggs and she left her bag behind (you take a look inside it, but all you find is a bottle of her honey)...  She’ll probably be back for that before too long.  You shrug your shoulders, get dressed, gather up your things, and head back towards camp.\n\n' );
 				}
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.PURHONY, SceneLib.camp.returnToCampUseOneHour );
 				break;
 			case  3:
 				this.conversation = 4;
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 	};
 	BeeGirlScene.prototype.beeMaidenConversationRejectCandy = function() {
 		EngineCore.outputText( '\n\nSomething about this whole thing just felt off to you, so you turn her down.  She almost bursts into tears.  <i>“But why?  Why do you want to be zzzo lonely?  I don’t underzzztand!”</i>  You try to offer up an explanation, but after a little while it’s clear that the two of you have fundamentally different mindsets.  To her, the most horrible thing imaginable is to not be a part of a hive, and it’s unlikely that you’ll be changing her opinion any time soon.  In the end all you can tell her that she’ll accept is that you don’t want this right now, but you hope you can continue your loving rendezvous if she’s feeling up to it.  She does perk up at this and gives you a nod, <i>“Okay, I’ll zzzee you around then.”</i>  Before you once again put your ' + CoC.getInstance().player.armorName + ' back on and head away from her flower.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.freeHoneyEvent = function() {
 		EngineCore.spriteSelect( 6 );
@@ -1033,7 +1033,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'You take the vial absently as you kneel between her legs and take in deep breaths of the scent.  It fills your head and groin with its warmth and sticky sweetness.  You part your lips, leaning ever closer to her delicate flower, tensing with anticipation.  When your tongue finally meets the slickened surface of her vulva you swoon.  The taste is better than anything you\'ve ever experienced - sweet, pure, and yet totally sexual.  You dart over her clit, and are rewarded with a burst of heavenly sweetness.  The maddening taste of her ambrosia gets in your veins – you NEED more and you attack her honeypot mercilessly, until at last she squeals in orgasm, clamping her fuzz-covered thighs around your head.\n\n', false );
 		EngineCore.outputText( 'The force of her orgasm splatters you with the honey, far more than you could possibly try to lap up. You dimly remember the vial she gave to you, and steady it under the dripping fluid.  You catch as much of her sweetness as you can while still mashing your face against her quivering cunt.  You are in heaven, but after a time she pushes you back, smiling contentedly.  Her free hand offers you a small cork.   You reluctantly accept it and cap off the pure honey to save for later.\n\n', false );
 		EngineCore.outputText( 'She waves and stretches, picking up her pack and buzzing her wings as she takes off.  She blows a kiss over her shoulder and flies away, leaving you to return to your camp...', false );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURHONY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.PURHONY, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.seduceBeeGirl = function() {
 		EngineCore.spriteSelect( 6 );
@@ -1061,7 +1061,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			CoC.getInstance().player.slimeFeed();
 			CoC.getInstance().player.orgasm();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeRapesYou = function() {
 		EngineCore.spriteSelect( 6 );
@@ -1970,7 +1970,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			EngineCore.outputText( ' and leave the completely exhausted and drenched woman on the forest floor, wings and legs still twitching slightly, sending a fine mist of cum across the ground around her.', false );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		Combat.cleanupAfterCombat();
 	};
 	//Naga on Bee Scene
@@ -2122,7 +2122,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		if( CoC.getInstance().player.gender > 0 ) {
 			CoC.getInstance().player.orgasm();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		Combat.cleanupAfterCombat();
 	};
 	BeeGirlScene.prototype.beeGirlsGetsDildoed = function() {
@@ -2251,5 +2251,5 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 			} );
 		}
 	} );
-	CoC.getInstance().registerScene( 'beeGirlScene', new BeeGirlSceneProxy() );
+	SceneLib.registerScene( 'beeGirlScene', new BeeGirlSceneProxy() );
 } );

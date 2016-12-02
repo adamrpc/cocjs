@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, EventParser, ItemSlot, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, EventParser, ItemSlot, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function UrtaQuest() {
 		this.urtaQItems1 = new ItemSlot();
 		this.urtaQItems2 = new ItemSlot();
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//TODO: Figure out this whole thing. You play as Urta but the whole quest saves you state into this variable and swaps back and forth;
 		//whenever you 'leave' the quest;
 	UrtaQuest.prototype.urtaBusy = function() {
-		return (CoC.getInstance().scenes.telAdre.edryn.pregnancy.type === PregnancyStore.PREGNANCY_TAOTH || CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] === -1);
+		return (SceneLib.telAdre.edryn.pregnancy.type === PregnancyStore.PREGNANCY_TAOTH || CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] === -1);
 	};
 	UrtaQuest.prototype.isUrta = function() {
 		if( CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] > 0 && CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] < 1 ) {
@@ -64,16 +64,16 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You lean over the table and take Urta\'s hands in your own.  Her downy fur ruffles as you give her a comforting squeeze, the tension oozing from her body at your touch.  Urta sniffles a little and wipes her moistened cheek on her shoulder, muttering, "<i>Oh, ' + CoC.getInstance().player.short + ', you\'re too good for me.</i>"  She pulls back and gives you a knowing smile.  "<i>You don\'t have to worry, really.  You turned this down on her luck lush into a happy woman.</i>"' );
 		EngineCore.outputText( '\n\nUrta pauses then gives you a wry smile as her voice turns husky.  "<i>Or should I say you\'ve made me a happy herm?  A VERY happy herm.</i>"  A cylindrical distension begins to rise up her dress.  The sheer fabric strains, but contains it for now.  The tip of the distortion disappears into the foxy fox\'s ample bust.  You can see the flare peaking out of that simple valley, already oozing slightly.  Urta follows your gaze down and smirks.  "<i>You know, I used to hate having this happen,</i>" she says as she stands up and stretches, showing the bulge off to you and anyone else lucky enough to glance in her direction.  Sliding into your arms, the vixen plants a ' );
-		if( CoC.getInstance().scenes.urta.urtaDrunk() ) {
+		if( SceneLib.urta.urtaDrunk() ) {
 			EngineCore.outputText( 'boozy ' );
 		}
 		EngineCore.outputText( 'kiss on your lips as she hugs you tight - tight enough that you feel every vein through the concealing silk of her outfit.  "<i>I\'m a lucky girl.</i>"' );
 		EngineCore.outputText( '\n\nYou return the hug with every fiber of your being, holding her tight.  Nuzzling at your neck, Urta lets her head come to rest on your shoulder.  Her eyes slowly close as she says, "<i>Just... hold me, ' + CoC.getInstance().player.short + '.</I>"  As if you were going to do anything else!  You cradle the abused vixen for as long as she needs, which turns out to be long enough for her throbbing erection to actually recede, forgotten for the time being.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, ' + CoC.getInstance().player.short + ',</i>" Urta says as she pulls back, giving your hand a gentle squeeze, "<i>I didn\'t know how badly I needed that.</i>"  She sits back down and explains, "<i>I\'ll be fine now, I think.  Thanks again.</i>"' );
 		EngineCore.outputText( '\n\nNodding, you give the girl a smile as you stand up to depart.  Her eyes twinkle happily as she watches you go.' );
-		CoC.getInstance().scenes.urta.urtaLove( 5 );
+		SceneLib.urta.urtaLove( 5 );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 3;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Yeesh(C)*;
 	UrtaQuest.prototype.yeeshUrtaAfterFamFamTalk = function() {
@@ -87,9 +87,9 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\nYou answer with a negative declaration.  You have things to do, but you hope she learned not to be such a sad sack - she\'s awesome, and she should act like it.' );
 		EngineCore.outputText( '\n\nUrta nods slowly and throws back a swig from her drink.  "<i>I will.</i>"' );
 		EngineCore.outputText( '\n\nGood bitch...' );
-		CoC.getInstance().scenes.urta.urtaLove( 1 );
+		SceneLib.urta.urtaLove( 1 );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Who Cares(C)*;
 	UrtaQuest.prototype.whoCaresUrtaAfterFamFamTalk = function() {
@@ -99,12 +99,12 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\nYou rise to leave and  glance over your shoulder at her.  "<i>I don\'t care about your tragic history.  I really don\'t, and I doubt anyone else would either.</i>"' );
 		EngineCore.outputText( '\n\nUrta growls, "<i>You asked!</i>"' );
 		EngineCore.outputText( '\n\nYou tell her that you asked about her parents, not a summary of every misfortune to ever befall her.  Then, you leave, sending a barmaid her way with a drink.  The whiny cunt will likely need it to get over her bruised pride.  You doubt it will stop her from jumping your bones the next time you visit.  Her libido\'s too high for her to resist.' );
-		CoC.getInstance().scenes.urta.urtaLove( -10 );
+		SceneLib.urta.urtaLove( -10 );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] -= 5;
 		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] < 1 ) {
 			CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = 1;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Infertility Discussion(C)*;
 	//Requires PC have discussed family with her previously.;
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\n(<b>Encouraging her to visit the Covenant will begin a segment where you play as Urta for a time, and saving will be disabled.  It is recommended you decline and save first if you have not saved in some time.</b>)' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Look Into It', this.startUrtaQuest );
-		EngineCore.addButton( 1, 'Maybe Later', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 1, 'Maybe Later', SceneLib.camp.returnToCampUseOneHour );
 	};
 	UrtaQuest.prototype.resetToPC = function() {
 		CoC.getInstance().player = CoC.getInstance().player2;
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//If PC has a cock:;
 		if( CoC.getInstance().player2.hasCock() ) {
 			EngineCore.outputText( '  "<i>I\'ve got a better one ' );
-			if( CoC.getInstance().scenes.helFollower.followerHel() ) {
+			if( SceneLib.helFollower.followerHel() ) {
 				EngineCore.outputText( 'at home' );
 			} else {
 				EngineCore.outputText( 'at my beck and call' );
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.getInstance().flags[ kFLAGS.HOLLI_DEFENSE_ON ] > 0 ) {
 			EngineCore.outputText( 'A dangling tentacle nearly hits you in the dark.  You roll aside at the last moment, looking up to see dozens of the things idly dangling around.  When did this camp get such a corrupt tree in it?  You suppose it must have its uses in defending against foes from the sky...  ' );
 		}
-		if( CoC.getInstance().scenes.camp.companionsCount() > 2 ) {
+		if( SceneLib.camp.companionsCount() > 2 ) {
 			EngineCore.outputText( 'There are a number of people in the camp, but you avoid them as you head towards ' + CoC.getInstance().player2.short + '\'s bunk.  ' );
 		}
 		EngineCore.outputText( 'The camp looks pretty nice actually.  Living out here must have given ' + CoC.getInstance().player2.mf( 'him', 'her' ) + ' plenty of time to improve it.' );
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 			EngineCore.addButton( 1, 'FuckHerVag', this.putUrtasWangInPCsCunt, truth );
 		}
 		//Put a PC dick in Urta's vag(C)*;
-		if( CoC.getInstance().player2.cockThatFits( CoC.getInstance().scenes.urta.urtaCapacity() ) >= 0 ) {
+		if( CoC.getInstance().player2.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
 			EngineCore.addButton( 2, 'Ride Dick', this.putAPCDickInUrtaCoochies, truth );
 		}
 		//Put Urta dick in the PC's asshole [Cocked PCs](C)*;
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 	//Put a PC dick in Urta's vag(C)*;
 	UrtaQuest.prototype.putAPCDickInUrtaCoochies = function( truth ) {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player2.cockThatFits( CoC.getInstance().scenes.urta.urtaCapacity() );
+		var x = CoC.getInstance().player2.cockThatFits( SceneLib.urta.urtaCapacity() );
 		EngineCore.outputText( 'You push ' + CoC.getInstance().player2.short + ' down onto the ground, glad that ' + CoC.getInstance().player2.mf( 'he', 'she' ) + '\'s not wearing ' + CoC.getInstance().player2.mf( 'his', 'her' ) + ' gear right now.  Unfortunately, you\'ve still got to get out of yours, an action made all that more difficult by the heat welling up in your groin.  Your rebellious cock is already half-stiff, lifting the hem of your armored skirt away from your thighs.  Fingers scrabbling, you struggle with your chestpiece\'s bindings.  Your nipples stiffen, scraping against the inside of it while you fight with to remove it.  You straddle ' + CoC.getInstance().player2.short + '\'s waist to hold ' + CoC.getInstance().player2.mf( 'him', 'her' ) + ' down while you work the bothersome, restraining material free, practically grinding your semi-rigid dick against ' + CoC.getInstance().player2.mf( 'his', 'hers' ) + ' in excitement.  ' + CoC.getInstance().player2.mf( 'His', 'Her' ) + ' hands begin aiding you in your task, allowing your tightly compressed breasts to finally, happily breathe.' );
 		EngineCore.outputText( '\n\nYour cock throbs in tune with your heartbeat, each pulsation causing a thick gobbet of anticipatory precum to splat wetly onto your lover\'s belly, but you aren\'t in the mood to indulge it this time.  If you\'re risking the possibility of never returning to your lover\'s arms again, then you want to remind yourself yet again of the first man ' );
 		if( CoC.getInstance().player2.gender === 3 ) {
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		this.resetToPC();
 		CoC.getInstance().time.hours = 6;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Urta's Attacks;
@@ -2263,7 +2263,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 	//PC Knocks Up Urta with God Child*;
 	UrtaQuest.prototype.knockUpUrtaWithGodChild = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.urta.urtaCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.urta.urtaCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
@@ -2323,7 +2323,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 			EngineCore.outputText( ' - besides, given you know that you\'re nothing but a sacrifice the demons are too lazy to collect, it\'s not like they\'ll really send an invasion through' );
 		}
 		EngineCore.outputText( '.  Urta\'s joyous expression makes it quite clear that you chose the right choice.  The two of you gather your things, dress Urta in her clothes as best you can (adding a blanket for extra protection and modesty), ' );
-		if( CoC.getInstance().scenes.camp.followersCount() >= 2 ) {
+		if( SceneLib.camp.followersCount() >= 2 ) {
 			EngineCore.outputText( 'leave instructions to your fellow camp-dwellers to look after the place, ' );
 		}
 		EngineCore.outputText( 'and set off into the wasteland in the direction of Tel\'Adre.  Urta needs to stop and rest on several occasions, weighed down by her sudden and highly advanced pregnancy, but she soldiers on without complaint, taking whatever support you give to her.  You can feel the strange god-child kicking incessantly inside her belly as you walk together.' );
@@ -2355,7 +2355,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\nYou help her leave the tower, arm in arm, saying goodbye to her only after she\'s tucked tightly into her bed at home, to rest.  Urta gives you a teary kiss before you leave with a little swagger in your step.  You wonder if Taoth will help the Covenant, or if they\'ve bitten off more than they can chew?  Either way, it seems there\'s a potent new ally on the field.' );
 		CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.getInstance().setInCombat( false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Urta Knocks Up PC with God Child;
 	UrtaQuest.prototype.getKnockedUpWithGodChild = function() {
@@ -2426,19 +2426,19 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		}
 		EngineCore.outputText( ' balls, slathering them with slick spunk.' );
 		var ballWorship = [];
-		if( (CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2) && CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+		if( (SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2) && SceneLib.jojoScene.campCorruptJojo() ) {
 			ballWorship[ ballWorship.length ] = 0;
 		}
-		if( (CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2) || CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+		if( (SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 2) || SceneLib.jojoScene.campCorruptJojo() ) {
 			ballWorship[ ballWorship.length ] = 1;
 		}
-		if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+		if( SceneLib.sophieBimbo.bimboSophie() ) {
 			ballWorship[ ballWorship.length ] = 2;
 		}
-		if( CoC.getInstance().scenes.helFollower.followerHel() ) {
+		if( SceneLib.helFollower.followerHel() ) {
 			ballWorship[ ballWorship.length ] = 3;
 		}
-		if( CoC.getInstance().scenes.latexGirl.latexGooFollower() ) {
+		if( SceneLib.latexGirl.latexGooFollower() ) {
 			ballWorship[ ballWorship.length ] = 4;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
@@ -2458,7 +2458,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//{If Jojo/Amily pet};
 		else if( choice === 1 ) {
 			EngineCore.outputText( '\n\nUrta gasps when a tongue finds its way around her balls.  Looking back, she sees a visage you\'d recognize anywhere; the mousy head of your pet, ' );
-			if( CoC.getInstance().scenes.jojoScene.campCorruptJojo() ) {
+			if( SceneLib.jojoScene.campCorruptJojo() ) {
 				EngineCore.outputText( 'Jojo' );
 			} else {
 				EngineCore.outputText( 'Amily' );
@@ -2566,18 +2566,18 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\nShe helps leave the tower, arm in arm, saying her goodbye only after she\'s tucked you in to take a rest.  Urta gives you a teary kiss and trots back towards the city with a swagger in her step.  You wonder if Taoth will help the Covenant, or if they\'ve bitten off more than they can chew?  Either way, it seems there\'s a potent new ally on the field.' );
 		CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.getInstance().setInCombat( false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Urta Goes to Knock Up Edryn with God Child*;
 	UrtaQuest.prototype.urtaAndEdrynGodChild = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Urta shudders from head to toe, barely able to restrain herself around you.  "<i>Oooooh... uh... okay, then.  I\'ll come back... when... when it\'s time, okay?</i>" she titters, almost drunkenly, already prancing off towards the desert.  The lusty vixen looks over her shoulder at you as she jogs off, a trail of lubricant spattering in her wake, her tongue lolling wildly as her eye-humps you.  After a long moment, she looks away, perhaps unable to bear gazing on you any longer.  You hope everything turns out okay...' );
 		//[Urta and Edryn disabled until birth event];
-		CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] = CoC.getInstance().scenes.telAdre.edryn.pregnancy.type;       //Use these two flags to store the pregnancy that Taoth is overriding.
-		CoC.getInstance().flags[ kFLAGS.URTA_PREG_EVERYBODY ] = CoC.getInstance().scenes.telAdre.edryn.pregnancy.incubation; //Since they can't be in use prior to Taoth being born this is fine.
-		CoC.getInstance().scenes.edryn.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_TAOTH, 24 );
+		CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ] = SceneLib.telAdre.edryn.pregnancy.type;       //Use these two flags to store the pregnancy that Taoth is overriding.
+		CoC.getInstance().flags[ kFLAGS.URTA_PREG_EVERYBODY ] = SceneLib.telAdre.edryn.pregnancy.incubation; //Since they can't be in use prior to Taoth being born this is fine.
+		SceneLib.edryn.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_TAOTH, 24 );
 		CoC.getInstance().setInCombat( false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Urta & Edryn God-child epilogue:*;
@@ -2596,11 +2596,11 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( 'As the double doors open, you hear a painful moan from the ' );
 		//{pre-pregnant };
 		EngineCore.outputText( 'horse-girl.' );
-		if( CoC.getInstance().scenes.edryn.pregnancy.isPregnant ) {
+		if( SceneLib.edryn.pregnancy.isPregnant ) {
 			EngineCore.outputText( '  Just how did she get pregnant again when she was already knocked up?  0...Magic, maybe.' );
 		}
 		EngineCore.outputText( '  Urta leads you around a bend, squeezing your hand for comfort.  "<i>Thank you for everything, ' + CoC.getInstance().player.short + ', most of all being so understanding.</i>"  The gray-furred fox pushes past the sixth pair of guards you\'ve seen since entering the tower, just inside to see Edryn splayed on the floor, groaning and heaving, her ' );
-		if( CoC.getInstance().scenes.edryn.pregnancy.isPregnant ) {
+		if( SceneLib.edryn.pregnancy.isPregnant ) {
 			EngineCore.outputText( 'massively ' );
 		}
 		EngineCore.outputText( 'pregnant flanks rippling with muscular contractions.   Something is bulging against her nether-lips, stretching the massive horse-cunt wider and wider with each passing moment.' );
@@ -2608,7 +2608,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		EngineCore.outputText( '\n\nThe ball unfolds itself, one spindly leg at a time, each covered in a short layer of fuzz.  The limbs seem too tiny, too frail, even for a creature new to this world.  A hand disengages itself from the rest of the mass, stringing the clear birthing fluids behind it, revealing an equally frail-looking arm.  You can see its head now, fox-like, with a long vulpine muzzle and large, luminous eyes.  The newborn rises on it\'s newly revealed limbs and stretches, standing almost five feet tall when fully unfolded.' );
 		EngineCore.outputText( '\n\n<i>I live.</i>' );
 		EngineCore.outputText( '\n\nThe voice isn\'t spoken aloud but inside, inside your head.  A glance to Urta reveals that she heard it too.  The creature - Taoth, you correct yourself, cocks its head toward Urta, giving Edryn\'s ass a familiar pat.' );
-		if( CoC.getInstance().scenes.edryn.pregnancy.isPregnant ) {
+		if( SceneLib.edryn.pregnancy.isPregnant ) {
 			EngineCore.outputText( '  The centaur guardswoman is still just as pregnant with your offspring as before.  Your child is unharmed by whatever just transpired.' );
 		}
 		EngineCore.outputText( '  Edryn\'s eyes immediately close, sinking into a deep, restful sleep.' );
@@ -2626,7 +2626,7 @@ angular.module( 'cocjs' ).run( function( $log, Sirius, GnollSpearThrower, Minota
 		//set completed tags!;
 		CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.getInstance().setInCombat( false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'urtaQuest', new UrtaQuest() );
+	SceneLib.registerScene( 'urtaQuest', new UrtaQuest() );
 } );

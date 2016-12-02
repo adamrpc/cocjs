@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'ImpLord', function( Imp, CockTypesEnum, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, Combat ) {
-	var ImpLord = angular.copy( Imp );
+angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, Imp, CockTypesEnum, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, Combat ) {
+	function ImpLord() {
+		this.init(this, arguments);
+	}
+	angular.extend(ImpLord.prototype, Imp.prototype);
 	//Special Attack 1;
 	ImpLord.prototype.impFire = function() {
 		EngineCore.outputText( 'The imp mutters something to himself. Before you have time to react the demonic creature\'s hand is filled with a bright red fire that he hurls at you.  The flames lick at your body leaving a painful burn on you torso, as well as an arousing heat in your groin.' );
@@ -49,10 +52,10 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( Imp, CockTypesEnum, Appe
 	};
 
 	ImpLord.prototype.defeated = function() {
-		CoC.getInstance().scenes.impScene.defeatImpLord();
+		SceneLib.impScene.defeatImpLord();
 	};
 	ImpLord.prototype.won = function() {
-		CoC.getInstance().scenes.impScene.loseToAnImpLord();
+		SceneLib.impScene.loseToAnImpLord();
 	};
 	ImpLord.prototype.init = function( that, args ) {
 		Imp.prototype.init( that, args );

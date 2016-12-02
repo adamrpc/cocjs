@@ -22,11 +22,14 @@
  * seaworld - Anything in the water
  * other	- doesn't fit anywhere else
  */
-angular.module('cocjs').factory('CockTypesEnum', function (Enum) {
-	var CockTypesEnum = angular.copy(Enum);
+angular.module('cocjs').factory('CockTypesEnum', function ($log, Enum) {
+	function CockTypesEnum() {
+		this.init(this, arguments);
+	}
+	angular.extend(CockTypesEnum.prototype, Enum.prototype);
 	CockTypesEnum.prototype.init = function(that, args) {
-		Enum.prototype.init(this);
-		this.group = args[0];
+		Enum.prototype.init(that);
+		that.group = args[0];
 	};
 	CockTypesEnum.ParseConstant = function(i_constantName, i_caseSensitive) {
 		return Enum.ParseConstant(CockTypesEnum, i_constantName, i_caseSensitive);

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 	function Cinnabar() {
 	}
 
@@ -33,13 +33,13 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 			if( !CoC.getInstance().player.hasCock() ) {
 				EngineCore.outputText( 'You walk over towards the rat-morph, and as you near, she places her hands on her hips, sizing you up with her intense, blood-red eyes.  She licks her lips and sidles alongside you, caressing your body as she offers, "<i>50 gems for an hour.  That\'s all it takes to have Cinnabar be your companion...</i>"  Her voice trails off into a husky vibration as she awaits your response.\n\n', false );
 				//[Buy an hour] [Leave];
-				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 			}
 			//(Small Cock);
 			else if( CoC.getInstance().player.biggestCockArea() < 100 ) {
 				EngineCore.outputText( 'You walk over towards the rat-morph, and as you near she places her hands on her hips, sizing you up with her intense, blood-red eyes.  She sidles up alongside you, caressing your body until she feels your bulge.  Her hand stops in place and licks her black, glossy lips,  giggling, "<i>I see you\'ve still got a little boy-cock, huh? Well, 50 gems will get you an hour of my time.  That\'s all it takes to have Cinnabar be your companion...</i>"  The slutty rat-girl\'s voice trails off into a husky vibration while she awaits your response.', false );
 				//[Buy an hour] [Leave];
-				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 			}
 			//(Big enough Cock) ;
 			else {
@@ -53,9 +53,9 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 				EngineCore.outputText( ' inside me... the name\'s Cinnabar, but I\'d rather you plug me and call me whatever you want.</i>"  Her voice trails off into a husky, barely heard vibration as she awaits your response.', false );
 				//[Fuck] [Leave];
 				if( CoC.getInstance().player.cockTotal() > 2 && CoC.getInstance().player.biggestCockArea2() >= 75 ) {
-					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, 'Multi-Fuck', this.cinnabarMultiCockPortalFuckFest, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, 'Multi-Fuck', this.cinnabarMultiCockPortalFuckFest, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 				} else {
-					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 				}
 			}
 		}
@@ -65,13 +65,13 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 			if( !CoC.getInstance().player.hasCock() ) {
 				EngineCore.outputText( 'You walk over towards Cinnabar, and as you near, she places her hands on her hips, sizing you up with her intense, blood-red eyes.  She licks her lips and sidles alongside you, caressing your body as she offers, "<i>50 gems for an hour.  That\'s all it takes to have a companion...</i>"  Her voice trails off into a husky vibration as she awaits your response.\n\n', false );
 				//[Buy an hour] [Leave];
-				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 			}
 			//(Small Cock);
 			else if( CoC.getInstance().player.biggestCockArea() < 100 ) {
 				EngineCore.outputText( 'You walk over towards Cinnabar, and as you near, she places her hands on her hips, sizing you up with her intense, blood-red eyes.  She sidles up alongside you, caressing your body until she feels your bulge.  Her hand stops in place and licks her black, glossy lips,  giggling, "<i>I see you\'ve still got a little boy, huh? Well, 50 gems will get you an hour of my time.  That\'s all it takes to have a VERY skilled companion...</i>"  The slutty rat-girl\'s voice trails off into a husky vibration while she awaits your response.', false );
 				//[Buy an hour] [Leave];
-				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+				EngineCore.choices( 'Buy1Hour', this.cinnabarNonHugeDickings, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 			}
 			//(Big enough Cock) ;
 			else {
@@ -85,9 +85,9 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 				EngineCore.outputText( ' inside me... We could sit here and talk, but I\'d rather you plug me and call me your slut.</i>"  Her voice trails off into a husky, barely heard vibration as she awaits your response.', false );
 				//[Fuck] [Leave];
 				if( CoC.getInstance().player.cockTotal() > 2 && CoC.getInstance().player.biggestCockArea2() >= 75 ) {
-					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, 'Multi-Fuck', this.cinnabarMultiCockPortalFuckFest, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, 'Multi-Fuck', this.cinnabarMultiCockPortalFuckFest, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 				} else {
-					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+					EngineCore.choices( 'Fuck Her', this.cinnabarGetsFUKKKKED, '', null, '', null, '', null, 'Leave', SceneLib.bazaar.enterTheBazaar );
 				}
 			}
 		}
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		//(Too poor);
 		if( CoC.getInstance().player.gems < 50 ) {
 			EngineCore.outputText( '"<i>Ooooh... I\'m sorry, but you don\'t have the gems to hire a companion, babe.   You should get some practice spreading your thighs and earn a REAL living,</i>" Cinnabar teases.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.bazaar.enterTheBazaar );
+			EngineCore.doNext( SceneLib.bazaar.enterTheBazaar );
 			return;
 		}
 		//(Enough cash);
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		EngineCore.outputText( ' before I can get my next customer.</i>"\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK] – tracks if last fuck was huger + corrupteded version;
 	Cinnabar.prototype.cinnabarGetsFUKKKKED = function() {
@@ -367,7 +367,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 3, 'cor', -2 );
 		CoC.getInstance().player.takeDamage( 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(HUGER);
 	Cinnabar.prototype.cinnabarHuger = function() {
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		EngineCore.outputText( '.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(HUGE);
 	Cinnabar.prototype.cinnabarHuge = function() {
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		EngineCore.outputText( '.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Multi Cock Portals] – Requires 2 75+ cock area members and at least 3 total.;
 	//Cinnabar gets the PC in and has them fuck the portals on the wall, ;
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, kFLAGS, Utils, Engine
 		EngineCore.outputText( 'While you\'re getting dressed, the repeated slurps and moans pause enough for Cinnabar to say, "<i>I didn\'t mean to be rude... those dicks... those wonderful, plump cocks... they\'re a gift.  Come back soon ' + CoC.getInstance().player.mf( 'stud', 'baby' ) + ', your cream filling tastes gooood.</i>"  She goes back to licking herself, and you can\'t help but have a huge grin as you walk out.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -6 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'cinnabar', new Cinnabar() );
+	SceneLib.registerScene( 'cinnabar', new Cinnabar() );
 } );

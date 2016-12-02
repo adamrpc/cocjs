@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib, EngineCore ) {
-	var DeBimbo = angular.copy( Consumable );
+	function DeBimbo() {
+		this.init(this, arguments);
+	}
+	angular.extend(DeBimbo.prototype, Consumable.prototype);
 	DeBimbo.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'Debimbo', 'Debimbo', 'a bottle marked as \'Debimbo\'', 250 ] );
 	};

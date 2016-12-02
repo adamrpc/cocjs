@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appearance, CockTypesEnum, PregnancyStore, CoC_Settings, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, ImageManager, Appearance, CockTypesEnum, PregnancyStore, CoC_Settings, PerkLib, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	//Urta variables;
 	//CoC.getInstance().flags[kFLAGS.TIMES_FUCKED_URTA] = times fucked;
 	//CoC.getInstance().flags[kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY] = urtas horsecock comfort level;
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.pregnancy.pregnancyAdvance();
 		$log.debug( '\nUrta time change: Time is ' + CoC.getInstance().time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
 		if( CoC.getInstance().flags[ kFLAGS.NEED_URTA_LETTER ] === 1 && CoC.getInstance().time.hours === 6 ) {
-			CoC.getInstance().scenes.urtaPregs.getUrtaLetter(); //Urta Letters
+			SceneLib.urtaPregs.getUrtaLetter(); //Urta Letters
 		}
 		if( this.pregnancy.incubation === 0 && (this.pregnancy.type === PregnancyStore.PREGNANCY_BEE_EGGS || PregnancyStore.PREGNANCY_DRIDER_EGGS) ) {
 			this.pregnancy.knockUpForce(); //Silently clear Urta's egg pregnancy
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] === 1 ) {
 			//Queue up Amily madness;
 			//Only happens if freakout hasn't happened yet.;
-			if( love > 0 && CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] === 0 && CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
+			if( love > 0 && CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] === 0 && SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
 				CoC.getInstance().flags[ kFLAGS.AMILY_NEED_TO_FREAK_ABOUT_URTA ] = 1;
 			}
 			return true;
@@ -126,10 +126,10 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 	};
 	Urta.prototype.urtaAvailableForSex = function() {
-		return this.urtaFuckbuddy() && CoC.getInstance().scenes.scylla.action !== CoC.getInstance().scenes.scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
+		return this.urtaFuckbuddy() && SceneLib.scylla.action !== SceneLib.scylla.SCYLLA_ACTION_FUCKING_URTA && CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] === 0;
 	};
 	Urta.prototype.urtaFuckbuddy = function() { //Returns true if Urta is either the player's fuckbuddy or lover
-		if( CoC.getInstance().scenes.urtaQuest.urtaBusy() || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
+		if( SceneLib.urtaQuest.urtaBusy() || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 			return false;
 		}
 		if( this.urtaJustFriends() ) {
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		return CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === 0 && CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] === -1;
 	};
 	Urta.prototype.urtaAtBar = function() { //Is Urta physically at the Wet Bitch?
-		return (!CoC.getInstance().scenes.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] !== 1 && CoC.getInstance().time.hours < 15 && CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3);
+		return (!SceneLib.urtaQuest.urtaBusy() && CoC.getInstance().flags[ kFLAGS.AMILY_VISITING_URTA ] !== 1 && CoC.getInstance().time.hours < 15 && CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] !== 3);
 	};
 	Urta.prototype.urtaDrunk = function() {
 		//Preg = no drinking!;
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//PREGNANT URTA;
 		if( this.pregnancy.isPregnant ) {
 			if( this.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
-				CoC.getInstance().scenes.urtaPregs.urtaPregAppearance();
+				SceneLib.urtaPregs.urtaPregAppearance();
 			} else {
 				{ //Egg-Stuffed Urta replaces the normal 'display' for Urta in the Wet Bitch screen;
 				}
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( 'The gray fox knocks back a swig from her bottle and sighs as if you\'ve just removed one of the many weights hanging from her shoulders.  She looks back at you with a twinkle in her eyes, and you realize you\'ve definitely improved her opinion of you.  Sadly there isn\'t time for more chit-chat, and you head back to camp, your gem-pouch heavy with new weight.', false );
 			//(+love score!);
 			this.urtaLove( 3 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Post Amily Sad Shit;
@@ -333,7 +333,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 			EngineCore.outputText( 'You approach Urta, but she slams her bottle down on the table hard enough to make it rattle.  She slurs, "<i>Jusht... stay away from me.  I don\'t want any company right now.</i>"\n\n', false );
 			EngineCore.outputText( 'There\'s nothing to do but leave....', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//Post Scylla discussion;
@@ -371,21 +371,21 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			this.urtaChewsOutPC();
 			return;
 		}
-		if( CoC.getInstance().scenes.katherineEmployment.canTalkToUrta() ) { //Katherine training discussion
-			CoC.getInstance().scenes.katherineEmployment.talkToUrta();
+		if( SceneLib.katherineEmployment.canTalkToUrta() ) { //Katherine training discussion
+			SceneLib.katherineEmployment.talkToUrta();
 			return;
 		}
 		//PREGNANT URTA;
 		if( this.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
-			CoC.getInstance().scenes.urtaPregs.urtaPreggoApproached();
+			SceneLib.urtaPregs.urtaPreggoApproached();
 			return;
 		}
 		//HERE WE GOEZ!;
 		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] >= 5 && ((CoC.getInstance().player.inRut && CoC.getInstance().player.hasCock()) || (CoC.getInstance().player.inHeat && CoC.getInstance().player.hasVagina() )) ) {
 			if( this.urtaDrunk() ) {
-				CoC.getInstance().scenes.urtaHeatRut.approachDrunkenUrta();
+				SceneLib.urtaHeatRut.approachDrunkenUrta();
 			} else {
-				CoC.getInstance().scenes.urtaHeatRut.approachSoberUrtaHeatRutProc();
+				SceneLib.urtaHeatRut.approachSoberUrtaHeatRutProc();
 			}
 			return;
 		}
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] > 0 && !this.urtaDrunk() ) {
 			EngineCore.outputText( ImageManager.showImage( 'urta-bar' ), false );
 			//Cockblock marble convo;
-			if( CoC.getInstance().scenes.marbleScene.marbleAtCamp() && CoC.getInstance().flags[ kFLAGS.URTA_KNOWS_PC_HAS_MARBLE_FOLLOWER ] === 0 ) {
+			if( SceneLib.marbleScene.marbleAtCamp() && CoC.getInstance().flags[ kFLAGS.URTA_KNOWS_PC_HAS_MARBLE_FOLLOWER ] === 0 ) {
 				CoC.getInstance().flags[ kFLAGS.URTA_KNOWS_PC_HAS_MARBLE_FOLLOWER ] = 1;
 				this.marbleCockuBlockuUrta();
 				return;
@@ -453,11 +453,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				EngineCore.addButton( 1, 'Anal Ride', this.takeUrtaInTheButtPublically );
 				EngineCore.addButton( 2, 'Lay Eggs', temp );
 				EngineCore.addButton( 3, 'Spank Her', spank );
-				if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && CoC.getInstance().scenes.raphael.RaphaelLikes() && CoC.getInstance().flags[ kFLAGS.URTA_X_RAPHAEL_HAPPENED ] === 0 ) {
+				if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && SceneLib.raphael.RaphaelLikes() && CoC.getInstance().flags[ kFLAGS.URTA_X_RAPHAEL_HAPPENED ] === 0 ) {
 					EngineCore.outputText( '\n\nYou know Urta and Raphael get along about as well as cats and dogs, but it might be fun to have them double-team you in the dark.' );
 					EngineCore.addButton( 8, '3SomeSurprise', this.urtaAndRaphaelSurprise );
 				}
-				EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.barTelAdre );
 				return;
 			}
 		}
@@ -468,7 +468,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( 'Before you can answer, something thumps the table hard enough to shake it.  You look at Urta quizzically, and she shrugs through a blush so bright it\'s visible through her fur.  The lithe fox squirms in her seat, panting and gasping, "<i>Ummm, maybe later, I just realized I have to- OH MY GOD WHAT IS THAT?</i>"\n\n', false );
 			EngineCore.outputText( 'You spend a moment looking over your shoulder, but can\'t for the life of you figure out what she was freaking out about.  She must be really drunk!  You turn back to scold her, but Urta has vanished!  She must have left in a hurry – she left her bottle of "<i>John Doe</i>" behind, and still half-full.  The bar\'s back-door swings closed, maybe she went that way.  What do you do?', false );
 			//(LEAVE HER TABLE) (DRINK HER BOOZE) (BACKDOOR);
-			EngineCore.choices( 'Backdoor', this.urtaFollowedOutBack, 'Drink Booze', this.drinkUrtasBooze, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.choices( 'Backdoor', this.urtaFollowedOutBack, 'Drink Booze', this.drinkUrtasBooze, '', null, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//[URTA FRIEND APPROACH];
@@ -492,11 +492,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.addButton( 1, 'Anal Ride', this.takeUrtaInTheButtPublically );
 			EngineCore.addButton( 2, 'Lay Eggs', temp );
 			EngineCore.addButton( 3, 'Spank Her', spank );
-			if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && CoC.getInstance().scenes.raphael.RaphaelLikes() && CoC.getInstance().flags[ kFLAGS.URTA_X_RAPHAEL_HAPPENED ] === 0 ) {
+			if( CoC.getInstance().flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && SceneLib.raphael.RaphaelLikes() && CoC.getInstance().flags[ kFLAGS.URTA_X_RAPHAEL_HAPPENED ] === 0 ) {
 				EngineCore.outputText( '\n\nYou know Urta and Raphael get along about as well as cats and dogs, but it might be fun to have them double-team you in the dark.' );
 				EngineCore.addButton( 8, '3SomeSurprise', this.urtaAndRaphaelSurprise );
 			}
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//[URTA COMFORTABLE WITH HOR-COCK];
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.addButton( 0, 'Hidden BJ', this.blowUrtaUnderTable );
 		}
 		EngineCore.addButton( 1, 'Urta\'s Place', this.goBackToUrtasForLuvinz );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.barTelAdre );
 	};
 	Urta.prototype.drinkUrtasBooze = function() {
 		this.urtaSprite();
@@ -562,7 +562,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You turn about and run, nearly smacking into the door frame in your haste to get away.  You hear a half-strangled sob behind you as the door swings closed.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
 	};
 	Urta.prototype.drinkUrtasBoozeLetHer = function() {
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		} else {
 			CoC.getInstance().player.buttChange( 60, true );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[BACKDOOR];
 	Urta.prototype.urtaFollowedOutBack = function() {
@@ -688,7 +688,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You sneak away from the depressing sight, and decide to head back to camp.', false );
 		EngineCore.dynStats( 'lus', -10 );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Watch];
 	Urta.prototype.watchUrtaJerkIt = function() {
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You guess you\'d better head back into the bar...', false );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
 		EventParser.cheatTime( 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//[MASTURBATE WITH HER];
 	Urta.prototype.dualUrtaMasturbation = function() {
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		EngineCore.outputText( '.  Her tail curls up around the softening horse-cock, hiding it from view as she blows you a sloppy kiss and disappears inside.\n\n', false );
 		EngineCore.outputText( 'You waste no time cleaning up and stagger back inside after her, sated and happy with your new friend and her \'benefits\'.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().player.orgasm();
 	};
 	//[FUCK HER];
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				}
 			}
 		}
-		EngineCore.doNext( afterBefriending ? CoC.getInstance().scenes.camp.returnToCampUseFourHours : CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( afterBefriending ? SceneLib.camp.returnToCampUseFourHours : SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().player.orgasm();
 	};
 
@@ -1065,7 +1065,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( ' as it begins to soften.  You wipe as much of her leavings from your ' + CoC.getInstance().player.face() + ' as you can, licking the slippery glaze from your lips.  Before you get up, you make sure to give Urta\'s member a firm squeeze, punishment for forcing you to take her so deep.\n\n', false );
 		EngineCore.outputText( 'Once you\'ve climbed out from under the table, you\'re VERY aware of the eyes of some of the nearby bar patrons on your back.  It seems your undercover act managed to draw more than a little attention.  Urta\'s cheeks burn bright-red under her gray fur, even though her eyes are a bit glassy and unfocused from the amount of alcohol she\'s ingested.  Sure that she\'ll remember the embarrassment, you give her a deep kiss, making her taste her residue on your lips.', false );
 		EngineCore.dynStats( 'sen', 1, 'lus', Utils.rand( 10 ) + 5 + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Public Buttfucking];
 	Urta.prototype.takeUrtaInTheButtPublically = function() {
@@ -1074,7 +1074,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		var tooBig = false;
 		if( CoC.getInstance().player.cor < 30 && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] === 0 ) {
 			EngineCore.outputText( 'No way!  You\'re not going to do that in front of EVERYONE.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		CoC.getInstance().player.slimeFeed();
@@ -1197,7 +1197,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You shrug and relax, cuddling with her while her massive load is plugged inside you.  She keeps you there for the better part of an hour, kissing you, nipping at your neck, and sharing her drinks with you.  When you finally do get a chance to leave, you\'re stumbling slightly from the alcohol and your asshole gapes and drips whiteness behind you.  You don\'t notice the trail of cum until you get back to your camp, and it brings a blush to your cheeks.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[PUBLIC FACIAL];
 	Urta.prototype.getAPublicFacialFromUrta = function() {
@@ -1268,7 +1268,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( '.', false );
 			EngineCore.dynStats( 'lus', 5 + Utils.rand( 5 ) + CoC.getInstance().player.lib / 10 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.optionalUrtaBukkake = function() {
 		this.urtaSprite();
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( ' to a horny wolf just in time to take his hot load on your chest.\n\n', false );
 		EngineCore.dynStats( 'lus', 15 + Utils.rand( 5 ) + CoC.getInstance().player.lib / 10 );
 		EngineCore.outputText( 'An hour later you\'re totally drenched in cum.  It\'s dripping off you from your hair down to your ' + CoC.getInstance().player.feet() + ', and you love it.  You lick up the mixed spooge until you start to feel full, and a blushing barmaid comes forward to hand you a towel.  You give her a salty kiss on the lips, sending her running away before you towel off and dress yourself.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.declineUrtaBukkake = function() {
 		this.urtaSprite();
@@ -1300,7 +1300,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		EngineCore.outputText( '.', false );
 		EngineCore.dynStats( 'lus', 5 + Utils.rand( 5 ) + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[TAKE HER HOME FOR TENDER LUVINZ];
 	Urta.prototype.goBackToUrtasForLuvinz = function() {
@@ -1488,7 +1488,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//if(CoC.getInstance().flags[kFLAGS.URTA_FERTILE] === 1) CoC.getInstance().player.knockUp(21,515,80);;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK HER VAGINA];
 	Urta.prototype.dudeFuckingUrtasCooch = function() {
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.knockUpUrtaChance();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK HER VAGINA – TOO BIG];
 	Urta.prototype.fuckUrtasVagButTooBig = function() {
@@ -1592,7 +1592,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( -5 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You let Urta know that you\'ve changed your mind and will be leaving.  You go before she can object and the sound of quiet sobbing chases you out into the streets.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[RIDE HER COWBOY/NEUTER];
 	Urta.prototype.tenderTakeItUpTheAssFromUrta = function() {
@@ -1696,7 +1696,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'She untangles herself from you, the filled end of her condom loudly popping free from your backside as she disengages herself from you.  The two of you do your best to clean up and get dressed, and you give her a quick but passionate kiss before ducking out the door to check up on your camp.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[MARBLE COCKU-BLOCKKU];
@@ -1752,7 +1752,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		} else {
 			EngineCore.outputText( '</i>"' );
 			EngineCore.outputText( '\n\n"<i>I can\'t be mad about it of course, but I guess I don\'t have to feel so bad when I\'m with Edryn do I?  Maybe sometime the three or four of us could get together for some fun?</i>" Urta playfully suggests, already sounding more like herself.  She chats happily with you for a while, pleased you still care so much for her, but eventually, you have to go and bid your farewells.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Comfort];
@@ -1769,7 +1769,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		//Slight love loss;
 		this.urtaLove( -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Toughen Up];
 	Urta.prototype.toughenUpUrtaAfterTellingTruuf = function() {
@@ -1792,7 +1792,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			//if not in luv, luv reset to 0).;
 			CoC.getInstance().flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] = 0;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Walk Out];
 	Urta.prototype.walkoutOnUrtaAfterTellingTruff = function() {
@@ -1803,7 +1803,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] = 0;
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = -1;
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Refuse];
 	Urta.prototype.trufftrufftrufftruff = function() {
@@ -1832,7 +1832,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = -1;
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_AFFECTION_COUNTER ] = 0;
 		CoC.getInstance().flags[ kFLAGS.URTA_ANGRY_AT_PC_COUNTDOWN ] = 48;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[TWU WUV TALK];
 	Urta.prototype.UrtaTwuWuvOffer = function() {
@@ -1861,7 +1861,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'Urta gives you a warm smile and a kiss on the cheek, "<i>Good.  Come see me soon, ok?</i>"\n\n', false );
 		//(READY TO GO NEXT TIEM);
 		CoC.getInstance().flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[no];
 	Urta.prototype.turnDownFuckbuddiesANDLove = function() {
@@ -1870,7 +1870,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'Urta bursts into tears and pushes back from the table.  She runs out of the bar, sobbing wildly.  It looks like you\'ve totally burned that bridge.  You may as well head back to camp...', false );
 		//(BURN BRIDGES MOFO);
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yes];
 	Urta.prototype.TwuWuvIsBeautifulUrta = function() {
@@ -1879,7 +1879,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You nod and break into a wild smile.  You lean forward and the two of you embrace in a warm hug as you admit to loving the shy fox-herm.  She pulls back and kisses you passionately on the lips, and the pair of you spend an hour cuddling contentedly in a dark corner, happy to have taken things to the next level.  It passes in a flash, but you know you need to get back to check on camp, and you leave her with another quick kiss on the lips.  You ' + CoC.getInstance().player.mf( 'chuckle', 'giggle' ) + ' when you hear her cock harden and thunk against the table again behind you.  Oh Urta...', false );
 		//set wuv fwags;
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[EAT THE BITCH OUT];
 	Urta.prototype.eatUrtaOutNomNomPussy = function() {
@@ -1918,7 +1918,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '"<i>I think the waitress dropped this off while you were distracted,</i>" you say.\n\n', false );
 		EngineCore.outputText( 'Urta snuggles you and tips it back, taking a huge swig.  She quickly pulls it back and gives you a confused look.  Dawning comprehension slowly spreads over her face before morphing into a sultry expression.  Never taking her eyes off you, the fox tips back the glass and gulps down the remaining fluid.  She grabs you by the neck and forcefully kisses you, forcing you to taste her pussy and jizz at the same time.  Breaking away, she teases, "<i>Good to the last drop.  Thanks again lover.</i>"\n\n', false );
 		EngineCore.outputText( 'You smile knowingly and leave, intent on cleaning up a little back at camp.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Drink Glass];
 	Urta.prototype.drinkUrtasCumGlass = function() {
@@ -1932,7 +1932,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You give her a good look at the full glass and tip it back, gulping down her thick goop, letting it run out of the corners of your mouth.  Urta looks on, dumbfounded while you guzzle her remaining seed from the cup.  You set it down and burp, leaning over to give her a wet kiss, letting her taste both her sexes on your tongue.  She breaks the kiss and says, "<i>Oh by Marae, I love you ' + CoC.getInstance().player.short + '.  Thank you so much.</i>"\n\n', false );
 		EngineCore.outputText( 'You smile knowingly and leave, intent on cleaning up a little back at camp.', false );
 		EngineCore.dynStats( 'sen', 1, 'lus', 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Set Aside];
 	Urta.prototype.setAsideUrtaCumGlass = function() {
@@ -1941,7 +1941,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( 2 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You set aside the glass and cuddle with Urta, snuggling with your lover as the pair of you share a moment of peace.  The satisfied smile on Urta\'s face is all the thanks you need.  She breathlessly thanks you and kisses you over and over.  Eventually you do part from her, giving her a knowing wink as you head out the door and back to camp, intent on cleaning the girl-cum from your face and the spunk from your hair.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Under Table BJ];
 	Urta.prototype.blowUrtaUnderTheTableLuv = function() {
@@ -1978,7 +1978,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		EngineCore.outputText( ' as it begins to soften.  You wipe as much of her leavings from your ' + CoC.getInstance().player.face() + ' as you can, licking the slippery glaze from your lips.  Before you get up, you make sure to give Urta\'s member a firm squeeze, scolding it for its forceful treatment of your mouth.\n\n', false );
 		EngineCore.outputText( 'Once you\'ve climbed out from under the table, you\'re VERY aware of the eyes of some of the nearby bar patron\'s on your back.  It seems your undercover act managed to draw more than a little attention.  Urta\'s cheeks burn bright-red under her gray fur, though she has a loving smile on her face.  The pair of you share a tender kiss to hoots and catcalls from the audience.  Urta smiles and gushes, "<i>You give the BEST blowjobs... I mean, WOW, but maybe next time we should go back to my place and do something a little more... fulfilling for both of us.</i>"', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		EngineCore.dynStats( 'lus', 15 );
 	};
@@ -2074,7 +2074,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'Once you\'ve recovered, you pull back with a long, wet sluuuuurrrrpPOP, and Urta\'s massive cum balloon slips out from between your nether-lips, pulling the rest of her shaft down onto her and bursting like a thrown water-balloon.  The splash of cum over her body rouses Urta from her orgasm-induced stupor, and the sexy fox moans with equal parts contentment and annoyance as she comes back to reality.\n\n', false );
 		EngineCore.outputText( '"<i>Oooh, I\'m going to need to do laundry AGAIN!</i>" gripes Urta, lifting herself up to her elbows.  She continues, "<i>But I\'ll be damned if cumming inside you isn\'t worth washing all the sheets in the world.</i>"\n\n', false );
 		EngineCore.outputText( 'Smiling, the two of you embrace, though you\'re careful not to get any of the cum on you.  Urta waves you out so she can get to cleaning, and by the time you leave you\'ve got a spring in your step and a satisfied grin on your face.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//if(CoC.getInstance().flags[kFLAGS.URTA_FERTILE] === 1) CoC.getInstance().player.knockUp(21,515,80);;
 		CoC.getInstance().player.orgasm();
 		if( CoC.getInstance().player.sens > 30 ) {
@@ -2197,7 +2197,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nThe fox staggers up on weak legs, her now flaccid but still huge member swinging between her knees as she redresses.  You do the same, and the two of you part with another tender kiss and a whispered, "<i>I love you.</i>"\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[69];
 	Urta.prototype.oralFiestyUberExplosionUrta = function() {
@@ -2278,7 +2278,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Both of you sputter for breath as you roll off of Urta.  She gasps and looks over at you with a smile, licking her sperm from your face and nuzzling her pussy-soaked muzzle against your cheek.  She pants, "<i>I suppose I should be mad at you for ruining the dress, but you got me off so hard that I think I gave you a few meals worth of my... um... cum.</i>"\n\n', false );
 			EngineCore.outputText( 'The fox giggles and returns to cuddling and licking you.  You rest with a happy smile plastered on your ' + CoC.getInstance().player.face() + ' from the experience.  After all the snuggling, you both rise and get dressed.  Urta finds a new dress in the closet and with a long goodbye kiss, you go your separate ways.\n\n', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			return;
@@ -2350,7 +2350,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'Urta blows you another kiss and says, "<i>Gotta go!  Be good, and don\'t do anyone I wouldn\'t, OK?  Love you!</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.urtaHomeLuvLuvinsMenu = function() {
 		EngineCore.clearOutput();
@@ -2526,7 +2526,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.knockUpUrtaChance();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Back Room];
@@ -2638,7 +2638,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		EngineCore.outputText( '  Whatever you do, with Scylla involved, it\'s sure to get out of hand.' );
 		//[Fuck Nun Nipple] [Fuck Urta] [Get Worshipped];
-		EngineCore.choices( 'Fuck Fox', fuck, 'Worshipped', worship, '', null, '', null, 'Back', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.choices( 'Fuck Fox', fuck, 'Worshipped', worship, '', null, '', null, 'Back', SceneLib.telAdre.barTelAdre );
 	};
 	//Fuck Urta while scylla sucks sober;
 	Urta.prototype.fuckUrtaWhileScyllaSucksSober = function() {
@@ -2728,7 +2728,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//-2 sens, -100 lust;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dock With Urta Under Scyllas Sober Supervision;
 	Urta.prototype.dockWithUrtaUnderScyllasSoberSupervision = function() {
@@ -2834,7 +2834,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().player.balls > 0 ) {
 			EngineCore.outputText( '  Your balls definitely got a little bigger...' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Never See];
@@ -2852,7 +2852,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( -100 );
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = -1;
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Bird and Leave];
 	Urta.prototype.flipUrtaTheBird = function() {
@@ -2868,7 +2868,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		//(gain lust and lose corruption + libido);
 		EngineCore.dynStats( 'lib', -2, 'lus', 35, 'cor', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Jerk Off And Watch];
 	Urta.prototype.watchTwoHotBitchesAndJerkIt = function() {
@@ -2927,7 +2927,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( 2 );
 		//+comfort;
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Lap Sittings!] - no taurs! (need size check also, to avoid implied analpocalypse -Z);
 	Urta.prototype.makeUrtaSitOnYourLapWithScylla = function() {
@@ -3030,7 +3030,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( y >= 0 ) {
 			this.knockUpUrtaChance();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[No Scylla];
@@ -3073,7 +3073,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( -100 );
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = -1;
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Drink More];
 	Urta.prototype.tellUrtaToBeADrunkenHussy = function() {
@@ -3091,7 +3091,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'Urta smiles, lewdly at first, though it carries a bit of a predatory glint as she waves down a waitress and orders a full bottle of Barkardi 151.  You give her a rueful smile, a stroke under the table, and a kiss just bursting with tongue before you conclude the conversation.  Urta\'s going to be a lot of fun from now on...', false );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] = 1;
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Drink Less];
 	Urta.prototype.tellUrtaToStopBeingALush = function() {
@@ -3099,7 +3099,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You sigh and explain that her alcoholism isn\'t helping anyone – not her and certainly not her relationships with others.  She nods with a knowing, sober look on her face as you recount how much harder her drinking has made your relationship.  She promises you that she won\'t ever get that drunk again, though she warns that it will be hard to swear off alcohol entirely.  A look of resolve enters her eyes, and she leans over the table to kiss you on the lips.  The two of you wrap up the conversation knowing that you\'ve probably seen the last of drunken Urta.\n\n', false );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Don't Change];
 	Urta.prototype.tellUrtaToStayTheSame = function() {
@@ -3114,7 +3114,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( ' everything about her.  She blushes hard when you tell her that, clearly enjoying the flattery and thrilled to hear that you\'re okay with how she chooses to blow off steam when she\'s not on the job.  The two of you joke around for a little longer, but before long, it\'s time you were on your way.  Urta\'s STILL blushing as she gives you a good-bye kiss – you must have earned some points with her today!', false );
 		//(+love score);
 		this.urtaLove( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.amilyXUrtaUrtaFallout = function() {
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00350 ] = 2;
@@ -3138,7 +3138,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaSprite();
 		EngineCore.outputText( 'You reach out, grab Urta\'s shoulders, and look at her until she raises her face to look back at you.  Before she can look away, you tell her that it\'s fine - you had hoped your lovers would come to love each other as you do.  Urta wipes away a tear and gives you a nervous smile when you suggest that perhaps the three of you could get together sometime.\n\n', false );
 		EngineCore.outputText( 'Once you\'ve finished, Urta leans forwards and plants a salty, tear-stained kiss on your lips.  The two of you spend some more time bonding, before you realize you should probably check up on your camp and go.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Heart asplosion];
 	Urta.prototype.crushUrtasHeart = function() {
@@ -3149,7 +3149,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaLove( -100 );
 		CoC.getInstance().flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] = -1;
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.chastityBeltFun = function( cameFromSexMenu ) {
 		//The intro to this scene is for when you pick the scene from Urta usual sex menu. Previous scene has a different intro.;
@@ -3200,7 +3200,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( 'You quickly dry yourself... again.  And then help Urta.  Urta struggles and protests at your efforts to dry her off, but accepts it.  Finally, she laughs and whips the towel off.  “<i>I don’t know if I hate you or love you for what you just put me through... but, all in all, I do love you, so... no hard feelings, okay?</i>”  She asks, giving you her most winning smile even as she approaches a tiny sink and takes up a comb, which she starts running through the tangles of her fur.\n\n' );
 		EngineCore.outputText( 'Looking Urta over, her fur is in serious need of a good combing... especially her tail... you smile at her and ask if she has a spare comb?  Urta blinks, surprised, but takes up a second comb from the sink’s side and hands it over to you.  You gently take her tail in hand and begin combing through it, doing your best to deal with tangled fur without hurting Urta.  Urta lets out a quiet yelp of surprise, then growl-purrs in pleasure at your ministrations; she has to fight to keep from messing things up by wagging her tail.  She leans against you and combs her fur, allowing you sole responsibility for handling her tail.\n\n' );
 		EngineCore.outputText( 'Finally done, you ask Urta to give you a little twirl.  Urta does as you ask, giving a quiet giggle as she does so.  “<i>How do I look?</i>” she asks.  As lovely as ever, you reply with a thumbs up.  Sadly... you need to get going soon... so you give your vulpine lover one last kiss, redress and start on your way back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//This is intended to be a "<i>tree</i>" style conversation scene that replaces the default dialogue scene for Urta//;
@@ -3238,12 +3238,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
 			EngineCore.addButton( 5, 'Katherine', this.urtaDiscussessKatherine );
 		}
-		if( CoC.getInstance().scenes.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) < 0 ) {
-			EngineCore.addButton( 4, 'Visit Kids', CoC.getInstance().scenes.urtaPregs.visitKidsFirstTime );
+		if( SceneLib.urtaPregs.urtaKids() > 0 && CoC.getInstance().player.hasKeyItem( 'Spare Key to Urta\'s House' ) < 0 ) {
+			EngineCore.addButton( 4, 'Visit Kids', SceneLib.urtaPregs.visitKidsFirstTime );
 		} else if( CoC.getInstance().flags[ kFLAGS.FIRST_TIME_AT_URTA_HOUSE ] > 0 ) {
-			EngineCore.addButton( 4, 'Her House', CoC.getInstance().scenes.urtaPregs.talkToUrtaAboutHerHouse );
+			EngineCore.addButton( 4, 'Her House', SceneLib.urtaPregs.talkToUrtaAboutHerHouse );
 		}
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Urta=];
 	Urta.prototype.urtaDiscussesSelf = function() {
@@ -3259,7 +3259,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( this.urtaJustFriends() ) {
 			EngineCore.choices( 'Flirt', this.flirtWithUrta, 'Employment', this.urtaDiscussesEmployment, 'Prejudice', this.urtaDiscussesPrejudice, '', null, 'Back', this.urtaDialogueMenu );
 		} else if( CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] === 0.5 ) {
-			EngineCore.choices( 'Infertility', CoC.getInstance().scenes.urtaQuest.infertilityQuestions,
+			EngineCore.choices( 'Infertility', SceneLib.urtaQuest.infertilityQuestions,
 				'Romance&Sex', this.urtaDiscussesSexAndRomance,
 				'Employment', this.urtaDiscussesEmployment,
 				'Prejudice', this.urtaDiscussesPrejudice,
@@ -3456,7 +3456,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//{Boozehound Urta tag flagged};
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] = 1;
 		CoC.getInstance().flags[ kFLAGS.DISCUSSED_URTA_ALCOHOLISM ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Drink Less=];
 	Urta.prototype.urtaDiscussAlcoholDrinkLess = function() {
@@ -3470,7 +3470,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//{Sober Urta tag flagged};
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] = -1;
 		CoC.getInstance().flags[ kFLAGS.DISCUSSED_URTA_ALCOHOLISM ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//=No Change=];
 	Urta.prototype.urtaDiscussAlcoholNoChange = function() {
@@ -3484,7 +3484,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().flags[ kFLAGS.DISCUSSED_URTA_ALCOHOLISM ] = 1;
 		//{No new tags flagged};
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Break Up=];
 	Urta.prototype.breakUpWithTheBitchOverAlcoholism = function() {
@@ -3494,7 +3494,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nThe bar seems eerily quiet as you step away from her, but it had to be done.' );
 		//{Urta is Heartbroken};
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Talk About Urta dialogue scenes:;
 	//[=Family=];
@@ -3525,7 +3525,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			//[The other Urta dialogue option buttons appear at the bottom of the screen];
 			this.urtaDialogueMenu();
 		} else {
-			CoC.getInstance().scenes.urtaQuest.talkWithUrtaAboutFamFam();
+			SceneLib.urtaQuest.talkWithUrtaAboutFamFam();
 		}
 	};
 
@@ -3579,7 +3579,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.clearOutput();
 		this.urtaSprite();
 		EngineCore.outputText( 'You thank her for sharing such personal information with you.\n\n"<i>No problem, [name].  It\'s good to be able to talk about it for a change,</i>" the herm fox-morph replies.  As you get up to leave, she picks up her glass, drains it, and starts to pour herself another one.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[==Tease==];
 	Urta.prototype.urtaDiscussionTeaseAfterRomance = function() {
@@ -3625,7 +3625,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.urtaLove( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Prejudice=];
 	Urta.prototype.urtaDiscussesPrejudice = function() {
@@ -3650,7 +3650,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.urtaLove( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Talk About Edryn dialogue scenes:;
 	Urta.prototype.urtaDiscussesEdrynHistory = function() {
@@ -3670,7 +3670,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.urtaLove( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Working Together=];
 	Urta.prototype.urtaDiscussesWorkingWithEdryn = function() {
@@ -3691,7 +3691,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.urtaLove( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Romance? =];
 	Urta.prototype.urtaDiscussesEdrynRomance = function() {
@@ -3745,7 +3745,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				EngineCore.outputText( '\n\nYou shake your head with a half-grin and apologize for trying to tease her about it.' );
 				EngineCore.outputText( '\n\n"<i>It\'s all right... uh, [name]?</i>" Urta asks, as you stand up, causing you to turn back to face her.  As you wait for an answer, she shakes her head. "<i>No, nothing, never mind, forget I said anything.</i>"' );
 				EngineCore.outputText( '\n\nWondering what that was about, you bid her goodbye and leave the tavern.' );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				this.urtaLove( 0.5 );
 			}
 		}
@@ -3775,7 +3775,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				//(If Edryn has had at least one baby:;
 				if( CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 ) {
 					if( CoC.getInstance().flags[ kFLAGS.URTA_QUEST_STATUS ] === 1 ) {
-						if( CoC.getInstance().scenes.urtaPregs.urtaKids() === 0 ) {
+						if( SceneLib.urtaPregs.urtaKids() === 0 ) {
 							EngineCore.outputText( '  "<i>...I still can\'t believe that you actually get her pregnant, though.  It\'s just not fair that Edryn\'s got little hooves running around, and after everything I went through, I don\'t have kits of my own... yet.</i>" She gives you a slightly predatory smile along with the last word.' );
 						} else {
 							EngineCore.outputText( '  "<i>...I still can\'t believe that you actually got her pregnant, though.  I guess I\'ll have to keep you busy in the sack if we\'re going to keep up, huh?</i>" She gives you a slightly predatory smile along with the last word.' );
@@ -3786,7 +3786,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				}
 				//[If fertility quest is done: 'At least... not while those damn demons are still out there, keeping us both busy.  I know it\'s selfish of me, but... try and put an end to them? For me?  I want to start a family with you.'  Urta looks deeply into your eyes.]);
 				EngineCore.outputText( '\n\nYou nod and tell her it was good to see her again, and it\'s nice that the two of you have this out in the open.  As you politely get up and get ready to leave, it almost looks like Urta wants to say something to you, but then she shakes her head and lets you go.  You wonder what she may have had on her mind.' );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				this.urtaLove( 0.5 );
 			}
 		}
@@ -3808,7 +3808,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nYou give the fox-morph a gentle smile and tell her that you understand what she\'s told you and you accept it.  Urta\'s eyes widen in shock and gratitude.  "<i>Thank you, [name]!</i>" she cries, smiling happily.  "<i>Please, believe me, I don\'t feel this way about anyone else,</i>" she says - so happy that she unwinds her tail and starts wagging it behind her.' );
 		EngineCore.outputText( '\n\nThe two of you share a drink and then you politely excuse yourself; Urta seems so much happier now she has the weight of that secret off her shoulders.' );
 		this.urtaLove( 1.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Reject=];
 	Urta.prototype.urtaDiscussesEdrynNonLoveREJECT = function() {
@@ -3819,7 +3819,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nYou declare that suits you fine and get up from your seat, heading away.  Urta doesn\'t call you back, disappointing you a bit; she stoically watches as you leave, never once making a sound.' );
 		//{Urta is now Heartbroken};
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Happy=];
 	Urta.prototype.urtaDiscussesEdrynLoveHappy = function() {
@@ -3827,7 +3827,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		this.urtaSprite();
 		EngineCore.outputText( 'When you think about it, you decide to look on the positive side of things.  You trust Urta when she says she loves you - if she needs to "vent" when you aren\'t around to help, well, it\'s okay.  You smile at her and assure her that you\'re not upset; indeed, you\'re happy that she would be honest with you about this, and happy to know that she has a good friend like Edryn.  She beams a thankful smile back and kisses you passionately before you excuse yourself and leave.' );
 		this.urtaLove( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Tolerate=];
 	Urta.prototype.urtaDiscussesEdrynLoveTolerate = function() {
@@ -3838,7 +3838,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nSeeing as there\'s nothing else for either of you to say to each other now, you politely get up and leave.' );
 		//{Choosing this option should probably disable both the Romance? discussion topic and the ability to have threesomes with Urta & Edryn - if you can't accept that she needs to fuck mare-cunt when you're not around, then you're probably not the sort of guy who's going to take kindly to the idea of doing her from behind even as she pounds Edryn.};
 		CoC.getInstance().flags[ kFLAGS.PC_DISLIKES_URTA_AND_EDRYN_TOGETHER ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Breakup=];
 	Urta.prototype.urtaDiscussesEdrynLoveBreakup = function() {
@@ -3849,7 +3849,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nYou declare that suits you fine and get up from your seat, heading away.  Urta doesn\'t call you back, disappointing you a bit; she stoically watches as you leave, never once making a sound.' );
 		//{Urta is now Heartbroken};
 		CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Membership=];
 	Urta.prototype.urtaDiscussesWatchMembership = function() {
@@ -3865,7 +3865,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nYou smirk back at her, and tell her that\'s what you figured.  Then, sincerely curious, you ask her; would it be possible for you actually join?  And how would your... relationship... be regarded by the Watch, especially if you did join?' );
 		EngineCore.outputText( '\n\nUrta smiles at you.  "<i>Joining\'s easy, but you\'d have to give up that adventuring business - you can\'t serve the city when you never spend any time in the city.  As for us...</i>" she taps her clawed fingers idly on the table, clearly trying to remember precedent.  "<i>So long as you don\'t let it interfere with work - like, blowing off a case to fuck in an alley - nobody will bat an eye.  \'Course, it means you\'ll need to work a little harder than the others, or else they\'ll say I\'m going softer on you because we\'re in each others\' pants.  And if they aren\'t leery about that, they\'ll be teasing you about us.  So...</i>" she trails off, shrugging her shoulders, unable to articulate any more because of the nebulousness of the subject.' );
 		EngineCore.outputText( '\n\nYou thank her for the explanation, and note you don\'t think you\'ll be able to seriously consider signing up at the present time.  Out of things to talk about, you thank her for her time, and leave her to nurse her drink.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.getInstance().player.inte < 20 ) {
 			EngineCore.dynStats( 'int', 0.5 );
 		}
@@ -3891,7 +3891,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		else {
 			EngineCore.outputText( '\n\nYou simply nod your head in understanding; maybe having Urta wrapped around your finger was a smarter move than you thought.  Last thing you need is a bunch of misguided killjoys taking you down.  You change the subject and make small talk for a while longer, and then see yourself out.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.getInstance().player.inte < 20 ) {
 			EngineCore.dynStats( 'int', 0.5 );
 		}
@@ -3915,7 +3915,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\n"<i>...A few times,</i>" she admits at last.  "<i>I prefer to avoid it if I can.  I went on my first patrol only a few weeks after I had joined the Watch - thought it would be a great way to prove myself.  We... we were ambushed.  Demons attacked us, started throwing black magic around.  I don\'t know why, but it just sort of... washed off of me.  I was the only one who managed to get away - I looked back, and the others were fucking demons or being fucked by the demons.  I had to leave them behind and flee with my tail between my legs.</i>"' );
 		EngineCore.outputText( '\n\nShe morosely finishes off her drink and starts pouring herself another.  You wait for her to take the first sip before warily asking if she was, perhaps, blamed for the attack because of her sex.  She looks at you and then shakes her head.  "<i>No.  I got an extensive debriefing... understandable, but they didn\'t accuse me of anything.  In the end, I got the notoriety I was after... but not in a way I wanted it.</i>"  She sighs softly and drinks again.  "<i>When I became captain, the first thing I did was order all teams to focus on stealth, and to run rather than fight whenever possible.  We normally only patrol into the desert, as far as the badlands - most critters don\'t want anything to do with either place, so we don\'t run into the big nasties I hear are in lusher places.  When we need outside supplies, we send out specific procurement teams who\'ve been to our sources before and can get back there quickly and quietly.</i>"' );
 		EngineCore.outputText( '\n\nYou thank Urta for the explanation and politely excuse yourself, leaving Urta to drink off her depression.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.getInstance().player.inte < 20 ) {
 			EngineCore.dynStats( 'int', 0.5 );
 		}
@@ -3957,7 +3957,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.urtaLove( 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Spank the Shit out of Urta and Make Her Cream Herself From Prostate Stimulation Alone Like the Horny Drunken Slut She Really Is;
 	//(Needs: Drunk Urta, Tamani's Deluxe Dildo OR a dick that fits her butt);
@@ -4019,7 +4019,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( '\n\nYou give Urta one last slap on the ass before leaving, being careful to edge around the huge mess on the floor.' );
 			EngineCore.dynStats( 'lus', 40 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.urtaDiscussessKatherine = function() {
 		EngineCore.clearOutput();
@@ -4032,11 +4032,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		} else if( affection === 1 ) {
 			{ //They’ve never had sex together but each is aware you’re sleeping with the other if you're not in friends mode with Urta
 			}
-			EngineCore.outputText( '“<i>Heh, you really have a thing for ' + (CoC.getInstance().scenes.katherine.hasCock() ? 'herms' : 'girls in need') + ', don’t ya?</i>” she says with a smile.  “<i>Not that I’m complaining.  Anyway, in terms of her work she still needs to brush up on the laws of the land and a few other things, but she’s doing fine.  Plus it’s nice to have a cat in the watch.  I had thought about saving her for undercover work, but I figure it’s better for everyone to see a cat who’s a good upright citizen.  There really aren’t that many and maybe some of the ones in gangs will rethink things when they see her on patrol.</i>”' );
+			EngineCore.outputText( '“<i>Heh, you really have a thing for ' + (SceneLib.katherine.hasCock() ? 'herms' : 'girls in need') + ', don’t ya?</i>” she says with a smile.  “<i>Not that I’m complaining.  Anyway, in terms of her work she still needs to brush up on the laws of the land and a few other things, but she’s doing fine.  Plus it’s nice to have a cat in the watch.  I had thought about saving her for undercover work, but I figure it’s better for everyone to see a cat who’s a good upright citizen.  There really aren’t that many and maybe some of the ones in gangs will rethink things when they see her on patrol.</i>”' );
 		} else if( affection < 11 ) {
 			{ //They’ve had drunken sex with you (can't get to this point in friend mode)
 			}
-			EngineCore.outputText( '“<i>Yeah Kath.  Well I can see why you like her.  Hot girl' + (CoC.getInstance().scenes.katherine.hasCock() ? ' with a decent sized cock' : '') + ', gets a bit horny when she’s drunk.  What’s not to like?</i>”\n\n' );
+			EngineCore.outputText( '“<i>Yeah Kath.  Well I can see why you like her.  Hot girl' + (SceneLib.katherine.hasCock() ? ' with a decent sized cock' : '') + ', gets a bit horny when she’s drunk.  What’s not to like?</i>”\n\n' );
 			EngineCore.outputText( 'She takes a swig of her drink and gives you a hug.  “<i>So, I just want to say I’m not unhappy having sex with you.  I mean that’s always great.  But, um, I gotta admit it’s really fun when you get the three of us together.  If you decide to do that again 0... I’m in.</i>”' );
 		} else if( affection < 32 ) {
 			{ //Willing to have sober sex
@@ -4050,18 +4050,18 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			}
 			EngineCore.outputText( '“<i>' + CoC.getInstance().player.short + ', I can honestly say I never expected to have this much sex.  I love you, I love Katherine.  It’s a bit weird, but I’m not complaining and neither is she and I hope neither are you.  I’m not the same girl you found sitting alone in the bar.  I’m so happy now.</i>”' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.urtaKathSexDont = function() {
 		EngineCore.outputText( 'You give Urta a smile tell her that while you’re happy for her you’d really prefer if she waited for you to be around before banging Katherine.  You feel a little left out.\n\n' );
 		EngineCore.outputText( 'Urta gives you a weak smile and says, “<i>Alright ' + CoC.getInstance().player.short + ', I understand.  I’ll keep it in my pants.  Course I hope you’re up for a lot of three ways.  Girl’s got to get her fix.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_LITTLE;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = SceneLib.katherine.KDATE_LITTLE;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	Urta.prototype.urtaKathSexWhenever = function() {
 		EngineCore.outputText( 'You put your arm around Urta and tell her that you don’t mind if your favorite girls need to blow off a little steam together.  As long as they don’t wear each other out that is.\n\n' );
 		EngineCore.outputText( 'Urta lets out a relieved laugh and says, “<i>That’s good.  That’s good.  I’ll make sure not to wear our kitten out.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_WHENEVER;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = SceneLib.katherine.KDATE_WHENEVER;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	Urta.prototype.urtaKathSexEncourage = function() {
@@ -4069,7 +4069,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '“<i>Are you sure ' + CoC.getInstance().player.short + '?  I mean I love the idea, I’m sure Kath will love it too, but you know what my appetite’s like.</i>”\n\n' );
 		EngineCore.outputText( 'You give her a kiss and tell her you know very well.  Since you’re not in town all the time you expect Urta to see to Kath’s needs and Kath to hers.\n\n' );
 		EngineCore.outputText( '“<i>Carte blanche?  Ok ' + CoC.getInstance().player.short + ', but I’m warning you - your sex kitten is going to be very well fucked whenever you see her.</i>”' );
-		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = CoC.getInstance().scenes.katherine.KDATE_LOTS;
+		CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_DATE ] = SceneLib.katherine.KDATE_LOTS;
 		EngineCore.doNext( this.urtaDialogueMenu );
 	};
 	//Suggestion: One could either deposit the eggs inside urta (if drunk enough to agree:P) or Urta could help you fertilize them for someone else (Horsecock stretching yer Ovipositer);
@@ -4202,7 +4202,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		}
 		CoC.getInstance().player.dumpEggs();
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Urta Chews You Out:;
@@ -4253,7 +4253,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		//(Technically finished, now, but waiting Fen's okay before adding repeatable version);
 		CoC.getInstance().flags[ kFLAGS.URTA_EGG_FORCE_EVENT ] = -1;
 		if( newScreen ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -4374,7 +4374,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().flags[ kFLAGS.URTA_FLATBELLY_NOTICE ] = 0;
 		CoC.getInstance().player.dumpEggs();
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//*Urta starts on bed wearing condom and lacy stockings.  Holding condom for PC.;
@@ -4578,7 +4578,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( 'tender hug' );
 		}
 		EngineCore.outputText( ' and sends you on your way.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[Get Filled Up At The Cum Pump Or Something This Was Supposed To Be A Joke];
 	Urta.prototype.fillMeUpPleaseUrta = function() {
@@ -4754,7 +4754,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( 'tender hug' );
 		}
 		EngineCore.outputText( ' and sends you on your way.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	Urta.prototype.lippleBondUrtaScylla = function() {
@@ -4893,7 +4893,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().player.cumQ() < 20000 ) {
 			CoC.getInstance().player.cumMultiplier += 2;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//2. Tailjob/Coiling. This could be under "<i>messy</i>" scenes for Condomless Urta.;
@@ -4999,7 +4999,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 				CoC.getInstance().player.cumMultiplier += 2;
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Lets Lick Some Cum... I mean, uh, fuck pussies?;
@@ -5116,7 +5116,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( CoC.getInstance().player.lib > 90 ) {
 			EngineCore.dynStats( 'lib', -1 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Urta.prototype.slurpFawkesCocksForFunAndInflation = function() {
 		EngineCore.clearOutput();
@@ -5153,7 +5153,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( CoC.getInstance().player.modTone( 0, 2 ) );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Surprise Threesome Selected;
@@ -5238,7 +5238,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		CoC.getInstance().flags[ kFLAGS.URTA_X_RAPHAEL_HAPPENED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//So I Heard You Don't Allow Vore in Your Game!;
 	//Available from Urta at home menu 'Goo Fuck';
@@ -5290,7 +5290,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.outputText( '\n\nUrta gives a frustrated growl somewhere above you.  "<i>Marae damn it!</i>" she exclaims, putting her hands on either side of you.  "<i>Get out of there!</i>"  You try to give her a reassuring grunt, that you\'re trying to do your best, but without a face, let alone a mouth, it\'s impossible.  The horsecock-endowed girl sighs, and then the schlicking noise returns.' );
 		EngineCore.outputText( '\n\nYour mind reels, how many times have you gone through this?  Twelve?  Fifteen?  Hours upon hours lost within these two balls.  Anything either of you try to do simply doesn\'t work.  Urta\'s tried masturbating with either hand, then both.  She\'s tried it in the shower, and though the warm water felt good running over your cage, it was no more useful.  She\'s tried every possible position, every possible method...' );
 		EngineCore.outputText( '\n\nThere\'s a knock at the door and you hear a ' );
-		var edrynAvailable = !CoC.getInstance().scenes.edryn.pregnancy.isPregnant;
+		var edrynAvailable = !SceneLib.edryn.pregnancy.isPregnant;
 		if( edrynAvailable ) {
 			EngineCore.outputText( 'set of hoofsteps' );
 		} else {
@@ -5452,7 +5452,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		CoC.getInstance().time.days++;
 		CoC.getInstance().time.hours = 11;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Urta's Place;
 	//Added just before the line 'For someone as ashamed of her desires as Urta was, she sure is terrible at hiding her kinks.';
@@ -5706,7 +5706,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( '<b><u>Several hours later</u></b>\nYou awake in Urta\'s arms, tucked under the sheets of her bed.  You\'re free of your collar, which you can see now lays on a dresser nearby, but you\'re a little happy to see you still have a small, almost pregnant bulge in your belly where you know a large reservoir of cum now resides.  Urta gives you a shy smooch, saying, "<i>Mm, I had so much fun, [name].  I... I don\'t know what got into me there, but I kinda liked it.  And I just adore you for going along with it.</i>"' );
 		EngineCore.outputText( '\n\nYou chuckle, confirming you enjoyed it too, and that you\'re prepared to be her little doggy any time, if it gets you a reward like that.  Your vixen "Owner" gives you a giant grin and cuddles up closer, murmuring how happy she is to have found someone as great as you.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//'Reward';
 	Urta.prototype.getAPetReward = function() {
@@ -5864,7 +5864,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( '<b><u>Several hours later...</u></b>\nYou awake in Urta\'s arms, tucked under the sheets of her bed.  You\'re free of your collar, which you can see now lays on a dresser nearby.  Urta gives you a shy smooch, saying, "<i>Mm, I had so much fun, [name].  I... I don\'t know what got into me there, but I kinda liked it.  And I just adore you for going along with it.</i>"' );
 		EngineCore.outputText( '\n\nYou chuckle, confirming you enjoyed it too, and that you\'re prepared to be her little doggy any time, if it gets you a reward like that.  Your vixen "<i>Owner</i>" gives you a giant grin and cuddles up closer, murmuring how happy she is to have found someone as great as you.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Walkies!;
 	Urta.prototype.urtaTakesPCOnWalkies = function() {
@@ -5924,7 +5924,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, ImageManager, Appeara
 			EngineCore.outputText( '  <b>You\'re so fucking turned on after exhibiting yourself in such a way that you\'re dripping EVERYWHERE.  Such a good doggie.</b>' );
 			EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'urta', new Urta() );
+	SceneLib.registerScene( 'urta', new Urta() );
 } );

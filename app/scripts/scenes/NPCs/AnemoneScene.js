@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 	//Encountered via Boat (unless a new Under-Lake area is;
 	//unlocked);
 	//NPC details (proto-codex): Giant, colorful freshwater;
@@ -790,10 +790,10 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			if( CoC.getInstance().player.hasVagina() ) {
 				vaginaRape = this.rapeAnemoneWithPussy;
 			}
-			EngineCore.choices( 'Your ass', this.victoryButtholeRape, 'Your Cock', cockRape, 'Your Vagina', vaginaRape, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Your ass', this.victoryButtholeRape, 'Your Cock', cockRape, 'Your Vagina', vaginaRape, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//anal;
 	AnemoneScene.prototype.anemoneButtPlugginz = function() {
@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 				}
 			}
 		}
-		EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.inventory.stash );
+		EngineCore.addButton( 9, 'Back', SceneLib.inventory.stash );
 	};
 	//[Item](only appears if hourssinceKiditem flag >= 16);
 	AnemoneScene.prototype.getAnemoneItem = function() {
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			EngineCore.outputText( '  Holy... how did she drag this thing home!?' );
 		}
 		EngineCore.outputText( '\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
 		//(set hourssinceKiditem = 0);
 		CoC.getInstance().flags[ kFLAGS.KID_ITEM_FIND_HOURS ] = 0;
 	};
@@ -1485,7 +1485,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 		if( !foundItem ) {
 			EngineCore.outputText( '\n<b>You have no appropriate items to have your offspring hold.</b>' );
 		}
-		EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.inventory.stash );
+		EngineCore.addButton( 9, 'Back', SceneLib.inventory.stash );
 	};
 	AnemoneScene.prototype.placeInAnemone = function( slot ) {
 		EngineCore.clearOutput();
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			EngineCore.outputText( 'Your anemone daughter will not be able to guard you at night without a weapon.  If you want her to guard, you\'ll need to give her a new weapon and tell her to watch at night again.  ' );
 			CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] = 0;
 		}
-		CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
 		//(add weapon to inventory, then revert Kidweapon to empty);
 		CoC.getInstance().flags[ kFLAGS.ANEMONE_WEAPON_ID ] = 0;
 	};
@@ -1535,7 +1535,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 		//(if lust > 99, output);
 		if( CoC.getInstance().player.lust > 99 ) {
 			EngineCore.outputText( 'You\'re way too horny to focus on any sort of weapon instruction right now, and the anemone can see it in your expression as your gaze wanders over her body; she blushes a deep blue and shrinks into her barrel with a shy glance.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The anemone obediently climbs out of her barrel, ' );
@@ -1714,7 +1714,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			EngineCore.outputText( '\nYour bleary eyes open to a familiar-looking upside-down blue face.  It takes a minute before your brain can reconstruct the events preceding your lapse in consciousness; as soon as your expression gives a hint of understanding, Kid A sheepishly greets you.' );
 			EngineCore.outputText( '\n\n"<i>Um... hi.</i>"' );
 			//(lose 8 hours, restore HP amount consonant with 8hrs rest);
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 			CoC.getInstance().player.createStatusAffect( StatusAffects.PostAnemoneBeatdown, 0, 0, 0, 0 );
 			return;
 		}
@@ -1734,7 +1734,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 				EngineCore.outputText( ' to relieve your burden with, then resumes the search with a hint of desperation.  Finally and after exhaustive prodding, she withdraws her hand and chews her lip in consternation.' );
 				EngineCore.outputText( '\n\nAppearing to reach a decision, she reaches out and pats you apologetically on the head, then stands up and heads back to her barrel.' );
 				//no effect on lust, pass 1 hour;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 		//else if no HP or lust outcome triggered: pass 1 hour, gain 40 xp, increment fatigue by 10;
@@ -1743,7 +1743,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 				CoC.getInstance().player.XP += 30;
 			}
 			EngineCore.fatigue( 10 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	AnemoneScene.prototype.kidASex = function( cont ) {
@@ -1789,7 +1789,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] < 3 ) {
 				CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] = 3;
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 			return true;
 		}
 		//sex revisited, for when KidXP >= 40 and confidence is mounting;
@@ -1899,7 +1899,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] === 1 ) {
 				CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] = 2;
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 			return true;
 		}
 		//femsex;
@@ -1933,7 +1933,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 			if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] === 1 ) {
 				CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] = 2;
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 			return true;
 		}
 		return false;
@@ -1958,7 +1958,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 		EngineCore.outputText( '\n\nThe two girls continue to greet each other in this fashion as their attention shifts away from you, and you wonder exactly what kind of pernicious meme you\'ve inflicted on the anemone community.' );
 		//set Kidswag to -1, pass 1 hour;
 		CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//dreams: possible once KidXP >= 40; function as visible notice of sex-readiness;
 	//if KidXP drops below threshold for sex due to bad training, no more dreams and no more sex;
@@ -2055,7 +2055,7 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 		else {
 			EngineCore.outputText( '\n\nThe anemone doesn\'t hesitate, but bursts into the middle of the shark-girls like a bomb, shrieking and making huge splashes, scattering them in multiple directions.  She quickly scoops up both skins\' worth of water and then runs, giggling giddily with the shark-girls dogging her heels until she\'s halfway back to camp.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//goblins at night:;
@@ -2114,5 +2114,5 @@ angular.module( 'cocjs' ).run( function( Anemone, LustyMaidensArmor, ItemType, W
 	 -may eventually unlock hairjob scenes with the PC using the venom in sex/masturbation; very long hair allowing hairjob and regular sex at same time
 	 -minor cosmetic changes to vag one day if code allows
 	 */
-	CoC.getInstance().registerScene( 'anemoneScene', new AnemoneScene() );
+	SceneLib.registerScene( 'anemoneScene', new AnemoneScene() );
 } );

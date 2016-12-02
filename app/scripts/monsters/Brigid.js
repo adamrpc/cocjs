@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Brigid', function( PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
-	var Brigid = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+	function Brigid() {
+		this.init(this, arguments);
+	}
+	angular.extend(Brigid.prototype, Monster.prototype);
 	//Attack One: Hot Poker, Right Up Your Ass!;
 	Brigid.prototype.brigidPoke = function() {
 		EngineCore.outputText( 'Brigid stalks forward with confidence, her shield absorbing your defensive blows until she\'s right on top of you. She bats your [weapon] aside and thrashes you with her hot poker, scalding your ' + CoC.getInstance().player.skin() + ' and sending you reeling.' );
@@ -54,10 +57,10 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( PerkLib, Appearance, CoC,
 	};
 
 	Brigid.prototype.defeated = function() {
-		CoC.getInstance().scenes.brigidScene.pcDefeatsBrigid();
+		SceneLib.brigidScene.pcDefeatsBrigid();
 	};
 	Brigid.prototype.won = function() {
-		CoC.getInstance().scenes.brigidScene.pcDefeatedByBrigid();
+		SceneLib.brigidScene.pcDefeatedByBrigid();
 	};
 	Brigid.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

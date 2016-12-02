@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CorruptedDrider, AppearanceDefs, UsableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDefs, UsableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function CorruptedDriderScene() {
 	}
 
@@ -1074,5 +1074,5 @@ angular.module( 'cocjs' ).run( function( CorruptedDrider, AppearanceDefs, Usable
 		//Plus gems and such;
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'corruptedDriderScene', new CorruptedDriderScene() );
+	SceneLib.registerScene( 'corruptedDriderScene', new CorruptedDriderScene() );
 } );

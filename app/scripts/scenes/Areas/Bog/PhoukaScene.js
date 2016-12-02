@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
 		$rootScope.$on('time-change', this.timeChange);
 		$rootScope.$on('time-change-large', this.timeChangeLarge);
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 		} else {
 			EngineCore.outputText( '\n\nAt the moment you don\'t feel the need to meet one of those ' + this.phoukaNameText( 'phouka', 'creatures' ) + ' again.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaStuck = function() {
 		EngineCore.clearOutput();
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 	PhoukaScene.prototype.phoukaMasturbating = function() { //Old Irish folklore again - Phoukas were supposed to be responsible for the berries rotting away at the end of the year
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You are wandering through the bog when you hear the unmistakable sound of someone fapping like there\'s no tomorrow.  You sneak up on the small group of shrubs expecting to find an imp who has finally been overcome by his own lust.  Instead it\'s a ' + this.phoukaNameText( 'phouka', 'small black faerie' ) + ' you see madly jerking off.  He grunts and strains but seems unable to finish.  With an annoyed look he dives for the bush, grabbing some small ripe berries from a branch.  The ' + this.phoukaName() + ' rubs the berries on his cock until it drips with blue and black fruit juices.  He tosses the remains of the fruits to the ground and goes back to wanking.\n\nAfter another minute or so he finally thrusts his hips forward in mid-air and begins squirting streams of thick grey cum all over the bushes.  He produces far more cum than he should be able to for a creature his size.  He aims the last several streams directly onto the berries for some reason.  By the time he\'s done the bush looks like it\'s covered in a layer of off-white frosting.\n\nThe ' + this.phoukaName() + ' gives a satisfied <i>“Ha!”</i> and flies off.  Glancing at the bush you decide you won\'t be making any preserves from the fruits in the bog and turn back toward camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaStartFight = function() {
 		EngineCore.outputText( '\n\nYou can’t move your lower half, but you roll your shoulders and stare the little monster down.  He’s not taking you without a fight.' );
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 					if( CoC.getInstance().flags[ kFLAGS.PHOUKA_LORE ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.PHOUKA_LORE ] = 1;
 					} //Now you know what to call them
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 					break;
 				default: //(9, 10 or 11) Offers to share some whiskey
 					EngineCore.outputText( ' buzzes around in a wide circle and finally comes to a stop near a broken tree.  He lands and reaches into a hollow, pulling out a glass bottle larger than he is.\n\nThe ' + this.phoukaName() + ' has some trouble with the stopper and once again seems to melt in front of your eyes.  He grows and changes into the form of a large, black furred bunny, nearly four feet tall that has a very human face and hands.  The bunny yanks the stopper free and pulls some leather drinking cups from the same hollow.  Finally the ' + this.phoukaName() + ' looks back at you, holding up the bottle.\n\n<i>“I could beat you, of course.  But it looks like it might be a long fight, and I don’t feel like starting one of those without drinkin more whiskey.”</i> The ' + this.phoukaName() + ' spreads his large bunny feet wide to give himself more support while he tips the cup back.  He hacks and coughs, but after the drink, he grins at you a little less lustily. <i>“Great stuff, this.  We phouka make it right here in the bog.  Best water, best peat, best everything for making phouka whiskey.”</i>' );
@@ -285,12 +285,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 	PhoukaScene.prototype.phoukaDrinkRefuseLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You extract yourself from the mud and get out of the bog before the phouka changes its mind.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefusePregnantLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
 		EngineCore.clearOutput();
 		EngineCore.outputText( '<i>“Ah fuck.  You\'re a killjoy.  Don\'t you know the best time to get porked is when you\'ve already got a bun in the oven?”</i>\n\nThe black bunny waves you away dismissively. <i>“Fine, yeah, go home.  I hope the little bastard hurts when it pops out.  I would have stretched you out but good.”</i>' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuseAfterOffer = function() {
 		EngineCore.clearOutput();
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 			EngineCore.outputText( '\n\nIf you wanted' );
 		}
 		EngineCore.outputText( ' you could take advantage of the phouka’s predicament, but right now you’d rather go and check on the portal.  Thanks to the whiskey, the water soaking your [legs] doesn\'t matter to you quite so much as you slog back towards camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaHalloween = function() {
 		CoC.getInstance().flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ] = OnLoadVariables.date.fullYear;
@@ -382,12 +382,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 	};
 	PhoukaScene.prototype.phoukaHalloweenLeave = function() {
 		EngineCore.outputText( '\n\nFeeling you\'re better off not finding out you excuse yourself, telling them they can enjoy the treacle amongst themselves.  As you walk away you just catch the boss telling the others <i>“Watch out fer that one, ' + CoC.getInstance().player.mf( 'He', 'She' ) + '\'s a smart one.”</i>' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaHalloweenTreacleEater = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You take the cup and squeeze the bellows.  Then you tip a bit of the fluid into your mouth and are rewarded with a thick and sweet substance that is also mildly sticky.  After rolling it around your mouth you swallow. <i>“Well, looks like [he] likes it.”</i> says the boss.  You drink a little more.  As you do you notice a subtle aftertaste that you have difficulty placing.  It\'s hard to make out through all that sugar. \n\n<i>“You want some more?”</i> asks the boss. <i>“After all, it\'s always a pleasure to share our treacle with a newcomer.”</i> You try another cup, hoping to work out what that other taste is.  You feel like you should be able to place it.  After you swallow this batch you notice the grins of the phouka around you.  It finally hits you - that other taste is phouka spunk.  The phouka see the look on your face and start rolling on the ground laughing.\n\n<i>“Treacle Mining!  And [he] bought it!“</i>\n\n<i>“Oh, ho, \'Pumping treacle can be exhausting\'.  Oh, boss yer a killer!“</i>\n\n<i>“Boss, you\'ve done it again, yer the master o\' the long con, no one can argue that.”</i>\n\nYes, indeed, you\'ve been pranked but good by the little winged bastards.  Only a bit of smeared mud hid the fact that the words \'wank tank\' were carved into the small barrels.  As you storm off towards your camp you hear the leader call out <i>“If ye ever want to taste treacle again I\'ve got some for ye.  Just ask and I\'ll put it in yer mouth, instead of yer [if (hasVagina = true)cunt][if (hasVagina = false)ass].  Or if you want we can bury it in another barrel and cover it with tarpaper for ya.”</i> Their laughter rings in your ears until after you leave the bog.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaLeaveOnLustWin = function( newScreen ) {
 		if( newScreen === undefined || newScreen ) {
@@ -632,7 +632,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\nYou collect your clothes and scramble to get out of the bog before anything else finds you.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
 		}
 	};
 	PhoukaScene.prototype.phoukaSexGoatChoice = function() {
@@ -729,7 +729,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 				Combat.clearStatuses( false );
 				Combat.awardPlayer(); //This will provide loot and return to camp, 1 hour used
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
 		}
 	};
@@ -778,7 +778,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 			Combat.clearStatuses( false );
 			Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaSexFaerieFemaleNonCombat = function() {
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 				Combat.clearStatuses( false );
 				Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
 		} else {
 			if( postCombat && CoC.getInstance().player.gems > 0 ) {
@@ -896,7 +896,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.outputText( 'collect your clothes and begin the long march out of the bog.  ' );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
 			}
 			if( CoC.getInstance().player.cor <= 50 ) {
 				EngineCore.outputText( 'As you trudge back to camp you have to wonder - why did you decide to visit the bog again?' );
@@ -907,5 +907,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, kFLAGS, Utils, StatusA
 			}
 		}
 	};
-	CoC.getInstance().registerScene( 'phoukaScene', new PhoukaScene() );
+	SceneLib.registerScene( 'phoukaScene', new PhoukaScene() );
 } );

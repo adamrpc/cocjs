@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, EngineCore, EventParser, StartUp, Appearance, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputManager, CoC, EngineCore, EventParser, StartUp, Appearance, kFLAGS ) {
 	InputManager.AddBindableControl(
 		'Show Stats',
 		'Show the stats pane when available',
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, Engi
 			function() {
 				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && CoC.getInstance().player.str > 0) {
 					MainView.nameBox.text = '';
-					CoC.getInstance().saves.saveGame('CoC_' + (value + 1));
+					Saves.saveGame('CoC_' + (value + 1));
 					EngineCore.outputText('Game saved to slot ' + (value + 1) + '!', true);
 					EngineCore.doNext(EventParser.playerMenu);
 				}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, Engi
 			'Quickload ' + (value + 1),
 			'Quickload the current game from slot ' + (value + 1),
 			function() {
-				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && CoC.getInstance().saves.loadGame('CoC_' + (value + 1))) {
+				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && Saves.loadGame('CoC_' + (value + 1))) {
 					EngineCore.showStats();
 					EngineCore.statScreenRefresh();
 					EngineCore.outputText('Slot ' + (value + 1) + ' Loaded!', true);
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, Engi
 		'Show the save/load menu',
 		function() {
 			if (MainView.menuButtonIsVisible(MainView.MENU_DATA)) {
-				CoC.getInstance().saves.saveLoad();
+				Saves.saveLoad();
 			}
 		}
 	);
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, InputManager, CoC, Engi
 			} else if (CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] === 3) {
 				if (keyCode === 39) {
 					if (CoC.getInstance().player.str > 0 && MainView.getButtonText(0).indexOf('Game Over') === -1) {
-						CoC.getInstance().scenes.inventory.giveHumanizer();
+						SceneLib.inventory.giveHumanizer();
 					}
 				} else {
 					CoC.getInstance().flags[kFLAGS.CHEAT_ENTERING_COUNTER] = 0;

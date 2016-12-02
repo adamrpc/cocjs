@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Shouldra', function( EventParser, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var Shouldra = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function Shouldra() {
+		this.init(this, arguments);
+	}
+	angular.extend(Shouldra.prototype, Monster.prototype);
 	Shouldra.prototype.shouldrattack = function() {
 		var damage = 0;
 		//return to combat menu when finished;
@@ -89,10 +92,10 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( EventParser, Descriptor
 		}
 	};
 	Shouldra.prototype.defeated = function() {
-		CoC.getInstance().scenes.shouldraScene.defeatDannyPhantom();
+		SceneLib.shouldraScene.defeatDannyPhantom();
 	};
 	Shouldra.prototype.won = function() {
-		CoC.getInstance().scenes.shouldraScene.loseToShouldra();
+		SceneLib.shouldraScene.loseToShouldra();
 	};
 	Shouldra.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Isabella', function( PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Isabella = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Isabella() {
+		this.init(this, arguments);
+	}
+	angular.extend(Isabella.prototype, Monster.prototype);
 	//IZZY AI:;
 	//Isabella Combat texttttttsss;
 	Isabella.prototype.isabellaAttack = function() {
@@ -144,7 +147,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( PerkLib, CoC, Monster, 
 			EngineCore.outputText( '\n\n"<i>Ick,</i>" Isabella tuts as she turns to leave...' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.isabellaScene.isabellaDefeats();
+			SceneLib.isabellaScene.isabellaDefeats();
 		}
 	};
 	Isabella.prototype.init = function( that, args ) {

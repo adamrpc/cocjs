@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Ceraph', function( $log, kFLAGS, PerkLib, EventParser, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Ceraph = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Ceraph', function( $log, SceneLib, kFLAGS, PerkLib, EventParser, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Ceraph() {
+		this.init(this, arguments);
+	}
+	angular.extend(Ceraph.prototype, Monster.prototype);
 	//[IN COMBAT SPECIALS];
 	//[SPECIAL 1] – Ubercharge!;
 	Ceraph.prototype.ceraphSpecial1 = function() {
@@ -275,14 +278,14 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( $log, kFLAGS, PerkLib, Ev
 	};
 
 	Ceraph.prototype.defeated = function() {
-		CoC.getInstance().scenes.ceraphScene.winRapeChoices();
+		SceneLib.ceraphScene.winRapeChoices();
 	};
 	Ceraph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.ceraphScene.loseFUCKME();
+			SceneLib.ceraphScene.loseFUCKME();
 		}
 	};
 	Ceraph.prototype.init = function( that, args ) {

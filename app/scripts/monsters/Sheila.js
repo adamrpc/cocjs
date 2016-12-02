@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Sheila', function( MainView, kFLAGS, WeightedDrop, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var Sheila = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAGS, WeightedDrop, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function Sheila() {
+		this.init(this, arguments);
+	}
+	angular.extend(Sheila.prototype, Monster.prototype);
 	/*
 	 so it's come to a [Fight] - combat before demon Sheila and fairly strong, can deal decent damage and dodges attacks/phys specials very well, hard to escape if piqued, but light on hp/lust res and very vulnerable to magic or constrict if captured - goes down in 1-2 good attacks
 	 -overall, weaker but faster than other shit on the plains*/
@@ -131,13 +134,13 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( MainView, kFLAGS, Weighte
 	};
 	//2: Tittymonster;
 	Sheila.prototype.tittyMonsterAttack = function() {
-		EngineCore.outputText( 'Sheila giggles and strokes her ' + CoC.getInstance().scenes.sheilaScene.sheilaCup() + ' breasts, trying to entice you.' );
+		EngineCore.outputText( 'Sheila giggles and strokes her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts, trying to entice you.' );
 		//results, no new pg;
 		//[(sheila corruption < 20; 'miss');
-		if( CoC.getInstance().scenes.sheilaScene.sheilaCorruption() < 20 ) {
+		if( SceneLib.sheilaScene.sheilaCorruption() < 20 ) {
 			EngineCore.outputText( '  But with nothing there for her to work with, it\'s a lot like being teased by a dressmaker\'s mannequin.' );
 		}//(else if sheila corruption < 150; 'hit');
-		else if( CoC.getInstance().scenes.sheilaScene.sheilaCorruption() < 150 ) {
+		else if( SceneLib.sheilaScene.sheilaCorruption() < 150 ) {
 			EngineCore.outputText( '  As her hands run over the soft-looking mammaries, kneading and squeezing them, teasing the nipples relentlessly until she lets out a cute little moan, you feel the blood rush to your face.  "<i>Enjoying this, are you?</i>" she calls sweetly.  "<i>Why don\'t you stop being contrary and come play with them too?</i>"' );
 			//med lib-based lust damage if 20 < sheila corruption < 150;
 			EngineCore.dynStats( 'lus', 25 + CoC.getInstance().player.lib / 10 );
@@ -212,10 +215,10 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( MainView, kFLAGS, Weighte
 		EngineCore.outputText( 'For a moment, all goes quiet, save for a soft rustle.\n\n' );
 		//results, no new pg;
 		//[(sheila corruption < 100; hit, 'light damage')];
-		if( CoC.getInstance().scenes.sheilaScene.sheilaCorruption() < 100 ) {
-			EngineCore.outputText( 'The silence is broken with a giggle as the demon catches you in an embrace, pressing her ' + CoC.getInstance().scenes.sheilaScene.sheilaCup() + ' breasts into you.  You shiver as she drags the perky nipples over your ' + CoC.getInstance().player.skinFurScales() + ', but push her away.' );
+		if( SceneLib.sheilaScene.sheilaCorruption() < 100 ) {
+			EngineCore.outputText( 'The silence is broken with a giggle as the demon catches you in an embrace, pressing her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts into you.  You shiver as she drags the perky nipples over your ' + CoC.getInstance().player.skinFurScales() + ', but push her away.' );
 			EngineCore.dynStats( 'lus', 15 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
-		} else if( CoC.getInstance().scenes.sheilaScene.sheilaCorruption() < 300 ) {
+		} else if( SceneLib.sheilaScene.sheilaCorruption() < 300 ) {
 			EngineCore.outputText( 'A sigh ends the silence as your body is partially enfolded in the hot valley of an aroused Sheila\'s cleavage. As the demon grabs you and pushes her tits into you, the skin-on-' + CoC.getInstance().player.skinFurScales() + ' contact makes you shiver, and your attempts to get free meet with some resistance... or rather, a lack of resistance, as the soft, yielding breast flesh quivers and heats to your touch without moving the demon overmuch.  You accidentally brush her nipples several times before you can escape, unleashing horny moans from Sheila that linger in your mind.' );
 			EngineCore.dynStats( 'lus', 25 + CoC.getInstance().player.sens / 20 + CoC.getInstance().player.lib / 20 );
 		} else {
@@ -263,16 +266,16 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( MainView, kFLAGS, Weighte
 	};
 	Sheila.prototype.defeated = function() {
 		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
-			CoC.getInstance().scenes.sheilaScene.beatUpDemonSheila();
+			SceneLib.sheilaScene.beatUpDemonSheila();
 		} else {
-			CoC.getInstance().scenes.sheilaScene.sheilaGotWhomped();
+			SceneLib.sheilaScene.sheilaGotWhomped();
 		}
 	};
 	Sheila.prototype.won = function() {
 		if( CoC.getInstance().flags[ kFLAGS.SHEILA_DEMON ] === 1 ) {
-			CoC.getInstance().scenes.sheilaScene.loseToSheila();
+			SceneLib.sheilaScene.loseToSheila();
 		} else {
-			CoC.getInstance().scenes.sheilaScene.getBeatUpBySheila();
+			SceneLib.sheilaScene.getBeatUpBySheila();
 		}
 	};
 	Sheila.prototype.init = function( that, args ) {
@@ -282,9 +285,9 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( MainView, kFLAGS, Weighte
 		that.short = 'Sheila';
 		that.imageName = 'sheila';
 		if( sheilaDemon ) {
-			that.long = 'Sheila is a slim, somewhat athletic woman, over six feet in height.  Her smooth, dark skin is exposed from her head to her clawed feet, and she makes no effort to conceal anything your eyes might linger on.  The ' + CoC.getInstance().scenes.sheilaScene.sheilaCup() + ' breasts on her chest' + (CoC.getInstance().scenes.sheilaScene.sheilaCorruption() <= 40 ? ' are firm, squeezable teardrops; she runs a hand absently over one from time to time.' : ' jiggle as she moves, and she shoves them out to make sure you see just how lewd her body has become since your first meeting.') + '  Straight, jaw-length auburn hair frames her face along with two long, smooth ears that stick out sideways.  Her only nods to civilization are a dangling purple earring and the finger rings that she wears on her hands, and the wild woman stares openly at you, touching herself.';
+			that.long = 'Sheila is a slim, somewhat athletic woman, over six feet in height.  Her smooth, dark skin is exposed from her head to her clawed feet, and she makes no effort to conceal anything your eyes might linger on.  The ' + SceneLib.sheilaScene.sheilaCup() + ' breasts on her chest' + (SceneLib.sheilaScene.sheilaCorruption() <= 40 ? ' are firm, squeezable teardrops; she runs a hand absently over one from time to time.' : ' jiggle as she moves, and she shoves them out to make sure you see just how lewd her body has become since your first meeting.') + '  Straight, jaw-length auburn hair frames her face along with two long, smooth ears that stick out sideways.  Her only nods to civilization are a dangling purple earring and the finger rings that she wears on her hands, and the wild woman stares openly at you, touching herself.';
 		} else {
-			that.long = 'Sheila is a slim, somewhat athletic woman, over six feet in height.  Most of her lightly-tanned skin is hidden, either by her vest and shorts or by the fuzzy fur that covers her legs from the thighs down to her prominent nails.  Her ' + CoC.getInstance().scenes.sheilaScene.sheilaCup() + ' breasts are briefly defined against the white of her shirt as she sways on her feet, ' + (CoC.getInstance().scenes.sheilaScene.sheilaCorruption() <= 40 ? 'small, round things that match her slender frame.' : 'swollen, jiggling globes that stand in contrast to her slender body and tell a tale of all the corruption that has been pumped into her.') + '  Her straight, jaw-length auburn hair hangs unrestrained, falling around the fuzzy ears that stick out sideways from her head.  The hat she usually wears is hanging on her back by a string, pushed off to prevent its being lost in the chaos.  Something about slipping a rope around her own neck just to keep a hat tells you that Sheila\'s mind isn\'t really staying in the fight - though it could also be the desperate, faraway look in her eyes.';
+			that.long = 'Sheila is a slim, somewhat athletic woman, over six feet in height.  Most of her lightly-tanned skin is hidden, either by her vest and shorts or by the fuzzy fur that covers her legs from the thighs down to her prominent nails.  Her ' + SceneLib.sheilaScene.sheilaCup() + ' breasts are briefly defined against the white of her shirt as she sways on her feet, ' + (SceneLib.sheilaScene.sheilaCorruption() <= 40 ? 'small, round things that match her slender frame.' : 'swollen, jiggling globes that stand in contrast to her slender body and tell a tale of all the corruption that has been pumped into her.') + '  Her straight, jaw-length auburn hair hangs unrestrained, falling around the fuzzy ears that stick out sideways from her head.  The hat she usually wears is hanging on her back by a string, pushed off to prevent its being lost in the chaos.  Something about slipping a rope around her own neck just to keep a hat tells you that Sheila\'s mind isn\'t really staying in the fight - though it could also be the desperate, faraway look in her eyes.';
 		}
 		that.createVagina( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] <= 3 && !sheilaDemon, AppearanceDefs.VAGINA_WETNESS_SLICK, AppearanceDefs.VAGINA_LOOSENESS_NORMAL );
 		that.createStatusAffect( StatusAffects.BonusVCapacity, 30, 0, 0, 0 );

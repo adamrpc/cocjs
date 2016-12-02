@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Frosty() {
 	}
 
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		} else {
 			EngineCore.addButton( 8, 'Specials', this.frostysLimitedSpecialMenu );
 		}
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
 	Frosty.prototype.frostySpecialsMenu = function( free ) {
 		//1. Hand – 5. points;
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You’re too busy right now, so you deny the free service. “<i>Okeydokey, see you around, [name]!</i>” Frosty does a twirl on one foot and runs back to her stand. Such a nice girl.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
 	};
 	//[No](for the contract);
 	Frosty.prototype.noContractForMeSloot = function() {
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		EngineCore.outputText( '\n\n“<i>Well, you can still buy my tasty cupcakes. You just won’t get any perks for buying them, but eating them is a benefit in its own way. Join the BETA if you change your mind on the whole thing.</i>”' );
 		EngineCore.outputText( '\n\nYou nod at her suggestion and make your way back to the main street.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
 	};
 	//[Choosing Buttons 1-4];
 	//[Has enough Gems];
@@ -288,7 +288,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mouth];
 	Frosty.prototype.useFrostysMouth = function() {
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Back to Frosty’s Special Menu.];
 	Frosty.prototype.genderlessCatchAllForFrosty = function() {
@@ -436,7 +436,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 		//[Player is back at camp];
 		this.frostyPoints( -1 );
 		EngineCore.dynStats( 'lus', 33 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*Anal (One service genderless can have) -WIP-
 	 function analWithACupcakeSloot() {
@@ -617,5 +617,5 @@ angular.module( 'cocjs' ).run( function( PerkLib, kFLAGS, Descriptors, CoC, Engi
 	 Maddie makes a fist and only pulls her arm back a little. Frosty braces herself as she closes her eyes and nervously grits her teeth. *WHAM!!!* Maddie’s fist rams into Frosty, hitting her so hard that she is knocked out from underneath her hat, it falling to the ground of where she stood. Her body is launched across the bakery and slams into the east wall, cracking an imprint of her silhouette onto it. Everyone looks at Frosty as she falls off the wall with a *thunk* and lays face down for a minute. She slowly picks herself up, looking like she broke something, and limps back towards Maddie. She struggles to bend down to get the hat that was she knocked out of and puts it back on her mess of pink hair. Then she gruffs out
 	 “...Ok... You win...” before collapsing on the floor. The victorious cupcake-girl does a little cheer and flicks the strange pastry in her mouth. She takes one bite and shallow, letting a out a satisfied sigh. Then she looks at the unconscious nymph by her feet and picks her up, slinging her over her shoulder. “Come on Frosty, you need to get some bed rest.”  The giant carries the little creature into the back-rooms.  You wipe the crumbs from off your face and get up to leave but not before taking one last look at the imprint of Frosty. You wonder who’s gonna pay for that.
 	 -WIP-*/
-	CoC.getInstance().registerScene( 'frosty', new Frosty() );
+	SceneLib.registerScene( 'frosty', new Frosty() );
 } );

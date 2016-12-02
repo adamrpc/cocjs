@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib, PregnancyStore, CoC_Settings, PerkLib, StatusAffects, EngineCore, Descriptors, Combat, GooGirl, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, kFLAGS, ConsumableLib, PregnancyStore, CoC_Settings, PerkLib, StatusAffects, EngineCore, Descriptors, Combat, GooGirl, EventParser ) {
 	function GooGirlScene() {
 	}
 
@@ -255,9 +255,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 			var sex3N = null;
 			var sex4S = '';
 			var sex4N = null;
-			var valeria = CoC.getInstance().scenes.valeria.valeriaAndGooThreeStuff;
+			var valeria = SceneLib.valeria.valeriaAndGooThreeStuff;
 			if( CoC.getInstance().player.armorName !== 'goo armor' || CoC.getInstance().player.isButtPregnant() || CoC.getInstance().player.isPregnant() ) {
-				CoC.getInstance().scenes.valeria = null;
+				SceneLib.valeria = null;
 			}
 			var eggs = null;
 			if( CoC.getInstance().player.canOvipositBee() ) {
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 			//corrupt chances
 			if( (CoC.getInstance().flags[ kFLAGS.GOO_TFED_MEAN ] === 0 && CoC.getInstance().flags[ kFLAGS.GOO_TFED_NICE ] === 0) && CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_NORMAL_GOOS ] >= 2 ) {
 				if( CoC.getInstance().player.cor < 50 && (CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK )) && (CoC.getInstance().player.hasItem( ConsumableLib.BLACKEG ) || CoC.getInstance().player.hasItem( ConsumableLib.L_BLKEG )) ) {
-					CoC.getInstance().scenes.latexGirl.pureGooRecruitmentStart();
+					SceneLib.latexGirl.pureGooRecruitmentStart();
 					return;
 				} else if( CoC.getInstance().flags[ kFLAGS.PC_KNOWS_ABOUT_BLACK_EGGS ] > 0 ) {
 					//Recruitment:
@@ -307,11 +307,11 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 					}
 					if( (CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK ) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK )) && (CoC.getInstance().player.hasItem( ConsumableLib.BLACKEG ) || CoC.getInstance().player.hasItem( ConsumableLib.L_BLKEG )) ) {
 						EngineCore.outputText( '  Good thing you have those handy!' );
-						gooTF = CoC.getInstance().scenes.latexGirl.meanGooGirlRecruitment;
+						gooTF = SceneLib.latexGirl.meanGooGirlRecruitment;
 					}
 				}
 			}
-			if( CoC.getInstance().scenes.valeria !== null ) {
+			if( SceneLib.valeria !== null ) {
 				EngineCore.outputText( '\n\nValeria\'s armored form seems to ebb towards the puddled goo-woman before you, almost eager to close the distance with her despite her pledge to protect you. ' );
 				if( CoC.getInstance().flags[ kFLAGS.TIMES_VALERIA_GOO_THREESOMED ] === 0 ) {
 					EngineCore.outputText( 'Do you offer a threesome with the girl to Valeria? It could get a little weird....' );
@@ -453,7 +453,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 		EngineCore.outputText( 'The small, crimson heart-shaped core in the girl\'s body swims within her form uncertainly. The expanding ' + this.gooGirl().gooColor8() + ' lengths gradually approach the jewel-like nucleus at the girl\'s center, their corrupt fluids swirling within the trembling shafts, moments from release. In panic, the girl\'s heart leaps up into her head and her eyes clench as her gaping mouth crinkles around the edges and she lurches forward in a tremendous sneeze. The slime core launches from her lips and arcs through the air before splashing safely away from the orgy. Without an intellect, the girl\'s now doll-like body coos wordlessly when the ooze men climax, unleashing a torrent of seething viridian into her. The murky cum floods the goo\'s vibration-sexualized form, filling her belly, limbs, and head with a creeping green tint. The hollow slime blissfully strokes her distorted form as the corrupt slime within her begins to work its masculine influence on her shape. Her overfull curves bubble and collapse as the last of her ' + this.gooGirl().gooColor() + ' goo is smothered by the corrupt slime semen.  When it\'s all over, the hyper-feminine slime\'s body has been sculpted to a slightly effete male. A bulge rises from between her legs, dripping into a fresh, gooey cock.\n\n', false );
 		EngineCore.outputText( 'You hurry away before the five oozes take an interest in you next.', false );
 		EngineCore.dynStats( 'lus', (4 + CoC.getInstance().player.cor / 10) );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	GooGirlScene.prototype.layBeeEggsInGoo = function() {
@@ -467,5 +467,5 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, kFLAGS, ConsumableLib
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'gooGirlScene', new GooGirlScene() );
+	SceneLib.registerScene( 'gooGirlScene', new GooGirlScene() );
 } );

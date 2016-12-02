@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore, LustyMaidensArmor ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, EventParser, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore, LustyMaidensArmor ) {
 	function ImpScene() {
 	}
 
@@ -2366,5 +2366,5 @@ angular.module( 'cocjs' ).run( function( MainView, ImpGang, ImpLord, EventParser
 		CoC.getInstance().player.dumpEggs();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'impScene', new ImpScene() );
+	SceneLib.registerScene( 'impScene', new ImpScene() );
 } );

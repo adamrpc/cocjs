@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Vala', function( ConsumableLib, CoC, Appearance, kFLAGS, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
-	var Vala = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, CoC, Appearance, kFLAGS, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
+	function Vala() {
+		this.init(this, arguments);
+	}
+	angular.extend(Vala.prototype, Monster.prototype);
 	//Vala AI;
 	//Blood magic?;
 	Vala.prototype.valaSpecial1 = function() {
@@ -80,14 +83,14 @@ angular.module( 'cocjs' ).factory( 'Vala', function( ConsumableLib, CoC, Appeara
 	};
 
 	Vala.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeon2Supplimental.fightValaVictory();
+		SceneLib.dungeon2Supplimental.fightValaVictory();
 	};
 	Vala.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.dungeon2Supplimental.loseToVala();
+			SceneLib.dungeon2Supplimental.loseToVala();
 		}
 	};
 	Vala.prototype.init = function(that, args) {

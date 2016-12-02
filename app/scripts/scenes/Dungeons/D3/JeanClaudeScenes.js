@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
 	function JeanClaudeScenes() {
 	}
 
@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( JeanClaude, AppearanceDefs, StatusAffec
 				EngineCore.outputText( ' fly towards the door. A solitary basilisk manages to clamber onto the catwalk ahead of you- and you simply bull-rush straight through him, his deathly eyes useless against your screened vision. You think you feel the passage of sickle claws scything fruitlessly through the air inches away from your back as you bundle through the exit and into the empty observation booth. In an ecstasy of terror you fumble with the door and manage to slam it shut, just as several heavy bodies thud into the other side. You breathe a huge sigh of relief as your hands find a deadbolt and slide it across, sealing the basilisks off from you. They hammer at it for a while longer, shouting and hissing angrily, but eventually, whilst you’re still gathering your breath, they get fed up with it and leave.' );
 				EngineCore.outputText( '\n\nYou’re free to continue- but you will have to find an alternative route if you want to go back, unless you’re crazy enough to unlock the door and try the catwalk dash again.' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.d3.move, 'magpiehalln' );
+				EngineCore.addButton( 0, 'Next', SceneLib.d3.move, 'magpiehalln' );
 			}
 		}
 	};
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( JeanClaude, AppearanceDefs, StatusAffec
 		EngineCore.outputText( 'You draw yourself up to your full height, calm your slightly giddy emotions and make your voice as cold and commanding as possible. You say you aren’t anyone’s new king, but since they ask, your orders are that any basilisk still within half a mile of this place in five minutes time is going to get twice the ass-whupping you just handed out to this one. You indicate with an airy wave what was, until recently, Jean-Claude. There’s a pause, followed by a minor earthquake, as the horde of reptiles pours towards the exit. You climb onto the table and watch them go, assuring that they all do indeed vamoose. If they display any emotion at all during their mass exodus, it’s one of distinct relief.' );
 		EngineCore.outputText( '\n\nWithin a minute the huge hall is echoingly empty, the forgotten corpse of the rex and the tables of jetsam and eggs the only signs the basilisks were ever here. You are free to get up onto the gantry again and leave.' );
 		CoC.getInstance().flags[ kFLAGS.D3_BASILISKS_REMOVED_FROM_MAGPIE_HALL ] = 1;
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	JeanClaudeScenes.prototype.fuckhugeBasiliskFuckedYouUp = function( hpVictory ) {
 		EngineCore.clearOutput();
@@ -287,5 +287,5 @@ angular.module( 'cocjs' ).run( function( JeanClaude, AppearanceDefs, StatusAffec
 		EngineCore.outputText( '\n\nAn excited, breathless murmur spreads through the hall to these words, whilst yellow tinted images push their way into your head, of being surrounded by tight, smooth lizard flesh, of hard, hot dick pushing urgently into every hole you have, all night long... you can’t help it. Your [vagina] convulses around Jean-Claude’s thick dick, surges of helpless pleasure pulsing through your body, and he roars with renewed laughter even as he continues to drive into you. “<i>She DOES like the sound of that! So behave yourself, boys. If you do real good for me, who knows? Maybe I’ll let you have some quality time with the queen!</i>” So saying, he thrusts himself upwards to his own orgasm, burying himself deep into you as he fills you full of his hot spunk. You buck your [hips] into him happily, unable to think of anything but of getting more of his seed, of being packed full of new life, of serving your new master. Your mind is a blank canvas of pure, submissive pleasure and it, like your future, is golden.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'jeanClaudeScenes', new JeanClaudeScenes() );
+	SceneLib.registerScene( 'jeanClaudeScenes', new JeanClaudeScenes() );
 } );

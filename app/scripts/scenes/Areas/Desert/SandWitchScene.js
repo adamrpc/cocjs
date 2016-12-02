@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
 	function SandWitchScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			EngineCore.outputText( 'She smiles wickedly and intones, "<i>nuf erutuf rof riah ydnas, nus tresed eht sa ydnas.</i>"\n\nYou feel a tingling in your scalp, and realize your hair has become a sandy blonde!', false );
 			CoC.getInstance().player.hairColor = 'sandy blonde';
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SandWitchScene.prototype.refuseSandWitchMagic = function() {
 		EngineCore.spriteSelect( 50 );
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		EngineCore.spriteSelect( 50 );
 		EngineCore.outputText( '', true );
 		if( CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			this.sandwitchCentaurBoning();
 			Combat.cleanupAfterCombat();
 			return;
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 					EngineCore.outputText( '\n\n', false );
 					//[SW_1]
 					this.SWCentaurMore( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 					//Return true to indicate not to continue the scene.
 					return true;
 				}
@@ -713,11 +713,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			temp3 = this.missingoSex;
 		}
 		if( CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ) {
-			temp2 = CoC.getInstance().scenes.tamaniDildo.sandwitchGetsDildoed;
+			temp2 = SceneLib.tamaniDildo.sandwitchGetsDildoed;
 		}
 		var shouldra = null;
-		if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 ) {
-			shouldra = CoC.getInstance().scenes.shouldraFollower.sandWitchGetsGhostly;
+		if( SceneLib.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 ) {
+			shouldra = SceneLib.shouldraFollower.sandWitchGetsGhostly;
 		}
 		var ovi = null;
 		if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.canOviposit() ) {
@@ -797,7 +797,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		EngineCore.outputText( 'You successfully restore your game. Everything\'s intact. At least, you thought it was. You must have messed up the password somewhere along the line, but oddly enough, the only difference is the clock being set an hour ahead and a few extra gems and EXP in your pocket.\n\n', false );
 		EngineCore.outputText( 'It is like fucking christmas up in here.', false );
 		//{Player gains about as many gems experience points as they would from a Sand Witch encounter, and the Champion is returned to camp.}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Either type on Sandwich: Finished (Radar)(edited)
@@ -1111,7 +1111,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 			EngineCore.outputText( '\n\n"<i>Just, use your common sense next time.</i>"' );
 		}
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//irthing scene: Bees (Radar) (edited)
 	SandWitchScene.prototype.witchBirfsSomeBees = function() {
@@ -1125,7 +1125,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		EngineCore.outputText( '; likely it was just waiting for someone to find their mother before taking off in the general direction of the forest.  The weak voice of the desert vixen fills the air as she speaks to you.  "<i>That... was the best.  I can\'t believe I\'m a mother!</i>"  She gives you a look of appreciation for showing her how pleasurable being a host can be.  Seeing she needs her rest, you give a nod and turn to leave... only to feel a hand grasp at your [leg].  "<i>I would be disappointed if you didn\'t come around and \'say hello\' more often; keep that in mind ' + CoC.getInstance().player.mf( 'handsome', 'beautiful' ) + '.</i>"  She coos, before drifting off to sleep.  She\'ll be fine in this shady part of the desert while she rests, the dune currently obstructing the sun and keeping her from being burned from the sun\'s rays.' );
 		EngineCore.outputText( '\n\nContent with how things turned out, you head back to camp and decide on the next course of action for today.' );
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SandWitchScene.prototype.sandwitchSpanking = function() {
 		EngineCore.clearOutput();
@@ -1189,5 +1189,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, Utils, StatusAff
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 5 );
 	};
-	CoC.getInstance().registerScene( 'sandWitchScene', new SandWitchScene() );
+	SceneLib.registerScene( 'sandWitchScene', new SandWitchScene() );
 } );

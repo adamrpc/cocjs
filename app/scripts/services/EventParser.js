@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
 	EventParser.playerMenu = function() {
 		if( !CoC.getInstance().isInCombat() ) {
@@ -14,8 +14,8 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 		}
 		//Clear restriction on item overlaps if not in combat
 		OnLoadVariables.plotFight = false;
-		if( CoC.getInstance().scenes.dungeonCore.isInDungeon() ) {
-			CoC.getInstance().scenes.dungeonCore.dungeonMenu();
+		if( SceneLib.dungeonCore.isInDungeon() ) {
+			SceneLib.dungeonCore.dungeonMenu();
 			return;
 		} else if( OnLoadVariables.inRoomedDungeon ) {
 			if( OnLoadVariables.inRoomedDungeonResume !== null ) {
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 			return;
 		}
 		CoC.getInstance().flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] = 0;
-		CoC.getInstance().scenes.camp.doCamp(); // TODO : Put this in camp scene.
+		SceneLib.camp.doCamp(); // TODO : Put this in camp scene.
 	};
 	EventParser.gameOver = function( clear ) { //Leaves text on screen unless clear is set to true
 		if( clear ) {
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 			EngineCore.rawOutputText( ' (including the above stack trace copy&pasted into the details),' );
 		}
 		EngineCore.rawOutputText( ' to make tracking the issue down easier. Thanks!' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Argument is time passed.  Pass to event parser if nothing happens.
 	// The time argument is never actually used atm, everything is done with timeQ instead...
@@ -110,22 +110,22 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 			if( CoC.getInstance().player.inHeat ) {
 				temp += 2;
 			}
-			if( CoC.getInstance().scenes.vapula.vapulaSlave() ) {
+			if( SceneLib.vapula.vapulaSlave() ) {
 				temp += 7;
 			}
 			if( CoC.getInstance().time.hours === 2 ) {
 				if( CoC.getInstance().time.days % 30 === 0 && CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] > 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] >= 40 ) {
-					CoC.getInstance().scenes.anemoneScene.goblinNightAnemone();
+					SceneLib.anemoneScene.goblinNightAnemone();
 					needNext = true;
 				} else if( temp > Utils.rand( 100 ) && CoC.getInstance().player.findStatusAffect( StatusAffects.DefenseCanopy ) < 0 ) {
-					if( CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 || !CoC.getInstance().scenes.helFollower.followerHel()) && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.getInstance().flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.getInstance().flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !CoC.getInstance().scenes.kihaFollower.followerKiha()) ) {
-						CoC.getInstance().scenes.impScene.impGangabangaEXPLOSIONS();
+					if( CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.getInstance().flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.getInstance().flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !SceneLib.kihaFollower.followerKiha()) ) {
+						SceneLib.impScene.impGangabangaEXPLOSIONS();
 						EngineCore.doNext( EventParser.playerMenu );
 						return true;
-					} else if( CoC.getInstance().flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+					} else if( CoC.getInstance().flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && SceneLib.kihaFollower.followerKiha() ) {
 						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
 						needNext = true;
-					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && CoC.getInstance().scenes.helFollower.followerHel() ) {
+					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
 						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she whupped some major imp asshole last night.  She wiggles her tail for emphasis.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
@@ -139,10 +139,10 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 						needNext = true;
 					}
 				} else if( CoC.getInstance().flags[ kFLAGS.EVER_INFESTED ] === 1 && Utils.rand( 100 ) <= 4 && CoC.getInstance().player.hasCock() && CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) < 0 ) { //wormgasms
-					if( CoC.getInstance().player.hasCock() && (CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 || !CoC.getInstance().scenes.helFollower.followerHel()) && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
-						CoC.getInstance().scenes.worms.nightTimeInfestation();
+					if( CoC.getInstance().player.hasCock() && (CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.getInstance().flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
+						SceneLib.worms.nightTimeInfestation();
 						return true;
-					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && CoC.getInstance().scenes.helFollower.followerHel() ) {
+					} else if( CoC.getInstance().flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
 						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );
 						needNext = true;
 					} else if( CoC.getInstance().player.gender > 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
@@ -291,7 +291,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 				CoC.getInstance().player.removeStatusAffect( StatusAffects.LootEgg );
 				CoC.getInstance().player.removeStatusAffect( StatusAffects.Eggs );
 				$log.debug( 'TAKEY NAU' );
-				CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
 				return true;
 			}
 			// Benoit preggers update
@@ -300,39 +300,39 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 			} // We're not capping it, we're going to use negative values to figure out diff events
 		}
 		// Hanging the Uma massage update here, I think it should work...
-		CoC.getInstance().scenes.umasShop.updateBonusDuration( time );
+		SceneLib.umasShop.updateBonusDuration( time );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage ) >= 0 ) {
 			$log.info( 'Uma\'s massage bonus time remaining: ' + CoC.getInstance().player.statusAffectv3( StatusAffects.UmasMassage ) );
 		}
-		CoC.getInstance().scenes.izumiScenes.updateSmokeDuration( time );
+		SceneLib.izumiScenes.updateSmokeDuration( time );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.IzumisPipeSmoke ) >= 0 ) {
 			$log.info( 'Izumis pipe smoke time remaining: ' + CoC.getInstance().player.statusAffectv1( StatusAffects.IzumisPipeSmoke ) );
 		}
 		//Drop axe if too short!
 		if( CoC.getInstance().player.tallness < 78 && CoC.getInstance().player.weapon === WeaponLib.L__AXE ) {
 			EngineCore.outputText( '<b>\nThis axe is too large for someone of your stature to use, though you can keep it in your inventory until you are big enough.</b>\n' );
-			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.L_HAMMR && CoC.getInstance().player.tallness < 60 ) {
 			EngineCore.outputText( '<b>\nYou\'ve become too short to use this hammer anymore.  You can still keep it in your inventory, but you\'ll need to be taller to effectively wield it.</b>\n' );
-			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.CLAYMOR && CoC.getInstance().player.str < 40 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer, and you\'re forced to stop using it.</b>\n' );
-			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		if( CoC.getInstance().player.weapon === WeaponLib.WARHAMR && CoC.getInstance().player.str < 80 ) {
 			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer!</b>\n' );
-			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		//Drop beautiful sword if corrupted!
 		if( CoC.getInstance().player.weaponPerk === 'holySword' && CoC.getInstance().player.cor >= 35 ) {
 			EngineCore.outputText( '<b>\nThe <u>' + CoC.getInstance().player.weaponName + '</u> grows hot in your hand, until you are forced to drop it.  Whatever power inhabits this blade appears to be unhappy with you.  Touching it gingerly, you realize it is no longer hot, but as soon as you go to grab the hilt, it nearly burns you.\n\nYou realize you won\'t be able to use it right now, but you could probably keep it in your inventory.</b>\n\n' );
-			CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
+			SceneLib.inventory.takeItem( CoC.getInstance().player.setWeapon( WeaponLib.FISTS ), EventParser.playerMenu );
 			return true;
 		}
 		//Unequip Lusty maiden armor
@@ -346,17 +346,17 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( $log, $rootScope, On
 					EngineCore.outputText( 'bulgy balls' );
 				}
 				EngineCore.outputText( ' within the imprisoning leather, and it actually hurts to wear it.  <b>You\'ll have to find some other form of protection!</b>\n\n' );
-				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 			if( !CoC.getInstance().player.hasVagina() ) { //Lost pussy
 				EngineCore.outputText( '\nYou fidget uncomfortably as the crease in the gusset of your lewd bikini digs into your sensitive, featureless loins.  There\'s simply no way you can continue to wear this outfit in comfort - it was expressly designed to press in on the female mons, and without a vagina, <b>you simply can\'t wear this exotic armor.</b>\n\n' );
-				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 			if( CoC.getInstance().player.biggestTitSize() < 4 ) { //Tits gone or too small
 				EngineCore.outputText( '\nThe fine chain that makes up your lewd bikini-top is dangling slack against your flattened chest.  Every movement and step sends it jangling noisily, slapping up against your [nipples], uncomfortably cold after being separated from your ' + CoC.getInstance().player.skinFurScales() + ' for so long.  <b>There\'s no two ways about it - you\'ll need to find something else to wear.</b>\n\n' );
-				CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
+				SceneLib.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), EventParser.playerMenu );
 				return true;
 			}
 		}

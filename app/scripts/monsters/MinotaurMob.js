@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MinotaurMob', function( CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, CockTypesEnum, Descriptors ) {
-	var MinotaurMob = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, CockTypesEnum, Descriptors ) {
+	function MinotaurMob() {
+		this.init(this, arguments);
+	}
+	angular.extend(MinotaurMob.prototype, Monster.prototype);
 	MinotaurMob.prototype.precumTease = function() {
 		var teased = false;
 		var damage = 0;
@@ -140,14 +143,14 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( CoC, kFLAGS, EngineC
 	};
 
 	MinotaurMob.prototype.defeated = function() {
-		CoC.getInstance().scenes.minotaurMobScene.victoryMinotaurGang();
+		SceneLib.minotaurMobScene.victoryMinotaurGang();
 	};
 	MinotaurMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe minutaurs share a laugh while you cum, but their throbbing erections don\'t subside in the slightest.' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.minotaurMobScene.minotaurDeFeet();
+			SceneLib.minotaurMobScene.minotaurDeFeet();
 		}
 	};
 	MinotaurMob.prototype.init = function( that, args ) {
@@ -206,7 +209,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( CoC, kFLAGS, EngineC
 		that.level = level;
 		that.gems = Utils.rand( 15 ) + 45;
 		that.tailType = AppearanceDefs.TAIL_TYPE_COW;
-		that.special1 = CoC.getInstance().scenes.minotaurScene.minoPheromones;
+		that.special1 = SceneLib.minotaurScene.minoPheromones;
 		that.drop = Monster.NO_DROP;
 		that.checkMonster();
 	};

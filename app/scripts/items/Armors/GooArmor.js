@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCore, CoC ) {
-	var GooArmor = angular.copy( Armor );
+	function GooArmor() {
+		this.init(this, arguments);
+	}
+	angular.extend(GooArmor.prototype, Armor.prototype);
 	GooArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'GooArmor', 'GooArmor', 'goo armor', 'Valeria, the goo-girl armor', 22, 1, 'This shining suit of platemail is more than just platemail - it houses the goo-girl, Valeria!  Together, they provide one tough defense, but you had better be okay with having goo handling your junk while you fight if you wear this!' ] );
 	};

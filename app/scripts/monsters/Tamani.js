@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Tamani', function( CoC, EngineCore, kFLAGS, Utils, Descriptors, AppearanceDefs, StatusAffects, Monster, WeightedDrop, ConsumableLib, Combat, Appearance, Goblin ) {
-	var Tamani = angular.copy( Goblin );
+angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore, kFLAGS, Utils, Descriptors, AppearanceDefs, StatusAffects, Monster, WeightedDrop, ConsumableLib, Combat, Appearance, Goblin ) {
+	function Tamani() {
+		this.init(this, arguments);
+	}
+	angular.extend(Tamani.prototype, Goblin.prototype);
 	Tamani.prototype.Goblin_goblinTeaseAttack = Tamani.prototype.goblinTeaseAttack;
 	Tamani.prototype.goblinTeaseAttack = function() {
 		if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 0 ) {
@@ -111,13 +114,13 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( CoC, EngineCore, kFLAGS, 
 			var temp = null;
 			var temp2 = null;
 			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cockThatFits( this.analCapacity() ) >= 0 ) {
-				temp = CoC.getInstance().scenes.tamaniScene.tamaniAnalShits;
+				temp = SceneLib.tamaniScene.tamaniAnalShits;
 			}
 			//NOT PREGGERS
-			if( !CoC.getInstance().scenes.tamaniScene.pregnancy.isPregnant && CoC.getInstance().player.canOvipositSpider() ) {
-				temp2 = CoC.getInstance().scenes.tamaniScene.tamaniBeaten;
+			if( !SceneLib.tamaniScene.pregnancy.isPregnant && CoC.getInstance().player.canOvipositSpider() ) {
+				temp2 = SceneLib.tamaniScene.tamaniBeaten;
 			}
-			EngineCore.choices( 'Fuck', CoC.getInstance().scenes.tamaniScene.tamaniSexWon, 'Buttfuck', temp, '', null, 'Lay Eggs', temp2, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck', SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', temp, '', null, 'Lay Eggs', temp2, 'Leave', Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -126,9 +129,9 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( CoC, EngineCore, kFLAGS, 
 		if( hpVictory ) {
 			if( CoC.getInstance().player.totalCocks() > 0 ) {
 				if( Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.tamaniScene.tamaniSexLost();
+					SceneLib.tamaniScene.tamaniSexLost();
 				} else {
-					CoC.getInstance().scenes.tamaniScene.tamaniSexLetHer();
+					SceneLib.tamaniScene.tamaniSexLetHer();
 				}
 			} else {
 				EngineCore.outputText( 'Tamani sighs as you begin to lose conscious, "<i>You dummy, why\'d you get rid of the fun parts?</i>"', true );
@@ -138,11 +141,11 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( CoC, EngineCore, kFLAGS, 
 			if( CoC.getInstance().player.totalCocks() > 0 ) {
 				//hypnoslut loss scene
 				if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ] > 19 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.tamaniScene.getRapedByTamaniYouHypnoSlut();
+					SceneLib.tamaniScene.getRapedByTamaniYouHypnoSlut();
 				} else if( Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.tamaniScene.tamaniSexLost();
+					SceneLib.tamaniScene.tamaniSexLost();
 				} else {
-					CoC.getInstance().scenes.tamaniScene.tamaniSexLetHer();
+					SceneLib.tamaniScene.tamaniSexLetHer();
 				}
 			} else {
 				EngineCore.outputText( 'You give into your lusts and masturbate, but Tamani doesn\'t seem to care.  She kicks and punches you over and over, screaming, "<i>You dummy, why\'d you get rid of the fun parts?</i>"', true );
@@ -156,7 +159,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( CoC, EngineCore, kFLAGS, 
 		that.a = '';
 		that.short = 'Tamani';
 		that.imageName = 'tamani';
-		that.long = 'She keeps her arms folded across her ' + CoC.getInstance().scenes.tamaniScene.tamaniChest() + ' and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.';
+		that.long = 'She keeps her arms folded across her ' + SceneLib.tamaniScene.tamaniChest() + ' and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.';
 		that.createVagina( false, AppearanceDefs.VAGINA_WETNESS_DROOLING, AppearanceDefs.VAGINA_LOOSENESS_NORMAL );
 		that.createStatusAffect( StatusAffects.BonusVCapacity, 55, 0, 0, 0 );
 		that.createBreastRow( Appearance.breastCupInverse( 'E' ) );

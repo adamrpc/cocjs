@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, Isabella, CockTypesEnum, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function IsabellaFollowerScene() {
 	}
 
@@ -85,12 +85,12 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 			var suck = null;
 			if( CoC.getInstance().player.hasCock() ) {
 				if( CoC.getInstance().player.cocks[ CoC.getInstance().player.shortestCockIndex() ].cockLength < 9 ) {
-					suck = CoC.getInstance().scenes.isabellaScene.izzyGivesSmallWangsFreeOral;
+					suck = SceneLib.isabellaScene.izzyGivesSmallWangsFreeOral;
 				}
 			}
-			EngineCore.choices( 'Talk', CoC.getInstance().scenes.isabellaScene.talkWithIsabella, 'Drink', CoC.getInstance().scenes.isabellaScene.nomOnMommaIzzysTits, 'Get Licked', suck,
-				'Fight 4 Rape', CoC.getInstance().scenes.isabellaScene.fightIsabella, 'Offer Oral', CoC.getInstance().scenes.isabellaScene.volunteerToSlurpCowCunt, 'Accept Offer', this.moveTheBitchIn,
-				'', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Talk', SceneLib.isabellaScene.talkWithIsabella, 'Drink', SceneLib.isabellaScene.nomOnMommaIzzysTits, 'Get Licked', suck,
+				'Fight 4 Rape', SceneLib.isabellaScene.fightIsabella, 'Offer Oral', SceneLib.isabellaScene.volunteerToSlurpCowCunt, 'Accept Offer', this.moveTheBitchIn,
+				'', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_TIMES_OFFERED_FOLLOWER ]++;
 	};
@@ -104,12 +104,12 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		var suck = null;
 		if( CoC.getInstance().player.hasCock() ) {
 			if( CoC.getInstance().player.cocks[ CoC.getInstance().player.shortestCockIndex() ].cockLength < 9 ) {
-				suck = CoC.getInstance().scenes.isabellaScene.izzyGivesSmallWangsFreeOral;
+				suck = SceneLib.isabellaScene.izzyGivesSmallWangsFreeOral;
 			}
 		}
-		EngineCore.choices( 'Talk', CoC.getInstance().scenes.isabellaScene.talkWithIsabella, 'Drink', CoC.getInstance().scenes.isabellaScene.nomOnMommaIzzysTits, 'Get Licked', suck,
-			'Fight 4 Rape', CoC.getInstance().scenes.isabellaScene.fightIsabella, 'Offer Oral', CoC.getInstance().scenes.isabellaScene.volunteerToSlurpCowCunt, '', null,
-			'', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Talk', SceneLib.isabellaScene.talkWithIsabella, 'Drink', SceneLib.isabellaScene.nomOnMommaIzzysTits, 'Get Licked', suck,
+			'Fight 4 Rape', SceneLib.isabellaScene.fightIsabella, 'Offer Oral', SceneLib.isabellaScene.volunteerToSlurpCowCunt, '', null,
+			'', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Move Ze Bitch In! ;
 	IsabellaFollowerScene.prototype.moveTheBitchIn = function() {
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'As soon as you nod, Isabella smiles and tears her shield out of the ground, setting off a small avalanche of dirt and pebbles across her rugs.  The industrious cow-girl starts packing up her things immediately.  "<i>It vas time to move out of zis little camp any how,</i>" she declares as she folds her chair into a chest.  You get an eyeful of her generous backside, the plump rump swaying and jiggling back and forth with every movement Isabella\'s efforts generate.  It\'s almost hypnotizing, even half-hidden as it is under her olive-toned skirt.  A breeze blows the hem partway up, and though it doesn\'t go far, you watch with an intrigued, vacant stare.\n\n', false );
 		EngineCore.outputText( 'Isabella catches you staring and gives you a sultry, seductive look as she ask, "<i>Mmm, do you see something you like, ' + CoC.getInstance().player.short + '?  Do you like to watch mein butt while I work?  If zat is ze case zen ve vill never get anything done once I move in!</i>"  You hesitantly look up at her face, and she laughs with a voice that tinkles like ringing bells.  "<i>You can vatch me like zat if you want, but I vould rather you help me move all zis,</i>" the cow-girl mentions.  You smile ruefully and help your ', false );
-		if( CoC.getInstance().scenes.camp.hasCompanions() ) {
+		if( SceneLib.camp.hasCompanions() ) {
 			EngineCore.outputText( 'newest ', false );
 		}
 		EngineCore.outputText( 'camp follower gather and move her possessions to your camp.  It takes the better part of an hour, but the entire decor is coming with you, so it may just be worth it.\n\n', false );
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_AFFECTION ] = 100;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_FOLLOWER_ACCEPTED ] = 1;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_PLAINS_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Follower Summoned Text: ;
 	IsabellaFollowerScene.prototype.callForFollowerIsabella = function() {
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 			EngineCore.outputText( '\n\n<b>Isabella would probably drink a bottle of Pro Bova if you gave it to her.</b>', false );
 		}
 		EngineCore.choices( 'Accent Coach', accent, 'Get Milk', milk, 'GiveProBova', pro, 'Sex', this.campIzzySexMenu, 'Spar', this.isabellaSparMenu,
-			'', null, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+			'', null, '', null, '', null, '', null, 'Back', SceneLib.camp.campLoversMenu );
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
 			EngineCore.addButton( 5, 'Farm Work', this.sendToFarm );
 		}
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 	};
 	IsabellaFollowerScene.prototype.sendToFarm = function() {
@@ -204,7 +204,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 
 		EngineCore.outputText( '\n\nShe happily packs up and then sways off in the direction of the lake. She will get along very well with Whitney, you think, as well as providing the farm with a great deal of both strength and milk.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IsabellaFollowerScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	IsabellaFollowerScene.prototype.campIzzySexMenu = function() {
 		EngineCore.spriteSelect( 31 );
@@ -237,7 +237,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 			}
 			bjToggle = this.toggleIsabellasMorningWoodChopping;
 			if( CoC.getInstance().player.shortestCockLength() <= 9 && CoC.getInstance().player.lust >= 33 ) {
-				getSucked = CoC.getInstance().scenes.isabellaScene.izzyGivesSmallWangsFreeOral;
+				getSucked = SceneLib.isabellaScene.izzyGivesSmallWangsFreeOral;
 			}
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		if( CoC.getInstance().player.cockThatFits( 164 ) >= 0 && CoC.getInstance().player.lust >= 33 ) {
 			fuckHer = this.fuckIsabella;
 		}
-		EngineCore.choices( bjTogText, bjToggle, 'Drink Milk', CoC.getInstance().scenes.isabellaScene.nomOnMommaIzzysTits, 'Hotdog', hotdog, 'Service Her', CoC.getInstance().scenes.isabellaScene.volunteerToSlurpCowCunt, 'TentacleSex', tentacle,
+		EngineCore.choices( bjTogText, bjToggle, 'Drink Milk', SceneLib.isabellaScene.nomOnMommaIzzysTits, 'Hotdog', hotdog, 'Service Her', SceneLib.isabellaScene.volunteerToSlurpCowCunt, 'TentacleSex', tentacle,
 			'Get Sucked', getSucked, 'Fuck Her', fuckHer, '', null, '', null, 'Back', this.callForFollowerIsabella );
 	};
 
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 		//4 to 12 hour cooldown;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_ACCENT_TRAINING_COOLDOWN ] = 4 + Utils.rand( 13 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Morning Wakeup Call ;
 	IsabellaFollowerScene.prototype.isabellaMorningWakeupCall = function() {
@@ -590,7 +590,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 			if( EngineCore.silly() && (CoC.getInstance().player.lust < 50 || CoC.getInstance().player.lib <= 20) ) {
 				EngineCore.outputText( '  Your cock immediately deflates from her laughable doujin-tier pillow talk and falls out of her buttcheeks.  You\'ll be posting that line to 4chan later for laughs.', false );
 				EngineCore.dynStats( 'lus', -99 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			EngineCore.outputText( '  She doesn\'t even let you answer.  Her back-and-forth flexing abruptly halts as she switches to an up and down motion, hotdogging your ' + Descriptors.cockDescript( x ) + ' in the tight vice of her spotted backside.\n\n', false );
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_TIMES_HOTDOGGED ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IsabellaFollowerScene.prototype.izzyTentacleRapeBool = function() {
 		EngineCore.spriteSelect( 31 );
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		EngineCore.outputText( 'You keep holding her with ' + Descriptors.sMultiCockDesc() + ' for a moment, both of you enjoying the powerful embrace as you literally dick-hug her.  The entirety of her body is dripping with your jism but she doesn\'t seem to care.  Eventually, you put her down, letting her splat in the puddle of juices that formed below your junk-prison.  At last, you unfold your arms.\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -1, 'cor', 0.3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Milking Isabella (dey terk Merble's jerb!);
 	//(not technically edited since the editor wrote it, huck huck);
@@ -841,7 +841,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		//set Izzy Milked Yet flag to 0;
 		//in other words, she handles it herself somehow but it repeats after another ten days without milking her;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = 0;
-		CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+		SceneLib.camp.returnToCampUseOneHour();
 	};
 	//[Yes];
 	IsabellaFollowerScene.prototype.izzyMilkingMeinMilkersMya = function() {
@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 		//get 1 Izzit Milk or Cream? item, set Izzy Milked Yet flag to -1, which adds [GetMilk] button to follower menu;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -1;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.IZYMILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mine Mine MINE!];
 	IsabellaFollowerScene.prototype.noMilkingMilky = function() {
@@ -973,7 +973,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		EngineCore.outputText( 'arousal at your touch, blushing at putting on such a show in front of Whitney.  The farmer shrugs.  "<i>Y\'all please yourselves.  Milker\'ll be here if you need it.</i>"\n\n', false );
 		//get 1 Izzit Milk or Cream? item, set Izzy Milked Yet flag to -2, which adds [GetMilk] button to follower menu;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -2;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.IZYMILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[GetMilk] ;
 	//follower menu button ;
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		//get 1 Izzit Milk or Cream? item, lose some fatigue and gain some lust if Izzy Milked Yet flag = -2;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = -2;
 		CoC.getInstance().flags[ kFLAGS.ISABELLA_MILK_COOLDOWN ] = 7 + Utils.rand( 4 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.IZYMILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.IZYMILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TDM's Angry Murble;
 	IsabellaFollowerScene.prototype.angryMurble = function() {
@@ -1352,7 +1352,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		else {
 			EngineCore.outputText( 'Despite your strangely inspired lust, you turn the cow-girl down.  Though crestfallen, she takes the news well, apologizing - sincerely and soberly - once more before moving back to her designated camping spot.  Happily, after about an hour, you get back to normal.', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//yes;
 	IsabellaFollowerScene.prototype.acceptCowpology = function() {
@@ -1430,7 +1430,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 				EngineCore.outputText( 'A few minutes later both of you stir from your post-orgasmic lethargy, lying in the aftermath of your short-but-sweet adventure.  Without words, Isabella blows a kiss at you and rolls to her feet, shambling back to her bunk.  You lie there for the rest of the hour, feeling the effects of her burpy influence fade slowly away.', false );
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Licked in Return (seems incompatible with centaurs/driders due to lap-sitting);
 	IsabellaFollowerScene.prototype.receiveAllTheCowTOngues = function() {
@@ -1492,7 +1492,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Ey bitch u wan sum fuk? (Or, how Isabella learned to love the dick regardless of size and shape) (Z);
@@ -1595,7 +1595,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		EngineCore.outputText( '\n\nYou grin and rub the big cow\'s hair before getting dressed.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Isabella at the Farm;
 	//Savin;
@@ -1608,7 +1608,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		CoC.getInstance().flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] = 1;
 		//[Fuck her] [Leave];
 		EngineCore.addButton( 0, 'Fuck Her', this.fuckIsabellaInTheBarn );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck Her (Male/Dick'd Herms);
 	IsabellaFollowerScene.prototype.fuckIsabellaInTheBarn = function() {
@@ -1716,7 +1716,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, Isabella, CockTypesEnum,
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -3 );
 		EngineCore.fatigue( -25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
-	CoC.getInstance().registerScene( 'isabellaFollowerScene', new IsabellaFollowerScene() );
+	SceneLib.registerScene( 'isabellaFollowerScene', new IsabellaFollowerScene() );
 } );

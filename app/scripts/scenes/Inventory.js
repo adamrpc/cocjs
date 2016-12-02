@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, EventParser, Utils, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, EventParser, Utils, Combat, StatusAffects ) {
 	function Inventory() {
 		this.itemStorage = [];
 		this.gearStorage = [];
@@ -57,25 +57,25 @@ angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Setti
 			EngineCore.addButton( 5, 'Unequip', this.unequipWeapon );
 		}
 		if( !CoC.getInstance().isInCombat() && OnLoadVariables.dungeonLoc !== 0 && OnLoadVariables.inRoomedDungeon === false ) {
-			if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] > 0 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] < 5 ) {
+			if( SceneLib.xmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] > 0 && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] < 5 ) {
 				if( CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 1 ) {
 					EngineCore.outputText( '\nThere\'s some odd snow here that you could do something with...\n' );
 				} else {
-					EngineCore.outputText( '\nYou have a snow' + CoC.getInstance().scenes.xmasMisc.nieveMF( 'man', 'woman' ) + ' here that seems like it could use a little something...\n' );
+					EngineCore.outputText( '\nYou have a snow' + SceneLib.xmasMisc.nieveMF( 'man', 'woman' ) + ' here that seems like it could use a little something...\n' );
 				}
-				EngineCore.addButton( 6, 'Snow', CoC.getInstance().scenes.xmasMisc.nieveBuilding );
+				EngineCore.addButton( 6, 'Snow', SceneLib.xmasMisc.nieveBuilding );
 				foundItem = true;
 			}
 			if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 1 ) {
 				if( CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 4 ) {
 					EngineCore.outputText( '\nHolli is in her tree at the edges of your camp.  You could go visit her if you want.\n' );
 				}
-				EngineCore.addButton( 7, (CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 3 ? 'Tree' : 'Plant'), CoC.getInstance().scenes.holliScene.treeMenu );
+				EngineCore.addButton( 7, (CoC.getInstance().flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 3 ? 'Tree' : 'Plant'), SceneLib.holliScene.treeMenu );
 				foundItem = true;
 			}
 			if( CoC.getInstance().player.hasKeyItem( 'Dragon Egg' ) >= 0 ) {
-				CoC.getInstance().scenes.emberScene.emberCampDesc();
-				EngineCore.addButton( 8, 'Egg', CoC.getInstance().scenes.emberScene.emberEggInteraction );
+				SceneLib.emberScene.emberCampDesc();
+				EngineCore.addButton( 8, 'Egg', SceneLib.emberScene.emberEggInteraction );
 				foundItem = true;
 			}
 		}
@@ -102,9 +102,9 @@ angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Setti
 		EngineCore.spriteSelect( -1 );
 		EngineCore.menu();
 		if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
-			CoC.getInstance().scenes.anemoneScene.anemoneBarrelDescription();
+			SceneLib.anemoneScene.anemoneBarrelDescription();
 			if( CoC.getInstance().time.hours >= 6 ) {
-				EngineCore.addButton( 4, 'Anemone', CoC.getInstance().scenes.anemoneScene.approachAnemoneBarrel );
+				EngineCore.addButton( 4, 'Anemone', SceneLib.anemoneScene.approachAnemoneBarrel );
 			}
 		}
 		if( CoC.getInstance().player.hasKeyItem( 'Camp - Chest' ) >= 0 ) {
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Setti
 			return;
 		}
 		EngineCore.outputText( 'I AM NOT A CROOK.  BUT YOU ARE!  <b>CHEATER</b>!\n\n', true );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.HUMMUS_, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.HUMMUS_, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.TIMES_CHEATED_COUNTER ]++;
 	};
 	//Create a storage slot;
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Setti
 		EngineCore.clearOutput();
 		var itype = storage[ slotNum ].itype;
 		storage[ slotNum ].quantity--;
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.callNext, this.callNext, storage[ slotNum ] );
+		SceneLib.inventory.takeItem( itype, this.callNext, this.callNext, storage[ slotNum ] );
 	};
 	Inventory.prototype.pickItemToPlaceInCampStorage = function() {
 		this.pickItemToPlaceInStorage( this.placeInCampStorage, this.allAcceptable, 'storage containers', false );
@@ -511,5 +511,5 @@ angular.module( 'cocjs' ).run( function( $log, Useable, Armor, Weapon, CoC_Setti
 		EngineCore.outputText( 'There is no room for ' + (orig === qty ? '' : 'the remaining ') + qty + 'x ' + itype.shortName + '.  You leave ' + (qty > 1 ? 'them' : 'it') + ' in your inventory.\n' );
 		CoC.getInstance().player.itemSlots[ slotNum ].setItemAndQty( itype, qty );
 	};
-	CoC.getInstance().registerScene( 'inventory', new Inventory() );
+	SceneLib.registerScene( 'inventory', new Inventory() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Farm() {
 	}
 
@@ -10,16 +10,16 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 	Farm.prototype.farmExploreEncounter = function() {
 		EngineCore.outputText( 'Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.' );
 		if( CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] > 0 ) {
-			CoC.getInstance().scenes.farmCorruption.rootScene();
+			SceneLib.farmCorruption.rootScene();
 			return;
 		}
-		if( CoC.getInstance().scenes.farmCorruption.takeoverPrompt() === true ) {
+		if( SceneLib.farmCorruption.takeoverPrompt() === true ) {
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.FARM_DISABLED ] === 1 ) {
 			EngineCore.outputText( 'Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.' );
 			EngineCore.outputText( '\n\n"<i>What the fuck do you think you\'re doing here [name]? After what you did to Marble you still think you\'re welcome here? Leave. <b>Now</b>.</i>"' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Farm not yet discovered;
@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 					EngineCore.outputText( '<b>You\'ve been to the farm enough to easily find it.  You can return by selecting it from the places menu (and will no longer encounter it during random lake exploration)</b>.\n\n', false );
 				}
 			}
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.CANINEP, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Repeat Offender;
 		else {
@@ -57,9 +57,9 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.menu();
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
 				if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
-					EngineCore.addButton( 1, 'Kelly', CoC.getInstance().scenes.kelly.kelly.breakingKeltOptions );
+					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly.kelly.breakingKeltOptions );
 				} else {
-					EngineCore.addButton( 1, 'Kelt', CoC.getInstance().scenes.kelly.breakingKeltOptions );
+					EngineCore.addButton( 1, 'Kelt', SceneLib.kelly.breakingKeltOptions );
 				}
 			}
 			if( CoC.getInstance().player.hasKeyItem( 'Breast Milker - Installed At Whitney\'s Farm' ) >= 0 ) {
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			if( CoC.getInstance().flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
 				EngineCore.addButton( 7, 'Work', this.workFarm );
 			}
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[YES];
@@ -103,14 +103,14 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			CoC.getInstance().player.createKeyItem( 'Cock Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
 			CoC.getInstance().player.removeKeyItem( 'Cock Milker' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[NO];
 	Farm.prototype.whitneyMilkerRefusal = function() {
 		EngineCore.spriteSelect( 62 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Whitney shrugs and the two of you resume your conversation.  But like all good things, it has to come to an end.  The two of you go your separate ways.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TALK;
 	Farm.prototype.talkWhitney = function() {
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.outputText( 'You find Whitney in her usual spot underneath her tree, nose in book. She smiles at you distractedly as you approach.' );
 			EngineCore.outputText( '\n\n“<i>Notice you’ve been nosey-ing around the place,</i>” she says. It’s difficult to tell from her bluff tone whether she’s teasing or accusing you; the dog morph has the mannerisms of a woman who has lived alone for some time. “<i>What do you make of my lil\' place?</i>” You answer truthfully that is very peaceful and pretty, almost incongruously so in this savage and rapacious land. You say it seems like a very well-run operation, given that the only people who seem to be working on it are her, Marble and... your brow clouds. Whitney smiles understandingly.' );
 			EngineCore.outputText( '\n\n“<i>Those two are hard workers, in their own different ways. Doubt I’d be able to keep the farm going without them.</i>” She sighs. “<i>When you are out in the sticks like this, you have to make allowances for the people you find yourself lumped together with. Be understanding, and look for the good in everyone. If you set boundaries and stand firm by \'em you can get by with most anyone.</i>” She looks you in the eye. “<i>You should be careful how much time you spend around just anyone, though. Some folks don’t have your best interests at heart. Some others think they do, and they’re even more dangerous. Know what I mean?</i>” Not particularly, but you get the distinct impression you’re being warned about something. Feeling slightly unsettled, you politely take your leave. Whitney nods once and returns to her book, the picture of placidity.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC has entered Tel’Adre;
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.outputText( '\n\n“<i>Hey stranger! How you doin\'?</i>” Feeling slightly strange standing next to her whilst she pulls briskly at the teats of the cow staring dully into your face, you describe the rather incredible city in the desert you stumbled upon recently and ask whether she’s ever visited it. “<i>Heh. Well, of course I have,</i>” says Whitney, not looking up. “<i>Used to live there, back in the day. Urta still around? Went to school with her, and afterwards she persuaded me to join the guard with her. Everydog has a duty! That was her by-word.</i>” The dog morph laughs. “<i>She was just scared of bunking on her own. Silly thing, but a good friend.</i>”' );
 			EngineCore.outputText( '\n\nYou ask why she left.' );
 			EngineCore.outputText( '\n\n“<i> I had my reasons. I grew up in the country, </i>” she goes on after a short pause, “<i>and never held much with city life. Particularly not hot, dusty, close ‘n stinky city life. Course farm life is stinky too,</i>” she acknowledges as she heaves up the milk pail and starts to walk it towards a barn. You offer to help, but she shakes her head. “<i> But least here it’s stink you’ve created yourself. I moved out here eight years ago, and never regretted it. As for Urta... well, she was finding better friends at the bottom of bottles by then. </i>” She disappears into the barn with the milk, and you decide to leave it at that.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC has found High Mountain;
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 				}
 				EngineCore.outputText( 'You notice a number of smaller bottles filled with a creamy fluid on the table, arranged in a cargo container. It takes you a moment to realize what it is. “<i>Why d’you think I pay you for it?</i> ” says Whitney with a laugh, catching your expression. “<i>I kin use some of it for my herd, but it’s just as easy to sell it to goblins ‘n harpies. Much better to buy it from me than to waste energy catching and beating it out of a satyr. \'Sides, how\'d ya think I kept my hair so luxurious? Goblin hairdressers are top notch.</i>”' );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC cleared Factory;
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.outputText( '\n\n“<i>That’s... that’s an amazing tale, [name]. It’s so easy down here to believe that such evil doesn’t exist in this world but it does; oh it does. An\' there\'re people as brave as you that are willing to stand against it. That’s difficult to believe sometimes too.</i>” She looks away and opens her mouth several times, stopping each time, before finally going on in a quieter tone.' );
 			EngineCore.outputText( '\n\n“<i>I knew a guy who was like you, once. Met him soon after I joined up with the Tel’Adre guard. Kind ‘n funny in a stupid kinda way, \'an brave. Liked him enough that I married him.</i>” She looks off down to the lake. “<i>You have to be real brave to sign up for desert patrol. It ain’t for your benefit. It ain’t for Tel’Adre’s benefit. It’s just to scout for folks who are in trouble, survivors and runaways. The demons know about the existence of the city, oh they do, and they’re always lookin\' for ways in. I think they\'re mostly lookin\' to poison it like they did with the goblins, but they like informers too - captives. Gods, do they like captives.</i>”' );
 			EngineCore.outputText( '\n\nShe stops for such a long while that you wonder whether she’s finished. “<i>Could- could you recognise any of those prisoners? The ones from your town. You said some of em stayed even when you freed em. What did you think about that? I often wonder- is it better never to know what happened to somebody, or find em and discover nothing but a twisted shell of what you remember: a soulless monster who even likes what’s been done to em?</i>” She stops and you think you see tears glittering in eyes still gazing at the lake. You wait a little longer but evidently that’s all you’re getting. You put a hand on her shoulder and then quietly walk away.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Subsequent visit;
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.outputText( '\n\n“<i>Listen [name],</i>” says Whitney hesitantly, “<i>I reckon I might come across as a bit... distant sometimes, but you know I \'preciate you coming down here to talk all the time, right? I like that a lot. Nobody \'round here is exactly a great conversationalist, and it’s nice to have someone who jus\' listens. Particularly if they’re off savin\' the world rest of the time.</i>” Slightly taken aback by her sincerity, you say it’s no big deal; you like hanging around the farm with her, too. She smiles broadly at that, and then with a nod of her head invites you to walk with her down to the storage barn. As delicately as you can, you ask her if she left Tel’Adre because of what happened to her husband.' );
 			EngineCore.outputText( '\n\n“<i>Color kinda disappeared from that place for me,</i>” she replies. “<i>Maybe I coulda done what Urta did and used alcohol to make it feel better, but... I dunno. I couldn’t bear the sympathy and I couldn’t bear hanging around the same places he once did. I just wanted to be on my own. So I sold everything I had, used it to buy seed and supplies, then came out here, where I knew there was a ruin of a farm.</i>” She laughs shortly. “<i>\'Course I knew. My family used to live here, \'til the demons came. My ma and pa thought they were so dang lucky to get me to Tel’Adre in one piece, and they thought I was so dang crazy to come out here again. Just told em it was something I had to do.</i>” She shakes her head fondly as she throws a knot in the pepper bag’s mouth and then shoves it into the gloom of the barn. “<i>Pa still sometimes comes out here, try’na persuade me to sell up and move back. Sell to who, I tell him? Anyways I think I’m reasonably safe. Demons have got bigger fish to fry these days.</i>” She looks at you with something different in her expression, and it takes you a while to realize what it is - real belief.' );
 			EngineCore.outputText( '\n\nYou say goodbye with a hug and leave with a funny feeling in your gut.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( Utils.randomChoice(
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 					EngineCore.doYesNo( this.breastMilkerPurchase, this.breastMilkerNoPurchase );
 				} else {
 					EngineCore.outputText( 'You don\'t have enough money for the milker.  You apologize and head back to camp, maybe you can get one later.', false );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -273,18 +273,18 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		EngineCore.dynStats( 'lus', -5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//+3 int if less than 15, +2 int if less 20, +1 int if less than 30, +.5 int if less than 40.;
 	};
 	Farm.prototype.breastMilkerPurchase = function() {
 		EngineCore.outputText( 'Whitney takes the gems and leaves with the promise of having your gear set up within the hour.  She calls back over her shoulder with a cryptic warning, "<i>Watch how much time you spend getting milked like an animal, lest you wind up like one.</i>"', true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().player.createKeyItem( 'Breast Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
 		CoC.getInstance().player.gems -= 250;
 		EngineCore.statScreenRefresh();
 	};
 	Farm.prototype.breastMilkerNoPurchase = function() {
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.outputText( 'Whitney shrugs and the two of you chat about other things, just passing the time and enjoying a relatively normal chat.', true );
 		//+3 int if less than 15, +2 int if less 20, +1 int if less than 30, +.5 int if less than 40.;
 		if( CoC.getInstance().player.inte < 15 ) {
@@ -306,9 +306,9 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		//In withdrawl odds are higher.;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
 			if( CoC.getInstance().player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
-				CoC.getInstance().scenes.marbleScene.addictedEncounterHappy();
+				SceneLib.marbleScene.addictedEncounterHappy();
 			} else {
-				CoC.getInstance().scenes.marbleScene.encounterMarbleAshamedAddiction();
+				SceneLib.marbleScene.encounterMarbleAshamedAddiction();
 			}
 			return;
 		}
@@ -316,13 +316,13 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		if( Utils.rand( 3 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) > 0 ) {
 			//Rapez Override normal;
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 || CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] === 3 ) {
-				CoC.getInstance().scenes.marbleScene.marbleAfterRapeBattle();
+				SceneLib.marbleScene.marbleAfterRapeBattle();
 				CoC.getInstance().player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
 				return;
 			}
 			//Angry meeting;
 			if( CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] === 1 ) {
-				CoC.getInstance().scenes.marbleScene.marbleWarningStateMeeting();
+				SceneLib.marbleScene.marbleWarningStateMeeting();
 				return;
 			}
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) >= 0 ) {
@@ -331,17 +331,17 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 					marbling = Utils.rand( 2 );
 					//Help out Marble, version 1 (can occur anytime before the player becomes addicted):;
 					if( marbling === 0 ) {
-						CoC.getInstance().scenes.marbleScene.helpMarble1();
+						SceneLib.marbleScene.helpMarble1();
 					}
 					//Help out Marble, version 2 (can occur anytime before Marble knows about her milk):;
 					if( marbling === 1 ) {
-						CoC.getInstance().scenes.marbleScene.helpMarble2();
+						SceneLib.marbleScene.helpMarble2();
 					}
 					return;
 				} else {
 					if( CoC.getInstance().player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
 						//(work with Marble when helping);
-						CoC.getInstance().scenes.marbleScene.postAddictionFarmHelpings();
+						SceneLib.marbleScene.postAddictionFarmHelpings();
 						return;
 					}
 					if( CoC.getInstance().player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
@@ -352,11 +352,11 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 						}
 						//While Addicted Events type 1 (Marble likes her addictive milk):;
 						if( marbling === 0 ) {
-							CoC.getInstance().scenes.marbleScene.addictedEncounterHappy();
+							SceneLib.marbleScene.addictedEncounterHappy();
 						}
 						//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 						else {
-							CoC.getInstance().scenes.marbleScene.marbleEncounterAddictedNonWithdrawl();
+							SceneLib.marbleScene.marbleEncounterAddictedNonWithdrawl();
 						}
 						return;
 					} else {
@@ -367,11 +367,11 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 						}
 						//While Addicted Events type 2 (Marble is ashamed):;
 						if( marbling === 0 ) {
-							CoC.getInstance().scenes.marbleScene.encounterMarbleAshamedAddiction();
+							SceneLib.marbleScene.encounterMarbleAshamedAddiction();
 						}
 						//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 						else {
-							CoC.getInstance().scenes.marbleScene.marbleEncounterAddictedNonWithdrawlAshamed();
+							SceneLib.marbleScene.marbleEncounterAddictedNonWithdrawlAshamed();
 						}
 						return;
 					}
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			} else {
 				EngineCore.dynStats( 'str', Utils.rand( 2 ) );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.spriteSelect( 62 );
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		var pepper = Utils.rand( 4 );
 		var itype = pepper <= 2 ? ConsumableLib.CANINEP : Utils.randomChoice( ConsumableLib.LARGEPP, ConsumableLib.DBLPEPP, ConsumableLib.BLACKPP, ConsumableLib.KNOTTYP, ConsumableLib.BULBYPP );
 		$log.debug( 'FARM SHIT: ' + itype.shortName );
-		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Farm.prototype.meetMarble = function() {
 		var marbling = 0;
@@ -417,14 +417,14 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 			//Meet Marble while exploring version 1 (can occur anytime before the player becomes addicted):;
 			//Higher chance after talk texts have been exhausted;
 			if( CoC.getInstance().flags[ kFLAGS.MURBLE_FARM_TALK_LEVELS ] >= 7 ) {
-				CoC.getInstance().scenes.marbleScene.encounterMarbleExploring();
+				SceneLib.marbleScene.encounterMarbleExploring();
 			}//Meet Marble while exploring version 2 (can occur anytime before the player becomes addicted):;
 			else {
-				CoC.getInstance().scenes.marbleScene.encounterMarbleExploring2();
+				SceneLib.marbleScene.encounterMarbleExploring2();
 			}
 		} else {
 			if( CoC.getInstance().player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
-				CoC.getInstance().scenes.marbleScene.postAddictionFarmExplorings();
+				SceneLib.marbleScene.postAddictionFarmExplorings();
 				return;
 			}
 			//PC Likes it;
@@ -436,11 +436,11 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 				}
 				//While Addicted Events type 1 (Marble likes her addictive milk):;
 				if( marbling === 0 ) {
-					CoC.getInstance().scenes.marbleScene.addictedEncounterHappy();
+					SceneLib.marbleScene.addictedEncounterHappy();
 				}
 				//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 				else {
-					CoC.getInstance().scenes.marbleScene.marbleEncounterAddictedNonWithdrawl();
+					SceneLib.marbleScene.marbleEncounterAddictedNonWithdrawl();
 				}
 			} else {
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
@@ -450,11 +450,11 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 				}
 				//While Addicted Events type 2 (Marble is ashamed):;
 				if( marbling === 0 ) {
-					CoC.getInstance().scenes.marbleScene.encounterMarbleAshamedAddiction();
+					SceneLib.marbleScene.encounterMarbleAshamedAddiction();
 				}
 				//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 				else {
-					CoC.getInstance().scenes.marbleScene.marbleEncounterAddictedNonWithdrawlAshamed();
+					SceneLib.marbleScene.marbleEncounterAddictedNonWithdrawlAshamed();
 				}
 			}
 		}
@@ -463,38 +463,38 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		var explore = 0;
 		//Marble after-rape;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
-			CoC.getInstance().scenes.marbleScene.marbleAfterRapeBattle();
+			SceneLib.marbleScene.marbleAfterRapeBattle();
 			CoC.getInstance().player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
 			return;
 		}
 		//FIND CARROT!;
-		if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 3 && CoC.getInstance().player.hasKeyItem( 'Carrot' ) < 0 ) {
-			CoC.getInstance().scenes.xmasMisc.findACarrot();
+		if( SceneLib.xmasMisc.nieveHoliday() && CoC.getInstance().flags[ kFLAGS.NIEVE_STAGE ] === 3 && CoC.getInstance().player.hasKeyItem( 'Carrot' ) < 0 ) {
+			SceneLib.xmasMisc.findACarrot();
 			return;
 		}
 		//Free Isabella Milkings!;
-		if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] < 0 && CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILK_COOLDOWN ] === 0 && Utils.rand( 2 ) === 0 ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.findIzzyMilking();
+		if( CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] < 0 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILK_COOLDOWN ] === 0 && Utils.rand( 2 ) === 0 ) {
+			SceneLib.isabellaFollowerScene.findIzzyMilking();
 			return;
 		}
 		//Meet Marble First Time;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Marble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
-			CoC.getInstance().scenes.marbleScene.encounterMarbleInitially();
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			SceneLib.marbleScene.encounterMarbleInitially();
 			return;
 		}
 		//Meet kelt 1st time;
 		if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
-			CoC.getInstance().scenes.keltScene.keltEncounter();
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			SceneLib.keltScene.keltEncounter();
 			return;
 		}
 		//In withdrawl odds are higher.;
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
 			if( CoC.getInstance().player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
-				CoC.getInstance().scenes.marbleScene.addictedEncounterHappy();
+				SceneLib.marbleScene.addictedEncounterHappy();
 			} else {
-				CoC.getInstance().scenes.marbleScene.encounterMarbleAshamedAddiction();
+				SceneLib.marbleScene.encounterMarbleAshamedAddiction();
 			}
 			return;
 		}
@@ -524,14 +524,14 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 				EngineCore.outputText( 'Whitney falls behind, unable to cope with your speed as you tear around the farm.', false );
 			}
 			EngineCore.outputText( '\n\nAfterwards, the both of you lie back against a tree, panting heavily and exchanging pleasantries.  Once you\'ve both had a chance to rest, she bids you farewell and returns to her labors, leaving you to journey home to camp.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Other stuff;
 		if( explore === 1 ) {
 			EngineCore.outputText( 'After wandering around for a while, you find yourself atop a slight rise looking out over the farm and the distant lake. Despite the corruption you know is slowly consuming this land, being here now makes you feel so at peace you wish it could go on forever.', true );
 			EngineCore.dynStats( 'cor', -Utils.rand( 3 ) );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Cows;
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 				EngineCore.dynStats( 'lus', 3 );
 			}
 			EngineCore.outputText( 'Shaking your head, you clear your thoughts and turn away from the pasture. Cows don\'t have your problems.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( explore === 3 ) {
@@ -575,7 +575,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		//[NOTHING];
 		else {
 			EngineCore.outputText( 'You wander around, unable to find anything entertaining on this patch of rural bliss.', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Farm.prototype.getMilked = function() {
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		//Horny;
 		else {
 			EngineCore.outputText( 'Overwhelmed with your desire, you don\'t even bother to cover up and make yourself decent, you just run out of the barn, ' + Descriptors.allBreastsDescript() + ' jiggling and wet, heading straight for camp.' );
-			if( CoC.getInstance().scenes.farmCorruption.whitneyCorruption() < 90 ) {
+			if( SceneLib.farmCorruption.whitneyCorruption() < 90 ) {
 				EngineCore.outputText( ' It isn\'t until you get back that you remember the disapproving look Whitney gave you, but if anything, it only makes you hornier.', false );
 			}
 			EngineCore.dynStats( 'lus=', 100 );
@@ -874,7 +874,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		}
 		CoC.getInstance().player.addStatusValue( StatusAffects.LactationEndurance, 1, 0.05 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.Milked, 8, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Farm.prototype.cockPumping = function() {
 		var cumQ = CoC.getInstance().player.cumQ() * (Utils.rand( 10 ) + 90) / 100;
@@ -1220,7 +1220,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		}
 		EngineCore.outputText( ' on your way, whistling happily and feeling like taking a nap.', false );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Farm.prototype.cowBadEnd1 = function() {
 		EngineCore.outputText( 'You moo with delight, fondling your dripping ' + Descriptors.allBreastsDescript() + ' as you relax in your stall.   You know there was something uh, important or something that you were going to do - besides getting your udders milked!  Mmmmm, all your worries about that other thing just melt away when you\'re in your harness, spraying out milk...\n\n', true );
@@ -1412,7 +1412,7 @@ angular.module( 'cocjs' ).run( function( $log, Descriptors, EventParser, Consuma
 		EngineCore.outputText( '(<b>Key Items Gained: Fake Mare and Centaur Pole</b>)', false );
 		CoC.getInstance().player.createKeyItem( 'Fake Mare', 0, 0, 0, 0 );
 		CoC.getInstance().player.createKeyItem( 'Centaur Pole', 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'farm', new Farm() );
+	SceneLib.registerScene( 'farm', new Farm() );
 } );

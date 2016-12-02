@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, StatusAffects, EngineCore, Descriptors, InfestedHellhound, Utils, Combat, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, StatusAffects, EngineCore, Descriptors, InfestedHellhound, Utils, Combat, PregnancyStore ) {
 	function InfestedHellhoundScene() {
 	}
 
@@ -189,5 +189,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, StatusAffe
 			Combat.cleanupAfterCombat();
 		}
 	};
-	CoC.getInstance().registerScene( 'infestedHellhoundScene', new InfestedHellhoundScene() );
+	SceneLib.registerScene( 'infestedHellhoundScene', new InfestedHellhoundScene() );
 } );

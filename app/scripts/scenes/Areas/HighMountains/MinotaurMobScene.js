@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, AppearanceDefs, Appearance, PerkLib, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, AppearanceDefs, Appearance, PerkLib, EventParser ) {
 	//Vars:
 	//325 Times met
 	//326 Number of sons grown
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		//ESCAPE!
 		if( (CoC.getInstance().player.canFly() && CoC.getInstance().player.spe > Utils.rand( 40 )) || (!CoC.getInstance().player.canFly() && CoC.getInstance().player.spe > Utils.rand( 60 )) ) {
 			EngineCore.outputText( 'A furry arm nearly catches your ' + CoC.getInstance().player.leg() + ', but you slip free and quickly escape your lusty brood.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//FAIL:
 		else {
@@ -446,7 +446,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			SceneLib.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 	//*[Loss - Very Pregnant, Lots of BJs]
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 	//*[Loss Anal And BJ Spearing, Somewhat Preg?] (feels almost the same as the standard loss, added a demi-scene for nipcunts) (otherwise, edited)
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ItemType.lookupItem( CoC.getInstance().flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory - Double/Triple penetration]
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory - Make minitaur oral (M/F/H)]
@@ -1133,7 +1133,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory- BJ + Nipplefucking] (boring, samey, not actually punishment again, could have been shoving very long nipples into urethras) (edited)
@@ -1222,7 +1222,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Bad End Scene:
@@ -1315,5 +1315,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, MinotaurMob, Consumab
 		CoC.getInstance().player.orgasm();
 		EngineCore.doNext( Combat.cleanupAfterCombat );
 	};
-	CoC.getInstance().registerScene( 'minotaurMobScene', new MinotaurMobScene() );
+	SceneLib.registerScene( 'minotaurMobScene', new MinotaurMobScene() );
 } );

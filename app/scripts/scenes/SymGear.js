@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function SymGear() {
 	}
 
@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		if( CoC.getInstance().player.inte < 60 ) {
 			EngineCore.outputText( 'Unfortunately, try as you might, you cannot seem to figure the lock out.  You spin the stone circles around multiple times to try and discern the pattern to them, but find yourself continually disappointed.  Eventually you resort to trying to listen for the sound of tumblers behind the door indicating a shifting lock.  It is not as successful as you hope.  Disappointed but not undeterred, you resolve to return to the mysterious lock at a later point, when you are more capable of handling its clever riddle.', false );
 			//[Player leaves, room can be re-encountered];
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Intelligence greater than 60] ;
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Uninterested in the proffered reward, you turn and leave the way you came.  At the entrance, you replace the moss, doing your best to conceal the portal in the event you wish to return, or at least to keep any items of power inside from the hands of hostile swamp denizens.  You may as well not have spent the effort, for as you\'re walking away, you hear the stones grinding and shifting behind you.  Sure enough, an inspection affirms that the door has sealed itself again.\n\n', false );
 		//allows player to find again later, like the B.Sword;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Retribution];
 	SymGear.prototype.retributionArmorIsCoolShit = function() {
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		EngineCore.outputText( 'The display makes you feel righteous.\n\n', false );
 		//[Player receives: 1x Inquisitor's Robes];
 		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.I_ROBES, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ArmorLib.I_ROBES, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Carnality];
 	SymGear.prototype.carnalityArmorIsCoolShitToo = function() {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 		EngineCore.outputText( 'The display makes you feel like a badass.\n\n', false );
 		//[Player receives 1x Inquisitor's Corset];
 		CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] = 1;
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.I_CORST, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ArmorLib.I_CORST, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Item details:;
@@ -98,8 +98,8 @@ angular.module( 'cocjs' ).run( function( ArmorLib, WeaponLib, Mutations, StatusA
 			EngineCore.outputText( 'Well, getting beer and a sword in one night is good enough you suppose, though you sure would\'ve liked a triple combo of head in there too.  A good evening nonetheless.  You bid farewell to Dominika, thanking her once more for the drink and the blade before heading on your way.  She watches you go with an unreadable expression on her face.\n\n', false );
 		}
 		//(Player receives Spellblade);
-		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.S_BLADE, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( WeaponLib.S_BLADE, SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.DOMINIKAS_SWORD_GIVEN ] = 1;
 	};
-	CoC.getInstance().registerScene( 'symGear', new SymGear() );
+	SceneLib.registerScene( 'symGear', new SymGear() );
 } );

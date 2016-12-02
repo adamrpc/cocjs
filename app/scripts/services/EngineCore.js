@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, EventParser, StatusAffects, Combat, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
 	var EngineCore = {};
     var parser = new Parser(CoC.getInstance(), CoC_Settings);
 	EngineCore.silly = function() {
@@ -387,7 +387,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			_add( new Perk( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
 		}
 		//Slot 7 - Seduction (Must have seduced Jojo
-		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
+		if( CoC.getInstance().player.findPerk( PerkLib.Seduction ) < 0 && CoC.getInstance().player.cor >= 50 && SceneLib.jojoScene.monk >= 5 ) {
 			_add( new Perk( PerkLib.Seduction ) );
 		} else if( CoC.getInstance().player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.getInstance().player.cor >= 75 ) { //Slot 7 - Nymphomania
 			_add( new Perk( PerkLib.Nymphomania ) );
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			toolTipText = 'This is what is called an \'onahole\'.  This device is a simple textured sleeve designed to fit around the male anatomy in a pleasurable way.';
 		}
 		if( buttonText === 'Jojo' ) {
-			if( CoC.getInstance().scenes.jojoScene.monk >= 5 ) {
+			if( SceneLib.jojoScene.monk >= 5 ) {
 				toolTipText = 'Call your corrupted pet into camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.';
 			} else {
 				toolTipText = 'Go find Jojo around the edges of your camp and meditate with him or talk about watch duty.';
@@ -1012,7 +1012,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ] > 0 ) {
 			childStats += '<b>Children With Kelly (Females):</b> ' + (CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] - CoC.getInstance().flags[ kFLAGS.KELLY_KIDS_MALE ]) + '\n';
 		}
-		if( CoC.getInstance().scenes.salon.lynnetteApproval() !== 0 ) {
+		if( SceneLib.salon.lynnetteApproval() !== 0 ) {
 			childStats += '<b>Lynnette Children:</b> ' + CoC.getInstance().flags[ kFLAGS.LYNNETTE_BABY_COUNT ] + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
@@ -1048,8 +1048,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		if( CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
 			childStats += '<b>Children With Tamani:</b> ' + CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] + ' (after all forms of natural selection)\n';
 		}
-		if( CoC.getInstance().scenes.urtaPregs.urtaKids() > 0 ) {
-			childStats += '<b>Children With Urta:</b> ' + CoC.getInstance().scenes.urtaPregs.urtaKids() + '\n';
+		if( SceneLib.urtaPregs.urtaKids() > 0 ) {
+			childStats += '<b>Children With Urta:</b> ' + SceneLib.urtaPregs.urtaKids() + '\n';
 		}
 		//Mino sons
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] > 0 ) {
@@ -1178,39 +1178,39 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		// Begin Interpersonal Stats
 		var interpersonStats = '';
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_PARK ] > 0 ) {
-			interpersonStats += '<b>Arian\'s Health:</b> ' + Math.round( CoC.getInstance().scenes.arianScene.arianHealth() ) + '\n';
+			interpersonStats += '<b>Arian\'s Health:</b> ' + Math.round( SceneLib.arianScene.arianHealth() ) + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
 			interpersonStats += '<b>Arian Sex Counter:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.ARIAN_VIRGIN ] ) + '\n';
 		}
-		if( CoC.getInstance().scenes.benoit.benoitAffection() > 0 ) {
-			interpersonStats += '<b>' + CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( CoC.getInstance().scenes.benoit.benoitAffection() ) + '%\n';
+		if( SceneLib.benoit.benoitAffection() > 0 ) {
+			interpersonStats += '<b>' + SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' Affection:</b> ' + Math.round( SceneLib.benoit.benoitAffection() ) + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] > 0 ) {
-			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( CoC.getInstance().scenes.brooke.brookeAffection() ) + '\n';
+			interpersonStats += '<b>Brooke Affection:</b> ' + Math.round( SceneLib.brooke.brookeAffection() ) + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ] > 0 ) {
 			interpersonStats += '<b>Body Parts Taken By Ceraph:</b> ' + (CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00218 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00219 ] + CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00220 ]) + '\n';
 		}
-		if( CoC.getInstance().scenes.emberScene.emberAffection() > 0 ) {
-			interpersonStats += '<b>Ember Affection:</b> ' + Math.round( CoC.getInstance().scenes.emberScene.emberAffection() ) + '%\n';
+		if( SceneLib.emberScene.emberAffection() > 0 ) {
+			interpersonStats += '<b>Ember Affection:</b> ' + Math.round( SceneLib.emberScene.emberAffection() ) + '%\n';
 		}
-		if( CoC.getInstance().scenes.helFollower.helAffection() > 0 ) {
-			interpersonStats += '<b>Helia Affection:</b> ' + Math.round( CoC.getInstance().scenes.helFollower.helAffection() ) + '%\n';
+		if( SceneLib.helFollower.helAffection() > 0 ) {
+			interpersonStats += '<b>Helia Affection:</b> ' + Math.round( SceneLib.helFollower.helAffection() ) + '%\n';
 		}
-		if( CoC.getInstance().scenes.helFollower.helAffection() >= 100 ) {
+		if( SceneLib.helFollower.helAffection() >= 100 ) {
 			interpersonStats += '<b>Helia Bonus Points:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.HEL_BONUS_POINTS ] ) + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ISABELLA_AFFECTION ] > 0 ) {
 			interpersonStats += '<b>Isabella Affection:</b> ';
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				interpersonStats += Math.round( CoC.getInstance().flags[ kFLAGS.ISABELLA_AFFECTION ] ) + '%\n';
 			} else {
 				interpersonStats += '100%\n';
 			}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
-			interpersonStats += '<b>Katherine Submissiveness:</b> ' + CoC.getInstance().scenes.katherine.submissiveness() + '\n';
+			interpersonStats += '<b>Katherine Submissiveness:</b> ' + SceneLib.katherine.submissiveness() + '\n';
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			if( CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
@@ -1220,10 +1220,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			}
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
-			interpersonStats += '<b>Kid A\'s Confidence:</b> ' + CoC.getInstance().scenes.anemoneScene.kidAXP() + '%\n';
+			interpersonStats += '<b>Kid A\'s Confidence:</b> ' + SceneLib.anemoneScene.kidAXP() + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 2 ) {
-			if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			if( SceneLib.kihaFollower.followerKiha() ) {
 				interpersonStats += '<b>Kiha Affection:</b> ' + 100 + '%\n';
 			} else {
 				interpersonStats += '<b>Kiha Affection:</b> ' + Math.round( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION ] ) + '%\n';
@@ -1231,26 +1231,26 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		//Lottie stuff
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 ) {
-			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + CoC.getInstance().scenes.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + CoC.getInstance().scenes.lottie.lottieTone() + ' (higher is better)\n';
+			interpersonStats += '<b>Lottie\'s Encouragement:</b> ' + SceneLib.lottie.lottieMorale() + ' (higher is better)\n' + '<b>Lottie\'s Figure:</b> ' + SceneLib.lottie.lottieTone() + ' (higher is better)\n';
 		}
-		if( CoC.getInstance().scenes.salon.lynnetteApproval() !== 0 ) {
-			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + CoC.getInstance().scenes.salon.lynnetteApproval() + '\n';
+		if( SceneLib.salon.lynnetteApproval() !== 0 ) {
+			interpersonStats += '<b>Lynnette\'s Approval:</b> ' + SceneLib.salon.lynnetteApproval() + '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 0 ) {
 			interpersonStats += '<b>Owca\'s Attitude:</b> ' + CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] + '\n';
 		}
-		if( CoC.getInstance().scenes.rubi.rubiAffection() > 0 ) {
-			interpersonStats += '<b>Rubi\'s Affection:</b> ' + Math.round( CoC.getInstance().scenes.rubi.rubiAffection() ) + '%\n' + '<b>Rubi\'s Orifice Capacity:</b> ' + Math.round( CoC.getInstance().scenes.rubi.rubiCapacity() ) + '%\n';
+		if( SceneLib.rubi.rubiAffection() > 0 ) {
+			interpersonStats += '<b>Rubi\'s Affection:</b> ' + Math.round( SceneLib.rubi.rubiAffection() ) + '%\n' + '<b>Rubi\'s Orifice Capacity:</b> ' + Math.round( SceneLib.rubi.rubiCapacity() ) + '%\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.SHEILA_XP ] !== 0 ) {
-			interpersonStats += '<b>Sheila\'s Corruption:</b> ' + CoC.getInstance().scenes.sheilaScene.sheilaCorruption();
-			if( CoC.getInstance().scenes.sheilaScene.sheilaCorruption() > 100 ) {
+			interpersonStats += '<b>Sheila\'s Corruption:</b> ' + SceneLib.sheilaScene.sheilaCorruption();
+			if( SceneLib.sheilaScene.sheilaCorruption() > 100 ) {
 				interpersonStats += ' (Yes, it can go above 100)';
 			}
 			interpersonStats += '\n';
 		}
 		if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] !== 0 ) {
-			if( CoC.getInstance().scenes.urta.urtaLove() ) {
+			if( SceneLib.urta.urtaLove() ) {
 				interpersonStats += '<b>Urta Status:</b> Lover\n';
 			} else if( CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 				interpersonStats += '<b>Urta Status:</b> Ashamed\n';
@@ -1314,7 +1314,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 			lust -= 10;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 ) {
-			lust -= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LUST_RESIST;
+			lust -= SceneLib.umasShop.NEEDLEWORK_LUST_LUST_RESIST;
 		}
 		if( lust < 25 ) {
 			lust = 25;
@@ -1360,7 +1360,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		// Changing them to an additive bonus should be pretty simple (check the static values in UmasShop.as)
 		var statIndex = CoC.getInstance().player.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			if( CoC.getInstance().player.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_RELIEF || CoC.getInstance().player.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_LUST ) {
+			if( CoC.getInstance().player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELIEF || CoC.getInstance().player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_LUST ) {
 				lust *= CoC.getInstance().player.statusAffect( statIndex ).value2;
 			}
 		}
@@ -1506,13 +1506,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		// Uma\'s Perkshit
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 && spee < 0 ) {
-			spee *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
+			spee *= SceneLib.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && libi > 0 ) {
-			libi *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+			libi *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowLust ) >= 0 && sens > 0 ) {
-			sens *= CoC.getInstance().scenes.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+			sens *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		//lust resistance
 		if( lust2 > 0 && resisted ) {
@@ -1575,13 +1575,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( $log, CoC, kFLAGS, Ma
 		}
 		// Uma\'s Str Cap from Perks
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 ) {
-			if( CoC.getInstance().player.str > CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
-				CoC.getInstance().player.str = CoC.getInstance().scenes.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
+			if( CoC.getInstance().player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
+				CoC.getInstance().player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
 			}
 		}
 		if( CoC.getInstance().player.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
-			if( CoC.getInstance().player.spe > CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
-				CoC.getInstance().player.spe = CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
+			if( CoC.getInstance().player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
+				CoC.getInstance().player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
 			}
 		}
 		//Keep EngineCore.stats in bounds

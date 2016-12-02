@@ -91,14 +91,14 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( 'The male sighs. "<i>Fine, fine. You\'ve gotta run out of gems sometime anyway, right?</i>" You smirk and step onto the platform, chuckling at the incubus as his visage vanishes behind the lip of a sheer cliff. There\'s a railing to hold onto as you\'re lowered down to the mountains. While the platform does rock from side to side along the slow trip down, its motions are not erratic enough to put you in any significant danger. Even better, you aren\'t bothered by a single harpy along the way. This section of the high mountains seems to have been cleansed of them.' );
 		EngineCore.outputText( '\n\nThe platform touches down roughly thirty minutes after your departure, and you head back to camp with all due haste.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.d3.exitD3 );
+		EngineCore.addButton( 0, 'Next', SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.useLiftPostDefeat = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You spend a minute or two fiddling with the lift controls, trying to understand how, exactly, to control the contraption. When you think you\'ve got a handle on the system, you tug on a lever with authority and hastily step onto the platform.' );
 		EngineCore.outputText( '\n\nThere\'s a railing to hold onto as you\'re lowered down to the mountains. While the platform does rock from side to side along the slow trip down, its motions are not erratic enough to put you in any significant danger. Even better, you aren\'t bothered by a single harpy along the way. This section of the high mountains seems to have been cleansed of them.' );
 		EngineCore.outputText( '\n\nThe platform touches down roughly thirty minutes after your departure, and you head back to camp with all due haste.' );
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.d3.exitD3 );
+		EngineCore.addButton( 0, 'Next', SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.suckIncubusDick = function() {
 		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_SUCKED;
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\nStumbling onto the elevator, you cradle your cum-pregnant middle and gesture for him to lower you. He does so, a smile that would shame a cheshire cat plastered on his face as he disappears behind the lip of a cliff. <b>Damn, that was hot.</b> You wind up masturbating most of the way down the elevator before stumbling into your camp as a pent-up, sexually fixated wreck.' );
 		EngineCore.dynStats( 'lib+', 5, 'cor+', 5, 'lus+', 100 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.d3.exitD3 );
+		EngineCore.addButton( 0, 'Next', SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.beatDaMechanic = function( hpVictory ) {
 		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_FOUGHT;
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_KILLED;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'He proves blessedly easy to kill, and you roll the body off the cliffs to avoid alerting any of Lethice\'s other ilk.' );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.letMechanicGo = function( hpVictory ) {
 		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_RELEASED;
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		}
 		EngineCore.outputText( ', nodding. His skin cracks as two leathery wings unfurl. <i>"If that\'s how it has to be.... For what it\'s worth, I hope you win. Lethice is a bitch."</i> Slowly walking towards the cliff, he beats his wings and lifts off the ground. "<i>Come visit me sometime. Maybe I can show you a good time as thanks.</i>"' );
 		EngineCore.outputText( '\n\nThe incubus mechanic flies away for good, though you can’t can say whether he will wreak havoc or live quietly.' );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.buttfuckTheMechanic = function( hpVictory ) {
 		CoC.getInstance().flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED;
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\nYou wipe your ' + Descriptors.cockDescript( x ) + ' off on his practically glowing bottom before turning to re-dress. When you turn back, he\'s gone, though a trail of white drops indicates the direction of his flight. It looks like he fled towards the cliff, perhaps growing wings. Oh well, that\'s one less obstacle between you and Lethice.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	var MECHANIC_DEMON_COCK = 0;
 	var MECHANIC_HORZ_GOG = 1;
@@ -454,7 +454,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\nShaking your head, you clear away the errant thoughts and focus on the battles to come.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.mechanicFuckedYouUp = function( hpVictory ) {
 		if( CoC.getInstance().player.hasCock() && !CoC.getInstance().player.hasVagina() ) {
@@ -679,5 +679,5 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\nYou\'ll do anything to keep yourself pleasantly slick for your masters. You don\'t even protest when the plug is forced back into your mouth and hooked to a nutrient solution.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'incubusMechanicScenes', new IncubusMechanicScenes() );
+	SceneLib.registerScene( 'incubusMechanicScenes', new IncubusMechanicScenes() );
 } );

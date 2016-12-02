@@ -1,16 +1,19 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( PerkLib, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
-	var OmnibusOverseer = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLib, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
+	function OmnibusOverseer() {
+		this.init(this, arguments);
+	}
+	angular.extend(OmnibusOverseer.prototype, Monster.prototype);
 	OmnibusOverseer.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeonCore.omnibusVictoryEvent();
+		SceneLib.dungeonCore.omnibusVictoryEvent();
 	};
 	OmnibusOverseer.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.dungeonCore.omnibusLossRape();
+			SceneLib.dungeonCore.omnibusLossRape();
 		}
 	};
 	OmnibusOverseer.prototype.lustAura = function() {

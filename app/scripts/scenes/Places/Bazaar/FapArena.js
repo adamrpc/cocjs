@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearance, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CockTypesEnum, ConsumableLib, Appearance, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 	function FapArena() {
 	}
 
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearanc
 			//, or consider buying products in our local shop.</i>"\n\n", false);;
 			//EngineCore.outputText('She redirects you to a small stall near the entrance with various potions stored on shelves.  A poster placed on it reads: 'Your dick must qualify to the house\'s standards.  80 gems for a vial of Gro+, 80 for the session of your life!";
 			//Do you buy products? (Yes/No) //Yes gives you a vial of Gro+, No does nothing. In both cases, the PC is redirected to the Bazaar.;
-			EngineCore.doNext( CoC.getInstance().scenes.bazaar.enterTheBazaar );
+			EngineCore.doNext( SceneLib.bazaar.enterTheBazaar );
 			return;
 		}
 		//[if dick size >= 8 inches: 1st time] ;
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearanc
 			}
 			//end of condition about PC's corr;
 			EngineCore.outputText( '\n\nDo you stay?', false );
-			EngineCore.doYesNo( this.fapArenaPageII, CoC.getInstance().scenes.bazaar.enterTheBazaar );
+			EngineCore.doYesNo( this.fapArenaPageII, SceneLib.bazaar.enterTheBazaar );
 		}
 		//[if dick size > 8 inches: after first time] ;
 		else {
@@ -478,19 +478,19 @@ angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearanc
 			}
 			CoC.getInstance().flags[ kFLAGS.FAP_ARENA_VICTORIES ]++;
 			CoC.getInstance().player.orgasm();
-			CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[if you didn't win];
 		else if( place === 2 ) {
 			EngineCore.outputText( 'You awkwardly remove the dick from your ass and start dressing yourself.  Before you go, the cute little referee waves at you, her coy smile and nude body somehow awakening ' + Descriptors.sMultiCockDesc() + ' again.  Ye Gods, it never ends.  "<i>I hope you enjoyed this session. Better luck next time...</i>"', false );
 			CoC.getInstance().player.orgasm();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[if you lost];
 		else {
 			EngineCore.outputText( 'You awkwardly remove the dick from your ass, start cleaning yourself from all the dirt and cum before leaving the tent.  Before you go, the nude referee approaches you and gently squeezes your ' + Descriptors.cockDescript( x ) + '; you still wince from the pounding it took earlier.  "<i>Awww, looks like you had a rough time, didn\'t you?  Well, it happens sometimes.  Hopefully you will get better at this.  See you next game!</i>"', false );
 			CoC.getInstance().player.orgasm();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[SPECIAL: if player has an extra tentacle dick more than 40 inches long OR if the player has lost and has a unique tentacle dick, add this paragraph before the PC cums];
@@ -541,5 +541,5 @@ angular.module( 'cocjs' ).run( function( CockTypesEnum, ConsumableLib, Appearanc
 		}
 		return false;
 	};
-	CoC.getInstance().registerScene( 'fapArena', new FapArena() );
+	SceneLib.registerScene( 'fapArena', new FapArena() );
 } );

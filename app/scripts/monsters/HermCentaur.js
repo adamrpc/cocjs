@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HermCentaur', function( CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
-	var HermCentaur = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
+	function HermCentaur() {
+		this.init(this, arguments);
+	}
+	angular.extend(HermCentaur.prototype, Monster.prototype);
 	HermCentaur.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
 		that._usedGottaCum = false;
@@ -38,10 +41,10 @@ angular.module( 'cocjs' ).factory( 'HermCentaur', function( CockTypesEnum, Appea
 		that.checkMonster();
 	};
 	HermCentaur.prototype.defeated = function( hpVictory ) {
-		CoC.getInstance().scenes.hermCentaurScenes.beatThePony( hpVictory );
+		SceneLib.hermCentaurScenes.beatThePony( hpVictory );
 	};
 	HermCentaur.prototype.won = function( hpVictory, pcCameWorms ) {
-		CoC.getInstance().scenes.hermCentaurScenes.inSovietCoCPonyRidesYou( hpVictory, pcCameWorms );
+		SceneLib.hermCentaurScenes.inSovietCoCPonyRidesYou( hpVictory, pcCameWorms );
 	};
 	// Gonna handle this a little differently than usual.;
 	// This is one of the advantages of containing monster detail in this manner, and encapsulating the;

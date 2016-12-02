@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'RizzaRoot', function( PerkLib, Utils, SimpleConsumable, EngineCore ) {
-	var RizzaRoot = angular.copy( SimpleConsumable );
+	function RizzaRoot() {
+		this.init(this, arguments);
+	}
+	angular.extend(RizzaRoot.prototype, SimpleConsumable.prototype);
 	RizzaRoot.prototype.init = function( that ) {
 		SimpleConsumable.prototype.init( that, [ 'RizzaRt', 'Rizza Root', 'a tube of rizza root strands', that.rizzaRootEffect, 10, 'A small ceramic tube full of fine red root strands.  They smell something like citrus fruit.' ] );
 	};

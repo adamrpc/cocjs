@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, EventParser, kFLAGS) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, StatusAffects, Combat, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, EventParser, kFLAGS) {
 	function TentacleBeastScene() {
 	}
 
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 			EngineCore.outputText( 'The beast slaps you squarely on the ass as if to push you along. "<i>Get the fuck out of here!</i>" it screams. "<i>Get lost so I can hunt me a REAL meal!!!</i>"', false );
 			EngineCore.outputText( 'You walk away from the creature, which hides back in the brush. After you trek a bit, you wonder if what happened really DID happen...', false );
 			EngineCore.dynStats( 'lus', -5 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Combat starter
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		//Worms get nothing!
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.outputText( 'It stops itself completely in a moment and twitches, as if sniffing the air, before turning around and disappearing into the underbrush.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.getInstance().player.cor > 50 ) {
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -449,7 +449,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 				if( CoC.getInstance().isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 			}
 			return;
 		}
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -696,7 +696,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	TentacleBeastScene.prototype.tentacleRapeContinuationForFemales = function() {
@@ -751,7 +751,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Centaur v. Tentacle Monster: (display if pc is unsexed centaur)
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Naga v. Tentacle Monster:
@@ -821,7 +821,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Goo v. Tentacle Monster:
@@ -842,8 +842,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, StatusAffects, Combat, Tenta
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
-	CoC.getInstance().registerScene( 'tentacleBeastScene', new TentacleBeastScene() );
+	SceneLib.registerScene( 'tentacleBeastScene', new TentacleBeastScene() );
 } );

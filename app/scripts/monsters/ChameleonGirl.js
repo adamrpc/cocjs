@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat ) {
-	var ChameleonGirl = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat ) {
+	function ChameleonGirl() {
+		this.init(this, arguments);
+	}
+	angular.extend(ChameleonGirl.prototype, Monster.prototype);
 
 	ChameleonGirl.prototype.chameleonTongueAttack = function() {
 		this.weaponName = 'tongue';
@@ -72,7 +75,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 	};
 
 	ChameleonGirl.prototype.defeated = function( ) {
-		CoC.getInstance().scenes.chameleonGirlScene.defeatChameleonGirl();
+		SceneLib.chameleonGirlScene.defeatChameleonGirl();
 	};
 
 	ChameleonGirl.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -80,7 +83,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( CoC, Monster, Util
 			EngineCore.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.chameleonGirlScene.loseToChameleonGirl();
+			SceneLib.chameleonGirlScene.loseToChameleonGirl();
 		}
 	};
 	ChameleonGirl.prototype.outputPlayerDodged = function( ) {

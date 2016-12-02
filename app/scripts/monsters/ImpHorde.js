@@ -1,19 +1,22 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'ImpHorde', function( CoC, $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
-	var ImpHorde = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, CoC, $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
+	function ImpHorde() {
+		this.init(this, arguments);
+	}
+	angular.extend(ImpHorde.prototype, Monster.prototype);
 	ImpHorde.prototype.performCombatAction = function() {
-		CoC.getInstance().scenes.dungeon2Supplimental.impGangAI();
+		SceneLib.dungeon2Supplimental.impGangAI();
 	};
 	ImpHorde.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeon2Supplimental.impGangVICTORY();
+		SceneLib.dungeon2Supplimental.impGangVICTORY();
 	};
 	ImpHorde.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foes don\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.dungeon2Supplimental.loseToImpMob();
+			SceneLib.dungeon2Supplimental.loseToImpMob();
 		}
 	};
 	ImpHorde.prototype.init = function( that, args ) {

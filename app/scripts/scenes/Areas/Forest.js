@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
 	function Forest() {
 	}
 
@@ -8,11 +8,11 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		CoC.getInstance().player.addStatusValue( StatusAffects.ExploredDeepwoods, 1, 1 );
 		var chooser = Utils.rand( 5 );
 		//Every tenth exploration finds a pumpkin if eligible!
-		if( CoC.getInstance().player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 10 === 0 && CoC.getInstance().scenes.fera.isHalloween() ) {
+		if( CoC.getInstance().player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 10 === 0 && SceneLib.fera.isHalloween() ) {
 			//If Fera isn't free yet...
 			if( CoC.getInstance().player.findPerk( PerkLib.FerasBoonBreedingBitch ) < 0 && CoC.getInstance().player.findPerk( PerkLib.FerasBoonAlpha ) < 0 ) {
 				if( OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] ) {
-					CoC.getInstance().scenes.fera.pumpkinFuckEncounter();
+					SceneLib.fera.pumpkinFuckEncounter();
 					return;
 				}
 			}
@@ -20,44 +20,44 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			else {
 				if( CoC.getInstance().flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] === 0 ) {
 					if( OnLoadVariables.date.fullYear > CoC.getInstance().flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] ) {
-						CoC.getInstance().scenes.fera.feraSceneTwoIntroduction();
+						SceneLib.fera.feraSceneTwoIntroduction();
 						return;
 					}
 				}
 			}
 		}
 		//Hel jumps you for sex.
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !CoC.getInstance().scenes.helScene.followerHel() ) {
-			CoC.getInstance().scenes.helScene.helSexualAmbush();
+		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		//Every 5th exploration encounters d2 if hasnt been met yet and factory done
 		if( CoC.getInstance().flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] === 0 && CoC.getInstance().player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 5 === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
 			EngineCore.outputText( 'While you explore the deepwoods, you do your best to forge into new, unexplored locations.  While you\'re pushing away vegetation and slapping at plant-life, you spot a half-overgrown orifice buried in the side of a ravine.  There\'s a large number of imp-tracks around the cavern\'s darkened entryway.  Perhaps this is where the imp, Zetaz, makes his lair?  In any event, it\'s past time you checked back on the portal.  You make a mental note of the cave\'s location so that you can return when you\'re ready.', true );
 			EngineCore.outputText( '\n\n<b>You\'ve discovered the location of Zetaz\'s lair!</b>', false );
-			EngineCore.choices( 'Enter', CoC.getInstance().scenes.dungeon2Supplimental.enterZetazsLair, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Enter', SceneLib.dungeon2Supplimental.enterZetazsLair, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			CoC.getInstance().flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ]++;
 			return;
 		}
 		//Tamani 20% encounter rate
 		if( CoC.getInstance().flags[ kFLAGS.TAMANI_TIME_OUT ] === 0 && Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.totalCocks() > 0 || CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) < 0) ) {
 			if( CoC.getInstance().player.totalCocks() > 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_DAUGHTER_PREGGO_COUNTDOWN ] === 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] >= 24 ) {
-				CoC.getInstance().scenes.tamaniDaughtersScene.encounterTamanisDaughters();
+				SceneLib.tamaniDaughtersScene.encounterTamanisDaughters();
 			} else {
-				CoC.getInstance().scenes.tamaniScene.encounterTamani();
+				SceneLib.tamaniScene.encounterTamani();
 			}
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ERLKING_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ] === 4 ) {
 			CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ] = 0;
-			CoC.getInstance().scenes.erlkingScene.encounterWildHunt();
+			SceneLib.erlkingScene.encounterWildHunt();
 			return;
 		} else {
 			CoC.getInstance().flags[ kFLAGS.ERLKING_ENCOUNTER_COUNTER ]++;
 		}
 		//Faerie
 		if( chooser === 0 ) {
-			CoC.getInstance().scenes.faerie.encounterFaerie();
+			SceneLib.faerie.encounterFaerie();
 			return;
 		}
 		//Tentacle monster
@@ -70,10 +70,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			if( CoC.getInstance().player.hasKeyItem( 'Dangerous Plants' ) >= 0 && CoC.getInstance().player.inte / 2 > Utils.rand( 50 ) ) {
 				$log.debug( 'TENTACLE\'S AVOIDED DUE TO BOOK!' );
 				EngineCore.outputText( 'Using the knowledge contained in your \'Dangerous Plants\' book, you determine a tentacle beast\'s lair is nearby, do you continue?  If not you could return to camp.\n\n', true );
-				EngineCore.choices( 'Continue', CoC.getInstance().scenes.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 				return;
 			} else {
-				CoC.getInstance().scenes.tentacleBeastScene.encounter();
+				SceneLib.tentacleBeastScene.encounter();
 				return;
 			}
 		}
@@ -83,15 +83,15 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 				this.trappedSatyr();
 				return;
 			}
-			CoC.getInstance().scenes.corruptedGlade.intro();
+			SceneLib.corruptedGlade.intro();
 		}
 		if( chooser === 3 ) {
-			CoC.getInstance().scenes.akbalScene.supahAkabalEdition();
+			SceneLib.akbalScene.supahAkabalEdition();
 		} else if( chooser === 4 ) {
 			if( Utils.rand( 3 ) === 0 ) {
-				CoC.getInstance().scenes.kitsuneScene.kitsuneShrine();
+				SceneLib.kitsuneScene.kitsuneShrine();
 			} else {
-				CoC.getInstance().scenes.kitsuneScene.enterTheTrickster();
+				SceneLib.kitsuneScene.enterTheTrickster();
 			}
 		}
 	};
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			chooser = Utils.rand( 3 );
 		}
 		//Quick changes monk is fully corrupted, encounter him less (unless haz ferriiite).
-		if( chooser === 1 && CoC.getInstance().scenes.jojoScene.monk >= 2 ) {
+		if( chooser === 1 && SceneLib.jojoScene.monk >= 2 ) {
 			var chooserChange = Utils.rand( 4 );
 			if( chooserChange === 0 ) {
 				chooser = 0;
@@ -118,12 +118,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			}
 		}
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !CoC.getInstance().scenes.helScene.followerHel() ) {
-			CoC.getInstance().scenes.helScene.helSexualAmbush();
+		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		//Raise Jojo chances for furrite
-		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 5 ) === 0 && (CoC.getInstance().player.cor > 25 || CoC.getInstance().scenes.jojoScene.monk > 0) ) {
+		if( CoC.getInstance().player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 5 ) === 0 && (CoC.getInstance().player.cor > 25 || SceneLib.jojoScene.monk > 0) ) {
 			chooser = 1;
 		}
 		//If Jojo lives in camp, never encounter him
@@ -137,12 +137,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		if( (CoC.getInstance().player.exploredForest >= 20) && CoC.getInstance().player.findStatusAffect( StatusAffects.ExploredDeepwoods ) < 0 ) {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.ExploredDeepwoods, 0, 0, 0, 0 );
 			EngineCore.outputText( 'After exploring the forest so many times, you decide to really push it, and plunge deeper and deeper into the woods.  The further you go the darker it gets, but you courageously press on.  The plant-life changes too, and you spot more and more lichens and fungi, many of which are luminescent.  Finally, a wall of tree-trunks as wide as houses blocks your progress.  There is a knot-hole like opening in the center, and a small sign marking it as the entrance to the \'Deepwoods\'.  You don\'t press on for now, but you could easily find your way back to explore the Deepwoods.\n\n<b>Deepwoods exploration unlocked!</b>', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Essy every 20 explores or so
 		if( (Utils.rand( 100 ) <= 1) && CoC.getInstance().player.gender > 0 && (CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] === 0 || CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] === 1) ) {
-			CoC.getInstance().scenes.essrayle.essrayleMeetingI();
+			SceneLib.essrayle.essrayleMeetingI();
 			return;
 		}
 		//Chance of dick-dragging! 10% + 10% per two foot up to 30%
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			EngineCore.outputText( '\n\nShe goes up to the imp, and kicks it once.  Satisfied that the creature isn\'t moving, she turns around to face you and gives you a smile.  "<i>Sorry about that, but I prefer to take care of these buggers quickly.  If they get the chance to call on their friends, they can actually become a nuisance.</i>"  She disappears back into the foliage briefly before reappearing holding two large pile of logs under her arms, with a fire axe and her hammer strapped to her back.  "<i>I\'m gathering firewood for the farm, as you can see; what brings you to the forest, sweetie?</i>"  You inform her that you\'re just exploring.' );
 			EngineCore.outputText( '\n\nShe gives a wistful sigh. "<i>I haven\'t really explored much since getting to the farm.  Between the jobs Whitney gives me, keeping in practice with my hammer, milking to make sure I don\'t get too full, cooking, and beauty sleep, I don\'t get a lot of free time to do much else.</i>"  She sighs again.  "<i>Well, I need to get this back, so I\'ll see you later!</i>"' );
 			//end event
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( chooser === 0 ) {
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			//Imptacular Encounter
 			if( Utils.rand( 10 ) < impGob ) {
 				if( CoC.getInstance().player.level >= 8 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.impScene.impLordEncounter();
+					SceneLib.impScene.impLordEncounter();
 				} else {
 					EngineCore.outputText( 'An imp leaps out of the bushes and attacks!', true );
 					Combat.startCombat( new Imp() );
@@ -204,15 +204,15 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 				//Tamani 25% of all goblin encounters encounter rate
 				if( Utils.rand( 4 ) <= 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_TIME_OUT ] === 0 && CoC.getInstance().player.gender > 0 && (CoC.getInstance().player.totalCocks() > 0 || CoC.getInstance().player.hasKeyItem( 'Deluxe Dildo' ) < 0) ) {
 					if( CoC.getInstance().player.totalCocks() > 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_DAUGHTER_PREGGO_COUNTDOWN ] === 0 && CoC.getInstance().flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] >= 24 ) {
-						CoC.getInstance().scenes.tamaniDaughtersScene.encounterTamanisDaughters();
+						SceneLib.tamaniDaughtersScene.encounterTamanisDaughters();
 					} else {
-						CoC.getInstance().scenes.tamaniScene.encounterTamani();
+						SceneLib.tamaniScene.encounterTamani();
 					}
 					return;
 				}
 				//50% of the time, goblin assassin!
 				if( CoC.getInstance().player.level >= 10 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.goblinAssassinScene.goblinAssassinEncounter();
+					SceneLib.goblinAssassinScene.goblinAssassinEncounter();
 					return;
 				}
 				if( CoC.getInstance().player.gender > 0 ) {
@@ -231,71 +231,71 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 			}
 		}
 		if( chooser === 1 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.outputText( '', true );
-			if( CoC.getInstance().scenes.jojoScene.monk === 0 ) {
+			if( SceneLib.jojoScene.monk === 0 ) {
 				if( CoC.getInstance().player.cor < 25 ) {
 					if( CoC.getInstance().player.level >= 4 ) {
-						CoC.getInstance().scenes.jojoScene.monk = 1;
-						CoC.getInstance().scenes.jojoScene.lowCorruptionJojoEncounter();
+						SceneLib.jojoScene.monk = 1;
+						SceneLib.jojoScene.lowCorruptionJojoEncounter();
 						return;
 					} else {
 						EngineCore.outputText( 'You enjoy a peaceful walk in the woods.  It gives you time to think over the recent, disturbing events.', true );
 						EngineCore.dynStats( 'tou', 0.5, 'int', 1 );
-						EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 						return;
 					}
 				}
-				CoC.getInstance().scenes.jojoScene.monk = 1;
-				CoC.getInstance().scenes.jojoScene.jojoSprite();
+				SceneLib.jojoScene.monk = 1;
+				SceneLib.jojoScene.jojoSprite();
 				EngineCore.outputText( 'While marvelling at the strange trees and vegetation of the forest, the bushes ruffle ominously.  A bush seems to explode into a flurry of swirling leaves and movement.  Before you can react you feel your ' + CoC.getInstance().player.feet() + ' being swept out from under you, and land hard on your back.\n\n', false );
 				EngineCore.outputText( 'The angry visage of a lithe white mouse gazes down on your prone form with a look of confusion.', false );
 				EngineCore.outputText( '\n\n"<i>I\'m sorry, I sensed a great deal of corruption, and thought a demon or monster had come to my woods,</i>" says the mouse, "<i>Oh, where are my manners!</i>"\n\nHe helps you to your feet and introduces himself as Jojo.  Now that you have a good look at him, it is obvious this mouse is some kind of monk, dressed in robes, holy symbols, and draped with prayer beads.\n\nHe smiles knowingly, "<i>Yes I am a monk, and yes this is a strange place for one such as I... this world was not always this way.  Long ago this world was home to many villages, including my own.  But then the demons came.  I\'m not sure if they were summoned, created, or simply a perversion of magic or breeding, but they came swarming out of the mountains to destroy everything in their path.</i>"', false );
 				EngineCore.outputText( '\n\nJojo sighs sadly, "<i>Enough of my woes.  You are very corrupted.  If you cannot be sufficiently purified you WILL become one of them in time.  Will you let me help you?', false );
 				if( CoC.getInstance().player.gender > 0 ) {
 					$log.debug( 'Gender !== 0' );
-					EngineCore.choices( 'Accept', CoC.getInstance().scenes.jojoScene.meditateInForest, 'Rape Him', CoC.getInstance().scenes.jojoScene.jojoRape, 'BWUH?', null, 'Decline', CoC.getInstance().scenes.camp.returnToCampUseOneHour, '', null );
+					EngineCore.choices( 'Accept', SceneLib.jojoScene.meditateInForest, 'Rape Him', SceneLib.jojoScene.jojoRape, 'BWUH?', null, 'Decline', SceneLib.camp.returnToCampUseOneHour, '', null );
 				} else {
 					$log.debug( 'Gender === 0' );
-					EngineCore.choices( 'Accept', CoC.getInstance().scenes.jojoScene.meditateInForest, 'Rape Him', null, 'BWUH?', null, 'Decline', CoC.getInstance().scenes.camp.returnToCampUseOneHour, '', null );
+					EngineCore.choices( 'Accept', SceneLib.jojoScene.meditateInForest, 'Rape Him', null, 'BWUH?', null, 'Decline', SceneLib.camp.returnToCampUseOneHour, '', null );
 				}
 				return;
 			}
-			if( CoC.getInstance().scenes.jojoScene.monk === 1 ) {
+			if( SceneLib.jojoScene.monk === 1 ) {
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-					CoC.getInstance().scenes.jojoScene.jojoSprite();
+					SceneLib.jojoScene.jojoSprite();
 					EngineCore.outputText( 'As you approach the serene monk, you see his nose twitch, disturbing his meditation.\n\n', true );
 					EngineCore.outputText( '"<i>It seems that the agents of corruption have taken residence within the temple that is your body.</i>", Jojo says flatly. "<i>This is a most unfortunate development. There is no reason to despair as there are always ways to fight the corruption. However, great effort will be needed to combat this form of corruption and may leave lasting impressions upon you. If you are ready, we can purge your being of the rogue creatures of lust.</i>"\n\n', false );
 					if( CoC.getInstance().player.gender > 0 ) {
-						EngineCore.choices( 'Purge', CoC.getInstance().scenes.jojoScene.wormRemoval, 'Meditate', CoC.getInstance().scenes.jojoScene.meditateInForest, 'Rape', CoC.getInstance().scenes.jojoScene.jojoRape, '', null, 'Leave',
-							CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Purge', SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene.meditateInForest, 'Rape', SceneLib.jojoScene.jojoRape, '', null, 'Leave',
+							SceneLib.camp.returnToCampUseOneHour );
 					} else {
-						EngineCore.choices( 'Purge', CoC.getInstance().scenes.jojoScene.wormRemoval, 'Meditate', CoC.getInstance().scenes.jojoScene.meditateInForest, 'Rape', null, '', null, 'Leave',
-							CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Purge', SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene.meditateInForest, 'Rape', null, '', null, 'Leave',
+							SceneLib.camp.returnToCampUseOneHour );
 					}
 					return;
 				}
-				CoC.getInstance().scenes.jojoScene.jojoSprite();
+				SceneLib.jojoScene.jojoSprite();
 				EngineCore.outputText( 'Jojo the monk appears before you, robes and soft white fur fluttering in the breeze.  He asks, "<i>Are you ready for a meditation session?</i>"', false );
 				if( CoC.getInstance().player.gender > 0 ) {
-					EngineCore.choices( 'Yes', CoC.getInstance().scenes.jojoScene.meditateInForest, 'No', CoC.getInstance().scenes.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', CoC.getInstance().scenes.jojoScene.jojoRape, '', null );
+					EngineCore.choices( 'Yes', SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', SceneLib.jojoScene.jojoRape, '', null );
 				} else {
-					EngineCore.choices( 'Yes', CoC.getInstance().scenes.jojoScene.meditateInForest, 'No', CoC.getInstance().scenes.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', null, '', null );
+					EngineCore.choices( 'Yes', SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', null, '', null );
 				}
 			}
-			if( CoC.getInstance().scenes.jojoScene.monk >= 2 ) {
-				CoC.getInstance().scenes.jojoScene.jojoSprite();
+			if( SceneLib.jojoScene.monk >= 2 ) {
+				SceneLib.jojoScene.jojoSprite();
 				EngineCore.outputText( 'You are enjoying a peaceful walk through the woods when Jojo drops out of the trees ahead, ', true );
-				if( CoC.getInstance().scenes.jojoScene.monk === 2 ) {
+				if( SceneLib.jojoScene.monk === 2 ) {
 					EngineCore.outputText( 'his mousey visage twisted into a ferocious snarl.  "YOU!" he screams, launching himself towards you, claws extended.', false );
 				}
-				if( CoC.getInstance().scenes.jojoScene.monk === 3 ) {
+				if( SceneLib.jojoScene.monk === 3 ) {
 					EngineCore.outputText( 'unsteady on his feet, but looking for a fight!', false );
 				}
-				if( CoC.getInstance().scenes.jojoScene.monk === 4 ) {
+				if( SceneLib.jojoScene.monk === 4 ) {
 					EngineCore.outputText( 'visibly tenting his robes, but intent on fighting you.', false );
 				}
-				if( CoC.getInstance().scenes.jojoScene.monk === 5 ) {
+				if( SceneLib.jojoScene.monk === 5 ) {
 					EngineCore.outputText( 'panting and nude, his fur rustling in the breeze, a twitching behemoth of a cock pulsing between his legs.', false );
 				}
 				Combat.startCombat( new Jojo() );
@@ -312,10 +312,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 				if( CoC.getInstance().player.hasKeyItem( 'Dangerous Plants' ) >= 0 && CoC.getInstance().player.inte / 2 > Utils.rand( 50 ) ) {
 					$log.debug( 'TENTACLE\'S AVOIDED DUE TO BOOK!' );
 					EngineCore.outputText( 'Using the knowledge contained in your \'Dangerous Plants\' book, you determine a tentacle beast\'s lair is nearby, do you continue?  If not you could return to camp.\n\n', false );
-					EngineCore.choices( 'Continue', CoC.getInstance().scenes.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 					return;
 				} else {
-					CoC.getInstance().scenes.tentacleBeastScene.encounter();
+					SceneLib.tentacleBeastScene.encounter();
 					return;
 				}
 			}
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 					EngineCore.outputText( '', false );
 					EngineCore.dynStats( 'tou', 0.5, 'lib', 0.25, 'lus', CoC.getInstance().player.lib / 5 );
 				}
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//CORRUPTED GLADE
@@ -349,13 +349,13 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 					this.trappedSatyr();
 					return;
 				}
-				CoC.getInstance().scenes.corruptedGlade.intro();
+				SceneLib.corruptedGlade.intro();
 			}
 			//Trip on a root!
 			if( action === 3 ) {
 				EngineCore.outputText( 'You trip on an exposed root, scraping yourself somewhat, but otherwise the hour is uneventful.', false );
 				CoC.getInstance().player.takeDamage( 10 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				$log.debug( 'FIX MEEEEE' ); // FIXME ?
 				return;
 			}
@@ -364,10 +364,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		if( chooser === 3 ) {
 			if( Utils.rand( 10 ) === 0 ) {
 				EngineCore.outputText( 'You find a large piece of insectile carapace obscured in the ferns to your left.  It\'s mostly black with a thin border of bright yellow along the outer edge.  There\'s still a fair portion of yellow fuzz clinging to the chitinous shard.  It feels strong and flexible - maybe someone can make something of it.  ', true );
-				CoC.getInstance().scenes.inventory.takeItem( UseableLib.B_CHITN, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( UseableLib.B_CHITN, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
-			CoC.getInstance().scenes.beeGirlScene.beeEncounter();
+			SceneLib.beeGirlScene.beeEncounter();
 		}
 	};
 	//[FOREST]
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		}
 		EngineCore.dynStats( 'lus', 25 + Utils.rand( CoC.getInstance().player.cor / 5 ), 'resisted', false );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Catch a Satyr using the corrupt glade and either leave or have your way with him.
 	//Suggested to Fen as the MaleXMale submission.
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		//(Player lacks a penis)
 		if( !CoC.getInstance().player.hasCock() ) {
 			EngineCore.outputText( 'You can\'t really see any way to take advantage of this scenario, so you simply turn back and leave the way you came.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Player returns to camp)
 		//(Player has penis
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		}
 		EngineCore.outputText( ', and silently leave him to his pleasures.', false );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Player returns to camp
 	Forest.prototype.rapeSatyr = function() {
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 99 );
 		EngineCore.outputText( 'You\'ve had your fun, and you don\'t really want to fool around in the forest all day, so you grab your ' + CoC.getInstance().player.armorName + ' and leave the rutting satyr behind.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Again=]
 	Forest.prototype.secondSatyrFuck = function() {
@@ -627,7 +627,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, O
 		EngineCore.outputText( 'You give your sensitive member a few trembling, almost-painful strokes... maybe you overdid it a bit.  Shrugging, you gather your ' + CoC.getInstance().player.armorName + ' and leave the passed-out satyr behind as you go back to your camp.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'forest', new Forest() );
+	SceneLib.registerScene( 'forest', new Forest() );
 } );

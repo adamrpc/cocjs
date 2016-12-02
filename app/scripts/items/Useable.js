@@ -1,7 +1,10 @@
 ﻿'use strict';
 
 angular.module('cocjs').factory('Useable', function ( CommonItem, CoC_Settings ) {
-	var Useable = angular.copy(CommonItem);
+	function Useable() {
+		this.init(this, arguments);
+	}
+	angular.extend(Useable.prototype, CommonItem.prototype);
 	Useable.prototype.init = function(that, args) {
 		CommonItem.prototype.init(that, args);
 	};

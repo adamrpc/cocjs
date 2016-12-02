@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descriptors, Appearance, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Combat, Shouldra, Descriptors, Appearance, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function ShouldraScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -12,22 +12,22 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ] >= 1 ) {
 			CoC.getInstance().flags[ kFLAGS.SHOULDRA_MAGIC_COOLDOWN ]--;
 		}
-		if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() ) {
+		if( SceneLib.shouldraFollower.followerShouldra() ) {
 			if( CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && CoC.getInstance().player.hasCock() && Utils.rand( 10 ) === 0 ) {
 				if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] === 1 ) {
-					CoC.getInstance().scenes.shouldraFollower.exgartumonAndShouldraFightPartII();
+					SceneLib.shouldraFollower.exgartumonAndShouldraFightPartII();
 					needNext = true;
 				} else if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_EXGARTUDRAMA ] === 2 ) {
-					CoC.getInstance().scenes.shouldraFollower.exgartumonAndShouldraFightPartIII();
+					SceneLib.shouldraFollower.exgartumonAndShouldraFightPartIII();
 					needNext = true;
 				}
 			}
 			CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ]--;
-			if( CoC.getInstance().scenes.shouldraFollower.shouldersWarnings() ) {
+			if( SceneLib.shouldraFollower.shouldersWarnings() ) {
 				needNext = true;
 			}
 			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] === 0 || (CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] < 0 && CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] % 16 === 0) ) {
-				CoC.getInstance().scenes.shouldraFollower.shouldraWakesUpOrPokesPCsForShitsAndGigglesIdunnoHowLongCanIMakeThisFunctionNameQuestionMark();
+				SceneLib.shouldraFollower.shouldraWakesUpOrPokesPCsForShitsAndGigglesIdunnoHowLongCanIMakeThisFunctionNameQuestionMark();
 				needNext = true;
 			}
 			if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] > 0 && CoC.getInstance().time.hours === 3 ) {
@@ -37,19 +37,19 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		return needNext;
 	};
 	ShouldraScene.prototype.timeChangeLarge = function() {
-		if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() && CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] === 0 && CoC.getInstance().time.hours === 3 ) {
+		if( SceneLib.shouldraFollower.followerShouldra() && CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] === 0 && CoC.getInstance().time.hours === 3 ) {
 			CoC.getInstance().flags[ kFLAGS.SHOULDRA_PLOT_COUNTDOWN ] = -1;
-			CoC.getInstance().scenes.shouldraFollower.shouldraDream1();
+			SceneLib.shouldraFollower.shouldraDream1();
 			return true;
 		}
 		//Ghostgirl recruitment priority;
 		if( CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] === 0.5 && CoC.getInstance().time.hours === 6 ) {
-			CoC.getInstance().scenes.shouldraFollower.morningShouldraAlert();
+			SceneLib.shouldraFollower.morningShouldraAlert();
 			return true;
 		}
 		//Ghostgirl pissed off dreams;
-		if( CoC.getInstance().scenes.shouldraFollower.followerShouldra() && CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -236 && CoC.getInstance().time.hours === 3 && CoC.getInstance().player.gender > 0 ) {
-			CoC.getInstance().scenes.shouldraFollower.nightTimeShouldraRapesThePC();
+		if( SceneLib.shouldraFollower.followerShouldra() && CoC.getInstance().flags[ kFLAGS.SHOULDRA_SLEEP_TIMER ] <= -236 && CoC.getInstance().time.hours === 3 && CoC.getInstance().player.gender > 0 ) {
+			SceneLib.shouldraFollower.nightTimeShouldraRapesThePC();
 			return true;
 		}
 		//Ghostgirl madness;
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		//(after three encounters with her);
 		else {
 			if( CoC.getInstance().flags[ kFLAGS.TIMES_BEATEN_SHOULDRA ] >= 3 && CoC.getInstance().flags[ kFLAGS.TIMES_MET_SHOULDRA ] % 10 === 0 ) {
-				CoC.getInstance().scenes.shouldraFollower.initialShouldersRecruitment();
+				SceneLib.shouldraFollower.initialShouldersRecruitment();
 				CoC.getInstance().flags[ kFLAGS.TIMES_MET_SHOULDRA ]++;
 				return;
 			}
@@ -475,7 +475,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.SLIMEGINAED ]++;
 	};
@@ -548,7 +548,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Victory Scenes (Repurposed Loss Scenes);
@@ -705,7 +705,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Worm Infestation Scene;
@@ -770,7 +770,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_WORM_SCENE_COUNTER ]++;
 	};
@@ -814,7 +814,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Vagina Scene;
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Hermaphrodite Scene;
@@ -935,7 +935,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Loss Introduction;
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Worm Infestation Scene;
@@ -1055,7 +1055,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Hermaphrodite Scene;
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Enormous Cock Scene;
@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Genderless Scene;
@@ -1318,7 +1318,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Penis With Exgartuan Scene;
@@ -1371,7 +1371,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		EngineCore.spriteSelect( 66 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You quickly tell her that there\'s been a misunderstanding; surely your order would not allow such a relationship. She nods, not seeming very bothered by the dismissal. "<i>What a shame. Farewell, then, paladin friend,</i>" she says, turning back towards her shack. "<i>Perhaps we will meet again.</i>"  You\'re left to watch her go, and you soon depart as well.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(yup);
 	ShouldraScene.prototype.courtCrazyGirlsDotCom = function() {
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Her smile widens as she regards your venerable visage. "<i>Is that so?</i>" she says softly. "<i>Interesting. I\'ll be back in a moment.</i>" She returns to her "<i>house,</i>" rummaging around for some time before returning to you, hands hidden behind her. "<i>If I am to be sought by a paladin, we must do things right,</i>" she explains, handing you a small silk handkerchief. The white fabric slides around your fingers like a sacrosanct flow of holy water, and you reverently tuck her gift into your ' + CoC.getInstance().player.armorName + ', laying it over your heart. "<i>Come back in two days\' time, please,</i>" she asks softly. Your eyes meet for a long moment, and it appears as if she\'s struggling to say something. She instead breaks away and starts back towards her shelter. "<i>Be safe,</i>" she advises, and with a smile and a wave, she\'s gone. For moments you stand silently, then you turn and start away with long, saintly strides. There\'s more work to do.\n\n', false );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00365 ] = 48;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(two days later);
 	ShouldraScene.prototype.paladinModeFollowup = function() {
@@ -1423,7 +1423,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	/*Slime x Ghost Girl - Herm Edition
@@ -1536,9 +1536,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, Combat, Shouldra, Descripto
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\n', false );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.GHOST_GIRL_SLIME_X_SHOULDRA_COUNTER ]++;
 	};
-	CoC.getInstance().registerScene( 'shouldraScene', new ShouldraScene() );
+	SceneLib.registerScene( 'shouldraScene', new ShouldraScene() );
 } );

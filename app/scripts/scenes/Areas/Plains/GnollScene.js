@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Combat, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
 	function GnollScene() {
 	}
 
@@ -383,5 +383,5 @@ angular.module( 'cocjs' ).run( function( Combat, Gnoll, Appearance, CockTypesEnu
 	 The warm swirls around inside your body, seeming to melt away fat deposits wherever they lie.  Your body takes on a much leaner, toned appearance.
 	 (increase Tone)*/
 
-	CoC.getInstance().registerScene( 'gnollScene', new GnollScene() );
+	SceneLib.registerScene( 'gnollScene', new GnollScene() );
 } );

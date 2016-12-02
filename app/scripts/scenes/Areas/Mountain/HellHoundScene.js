@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, EventParser, Combat, HellHound, PregnancyStore, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, EventParser, Combat, HellHound, PregnancyStore, CockTypesEnum ) {
 	function HellHoundScene() {
 	}
 
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, S
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You force the presence out of your mind.  You feel almost a bit lost after it disappears, but giving yourself over to foreign control can never be a good idea, can it?', false );
 		//end event, A can repeat later.
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//choose yes (C)
 	HellHoundScene.prototype.acceptCrazyPresences = function() {
@@ -160,14 +160,14 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, S
 		}
 		//advance to repeat version
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Choose no (E)
 	HellHoundScene.prototype.declineGivingAwayLethicite = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You push the presence out of your mind.  Maybe later you\'ll collect the hellfire, but for now you\'d rather keep the lethicite.', false );
 		//end event, D can repeat.
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Choose yes (F)
 	HellHoundScene.prototype.giveUpLethicite = function() {
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, S
 		CoC.getInstance().player.createPerk( PerkLib.Hellfire, 0, 0, 0, 0 );
 		//Hellhounds no longer encounterable.
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Merae's Lethicite
 	HellHoundScene.prototype.giveALLTHELETHICITES = function() {
@@ -359,5 +359,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, CoC, AppearanceDefs, PerkLib, S
 		}
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'hellHoundScene', new HellHoundScene() );
+	SceneLib.registerScene( 'hellHoundScene', new HellHoundScene() );
 } );

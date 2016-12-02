@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Heckel() {
 	}
 
@@ -36,15 +36,15 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		}
 		//Brooke + Heckel 3some;
 		// Affection = 70, after first-time sex, talk to Heckel between 13 and 15:00, must not be a first-time encounter with Heckel, requires a gender;
-		else if( CoC.getInstance().scenes.brooke.brookeAffection() >= 70 && CoC.getInstance().flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 && CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 && CoC.getInstance().time.hours >= 13 && CoC.getInstance().time.hours <= 15 && (CoC.getInstance().player.hasVagina() || CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.brooke.brookeCapacity() ) >= 0) ) {
-			CoC.getInstance().scenes.brooke.specialHeckelAndBrookeEncounter();
+		else if( SceneLib.brooke.brookeAffection() >= 70 && CoC.getInstance().flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 && CoC.getInstance().flags[ kFLAGS.MET_HECKEL ] > 0 && CoC.getInstance().time.hours >= 13 && CoC.getInstance().time.hours <= 15 && (CoC.getInstance().player.hasVagina() || CoC.getInstance().player.cockThatFits( SceneLib.brooke.brookeCapacity() ) >= 0) ) {
+			SceneLib.brooke.specialHeckelAndBrookeEncounter();
 			return;
 		}
 		//Repeat post sex;
 		else {
 			EngineCore.outputText( 'Heckel is checking her pulse between laps when you approach her.  She grins as she catches sight of you, her teeth flashing in the light.  "<i>Back again, fresh meat?  I thought I might have scared you off last time.</i>"  She puts her hands on her hips and very blatantly looks your body up and down.  After a moment she nods to herself, as if making up her mind.  "<i>I guess you can keep up after all.  What do you say to a workout, partner?</i>"\n\n', false );
 		}
-		EngineCore.choices( 'Training', this.heckelTraining, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.gymDesc );
+		EngineCore.choices( 'Training', this.heckelTraining, '', null, '', null, '', null, 'Leave', SceneLib.telAdre.gymDesc );
 	};
 	//First time Sex;
 	Heckel.prototype.heckelTraining = function() {
@@ -55,14 +55,14 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		if( CoC.getInstance().player.tone < 60 ) {
 			EngineCore.outputText( 'You tell Heckel that you\'re looking for a training partner, and she makes no attempt to hide her gaze as she looks you up and down.  When she\'s finished, she shakes her head and picks up her pace on the track.  "<i>I don\'t think so, ' + CoC.getInstance().player.short + '.  Maybe if you spend some more time around here, you\'ll find your own way into the swing of things.  From what I\'m seeing, there\'s no way you can handle what I\'ve got.</i>"\n\n', false );
 			EngineCore.outputText( 'You open your mouth to reply, but the hyena has already started another lap.  Deciding it isn\'t worth it, you turn away indignantly.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.gymDesc );
+			EngineCore.doNext( SceneLib.telAdre.gymDesc );
 			return;
 		}
 		//Centaur or Genderless;
 		else if( CoC.getInstance().player.gender === 0 || CoC.getInstance().player.isTaur() ) {
 			EngineCore.outputText( 'You tell Heckel that you\'re looking for a training partner, but she suddenly looks off balance. She shifts from foot to foot as she looks you up and down, head cocked to the side.\n\n', false );
 			EngineCore.outputText( '"<i>Err, look ' + CoC.getInstance().player.short + ', people around here come in all shapes and sizes and use all sorts of... equipment. Maybe you should go find someone more your type to ask, because I honestly don\'t know what to do with yours.</i>"\n\n', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.gymDesc );
+			EngineCore.doNext( SceneLib.telAdre.gymDesc );
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_HECKEL_BLOWJOB ] + CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_HECKEL_ANAL ] === 0 ) {
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 				dom = this.dominateHeckel;
 			}
 			//ORAL or LEAVE;
-			EngineCore.choices( 'Oral', this.heckelOrallyFixated, 'Anal', null, 'Be Top Dog', dom, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Oral', this.heckelOrallyFixated, 'Anal', null, 'Be Top Dog', dom, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 		//FOLLOWUP SECKZ;
 		else {
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 				dom = this.dominateHeckel;
 			}
 			//ORAL or LEAVE;
-			EngineCore.choices( 'Oral', this.heckelOrallyFixated, 'Anal', this.heckelLovesDaAnal, 'Be Top Dog', dom, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Oral', this.heckelOrallyFixated, 'Anal', this.heckelLovesDaAnal, 'Be Top Dog', dom, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//oral;
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 			EngineCore.outputText( '"<i>By Marae, ' + CoC.getInstance().player.short + ', you\'ve got quite the mouth. I\'m impressed, and that doesn\'t happen often.</i>" She brings a paw to her chin as if thinking, before finally reaching it out and ruffling your hair. "<i>You know, you aren\'t half bad to be around, and not just for the sex. Don\'t be a stranger around here, alright?</i>" With that she stands and heads back into the showers, giving you time to clean up and head back to camp.', false );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'sen', 4 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Increment BJ count;
 		CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_HECKEL_BLOWJOB ]++;
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		EngineCore.outputText( 'Before you can start thinking of a way out of the situation, she growls loudly above you.  Her hands grip the back of your head and pull you towards her, burying your face in wet fur and her knot in your mouth. You feel her lean over you as your vision goes dark, your entire face buried in the fur of her groin. Her entire cock seems to flex inside you as her hips thrust forward, and a moment later you feel a burning heat travelling down your throat. Your hands go to the ground to steady yourself as she pulls herself suddenly away, her dick pulling out of your gullet with a long slurp and giving you a chance to breathe clearly again. You barely get one breath in before you realize that she\'s still cumming, and a thick stream of jism lands across your face and into your open mouth as she paws herself off the rest of the way. Unable to do anything else at this point, you simply fall back onto your ' + Descriptors.buttDescript() + ' and let her cum across your face two more times, her tongue lolling out of her mouth as she finishes.\n\n', false );
 		EngineCore.outputText( 'When she\'s finally emptied herself on your face, she falls down onto the bench in front of you. Before you can say anything, she extends a paw and ruffles your semen-streaked hair. "<i>Heh, not bad fresh meat. If you can learn your place on the food chain here, we might have a beautiful partnership ahead of us. If you still think you can keep up, that is.</i>" She winks at you as she stands again, tossing you her towel from earlier as she heads towards the showers.\n\n', false );
 		EngineCore.dynStats( 'lib', 1, 'sen', 4, 'lus', (10 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.sens / 10) );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//anal;
 	Heckel.prototype.heckelLovesDaAnal = function( loss ) {
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		//rejection - ass not loose enough;
 		if( CoC.getInstance().player.analCapacity() <= 20 && !loss ) {
 			EngineCore.outputText( 'Heckel lets out a barking laugh when you suggest using your ' + Descriptors.assDescript() + ', ruffling your hair playfully. "<i>Know your limits, ' + CoC.getInstance().player.short + ', I\'d tear you apart down there. I\'m sure there are plenty of others in this realm who can help you out with that.</i>"\n\n', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//success - requires ass to be 'a little loose';
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		EngineCore.outputText( 'She laughs as she stands and heads for the shower, letting you clean yourself up and head back to camp.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	Heckel.prototype.dominateHeckel = function() {
@@ -418,7 +418,7 @@ angular.module( 'cocjs' ).run( function( Appearance, CockTypesEnum, kFLAGS, Desc
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'heckel', new Heckel() );
+	SceneLib.registerScene( 'heckel', new Heckel() );
 } );

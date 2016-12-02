@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, EventParser, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
 	function Thanksgiving() {
 	}
 
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 	Thanksgiving.prototype.noThanksTurkeyGal = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You reluctantly push her away.  You\'ve no need to ram your dick down some new monstrosity\'s gullet.  The girl forlornly gobbles one last time, then prances off into the fading evening light, globular ass jiggling.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Baste Her -McGirt, reluctantly;
 	Thanksgiving.prototype.basteThatTurkeyBooty = function() {
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 			CoC.getInstance().player.createPerk( PerkLib.PilgrimsBounty, 0, 0, 0, 0 );
 			EngineCore.outputText( '\n\n(<b>Perk Gained: Pilgrim\'s Bounty - Lower lust values no longer reduce the size of your orgasm.</b>)' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Let her Approach:;
 	Thanksgiving.prototype.femaleLetZeTurkeyGalApproach = function() {
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 		//HP set to full, EngineCore.fatigue to 0?;
 		EngineCore.fatigue( -100 );
 		EngineCore.HPChange( 3000, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Turkey Girl II: Return of the Cockgobbler (Cockwielders);
 	//{Thanksgiving Day event, nat. Cockmeisters only.};
@@ -405,7 +405,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 		EngineCore.outputText( '\n\n"<i>Gobble,</i>" you agree, wrapping the giddy turkey up in your arms and planting one last kiss on her big ol\' boob.  She stares sedately at you with big, blue eyes, a cute little smile on her lips as you withdraw from her, wiping the last of your spunk on her feathery thigh.  Running your hand through the turkey-girl’s hair, you whisper what a good little cockgobbler she is.  However, you soon find that the poor thing’s passed out, your rut finally over with.  Still, she\'s left you with a nice soft tit-pillow to lay your head down upon as you pick up the lunch you’d been preparing to eat before the eager slut arrived.' );
 		EngineCore.outputText( '\n\n“<i>That’ll do, turkey,</i>” you say, patting her jiggling tit and scrapign soem of the excess gravy out of your lunch.  “<i>That’ll do.</i>”' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Ham Roast: Getting All Up In A Honey Pot (Female and Genderless only);
 	//{Yeah what Savin said up there};
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 		if( CoC.getInstance().player.gems >= 1 ) {
 			EngineCore.addButton( 0, 'Throw gem', this.getARoastPiggueOinkOinkOinkMotherfucker );
 		}
-		EngineCore.addButton( 1, 'Nah', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.addButton( 1, 'Nah', SceneLib.telAdre.barTelAdre );
 	};
 	//[ In For A Gem... ] [ Not My Style ];
 	//{Return to The Wet Bitch menu};
@@ -628,7 +628,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, kFLAGS, EventParser, U
 			EngineCore.outputText( ', feeling your body expand as you waddle out back towards camp with belly full of sweet syrup' );
 		}
 		EngineCore.outputText( '. For only one gem, that was a pretty good time...' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
-	CoC.getInstance().registerScene( 'thanksgiving', new Thanksgiving() );
+	SceneLib.registerScene( 'thanksgiving', new Thanksgiving() );
 } );

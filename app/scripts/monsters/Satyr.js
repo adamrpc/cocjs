@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Satyr', function( CockTypesEnum, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, PerkLib ) {
-	var Satyr = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, PerkLib ) {
+	function Satyr() {
+		this.init(this, arguments);
+	}
+	angular.extend(Satyr.prototype, Monster.prototype);
 	//Attacks (Z);
 	Satyr.prototype.satyrAttack = function() {
 		EngineCore.outputText( 'The satyr swings at you with one knuckled fist.  ' );
@@ -102,7 +105,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( CockTypesEnum, ChainedDrop
 		}
 	};
 	Satyr.prototype.defeated = function() {
-		CoC.getInstance().scenes.satyrScene.defeatASatyr();
+		SceneLib.satyrScene.defeatASatyr();
 	};
 
 	Satyr.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -110,7 +113,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( CockTypesEnum, ChainedDrop
 			EngineCore.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.satyrScene.loseToSatyr();
+			SceneLib.satyrScene.loseToSatyr();
 		}
 	};
 	Satyr.prototype.init = function( that, args ) {

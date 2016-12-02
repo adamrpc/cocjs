@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLib, CoC, Utils, EngineCore, AppearanceDefs, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, Descriptors, ConsumableLib, CoC, Utils, EngineCore, AppearanceDefs, EventParser ) {
 	function Essrayle() {
 	}
 
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLi
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Essy pouts, ears flattening to the sides a bit.  "<i>I see,</i>" she nods, looking at you with thinly masked disappointment.  She seems to instantly put on a false smile and move aside, gesturing to the path ahead with a sweep of the arm.  "<i>Well, in that case, you must be going somewhere important.  Best not keep you waiting.  I do wish you luck in your adventures!</i>" She continues to beam as you head on off, leaving her behind you in no time.  Though as you leave, you swear you hear a mumbled, "<i>Leave it to me to find the prudish ones.</i>"' );
 		CoC.getInstance().flags[ kFLAGS.TURNED_DOWN_ESSY_FIRST_MEETING ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//>If Yes
 	Essrayle.prototype.plantsForMe = function() {
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLi
 		EngineCore.dynStats( 'lib', 1 );
 		//Slimefeed!
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Look Closer
@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLi
 		EngineCore.outputText( 'She smiles knowingly and, reaching into her pouch once more, Essy produces a strange looking fruit.  It seems almost like a plum-colored eggplant, but it feels soft and rubbery to the touch.  "<i>Here ya go!  Whenever you\'d like, enjoy this!</i>"  She places the strange thing in your hands.  "<i>Call it my gift to another chest connoisseur.</i>"' );
 		this.essyRewardEpilogueOUTTIES();
 		//[gain purple fruit] [Next]
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PRFRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.PRFRUIT, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[No]
 	Essrayle.prototype.noGimmeGiantNipplesEssy = function() {
@@ -423,5 +423,5 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, Descriptors, ConsumableLi
 		CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] = 1;
 		EngineCore.doNext( EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'essrayle', new Essrayle() );
+	SceneLib.registerScene( 'essrayle', new Essrayle() );
 } );

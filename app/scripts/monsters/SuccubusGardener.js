@@ -1,7 +1,10 @@
 ﻿'use strict';
 
 angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appearance, AppearanceDefs, kFLAGS, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
-	var SuccubusGardener = angular.copy( Monster );
+	function SuccubusGardener() {
+		this.init(this, arguments);
+	}
+	angular.extend(SuccubusGardener.prototype, Monster.prototype);
 	SuccubusGardener.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
 		that.a = 'the ';

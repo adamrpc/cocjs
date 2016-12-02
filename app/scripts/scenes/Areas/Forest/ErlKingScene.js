@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser ) {
 	function ErlKingScene() {
 	}
 
@@ -167,9 +167,9 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.outputText( 'Within a few moments, the wind picks up, blowing the fog away, leaving no trace of the mysterious Huntsman, save for a small package on the ground.  You hurriedly pick it up, unable to shake the eerie feeling that you’re being watched.\n\n' );
 		EngineCore.fatigue( 10 );
 		if( waited ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.CANINEP, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXBERY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.FOXBERY, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	ErlKingScene.prototype.repeatWildHuntEncounter = function() {
@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 			CoC.getInstance().player.inte++;
 		}
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.repeatWildHuntChase = function() {
 		var pScore = this.playerHuntScore();
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 			}
 		}
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.repeatWildHuntCaught = function( pScore ) {
 		EngineCore.clearOutput();
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		}
 		CoC.getInstance().player.gems -= gemLoss;
 		EngineCore.outputText( '<b>You’ve lost ' + gemLoss + ' gems.</b>\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.CANINEP, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'sen-', 2, 'lib+', 2, 'cor+', 1, 'lus=', 0 );
 		EngineCore.fatigue( 10 );
 		CoC.getInstance().player.orgasm();
@@ -339,13 +339,13 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.outputText( '<b>You found ' + gemFind + ' gems.</b>\n\n' );
 		var selector = Utils.rand( 3 );
 		if( selector === 0 ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CANINEP, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.CANINEP, SceneLib.camp.returnToCampUseOneHour );
 		}
 		if( selector === 1 ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXBERY, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.FOXBERY, SceneLib.camp.returnToCampUseOneHour );
 		}
 		if( selector === 2 ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.NPNKEGG, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.NPNKEGG, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	ErlKingScene.prototype.stopTheMadness = function() {
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.outputText( '“<i>As you wish,</i>” says the Erlking.  The fog rolls in once more, engulfing the Erlking and his steed.  It clears a moment later, leaving you alone in the forest.\n\n' );
 		EngineCore.outputText( 'You get the feeling you won’t be seeing him anymore.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.surrenderToTheHounds = function() {
 		//[Bad End]
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().player.slimeFeed();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.howDareYou = function() {
 		EngineCore.clearOutput();
@@ -563,7 +563,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.encounterPrincessGwynn = function() {
 		EngineCore.clearOutput();
@@ -626,7 +626,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.dynStats( 'lib+', 2, 'lus=', 0 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsButtfuxed = function() {
 		EngineCore.clearOutput();
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.dynStats( 'sen-', 2, 'lus=', 0 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnNomsDaCunts = function() {
 		EngineCore.clearOutput();
@@ -659,7 +659,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.dynStats( 'sen-', 2, 'lib+', 2, 'lus=', 0 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsDickmilked = function() {
 		EngineCore.clearOutput();
@@ -677,7 +677,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		//[Lust +20, Libido +2]
 		EngineCore.dynStats( 'lus+', 20, 'lib+', 2 );
 		EngineCore.menu();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGibsGifts = function() {
 		EngineCore.clearOutput();
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( $log, kFLAGS, ConsumableLib, CoC, Utils
 		EngineCore.outputText( 'She minces up to you, placing the bottle in your hands and giving you a kiss on the cheek.  “<i>I only have one on me, but if my Lord gives me a little time, I can make more,</i>” she purrs, kissing you softly on the lips, biting lightly on your bottom lip as she presses and rubs her flat chest and cock against you.\n\n' );
 		EngineCore.outputText( '“<i>I’ll get started on it right away!</i>” she says suddenly.  She pulls away from you, nods her head seriously, then bounds off into the woods.\n\n' );
 		EngineCore.outputText( 'Before you can stop her, she’s gone, and you pocket the small bottle for later.\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PRNPKR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.PRNPKR, SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'erlKingScene', new ErlKingScene() );
+	SceneLib.registerScene( 'erlKingScene', new ErlKingScene() );
 } );

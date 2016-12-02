@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LustyDemons', function( EngineCore, CockTypesEnum, StatusAffects, CoC, Monster, Utils, AppearanceDefs, Combat ) {
-	var LustyDemons = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, EngineCore, CockTypesEnum, StatusAffects, CoC, Monster, Utils, AppearanceDefs, Combat ) {
+	function LustyDemons() {
+		this.init(this, arguments);
+	}
+	angular.extend(LustyDemons.prototype, Monster.prototype);
 	LustyDemons.prototype.performCombatAction = function() {
 		this.str = 40;
 		this.weaponAttack = 10;
@@ -13,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( EngineCore, CockType
 		Combat.combatRoundOver();
 	};
 	LustyDemons.prototype.defeated = function() {
-		CoC.getInstance().scenes.owca.defeetVapulasHorde();
+		SceneLib.owca.defeetVapulasHorde();
 	};
 	LustyDemons.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {

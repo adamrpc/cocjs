@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
 
 	function KihaScene() {
 	}
@@ -10,27 +10,27 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 		var temp;
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 72 );
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.KIHA_NEEDS_TO_REACT_TO_HORSECOCKING ] === 1 ) {
-			CoC.getInstance().scenes.kihaFollower.kihaReactsToHorseDicking();
+		if( SceneLib.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.KIHA_NEEDS_TO_REACT_TO_HORSECOCKING ] === 1 ) {
+			SceneLib.kihaFollower.kihaReactsToHorseDicking();
 			return;
 		}
 		//kihaBitchesOutCorruptPCs();
 		if( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] > 0 && CoC.getInstance().player.cor >= 66 && CoC.getInstance().flags[ kFLAGS.KIHA_CORRUPTION_BITCH ] !== 1 ) {
-			CoC.getInstance().scenes.kihaFollower.kihaBitchesOutCorruptPCs();
+			SceneLib.kihaFollower.kihaBitchesOutCorruptPCs();
 			return;
 		}
 		//kihaUnBitchesOutCorruptPCs();
 		if( CoC.getInstance().player.cor < 66 && CoC.getInstance().flags[ kFLAGS.KIHA_CORRUPTION_BITCH ] === 1 ) {
-			CoC.getInstance().scenes.kihaFollower.kihaUnbitchesUncorruptedFolks();
+			SceneLib.kihaFollower.kihaUnbitchesUncorruptedFolks();
 			return;
 		}
 		//Friendly+ meeting;
 		if( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] >= 1 && CoC.getInstance().flags[ kFLAGS.KIHA_CORRUPTION_BITCH ] !== 1 ) {
 			if( CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 2 && CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION ] >= 100 && CoC.getInstance().flags[ kFLAGS.KIHA_MOVE_IN_OFFER ] === 0 ) {
-				CoC.getInstance().scenes.kihaFollower.kihaOffersToMoveIn();
+				SceneLib.kihaFollower.kihaOffersToMoveIn();
 				return;
 			}
-			CoC.getInstance().scenes.kihaFollower.kihaFriendlyGreeting();
+			SceneLib.kihaFollower.kihaFriendlyGreeting();
 			return;
 		}
 		//If currently paid up on toll, don't run into her!;
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 		CoC.getInstance().flags[ kFLAGS.TIMES_MET_KIHA ]++;
 		//PLOT FIGHT TIME!;
 		if( CoC.getInstance().player.cor < 66 && CoC.getInstance().flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 0 && CoC.getInstance().flags[ kFLAGS.KIHA_TALK_STAGE ] >= 3 && CoC.getInstance().player.gender > 0 ) {
-			CoC.getInstance().scenes.kihaFollower.kihaSpiderEventIntro();
+			SceneLib.kihaFollower.kihaSpiderEventIntro();
 			return;
 		}
 		//First time;
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You nod and step back, retreating back towards camp.  You\'ve no desire to fight such a fiery opponent.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight];
 	KihaScene.prototype.meetKihaAndFight = function() {
@@ -157,12 +157,12 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 		var itype;
 		//Grabbin' Inquisitor Armor;
 		if( event === 0 && CoC.getInstance().flags[ kFLAGS.GOTTEN_INQUISITOR_ARMOR ] === 0 ) {
-			CoC.getInstance().scenes.symGear.inquisitorRobesDiscovery();
+			SceneLib.symGear.inquisitorRobesDiscovery();
 			return;
 		}
 		if( event < 5 ) {
 			EngineCore.outputText( 'You wander around through the swamp for a while, but you don\'t find anything.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Reducto;
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 			itype = UsableLib.T_SSILK;
 		}
 		EngineCore.outputText( 'While exploring, you find an item on the ground!  ', false );
-		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[This was my idea!];
 	KihaScene.prototype.tellKihaTributeWasYourIdea = function() {
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 			EngineCore.outputText( 'You ask her if she really believes that.  After all, you\'ve beaten her twice now.  Kiha shudders and yells, "<i>I just said so!  Gods, don\'t be so... so fucking dense!  If you were right, Lethice wouldn\'t be on her throne and they never would\'ve been able to make monsters like... ahh, n-never mind.  Dumbass!</i>"\n\n', false );
 			EngineCore.outputText( 'Shrugging, you decide she\'s unlikely to talk more on this topic for now, so you change the topic to something else - your own history.  You tell her of your village, of the portal, and the day you were chosen as champion.  You talk of your training, and how different this land was from everything you expected.  You tell of your struggles.  You describe your victories.  You commiserate about your defeats.  You pour out all of the best and worst of your journeys in this strange realm.  Surprisingly, Kiha listens with rapt attention, never once interrupting.\n\n', false );
 			EngineCore.outputText( 'Once you finish she comes out of it and mutters, "<i>So you had it hard?  It doesn\'t matter.  I had it harder.</i>"  She launches into the air and flies away before you can answer.', false );
-			if( EngineCore.silly() && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 && CoC.getInstance().scenes.telAdre.lottie.lottieMorale() <= 33 ) {
+			if( EngineCore.silly() && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 && SceneLib.telAdre.lottie.lottieMorale() <= 33 ) {
 				EngineCore.outputText( '  Is that what it feels like to be Lottie?', false );
 			}
 		}
@@ -826,5 +826,5 @@ angular.module( 'cocjs' ).run( function( UsableLib, Kiha, ConsumableLib, Descrip
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'kihaScene', new KihaScene() );
+	SceneLib.registerScene( 'kihaScene', new KihaScene() );
 } );

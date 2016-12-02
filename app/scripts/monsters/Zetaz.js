@@ -1,21 +1,24 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Zetaz', function( CockTypesEnum, ConsumableLib, CoC, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster ) {
-	var Zetaz = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, CockTypesEnum, ConsumableLib, CoC, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster ) {
+	function Zetaz() {
+		this.init(this, arguments);
+	}
+	angular.extend(Zetaz.prototype, Monster.prototype);
 
 	Zetaz.prototype.doAI = function() {
-		CoC.getInstance().scenes.dungeon2Supplimental.zetazAI();
+		SceneLib.dungeon2Supplimental.zetazAI();
 	};
 
 	Zetaz.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeon2Supplimental.defeatZetaz();
+		SceneLib.dungeon2Supplimental.defeatZetaz();
 	};
 	Zetaz.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to care...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.dungeon2Supplimental.loseToZetaz();
+			SceneLib.dungeon2Supplimental.loseToZetaz();
 		}
 	};
 	Zetaz.prototype.init = function( that, args ) {

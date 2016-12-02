@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UsableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
-	var CorruptedDrider = angular.copy( AbstractSpiderMorph );
+angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UsableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+	function CorruptedDrider() {
+		this.init(this, arguments);
+	}
+	angular.extend(CorruptedDrider.prototype, AbstractSpiderMorph.prototype);
 	CorruptedDrider.prototype.driderKiss = function() {
 		var temp;
 		EngineCore.outputText( 'The corrupted drider closes in on your web-bound form, cooing happily at you while you struggle with the sticky fibers.\n\n', false );
@@ -155,14 +158,14 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( AbstractSpiderMo
 		}
 	};
 	CorruptedDrider.prototype.defeated = function() {
-		CoC.getInstance().scenes.corruptedDriderScene.defeatDriderIntro();
+		SceneLib.corruptedDriderScene.defeatDriderIntro();
 	};
 	CorruptedDrider.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe drider licks her lips in anticipation...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.corruptedDriderScene.loseToDrider();
+			SceneLib.corruptedDriderScene.loseToDrider();
 		}
 	};
 	CorruptedDrider.prototype.init = function(that, args) {

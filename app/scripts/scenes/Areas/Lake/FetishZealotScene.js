@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, FetishZealot, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, FetishZealot, Combat ) {
 	function FetishZealotScene() {
 	}
 
@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		//Trigger bad end if player's intelligence is less than 10 after being drained.
 		if( CoC.getInstance().player.inte < 10 ) {
 			EngineCore.outputText( 'You find that your mind is unable to return to reality, and it moves on to another, then another.  Later you feel a female body come and pick you up, but you are too messed up to react to it...', false );
-			EngineCore.doNext( CoC.getInstance().scenes.fetishCultistScene.cultistBadEnd2 );
+			EngineCore.doNext( SceneLib.fetishCultistScene.cultistBadEnd2 );
 			return;
 		}
 		//Otherwise, continue on here
@@ -285,5 +285,5 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'fetishZealotScene', new FetishZealotScene() );
+	SceneLib.registerScene( 'fetishZealotScene', new FetishZealotScene() );
 } );

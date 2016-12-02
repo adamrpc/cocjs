@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariables, Marble, Appearance, Descriptors, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PerkLib, OnLoadVariables, Marble, Appearance, Descriptors, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 
 	//Farm cow-girl Marble:;
 	//Marble is a resident of Whitney's farm, who resides in the barn.  She is a cow anthropomorph who is mostly human in appearance, but has numerous cow-like features such as a tail, horns, ears, and hoofs.  The player can strike up a relationship with her based on tenderness and being friendly to each other.  Her favorite activity is to give her milk to the player if she likes them enough, or if they help her with her chores.  The only problem is that her milk is addictive; of course, when the player meets her she doesn't know this.  While the player doesn't get high from drinking it, Marble's milk makes the player character feel good as strengthening them for awhile as well after they drink it (in the form of Marble's Milk status effect), this is to encourage the player to consume it.  Once the player has become addicted, they can try to find a way to combat their addiction, or choose to live with her because of it.  Getting out of the addiction is really hard on the player since their character's stats fall whenever they fight it.  I deliberately wrote her to appear as harmless and nice as possible, just a friendly face that likes the player.  However, she can change considerably once she finds out her milk is addictive, either becoming really depressed and hating herself for what she unconsciously did to the player; or she may start to take advantage of her new found power and become slowly corrupted by it.  She is also very strong and can wield a mean hammer.  If she likes the player enough, she can join them at their camp once they either become completely dependent or get out of their addiction.;
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] += 0.3;
 			}
 			//If bitch-bin is in construction;
-			if( CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] > 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] < 100 && CoC.getInstance().scenes.marbleScene.marbleAtCamp() ) {
+			if( CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] > 0 && CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] < 100 && SceneLib.marbleScene.marbleAtCamp() ) {
 				CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ]++;
 				if( CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] >= 100 ) {
 					EngineCore.spriteSelect( 41 );
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				}
 			}
 			//Marble find items check;
-			else if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleHasItem ) < 0 && CoC.getInstance().scenes.marbleScene.marbleAtCamp() ) {
+			else if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleHasItem ) < 0 && SceneLib.marbleScene.marbleAtCamp() ) {
 				// Off cooldown;
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.MarbleItemCooldown ) < 0 ) {
 					if( Utils.rand( 10 ) === 0 ) {
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 					//(Marble now appears at the camp);
 					CoC.getInstance().player.createStatusAffect( StatusAffects.CampMarble, 0, 0, 0, 0 );
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
-					if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+					if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] = 1;
 					}
 					//if amily is there, tag it for freakout;
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 					EngineCore.outputText( '\n', false );
 					CoC.getInstance().player.createStatusAffect( StatusAffects.CampMarble, 0, 0, 0, 0 );
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
-					if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+					if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] = 1;
 					}
 					//if amily is there, tag it for freakout;
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 					//(Marble now appears at the camp);
 					CoC.getInstance().player.createStatusAffect( StatusAffects.CampMarble, 0, 0, 0, 0 );
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
-					if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+					if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] = 1;
 					}
 					CoC.getInstance().player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 					//(Marble now appears at the camp);
 					CoC.getInstance().player.createStatusAffect( StatusAffects.CampMarble, 0, 0, 0, 0 );
 					CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
-					if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+					if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 						CoC.getInstance().flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] = 1;
 					}
 					CoC.getInstance().player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//CoC.getInstance().player.createStatusAffect(StatusAffects.No_More_Marble,0,0,0,0);;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] = 1;
 		EngineCore.outputText( 'Considering the way the cow-girl lovingly cradles her hefty breasts as if they were the only things in the world, you decide you\'d rather not get involved with her right now.  You inform her politely that Whitney must have been mistaken - there\'s nothing you can think to do that would help.  "<i>Oh,</i>" she says, surprised... and also nonplussed when she sees your reaction to her swollen jugs.  "<i>Odd, but okay.  I guess I\'ll just lie back down then while you show yourself out.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Initial non-friends state (Z);
 	MarbleScene.prototype.marbleWarningStateMeeting = function() {
@@ -510,7 +510,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'Smiling politely and just as insincerely as Marble, you beg her pardon and excuse yourself.' );
 		//end event, initial non-friends event can repeat in future explorations;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave forever (Z);
 	MarbleScene.prototype.leaveNonFriendsMarble4EVERRRR = function() {
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'Answering the cow-girl with a blank look, you shake your head and walk away, resolving to avoid Marble from now on.' );
 		//Marble is removed from the game;
 		//end event;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.apologizetoWalkingTitsIMEANMARBLE = function() {
 		EngineCore.clearOutput();
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.fatigue( -50 );
 		//increase PC lust (5+ lib/10), health (100), and lib (0.2), reduce fatigue by (50);
 		//end event;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Pick a Fight (Z);
 	MarbleScene.prototype.pickAFight = function() {
@@ -579,7 +579,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'The hell you will... the truth is the truth no matter how many talking hammers show up.  Catharsis completed, you leave the farm and its cows behind.' );
 		//makes the battle available as the next Marble encounter, as if PC had raped her;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_WARNING ] = 3;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//New After-Battle shiz: (Z);
 	MarbleScene.prototype.marbleFightWin = function() {
@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		this.marbleStatusChange( 30, 10 );
 		//(apply the stat effect 'Marble's Milk' to the player);
 		this.applyMarblesMilk();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose caress);
 	MarbleScene.prototype.caressMarble = function() {
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'You offer to gently rub her breasts, saying it should be a lot less painful than the milking machine\'s sucking.  "<i>Oh no,</i>" she retorts, "<i>nothing is more wonderful than being sucked, but right now I guess I could use a break and get a good rub.</i>"  You move around behind her and reach up under her arms, firmly grasping her breasts.  She gasps sharply at first, but as you start to gently massage and caress them, she lets out a sigh and starts breathing deeply.  You begin to feel milk leaking out onto your hands as you rub her.  "<i>This is nice,</i>" she says, "<i>not as good as being suckled, but nice.</i>"  After a few minutes of gently massaging her breasts, she pulls your hands off of them and turns to you. "<i>Thanks,</i>" she says, "<i>I\'m still a little sore, but thank you for your touch, sweetie.  Feel free to come back later; I\'ll be happy to visit with you any time.</i>"  Just before you leave, you notice that Marble is rubbing her breasts the same way you were, a slight smile on her face.', false );
 		EngineCore.dynStats( 'lus', 15 );
 		this.marbleStatusChange( 5, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose suckle);
 	MarbleScene.prototype.suckleMarble = function() {
@@ -785,7 +785,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(apply the stat effect 'Marble's Milk' to the player);
 		this.applyMarblesMilk();
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose rape);
 	MarbleScene.prototype.rapeMarble = function() {
@@ -794,7 +794,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'You decide that rather than helping her, you are going to roughly manhandle her breasts and rape her.  You suddenly grab at her breasts and squeeze them roughly, at which point she screams and slaps you.  While you are still reeling from the blow, she uses a surprising amount of strength to force you out the door.  She slams it behind you and yells, "<i>Don\'t you ever come back!</i>" through the door. You hear her start to cry as you walk away.  Aw well, you didn\'t like her anyway.', true );
 		//-CoC.getInstance().player never encounters Marble again;
 		CoC.getInstance().player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Pre-addiction events(explore events take 1 hour, working ones take 3);
 	//Meet Marble while exploring version 1 (can occur anytime before the player becomes addicted):;
@@ -813,7 +813,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//[affection <30];
 		if( CoC.getInstance().player.statusAffectv1( StatusAffects.Marble ) < 30 ) {
 			EngineCore.outputText( '\n\nIt seems that she is looking forward to it and doesn\'t want to put it off to talk.  She hurries off and you\'re left to look around some more.  <b>Maybe if you got her to like you a little more while doing some work around the farm?</b>', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[affection >=30];
 		else {
@@ -862,7 +862,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.dynStats( 'lib', 1, 'lus', 20 );
 		if( CoC.getInstance().player.lust > 60 ) {
 			this.marbleMilkSex( false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[if addiction is under 50] ;
@@ -870,7 +870,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.outputText( 'After drinking Marble\'s milk, a feeling of euphoria spreads through you as you leave the farm in high spirits.', false );
 		}
 		this.applyMarblesMilk();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chooses no);
 	MarbleScene.prototype.playerRefusesMarbleMilk = function() {
@@ -881,7 +881,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(reduce addiction by 5);
 		this.marbleStatusChange( -5, -5 );
 		EngineCore.dynStats( 'lus', -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Meet Marble while exploring version 2 (can occur anytime before the player becomes addicted):;
 	MarbleScene.prototype.encounterMarbleExploring2 = function() {
@@ -895,7 +895,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'She is happy to see you and treats you to a small meal while you have a pleasant chat.  ' );
 		if( CoC.getInstance().flags[ kFLAGS.MURBLE_FARM_TALK_LEVELS ] < 7 ) {
 			this.extendedMurbelFarmTalkz();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		} else {
 			EngineCore.outputText( 'While you talk mostly about unimportant things, there is some discussion about the world and the dangers within.' );
@@ -918,7 +918,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			} else if( CoC.getInstance().player.inte < 60 ) {
 				EngineCore.dynStats( 'int', 1 );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//[affection >=60, CoC.getInstance().player has not had sex with Marble];
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.FuckedMarble ) < 0 ) {
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		CoC.getInstance().player.changeStatusValue( StatusAffects.Marble, 1, 50 );
 		//(increase player inte);
 		EngineCore.dynStats( 'int', 4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose no, CoC.getInstance().player has had sex with Marble);
 	MarbleScene.prototype.turnDownMarbleSexRepeat = function() {
@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(affection is unchanged);
 		//(increase player inte);
 		EngineCore.dynStats( 'int', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose yes);
 	MarbleScene.prototype.AcceptMarblesSexualAdvances = function() {
@@ -968,7 +968,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		this.marbleStatusChange( 10, 0 );
 		//(increase player inte);
 		EngineCore.dynStats( 'int', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Help out Marble, version 1 (can occur anytime before the player becomes addicted):;
 	MarbleScene.prototype.helpMarble1 = function() {
@@ -1003,7 +1003,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(increase player lust);
 		EngineCore.dynStats( 'lus', 10 );
 		//(CoC.getInstance().player receives a bottle of Marble's milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Help out Marble, version 2 (can occur anytime before Marble knows about her milk):;
 	MarbleScene.prototype.helpMarble2 = function() {
@@ -1037,7 +1037,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		}
 		EngineCore.outputText( 'When the two of you finish and you start to leave, Marble calls out to you, "<i>Wait, let me give you something!</i>" You turn and look back at her as she rushes up to you.  Smiling brilliantly, the cow-girl hands you a bottle full of warm milk, "<i>My gift to you for your help, fresh from the source,</i>" she says, patting her sizable chest.\n\n', false );
 		//(CoC.getInstance().player receives a bottle of Marble's milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//After both helping Marble work events:;
@@ -1088,7 +1088,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.dynStats( 'cor', 5 );
 		//(apply Marble's Milk effect to the player);
 		this.applyMarblesMilk();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose don't want) ;
 	MarbleScene.prototype.doNotWantMarbleAddiction = function() {
@@ -1102,7 +1102,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.dynStats( 'cor', 5 );
 		//(apply Marble's Milk effect to the player);
 		this.applyMarblesMilk();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Once Addicted:;
 	//From now on, the first set of events do not happen, a new set of events to reflect the player's state are used instead.  Also, if the player is suffering from withdrawal when they go to the farm, one of these events is forced.  The player may not do regular farm events while suffering withdrawal.  Drinking from Marble's breast also increases corruption (it was a corrupting thing to do; it was just really subtle about it before now).;
@@ -1170,7 +1170,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 8, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose no to drinking bottled milk);
 	MarbleScene.prototype.playerRefusesToDrinkBottledMilk = function() {
@@ -1189,7 +1189,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose yes, or failed check);
 	MarbleScene.prototype.playerDrinksMarbleMilk = function() {
@@ -1210,7 +1210,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '\n\nMarble gives you a kiss on the forehead before sending you on your way.', false );
 		//(apply Marble's Milk effect);
 		this.applyMarblesMilk();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose no);
 	MarbleScene.prototype.playerDeclinesToDrinkMarbleMilk = function() {
@@ -1228,7 +1228,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose milk);
 	MarbleScene.prototype.marbleChoreHelpChooseMilk = function() {
@@ -1236,7 +1236,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'With the possibility of getting some relief, you eagerly get to work and do whatever you can to help Marble.  It is tough work, but the idea of getting milk seems to give you strength you didn\'t realize you had.  Afterwards, Marble is so impressed with your efforts that she gives you a large bottle of her milk.  As you are leaving, you realize that you don\'t have to drink it right away; just having worked for it has soothed your withdrawal a little.', false );
 		//(CoC.getInstance().player gets a large bottle of Marble's milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 		//(decrease affection by 5);
 		this.marbleStatusChange( -5, 0 );
 		//(delay withdrawal for a few hours);
@@ -1252,7 +1252,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You agree to help Marble, but not for the milk.  She seems confused for a moment and you tell her that you want to help her for the sake of helping her, not just because you\'ll be getting milk.  She gives you a genuine smile at this and the two of you work well together for the next few hours.  At the end, Marble thanks you for your help and hands you the bottle of milk she promised, even if you didn\'t work solely for it.  As you are leaving, you realize that you don\'t have to drink it right away; just having worked for it has soothed your withdrawal a little.', false );
 		//(CoC.getInstance().player gets a bottle of Marble's milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 		//(increase affection by 5);
 		this.marbleStatusChange( 5, 0 );
 		//(delay withdrawal for a few hours);
@@ -1261,7 +1261,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose to refuse);
 	MarbleScene.prototype.marbleChoreRefusal = function() {
@@ -1279,7 +1279,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 	MarbleScene.prototype.marbleEncounterAddictedNonWithdrawl = function() {
@@ -1292,7 +1292,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'After you finish, she thanks you for treating her to your company and asks you to come back soon.  You return to your camp, knowing you will probably be seeing her again soon for something less pleasant.', false );
 		//(increase affection by 10);
 		this.marbleStatusChange( 5, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//While Addicted Events type 2 (Marble is ashamed):;
 	MarbleScene.prototype.encounterMarbleAshamedAddiction = function( clearS ) {
@@ -1338,7 +1338,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose to comfort her);
 	MarbleScene.prototype.AshamedAddictionComfort = function() {
@@ -1357,7 +1357,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(increase affection by 10);
 		this.marbleStatusChange( 10, 0 );
 		//(delay withdrawal effect);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.withdrawalDelay = function() {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
@@ -1387,7 +1387,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player gives in);
 	MarbleScene.prototype.addictionGiveIn = function() {
@@ -1408,7 +1408,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.outputText( '\n\n', false );
 			this.marbleMilkSex( false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ashamed Addiction Event #2 Choices;
 	//(CoC.getInstance().player chose dump it);
@@ -1427,7 +1427,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose refuse);
 	MarbleScene.prototype.refuseMarblesMilkAddiction = function() {
@@ -1448,7 +1448,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(CoC.getInstance().player chose beg);
 	MarbleScene.prototype.ashamedAddictionBegForIt = function() {
@@ -1456,14 +1456,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You look at her in horror at the suggestion of wasting her delicious milk in such a way. You snatch the milk bottle and hold it tightly to your chest.  You beg her not to talk about it like that and not to throw her milk away so easily.  She seems to be even more upset by your declaration and grabs hold of your hands.  Marble looks into your eyes for a moment and tells you that there is always hope to change before she runs off.  You are left with the milk bottle, but you think that you can wait until later to drink it.  It just felt right to make that bold declaration and it seems to have made you feel better, if only for now.', false );
 		//(CoC.getInstance().player gets a bottle of Marble's Milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 		//(delay withdrawal for a few hours);
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
 			CoC.getInstance().player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Exploration event while addicted (event triggered while addicted, but not suffering withdrawal):;
 	MarbleScene.prototype.marbleEncounterAddictedNonWithdrawlAshamed = function() {
@@ -1489,7 +1489,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'After you finish, she thanks you for thinking of her like this, even with what you are going through.  You return to your camp, knowing you will probably be seeing her again soon for something less pleasant.', false );
 		//increase affection by 10);
 		this.marbleStatusChange( 10, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Post addiction farm scenes:;
 	//These appear when Marble decides to remain at the farm.;
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.dynStats( 'cor', 1 );
 		}
 		//(event takes an hour);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(meet Marble when exploring);
 	MarbleScene.prototype.postAddictionFarmExplorings = function() {
@@ -1520,7 +1520,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'She is happy to see you and treats you to a small meal while you have a pleasant chat.  ' );
 		if( CoC.getInstance().flags[ kFLAGS.MURBLE_FARM_TALK_LEVELS ] < 7 ) {
 			this.extendedMurbelFarmTalkz();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		} else {
 			EngineCore.outputText( 'While you talk mostly about unimportant things, there is some discussion about the world and the dangers within.' );
@@ -1532,7 +1532,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		}
 		EngineCore.outputText( 'aware of the smell of Marble\'s milk.', false );
 		EngineCore.dynStats( 'int', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Murble farm talks;
 	MarbleScene.prototype.extendedMurbelFarmTalkz = function() {
@@ -1708,7 +1708,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(randomly raise either str or spd);
 		EngineCore.dynStats( 'str', Utils.rand( 2 ), 'spe', Utils.rand( 2 ) );
 		//(CoC.getInstance().player gets a bottle of Marble's milk);
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Post addiction Camp Text:;
 	//These appear when Marble decides to join the player at their camp.;
@@ -1738,7 +1738,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				EngineCore.outputText( 'She assures you that you\'ll be fine as long as you don\'t drink directly from her breasts.', false );
 			}
 			//(CoC.getInstance().player gains a bottle of Marble's milk);
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Sex scenes (all take an additional hour after the trigger event):;
@@ -1750,7 +1750,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		}
 		if( CoC.getInstance().player.gender === 0 ) {
 			this.marbleGenderlessNoFuck();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//OH GOD MISSIONARIES?;
@@ -1819,7 +1819,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				this.marbleSex2Continued( 2 );
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.marbleSex2Continued = function( genders ) {
 		EngineCore.spriteSelect( 41 );
@@ -1892,7 +1892,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.spriteSelect( 41 );
 		if( newpage === undefined || newpage ) {
 			EngineCore.outputText( '', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		if( CoC.getInstance().player.gender === 0 ) {
 			this.marbleGenderlessNoFuck();
@@ -2000,7 +2000,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.spriteSelect( 41 );
 		if( newpage === undefined || newpage ) {
 			EngineCore.outputText( '', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		if( CoC.getInstance().player.gender === 0 ) {
 			this.marbleGenderlessNoFuck();
@@ -2050,7 +2050,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//(set player lust to 0);
 		CoC.getInstance().player.orgasm();
 	};
-	//(CoC.getInstance().scenes.camp sex - masturbation aid, she stimulates the player with her breasts);
+	//(SceneLib.camp sex - masturbation aid, she stimulates the player with her breasts);
 	//Do more of this later;
 	MarbleScene.prototype.marbleCampFuckFUCKFUCKFUCK = function() {
 		EngineCore.spriteSelect( 41 );
@@ -2178,10 +2178,10 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		}
 
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 3 && CoC.getInstance().flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ] === 0 ) {
-			marbleGoEvent = CoC.getInstance().scenes.marblePurification.murbleShouldGoRunAlongAndGetHerCuntySisterSoTheyCanBeCuntsTogether;
+			marbleGoEvent = SceneLib.marblePurification.murbleShouldGoRunAlongAndGetHerCuntySisterSoTheyCanBeCuntsTogether;
 			goEventString = 'Go';
 		} else if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5 ) {
-			marbleGoEvent = CoC.getInstance().scenes.marblePurification.nursingFromPureMarble;
+			marbleGoEvent = SceneLib.marblePurification.nursingFromPureMarble;
 			goEventString = 'Nurse';
 		}
 		//appearnace/info - always there;
@@ -2198,7 +2198,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			'Playtime', playtime,
 			'Break Up', this.breakUpWithMarble,
 			goEventString, marbleGoEvent,
-			'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+			'Back', SceneLib.camp.campLoversMenu );
 	};
 	MarbleScene.prototype.marbleTalkOverhaul = function() {
 		EngineCore.clearOutput();
@@ -2340,19 +2340,19 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			//increase fatigue by 15, decrease lust by 10, and decrease libido by 1;
 			EngineCore.fatigue( 15 );
 			//Takes 1-2 hours?;
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.W_FRUIT, SceneLib.camp.returnToCampUseOneHour );
 			//end event;
 			return;
 		}
 		if( select === 6 ) {
-			CoC.getInstance().scenes.anemoneScene.repeatCowSitting();
+			SceneLib.anemoneScene.repeatCowSitting();
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PLAYED_WITH_KIDS_TODAY ] > 0 ) {
 			EngineCore.dynStats( 'lus', -10 );
 		} else {
 			EngineCore.dynStats( 'lib', -1, 'lus', -10, 'cor', -1 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Break up with Marble (Z);
 	MarbleScene.prototype.breakUpWithMarble = function() {
@@ -2512,16 +2512,16 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 	MarbleScene.prototype.marbleSexExpanded = function() {
 		EngineCore.spriteSelect( 41 );
 		this.marbleCampFuckFUCKFUCKFUCK();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Milk;
 	//If Marble has been to the farm to get milked since the player last got a bottle, and the player has less than 5 bottles in total, Marble gives the player a bottle.;
 	//It is important that I can check if there is an item in the player's inventory, if this can't be done, I intend to have inventory items be tied to purifying Marble.;
 	MarbleScene.prototype.gotMilk = function() {
 		EngineCore.spriteSelect( 41 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.outputText( 'You ask Marble for a bottle of her milk, and she happily hands you one.  ', true );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.M__MILK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.marbleGathered = function() {
 		EngineCore.spriteSelect( 41 );
@@ -2532,13 +2532,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//items that Marble can find for the player, more to be added later (there aren't many items in the game right now that Marble would bring back for the player):;
 		//Vitality potion (12 hours or one day);
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 1 && CoC.getInstance().player.statusAffectv1( StatusAffects.MarbleHasItem ) <= 4 ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.VITAL_T, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.VITAL_T, SceneLib.camp.returnToCampUseOneHour );
 		}//Tanned Leather clothes, armor, def: 5 (three days);
 		else if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 1 && CoC.getInstance().player.statusAffectv1( StatusAffects.MarbleHasItem ) <= 7 ) {
-			CoC.getInstance().scenes.inventory.takeItem( ArmorLib.LEATHRA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ArmorLib.LEATHRA, SceneLib.camp.returnToCampUseOneHour );
 		}//LaBova, cow girl transformation item (if you'll let me put it here, I'd like to use it as part of the purification quest, the player can still get it if they are addicted);
 		else {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LABOVA_, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.MarbleHasItem );
 	};
@@ -2621,17 +2621,17 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.addButton( 5, 'Pro Bova', this.giveMarbleTheProBovas4Sho );
 		}
 		if( CoC.getInstance().player.hasItem( ConsumableLib.P_LBOVA, 1 ) && CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 1 ) {
-			EngineCore.addButton( 6, 'P.LaBova', CoC.getInstance().scenes.marblePurification.giveMarblePureQuestLabova );
+			EngineCore.addButton( 6, 'P.LaBova', SceneLib.marblePurification.giveMarblePureQuestLabova );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5 ) {
 			if( CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 1 ) ) {
-				EngineCore.addButton( 7, 'P.SuccMilk', CoC.getInstance().scenes.marblePurification.purifiedSuccubusMilkForPureMarbles );
+				EngineCore.addButton( 7, 'P.SuccMilk', SceneLib.marblePurification.purifiedSuccubusMilkForPureMarbles );
 			}
 			if( CoC.getInstance().player.hasItem( ConsumableLib.REDUCTO, 1 ) ) {
-				EngineCore.addButton( 8, 'ReductoBust', CoC.getInstance().scenes.marblePurification.pureMurbleUsesReducto );
+				EngineCore.addButton( 8, 'ReductoBust', SceneLib.marblePurification.pureMurbleUsesReducto );
 			}
 			if( CoC.getInstance().player.hasItem( ConsumableLib.LACTAID, 1 ) ) {
-				EngineCore.addButton( 0, 'Lactaid', CoC.getInstance().scenes.marblePurification.lactaidForPureMurble );
+				EngineCore.addButton( 0, 'Lactaid', SceneLib.marblePurification.lactaidForPureMurble );
 			}
 		} else if( CoC.getInstance().player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
 			EngineCore.addButton( 0, 'Lactaid', this.giveMarbleLactaid );
@@ -2655,7 +2655,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.outputText( 'What meets your lips surprises you; it feels tastier, healthier, and just plain better than normal.  With an effort, you manage to empty her breasts, even though they seemed to have been filled with more milk than usual.  You feel even more powerful than normal and the whole world seems clearer.  However, Marble seems a little disappointed; it seems the Lactaid\'s effects on her were only temporary.\n\n', false );
 		// Give the player an increase to their stats of 10 str, 5 tou, and 10 inte for about 24 hours;
 		EngineCore.dynStats( 'str', 1, 'tou', 1, 'int', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 New Marble Masturbation text was written as a series of if statements and select cases, don't stop at any point to return until the end of the function.
@@ -3181,7 +3181,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			//Pass several hours;
 			EngineCore.outputText( '\n\nYou wake up a few hours later laying on the ground, your head feeling like it\'s been squeezed in a vice.  With some effort, you manage to get yourself to a sitting position and look around.  It looks like you\'re laying just outside the barn.  Whitney is standing nearby.  She has something akin to a smile on her animalistic face as she tells you: "<i>Well hun, it seems you\'ve managed to get Marble rather upset.  I reckon you should leave her alone from now on, as I\'m sure you\'ve found out the hard way, she is one tough customer.</i>"  Your aching head is telling you that may be a good idea; but then again, maybe you should teach that cow-girl a lesson for the pain first.', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		//The follow up fight event can now be triggered, regardless of whether the rape was successful or not.;
 		CoC.getInstance().player.createStatusAffect( StatusAffects.MarbleRapeAttempted, 0, 0, 0, 0 );
 	};
@@ -3226,7 +3226,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 	MarbleScene.prototype.marbleAfterRapeNo = function() {
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'You shake your head. It\'s just not worth the headache to deal with this cow.  You turn around and leave; you aren\'t going to be seeing her anymore.', true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	MarbleScene.prototype.marbleBadEndFollowup = function() {
@@ -3426,9 +3426,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 				itype = ConsumableLib.SMALL_EGGS[ Utils.rand( ConsumableLib.SMALL_EGGS.length ) ];
 			}
 			if( OnLoadVariables.timeQ > 0 ) {
-				CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.doSleep );
+				SceneLib.inventory.takeItem( itype, SceneLib.camp.doSleep );
 			} else {
-				CoC.getInstance().scenes.inventory.takeItem( itype, EventParser.playerMenu );
+				SceneLib.inventory.takeItem( itype, EventParser.playerMenu );
 			}
 		}
 	};
@@ -3895,7 +3895,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//Set PC lust to 0;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.doSleep );
+		EngineCore.doNext( SceneLib.camp.doSleep );
 	};
 	//Pleasing Marble;
 	MarbleScene.prototype.marbleNomNoms = function() {
@@ -3961,7 +3961,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.outputText( 'nervous ', false );
 		}
 		EngineCore.outputText( 'smile.  <b>Marble is now a hermaphrodite.</b>  ', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_TYPE ] = 1;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_LENGTH ] = 7;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_THICKNESS ] = 2;
@@ -3989,7 +3989,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_TYPE ] = 0;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_LENGTH ] = 0;
 		CoC.getInstance().flags[ kFLAGS.MARBLE_DICK_THICKNESS ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ovi-elixir;
 	MarbleScene.prototype.marbleOvulatesLikeMadDawg = function() {
@@ -3999,7 +3999,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		//Marble is visibly pregnant with non-eggs, and the nursery has not been built yet) {;
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] < 100 && this.pregnancy.type === PregnancyStore.PREGNANCY_PLAYER ) {
 			EngineCore.outputText( 'Marble refuses to take the elixir to speed up her pregnancy until after she has finished the nursery. ', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		} else if( this.pregnancy.isPregnant ) {
 			EngineCore.outputText( 'After taking the elixir, Marble\'s belly rumbles slightly.  You can both tell that her pregnancy has advanced.  ', false );
@@ -4013,7 +4013,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.INCUBATION_OVIELIXIR_EGGS + 46 );
 		}
 		CoC.getInstance().player.consumeItem( ConsumableLib.OVIELIX );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 Enhanced LaBova
@@ -4066,7 +4066,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			//increase Marble corruption by 4;
 			CoC.getInstance().flags[ kFLAGS.MARBLE_BOVA_LEVEL ] = 2;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.marbleNip = function() {
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_BOVA_LEVEL ] > 0 ) {
@@ -4285,7 +4285,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		var pLust = Math.ceil( 20 + ((CoC.getInstance().player.lib + CoC.getInstance().player.cor) / 10) );
 		EngineCore.dynStats( 'lus', pLust );
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleFuckDatCowPussy = function() {
@@ -4356,7 +4356,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			EngineCore.dynStats( 'sen', -2 );
 			this.marblePreggoChance( 1 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleTakeHerDick = function() {
@@ -4396,7 +4396,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] = 10;
 		EngineCore.dynStats( 'lib', 0.5 );
 		CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_MARBLE, PregnancyStore.INCUBATION_MARBLE, 150 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleOnTheBar = function() {
@@ -4469,7 +4469,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 			var pLust = Math.ceil( 10 + CoC.getInstance().player.lib / 10 );
 			EngineCore.dynStats( 'lus', pLust );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleBarCunnilingling = function() {
@@ -4495,7 +4495,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		EngineCore.dynStats( 'lus', pLust );
 		EngineCore.dynStats( 'sen', 1 );
 		CoC.getInstance().time.hours++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	MarbleScene.prototype.milkMarbleBarPullTail = function() {
@@ -4554,7 +4554,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] = 15;
 		EngineCore.dynStats( 'sen', -2 );
 		this.marblePreggoChance( 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleLeaveAfterBar = function() {
@@ -4564,14 +4564,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, PerkLib, OnLoadVariab
 		var pLust = Math.ceil( 5 + CoC.getInstance().player.lib / 20 );
 		EngineCore.dynStats( 'lus', pLust );
 		CoC.getInstance().flags[ kFLAGS.MARBLE_LUST ] += 5;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	MarbleScene.prototype.milkMarbleNoMilking = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head and say that you think you\'ll be fine.' );
 		EngineCore.outputText( '[pg]"<i>Oh, alright then sweetie, I\'ll see you later.</i>"  She takes a seat in the chair in the middle of the room and picks up where she left off in her book.  You excuse yourself and return back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
-	CoC.getInstance().registerScene( 'marbleScene', new MarbleScene() );
+	SceneLib.registerScene( 'marbleScene', new MarbleScene() );
 } );

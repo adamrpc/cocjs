@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
-	var FurLoincloth = angular.copy( Armor );
+	function FurLoincloth() {
+		this.init(this, arguments);
+	}
+	angular.extend(FurLoincloth.prototype, Armor.prototype);
 	FurLoincloth.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'FurLoin', 'FurLoin', 'revealing fur loincloths', 'a front and back set of loincloths', 0, 100, 'A pair of loincloths to cover your crotch and butt.  Typically worn by people named \'Conan\'.', 'Light' ] );
 	};

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function XmasGatsNotAnAngel() {
 	}
 
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 		EngineCore.menu();
 		//[Not Christmas];
 		//[Explore > High Mountains];
-		if( !CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
+		if( !SceneLib.xmasBitch.isHolidays() ) {
 			EngineCore.outputText( 'You traipse the high mountainside, a light sprinkle of snow fluttering haphazardly through cold winds.  The sound of your steps begins to form a crunch as the silent white blanket folds over the tops of the nearby peaks, and with your journey to the high mountains appearing fruitless thus far, you consider the possibility of going back to camp.  As snowflakes pervade the air, they\'ll eventually obscure your sight, leading to a far more dangerous trip both up or down.  Just as you start to turn back, however, a small song echoes from the other side of the peak.  Soft enough to send one to sleep, it barely catches your attention.  Do you decide to investigate?' );
 			//[Yes][No];
 			EngineCore.addButton( 0, 'Yes', this.encounterQuoteUnquoteAngel );
@@ -46,12 +46,12 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 		EngineCore.outputText( '\n\nIt\'s certainly warmer there.' );
 		//turn dat shit off;
 		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 0.5;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//ii. Yes;
 	XmasGatsNotAnAngel.prototype.encounterQuoteUnquoteAngel = function() {
 		EngineCore.clearOutput();
-		if( !CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
+		if( !SceneLib.xmasBitch.isHolidays() ) {
 			EngineCore.outputText( 'You haven\'t found anything as of yet, so you figure you might as well keep going.  Following the quiet tune from above, you trace the spiralling side of the snow-capped behemoth, eventually reaching a small cliff hanging beneath the mountain\'s peak.  Upon the cliff, a small lake encompasses the area.  Though it remains frozen, a single soldier lies inside, hugged by an icy grave.' );
 			EngineCore.outputText( '\n\nThe source of the song you had heard appears to be coming from a small, elderly woman huddling over the lake.  She holds a small fishing rod piercing through the icy shell of the water, though by the looks of it there aren\'t even any fish to be found.  Trotting over, you manage to catch her attention.  The old lady pats the soft, snowy ground beneath her, offering a seat by her side.' );
 			EngineCore.outputText( '\n\n"<i>I have a tale to tell, traveller,</i>" she coughs.  "<i>Sit by me, will you?</i>"' );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 			CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] = 1;
 		}
 		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//5. Solution;
 	XmasGatsNotAnAngel.prototype.findTheWindUpKey = function() {
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 		EngineCore.outputText( '\n\nOne surprise leads to another when a warm glow breaks free from between your hands.  A swirling of green and red mist is concentrated within the frame of your prize, glowing brightly as they swim endlessly through the key\'s curves at a variety of velocities.  It\'s plain to see that this little treasure was the cause for the cave\'s unnatural brilliance.  You\'re a little ashamed to rob it of its power source... but not enough to give it a second thought as you crawl back down to the entrance only a few feet away.  The last thing you want is for your magical lantern to dull and leave your naked body blind in this hazard-filled hole.' );
 		EngineCore.outputText( '\n\nYou carefully re-enter the flooded tunnel, unsure how the supposed key will take to water.  It makes little impact as you submerge it, though the glowing light looks lovely on the pitch black tunnel.  The sight reinvigorates you slightly, though the warmer waters are probably more to blame.  Chalking up yet another simple retrieval asked of your person, you surface back outside, eager to get back into your [armor] and return to the high mountains.' );
 		CoC.getInstance().player.createKeyItem( 'North Star Key', 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//ii. Bringing the Key Back;
 	//Activates upon returning to the High Mountains after the previous scene, before X amount of hours or X amount of time past Dec 25th (presumably);
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 			EngineCore.outputText( '\n\nThe air remains cold and merciless, and regardless of what you do it would be difficult to stay for much longer.  Turning away, you trot silently back to your camp, wondering how things would\'ve gone - if only you were quicker.' );
 			//[BAD END, Can no longer see the Old Woman or this series of events];
 			CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//CoC.getInstance().player.removeKeyItem('North Star Key');;
 	};
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 			EngineCore.outputText( '  More importantly, you have some unsatisfied, pent up lust that you\'d like to expend.' );
 		}
 		EngineCore.dynStats( 'lus', 2 + CoC.getInstance().player.lib / 10 + CoC.getInstance().player.cor / 10, 'cor', 10, 'resisted', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
 		CoC.getInstance().player.removeKeyItem( 'North Star Key' );
 	};
@@ -318,7 +318,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] = 1;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//8. Good End;
 	XmasGatsNotAnAngel.prototype.goodEndForChristmasMiracleICant = function() {
@@ -428,7 +428,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, kFLAGS, CoC, EngineCore ) 
 		//Christmas events are open all year 'round! (some sort of arbitrary limit);
 		//merry christmas everyone <3;
 		CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'xmasGatsNotAnAngel', new XmasGatsNotAnAngel() );
+	SceneLib.registerScene( 'xmasGatsNotAnAngel', new XmasGatsNotAnAngel() );
 } );

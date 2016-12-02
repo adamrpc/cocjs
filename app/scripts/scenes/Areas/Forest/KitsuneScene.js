@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
 	function KitsuneScene() {
 	}
 
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Follow] (C)
 	KitsuneScene.prototype.followTheWillOWisp = function( firstTime ) {
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 			Combat.cleanupAfterCombat();
 		} else {
 			//add Kitsune's Gift to inventory
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.KITGIFT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.KITGIFT, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Illusory Mansion (C)
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 			CoC.getInstance().time.hours = 6;
 			CoC.getInstance().time.days++;
 			if( !CoC.getInstance().isInCombat() ) {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -1931,7 +1931,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 		if( CoC.getInstance().player.hasItem( UsableLib.GLDSTAT ) || CoC.getInstance().flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.addButton( 2, 'Statue', this.stealAStatue );
 		}
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Read Books]
 	KitsuneScene.prototype.readKitsuneBooks = function() {
@@ -1943,17 +1943,17 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 			EngineCore.outputText( 'It\'s a rather dry read, but informative.  Chapter after chapter explains the underlying theory of magic, going to almost excruciating levels of detail.  ' + ((CoC.getInstance().player.inte < 50) ? 'Much of it flies over your head, but the book does manage to clarify a few points.  You close the book and set it back on the shelf, feeling like you\'ve learned something.' : 'Much of it is merely review, but you do manage to glean a few facts before closing the book and setting it back on the shelf.') );
 			//+2 INT, Advance 1hr and return to camp
 			EngineCore.dynStats( 'int', 2 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else if( choice === 1 ) {
 			EngineCore.outputText( 'It seems to be a religious text of some sort.  As you flip through the pages, you read about various rituals and scriptures, familiarizing yourself with the spirits and gods of this land.  You close the tome at last, setting it reverently back on the shelf and reflecting upon the teachings housed within.' );
 			//-1 COR, Advance 1hr and return to camp
 			EngineCore.dynStats( 'cor', -1 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You start to flip through the pages, a deep blush slowly forming on your cheeks the further you read into what is clearly an erotic novella of some form.  Graphic descriptions of women being violated by tentacle beasts abound on almost every page, ' + ((CoC.getInstance().player.lib < 50) ? 'and you slam the book shut before reading further, already feeling a heat building in your groin.' : 'and you lick your lips hungrily, poring over every line and word of lascivious prose.') );
 			//+ 1 LIB, + 5 LUST, Advance 1hr and return to camp
 			EngineCore.dynStats( 'lib', 1, 'lus', 5 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Meditate]
@@ -1977,13 +1977,13 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 				EngineCore.dynStats( 'int', 2, 'lus', -20, 'cor', -2 );
 			}
 			CoC.getInstance().player.consumeItem( ConsumableLib.FOXJEWL );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//Normal:
 			EngineCore.outputText( 'You sit down carefully on a small mat in front of the shrine and clear your mind.  Closing your eyes, you meditate on the things you\'ve learned in your journey thus far, and resolve to continue fighting against the forces of corruption that permeate the land.  As you open your eyes again, you feel as if a great burden has been lifted from your shoulders.\n\nWith a renewed vigor for your quest, you stand up and set off for camp.' );
 			//-2 COR, -20 LUST, +1 INT, Advance 1hr and return to camp.
 			EngineCore.dynStats( 'int', 1, 'lus', -20, 'cor', -2 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Steal Statue]
@@ -2006,7 +2006,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 		EngineCore.outputText( 'The thought of how many gems you\'ll be able to get for it is enough to quickly suppress those feelings, avarice winning out over guilt.' );
 		//+10 COR, add Gold Statue to inventory, Advance 1hr and return to camp
 		EngineCore.dynStats( 'lus', 10 );
-		CoC.getInstance().scenes.inventory.takeItem( UsableLib.GLDSTAT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( UsableLib.GLDSTAT, SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 1;
 	};
 	//[Put it Back]
@@ -2016,12 +2016,12 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, Utils, Stat
 		//Advance 1hr and return to camp.
 		CoC.getInstance().flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 0;
 		CoC.getInstance().player.consumeItem( UsableLib.GLDSTAT );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Use:
 	KitsuneScene.prototype.kitsuneStatue = function() {
 		EngineCore.outputText( 'You pull out the gold statue and turn it around in your hands a few times, carefully examining the intricate filigree and inscriptions covering the masterfully crafted idol.  Whoever made this certainly put a lot of time and love into their craft.' + ((CoC.getInstance().player.cor < 50) ? '  Examining the painstaking detail that went into it, you feel a slight pang of guilt for having stolen it from its rightful place.  You push the thoughts away, reasoning that it won\'t be missed - after all, the owner was long gone before you arrived.' : '') + '\n\n' );
 		EngineCore.outputText( 'It\'s not much use to you other than decoration, but based on the craftsmanship alone you judge that you could get a fair price for it if you pawned it off.' );
 	};
-	CoC.getInstance().registerScene( 'kitsuneScene', new KitsuneScene() );
+	SceneLib.registerScene( 'kitsuneScene', new KitsuneScene() );
 } );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView, EventParser ) {
 	function BasiliskScene() {
 	}
 
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Basilisk, Comb
 			EngineCore.outputText( 'Eventually you notice that your dick is no longer trapped in sucking wet, and coming out of your daze you find yourself without harpy companions, leaving your petrified form in a mingled pool of harpy juices and your own jizz.  After another ten or twenty minutes of being forced to lie there and marinate in your own shameful memories, you find with great relief you can begin to move your fingers again.  Eventually with some effort you manage to work power into each corner of your body and finally shake free of the basilisk\'s curse; quickly, you pick yourself up and redress before anything else finds you and woozily begin to make your way back down the mountain.  The whole experience feels like it may have been a lucid sex nightmare to your sluggish mind and you could almost believe it- if you didn\'t reek of sticky harpy sex and your own musk.', false );
 			//(add harpy lipstick effect, add 20 fatigue and lose 100 lust if M/H, or add 100 lust if F/U)
 			EngineCore.fatigue( 20 );
-			CoC.getInstance().scenes.sophieScene.luststickApplication( 20 );
+			SceneLib.sophieScene.luststickApplication( 20 );
 			CoC.getInstance().player.orgasm();
 		}
 		//Female:
@@ -728,5 +728,5 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Basilisk, Comb
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'basiliskScene', new BasiliskScene() );
+	SceneLib.registerScene( 'basiliskScene', new BasiliskScene() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
 	function Loppe() {
 	}
 
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		//(disable repeat and NPC);
 		CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] = 1;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.barTelAdre );
 	};
 	//[=Not Now=];
 	Loppe.prototype.mebbeLaterToLoppe = function() {
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'You\'re not really in the mood for this right now, so you leave the bar.' );
 		//(go to T'A main menu, repeat event in 15 days.);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
 	};
 	//[=Yes=];
 	Loppe.prototype.yesToMeetingLoppe = function() {
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>Well, that\'s... too bad.  Erm, if you change your mind, look me up, ok?  I spend a lot of time in the gym.  Gotta keep fit and maintain my dancer\'s body!</i>"  For emphasis, or perhaps enticement, she runs her hands along her frame, flattening the robes to show off her curves... and a suspicious bulge tenting between her legs.  Following your gaze down to it, the girl turns bright red, claps a hand over her crotch and excuses herself, mumbling as she goes.' );
 		EngineCore.outputText( '\n\n"<i>Dammit, came on too strong...</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.barTelAdre );
 	};
 	//[=Sure=];
 	Loppe.prototype.sureBakeryWithLoppe = function() {
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'Loppe lets out a breath she had obviously been holding in a bitter sigh, the ghost of the words, "<i>I knew it</i>" echoing faintly as she does so.  "<i>Well, I understand.  I just had to give it a try all the same.  It was nice talking to you, [name].  Might see you again, someday.  Sorry for wasting your time...</i>"' );
 		EngineCore.outputText( '\n\nShe drains her drink and stands up, walking out on you and her snack.' );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Okay=];
 	Loppe.prototype.okayLoppeLetsGo = function() {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'Loppe gives a disappointed sigh, but smiles at you all the same.  "<i>I understand... if you ever feel like talking some more, you can find me in the gym.  I need to keep myself in tip-top shape for my dancing shows, after all.</i>"' );
 		EngineCore.outputText( '\n\nShe sighs again, picks up her last cookie, and leaves.' );
 		//Loppe can now be found in the Gym;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Yes=];
 	Loppe.prototype.yesLoppesHouse = function() {
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.addButton( 0, 'Appearance', this.appearanceOfLoppe );
 		EngineCore.addButton( 1, 'Talk', this.talkWithLoppe );
 		EngineCore.addButton( 2, 'Sex', this.loppeSexChoice );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.telAdreMenu );
 		//Leave (Return to Tel'Adre menu);
 	};
 	//Talk (edited) (C);
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>I guess I\'ll see you later then.</i>"' );
 		//set LoppeChat = 1;
 		CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Children (edited) (C);
 	//req LoppeSexed > 0 and LoppeChat > 0;
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'You decline to answer, waving the question off.  Loppe raises an eyebrow at that.  "<i>Haven\'t thought about it either, huh?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Just making conversation,</i>" you reply.' );
 		EngineCore.outputText( '\n\nLoppe nods, finishes her meal quietly, and departs.  "<i>See you later, [name].</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Don't Really Want Them=];
 	Loppe.prototype.loppeIDontReallyWantKidsYouStupidTwat = function() {
@@ -348,7 +348,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'You confess you aren\'t really a \'kids\' person; you don\'t think you could ever envision yourself as a parent, especially in this crazy world.' );
 		EngineCore.outputText( '\n\n"<i>I see...</i>" Loppe says, a bit disappointed.  "<i>Well, it\'s good to know your opinion on the matter.  If you\'ll excuse me, I should get back to my exercises.</i>"' );
 		EngineCore.outputText( '\n\nYou watch her go, then casually remove yourself from your seat and exit.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[=They're Okay=];
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>So, you\'ll just leave that to chance?  Or are you waiting for that someone special as well?</i>" Loppe asks.' );
 		EngineCore.outputText( '\n\nShe grins at you.  "<i>No need to answer.  I\'m sure you\'ll find someone special if you look.  Anyways, it\'s good to know your opinion on the matter.  If you\'ll excuse me, I should get back to my exercises.</i>"' );
 		EngineCore.outputText( '\n\nShe rises from her seat and departs.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Someday=];
 	Loppe.prototype.loppeIWantKidsSomedayJeezeQuitHasslingMe = function() {
@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\nYou slyly suggest that you\'ll tell her who you like as soon as she tells you.' );
 		EngineCore.outputText( '\n\nLoppe grins at you.  "<i>I might be interested in someone, actually... anyway, it\'s good to know your opinion on the matter.  If you\'ll excuse me, I should get back to my exercises.</i>"' );
 		EngineCore.outputText( '\n\nYou watch her go, then casually remove yourself from your seat and leave.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Soon=];
 	Loppe.prototype.loppeIWantKidsSoonOkayCanWeFuck = function() {
@@ -379,7 +379,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\nLoppe grins at you.  "<i>Oh... I don\'t know.  I\'m sure a ' + CoC.getInstance().player.mf( 'handsome', 'beautiful' ) + ' person like you has already drawn quite a few stares,</i>" Loppe teases, batting her eyes at you.  "<i>But, if the time is right, and you ask nicely... I\'m pretty sure there\'s a certain bunny-girl around here who wouldn\'t mind...</i>"' );
 		EngineCore.outputText( '\n\nWell, you\'ll keep that in mind.  Realizing how much time has gone past, you politely excuse yourself.' );
 		EngineCore.outputText( '\n\n"<i>It was nice chatting with you, [name].  Come visit me soon,</i>" Loppe says, giving you a little peck on the cheek.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Gossip (edited) (C);
 	//req LoppeSexed > 0;
@@ -425,7 +425,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_URTA ] <= 0 || CoC.getInstance().flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 			EngineCore.outputText( '"<i>Ah, so you\'ve met Watch Captain Urta?  She\'s famous around here, you know; people say she\'s a legendary bare-knuckle brawler and one of the toughest guards on the force.  The only problem is that she\'s not really that easy to approach... I guess she prefers to keep to herself.  Although she acts very friendly with that pretty centauress, Edryn.</i>"' );
 			EngineCore.outputText( '\n\nLoppe taps her lips thinking of what else she could add, but shrugs.  "<i>I guess that\'s all I have on her - I don\'t really know her that well.  Sorry!</i>"' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else if( CoC.getInstance().flags[ kFLAGS.LOPPE_URTA_CHATS ] === 0 ) {
 			EngineCore.outputText( 'Loppe smirks at you.  "<i>I heard she\'s been getting along nicely with a certain outsider; you wouldn\'t happen to know anything about that, would you, [name]?</i>"' );
 			//[It's Me] [No];
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head, claiming that you have no idea what she\'s talking about.  Loppe looks at you, then shrugs, clearly not caring if you don\'t have any gossip on the subject to share.' );
 		//end scene;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=It's Me=];
 	Loppe.prototype.itsMeFuckingUrtaLoppe = function() {
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>Perhaps,</i>" you laugh.' );
 		EngineCore.outputText( '\n\nLoppe grins encouragingly, as though her offer were completely serious.  "<i>Well, anyways... I\'d say you\'d be in more position to gossip about her than I would.  </i>You<i> can tell </i>me<i> about her next time.  For now, I\'m going to go work off these calories.</i>"' );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//End Scene;
 	};
 	//[=Play Along=];
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( 'Loppe raspberries you.  "<i>You tell me you love herms with big horse cocks and now you won\'t have sex with me?  You\'re one big tease, [name].</i>"' );
 		EngineCore.outputText( '\n\nThe dancer finishes her drink and leaves you, with a sly glance out of the corner of her eye.  It\'s unlikely that you\'ve heard the last of this...' );
 		//return to wherever;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Deny=];
 	Loppe.prototype.denyToLoppeThatYouLoveZeHorsecock = function() {
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>Aww, sugar.  You\'re no fun...</i>" Loppe says, pouting at your refusal to play along with her games.  "<i>But you\'re really sweet, so I guess I can forgive you.</i>"  The dancer gets up and gives you a quick peck on the cheek.  "<i>I should get back to my training now.  I\'ll see you later!</i>"' );
 		EngineCore.outputText( '\n\nLoppe waves and runs off to get back to her routine.' );
 		//return to wherever location;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Scylla:;
 	Loppe.prototype.gossipWithLoppeAboutScylla = function() {
@@ -534,7 +534,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>It\'s just that she\'s a nun, y\'know?  Or at least looks like one.  I mean... I\'m not sure if this is some kind of fetish of hers or she really is a nun, but it\'d be just weird to have one sucking me dry.</i>"' );
 		EngineCore.outputText( '\n\nSo, Loppe\'s got no naughty nun fetish.  It\'s a little surprising to hear her turn down a willing date, though.' );
 		EngineCore.outputText( '\n\n"<i>No, I just don\'t like the idea of a nun blowing me.</i>"  Loppe states matter-of-factly.  You feel strangely that there\'s more to this than Loppe\'s willing to say, but decide to drop it.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Jasun:;
 	Loppe.prototype.gossipWithLoppeAboutJasun = function() {
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '"<i>The male shark living in the pools of the gym?  Oh boy, is he self-obsessed.  He spends his days swimming and bodybuilding; looks almost cubical because of how much time he spends with the weights and things.  He\'s also an arrogant prat, but fortunately he\'s easy to ignore and he doesn\'t go sticking his nose into trouble.  Just brush him off and he\'s harmless.</i>"' );
 		EngineCore.outputText( '\n\nSounds like Loppe has had to deal with him herself.' );
 		EngineCore.outputText( '\n\n"<i>I went for a swim in the pools once, had the inconvenience of running into him,</i>" Loppe replies.  "<i>Bastard seems to hate anything and anyone that has a cock of their own; all I did was say hello - I wasn\'t even trying to flirt - and he tells me to stay away, calls me a floozy!  What a jerk.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Loppe.prototype.gossipWithLoppeAboutHeckel = function() {
 		EngineCore.clearOutput();
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\nAt this, Loppe scowls.  "<i>Oh, her?  Yeah, I\'ve seen her once or twice.  Thinks she runs the gym.  Alpha bitch my sweet bunny ass...</i>" she grumbles to herself.  "<i>Her name\'s Heckel.  Don\'t know too much about her except she wandered in from the plains one day; she lives to prove she\'s stronger than everyone, and she\'s a real jerkass.  Why do you ask?</i>"' );
 		EngineCore.outputText( '\n\nYou shrug. At that, she shakes her head.  "<i>Maybe there\'s more than what you see with her, but she\'s too caught up in that precious \'queen bitch of the universe\' routine of hers.  I don\'t mind catching, but I expect a little respect while I do it - I am not going to let anyone just throw me down, bust their nut in my ass and then fall asleep on me.</i>"  She lets out an indignant huff at the thought.  "<i>Plus, you try and compliment her on anything about her femininity, she goes nuts!  Personally, I wouldn\'t be too surprised to hear she used to be a guy and she\'s overcompensating since she grew a pussy and boobs.</i>"' );
 		EngineCore.outputText( '\n\nLoppe obviously doesn\'t like her too much, and her expression warns you to cut the conversation short and thank her for the info.  "<i>Sure thing, sugar.  Sorry, she and I... didn\'t exactly have a pleasant acquaintanceship.  I do my best to stay out of her way, but if she ever tries to bully me, well, I\'ll stand up for myself.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Edryn:;
 	Loppe.prototype.gossipWithLoppeAboutEdryn = function() {
@@ -558,7 +558,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '"<i>That pretty centauress watchwoman that hangs in the Wet Bitch when she\'s off duty?  Yes, it\'s no secret that she specializes in particular sorts of wetwork for those with... compatible endowments,</i>" Loppe says, giving you a lecherous wink.' );
 		EngineCore.outputText( '\n\nSomething in her look suggests a question to you.' );
 		EngineCore.outputText( '\n\n"<i>Well... maybe I\'ve used her once or twice,</i>" the dancer admits.  "<i>But she costs 200 gems a ride and, frankly, she thinks I overdo things too much, so she wouldn\'t have me back even if I wanted to pay that much.</i>"  Loppe looks rather sheepish as she smiles nervously, then looks right at you.  "<i>Well... I shouldn\'t need her anyways, right?  Not as long as you come see me once in a while.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Lottie:;
 	Loppe.prototype.gossipWithLoppeAboutLottie = function() {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		} else {
 			EngineCore.outputText( '\n\n"<i>I thought about helping, but I\'m not very good at training others.  I\'m afraid if I did invite her to work out with me, and I mean actually work out, I\'d kill her from exhaustion; I tend to get a bit carried away, and she is, well, let\'s just say she doesn\'t really look like she\'s ever tried seriously working out before.  I actually talked to her a little, once, and it looks like she\'s always tried fad dieting before now.</i>"  Loppe smiles nervously.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cotton:;
 	Loppe.prototype.gossipWithLoppeAboutCotton = function() {
@@ -582,7 +582,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '"<i>That pretty horse-girl that\'s always practicing yoga?  Not really, but she looks friendly.  As does that beast in her shorts.</i>"  Loppe flinches at the memory of it.  "<i>I\'m very familiar with Cotton\'s not so little friend... though you\'ll find out that size isn\'t everything, sugar.  For instance, can she last long enough to fuck every little ounce of energy out of you?  I don\'t think so...</i>"' );
 		EngineCore.outputText( '\n\nUncharacteristically defensive... perhaps Loppe has a bit of a complex?' );
 		EngineCore.outputText( '\n\nThe dancer giggles, snapping you out of your musing.  "<i>That technique she has is something, but mine\'s not bad either.  I\'m game for some fun anytime, especially if it\'s with a cutie like you, sugar.</i>" She reaches out to give your cheek a small caress.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Working (edited);
 	//req LoppeChat > 0;
@@ -598,7 +598,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>Oh, ok.  I should get back to my exercises anyways.</i>"  Loppe gets up and gives you a little peck on the cheek.  "<i>It was nice chatting with you; come see me soon.</i>"' );
 		//set LoppeChat = 2;
 		CoC.getInstance().flags[ kFLAGS.TIMES_ASKED_LOPPE_ABOUT_LOPPE ] = 2;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Her Mother (edited);
 	Loppe.prototype.chatWithLoppeAboutHerMom = function() {
@@ -627,10 +627,10 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		}
 		EngineCore.menu();
 		if( CoC.getInstance().flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
-			EngineCore.addButton( 0, 'Visit Mom', CoC.getInstance().scenes.telAdre.umasShop.firstVisitPart1 );
-			EngineCore.addButton( 1, 'Mebbe Later', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Visit Mom', SceneLib.telAdre.umasShop.firstVisitPart1 );
+			EngineCore.addButton( 1, 'Mebbe Later', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Next', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Her Village (edited);
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\n"<i>The usual was a shirt with an open front that was wrapped so one side overlapped the other, tied together with a waistband, another wrapping around the loins that wasn\'t much more than a glorified loincloth, and long trousers with wide-opening, almost robe-like legs.  Of course, if you were going out in the fields, often you\'d just wear the shirt and the underpants.</i>"  The laquine grins at you.' );
 		EngineCore.outputText( '\n\nYou nod in understanding, moving the conversation back to her dancing.  "<i>Well, there\'s no story to it, sugar; dancing is dancing.  It\'s just something we loved to do in the village.  Oh, there are stories behind individual dances, roles they\'re intended to be used to act out, but mostly it\'s just our favorite way of unwinding and cutting loose.  I always admired the beautiful dancers when I was growing up.  When I realized just how good on my feet I was, I started practicing and, well, here I am.</i>"' );
 		EngineCore.outputText( '\n\nTo demonstrate, she finishes her last mouthful and hops nimbly from her chair to her feet.  "<i>I\'ll see you soon, sweet.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sex;
 	Loppe.prototype.loppeSexChoice = function( bakery ) {
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		//3 hours pass.;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Cock Worship: (edited);
 	//Obviously, PC needs a cock.;
@@ -1159,7 +1159,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Female;
 	//Get Vagina-Fucked: (edited);
@@ -1335,7 +1335,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	//Any(C);
@@ -1488,7 +1488,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		//3 hours pass;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Get Ass-Fucked: Centaur Enhanced Edition (edited)(C);
 	//Replaces the normal anal scene in case you're a centaur.;
@@ -1621,7 +1621,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	//SqueezeDick: (edited)(C);
@@ -1714,7 +1714,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		CoC.getInstance().flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] = 3;
 		EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10, 'resisted', false );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Hold=];
 	Loppe.prototype.superLoppeOrgasmDenialGo = function() {
@@ -1750,7 +1750,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		}
 		EngineCore.dynStats( 'lus', 30 + CoC.getInstance().player.lib / 10, 'resisted', false );
 		CoC.getInstance().flags[ kFLAGS.LOPPE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Boobjob Loppe: (edited, pending boob size decision)(C);
@@ -1838,7 +1838,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'lib', 0.5, 'sen', -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Leave (edited);
 	Loppe.prototype.beATeaseAndLeaveLoppeAfterSexInvite = function() {
@@ -1854,7 +1854,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\nYou nod your head, quietly redress yourself, and exit.' );
 		EngineCore.dynStats( 'lus', 5 + Utils.rand( 5 ) );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
 	};
 	//Fondle&Tease (rewritten and edited)(C);
 	//req LoppeChat > 1;
@@ -1910,7 +1910,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		//If FertileLoppe flag is not active, no special effects;
 		//If FertileLoppe flag is active, PC who can become pregnant who uses the Goblin Machine at the Gym will become pregnant with Loppe-daughter if they use it within a week of playing this scene;
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Suck (edited)(C);
 	Loppe.prototype.teaseLoppeNSuck = function() {
@@ -1959,7 +1959,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		//[=Refuse=];
 		EngineCore.outputText( '\n\nLoppe smiles at you, holding her cock in her hand.  "<i>Alright then, sugar.  I\'ll be going in then; I have business to handle.  See you later!</i>"' );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().player.slimeFeed();
 	};
 	//Kiss 'n' Run (edited)(C);
@@ -1970,7 +1970,7 @@ angular.module( 'cocjs' ).run( function( ImageManager, Descriptors, AppearanceDe
 		EngineCore.outputText( '\n\nLoppe looks at you in shock.  "<i>H-hey!  You can\'t just go after getting me all worked up like this!  What am I supposed to do?</i>" she demands, pointing to her bulging shorts under the table.' );
 		EngineCore.outputText( '\n\nYou advise her to order herself something sweet, sit back, relax, and just try to cool off - it\'ll go down on its own.  Eventually.' );
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20, 'cor', 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'loppe', new Loppe() );
+	SceneLib.registerScene( 'loppe', new Loppe() );
 } );

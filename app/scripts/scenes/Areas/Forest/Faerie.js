@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, AppearanceDefs, StatusAffects, Appearance, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, EngineCore, AppearanceDefs, StatusAffects, Appearance, CockTypesEnum ) {
 	function Faerie() {
 	}
 
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 			} else {
 				EngineCore.outputText( '\n\nYou try in vain to jump and catch her, but she\'s too high above you and much too fast.', false );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The faerie slows the beating of her wings and hovers towards you. You dismiss your fearful notions, certain a small faerie is quite harmless to you.\n\n', false );
@@ -161,12 +161,12 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieShooAway = function() {
 		EngineCore.spriteSelect( 17 );
 		EngineCore.outputText( 'You shake your hands, shooing away the tiny faerie.  She\'s clearly been touched by the magics of this land and you want nothing to do with her. With a pouting look, she turns and buzzes away.', true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieDoNothing = function() {
 		EngineCore.spriteSelect( 17 );
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 			}
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', -2 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.getInstance().player.clitLength >= 1.0 && CoC.getInstance().player.clitLength <= 4.5 && CoC.getInstance().player.hasVagina() && Utils.rand( 2 ) === 0 ) {
@@ -204,13 +204,13 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 			EngineCore.outputText( 'Time skips a beat and you eventually come down, gently relaxing your grip and disengaging the worn out faerie from your softening female parts. The faerie regains consciousness slowly and thanks you before flying off.', false );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.getInstance().player.clitLength > 4.5 ) {
 			EngineCore.outputText( 'The faerie flies close to your ear and speaks in a volume that would be a whisper from another human, "You\'ve got some sexy parts girl, but you\'re too big for me. I hope you find someone to get you off so I can watch." Then she flies in front of you, cutely kisses the bridge of your nose, and flies off.', false );
 			EngineCore.dynStats( 'lus', 5 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The faerie flies close to your nipple and sucks it gingerly.  You pant in pleasure as you feel it pucker tight in her mouth, tingling with her saliva.  She lets it pop free, swollen with arousal.  Her hand flicks it playfully, the sudden sensation fluttering through you as you close your eyes in pleasure.  You recover and find she has flown high into the trees, waving playfully as she escapes.\n\nYou frown and begin to dress yourself, flushing irritably as your nipples protrude further into your clothes than you remember.', false );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 			CoC.getInstance().player.nippleLength -= 0.25;
 		}
 		EngineCore.dynStats( 'sen', 1, 'lus', 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[No] *(let her go)
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 		EngineCore.spriteSelect( 17 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You apologize and release her, letting her fly away on gossamer wings.  She thanks you, buzzing up to your lips and planting a chaste kiss on your mouth.  She zips away into the woods without a glance back...', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[YES] *make her pleasure you
 	Faerie.prototype.faerieCaptureHJ = function() {
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, CoC, Utils, EngineCore, Ap
 				CoC.getInstance().player.createStatusAffect( StatusAffects.Jizzpants, 1, 0, 0, 0 );
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'faerie', new Faerie() );
+	SceneLib.registerScene( 'faerie', new Faerie() );
 } );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Edryn() {
 		this.pregnancy = new PregnancyStore( kFLAGS.EDRYN_PREGNANCY_TYPE, kFLAGS.EDRYN_PREGNANCY_INCUBATION, 0, 0 );
 		this.edrynHeliaLastThreesomeCheck = 0;
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 	Edryn.prototype.timeChangeLarge = function() {
 		if( this.pregnancy.isPregnant && this.pregnancy.incubation === 0 ) {
 			if( this.pregnancy.type === PregnancyStore.PREGNANCY_TAOTH ) {
-				CoC.getInstance().scenes.urtaQuest.urtaAndEdrynGodChildEpilogue();
+				SceneLib.urtaQuest.urtaAndEdrynGodChildEpilogue();
 				//Since these flag can't be in use prior to Taoth's arrival I abused them to store Edryn's previous pregnancy type and incubation;
 				//Did it so that if Edryn is someday made able to carry someone else's baby this will still work properly;
 				this.pregnancy.knockUpForce( CoC.getInstance().flags[ kFLAGS.URTA_FERTILE ], CoC.getInstance().flags[ kFLAGS.URTA_PREG_EVERYBODY ] );
@@ -50,8 +50,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			x = 0;
 		}
 
-		if( CoC.getInstance().scenes.katherineEmployment.canTalkToEdryn() ) { //Katherine training discussion
-			CoC.getInstance().scenes.katherineEmployment.talkToEdryn();
+		if( SceneLib.katherineEmployment.canTalkToEdryn() ) { //Katherine training discussion
+			SceneLib.katherineEmployment.talkToEdryn();
 			return;
 		}
 		//Talk about latest birth;
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			EngineCore.outputText( 'You stay with her and chat, learning more about your newborn child and otherwise having a pleasant time with your quadruped lover.', false );
 			EventParser.cheatTime( 1 );
 			CoC.getInstance().flags[ kFLAGS.EDRYN_NEEDS_TO_TALK_ABOUT_KID ] = 0;
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//Mid-this.pregnancy talk;
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			if( CoC.getInstance().player.totalCocks() === 0 ) {
 				EngineCore.outputText( 'She looks down, eyes fixing on your crotch for a moment before she sighs, "<i>Why did you get rid of your dick?  I like you a lot, but I don\'t really want to have sex with you like you are now.</i>"\n\nIt looks like you won\'t get to have any fun with her right now.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//(WANG FITS);
@@ -144,10 +144,10 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				} else {
 					EngineCore.outputText( 'I\'d love to help you, but I don\'t have any supplies for you.  I\'m sure you\'ll find a way.</i>"\n\n', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 					return;
 				}
-				CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(Too big);
@@ -156,14 +156,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				if( CoC.getInstance().flags[ kFLAGS.EDRYN_GIFT_COUNTER ] < 2 ) {
 					EngineCore.outputText( 'Her eyes light up and she suggests, "<i>Take some of this; it ought to take down some of that swelling.</i>"\n\n', false );
 					CoC.getInstance().flags[ kFLAGS.EDRYN_GIFT_COUNTER ]++;
-					CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.REDUCTO, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					SceneLib.inventory.takeItem( ConsumableLib.REDUCTO, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				//(ALT);
 				else {
 					EngineCore.outputText( 'She says, "<i>You should find some Reducto or something to shrink that down.  I haven\'t come across any more so you\'ll have to get it yourself.</i>"\n\n', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 					return;
 				}
 			}
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				} else {
 					EngineCore.outputText( '\n\nYou wait until she returns, wishing for once that things could be normal.  Though the remaining conversation is pleasant, you have a hard time enjoying yourself, and eventually bid the pretty centaur farewell.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 				}
 			}
 		}
@@ -233,14 +233,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust > 70 ) {
 				EngineCore.outputText( 'and as wet as you are right now, you find her scent to be intriguing.  Some part of you is curious what it would taste like.  When the centauress returns you compliment her on her shapely backside, but she only smiles politely and informs you that she "<i>doesn\'t swing for your team,</i>" whatever that means.  The rest of the conversation is quite pleasant, but all good things must come to an end.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			}
 			//Everybody else is all 'BLEH';
 			else {
 				EngineCore.outputText( 'but the potent musky scent only reminds you of how different things are here.', false );
 				EngineCore.outputText( '\n\nYou wait until she returns, wishing for once that things could be normal.  Though the remaining conversation is pleasant, you have a hard time enjoying yourself, and eventually bid the pretty centaur farewell.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			}
 		}
 	};
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				EngineCore.outputText( 'Oh my, you\'re a little bit small for my tastes love.  Maybe you should try some of the local delicacies and trot back here so I can help you out, ok?</i>"\n\n', false );
 				EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//Too big;
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 				EngineCore.outputText( 'Oh wow, you\'re a little bit too big for me to handle, love.  Maybe you should try to find something to shrink that down a little, not too much, and trot back here so I can help you out, ok?</i>"\n\n', false );
 				EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//Big enough;
@@ -307,7 +307,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			} else {
 				EngineCore.outputText( '(Do you fuck her?)', false );
 			}
-			EngineCore.doYesNo( this.edrynSexSelecter, CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
 		} else if( CoC.getInstance().player.cockTotal() > 0 ) {
 			//(HORSE CONT);
 			if( CoC.getInstance().player.horseCocks() > 0 ) {
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 					EngineCore.outputText( '"<i>Wow, that\'s huge!  Sweetheart, you\'ll need to be a bit smaller if you want to play with me.  Why not go out and find something to shrink it down to something a horse like me can handle, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 					return;
 				}
 				if( CoC.getInstance().player.cockArea( x ) >= 24 ) {
@@ -338,14 +338,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 					} else {
 						EngineCore.outputText( '(Do you fuck her?)', false );
 					}
-					EngineCore.doYesNo( this.edrynSexSelecter, CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
 				}
 				//(HORSE TOO SMALL);
 				else {
 					EngineCore.outputText( '"<i>Ouch, is that all?  Sweetheart, you\'ll need to be a bit bigger if you want to play with me.  Why not go out and try some of the local delicacies, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 					return;
 				}
 			}
@@ -356,7 +356,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 					EngineCore.outputText( '"<i>Wow, that\'s huge!  Sweetheart, you\'ll need to be a bit smaller if you want to play with me.  Why not go out and find something to shrink it down to something a horse like me can handle, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 					return;
 				}
 				//(cont Normal);
@@ -374,14 +374,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 					if( cost > 0 ) {
 						EngineCore.outputText( '\n\n(Do you pay ' + Utils.num2Text( cost ) + ' gems to fuck her?)', false );
 					}
-					EngineCore.doYesNo( this.edrynSexSelecter, CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
 				}
 				//(rejected);
 				else {
 					EngineCore.outputText( '"<i>Wow, that\'s it?  I\'m sorry but you\'ll have to be a bit bigger before you can play with me.  Why not try some of the local specialties and come back when you\'re a bit bigger?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 				}
 			}
 		}
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		if( cost > CoC.getInstance().player.gems ) {
 			EngineCore.outputText( 'You realize you can\'t afford to stay with the sexy centaur, and leave full of disappointment and arousal.', true );
 			EventParser.cheatTime( 1 );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//Pay gems and update sidebar;
@@ -486,7 +486,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		if( CoC.getInstance().player.lust < 30 ) {
 			CoC.getInstance().player.lust = 30;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.fuckEdrynNonTaur = function() {
 		EngineCore.spriteSelect( 14 );
@@ -567,7 +567,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		if( CoC.getInstance().player.lust < 30 ) {
 			CoC.getInstance().player.lust = 30;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.edrynBar = function() {
 		if( CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 && CoC.getInstance().time.hours >= 14 && CoC.getInstance().time.hours <= 19 && (CoC.getInstance().time.hours < 17 || CoC.getInstance().flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] === 0) ) {
@@ -591,7 +591,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		return this.edrynHeliaLastThreesomeCheck > 0;
 		}
 		this.edrynHeliaLastThreesomeCheck = CoC.getInstance().time.totalTime;
-		if( CoC.getInstance().player.gender === 0 || CoC.getInstance().time.hours < 14 || CoC.getInstance().time.hours >= 20 || Utils.rand( 2 ) === 0 || (CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 0 && !CoC.getInstance().scenes.helFollower.followerHel()) || (CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0) ) {
+		if( CoC.getInstance().player.gender === 0 || CoC.getInstance().time.hours < 14 || CoC.getInstance().time.hours >= 20 || Utils.rand( 2 ) === 0 || (CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 0 && !SceneLib.helFollower.followerHel()) || (CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0) ) {
 			this.edrynHeliaLastThreesomeCheck = -this.edrynHeliaLastThreesomeCheck; //Make the saved time negative to indicate Helia is not at the bar right now
 			return false;
 		}
@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			EngineCore.outputText( '  Eventually, though, Hel gives you a sultry look and asks if you\'re up for a little group activity.  Are you?\n\n', false );
 		}
 		//(Display Options: [Threesome] [Leave];
-		EngineCore.choices( 'Edryn3Some', edryn, 'Fox Girls', CoC.getInstance().scenes.helScene.heliaPlusFoxyFluffs, '', null, '', null, 'Leave', this.leaveHelInZeBitch );
+		EngineCore.choices( 'Edryn3Some', edryn, 'Fox Girls', SceneLib.helScene.heliaPlusFoxyFluffs, '', null, '', null, 'Leave', this.leaveHelInZeBitch );
 	};
 	//First Time - Leave;
 	Edryn.prototype.leaveHelInZeBitch = function() {
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			EngineCore.outputText( 'You brush Helia\'s request off, saying you aren\'t much interested in a group right now.  She sighs dejectedly, but quickly recovers and gives you a knowing wink.  "<i>Well, maybe later.  I know you like some group play as much as I do.</i>"\n\n', false );
 			EngineCore.outputText( 'You spend the rest of the hour quietly chatting with Helia before giving her a friendly kiss goodbye and stepping away.', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//First Time -- Threesome;
 	Edryn.prototype.helEdrynThreeSomeStartYerEngines = function() {
@@ -690,8 +690,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		EngineCore.outputText( 'When you\'re satisfied, you stumble and collapse against her horsebody, barely fighting off an intense urge to sleep.  The centauress moans contentedly, "<i>Mmm, we should do this again sometime. You two were amazing.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Oh yeah. We... We gotta go again sometime,</i>" Hel agrees, nearly falling off Edryn\'s back.  You give each of the girls a long kiss before collecting your ' + CoC.getInstance().player.armorName + ' and walking off back to camp.\n\n', false );
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.helFollower.helAffection( 5 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Pregdryn:;
 	Edryn.prototype.findOutEdrynIsPregnant = function() {
@@ -732,7 +732,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		EngineCore.outputText( '<b>(Edryn will no longer speak with you.)</b>', false );
 		CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] = 1;
 		//Use the 1 hour cheat thinger;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//Pleased;
 	Edryn.prototype.pleasedbyPregdryn = function() {
@@ -835,7 +835,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 			EngineCore.outputText( 'She looks down, eyes fixing on your crotch for a moment before she sighs, "<i>Why did you get rid of your dick?  I like you a lot, but I don\'t really want to have sex with you like you are now.</i>"\n\nEdryn leaves looking a little depressed.', false );
 			//Bar menu?;
 			EventParser.cheatTime( 1 );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//(MEETS SIZE REQUIREMENTS);
@@ -978,7 +978,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//EAT THE BITCH'S CUNT OUT;
 	Edryn.prototype.jizzFromEatingPregdrynOut = function() {
@@ -1053,7 +1053,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		EngineCore.outputText( '"<i>Turn-about is fair play!</i>" she exclaims. You leave, unable to dispute the logic.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.edrynPregChance = function() {
 		//Get out if already pregged.;
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CockTypesEnum, Consum
 		this.edrynPregChance();
 		this.edrynPregChance();
 		CoC.getInstance().flags[ kFLAGS.TIMES_EATEN_EDRYN_PUSSY_RUT ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
-	CoC.getInstance().registerScene( 'edryn', new Edryn() );
+	SceneLib.registerScene( 'edryn', new Edryn() );
 } );

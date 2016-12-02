@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
-	var Basilisk = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+	function Basilisk() {
+		this.init(this, arguments);
+	}
+	angular.extend(Basilisk.prototype, Monster.prototype);
 	Basilisk.basiliskSpeed = function( player, amount ) {
 		if( amount === undefined ) {
 			amount = 0;
@@ -62,14 +65,14 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, MainView, CoC, En
 		}
 	};
 	Basilisk.prototype.defeated = function() {
-		CoC.getInstance().scenes.basiliskScene.defeatBasilisk();
+		SceneLib.basiliskScene.defeatBasilisk();
 	};
 	Basilisk.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.basiliskScene.loseToBasilisk();
+			SceneLib.basiliskScene.loseToBasilisk();
 		}
 	};
 	Basilisk.prototype.init = function(that, args) {

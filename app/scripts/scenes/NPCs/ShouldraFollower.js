@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ConsumableLib, $log, Combat, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function ShouldraFollower() {
 	}
 
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( 'Somewhat bluntly, you inform her of your lack of interest regarding having a ghostly tagalong.  Though she looks a bit disappointed, she nods, scuffing her shoes against the ground and huffing a little sigh.  "<i>At least I\'ll see you later, hey?</i>"' );
 		EngineCore.outputText( '\n\nAt your confirmation, she flashes you a goofy and only slightly forced smile and starts back to her home.  Despite her joviality, you feel like you\'ll have to get into her good graces before she decides to pop the question again.' );
 		//Back to camp, encounter is reset to friendly status;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//YEAH BRO I AM ALL INTO THAT;
 	ShouldraFollower.prototype.recruitShouldraForCampSexyTimes = function() {
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\nYou exchange quick smiles, but Shouldra\'s expression darkens.  "<i>Ah, damn it, I forgot something,</i>" she groans, making a fist and bopping herself on the temple.  "<i>Stay cool while I get that, alright, Champ?  I\'ll be back by tomorrow morning.</i>"  With that, she walks past you, striding with purpose back toward the lake and the town ruins.  You can\'t help but wonder what she must have forgotten that would be so important...' );
 		//{NOTHING REALLY HAS CHANGED UNTIL NEXT MORNING HERE WE GO};
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0.5;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	ShouldraFollower.prototype.morningShouldraAlert = function() {
 		EngineCore.spriteSelect( 67 );
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		}
 		this.shouldraSleeping( 10 + Utils.rand( 15 ), true );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//New option 'Be A Toy' at end of 'Non-Corrupt Vala' scene.;
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\nYou wake in your camp, still smelling faintly of Vala\'s vagina but fully dressed.  You flush a little from the smell, but otherwise feel rather well rested.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//corrupt vala;
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.dynStats( 'sen', -2 );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Anal Masturbation - Variant on Genderless Masturbation;
 	//Notes:;
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		EngineCore.outputText( '\n\n', false );
 		CoC.getInstance().flags[ kFLAGS.GENDERLESS_MASTURBATION_WITH_GHOST_COUNT ]++;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Male Masturbation;
 	//Shouldra leads PC out of camp, finds few flowers, magicks them into huge dick-suckin' not!Corrupt Glade flowers. Also, massive cum production, because.;
@@ -534,7 +534,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.outputText( '\n\n', false );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.ECTOPLS, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Female Masturbation;
 	ShouldraFollower.prototype.girlyMasturbationWithGhosts = function() {
@@ -552,7 +552,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//tongue-lickin' (by abraxas);
 	ShouldraFollower.prototype.shouldraTongueLicksPCs = function() {
@@ -654,7 +654,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\nYou wake some time later, lying naked beside a pile of your [armor].  You\'re right back at camp.  The ghost girl managed to drag you back somehow - no doubt interested in keeping the location of her secret goodies safe.' );
 		this.shouldraSleeping( (10 + Utils.rand( 26 )), true );
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_TONGUE_LICKS_TIMES ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//SHOULDRA DREAM/TALK SHIT;
@@ -932,7 +932,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '\n\n"<i>Seriously! The big one just snatches up the little one, screams something like uh..  \'Inazuma Fastball Special!\' I think it was, then just lobs her right at my face.  Now I ask you, what\'s the polite way to respond to THAT situation?</i>"  You shrug.  "<i>Well, in any case, she missed.  Bowled that little gremlin straight through a wall, wood and shrapnel flying everywhere, the whole building collapses.  I\'m pretty shocked, as you can imagine, but not nearly as much as when Tiny <b>gets back up</b> afterwards.  So now I\'m surrounded, trapped between two indestructible pointy-headed weirdoes, both of them shouting about \'INVINCIBLE OWN-Y TECHNIQUES\' or something.  Needless to say, it wasn\'t looking good, so I decided to, uh... huh,</i>" Shouldra trails off, frowning.  "<i>Hey, you see that, right?</i>"  She says, pointing.  Following her outstretched finger, you find yourself looking at a small spiderweb stretched between a couple of rocks.  It\'s a little lopsided, the strands a little more angular and crazed than usual, but that\'s about it.  You shrug, turning back to Shouldra expecting her to finish her story, but she continues to stare, her frown slowly transforming into a lopsided smile.' );
 			EngineCore.outputText( '\n\n"<i>Hey, uh... get back to me on this, will you? I just had a GREAT idea.</i>"  Shouldra says suddenly, swooping back into your body, leaving you standing there bemused.  Your efforts to coax Shouldra into revealing exactly what her idea entails are stonewalled, every question being met with answers like "<i>Trust me, you\'ll love this!  It\'s got everything!  I just need a minute to get it all planned out, then you\'ll see...</i>" Feeling at something of a loose end, you wait around for a few minutes, but your ghostly pal fails to rematerialize.  After a while, you shrug and decide to forget about it for now.  Whatever inspirational idea Shouldra\'s working on, you\'re sure you\'ll find out sooner or later.  Part of you can\'t help but wonder if she\'ll ever actually remember to finish her story, though.  You\'ll have to remember to remind her about it some time...' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Follower Shouldra - Interact / Talk Menu;
 	//Follower Screen Quick Text;
@@ -951,7 +951,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		if( CoC.getInstance().player.lust >= 33 ) {
 			sex = this.shouldraSexMenu;
 		}
-		EngineCore.choices( 'Talk', this.shouldraTalkMenu, 'Sex', sex, '', null, 'Go Away', this.kickFollowerShouldraOut, 'Back', CoC.getInstance().scenes.camp.campFollowers );
+		EngineCore.choices( 'Talk', this.shouldraTalkMenu, 'Sex', sex, '', null, 'Go Away', this.kickFollowerShouldraOut, 'Back', SceneLib.camp.campFollowers );
 	};
 	ShouldraFollower.prototype.shouldraSexMenu = function() {
 		EngineCore.clearOutput();
@@ -1037,7 +1037,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '  You second guess your decision when your swinging cum barrels seem to impede walking.  Shouldra reassures you that the enhanced libido and baby batter supply is worth the wider gait.' );
 		}
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Breast;
 	ShouldraFollower.prototype.shouldraGrowsYoTits = function() {
@@ -1052,7 +1052,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			CoC.getInstance().player.growTits( 1 + Utils.rand( 2 ), CoC.getInstance().player.breastRows.length, true, 1 );
 		}
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clit;
 	ShouldraFollower.prototype.shouldraGrowsYoClit = function() {
@@ -1064,7 +1064,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		CoC.getInstance().player.clitLength += 1;
 		EngineCore.outputText( 'She welcomes the new inch with a quick flick.  The sensitive [clit] twitches happily in response, confirming the success of the spell.' );
 		EngineCore.dynStats( 'sen', 5, 'lus', 15 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cock;
 	ShouldraFollower.prototype.shouldraCockBloating101 = function() {
@@ -1095,7 +1095,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			}
 		}
 		EngineCore.dynStats( 'sen', 2, 'lus', 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Nipples;
 	ShouldraFollower.prototype.shouldraGivesYaSomeFukkinTeats = function() {
@@ -1121,7 +1121,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 				EngineCore.outputText( '  While doing so, she manages to slip a few of your fingers within the engorged teats, ecstatcy flowing through you as your digits explore their inner workings.  "<i>I may not be a doctor, Champ, but it looks to me like <b>you\'ve managed to gain yourself a pair of fuckable nips.</b></i>"  The ghost girl spends a few minutes running your fingers around your [nipples], inside and out, just to confirm her diagnosis.' );
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Butt;
 	ShouldraFollower.prototype.shouldrasButtBigginator = function() {
@@ -1132,7 +1132,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		//this.player.buttRating = this.player.buttRating + 1 + Utils.rand(3)); or so;
 		CoC.getInstance().player.buttRating += 1 + Utils.rand( 3 );
 		EngineCore.outputText( '\n\nYour cheeks quake as the magic takes hold, warm ripples greeting the inches of new retail estate on your hind quarters.  Shouldra can\'t resist herself, giving your [butt] a vigorous slap.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Shrink Bodypart;
 	//unlocks after Talk 2;
@@ -1182,7 +1182,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			CoC.getInstance().player.ballSize = 1;
 		}
 		EngineCore.outputText( '\n\nYour scrotum shifts and squirms, clinging to your testicles as your package recedes into your body by a few inches.  The pouting ghost is quick to give you back your body, disappointed in your new [balls].' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Breast;
 	ShouldraFollower.prototype.shouldraReductosYourTits = function() {
@@ -1192,7 +1192,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( 'Your arms clasp themselves around your [fullChest].  "<i>Not the gals!  What monster would want to deflate their knockers?</i>"  This monster, evidently.  Shouldra sighs, holding your hands in a weak casting stance as she gets the heinous act over with.' );
 		CoC.getInstance().player.shrinkTits();
 		EngineCore.outputText( '\n\nYou explore your [fullChest] carefully, confirming their new size.  As you brush over your right [nipple], a tiny burst of milk soaks your hand.  You suppose your mutinous friend isn\'t too thrilled with your new brassiere size.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Clit;
 	ShouldraFollower.prototype.clittyVanishingActShouldra = function() {
@@ -1205,7 +1205,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		CoC.getInstance().player.clitLength = Math.ceil( CoC.getInstance().player.clitLength * 100 ) / 100;
 		EngineCore.outputText( '\n\nA soft moan is all you can manage as your button tingles and shrinks to almost half its original size.  You think you can hear Shouldra sighing in the back of your head.  She\'ll get over it.' );
 		EngineCore.dynStats( 'sen', 2, 'lus', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Cock;
 	ShouldraFollower.prototype.shouldraMakesCocksDisappear = function() {
@@ -1266,7 +1266,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			}
 		}
 		EngineCore.dynStats( 'sen', -2, 'lus', -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Nipples;
 	ShouldraFollower.prototype.shrinkDemNipplzForYoGhost = function() {
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			CoC.getInstance().player.nippleLength /= 2;
 		}
 		EngineCore.dynStats( 'sen', -3, 'lus', -5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Butt;
 	ShouldraFollower.prototype.shrinkDatBootyForYoGhost = function() {
@@ -1305,7 +1305,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '\n\nIn a few brief seconds, your [butt] relaxes into its new, slightly tinier form.  Shouldra huffs and puffs inside you, not wanting to discuss your bottom any further.' );
 		}
 		EngineCore.dynStats( 'lib', -2, 'lus', -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Want You (That Being Shouldra) Gone;
@@ -1320,7 +1320,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '\n\nWith that, she turns on her heel and wanders out of camp.  You watch her go for a while, then turn your focus back to other things.' );
 			//shouldra back to town ruins, reset to 'friendly' status;
 			CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//She Fucking Explodes;
 		else {
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\nShouldra shakes her head, disappointment evident in her expression.  She turns and stomps away.  "<i>Don\'t bother calling after me, asshole,</i>" she yells over her shoulder.' );
 		EngineCore.outputText( '\n\nYou only stand passively as she begins cursing and screaming her anger, listening to her fuming growing ever more distant until fading away completely.  It seems Shouldra has passed on.' );
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Follower Shouldra - Ignoring Her;
 	ShouldraFollower.prototype.shouldersWarnings = function() {
@@ -1561,7 +1561,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			choices[ choices.length ] = 13;
 		}
 		//14 (Amily is a follower);
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() ) {
+		if( SceneLib.amilyScene.amilyFollower() ) {
 			choices[ choices.length ] = 14;
 		}
 		//15 (Pure Jojo is a follower);
@@ -1593,7 +1593,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			choices[ choices.length ] = 21;
 		}
 		//22 (Computer date is within a week before or after Halloween/or on Halloween whichever's easier);
-		if( CoC.getInstance().scenes.fera.isHalloween() ) {
+		if( SceneLib.fera.isHalloween() ) {
 			choices[ choices.length ] = 22;
 		}
 		select = choices[ Utils.rand( choices.length ) ];
@@ -1831,7 +1831,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '  Oddly enough, you hope the little buggers appreciate you sticking up for them.' );
 		//Follower Shouldra leaves;
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_FOLLOWER_STATE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Keep Shouldra;
 	ShouldraFollower.prototype.kickOutWormiesForYourGhostPalPAL = function() {
@@ -1845,7 +1845,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\nTaking great caution, the spirit falls you back onto your rump, still trembling from the horrifying ordeal.  With weary eyes, she stares at what was once her glorious salvation that had now become a drooping dick.' );
 		EngineCore.outputText( '\n\n"<i>We are taking a bath first thing when we get to your camp, Champ,</i>" Shouldra says by way of your mouth, your body still shuddering.' );
 		CoC.getInstance().player.removeStatusAffect( StatusAffects.Infested );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Shouldra and Exgartuan Don't Get Along;
@@ -2060,7 +2060,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 67 );
 		EngineCore.outputText( 'You quickly turn around and head back the way you came.  There\'s a moan of disappointment from Shouldra, before she settles down and goes back to doing whatever she usually does.  You try not to think about it as you leave the city and return to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//nter;
 	ShouldraFollower.prototype.feedShouldraACake = function() {
@@ -2171,7 +2171,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '\n\n"<i>Oh, don\'t worry, Champ,</i>" Shouldra says, having returned to your head, "<i>No permanent damage intended. Here ya go!</i>"  You feel slightly woozy as your abdomen collapses inwards, soon returning to its original, non-bloated state.  A moment later and you are once again clad in your [armor].  "<i>Well, enough shenanigans for now, right?  Though you do look pretty cute with a pot belly... Heh, just teasing,</i>" laughs the ghost, "<i>Now c\'mon, let\'s blow this joint!</i>"' );
 			EngineCore.outputText( '\n\nYou leave the bakery and head back to camp, leaving behind a very confused Maddie.' );
 			CoC.getInstance().player.orgasm();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[(if hasCock = false) ;
 		else {
@@ -2190,7 +2190,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 			EngineCore.outputText( '\n\n"<i>Oh, don\'t worry, Champ,</i>" Shouldra says, having returned to your head, "<i>No permanent damage intended.  Here ya go!</i>"  You feel slightly woozy as your abdomen collapses inwards, soon returning to its original, non-bloated state.  A moment later and you are once again clad in your [armor].  "<i>Well, enough shenanigans for now, right?  Though you do look pretty cute with a pot belly...  Heh, just teasing,</i>" laughs the ghost, "<i>Now c\'mon, let\'s blow this joint!' );
 			EngineCore.outputText( '\n\nYou leave the bakery and head back to camp, leaving behind a very confused Maddie.' );
 			CoC.getInstance().player.orgasm();
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().flags[ kFLAGS.SHOULDRA_BAKERY_TIMES ]++;
 		CoC.getInstance().player.slimeFeed();
@@ -2224,7 +2224,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, $log, Combat, PerkLib, C
 		EngineCore.outputText( '\n\n"<i>Good answer babe.  Now get dressed and hurry home before I change my mind.</i>"  The girl hastily grabs her clothes and dresses herself.  It\'s quite a challenge, but after some frantic struggling she\'s reasonably covered up; her jeans are unbuttoned and visibly straining at the seams, while her once-baggy sweater now hugs tightly against her marshmallowy tummy.  The girl then hurries away, glancing back with an odd expression - relief? - before slipping out onto the streets of Tel\'Adre.' );
 		EngineCore.outputText( '\n\nYou suddenly realize that throughout the debauched encounter, none of the other patrons so much as glanced your way.  Must be magic, you think to yourself.  "<i>Yup, wonderful, wonderful magic,</i>" says Shouldra; seems she\'s returned to your head.  "<i>Well, I\'ve had my fun, Champ.  Let\'s blow this popsicle stand!</i>"  You head out of the bakery and return to camp, leaving behind a very confused Maddie.' );
 		EngineCore.dynStats( 'lus', 30 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'shouldraFollower', new ShouldraFollower() );
+	SceneLib.registerScene( 'shouldraFollower', new ShouldraFollower() );
 } );

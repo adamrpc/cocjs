@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Harpy', function( $log, CoC, kFLAGS, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
-	var Harpy = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Harpy', function( $log, SceneLib, CoC, kFLAGS, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+	function Harpy() {
+		this.init(this, arguments);
+	}
+	angular.extend(Harpy.prototype, Monster.prototype);
 	//*Note, special attack one is an idea based on Ceraph.
 	//About the attack that raises your Lust to 100 if you
 	//don't 'wait' when she unleashes it. Alright, I
@@ -47,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, CoC, kFLAGS, EngineC
 		this._superPerformCombatAction();
 	};
 	Harpy.prototype.defeated = function() {
-		CoC.getInstance().scenes.harpyScene.harpyVictoryuuuuu();
+		SceneLib.harpyScene.harpyVictoryuuuuu();
 	};
 
 	Harpy.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -55,7 +58,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, CoC, kFLAGS, EngineC
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.harpyScene.harpyLossU();
+			SceneLib.harpyScene.harpyLossU();
 		}
 	};
 	Harpy.prototype.outputPlayerDodged = function( ) {

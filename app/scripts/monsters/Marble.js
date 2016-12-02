@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Marble', function( $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var Marble = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function Marble() {
+		this.init(this, arguments);
+	}
+	angular.extend(Marble.prototype, Monster.prototype);
 	Marble.prototype.marbleSpecialAttackOne = function() {
 		//Special1: Heavy overhead swing, high chance of being avoided with evasion, does heavy damage if it hits.;
 		var damage = 0;
@@ -66,10 +69,10 @@ angular.module( 'cocjs' ).factory( 'Marble', function( $log, WeightedDrop, Weapo
 		Combat.combatRoundOver();
 	};
 	Marble.prototype.defeated = function() {
-		CoC.getInstance().scenes.marbleScene.marbleFightWin();
+		SceneLib.marbleScene.marbleFightWin();
 	};
 	Marble.prototype.won = function() {
-		CoC.getInstance().scenes.marbleScene.marbleFightLose();
+		SceneLib.marbleScene.marbleFightLose();
 	};
 	Marble.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

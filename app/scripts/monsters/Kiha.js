@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Kiha', function( StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var Kiha = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function Kiha() {
+		this.init(this, arguments);
+	}
+	angular.extend(Kiha.prototype, Monster.prototype);
 	Kiha.prototype.kihaTimeWaster = function() {
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'She supports the axe on a shoulder, cracking her neck and arching her back to stretch herself, giving you an unintended show.  ', false );
@@ -26,7 +29,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( StatusAffects, Appearance, 
 			damage += 5;
 			damage = CoC.getInstance().player.takeDamage( damage );
 			EngineCore.outputText( 'A torrent of heat bursts from between her fingertips as she thrusts her clenched fist forward, the ball of intense flame writhing and burning with a fury unknown to mankind. With one fell swoop, the combined power of her love, anger, and sorrow pushes you backward, launching you out of the swamp and into Marble\'s pillowy chest. "<i>Ara ara,</i>" she begins, but you\'ve already pushed yourself away from the milky hell-prison as you run back towards ' );
-			if( !CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			if( !SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( 'the swamp' );
 			} else {
 				EngineCore.outputText( 'the fight' );
@@ -130,28 +133,28 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( StatusAffects, Appearance, 
 	};
 	Kiha.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.spiderfight ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.playerBeatsUpKihaPreSpiderFight();
+			SceneLib.kihaFollower.playerBeatsUpKihaPreSpiderFight();
 		} else if( this.findStatusAffect( StatusAffects.DomFight ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.pcWinsDomFight();
+			SceneLib.kihaFollower.pcWinsDomFight();
 		} else if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.winSparWithKiha();
+			SceneLib.kihaFollower.winSparWithKiha();
 		} else {
-			CoC.getInstance().scenes.kihaScene.kihaVictoryIntroduction();
+			SceneLib.kihaScene.kihaVictoryIntroduction();
 		}
 	};
 
 	Kiha.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.spiderfight ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.loseKihaPreSpiderFight();
+			SceneLib.kihaFollower.loseKihaPreSpiderFight();
 		} else if( this.findStatusAffect( StatusAffects.DomFight ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.pcLosesDomFight();
+			SceneLib.kihaFollower.pcLosesDomFight();
 		} else if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
-			CoC.getInstance().scenes.kihaFollower.sparWithFriendlyKihaLose();
+			SceneLib.kihaFollower.sparWithFriendlyKihaLose();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nKiha seems visibly disturbed by your infection, enough that she turns to leave.' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.kihaScene.kihaLossIntro();
+			SceneLib.kihaScene.kihaLossIntro();
 		}
 	};
 	Kiha.prototype.init = function( that, args ) {

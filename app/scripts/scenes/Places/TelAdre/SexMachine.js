@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function SexMachine() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Descriptors, Utils, kFL
 		//Go directly to sex if you know what's in store!;
 		else {
 			if( CoC.getInstance().flags[ kFLAGS.BROOKE_MET ] === 0 ) {
-				CoC.getInstance().scenes.telAdre.brooke.meetBrookeFirstTime();
+				SceneLib.telAdre.brooke.meetBrookeFirstTime();
 			} else {
 				this.useTheSexMachine();
 			}
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Descriptors, Utils, kFL
 	SexMachine.prototype.leaveShowers = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shake your head.  You\'ve had enough of a workout for the day, and you remember you\'re in a land where curiosity almost certainly kills (well, more thoroughly rapes) the cat.  You leave the room and continue to search for the showers, eventually finding them and heading back to camp.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SexMachine.prototype.useTheSexMachine = function() {
 		EngineCore.outputText( '', true );
@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( PregnancyStore, Descriptors, Utils, kFL
 		}
 		EngineCore.fatigue( 10 );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'sexMachine', new SexMachine() );
+	SceneLib.registerScene( 'sexMachine', new SexMachine() );
 } );

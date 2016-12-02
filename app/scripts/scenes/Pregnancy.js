@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Pregnancy() {
 	}
 
@@ -56,13 +56,13 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 		//IF INCUBATION IS VAGINAL;
 		if( CoC.getInstance().player.pregnancyIncubation > 1 ) {
 			if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_FAERIE ) {
-				displayedUpdate = CoC.getInstance().scenes.phoukaScene.phoukaPregUpdate();
+				displayedUpdate = SceneLib.phoukaScene.phoukaPregUpdate();
 			}
 			if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_SAND_WITCH ) {
-				displayedUpdate = CoC.getInstance().scenes.dungeonSandWitch.sandPregUpdate();
+				displayedUpdate = SceneLib.dungeonSandWitch.sandPregUpdate();
 			}
 			if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_URTA ) {
-				displayedUpdate = CoC.getInstance().scenes.urtaPregs.urtaPregooUpdates();
+				displayedUpdate = SceneLib.urtaPregs.urtaPregooUpdates();
 			}
 			//Cotton Pregnancy! - 350 days long;
 			if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_COTTON ) {
@@ -880,13 +880,13 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 						pregText = 'Your belly has swollen, becoming larger - proof that Ember\'s seed did its work.  The dragon seems to be constantly checking you out, as if looking for the signs of weight gain.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 250 ) {
-						pregText = 'Your belly grows ever bigger, making your pregnancy noticeable; your belly also feels somewhat solid.  Ember casts pleased glances in your direction, whenever ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' thinks you\'re not looking.';
+						pregText = 'Your belly grows ever bigger, making your pregnancy noticeable; your belly also feels somewhat solid.  Ember casts pleased glances in your direction, whenever ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' thinks you\'re not looking.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 170 ) {
 						pregText = 'You\'ve grown a lot.  Anyone is able to tell that you\'re pregnant with a single glance; and by the shape, you have no doubt that there\'s an egg in your womb; a big one.';
 						//(If Corruption < 40);
 						if( CoC.getInstance().player.cor < 40 ) {
-							pregText += '  Part of you didn\'t really want to get knocked up, but it\'s for a good cause.  Besides, Ember looks very cute, trying to hide ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' happiness whenever ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' glances at your belly...';
+							pregText += '  Part of you didn\'t really want to get knocked up, but it\'s for a good cause.  Besides, Ember looks very cute, trying to hide ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' happiness whenever ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' glances at your belly...';
 						}
 						//(If Corruption >= 40);
 						else if( CoC.getInstance().player.cor < 75 ) {
@@ -901,7 +901,7 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 						pregText = 'Though you\'re sure that this is the time when a regular baby would start moving about, your own belly simply sits there, heavy and full.  You\'d be worried if you didn\'t remember that Ember hatched from an egg.  Sometimes; a delightful, refreshing, chill spreads from your belly throughout your body; making you feel invigorated, ready for anything.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 90 ) {
-						pregText = 'You\'ve somehow grown even larger, the egg\'s outline appearing through your tummy.  By now, you\'re quite bothered with how difficult it\'s getting to move.  Ember constantly shadows you around the camp, making sure you\'re all right, although if you ever question ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + '\'ll just say you\'re both going in the same direction.';
+						pregText = 'You\'ve somehow grown even larger, the egg\'s outline appearing through your tummy.  By now, you\'re quite bothered with how difficult it\'s getting to move.  Ember constantly shadows you around the camp, making sure you\'re all right, although if you ever question ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + '\'ll just say you\'re both going in the same direction.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 60 ) {
 						pregText = 'The egg inside your belly seems to grow heavier each day that passes.  ';
@@ -935,8 +935,8 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 							EngineCore.dynStats( 'lus', 35 );
 						}
 						pregText += '\n\nEmber interrupts your musings with a question.  "<i>How are you feeling? Do you need me to get you anything?</i>"';
-						pregText += '\n\nThe dragon\'s question is uncharacteristic of ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + '.  Still, you do appreciate the attention you\'re getting, and so you ask Ember to fetch you some food and water.  The speed with which Ember dashes off to fulfill your requests is truly impressive!  In short moments Ember is back with a piece of roasted meat and a skin of water.';
-						pregText += '\n\nAs you eat and drink your fill, Ember uses one wing to shield you off the sun.  You\'re starting to really enjoy all the attention, but seeing Ember give up on ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' usual antics is still very weird.';
+						pregText += '\n\nThe dragon\'s question is uncharacteristic of ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + '.  Still, you do appreciate the attention you\'re getting, and so you ask Ember to fetch you some food and water.  The speed with which Ember dashes off to fulfill your requests is truly impressive!  In short moments Ember is back with a piece of roasted meat and a skin of water.';
+						pregText += '\n\nAs you eat and drink your fill, Ember uses one wing to shield you off the sun.  You\'re starting to really enjoy all the attention, but seeing Ember give up on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' usual antics is still very weird.';
 					}
 				}
 				//Pregnancy Notes: Live Birth ;
@@ -945,13 +945,13 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 						pregText = 'Your belly is a bit swollen - either you\'re eating too much or Ember\'s seed really did the job.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 250 ) {
-						pregText = 'Your belly grows ever bigger, making your pregnancy noticeable.  Ember shoots you quick looks, trying to hide ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' smirk of success every time ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' does.  You smirk right back at ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ', and occasionally make a subtle show of your gravid form, just to see ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' get turned on by the sight.';
+						pregText = 'Your belly grows ever bigger, making your pregnancy noticeable.  Ember shoots you quick looks, trying to hide ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' smirk of success every time ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' does.  You smirk right back at ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ', and occasionally make a subtle show of your gravid form, just to see ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' get turned on by the sight.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 170 ) {
 						pregText = 'You\'ve grown a lot, anyone is able to tell that you\'re pregnant with a single glance.  ';
 						//If Corruption < 40;
 						if( CoC.getInstance().player.cor < 40 ) {
-							pregText += 'Part of you didn\'t really want to get knocked up.  However, Ember\'s look of satisfaction whenever ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' gazes your way is rewarding despite that.  Plus, it is for a good cause.  You smirk in satisfaction - with a couple of dragons at your beck and call, things will look very different indeed.';
+							pregText += 'Part of you didn\'t really want to get knocked up.  However, Ember\'s look of satisfaction whenever ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' gazes your way is rewarding despite that.  Plus, it is for a good cause.  You smirk in satisfaction - with a couple of dragons at your beck and call, things will look very different indeed.';
 						}
 						//If Corruption >= 40;
 						else if( CoC.getInstance().player.cor < 75 ) {
@@ -963,17 +963,17 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 					if( CoC.getInstance().player.pregnancyIncubation === 120 ) {
 						pregText = 'Every once in awhile, you feel a kick from inside your bulging belly.  Right now, it\'s really kicking up a storm, and so you decide to sit down and take it easy.  You keep rubbing your belly, hoping to calm your child down and make it stop battering your innards.';
 						pregText += '\n\nEmber approaches you, and casually asks, "<i>So... is it kicking already?</i>"';
-						pregText += '\n\nYou admit that it is, stroking your stomach.  Casually, you ask if Ember would maybe like to touch your belly, wondering if ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' will be able to bring ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + 'self to do it.';
+						pregText += '\n\nYou admit that it is, stroking your stomach.  Casually, you ask if Ember would maybe like to touch your belly, wondering if ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' will be able to bring ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + 'self to do it.';
 						pregText += '\n\n"<i>Yes! Of course!</i>" Ember replies';
 						if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] === 1 ) {
-							pregText += ', blush at ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' own over-enthusiastic reply';
+							pregText += ', blush at ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' own over-enthusiastic reply';
 						}
-						pregText += '.  You just smile encouragingly at the dragon ' + CoC.getInstance().scenes.emberScene.emberMF( '-boy', 'herm' ) + ' and lean back slightly, sticking out your gravid midriff in open encouragement to its ' + CoC.getInstance().scenes.emberScene.emberMF( 'father', 'mother' ) + ' to try and connect with ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' unborn child.';
-						pregText += '\n\nEmber sets a clawed hand on your belly, careful not to hurt you with ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' claws.  Slowly ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' rubs your belly, until ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' feels a small kick and smiles in glee.  You smile at the look of joy on ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' face, even as ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' realizes what ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + '\'s doing and embarrassedly mumbles an excuse and walks away.';
+						pregText += '.  You just smile encouragingly at the dragon ' + SceneLib.emberScene.emberMF( '-boy', 'herm' ) + ' and lean back slightly, sticking out your gravid midriff in open encouragement to its ' + SceneLib.emberScene.emberMF( 'father', 'mother' ) + ' to try and connect with ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' unborn child.';
+						pregText += '\n\nEmber sets a clawed hand on your belly, careful not to hurt you with ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' claws.  Slowly ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' rubs your belly, until ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' feels a small kick and smiles in glee.  You smile at the look of joy on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' face, even as ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' realizes what ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + '\'s doing and embarrassedly mumbles an excuse and walks away.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 90 ) {
 						pregText = 'You stop for a moment and sit down on a nearby rock.  Your belly feels much heavier than usual, and just walking about has become a chore.  Ember takes notice of your tiredness and quickly closes the distance between you two.  "<i>[name], are you feeling all right?</i>"';
-						pregText += '\n\nYou tell ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' that you are, just worn out.  It\'s not easy carrying ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' child, after all.';
+						pregText += '\n\nYou tell ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' that you are, just worn out.  It\'s not easy carrying ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' child, after all.';
 						pregText += '\n\nEmber sighs in relief.  "<i>Good, is there anything I can do for you?</i>"';
 						pregText += '\n\nYou tap your lips thoughtfully, mulling it over.  ';
 						//(Low Corruption);
@@ -982,13 +982,13 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 						}
 						//(Medium Corruption);
 						else if( CoC.getInstance().player.cor <= 66 ) {
-							pregText += 'You wonder if you should take advantage of Ember - you\'ve certainly been feeling a little on edge lately, and besides ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' did say \'anything\'.  You ponder this for a while longer.';
+							pregText += 'You wonder if you should take advantage of Ember - you\'ve certainly been feeling a little on edge lately, and besides ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' did say \'anything\'.  You ponder this for a while longer.';
 						}
 						//High Corruptio;
 						else {
-							pregText += 'You  already thought up a perfect way for this sexy dragon to help you, but it\'s best not to rush.  It\'s not everyday that Ember says ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + '\'ll do \'anything\' for you.  A quick jab on your belly from your unborn child makes you recoil a bit though.  Maybe it would be better to wait until this little one is out of you, just so you can have another.  You ponder what to ask of ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' a while longer.';
+							pregText += 'You  already thought up a perfect way for this sexy dragon to help you, but it\'s best not to rush.  It\'s not everyday that Ember says ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + '\'ll do \'anything\' for you.  A quick jab on your belly from your unborn child makes you recoil a bit though.  Maybe it would be better to wait until this little one is out of you, just so you can have another.  You ponder what to ask of ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' a while longer.';
 						}
-						pregText += '\n\nFinally, you decide there really isn\'t anything Ember can help you with, and tell ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' so.  Though ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' had better be ready to do ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' part when the baby is born and needs caring.';
+						pregText += '\n\nFinally, you decide there really isn\'t anything Ember can help you with, and tell ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' so.  Though ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' had better be ready to do ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' part when the baby is born and needs caring.';
 						if( CoC.getInstance().flags[ kFLAGS.EMBER_GENDER ] === 1 && CoC.getInstance().flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 							pregText += '  You can\'t resist smirking and patting one of your shemale dragon\'s bountiful breasts, noting that maybe you should let him do all the breast-feeding.';
 						}
@@ -997,7 +997,7 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 						if( CoC.getInstance().flags[ kFLAGS.EMBER_ROUNDFACE ] > 0 ) {
 							pregText += 'Ember blushes.  ';
 						}
-						pregText += '"<i>O-of course I\'ll do my part.  If you don\'t need me for anything, I\'ll be going then.</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'He', 'She' ) + ' turns on ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' heels and walks away.  You watch ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' go, pat yourself on the stomach, then painstakingly hoist yourself back upright and go on your way.';
+						pregText += '"<i>O-of course I\'ll do my part.  If you don\'t need me for anything, I\'ll be going then.</i>" ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' turns on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' heels and walks away.  You watch ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' go, pat yourself on the stomach, then painstakingly hoist yourself back upright and go on your way.';
 					}
 					if( CoC.getInstance().player.pregnancyIncubation === 60 ) {
 						pregText = 'Besides being so huge you\'d probably be asked if you were having twins back in Ingnam, your belly has grown stupidly heavy, ';
@@ -1467,31 +1467,31 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 		}
 		//Give birth to either a faerie or a phouka;
 		if( CoC.getInstance().player.pregnancyIncubation === 1 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_FAERIE ) {
-			CoC.getInstance().scenes.phoukaScene.phoukaPregBirth();
+			SceneLib.phoukaScene.phoukaPregBirth();
 			displayedUpdate = true;
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
 		//Give birf if its time... to ANAL EGGS;
 		if( CoC.getInstance().player.buttPregnancyIncubation === 1 && CoC.getInstance().player.buttPregnancyType === PregnancyStore.PREGNANCY_FROG_GIRL ) {
-			CoC.getInstance().scenes.frogGirlScene.birthFrogEggsAnal();
+			SceneLib.frogGirlScene.birthFrogEggsAnal();
 			displayedUpdate = true;
 			CoC.getInstance().player.buttKnockUpForce(); //Clear Butt Pregnancy
 		}
 		//Give birf if its time... to ANAL EGGS;
 		if( CoC.getInstance().player.buttPregnancyIncubation === 1 && CoC.getInstance().player.buttPregnancyType === PregnancyStore.PREGNANCY_DRIDER_EGGS ) {
-			CoC.getInstance().scenes.corruptedDriderScene.birthSpiderEggsFromAnusITSBLEEDINGYAYYYYY();
+			SceneLib.corruptedDriderScene.birthSpiderEggsFromAnusITSBLEEDINGYAYYYYY();
 			displayedUpdate = true;
 			CoC.getInstance().player.buttKnockUpForce(); //Clear Butt Pregnancy
 		}
 		//Bive birf to dragons;
 		if( CoC.getInstance().player.pregnancyIncubation === 1 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_EMBER ) {
-			CoC.getInstance().scenes.emberScene.giveBirthToEmberKids();
+			SceneLib.emberScene.giveBirthToEmberKids();
 			displayedUpdate = true;
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
 		//GIVE BIRF TO TRAPS;
 		if( CoC.getInstance().player.buttPregnancyIncubation === 1 && CoC.getInstance().player.buttPregnancyType === PregnancyStore.PREGNANCY_SANDTRAP_FERTILE ) {
-			CoC.getInstance().scenes.sandTrapScene.birfSandTarps();
+			SceneLib.sandTrapScene.birfSandTarps();
 			CoC.getInstance().player.buttKnockUpForce(); //Clear Butt Pregnancy
 			if( CoC.getInstance().player.buttRating < 17 ) {
 				//Guaranteed increase up to level 10;
@@ -1559,59 +1559,59 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_URTA && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			displayedUpdate = true;
-			CoC.getInstance().scenes.urtaPregs.PCGivesBirf();
+			SceneLib.urtaPregs.PCGivesBirf();
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_SAND_WITCH && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			displayedUpdate = true;
-			CoC.getInstance().scenes.dungeonSandWitch.birthAWitch();
+			SceneLib.dungeonSandWitch.birthAWitch();
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_IZMA && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			displayedUpdate = true;
 			//Located in izma.as!;
-			CoC.getInstance().scenes.izmaScene.pcPopsOutASharkTot();
+			SceneLib.izmaScene.pcPopsOutASharkTot();
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
 		//SPOIDAH BIRF;
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_SPIDER && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.maleSpiderMorphScene.spiderPregVagBirth();
+			SceneLib.maleSpiderMorphScene.spiderPregVagBirth();
 		}
 		//DRIDER BIRF;
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_DRIDER_EGGS && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.corruptedDriderScene.driderPregVagBirth();
+			SceneLib.corruptedDriderScene.driderPregVagBirth();
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_COTTON && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.telAdre.cotton.birthingCottonsKids();
+			SceneLib.telAdre.cotton.birthingCottonsKids();
 		}
 		//GOO BIRF;
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_GOO_GIRL && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.gooGirlScene.gooPregVagBirth();
+			SceneLib.gooGirlScene.gooPregVagBirth();
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_BASILISK && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.basiliskScene.basiliskBirth();
+			SceneLib.basiliskScene.basiliskBirth();
 		}
 		//Satyr vag preg;
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_SATYR && CoC.getInstance().player.pregnancyIncubation === 1 ) {
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.satyrScene.satyrBirth( true );
+			SceneLib.satyrScene.satyrBirth( true );
 		}
 		//Satyr butt preg;
 		if( CoC.getInstance().player.buttPregnancyType === PregnancyStore.PREGNANCY_SATYR && CoC.getInstance().player.buttPregnancyIncubation === 1 ) {
 			CoC.getInstance().player.buttKnockUpForce(); //Clear Butt Pregnancy
 			displayedUpdate = true;
-			CoC.getInstance().scenes.satyrScene.satyrBirth( false );
+			SceneLib.satyrScene.satyrBirth( false );
 		}
 		if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_BENOIT && CoC.getInstance().player.pregnancyIncubation <= 2 ) {
 			if( CoC.getInstance().time.hours !== 5 && CoC.getInstance().time.hours !== 6 ) {
@@ -1619,12 +1619,12 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 			} else {
 				CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 				displayedUpdate = true;
-				CoC.getInstance().scenes.benoit.popOutBenoitEggs();
+				SceneLib.benoit.popOutBenoitEggs();
 			}
 		}
 		//Give birf if its time... to FROG EGGS;
 		if( CoC.getInstance().player.pregnancyIncubation === 1 && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_FROG_GIRL ) {
-			CoC.getInstance().scenes.frogGirlScene.layFrogEggs();
+			SceneLib.frogGirlScene.layFrogEggs();
 			displayedUpdate = true;
 			CoC.getInstance().player.knockUpForce(); //Clear Pregnancy
 		}
@@ -1972,7 +1972,7 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 				CoC.getInstance().player.genderCheck();
 			}
 			//FUCKING BIRTH SHIT HERE.;
-			CoC.getInstance().scenes.amilyScene.pcBirthsAmilysKidsQuestVersion();
+			SceneLib.amilyScene.pcBirthsAmilysKidsQuestVersion();
 			CoC.getInstance().player.cuntChange( 60, true, true, false );
 			if( CoC.getInstance().player.vaginas[ 0 ].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DRY ) {
 				CoC.getInstance().player.vaginas[ 0 ].vaginalWetness++;
@@ -2252,5 +2252,5 @@ angular.module( 'cocjs' ).run( function( Mutations, StatusAffects, PregnancyStor
 		CoC_Settings.error( '' );
 		return 'EGG ERRORZ';
 	};
-	CoC.getInstance().registerScene( 'pregnancy', new Pregnancy() );
+	SceneLib.registerScene( 'pregnancy', new Pregnancy() );
 } );

@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Goblin', function( AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
-	var Goblin = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+	function Goblin() {
+		this.init(this, arguments);
+	}
+	angular.extend(Goblin.prototype, Monster.prototype);
 	Goblin.prototype.goblinDrugAttack = function() {
 		var temp2 = Utils.rand( 2 );
 		if( this.short === 'Tamani' ) {
@@ -111,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( AppearanceDefs, WeightedD
 		Combat.combatRoundOver();
 	};
 	Goblin.prototype.defeated = function() {
-		CoC.getInstance().scenes.goblinScene.gobboRapeIntro();
+		SceneLib.goblinScene.gobboRapeIntro();
 	};
 	Goblin.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( CoC.getInstance().player.gender === 0 ) {
@@ -122,7 +125,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( AppearanceDefs, WeightedD
 			CoC.getInstance().player.orgasm();
 			EngineCore.doNext( Combat.cleanupAfterCombat );
 		} else {
-			CoC.getInstance().scenes.goblinScene.goblinRapesPlayer();
+			SceneLib.goblinScene.goblinRapesPlayer();
 		}
 	};
 	Goblin.prototype.init = function( that, args ) {

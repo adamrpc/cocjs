@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'SimpleUseable', function( Useable, EngineCore ) {
-	var SimpleUseable = angular.copy( Useable );
+	function SimpleUseable() {
+		this.init(this, arguments);
+	}
+	angular.extend(SimpleUseable.prototype, Useable.prototype);
 	SimpleUseable.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, args );
 		that.canUseFunction = args.length > 6 ? args[ 6 ] : null;

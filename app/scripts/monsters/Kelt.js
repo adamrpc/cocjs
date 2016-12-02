@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Kelt', function( kFLAGS, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var Kelt = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function Kelt() {
+		this.init(this, arguments);
+	}
+	angular.extend(Kelt.prototype, Monster.prototype);
 	//Trample - once every five turns;
 	Kelt.prototype.keltTramplesJoo = function() {
 		EngineCore.outputText( 'Before you know what\'s what, Kelt is galloping toward you, kicking up a cloud of dust in his wake.  He\'s trying to trample you!  ' );
@@ -112,9 +115,9 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( kFLAGS, CockTypesEnum, Stat
 	};
 	Kelt.prototype.defeated = function() {
 		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
-			CoC.getInstance().scenes.kelly.defeatKellyNDBREAKHIM();
+			SceneLib.kelly.defeatKellyNDBREAKHIM();
 		} else {
-			CoC.getInstance().scenes.kelly.breakingKeltNumeroThree();
+			SceneLib.kelly.breakingKeltNumeroThree();
 		}
 	};
 	Kelt.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -122,7 +125,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( kFLAGS, CockTypesEnum, Stat
 			EngineCore.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.kelly.keltFucksShitUp();
+			SceneLib.kelly.keltFucksShitUp();
 		}
 	};
 	Kelt.prototype.init = function( that, args ) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, Isabella, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	//Isabella Flags:;
 	//256	PC decided to approach Isabella's camp yet? 1;
@@ -43,16 +43,16 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			if( CoC.getInstance().flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] === 1 ) {
 				CoC.getInstance().flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] = 0;
 			}
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] >= 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+			if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] >= 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 				CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ]++;
 			}
 		}
 		return false;
 	};
 	IsabellaScene.prototype.timeChangeLarge = function() {
-		if( this.checkedIsabella++ === 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 && CoC.getInstance().player.hasCock() && (CoC.getInstance().time.days % 2 === 0 || CoC.getInstance().player.findPerk( PerkLib.MarblesMilk ) < 0) && CoC.getInstance().player.shortestCockLength() <= 9 ) {
+		if( this.checkedIsabella++ === 0 && CoC.getInstance().time.hours === 6 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 && CoC.getInstance().player.hasCock() && (CoC.getInstance().time.days % 2 === 0 || CoC.getInstance().player.findPerk( PerkLib.MarblesMilk ) < 0) && CoC.getInstance().player.shortestCockLength() <= 9 ) {
 			EngineCore.spriteSelect( 31 );
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaMorningWakeupCall();
+			SceneLib.isabellaFollowerScene.isabellaMorningWakeupCall();
 			return true;
 		}
 		return false;
@@ -67,15 +67,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'While walking through the high grasses you hear a rich, high voice warbling out a melodious tune in a language you don\'t quite understand.  Do you approach or avoid it?', false );
 			//[Approach – to meeting] [Avoid – camp] – dont flag as met yet;
 			//Approach - sets flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00256] to 1 and calls this function;
-			EngineCore.choices( 'Approach', this.isabellaGreetingFirstTime, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Approach', this.isabellaGreetingFirstTime, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//CAMP MEETING – UMAD BRAH!?;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] > 0 ) {
 			EngineCore.outputText( 'You unintentionally wind up in Isabella\'s camp, and the cow-girl still seems pretty steamed at you.  She charges towards you, sliding her arm through the straps on her shield as she approaches.  It\'s a fight!', false );
 			Combat.startCombat( new Isabella() );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -4 );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( -4 );
 			}
 			EngineCore.spriteSelect( 31 );
 			return;
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 					}
 				}
 				//[Talk – real conversations] [Drink – leads to breastfeeding] [Get Licks – leads to oral for small fries] [Rape?];
-				EngineCore.choices( 'Talk', this.talkWithIsabella, 'Drink', this.nomOnMommaIzzysTits, 'Get Licked', suck, 'Fight', this.fightIsabella, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Talk', this.talkWithIsabella, 'Drink', this.nomOnMommaIzzysTits, 'Get Licked', suck, 'Fight', this.fightIsabella, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -173,8 +173,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			//EngineCore.choices('Talk',0,'Drink',0,'Get Licked',suck,'Rape Attempt',0,'Leave',13);;
 		}
 		//Follower go!;
-		else if( CoC.getInstance().flags[ kFLAGS.ISABELLA_CAMP_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_FOLLOWER_ACCEPTED ] === 0 && CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection() >= (50 + CoC.getInstance().flags[ kFLAGS.ISABELLA_TIMES_OFFERED_FOLLOWER ] * 15) ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaMoovesInGreeting();
+		else if( CoC.getInstance().flags[ kFLAGS.ISABELLA_CAMP_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.ISABELLA_FOLLOWER_ACCEPTED ] === 0 && SceneLib.isabellaFollowerScene.isabellaAffection() >= (50 + CoC.getInstance().flags[ kFLAGS.ISABELLA_TIMES_OFFERED_FOLLOWER ] * 15) ) {
+			SceneLib.isabellaFollowerScene.isabellaMoovesInGreeting();
 			return;
 		}
 		//[Standard welcome options];
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			}
 		}
 		EngineCore.choices( 'Talk', this.talkWithIsabella, 'Drink', this.nomOnMommaIzzysTits, 'Get Licked', suck, 'Fight 4 Rape', this.fightIsabella, 'Offer Oral', this.volunteerToSlurpCowCunt,
-			'', null, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			'', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		//EngineCore.outputText('ISABELLA HAS BROKEN.  PLEASE TELL FENOXO.', true);;
 	};
 	IsabellaScene.prototype.isabellaGreetingFirstTime = function() {
@@ -209,14 +209,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.spriteSelect( 31 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shrug and make it quite clear you\'re leaving.  Crazy cow.  She shouts, "<i>And stay avay, demon!  Izabella has no need of your foul tricks!</i>"', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight];
 	IsabellaScene.prototype.unwelcomeFightCowGal = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You ready your ' + CoC.getInstance().player.weaponName + ' and adopt a fighting pose.  No cow is going to chase you away!', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -5 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( -5 );
 		}
 		Combat.startCombat( new Isabella() );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
@@ -226,8 +226,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 	//Fuck-fight;
 	IsabellaScene.prototype.fightIsabella = function() {
 		EngineCore.outputText( '', true );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -5 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( -5 );
 		}
 		EngineCore.outputText( 'You smirk at Isabella, and ready your ' + CoC.getInstance().player.weaponName + ', telling her you intend to have you way with her.  She turns beet red and grabs her shield, announcing, "<i>You von\'t find me such easy prey, and I vill punish you for being so naughty!</b>"', false );
 		Combat.startCombat( new Isabella() );
@@ -244,16 +244,16 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'You open your mouth and tell her you won\'t be leaving until she understands that you aren\'t her enemy.  She snorts and taunts, "<i>You zink Izabella vould fall for zuch trickery? HAH!</i>"\n\n', false );
 			EngineCore.outputText( 'Your reply is blotted out by the thundering of her hooves as she lowers her shield and charges.\n\n', false );
 			Combat.startCombat( new Isabella() );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -2 );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
 			Combat.enemyAI();
 		}
 		//(int below 50);
 		else if( CoC.getInstance().player.inte < 50 ) {
 			EngineCore.outputText( 'You start to try to explain your reasons for coming here, stuttering slightly in haste as the angry cow-girl looks to be paying less and less attention.  She snorts and lowers her shield, shouting, "<i>You zink Izabella vould fall for zuch nonzense? HAH!  Prepare to face mein fury!</i>"', false );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -2 );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
 			//(start combat);
 			Combat.startCombat( new Isabella() );
@@ -261,8 +261,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		//(Int below 75) ;
 		else if( CoC.getInstance().player.inte < 75 ) {
 			EngineCore.outputText( 'You do your best to explain the situation, but even giving her such a concise, well-explained argument doesn\'t seem to help you.  She snorts dismissively and says, "<i>Shut up.  I have no patience for ze mutants of this land.  Now, if you truly mean no harm, you\'d best find a way out of mein clearing before Izabella\'s shield breaks your noggin!</i>"', false );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( -2 );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
 			//(Start combat);
 			Combat.startCombat( new Isabella() );
@@ -278,9 +278,9 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'You sit down in the dirt and impart your tale, explaining how you came here as a \'champion\', chosen by your village.  You go on to speak of your encounters and how strange everything is here, and Isabella nods quite knowingly as you go on and on.  Now that you\'ve begun to tell your tale, the words fall out of your mouth, one after another.  Like an unbroken chain, they spool out of your maw until nearly an hour later, you finally run out of things to say.  You rub your jaw, your throat a little sore from the diatribe, and look on to Isabella to see how she reacts.\n\n', false );
 			EngineCore.outputText( 'The busty cow-girl has moisture glimmering in the corners of her big brown eyes, and she nods emphatically to you as she vocalizes her feelings, "<i>I, too, know how you feel, Champion ' + CoC.getInstance().player.short + '.  Mein own story is similar, though mein fate vas not thrust upon me so.  Perhaps I vill tell you sometime, but for now, ve should part.  You are velcome to return in ze future.</i>"\n\n', false );
 			EngineCore.outputText( 'You smile to yourself, glad to have made a friend.\n\n', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 10 );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( 10 );
 			}
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00258 ]++;
 		}
@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( 'moisture, reacting to the erotic vision.  ', false );
 			}
 			EngineCore.outputText( 'Isabella\'s weighty chest heaves with each heavy breath she takes, and she motions for you to lie down next to her.  Her dusky lips part to say, ' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Come closer, I do not bite.  Ve both know how very thirsty you are. Izabella vill sate you,</i>" as she pulls the tightly stretched silk over the curve of her deliciously bronzed mounds.\n\n', false );
 			} else {
 				EngineCore.outputText( '"<i>Come closer, I don\'t bite.  We both know how thirsty you are.  Isabella will sate you,</i>" as she pulls the tightly stretched silk over the curve of her deliciously bronzed mounds.\n\n', false );
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			//(Generic End)  ;
 			else {
 				EngineCore.outputText( 'You wake an hour later snuggled into a few of Isabella\'s blankets and feeling quite content.  The cow-girl is sitting in her chair, honing the bottom edge of her shield into a razor-sharp cutting surface.  She looks back at you and smiles, pausing her work to ask, ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '"<i>Did you enjoy mein snack?  I think ve both needed ze drink, no?</i>" You nod, stand up stretch, feeling energized and awake.', false );
 				} else {
 					EngineCore.outputText( '"<i>Did you enjoy the snack?  I think we both needed the drink, no?</i>" You nod, stand up stretch, feeling energized and awake.', false );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		//Voluntary Nursing (Small Characters);
 		else {
 			EngineCore.outputText( 'You are quite thirsty, and make no secret of it to Isabella, whose face broadens into a knowing smile as she replies, ' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Vell, you are in luck then!  I have ze most delicious milk you\'ll find anywhere.  Come here little one, and Isabella vill give you all you need.</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( '"<i>Well, you\'re in luck then!  I have the most delicious milk you\'ll find anywhere.  Come here little one, and Isabella will give you all you need.</i>"\n\n', false );
@@ -389,9 +389,9 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'Perhaps it\'s your thirst, the large cow-girl\'s aura, or some hidden instinct, but you find yourself starting to swirl your tongue about the grouped nipples and suckle.  Isabella groans happily and rewards your hunger with a steady flow of sweet, warm milk.  The flow is still slow - more a constant trickle from all four nipples that combines into a decent stream - but, thirsty as you are, you suckle and swallow all the same.  The cradling arm shifts slightly, pressing you harder against her bronze skin until you\'re practically smothered in smooth brown tit-flesh.  You suckle a little harder and the trickle becomes a stream, easily filling your mouth with such speed that you barely have to suck.  With the caramel mound blocking your vision, you go ahead and close your eyes, letting them rest as you gulp down another mouthful of increasingly sweet breast-milk.\n\n', false );
 			EngineCore.outputText( 'You sigh and nuzzle Isabella affectionately, drinking calmly of her milk, unaware of the increasing warmth and pink tinges that bloom on her skin.  Nectar-flavored milk and the constant rhythm of sucking, swallowing, and breathing become your world as you let yourself lean harder on the pillowy cow-tits.  The air grows hot and humid from having two bodies entwined so close together, and a tangy, familiar smell bubbles up in the air, accompanied by the faint squish of Isabella\'s free hand.  You can feel it brushing your ' + Descriptors.buttDescript() + ' with each pumping motion, masturbating the cow-girl\'s lust-swollen snatch with powerful strokes.\n\n', false );
 			EngineCore.outputText( 'The ordinarily arousing noises don\'t have much of an effect on you, busy as you are.  In fact, the repeated schlicking is soothing in its own way, a constant background thrum that lulls your troubled mind.  Through rapidly fading thirst, you start to suck hard, curious how long it\'ll take her milk-squirting cow-tits to drain.  The white fluid gushes over your tongue and into your throat, nearly drowning you and forcing you to gulp it down in huge swallows or let go, and you don\'t want to let go.  Your fingers dig into the soft breast, squeezing it as you truly latch on and ride the tidal wave of white until it finally exhausts itself and slows to a trickle.\n\n', false );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Isabella pants as she pulls you back, giving you your first glimpse of just how rosy her tanned skin has gotten, but then you\'re moving across her chest towards an untapped reservoir of pale nectar.  You start to mention that you\'ve had enough, but Isabella shushes you in between low, lurid moans.  "<i>Nein, drink up mein friend.  We don\'t vant you to suffer heat-stroke' );
-				if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+				if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 					EngineCore.outputText( ' on the vay back!' );
 				} else {
 					EngineCore.outputText( ' vhile you are aus und über!' );
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( 'Ooooh... </i>" she groans as she presses your mouth into the milk - dripping waterfall that is her other breast.  You mumble a reply, but it turns into a messy burble as nipples and milk fill your opened mouth.  Immediately you begin to suckle anew, your protests washed away in syrupy - sweetness.\n\n', false );
 			} else {
 				EngineCore.outputText( 'Isabella pants as she pulls you back, giving you your first glimpse of just how rosy her tanned skin has gotten, but then you\'re moving across her chest towards an untapped reservoir of pale nectar.  You start to mention that you\'ve had enough, but Isabella shushes you in between low, lurid moans.  "<i>No, drink up my friend.  We don\'t want you to suffer heat-stroke' );
-				if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+				if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 					EngineCore.outputText( ' on the way back!' );
 				} else {
 					EngineCore.outputText( ' while you\'re out and about!' );
@@ -441,7 +441,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			}
 			//(GENERIC) ;
 			else {
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'You wake an hour later in a pile of blankets on the ground, feeling quite sated and rested.  Isabella is humming a pretty tune a few feet away and sharpening the bottom edge of a massive shield with a whetstone.  She stops when she notices you and sets the massive metal object aside with a noisy \'thunk\'.  She reaches down for you with surprising quickness and lifts you up to kiss you on the forehead, saying, "<i>Did you have a gud nap?  Ya?  Thanks for being such a thirsty drinker, I haven\'t felt this light in days.</i>"  Isabella sets you back on your feet and you stretch, feeling remarkably energized.', false );
 				} else {
 					EngineCore.outputText( 'You wake an hour later in a pile of blankets on the ground, feeling quite sated and rested.  Isabella is humming a pretty tune a few feet away and sharpening the bottom edge of a massive shield with a whetstone.  She stops when she notices you and sets the massive metal object aside with a noisy \'thunk\'.  She reaches down for you with surprising quickness and lifts you up to kiss you on the forehead, saying, "<i>Did you have a good nap?  Ya?  Thanks for being such a thirsty drinker, I haven\'t felt this light in days.</i>"  Isabella sets you back on your feet and you stretch, feeling remarkably energized.', false );
@@ -451,8 +451,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			}
 		}
 		//Follower stuff;
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 4 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 4 );
 		}//Decrease 'time since milked' count;
 		else if( CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] > 0 ) {
 			CoC.getInstance().flags[ kFLAGS.ISABELLA_MILKED_YET ] = 0;
@@ -465,7 +465,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		if( Utils.rand( 2 ) === 0 && CoC.getInstance().player.hasVagina() ) {
 			EngineCore.outputText( CoC.getInstance().player.modTone( 0, 4 ), false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[GET ORAL'ED AS A SMALL MALE];
 	IsabellaScene.prototype.izzyGivesSmallWangsFreeOral = function() {
@@ -500,7 +500,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		} else {
 			EngineCore.outputText( ', trembling weakly in the cow-girl\'s strong fingers', false );
 		}
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '.  The busty redhead gleefully squeals, "<i>Oooh it\'s so cute!  Even ven it\'s hard like this, it looks sort of like something that vould go on a girl.</i>"  She pulls on it, leading you around by your ' + Descriptors.cockDescript( x ) + ' until you\'re in front of her chair, and then she pushes you back onto the seat, still warm from the cow-girl\'s bountiful ass.  She asks, "<i>How long do you think it vill last, hrmm?  I vonder what its milk tastes like...</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '.  The busty redhead gleefully squeals, "<i>Oooh it\'s so cute!  Even when it\'s hard like this, it looks sort of like something that would go on a girl.</i>"  She pulls on it, leading you around by your ' + Descriptors.cockDescript( x ) + ' until you\'re in front of her chair, and then she pushes you back onto the seat, still warm from the cow-girl\'s bountiful ass.  She asks, "<i>How long do you think it will last, hrmm?  I wonder what its milk tastes like...</i>"\n\n', false );
@@ -508,7 +508,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 
 		EngineCore.outputText( 'The cow-girl pulls down on her neckline, giving you a tantalizing view of her cream and caramel cleavage.  She leans forwards and presses her milk-swollen tits against your ' + CoC.getInstance().player.legs() + ', rocking up and down so that you can feel each of the soft orbs squeezing around you.  Isabella\'s tongue slides out... and out... and out, until you see at least seven inches of tongue hovering over your ' + Descriptors.cockDescript( x ) + '.  Her warm spittle drips from the pulsing, smooth pink exterior of her tantalizing tongue while it lashes back and forth, less than an inch away from your ' + CoC.getInstance().player.cockHead( x ) + '.  Each drop of fallen cow-girl spit that lands on your ' + CoC.getInstance().player.cockHead( x ) + ' only turns you on more, until you\'re grunting and panting at her, begging like an animal with a needy expression on your face.\n\n', false );
 		EngineCore.outputText( 'Isabella smirks knowingly and caresses the sensitive underbelly of your ' + Descriptors.cockDescript( x ) + ' while she coos, "<i>' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'You like, yes?  Mmmmhmm, Izabella knows.  I can see it on your face.  You aren\'t one of those perverts, are you?  I think you might be, but ve vill have to see, yes?  If you are one of them you\'ll be squirting all over Isabella\'s tongue in no time.  I dearly hope you\'ll prove me wrong.' );
 		} else {
 			EngineCore.outputText( 'You like, yes?  Mmmmhmm, Izabella knows.  I can see it on your face.  You aren\'t one of those perverts, are you?  I think you might be, but we will have to see, yes?  If you\'re one of them you\'ll be squirting all over my tongue in no time.  I dearly hope you\'ll prove me wrong.' );
@@ -525,7 +525,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		//(Low sensitivity success!);
 		if( CoC.getInstance().player.sens < 50 ) {
 			EngineCore.outputText( 'You moan happily, hips rocking instinctively against the cow-girl\'s vacuum-tight tongue-job as she cranks up her efforts to the maximum in an effort to make you blow already.  Panting lustily, you grab her horns and pull her face partway back, then slam it down while your ' + Descriptors.cockDescript( x ) + ' drips pre-cum onto the top of her tongue.  She flaps it back and forth, smearing your ' + CoC.getInstance().player.cockHead( x ) + ' with the slippery stuff and torturing you with exquisite sensations that would have lesser individuals spurting in seconds.\n\n', false );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Isabella grunts and pulls back, pulling her horns from your pleasure-weakened fingers and panting heavily.  She groans, "<i>Nein, I cannot believe it!  Such a small, hard little cock and I couldn\'t make it spurt, not even vith mein special techniques!</i>"  She looks up at you with her flushed, breathy face and coos, "<i>You are NOT a pervert after all.  Not a ' + CoC.getInstance().player.mf( 'boy', 'maid' ) + ', but a ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' with a beautiful, succulent little cock for Isabella to suck.  How lucky I am!</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( 'Isabella grunts and pulls back, pulling her horns from your pleasure-weakened fingers and panting heavily.  She groans, "<i>No, I can\'t believe it!  Such a small, hard little cock and I couldn\'t make it spurt, not even with my special techniques!</i>"  She looks up at you with her flushed, breathy face and coos, "<i>You aren\'t a pervert after all.  Not a ' + CoC.getInstance().player.mf( 'boy', 'maid' ) + ', but a ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' with a beautiful, succulent little cock for Isabella to suck.  How lucky I am!</i>"\n\n', false );
@@ -586,7 +586,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			if( CoC.getInstance().player.isGoo() ) {
 				CoC.getInstance().player.slimeFeed();
 			}
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'She sighs and looks up at the sky, uttering a completely contented \'moo\'.  Your own exhalation of pleasure is a bit more muted, but truly, you feel utterly satiated.  Isabella looks over and gleefully says, "<i>You aren\'t a pervert!  Oh Izabella is so happy for you!  It\'s so much fun having someone who knows how to handle my tongue, particularly when they have such a succulent... compact little package for me to suck!</i>"\n\n', false );
 				EngineCore.outputText( 'The feisty redhead happily helps you back into your ' + CoC.getInstance().player.armorName + ' and gives you an unceremonious smack on the ' + Descriptors.buttDescript() + ' before saying her goodbyes, "<i>Come back soon, ' + CoC.getInstance().player.short + '!  You are quite ze ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ', even if your tasty penis is tiny.  Oh don\'t look like zat, it makes such tasty salt-milk!  I\'ll lick it up any time.  Now go, I\'m sure you have much to do!</i>"\n\n', false );
 			} else {
@@ -640,7 +640,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			if( CoC.getInstance().player.isGoo() ) {
 				CoC.getInstance().player.slimeFeed();
 			}
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'You sigh nervelessly as the cow-girl waggles her tongue at you teasingly, making your ' + Descriptors.cockDescript( x ) + ' jump from the memory of pleasure.  The redhead moans, "<i>Oooh I knew it!  You are a pervert!  I just vanted to do a little licking and you got me all vet with your salty... mmm... cream.</i>"  She pauses to lick her lips again before giving a gentle moo of contentment.  At least she doesn\'t seem mad at you!\n\n', false );
 				EngineCore.outputText( 'The tanned woman looks down at you with disappointment and says, "<i>You should get going, my tiny-cocked, pervert friend.  Perhaps you vill have some sex and learn how not to submit at ze first hint of pleasure?</i>"  You go red with indignation, but she fondles your half-limp ' + Descriptors.cockDescript( x ) + ' the entire time, a knowing smile spread across her lips.  Isabella helps you get dressed and gives you a firm smack on the ' + Descriptors.buttDescript() + ' as she says goodbye, "<i>Don\'t change too much ' + CoC.getInstance().player.mf( 'boy', 'maid' ) + '!  I just hope ven you come back you\'ve learned how not to cum ven I touch your buttons!</i>"\n\n', false );
 			} else {
@@ -648,18 +648,18 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( 'The tanned woman looks down at you with disappointment and says, "<i>You should get going, my tiny-cocked, pervert friend.  Perhaps you will have some sex and learn how not to submit at the first hint of pleasure?</i>"  You go red with indignation, but she fondles your half-limp ' + Descriptors.cockDescript( x ) + ' the entire time, a knowing smile spread across her lips.  Isabella helps you get dressed and gives you a firm smack on the ' + Descriptors.buttDescript() + ' as she says goodbye, "<i>Don\'t change too much ' + CoC.getInstance().player.mf( 'boy', 'maid' ) + '!  I just hope when you come back you\'ve learned how not to cum when I touch your buttons!</i>"\n\n', false );
 			}
 		}
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 2 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 2 );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Give Isy Oral];
 	IsabellaScene.prototype.volunteerToSlurpCowCunt = function() {
 		EngineCore.spriteSelect( 31 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You indicate to Isabella that you\'re actually more interested in tasting HER, not her milk.  The dusky cow-girl looks at you dumbly, not comprehending what you mean.  Before you can explain, her cheeks bloom with crimson - she finally figured out what you meant.  The red-head quietly asks, ' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>You mean to lick me, down zere?</i>"  Once again, Isabella preempts your words, though this time she does it with an uplifted skirt-hem and slowly-spreading thighs.  The shadow of the garment conceals the treasure inside, but a faint, feminine smell hits your nose, assuring you that she\'s looking forward to it as much as you.\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>You mean to lick me there?</i>"  Once again, Isabella preempts your words, though this time she does it with an uplifted skirt-hem and slowly-spreading thighs.  The shadow of the garment conceals the treasure inside, but a faint, feminine smell hits your nose, assuring you that she\'s looking forward to it as much as you.\n\n', false );
@@ -674,7 +674,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'Unabashedly, you dive right into the cow-girl\'s lust-slicked snatch.  Her greedy lips swallow your nose and lips with one wet squelch, but the cow-girl doesn\'t seem quite satisfied until her hand is on the back of your head, mashing your ' + CoC.getInstance().player.face() + ' roughly over her sex.', false );
 		}
 		EngineCore.outputText( '  You smile against her quivering labia and open up, swallowing her love-button into your mouth and letting your tongue begin to rove drunkenly through her channel.  The red-head\'s thighs provide the perfect place for you to curl your arms and hands around, and as your fingers dig into the supple flesh, you fall into a rhythm of alternating slurps, licks, and humming over her growing clitty.\n\n', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'Isabella moans out, "<i>Ohhhh ja... you\'re good at zis.  Mmmm, keep licking, ', false );
 			if( CoC.getInstance().player.tallness < 60 ) {
 				EngineCore.outputText( 'little ', false );
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '  Something splatters over your ' + CoC.getInstance().player.armorName + ' and runs down your back.  It\'s warm, body temperature, and wet.  Is she starting to leak milk just from a little cunnilingus?  Curious about just how much she\'s going to drip on you, you turn back to your task.  She\'s nearly as juicy down below as above, and you find yourself having to swallow mouthfuls of her fem-cum from time to time while you work her box over.\n\n', false );
 		EngineCore.outputText( 'Isabella\'s heavily accented voice cries out in pleasure, jumping to near-painful octaves as her thighs and pussy begin spasming around you.  It isn\'t quite painful, but the disconcerting notion of being surrounded by heaving bronze oceans comes unbidden to your mind.  Incredibly thick milk splatters over your head and back, pouring out like water from a faucet.  Meanwhile, the scent of her need grows even stronger, making you dizzy while steady flows of girl-juice force you to swallow or drown.  So lost are you in the steady swallowing that you barely notice when the milk splatters trail off and the thighs disengage themselves from your ears.\n\n', false );
 		EngineCore.outputText( 'The strong hand on your head gives you one last push forward, smearing your face with cow-girl cum before you\'re pulled back and hauled to your feet.  Isabella\'s eyes are lidded and tired.  Her top is completely soaked with thick, sweet-smelling cream, and you can even see small lakes of the stuff that can\'t escape her jiggling cleavage.  The cow-girl pulls you forward and mashes her lips into yours, kissing you roughly and wetly, her long, flat tongue sliding over your lips and face to clean her juices from it.  She lets you go, giggling as you stumble back with a strand of cummy-spit dangling between your mouths.\n\n', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( !SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'Isabella sighs contentedly and says, "<i>Thank you, ' + CoC.getInstance().player.short + '.  You\'re a vonderful licker of the pussy.  Perhaps one of zese times I vill keep you for myself, ja?  I kid, I kid.</i>"  She blushes heavily, as if realizing what she just said and turns to busy herself with cleaning up.  You get dressed, having some difficulty hiding the lust the act inspired in you.\n\n', false );
 		} else {
 			EngineCore.outputText( 'Isabella sighs contentedly and says, "<i>Thank you, ' + CoC.getInstance().player.short + '.  You\'re a wonderful pussy licker.  Perhaps one of these times I will keep you for myself, huh?  I kid, I kid.</i>"  She blushes heavily, as if realizing what she just said and turns to busy herself with cleaning up.  You get dressed, having some difficulty hiding the lust the act inspired in you.\n\n', false );
@@ -716,27 +716,27 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( 'before sighing wistfully.', false );
 			} else {
 				EngineCore.outputText( 'before offering something else.  "<i>Perhaps you could undress?  I ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'vould like to return ze favor.</i>"', false );
 				} else {
 					EngineCore.outputText( 'would like to return the favor.</i>"', false );
 				}
-				EngineCore.doYesNo( this.izzyGivesSmallWangsFreeOral, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( this.izzyGivesSmallWangsFreeOral, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
-		CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 2 );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() || !CoC.getInstance().player.hasVagina() || CoC.getInstance().player.biggestTitSize() < 1 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.isabellaFollowerScene.isabellaAffection( 2 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() || !CoC.getInstance().player.hasVagina() || CoC.getInstance().player.biggestTitSize() < 1 ) {
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//(Change the ending of the "Service Her" option on an affectionate Isabella to the following; PC must NOT have a dick that suits her and MUST have a vagina);
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( !SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Seeing the ardent desire your sexual service has so visibly inspired in your body - in your slick, ready cunt and erect nipples - the cow-girl smiles slightly, and asks, "<i>Perhaps you would like me to return the favor?  It seems only fair...</i>"' );
 			} else {
 				EngineCore.outputText( 'Seeing the ardent desire your sexual service has so visibly inspired in your body - in your slick, ready cunt and erect nipples - the cow-girl smiles slightly, and asks, "<i>Perhaps you vould like me to return ze favor?  It seems only fair...</i>"' );
 			}
 			//[Leave] [Get Cowlicked];
-			EngineCore.choices( 'Get Licked', CoC.getInstance().scenes.isabellaFollowerScene.receiveAllTheCowTOngues, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour, '', null, '', null, '', null );
+			EngineCore.choices( 'Get Licked', SceneLib.isabellaFollowerScene.receiveAllTheCowTOngues, 'Leave', SceneLib.camp.returnToCampUseOneHour, '', null, '', null, '', null );
 		}
 	};
 	IsabellaScene.prototype.IsabellaWinsAndSpanks = function() {
@@ -769,7 +769,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( 'with masochistic pleasure.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Isabella grunts, "<i>Look at you, acting like one of ze demons!  Now Izabella vill have to beat ze corruption out of you!</i>"  You groan ', false );
 			} else {
 				EngineCore.outputText( 'Isabella grunts, "<i>Look at you, acting like one of the demons!  Now I will have to beat the corruption out of you!</i>"  You groan ', false );
@@ -816,7 +816,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( '<b>Some time later...</b>\n', false );
 			EngineCore.outputText( 'You crack your eyes to the sound of noisy swallowing.  The dark, tanned skin of Isabella\'s left breast completely fills your view, just as her quad-tipped nipple completely fills your mouth.  She\'s rubbing your cheek with a knuckle, and you\'re swallowing down her oh-so-sweet milk.  The warmth of her breast-milk fills your battered and bruised body, but from the gurgling of your belly, it\'s been filling you for some time already.  From how badly your ' + Descriptors.assDescript() + ' is smarting, you\'re thankful she\'s cradling you the way she is.  The cow-girl coos,' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Zere zere little one, just lie zere and drink.  Ve\'ll forget about all that earlier nastiness.  I\'d feel bad leaving you out here all alone to be brutalized and raped by some monster!</i>"\n\n ', false );
 			} else {
 				EngineCore.outputText( '"<i>There there little one, just lie there and drink.  we\'ll forget about all that earlier nastiness.  I\'d feel bad leaving you out here all alone to be brutalized and raped by some monster!</i>"\n\n ', false );
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 				EngineCore.outputText( ' with masochistic pleasure.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Isabella grunts, "<i>Look at you, acting like one of ze demons!  Now Izabella vill have to beat ze corruption out of you!</i>"  You groan ', false );
 			} else {
 				EngineCore.outputText( 'Isabella grunts, "<i>Look at you, acting like one of thee demons!  Now I will have to beat the corruption out of you!</i>"  You groan ', false );
@@ -905,7 +905,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( '<b>Some time later...</b>\n', false );
 			EngineCore.outputText( 'You crack your eyes to the sound of noisy swallowing.  The dark, tanned skin of Isabella\'s left breast completely fills your view, just as her quad-tipped nipple completely fills your mouth.  She\'s rubbing your cheek with a knuckle, and you\'re swallowing down her oh-so-sweet milk.  The warmth of her breast-milk fills your battered and bruised body, but from the gurgling of your belly, it\'s been filling you for some time already.  From how badly your ' + Descriptors.assDescript() + ' is smarting, she gave you quite the beating earlier, and you wish you weren\'t sitting on such rough ground.  The cow-girl coos,' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Zere zere big ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ', just lie zere and drink.  Ve\'ll forget about all that earlier nastiness.  I\'d feel bad leaving you out here all alone – you\'d probably turn into one of ze monsters!</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( '"<i>There there big ' + CoC.getInstance().player.mf( 'boy', 'girl' ) + ', just lie there and drink.  we\'ll forget about all that earlier nastiness.  I\'d feel bad leaving you out here all alone – you\'d probably turn into one of the monsters!</i>"\n\n', false );
@@ -944,14 +944,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '  The cow-girl plants a hoof on your chest, pinning you into the dusty sod of her camp while she looks you up and down.  The victorious redhead leers at your groin while she begins to tear off your ' + CoC.getInstance().player.armorName + '.  It doesn\'t take her more than a few seconds to expose your ' + Descriptors.multiCockDescriptLight() + '.', false );
 		if( CoC.getInstance().player.lust > 99 ) {
 			EngineCore.outputText( '  Your twitching hardness brings a smile to Isabella\'s face as she coos, "' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '<i>Oooh, so eager to be taught a lesson, ja?  Very vell, Izabella vill give you your punishment!</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( '<i>Oooh, so eager to be taught a lesson, huh?  Very vell, I\'ll give you your punishment!</i>"\n\n', false );
 			}
 		} else {
 			EngineCore.outputText( '  Her bronzed skin caresses your flesh, quickly teasing it to full hardness.  A knowing, almost cruel smile grows on Isabella\'s face as she asks, "<i>' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Already you vant your lesson, ja?  Very vell, Izabella can punish the naughty little [boy].</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( 'Already want your lesson, huh?  Very vell, I can punish you, you naughty little [boy].</i>"\n\n', false );
@@ -961,14 +961,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		if( CoC.getInstance().player.cockTotal() > 1 ) {
 			if( CoC.getInstance().player.cockTotal() > 2 ) {
 				EngineCore.outputText( '  The bovine bitch reaches down to swat at some of your ' + Appearance.cockNoun( CockTypesEnum.HUMAN ) + 's, pushing them out of the way.  "<i>So gross.  Why ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'vould you vant so many penises?</i>"', false );
 				} else {
 					EngineCore.outputText( 'would you want so many penises?</i>"', false );
 				}
 			} else {
 				EngineCore.outputText( '  The bovine bitch reaches down to stroke your ' + Descriptors.cockDescript( x ) + '.  "<i>So ready, ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'ja?  Vhy are you so eager to be punished?</i>"', false );
 				} else {
 					EngineCore.outputText( 'huh?  Why are you so eager to be punished?</i>"', false );
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Isabella drops an inch lower, mashing your ' + CoC.getInstance().player.cockHead( x ) + ' against the tight ring of her pucker.  She grinds and flexes, squeezing her butt-cheeks to surround your member in a sweat-slickened vice.  You moan out loud and reach up to squeeze a handful of bronzed heaven, but the thick-thighed victor is having none of it.  One hard slap effectively rings your bell and nearly dislocates your jaw.  Isabella scolds, "<i>' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'Nein!  You are being punished!' );
 		} else {
 			EngineCore.outputText( 'No! You\'re being punished!' );
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '</i>"  You drop your hand and groan miserably, leaking pre over the slutty cow-girl\'s asshole while she continues to deny you penetration.\n\n', false );
 		EngineCore.outputText( 'What is she doing!?  Her ass is just squeezing and bouncing along your shaft, teasing you with thoughts of penetration while her tight, pre-glazed sphincter stays closed to your ' + Descriptors.cockDescript( x ) + '.  The cow abruptly changes the tempo, beginning to alternate each flex of her feminine ass-cheeks, using them to caress each side of your ' + Descriptors.cockDescript( x ) + ' with alternating strokes, bending and flexing it slightly from the ever-changing pressure. It feels good, great even, but it\'s not enough – not enough to make you cum.  Isabella laughs at your pained, hungry expression as she titters, "<i>Are you sorry for being a naughty, evil [boy]?</i>"\n\n', false );
 		EngineCore.outputText( 'It\'s not fair!  You cry out plaintively, asking her just what she wants you to do, but Isabella looks more disappointed than ever.  "<i>Isn\'t it obvious?</i>" she questions, "<i>' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'I vant you to apologize for being so wicked and nasty from the bottom of your heart.  Until you do, I\'ll keep squeezing and rubbing with mein heiny!' );
 		} else {
 			EngineCore.outputText( 'I want you to apologize for being so wicked and nasty - from the bottom of your heart! Until you do, I\'ll keep squeezing and rubbing!' );
@@ -997,7 +997,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( ', she eases up, denying you your sloppy prize.  You try to earn more friction with subtle lifts of your hips, but that gets you another ear-ringing slap.\n\n', false );
 		EngineCore.outputText( 'There\'s no choice.  You\'re getting so hard it hurts, and Isabella is a relentless tease.  Whenever you close your eyes, she squirts your face with milk, and by the time you blink her cream from your eyes, she\'s pulled her gauzy top back into place.  Still, you can see the outline of her quad-tipped areola through the milk-wet fabric, and it only enhances the flow of blood to your already painfully-erect prick.  There\'s no way around it.  You swallow your pride, trying to ignore the teardrops running from your eyes, and beg as earnestly as you can, "<i>Okay okay, I\'m sorry!  I\'ll be good. I promise.  Just let me cum!  It hurrrrts!</i>"\n\n', false );
 		EngineCore.outputText( 'Isabella looks thoughtful, but she shakes her head with disdain.  "<i>' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'No, zat is not sorrow.  You are sorry you can\'t cum, not sorry for being such a beast.  You must convince me!' );
 		} else {
 			EngineCore.outputText( 'No, that\'s not sorrow. You\'re sorry that you can\'t cum, not for being such a beast.' );
@@ -1103,8 +1103,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Isabella sighs, panting lightly from the effort as she watches the tension drain from your face.  "<i>Such a good [boy] to let it all out.  All that nasty, vile stuff just pouring out of your body for me... yes, you are my good boy.</i>"  The cow-girl kisses you full on the lips, slipping her wide, flat tongue through your own.  You sigh, but she breaks it and stretches languidly.  Overcome by exhaustion, you slip into a restful slumber, interrupted only by the feel of your body swaying as it\'s moved.', false );
 		}
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 4 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 4 );
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
@@ -1118,7 +1118,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '<i>Waaa?</i>  You groan, cracking your eyes as something rouses you from your slumber.  Something\'s slapping you, and you\'re so warm and WET.  Something else is off – you feel good, very very good.  You try to sit up, but sweat-soaked flesh slams into your gut, leveling you while simultaneously knocking the wind from your lungs.  Your eyes finally open wide from the sudden onset of pressure and pain, revealing the source of your disorientation even as a jolt of lust travels to your soaked groin.\n\n', false );
 		EngineCore.outputText( 'Sweat beads on naked, milk-swollen melons while they bounce and squirt above you, occasionally blocking your view of everything but the four milk-dripping nipple-tips.  Attached to the glorious orbs is a delirious-looking Isabella, tongue hanging down past her chin as she grunts and rides you with you a far-away look in her eyes.  Her pussy is completely exposed; hairless, cum-slicked lips, puffy as they slide over your ' + Descriptors.cockDescript( x ) + ', devouring it like a snake engulfing its prey.  The teardrop-shaped tuft of red hair above her prominent button is equally soaked with white-tinged love-mess, making it quite clear that you\'ve already gotten off once.\n\n', false );
 		EngineCore.outputText( 'Isabella\'s eyes are tiny, insane pin-pricks that focus on you as she realizes you\'re awake.  She moans,' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( ' "<i>Das is good [boy]!  Don\'t move!  Iz impolite to interrupt your elder\'s pleasure, and your tiny cock is so small and unique.  You vill lie there until momma has had her fill, ja?</i>" To emphasize her point she puts a hand ', false );
 		} else {
 			EngineCore.outputText( ' "<i>There\'s a good [boy]!  Don\'t move!  Its impolite to interrupt your elder\'s pleasure, and your tiny cock is so small and unique.  You will lie there until momma has had her fill, yes?</i>" To emphasize her point she puts a hand ', false );
@@ -1137,7 +1137,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( ' one with the slippery smoothness of her cow-like organ.  It slides over the top, curls around squeezing, and then it\'s underneath yours, beckoning you to venture past Isabella\'s naturally darker lips.  Her fingers find her way into your hair, pulling on it to keep you exactly where she wants you, like a dog on a leash.  You groan helplessly into her mouth, your voice melding with her frenzied moans as she splatters mud, milk, and girl-cum from each thigh-jiggling impact.\n\n', false );
 		EngineCore.outputText( 'It feels so good, so very good, but you struggle with the pleasure.  It SHOULDN\'T feel this good to be held down by and raped until you\'re sinking into sex-scented mud, yet your ' + Descriptors.cockDescript( x ) + ' is twitching inside Isabella\'s muscular folds, growing so hard you feel like a nail being driven through butter.  The cow-girl\'s milk-fountains don\'t help, soaking your belly and ' + Descriptors.chestDesc() + ' with sweet, thickening cream and adding more whorls of white to the dirty slurry.  Isabella\'s back arches and she screams,' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>MooooOOOOOooooooh jaaaaaaaaaaa!</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>MooooOOOOOooooooh yeeeeeeesssss!</i>"' );
@@ -1160,14 +1160,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Once you\'ve emptied the last of your submission into Isabella, she rolls off of you, panting heavily.' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Das vas a very good [boy]!  I hope I taught you some manners.  Maybe come visit me some time, but be polite for me or I\'ll have to give you another spanking!</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>You\'re a very good [boy]! I hope I taught you some manners. Maybe you should come and visit me some time, but be polite for me or I\'ll have to give you another spanking!</i>"' );
 		}
 		EngineCore.outputText( ' She climbs up on woozy legs and walks off, leaving you to doze in the defiled well of earth like a discarded tissue.\n\n', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 3 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 3 );
 		}
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
@@ -1217,14 +1217,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( 'oans, "<i>', false );
 		if( CoC.getInstance().monster.HP < 1 ) {
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Vhy must you be so like them?  You act like a demon!  Stay away from mein milk!', false );
 			} else {
 				EngineCore.outputText( 'Why must you be so like them? You act just like a demon! Stay away from my milk!' );
 			}
 
 		} else {
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'I didn\'t vant this!  0...but, please, I have so much milk... drink my moOOOO-ilk!', false );
 			} else {
 				EngineCore.outputText( 'I didn\'t want this! Please, I have so much milk... dink my moOOO-ilk!' );
@@ -1277,7 +1277,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Well, now that she\'s mentioned milk, your ' + Descriptors.allBreastsDescript() + ' do feel a little full, swollen with the weight of your own lactic cargo.  Even your ' + Descriptors.nippleDescript( 0 ) + 's feel bloated and ready to be suckled.  With a devilish grin, you pace around the prone, bovine belle and taunt her, suggesting quite lewdly how you\'ll drain her tits dry while forcing her to guzzle your own pearly liquid.  Her eyes go wide, first with shock, then with increasing lust.  The cow-girl\'s features soften into submissive acceptance when you stop at her head and undo the bindings of your ' + CoC.getInstance().player.armorName + '.\n\n', false );
 		EngineCore.outputText( 'Isabella mumbles, ' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Moo-milk?  Vell, it does sound kind of ni...</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>Moo-milk? Well it does sound kind of ni...</i>"' );
@@ -1366,18 +1366,18 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( '\n\n', false );
 		EngineCore.outputText( 'Empty and sore-nippled, you roll sideways and lie with Isabella on the dirt' );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			EngineCore.outputText( ' of her camp' );
 		}
 		EngineCore.outputText( '.  The two of you look each other over, licking the last of the milk from your lips and sharing a moment.  She speaks first, mouthing, ' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Zat vas nice... a good way to cool down angry hearts.  Let\'s... do zis next time ve fight!</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>That was nice... a good way to cool down angry hearts. Let\'s... do this next time we fight!</i>"' );
 		}
 		EngineCore.outputText( ' You nod as the blissed-out cow-girl closes her eyes, contented and cradling the slight paunch you\'ve given her.  A moment later you\'ve regained your strength, but you have trouble fitting back into your ' + CoC.getInstance().player.armorName + ' with all the milk in your system.', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 8 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 8 );
 		}
 		//(slimefeed, -lust, +thickness & -tone?);
 		CoC.getInstance().player.slimeFeed();
@@ -1430,7 +1430,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		} else {
 			EngineCore.outputText( ' lustily, begging to be penetrated with her body while her voice tries to make love to your ears', false );
 		}
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '.  "<i>Vould you... put it inside me?  Please, I\'m so sorry I didn\'t let you ravish me.  Take me, violate me vith your spear of lust!</i>"' );
 		} else {
 			EngineCore.outputText( '.  "<i>Would you... put it inside me? Please, I\'m so sorry I didn\'t let you ravish me. Take me, violate me with your spear of lust!</i>"' );
@@ -1510,8 +1510,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		}
 		EngineCore.outputText( '.  Isabella slumps down and closes her eyes, though her rump stays pointed up in the air, displaying the seed you left puddling in her rectum.  Amazingly, the milk she was leaking in the mud seems to have been absorbed already, leaving the earth dry and dusty once again.\n\n', false );
 		EngineCore.outputText( 'You get dressed and set off, feeling quite proud of how you handled the haughty foreign bovine.', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 3 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 3 );
 		}
 		CoC.getInstance().player.orgasm();
 		Combat.cleanupAfterCombat();
@@ -1672,15 +1672,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( 'You get dressed and leave with a smile.', false );
 		//(slimefeed + izzy unmad!);
 		CoC.getInstance().player.orgasm();
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 9 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 9 );
 		}
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
 		CoC.getInstance().player.slimeFeed();
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//['Too Big' Victory Titfucking Funtimes With Milk];
@@ -1706,7 +1706,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( '.\n\n', false );
 		}
 
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'The cow-girl whines, "<i>B-but I don\'t vant it in mein milkers!  Your thing... it is big and gross and nasty, like a demon\'s!</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( 'The cow-girl whines, "<i>B-but I don\'t want that!  Your cock... it\'s big and gross... and nasty, like a demon\'s!</i>"\n\n', false );
@@ -1735,7 +1735,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'You tear off the offending garment without a single care for the cow-girl\'s property.', false );
 		}
 		EngineCore.outputText( '  She looks up at you with teary brown eyes and asks, "<i>Please be gentle with me', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( ', ja?', false );
 		} else {
 			EngineCore.outputText( '.', false );
@@ -1794,8 +1794,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'soak', false );
 		}
 		EngineCore.outputText( ' her breasts.  She\'s mooing contentedly and tugging on her teats now, squeezing the last of her cream out while you watch.  The cow-girl barely seems conscious of your presence at this point.\n\n', false );
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 3 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 3 );
 		}
 		EngineCore.outputText( 'Shrugging, you wipe ' + Descriptors.sMultiCockDesc() + ' off on her lips and get dressed.  This cow is one marvelous cum-dump.', false );
 		CoC.getInstance().player.orgasm();
@@ -1815,7 +1815,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'defeated', false );
 		}
 		EngineCore.outputText( ' cow-girl pales and asks, ' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>But vhy not?  Mein milk is so gooood.</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>But why not? My milk is so goood.</i>"' );
@@ -1827,7 +1827,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'juice-slicked', false );
 		}
 		EngineCore.outputText( ' pussy-lips.  You look up at her and comment on the state of her vagina, asking if she\'s sure she didn\'t want it this way.\n\n', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Nein! I... I never vanted to have to fight you!  And I definitely didn\'t vant to vind up on my keister vith my legs spread while a handsome ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' ogles my vagina!</i>" exclaims the cow-girl.\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>No! I... I never wanted to have to fight you!  And I definitely didn\'t want to wind up on my butt with my legs spread while a handsome ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' ogles my vagina!</i>" exclaims the cow-girl.\n\n', false );
@@ -1835,7 +1835,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 
 		EngineCore.outputText( 'You reach down to touch the skin around her loins, circling her puffy pussy-lips without actually touching any part of her moist slit.  Isabella moans out loud and spreads her softly-furred thighs apart, subconsciously welcoming your probing ministrations.  The dewy muff visibly plumps with each teasing circle your fingers make, until her vagina gradually begins to bloom like a flower; if flowers were pulsating pink tunnels of sweltering lust. Still, the spreading of her labia is an entrancing, if arousing sight.  A pudgy, fat little clit sprouts near the top and gradually swells until it reaches its full size.  Throughout it all, you deny her pussy the touch it so craves, circling a digit around the circumference of her box with constant, even strokes.\n\n', false );
 		EngineCore.outputText( '"<i>Are you sure?</i>" you ask.  Isabella bites her lip petulantly, but you brush the sensitive skin of her inner thigh and the dusky cow-girl moans, ' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Fine!  I-I vant it in my pussy!  Fuck me!  Fuck mein cunt...</i>"' );
 		} else {
 			EngineCore.outputText( '"<i>Fine!  I-I want it in my pussy!  Fuck me!  Fuck my cunt...</i>"' );
@@ -1844,7 +1844,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( 'You step back to undress. Isabella takes the opportunity to reach for her sodden snatch, but you brush her questing fingers away with your ' + CoC.getInstance().player.foot() + '.  She glares at you a moment before she resumes her slutty gyrations, the need for satisfaction overwhelming her irritation at being denied.  You ' + CoC.getInstance().player.mf( 'chuckle', 'giggle' ) + ' down at her as you pull out your ' + Descriptors.multiCockDescriptLight() + '.  Wide-eyed, the red-head watches you stroke ' + Descriptors.sMultiCockDesc() + ' and licks her lips.\n\n', false );
 		EngineCore.outputText( 'Approaching with as much sensual exaggeration as possible, you lean over the busty bitch and let ' + CoC.getInstance().player.oMultiCockDesc() + ' prod at the dilated quim.  Isabella moos at the hint of vaginal penetration while milk begins to bead atop her nipples, soaking through the taut fabric of her chemise.  You smirk and squeeze one of the dusky tits, expressing four small squirts of milk simultaneously.  Amazingly, the creamy pulses continue even once you release the sloshing cow-teat.  You press on anyway, hilting yourself in the girl-cum-oozing tunnel with one smooth movement while the lactating woman\'s soaked top starts to cling to her well-endowed torso.\n\n', false );
 		EngineCore.outputText( '"<i>', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			if( CoC.getInstance().player.cockArea( x ) > CoC.getInstance().monster.vaginalCapacity() ) {
 				EngineCore.outputText( 'Oh! Ze cock! It is too big for meeee!  I... am being stretched so mooo-uch!', false );
 			} else if( CoC.getInstance().player.cockArea( x ) > 13 ) {
@@ -1902,8 +1902,8 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( '  You pull out with a happy sigh, barely noticing how completely covered in Isabella\'s creamy milk you are.  Glancing back at her, you note her glazed expression and still-dripping nipples.  She still wears a dopey grin, and you doubt she\'ll get too mad about this once she remembers how good she felt.  You toss on your ' + CoC.getInstance().player.armorName + ' and stop at the lake to clean up on your way back, though for most of the trip you\'re busy licking up her tasty milk-deposits.\n\n', false );
 		//Reset anger;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 7 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 7 );
 		}
 		Combat.cleanupAfterCombat();
 		CoC.getInstance().player.orgasm();
@@ -1922,7 +1922,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		if( CoC.getInstance().player.cockTotal() > 1 ) {
 			EngineCore.outputText( ', singling the smallest one out for some reason', false );
 		}
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '.  "<i>Is zat vant you vanted from me?  Oooh baby, you could have just asked!  Mamma Isabella loves sucking on cute little penises like yours, particularly ones like zat little guy, right zere.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '.  "<i>Is that what you wanted from me?  Oooh baby, you could have just asked!  Momma Isabella loves sucking on cute little dicks like yours, particularly ones like that little guy, right there.</i>"\n\n', false );
@@ -1951,7 +1951,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			}
 		}
 		EngineCore.outputText( '.  Isabella smirks up at you as she begins to jiggle her boobs back and forth while saying,' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( ' "<i>Does your cute little cock like zis?  Ooooh, I zink it does.  It vants to squirt into my cleavage like a good little dick, ja?</i>"' );
 		} else {
 			EngineCore.outputText( ' "<i>Does your cute little cock like this?  Ooooh, I think it does.  It wants to squirt into my cleavage like a good little dick doesn\'t it?</i>"' );
@@ -1959,7 +1959,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		EngineCore.outputText( ' You start to nod before you catch yourself and arrest the motion.  You\'re the one in control, not her!\n\n', false );
 		EngineCore.outputText( 'Isabella doesn\'t even seem to notice your conflict, as she\'s become utterly transfixed by the feeling of your ' + Descriptors.cockDescript( x ) + ' pulsing inside her tits, drooling pre-cum obediently as if trying to make her words a reality.  You slowly slump down to the ground and begin to pant weakly, allowing Isabella to utterly dominate your tiny dick with her tits.  Sweat and beads of milk drip from her nipples as she works, and you begin to smell the scent of her arousal growing ever more pungent in the air.\n\n', false );
 		EngineCore.outputText( 'Your whole body starts to blush before long, your tiny cock unable to cope with the teasing cow-girl\'s ministrations.  She looks you in the eye and begins to bob her whole body up and down, shaking her tits while she asks,' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( ' "<i>Are you going to cum for me soon?  I vant zat tiny cock to spurt all its meek little cum over my breasts until it\'s limp.  Isn\'t zat vat you want?</i>"' );
 		} else {
 			EngineCore.outputText( ' "<i>Are you going to cum for me soon?  I want that tiny cock to spurt all of your meek little load of cum over my breasts until it\'s limp.  Isn\'t that what you want?</i>"' );
@@ -1978,21 +1978,21 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 		if( CoC.getInstance().player.cumQ() >= 1000 ) {
 			EngineCore.outputText( '  It pumps and pumps, blotting out her chest and face, turning her expression to one of ecstatic shock.' );
 		}
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( ' "<i>Oh my!  Such an obedient little cock!  Zat\'s right; cover me vis your seed, my adorable little weenie!</i>"', false );
 		} else {
 			EngineCore.outputText( ' "<i>Oh my!  Such an obedient little cock!  That\'s right; cover me with your seed, my adorable little dick!</i>"', false );
 		}
 		EngineCore.outputText( '  You shake and squirm against her, your body going weak with every pump of seed until you fall flat on your back and spurt the last of your cum onto your belly.\n\n', false );
 		EngineCore.outputText( 'Isabella dutifully cleans you with her tongue before delving back into her chest and beginning to scoop the seed from her milk-dripping tits.  You watch her for a time until you feel recovered, then get dressed and depart, wobbling unsteadily on your ' + CoC.getInstance().player.legs() + '.  Isabella\'s noisy swallows are followed by a catcall.' );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '  "<i>Come back soon!  You have ze tastiest little dick and I vant to play with it more, ja?</i>"', false );
 		} else {
 			EngineCore.outputText( '  "<i>Come back soon!  You have the tastiest little dick and I want to play with it more!</i>"', false );
 		}
 		//Reset anger;
-		if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-			CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 8 );
+		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+			SceneLib.isabellaFollowerScene.isabellaAffection( 8 );
 		}
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
 		Combat.cleanupAfterCombat();
@@ -2010,15 +2010,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, Isabella, EventParser, Descrip
 			EngineCore.outputText( 'You look at her curiously, asking if she was always so... bovine in appearance. She smirks and replies, "<i>I suppose I had zat one coming. Still, I vas not always as you see. Some of ze foes I defeated dropped some potions. And... ze bova ones were sooo delicious. I couldn\'t help meinself. I even mixed a few different kinds together to see vhat vould happen. It made mein m-m-milk so strange und sweet.</i>"\n\n', false );
 			EngineCore.outputText( 'Isabella brightens as she continues, "<i>But I\'ve made a nice little home here, and from time to time, I do manage to make some friends.</i>"\n\n', false );
 			EngineCore.outputText( 'The busty cow-girl leans forward to crush you in a tight hug, squeezing you against her tits before informing you she\'s got some work to do around her camp. You nod and leave.\n\n', false );
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 10 );
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				SceneLib.isabellaFollowerScene.isabellaAffection( 10 );
 			}
 		}
 		//[Discuss Isabella Repeat];
 		else {
 			EngineCore.outputText( 'You sit down with Isabella and share tales of your recent adventures.  While the companionship is nice, after an hour or so of discussion you decide to go your separate ways.', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'isabellaScene', new IsabellaScene() );
+	SceneLib.registerScene( 'isabellaScene', new IsabellaScene() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, PregnancyStore, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockTypesEnum, PregnancyStore, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//Items;
 	//Besides, the PC needs 15 succubi Milk to turn Kelt female. If the PC has a pink egg, only 10 are needed. If the PC has a large pink egg (or two pink eggs), only 5 are needed. ;
 	//Effects;
@@ -47,14 +47,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		if( (!CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.getInstance().flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.getInstance().player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.getInstance().player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
-			CoC.getInstance().scenes.keltScene.keltEncounter();
+			SceneLib.keltScene.keltEncounter();
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] > 0 ) {
 			if( !CoC.getInstance().player.hasCock() ) {
 				EngineCore.outputText( 'You can\'t keep trying to break Kelt without the proper tool to do it with.' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.farmExploreEncounter );
+				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
 				return;
 			}
 			this.resistKeltsBSBreakHimIntro();
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		EngineCore.outputText( 'Having met Kelt, you know he\'s liable to subject you to plenty of abuse in exchange for training.  Are you going to endure it, resist, or never resist?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Endure', CoC.getInstance().scenes.keltScene.keltEncounter );
+		EngineCore.addButton( 0, 'Endure', SceneLib.keltScene.keltEncounter );
 		EngineCore.addButton( 1, 'Resist', this.resistKeltsBSBreakHimIntro );
 		EngineCore.addButton( 2, 'Never', this.neverBreakKeltIntoKelly );
 	};
@@ -76,13 +76,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 			if( !(CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 15 ) || (CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 10 ) && this.hasPinkEgg()) || (CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 10 ) && this.hasPinkEgg()) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 15 )) ) {
 				EngineCore.outputText( ' Unfortunately, you don\'t have anything that could be useful to tame his arrogant maleness.  You want items that would make his disgracious horsecock and balls shrink.  A nice set of breasts on his human chest would be fine, too.  You know you\'re going to need A LOT of such items - or very potent ones.' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.farmExploreEncounter );
+				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
 			} else {
 				EngineCore.outputText( '\n\nDo you take his maleness down and teach him the lesson he deserves?' );
 				//Yes/Not Yet/Never;
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Yes', this.breakKeltGo );
-				EngineCore.addButton( 1, 'Not Yet', CoC.getInstance().scenes.farmExploreEncounter );
+				EngineCore.addButton( 1, 'Not Yet', SceneLib.farmExploreEncounter );
 				EngineCore.addButton( 2, 'Never', this.neverBreakKeltIntoKelly );
 			}
 		} else if( CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] === 1 ) {
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 				EngineCore.outputText( '\n\nYou\'d gladly teach him another lesson so he can keep his true gender and learn his place, but you don\'t have anything to turn him female again.  You should fetch appropriate items to begin the \'lesson\'.</i>"' );
 				//back to farm];
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.farmExploreEncounter );
+				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
 				return;
 			}
 			EngineCore.menu();
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 			if( !(CoC.getInstance().player.hasItem( ConsumableLib.SUCMILK, 5 ) || CoC.getInstance().player.hasItem( ConsumableLib.P_S_MLK, 5 )) ) {
 				EngineCore.outputText( 'You must acquire enough Succubi Milk to remove any male remnants off Kelly\'s body before confronting \'him\' again.' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.farmExploreEncounter );
+				EngineCore.addButton( 0, 'Next', SceneLib.farmExploreEncounter );
 				return;
 			}
 			EngineCore.outputText( '\n\nYou casually approach the centaur, shaking a vial of Succubi milk with a broad grin; your intentions are clear.  Kelt whinnies, his voice higher than ever, "<i>Not again!</i>"  A puff of a very feminine odor reaches your nostrils - nothing at all like the masculine scent he usually exudes.  Is he coming to like this?' );
@@ -131,8 +131,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		CoC.getInstance().flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
 		EngineCore.outputText( 'You decide that trying to break Kelt is something you\'d never want to do.  Besides, he\'s teaching you a useful skill, and there\'s just something charming about that bastard...' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Go To Kelt', CoC.getInstance().scenes.keltScene.keltEncounter );
-		EngineCore.addButton( 1, 'Go Home', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 0, 'Go To Kelt', SceneLib.keltScene.keltEncounter );
+		EngineCore.addButton( 1, 'Go Home', SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Kelly.prototype.breakKeltGo = function() {
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
 		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Second encounter;
 	/*10 succubi milk (or 1 pink egg - large or small - and 5 succubi milk) */
@@ -306,7 +306,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		EngineCore.outputText( '\n\n"<i>Answer, you wench!  Your rightful [master] asked you a question.  Do you like the name Kelly?</i>"' );
 		EngineCore.outputText( '\n\nShe bursts into tears again, any attempt at a reply breaking off into another sob. You cockslap her repeatedly as you roar, "<i>Do you think I have time to waste on whiny bitches like you?  You\'re even lucky I\'m taking care of finding you a proper name.  I should call you Cumbucket or Sugarcunt because that\'s exactly what you are.  So what do you think?  Do you want to be called Cumbucket, Cumbucket?</i>"' );
 		//(Silly:);
-		if( EngineCore.silly() && CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+		if( EngineCore.silly() && SceneLib.amilyScene.amilyFollower() && SceneLib.amilyScene.amilyCorrupt() ) {
 			EngineCore.outputText( '\n\nSomewhere, Amily perks up, "<i>[Master]?</i>"  How many cumbuckets do you need anyway?' );
 		}
 		EngineCore.outputText( '\n\nThe broken centauress manages to shake her head convulsively.  Satisfied, you stop slapping her.' );
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 8 );
 		CoC.getInstance().flags[ kFLAGS.KELT_BREAK_LEVEL ] = 4;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Kelt Defeats PC after 1st Breaking But Before Last;
@@ -585,12 +585,12 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 				break;
 			default:
 		}
-		if( CoC.getInstance().scenes.farmCorruption.hasTattoo( 'kelly' ) ) {
+		if( SceneLib.farmCorruption.hasTattoo( 'kelly' ) ) {
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().scenes.farmCorruption.kellyFullTribalTats() ) {
+			if( SceneLib.farmCorruption.kellyFullTribalTats() ) {
 				EngineCore.outputText( 'She is covered from head to tail in tribal tattoos, erotic lines snaking all over her naked frame, giving her the look of a barely tamed savage.' );
 			} else {
-				if( CoC.getInstance().scenes.farmCorruption.numTattoos( 'kelly' ) > 1 ) {
+				if( SceneLib.farmCorruption.numTattoos( 'kelly' ) > 1 ) {
 					EngineCore.outputText( 'She has the following tattoos emblazoned across her body:\n' );
 				} else {
 					EngineCore.outputText( 'She has ' );
@@ -670,7 +670,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		else if( CoC.getInstance().time.hours >= 15 && CoC.getInstance().time.hours <= 16 && CoC.getInstance().flags[ kFLAGS.KELLY_KIDS ] >= 4 ) {
 			EngineCore.outputText( '\n\nYou see Kelly standing in the middle of her field, surrounded by her children.  She has the butts set up and, judging by the way she is talking and gesturing with the bow in her hand, is teaching your brood how to shoot.  Trying to, anyway: her big, bare boobs make things a bit difficult.  You see she\'s actually gone to the trouble of constructing adorable little mini-bows, which the group of centaur children are all threading mini-arrows on as she points, and with expressions of deep concentration, pulling tight, taking aim, and... there\'s a cacophony of whistling, and arrows wind up everywhere but the target.  The sound of shouting and crying echoes across the field as Kelly begins to ball out the one who somehow managed to shoot an arrow through her braid.' );
 			EngineCore.outputText( '\n\nYou decide to come back a bit later.  Your kids need all the help they can get.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Standard:;
@@ -719,9 +719,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		//Showing up resets Kelly's desire not to fap without you;
 		CoC.getInstance().flags[ kFLAGS.KELLY_DISOBEYING_COUNTER ] = 0;
 		if( CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 0 ) {
-			EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 	};
 	Kelly.prototype.kellySexMenu = function() {
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		EngineCore.outputText( '\n\nYou slide back off, landing with a fresh spring in your step.  Then, you pick up your [armor] and head off to find Kelly\'s blanket - you need something to wipe all the cum and slime off your [legs] with.' );
 		CoC.getInstance().player.orgasm();
 		this.kellyPreggers();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Centaur on Centaur Sex;
 	/*Requires a centaur lower body.*/
@@ -899,7 +899,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		this.kellyPreggers();
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tentacle;
 	//Requires two or more tentacle dicks.;
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		this.kellyPreggers();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Makes her cunt become horse-like.;
 	Kelly.prototype.giveKellyEquinum = function() {
@@ -1122,7 +1122,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 3, 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ride(C);
 	//(Assumes Kelly is at camp; minor revisions required otherwise);
@@ -1313,7 +1313,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 0.5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Kelly.prototype.takeKellysVirginity = function() {
@@ -1403,7 +1403,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3, 'cor', 0.5 );
 		CoC.getInstance().flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TFs;
 	//Canine Pepper;
@@ -1439,7 +1439,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_PEPPERED ]++;
 		CoC.getInstance().player.consumeItem( ConsumableLib.CANINEP );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Titjob;
 	//[Requires: Not a centaur];
@@ -1501,7 +1501,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Preggers;
@@ -1547,7 +1547,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		EngineCore.outputText( '\n\nYou grasp her generous hips and lock yourself into her cunt as it milks you with inhuman contractions. Your ' + Descriptors.cockDescript( x ) + ' feels sucked in, squeezed and stretched to the point you believe it might rip.  However, this little worry is quickly drowned in a sea of never-ending ecstasy, as torrents after torrents of cum are being injected into the centauress\' waiting womb; you know you won\'t be able to knock her up more than she already is but you\'ve made her appear more pregnant than ever.  Kelly moans, whinnies and shudders as she absorbs more and more cum into her body until she looks ready to give birth to a full tribe.  When you\'re done and pull out, a fountain of various fluids spurts out of her manhandled cunt, and the slut sighs in satisfaction.  She does look more healthy than before despite having been forced to eat dirt like the whore she is.  Maybe your cum will have beneficial properties to your unborn centaur kids?' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -4 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Giving birth;
 	Kelly.prototype.kellyPopsOutARunt = function() {
@@ -1717,7 +1717,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		//5.;
 		else {
-			if( !CoC.getInstance().scenes.farmCorruption.whitneyCorrupt() ) {
+			if( !SceneLib.farmCorruption.whitneyCorrupt() ) {
 				EngineCore.outputText( '\n\nYou ask if she has had much to do with Whitney, before or now.' );
 				EngineCore.outputText( '\n\n"<i>Not really,</i>" says Kelly.  There\'s a hard note in her voice as she works her arms, masturbating your bulging meat.  "<i>Before we just kept away from each other.  She knew about my wives and my aura but she didn\'t care, as long as I kept the imps and gnolls away and I didn\'t try it on her.  Of course it occurred to me, but... there\'s a cold edge to that woman.  Keeps it hidden, but there is - how else has she lived out here on her own for this long?  I didn\'t want to find out what she\'s hiding, plus I really needed the job.</i>"  She\'s definitely pumping you aggressively, jerking your [cocks] with brisk movements until the flesh under her tight grasp is singing with blood.' );
 				EngineCore.outputText( '\n\nYou close your eyes and arch your neck to the sensation.  "<i>Now when she sees me, she just gives me this really disgusted look.  Fucking bitch.  She thinks I\'m so terrible now but thought everything was just great back when I was her pet demon-tainted rapist?  Bitch!</i>"  She\'s really rubbing you furiously now and you groan as you surge to your high, trapped in a warm, smooth paint-shaker of a handjob.  She keeps up her growl as you tense and cum, opening your mouth as you ride it, flexing out buckets of spunk ' );
@@ -1746,7 +1746,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 			}
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Reward;
 	//Requirements: PC used “punish” at least once, 3+ days have gone by and “punish” has not proced*;
@@ -1851,7 +1851,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 			EngineCore.outputText( 'You tap your chin idly and ask Kelly what she likes eating.  Aside from dick, you add, rolling your eyes as she opens her mouth eagerly.' );
 			EngineCore.outputText( '\n\n"<i>Oh.  Um.  Well...</i>" she furrows her brow as if remembering a very distant time.  "<i>I used to like fruit.</i>"  She laughs a bit.  "<i>A stereotype really, you know, horses and apples?  Whitney even planted me a couple of apple trees across the back, but I never took care of them because I was a bit of a jerk-off back then.</i>"' );
 			EngineCore.outputText( '\n\nAt least your jerk off-ing is put to good use these days, you say kindly.  "<i>That\'s nice of you to say, [Master],</i>" replies the centaur solemnly.  She\'s wringing her hands, her thoughts elsewhere.' );
-			if( !CoC.getInstance().scenes.farmCorruption.whitneyCorrupt() ) {
+			if( !SceneLib.farmCorruption.whitneyCorrupt() ) {
 				EngineCore.outputText( ' "<i>I\'d like to go and check on it, but... I don\'t think Whitney likes me much anymore.  I\'d hate to cause more trouble than I already have.</i>"' );
 			} else {
 				EngineCore.outputText( '“<i>I\'d like to go and check on it, but... I’d hate to get into Mistress Whitney’s bad books.  I’ve caused enough trouble already.</i>”' );
@@ -2015,7 +2015,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.getInstance().flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob;
 	Kelly.prototype.kellyBJsAhoy = function() {
@@ -2314,7 +2314,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, Kelt, CockTypesEnum, 
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'kelly', new Kelly() );
+	SceneLib.registerScene( 'kelly', new Kelly() );
 } );

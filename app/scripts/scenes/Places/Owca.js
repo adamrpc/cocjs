@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Owca() {
 	}
 
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 	Owca.prototype.dontGoToZeVillage = function() {
 		EngineCore.clearOutput();
 		CoC.getInstance().flags[ kFLAGS.DECLINED_TO_VISIT_REBECCS_VILLAGE ]++;
-		CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+		SceneLib.camp.returnToCampUseOneHour();
 	};
 	//First plea (Z);
 	Owca.prototype.agreeToFollowRebecFirstTime = function() {
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 			CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] -= 5;
 		}
 		CoC.getInstance().flags[ kFLAGS.TIMES_REFUSED_REBECCS_OFFER ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Accept plea (Z);
 	Owca.prototype.acceptRebeccsPlea = function() {
@@ -410,7 +410,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//PC is redirected to camp, next morning. No nightly camp scenes or dreams.;
 	};
@@ -654,7 +654,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 	//[displayed after the second encounter text and right away in subsequent encounters];
 	Owca.prototype.owcaMainScreenOn = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().flags[ kFLAGS.REBECCS_LAST_PLEA ] === 1 && !CoC.getInstance().scenes.vapula.vapulaSlave() ) {
+		if( CoC.getInstance().flags[ kFLAGS.REBECCS_LAST_PLEA ] === 1 && !SceneLib.vapula.vapulaSlave() ) {
 			this.rebeccsLastPlea();
 			return;
 		}
@@ -727,7 +727,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 			tavern = this.owcaTavern;
 		}
 		//[Pit][Herds][Rebecc][Tavern];
-		EngineCore.choices( 'Pit', pit, 'Herds', herd, 'Rebecc', this.rebeccMenu, 'Tavern', tavern, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Pit', pit, 'Herds', herd, 'Rebecc', this.rebeccMenu, 'Tavern', tavern, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tavern (Z);
 	Owca.prototype.owcaTavern = function() {
@@ -778,7 +778,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		CoC.getInstance().player.gems -= price === undefined ? 0 : price;
 		EngineCore.statScreenRefresh();
 		EngineCore.outputText( 'The bartender hands you a bottle and grabs your gems before attending other clients, leaving you to your own business.\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( bleh, this.owcaTavern );
+		SceneLib.inventory.takeItem( bleh, this.owcaTavern );
 	};
 	//Herds (Z);
 	Owca.prototype.herds = function() {
@@ -794,9 +794,9 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		//[if attitude > 70];
 		if( CoC.getInstance().flags[ kFLAGS.OWCAS_ATTITUDE ] > 70 ) {
 			EngineCore.outputText( '\n\nThe villagers thank you for your hard work and one of them hands you a bottle of sheep milk.  "<i>\'Tis good for your health.  Don\'t worry, it won\'t... mutate you.</i>"\n\n' );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.SHEEPMK, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.SHEEPMK, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Pit (Z);
@@ -866,7 +866,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		//Lust +30, Corr -2, Lib +1, slimefeed;
 		EngineCore.dynStats( 'lib', 1, 'lus', 30, 'cor', -2 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Rebecc Rape scene (for discerning penises) (Z);
 	Owca.prototype.rapeRebecc = function( outside ) {
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Desperate Villagers (Z);
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Rebecc's Last Plea (Z);
@@ -1095,7 +1095,7 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		//[Owca Village removed from 'Places' menu.];
 		EngineCore.outputText( '\n\n(Owca has been removed from the places menu.)' );
 		CoC.getInstance().flags[ kFLAGS.OWCA_UNLOCKED ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Option: Face Down the World (Z);
 	Owca.prototype.faceDownHordes = function() {
@@ -1222,5 +1222,5 @@ angular.module( 'cocjs' ).run( function( Combat, LustyDemons, WeaponLib, Pregnan
 		//Chance to trigger imp gangbang is increased by 7%!;
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'owca', new Owca() );
+	SceneLib.registerScene( 'owca', new Owca() );
 } );

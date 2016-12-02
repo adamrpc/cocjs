@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('CoC', function (CharCreation, Saves, Player, PlayerEvents, Monster) {
+angular.module('cocjs').factory('CoC', function ( ) {
 	var instance = null;
 	function CoC() {
 		this.init(this, arguments);
@@ -12,8 +12,6 @@ angular.module('cocjs').factory('CoC', function (CharCreation, Saves, Player, Pl
 		return instance;
 	};
 	CoC.prototype.init = function(that) {
-		that.charCreation = new CharCreation(); // TODO : pu this elsewhere
-		that.saves = new Saves(function(){ return that.gameState; }, function(value) { that.gameState = value; }, that);
 		/**
 		 * Global Variables used across the whole game. I hope to whittle it down slowly.
 		 */
@@ -31,11 +29,11 @@ angular.module('cocjs').factory('CoC', function (CharCreation, Saves, Player, Pl
 		 * The player object and variables associated with the player
 		 */
 		//The Player object, used everywhere
-		that.player = new Player(); // TODO : Store only Object here, extract functions
-		that.player2 = new Player(); // TODO : Store only Object here, extract functions
-		that.playerEvent = new PlayerEvents(); // TODO : Store only Object here, extract functions
+		that.player = null;
+		that.player2 = null;
+		that.playerEvent = null;
 		//Create monster, used all over the place
-		that.monster = new Monster(); // TODO : Store only Object here, extract functions
+		that.monster = null;
 		/**
 		 * State Variables
 		 * They hold all the information about item states, menu states, game states, etc

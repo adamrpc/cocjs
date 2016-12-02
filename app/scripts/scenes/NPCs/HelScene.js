@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, PregnancyStore, Hel, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, $rootScope, Appearance, PregnancyStore, Hel, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	function HelScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.HELIA_PREGNANCY_TYPE, kFLAGS.HEL_PREGNANCY_INCUBATION, 0, 0 );
@@ -24,37 +24,37 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 			}
 		}
 		if( CoC.getInstance().time.hours === 3 && this.followerHel() && CoC.getInstance().flags[ kFLAGS.SLEEP_WITH ] === 'Helia' && Utils.rand( 10 ) === 0 ) {
-			CoC.getInstance().scenes.helFollower.sleepyNightMareHel();
+			SceneLib.helFollower.sleepyNightMareHel();
 			return true;
 		}
 		return false;
 	};
 	HelScene.prototype.timeChangeLarge = function() {
 		//Helia's morning surprise!;
-		if( CoC.getInstance().time.hours === 23 && CoC.getInstance().scenes.helFollower.followerHel() && CoC.getInstance().flags[ kFLAGS.HEL_BONUS_POINTS ] >= 150 && CoC.getInstance().flags[ kFLAGS.HELIA_KIDS_CHAT ] === 0 ) {
-			CoC.getInstance().scenes.helSpawnScene.heliaBonusPointsAward();
+		if( CoC.getInstance().time.hours === 23 && SceneLib.helFollower.followerHel() && CoC.getInstance().flags[ kFLAGS.HEL_BONUS_POINTS ] >= 150 && CoC.getInstance().flags[ kFLAGS.HELIA_KIDS_CHAT ] === 0 ) {
+			SceneLib.helSpawnScene.heliaBonusPointsAward();
 			return true;
 		}
-		if( CoC.getInstance().time.hours === 8 && CoC.getInstance().scenes.helFollower.followerHel() && CoC.getInstance().flags[ kFLAGS.HEL_NTR_TRACKER ] === 1 ) {
-			CoC.getInstance().scenes.helSpawnScene.helGotKnockedUp();
+		if( CoC.getInstance().time.hours === 8 && SceneLib.helFollower.followerHel() && CoC.getInstance().flags[ kFLAGS.HEL_NTR_TRACKER ] === 1 ) {
+			SceneLib.helSpawnScene.helGotKnockedUp();
 			return true;
 		}
-		if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] > 0 && CoC.getInstance().scenes.helFollower.helAffection() >= 100 &&
+		if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] > 0 && SceneLib.helFollower.helAffection() >= 100 &&
 			CoC.getInstance().flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] === 0 && CoC.getInstance().time.hours === 2 ) {
-			CoC.getInstance().scenes.helFollower.heliaFollowerIntro();
+			SceneLib.helFollower.heliaFollowerIntro();
 			return true;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === -1 && CoC.getInstance().time.hours === 6 ) {
-			CoC.getInstance().scenes.dungeonHelSupplimental.morningAfterHeliaDungeonAgreements();
+			SceneLib.dungeonHelSupplimental.morningAfterHeliaDungeonAgreements();
 			return true;
 		}
 		//Helspawn night smex!;
 		if( CoC.getInstance().flags[ kFLAGS.HELSPAWN_AGE ] === 2 && (CoC.getInstance().time.hours === 2 || CoC.getInstance().time.hours === 3 || CoC.getInstance().time.hours === 4) && CoC.getInstance().flags[ kFLAGS.HELSPAWN_GROWUP_COUNTER ] === 7 && CoC.getInstance().flags[ kFLAGS.HELSPAWN_FUCK_INTERRUPTUS ] === 0 ) {
-			CoC.getInstance().scenes.helSpawnScene.helspawnIsASlut();
+			SceneLib.helSpawnScene.helspawnIsASlut();
 			return true;
 		}
 		//Chance of threesomes!;
-		if( this.checkedHeliaIsabellaThreesome++ === 0 && CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 1 && CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().time.hours === 2 && CoC.getInstance().time.days % 11 === 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
+		if( this.checkedHeliaIsabellaThreesome++ === 0 && CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 1 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().time.hours === 2 && CoC.getInstance().time.days % 11 === 0 && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 			$log.debug( 'ISABELLA/HELL TEST' );
 			if( CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 0 ) {
 				{ //Hell/Izzy threesome intro
@@ -126,17 +126,17 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 	HelScene.prototype.postHelFuckBuddyFollowup = function() {
 		EngineCore.spriteSelect( 68 );
 		if( this.followerHel() ) {
-			CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+			SceneLib.camp.returnToCampUseOneHour();
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] === 0 ) {
-			CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+			SceneLib.camp.returnToCampUseOneHour();
 			return;
 		}
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You wake up an hour or so later, still snuggled up to Hel, entwined in a post-coitus repose.  You spend a few moments basking in the warmth of her presence, but you know you have duties to attend to.  You give her a peck on the cheek, waking her, and she\'s quick to escalate your gesture into a long, tongue-entwining kiss.\n\n', false );
 		EngineCore.outputText( 'The two of you redress, teasing and flirting all the while – you give her ample ass a little smack, and she coyly brushes your thighs with her tail – but soon you must part.  Giving Hel another deep kiss, you make your way back to camp as she saunters off into the heart of the plains.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//FIRST COMBAT – PLAYER LOSES;
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		Combat.cleanupAfterCombat();
 	};
 
@@ -387,14 +387,14 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Player Win – Victory Fuck – Fuck her Vag;
 	HelScene.prototype.beatUpHelAndStealHerWalletFromHerVagina = function() {
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '', true );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.helFollower.heliaCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.helFollower.heliaCapacity() );
 		EngineCore.outputText( 'You tell her that, sure, you could blow off some steam.  Still grinning, she tosses off her skimpy scale bikini and flops down on her back, already starting to finger her cunt.  You follow suit, stripping off your ' + CoC.getInstance().player.armorName + ' and straddling her hips.  She reaches forward and grasps your ' + Descriptors.cockDescript( x ) + ' in her scaly, clawed hands, causing you to miss a heartbeat before, smiling, she starts to pump it.  Her other hand continues to finger her cunt, preparing it for your ' + Descriptors.cockDescript( x ) + '\'s penetration.  Content to let her lead for the moment, you grasp her wide hips just above where the crimson scales turn to soft flesh, tensing up as she begins to guide you into her slit.\n\n', false );
 		EngineCore.outputText( 'The tip of your cock brushes against the lips of her cunt – it\'s burning hot, making you recoil a bit in her grasp.  But the salamander doesn\'t let up, instead guiding your cock head into her burning cunt, and then grasping your ' + Descriptors.assDescript() + ' and pushing you the rest of the way in with one mighty pull!  You gasp as the explosive heat of her innermost depths overwhelms you, numbing your mind to any sensation but her burning cunt and the muscles contracting over your cock, already starting to milk you.\n\n', false );
 		EngineCore.outputText( 'You grip her hips and begin thrusting into her, your tempo guided and measured by her firm grasp on your ' + Descriptors.assDescript() + '.  As you first pull out, you\'re hit by an overwhelming coolness – what once seemed like hot, dry air is mercifully cool on your cock as you withdraw.  You\'re only at the tip, however, when her arms tighten around your ass and start pushing back.  Grinning, you slam into her, eliciting a sudden moan of pleasure from your fiery lover.  You pick up the tempo, thrusting into her hot depths and out again into the cool air, fucking her hard and fast.  She moans and squirms under your assault, eventually releasing your ass to grab her big, soft tits and squeeze her nipples.\n\n', false );
@@ -410,7 +410,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 	HelScene.prototype.fuckHelsAss = function() {
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '', true );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.helFollower.heliaAnalCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.helFollower.heliaAnalCapacity() );
 		EngineCore.outputText( 'You tell her that, yes, you want to blow off some steam, and motion for her to get on hands and knees.\n\n', false );
 		EngineCore.outputText( '"<i>Oh, I think I know what we both want,</i>" she says, grinning wolfishly as she strips out of her skimpy bikini and gets down on her hands and knees, turning so that her muscular ass is facing you.  Seductively, she lifts her tail in the air and waggles it in a \'come hither\' motion before getting it out of your way, revealing your prize beneath it – her tight little pucker.\n\n', false );
 		EngineCore.outputText( 'You drop to your knees behind the salamander and start to stroke your cock, getting it to full hardness.  In the moment of anticipation, she reaches a hand back and easily slips a finger into her backdoor, sliding it in up to the second knuckle.  "<i>Don\'t be shy, lover,</i>" she says, withdrawing her finger.  "<i>That\'s no virgin hole you\'re looking at, so come on...  Fuck my ass!</i>"\n\n', false );
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -471,7 +471,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -481,8 +481,8 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 	//Player Win – DP(Multicock Only) (edited);
 	HelScene.prototype.dpHel = function() {
 		EngineCore.spriteSelect( 68 );
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.helFollower.heliaCapacity() );
-		var y = CoC.getInstance().player.cockThatFits2( CoC.getInstance().scenes.helFollower.heliaCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.helFollower.heliaCapacity() );
+		var y = CoC.getInstance().player.cockThatFits2( SceneLib.helFollower.heliaCapacity() );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell her that, yes, you want to blow off some steam.  You start to undo your ' + CoC.getInstance().player.armorName + ', and quickly her eyes go wide.  "<i>You\'ve got something extra, don\'t ya!</i>" she laughs, looking mighty impressed.  "<i>Well, I think we can take care of that ' + Descriptors.cockDescript( y ) + ', too. Just sit back and relax, lover!</i>"\n\n', false );
 		EngineCore.outputText( 'You nod, and sit down on the high grass as your salamander lover strips down and straddles you.  She grabs your ' + Descriptors.cockDescript( x ) + ' in her left hand and your ' + Descriptors.cockDescript( y ) + ' in her right, and quickly begins to pump them, bringing them to full hardness and even summoning forth a few dollops of pre-cum.  After perhaps a minute of this treatment, you\'re as hard as you\'re likely to get, and seeing this, the salamander grins wolfishly.\n\n', false );
@@ -503,7 +503,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		CoC.getInstance().flags[ kFLAGS.TIMES_HELIA_DOUBLE_DONGED ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -531,7 +531,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -555,7 +555,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -593,7 +593,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -763,7 +763,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]--;
 		//Bump down follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( -15 );
+		SceneLib.helFollower.helAffection( -15 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -875,7 +875,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]--;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( -15 );
+		SceneLib.helFollower.helAffection( -15 );
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'You shake your head with a deprecating smile, and turn to leave her to her pleasures.', false );
 		//(reset Helgate flag to 0);
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//THREESOME – FUCK HER ASS (wang of area =< 85) (edited);
 	HelScene.prototype.fuckHerAss = function() {
@@ -941,7 +941,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		//POST THREESOME RESULT;
 		EngineCore.doNext( this.postMinoThreesomeDecisionTime );
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		//POST THREESOME RESULT;
 		EngineCore.doNext( this.postMinoThreesomeDecisionTime );
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'On second thought, you\'d rather keep it simple for now, even if it means battling back her future advances with force of arms instead of words.  You kiss her once more and give her breasts a squeeze for the road, then wordlessly get up and take your leave.\n\n', false );
 		//(reset Helgate to 0);
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Berserker Mode];
 	HelScene.prototype.berserkMode = function() {
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( '"<i>I\'ll see you soon, lover mine,</i>" she whispers, planting a kiss on your neck.\n\n', false );
 		EngineCore.outputText( 'You tell her to count on it, and make your way back to camp.', false );
 		EngineCore.dynStats( 'lus', 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//===================;
 	//THREESOMES AHOY!;
@@ -1163,10 +1163,10 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( '"<i>You are... velcome,</i>" Isabella says before bidding the two of you goodbye.  You soon follow suit, saying goodbye to the girls and making your way back to camp, proud to have fostered what could well be a friendship between the two.', false );
 		//(Return PC to camp, advance time 1 hour);
 		//(Increase Isabella's affection);
-		CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 5 );
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.isabellaFollowerScene.isabellaAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Watch (edited);
 	HelScene.prototype.watchIsabellaAndHelFight = function() {
@@ -1181,7 +1181,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'When the missile attack pauses, you can hear Hel yell "<i>We\'ll finish this another time, cow!</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Count on it, naughty girl!</i>" Isabella shouts before the two of them break apart and disappear into the brush to elude the hunting party.', false );
 		//(Return PC to camp, advance time 1 hour. 10% chance of Intro Scene playing whenever Isabella or Hel would normally be encountered until PC chooses Leave or Diplomacy in the future);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave (edited);
 	HelScene.prototype.skipTownOnIsabellaAndHelsFight = function() {
@@ -1190,7 +1190,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'Well, you\'re sure as hell not going to get involved in this – better to let them duke it out between themselves rather than risk your relationship with either girl.  You head on back to camp, not terribly surprised to hear sharp moos, grunts, and cries for some time in the distance.\n\n', false );
 		//(Return PC to camp, advance time 1 hour. Intro scene will not play again.);
 		CoC.getInstance().flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Isabella x salamander Threesome – Camp Version Intro (edited);
@@ -1202,7 +1202,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'You make your way out of the camp, hearing another and another thwack, getting louder as you approach.\n\n', false );
 		EngineCore.outputText( 'You pick up the pace, and soon come to your camp\'s perimeter.  There, Isabella is standing stark naked save for her shield, facing down an opponent wreathed in darkness but for the long, curved blade he or she wields.\n\n', false );
 		EngineCore.outputText( '"<i>' + CoC.getInstance().player.short + '!</i>" Isabella gasps, relieved to see you approach. "<i>', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( 'Good, now ve can take ze fight to zis uncouth barbarian!</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( 'Good, now we can take the fight to this uncouth barbarian!</i>"\n\n', false );
@@ -1211,7 +1211,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'You raise your ' + CoC.getInstance().player.weaponName + ' and prepare to fight the shadowy villain... only to see Hel the salamander step forward, staring at you with wide eyes.\n\n', false );
 		EngineCore.outputText( '"<i>' + CoC.getInstance().player.short + '!  What the fuck!?</i>" Hel demands, looking from you to the redheaded cow-girl.\n\n', false );
 		EngineCore.outputText( 'Taken off guard, you start to introduce Hel to your companion.  Scowling, Isabella says, ', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>I know ze little beech, ' + CoC.getInstance().player.short + '.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>I know the little bitch, ' + CoC.getInstance().player.short + '.</i>"\n\n', false );
@@ -1223,7 +1223,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'Now that you have their undivided attention, you demand an explanation that\'s so sorely lacking.\n\n', false );
 		EngineCore.outputText( 'Glaring at Isabella, Hel says, "<i>This... cow... stole my bandanna a few months ago and won\'t give it back.</i>"\n\n', false );
 		EngineCore.outputText( 'Isabella makes an indignant huff and turns her nose up at the salamander. ', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Do not listen to ze little liar, ' + CoC.getInstance().player.short + '.  I found it in ze hands of ze gnolls, and most certainly did not steal it.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>Do not listen to the little liar, ' + CoC.getInstance().player.short + '.  I found it in the hands of the gnolls, and most certainly did not steal it.</i>"\n\n', false );
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 
 		EngineCore.outputText( '"<i>Yes you fucking well did!</i>" Hel snaps, waving her sword around.  "<i>' + CoC.getInstance().player.short + ', why the hell are you protecting that fat cow, huh?  Lemme at her!</i>"\n\n', false );
 		EngineCore.outputText( 'You roll your eyes and explain that Isabella is your companion now, and that as much as you like Hel, you can\'t abide violence coming to your friends.  It takes a couple of minutes to penetrate the salamander\'s combat-high mind, but when it does, she slowly backs down and lowers her sword.  Cautiously, Isabella lowers her shield to match.\n\n', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>So,</i>" Isabella finally says, shifting her gaze from you to the salamander. "<i>You two are... lovers, ja?  And here I vas about to thrash you!</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>So,</i>" Isabella finally says, shifting her gaze from you to the salamander. "<i>You two are... lovers, huh?  And here I was about to thrash you!</i>"\n\n', false );
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'As you settle in to sleep for the night, you notice that Isabella\'s wandered off out of the camp.  Mildly concerned for the busty cow-girl\'s safety, you set out for the camp perimeter.  It doesn\'t take you long to find her, thanks to a soft, throaty mooing coming from the brush near camp.\n\n', false );
 		EngineCore.outputText( 'You push the scrub aside, revealing the cow-girl sitting on the ground, running a hand through the hair of Hel the salamander, who\'s currently sitting on the cow-girl\'s lap, her hands on Isabella\'s hefty breasts and one of the quad-nipples locked in her mouth.  Seeing you approach, Isabella lifts her hand from Hel\'s head and gives you a somewhat-abashed wave.\n\n', false );
 		EngineCore.outputText( '"<i>' + CoC.getInstance().player.short + '... it is –moo– good to see youuuuu.</i>"  She trails off into a long, ecstatic moan as Hel continues to suckle from her massive teat, acknowledging your presence only with a little waggle of her tail and a wink.  ', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Perhaps you vould like a drink as vell, no?</i>" Isabella offers, patting the chocolate-colored tit that Hel is not actively suckling from.\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>Perhaps you would like a drink as well, no?</i>" Isabella offers, patting the chocolate-colored tit that Hel is not actively suckling from.\n\n', false );
@@ -1288,7 +1288,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		if( CoC.getInstance().time.hours < 6 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Drink];
@@ -1305,7 +1305,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( 'Her areolae are massive, some three inches across, though they still seem small in comparison to her mounds.  Each of the four nipples she\'s presented to you is already starting to bead with little drops of milk, and you can\'t help but flick your tongue across them, lapping up the droplets and sending a shudder up the cow-girl\'s spine.  Before she has a chance to recover, you see out of the corner of your eye Hel slipping her tail up into Isabella\'s skirt, and the cow-girl lets out a sharp, high gasp.\n\n', false );
 		EngineCore.outputText( 'You withhold comment, though, as she\'s grabbing the back of both your heads and smashing your faces into her milky teats, forcing you and Hel to drink or suffocate.  You open wide, taking the four nipples into your mouth all at once, and are immediately rewarded with a stream of creamy, delicious milk at the first suck.  You have to chug to keep up with the massive flow coming from her breasts, seeming to make no dent in her nigh-endless supply no matter how long you suckle from her.  What you do succeed in doing is causing Isabella to roll her head back and let out an ecstatic moan, smashing your face further into her leaking milk-jug.\n\n', false );
 		EngineCore.outputText( 'Suddenly, you\'re rocketing toward the ground!  Isabella lands on her back with a thud and a low moo, soon joined by you and Hel, who is still locked onto Isabella\'s teat with a ferocious determination.  Panting, the busty shield maiden gasps out, ', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>I vant you.  I need you.  Both of you.  Here and now.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>I want you.  I need you.  Both of you.  Here and now.</i>"\n\n', false );
@@ -1355,7 +1355,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		if( CoC.getInstance().time.hours < 6 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//DICK (edited);
@@ -1422,7 +1422,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 			EngineCore.outputText( 'Feeling bad for the thus-far-neglected needs of Isabella, you pull out of Hel with a wet squelch and slap your cock against the cow-girl\'s pussy. She gasps, looking over the salamander\'s shoulder at the large member pressing against her slit.\n\n', false );
 			//(if PC cock > 9 inches: ;
 			if( CoC.getInstance().player.cocks[ x ].cockLength > 9 ) {
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '"<i>I normally do not play vith such... large... zings, but for you, I vill make an exception.  Give me your cock!</i>"\n\n', false );
 				} else {
 					EngineCore.outputText( '"<i>I normally don\'t play with such... clumsy... things, but for you, I\'ll make an exception.  Give me your cock!</i>"\n\n', false );
@@ -1445,7 +1445,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 			}
 			EngineCore.outputText( '.\n\n', false );
 			EngineCore.outputText( 'Grinning over Isabella\'s shoulder, Hel grabs the cow-girl\'s milky udders and takes one of her quad-nipples between her thumbs and forefingers.  "<i>Isabella, I think our dear ' + CoC.getInstance().player.short + ' is getting pretty sweaty...</i>"\n\n', false );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Oh, ja!</i>" Isabella says, now grinning too.  You\'re starting to worry, but between the two large women pinning you down and the intense pleasure of having all your cocks ridden at once, you\'re virtually helpless against whatever\'s coming.  "<i>Oh, ja,</i>" Isabella repeats, "<i>And I think our Champion needs a bath!</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( '"<i>Oh, yes!</i>" Isabella says, now grinning too.  You\'re starting to worry, but between the two large women pinning you down and the intense pleasure of having all your cocks ridden at once, you\'re virtually helpless against whatever\'s coming.  "<i>Oh, yes,</i>" Isabella repeats, "<i>And I think our Champion needs a bath!</i>"\n\n', false );
@@ -1478,7 +1478,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.dynStats( 'sen', -3 );
 		//(Scene End);
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.helFollower.helAffection( 5 );
 		EngineCore.doNext( this.izzySallyThreeSomeFollowup );
 	};
 	HelScene.prototype.izzySallyThreeSomeFollowup = function() {
@@ -1486,7 +1486,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Now a sweat-and-cum soaked mess, the girls collapse onto their backs around you.  Sighing contentedly, Isabella rolls over and nuzzles her head on your chest; a moment later sees Hel doing the same, wrapping her warm tail around your ' + Descriptors.cockDescript( 0 ) + ' lovingly.\n\n', false );
 		EngineCore.outputText( '"<i>That was amazing.  Seriously,</i>" the salamander says, still panting from the experience.  "<i>I mean, holy shit you two.  We... we really need to do this more often.</i>"\n\n', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Mmm, ja,</i>" Isabella says with a long yawn.  "<i>Ve must indeed.  But for now, ve must rest.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>Mmm, yes,</i>" Isabella says with a long yawn.  "<i>We must indeed.  But for now, we must rest.</i>"\n\n', false );
@@ -1497,7 +1497,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		if( CoC.getInstance().time.hours < 6 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//VAGINA (edited);
@@ -1529,7 +1529,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		}
 		EngineCore.outputText( '.\n\n', false );
 		EngineCore.outputText( '"<i>That was amazing.  Seriously,</i>" the salamander says, still panting from the experience.  "<i>I mean, holy shit, you two.  We... we really need to do this more often.</i>"\n\n', false );
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 			EngineCore.outputText( '"<i>Mmm, ja,</i>" Isabella says with a long yawn.  "<i>Ve must indeed.  But for now, ve must rest.</i>"\n\n', false );
 		} else {
 			EngineCore.outputText( '"<i>Mmm, yes,</i>" Isabella says with a long yawn.  "<i>We must indeed.  But for now, we must rest.</i>"\n\n', false );
@@ -1540,12 +1540,12 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.isabellaFollowerScene.isabellaAffection( 4 );
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
+		SceneLib.isabellaFollowerScene.isabellaAffection( 4 );
+		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.getInstance().time.hours < 6 ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//Fox Girls -- First Time Intro;
@@ -1574,7 +1574,7 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You graciously excuse yourself, saying that you forgot something back at camp.  All three girls say "<i>Awwww</i>" in unison, but don\'t make any special effort to keep you from going.  As you head out, you look over your shoulder in time to see Hel give you a little wink as the fox-herms clamber into her lap.  At least someone\'s getting laid today.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//Foursome Scene Intro (First & Repeat);
 	HelScene.prototype.heliasFoxyFourSomeFluffs = function() {
@@ -1646,8 +1646,8 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( '<b>3 hours later...</b>\n\n', false );
 		EngineCore.outputText( 'You awake to find yourself tucked into the bed, your clothes folded neatly next to you.  It looks like someone cleaned you up and tucked you in after your little orgy.  When you hear a loud snore beside you, you don\'t even need to guess who it was that took care of you.  You pull up the covers, and of course find Helia curled up beside you, her warm tail acting like a pillow for the two of you.  You smile, give her a long kiss, and collect your things.  You leave the salamander to sleep it off, and head back to camp.', false );
 		//Bump up follower tracking affection too;
-		CoC.getInstance().scenes.helFollower.helAffection( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		SceneLib.helFollower.helAffection( 5 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	//Telling Hel to Not Get Hooked on Some Random Dude's Dickjuice (Or, How Hel Learned to Love Monogamy. Kind of.);
@@ -1746,8 +1746,8 @@ angular.module( 'cocjs' ).run( function( $log, $rootScope, Appearance, Pregnancy
 		EngineCore.outputText( '\n\n"<i>No sex for you,</i>" you answer.' );
 		EngineCore.outputText( '\n\n"<i>I.  But.  What.  You said.  We.  But.... WELL FUCK YOU ANYWAY.</i>"' );
 		EngineCore.outputText( '\n\nYou shrug and head back to camp as Hel, half-mad with lust, starts masturbating, glaring at your back as you leave.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
-		CoC.getInstance().scenes.helFollower.helAffection( -20 );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		SceneLib.helFollower.helAffection( -20 );
 	};
-	CoC.getInstance().registerScene( 'helScene', new HelScene() );
+	SceneLib.registerScene( 'helScene', new HelScene() );
 } );

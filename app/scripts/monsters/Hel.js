@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Hel', function( $log, kFLAGS, Appearance, ArmorLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib) {
-	var Hel = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appearance, ArmorLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib) {
+	function Hel() {
+		this.init(this, arguments);
+	}
+	angular.extend(Hel.prototype, Monster.prototype);
 	Hel.prototype.helAttack = function() {
 		var damage;
 		//return to combat menu when finished;
@@ -153,9 +156,9 @@ angular.module( 'cocjs' ).factory( 'Hel', function( $log, kFLAGS, Appearance, Ar
 	};
 	Hel.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.Sparring ) >= 0 ) {
-			CoC.getInstance().scenes.helFollower.PCBeatsUpSalamanderSparring();
+			SceneLib.helFollower.PCBeatsUpSalamanderSparring();
 		} else {
-			CoC.getInstance().scenes.helScene.beatUpHel();
+			SceneLib.helScene.beatUpHel();
 		}
 	};
 	Hel.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -164,9 +167,9 @@ angular.module( 'cocjs' ).factory( 'Hel', function( $log, kFLAGS, Appearance, Ar
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
 			if( this.findStatusAffect( StatusAffects.Sparring ) >= 0 ) {
-				CoC.getInstance().scenes.helFollower.loseToSparringHeliaLikeAButtRapedChump();
+				SceneLib.helFollower.loseToSparringHeliaLikeAButtRapedChump();
 			} else {
-				CoC.getInstance().scenes.helScene.loseToSalamander();
+				SceneLib.helScene.loseToSalamander();
 			}
 		}
 	};

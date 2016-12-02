@@ -5,9 +5,9 @@ angular.module('cocjs').factory('Enum', function () {
 		this.init(this, arguments);
 	}
 	
-	Enum.prototype.init = function() {
-		this._name = null;
-		this._index = -1;
+	Enum.prototype.init = function(that) {
+		that._name = null;
+		that._index = -1;
 	};
 	Enum.prototype.getName = function() {
 		return this._name;

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Doppleganger, AppearanceDefs, PerkLib, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs, PerkLib, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
 	function DopplegangerScenes() {
 	}
 
@@ -175,14 +175,14 @@ angular.module( 'cocjs' ).run( function( Doppleganger, AppearanceDefs, PerkLib, 
 		}
 		EngineCore.outputText( '\n\n<b>(Key Item Acquired)</b>' );
 		CoC.getInstance().player.orgasm();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.killYourself = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '\n\nYou hold its gaze for a moment more, and then with a single, fluid movement turn and smash your [weapon] into the engraved mirror. A shrill scream mingles with the sound of breaking glass, but by the time the shards begin to tinkle and chime to the floor it’s keened away, and when you turn back the doppelganger is gone. The shrill sound could have been the sound of the mirror itself when you hit it, you suppose. This could all have been a very strange fugue. Certainly, standing here now in this dishevelled storage room, it’s difficult to believe what just happened. Shaking your head, you make sure the protective glasses you came here for are still in your pocket before heading to the door and leaving.' );
 		Combat.cleanupAfterCombat();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.d3.resumeFromFight );
+		EngineCore.addButton( 0, 'Next', SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.inSovietCoCSelfFucksYou = function() {
 		EngineCore.clearOutput();
@@ -215,5 +215,5 @@ angular.module( 'cocjs' ).run( function( Doppleganger, AppearanceDefs, PerkLib, 
 		EngineCore.outputText( '\n\nYou quickly go completely insane, just like your bodysnatcher did, although not in a way [he] ever knew. You will never be able to express that insanity though. Every hour there is a new scene of complete depravity for you to reflect, personify and act out. A demon’s dearest wish - an eternity of constantly changing, mind-boggling sex - is your final fate.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'dopplegangerScenes', new DopplegangerScenes() );
+	SceneLib.registerScene( 'dopplegangerScenes', new DopplegangerScenes() );
 } );

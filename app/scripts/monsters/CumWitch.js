@@ -1,15 +1,18 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CumWitch', function( CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
-	var CumWitch = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'CumWitch', function( SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+	function CumWitch() {
+		this.init(this, arguments);
+	}
+	angular.extend(CumWitch.prototype, Monster.prototype);
 	CumWitch.prototype.performCombatAction = function() {
-		CoC.getInstance().scenes.dungeonSandwitch.cumWitchAI();
+		SceneLib.dungeonSandwitch.cumWitchAI();
 	};
 	CumWitch.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeonSandwitch.cumWitchDefeated();
+		SceneLib.dungeonSandwitch.cumWitchDefeated();
 	};
 	CumWitch.prototype.won = function() {
-		CoC.getInstance().scenes.dungeonSandwitch.defeatedByCumWitch();
+		SceneLib.dungeonSandwitch.defeatedByCumWitch();
 	};
 	CumWitch.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

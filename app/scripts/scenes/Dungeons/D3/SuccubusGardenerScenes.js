@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, EventParser, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, EventParser, CoC, EngineCore ) {
 	function SuccubusGardenerScenes() {
 	}
 
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, Descriptors, Utils, StatusAffec
 		EngineCore.outputText( ' like those are one in a million.' );
 		if( CoC.getInstance().flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 0 ) {
 			EngineCore.outputText( ' Perhaps Scylla\'s ruby mouth could give her a run for her money, but there\'s only one way to be sure.' );
-		} else if( CoC.getInstance().scenes.dominika.fellatrixSucked() > 0 ) {
+		} else if( SceneLib.dominika.fellatrixSucked() > 0 ) {
 			EngineCore.outputText( ' Perhaps Dominika\'s all-consuming mouth could give her a run for her money, but there\'s only one way to be sure.' );
 		}
 		EngineCore.outputText( ' You grab hold of the blubbering slut by her curled horns, admiring the way the tentacle-juice on her lips shines in the light, and pull her against your crotch, pressing her against' );
@@ -148,14 +148,14 @@ angular.module( 'cocjs' ).run( function( kFLAGS, Descriptors, Utils, StatusAffec
 		EngineCore.outputText( 'You circle behind her an put and end to her evil while she is busy with her pet, then turn to walk away. When you look back over your shoulder, her body is gone. Nothing remains but an empty pathway.' );
 		CoC.getInstance().flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_KILLED;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.leaveHer = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Figuring that the succubus\'s pets can keep her busy indefinitely, you turn away. A shriek of pleasure draws your attention back, and you turn in time to see dozens of coiling, leafy masses encircling her every limb, bodily carrying her into a wall of twisting, leaking cocks and pussies. Her orifices are stuffed with pumping lengths that froth with spit and girlcum, and her eyes, equal parts alarmed and aroused, widen before disappearing into the forest of green.' );
 		CoC.getInstance().flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_LEFT;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.surrenderToTheGardener = function( hpVictory ) {
 		// Male;
@@ -625,5 +625,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, Descriptors, Utils, StatusAffec
 		EngineCore.outputText( '\n\nYou never want to leave. In fact, you never want again.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'succubusGardenerScenes', new SuccubusGardenerScenes() );
+	SceneLib.registerScene( 'succubusGardenerScenes', new SuccubusGardenerScenes() );
 } );

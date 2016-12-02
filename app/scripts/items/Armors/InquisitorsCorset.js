@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'InquisitorsCorset', function( Armor, PerkLib, EngineCore, CoC ) {
-	var InquisitorsCorset = angular.copy( Armor );
+	function InquisitorsCorset() {
+		this.init(this, arguments);
+	}
+	angular.extend(InquisitorsCorset.prototype, Armor.prototype);
 	InquisitorsCorset.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'I.Corst', 'I.Corst', 'inquisitor\'s corset', 'an inquisitor\'s corset', 4, 2000, 'This sexualized and feminine red and gold ensemble carries with it the hopes of a shamed sorcerer.  Wearing it will cause spells to tax your health instead of exhausting you.', 'Light' ] );
 	};

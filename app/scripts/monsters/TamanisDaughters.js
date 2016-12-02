@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( CoC, EngineCore, Monster, Utils, TamainsDaughtersScene, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
-	var TamanisDaughters = angular.copy( Goblin );
+angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, EngineCore, Monster, Utils, TamainsDaughtersScene, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
+	function TamanisDaughters() {
+		this.init(this, arguments);
+	}
+	angular.extend(TamanisDaughters.prototype, Goblin.prototype);
 	TamanisDaughters.prototype.midRoundMadness = function() {
 		var selector = Utils.rand( 4 );
 		if( selector === 0 ) {
@@ -78,14 +81,14 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( CoC, EngineCore
 		Combat.combatRoundOver();
 	};
 	TamanisDaughters.prototype.defeated = function( ) {
-		CoC.getInstance().scenes.tamaniDaughtersScene.combatWinAgainstDaughters();
+		SceneLib.tamaniDaughtersScene.combatWinAgainstDaughters();
 	};
 	TamanisDaughters.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foes seem visibly disgusted and leave, telling you to, "<i>quit being so fucking gross...</i>"' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.tamaniDaughtersScene.loseToDaughters();
+			SceneLib.tamaniDaughtersScene.loseToDaughters();
 		}
 	};
 	TamanisDaughters.prototype.init = function( that ) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, ConsumableLib, Utils, PregnancyStore, Combat, CoC, EngineCore, Descriptors, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MaleSpiderMorph, EventParser, ConsumableLib, Utils, PregnancyStore, Combat, CoC, EngineCore, Descriptors, OnLoadVariables ) {
 	function MaleSpiderMorphScene() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 		else {
 			EngineCore.outputText( 'He breaks into a smile and says, "<i>Hi there!  I haven\'t seen anyone else with a shred of sanity in FOREVER.  Would you mind just, talking with me?</i>"', false );
 			//[Fight] [Talk] [Leave];
-			EngineCore.choices( 'Fight', this.fightSpiderBoy, 'Talk', this.talkToSpiderBoy, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fight', this.fightSpiderBoy, 'Talk', this.talkToSpiderBoy, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	MaleSpiderMorphScene.prototype.fightSpiderBoy = function() {
@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 		EngineCore.outputText( 'You talk of your own people, and the good times you had in Ingnam growing up, but you keep coming back to the sadness of losing so many young adults to becoming champions.  Eventually you go over your own selection, training, and eventual journey.  The spider-morph listens with rapt attention the whole way through.\n\n', false );
 		EngineCore.outputText( '"<i>Wow,</i>" comments the arachnid male, "<i>that\'s quite the story.  Thank you so much for talking to me today.  Here, take this.  If you ever want to have your own venom or webbing, eat as much of it as you can.  Who knows, maybe it\'ll help you take down the demons somehow?</i>"\n\n', false );
 		EngineCore.outputText( 'He stands and gives you a bundle of pink fibers with a nervous bow.  You look down at the gossamer strands in your hands, and when you glance back up, he\'s gone.  ', false );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.S_GOSSR, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//*Victory Pretext:rr;
 	MaleSpiderMorphScene.prototype.defeatSpiderBoy = function() {
@@ -498,5 +498,5 @@ angular.module( 'cocjs' ).run( function( MaleSpiderMorph, EventParser, Consumabl
 		EngineCore.outputText( '. Looking around, you notice the slimy pool appears to have dried up, but the broken eggshells show that you weren\'t just dreaming. Tiny dots in the dirt form a trail leading to the swamp, and you can only guess where your offspring went.\n', false );
 		CoC.getInstance().player.orgasm();
 	};
-	CoC.getInstance().registerScene( 'maleSpiderMorphScene', new MaleSpiderMorphScene() );
+	SceneLib.registerScene( 'maleSpiderMorphScene', new MaleSpiderMorphScene() );
 } );

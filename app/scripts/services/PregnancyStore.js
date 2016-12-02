@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module('PregnancyStore').factory('kFLAGS', function ($log, CoC) {
+angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 	//All the flags are passed through the constructor so that they can be different in every class that uses PregnancyStore but the pregnancy code remains the same
 	function PregnancyStore() {
 		this.init(this, arguments);

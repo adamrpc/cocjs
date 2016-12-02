@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
-	var Player = angular.copy( Character );
+angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character, ItemSlot, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
+	function Player() {
+		this.init(this, arguments);
+	}
+	angular.extend(Player.prototype, Character.prototype);
 
 	Player.prototype.init = function( that, args ) {
 		Character.prototype.init( that, args );
@@ -34,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 	};
 	//Player pregnancy variables and functions
 	Player.prototype.pregnancyUpdate = function() {
-		return CoC.getInstance().scenes.pregnancy.updatePregnancy(); //Returns true if we need to make sure pregnancy texts aren't hidden
+		return SceneLib.pregnancy.updatePregnancy(); //Returns true if we need to make sure pregnancy texts aren't hidden
 	};
 	Player.prototype.getArmorDef = function() {
 		var result = this.armor.def;
@@ -161,17 +164,17 @@ angular.module( 'cocjs' ).factory( 'Player', function( $log, Character, ItemSlot
 		// Uma's Massage bonuses
 		var statIndex = this.findStatusAffect( StatusAffects.UmasMassage );
 		if( statIndex >= 0 ) {
-			if( this.statusAffect( statIndex ).value1 === CoC.getInstance().scenes.umasShop.MASSAGE_RELAXATION ) {
+			if( this.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELAXATION ) {
 				damage = Math.round( damage * this.statusAffect( statIndex ).value2 );
 			}
 		}
 		// Uma's Accupuncture Bonuses
 		var modArmorDef = 0;
 		if( this.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
-			modArmorDef = ((this.armorDef * CoC.getInstance().scenes.umasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI) - this.armorDef);
+			modArmorDef = ((this.armorDef * SceneLib.umasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI) - this.armorDef);
 		}
 		if( this.findPerk( PerkLib.ChiReflowAttack ) >= 0 ) {
-			modArmorDef = ((this.armorDef * CoC.getInstance().scenes.umasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI) - this.armorDef);
+			modArmorDef = ((this.armorDef * SceneLib.umasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI) - this.armorDef);
 		}
 		damage -= modArmorDef;
 		if( damage < 0 ) {

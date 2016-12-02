@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Utils, AppearanceDefs, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Ifris() {
 	}
 
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		}
 		EngineCore.outputText( '(You could go ahead and work out while she watches, ask her to join you, or leave.)', false );
 		//Work out || Ask Her To Join || Leave?;
-		EngineCore.choices( 'Work Out', this.workOutForIfris, 'Join Me?', this.askIfrisToJoinYou, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.gymDesc );
+		EngineCore.choices( 'Work Out', this.workOutForIfris, 'Join Me?', this.askIfrisToJoinYou, '', null, '', null, 'Leave', SceneLib.telAdre.gymDesc );
 	};
 	//3a-PC responds they want to work out-;
 	Ifris.prototype.workOutForIfris = function() {
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		EngineCore.outputText( '', true );
 		if( CoC.getInstance().player.fatigue > 70 ) {
 			EngineCore.outputText( 'There\'s no way you could work out as tired as you are.  Maybe you could come back to flirt with the demonic-looking girl during your next workout.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.gymDesc );
+			EngineCore.doNext( SceneLib.telAdre.gymDesc );
 			return;
 		}
 		EngineCore.outputText( 'You smile to the devil-looking-girl and tell her you\'re just here to get your work-out on.\n\n', false );
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		EngineCore.outputText( '', true );
 		if( CoC.getInstance().player.fatigue > 70 ) {
 			EngineCore.outputText( 'There\'s no way you could work out as tired as you are.  Maybe you could come back to flirt with the demonic-looking girl during your next workout.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.gymDesc );
+			EngineCore.doNext( SceneLib.telAdre.gymDesc );
 			return;
 		}
 		EngineCore.outputText( 'You ask Ifris if she\'d like to join you in some exercises. Her eyes glint mischievously, obviously finding unintended meaning in your words, and you can\'t help but blush.\n\n', false );
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		//Muscleness boost!;
 		EngineCore.outputText( CoC.getInstance().player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
 		EngineCore.fatigue( 30 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//4b-PC decides to show off, possible strength requirement?-;
 	Ifris.prototype.showOffForIfris = function() {
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 			//Reset 'shown off for ifris';
 			CoC.getInstance().flags[ kFLAGS.IFRIS_SHOWED_OFF ] = 0;
 			CoC.getInstance().player.takeDamage( 10 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//4b1-PC fails strength requirement!-;
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 			EngineCore.outputText( 'Gripping the bars tightly, you grit your teeth and give a mighty push upwards! Your muscles strain and you grunt with effort, but the considerable weight barely budges. You hear her make a little disappointed, "<i>awww...</i>" as she watches you for a few long moments, but no matter how much the humiliation motivates you, you just can\'t seem to do it.\n\n', false );
 			EngineCore.outputText( '"<i>Oh well...</i>" She sighs, clearly crestfallen. Cocking one fist on her hip, she gives your ' + CoC.getInstance().player.leg() + ' a light pat as she leaves your presence, vanishing out the door within moments.\n\n', false );
 			EngineCore.outputText( 'Well, at least you had the good sense to stop before you hurt yourself...\n\n', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			CoC.getInstance().flags[ kFLAGS.IFRIS_SHOWED_OFF ] = 0;
 			return;
 		}
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 			//Body changes here;
 			//Muscleness boost!;
 			EngineCore.outputText( CoC.getInstance().player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//4b3-PC succeeds! Is male/herm-;
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		//Body changes here;
 		//Muscleness boost!;
 		EngineCore.outputText( CoC.getInstance().player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ifrs double-penetrates herself on you while you work out.;
 	Ifris.prototype.ifrisDP = function() {
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( Utils, AppearanceDefs, kFLAGS, Descript
 		//Body changes here;
 		//Muscleness boost!;
 		EngineCore.outputText( CoC.getInstance().player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'ifris', new Ifris() );
+	SceneLib.registerScene( 'ifris', new Ifris() );
 } );

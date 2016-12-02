@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'JeanClaude', function( CockTypesEnum, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
-	var JeanClaude = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, CockTypesEnum, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
+	function JeanClaude() {
+		this.init(this, arguments);
+	}
+	angular.extend(JeanClaude.prototype, Monster.prototype);
 	JeanClaude.prototype.doubleAttack = function() {
 		EngineCore.outputText( 'The monstrous basilisk suddenly lunges forward, snarling wordlessly as he swings his cutlass at you twice, the blows of a savage yet expert swordsman.\n\n' );
 		this.createStatusAffect( StatusAffects.Attacks, 2, 0, 0, 0 );
@@ -12,10 +15,10 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( CockTypesEnum, Engine
 		this.doubleAttack();
 	};
 	JeanClaude.prototype.defeated = function( hpVictory ) {
-		CoC.getInstance().scenes.jeanClaudeScenes.beatDaFuckhugeBasilisk( hpVictory );
+		SceneLib.jeanClaudeScenes.beatDaFuckhugeBasilisk( hpVictory );
 	};
 	JeanClaude.prototype.won = function( hpVictory ) {
-		CoC.getInstance().scenes.jeanClaudeScenes.fuckhugeBasiliskFuckedYouUp( hpVictory );
+		SceneLib.jeanClaudeScenes.fuckhugeBasiliskFuckedYouUp( hpVictory );
 	};
 	JeanClaude.prototype.handleTease = function( lustDelta, successful ) {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.RemovedArmor ) < 0 ) {

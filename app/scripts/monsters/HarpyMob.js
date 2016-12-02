@@ -1,15 +1,18 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HarpyMob', function( CoC, Appearance, Utils, AppearanceDefs, Monster ) {
-	var HarpyMob = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'HarpyMob', function( SceneLib, CoC, Appearance, Utils, AppearanceDefs, Monster ) {
+	function HarpyMob() {
+		this.init(this, arguments);
+	}
+	angular.extend(HarpyMob.prototype, Monster.prototype);
 	HarpyMob.prototype.performCombatAction = function() {
-		CoC.getInstance().scenes.dungeonHelSupplimental.harpyHordeAI();
+		SceneLib.dungeonHelSupplimental.harpyHordeAI();
 	};
 	HarpyMob.prototype.defeated = function() {
-		CoC.getInstance().scenes.dungeonHelSupplimental.pcDefeatsHarpyHorde();
+		SceneLib.dungeonHelSupplimental.pcDefeatsHarpyHorde();
 	};
 	HarpyMob.prototype.won = function() {
-		CoC.getInstance().scenes.dungeonHelSupplimental.pcLosesToHarpyHorde();
+		SceneLib.dungeonHelSupplimental.pcLosesToHarpyHorde();
 	};
 	HarpyMob.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

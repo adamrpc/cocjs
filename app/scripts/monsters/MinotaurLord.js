@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MinotaurLord', function( CoC, WeaponLib, Combat, EngineCore, CockTypesEnum, Utils, AppearanceDefs, Monster, StatusAffects ) {
-	var MinotaurLord = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, WeaponLib, Combat, EngineCore, CockTypesEnum, Utils, AppearanceDefs, Monster, StatusAffects ) {
+	function MinotaurLord() {
+		this.init(this, arguments);
+	}
+	angular.extend(MinotaurLord.prototype, Monster.prototype);
 	MinotaurLord.prototype.performCombatAction = function() {
 		if( this.HP < 300 && this.statusAffectv1( StatusAffects.MinoMilk ) < 4 ) {
 			this.minotaurDrankMalk();
@@ -104,14 +107,14 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( CoC, WeaponLib, Com
 		EngineCore.outputText( 'The minotaur lord is defeated!  ' );
 		EngineCore.outputText( '  You could use him for a quick fuck to sate your lusts before continuing on.  Do you?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fuck', CoC.getInstance().scenes.urtaQuest.winRapeAMinoLordAsUrta );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.urtaQuest.beatMinoLordOnToSuccubi );
+		EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest.winRapeAMinoLordAsUrta );
+		EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest.beatMinoLordOnToSuccubi );
 	};
 	MinotaurLord.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
-			CoC.getInstance().scenes.urtaQuest.urtaLosesToMinotaurRoughVersion();
+			SceneLib.urtaQuest.urtaLosesToMinotaurRoughVersion();
 		} else {
-			CoC.getInstance().scenes.urtaQuest.urtaSubmitsToMinotaurBadEnd();
+			SceneLib.urtaQuest.urtaSubmitsToMinotaurBadEnd();
 		}
 	};
 	MinotaurLord.prototype.init = function( that, args ) {
@@ -153,7 +156,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( CoC, WeaponLib, Com
 		that.gems = Utils.rand( 5 ) + 5;
 		that.drop = Monster.NO_DROP;
 		that.tailType = AppearanceDefs.TAIL_TYPE_COW;
-		that.special1 = CoC.getInstance().scenes.minotaurScene.minoPheromones;
+		that.special1 = SceneLib.minotaurScene.minoPheromones;
 		that.checkMonster();
 	};
 	return MinotaurLord;

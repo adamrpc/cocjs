@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, ArmorLib, Combat, PregnancyStore, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Ceraph, ConsumableLib, Appearance, ArmorLib, Combat, PregnancyStore, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function CeraphScene() {
 	}
 
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( '', true );
 		//UBER-Fullbodypenetration;
-		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.biggestCockArea() > 500 && (CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || CoC.getInstance().scenes.jojoScene.monk >= 5) ) {
+		if( CoC.getInstance().player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.getInstance().player.biggestCockArea() > 500 && (CoC.getInstance().player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || SceneLib.jojoScene.monk >= 5) ) {
 			this.hugeCorruptionForceFuckCeraph();
 			return;
 		}
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Female] Ride 'Dat Cawk;
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[OH SHIT SON YOU LOST GET EARS PIERCED];
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You tell Ceraph no, emphatically, over and over.  She gives you a smirk and says, "<i>Whatever.  It\'s only a matter of time.  You\'ll join me soon, pet.</i>"\n\n', false );
 		EngineCore.outputText( 'With that declaration she departs, leaving you confused and horny.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[fight];
 	CeraphScene.prototype.finalCeraphEncounterStartFight = function() {
@@ -493,7 +493,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		CoC.getInstance().player.earsPShort = 'green gem-stone ear-studs';
 		CoC.getInstance().player.earsPLong = 'Green gem-stone ear-studs';
 		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[PC 'BEAT OFF' Ceraph the first time...];
 	CeraphScene.prototype.ceraphFirstTimeRepeat = function() {
@@ -583,12 +583,12 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.outputText( '"<i>So, I take it you like it?  You\'ll never be able to raise a hand in anger again.  I guess if you want to win fights you\'ll have to tease your foes into submission with that luscious body.  I suppose that might be hard to do when you\'re getting off on exposing yourself and cumming from the thought of being tied down,</i>" she laughs.\n\n', false );
 		EngineCore.outputText( 'You tremble with barely restrained lust as the demoness flounces away.  You\'d pursue her, but between her ideas and exposing your crotch to the entire area, you need to cum more than anything in the world.  You scurry back to camp, too horny to think straight and your new piercing aching just enough to keep you from forgetting about it.', false );
 		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 3;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	CeraphScene.prototype.encounterCeraph = function() {
-		//Just in case set up next button for 1 hr + CoC.getInstance().scenes.camp;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		//Just in case set up next button for 1 hr + SceneLib.camp;
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//If havent met her;
 		if( CoC.getInstance().flags[ kFLAGS.PC_MET_CERAPH ] === 0 ) {
 			EngineCore.spriteSelect( 7 );
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		if( !CoC.getInstance().isInCombat() ) {
 			//Load ceraph and set up win conditions;
 			Combat.startCombat( new Ceraph() );
-			leave = CoC.getInstance().scenes.ceraphFollowerScene.ceraphFollowerAppearance;
+			leave = SceneLib.ceraphFollowerScene.ceraphFollowerAppearance;
 			//Exit combat;
 			CoC.getInstance().setInCombat(false);
 			CoC.getInstance().monster.lust = 100;
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 				CoC.getInstance().player.lust = 34;
 			}
 		} else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] >= 4 ) {
-			CoC.getInstance().scenes.ceraphFollowerScene.submissiveCeraphOffer();
+			SceneLib.ceraphFollowerScene.submissiveCeraphOffer();
 			return;
 		}
 		//Normal stuff here;
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.ceraphFollowerScene.ceraphFollowerAppearance );
+				EngineCore.doNext( SceneLib.ceraphFollowerScene.ceraphFollowerAppearance );
 			}
 		}
 	};
@@ -736,7 +736,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//(REQ's – HUGE WANG, Exgartuan or Jojo corruption, and !centaur);
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 			EngineCore.outputText( '</i>"', false );
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '  That\'s rarer than you know, so I\'m feeling a little generous.  ', false );
@@ -924,7 +924,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.outputText( 'beat a hasty retreat from the trickster of fetishes.  Her masturbatory moans chase you down the mountainside back towards your camp, spiking the already-burning furnace of your lust.', false );
 		//(+10 lust + 10lust/piercing);
 		EngineCore.dynStats( 'lus', (10 + CoC.getInstance().flags[ kFLAGS.PC_FETISH ] * 10) );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade] ;
 	CeraphScene.prototype.tradeCeraphSomething = function() {
@@ -981,7 +981,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph smiles knowingly at your response.  "<i>You\'ll find this to be quite sexy.  Just be careful putting it on.  If you don\'t fit it right it\'ll pinch,</i>" the demoness instructs while tossing you a set of armor.\n\n', false );
 		//(Get trapped armor and go home);
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.SEDUCTA, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ArmorLib.SEDUCTA, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade Bimbo Liquer];
 	CeraphScene.prototype.tradeCeraphBimboLiqueur = function() {
@@ -993,7 +993,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		CoC.getInstance().player.takeDamage( 4 );
 		CoC.getInstance().flags[ kFLAGS.PC_FETISH ] = 0;
 		EngineCore.dynStats( 'lus', -20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade Genitals];
 	CeraphScene.prototype.tradeCeraphCrotchityBits = function() {
@@ -1004,7 +1004,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 			EngineCore.outputText( 'A disembodied voice roars out, "<i>FUCK NO!  You are NOT giving me to that crazy bitch!</i>"  Exgartuan doesn\'t seem to want to run the risk of being taken by Ceraph, and he completely assumes control of your ' + CoC.getInstance().player.legs() + ' to make you flee with all due haste.  He taunts, "<i>Rip off your own little dick, why doncha!  You\'d look better with just a pussy anyhow ya dried out old sow!</i>"\n\n', false );
 			EngineCore.outputText( 'Ceraph seems perturbed but doesn\'t bother to pursue you.', false );
 			EngineCore.dynStats( 'lus', -20 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Create array for choosing bits!;
@@ -1119,7 +1119,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You let her know that you\'ve changed your mind and take off before Ceraph can try to take your beloved body parts.  You hear her laugh and tease as you run, yelling, "<i>What, can\'t handle the thought of an Omnibus touching your fun bits?  Poor baby!</i>"\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yes];
 	CeraphScene.prototype.giveUpYourBallsOrWhateverForLessFetishes = function() {
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		}
 		//Fix any gender mixmatches;
 		CoC.getInstance().player.genderCheck();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//NIGHTTIME;
 	//Nighttime Cock Surprise! - If Ceraph has ever taken a PC's wang.;
@@ -1495,9 +1495,9 @@ angular.module( 'cocjs' ).run( function( Ceraph, ConsumableLib, Appearance, Armo
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
-	CoC.getInstance().registerScene( 'ceraphScene', new CeraphScene() );
+	SceneLib.registerScene( 'ceraphScene', new CeraphScene() );
 } );

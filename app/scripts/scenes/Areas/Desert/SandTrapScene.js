@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandTrap ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandTrap ) {
 	function SandTrapScene() {
 	}
 
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 				EngineCore.outputText( '\n\nMoving as quickly and lightly as you can, you manage to hop clear of the sandtrap\'s pitfall and claw your way up a relatively stable dune.  You turn to take the androgynous creature in, half buried in its deep hollow.' );
 				EngineCore.outputText( '\n\n"<i>You\'ve got quick feet, little ant!</i>" it giggles.  It lowers its brow and leers up at you with smouldering black eyes, its hands slowly and sensuously trailing patterns in the sand.  "<i>I bet you\'re good at lots of other things, too.  Why doesn\'t the brave little ant come down here and show me?</i>"  If you\'re going to fight this creature, you will have to step into its treacherous hollow to get in range, which is surely its intention - if you try launching things at it from where you are, it will probably just hide itself.  On the other hand, it would be easy to just ignore its taunts and walk away.' );
 				//Fight]/[Leave]
-				EngineCore.choices( 'Fight', this.startSandTarpFight, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Fight', this.startSandTarpFight, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			}
 			//Speed check fail:
 			else {
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( ' midriff exposed and glamour gone, the creature looks quite different; six eyes as black as its hair look at you hungrily from its beautiful androgynous face, whilst four slender arms trail patterns in the sand around its willowy, flat-chested midsection.  It wriggles its body tauntingly at you, making the sand beneath it move ponderously.  You glimpse insect chitin beneath its flat humanoid belly; the buried half of this creature must be monstrous.' );
 		EngineCore.outputText( '\n\n"<i>You aren\'t as slow as you look, little ant,</i>" it calls up to you, grinning slyly.  It speaks in a buzzing, fluttering voice which is nothing like the one it attempted to entice you into its trap with.  "<i>Why don\'t you come down here and dance for me some more?  I\'m sure a quick, strong traveller like you could run rings around a simple little sandtrap like me.</i>"  If you\'re going to fight this creature, you will have to step into its treacherous hollow to get in range, which is surely its intention - if you try launching things at it from where you are, it will probably just hide itself.  On the other hand, it would be easy to just ignore its taunts and walk away.' );
 		//[Fight]/[Leave]
-		EngineCore.choices( 'Fight', this.startSandTarpFight, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this.startSandTarpFight, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	SandTrapScene.prototype.startSandTarpFight = function() {
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.spriteSelect( 97 );
 		EngineCore.outputText( 'With some effort you break your stare with the Sandtrap, turn away and step back towards camp, resolving to leave this disturbing scenario with its disturbing thoughts behind.' );
 		EngineCore.outputText( '\n\n"<i>I understand, Flytrap,</i>" a calm voice reaches you from behind.  "<i>You need time to think things over and truly recognise what you are.  I know you will come back.  You always do.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Desztiny:
 	SandTrapScene.prototype.desztiny = function() {
@@ -753,5 +753,5 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( '\n\nYou spend the rest of your life fulfilling the duties of a Flytrap, leading unsuspecting wanderers of the desert into the grasp of the Sandtraps.  When times are lean you gladly submit to the Sandtraps yourself - gleefully allow them to pump your moist, obedient ass full of eggs.  They don\'t have to do that too often though, because you quickly become an absolute master at fooling travellers with your looks; able to sense what even the most cautious want to see and becoming it at the twitch of a wing, the ultimate desert mirage.  Before too long the air of Mareth\'s desert and plains become full of little Flytraps, their reaches treacherously pregnant with shifting Sandtraps, deadly even to the demons; you are joined by many others who willingly submit to the warm oil and the thoughts in the sky.  You have fulfilled your desztiny.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'sandTrapScene', new SandTrapScene() );
+	SceneLib.registerScene( 'sandTrapScene', new SandTrapScene() );
 } );

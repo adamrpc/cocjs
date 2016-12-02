@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
-	var AbstractSuccubus = angular.copy( Monster );
+	function AbstractSuccubus() {
+		this.init(this, arguments);
+	}
+	angular.extend(AbstractSuccubus.prototype, Monster.prototype);
 	AbstractSuccubus.prototype.whipAttack = function() {
 		if( this.findStatusAffect( StatusAffects.WhipReady ) >= 0 ) {
 			//Blind dodge change;

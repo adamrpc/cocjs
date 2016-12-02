@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'Weapon', function( Useable, EngineCore ) {
-	var Weapon = angular.copy( Useable );
+	function Weapon() {
+		this.init(this, arguments);
+	}
+	angular.extend(Weapon.prototype, Useable.prototype);
 	Weapon.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 3 ], args.length > 6 ? args[ 6 ] : 0, args.length > 7 ? args[ 7 ] : null ] );
 		that.name = args[ 2 ];

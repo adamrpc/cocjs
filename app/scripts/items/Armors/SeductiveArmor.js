@@ -1,12 +1,15 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SeductiveArmor', function( ArmorLib, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
-	var SeductiveArmor = angular.copy( Armor );
+angular.module( 'cocjs' ).factory( 'SeductiveArmor', function( SceneLib, ArmorLib, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+	function SeductiveArmor() {
+		this.init(this, arguments);
+	}
+	angular.extend(SeductiveArmor.prototype, Armor.prototype);
 	SeductiveArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'SeductA', 'SeductA', 'scandalously seductive armor', 'a set of scandalously seductive armor', 0, 1, 'A complete suit of scalemail shaped to hug tightly against every curve, it has a solid steel chest-plate with obscenely large nipples molded into it.  The armor does nothing to cover the backside, exposing the wearer\'s cheeks to the world.' ] );
 	};
 	SeductiveArmor.prototype.useText = function() {
-		if( !CoC.getInstance().scenes.ceraphFollowerScene.ceraphIsFollower() ) {
+		if( !SceneLib.ceraphFollowerScene.ceraphIsFollower() ) {
 			EngineCore.outputText( 'After struggling to get it on, you feel a sudden shift in your scandalous new armor.  To your horror, it begins folding into itself, revealing more and more of your ' + CoC.getInstance().player.skinDesc + ' and the comfortable underclothes you had on underneath it.  The transforming armor gradually covers less and less of you until it\'s little more than a pair of huge nipple-coverings and a silver chain.  A loud KA-CHUNK startles you, and then you\'re screaming as you feel something stabbing through your nipples.  Goosebumps cover your flesh as you twist in unexpected agony.\n\n' );
 			EngineCore.outputText( 'After you\'ve had a chance to recover, you inspect your abused nipples and discover that your armor has totally disappeared.  The only thing left behind is a pair of seamless black nipple-studs, embedded into your vulnerable flesh.  There doesn\'t appear to be any way to remove them either.  Thankfully, your comfortable underclothes have been unaffected by the sudden disappearance of your armor.  The thought of having to run around naked stays stubbornly locked in your mind, and you mentally curse the demon for what she\'s done to you.\n\n' );
 			EngineCore.outputText( 'As if summoned by your thoughts, you can hear her voice on the wind, taunting you again, "<i>Enjoy your new bondage fetish, pet!  One more piercing and you\'ll be ready.  Don\'t have too much fun being tied down and fucked, ok?</i>"\n\n' );

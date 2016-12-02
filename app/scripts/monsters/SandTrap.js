@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
-	var SandTrap = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
+	function SandTrap() {
+		this.init(this, arguments);
+	}
+	angular.extend(SandTrap.prototype, Monster.prototype);
 	//Wait:
 	SandTrap.prototype.sandTrapWait = function() {
 		EngineCore.clearOutput();
@@ -98,14 +101,14 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( $log, CoC, Monster, Uti
 		}
 	};
 	SandTrap.prototype.defeated = function() {
-		CoC.getInstance().scenes.sandTrapScene.pcBeatsATrap();
+		SceneLib.sandTrapScene.pcBeatsATrap();
 	};
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.sandTrapScene.sandtrapmentLoss( true );
+			SceneLib.sandTrapScene.sandtrapmentLoss( true );
 		}
 	};
 	SandTrap.prototype.init = function( that, args ) {

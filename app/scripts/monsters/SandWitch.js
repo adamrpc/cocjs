@@ -1,14 +1,17 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandWitch', function( $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, Descriptors, EventParser ) {
-	var SandWitch = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'SandWitch', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, Descriptors, EventParser ) {
+	function SandWitch() {
+		this.init(this, arguments);
+	}
+	angular.extend(SandWitch.prototype, Monster.prototype);
 
 	SandWitch.prototype.defeated = function( ) {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.StoneLust ) ) {
 			CoC.getInstance().player.removeStatusAffect( StatusAffects.StoneLust );
 		}
 		if( CoC.getInstance().player.lust >= 33 ) {
-			CoC.getInstance().scenes.sandWitchScene.beatSandwitch();
+			SceneLib.sandWitchScene.beatSandwitch();
 		} else {
 			Combat.finishCombat();
 		}
@@ -18,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( $log, CoC, Monster, Ut
 			EngineCore.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.sandWitchScene.sandwitchRape();
+			SceneLib.sandWitchScene.sandwitchRape();
 		}
 	};
 	SandWitch.prototype.lustMagicAttack = function() {

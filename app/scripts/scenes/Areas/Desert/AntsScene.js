@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, EventParser, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, EventParser, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
 	function AntsScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( 'After seeing the large pack of demons you decide it\'s best not to act.  You yourself are in no condition to help the poor creature, and knowing full well what comes after demons \'subdue\' their prey, you don\'t want to stick around either.  You glance over and realize the skirmish has already started.  It\'s too late to really help her anyway, you argue to yourself, plus she\'s covered in muscle.' );
 			EngineCore.outputText( '\n\nAssuring yourself that she\'ll be fine, you take the opportunity to flee while the demons are distracted, heading back to camp.  Leaving the ant-girl to her fate.' );
 			//[End of Event]
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//►(If Over 41 - Male)
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'sen', -1, 'cor', 3 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Play Hero]
 	AntsScene.prototype.playHero = function() {
@@ -229,7 +229,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nThe ant queen gives you a dismissive wave with one of her larger arms, giving you reason to think her good will is anything but.  As you turn to leave, your eye catches Phylla\'s and she shyly smiles at you.  Her mother sees this and delivers a final, cryptic warning.  "<i>One last thing before you depart, \'Champion\'.  Should you fail, the consequences, for you, will be... dire.</i>"' );
 		EngineCore.outputText( '\n\nAs you mull over this ominous message, your guide reappears and leads you back through the maze of tunnels, to the exit of the colony.  You leave the anthill behind and head to camp, considering your best course of action.' );
 		CoC.getInstance().flags[ kFLAGS.PC_READY_FOR_ANT_COLONY_CHALLENGE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//The Challenges
 	AntsScene.prototype.antColonyChallenge = function() {
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 	AntsScene.prototype.leaveAntColony = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Deciding to better prepare yourself first, you inform the thin fight manager that you will return later.  You leave the colony, heading back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	AntsScene.prototype.antColiseumFight = function() {
 		EngineCore.clearOutput();
@@ -660,7 +660,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		}
 		EngineCore.outputText( '\n\nThe link fades not long after you both have settled down, and Phylla hums her approval as she kisses your neck lovingly.  You smile back, but never knew how strong one\'s maternal instincts could really be.  Hearing primal drives that are not your own was almost deafening.  Yet, you can\'t help but feel an appreciation for such an understanding that has been shown to you.' );
 		//PC has other waifus:
-		if( CoC.getInstance().scenes.camp.loversCount() > 1 ) {
+		if( SceneLib.camp.loversCount() > 1 ) {
 			EngineCore.outputText( '\n\nSo this is what your other lovers must feel.' );
 		}
 		EngineCore.outputText( '\n\nYou drift off to sleep not long after, while Phylla demonstrates her appreciation for the intimacy you two just shared, kissing your body and rubbing you sensually as you doze off.' );
@@ -1012,7 +1012,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( 'You smile at her and tell her you would love for her to join you at your camp.  Her face brightens like the sun and she quickly gathers the very few possessions she owns - mostly clothing, the pillows, and some jewelry.  Together you promptly leave the colony and head back to camp.' );
 		EngineCore.outputText( '\n\n(<b>Phylla has moved in!  She can be found in the lovers tab!</b>)' );
 		CoC.getInstance().flags[ kFLAGS.ANT_WAIFU ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Stay Here]
 	AntsScene.prototype.tellPhyllaToStayTheFuckAtHomeThatCunt = function() {
@@ -1021,7 +1021,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nAs you turn to leave she quickly says, "<i>If you ever feel your camp is safe enough for me to join you, p-please come get me.  If you want.  I mean, I\'m not going anywhere... not that I could with my mother watching anyway...</i>"' );
 		EngineCore.outputText( '\n\nYou nod and without another word, head back to camp.' );
 		CoC.getInstance().flags[ kFLAGS.PHYLLA_STAY_HOME ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//If PC returns to colony after telling her to stay with her mother:
 	AntsScene.prototype.bumpIntoTheAntColonyAfterStayHomePhylla = function() {
@@ -1108,7 +1108,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		}
 		EngineCore.addButton( 4, 'Appearance', this.phyllaPearance );
 		EngineCore.addButton( 5, 'Find Gems', this.phyllaDigsForGems );
-		EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+		EngineCore.addButton( 9, 'Back', SceneLib.camp.campLoversMenu );
 		CoC.getInstance().flags[ kFLAGS.PHYLLA_CAMP_VISITS ]++;
 	};
 	AntsScene.prototype.phyllaSexMenu = function() {
@@ -1208,7 +1208,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( '\n\nHow presumptuous.  You tell her to stop reading into things, that she had better follow your instruction and orders, lest she fall prey to this world - once it gets its hooks into you, it doesn\'t let go until you\'re perfect for the darkness and its needs.' );
 			EngineCore.outputText( '\n\nTurning to leave back to camp, you hear Phylla crying.  Maybe some time alone with her thoughts will help her see what you\'re trying to accomplish here.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Ant Morph Mating Ritual / Inherited Knowledge)
 	AntsScene.prototype.talkAboutAntMatingAndRituals = function() {
@@ -1295,13 +1295,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			}
 		}
 		CoC.getInstance().flags[ kFLAGS.PHYLLA_INHERITED_KNOWLEDGE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Phylla's Life Past & Future)
 	AntsScene.prototype.phyllasLifePastAndFuture = function() {
 		EngineCore.clearOutput();
 		//(If Izma at Camp)
-		if( CoC.getInstance().scenes.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.PHYLLA_IZMA_TALK ] === 0 ) {
+		if( SceneLib.izmaScene.izmaFollower() && CoC.getInstance().flags[ kFLAGS.PHYLLA_IZMA_TALK ] === 0 ) {
 			CoC.getInstance().flags[ kFLAGS.PHYLLA_IZMA_TALK ] = 1;
 			EngineCore.outputText( 'Phylla seems to be a little distant today as you sit down to talk.  You point it out to her and she cautiously asks about Izma.' );
 			EngineCore.outputText( '\n\n"<i>I k-know there\'s someone else at your camp.  I mean... I don\'t want to pretend I\'m the only one you\'ll ever mate with, but this one is special.  I mean, I can feel it inside here.</i>"  She points to your head with the two arms on her right side, and her head with the two arms on her left side. Seeing you don\'t deny it, Phylla\'s eyes well up as she tries to hold back tears.  "<i>I d-don\'t know why you didn\'t tell me you had others staying closer to you...</i>"' );
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			}
 			EngineCore.outputText( '\n\nYou mull this over in your head, and you must have been thinking pretty hard.  When you get up to leave you find Phylla has completely passed out on your lap.  You take this opportunity to gently unwrap yourself from her, and head back to camp.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//First Time Blowjob:
@@ -1650,13 +1650,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 	AntsScene.prototype.swallowDatJismPhylla = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Placing your hands on your hips, you smirk and tell Phylla that a true queen never spits. Phylla shoots you a slutty look and gulps your load greedily, taking a moment to savor the warmth and texture as it works its way down her throat.  She ahhhs loudly as she rubs her stomach, humming in pleasure as the steamy load spreads its heat to her belly.  "<i>Thank you, [name].  That hit the spot.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Spit it out]
 	AntsScene.prototype.spitItOutYouCunt = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Crossing your arms, you tell Phylla to spit your load out.  As you dress yourself back up in your [armor], you hear Phylla frantically dig out a hole in the floor.  She playfully leans over and spits the salty payload into it.  She makes a soft hum when she\'s finished, before quickly covering it up again.  "<i>Thank you, [name].  Next time I\'ll do better, I promise.</i>"' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Corrupt BJ Ending
 	AntsScene.prototype.corruptPhyllaEndings = function() {
@@ -1730,7 +1730,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		//***Both mode endings converge here***
 		EngineCore.outputText( '\n\n...Can you? You muse again, thinking about it.  After a few moments of helping Phylla to the pile of, now very wet, cushions she calls a bed, you finish donning your [armor] and head back to the surface.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//"<i>Use Dick</i>"
 	AntsScene.prototype.dickPhylla = function() {
@@ -1847,7 +1847,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nYou both collapse in a hot, sweaty... and sticky heap, dozing off for quite some time only to wake after an hour of uninterrupted sleep, a bit hung over from the mind sharing and physically fatigued from the romp.' );
 		EngineCore.outputText( '\n\nPhylla stirs next to you, and groggily says, "<i>You should come down more often.  I mean...  I miss you sometimes...</i>"  Her shyness returns as she slowly recovers from the small sex-coma you placed each other in.  You say you\'ll think about it and wink at her as you get dressed and head back to camp, leaving her to eagerly await the next time you come to take her once again.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Straight Sex (Lesbian/Fisting) - Written
 	AntsScene.prototype.lesbianFisting = function() {
@@ -1876,7 +1876,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nYou wake up about an hour later, still smelling of sex and covered in each other\'s fluids.  "<i>You should come down more often.  I mean... I miss you sometimes...</i>"  Her shyness returns as she slowly recovers from the small sex-comas you had placed each other in.' );
 		EngineCore.outputText( '\n\nYou say you\'ll think about it and wink at her as you get dressed and head back to camp, leaving her to eagerly await the next time you come to take her once again.' );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[While Giving Birth]
@@ -1962,7 +1962,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( '\n\nAfter a moment of staggered walking you allow Phylla the courtesy to flop down onto the hard surface of the bed, pausing only for a moment to look over your pregnant little whore.  After a quick remark to her on how she\'d better be ready for another round soon, you leave her to the mess you have made as you head back to camp.' );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//While Giving Birth (Female) - Written
 	AntsScene.prototype.birfingSexWithAntsForDasLadies = function() {
@@ -2142,7 +2142,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( '\n\nNow that Phylla\'s quieted down, you tell her you\'re going to get some sleep; if she\'s to have another child, she\'ll need to either keep quiet or leave to another room.  She nods dejectedly as you settle in for your nap.  You swear you hear her go into labor again right before drifting off.' );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Orgy w/ Colony - Requires Children]
 	//(Note: The above option will only be available the PC has sufficient corruption.)
@@ -2259,7 +2259,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nYou might want to stay and watch that, but you\'ve spent too long down here already.  You collect your things, trying your best not to step on the twenty or so passed out ants on the floor as you head back to camp.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Orgy w/ Colony (Female)
 	//You tell Phylla you're interested in 'inspecting' your children.
@@ -2390,7 +2390,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nYou might want to stay and watch that, but you\'ve spent too long down here already.  You collect your things, trying your best not to step on the twenty or so passed out ants on the floor as you head back to camp.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Lay Eggs / Don't Lay Eggs]
 	AntsScene.prototype.phyllaLaysEggsToggle = function() {
@@ -2419,7 +2419,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( '\n\nShe pauses and makes a strange face as her abdomen pulses and another egg emerges from the tip.  She blushes deeply.  "<i>That\'s the last one!  I mean, I had to get it out, it was already...</i>"' );
 			EngineCore.outputText( '\n\nYou cut her off by asking when her abdomen will return to normal size - both because you\'re curious and because you really didn\'t want her to finish that sentence.  "<i>It shouldn\'t take long.  I can already feel it changing.</i>"' );
 			EngineCore.outputText( '\n\nSmiling, you thank her for complying with all your demands.  You leave the colony, heading back to camp.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//LICK THAT!
@@ -2453,7 +2453,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		if( CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] < 5000 ) {
 			CoC.getInstance().flags[ kFLAGS.ANT_KIDS ] += 5;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//DON'T LICK THAT!
 	AntsScene.prototype.dontLickAntButt = function() {
@@ -2470,7 +2470,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		EngineCore.outputText( '\n\nYou remark to Phylla that you might just take her up on that and wink as you leave your exhausted lover to recuperate, passing several of your children as they scoop up the bundle of eggs that lie huddled together on the floor.' );
 		CoC.getInstance().flags[ kFLAGS.PHYLLA_COOLDOWN ] = 6;
 		CoC.getInstance().flags[ kFLAGS.ANT_KIDS ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Phylla lays Drider eggs
 	AntsScene.prototype.phyllaLaysSomeDriderEggs = function() {
@@ -2505,7 +2505,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 				EngineCore.outputText( '\n\nRubbing her now empty belly Phylla remarks on how much she loves giving birth through her \'other hole\' and how you should knock her up this way much more often.  Again you feel the maternal warmth radiating from Phylla.' );
 			}
 			EngineCore.outputText( '\n\nYour intimate moment with her is interrupted by the crackling and hatching of egg shells as your brood clamors for freedom.  Sighting their mother, they scurry up the bedspread and set up a pecking order for who will get the first go at Phylla\'s milk filled breasts.  The birthing complete, you kiss Phylla on the lips and thank her for hosting your young.  "<i>Thank you for helping me achieve my purpose in life.  I know you have other things to do, but just know that... I love you.</i>" She weakly replies.  You wink at her and nod before heading back up to the surface.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//PC has more than 75 corruption:
 		else {
@@ -2555,13 +2555,13 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		if( !this.pregnancy.isPregnant ) {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 8 * 24 );
 		} //Supposed to be eight days, not eight hours
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Let Phylla Recover:
 	AntsScene.prototype.letPhyllaRecover = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Working up all of your self control, you decide that Phylla could use the rest.  You wink at Phylla as you leave, telling her that you\'ll be back to fuck her brains out shortly... once she feeds your children.  She only musters the strength to smile and mutter something about motherhood but you\'re already halfway out the door.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Children - Only available if Phylla has laid eggs]
 	AntsScene.prototype.phyllasKidsChildren = function() {
@@ -2589,7 +2589,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 		}
 		//Ending for Scene
 		EngineCore.outputText( '\n\nYou feel good about this.  Standing up to survey the colony, you can see Phylla is also very content.  You thank her for talking to you and head back to the surface, toward camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//►[Appearance]
 	AntsScene.prototype.phyllaPearance = function() {
@@ -2681,7 +2681,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			EngineCore.outputText( '\n\n"<i>Is there anything else you wanted to do while you\'re down here?</i>"  She inquires excitedly.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.PHYLLA_GEMS_HUNTED_TODAY ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Drider/Bee impregnation scene for Phylla (universal unless otherwise specified, which will include varied intros and stuff.
 	//Sex > [Egg Phylla]
@@ -2711,7 +2711,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			else {
 				EngineCore.outputText( '\n\n"<i>I mean... I just, don\'t feel comfortable with that right now. Maybe later, though.</i>"' );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Persuasion Success
 		else {
@@ -2748,7 +2748,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, CoC, kFLAGS, Utils, S
 			CoC.getInstance().player.orgasm();
 			CoC.getInstance().player.dumpEggs();
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'antsScene', new AntsScene() );
+	SceneLib.registerScene( 'antsScene', new AntsScene() );
 } );

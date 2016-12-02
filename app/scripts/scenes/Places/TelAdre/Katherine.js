@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ArmorLib, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Katherine() {
 		this.breasts = new BreastStore( kFLAGS.KATHERINE_BREAST_SIZE );
 		$rootScope.$on( 'before-save', this.breasts.updateBeforeSave );
@@ -629,14 +629,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		 CoC.getInstance().flags[kFLAGS.KATHERINE_BALL_SIZE] = 1; */
 		//Player can now encounter Katherine by using the Back Alley button at the Pawn Shop;
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Seeing Katherine;
 	Katherine.prototype.visitKatherine = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'katherine-visit-alley' ) );
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 1 ) {
-			if( CoC.getInstance().scenes.katherineEmployment.initiateTraining() ) {
+			if( SceneLib.katherineEmployment.initiateTraining() ) {
 				return;
 			}
 		}
@@ -670,20 +670,20 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			if( checkTraining && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] > 2 ) {
 				{ //You have talked to at least one of Edryn, Urta or the desk sargeant
 				}
-				CoC.getInstance().scenes.katherineEmployment.talkToKath();
+				SceneLib.katherineEmployment.talkToKath();
 				return;
 			}
 			this.katherineMenu();
 		} else { //You are training her alone
 			EngineCore.outputText( '.\n\n' );
 			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
-				CoC.getInstance().scenes.katherineEmployment.katherineTrainingComplete();
+				SceneLib.katherineEmployment.katherineTrainingComplete();
 			} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 66 ) {
-				CoC.getInstance().scenes.katherineEmployment.katherineTrainingStage3();
+				SceneLib.katherineEmployment.katherineTrainingStage3();
 			} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] >= 33 ) {
-				CoC.getInstance().scenes.katherineEmployment.katherineTrainingStage2();
+				SceneLib.katherineEmployment.katherineTrainingStage2();
 			} else {
-				CoC.getInstance().scenes.katherineEmployment.katherineTrainingStage1( false );
+				SceneLib.katherineEmployment.katherineTrainingStage1( false );
 			}
 		}
 	};
@@ -702,15 +702,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				var button = 0;
 				EngineCore.menu();
 				if( CoC.getInstance().player.hasCock() ) {
-					EngineCore.addButton( button++, '369', CoC.getInstance().scenes.katherineThreesome.threeSixtyNine );
+					EngineCore.addButton( button++, '369', SceneLib.katherineThreesome.threeSixtyNine );
 				}
 				if( this.hasCock() ) {
-					EngineCore.addButton( button++, 'Roast You', CoC.getInstance().scenes.katherineThreesome.roastYou );
+					EngineCore.addButton( button++, 'Roast You', SceneLib.katherineThreesome.roastYou );
 				} else {
-					EngineCore.addButton( button++, 'Watch', CoC.getInstance().scenes.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
+					EngineCore.addButton( button++, 'Watch', SceneLib.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
 				}
 				if( CoC.getInstance().player.hasCock() || CoC.getInstance().player.hasVagina() ) {
-					EngineCore.addButton( button++, 'Spitr Kath', CoC.getInstance().scenes.katherineThreesome.spitroastKath );
+					EngineCore.addButton( button++, 'Spitr Kath', SceneLib.katherineThreesome.spitroastKath );
 				}
 			} else {
 				EngineCore.outputText( 'It looks like Kath heard you coming.  You find her waiting in her bedroom with a sexy smile that suggests she’s up for anything.' );
@@ -726,7 +726,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.choices( 'Go to Urta\'s', this.katherineAtUrtas, 'Leave', this.katherineApartmentEmptyLeave, '', null, '', null, '', null );
 		} else {
 			EngineCore.outputText( 'It looks like Kath is out somewhere.  She\'s probably still at the Wet Bitch.' );
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+			EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 		}
 	};
 	Katherine.prototype.katherineApartmentLeave = function() {
@@ -737,11 +737,11 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		} else {
 			EngineCore.outputText( 'Alright ' + CoC.getInstance().player.short + ' but next time I want to have some fun.</i>”\n\n' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	Katherine.prototype.katherineApartmentEmptyLeave = function() {
 		EngineCore.outputText( 'You lock up and walk back toward the market, looking for something else to do while you wait for Katherine to finish her shift.' );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	Katherine.prototype.katherineAtUrtas = function() {
 		EngineCore.outputText( 'You lock up and walk over to Urta\'s ' );
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.outputText( 'apartment.  A few knocks on the door and ' + (this.hasCock() ? 'a sheepish looking pair of herms' : 'your sheepish lovers') + ' answer the door.\n\n' );
 			EngineCore.outputText( '“<i>' + CoC.getInstance().player.short + ', speak of the devil,</i>” Urta says, sounding relieved.  “<i>For a second there I thought we had actually been loud enough that a neighbour came over to complain.</i>”\n\n' );
 			EngineCore.outputText( 'Kath says, “<i>We just finished cleaning up, so I was just about to head home for the night.  Where did you want to go?</i>”' );
-			EngineCore.choices( 'To Kath\'s', this.dateGotoKaths, 'To the Lake', this.dateKathBath, 'To the Bar', this.dateGotoBar, '', null, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+			EngineCore.choices( 'To Kath\'s', this.dateGotoKaths, 'To the Lake', this.dateKathBath, 'To the Bar', this.dateGotoBar, '', null, 'Leave', SceneLib.telAdre.telAdreMenu );
 		} else {
 			{ //At Urta's House
 			}
@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 					EngineCore.outputText( 'house.  Letting yourself in with the spare key you sneak upstairs and peek into the master bedroom.\n\n' );
 					EngineCore.outputText( 'You can smell the sex from the doorway.  On the bed you can see both your girls, ' + (this.hasCock() ? 'each bloated with the other\'s cum' : 'Urta\'s horsecock still buried inside Kath; Kath\'s belly still bloated with Urta\'s seed') + '.  They\'re hugging each other tight and their tails are moving back and forth lazily.\n\n' );
 					EngineCore.outputText( 'You could say hello or you could just let yourself out quietly.' );
-					EngineCore.choices( 'Say Hello', this.urtaPlusKathCuddle, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+					EngineCore.choices( 'Say Hello', this.urtaPlusKathCuddle, '', null, '', null, '', null, 'Leave', SceneLib.telAdre.telAdreMenu );
 					break;
 				case 1:
 					EngineCore.outputText( 'house.  Letting yourself in with the spare key you sneak upstairs and peek into the master bedroom.\n\n' );
@@ -772,7 +772,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 					break;
 				default:
 					EngineCore.outputText( 'house.  You step inside and find Kath sitting on the floor with ' );
-					var kids = CoC.getInstance().scenes.urtaPregs.urtaKids();
+					var kids = SceneLib.urtaPregs.urtaKids();
 					if( kids === 1 ) {
 						EngineCore.outputText( 'your child.  ' + (CoC.getInstance().flags[ kFLAGS.URTA_FIRSTBORN_GENDER ] === 1 ? 'He' : 'She') + '\'s sitting in Katherine\'s lap, head mashed against her breasts like ' + (CoC.getInstance().flags[ kFLAGS.URTA_FIRSTBORN_GENDER ] === 1 ? 'he' : 'she') + ' hasn\'t got a care in the world.\n\n' );
 					} else {
@@ -813,7 +813,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				EngineCore.outputText( 'dig her ' + this.catGirl( 'nails', 'claws' ) + ' in.</i>”\n\n' );
 			}
 			EngineCore.outputText( 'Kath looks sheepish and says, “<i>Sorry, sorry, I thought it was ' );
-			if( CoC.getInstance().scenes.urtaPregs.urtaKids() === 1 ) {
+			if( SceneLib.urtaPregs.urtaKids() === 1 ) {
 				EngineCore.outputText( CoC.getInstance().flags[ kFLAGS.URTA_FIRSTBORN_GENDER ] === 1 ? 'your son' : 'your daughter' );
 			} else {
 				EngineCore.outputText( 'one of your kids' );
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		}
 		EngineCore.outputText( '“<i>I\'m feeling really good right now ' + this.playerText() + ', but if you want to do something, I\'m game.</i>”\n\n' );
 		EngineCore.outputText( 'Urta laughs and says, “<i>Oh yeah, and leave me with this mess, huh?</i>”  She scoops a little cum up from the bed and rubs it between her fingers.  “<i>I suppose I could take care of it tomorrow morning if it means you get a good dose of pussy, ' + CoC.getInstance().player.short + '.</i>”' );
-		EngineCore.choices( 'Back to Kath\'s', this.dateGotoKaths, 'To the Lake', this.dateKathBath, 'Back to the Bar', this.dateGotoBar, '', null, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.choices( 'Back to Kath\'s', this.dateGotoKaths, 'To the Lake', this.dateKathBath, 'Back to the Bar', this.dateGotoBar, '', null, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
 	Katherine.prototype.katherineOnDuty = function() {
 		EngineCore.clearOutput();
@@ -861,7 +861,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	};
 	Katherine.prototype.katherineOnDutyLeave = function() {
 		EngineCore.outputText( 'It’s probably best that you don’t get Kath in trouble.  You bid her farewell, promising that you’ll come and see her once she’s off duty.\n\n' );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	/* First, some assumptions I’ve made is in the bar from the 06 until 14 We can also meet her at home through the different kid interactions any time after 14 once she owns a house. She can potentially be drunk from 09 to 14, so we can assume that’s not during her shift. Since we also occasionally see Urta working during the day we can assume she’s a bit of a workaholic and makes trips back to the watch headquarters or to problem areas whenever there’s real trouble or she feels like surprising her subordinates. Lets say that Urta works on flex time and does a fixed half shift from 02 until 06 each day. Then she does paperwork in the bar, troubleshoots and puts out fires over the rest of the day. The early hours might be nice for a fox morph since foxes are nocturnal hunters.
 	 Edryn is easier. She’s is in the bar from 14 to 19 (or 14 to 16 with kids), so it’s likely she works an early shift - 06:00 to 14 and then chills out at the bar after work.
@@ -905,15 +905,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		var button = 0;
 		EngineCore.menu();
 		if( CoC.getInstance().player.hasCock() ) {
-			EngineCore.addButton( button++, '369', CoC.getInstance().scenes.katherineThreesome.threeSixtyNine );
+			EngineCore.addButton( button++, '369', SceneLib.katherineThreesome.threeSixtyNine );
 		}
 		if( this.hasCock() ) {
-			EngineCore.addButton( button++, 'Roast You', CoC.getInstance().scenes.katherineThreesome.roastYou );
+			EngineCore.addButton( button++, 'Roast You', SceneLib.katherineThreesome.roastYou );
 		} else {
-			EngineCore.addButton( button++, 'Watch', CoC.getInstance().scenes.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
+			EngineCore.addButton( button++, 'Watch', SceneLib.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
 		}
 		if( CoC.getInstance().player.hasCock() || CoC.getInstance().player.hasVagina() ) {
-			EngineCore.addButton( button++, 'Spitr Kath', CoC.getInstance().scenes.katherineThreesome.spitroastKath );
+			EngineCore.addButton( button++, 'Spitr Kath', SceneLib.katherineThreesome.spitroastKath );
 		}
 	};
 	//Main menu for Kath while she lives in the alley behind Oswald's;
@@ -923,12 +923,12 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			{ //Behind Oswald's pawn shop
 			}
 			//[Sex] [Talk] [Appearance] [Give Item];
-			EngineCore.choices( 'Sex', this.katherineSex, 'Talk', this.talkToKatherine, 'Appearance', this.katherinesAppearance, 'Give Item', this.giveKatherineAnItem, 'Back', CoC.getInstance().scenes.telAdre.telAdreMenu );
+			EngineCore.choices( 'Sex', this.katherineSex, 'Talk', this.talkToKatherine, 'Appearance', this.katherinesAppearance, 'Give Item', this.giveKatherineAnItem, 'Back', SceneLib.telAdre.telAdreMenu );
 		} else if( this.isAt( Katherine.KLOC_KATHS_APT ) ) {
 			EngineCore.choices( 'Appearance', this.katherinesAppearance, 'Sex', this.katherineSex, 'Give Item', this.giveKatherineAnItem, '', null, 'Leave', this.katherineApartmentLeave,
 				'Date', this.katherineDate, 'Talk', this.talkToKatherine, '', null, '', null, '', null );
 		} else {
-			EngineCore.choices( 'Drink', (this.pregSize() === 0 ? this.katherineDrinkUp : null), 'Sex', this.katherineSex, '', null, '', null, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu,
+			EngineCore.choices( 'Drink', (this.pregSize() === 0 ? this.katherineDrinkUp : null), 'Sex', this.katherineSex, '', null, '', null, 'Leave', SceneLib.telAdre.telAdreMenu,
 				'Date', this.katherineDate, 'Talk', this.talkToKatherine, '', null, '', null, '', null );
 		}
 	};
@@ -940,7 +940,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.outputText( 'The pink-haired black cat looks shy, but excited at that.  “<i>Okay... what do you want to talk about?</i>” she asks, nervously looking at her feet.' );
 			var employmentTalk = null;
 			if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === 1 && CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] === 1 ) {
-				employmentTalk = CoC.getInstance().scenes.katherineEmployment.employmentTalk;
+				employmentTalk = SceneLib.katherineEmployment.employmentTalk;
 			}
 			//[Racial Tension] [Her History] [Gang] [Dog Cock] [Vagrancy] [Love & Lust];
 			EngineCore.choices( 'RacialTension', this.katherineDefur, 'Her History', this.katherinesHistory, 'Gang', this.askKatherineAboutGang, 'Dog Cock', this.askKatherineAboutDogCock, 'Vagrancy', this.askKatherineAboutVagrancy, 'LoveAndLust', this.askKatherineAboutLoveAndLust, 'Employment', employmentTalk, '', null, '', null, 'Back', this.katherineMenu );
@@ -979,7 +979,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( '“<i>We\'re a lot more united now than we were before, but, honestly, old beliefs die hard, you know?  Horses are dumb, sex-crazed brutes, centaurs are horses with big egos and bad attitudes, dogs are dull-witted, wolves are savage, cats are lazy, mice are cowardly, foxes are shiftless... Well, you can see how it goes.</i>”  The herm cat-morph delivers this proclamation while airly waving one furry hand.  “<i>Besides, it\'s not as if there are demons beating on the walls day in and day out to remind us all of the greater threat every morning, you know?</i>”\n\n' );
 		EngineCore.outputText( 'You click your tongue reflexively.  Politely thanking Katherine for the talk, you turn and walk away.' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Her History;
 	Katherine.prototype.katherinesHistory = function() {
@@ -992,7 +992,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'She sees the look you\'re giving her and hastily anticipates your reaction.  “<i>But don\'t worry, I actually like my life!  Nobody telling me what to do, I make my own hours... really, it\'s not so bad.</i>”\n\n' );
 		EngineCore.outputText( 'You\'re skeptical, but reason there\'s nothing you can do about it right now.  Politely thanking Katherine for the talk, you turn and walk away.' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Gang;
 	Katherine.prototype.askKatherineAboutGang = function() {
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'She shrugs.  “<i>Panhandling, a little pickpocketing, some stall-robbing...  Mostly we\'re urban scavengers - you know, sneaking into abandoned homes and things to pick up stuff we can pawn for money.  It\'s not as easy as it sounds, and the law really cracks down on it, so if they catch us... it won\'t go easy.  We do that only when we\'re sure we can get away with it.</i>”\n\n' );
 		EngineCore.outputText( 'Politely thanking Katherine for the talk, you turn and walk away.\n\n' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Dog Cock;
 	Katherine.prototype.askKatherineAboutDogCock = function() {
@@ -1037,7 +1037,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'She shakes her head.  “<i>No... like I said, I\'m accustomed to the dog-dick now, I even rather like it.  I just want to change the knot.  I\'m not saying I want to get my hands on bulbous peppers or double peppers or anything like that.  Actually, I don\'t think I\'d mind the bulbous peppers, and a double pepper might be interesting.  I definitely would like to get my hands on an overly large pepper or two...</i>”  She trails off murmuring, half to you, half to herself.\n\n' );
 		EngineCore.outputText( 'Politely thanking Katherine for the chat, you turn and walk away.' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Vagrancy;
 	Katherine.prototype.askKatherineAboutVagrancy = function() {
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'You can\'t help wondering how much of that is true and how much of that is prejudice.  Politely thanking Katherine for the talk, you turn and walk away.' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TRAINING ] = 1; //Now you can talk about Kath getting a job
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Love & Lust;
 	Katherine.prototype.askKatherineAboutLoveAndLust = function() {
@@ -1058,7 +1058,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( '“<i>It is, yeah.  Most cats can\'t get over it, most dogs can\'t get over the fact the rest of me is still a cat, and even centauresses are wary of letting me shove what is basically a melon in their cunts.</i>”  Katherine nods, sadly.  “<i>But then, you came along... I don\'t know why you did what you did, but I\'m too happy to care.</i>”  A beatific expression covers her face.\n\n' );
 		EngineCore.outputText( 'Politely thanking Katherine for the talk, you turn and walk away.' );
 		//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	Katherine.prototype.talkGangs = function() {
 		EngineCore.clearOutput();
@@ -1397,10 +1397,10 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		if( (CoC.getInstance().flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0) && (CoC.getInstance().player.statusAffectv1( StatusAffects.Edryn ) > 3) ) {
 			loverSet |= KBIT_LOVER_EDRYN;
 		}
-		if( (CoC.getInstance().flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] !== 1) && CoC.getInstance().scenes.helScene.followerHel() ) {
+		if( (CoC.getInstance().flags[ kFLAGS.HELIA_FOLLOWER_DISABLED ] !== 1) && SceneLib.helScene.followerHel() ) {
 			loverSet |= KBIT_LOVER_HELIA;
 		}
-		if( CoC.getInstance().scenes.urta.urtaFuckbuddy() ) {
+		if( SceneLib.urta.urtaFuckbuddy() ) {
 			loverSet |= KBIT_LOVER_URTA;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ] > 0 ) {
@@ -1508,7 +1508,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] === 0 ) {
 			{ //She doesn’t know about you and Urta
 			}
-			var urtaKids = CoC.getInstance().scenes.urtaPregs.urtaKids();
+			var urtaKids = SceneLib.urtaPregs.urtaKids();
 			EngineCore.outputText( 'You decide to tell Katherine about Urta.  It’s amazing it hasn’t come up since they work together.  After you explain things Katherine ' + (this.knownLovers() > 2 ? 'laughs and says, “<i>You took Urta as a lover too?  You are one busy champion.  Don’t worry about it, I’m certainly not going to leave you.</i>”' : 'gives you a worried look and asks what this means for the two of you.  When you tell her you have no intention of leaving she jumps into your arms and squeezes most of the air out of your lungs.') + '\n\n' );
 			EngineCore.outputText( 'You tell Kath the story of how Urta met you coming into Tel’Adre that first day and how later on the two of you ‘met’ in the alley behind this bar.  Once she’s heard the story Kath says, “<i>I know how she felt.  It really hurts when you think no one wants you.</i>”' );
 			if( urtaKids > 0 ) {
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			if( this.isAt( Katherine.KLOC_KATHS_APT ) ) {
 				EngineCore.outputText( 'lies back on her bed and stares off into space for a while' );
 			} else {
-				EngineCore.outputText( 'takes another sip of her drink and looks to see if Vala’s around somewhere' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? '.  Vala catches her looking and comes over to see if Kath needs another drink.  Kath, embarrassed at getting caught, orders another one' : '') );
+				EngineCore.outputText( 'takes another sip of her drink and looks to see if Vala’s around somewhere' + (SceneLib.dungeon2Supplimental.isValaAtBar() ? '.  Vala catches her looking and comes over to see if Kath needs another drink.  Kath, embarrassed at getting caught, orders another one' : '') );
 			}
 			EngineCore.outputText( '.\n\nAfter a long silence Kath says, “<i>So she’s new to town, she’s dealing with all sorts of issues and she probably doesn’t know many people here.  It’s a good thing no one took advantage of her.</i>”\n\n' );
 			if( CoC.getInstance().flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ] > 0 ) {
@@ -2515,7 +2515,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
 			EngineCore.outputText( 'She looks at the pepper eagerly, then visibly reins herself in.  “<i>I\'m sorry...  I really would like to eat it, but I have to be practical.  I\'m nearly a foot and a half long already!  Momma didn\'t raise me to be a size queen, and I’m almost as long as Urta.  I mean I like Urta, I just don’t think I need a cock quite that big,</i>” she says.\n\n' );
 			EngineCore.outputText( '“<i>It is nice to know you’re thinking of me,</i>” she adds, quickly trying to make nice with you.' );
-			if( CoC.getInstance().scenes.urta.urtaFuckbuddy() ) {
+			if( SceneLib.urta.urtaFuckbuddy() ) {
 				EngineCore.outputText( 'She did hesitate for a second... if you convince Kath to do a few other things she\'s unsure of she might be willing to munch on another pepper.' );
 			}
 			this.katherineMenu();
@@ -2985,7 +2985,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				EngineCore.outputText( 'Kath\'s eyes open part way and she looks at the bottle, then at you before ripping the cork free and gulping down the contents.  As soon as she swallows the last of it she says, “<i>Oh Marae - why?  Why did I just do that?  It\'s going to be so much trouble.</i>”\n\n' );
 				EngineCore.outputText( 'With your free hand you cup one of her breasts just in time to feel a great warmth develop inside it.  Her nipples produce a hefty spray of cream and Kath arches her back until her head is nearly touching the bed.\n\n' );
 				EngineCore.outputText( 'When the effects die down Katherine slumps into a pile and you hear deep, contented snoring.  You scratch her ears a few times, but when even that doesn\'t rouse her you decide to leave your favorite kitty to recover.\n\n' );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				this.addSubmissive( Katherine.KBIT_SUB_HIGH_LACTATION );
 				return;
 			} else {
@@ -3085,7 +3085,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			CoC.getInstance().player.consumeItem( ConsumableLib.PINKEGG );
 			CoC.getInstance().player.consumeItem( ConsumableLib.REDUCTO );
 			this.addSubmissive( Katherine.KBIT_SUB_REM_BALLS ); //Have removed her balls at least once
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+			EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 		}
 	};
 	Katherine.prototype.giveKatWhiskerFruit = function() {
@@ -3425,7 +3425,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	//Sex;
 	Katherine.prototype.katherineSex = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.urta.drainedByKath ) {
+		if( SceneLib.urta.drainedByKath ) {
 			EngineCore.outputText( 'There are certainly a few things you can think to do with your horny kitten, especially after that display, so you lead her toward the rear exit.  Katherine paws at your belt, but you keep her under control until you\'re both out of sight of the other patrons.  You give Kath a quick kiss and realize you have only a moment to decide what you want to do with her before she takes matters into her own hands.' );
 		} else if( this.isAt( Katherine.KLOC_BAR ) ) {
 			EngineCore.outputText( 'You ask Kath if she’s in the mood to have a little fun.\n\n' );
@@ -3477,23 +3477,23 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			var seeVala = null;
 			var backOpt = this.katherineMenu;
 			if( this.isAt( Katherine.KLOC_BAR ) ) { //Check to see if her partners are comfortable fucking her sober
-				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 10 && CoC.getInstance().scenes.urta.urtaAtBar() && CoC.getInstance().scenes.urta.urtaAvailableForSex() ) {
+				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 10 && SceneLib.urta.urtaAtBar() && SceneLib.urta.urtaAvailableForSex() ) {
 					seeUrta = this.katherineSeeUrta;
 				}
-				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 10 && CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
+				if( CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 10 && SceneLib.dungeon2Supplimental.isValaAtBar() ) {
 					seeVala = this.katherineSeeVala;
 				}
 			} else if( this.isAt( Katherine.KLOC_BAR_DRUNK ) ) {
 				suckle = null; //If she's drunk she wants sex, not suckling
-				if( CoC.getInstance().scenes.urta.urtaAtBar() && CoC.getInstance().scenes.urta.urtaAvailableForSex() && !CoC.getInstance().scenes.urta.drainedByKath ) {
+				if( SceneLib.urta.urtaAtBar() && SceneLib.urta.urtaAvailableForSex() && !SceneLib.urta.drainedByKath ) {
 					seeUrta = this.katherineDrunkSeeUrta;
 				} //Different conversation if Kath is sloshed
-				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() && !CoC.getInstance().scenes.urta.drainedByKath ) {
+				if( SceneLib.dungeon2Supplimental.isValaAtBar() && !SceneLib.urta.drainedByKath ) {
 					seeVala = this.katherineSeeVala;
 				}
 				backOpt = null; //Kath won't take no for an answer if she's sauced
 			} else if( this.isAt( Katherine.KLOC_BAR_URTA_REFUSED ) ) {
-				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
+				if( SceneLib.dungeon2Supplimental.isValaAtBar() ) {
 					seeVala = this.katherineSeeVala;
 				}
 				backOpt = null; //Kath won't take no for an answer if she's sauced
@@ -3507,26 +3507,26 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'Now that you’ve lowered Kath’s inhibitions you suggest the two of you should go and talk to Urta.\n\n' );
 		EngineCore.outputText( '“<i>Yeah, the captain looks like she could use some company.</i>”\n\n' );
 		EngineCore.outputText( 'You have to help Katherine get to Urta’s table, but once there Kath plops down into the seat next to Urta and gives her a big hug.\n\n' );
-		if( CoC.getInstance().scenes.urta.urtaDrunk() ) {
+		if( SceneLib.urta.urtaDrunk() ) {
 			EngineCore.outputText( 'Urta hugs Kath back and says, “<i>Hey there cutie,</i>” before groping Kath’s behind.\n\n' );
 			EngineCore.outputText( 'Kath purrs and buries her head in Urta’s bosom.\n\n' );
 			EngineCore.outputText( 'You get the feeling you are going to have to intervene quickly if you don’t want them to fuck right here and now.' );
 			var button = 0;
 			EngineCore.menu();
 			if( this.submissiveness() < 3 ) {
-				EngineCore.addButton( button++, 'Orgy', CoC.getInstance().scenes.katherineThreesome.orgy );
+				EngineCore.addButton( button++, 'Orgy', SceneLib.katherineThreesome.orgy );
 				EngineCore.outputText( '\n\nYou' );
 			} else {
 				EngineCore.outputText( '  On the other hand everyone enjoys an orgy.\n\nOtherwise you' );
 			}
 			if( CoC.getInstance().player.gender === AppearanceDefs.GENDER_NONE ) {
 				EngineCore.outputText( ' could let the two of them fuck.  Unfortunately, you really aren\'t equipped for more than that.' );
-				EngineCore.addButton( button++, 'Watch', CoC.getInstance().scenes.katherineThreesome.watchNoIntro, true );
+				EngineCore.addButton( button++, 'Watch', SceneLib.katherineThreesome.watchNoIntro, true );
 			} else {
 				EngineCore.outputText( ' could let the two of them fuck and then help yourself or you and Urta could work together to fill Kath\'s needy holes.' );
-				EngineCore.addButton( button++, 'Let \'em fuck', CoC.getInstance().scenes.katherineThreesome.doubleStuffKath );
+				EngineCore.addButton( button++, 'Let \'em fuck', SceneLib.katherineThreesome.doubleStuffKath );
 				if( CoC.getInstance().player.hasCock() ) {
-					EngineCore.addButton( button++, 'Dbl Pen Kath', CoC.getInstance().scenes.katherineThreesome.doublePenetrateKath );
+					EngineCore.addButton( button++, 'Dbl Pen Kath', SceneLib.katherineThreesome.doublePenetrateKath );
 				}
 			}
 		} else if( CoC.getInstance().flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] > 10 ) {
@@ -3534,14 +3534,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			}
 			EngineCore.outputText( 'Urta hugs her back and asks, “<i>' + CoC.getInstance().player.short + ', Kath - Looking to get in a little trouble?</i>” before scratching behind Kath’s ears.\n\n' );
 			EngineCore.outputText( 'Kath winks at you, gives Urta a kiss and says, “<i>only the best kind of trouble,</i>” in a slightly slurred voice.' );
-			EngineCore.choices( 'Lick Out', CoC.getInstance().scenes.katherineThreesome.kathLicksOutUrta, 'Sandwich', (this.hasCock() ? CoC.getInstance().scenes.katherineThreesome.sandwich : null),
-				'Knothole', (CoC.getInstance().player.gender !== AppearanceDefs.GENDER_NONE && this.hasCock() ? CoC.getInstance().scenes.katherineThreesome.knothole : null), '', null, '', null ); //Do not show knothole button for genderless
+			EngineCore.choices( 'Lick Out', SceneLib.katherineThreesome.kathLicksOutUrta, 'Sandwich', (this.hasCock() ? SceneLib.katherineThreesome.sandwich : null),
+				'Knothole', (CoC.getInstance().player.gender !== AppearanceDefs.GENDER_NONE && this.hasCock() ? SceneLib.katherineThreesome.knothole : null), '', null, '', null ); //Do not show knothole button for genderless
 		} else {
 			{ //Not willing to bang Kath (while sober) just yet
 			}
 			EngineCore.outputText( 'Urta pushes Kath back gently.  “<i>Whoa - ' + CoC.getInstance().player.short + ' I think someone’s had a bit much.</i>”\n\n' );
 			EngineCore.outputText( 'Kath smiles and her eyes wander downward, clearly checking out Urta’s chest and then her cock.  Her voice slightly slurred Kath says, “<i>I like you cap\'n,</i>” before Urta can lift her up, haul her back to her booth and dump Katherine in her usual seat.\n\n' );
-			EngineCore.outputText( 'Urta turns to you and whispers, “<i>You’d better do something about her.  She’s going to start humping a table leg if you don’t give her some relief.  It’s a real shame, \'cause I could go for some relief from you too.</i>”' + (CoC.getInstance().scenes.urta.pregnancy.isPregnant ? '  She rubs her pregnant belly absentmindedly as she stares at you and Kath.' : '') + '\n\n' );
+			EngineCore.outputText( 'Urta turns to you and whispers, “<i>You’d better do something about her.  She’s going to start humping a table leg if you don’t give her some relief.  It’s a real shame, \'cause I could go for some relief from you too.</i>”' + (SceneLib.urta.pregnancy.isPregnant ? '  She rubs her pregnant belly absentmindedly as she stares at you and Kath.' : '') + '\n\n' );
 			EngineCore.outputText( 'As she walks away Kath props her head up on her hands and looks at you dreamily.' );
 			CoC.getInstance().flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_BAR_URTA_REFUSED; //Shows the same options as when you get her drunk, except no option to see Urta
 			this.katSexMenu();
@@ -3549,15 +3549,15 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 	};
 	Katherine.prototype.katherineSeeUrta = function() {
 		EngineCore.clearOutput();
-		if( CoC.getInstance().scenes.urta.urtaDrunk() ) {
+		if( SceneLib.urta.urtaDrunk() ) {
 			EngineCore.outputText( 'Katherine looks over at Urta’s table and sees that the captain is obviously sloshed.  She finishes off her drink and whispers, “<i>Now ' + this.playerText() + ', I think we both know that if I go over there Urta is going to pound me into the floor.</i>”\n\n' );
 			EngineCore.outputText( 'You smile and say, “<i>Only if you ask nicely.</i>”\n\n' );
 			EngineCore.outputText( 'Kath stands up and offers you her hand.  “<i>I guess I’d better bring you along.  I might need help and besides, you always have some fun ideas.</i>”\n\n' );
 			EngineCore.outputText( 'Urta looks up as the two of you cross the open floor, her horse cock rising rapidly.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Watch', CoC.getInstance().scenes.katherineThreesome.watch, true );
+			EngineCore.addButton( 0, 'Watch', SceneLib.katherineThreesome.watch, true );
 			if( this.hasCock() ) {
-				EngineCore.addButton( 1, 'Pin & Fuck', CoC.getInstance().scenes.katherineThreesome.pinAndFuck );
+				EngineCore.addButton( 1, 'Pin & Fuck', SceneLib.katherineThreesome.pinAndFuck );
 			}
 		} else {
 			EngineCore.outputText( 'Katherine looks over at Urta’s table.  Urta catches her looking and gestures for both of you to come over.\n\n' );
@@ -3566,18 +3566,18 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			EngineCore.menu();
 			if( CoC.getInstance().player.gender === AppearanceDefs.GENDER_NONE ) {
 				if( this.hasCock() ) {
-					EngineCore.addButton( 0, 'Roast You', CoC.getInstance().scenes.katherineThreesome.roastYou );
+					EngineCore.addButton( 0, 'Roast You', SceneLib.katherineThreesome.roastYou );
 				} else {
-					EngineCore.addButton( 0, 'Watch', CoC.getInstance().scenes.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
+					EngineCore.addButton( 0, 'Watch', SceneLib.katherineThreesome.watch, false ); //A non-drunk version of this scene deals with the difficult ones if Kath can't pound you
 				}
 			} else {
-				EngineCore.addButton( 0, 'Circlejeck', CoC.getInstance().scenes.katherineThreesome.circlejerk );
-				EngineCore.addButton( 1, 'Roast Kath', CoC.getInstance().scenes.katherineThreesome.spitroastKath );
+				EngineCore.addButton( 0, 'Circlejeck', SceneLib.katherineThreesome.circlejerk );
+				EngineCore.addButton( 1, 'Roast Kath', SceneLib.katherineThreesome.spitroastKath );
 				if( this.hasCock() ) {
-					EngineCore.addButton( 2, 'Roast You', CoC.getInstance().scenes.katherineThreesome.roastYou );
+					EngineCore.addButton( 2, 'Roast You', SceneLib.katherineThreesome.roastYou );
 				}
 				if( CoC.getInstance().player.hasCock() ) {
-					EngineCore.addButton( 3, '369', CoC.getInstance().scenes.katherineThreesome.threeSixtyNine );
+					EngineCore.addButton( 3, '369', SceneLib.katherineThreesome.threeSixtyNine );
 				}
 			}
 		}
@@ -3587,11 +3587,11 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'Kath looks like she’s ready for some fun but before you get started something else catches your eye.  You note that Vala is sitting at one end of the bar, her tray propped up beside her.  It looks like a slow night and Vala seems bored.  ' + (CoC.getInstance().flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] < 5 ? 'You decide it’s time to expand their horizons and' : 'You know they enjoy each other’s company so you') + ' motion for her to come over.\n\n' );
 		EngineCore.outputText( 'Vala flies over quickly.  When she arrives you pat the seat next to you. You’re sitting between your submissive cat ' + this.catGirl( 'girl', 'morph' ) + ' on one side and your supersized faerie on the other.  You certainly walked a strange path to wind up here.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fist Them', CoC.getInstance().scenes.katherineThreesome.fistKathAndVala );
+		EngineCore.addButton( 0, 'Fist Them', SceneLib.katherineThreesome.fistKathAndVala );
 		if( this.hasCock() ) { //All but the fisting scene require Kath be a herm
-			EngineCore.addButton( 1, 'Eat Out', CoC.getInstance().scenes.katherineThreesome.eatOutVala );
+			EngineCore.addButton( 1, 'Eat Out', SceneLib.katherineThreesome.eatOutVala );
 			if( !CoC.getInstance().player.isTaur() && CoC.getInstance().player.hasCock() ) {
-				EngineCore.addButton( 2, 'Dbl Stuff', CoC.getInstance().scenes.katherineThreesome.doubleStuffVala );
+				EngineCore.addButton( 2, 'Dbl Stuff', SceneLib.katherineThreesome.doubleStuffVala );
 			}
 		}
 	};
@@ -3687,7 +3687,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PC Penetrates Kath: Anal;
 	Katherine.prototype.pcPenetratesKatAnally = function() {
@@ -3781,7 +3781,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_RECEIVE_ANAL );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.pcPenetratesKatDoubly = function() {
 		//Scene can happen in the streets, at Kath's apartment or at the lake;
@@ -3927,7 +3927,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.pcPenetratesKatDoublyHighCumCorrupt = function() {
 		EngineCore.clearOutput();
@@ -3967,7 +3967,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Suck 'n' Fuck (unavailable if knot > 4");
 	Katherine.prototype.suckNFuck = function() {
@@ -4058,7 +4058,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_RECEIVE_SUCK_N_FUCK );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Penetrated;
 	Katherine.prototype.letKatKnotYou = function() {
@@ -4227,7 +4227,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_GIVE_VAGINAL );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Penetrated (Anal);
 	Katherine.prototype.getPenetrated = function() {
@@ -4325,7 +4325,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_GIVE_ANAL );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Penetrated (Double);
 	Katherine.prototype.getDoublePennedByKat = function() {
@@ -4396,7 +4396,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_GIVE_DOUBLE_PEN );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sucked 'n' Fucked;
 	//This scene requires the PC has a penis and has fucked Kat at least once since moving her;
@@ -4503,7 +4503,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_GIVE_SUCK_N_FUCK );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Oral;
 	Katherine.prototype.oralKatherineChoices = function() {
@@ -4747,7 +4747,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.experience( Katherine.KBIT_TRIED_RECEIVE_ORAL );
 		CoC.getInstance().player.slimeFeed();
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.giveKatOralPussyLicking = function() { //This version assumes Kath has no cock
 		//Scene can happen in the streets, at Kath's apartment or in the Desert;
@@ -4815,7 +4815,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		CoC.getInstance().player.slimeFeed();
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Katherine performs Oral on PC:;
 	Katherine.prototype.katherineGivesPCOralAllDayLongDotJPG = function() {
@@ -4840,7 +4840,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		}
 		EngineCore.outputText( 'Your pleasure finished, you release her, gasping for breath as she daintly wipes her face clean with her fingers.  “<i>Was it good for you?</i>” she asks, mischief in her eyes.  When you reply, she smirks.  “<i>Did you expect a pussy to be good at eating a pussy?</i>”\n\n' );
 		EngineCore.outputText( 'You simply groan at the absolutely terrible pun and get back up, redressing yourself and heading back into the streets after a quick peck to thank her for the time.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		CoC.getInstance().player.orgasm();
 	};
@@ -4886,7 +4886,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		//lust -100 regardless of sex, return to wherever;
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Double Helix;
 	Katherine.prototype.katDoubleHelixCraziness = function() {
@@ -5028,7 +5028,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_DOUBLE_HELIX );
 		EngineCore.dynStats( 'lib', -1, 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Suckle;
 	Katherine.prototype.suckleMenu = function() {
@@ -5180,7 +5180,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		} else { //Alleyway, on duty
 			EngineCore.outputText( 'When she sees one of the other members of her patrol at the end of the alley she hops to her feet, grabs her stuff and gives you a quick peck on the cheek.  As she leaves she says, “<i>Gotta run - but thanks again.  Stop by at the bar, my place, somewhere, just please see me again soon.</i>”\n\n' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PC must lactate to have this option;
 	Katherine.prototype.suckleTacularKats = function() {
@@ -5249,7 +5249,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.dynStats( 'sen', -2, 'lus', -40 );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		CoC.getInstance().player.milked();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//With Quiet Browser and Adjatha’s permission I have been working on finishing Katherine’s Employment Expansion so that it can be coded into CoC. This document covers a part of that. It has been mentioned before that meeting Katherine is quite complex. Many have suggested having an alternate recruitment route. Since I’m writing even more content for Kath I decided to tackle the recruitment route too.;
 	//There is a list of implementation details at the end of this file that, I hope, will help in cutting down on the amount of work needed to implement this expansion in-game.;
@@ -5276,7 +5276,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( '\n\nYou race to the nearest intersection and call out.  A tall lizard morph in a watch uniform pushes through a throng of people and asks you, “<i>What seems to be the problem?</i>”' );
 		EngineCore.outputText( '\n\nYou explain what you saw and lead him back to the mouth of the alleyway.  It’s empty.  The lizard takes down your description of the situation and thanks you for doing the right thing.  He says, “<i>We’ve had a few similar reports in the past, though strangely it’s always the same woman.  I’ll get the description back to the Watch houses and all the officers will keep a sharp eye open.</i>”' );
 		EngineCore.outputText( '\n\nFeeling you’ve done a good deed today you press on.' );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Intervene:;
 	Katherine.prototype.interveneWithKittyKats = function() {
@@ -5363,7 +5363,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'You decide you’re better off not getting involved with some weird sort of hermaphroditic chimera.  She\'s obviously more trouble than she\'s worth and best avoided.' );
 		EngineCore.outputText( '\n\nPutting it out of your mind you walk deeper into the city.  You’ve got things to take care of.' );
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_RANDOM_RECRUITMENT_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	Katherine.prototype.helpKathAfterInterruptu = function() {
 		EngineCore.clearOutput();
@@ -5384,14 +5384,14 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( '\n\nYou stride out of the alley, hoping that you’ll meet Katherine again.' );
 		//[Next];
 		//Proceed to normal Tel’Adre menu;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave:;
 	Katherine.prototype.leaveKittyKatsLikeANeeeeeerrrrd = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide you’re better off not getting involved.  After all, who knows what she’s done?  She’s obviously a stray and could have stolen something from one of the others.  Heck, with all the perverts you’ve seen in this land she could have a rape fetish.  Surely she would scream to attract the guard if she were in real trouble.' );
 		EngineCore.outputText( '\n\nPutting it out of your mind you walk deeper into the city.  You’ve got things to take care of.' );
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
 	};
 	//Second Ambush - First time with Katherine;
 	//This only happens if you intervened the first time (KATHERINE_UNLOCKED === -1);
@@ -5648,7 +5648,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		if( CoC.getInstance().flags[ kFLAGS.KATHERINE_UNLOCKED ] === -1 ) {
 			EngineCore.doNext( this.firstTimeWithKatherinePartTwoUltraChampionshipEditionHyperTurbo );
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//First Time with Katherine (Part 2):;
@@ -5688,7 +5688,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		 CoC.getInstance().flags[kFLAGS.KATHERINE_KNOT_THICKNESS] = 6;
 		 CoC.getInstance().flags[kFLAGS.KATHERINE_BALL_SIZE] = 1; */
 		EngineCore.outputText( '\n\n(<b>Katherine can now be encountered behind Oswald\'s!</b>)' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTime = function() {
 		EngineCore.clearOutput();
@@ -5758,7 +5758,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_BATH );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTimeCentaurPenetrated = function() {
 		EngineCore.outputText( '\n\nKath holds you for a while, just grinding slowly and laying kiss after kiss on your lips and neck.  Finally she lets go and walks along your flank, stroking your flesh with her fingers.  The water resists your movements, giving Katherine the edge.  For now she is the one controlling the pace.  She gets to your rear and strokes your tail.  It rises into the air all on its own, letting Kath know just how much your body wants this.\n\n' );
@@ -5829,7 +5829,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.fatigue( 15 ); //Some extra fatigue for dragging your girlfriend's ass halfway home
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_BATH );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTimeFuckKath = function() {
 		EngineCore.outputText( '\n\nThe sensation causes your ' + (this.hasCock() ? 'own ' : '') + 'cock' + (CoC.getInstance().player.cocks.length > 1 ? '' : 's') + ' to prod Kath’s belly' + (this.hasCock() && CoC.getInstance().player.hasVagina() ? ' and you roll your hips so that Kath’s cock sinks into your folds' : '') + '.  ' + (this.hasCock() ? 'She purrs and tries to drive her shaft deeper but you have other plans.\n\n' : '') );
@@ -5906,7 +5906,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_BATH );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTimeFrustrated = function() { //You took away her cock. This is your fault
 		EngineCore.clearOutput();
@@ -5917,7 +5917,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		EngineCore.outputText( 'By the time you drag yourself and Kath out of the frigid water and towel yourselves off any thoughts of lovemaking are pushed aside in favor of warmth.  You wrap your arms around Kath and the two of you shiver until you can sense your fingers and toes once more.\n\n' );
 		EngineCore.outputText( 'The sun has moved a decent distance across the sky and you decide that despite the unsatisfying expedition there\'s nothing for it but to return Kath to Tel\'Adre and then head back to camp.\n\n' );
 		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTimePenetrated = function() {
 		if( !CoC.getInstance().player.hasVagina() ) { //Genderless or Male - get this out of the way since it will be a little different
@@ -5992,7 +5992,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			this.orgasm();
 			CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 			this.experience( Katherine.KBIT_TRIED_BATH );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			{ //Female or Herm
 			}
@@ -6042,7 +6042,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_BATH );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bathTimePenetratedDenial = function() {
 		EngineCore.clearOutput();
@@ -6069,7 +6069,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.experience( Katherine.KBIT_TRIED_BATH );
 		this.addSubmissive( Katherine.KBIT_SUB_ORGASM_DENIAL );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.bedroomBondage = function() {
 		//If this is the first time then the player needs to have at least 40 gems to buy stuff (10g per scarf);
@@ -6229,7 +6229,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		this.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
 		this.addSubmissive( Katherine.KBIT_SUB_BED_BOND );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Katherine.prototype.drunkFuck = function() {
 		EngineCore.outputText( 'The waitress brings over one last drink and Kath slams it back in one shot.  She’s got an obvious ' + this.clothesLowerChoice( 'tent in her pants', 'bulge under her skirt', 'bulge in the crotch of her bodysuit', 'bulge under her dress', 'bulge inside her robe' ) + ' and she gives you a crooked smile as she gets up.\n\n' );
@@ -6316,18 +6316,18 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 				EngineCore.outputText( '\n\nYou step back and tell Kath this won’t do at all.  She pants and reaches to readjust her clothes.  Then you tell her, “<i>These people just applauded your performance Kath.  They expect an encore.</i>”  She freezes in place and then you tell her, “<i>They can’t get a good view with all those clothes in the way... you’re going to have to strip.</i>”\n\n' );
 				EngineCore.outputText( 'That gets some hoots and hollers from the crowd and you see a few patrons kicking off their pants or skirts in preparation for the show.  Katherine shudders but knows better than to argue when you use that tone of voice.  She starts to quickly take off her clothes until you tell her to stop.\n\n' );
 				EngineCore.outputText( 'She looks back, perhaps wondering if you’re about to tell her you were just kidding.  Instead you explain, “<i>Give them a show, strip like you’re doing this for money.</i>”\n\n' );
-				EngineCore.outputText( 'Kath gulps but turns back to the crowd and ' + this.clothesChoice( 'starts unbuttoning her blouse slowly', 'starts unlacing her bodysuit', 'starts unlacing her long dress', 'starts untying the knot of her robe', 'starts running her fingers under the bottom edge of her tube top', 'pulls the front of her nurse’s top open again' ) + '.  The crowd loves it and Kath, perhaps feeling a little bold thanks to the booze still in her system, starts to get into it and starts to sway back and forth, her cat-like flexibility allowing her hips to move through a hypnotic pattern that silences the crowd.' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? '  You even see a certain faerie waitress paused mid-flight with a tray of drinks.  You see her eyes following every move that Kath’s hips make.' : '') );
+				EngineCore.outputText( 'Kath gulps but turns back to the crowd and ' + this.clothesChoice( 'starts unbuttoning her blouse slowly', 'starts unlacing her bodysuit', 'starts unlacing her long dress', 'starts untying the knot of her robe', 'starts running her fingers under the bottom edge of her tube top', 'pulls the front of her nurse’s top open again' ) + '.  The crowd loves it and Kath, perhaps feeling a little bold thanks to the booze still in her system, starts to get into it and starts to sway back and forth, her cat-like flexibility allowing her hips to move through a hypnotic pattern that silences the crowd.' + (SceneLib.dungeon2Supplimental.isValaAtBar() ? '  You even see a certain faerie waitress paused mid-flight with a tray of drinks.  You see her eyes following every move that Kath’s hips make.' : '') );
 				EngineCore.outputText( '\n\nYou have to smile watching Katherine dancing in front of all these people.  This is something she would never have done before you met her.  As her hips gyrate Kath ' + this.clothesChoice( 'pulls off her blouse and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'pulls her shoulders out of the unlaced top of her bodysuit.  Without missing a beat she gets her arms free and pushes the silky fabric down until the bodysuit covers only her legs, ass and belly', 'finishes unlacing the dress and pulls her arms free, letting the top of the dress fall away.  She starts to play with her breasts and after a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'undoes the knot and opens the front of her robe, giving the audience a lovely view of her bra and panties', 'pulls the tube top over her head and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well', 'slips out of the nurse’s top and starts to play with her breasts.  After a few cheers and cries of “<i>More!</i>” she removes the bra as well' ) + '.\n\n' );
 				EngineCore.outputText( 'With every eye in the place locked on her body Kath lets out a sexy purr ' + this.clothesChoice( ', loosens her skirt and slowly slides it over her hips.  She poses before kicking off her panties, leaving herself totally naked in front of the crowd', 'and works the bodysuit down over her hips, leaving herself totally naked in front of the crowd', 'and wiggles her body, working herself out of the dress and leaving herself totally naked in front of the crowd', 'and allows the spider silk robe to slide off her shoulders and drop to the ground.  With a twirl she pulls off her bra and slides off her panties, leaving herself totally naked in front of the crowd', this.clothesLowerChoice( 'and slides the skintight shorts down her legs.  Her panties soon follow, ', ', loosens her skirt and slowly slides it over her hips.  She poses before kicking off her panties,', '', '', '' ) + ' leaving herself totally naked in front of the crowd', 'and unfastens the sexy nurse’s skirt, letting it drop to the floor.  She poses for the crowd, naked save for the little white nurse’s cap resting on her head' ) + '.\n\n' );
 				EngineCore.outputText( 'With Katherine nude and distracted you sneak up behind her and grab ' + this.cockMultiple( 'her cock with both hands', 'both her cocks' ) + '.  She lets out a surprised meow as you fondle her member' + (this.hasBalls() ? ', her balls' : '') + ' and her dripping pussy.\n\n' );
 				EngineCore.outputText( 'The crowd starts to cheer as you smear Kath’s cock' + this.cockMultiple( '', 's' ) + ' with her own pussy juice.' );
-				if( CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ) {
+				if( SceneLib.dungeon2Supplimental.isValaAtBar() ) {
 					EngineCore.outputText( '   You notice Vala has put down her tray.  One of her hands is under her skirt and she has a zoned out happy look on her face as she watches you molest your ' + this.catGirl( 'cat girl.', 'feline lover.' ) );
 				}
 				EngineCore.outputText( '  Katherine starts playing with her own breasts and grins at her audience' + (this.breasts.lactating() ? '.  Every time she gives them a little squeeze some cream leaks out and dribbles down her front.  She' : '.  Then she') + ' closes her eyes and leans back against you, losing herself in the feeling of her fingers and yours as they pleasure the most sensitive areas of her body.\n\n' );
 				EngineCore.outputText( 'Having cum recently Kath is able to put on quite the show.  Even with your hands working her shaft' + this.cockMultiple( '', 's' ) + ' and occasionally dipping into her cunt it still takes minutes before you feel ' + this.cockMultiple( 'that knot', 'those knots' ) + ' of hers firming up.  Kath’s hips jerk forward and you aim ' + this.cockMultiple( 'her shaft toward the ceiling.  When Kath cums a thick stream of semen under high pressure blasts from the tip of her cock, striking the wall above the door and raining down in thick, heavy droplets', 'her upper cock to the left and her lower cock to the right.  When Kath cums twin streams of semen under high pressure blast from the tips of her cocks - one striking the wall on the left of the door, one striking the wall on the right' ) + '.  The whole bar applauds as Katherine unloads.  As the final squirts bubble from her member' + this.cockMultiple( '', 's' ) + ' Kath falls to her knees and her tongue hangs from the side of her mouth.\n\n' );
 				EngineCore.outputText( 'You’re sure everyone in the bar appreciated that show but you don’t intend to leave a naked and near comatose Katherine in their hands.  You step out of the room and tell Kath you’ll see her later.  She makes a happy gurgling noise that you assume was an “<i>Okay!</i>” and then you close the door, making sure to slam it so the locking bar drops down on the inside.\n\n' );
-				EngineCore.outputText( 'You stride out of the bar' + (CoC.getInstance().scenes.dungeon2Supplimental.isValaAtBar() ? ', pausing only to pull Vala into your arms to quickly kiss her and grope her ass. She sighs, winks and tells you to come back later. You' : ' and') + ' head for home, knowing you’ve ' + (this.doneSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION ) ? 'once again helped Kath see how much fun showing off can be.' : 'opened Kath up to some new possibilities.') );
+				EngineCore.outputText( 'You stride out of the bar' + (SceneLib.dungeon2Supplimental.isValaAtBar() ? ', pausing only to pull Vala into your arms to quickly kiss her and grope her ass. She sighs, winks and tells you to come back later. You' : ' and') + ' head for home, knowing you’ve ' + (this.doneSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION ) ? 'once again helped Kath see how much fun showing off can be.' : 'opened Kath up to some new possibilities.') );
 				this.addSubmissive( Katherine.KBIT_SUB_PUBLIC_EXHIBITION );
 			}
 		}
@@ -6335,7 +6335,7 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 		CoC.getInstance().player.orgasm();
 		this.orgasm();
 		CoC.getInstance().flags[ kFLAGS.KATHERINE_TIMES_SEXED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	var KatherineProxy = new Proxy( Katherine, {
 		construct: function( target ) {
@@ -6397,5 +6397,5 @@ angular.module( 'cocjs' ).run( function( PerkLib, ArmorLib, BreastStore, $rootSc
 			} );
 		}
 	} );
-	CoC.getInstance().registerScene( 'katherine', new KatherineProxy() );
+	SceneLib.registerScene( 'katherine', new KatherineProxy() );
 } );

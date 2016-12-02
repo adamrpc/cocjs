@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS, CoC, EngineCore, ConsumableLib ) {
 	function Lumi() {
 	}
 
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 			//placeholder text for outside the cathedral;
 			EngineCore.outputText( 'You spot an anomaly in the barren wastes; a door that seems to be standing out in the middle of nowhere. Somehow, you figure that it must lead to some other part of the world, and the only reason it\'s here is because you can\'t get to where the door should be right now.\n\n', false );
 			EngineCore.outputText( 'Do you open it?', false );
-			EngineCore.doYesNo( this.lumiLabChoices, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this.lumiLabChoices, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//placeholder text for outside the cathedral;
 			EngineCore.outputText( 'You spot the door standing in the middle of nowhere again, and you guess that it will lead you back to Lumi\'s laboratory.  It swings open easily...', false );
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 		if( this.lumiEnhance( true ) ) {
 			enhance = this.lumiEnhance;
 		}
-		EngineCore.choices( 'Shop', this.lumiShop, 'Enhance', enhance, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Shop', this.lumiShop, 'Enhance', enhance, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lumi.prototype.lumiShop = function() {
 		EngineCore.spriteSelect( 37 );
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 			EngineCore.outputText( 'You pay Lumi the gems, and she hands you ' + itype.longName + ' saying, "<i>Here ya go!</i>"\n\n', false );
 			CoC.getInstance().player.gems -= cost;
 			EngineCore.statScreenRefresh();
-			CoC.getInstance().scenes.inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
+			SceneLib.inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
 		} else {
 			//After choosing, and PC doesn't have enough gems;
 			EngineCore.outputText( 'You go to pay Lumi the gems, but then you realize that you don\'t have enough. Lumi seems to know what happened and tells you "<i>Ok, is dere somefing you want to buy that you can affowd?</i>"\n\n', false );
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( $log, Utils, ItemType, kFLAGS, CoC, Eng
 		} else if( temp === 2 ) {
 			EngineCore.outputText( 'She adds a few things to the tray before moving down the table.  She adds some reagents to a bubbling chemical reaction, and then adds some more ingredients to that.  You wonder why she just left ' + itype.longName + ' there to work on something else.  Then Lumi moves back across the table, past where ' + itype.longName + ' sits, to start adding things to something else.  Before you have a chance to complain, she moves back to ' + itype.longName + ' and continues.  You decide that it\'s probably best not to ask about her work ethic and just let her do her thing; she has more experience than you, after all.\n\nPOP! You look over in surprise as the first thing she worked on makes a small explosion.  POW! Now the second experiment has blown up!  You start to move in alarm, wondering if Lumi really knows what she\'s doing; just before ' + itype.longName + ' seems to explode with an incredible BOOM.  Lumi stops moving for a moment, looking straight ahead before saying, "<i>Dat was a gud one, Lumi dun!</i>"\n\n', false );
 		}
-		CoC.getInstance().scenes.inventory.takeItem( nextItem, this.lumiEnhance, this.lumiLabChoices );
+		SceneLib.inventory.takeItem( nextItem, this.lumiEnhance, this.lumiLabChoices );
 	};
-	CoC.getInstance().registerScene( 'lumi', new Lumi() );
+	SceneLib.registerScene( 'lumi', new Lumi() );
 } );

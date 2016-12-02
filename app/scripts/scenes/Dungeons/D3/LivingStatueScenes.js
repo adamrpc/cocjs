@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( LivingStatue, Combat, EventParser, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, EventParser, CoC, EngineCore ) {
 	function LivingStatueScenes() {
 	}
 
@@ -32,12 +32,12 @@ angular.module( 'cocjs' ).run( function( LivingStatue, Combat, EventParser, CoC,
 		}
 		EngineCore.outputText( '\n\n<b>Lethicite acquired!</b>' );
 		CoC.getInstance().player.createKeyItem( 'Stone Statue Lethicite', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat( CoC.getInstance().scenes.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
 	};
 	LivingStatueScenes.prototype.fuckinMarbleOP = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You slump to your knees, overwhelmed and unable to see the shadow of the falling hammer. Your last thoughts are of regret.' );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'livingStatueScenes', new LivingStatueScenes() );
+	SceneLib.registerScene( 'livingStatueScenes', new LivingStatueScenes() );
 } );

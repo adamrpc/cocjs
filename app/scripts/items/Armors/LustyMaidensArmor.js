@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
-	var LustyMaidensArmor = angular.copy( Armor );
+angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+	function LustyMaidensArmor() {
+		this.init(this, arguments);
+	}
+	angular.extend(LustyMaidensArmor.prototype, Armor.prototype);
 	LustyMaidensArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'LMArmor', 'LMArmor', 'lusty maiden\'s armor', 'a bikini-like set of armor that could only belong to a lusty maiden', 6, 400, 'This skimpy chain bikini barely qualifies as armor.  Indeed, the chain is made from links much finer and lighter than normal, so fine that it feels almost silken under your fingertips.  A simple seal in the g-string-like undergarment states, "Virgins only."', 'Light' ] );
 	};
@@ -152,7 +155,7 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( AppearanceDefs
 		if( Combat.inCombat ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	return new Proxy( LustyMaidensArmor, {

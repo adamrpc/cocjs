@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
-	var MilkySuccubus = angular.copy( AbstractSuccubus );
+angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+	function MilkySuccubus() {
+		this.init(this, arguments);
+	}
+	angular.extend(MilkySuccubus.prototype, AbstractSuccubus.prototype);
 	MilkySuccubus.prototype.performCombatAction = function() {
 		if( this.findStatusAffect( StatusAffects.MilkyUrta ) < 0 && Utils.rand( 3 ) === 0 ) {
 			this.cowCubiMilkSprayAttack();
@@ -67,10 +70,10 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( AbstractSuccubus, 
 		Combat.combatRoundOver();
 	};
 	MilkySuccubus.prototype.defeated = function() {
-		CoC.getInstance().scenes.urtaQuest.urtaBeatsUpCowcubi();
+		SceneLib.urtaQuest.urtaBeatsUpCowcubi();
 	};
 	MilkySuccubus.prototype.won = function() {
-		CoC.getInstance().scenes.urtaQuest.urtaLosesToCowCubi();
+		SceneLib.urtaQuest.urtaLosesToCowCubi();
 	};
 
 	MilkySuccubus.prototype.teased = function( lustDelta ) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Kiha, SpiderMorphMob, ConsumableLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	function KihaFollower() {
 	}
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			EngineCore.outputText( '[pg]To your surprise, Kiha slips an arm of her own around your waist, returning your affection for the first time.  You smile, and stroke her cheek, happy as the dragoness rests her head on your shoulder.', false );
 			CoC.getInstance().flags[ kFLAGS.KIHA_TALK_STAGE ]++;
 			EngineCore.dynStats( 'cor', -1 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		} else if( output ) {
 			//(Activated on Kiha proc'ing in the swamps; replaces combat encounter);
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			talk = this.talkToFriendlyKiha;
 		}
 		//(Display Options: [Talk] [Spar] [Hug] [Leave];
-		EngineCore.choices( 'Talk', talk, 'Spar', this.sparWithKiha, 'Hug', this.hugFriendWarmKiha, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Talk', talk, 'Spar', this.sparWithKiha, 'Hug', this.hugFriendWarmKiha, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Spar with Friendly Kiha - Intro (Z);
 	KihaFollower.prototype.sparWithKiha = function() {
@@ -315,7 +315,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]The peaceful, companionable embrace only lasts for a few seconds before Kiha suddenly and violently pushes you away.  "<i>What do you think you\'re doing, idiot!</i>"  she shouts, and launches off into the air before you can respond.', false );
 		EngineCore.outputText( '[pg]You shake your head and head on back to camp.', false );
 		this.kihaAffection( 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//lose some corruption?;
 	//Talk to Friendly Kiha - First Time (Z);
@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		CoC.getInstance().flags[ kFLAGS.KIHA_TALK_STAGE ]++;
 		//lose some corruption;
 		EngineCore.dynStats( 'cor', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Kiha x salamander Threesome - Introduction (Z);
 	KihaFollower.prototype.kihaXSalamander = function() {
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		CoC.getInstance().flags[ kFLAGS.KIHA_AND_HEL_WHOOPIE ] = -1;
 		EngineCore.outputText( 'While Kiha and the mysterious swordsman are distracted, you pick yourself up out of the mud and high-tail it out and head back to camp.  Over your shoulder, you hear the sounds of battle raging.', false );
 		//to what penalty?;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Lie There;
 	KihaFollower.prototype.lieThere = function() {
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]And here we almost had a beautiful moment going.  You sigh, wipe the mud off Hel\'s face enough to give her a little kiss, and head on back to camp.', false );
 		EngineCore.outputText( '[pg]Your [armorName] squelches wetly all the way, full of your cum as it is.', false );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Jump Them;
 	KihaFollower.prototype.jumpDaBitches = function() {
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '.  You make a few final, weak thrusts, riding out your orgasm until Kiha and Hel have finally calmed down, and your own [cock] is only dribbling a weak trickle of seed up Kiha\'s ass.', false );
 		EngineCore.outputText( '[pg]Laughing weakly, exhausted by your efforts at dominating the two fiery redheads, you pull out of Kiha\'s rectum, watching as cum gushers out of her stretched bum.  You give her a little pat on the thigh before untangling yourself from the dragoness.  You stop by to give Hel and Kiha both a quick kiss on the lips before grabbing your gear and staggering off to camp, leaving the girls to sort themselves out in the murky swamp.', false );
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Warm Kiha Admittance;
 	KihaFollower.prototype.kihaAdmitsSheLikesYourWang = function() {
@@ -537,7 +537,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			EngineCore.outputText( 'Kiha lightly drops out of the trees in front of you, kicking up a small splash of fetid water as she comes to rest a few feet away.  She rests her axe over her shoulder nonchalantly and smiles as she says, "<i>Did you come back to get your ass kicked?  You wouldn\'t be the first to throw fights so you could check me out while you\'re lying on the ground.</i>"  Her tail swings around to playfully catch you on the ' + Descriptors.buttDescript() + ', a hint of crimson spreading on her dark skin, matching the ruby hue of her shimmering scales.  Kiha strikes a battle-ready pose that looks a bit more lewd than normal as she asks, "<i>So, you here to fight, or waste more time talking?</i>"' );
 			EngineCore.outputText( '[pg]Do you hug her, and potentially take things to the next level, or would you rather do something else?' );
 		}
-		EngineCore.choices( 'Talk', null, 'Spar', this.sparWithKiha, 'Hug', this.hugFriendWarmKiha, 'LovinHug', this.lovinHugKiha, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Talk', null, 'Spar', this.sparWithKiha, 'Hug', this.hugFriendWarmKiha, 'LovinHug', this.lovinHugKiha, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Loving Hug;
 	KihaFollower.prototype.lovinHugKiha = function() {
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '\nKiha flies you back to get your armor.  The search takes a little while, but you eventually recover it.  She looks at you hesitantly before giving you a goodbye kiss.  "<i>Don\'t get yourself killed out there.  I\'d get bored without you messing everything up all the time.</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Loving Hugs 4 Girls;
 	KihaFollower.prototype.lovingHugsGirlFuckSex = function() {
@@ -720,7 +720,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '\nKiha flies you back to get your armor.  The search takes a little while, but you eventually recover it.  She looks at you hesitantly before giving you a goodbye kiss.  "<i>Don\'t get yourself killed out there.  I\'d get bored without you messing everything up all the time.</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Loving Hugs 4 Genderless Tards:;
 	KihaFollower.prototype.lovingHugsForRetards = function() {
@@ -750,12 +750,12 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '\nKiha flies you back to get your armor.  The search takes a little while, but you eventually recover it.  She looks at you hesitantly before giving you a goodbye kiss.  "<i>Don\'t get yourself killed out there.  I\'d get bored without you messing everything up all the time.</i>"', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//"<i>Warm</i>"/Lover Kiha Intro;
 	KihaFollower.prototype.warmLoverKihaIntro = function( output ) {
 		var campo = null;
-		var leave = CoC.getInstance().scenes.camp.returnToCampUseOneHour;
+		var leave = SceneLib.camp.returnToCampUseOneHour;
 		if( output === undefined || output ) {
 			output = true;
 			EngineCore.clearOutput();
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 					return;
 				}
 				EngineCore.outputText( 'When you approach your dragoness lover, a warm smile spreads across her dark features.  She gives you a playful punch on the shoulder and laughs, "<i>Hey, doofus. You need something -- maybe a little dragon loving?</i>" she adds with a wink.' );
-				leave = CoC.getInstance().scenes.camp.campLoversMenu;
+				leave = SceneLib.camp.campLoversMenu;
 				//EngineCore.choices('Hang Out',this.hangOutWithKiha,'Hug',this.hugFriendWarmKiha,'InviteCamp',campo,'Sex',this.kihaSexMenu,'Spar',this.sparWithKiha,'',0,'',0,'',0,'',0,'Leave',leave);;
 				EngineCore.menu();
 				EngineCore.addButton( 0, 'Hang Out', this.hangOutWithKiha );
@@ -898,7 +898,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			EngineCore.outputText( '[pg]Time seems meaningless in your draconic lover\'s embrace, yet eventually you know you must part - for the moment.  Giving her another long kiss, you pick yourself up from between Kiha\'s hefty bosom and, say your goodbyes.' );
 			EngineCore.outputText( '[pg]Kiha gives you a wry smirk as you extricate yourself from your arms.  "<i>I\'ll see you soon... Doofus.</i>"' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		this.kihaAffection( 5 );
 	};
 	//[It's Good];
@@ -928,7 +928,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]Frowning, she snatches the meat out of your hand and takes a big bite out of it.  You grin as her eyes water at the overwhelming juiciness and sweetness of the meat as you\'ve prepared it.  You think you might just be the first person to ever cook just for her.  Still, though, when you ask her what she thinks, Kiha huffs and answers, "<i>Well, it\'s alright... I guess.</i>"' );
 		EngineCore.outputText( '[pg]You roll your eyes and spend the next few minutes enjoying a delicious, quiet meal with your dragon lover.  When you\'ve finished, you ruffle Kiha\'s hair, tell her to try and take better care of herself - or at least make herself a proper meal sometime - and head off back to camp.  You can almost hear her fuming behind you as you walk.' );
 		this.kihaAffection( -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	KihaFollower.prototype.kihaSexMenu = function( display, allowBack ) {
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		if( CoC.getInstance().player.hasVagina() ) {
 			sixtyNine = this.kihaGirlGirlSex;
 		}
-		EngineCore.choices( 'Anal', anal, 'Dominate', dom, 'FuckVag', fuckVag, 'Get HJ', dickWorship, 'Girl69', sixtyNine, 'GroPlusTits', gro, 'Give I.Drft', incu, 'LustyDicking', horse, 'TentacleFuck', tent, (allowBack ? 'Back' : 'Leave'), (allowBack ? CoC.getInstance().scenes.kihaScene.encounterKiha : CoC.getInstance().scenes.camp.returnToCampUseOneHour) );
+		EngineCore.choices( 'Anal', anal, 'Dominate', dom, 'FuckVag', fuckVag, 'Get HJ', dickWorship, 'Girl69', sixtyNine, 'GroPlusTits', gro, 'Give I.Drft', incu, 'LustyDicking', horse, 'TentacleFuck', tent, (allowBack ? 'Back' : 'Leave'), (allowBack ? SceneLib.kihaScene.encounterKiha : SceneLib.camp.returnToCampUseOneHour) );
 	};
 	//Savage Every Hole With A Bigass Horsecock ;
 	//(requires 50+ minimum lust, or 80+ libido, or a lust/fuck draft);
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		CoC.getInstance().flags[ kFLAGS.KIHA_HORSECOCK_FUCKED ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//CoC.getInstance().flags[kFLAGS.KIHA_NEEDS_TO_REACH_TO_HORSECOCKING] = 1;;
 	//Kiha's Reaction to Horsecock Sex (1 time only);
@@ -1599,22 +1599,22 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		}
 		EngineCore.outputText( '[pg]Wiping up as best you can, you don your [armor] and walk back' );
 		if( CoC.getInstance().monk >= 5 && CoC.getInstance().player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
-			if( !CoC.getInstance().scenes.jojoScene.tentacleJojo() ) {
+			if( !SceneLib.jojoScene.tentacleJojo() ) {
 				EngineCore.outputText( ', ignoring the sounds of Jojo feverishly masturbating in the woods' );
 			} else {
 				EngineCore.outputText( ', ignoring the sound of Jojo vigorously fucking himself with all his tentacles in the trees' );
 			}
 		}
 		EngineCore.outputText( '.' );
-		if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+		if( SceneLib.sophieBimbo.bimboSophie() ) {
 			EngineCore.outputText( '  Sophie greets you when you return, though she seems crestfallen once she smells the sex on you and realizes how thoroughly you\'ve been sated.' );
 		}
-		if( CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+		if( SceneLib.amilyScene.amilyCorrupt() ) {
 			EngineCore.outputText( '  Amily begs, "<i>May I help to service you next time, ' + CoC.getInstance().player.mf( 'master', 'mistress' ) + '?</i>"' );
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Girl Camp/Warm Sex;
 	KihaFollower.prototype.kihaGirlGirlSex = function() {
@@ -1653,7 +1653,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]Mouths stuffed in each others\' twats, you lie with your lover, lazily lapping at fragrant girl-honey while your bodies shiver from aftershocks of bliss.  Kiha admits, "<i>Okay, you\'re - lick - not too bad - lick - at this.</i>"  You swat her rump and stroke her happily swaying tail before thanking her.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Warm Kiha Sex - Anal (Needs a cock that fits her butt);
 	KihaFollower.prototype.savinTheAnalForKiha = function() {
@@ -1748,7 +1748,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]You give Kiha a playful swat on the butt as you depart, laughing as the impact causes a trickle of your cum to leak out and down her thigh.  "<i>Oh, you idiot!</i>"  she growls as you run off back to your duties.' );
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().flags[ kFLAGS.TIMES_KIHA_ANALED ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Warm/Follower Kiha Vagaginaginal;
 	KihaFollower.prototype.fuckKihasVagInCamp = function() {
@@ -1794,7 +1794,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]Kiha punches you in the chest before climbing off you.  "<i>I don\'t have time for those emotions, doofus... not while Lethice lives.</i>"  Well, it was a nice moment.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Kiha Takes an Incubus Draft (Requires [Pure?] Incubus Draft);
 	KihaFollower.prototype.giveKihaIncubusDraft = function() {
@@ -1834,7 +1834,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			CoC.getInstance().player.consumeItem( ConsumableLib.INCUBID );
 			EngineCore.dynStats( 'cor', 2 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Kiha Tentacle Scene;
 	KihaFollower.prototype.fuckKihaWithATentacle = function() {
@@ -1896,7 +1896,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( ', and you can feel semen gathering at the base of your crotch for an ultimate burst of love.  Kiha and you have been hugging and fucking for what seems like hours, and your hot sweating bodies are literally emitting an aura of pure animal lust as they grind against each other.  You pump harder and faster, eager to bring your draconic lover closer to climax before your own orgasm kicks in.  Suddenly, there it comes blast Kiha\'s insides with your spooge, spraying her innermost depths with your hot, sticky goo.  [EachCock] release an enormous fountain of sap, drenching the dragoness\' body and splattering every square inch of her skin with your seed.  You pound away as you keep cumming, [eachCock] squelching noisily as it thrusts in and out of her interior; likewise, the girl\'s orifices undulate and contract irregularily, doing their best to milk you of everything you have.  In no time, the dragoness becomes a spunk-sopping mess; some of the scales sprinkled over her body actually shine from all the cum-polishing.  Kiha\'s holes are completely filled and your baby-batter dribbles out of her in thick greenish-white ropes.  Your fluids mix with the fiery girl\'s own vagina juices and sweat and soon a puddle of sexual filth appears below the exotic couple you both form.  Semen keeps flowing out of the tip of [eachCock] and soaking your lover until you feel completely drained.  When the last glob of goo comes out, you release your embrace somewhat and you both fall over to rest, [eachCock] still buried deep inside her.  There\'s a loud splash as Kiha\'s robust body hits the fluid-polluted floor.  You keep caressing and cuddling your lover, enjoying her warm and moist contact as she still hugs you tightly.  Then, at last, she awkwardly removes [eachCock] from her orifices. Her holes are gaping and packed with an absurd amount of jism, but this doesn\'t seem to reduce her pride in the least.  She quickly swallows the remainder of cum on her lips and grumbles dizzily idiot, look at what you did!  Now I\'m completely coated with your filth, I\'ll have to get cleaned up!  Don\'t think I\'m a slave to your disgusting dicks... I only accepted because you were so pathetically in need... D-don\'t you do this again!  Well, unless, you know, you really want to.  Not that I liked it, but since you love doing this that much... I-I guess you... could... well- I must go.</i>" Kiha then clumsily turns around and flies off, flapping her wings erratically; she\'s still giddy from the hard tentacle fuck you both just had and is probably going to wash herself in some river.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Kiha Camp Move In Hint (Happens once and unlocks options);
 	KihaFollower.prototype.kihaOffersToMoveIn = function() {
@@ -1924,7 +1924,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]Kiha sniffles softly and continues, "<i>I almost feel bad for Lethice to have you as an enemy.  Do me a favor and kick her in the twat for me when you find her, okay?</i>"  You both share a nervous laugh at that and slowly end the hug.  Dabbing at one of her tears, you suggest, "<i>Come on, let\'s carry your stuff over and get you moved in.</i>"  Kiha\'s tail wags happily, and the two of you begin gathering her things.' );
 		EngineCore.outputText( '[pg]<b>(Kiha has joined your camp as a lover!)</b>' );
 		CoC.getInstance().flags[ kFLAGS.KIHA_FOLLOWER ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Possession 'n Boobies;
 	//REQs ghost TF + gro+;
@@ -1956,7 +1956,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
 		CoC.getInstance().player.consumeItem( ConsumableLib.GROPLUS );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Kiha & Corrupt PCs -- Parting Ways;
 	//(Play the first time the PC meets Kiha while having 66+ Corruption);
@@ -1983,7 +1983,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			EngineCore.outputText( '[pg]"<i>[name].</i>"  She says flatly, planting the haft of her axe in the ground, leaning heavily upon it.' );
 			EngineCore.outputText( '[pg]You say hello, looking nervously around.  Something isn\'t right here, and your hand drifts toward your [weaponName].' );
 			EngineCore.outputText( '[pg]"<i>Listen, [name],</i>" Kiha says, eyeing you from behind her axe.  "<i>Maybe we\'ve gotten to be friends lately, but... something\'s changed about you.  I can SMELL the corruption on you, the lust... I-I can\'t do it, [name].  I can\'t be around someone that could turn into someTHING at any moment, someone who\'s just letting themselves go like... like you are. Please j-just go, [name].</i>"  You try to protest, to reason with the fiery warrior, but she only lifts up her axe and levels it at you...  "<i>J-JUST GO!</i>"' );
-			EngineCore.choices( 'Fight', CoC.getInstance().scenes.kihaScene.meetKihaAndFight, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fight', SceneLib.kihaScene.meetKihaAndFight, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'Kiha approaches you, her belongings gathered in her hands.  The sexy dragoness seems visibly upset, and before you can say a word, she interrupts, "<i>Don\'t say a word, [name].  You\'re corrupt.  I can smell the corruption rolling off you from over here.  I won\'t be here when you turn into a demon, and I don\'t want to fight you... but if you come after me, I won\'t hesitate to defend myself!</i>"' );
 			EngineCore.outputText( '[pg]Kiha closes her eyes and launches herself into the air, only leaving a few tears for the parched wasteland to claim.' );
@@ -2009,7 +2009,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 			this.kihaFriendlyGreeting( false );
 		} else {
 			EngineCore.outputText( '  You make your way back to camp, arm in arm.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Kiha @ Camp: Appearance;
@@ -2020,7 +2020,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.outputText( '[pg]She has a pair of dusky, soft D-cup tits, with a single 0.5 inch nipple on each breast.' );
 		EngineCore.outputText( '[pg]Kiha has a loose twat between her legs which constantly drips a warm, wet lubricant that stains her thighs.' );
 		EngineCore.outputText( '[pg]Between her gropable butt-cheeks, Kiha has a single tight asshole, right where it belongs.' );
-		EngineCore.doNext( CoC.getInstance().scenes.kihaScene.encounterKiha );
+		EngineCore.doNext( SceneLib.kihaScene.encounterKiha );
 	};
 
 	//New option added to Kiha's "<i>In-camp/warm</i>" dialogue menu, ['dominance' during sex];
@@ -2050,7 +2050,7 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		//EngineCore.outputText('You break eye contact with the fierce dragoness and remain silent in the face of her challenge, unwilling to pursue the issue any further at the moment.  She snorts, dismissively.  "<i>That\'s what I thought,</i>" she sneers, narrowing her eyes in warning.  After a short pause, her fiery stare almost palpable on your cheek, she turns away once more- with an infuriating little toss of her head- and when you finally glance back at her again, you see that the corners of her mouth are turned up in a smirk.  You turn and walk away shamefully, unable to find the words to explain yourself or to defend your outburst.');;
 		EngineCore.outputText( 'You break eye contact with the fierce dragoness and remain silent in the face of her challenge, unwilling to pursue the issue any further at the moment.  She snorts, dismissively, "<i>If you don\'t fight for the things you want, people will just keep taking them from you.</i>"  Kiha lewdly spreads her legs and runs her tail over her outer lips, teasing you as hard as she can.  She smirks as your eyes glue to her groin and turns away.' );
 		EngineCore.outputText( '[pg]"<i>Maybe once you grow some balls,</i>" the dragoness taunts, giving you a wink.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight for position];
 	KihaFollower.prototype.fightForDominanceWithDragonCunnies = function() {
@@ -2298,5 +2298,5 @@ angular.module( 'cocjs' ).run( function( Kiha, SpiderMorphMob, ConsumableLib, Pe
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.warmLoverKihaIntro );
 	};
-	CoC.getInstance().registerScene( 'kihaFollower', new KihaFollower() );
+	SceneLib.registerScene( 'kihaFollower', new KihaFollower() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
+angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
 	var StartUp = {};
 	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {
@@ -10,7 +10,7 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		}
 		EngineCore.hideStats();
 		//Reset newgame buttons
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CoC.getInstance().charCreation.newGameGo );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CharCreation.newGameGo );
 		MainView.hideAllMenuButtons();
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
 		MainView.showMenuButton( MainView.MENU_DATA );
@@ -79,10 +79,10 @@ angular.module('cocjs').factory('StartUp', function ($log, CoC, EngineCore, Main
 		if( CoC.getInstance().isEaster() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Easter!  Enjoy the eggs!</b>' );
 		}
-		if( CoC.getInstance().scenes.valentines.isValentine() ) {
+		if( SceneLib.valentines.isValentine() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Valentine\'s!</b>' );
 		}
-		if( CoC.getInstance().scenes.helFollower.isHeliaBirthday() ) {
+		if( SceneLib.helFollower.isHeliaBirthday() ) {
 			EngineCore.outputText( '\n\n<b>It\'s Helia\'s Birthday Month!</b>' );
 		}
 	};

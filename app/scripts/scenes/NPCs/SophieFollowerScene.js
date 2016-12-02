@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Combat, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Combat, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieFollowerScene() {
 		this.eggColors = [
 			'Black',
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ) {
 			return false;
 		}
-		if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+		if( SceneLib.sophieBimbo.bimboSophie() ) {
 			return false;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 && CoC.getInstance().flags[ kFLAGS.SOPHIE_DEBIMBOED ] > 0 ) {
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		return false;
 	};
 	SophieFollowerScene.prototype.sophieSprite = function() {
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 	};
 	//Un-Bimbo*;
 	SophieFollowerScene.prototype.unbimboSophie = function() {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( 'You shrug and put the potion back in your pack.  Maybe later...  A mad Sophie isn\'t something you particularly want to deal with right now.' );
 		//(Return to Sophie menu.  You monster);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.sophieBimbo.approachBimboSophieInCamp );
+		EngineCore.addButton( 0, 'Next', SceneLib.sophieBimbo.approachBimboSophieInCamp );
 	};
 	//Yes (God dammit what the fuck did I just say)*;
 	SophieFollowerScene.prototype.yesDebimboSophie = function() {
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			Combat.cleanupAfterCombat();
 		}//(Display Sophie's normal options.You monster)
 		else {
-			CoC.getInstance().scenes.sophieBimbo.approachBimboSophieInCamp( false );
+			SceneLib.sophieBimbo.approachBimboSophieInCamp( false );
 		}
 	};
 	//Beat Her (You Monster)*;
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Why I Did It (I'm a Monster, you see)*;
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Apologize (Sorry I'm a Monster)*;
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -229,14 +229,14 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	//BimboBody Sophie Follower, Main Screen;
 	SophieFollowerScene.prototype.followerSophieMainScreen = function() {
 		EngineCore.clearOutput();
-		CoC.getInstance().scenes.sophieBimbo.sophieSprite();
+		SceneLib.sophieBimbo.sophieSprite();
 		//Sophie is in season;
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
+		if( SceneLib.sophieBimbo.sophieIsInSeason() && CoC.getInstance().player.hasCock() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			//Replacement Greeting Screen For In Season;
 			//Similar to bimbo sophie;
 			EngineCore.outputText( 'Sophie\'s entire soft body jiggles and shudders visibly when she hears you call her.  Her walk towards you is a bit too fast to be sensuous, despite her best attempts, and her tail feathers twitch, fanning a breeze towards you that reeks of pheromones and her needy sex.  She puts a hand on her hip, making a small show of her jiggling butt and immense mammaries as she gives you a wink and stares at you with lowered eyelids, bedroom eyes seeking to provoke more arousal from you.  Her finger presses against your [chest] as she speaks, slowly and seductively, trying to accentuate every word by adding the power of her lips to it.  "<i>Sooo, you wanted to see me?  That\'s good, because Momma Sophie wanted to see you as well.</i>"' );
 			EngineCore.outputText( '\n\nHer hand travels down your belly all the way to your [oneCock], rubbing against it affectionately as she presses her prodigious bosom against you.  "<i>You see, you need to put "momma" back into Momma Sophie, [name].  You really have to do it, it\'s <b>very</b> important, wouldn\'t you agree?</i>"  When she grabs at your [cockHead biggest], you stiffen immediately, and almost catch yourself nodding to her words.  "<i>Your cock seems to agree, [name].  It pulls you towards me, egging you on to pump me full of eggs, right?</i>"  She chuckles as she continues to rub your member.  "<i>To just put it in and squirt until I\'m totally full of your cum, and then your baby.</i>"  She continues to caress you, and you realize that with her being more needy than usual, it\'s natural that she\'d try to compel you to have sex with her, and ' );
-			if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+			if( SceneLib.sophieBimbo.bimboSophie() ) {
 				EngineCore.outputText( 'restoring her intellect made her quite skilled at it again' );
 			} else {
 				EngineCore.outputText( 'she\'s quite skilled at it' );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Appearance', this.sophieAppearance );
 			if( CoC.getInstance().player.hasCock() ) {
-				if( CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() ) >= 0 ) {
+				if( CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
 					EngineCore.addButton( 1, 'Vaginal', this.fuckFollowerSophie );
 					EngineCore.addButton( 2, 'Special', this.sophieSpecial );
 				} else {
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 				EngineCore.addButton( 8, 'NoSleepWith', this.sleepWithSophieToggle );
 				EngineCore.outputText( '\n\nYou\'re currently sharing your bed with Sophie at night, but you could kick her out, if you wanted.' );
 			}
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campFollowers );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp.campFollowers );
 			return;
 		} else if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 ) {
@@ -294,12 +294,12 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			EngineCore.outputText( '\n\n<b>Sophie\'s egg is sitting nearby.</b>' );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
-			EngineCore.addButton( 7, 'Daughter', CoC.getInstance().scenes.sophieBimbo.daughterCheckup );
+			EngineCore.addButton( 7, 'Daughter', SceneLib.sophieBimbo.daughterCheckup );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campFollowers );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp.campFollowers );
 		} else {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && CoC.getInstance().flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '\n\n“<i>I\'m here to be with you, not till some farm,</i>” she flounces. She looks at you slyly and sidles her warm, pillowy weight into your side. “<i>Wouldn’t you get lonely out here on your own, [name]? Yes, you would. Give mama Sophie a kiss and we’ll forget all about this...</i>” You take a step back and firmly point in the direction of the farm.' );
 		EngineCore.outputText( '\n\nHer whining and complaining can be heard long after her pink feathers have disappeared over the rise. She’ll be useless as a worker, you think, but she’s considerably more vigilant and sharp than she lets herself on to be. And who knows, maybe she can produce some eggs whilst she’s there.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieFollowerScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( 'You tell her she’s welcome to head back to camp now.' );
 		EngineCore.outputText( '\n\n“<i>Thank the Gods,</i>” she says, rolling her eyes. “<i>Any longer out here and I was going to suffocate from boredom.</i>” She kisses your cheek affectionately before stretching her huge wings out to fly off in the direction of the portal.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.harvestEggs = function() {
 		EngineCore.clearOutput();
@@ -356,7 +356,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			CoC.getInstance().flags[ kFLAGS.FARM_EGG_STORED ] = 0;
 			CoC.getInstance().flags[ kFLAGS.FARM_EGG_COUNTDOWN ] = 7;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.stopHarvest = function() {
 		EngineCore.clearOutput();
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '\n\n“<i>Awww,</i>” she replies with pleading eyes. “<i>Couldn\'t you just fuck some REAL eggs into me instead?</i>”' );
 		EngineCore.outputText( '\n\nYou respond to the negative, earning a pout from the busty hen. She looks like she\'s going to obey you regardless.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.changeEggs = function() {
 		EngineCore.clearOutput();
@@ -381,12 +381,12 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '"<i>Oh, really? I was kind of hoping you\'d want a taste of me soon.</i>"  Sophie somewhat perks up at the mention of having sex with you.  "<i>So, what\'d you like? The usual, or should Momma do something special for you this time around?</i>"  She licks her lips at the suggestion.' );
 		//[Usual] [Nurse] [YouMove] [IMove] [Titfuck] [GetDMilked] [Extra1] [....];
 		if( CoC.getInstance().player.hasCock() ) {
-			if( CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() ) >= 0 ) {
+			if( CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Vaginal', this.fuckFollowerSophie );
 			}
 			EngineCore.addButton( 1, 'Blowjob', this.sophieFollowerGivesBlowjobs );
 		}
-		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] > 0 && CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() ) >= 0 ) {
+		if( CoC.getInstance().flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 && CoC.getInstance().flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] > 0 && CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
 			EngineCore.addButton( 8, 'DaughterFuck', this.sophieIncestInHerCooterOrSomethingIDunno );
 		}
 		EngineCore.addButton( 9, 'Back', this.followerSophieMainScreen );
@@ -418,12 +418,12 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 
 		EngineCore.outputText( '\n\nShe has a glittering, moist pussy concealed between her thick thighs, both of which start the feathery covering that reaches all the way to her bird-like, taloned feet.  Her jiggly backside wobbles slightly with every exaggerated step she takes, with her long tailfeathers fanning above it.  You\'re sure there\'s a tight butthole located between them, where it belongs, but you can\'t really get a look at it with all the plump ass surrounding it.' );
 		EngineCore.outputText( '\n\nSophie\'s arms are covered in feathers as well, and are somewhat wing-like in appearance, though she has human hands at the ends of them.  Her primary wings are larger and sprout out above her shoulder blades.  She often keeps them folded out of the way behind her, but she can kick up a huge dust-storm with them when she wants.' );
-		if( CoC.getInstance().scenes.farmCorruption.hasTattoo( 'sophie' ) ) {
+		if( SceneLib.farmCorruption.hasTattoo( 'sophie' ) ) {
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().scenes.farmCorruption.sophieFullTribalTats() ) {
+			if( SceneLib.farmCorruption.sophieFullTribalTats() ) {
 				EngineCore.outputText( 'She is covered from head to tail in tribal tattoos, erotic lines snaking all over her naked frame, giving her the look of a barely tamed savage.' );
 			} else {
-				if( CoC.getInstance().scenes.farmCorruption.numTattoos( 'sophie' ) > 1 ) {
+				if( SceneLib.farmCorruption.numTattoos( 'sophie' ) > 1 ) {
 					EngineCore.outputText( 'She has the following tattoos emblazoned across her body:\n' );
 				} else {
 					EngineCore.outputText( 'She has ' );
@@ -497,14 +497,14 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	//vaginal Fuck*;
 	//Needs some mods for when she's in season!;
 	SophieFollowerScene.prototype.fuckFollowerSophie = function() {
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
-		var y = CoC.getInstance().player.cockThatFits2( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var y = CoC.getInstance().player.cockThatFits2( SceneLib.sophieBimbo.sophieCapacity() );
 		EngineCore.clearOutput();
 		//In season intro;
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
 			EngineCore.outputText( 'Sophie pulls you into her feathery embrace, her fingertips sensually exploring every inch of your form.  Her voice coos huskily, "<i>So you want to help make a momma out of Momma Sophie, huh?</i>"  She grabs your hand and stuffs it between her luscious thighs, right into the dripping-wet delta of her mons.  "<i>Don\'t keep me waiting... you got me all... hot and bothered...</i>"' );
 		}
 		//Regular Intro;
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			EngineCore.outputText( '\n\nShe snickers, "<i>That little thing is going to fuck me?  ' + CoC.getInstance().player.mf( 'I thought you were a man, but that looks like a little girl-clit!', 'I know you\'re a herm, but maybe you should just turn that little thing into a proper clit!' ) + '</i>"  Prodding your girlish member, she comments, "<i>It\'s kind of cute in its own way, though I don\'t think I\'ll feel much.</i>"  Her fingers tickle along the underside of it as she giggles, "<i>I could just play with this dainty girl-cock all day long...</i>"' );
 		}
 		//Medium;
-		else if( CoC.getInstance().player.cockArea( x ) <= CoC.getInstance().scenes.sophieBimbo.sophieCapacity() / 2 ) {
+		else if( CoC.getInstance().player.cockArea( x ) <= SceneLib.sophieBimbo.sophieCapacity() / 2 ) {
 			EngineCore.outputText( '\n\nShe asks, "<i>So this is what you want to fuck me with, huh?  It\'s not THAT impressive.</i>"  Her hand wraps around your ' + Descriptors.cockDescript( x ) + ', squeezing it softly until it rises in her palms.  "<i>Oooh, it does seem nice and virile, though, doesn\'t it?</i>"  She strokes the underside and coos to it, watching raptly as you fully erect.' );
 		}
 		//Big;
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		}
 		EngineCore.outputText( '\n\nSophie gives your ' + Descriptors.cockDescript( x ) + ' an appreciative swat before pirouetting around, bent over with her hands on her knees and her butt up in the air.  She wiggles back and forth, her lasciviously luscious backside jiggling, the cheeks clapping audibly at the apex of each sway.  Her voice purrs, "<i>Come and get it, if you think you\'re ' + CoC.getInstance().player.mf( 'man', 'woman' ) + ' enough!</i>"' );
 		EngineCore.outputText( '\n\nYou prowl forward, but Sophie backs up, wings flapping, her rump pushing right into you.  Her bubble-butt drives you back against one of the many standing stones, pinned between a cunt and a hard place.  Squishing noisily, your ' + Descriptors.cockDescript( x ) + ' slides right into Sophie\'s ' );
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
 			EngineCore.outputText( 'gushing, sperm-hungry' );
 		} else {
 			EngineCore.outputText( 'slippery' );
@@ -563,7 +563,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		if( y >= 0 ) {
 			EngineCore.outputText( '  You pack her intestines full of cum at the same time that you sperm up her clingy cunny tunnel.' );
 		}
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
 			EngineCore.outputText( '  Her pussy seems to drink the spunky deposit down, her cervix opening to allow in as much in as possible.  You can feel the suction, and if you weren\'t already riding out a mind-bending orgasm, you\'re sure you\'d be cumming harder than normal right now.' );
 		}
 		EngineCore.outputText( '  Your body slacks over her, the only muscles that are actually working are the ones spasming in your loins, pumping out fresh batches of sperm.  You whimper with primal pleasure, spittle frothing at the corners of your mouth.' );
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 			}
 			EngineCore.outputText( '.' );
 		}
-		if( CoC.getInstance().player.cumQ() >= 5000 || (CoC.getInstance().player.cumQ() >= 500 && CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason()) ) {
+		if( CoC.getInstance().player.cumQ() >= 5000 || (CoC.getInstance().player.cumQ() >= 500 && SceneLib.sophieBimbo.sophieIsInSeason()) ) {
 			EngineCore.outputText( '  A huge wash of white rushes out from her well-sexed fuck-hole, soaking your legs with the mixed cum.' );
 		}
 		EngineCore.outputText( '  Then, you black out, with your ' + Descriptors.cockDescript( x ) );
@@ -590,8 +590,8 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( ' still pulsing in ecstasy.  It was such a good cum...' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
-			CoC.getInstance().scenes.sophieBimbo.sophiePregChance();
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
+			SceneLib.sophieBimbo.sophiePregChance();
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this.sophieVagFollowerFollowup );
@@ -599,12 +599,12 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	//[Next];
 	SophieFollowerScene.prototype.sophieVagFollowerFollowup = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
 		EngineCore.outputText( 'You\'re roused a few moments later by a smiling Sophie, the proof of your union dripping between her thighs.  She quips, "<i>' );
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
 			EngineCore.outputText( 'If that didn\'t take, I don\'t know what will!' );
 		} else if( CoC.getInstance().player.cockArea( x ) <= 5 ) {
 			EngineCore.outputText( 'Not too bad for a tiny girl-dick!' );
@@ -613,13 +613,13 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		}
 		EngineCore.outputText( '</i>"' );
 		EngineCore.outputText( '\n\nYou\'d come up with a snarky reply, but you\'re just so fucking tired.  You sigh and try to get dressed, having some difficulty getting on your [feet] until Sophie lends a hand.  She kisses you on the cheek and mouths "<i>thanks</i>" before flouncing off, fluttering happily.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob*;
 	//Sucking dicks.;
 	SophieFollowerScene.prototype.sophieFollowerGivesBlowjobs = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
@@ -627,7 +627,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( 'Sophie cocks her head to the side and chuckles, "<i>You wanna feel Momma Sophie\'s lips around that ' );
 		if( CoC.getInstance().player.cockArea( x ) <= 5 ) {
 			EngineCore.outputText( 'tiny clit you call a penis' );
-		} else if( CoC.getInstance().player.cockArea( x ) <= CoC.getInstance().scenes.sophieBimbo.sophieCapacity() / 2 ) {
+		} else if( CoC.getInstance().player.cockArea( x ) <= SceneLib.sophieBimbo.sophieCapacity() / 2 ) {
 			EngineCore.outputText( 'needy boy-cock' );
 		} else {
 			EngineCore.outputText( 'over-swollen engorgement you call a cock' );
@@ -650,7 +650,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	};
 	//Blow Sixtynine*;
 	SophieFollowerScene.prototype.sophieBlowsSixtyNine = function() {
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
@@ -722,16 +722,16 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		//Slimefeed;
 		CoC.getInstance().player.slimeFeed();
 		//8 hours lust stick;
-		CoC.getInstance().scenes.sophieScene.luststickApplication( 8 );
+		SceneLib.sophieScene.luststickApplication( 8 );
 		//+10 lust;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Forceful Blowjob*;
 	SophieFollowerScene.prototype.forceSophieBlowjob = function() {
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
@@ -808,7 +808,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '\n\nYou get dressed with a self-satisfied sigh.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//SixtyNine (* Temp until someone writes dis shit);
 	//Get that vajajay in yo face.;
@@ -934,7 +934,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	//[special];
 	SophieFollowerScene.prototype.sophieSpecial = function() {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			CoC.getInstance().player.smallestCockIndex();
 		}
@@ -1043,11 +1043,11 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '\n\nIndeed, the intensity of her cunt quivering and pulsing around your cum-spewing member is too much and you black out for a moment, waking up with her tit in your mouth, your fingers in her cunt as she drips your cum everywhere.  She\'s still stroking your head as she cuddles up to you, possessively.' );
 		EngineCore.outputText( '\n\nYou feel like you may need to rest a few hours.' );
 		CoC.getInstance().player.orgasm();
-		if( CoC.getInstance().scenes.sophieBimbo.sophieIsInSeason() ) {
-			CoC.getInstance().scenes.sophieBimbo.sophiePregChance();
+		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
+			SceneLib.sophieBimbo.sophiePregChance();
 		}
 		EngineCore.fatigue( 15 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Regular Sophie Follower;
 	//Requirements: Fuck Sophie five times without pissing her off;
@@ -1104,7 +1104,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		EngineCore.outputText( '\n\nWith that, the milfy matron lifts her wings to head straight for the high mountains, returning not long after with her few belongings.' );
 		EngineCore.outputText( '\n\n"<i>I know you\'re probably busy championing and all, so I\'ll try and stay out of your hair.  Just be sure to show Momma Sophie some sugar, okay?</i>"' );
 		EngineCore.outputText( '\n\nYou nod and welcome her to your camp' );
-		if( CoC.getInstance().scenes.camp.companionsCount() >= 3 ) {
+		if( SceneLib.camp.companionsCount() >= 3 ) {
 			EngineCore.outputText( ', sure to introduce her to the other denizens along the way and smooth over any ruffled feathers before things escalate.  Sophie does a good job helping with that.  She seems to have a natural ability to defuse angry situations, something she attributes to raising her many daughters' );
 		}
 		EngineCore.outputText( '.' );
@@ -1208,7 +1208,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 	};
 	SophieFollowerScene.prototype.phaseTwoOfIncest = function( daughter ) {
 		EngineCore.clearOutput();
-		var x = CoC.getInstance().player.cockThatFits( CoC.getInstance().scenes.sophieBimbo.sophieCapacity() );
+		var x = CoC.getInstance().player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() );
 		if( x < 0 ) {
 			x = CoC.getInstance().player.smallestCockIndex();
 		}
@@ -1289,7 +1289,7 @@ angular.module( 'cocjs' ).run( function( AppearanceDefs, CockTypesEnum, Sophie, 
 		//pass time 1 hour//;
 		//return PC to camp interface//;
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'sophieFollowerScene', new SophieFollowerScene() );
+	SceneLib.registerScene( 'sophieFollowerScene', new SophieFollowerScene() );
 } );

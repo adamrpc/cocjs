@@ -21,13 +21,13 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 	DungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR = 37;
 	DungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM = 38;
 	DungeonSandWitch.prototype.enterBoobsDungeon = function() {
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY );
+		SceneLib.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY );
 	};
 	DungeonSandWitch.prototype.leaveBoobsDungeon = function() {
 		OnLoadVariables.dungeonLoc = 0;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You leave the door behind and take off through the desert back towards camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	DungeonSandWitch.prototype.fightCumWitch = function() {
 		EngineCore.clearOutput();
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		else {
 			EngineCore.outputText( 'Just ahead is the familiar sight of the sand witches\' coven.  It\'s hewn from a sandstone archway buried in the side of a dune.  Pearl-inlays of big-breasted, lactating witches decorate the way inside, making it clear what you can expect to find inside.' );
 		}
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
+		SceneLib.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
 	};
 
 	/*Sand Witch Mob
@@ -1575,7 +1575,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -1615,7 +1615,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -1652,7 +1652,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -1700,7 +1700,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			if( CoC.getInstance().isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -1922,7 +1922,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.menu();
 		if( skipped ) {
 			OnLoadVariables.dungeonLoc = 0; //Replaces inDungeon = false;
-			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Next', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Enter', this.openZeDoorToParadize );
@@ -2334,7 +2334,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.menu();
 		if( submit ) {
 			OnLoadVariables.dungeonLoc = 0; //Replaces inDungeon = false;
-			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Next', SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Enter', this.openZeDoorToParadize );
@@ -2554,7 +2554,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		CoC.getInstance().player.orgasm();
 		OnLoadVariables.dungeonLoc = 0; //Replaces inDungeon = false;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 0, 'Next', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sand Mother;
 	//*Notes:;
@@ -2597,7 +2597,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 	DungeonSandWitch.prototype.slavesDiscussion = function() {
 		EngineCore.menu();
 		if( CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] > 0 && CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] === 0 ) {
-			EngineCore.addButton( 0, 'Essrayle', CoC.getInstance().scenes.essrayle.askMotherToReleaseEssy );
+			EngineCore.addButton( 0, 'Essrayle', SceneLib.essrayle.askMotherToReleaseEssy );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.MET_MILK_SLAVE ] > 0 && !isNaN( CoC.getInstance().flags[ kFLAGS.MILK_NAME ] ) ) {
 			EngineCore.addButton( 1, 'Milk-Slave', this.freeSlaves );
@@ -2633,9 +2633,9 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( 'You tell the Sand Mother that everyone deserves freedom, even if they\'re addle-minded, or useful.  She can\'t just <i>keep people</i> because she feels like they\'re better off in her care.' );
 		EngineCore.outputText( '\n\nShe sighs, shaking her head sadly as she starts back toward the throne room.  "<i>You\'re a bleeding heart idealist, [name].  You\'d condemn the girl to torment for the sake of your petty morality.  There\'s no room for sentimentality these days.  Every soul I keep from becoming a demon, even if I keep them in chains, is on my conscious.  Yet I bear that weight gladly, [name].  Perhaps one day, when you\'re ready to take on that same responsibility, you\'ll understand.</i>"' );
 		//[PC is left in Milk Room];
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
+		SceneLib.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
 		//	kGAMECLASS.dungeonLoc = 33;;
-		//	EngineCore.doNext(CoC.getInstance().scenes.camp.campMenu);;
+		//	EngineCore.doNext(SceneLib.camp.campMenu);;
 	};
 	//No (No Change);
 	DungeonSandWitch.prototype.noDemandMilkRelease = function() {
@@ -2663,9 +2663,9 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( 'You explain that you can\'t afford that much.' );
 		EngineCore.outputText( '\n\nThe Sand Mother shrugs and says, "<i>Then ask after her when you do.</i>"  She doesn\'t stick around long enough for you to reply, leaving you standing there with the milk girl.' );
 		EngineCore.outputText( '\n\n"<i>Bath time?</i>"' );
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
+		SceneLib.dungeonCore.dungeonEnterRoom( DungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
 		//	kGAMECLASS.dungeonLoc = 33;;
-		//	EngineCore.doNext(CoC.getInstance().scenes.camp.campMenu);;
+		//	EngineCore.doNext(SceneLib.camp.campMenu);;
 	};
 	DungeonSandWitch.prototype.BuyHer = function() {
 		EngineCore.clearOutput();
@@ -2682,7 +2682,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		OnLoadVariables.dungeonLoc = 0; //After buying her the player leaves the dungeon and returns to camp
 		//[Next] (To Arriving At Camp);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.milkWaifu.arriveWithLacticWaifuAtCamp );
+		EngineCore.addButton( 0, 'Next', SceneLib.milkWaifu.arriveWithLacticWaifuAtCamp );
 	};
 	DungeonSandWitch.prototype.sexWithFriendlySandMother = function() {
 		EngineCore.menu();
@@ -2730,7 +2730,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.addButton( 6, 'Get Lactaid', this.takeLaBovaOrLactaid );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.ESSY_MET_IN_DUNGEON ] > 0 && CoC.getInstance().flags[ kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY ] === 0 ) {
-			EngineCore.addButton( 7, 'Essrayle', CoC.getInstance().scenes.essrayle.askMotherToReleaseEssy );
+			EngineCore.addButton( 7, 'Essrayle', SceneLib.essrayle.askMotherToReleaseEssy );
 		}
 		EngineCore.addButton( 9, 'Leave', EventParser.playerMenu );
 	};
@@ -2782,7 +2782,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nThe Queen Witch listens with rapt attention to your tale, but when you finish, all she does is close her eyes, seemingly lost in thought.  You pause, awaiting her reply.  Seconds tick by, then merge into minutes.  You idly tap your [foot].  Will she ever get done mulling over your words?' );
 		EngineCore.outputText( '\n\nSuddenly, the Queen jerks up, looking you in the eye with her strange, white-irised gaze.' );
 		//(No new PG.  Corrupt version);
-		if( CoC.getInstance().player.cor > CoC.getInstance().player.inte || CoC.getInstance().scenes.jojoScene.monk >= 5 || CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.getInstance().scenes.amilyScene.amilyCorrupt() || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
+		if( CoC.getInstance().player.cor > CoC.getInstance().player.inte || SceneLib.jojoScene.monk >= 5 || CoC.getInstance().player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || SceneLib.amilyScene.amilyCorrupt() || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.getInstance().flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
 			EngineCore.outputText( '  "<i>There is some truth to your tale, [name], but I am a Sand Mother.  We are schooled in the art of sussing out the corrupt or unclean.  If we could not detect disguised demons and demonic agents, we would not flourish as we do now, and this great desert would not be on the cusp of resurrection.</i>"' );
 			EngineCore.outputText( '\n\nThe Sand Mother steps out of her throne, brandishing a shining scepter as she rises.  Her lips curve into a cruel smile and she challenges, "<i>Fight me, [name], and fall like every demonic agent before you.  Do not fear, for when you lose, you shall be reborn to serve a just cause.  Your taint may yet be exorcised.</i>"' );
 			EngineCore.outputText( '\n\nThere\'s no way out, it\'s a fight!' );
@@ -3920,7 +3920,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nYou decline the offer and repeat your request for Lactaid, which sours the woman\'s expression slightly.  The corners of her mouth are still upturned in a half smirk when she procures a bottle and hands it to you.  After, she smooths her hand across her robed lap, and for a split second, you wonder if she\'s trying to beckon you to take a seat there...  You shake your head as you examine the bottle in your hand.  You got what you came for.\n\n' );
 		CoC.getInstance().flags[ kFLAGS.SAND_WITCH_LOOT_TAKEN ]++;
 		//Receive one lactaid;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
 	};
 	//*Labova;
 	//>Get Labova;
@@ -3944,7 +3944,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\n"<i>That is good.  The ways of beasts offer many boons.  This one is quite useful for enhancing lactation, for instance.  However, there is great risk in reveling in such transformation.  Be sure that you don\'t lose yourself to it,</i>" the statuesque sorceress warns.' );
 		EngineCore.outputText( '\n\nYou nod, and she gives you the La Bova.\n\n' );
 		CoC.getInstance().flags[ kFLAGS.SAND_WITCH_LOOT_TAKEN ]++;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
 	};
 	//TURN EM OFF!;
 	DungeonSandWitch.prototype.unfriendlyWitchToggle = function() {
@@ -3978,9 +3978,9 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( 'Smirking, you circle around the Sand Mother\'s throne towards the secure chests behind her.  She stiffens when you come close but doesn\'t make a move.  The poor little witch is afraid of you, and with good reason.  You gather the item you came for, condescending patting the sorceress\'s platinum tresses on your way back in front of her throne.  She glares at you.\n\n' );
 		//New lines and take appropriate item.;
 		if( lactaid === undefined || lactaid ) {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.LACTAID, EventParser.playerMenu );
 		} else {
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.LABOVA_, EventParser.playerMenu );
 		}
 	};
 	DungeonSandWitch.prototype.pullLever = function() {
@@ -4987,5 +4987,5 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nYou soon find your way to the hidden caves of the Sand Witches, where you present your new daughter to the nursery.  The sand witches there aren\'t too happy about the idea of looking after her themselves, insisting you should stay here with them and rear her yourself, but you are insistent that you cannot stay here and it\'s not safe to keep your daughter with you.  Finally, they give in and start fussing over your daughter, giving you the opportunity to quietly slip out and head back home.\n' );
 		EngineCore.fatigue( 40 );
 	};
-	CoC.getInstance().registerScene( 'dungeonSandWitch', new DungeonSandWitch() );
+	SceneLib.registerScene( 'dungeonSandWitch', new DungeonSandWitch() );
 } );

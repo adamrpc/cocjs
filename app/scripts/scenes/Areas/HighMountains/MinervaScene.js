@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, EventParser, Minerva ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, EventParser, Minerva ) {
 	function MinervaScene() {
 	}
 
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
 		EngineCore.addButton( 4, 'Drink', this.getADrinkYouBitch );
 		EngineCore.addButton( 5, 'Spar', this.fightMinerva );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	MinervaScene.prototype.encounterMinerva = function() {
 		if( CoC.getInstance().flags[ kFLAGS.MET_MINERVA ] > 0 ) {
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Returning to the mountains, you begin to climb; the usual search for loot and, perhaps, some harpies driving your upward efforts.  Perhaps you\'ll run into' );
 		//If Sophie Bimbo=0:
-		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && !CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && !SceneLib.sophieFollowerScene.sophieFollower() ) {
 			EngineCore.outputText( ' that matronly harpy, Sophie' );
 		} else {
 			EngineCore.outputText( ' something interesting' );
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Deciding to play it safe, you turn away from the new path and continue your search elsewhere.' );
 		// PC returns to camp.
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Take Path]
 	MinervaScene.prototype.takeMinervasPath = function() {
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You decide that you don\'t want to risk going into Minerva\'s lair as, for all you know, it could be a trap.  Therefore, you turn around and skedaddle back down the mountain.  As you leave, Minerva turns and watches you for a bit, a sad look on her face before she turns back and heads inside her home, alone.' );
 		// PC returns to camp.
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//1-2 Repeat Encounter 1.  Use any time.
 	MinervaScene.prototype.repeatEncounterMinerva = function() {
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
 		EngineCore.addButton( 4, 'Drink', this.getADrinkYouBitch );
 		EngineCore.addButton( 5, 'Spar', this.fightMinerva );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//1-3 Repeat Encounter 2.  Use if 3rd+ time visiting Minerva.
 	MinervaScene.prototype.minervaThirdPlusEncounter = function() {
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
 		EngineCore.addButton( 4, 'Drink', this.getADrinkYouBitch );
 		EngineCore.addButton( 5, 'Spar', this.fightMinerva );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Romancing scenes encounter with all sub scenes.
 	//1-1 Cute Encounter. Minerva has taken a special liking to the pc by talking to her 5 times.
@@ -348,7 +348,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.outputText( '\n\nSlowly, you get up, looking away from the curvy siren as you step out of the pool and leaving Minerva\'s tower.  Hopefully she won\'t be upset for too long, it would be best to check up on her later.  As you go, you swear you hear her let out a sob, the pain of your rejection clear as the mist that floats around the mountain.' );
 		// PC returns to camp.
 		CoC.getInstance().flags[ kFLAGS.MINERVA_LOVE ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Land]
@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
 		EngineCore.addButton( 4, 'Drink', this.getADrinkYouBitch );
 		EngineCore.addButton( 5, 'Spar', this.fightMinerva );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	MinervaScene.prototype.fightMinerva = function() {
 		Combat.startCombat( new Minerva(), true );
@@ -391,7 +391,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.addButton( 3, 'Eat', this.eatSomethingYouCunt );
 		EngineCore.addButton( 4, 'Drink', this.getADrinkYouBitch );
 		EngineCore.addButton( 5, 'Spar', this.fightMinerva );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	MinervaScene.prototype.minervaTalkSelect = function( bath ) {
@@ -499,7 +499,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 			// PC returns to camp.
 			CoC.getInstance().flags[ kFLAGS.MINERVA_BACKSTORY_LEARNED ] = 1;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//3-2 Talk Scene 2 - talks about the spring
@@ -517,7 +517,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.outputText( '\n\nReturning her shining smile, you promise to come back and visit soon, then head out and start the hike back toward your camp.' );
 		// PC returns to camp.
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//3-3 Talking Scene 3 - talks about her shark girl daughter
 	MinervaScene.prototype.talkWithMinervaAboutSharkGirlDaughter = function() {
@@ -541,7 +541,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 			EngineCore.outputText( '\n\n"<i>Thank you for listening to me, hun, I\'m so happy to have someone like you in my life,</i>" Minerva whispers to you with a genuine smile on her black lips.' );
 			EngineCore.outputText( '\n\nThe two of you stay like this for a while, just spending a little time together before you decide you must return to camp and your quest.  Saying your goodbyes, you give Minerva a kiss before heading home.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//3-4 Talk Scene 4 - talks about her corruption
@@ -562,7 +562,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.outputText( '\n\nCuddling up to you, the siren slips her arms around you, hugging you tightly.  "<i>Thank you for listening to me, hun, I\'m so happy to have someone like you in my life,</i>" Minerva whispers to you with a genuine smile on her black lips.  "<i>Sharing one of my hopes and dreams like that, I can\'t help but feel closer to you.</i>"' );
 		EngineCore.outputText( '\n\nThe two of you stay like this for a while, just spending some time together, before you decide you must return to camp and your quest.  Saying your goodbyes, you give Minerva a kiss before heading home.' );
 		// PC returns to camp
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//3-5 Motherhood
 	//-talks about how she wishes to be a real mother, have an actual loving family and not made from being raped- repeatable
@@ -617,7 +617,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.outputText( ' Hearing your words brings a smile to her black glossy lips.  "<i>Thank you so much; that means a lot to me, really,</i>" she coos, her hands gingerly stroking yours before pulling away.  "<i>But... I guess we have been here for a while.  I\'m sure you have a great deal of work to do as such a brave champion.</i>"' );
 		EngineCore.outputText( '\n\nLooking around, you see how late it has gotten and swiftly get up, Minerva\'s right; you have to get back to your great quest!  Looking at the siren one last time, you tell her that you will be sure to come and visit again later.' );
 		// PC returns to camp.
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//3-6 Bath Time - romance only
 	MinervaScene.prototype.bathTimeTalkWithMinerva = function() {
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		// PC returns to camp.
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.lib / 10 );
 		EngineCore.fatigue( -30 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//SEX SCENES!!!!!!!!!
@@ -791,7 +791,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//4-2= sex scene 2:  Cowgirl
@@ -913,7 +913,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//SEX SCENE 2.5 female/herm: LAP SEX
@@ -999,7 +999,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//4-5= sex scene 4: Hermy oral
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//4-6= sex scene 6: Blow job!
@@ -1157,7 +1157,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//4-4= sex scene 4:  hand held behind
@@ -1215,7 +1215,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//4-9= sex scene 9: lesing out
@@ -1290,7 +1290,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -1304,7 +1304,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 			// return PC to options- no combat option
 			// PC gains 1 Purity peach
 			CoC.getInstance().monster.createStatusAffect( StatusAffects.PeachLootLoss, 0, 0, 0, 0 );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.PURPEAC, SceneLib.camp.returnToCampUseOneHour );
 			Combat.cleanupAfterCombat();
 		}
 		//PC loss by Lust
@@ -1342,7 +1342,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		EngineCore.spriteSelect( 95 );
 		//Acquiring:
 		EngineCore.outputText( 'You walk over to the fruit trees surrounding the spring, examining the strange treats.  You decide that one ripe fruit, one resembling a peach, is the best choice, and pluck it from the tree.  Thanking Minerva for letting you have it, you stow it away safely and head back to camp.\n\n' );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PURPEAC, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.PURPEAC, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 Calming Mint
@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 		if( CoC.getInstance().player.cor > 75 ) {
 			EngineCore.dynStats( 'cor', -1 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 [Bottle] Pulling out a small waterskin, you dip it into the crystal clear water, filling the container with the cool, clean spring water before placing it in your pack
@@ -1379,5 +1379,5 @@ angular.module( 'cocjs' ).run( function( EngineCore, CoC, kFLAGS, Combat, Utils,
 	 The water is cool and sweet to the taste, and every swallow makes you feel calmer, cleaner, and refreshed.  You drink until your thirst is quenched, feeling purer in both mind and body.
 	 // Corruption - 3 to 4, lower fatigue by 5 or 10, heal health by 20 per level.
 	 */
-	CoC.getInstance().registerScene( 'minervaScene', new MinervaScene() );
+	SceneLib.registerScene( 'minervaScene', new MinervaScene() );
 } );

@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineCore, Monster, Utils, AppearanceDefs ) {
-	var WormMass = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs ) {
+	function WormMass() {
+		this.init(this, arguments);
+	}
+	angular.extend(WormMass.prototype, Monster.prototype);
 
 	WormMass.prototype.performCombatAction = function() {
 		//Worms have different AI;
@@ -14,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineC
 
 	WormMass.prototype.won = function( hpVictory ) {
 		EngineCore.outputText( 'Overcome by your ' + (hpVictory ? 'wounds' : 'lust') + ', you sink to your knees as the colony of worms swarms all over your body...\n\n', true );
-		CoC.getInstance().scenes.worms.infest1();
+		SceneLib.worms.infest1();
 	};
 	WormMass.prototype.eMaxHP = function() {
 		return 40;
@@ -48,8 +51,8 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( $log, CoC, EngineC
 		that.temperment = Monster.TEMPERMENT_LOVE_GRAPPLES;
 		that.level = 3;
 		that.gems = 0;
-		that.special1 = CoC.getInstance().scenes.worms.wormAttack;
-		that.special2 = CoC.getInstance().scenes.worms.wormsEntice;
+		that.special1 = SceneLib.worms.wormAttack;
+		that.special2 = SceneLib.worms.wormsEntice;
 		that.drop = Monster.NO_DROP;
 		that.checkMonster();
 	};

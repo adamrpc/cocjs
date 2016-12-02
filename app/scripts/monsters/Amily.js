@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore, PerkLib ) {
-	var Amily = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore, PerkLib ) {
+	function Amily() {
+		this.init(this, arguments);
+	}
+	angular.extend(Amily.prototype, Monster.prototype);
 	Amily.prototype.performCombatAction = function() {
 		if( this.findStatusAffect( StatusAffects.Concentration ) < 0 && Utils.rand( 4 ) === 0 ) {
 			this.amilyConcentration();
@@ -250,7 +253,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, CoC_Settings,
 		}
 	};
 	Amily.prototype.defeated = function() {
-		CoC.getInstance().scenes.amilyScene.conquerThatMouseBitch();
+		SceneLib.amilyScene.conquerThatMouseBitch();
 	};
 	Amily.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

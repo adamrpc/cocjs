@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, PerkLib ) {
-	var Armor = angular.copy( Useable );
+	function Armor() {
+		this.init(this, arguments);
+	}
+	angular.extend(Armor.prototype, Useable.prototype);
 	Armor.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 3 ], args.length > 5 ? args[ 5 ] : 0, args.length > 6 ? args[ 6 ] : null ] );
 		that.name = args[ 2 ];

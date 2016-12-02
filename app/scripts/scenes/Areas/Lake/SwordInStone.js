@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, StatusAffects, EngineCore, WeaponLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, StatusAffects, EngineCore, WeaponLib ) {
 	function SwordInStone() {
 	}
 
@@ -11,10 +11,10 @@ angular.module( 'cocjs' ).run( function( CoC, StatusAffects, EngineCore, WeaponL
 			//Describe it!
 			EngineCore.outputText( 'The tree is thick enough to encapsulate the entire blade.  Nothing protrudes from the far side at all.  In another odd twist, there is not any sap leaking around the undamaged bark that surrounds the sword.  The hilt itself appears made of bronze, with gold inlays along the outside of the handguard.  Looking closer, you realize they portray a stylized figure battling a horde of demons.  The handle is wrapped tightly with rugged leather that still looks brand new in spite of how long this sword must have been here for the tree to grow so thoroughly around it.\n\n', false );
 			EngineCore.outputText( 'You suppose you could try to pull it free, do you?', false );
-			EngineCore.doYesNo( this.tryToTakeSwordInStone, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this.tryToTakeSwordInStone, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'While walking along the lake, a massive tree catches your eye.  You carefully circle some bushes, wary of an ambush as you get closer.   As you close the distance, it becomes clear the tree is terribly corrupt.  It weeps black sap from gnashing mouths and clenching distorting twats.  The very center of the tree has a massive knot, as if it had sustained a massive injury there.  You decide to avoid it, given the hungry-looking nature of its mouths, but before you depart you spot the pieces of a broken sword scattered around the trunk, completely covered in rust.', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			CoC.getInstance().player.createStatusAffect( StatusAffects.BSwordBroken, 0, 0, 0, 0 );
 		}
 	};
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( CoC, StatusAffects, EngineCore, WeaponL
 				EngineCore.outputText( 'pull as hard as you can, ', false );
 			}
 			EngineCore.outputText( 'but the sword remains stubbornly lodged in its arboreal home.  Frustrated, you give up and resolve to try later.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//If not corrupted...
 		else {
@@ -50,9 +50,9 @@ angular.module( 'cocjs' ).run( function( CoC, StatusAffects, EngineCore, WeaponL
 			EngineCore.outputText( 'Remarkably the tree\'s trunk is entirely intact.  While marveling at this new development, a leaf brushes your shoulder.  You look up and watch as every single leaf turns from healthy green, to brilliant orange, and finally changes to brown.  The leaves rain down around you, covering the ground in dead plant-matter, leaving you alone with the withering skeleton of a dead tree.  The sight saddens you, though you cannot fathom why.\n\n', false );
 			EngineCore.outputText( 'The blade itself is three and a half feet of the purest, shining steel you have ever seen.  It truly is a beautiful blade.\n\n', false );
 			EngineCore.dynStats( 'lib', -(CoC.getInstance().player.lib / 3), 'lus', -15 );
-			CoC.getInstance().scenes.inventory.takeItem( WeaponLib.B_SWORD, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( WeaponLib.B_SWORD, SceneLib.camp.returnToCampUseOneHour );
 			CoC.getInstance().player.createStatusAffect( StatusAffects.TookBlessedSword, 0, 0, 0, 0 );
 		}
 	};
-	CoC.getInstance().registerScene( 'swordInStone', new SwordInStone() );
+	SceneLib.registerScene( 'swordInStone', new SwordInStone() );
 } );

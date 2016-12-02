@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'HairExtensionSerum', function( kFLAGS, CoC, Consumable, EngineCore ) {
-	var HairExtensionSerum = angular.copy( Consumable );
+	function HairExtensionSerum() {
+		this.init(this, arguments);
+	}
+	angular.extend(HairExtensionSerum.prototype, Consumable.prototype);
 	HairExtensionSerum.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'ExtSerm', 'ExtSerm', 'a bottle of hair extension serum', 6, 'This is a bottle of foamy pink liquid, purported by the label to increase the speed at which the user\'s hair grows.' ] );
 	};

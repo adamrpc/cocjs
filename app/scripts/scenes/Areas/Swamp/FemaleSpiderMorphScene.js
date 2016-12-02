@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, EventParser, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, FemaleSpiderMorph, EventParser, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function FemaleSpiderMorphScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 100 );
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		//Selecting has a 50% chance of displaying the following:;
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'You turn around and flee before she can get any closer.  After running for a few moments, you realize the spider-woman isn\'t trying to pursue you at all.  The last image you see of her is her looking down at the ground with an expression of incredible melancholy.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//The other 50% will start combat and then immediately attempt to run.;
 		else {
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 				EngineCore.outputText( 'After you\'ve both had your fill of talk, the spider-girl asks, "<i>I-I w-was wondering if you\'d do me a favor... I have certain... urges, and', false );
 				if( CoC.getInstance().player.gender === 0 ) {
 					EngineCore.outputText( ' o-oh nevermind, you\'re genderless... crap.</i>"  She blushes and lifts her abdomen, shooting a web into the trees that she uses to escape from the awkward situation.  You\'re left utterly alone, once again.', false );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				EngineCore.outputText( ' well, you\'re the first sane person I\'ve had a chance to ask.  Oh fuck it, can I tie you up and fuck you? Please?</i>"\n\n', false );
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 			//(OPTION 2 - GIFT) ;
 			else {
 				EngineCore.outputText( 'After you\'ve both had your fill of talk, the spider-girl smiles and gives you a gentle hug.  She trills, "<i>Thank you so much for talking to me!  It feels so good to actually... communicate with someone again.  I can\'t thank you enough, but here, take this.  Maybe it will help you on your journey.</i>"\n\n', false );
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.S_GOSSR, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.S_GOSSR, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 		//*Try to Talk - Aggressive Variant;
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 	FemaleSpiderMorphScene.prototype.declinedCrazyFemaleSpiderMorphSexFunTimes = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell the lusty spider-morph that you\'re not interested in having sex with her now, and though she looks crestfallen, she nods understandingly and zips up a line of webbing into the trees before the situation can become any more awkward.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//*Defeat Female;
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 1 );
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 1 );
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -474,7 +474,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 1 );
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -593,7 +593,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		}
 		CoC.getInstance().player.orgasm();
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -681,7 +681,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		CoC.getInstance().player.orgasm();
 		this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SPIDER - 200 ); //Spiders carry for half as long as the player does for some reason
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -772,7 +772,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		}
 		CoC.getInstance().player.orgasm();
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -784,11 +784,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, $log, FemaleSpiderMorph, Ev
 		EngineCore.outputText( 'You stumble upon a huge, webbed sack hanging from a tree.  Examining it closer, you see that bound up inside it are nearly a dozen webs, each containing a wriggling form.  They start moving faster and faster, perhaps reacting to the nearby movement, before the shells finally shatter and unleash their cargo.  Inside each is a tiny, six inch tall humanoid figure, each resembling a child in miniature.  Remarkably, their features remind you of your own, and before the significance of that fact settles in, they drop to the ground and scurry away on their tiny, carapace-covered legs.\n\n', false );
 		EngineCore.outputText( 'You\'re left scratching your head when you realize they were your own children, birthed by the spider-morph you fucked not so long ago.\n\n', false );
 		this.pregnancy.knockUpForce(); //Clear Spidermorph pregnancy
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*Joke Shit
 	 "<i>PIZZA,</i>" she suddenly screams, wrapping you and picking you up.  You can't even tell where you're going, but you eventually end up at a cave, and she promptly goes in.  Propping you up on the wall like some sort of ornament, the spider-girl moves away from you, preheating her oven and choosing a pizza to cook.  As you know, preheating takes quite a while, so she heads over to her computer chair and plops down, booting up Team Fortress 2 for a bit of jumpin' and shootin'.  "<i>NO CAT GOD DAMN IT,</i>" she screams as a demonic-looking feline leaps upon her keyboard from on high.  "<i>CAT YOU ARE THE WORST CAT.</i>"  Of course, the cat does not even take heed of her outbursts, stomping around the keyboard and hitting literally every key.  The cat then lies comfortably, taking no heed of the girl's hands still attempting to type, and takes a nap.  While you can tell the spider-girl is upset with the obstruction, she makes no move to remove the cat.  You guess it was too cute for her to get upset with it.  The oven's ready, so she rises (taking precautions against waking the cat, of course) and puts a pizza in.  Delicious.
 	 Oh god what...
 	 alright*/
-	CoC.getInstance().registerScene( 'femaleSpiderMorphScene', new FemaleSpiderMorphScene() );
+	SceneLib.registerScene( 'femaleSpiderMorphScene', new FemaleSpiderMorphScene() );
 } );

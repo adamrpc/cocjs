@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, UsableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//const RATHAZUL_DEBIMBO_OFFERED:int = 744;;
 	//Rathazul the Alchemist;
 	//Encounter, random text for potential uses, EngineCore.choices.;
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 	Rathazul.prototype.encounterRathazul = function() {
 		EngineCore.spriteSelect( 49 );
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.getInstance().player.findStatusAffect( StatusAffects.MetRathazul ) >= 0 ) {
-			CoC.getInstance().scenes.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
+			SceneLib.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
 			return;
 		}
 		var offered;
@@ -73,24 +73,24 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		offered = this.rathazulWorkOffer();
 		if( !offered ) {
 			EngineCore.outputText( 'He sighs dejectedly, "<i>I am not sure what I can do for you, youngling.  This world is fraught with unimaginable dangers, and you\'re just scratching the surface of them.</i>"\n\nYou nod and move on, leaving the depressed alchemist to his sadness.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Rathazul.prototype.rathazulMoveToCamp = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul smiles happily back at you and begins packing up his equipment.  He mutters over his shoulder, "<i>It will take me a while to get my equipment moved over, but you head on back and I\'ll see you within the hour.  Oh my, yes.</i>"\n\nHe has the look of someone experiencing hope for the first time in a long time.' );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.CampRathazul, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rathazul.prototype.rathazulMoveDecline = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul wheezes out a sigh, and nods.\n\n"<i>Perhaps I\'ll still be of some use out here after all,</i>" he mutters as he packs up his camp and prepares to head to another spot along the lake.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rathazul.prototype.campRathazul = function() {
 		EngineCore.spriteSelect( 49 );
 		if( CoC.getInstance().flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.getInstance().player.findStatusAffect( StatusAffects.MetRathazul ) >= 0 ) {
-			CoC.getInstance().scenes.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
+			SceneLib.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
 			return;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] === 1 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] > 0 ) {
@@ -102,19 +102,19 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			CoC.getInstance().flags[ kFLAGS.RATHAZUL_CAMP_INTERACTION_COUNTDOWN ] = 3;
 			//Pure jojo;
 			if( CoC.getInstance().flags[ kFLAGS.JOJO_RATHAZUL_INTERACTION_COUNTER ] === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 && CoC.getInstance().flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
-				CoC.getInstance().scenes.followerInteractions.jojoOffersRathazulMeditation();
+				SceneLib.followerInteractions.jojoOffersRathazulMeditation();
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 0 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.getInstance().scenes.amilyScene.amilyFollower() ) {
-				CoC.getInstance().scenes.followerInteractions.AmilyIntroducesSelfToRathazul();
+			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 0 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() ) {
+				SceneLib.followerInteractions.AmilyIntroducesSelfToRathazul();
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 1 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.getInstance().scenes.amilyScene.amilyFollower() ) {
-				CoC.getInstance().scenes.followerInteractions.amilyIngredientDelivery();
+			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 1 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() ) {
+				SceneLib.followerInteractions.amilyIngredientDelivery();
 				return;
 			}
-			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 2 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.getInstance().scenes.amilyScene.amilyFollower() ) {
-				CoC.getInstance().scenes.followerInteractions.amilyAsksAboutRathazulsVillage();
+			if( CoC.getInstance().flags[ kFLAGS.AMILY_MET_RATHAZUL ] === 2 && CoC.getInstance().flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() ) {
+				SceneLib.followerInteractions.amilyAsksAboutRathazulsVillage();
 				return;
 			}
 		}
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		if( !offered ) {
 			EngineCore.outputText( 'He sighs dejectedly, "<i>I don\'t think there is.  Why don\'t you leave me be for a time, and I will see if I can find something to aid you.</i>"', false );
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-				EngineCore.doNext( CoC.getInstance().scenes.camp.campFollowers );
+				EngineCore.doNext( SceneLib.camp.campFollowers );
 			} else {
 				EngineCore.doNext( EventParser.playerMenu );
 			}
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			lethiciteDefense = this.growLethiciteDefense;
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-			if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 && (CoC.getInstance().scenes.sophieBimbo.bimboSophie() || CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0) ) {
+			if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 && (SceneLib.sophieBimbo.bimboSophie() || CoC.getInstance().player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.getInstance().player.findPerk( PerkLib.FutaFaculties ) >= 0) ) {
 				this.rathazulDebimboOffer();
 				return true;
 			} else if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] > 0 ) {
@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			}
 		}
 		if( totalOffers === 0 && spoken ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return true;
 		}
 		if( totalOffers > 0 ) {
@@ -293,9 +293,9 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 				EngineCore.addButton( 8, 'Reducto', reductos );
 			}
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-				EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.campFollowers );
+				EngineCore.addButton( 9, 'Leave', SceneLib.camp.campFollowers );
 			} else {
-				EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			}
 			return true;
 		}
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.INCUBID, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_DRAFT, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.P_DRAFT, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.SUCMILK, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_S_MLK, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.P_S_MLK, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.SDELITE, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.PSDELIT, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.PSDELIT, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 			return;
 		}
 		CoC.getInstance().player.destroyItems( ConsumableLib.LABOVA_, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.P_LBOVA, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.P_LBOVA, this.returnToRathazulMenu );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
 		if( CoC.getInstance().flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 ) {
-			if( CoC.getInstance().scenes.sophieBimbo.bimboSophie() ) {
+			if( SceneLib.sophieBimbo.bimboSophie() ) {
 				EngineCore.outputText( 'Rathazul glances your way as you approach his lab, a thoughtful expression on his age-lined face.  "<i>Tell me, [name], do you truly enjoy having that vacuous idiot around, lusting after you at all hours of the day?</i>" he asks, shaking his head in frustration.  "<i>She\'s clearly been subjected to the effects of Bimbo Liqueur, which as you can plainly see are quite indeed potent.  However, like most things in Mareth, it can be countered - at least partially.</i>"  Rathazul folds his long, clawed fingers together, his tail lashing behind him as he thinks.  "<i>Perhaps with a sufficient quantity of something called Scholar\'s Tea... I could counter the stupefying effects of the elixir... oh my, yes... hmm...</i>"  Rathazul nods, stroking at the few long wisps of fur that hang from his chin.' );
 				EngineCore.outputText( '\n\nYou await' );
 				if( EngineCore.silly() ) {
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		CoC.getInstance().player.consumeItem( ConsumableLib.SMART_T, 5 );
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.DEBIMBO, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.DEBIMBO, this.returnToRathazulMenu );
 	};
 
 	Rathazul.prototype.rathazulArmorMenu = function() {
@@ -472,7 +472,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 	Rathazul.prototype.chooseArmorOrRobes = function( robeType ) {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.outputText( 'Rathazul grunts in response and goes back to work.  You turn back to the center of your camp, wondering if the old rodent will actually deliver the wondrous item that he\'s promised you.', true );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] = robeType;
 		CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] = 24;
 		$log.debug( '274: ' + CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] );
@@ -503,14 +503,14 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		//Reset counters;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] = 0;
 		CoC.getInstance().flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] = 0;
-		CoC.getInstance().scenes.inventory.takeItem( itype, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( itype, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.craftOozeArmor = function() {
 		EngineCore.spriteSelect( 49 );
 		CoC.getInstance().player.destroyItems( UsableLib.GREENGL, 5 );
 		EngineCore.outputText( 'Rathazul takes the green gel from you and drops it into an empty cauldron.  With speed well beyond what you\'d expect from such an elderly creature, he nimbly unstops a number of vials and pours them into the cauldron.  He lets the mixture come to a boil, readying a simple humanoid-shaped mold from what you had thought was piles of junk material.  In no time at all, he has cast the boiling liquid into the mold, and after a few more minutes he cracks it open, revealing a suit of glistening armor.\n\n', true );
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.RathazulArmor ) < 0 ) {
 			CoC.getInstance().player.createStatusAffect( StatusAffects.RathazulArmor, 0, 0, 0, 0 );
 		}
@@ -535,7 +535,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 	Rathazul.prototype.buyDye = function( dye ) {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
-		CoC.getInstance().scenes.inventory.takeItem( dye, this.returnToRathazulMenu );
+		SceneLib.inventory.takeItem( dye, this.returnToRathazulMenu );
 		EngineCore.statScreenRefresh();
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		if( CoC.getInstance().player.gems >= cost ) {
 			EngineCore.outputText( 'Rathazul hands you the Reducto with a nod before returning to his work.\n\n' );
 			CoC.getInstance().player.gems -= cost;
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.REDUCTO, this.returnToRathazulMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.REDUCTO, this.returnToRathazulMenu );
 			EngineCore.statScreenRefresh();
 			CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		} else {
@@ -598,8 +598,8 @@ angular.module( 'cocjs' ).run( function( $rootScope, UsableLib, $log, PerkLib, A
 		}
 		CoC.getInstance().player.destroyItems( UsableLib.B_CHITN, 5 );
 		CoC.getInstance().player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'rathazul', new Rathazul() );
+	SceneLib.registerScene( 'rathazul', new Rathazul() );
 } );

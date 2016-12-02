@@ -1,9 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, CockTypesEnum, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Ember = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockTypesEnum, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Ember() {
+		this.init(this, arguments);
+	}
+	angular.extend(Ember.prototype, Monster.prototype);
 	Ember.prototype.emberMF = function( male, female ) {
-		return CoC.getInstance().scenes.emberScene.emberMF( male, female );
+		return SceneLib.emberScene.emberMF( male, female );
 	};
 	//The Actual Ember Fight (Z);
 	//PC can't use any sexual moves in this battle. This means anything that deals or affects Ember's lust in any way.;
@@ -132,14 +135,14 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, CockTypesEnum, Per
 	Ember.prototype.defeated = function( hpVictory ) {
 		//Hackers gonna hate. Tested and working as intended.;
 		if( hpVictory ) {
-			CoC.getInstance().scenes.emberScene.beatEmberSpar();
+			SceneLib.emberScene.beatEmberSpar();
 		} else {
 			this.emberReactsToLustiness();
 		}
 	};
 
 	Ember.prototype.won = function() {
-		CoC.getInstance().scenes.emberScene.loseToEmberSpar();
+		SceneLib.emberScene.loseToEmberSpar();
 	};
 	Ember.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, CockTypesEnum, PerkLib, ConsumableLib, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, StatusAffects, CockTypesEnum, PerkLib, ConsumableLib, CoC, EngineCore, Descriptors ) {
 	function Rogar() {
 	}
 
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				//set Ro'gar phase = 2;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 2;
 				EngineCore.dynStats( 'lus', 30 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				return;
 			}
 			//((high femininity or breasts >=B-cup, libido less than 50));
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				EngineCore.outputText( '  You just grin and shake your head at his politeness.  "<i>It\'s been too long since I got ta talk with any decent folk.</i>" Ro\'gar says, grinning.  Soon you both have empty mugs.  You can\'t help but sway where you sit from the alcohol, stronger than anything you\'ve had before.  Ro\'gar gives a hearty laugh at you, clearly enjoying your inebriated state.  "<i>You don\'t look the heavy drinkin\' type.</i>" Ro\'gar smirks, as you sway.  Frowning, you assure him that you can handle it, all the while punctuating your sentences with small hiccups which cause the both of you to break out in laughter.  "<i>Ya know, I\'ve been in this swamp here for so long.  I\'m getting\' the itch ta go out inta the world and find greener grass, if\'n ya know what I\'m sayin\'.  Listenin\' to yer stories about yer travels ain\'t helpin\' none, either.</i>"  His tone of voice is distant, almost sounding disappointed with himself.  He gets to his feet with a grunt as he rises.  "<i>Yer lookin\' like yer needin\' some shut eye.</i>"  He helps you to your feet; you manage to get your balance somehow and walk to the door.  "<i>Y\'alright?</i>" he asks, looking you over.  Through a dumb grin you manage to assure him that you\'re fine.  "<i>Well allll-right.</i>"  Ro\'gar nods at you as you turn to leave.  "<i>Ya take care now.</i>"  He watches you walk off with concern in his eyes, but you make it back to camp just fine.\n\n', false );
 				//set Ro'gar phase = 2;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 2;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				return;
 			}
 			//((androgynous or masculine and breasts <= A-cup, libido less than 50));
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 			//((high femininity or breasts >=B-cup));
 			if( CoC.getInstance().player.biggestTitSize() >= 2 ) {
 				EngineCore.outputText( 'You travel to Ro\'gar\'s hut using the map again, your memory of the earlier trip making the passage much smoother.  When you knock on the door, though, you receive no answer.  In fact, the hut is eerily silent.  Trying the handle, you find the door unlatched.  You peer inside and discover that not only is it quiet and dark, quite a bit is missing.  Ro\'gar is nowhere to be found, along with most of his belongings.  Looking around, you find no sign of distress or struggle.  It doesn\'t seem like anything happened to him.  Perhaps he moved?  Either way, he\'s not here now and it doesn\'t look like he\'s coming back anytime soon.  As you head back to camp you wonder if you\'ll ever see him again.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				//move Ro'gar to Wet Bitch, set Ro'gar phase = 3;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 3;
 			}
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				if( CoC.getInstance().player.statusAffectv1( StatusAffects.TelAdre ) <= 0 ) {
 					EngineCore.outputText( 'You apologize to Ro\'gar; your mind draws a complete blank on the question.  The orc pouts with disappointment.  "<i>I reckon I could just wander until I find somewhere...</i>"  You shake your head and suggest he wait here where he\'s already established, but promise you\'ll be keeping an eye out for anywhere that might suit him.  Ro\'gar beams at the reassurance, his pout twisting into a grin.  "<i>Mighty fine of you!</i>"  His thick arms wrap around you in a bear hug over the table.  You spend the rest of your visit chatting with the burly orc, careful to avoid any topics that might stir his wanderlust.\n\n', false );
 					//end scene without updating Ro'gar phase;
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 				//(if player has been to Tel'Adre);
 				else {
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 						EngineCore.outputText( 'You leave Ro\'gar to finish packing his things for now.', false );
 						//set Ro'gar phase = 3;
 						CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 3;
-						EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					}
 					//(if Dirt Mc Girt = 2) ;
 					else {
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 						//+lust, set Ro'gar phase = 3;
 						EngineCore.dynStats( 'lus', 30 );
 						CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 3;
-						EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					}
 				}
 			}
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.outputText( 'Instead, you find only more mud.  You return to camp.', false );
 		//<set Crying Game = 1>;
 		CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//((Yes));
 	Rogar.prototype.waitForChunkyOrcLoe = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 			EngineCore.outputText( '<b>You can now find Ro\'gar\'s hut when wandering the swamp occasionally!</b>', false );
 			//pass 2 hours, set Ro'gar phase flag = 1;
 			CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 1;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 		}
 	};
 	//sexy choices;
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.outputText( 'Declining in a clipped manner, you get to your feet and make for the door, doing your best to ignore Ro\'gar\'s disappointed face.  He calls out to you, but it only falls on deaf ears as you shut the door quickly behind you, your legs powering through the swamp as you run with all the speed you can muster.  Only once you get back to camp do you realize you\'ve lost the crude map... either in Ro\'gar\'s hut or in the trackless swamp.', false );
 		//<set Crying Game = 1>;
 		CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//((No thanks bro));
 	Rogar.prototype.noSlowBroIDontWantPokeSex = function() {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		//<Continue without sex, set Dirt Mc Girt flag = 1 and Ro'gar phase = 2>;
 		CoC.getInstance().flags[ kFLAGS.ROGAR_DIRT ] = 1;
 		CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 2;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//((Ok));
 	Rogar.prototype.okayBroLetsHaveAGayCarwash = function() {
@@ -349,11 +349,11 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		CoC.getInstance().flags[ kFLAGS.ROGAR_DIRT ] = 2;
 		CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 2;
 		if( CoC.getInstance().player.inte < 30 ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 		}
 		//lose 3 hours instead of 1 if int<30;
 		else {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//((Third phase)) ([Cloaked Figure] button in Wet Bitch; Ro'gar phase = 3) (edited);
@@ -374,7 +374,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				EngineCore.outputText( 'Ro\'gar the orc is here drinking again, but as you catch his eye, a pained expression flashes across his face.  It\'s clear he doesn\'t relish the prospect of talking to you right now, but knowing him, he\'s too polite to say so.  The wind spills from your sails and your icebreaker slips from your mind - answering him with a simple glance of resignation is the most you can manage.  He gives you a weak smile and returns to his drink.\n\n', false );
 			}
 			//return to bar menu;
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 		}
 		//((androgynous or masculine and breasts <= A-cup));
 		else {
@@ -406,7 +406,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				//set Ro'gar phase = 4 and Ro'roh Raggy = 0;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 4;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] = 0;
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			}
 			//(else if Dirt Mc Girt = 1);
 			else if( CoC.getInstance().flags[ kFLAGS.ROGAR_DIRT ] === 1 ) {
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				//set Ro'gar phase = 4 and Ro'roh Raggy = 0, Acquire 1x Bro Brew;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 4;
 				CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] = 0;
-				CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BROBREW, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				SceneLib.inventory.takeItem( ConsumableLib.BROBREW, SceneLib.camp.returnToCampUseOneHour );
 			}
 			//(else if Dirt Mc Girt = 2);
 			else {
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 				if( CoC.getInstance().player.gender === 2 || CoC.getInstance().player.gender === 0 ) {
 					EngineCore.outputText( '  It stops on your bare mons, and Ro\'gar\'s eyes widen.  "<i>Wh-wha... there\'s nothin\' here!</i>"  You color and nod.  His mouth hangs open for a long minute, then he masters himself.  "<i>Well... I, uh, guess it was good t\' see ya again...</i>" he stammers.  "<i>Hey, I\'m sure you\'ve got things to be doin\' so I won\'t hold you up.</i>"  As you attempt to protest, he chugs his drink and makes a show of slamming the can down, noisily and forcefully, on the bar.  Nodding at you, he pulls the cloak over his head and leaves the bar.  Apparently it was quite a shock to him.  You wonder if he\'ll avoid you from now on...', false );
 					CoC.getInstance().flags[ kFLAGS.ROGAR_DISABLED ] = 1;
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' gets a caress from him as he explores, arousing it to mild stiffness.  "<i>' + CoC.getInstance().player.short + ',</i>" he grunts.  "<i>Ah hope ah\'ll be seein\' more of ya.</i>"  Ro\'gar breaks the contact and tips back the remains of his drink while you ', false );
 					if( CoC.getInstance().player.cor < 50 ) {
@@ -441,7 +441,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 					CoC.getInstance().flags[ kFLAGS.ROGAR_PHASE ] = 4;
 					CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] = 0;
 					EngineCore.dynStats( 'lus', 30 );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				}
 			}
 		}
@@ -459,13 +459,13 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 			EngineCore.outputText( '.  "<i>Gee, ya look... different.  Been samplin\' some of the local foods, huh?</i>"  You agree cautiously, and he flags the bartender over and buys you a drink.  "<i>I\'m just bein\' polite since we\'re pals,</i>" the orc ventures.  "<i>Ya kin pay me back another time.</i>"  You nod, sip your drink, and converse reservedly with him for a while, then go on your way.', false );
 			//set Ro'roh Raggy = 1;
 			CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] = 1;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//(high fem or breasts >=B-cup and Ro'roh Raggy =1);
 		else if( (CoC.getInstance().player.biggestTitSize() >= 2) && CoC.getInstance().flags[ kFLAGS.ROGAR_WARNING ] === 1 ) {
 			EngineCore.outputText( 'Ro\'gar the orc is here drinking again, but as you catch his eye, a pained expression flashes across his face as he looks over your form.  It\'s clear he doesn\'t relish the prospect of talking to you right now, but knowing him, he\'s too polite to say so.  The wind spills from your sails and your icebreaker slips from your mind - answering him with a simple glance of resignation is the most you can manage.  He gives you a weak smile and returns to his drink.', false );
 			//return to bar menu;
-			EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 		}
 		//(andro or masculine with tits <= A);
 		else {
@@ -480,7 +480,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 			//[(if F or U);
 			if( CoC.getInstance().player.gender === 2 || CoC.getInstance().player.gender === 0 ) {
 				EngineCore.outputText( '  It reaches the center without interruption, and Ro\'gar colors deeper.  "<i>Uh... ferget it,</i>" he mumbles.  "<i>Didn\'t mean ta be indecent with you or anythin\', miss.</i>"  He nods to you and quickly departs before you can recover from the surprise.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			} else {
 				EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' trembles under his strong touch, as he increases the pressure and looks into your eyes meaningfully.  ', false );
 				//[(if Dirt Mc Gurt flag = 1);
@@ -530,7 +530,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.spriteSelect( 86 );
 		EngineCore.outputText( 'You smile at the orc, but tell him that you\'re not really in the mood to hang out right now.  He looks crestfallen, but nods at you.  "<i>Well, I understan\'.  I\'ll be seein\' ya later, then.</i>"', false );
 		//Bar menu!;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//(([Get Anal], Scenario 1a: give up the buttcherry (buttvirgins only)));
 	Rogar.prototype.loseButtGinity = function() {
@@ -630,7 +630,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//((Scenario 2, [Give Anal]: Fuck Ro'gar));
 	Rogar.prototype.fuckRogarsButtPussyBoyCuntManMoundSissySlitQueerQuim = function() {
@@ -660,7 +660,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		//[((If biggest cock is less than 4 inches));
 		if( CoC.getInstance().player.longestCockLength() < 4 ) {
 			EngineCore.outputText( '"<i>Yer serious?</i>" Ro\'gar asks with a quirked eyebrow.  You blink as he suddenly gets up to stare you in the eyes.  "<i>Not to be rude, ' + CoC.getInstance().player.short + ', but I ain\'t gonna feel nothin\'.</i>"  You can\'t help but feel a little offended, saying something about motions of large bodies of water.  Ro\'gar doesn\'t seem convinced as he buries his forehead in a palm.  "<i>Listen, this ain\'t a really good time for this.  I\'m already losin\' my mojo.  You come back another time, okay?</i>"  With that, you are ushered out as politely as possible.  You can\'t help but feel a little embarrassed as you walk the city streets like this is some sort of walk of shame.', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;		//end if too small
 		}
 		//((else If smallest cock is over 18 inches));
@@ -727,7 +727,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		//<Lust sated>;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//((Scenario 3, [Drink! (sorta)]: Fun with Bro Brew(Requires one bro brew per visit, uses it and turns player into a Bro)));
 	Rogar.prototype.brobrobrobro = function() {
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.outputText( 'You relinquish the can with a smile, slyly telling Ro\'gar he can have it, then put your hands behind your back innocently.  He narrows his eyes, then shifts them to the can.  After a careful inspection, he thrusts the can toward you.  "<i>Don\'t want it.  Ya probably put bimbo liqueur in it or somethin\', ya sneaky devil.</i>"\n\n', false );
 		EngineCore.outputText( 'The playful mood broken, you hang out for a while and shoot the breeze, then head back.', false );
 		//end;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fukkin' Grab It!];
 	Rogar.prototype.takeDatBroBrewFromDaBigMeanOlOrc = function() {
@@ -844,7 +844,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		}
 		CoC.getInstance().player.orgasm();
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//((Scenario 4, [Frot]));
 	Rogar.prototype.frotWithRogar = function() {
@@ -870,7 +870,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		//lose 100 lust, gain a little back, slimefeed?;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lus', 20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(([Get Tied Up], copy of Scenario 1a));
 	Rogar.prototype.kinkyWithDaOrc = function() {
@@ -945,7 +945,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(([Orc Rub Down], get some fun with oils));
 	Rogar.prototype.rubdubWithDaOrcWithoutDucky = function() {
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.getInstance().player.slimeFeed();
 		//end;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Ignore pits];
 	Rogar.prototype.lickSomeMoreOrcButNoPits = function() {
@@ -997,7 +997,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, AppearanceDefs, StatusAffects, 
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.getInstance().player.slimeFeed();
 		//end;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'rogar', new Rogar() );
+	SceneLib.registerScene( 'rogar', new Rogar() );
 } );

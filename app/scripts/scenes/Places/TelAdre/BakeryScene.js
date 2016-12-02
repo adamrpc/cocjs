@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, ConsumableLib, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
 	function BakeryScene() {
 	}
 
@@ -11,20 +11,20 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 			this.easterBakeSale();
 			return;
 		}
-		if( Utils.rand( 10 ) <= 1 && CoC.getInstance().scenes.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 4 ) {
-			CoC.getInstance().scenes.shouldraFollower.shouldraBakeryIntro();
+		if( Utils.rand( 10 ) <= 1 && SceneLib.shouldraFollower.followerShouldra() && CoC.getInstance().player.gender > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 4 ) {
+			SceneLib.shouldraFollower.shouldraBakeryIntro();
 			return;
 		}
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ]++;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] = Math.round( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] );
 		//Chef meetings;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00243 ] % 8 === 0 ) {
-			CoC.getInstance().scenes.maddie.procMaddieOneIntro();
+			SceneLib.maddie.procMaddieOneIntro();
 			return;
 		}
 		//Maddie Epilogue trigger!;
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] === 3 ) {
-			CoC.getInstance().scenes.maddie.bakeryEpilogue();
+			SceneLib.maddie.bakeryEpilogue();
 			return;
 		}
 		EngineCore.outputText( '', true );
@@ -36,10 +36,10 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		//[Repeat approach];
 		else {
 			//Kanga christmas!;
-			if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() ) {
-				CoC.getInstance().scenes.xmasMisc.encounterKamiTheChristmasRoo();
+			if( SceneLib.xmasMisc.nieveHoliday() ) {
+				SceneLib.xmasMisc.encounterKamiTheChristmasRoo();
 				if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] === 1 ) {
-					EngineCore.addButton( 3, 'Pudding', CoC.getInstance().scenes.xmasMisc.getWinterPudding );
+					EngineCore.addButton( 3, 'Pudding', SceneLib.xmasMisc.getWinterPudding );
 				}
 			}
 			//Normal repeats!;
@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'What do you do?' );
 		EngineCore.addButton( 0, 'Check Menu', this.checkBakeryMenu );
 		EngineCore.addButton( 1, 'Talk', this.talkBakeryMenu );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
 	BakeryScene.prototype.checkBakeryMenu = function() {
 		EngineCore.clearOutput();
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay ten gems for some cocoa.  ' );
 		CoC.getInstance().player.gems -= 10;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.MOUSECO, this.ingredientsMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.MOUSECO, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFerretFruit = function() {
 		EngineCore.clearOutput();
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay twenty gems for a single ferret fruit.  ' );
 		CoC.getInstance().player.gems -= 20;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FRRTFRT, this.ingredientsMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.FRRTFRT, this.ingredientsMenu );
 	};
 	BakeryScene.prototype.buyFig = function() {
 		EngineCore.clearOutput();
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay five gems for a fig.  ' );
 		CoC.getInstance().player.gems -= 5;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.RINGFIG, this.ingredientsMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.RINGFIG, this.ingredientsMenu );
 	};
 
 	BakeryScene.prototype.talkBakeryMenu = function() {
@@ -271,20 +271,20 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 			EngineCore.addButton( 1, rubiT, rubiB );
 		}
 
-		if( CoC.getInstance().scenes.xmasMisc.nieveHoliday() ) {
+		if( SceneLib.xmasMisc.nieveHoliday() ) {
 			if( CoC.getInstance().flags[ kFLAGS.KAMI_ENCOUNTER ] > 0 ) {
 				EngineCore.outputText( '\nYou could \'burn off some steam\' with Kami during her lunch break, since you already know how that\'ll end up!\n' );
-				EngineCore.addButton( 2, 'Kami', CoC.getInstance().scenes.xmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kami', SceneLib.xmasMisc.approachKamiTheChristmasRoo );
 			} else {
 				EngineCore.outputText( '\nYou could summon the curvaceous kangaroo waitress you ran into earlier - perhaps you can win her over.\n' );
-				EngineCore.addButton( 2, 'Kangaroo', CoC.getInstance().scenes.xmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kangaroo', SceneLib.xmasMisc.approachKamiTheChristmasRoo );
 			}
 		}
 		EngineCore.outputText( '\nYou see a bubblegum-pink girl at the bakery, walking around and eagerly trying to hand out fliers to people. Her “uniform” is more like a yellow bikini with frills circling the waist of the bottom half. If this didn’t make her stand out from the crowd then her hair certainly would; it’s a big, poofy, curly, dark pink mess that reaches down to her ass with a huge cupcake hat sitting on top.\n' );
 		if( CoC.getInstance().flags[ kFLAGS.MET_FROSTY ] !== 0 ) {
-			EngineCore.addButton( 3, 'Frosty', CoC.getInstance().scenes.frosty.approachFrosty );
+			EngineCore.addButton( 3, 'Frosty', SceneLib.frosty.approachFrosty );
 		} else {
-			EngineCore.addButton( 3, 'PinkGirl', CoC.getInstance().scenes.frosty.approachFrosty );
+			EngineCore.addButton( 3, 'PinkGirl', SceneLib.frosty.approachFrosty );
 		}
 		EngineCore.addButton( 9, 'Leave', this.bakeryuuuuuu );
 	};
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'The minotaur chef emerges from the backroom bearing a box that contains your cupcake.  It\'s too big to scarf down immediately.\n\n', false );
 		CoC.getInstance().player.gems -= 500;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.CCUPCAK, this.bakeryuuuuuu );
+		SceneLib.inventory.takeItem( ConsumableLib.CCUPCAK, this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.buyFoxBerry = function() {
 		EngineCore.clearOutput();
@@ -399,13 +399,13 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.outputText( 'You pay five gems for a fox berry.  ' );
 		CoC.getInstance().player.gems -= 5;
 		EngineCore.statScreenRefresh();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FOXBERY, this.ingredientsMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.FOXBERY, this.ingredientsMenu );
 	};
 
 	BakeryScene.prototype.easterBakeSale = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You make your way to the bakery only to find that it\'s so full you can barely squeeze inside.  ' );
-		if( CoC.getInstance().scenes.rubi.rubiAffection() >= 40 ) {
+		if( SceneLib.rubi.rubiAffection() >= 40 ) {
 			EngineCore.outputText( 'An extremely busy Rubi can only manage a wave in your direction before going back to attending customers.  ' );
 		}
 		EngineCore.outputText( 'Seeing all of the holiday bustle hits you with a pang of homesickness, remembering times from Ingnam.  Shaking these feelings off, you make your way to the front of the queue determined to see what the fuss is about.  The normally absent minotaurus chef greets you, adding fuel to your notion that they are understaffed.' );
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		EngineCore.menu();
 		EngineCore.addButton( 3, 'Check Menu', this.checkBakeryMenu );
 		EngineCore.addButton( 0, 'Offer Help', this.easterBakeSaleHelp );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.telAdre.telAdreMenu );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.telAdreMenu );
 	};
 	BakeryScene.prototype.easterBakeSaleHelp = function() {
 		EngineCore.clearOutput();
@@ -482,7 +482,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, PerkLib, ConsumableLib
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 		CoC.getInstance().player.cumMultiplier += 2;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'bakeryScene', new BakeryScene() );
+	SceneLib.registerScene( 'bakeryScene', new BakeryScene() );
 } );

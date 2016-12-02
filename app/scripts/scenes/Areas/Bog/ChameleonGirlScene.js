@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, Combat, ChameleonGirl, EventParser, Descriptors, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCore, Combat, ChameleonGirl, EventParser, Descriptors, ConsumableLib ) {
 	function ChameleonGirlScene() {
 	}
 
@@ -361,5 +361,5 @@ angular.module( 'cocjs' ).run( function( CoC, kFLAGS, Utils, EngineCore, Combat,
 		}
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'chameleonGirlScene', new ChameleonGirlScene() );
+	SceneLib.registerScene( 'chameleonGirlScene', new ChameleonGirlScene() );
 } );

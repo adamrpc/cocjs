@@ -2,7 +2,10 @@
 /*jshint bitwise: false*/
 
 angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, PregnancyStore, kFLAGS, CoC, Utils, Consumable, EngineCore ) {
-	var PhoukaWhiskey = angular.copy( Consumable );
+	function PhoukaWhiskey() {
+		this.init(this, arguments);
+	}
+	angular.extend(PhoukaWhiskey.prototype, Consumable.prototype);
 	PhoukaWhiskey.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'P_Whsky', 'Ph. Whiskey', 'a small bottle of whiskey', 20, 'A small, corked glass bottle with a dark amber liquid inside.  The whiskey smells strongly of peat.' ] );
 	};

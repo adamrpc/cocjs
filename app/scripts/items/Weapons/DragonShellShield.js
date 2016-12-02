@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module( 'cocjs' ).factory( 'DragonShellShield', function( CoC, kFLAGS, Weapon, EngineCore ) {
-	var DragonShellShield = angular.copy( Weapon );
+	function DragonShellShield() {
+		this.init(this, arguments);
+	}
+	angular.extend(DragonShellShield.prototype, Weapon.prototype);
 	DragonShellShield.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'DrgnShl', 'DrgnShl', 'dragon-shell shield', 'a dragon-shell shield', 'smack', 0, 1500, 'A durable shield that has been forged from the remains of the dragon egg you found in the swamp.  Absorbs any fluid attacks you can catch, rendering them useless.', 'Large' ] );
 	};

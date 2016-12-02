@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Izma', function( PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
-	var Izma = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+	function Izma() {
+		this.init(this, arguments);
+	}
+	angular.extend(Izma.prototype, Monster.prototype);
 	//[Special Attacks];
 	Izma.prototype.IzmaSpecials1 = function() {
 		//Blind dodge change;
@@ -134,14 +137,14 @@ angular.module( 'cocjs' ).factory( 'Izma', function( PerkLib, CoC, Monster, Util
 		Combat.combatRoundOver();
 	};
 	Izma.prototype.defeated = function() {
-		CoC.getInstance().scenes.izmaScene.defeatIzma();
+		SceneLib.izmaScene.defeatIzma();
 	};
 	Izma.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\n"<i>Gross!</i>" Izma cries as she backs away, leaving you to recover alone.' );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.izmaScene.IzmaWins();
+			SceneLib.izmaScene.IzmaWins();
 		}
 	};
 	Izma.prototype.init = function( that, args ) {

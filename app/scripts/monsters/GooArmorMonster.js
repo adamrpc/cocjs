@@ -1,15 +1,18 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
-	var GooArmorMonster = angular.copy( GooGirl );
+angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+	function GooArmorMonster() {
+		this.init(this, arguments);
+	}
+	angular.extend(GooArmorMonster.prototype, GooGirl.prototype);
 	GooArmorMonster.prototype.performCombatAction = function() {
-		CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorAI();
+		SceneLib.dungeonHelSupplimental.gooArmorAI();
 	};
 	GooArmorMonster.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
-			CoC.getInstance().scenes.valeria.pcWinsValeriaSpar();
+			SceneLib.valeria.pcWinsValeriaSpar();
 		} else {
-			CoC.getInstance().scenes.dungeonHelSupplimental.beatUpGooArmor();
+			SceneLib.dungeonHelSupplimental.beatUpGooArmor();
 		}
 	};
 	GooArmorMonster.prototype.won = function( hpVictory, pcCameWorms ) {
@@ -18,9 +21,9 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( Appearance, GooG
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
 			if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
-				CoC.getInstance().scenes.valeria.pcWinsValeriaSparDefeat();
+				SceneLib.valeria.pcWinsValeriaSparDefeat();
 			} else {
-				CoC.getInstance().scenes.dungeonHelSupplimental.gooArmorBeatsUpPC();
+				SceneLib.dungeonHelSupplimental.gooArmorBeatsUpPC();
 			}
 		}
 	};

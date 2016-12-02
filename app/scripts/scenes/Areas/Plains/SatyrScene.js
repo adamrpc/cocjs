@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function SatyrScene() {
 	}
 
@@ -42,9 +42,9 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore,
 			EngineCore.outputText( ' when you hear strange music emanating not far from where you are.  Do you investigate?' );
 			//[Yes][No];
 			if( location === 0 ) {
-				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), SceneLib.camp.returnToCampUseOneHour );
 			} else {
-				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore,
 		EngineCore.outputText( '.  This must be the work of that satyr!  Mentally, you remind yourself to watch out for him next time.  You clean yourself up as best as you can and redress, then wobble your way towards your camp, trying to stifle the pain, in your head and elsewhere, along the way.' );
 		//(8 hours lost) (PC is pregnant (either vagina or ass) with a satyr, slimefeed);
 		this.satyrPreggo();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[=Leave=];
 	SatyrScene.prototype.leavePartySatyr = function() {
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore,
 		EngineCore.outputText( '\n\nGuess there\'s a first time for everything... you throw the last skin of booze away and proceed to check on the snoring satyr; searching him, you manage to find a pouch filled with gems.  Since he tried to trick you, you might as well as get something in return, so you pocket the gems in the pouch and discard it.' );
 		CoC.getInstance().player.gems += 10 + Utils.rand( 10 );
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Skip Foreplay=];
 	SatyrScene.prototype.skipForeplay = function() {
@@ -430,7 +430,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore,
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().player.orgasm();
 		this.satyrPreggo();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Pregnancy Stuff (Z);
@@ -478,5 +478,5 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Utils, Satyr, PregnancyStore,
 		//badabingbadaboom;
 		CoC.getInstance().flags[ kFLAGS.SATYR_KIDS ]++;
 	};
-	CoC.getInstance().registerScene( 'satyrScene', new SatyrScene() );
+	SceneLib.registerScene( 'satyrScene', new SatyrScene() );
 } );

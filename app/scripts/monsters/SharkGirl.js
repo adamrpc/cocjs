@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SharkGirl', function( $log, StatusAffects, Appearance, WeightedDrop, ConsumableLib, ArmorLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
-	var SharkGirl = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, StatusAffects, Appearance, WeightedDrop, ConsumableLib, ArmorLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+	function SharkGirl() {
+		this.init(this, arguments);
+	}
+	angular.extend(SharkGirl.prototype, Monster.prototype);
 	//Lust-based attacks:;
 	SharkGirl.prototype.sharkTease = function() {
 		EngineCore.spriteSelect( 70 );
@@ -19,14 +22,14 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( $log, StatusAffects, A
 		Combat.combatRoundOver();
 	};
 	SharkGirl.prototype.defeated = function() {
-		CoC.getInstance().scenes.sharkGirlScene.sharkWinChoices();
+		SceneLib.sharkGirlScene.sharkWinChoices();
 	};
 	SharkGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.sharkGirlScene.sharkLossRape();
+			SceneLib.sharkGirlScene.sharkLossRape();
 		}
 	};
 	SharkGirl.prototype.init = function( that, args ) {

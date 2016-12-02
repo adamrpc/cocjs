@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, OnLoadVariables ) {
 	function Mountain() {
 	}
 
@@ -9,25 +9,25 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		CoC.getInstance().player.exploredMountain++;
 		var chooser = Utils.rand( 4 );
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !CoC.getInstance().scenes.helScene.followerHel() ) {
-			CoC.getInstance().scenes.helScene.helSexualAmbush();
+		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		//Discover 'high mountain' at level 5 or 40 explores of mountain
 		if( (CoC.getInstance().player.level >= 5 || CoC.getInstance().player.exploredMountain >= 40) && CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] === 0 ) {
 			EngineCore.outputText( 'While exploring the mountain, you come across a relatively safe way to get at its higher reaches.  You judge that with this route you\'ll be able to get about two thirds of the way up the mountain.  With your newfound discovery fresh in your mind, you return to camp.\n\n(<b>High Mountain exploration location unlocked!</b>)', true );
 			CoC.getInstance().flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
+		if( SceneLib.xmasBitch.isHolidays() ) {
 			//Gats xmas adventure!
-			if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] > 0 && CoC.getInstance().player.hasKeyItem( 'North Star Key' ) < 0) ) {
-				CoC.getInstance().scenes.xmasGatsNotAnAngel.gatsSpectacularRouter();
+			if( Utils.rand( 5 ) === 0 && CoC.getInstance().player.gender > 0 && SceneLib.xmasBitch.isHolidays() && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_DISABLED ] === 0 && CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_GOOD_ENDED ] === 0 && (CoC.getInstance().flags[ kFLAGS.GATS_ANGEL_QUEST_BEGAN ] > 0 && CoC.getInstance().player.hasKeyItem( 'North Star Key' ) < 0) ) {
+				SceneLib.xmasGatsNotAnAngel.gatsSpectacularRouter();
 				return;
 			}
 			if( Utils.rand( 6 ) === 0 && CoC.getInstance().flags[ kFLAGS.JACK_FROST_YEAR ] < OnLoadVariables.date.fullYear && EngineCore.silly() ) {
-				CoC.getInstance().scenes.xmasJackFrost.meetJackFrostInTheMountains();
+				SceneLib.xmasJackFrost.meetJackFrostInTheMountains();
 				return;
 			}
 		}
@@ -39,12 +39,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 				if( CoC.getInstance().player.faceType === AppearanceDefs.FACE_DOG && (CoC.getInstance().player.dogCocks() >= 2 || (CoC.getInstance().player.hasVagina() && CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_HELL_HOUND)) && CoC.getInstance().player.cor >= 60 && CoC.getInstance().player.tailType === AppearanceDefs.TAIL_TYPE_DOG && (CoC.getInstance().player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG || CoC.getInstance().player.hairColor === 'midnight black') ) {
 					$log.debug( 'PASS BODYCHECK' );
 					if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] === 0 ) {
-						CoC.getInstance().scenes.hellHoundScene.HellHoundMasterEncounter();
+						SceneLib.hellHoundScene.HellHoundMasterEncounter();
 						return;
 					}
 					//Level 2 requires lethecite
 					else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] === 1 && CoC.getInstance().player.hasKeyItem( 'Marae\'s Lethicite' ) >= 0 && CoC.getInstance().player.keyItemv2( 'Marae\'s Lethicite' ) < 3 ) {
-						CoC.getInstance().scenes.hellHoundScene.HellHoundMasterEncounter();
+						SceneLib.hellHoundScene.HellHoundMasterEncounter();
 						return;
 					}
 				}
@@ -52,13 +52,13 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		}
 		//Rarer 'nice' Ceraph encounter
 		//Overlaps half the old encounters once pierced.
-		if( !CoC.getInstance().scenes.ceraphFollowerScene.ceraphIsFollower() && CoC.getInstance().player.level > 2 && (CoC.getInstance().player.exploredMountain % 30 === 0) && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
-			CoC.getInstance().scenes.ceraphScene.friendlyNeighborhoodSpiderManCeraph();
+		if( !SceneLib.ceraphFollowerScene.ceraphIsFollower() && CoC.getInstance().player.level > 2 && (CoC.getInstance().player.exploredMountain % 30 === 0) && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] > 0 ) {
+			SceneLib.ceraphScene.friendlyNeighborhoodSpiderManCeraph();
 			return;
 		}
 		//15% chance of Ceraph
-		if( !CoC.getInstance().scenes.ceraphFollowerScene.ceraphIsFollower() && CoC.getInstance().player.level > 2 && (CoC.getInstance().player.exploredMountain % 15 === 0) && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] !== 1 ) {
-			CoC.getInstance().scenes.ceraphScene.encounterCeraph();
+		if( !SceneLib.ceraphFollowerScene.ceraphIsFollower() && CoC.getInstance().player.level > 2 && (CoC.getInstance().player.exploredMountain % 15 === 0) && CoC.getInstance().flags[ kFLAGS.PC_FETISH ] !== 1 ) {
+			SceneLib.ceraphScene.encounterCeraph();
 			return;
 		}
 		//10% chance of hairdresser encounter if not found yet
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			chooser = 4;
 		}
 		if( (Utils.rand( 8 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.MetMarae ) >= 0) && CoC.getInstance().player.findStatusAffect( StatusAffects.FoundFactory ) < 0 ) {
-			CoC.getInstance().scenes.dungeonCore.enterFactory();
+			SceneLib.dungeonCore.enterFactory();
 			return;
 		}
 		//Boosts mino and hellhound rates!
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		//Every 15 explorations chance at mino bad-end!
 		if( CoC.getInstance().player.exploredMountain % 16 === 0 && CoC.getInstance().player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
 			EngineCore.spriteSelect( 44 );
-			CoC.getInstance().scenes.minotaurScene.minoAddictionBadEndEncounter();
+			SceneLib.minotaurScene.minoAddictionBadEndEncounter();
 			return;
 		}
 		if( chooser === 0 ) {
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			//Imptacular Encounter
 			if( Utils.rand( 10 ) < impGob ) {
 				if( CoC.getInstance().player.level >= 8 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.impScene.impLordEncounter();
+					SceneLib.impScene.impLordEncounter();
 				} else {
 					EngineCore.outputText( 'An imp leaps out from behind a rock and attacks!', true );
 					Combat.startCombat( new Imp() );
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			else {
 				//50% of the time, goblin assassin!
 				if( CoC.getInstance().player.level >= 10 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.goblinAssassinScene.goblinAssassinEncounter();
+					SceneLib.goblinAssassinScene.goblinAssassinEncounter();
 					return;
 				}
 				if( CoC.getInstance().player.gender > 0 ) {
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 					EngineCore.outputText( 'You stumble in your attempt to escape and realize that you are completely helpless.  The minotaur towers over you and heaves his ax for a <i>coup de grace</i>.  As he readies the blow, another beast-man slams into him from the side.  The two of them begin to fight for the honor of raping you, giving you the opening you need to escape.  You quietly sneak away while they fight – perhaps you should avoid the mountains for now?\n\n', false );
 				}
 				CoC.getInstance().player.createStatusAffect( StatusAffects.TF2, 0, 0, 0, 0 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//Mino gangbang
@@ -218,10 +218,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
 			//Withdrawl auto-fuck!
 			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
-				CoC.getInstance().scenes.minotaurScene.minoAddictionFuck();
+				SceneLib.minotaurScene.minoAddictionFuck();
 				return;
 			}
-			CoC.getInstance().scenes.minotaurScene.getRapedByMinotaur( true );
+			SceneLib.minotaurScene.getRapedByMinotaur( true );
 			EngineCore.spriteSelect( 44 );
 		}
 		//Worms
@@ -236,10 +236,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 						EngineCore.outputText( 'During your hike into the mountains, your depraved mind keeps replaying your most obcenely warped sexual encounters, always imagining new perverse ways of causing pleasure.\n\nIt is a miracle no predator picked up on the strong sexual scent you are emitting.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lib', 0.25, 'lus', CoC.getInstance().player.lib / 10 );
 					}
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
-				CoC.getInstance().scenes.worms.wormEncounter();
+				SceneLib.worms.wormEncounter();
 			} else {
 				//If worms are off or the PC is infested, no worms.
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsOff ) >= 0 || CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 || (Utils.rand( 2 ) === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.WormsHalf ) >= 0) ) {
@@ -250,9 +250,9 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 						EngineCore.outputText( 'During your hike into the mountains, your depraved mind keeps replaying your most obcenely warped sexual encounters, always imagining new perverse ways of causing pleasure.\n\nIt is a miracle no predator picked up on the strong sexual scent you are emitting.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lib', 0.25, 'lus', CoC.getInstance().player.lib / 10 );
 					}
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				} else {
-					CoC.getInstance().scenes.worms.wormToggle();
+					SceneLib.worms.wormToggle();
 				}
 			}
 		}
@@ -262,17 +262,17 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && Utils.rand( 2 ) === 0 ) {
 				//If lowered encounter rate, 25% chance, otherwise 50%.
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.WormsHalf ) >= 0 && Utils.rand( 2 ) === 0 ) {
-					CoC.getInstance().scenes.hellHoundScene.hellhoundEncounter();
+					SceneLib.hellHoundScene.hellhoundEncounter();
 					return;
 				}
-				CoC.getInstance().scenes.infestedHellhoundScene.infestedHellhoundEncounter();
+				SceneLib.infestedHellhoundScene.infestedHellhoundEncounter();
 				return;
 			}
-			CoC.getInstance().scenes.hellHoundScene.hellhoundEncounter();
+			SceneLib.hellHoundScene.hellhoundEncounter();
 		}
 		//Hairdresser
 		if( chooser === 4 ) {
-			CoC.getInstance().scenes.salon.hairDresser();
+			SceneLib.salon.hairDresser();
 		}
 	};
 	Mountain.prototype.joinBeingAMinoCumSlut = function() {
@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		}
 		//(Acquired minotaur cum!)
 		CoC.getInstance().time.hours++;
-		CoC.getInstance().scenes.inventory.takeItem( ComsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ComsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.watchAMinoCumSlut = function() {
 		EngineCore.clearOutput();
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		EngineCore.outputText( '\n\nAs you look at the two cum-covered creatures laying there in their exhausted sex-induced stupors, the minotaur\'s thick horse-cock now slowly deflating, you realize that you\'ve been touching yourself.  You make yourself stop in disgust.' );
 		EngineCore.outputText( '\n\nOnly now do you notice other faces peeking over ledges and ridges.  You count at least two goblins and one imp who quickly pull back.  From the sounds, they were busy getting themselves off.  Apparently this isn\'t an uncommon show, and the locals enjoy it immensely.' );
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.continueMinoVoyeurism = function() {
 		EngineCore.outputText( 'They go at it for nearly an hour, oblivious to you watching them, before their intensity heightens as they near orgasm. The results are almost explosive, both of them crying out as they begin twitching uncontrollably. Clinging desperately to the cow-girl\'s ass, the minotaur pumps so much cum into her depths that it begins spurting out. This accidental lubrication releases his grip and the pair collapse to the ground. Yet the minotaur isn\'t finished, his man-milk spraying into the air almost like his still-erect dick is a hose and splattering down onto both of them.\n\n', true );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, kFLAGS, Utils, StatusAffects
 		}
 		//Lust!
 		EngineCore.dynStats( 'lus', 5 + CoC.getInstance().player.lib / 20 + CoC.getInstance().player.minoScore() + CoC.getInstance().player.cowScore() );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'mountain', new Mountain() );
+	SceneLib.registerScene( 'mountain', new Mountain() );
 } );

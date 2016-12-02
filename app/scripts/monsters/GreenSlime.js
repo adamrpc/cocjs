@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, UsableLib ) {
-	var GreenSlime = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, UsableLib ) {
+	function GreenSlime() {
+		this.init(this, arguments);
+	}
+	angular.extend(GreenSlime.prototype, Monster.prototype);
 
 	GreenSlime.prototype.defeated = function( ) {
 		EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.', true );
@@ -10,18 +13,18 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, CoC, EngineCore
 			//Eligable to rape
 			if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
 				EngineCore.outputText( '\n\nYou\'re horny enough to try and rape it, though you\'d rather see how much milk you can squirt into it.  What do you do?', false );
-				EngineCore.choices( 'B.Feed', CoC.getInstance().scenes.greenSlimeScene.rapeOozeWithMilk, 'Rape', CoC.getInstance().scenes.greenSlimeScene.slimeVictoryRape, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'B.Feed', SceneLib.greenSlimeScene.rapeOozeWithMilk, 'Rape', SceneLib.greenSlimeScene.slimeVictoryRape, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 			}
 			//Rapes not on the table.
 			else {
 				EngineCore.outputText( '\n\nYour nipples ache with the desire to forcibly breastfeed the gelatinous beast.  Do you?', false );
-				EngineCore.doYesNo( CoC.getInstance().scenes.greenSlimeScene.rapeOozeWithMilk, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.greenSlimeScene.rapeOozeWithMilk, Combat.cleanupAfterCombat );
 			}
 		}
 		//Not a breastfeeder
 		else if( CoC.getInstance().player.lust >= 33 && CoC.getInstance().player.gender > 0 ) {
 			EngineCore.outputText( '  Sadly you realize your own needs have not been met.  Of course, you could always play with the poor thing... Do you rape it?', false );
-			EngineCore.doYesNo( CoC.getInstance().scenes.greenSlimeScene.slimeVictoryRape, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( SceneLib.greenSlimeScene.slimeVictoryRape, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -30,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, CoC, EngineCore
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe slime doesn\'t even seem to notice.\n\n' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.greenSlimeScene.slimeLoss );
+		EngineCore.doNext( SceneLib.greenSlimeScene.slimeLoss );
 	};
 	GreenSlime.prototype.lustAttack = function() {
 		EngineCore.outputText( 'The creature surges forward slowly with a swing that you easily manage to avoid.  You notice traces of green liquid spurt from the creature as it does, forming a thin mist that makes your skin tingle with excitement when you inhale it.' );

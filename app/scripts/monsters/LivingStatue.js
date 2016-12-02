@@ -1,13 +1,16 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LivingStatue', function( kFLAGS, WeaponLib, PerkLib, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
-	var LivingStatue = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, kFLAGS, WeaponLib, PerkLib, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
+	function LivingStatue() {
+		this.init(this, arguments);
+	}
+	angular.extend(LivingStatue.prototype, Monster.prototype);
 	LivingStatue.prototype.defeated = function( hpVictory ) {
 		CoC.getInstance().flags[ kFLAGS.D3_STATUE_DEFEATED ] = 1;
-		CoC.getInstance().scenes.livingStatueScenes.beatUpDaStatue( hpVictory );
+		SceneLib.livingStatueScenes.beatUpDaStatue( hpVictory );
 	};
 	LivingStatue.prototype.won = function( hpVictory, pcCameWorms ) {
-		CoC.getInstance().scenes.livingStatueScenes.fuckinMarbleOP( hpVictory, pcCameWorms );
+		SceneLib.livingStatueScenes.fuckinMarbleOP( hpVictory, pcCameWorms );
 	};
 	LivingStatue.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

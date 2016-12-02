@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables, kFLAGS, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoadVariables, kFLAGS, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
 	function Valentines() {
 	}
 
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 	Valentines.prototype.leaveValentinesDayForever = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Ultimately, this is not worth your time.  You wish Scylla good luck, but tell her you won\'t help her make the holiday more popular in Tel\'Adre, as you have other things to do.  Her expression turns sad and she nods in understanding as you turn away and go back into the streets of Tel\'Adre.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[next];
 	Valentines.prototype.helpValentinesDayII = function() {
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		EngineCore.outputText( '\n\nAfter visiting the bakery and the weapon shop, that makes for all the people you can think of other than those in the Wet Bitch, who would know anyway. After another run around the Tel\'Adre with Abby, who oddly seems to be holding back on showing her slightly improved mood, you return to the front of Scylla\'s stall. There are certainly way more people around the place now.' );
 		EngineCore.outputText( '\n\nThrough the small crowd, you even see an oddly familiar flash of black and gray vulpine fur.' );
 		//([Fuckbuddy or Heartbroken Urta]);
-		//if(!CoC.getInstance().scenes.urta.urtaLove()) EngineCore.outputText('\n\nThe bearer of it seems to just come here to look uncomfortably but, perhaps, longingly at the stall for a few moments, before practically leaping back into the Wet Bitch.');;
+		//if(!SceneLib.urta.urtaLove()) EngineCore.outputText('\n\nThe bearer of it seems to just come here to look uncomfortably but, perhaps, longingly at the stall for a few moments, before practically leaping back into the Wet Bitch.');;
 		//else outputText('\n\nYou see a flash of said fur as the person with said characteristic moves away from the stall, clearly carrying a confection or two and some other pink, red, or heart-shaped things into the Wet Bitch.');;
 		//[next];
 		EngineCore.menu();
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		//With no other things to do, you go back to camp to rest.;
 		//{Small Lust Increase, return to camp, go to sleep};
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//([Scylla]);
 	Valentines.prototype.goVisitScyllaVday = function() {
@@ -167,7 +167,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		EngineCore.outputText( '\n\nLater, when you move through the desert around Tel\'Adre towards your own camp, looking back at Scylla waving towards you, you\'re somehow glad things turned out that way, and feel more determined than ever to not only defeat the demons, but also spread the good will and positive feelings through any world you may call your own.' );
 		EngineCore.outputText( '\n\n(<b>You have gained the Pure and Loving perk!</b>' );
 		CoC.getInstance().player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Make out];
 	Valentines.prototype.makeOutWithScyllaVDay = function() {
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 			EngineCore.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
 			CoC.getInstance().player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Feed Her!];
 	Valentines.prototype.feedScyllaVDay = function() {
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		CoC.getInstance().player.orgasm();
 		EngineCore.outputText( '\n\n(<b>You have gained the One Track Mind perk.</b>' );
 		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	//([Abby] ;
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//{PLEASURE HER};
 	//{This option doesn't require any sexual endowments whatsoever};
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		EngineCore.outputText( '\n\n(<b>You\'ve received the Pure and Loving Perk!</b>)' );
 		CoC.getInstance().player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 80 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//([Pastie]);
 	Valentines.prototype.goVisitPastyVDay = function() {
@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 			}
 		} else {
 			EngineCore.outputText( '\n\nYou tell Pastie that, regrettably, you only have what she sees.  She nods and says, "<i>Too bad.  I think I\'ll better get going, then.  It\'s been somewhat fun, and I finally get a chance to go to sleep sober and wake up without a hangover.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 		}
 	};
 	Valentines.prototype.pastieValentineIntro = function( choice ) {
@@ -461,7 +461,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[RubDick];
 	Valentines.prototype.rubPastieOnYourWangDawg = function() {
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		CoC.getInstance().player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Pussy Dive];
 	Valentines.prototype.goForAPushayDivePasty = function() {
@@ -531,7 +531,7 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
 	/*END!
 
@@ -557,5 +557,5 @@ angular.module( 'cocjs' ).run( function( Descriptors, ItemType, OnLoadVariables,
 
 	 And in Scylla's Cuddle scene, you just share a simple kiss before cuddling. In the makeout scene, you first kiss all of her lips before she notices you're sporting a boner, then she slowly rubs one out of you as you keep making out with her lips, until you're finally on your back as she coaxes you almost to the point of cumming and then sticking you in her appropriate lipple, having you cum.
 	 */
-	CoC.getInstance().registerScene( 'valentines', new Valentines() );
+	SceneLib.registerScene( 'valentines', new Valentines() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, PregnancyStore, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, GooArmorMonster, ArmorLib, PregnancyStore, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Valeria() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		if( CoC.getInstance().player.statusAffectv1( StatusAffects.GooStuffed ) > 0 ) {
 			CoC.getInstance().player.addStatusValue( StatusAffects.GooStuffed, 1, -1 );
 			if( CoC.getInstance().player.statusAffectv1( StatusAffects.GooStuffed ) <= 0 ) {
-				CoC.getInstance().scenes.valeria.birthOutDatGooSlut();
+				SceneLib.valeria.birthOutDatGooSlut();
 				return true;
 			}
 		}
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 			sex = this.followersValeriaSex;
 		}
 		//(Display Options: [Appearance] [Spar] [Sex] [Talk]);
-		EngineCore.choices( 'Appearance', this.valeriaAppearance, 'Spar', this.valeriaSpar, 'Sex', sex, 'Talk', this.talkWithValeria, 'Take', this.takeValeria, '', null, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.camp.campFollowers );
+		EngineCore.choices( 'Appearance', this.valeriaAppearance, 'Spar', this.valeriaSpar, 'Sex', sex, 'Talk', this.talkWithValeria, 'Take', this.takeValeria, '', null, '', null, '', null, '', null, 'Back', SceneLib.camp.campFollowers );
 	};
 	//[Valeria] -- [Appearance];
 	Valeria.prototype.valeriaAppearance = function() {
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.HPChange( 25, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Valeria.prototype.gooFlation = function( clearText ) {
 		EngineCore.spriteSelect( 79 );
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 			CoC.getInstance().player.orgasm();
 			EngineCore.dynStats( 'sen', 1 );
 			EngineCore.HPChange( 25, false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Valeria -- [Sex] -- [Penetrate Her] (Dickwielders only);
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.HPChange( 25, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Valeria] -- [Sex] -- [Get Dominated];
 	Valeria.prototype.valeriaSexDominated = function() {
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		if( !CoC.getInstance().isInCombat() ) {
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		EngineCore.outputText( 'You grimace and push the goo-girl away.  You\'ve got no interest in her corrupted \'needs,\' especially with a look like that on her face.  She gasps as you push her, nearly falling over; she catches herself and glowers angrily.' );
 		EngineCore.outputText( '\n\n"<i>Well, fuck you kindly, [name],</i>" she says with a huff.  "<i>Pardon me for being... me.</i>"  She turns up her chin and saunters off to a part of camp about as far away from you as possible.' );
 		//(Disable Valeria sex for 6 hours);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Valeria.prototype.takeValeria = function() {
 		EngineCore.spriteSelect( 79 );
@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 		if( item === null ) {
 			EngineCore.doNext( EventParser.playerMenu );
 		} else {
-			CoC.getInstance().scenes.inventory.takeItem( item, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( item, EventParser.playerMenu );
 		}
 	};
 	Valeria.prototype.valeriaAndGooThreeStuff = function() {
@@ -859,5 +859,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, GooArmorMonster, ArmorLib, 
 	 "<i>I, ah, ja. Ich vill?</i>"
 	 Valeria chuckles as she re-absorbs her greatsword and, scratching her neck, wanders off into camp, leaving poor Isabella rather startled.*/
 
-	CoC.getInstance().registerScene( 'valeria', new Valeria() );
+	SceneLib.registerScene( 'valeria', new Valeria() );
 } );

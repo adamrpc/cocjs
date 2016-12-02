@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, EngineCore ) {
-	var GroPlus = angular.copy( Consumable );
+angular.module( 'cocjs' ).factory( 'GroPlus', function( SceneLib, CoC, Utils, Consumable, EngineCore ) {
+	function GroPlus() {
+		this.init(this, arguments);
+	}
+	angular.extend(GroPlus.prototype, Consumable.prototype);
 	GroPlus.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'GroPlus', 'GroPlus', 'a needle filled with Gro+', 50, 'This is a small needle with a reservoir full of blue liquid.  A faded label marks it as \'GroPlus\'.  Its purpose seems obvious.' ] );
 	};
@@ -36,7 +39,7 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, 
 			EngineCore.outputText( 'Walking gets even tougher with the swollen masses between your legs.  Maybe this was a bad idea.' );
 		}
 		EngineCore.dynStats( 'lus', 10 );
-		CoC.getInstance().scenes.inventory.itemGoNext();
+		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusBreasts = function() {
 		EngineCore.clearOutput();
@@ -48,7 +51,7 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, 
 			CoC.getInstance().player.growTits( Utils.rand( 2 ) + 1, CoC.getInstance().player.breastRows.length, true, 1 );
 		}
 		EngineCore.dynStats( 'lus', 10 );
-		CoC.getInstance().scenes.inventory.itemGoNext();
+		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusClit = function() {
 		EngineCore.clearOutput();
@@ -57,7 +60,7 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, 
 		CoC.getInstance().player.clitLength++;
 		EngineCore.outputText( 'Your ' + CoC.getInstance().player.clitDescript() + ' stops growing after an inch of new flesh surges free of your netherlips.  It twitches, feeling incredibly sensitive.' );
 		EngineCore.dynStats( 'sen', 2, 'lus', 10 );
-		CoC.getInstance().scenes.inventory.itemGoNext();
+		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusCock = function() {
 		EngineCore.clearOutput();
@@ -84,7 +87,7 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, 
 			EngineCore.outputText( 'crotch.' );
 		}
 		EngineCore.dynStats( 'sen', 2, 'lus', 10 );
-		CoC.getInstance().scenes.inventory.itemGoNext();
+		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusNipples = function() {
 		EngineCore.clearOutput();
@@ -108,12 +111,12 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( CoC, Utils, Consumable, 
 				EngineCore.outputText( 'Your ' + CoC.getInstance().player.allBreastsDescript() + ' tingle with warmth that slowly migrates to your nipples, filling them with warmth.  You pant and moan, rubbing them with your fingers.  A trickle of wetness suddenly coats your finger as it slips inside the nipple.  Shocked, you pull the finger free.  <b>You now have fuckable nipples!</b>\n\n' );
 			}
 		}
-		CoC.getInstance().scenes.inventory.itemGoNext();
+		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusCancel = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You put the vial away.\n\n' );
-		CoC.getInstance().scenes.inventory.returnItemToInventory( this );
+		SceneLib.inventory.returnItemToInventory( this );
 	};
 	return GroPlus;
 } );

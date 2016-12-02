@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonHelSupplimental() {
 	}
 
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		CoC.getInstance().flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] = 1;
 		CoC.getInstance().flags[ kFLAGS.HEL_FUCKBUDDY ] = 0;
 		CoC.getInstance().flags[ kFLAGS.HEL_AFFECTION ] = 0;
-		CoC.getInstance().scenes.helFollower.helAffection( -70 );
+		SceneLib.helFollower.helAffection( -70 );
 		EngineCore.doNext( EventParser.playerMenu );
 	};
 	//Intro Scene -- Yes;
@@ -135,10 +135,10 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		EngineCore.outputText( '\n\nYou quietly nod, and the two of you begin making your way toward the tower, hopping from one rocky outcropping to the next to avoid the harpies\' sights.  Eventually, you come to the base of the looming structure.  Now sheltered in its shadow, you can clearly see the bird-women in great numbers, flying through the air to and fro.' );
 		EngineCore.outputText( '\n\nNow safe from the watchful eyes of flying harpies and their sentries, Hel whispers, "<i>Okay, so here\'s the plan.  I\'m going to climb up the tower and hit them from the top; you go in through the main gates here,</i>" she says, pointing to a rotting wooden door that seems to have been in disuse for a decade.  "<i>Divide and conquer, right?  There are three floors, so... meet in the second, as soon as we can.  Yeah?</i>"' );
 		EngineCore.outputText( '\n\nYou nod again, and give Helia a little boost as she starts to scale the high walls of the aging tower.  You, however, steel yourself and make your way through an opening in the main gates.' );
-		CoC.getInstance().scenes.dungeonCore.dungeonEnterRoom( DungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
+		SceneLib.dungeonCore.dungeonEnterRoom( DungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
 	};
 	DungeonHelSupplimental.prototype.takeGodsMead = function() {
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.GODMEAD, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_MEAD_LOOTED ]++;
 	};
 	//[Armor]:;
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 			CoC.getInstance().player.addStatusValue( StatusAffects.GooArmorBind, 1, 1 );
 			if( CoC.getInstance().player.statusAffectv1( StatusAffects.GooArmorBind ) >= 5 ) {
 				if( CoC.getInstance().monster.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
-					CoC.getInstance().scenes.valeria.pcWinsValeriaSparDefeat();
+					SceneLib.valeria.pcWinsValeriaSparDefeat();
 				} else {
 					this.gooArmorBeatsUpPC();
 				}
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		//("<i>You put a (previous armorName) in your X pouch);
 		EngineCore.outputText( '\n\nTo your surprise, you feel rather invigorated after the battle, thanks to Valeria\'s strange healing properties, and with a smirk, you turn your attention back to the dungeon ahead.\n\n' );
 		//(PC regains HP);
-		CoC.getInstance().scenes.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
+		SceneLib.inventory.takeItem( CoC.getInstance().player.setArmor( ArmorLib.GOOARMR ), EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.MET_VALERIA ] = 1;
 		EngineCore.HPChange( 1000, false );
 		CoC.getInstance().flags[ kFLAGS.TOOK_GOO_ARMOR ] = 1;
@@ -620,15 +620,15 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		EngineCore.addButton( 4, 'Back', EventParser.playerMenu );
 	};
 	DungeonHelSupplimental.prototype.takeWhip = function() {
-		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.SUCWHIP, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeStraps = function() {
-		CoC.getInstance().scenes.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] = 1;
 	};
 	DungeonHelSupplimental.prototype.takeDagger = function() {
-		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.L_DAGGR, EventParser.playerMenu );
 		CoC.getInstance().flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] = 1;
 	};
 	//[Prisoner] (First Time);
@@ -1138,7 +1138,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pick up the Harpy Queen\'s staff.  It is a tall whitewood staff, nearly six feet in length, and covered in glowing eldritch runes, with a singular shimmering sphere of crystal at its head, which seems to have a swirling mist within.' );
 		//(New Weapon: EldritchStaff);
-		CoC.getInstance().scenes.inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
+		SceneLib.inventory.takeItem( WeaponLib.E_STAFF, EventParser.playerMenu );
 		//Similar stats to the Wizard's Staff, but with a better Fatigue reduction and a bonus to Magic damage/effect.;
 		CoC.getInstance().flags[ kFLAGS.TOOK_QUEEN_STAFF ] = 1;
 	};
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( GooArmorMonster, ArmorLib, WeaponLib, P
 		OnLoadVariables.dungeonLoc = 0;
 		//(PC returns to Camp);
 		//(If PC has Valeria: add "<i>Valeria</i>" to Followers menu);
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 	};
-	CoC.getInstance().registerScene( 'dungeonHelSupplimental', new DungeonHelSupplimental() );
+	SceneLib.registerScene( 'dungeonHelSupplimental', new DungeonHelSupplimental() );
 } );

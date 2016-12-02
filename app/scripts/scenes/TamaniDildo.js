@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Combat, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Combat, CoC, EngineCore ) {
 	function TamaniDildo() {
 	}
 
@@ -73,5 +73,5 @@ angular.module( 'cocjs' ).run( function( Combat, CoC, EngineCore ) {
 		EngineCore.dynStats( 'lus', (20 + CoC.getInstance().player.lib / 5 + CoC.getInstance().player.cor / 10) );
 		Combat.cleanupAfterCombat();
 	};
-	CoC.getInstance().registerScene( 'tamaniDildo', new TamaniDildo() );
+	SceneLib.registerScene( 'tamaniDildo', new TamaniDildo() );
 } );

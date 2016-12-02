@@ -9,7 +9,7 @@
  ****/
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, EngineCore, Perk, PerkLib) {
+angular.module( 'cocjs' ).factory( 'MainView', function($log, CharCreation, kFLAGS, CoC, StatsView, Appearance, EngineCore, Perk, PerkLib) {
 	var BOTTOM_BUTTON_COUNT = 10;
 	var sprites = [
 		'0-akbal.png',
@@ -223,8 +223,8 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 		return MainView.bottomButtons[ index ].visible;
 	};
 	MainView.menuButtons = {
-		newGameButton: {visible: false, labelText: '', callback: CoC.getInstance().charCreation.newGameGo, toolTipText:''},
-		dataButton: {visible: false, labelText: '', callback: CoC.getInstance().saves.saveLoad, toolTipText:''},
+		newGameButton: {visible: false, labelText: '', callback: CharCreation.newGameGo, toolTipText:''},
+		dataButton: {visible: false, labelText: '', callback: null, toolTipText:''},
 		statsButton: {visible: false, labelText: '', callback: CoC.getInstance().displayStats, toolTipText:''},
 		levelButton: {visible: false, labelText: '', callback: CoC.getInstance().levelUpGo, toolTipText:''},
 		perksButton: {visible: false, labelText: '', callback: CoC.getInstance().displayPerks, toolTipText:''},
@@ -339,6 +339,9 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 	};
 	MainView.hideSprite = function() {
 		MainView.selectSprite( -1 );
+	};
+	MainView.registerSave = function( saveManager ) {
+		MainView.menuButtons.dataButton.callback = saveManager.saveLoad;
 	};
 	return MainView;
 });

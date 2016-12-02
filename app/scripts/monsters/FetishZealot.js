@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, WeightedDrop, ConsumableLib, WeaponLib, ArmorLib ) {
-	var FetishZealot = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, WeightedDrop, ConsumableLib, WeaponLib, ArmorLib ) {
+	function FetishZealot() {
+		this.init(this, arguments);
+	}
+	angular.extend(FetishZealot.prototype, Monster.prototype);
 	var RELIGIOUS_CLOTHES = 'religious clothes';
 	var PIRATE_CLOTHES = 'pirate clothes';
 	var MILITARY_CLOTHES = 'military clothes';
@@ -123,15 +126,15 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, CoC, EngineCo
 		this._superPostAttack( damage );
 	};
 	FetishZealot.prototype.defeated = function() {
-		CoC.getInstance().scenes.fetishZealotScene.zealotDefeated();
+		SceneLib.fetishZealotScene.zealotDefeated();
 	};
 	FetishZealot.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe fetish cultist ignores the perverse display and continues on as if nothing had happened...', false );
 			CoC.getInstance().player.orgasm();
-			EngineCore.doNext( CoC.getInstance().scenes.fetishZealotScene.zealotLossRape );
+			EngineCore.doNext( SceneLib.fetishZealotScene.zealotLossRape );
 		} else {
-			CoC.getInstance().scenes.fetishZealotScene.zealotLossRape();
+			SceneLib.fetishZealotScene.zealotLossRape();
 		}
 	};
 	FetishZealot.prototype.init = function(that, args) {

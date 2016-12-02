@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, ImageManager, PregnancyStore, StatusAffects, Utils, EventParser, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTypesEnum, ImageManager, PregnancyStore, StatusAffects, Utils, EventParser, Descriptors, CoC, EngineCore ) {
 	function KeltScene() {
 	}
 
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 					CoC.getInstance().player.createStatusAffect( StatusAffects.KeltBadEndWarning, 0, 0, 0, 0 );
 					EngineCore.outputText( 'You approach the farm, ready for another archery lesson.  Kelt is oblivious to your presence, busy practicing with his own bow for the moment.  The wind shifts and blows his musk your way.  Unconsciously, you breathe deeply, sending heat racing between your rear legs.  Alarm bells go off in your mind as you realize what his presence is doing to you, and you run away to your camp before he can notice you.  It\'s clear to you that you can\'t resist him much longer; the next time you meet him, you\'ll probably volunteer to become his brood-mare.  Perhaps you should avoid Kelt and the farm until you feel his influence less keenly.', true );
 					EngineCore.dynStats( 'lus', CoC.getInstance().player.lib / 5 + 10 );
-					EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					this.keltCentaurBadEnd();
 				}
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		EngineCore.outputText( 'He touches a longbow that is strung around his chest.  The size of the bow is enough to convince you.  If he can draw back a bow that thick, he would surely have enough power to hit you from almost across the field.  A weapon like that could be very useful in fending off some of the monsters in this land.  The centaur notices you looking, and grins arrogantly.\r\r', false );
 		EngineCore.outputText( '"<i>Like my bow?  As well you should.  This is a real warrior\'s weapon!  If you want to learn someday, visit me again.  Maybe if you\'re not too stupid, you will be able to learn something.  I won\'t cross my fingers.</i>"\r\r', false );
 		EngineCore.outputText( 'He laughs again derisively, and trots off.  You bristle slightly... he is irritatingly arrogant.  But if he can teach you to use a weapon like that, it may be worth putting up with his company...', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Naked Requirement;
 	KeltScene.prototype.keltRequiresNakedness = function() {
@@ -131,11 +131,11 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		EngineCore.outputText( 'You adamantly refuse, determined to not give this arrogant centaur the satisfaction.  Kelt sneers at you derisively, and gives you several pieces of advice as to what could fit up your rear end.  As his insults grow more colorful, you turn and leave; his mocking laughter follows behind you.  You resolve to not bother with him anymore.\r\r(Somehow you know you\'ll never encounter him again.)', true );
 		//(Kelt never encountered again);
 		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Naked Requirement, Eagerly;
 	KeltScene.prototype.keltEagerlyGetNaked = function() {
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You have no problem stripping down naked in front of Kelt, even enjoying the process a little bit.  Judging by his leer, Kelt is enjoying it too.  He seems aroused by his power over you more than anything else... and you find yourself admitting that you\'re a little aroused by it as well.\r\r', false );
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 	};
 	//Naked Requirement, Reluctantly;
 	KeltScene.prototype.keltReluctantlyGetNaked = function() {
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You are uncomfortable with the idea of being naked in front of this crude, cruel taskmaster.  But he is good at what he does, and if this is the only way to convince him to teach you, then you\'ll just have to get it over with.  You agree to his terms reluctantly, and begin to strip off your clothes.\r\r', false );
@@ -341,7 +341,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		EngineCore.outputText( 'But the feeling is weaker now.  Whatever is was that kept you bound to him seems to be fading now, albeit slowly.  A shiver of desire runs through you, even so.  It may be a long recovery.\r\r', false );
 		//(Kelt never encountered again);
 		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob Requirement, Shamefully;
 	KeltScene.prototype.keltBlowjobRequirementShamefully = function( newl ) {
@@ -370,7 +370,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		//(Blowjob Off, but activated.);
 		//(+7 Submissiveness);
 		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 7 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob Requirement, Eagerly;
 	KeltScene.prototype.keltBlowjobRequirementEagerly = function( newl ) {
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		CoC.getInstance().player.createStatusAffect( StatusAffects.BlowjobOn, 0, 0, 0, 0 );
 		//(+15 Submissiveness);
 		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 15 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Normal Encounter;
 	KeltScene.prototype.keltMainEncounter = function() {
@@ -601,7 +601,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				if( CoC.getInstance().player.pregnancyType === PregnancyStore.PREGNANCY_KELT ) {
 					$log.debug( 'PLAYER GOT KNOCKED UP BY KELT' );
 				}
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			temporary = Utils.rand( 5 );
@@ -621,7 +621,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				EngineCore.dynStats( 'lus', 10 );
 				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
 				this.bowSkill( 4 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(No Breasts—Do standard Naked event);
@@ -659,7 +659,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				}
 				EngineCore.outputText( '"<i>Take it from me, bitch.  Know your place.  Breasts are for women, and women are for fucking until their bellies are full of foals.  \'Teach me archery, Kelt!\'  Ha!  Now that\'s a joke.</i>"\r\r', false );
 				EngineCore.outputText( 'Flicking your erect teats painfully one last time, Kelt walks away, laughing loudly to himself.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				//(+5 Submissive);
 				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
 				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
@@ -683,11 +683,11 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
 				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,4);;
 				this.bowSkill( 4 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KeltScene.prototype.keltMainEncounterPostBlowjob = function() {
 		//(Blowjob Requirement On);
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				EngineCore.outputText( 'When Kelt pulls out, he leaves behind your ravaged asshole, spread wide and filled with cum.  You whimper as he withdraws, but are unable to move, unable to think.  You dimly hear him laughing at you again, and taste his cum once more as he dips a finger into your gaping asshole and presses it to your lips.\r\r', false );
 				EngineCore.outputText( '"<i>Now stay there for a while, bitch.  Let it get good and stuck up there.  Come back tomorrow, and maybe, if you\'re lucky, I\'ll fuck you again.  You do, after all, make a pretty good cumdump.</i>"\r\r', false );
 				EngineCore.outputText( 'It\'s some hours later before you rouse yourself, clenching your ass as best as you can to keep the tide inside.  Despite your efforts, a steady trail oozes down your leg, marking your path as you slowly, happily trudge back to your camp.', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
 				CoC.getInstance().player.slimeFeed();
 				//(+10 Submissiveness);
 				if( CoC.getInstance().player.buttChange( 70, true ) ) {
@@ -770,7 +770,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 				//CoC.getInstance().player.addStatusValue(StatusAffects.Kelt,1,3);;
 				this.bowSkill( 3 );
 				EngineCore.dynStats( 'lus', 20, 'cor', 1 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
@@ -806,7 +806,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		//(-5 Submissiveness);
 		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, -5 );
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Submit);
 	KeltScene.prototype.keltSubmitGivingBJ = function() {
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		EngineCore.dynStats( 'lus', 5 );
 		//(+5 Submissiveness)*/;
 		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bad Ends;
 	//(Centaur);
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		EngineCore.outputText( 'You suppress your anger for now.  Yes; Kelt\'s an asshole, but he\'s taught you a lot, and would it hurt to humor the cute stud?  You shake your head, uncomfortable with the out-of-place thought.  You leave in a hurry, unable to face your master.', true );
 		//(+2 submission);
 		CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	KeltScene.prototype.fuckKeltsShitUp = function() {
 		EngineCore.spriteSelect( 35 );
@@ -1066,7 +1066,7 @@ angular.module( 'cocjs' ).run( function( $log, AppearanceDefs, CockTypesEnum, Im
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', 2, 'cor', 4 );
 		CoC.getInstance().player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'keltScene', new KeltScene() );
+	SceneLib.registerScene( 'keltScene', new KeltScene() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, EventParser ) {
 	function Kaiju() {
 	}
 
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You continue rowing on, away from the hilly island.' );
 		//[There is still a chance of finding the hill later]
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If yes]
 	Kaiju.prototype.meetDatKaijuYo = function() {
@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 			EngineCore.outputText( 'Perhaps not the smartest thing to do towards such a giant, you decide to mock her obvious insecurities over her body image.  The word \'fat\' barely has time to leave your lips when in a rage she puffs up her lips and blows, sending you and your boat racing through the lake out of sight.  Sometime later the boat crashes back on shore, your hair and nerves a little windswept from the fast ride.' );
 			//[Giant turtle no longer encounter-able]
 			CoC.getInstance().flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[If yes]
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		//[Lust is increased and giant turtle girl is no longer encounter-able][End whitefire scene]
 		EngineCore.dynStats( 'lus', 15 );
 		CoC.getInstance().flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If no] (Scene returns to regular blowjob/urethral insertion scene.)
 	Kaiju.prototype.corruptKaijuInsertion = function() {
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		//[Corruption increases slightly and giant turtle girl is no longer encounter-able]
 		EngineCore.dynStats( 'lus', 50, 'cor', 1 );
 		CoC.getInstance().flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If compliment]
 	Kaiju.prototype.complimentKaiju = function() {
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You cry out and wave the inquisitive hand away.  You tell her that you mean no offense, but at such a size and strength disparity you are afraid of what a grip from such a woman could do accidentally.  She seems a bit saddened at that, but makes no further attempt to grab you.' );
 		//[Giant turtle girl is still encounter-able]
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If let her]
 	Kaiju.prototype.letKaijuHaveWayWithYou = function() {
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.outputText( '\n\n"<i>My, that was a mighty big hug.  I think I\'ll need another nap.  Come visit me again some time,</i>" she says, slowly putting you down in your boat.  You slowly roll away as the jolly green giantess giggles and slowly wades off.' );
 		//[Giant turtle girl now encounter-able at Boat and Swamp, corruption increases slightly]
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If flirt]
 	Kaiju.prototype.flirtWithKaiju = function() {
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.outputText( '\n\nYou wave goodbye to the giant green girl as you begin to row away.' );
 		//[Corruption increases, giant turtle girl now encounter-able at Boat and Swamp]
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Second/Repeatable encounter/s at Boat
 	Kaiju.prototype.repeatKaijuEncounter = function() {
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.outputText( '\n\n"<i>My, that was a mighty big hug.  I think I\'ll need another nap. Come visit me again some time,</i>" she says, slowly putting you down in your boat.  You slowly roll away as the jolly green giantess giggles and slowly wades off.' );
 		//[Giant turtle girl now encounter-able at Boat and Swamp, corruption increases slightly]
 		CoC.getInstance().flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Fuck]
 	Kaiju.prototype.fuckThisGiantYouDumbCunt = function() {
@@ -437,7 +437,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		//[Corruption increases]
 		CoC.getInstance().flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Urethra Fuck]
 	Kaiju.prototype.urethraFuckDatGiantCock = function() {
@@ -467,14 +467,14 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		CoC.getInstance().flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Leave]
 	Kaiju.prototype.leaveRepeatKaiju = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You politely decline any options and bid the green girl goodbye as you row away.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Talk]
 	Kaiju.prototype.talkToKaiju = function() {
@@ -513,7 +513,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 			EngineCore.outputText( '\n\nShe sighs, the conversation seeming to be at an end.' );
 			CoC.getInstance().flags[ kFLAGS.KAIJU_TALK_CYCLE ] = 0;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.getInstance().player.inte < 50 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.outputText( 'You make your appreciation of her exhibition known, indicating that you would like her to continue on.  Smiling at your suggestion, and more than willing to give an encore performance, she brings her hands down to her trembling cock, slowly tracing a finger up the length of her shaft before grabbing onto it with one hand while the other begins to rub the tip of the head with her palm.  Her hand, still slick with her own cunt juice, slides easily across her cock.  She begins to moan again, even more lewdly than last time.  Her hips begin to buck as she practically begins to fuck her hand.  Beads of precum begin to bubble up from her cock head, and she quickly wipes it on the palm of her free hand before bringing it towards her face to lick the mess off her palm, her body trembling from the sheer delight of drinking her own pre.  "<i>Oh that\'s good!</i>" she pants, bringing her hand back down to begin stroking her throbbing dick with both hands.  "<i>Please, please watch me cum!</i>" the giantess begs of you as she goes into high gear, giving her cock everything she\'s got left.  It isn\'t much longer before she erupts like a geyser, spraying hermy turtle girl cum high into the air, only for it to rain back down on the green girl.  Her hands begin to slide across her torso, gently massaging the sperm into her skin.' );
 		//[Increase lust further, end corrupt/herm scene]
 		EngineCore.dynStats( 'lib', 1, 'lus', 33 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If no] (Skip corrupt/herm scene)
 	Kaiju.prototype.noKaijuPeepShows = function() {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.outputText( '"<i>My goodness, it\'s so much better with a captivated audience!</i>" she says, breathing heavily.  You thank her for the show as she places you back into your boat and giving it a push.  You row away, considering perhaps coming back for another show.' );
 		//[Libido is increased by 1]
 		EngineCore.dynStats( 'lib', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//One off scenes
 	//Scene for Newly Cocked Venus at Boat
@@ -598,7 +598,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You shake your head no, politely responding that you do not want to get her off right now.  "<i>Oh, okay. I understand,</i>" the giantess states, looking somewhat crestfallen.  You row away, leaving her and her new addition to themselves for the time being.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Mock]
 	Kaiju.prototype.mockDatTurtleGirl = function() {
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.getInstance().flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If yes]
 	Kaiju.prototype.helpNewFutaKaijuGetOff = function() {
@@ -672,7 +672,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		//[Corruption increases slightly, lust is decreased]
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Incubi Drafts]
 	Kaiju.prototype.incubiDraftsDatKaiju = function() {
@@ -726,7 +726,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		//[Corruption increases slightly, lust is decreased]
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Improved Bad End
 	//Venus' Sex Toy
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'Flapping your wings at max speed you beat a hasty retreat!' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[End wings]
 	Kaiju.prototype.badEndPartTwo = function() {
@@ -824,5 +824,5 @@ angular.module( 'cocjs' ).run( function( kFLAGS, ConsumableLib, CoC, AppearanceD
 		EngineCore.dynStats( 'lib', 5, 'sen', 30, 'cor', 4 );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'kaiju', new Kaiju() );
+	SceneLib.registerScene( 'kaiju', new Kaiju() );
 } );

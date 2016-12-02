@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, EventParser, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Combat, Utils, EventParser, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
 	function D3() {
 		this.rooms = {};
 		this._currentRoom = null; // I don't think we'll need to save/load this, as we're not gonna allow saving in the dungeon, and it'll be overwritten by calling enterD3();
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 			EngineCore.outputText( '\n\nDo you step inside, or wait until you’re better prepared?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Enter', this.enterD3 );
-			EngineCore.addButton( 1, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 1, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 			return true;
 		}
 		return false;
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 	D3.prototype.exitD3 = function() {
 		OnLoadVariables.inRoomedDungeon = false;
 		OnLoadVariables.inRoomedDungeonResume = null;
-		CoC.getInstance().scenes.camp.returnToCampUseOneHour();
+		SceneLib.camp.returnToCampUseOneHour();
 	};
 	D3.prototype.resumeFromFight = function() {
 		this.move( this._currentRoom );
@@ -226,8 +226,8 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		if( tRoom.RoomName === 'entrance' ) {
 			EngineCore.addButton( 5, 'Exit', this.exitD3 );
 		}
-		EngineCore.addButton( 8, 'Items', CoC.getInstance().scenes.inventory.inventoryMenu );
-		EngineCore.addButton( 9, 'Masturbate', CoC.getInstance().scenes.masturbation.masturbateGo );
+		EngineCore.addButton( 8, 'Items', SceneLib.inventory.inventoryMenu );
+		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation.masturbateGo );
 	};
 	D3.prototype.move = function( roomName ) {
 		$log.debug( 'Entering room', roomName );
@@ -279,7 +279,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 				EngineCore.outputText( '  Disquiet edges down your spine. Something about this place doesn’t feel right. The room seems faded at the corners, as if it’s not quite there.' );
 			}
 
-			EngineCore.addButton( 2, 'Glasses', CoC.getInstance().scenes.dopplegangerScenes.getDemGlasses );
+			EngineCore.addButton( 2, 'Glasses', SceneLib.dopplegangerScenes.getDemGlasses );
 		}
 		return false;
 	};
@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 				EngineCore.outputText( 'You creep through the archway. The sound of movement and bustle is closer here; it seems to be coming from directly below you. Ahead is the screen, a large window made from tinted glass. Cautiously you peer through it. You have entered a vast hall, near the very top of it; this seems to be some sort of observation booth set high in the stone wall. It’s designed in the grand, classical tradition, fluted balustrades flanking the walls, each decorated at the top by a carved magpie in flight. Below is - well. You blink, trying to take it all in.' );
 				EngineCore.outputText( '\n\nMany feet below the hall swarms with activity, thin, grey-green reptiles sliding sinuously around each other and the long tables that run the length of the room. There must be hundreds, no, at least a thousand basilisks down there, carrying, analyzing, sorting the vast amount of junk the tables are heaped with.' );
 				if( CoC.getInstance().flags[ kFLAGS.BENOIT_AFFECTION ] === 100 ) {
-					EngineCore.outputText( '  This can only be the hall that ' + CoC.getInstance().scenes.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' once worked in.' );
+					EngineCore.outputText( '  This can only be the hall that ' + SceneLib.benoit.benoitMF( 'Benoit', 'Benoite' ) + ' once worked in.' );
 				}
 				EngineCore.outputText( '  You get the fright of your life when you think you see a number of depthless pools of grey revolve up to meet yours- but they don’t freeze you, you note as you reflexively turn away. The tinted glass must carry some sort of anti-petrifying charm, and further it must be reflective on the other side, because no one below seems to realize you’re standing there. Relaxing a bit, you continue to absorb the massive room. At the end furthest away from you two huge piles have been created- one of eggs, a massed assortment of every color and size imaginable, and one of pure junk, presumably everything the basilisks have found whilst scavenging and considered worth keeping. The detritus of a dozen collapsed civilizations must be down there, collected for the demons’ perusal by their scaly custodians. Directly below you, you can see archways like the one you just passed under, through which the basilisks ebb and flow.' );
 				EngineCore.outputText( '\n\nYour heartbeat quickens as you consider. There is a grid gantry running from where you are right around the room to the other side, where you can see a matching observation booth, presumably containing another exit. But it’s quite a distance, there are stairs leading down to the ground level, and outside the protective glass you would surely be spotted and apprehended' );
@@ -310,7 +310,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 				}
 			}
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Go!', CoC.getInstance().scenes.jeanClaudeScenes.gogoFuckTheseBasilisks );
+			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisks );
 			EngineCore.addButton( 1, 'Fall Back', this.fallbackFromMagpieHallS );
 			return true;
 		}
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You pluck out ' + item.longName + ' ' );
 		CoC.getInstance().flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
-		CoC.getInstance().scenes.inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
+		SceneLib.inventory.takeItem( item, EventParser.playerMenu ); //EventParser.playerMenu is equivalent to doNext(1)
 	};
 	D3.prototype.fallbackFromMagpieHallS = function() {
 		EngineCore.clearOutput();
@@ -416,7 +416,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		if( CoC.getInstance().flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( 'You find yourself back in the small booth, with the locked door leading out into the Magpie Hall. Just like the one on the opposite side, there is a darkened screen here through which you can see hundreds of basilisks milling down below, sorting through the vast amount of junk and eggs they have collected from the mountainside. They don’t seem to have taken any extra precautions following your narrow escape of them- the gantry remains free of any guards, and the door on the other side looks open.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Go!', CoC.getInstance().scenes.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
+			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
 			EngineCore.addButton( 1, 'Stronghold', this.move, 'tunnel2' );
 			return true;
 		}
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 			//[Surrender] [Fight];
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Fight', Combat.startCombatImmediate, new SuccubusGardener() );
-			EngineCore.addButton( 1, 'Surrender', CoC.getInstance().scenes.succubusGardenerScenes.surrenderToTheGardener );
+			EngineCore.addButton( 1, 'Surrender', SceneLib.succubusGardenerScenes.surrenderToTheGardener );
 			return true;
 		}
 		return false;
@@ -493,7 +493,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 	D3.prototype.northeastcourtyardRoomFunc = function() {
 		EngineCore.outputText( 'This particular corner of the courtyard feels remarkably cramped, even a little claustrophobic. To the north, a stone wall rises, dwarfing the smaller one to the east, and to make matters worse, the hedges to the southwest are high and square, virtually a wall in their own right. The only avenues of travel available are to the south or west, following the red sandstone bricks as they bend around the corner.' );
 		if( CoC.getInstance().flags[ kFLAGS.D3_CENTAUR_DEFEATED ] === 0 ) {
-			CoC.getInstance().scenes.hermCentaurScenes.encounterThePony();
+			SceneLib.hermCentaurScenes.encounterThePony();
 			return true;
 		}
 		return false;
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 		if( CoC.getInstance().flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\nWait... what’s that?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', CoC.getInstance().scenes.livingStatueScenes.encounter );
+			EngineCore.addButton( 0, 'Next', SceneLib.livingStatueScenes.encounter );
 			return true;
 		}
 		EngineCore.outputText( 'Two disembodied, marble feet and a field of rubble are all that remains of the once proud statue that stood in the center of the courtyard. You dealt with the animated monstrosity but can’t help but feel a little shame at the destruction you’ve so openly wrought. Many of the bushes are torn in half by two ton slabs, and the path is scarred in a dozen places by chips and smashed divots. You can go east and west from here, if you move carefully around the more jagged pieces of stone.' );
@@ -534,8 +534,8 @@ angular.module( 'cocjs' ).run( function( $log, SuccubusGardener, Combat, Utils, 
 	};
 	D3.prototype.greatliftRoomFunc = function() {
 		EngineCore.outputText( 'Intricate stonework supports this precarious platform as it juts from the side of Lethice\'s fortress, hanging over a sheer cliff that must go down for hundreds of feet. The harpies appear to have moved away from the area immediately below, whether by choice or by demonic action, though you can still spot a few of their nests in other places on the mountainside. A complicated looking machine sits on the side of the platform, attached to a cage that dangles over the edge, supported by a lowly metal cable. It must be some kind of mechanical lift - a way to come and go as one would please.' );
-		CoC.getInstance().scenes.incubusMechanicScenes.meetAtElevator();
+		SceneLib.incubusMechanicScenes.meetAtElevator();
 		return false;
 	};
-	CoC.getInstance().registerScene( 'd3', new D3() );
+	SceneLib.registerScene( 'd3', new D3() );
 } );

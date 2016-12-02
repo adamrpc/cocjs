@@ -3,7 +3,10 @@
 angular.module( 'cocjs' ).factory( 'BeeHoney', function( CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
 	var PURE_HONEY_VALUE = 40;
 	var SPECIAL_HONEY_VALUE = 20;
-	var BeeHoney = angular.copy( Consumable );
+	function BeeHoney() {
+		this.init(this, arguments);
+	}
+	angular.extend(BeeHoney.prototype, Consumable.prototype);
 	BeeHoney.prototype.init = function( that, args ) {
 		var honeyName;
 		var honeyLong;

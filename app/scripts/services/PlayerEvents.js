@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum ) {
+angular.module( 'cocjs' ).factory( 'PlayerEvents', function(SceneLib, $rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			}
 		}
 		if( CoC.getInstance().player.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && CoC.getInstance().player.findPerk( PerkLib.LuststickAdapted ) < 0 ) { //Luststick resistance unlock
-			CoC.getInstance().scenes.sophieBimbo.unlockResistance();
+			SceneLib.sophieBimbo.unlockResistance();
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
 				CoC.getInstance().player.removeStatusAffect( StatusAffects.Luststick );
 			}
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			CoC.getInstance().flags[ kFLAGS.DICK_EGG_INCUBATION ]--;
 			$log.debug( 'DICK BIRTH TIMER:' + CoC.getInstance().flags[ kFLAGS.DICK_EGG_INCUBATION ] );
 			if( CoC.getInstance().flags[ kFLAGS.DICK_EGG_INCUBATION ] === 1 ) {
-				CoC.getInstance().scenes.masturbation.birthBeeEggsOutYourWang();
+				SceneLib.masturbation.birthBeeEggsOutYourWang();
 				needNext = true;
 			}
 		}
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			CoC.getInstance().player.addStatusValue( StatusAffects.Kelt, 2, -0.15 );
 		} //Reduce kelt submissiveness by 1 every 5 hours
 		//Mino cum update.
-		if( CoC.getInstance().scenes.minotaurScene.minoCumUpdate() ) {
+		if( SceneLib.minotaurScene.minoCumUpdate() ) {
 			needNext = true;
 		} else if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 2 && CoC.getInstance().time.hours % 13 === 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00330 ] === 0 ) { //Repeated warnings!
 			if( CoC.getInstance().flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 				CoC.getInstance().flags[ kFLAGS.RUBI_PROFIT ] += 2 + Utils.rand( 4 );
 			}
 			CoC.getInstance().flags[ kFLAGS.BENOIT_TALKED_TODAY ] = 0;
-			CoC.getInstance().scenes.benoit.updateBenoitInventory();
+			SceneLib.benoit.updateBenoitInventory();
 			CoC.getInstance().flags[ kFLAGS.ROGAR_FUCKED_TODAY ] = 0;
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ]--;
@@ -764,22 +764,22 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 			if( CoC.getInstance().flags[ kFLAGS.USED_MILKER_TODAY ] > 0 ) {
 				CoC.getInstance().flags[ kFLAGS.USED_MILKER_TODAY ] = 0;
 			} //Clear 'has fucked milker today'
-			if( CoC.getInstance().scenes.latexGirl.latexGooFollower() ) { //Latex goo follower daily updates
-				CoC.getInstance().scenes.latexGirl.gooFluid( -2, false );
-				if( CoC.getInstance().scenes.latexGirl.gooFluid() < 50 ) {
-					CoC.getInstance().scenes.latexGirl.gooHappiness( -1, false );
+			if( SceneLib.latexGirl.latexGooFollower() ) { //Latex goo follower daily updates
+				SceneLib.latexGirl.gooFluid( -2, false );
+				if( SceneLib.latexGirl.gooFluid() < 50 ) {
+					SceneLib.latexGirl.gooHappiness( -1, false );
 				}
-				if( CoC.getInstance().scenes.latexGirl.gooFluid() < 25 ) {
-					CoC.getInstance().scenes.latexGirl.gooHappiness( -1, false );
+				if( SceneLib.latexGirl.gooFluid() < 25 ) {
+					SceneLib.latexGirl.gooHappiness( -1, false );
 				}
-				if( CoC.getInstance().scenes.latexGirl.gooHappiness() < 75 ) {
-					CoC.getInstance().scenes.latexGirl.gooObedience( -1, false );
+				if( SceneLib.latexGirl.gooHappiness() < 75 ) {
+					SceneLib.latexGirl.gooObedience( -1, false );
 				}
-				if( CoC.getInstance().scenes.latexGirl.gooHappiness() >= 90 ) {
-					CoC.getInstance().scenes.latexGirl.gooObedience( 1, false );
+				if( SceneLib.latexGirl.gooHappiness() >= 90 ) {
+					SceneLib.latexGirl.gooObedience( 1, false );
 				}
 			}
-			CoC.getInstance().scenes.farmCorruption.updateFarmCorruption(); //Farm Corruption updating
+			SceneLib.farmCorruption.updateFarmCorruption(); //Farm Corruption updating
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) { // Herbal contraceptives countdown
 				if( CoC.getInstance().player.statusAffectv1( StatusAffects.Contraceptives ) === 1 ) {
 					CoC.getInstance().player.addStatusValue( StatusAffects.Contraceptives, 2, -1 );
@@ -846,21 +846,21 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 		return needNext;
 	};
 	PlayerEvents.prototype.timeChangeLarge = function() {
-		if( Utils.rand( 4 ) === 0 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().player.gender > 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.XMAS_CHICKEN_YEAR ] < CoC.getInstance().date.fullYear ) {
-			CoC.getInstance().scenes.xmasMisc.getAChristmasChicken();
+		if( Utils.rand( 4 ) === 0 && SceneLib.xmasBitch.isHolidays() && CoC.getInstance().player.gender > 0 && CoC.getInstance().time.hours === 6 && CoC.getInstance().flags[ kFLAGS.XMAS_CHICKEN_YEAR ] < CoC.getInstance().date.fullYear ) {
+			SceneLib.xmasMisc.getAChristmasChicken();
 			return true;
 		}
-		if( CoC.getInstance().time.hours === 1 && CoC.getInstance().scenes.xmasBitch.isHolidays() && CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] ) { //XMAS ELF
-			CoC.getInstance().scenes.xmasMisc.xmasBitchEncounter(); //Set it to remember the last year encountered
+		if( CoC.getInstance().time.hours === 1 && SceneLib.xmasBitch.isHolidays() && CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] ) { //XMAS ELF
+			SceneLib.xmasMisc.xmasBitchEncounter(); //Set it to remember the last year encountered
 			return true;
 		}
-		if( this.checkedTurkey++ === 0 && (Utils.rand( 5 ) === 0 && (CoC.getInstance().time.hours === 18 || CoC.getInstance().time.hours === 19)) && (CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] || CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] > 0) && CoC.getInstance().scenes.thanksgiving.isThanksgiving() && CoC.getInstance().player.gender > 0 ) {
-			CoC.getInstance().scenes.thanksgiving.datTurkeyRumpMeeting(); //TURKEY SURPRISE
+		if( this.checkedTurkey++ === 0 && (Utils.rand( 5 ) === 0 && (CoC.getInstance().time.hours === 18 || CoC.getInstance().time.hours === 19)) && (CoC.getInstance().date.fullYear > CoC.getInstance().flags[ kFLAGS.TURKEY_FUCK_YEAR_DONE ] || CoC.getInstance().flags[ kFLAGS.MORE_TURKEY ] > 0) && SceneLib.thanksgiving.isThanksgiving() && CoC.getInstance().player.gender > 0 ) {
+			SceneLib.thanksgiving.datTurkeyRumpMeeting(); //TURKEY SURPRISE
 			return true;
 		}
 		if( this.checkedDream++ === 0 && CoC.getInstance().time.hours === 3 ) { //You can only have one dream each night
 			if( CoC.getInstance().player.gender > 0 && CoC.getInstance().time.days === 10 ) { //Day 10 dream - since this can happen only once it takes priority over all other dreams
-				CoC.getInstance().scenes.dreams.dayTenDreams();
+				SceneLib.dreams.dayTenDreams();
 				return true;
 			}
 			if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.findPerk( PerkLib.BeeOvipositor ) >= 0 && (CoC.getInstance().player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Bee dreams proc
@@ -931,36 +931,36 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function($rootScope, $log, Co
 					ceraph = 3;
 			}
 			if( ceraph > 0 && CoC.getInstance().time.days % ceraph === 0 ) {
-				CoC.getInstance().scenes.ceraphScene.ceraphBodyPartDreams();
+				SceneLib.ceraphScene.ceraphBodyPartDreams();
 				return true;
 			}
 			if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00157 ] > 0 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00157 ] < 4 ) { //Dominika Dream
 				EngineCore.outputText( '\n<b>Your rest is somewhat troubled with odd dreams...</b>\n' );
-				CoC.getInstance().scenes.dominika.fellatrixDream();
+				SceneLib.dominika.fellatrixDream();
 				return true;
 			}
-			if( CoC.getInstance().scenes.anemoneScene.kidAXP() >= 40 && CoC.getInstance().flags[ kFLAGS.HAD_KID_A_DREAM ] === 0 && CoC.getInstance().player.gender > 0 ) {
-				CoC.getInstance().scenes.anemoneScene.kidADreams();
+			if( SceneLib.anemoneScene.kidAXP() >= 40 && CoC.getInstance().flags[ kFLAGS.HAD_KID_A_DREAM ] === 0 && CoC.getInstance().player.gender > 0 ) {
+				SceneLib.anemoneScene.kidADreams();
 				CoC.getInstance().flags[ kFLAGS.HAD_KID_A_DREAM ] = 1;
 				return true;
 			}
 			if( CoC.getInstance().player.viridianChange() ) {
-				CoC.getInstance().scenes.dreams.fuckedUpCockDreamChange();
+				SceneLib.dreams.fuckedUpCockDreamChange();
 				return true;
 			}
 			if( CoC.getInstance().player.lib > 50 || CoC.getInstance().player.lust > 40 ) { //Randomly generated dreams here
-				if( CoC.getInstance().scenes.dreams.dreamSelect() ) {
+				if( SceneLib.dreams.dreamSelect() ) {
 					return true;
 				}
 			}
 		}
 		if( CoC.getInstance().player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 && CoC.getInstance().player.str <= 1 ) { //Bad end!
-			CoC.getInstance().scenes.gooGirlScene.slimeBadEnd();
+			SceneLib.gooGirlScene.slimeBadEnd();
 			return true;
 		}
 		if( CoC.getInstance().player.hasCock() && CoC.getInstance().player.cocks[ 0 ].cockType === CockTypesEnum.BEE && CoC.getInstance().player.lust >= 100 ) {
 			EngineCore.outputText( '\nYou can’t help it anymore, you need to find the bee girl right now.  You rush off to the forest to find the release that you absolutely must have.  Going on instinct you soon find the bee girl\'s clearing and her in it.\n\n' );
-			CoC.getInstance().scenes.beeGirlScene.beeSexForCocks( false );
+			SceneLib.beeGirlScene.beeSexForCocks( false );
 			return true;
 		}
 		return false;

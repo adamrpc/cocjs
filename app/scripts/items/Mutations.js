@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Mutations', function ($log, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, ConsumableLib, EventParser) {
+angular.module('cocjs').factory('Mutations', function ($log, SceneLib, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore, ConsumableLib, EventParser) {
     var Mutations = {};
 	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
@@ -331,12 +331,12 @@ angular.module('cocjs').factory('Mutations', function ($log, CoC_Settings, CoC, 
 				EngineCore.dynStats("lib", 0.5, "sen", 1, "lus", 10);
 			}
 			EngineCore.outputText("\n\nYour mouth curls into a sick smile and, with a voice that isn't your own, speaks, \"<i>I ALWAYS get what I want, dear...</i>\"", false);
-			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 		} else {
 			EngineCore.outputText("Your mouth forms a smile of its own volition, reading, \"<i>nuf erutuf rof riah ydnas, nus tresed eht sa ydnas.</i>\"\n\nYou feel a tingling in your scalp, and realize your hair has become a sandy blonde!", false);
 			player.hairColor = "sandy blonde";
 			EngineCore.outputText("\n\nYour mouth curls with a sick smile, speaking with a voice that isn't your own, \"<i>I ALWAYS get what I want, dear...</i>\"", false);
-			EngineCore.doNext(CoC.getInstance().scenes.camp.returnToCampUseOneHour);
+			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
 		}
 		if (!CoC.getInstance().isInCombat()) {
 			//RAEP
@@ -2949,7 +2949,7 @@ angular.module('cocjs').factory('Mutations', function ($log, CoC_Settings, CoC, 
 			}
 		}
 		//Increases addiction by 5, up to a max of 50 before the player becomes addicted, no max after the player is addicted.
-		CoC.getInstance().scenes.marbleScene.marbleStatusChange(0, 5);
+		SceneLib.marbleScene.marbleStatusChange(0, 5);
 		//Does not apply the 'Marble's Milk' effect
 		//Purge withdrawl
 		if (player.findStatusAffect(StatusAffects.MarbleWithdrawl) >= 0) {

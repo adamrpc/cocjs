@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
-	var GoblinAssassin = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+	function GoblinAssassin() {
+		this.init(this, arguments);
+	}
+	angular.extend(GoblinAssassin.prototype, Monster.prototype);
 	GoblinAssassin.prototype.goblinDrugAttack = function() {
 		var temp2 = Utils.rand( 5 );
 		var color = '';
@@ -112,14 +115,14 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( AppearanceDefs, W
 		Combat.combatRoundOver();
 	};
 	GoblinAssassin.prototype.defeated = function() {
-		CoC.getInstance().scenes.goblinAssassinScene.gobboAssassinRapeIntro();
+		SceneLib.goblinAssassinScene.gobboAssassinRapeIntro();
 	};
 	GoblinAssassin.prototype.won = function() {
 		if( CoC.getInstance().player.gender === 0 ) {
 			EngineCore.outputText( 'You collapse in front of the goblin, too wounded to fight.  She growls and kicks you in the head, making your vision swim. As your sight fades, you hear her murmur, "<i>Fucking dicks can\'t even bother to grow a dick or cunt.</i>"', false );
 			Combat.cleanupAfterCombat();
 		} else {
-			CoC.getInstance().scenes.goblinAssassinScene.gobboAssassinBeatYaUp();
+			SceneLib.goblinAssassinScene.gobboAssassinBeatYaUp();
 		}
 	};
 	GoblinAssassin.prototype.init = function( that, args ) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	//Roxanne Poisontail;
 	//-no hair, ;
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		EngineCore.outputText( 'You hesitantly approach the drinking lizard-folk, taking note of their unusual garments and appearance.  They all wear black jackets with silver trim, tight-fitting leather pants, and tall, black boots.  Oddly, the most feminine of them appears to be the leader.  Her jacket is filled out with large, well-rounded DD-cup breasts, and her boots forgo the traditional shape for a sluttier, higher heel.  Her scales are a dark purple, glittering darkly in the light, and while her head has a lizard-like shape, a pair of dragon-like horns bulge from the back of her skull in place of hair.  The other lizans all appear to be males, but they act as if they\'re quite intimidated by the feminine leader.\n\n', false );
 		EngineCore.outputText( 'Suddenly, the alpha-lizan glances up and meets your eye, her expression turning into a leering sneer as she asks, "<i>See something you like ' + CoC.getInstance().player.mf( 'buddy', 'girly' ) + '?  Come on over, tell us your story!</i>"\n\n', false );
 		EngineCore.outputText( 'Do you approach?', false );
-		EngineCore.doYesNo( this.RoxanneChooseApproachOrRepeat, CoC.getInstance().scenes.bazaar.enterTheBazaar );
+		EngineCore.doYesNo( this.RoxanneChooseApproachOrRepeat, SceneLib.bazaar.enterTheBazaar );
 	};
 	//[Approach] – Flag as Met;
 	Roxanne.prototype.RoxanneChooseApproachOrRepeat = function() {
@@ -164,11 +164,11 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		if( CoC.getInstance().time.hours === 19 || CoC.getInstance().time.hours === 20 ) {
 			CoC.getInstance().flags[ kFLAGS.COUNTDOWN_TO_NIGHT_RAPE ]++;
 			if( CoC.getInstance().flags[ kFLAGS.COUNTDOWN_TO_NIGHT_RAPE ] % 4 === 0 && CoC.getInstance().player.gender === 1 ) {
-				CoC.getInstance().scenes.bazaar.nightBazaarButtfuck();
+				SceneLib.bazaar.nightBazaarButtfuck();
 				return;
 			}
 		}
-		CoC.getInstance().scenes.bazaar.enterTheBazaarAndMenu();
+		SceneLib.bazaar.enterTheBazaarAndMenu();
 	};
 	Roxanne.prototype.roxanneDrinkingContestLoseDeliberately = function() {
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00226 ] = 1;
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		//(-100 lust, -1 int);
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Receive Oral – Vaginalingus];
 	Roxanne.prototype.roxanneCunnilingus = function() {
@@ -411,7 +411,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		//(-100 lust, -1 int);
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Receive Oral – SkyrRimjoooooooob];
 	Roxanne.prototype.roxanneRimjob = function() {
@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		//(-100 lust, -1 int;
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[OH SHIT YOU SO DRUNK AND GETTING REAMED BY LIZARD CAWK];
 	Roxanne.prototype.roxanneReamsYouNormal = function() {
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
 		this.applyHangover();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[Roxanne HAS A FUCKING TORPEDO DICK BUTTFUCK];
 	Roxanne.prototype.roxanneFucksYourAssOHGODITSHUGE = function() {
@@ -661,7 +661,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
 		this.applyHangover();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
 	Roxanne.prototype.applyHangover = function() {
 		//Status: Hangover.  ;
@@ -748,7 +748,7 @@ angular.module( 'cocjs' ).run( function( MainView, $rootScope, PerkLib, Descript
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'int', -1 );
 		this.applyHangover();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
 	};
-	CoC.getInstance().registerScene( 'roxanne', new Roxanne() );
+	SceneLib.registerScene( 'roxanne', new Roxanne() );
 } );

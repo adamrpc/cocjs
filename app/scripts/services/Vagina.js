@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('KeyItemClass').factory('Vagina', function (Utils) {
+angular.module('cocjs').factory('Vagina', function (Utils) {
 	function Vagina() {
 		this.init(this, arguments);
 	}

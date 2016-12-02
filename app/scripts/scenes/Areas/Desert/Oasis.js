@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, EventParser, PregnancyStore, kFLAGS, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, EventParser, PregnancyStore, kFLAGS, Combat ) {
 	function Oasis() { }
 	Oasis.prototype.oasisEncounter = function() {
 		EngineCore.spriteSelect( 46 );
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		//Run away successfully if fast enough.  80 speed = autosuccess.
 		if( CoC.getInstance().player.spe > 15 && CoC.getInstance().player.spe / 2 > Utils.rand( 40 ) ) {
 			EngineCore.outputText( 'You bolt out from under your bush and scramble away over the sand. Before long the swishing sounds of pursuit fade away and looking back you see the few demons with the gusto to follow you tramping back to the oasis.', true );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You scramble away from the demons, but are too late. A swift demon with canine features tackles you to the ground.  Luckily he loses his grip as you tumble onto the sand and you slither free, stand up and wheel to face the host of leering demons which begin to advance with malicious intent.', true );
 			Combat.startCombat( new DemonPack() );
@@ -244,5 +244,5 @@ angular.module( 'cocjs' ).run( function( CoC, Utils, StatusAffects, EngineCore, 
 		EngineCore.outputText( 'A year has gone by since the day you became a slave. You find yourself sitting at the feet of your master wearing nothing but a black collar around your neck. Your belly extends out in front of you, filled to the brim with your master\'s baby. You smile, happy to be here to please your master and carry his young as memories of your past and your mission fade deep into the depths of your mind. Your only mission in life now is to service your master and the other members of the tribe in whatever they ask, without question or hesitation. As the tribe prepares for the next \'Feast\', a commotion at the other side of the encampment catches your attention. The guards bring forth a human captive they found wandering in the oasis, and you smile dimly as you watch master invite the stranger to join them all in the Feast...', false );
 		EventParser.gameOver();
 	};
-	CoC.getInstance().registerScene( 'oasis', new Oasis() );
+	SceneLib.registerScene( 'oasis', new Oasis() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, StatusAffects, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function MilkWaifu() {
 	}
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			//[Next time Rath's at camp and PC accesses Milky's meny, play the Arrival w/ Rath scene, sans first sentence];
 		}
 		//Set before this function is called:	kGAMECLASS.inDungeon = false;;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.ratducto = function() {
 		EngineCore.clearOutput();
@@ -146,10 +146,10 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		}
 
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 0 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.camp.campSlavesMenu );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp.campSlavesMenu );
 		}
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 	};
 	MilkWaifu.prototype.sendToFarm = function() {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( '\n\nIt darkly but deliciously occurs to you that once she’s at the farm, it would be fairly easy to re-boobify her, build her a new tank and massively increase the amount of milk your farm produces.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.outputText( '“<i>I want you to head on back to camp,</i>” you tell her. “<i>You’ll be more useful to me there.</i>” [bathgirlName]’s brow crinkles but she seems to accept your instruction.' );
 		EngineCore.outputText( '“<i>As you wish.</i>” She wipes her hands before walking slowly down and out of the farm’s gate.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	//Appearance;
 	MilkWaifu.prototype.milkWriteFuAppearance = function() {
@@ -191,14 +191,14 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( ' between her pillowy bosoms.  Despite the reduction in size, ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' is happy to tell you that she\'s still got plenty of milk inside her, though perhaps not quite as much as before: she can\'t quite fill the pool all by herself, but now even short milkings leave her blissfully empty for hours afterwards.  She\'s not an entire farm unto herself now and she seems fairly pleased by this, all things considered.' );
 		}
 		EngineCore.outputText( '\n\nBetween her lithe legs and childbearing hips is her cunt, a short stripe of dark, downy hair drawing your attention just above it.  And, hidden between her pert cheeks is her tight little backdoor, right where it belongs.' );
-		if( CoC.getInstance().scenes.farmCorruption.hasTattoo( 'milky' ) ) {
+		if( SceneLib.farmCorruption.hasTattoo( 'milky' ) ) {
 			EngineCore.outputText( '\n\n' );
-			if( CoC.getInstance().scenes.farmCorruption.milkyFullTribalTats() ) {
+			if( SceneLib.farmCorruption.milkyFullTribalTats() ) {
 				EngineCore.outputText( 'She is covered from head to tail in tribal tattoos, erotic lines snaking all over her naked frame, giving her the look of a barely tamed savage.' );
-			} else if( CoC.getInstance().scenes.farmCorruption.numMilkyButterflyTats() === 4 ) {
+			} else if( SceneLib.farmCorruption.numMilkyButterflyTats() === 4 ) {
 				EngineCore.outputText( 'She is covered from head to tail in tattooed butterflies, as if the pretty insects are attracted to her chocolate skin. When she moves she does it with an extra bounce and flick of the head, admiring how she looks as she goes.' );
 			} else {
-				if( CoC.getInstance().scenes.farmCorruption.numTattoos( 'milky' ) > 1 ) {
+				if( SceneLib.farmCorruption.numTattoos( 'milky' ) > 1 ) {
 					EngineCore.outputText( 'She has the following tattoos emblazoned across her body:\n' );
 				} else {
 					EngineCore.outputText( 'She has ' );
@@ -237,7 +237,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( '\n\n"<i>I...  I can...</i>" she groans, suddenly clutching her head.  You jump up, steadying her again as ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' moans in pain, tugging at her dark hair until suddenly, she\'s silent.  A long moment passes before she turns to you, all smiles.  "<i>I can...  walk,</i>" she says, struggling to form the words.  Before you can react, ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' grabs you, hugging you into her hefty bosom as hard as she can, nearly crying with joy.  Laughing, you hug her back, holding her milk-soaked body tight until she\'s ready to stand.  Giving you a long, loving kiss, the girl stumbles off, trying to get her land legs back after being on all fours for so long.' );
 		} else {
 			EngineCore.outputText( '\n\n' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + '\'s got cowgirl-sized tits right now' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				EngineCore.outputText( ', enough to give Isabella' );
 				if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
 					EngineCore.outputText( ' and Marble' );
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			//If no Rath tell ' + CoC.getInstance().flags[kFLAGS.MILK_NAME] + ' to wait a moment, and go digging through your possessions.  It takes a few minutes, but eventually you find some comfortable-looking clothing.  She takes them eagerly, saying she\'ll trim them down to her size as soon as she\'s got herself settled down: it\'s a lot to take in all at once, and she seems eager to experiment with her new, slender body, walking all over camp with a gay smile.  You leave her to exercise, but not before she draws you into a long kiss, holding you tight once again and whispering her heartfelt thanks."};
 		}
 		CoC.getInstance().flags[ kFLAGS.MILK_SIZE ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Milk Bath (HHH or Giant boobs only);
 	MilkWaifu.prototype.milkBathTime = function() {
@@ -318,31 +318,31 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.addButton( 0, 'DrinkNFap', this.drinkAndFapturbate );
 		}
 		var count = 0;
-		if( CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+		if( SceneLib.sophieFollowerScene.sophieFollower() ) {
 			count++;
 		}
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			count++;
 		}
-		if( CoC.getInstance().scenes.latexGirl.latexGooFollower() ) {
+		if( SceneLib.latexGirl.latexGooFollower() ) {
 			count++;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
 			count++;
 		}
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && !CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+		if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() ) {
 			count++;
 		}
-		if( CoC.getInstance().scenes.helScene.followerHel() ) {
+		if( SceneLib.helScene.followerHel() ) {
 			count++;
 		}
 		if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1 ) {
 			count++;
 		}
-		if( CoC.getInstance().scenes.emberScene.followerEmber() ) {
+		if( SceneLib.emberScene.followerEmber() ) {
 			count++;
 		}
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+		if( SceneLib.kihaFollower.followerKiha() ) {
 			count++;
 		}
 		if( count >= 3 ) {
@@ -358,16 +358,16 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		//(+Lust, -Fatigue);
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 10, 'resisted', false );
 		EngineCore.fatigue( -34 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Communal Bath] (PC must have 3+ of the following followers);
 	MilkWaifu.prototype.communalBath = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As you relax in the tub, you decide it\'s hardly fair to have all this milk and just hog it to yourself.  You sit up and give a sharp whistle, getting the attention of the rest of camp.  "<i>Jump on in, everyone!</i>" you shout, quickly grabbing ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' by the waist and dragging her in.  She tumbles into her own lactation with a sharp cry of surprise, breaching a moment later with a splutter.' );
 		//If PC has Isabella: ;
-		if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
+		if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			EngineCore.outputText( '\n\nA moment later, the towering form of Isabella saunters over, already tossing aside her skirts.  "<i>' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Vhat, ist Isabella\'s milk not gut enough fur you, [name].  Still, I could be using with a bath.' );
 			} else {
 				EngineCore.outputText( 'What, is my milk not good enough for you, [name]?  Still, I could use a bath.' );
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( '</i>"' );
 		}
 		//If PC has Sophie:;
-		if( CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+		if( SceneLib.sophieFollowerScene.sophieFollower() ) {
 			EngineCore.outputText( '\n\n"<i>Oh, fresh milk!</i>" Sophie exclaims cheerily.  She drops down by the edge of the pool and scoops up a handful, bringing the thick, creamy milk up to her lips.  Her wings flutter happily as she laps it up, rubbing more into her fair skin between clumps of downy feathers.' );
 		}
 		//If PC has Pure!Jojo:;
@@ -383,7 +383,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( '\n\nThe white-furred monk Jojo approaches the pool with some hesitation, eyeing the tub full of cream.  "<i>How...  lewd.  Though it would be a shame for such a bounty to go to waste.</i>"  Slowly, the monk disrobes down to his undergarments, and lowers himself into the pool nearby.' );
 		}
 		//{If PC has Latexy:;
-		if( CoC.getInstance().scenes.latexGirl.latexGooFollower() ) {
+		if( SceneLib.latexGirl.latexGooFollower() ) {
 			EngineCore.outputText( '\n\nYou wave over your ebony-skinned latex goo, telling her to drink up.  "<i>M-[master]?</i>" she says, pausing at the poolside.  You repeat your command, patting the surface of the milky waves.  It looks like her primal hunger takes over a moment later as she slips into the vast sea of lactation, soaking it up.' );
 		}
 		//{If PC has Valeria:;
@@ -392,11 +392,11 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		}
 
 		//If PC has Pure!Amily:;
-		if( CoC.getInstance().scenes.amilyScene.amilyFollower() && !CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+		if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() ) {
 			EngineCore.outputText( '\n\nThe mouse-girl, Amily, is quick to respond to your call.  Happy for the luxury of a simple bath, even a milky one, she quickly tosses her clothes aside and dives in beside you, laughing and splashing playfully even as her brown hair is soaked.' );
 		}
 		//If PC has Helia:;
-		if( CoC.getInstance().scenes.helScene.followerHel() ) {
+		if( SceneLib.helScene.followerHel() ) {
 			EngineCore.outputText( '\n\nWith a gleeful shout, Hel rushes the pool.  In one swift motion, she tosses her scale bikini aside and cannon-balls in, splashing everyone with a creamy tidal wave.  Chuckling, you clear your eyes - just in time for her bikini bottom to land on your face.' );
 		}
 		//If PC has Izma: ;
@@ -405,11 +405,11 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		}
 
 		//{If PC has Ember:;
-		if( CoC.getInstance().scenes.emberScene.followerEmber() ) {
-			EngineCore.outputText( '\n\nEmber approaches the pool, reptilian tail swishing eagerly.  ' + CoC.getInstance().scenes.emberScene.emberMF( 'He', 'She' ) + ' lowers ' + CoC.getInstance().scenes.emberScene.emberMF( 'himself', 'herself' ) + ' in with ease, sighing contentedly as milk washes over ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' scaled body.  "<i>Is this how you humans bathe normally?</i>"  ' + CoC.getInstance().scenes.emberScene.emberMF( 'He', 'She' ) + ' muses.  "<i>How bizarre.</i>"' );
+		if( SceneLib.emberScene.followerEmber() ) {
+			EngineCore.outputText( '\n\nEmber approaches the pool, reptilian tail swishing eagerly.  ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' lowers ' + SceneLib.emberScene.emberMF( 'himself', 'herself' ) + ' in with ease, sighing contentedly as milk washes over ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' scaled body.  "<i>Is this how you humans bathe normally?</i>"  ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' muses.  "<i>How bizarre.</i>"' );
 		}
 		//{If PC has Kiha:;
-		if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+		if( SceneLib.kihaFollower.followerKiha() ) {
 			EngineCore.outputText( '\n\nKiha, your dear dusky dragoness, wanders over to see what the commotion is, but turns her nose up at the sight of you bathing in breastmilk.  "<i>Ew.  How the hell can you just...  wallow in that?  Disgusting!</i>"' );
 		}
 		//[Combine];
@@ -418,7 +418,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.outputText( '\n\nThe lot of you carry on like this for nearly an hour, enjoying what little relaxation you\'re able to get in these dark times.  Eventually, though, you know you must return to your duties.  You and your companions one by one pull yourselves out of the pool, stopping to help ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' and her bloated breasts; towels are passed around between joking and flirting hands, a few are even cracked over bare skin, making girls scream and yelp.  The camp is soon a mess of laughing and playing, with you in the center of it, teasing your lovers between shameless gropes and playful caresses.' );
 		EngineCore.fatigue( -40 );
 		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Milk Girl];
 	MilkWaifu.prototype.pullInZeMilkGirl = function() {
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 10, 'resisted', false );
 		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
 		EngineCore.fatigue( -20 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (PC has a Dick);
 	MilkWaifu.prototype.fuckTheMilkWaifu = function() {
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		//[+Lust, +HP, -Fatigue];
 		CoC.getInstance().player.orgasm();
 		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (PC has Cooch & C+cups);
 	MilkWaifu.prototype.beARugMunchingMilkDyke = function() {
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		//[+Lust, +HP, -Fatigue];
 		CoC.getInstance().player.orgasm();
 		EngineCore.HPChange( CoC.getInstance().player.maxHP() * 0.33, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Drink & Masturbate];
 	MilkWaifu.prototype.drinkAndFapturbate = function() {
@@ -608,7 +608,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.outputText( '.  Smirking and sexually sated, you pop the drain in the tub and stand there while the sex-scented lactic bathwater runs out the drain.  A quick toweling off later, and you\'re ready to go, feeling slightly refreshed and fairly sated.  It does take you a little longer to get your [armor] equally dry and back in place, but you manage.' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.fatigue( -33 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.nyanCatMilkTime = function() {
 		EngineCore.clearOutput();
@@ -618,28 +618,28 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			EngineCore.outputText( '\n\nOnce you\'ve disrobed, and ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + '\'s got her giant jugs situated at the edge of the pool, you get to work.  Rubbing your hands together, you place each over top one of her palm-sized areola, gently running your fingers around the bases of her teat-like nipples, though with every motion your hands seem to be engorged into the massive mounds, sucked into a blackhole of titflesh.  With every touch, though, ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' shudders and moans, biting her lower lip as her arms quiver with pleasure.' );
 			EngineCore.outputText( '\n\nIn a matter of moments, you coax out the first explosive spurt of milk from your friend\'s teats, two hot streams of white cream blasting you in the face and drenching you before you can blink.  "<i>S-sorryyyyyyyy,</i>" she whines, voice turning into an ecstatic moan as you grip her nipples and start working vigorously, not letting the milky stream die down for an instant.  ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' moans and groans as you roughly milk her, rewarded with gallon after gallon of delightful motherly milk.' );
 			//If PC has Smart/Normal Sophie:;
-			if( CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+			if( SceneLib.sophieFollowerScene.sophieFollower() ) {
 				EngineCore.outputText( '\n\nAs you milk ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ', you see a shadow flash overhead.  You look up in time to see your harpy broodmother perching at the rim of the pool, just beside ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + '\'s quivering body.  "<i>Fresh milk!</i>" Sophie laughs, cupping up a handful and bringing it to her mouth.  "<i>You don\'t mind if Momma Sophie has a taste, do you honey?</i>"\n\nThe milky girl shakes her head, barely paying attention as Sophie flops down beside her, avian tongue lapping at the stream pouring down into the pool.' );
 			}
 			//If PC has Kiha:;
-			if( CoC.getInstance().scenes.kihaFollower.followerKiha() ) {
+			if( SceneLib.kihaFollower.followerKiha() ) {
 				EngineCore.outputText( '\n\nFeeling like you\'re being watched, you cast a glance over your shoulder in time to see the dusky form of Kiha standing behind you.  She simply says "<i>Ew,</i>" before walking off.' );
 			}
 			//If PC has Isabella:;
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() ) {
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( '\n\n"<i>Tsk, [name].  Vhat are you doing to zhat poor voman?' );
 				} else {
 					EngineCore.outputText( '\n\n"<i>Tsk, [name], what\'re you doing to that poor girl?' );
 				}
 				EngineCore.outputText( '</i>" You look up from your task to see Isabella looming over the pool, hands on her wide hips.  "<i>You are going MUCH too hard on her, poor ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'zing' );
 				} else {
 					EngineCore.outputText( 'thing' );
 				}
 				EngineCore.outputText( '.  Let Isabella show you how ' );
-				if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					EngineCore.outputText( 'es ist' );
 				} else {
 					EngineCore.outputText( 'it\'s' );
@@ -647,7 +647,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 				EngineCore.outputText( ' done.</i>"  You find yourself roughly pushed aside as Isabella jumps in with you, tossing her skirt and blouse aside as she grasps ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + '\'s teats, massaging them much more gently.  The milk girl\'s eyes roll back in her head as Isabella sets to work, though it gets harder and harder as the milk flows up to her thighs and chest.' );
 			}
 			//If PC has ONLY KIha or if PC dun have Izzy, Sophie, OR Kiha: ;
-			if( !CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() || !CoC.getInstance().scenes.sophieFollowerScene.sophieFollower() ) {
+			if( !SceneLib.isabellaFollowerScene.isabellaFollower() || !SceneLib.sophieFollowerScene.sophieFollower() ) {
 				EngineCore.outputText( '\n\nIt takes a good long while to get ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + '\'s bloated tits under control, but nearly an hour later you\'ve milked her as well as you can for now.  Sopping wet, you pull yourself out of the pool and grab a towel.  With her tits lightened for the moment, ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' reaches up and pulls you down to her, just long enough to plant a kiss on your cheek and whisper, "<i>Thank you, [name].  That felt good.</i>"' );
 			}//If PC has Sophie or Isabella:;
 			else {
@@ -655,7 +655,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 			}
 			EngineCore.fatigue( -50 );
 			EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 10, 'resisted', false );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Milk Time!  (DD Boobs Ver.);
 		else {
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.outputText( '\n\n"<i>Thank you, [name],</i>" she says simply as you dry yourself off.' );
 		EngineCore.fatigue( -50 );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 10, 'resisted', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Suckle];
 	MilkWaifu.prototype.suckleDatMilk = function() {
@@ -695,7 +695,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		EngineCore.outputText( '\n\nEventually, the boobgasm subsides, leaving ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' a quivering, panting pile of lust in your arms, her fingers absently rubbing through her panties as the last dribbles of milk trickle down her chest and your chin.  Taking the first deep breath you\'ve managed to get in the last few minutes, you grab a towel from nearby and try to dry yourself and the leaky girl off as best you can, brushing off the gallons of milk that have washed over you both.  When you\'re done, ' + CoC.getInstance().flags[ kFLAGS.MILK_NAME ] + ' leans over and plants a long, lusty kiss on your lips, her tongue lapping up little drops of her own milk still inside your mouth.  She breaks the kiss after a long, pleasant moment, whispering "<i>Thank you, [name].</i>"' );
 		EngineCore.fatigue( -50 );
 		EngineCore.dynStats( 'lus', 10 + CoC.getInstance().player.sens / 10, 'resisted', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (Needs a dick what fits);
 	MilkWaifu.prototype.fuckDatMilkSlat = function() {
@@ -710,7 +710,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.fatigue( -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Titfuck (ie, an Excuse for Savin to use 'Lactic Lust' because Fen just taught him that and he has fallen in love) (Requires DD or HHH tittehs & a dick);
 	MilkWaifu.prototype.titFuckDatMilkSlut = function() {
@@ -742,7 +742,7 @@ angular.module( 'cocjs' ).run( function( MainView, EventParser, StatusAffects, D
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.fatigue( -10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
-	CoC.getInstance().registerScene( 'milkWaifu', new MilkWaifu() );
+	SceneLib.registerScene( 'milkWaifu', new MilkWaifu() );
 } );

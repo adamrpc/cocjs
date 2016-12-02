@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
-	var HellHound = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
+	function HellHound() {
+		this.init(this, arguments);
+	}
+	angular.extend(HellHound.prototype, Monster.prototype);
 	HellHound.prototype.hellhoundFire = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
@@ -56,7 +59,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore,
 			//Rape if not naga, turned on, and girl that can fit!
 			if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 && !CoC.getInstance().player.isNaga() ) {
 				EngineCore.outputText( '  You find yourself musing that you could probably take advantage of the poor \'doggy\'.  Do you fuck it?', false );
-				EngineCore.choices( 'Fuck it', CoC.getInstance().scenes.hellHoundScene.hellHoundPropahRape, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene.hellHoundPropahRape, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -68,10 +71,10 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore,
 				//Rape if not naga, turned on, and girl that can fit!
 				if( CoC.getInstance().player.hasVagina() && CoC.getInstance().player.lust >= 33 && !CoC.getInstance().player.isNaga() ) {
 					EngineCore.outputText( ' or make it fuck you', false );
-					temp2 = CoC.getInstance().scenes.hellHoundScene.hellHoundPropahRape;
+					temp2 = SceneLib.hellHoundScene.hellHoundPropahRape;
 				}
 				EngineCore.outputText( '.  What do you do?', false );
-				EngineCore.choices( 'Lick', CoC.getInstance().scenes.hellHoundScene.hellHoundGetsRaped, 'Fuck', temp2, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Lick', SceneLib.hellHoundScene.hellHoundGetsRaped, 'Fuck', temp2, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
 			} else {
 				EngineCore.outputText( 'You turn away, not really turned on enough to be interested in such an offer.', false );
 				Combat.cleanupAfterCombat();
@@ -83,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, CoC, EngineCore,
 			EngineCore.outputText( '\n\nThe hellhound snorts and leaves you to your fate.', false );
 			EngineCore.doNext( Combat.cleanupAfterCombat );
 		} else {
-			CoC.getInstance().scenes.hellHoundScene.hellhoundRapesPlayer();
+			SceneLib.hellHoundScene.hellhoundRapesPlayer();
 		}
 	};
 	HellHound.prototype.init = function( that, args ) {

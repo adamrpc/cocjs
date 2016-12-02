@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	//Izma the Tigershark.;
 	//Credits: Jokester, Quiet Browser, LukaDoc and Bob.;
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		if( CoC.getInstance().flags[ kFLAGS.IZMA_TIME_TILL_NEW_BOOK_AVAILABLE ] > 0 ) {
 			CoC.getInstance().flags[ kFLAGS.IZMA_TIME_TILL_NEW_BOOK_AVAILABLE ]--; //BOOKURYUUUU COUNTAH For IZMA
 		}
-		if( this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] > 0 && CoC.getInstance().scenes.latexGirl.latexGooFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_X_LATEXY_DISABLED ] === 0 ) {
+		if( this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] > 0 && SceneLib.latexGirl.latexGooFollower() && CoC.getInstance().flags[ kFLAGS.IZMA_X_LATEXY_DISABLED ] === 0 ) {
 			CoC.getInstance().flags[ kFLAGS.GOO_FLUID_AMOUNT ] = 100;
 		}
 		if( CoC.getInstance().time.hours > 23 && CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00246 ] > 0 ) {
@@ -36,12 +36,12 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		return false;
 	};
 	IzmaScene.prototype.timeChangeLarge = function() {
-		if( this.checkedIzmaSophie++ === 0 && CoC.getInstance().scenes.sophieBimbo.bimboSophie() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && ((CoC.getInstance().flags[ kFLAGS.TIMES_SOPHIE_AND_IZMA_FUCKED ] === 0 && Utils.rand( 10 ) === 0) || CoC.getInstance().flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] === 1) ) {
+		if( this.checkedIzmaSophie++ === 0 && SceneLib.sophieBimbo.bimboSophie() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && ((CoC.getInstance().flags[ kFLAGS.TIMES_SOPHIE_AND_IZMA_FUCKED ] === 0 && Utils.rand( 10 ) === 0) || CoC.getInstance().flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] === 1) ) {
 			CoC.getInstance().flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] = 0;
-			CoC.getInstance().scenes.sophieBimbo.sophieAndIzmaPlay();
+			SceneLib.sophieBimbo.sophieAndIzmaPlay();
 			return true;
 		}
-		if( this.checkedIzmaLatexy++ === 0 && this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && CoC.getInstance().scenes.latexGirl.latexGooFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 0 && CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] === 0 && Utils.rand( 10 ) === 0 ) {
+		if( this.checkedIzmaLatexy++ === 0 && this.izmaFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && SceneLib.latexGirl.latexGooFollower() && CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 0 && CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] === 0 && Utils.rand( 10 ) === 0 ) {
 			this.izmaDomsLatexy();
 			return true;
 		}
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'You nod in agreement, earning a smile from Izma.  You chat for another short while before you part ways, heading back to your camp.', false );
 			//(Izmacounter +1);
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[Next 2 encounters with Izma] (Izmacounter = 2 or 3);
 		else if( CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] < 4 ) {
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		//(Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[E.Guide];
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		//(Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[Porn];
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		//(Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[Talk];
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '\n\nEventually the two of you decide to part ways, and you head back to camp.', false );
 		//(Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[Leave];
@@ -325,7 +325,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.spriteSelect( 32 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Having no business with Izma for the time being, you head off back to your camp.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[Fight];
@@ -404,7 +404,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '', true );
 		//(if Worms);
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-			CoC.getInstance().scenes.worms.infestOrgasm();
+			SceneLib.worms.infestOrgasm();
 			EngineCore.outputText( '\n\nIzma looks on in horror as you push out the load of wormy cargo onto the sand at her feet, only snapping out of her daze as several of the parasites begin climbing her ankle with an eye toward her cock.  She shrieks and jumps back, then drags her foot in the sand, dislodging or pulverizing the squirming vermin.  "<i>' + CoC.getInstance().player.short + ', that\'s nasty!  Get away!  Get away and don\'t talk to me again!  Ugh!</i>"  She takes off, grabbing her chest of books and kicking sand up in her flight down the beach.', false );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] = 1;
 			CoC.getInstance().player.orgasm();
@@ -1066,7 +1066,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		CoC.getInstance().player.slimeFeed();
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.TSTOOTH, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[no-fight sex: get your ass in the car];
 	IzmaScene.prototype.nonFightIzmaSmexASS = function() {
@@ -1079,7 +1079,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'You stop a moment as a realization occurs to you.  "<i>Wouldn\'t you be getting just as much pleasure if I was on top?</i>" you ask.\n\n', false );
 			EngineCore.outputText( 'Izma rolls her eyes.  "<i>I\'ve dominated with my holes before.  You ride \'em hard enough, they don\'t feel as much pleasure.  Now, fuck off.</i>"\n\n', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[no-fight sex: use vagino];
 	IzmaScene.prototype.nonFightIzmaSmexCUNTPUSSYSNATCHQUIM = function() {
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		//(lust minus 100, gain 1 t-shark tooth, Izmacounter +1);
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ]++;
 		CoC.getInstance().player.orgasm();
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.TSTOOTH, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Decline Izma moving in;
 	IzmaScene.prototype.IzmaStayAtTheLakeBitch = function() {
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( 'You give her a small kiss on the lips and then leave for camp.', false );
 		//Set 'NO CAMP Izma' flag;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Accept;
 	IzmaScene.prototype.acceptIzmaAsYourBitch = function() {
@@ -1182,7 +1182,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		//Set 'camp Izma' flag;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Amily arrives: Izma is at camp first];
 	IzmaScene.prototype.newAmilyMeetsIzma = function() {
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '"<i>You have a point there...</i>" Amily mumbles, staring at Izma with obvious curiosity.  "<i>Hmm... well, I should keep an eye on her, but I guess she\'s earned the right to the benefit of the doubt.  It might be nice to have somebody else to talk to here in the camp...</i>"  She trails off, mumbling, as she goes off to unpack.\n\n', false );
 		//wrap up all conditionals;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00236 ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Marble: Izma is at camp first];
 	IzmaScene.prototype.newMarbleMeetsIzma = function() {
@@ -1233,7 +1233,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '.</i>"  You give her a nervous chuckle and assure her that this isn\'t the case, but Izma doesn\'t want to listen.  "<i>I\'ll keep quiet for now, but if that bovine steps out of line...</i>" she trails off and her fangs pop free, before she goes to set up her bedroll and trunk near your own bed.  Seems she wants to keep close to your bed to protect you.  Or at least, that\'s your interpretation.  You give a sigh and shake your head.  It\'s doubtful these two will ever warm up to each other.', false );
 		//wrap up all conditionals;
 		CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00237 ] = -1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	/*[Izma's Reward Items]
@@ -1331,7 +1331,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.izmaLakeDominateContinueVanilla = function( vanilla ) {
 		EngineCore.spriteSelect( 32 );
@@ -1385,7 +1385,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[No];
 	IzmaScene.prototype.noWankingForIzmaRadarSaysSo = function() {
@@ -1575,7 +1575,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//9999 CAMP FOLLOWER;
 	// tion camp;
@@ -1644,7 +1644,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			deDickB = this.izmaDickToggle;
 		}
 		EngineCore.choices( 'Appearance', this.izmaPearance, 'Books', this.IzmaCampBooks, 'Children', kids, 'Sex', sex, 'Talk', this.talkWivIzma,
-			'Tooth', this.gatASharkTooth, '', null, '', null, deDickT, deDickB, 'Back', CoC.getInstance().scenes.camp.campLoversMenu );
+			'Tooth', this.gatASharkTooth, '', null, '', null, deDickT, deDickB, 'Back', SceneLib.camp.campLoversMenu );
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 1 ) {
 			EngineCore.addButton( 1, '', null );
 		}
@@ -1660,7 +1660,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', CoC.getInstance().scenes.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
 		}
 	};
 	IzmaScene.prototype.sendToFarm = function() {
@@ -1671,7 +1671,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '\n\n“<i>Not at all,</i>” you reply. “<i>I just need someone I can trust down there helping out. I’ll visit often though, don’t worry.</i>” This seems to content the tiger shark. She packs up her chest, waves at you, and then begins to haul it in the direction of the lake.' );
 		EngineCore.outputText( '\n\nIzma might be strong, you think, but she is completely unused to manual labor and taking orders from anyone but yourself; you doubt she will help Whitney much. On the other hand, there’s no doubt you’ve just given the farm a powerful protector.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -1679,7 +1679,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( 'You tell her to head back to camp; she will be more use to her alpha there.' );
 		EngineCore.outputText( '\n\n“<i>Whatever you say.</i>” She grins and wrinkles her nose. “<i>It was nice to be by the lake again, but I’m glad to get out of here work isn\'t exactly stimulating.</i>” You leave Izma to pack up her things and go.' );
 		CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] = 0;
-		EngineCore.doNext( CoC.getInstance().scenes.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
 	};
 	//Get a tiger shark tooth;
 	IzmaScene.prototype.gatASharkTooth = function() {
@@ -1691,7 +1691,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		} else {
 			EngineCore.outputText( 'Izma smiles as she pulls a tooth from her chest.  She hands it to you with a pleased expression.  "<i>Anything for you, my Alpha.</i>"  ' );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00246 ]++;
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.TSTOOTH, EventParser.playerMenu );
+			SceneLib.inventory.takeItem( ConsumableLib.TSTOOTH, EventParser.playerMenu );
 		}
 	};
 	//[Appearance];
@@ -1763,7 +1763,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.addButton( 5, 'RideIzmaCock', getVagooFucked );
 		EngineCore.addButton( 6, 'Sixtynine', sixty );
 		EngineCore.addButton( 7, 'Kids', this.childToggle );
-		if( CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] > 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && CoC.getInstance().scenes.latexGirl.latexGooFollower() ) {
+		if( CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ] > 0 && CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] === 0 && SceneLib.latexGirl.latexGooFollower() ) {
 			EngineCore.addButton( 8, CoC.getInstance().flags[ kFLAGS.GOO_NAME ], this.izmaLatexySubmenu );
 		}
 		EngineCore.addButton( 9, 'Back', this.izmaFollowerMenu );
@@ -1852,7 +1852,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( 'You\'re too busy gasping for breath to reply, at first.  But then, with a smile, you pick yourself up and give her a quick kiss on the cheek.  To your surprise, the ever-horny shark-girl actually blushes with delight at the gesture.  The two of you leisurely dress yourselves and then go your separate ways; you back to your camp, Izma back to the stream to soak and recover.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.izmaPreg = function() {
 		if( CoC.getInstance().flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 1 ) {
@@ -1896,7 +1896,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( 'You\'re too busy gasping for breath to reply, at first.  But then, with a smile, you pick yourself up and give her a quick kiss on the cheek.  To your surprise, the ever-horny shark-girl actually blushes with delight at the gesture.  The two of you leisurely dress yourselves and then go your separate ways; you back to your camp, Izma back to the stream to soak and recover.', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Get Anal];
@@ -2061,7 +2061,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Vag fuck];
 	IzmaScene.prototype.followerIzmaTakesItInVagoo = function() {
@@ -2151,7 +2151,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		this.izmaPreg();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Deny her];
 	IzmaScene.prototype.radarIzmaXpackDenyHer = function() {
@@ -2207,7 +2207,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		this.izmaPreg();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Your chest];
 	IzmaScene.prototype.RadarIzmaCumInYourChest = function() {
@@ -2245,7 +2245,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		this.izmaPreg();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.IzmaSelfFacialWheeRadar = function() {
 		EngineCore.spriteSelect( 32 );
@@ -2265,7 +2265,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		this.izmaPreg();
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[69];
 	IzmaScene.prototype.followerIzmaTakesIt69 = function() {
@@ -2336,7 +2336,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '"<i>Thanks for that...</i>" Izma whispers, stumbling onto her feet and retrieving her clothing.  "<i>Feel free to come back for some more... or maybe we could do something a little more intense next time.</i>"  It\'s a little hard to tell with her skin color, but you can almost see a blush on her face.  You smile at Izma and nod, before heading off to wash up.\n\n', false );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Talk];
 	IzmaScene.prototype.talkWivIzma = function() {
@@ -2349,7 +2349,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( '"<i>I must\'ve been in my teens when the full on demon invasion happened. We retreated into the waters to avoid detection and, for a time, things were fine... then something happened when I was 18. A strange purple muck appeared in the waters near where our people had migrated to.  The people closest to it changed the most drastically, leading to the creation of the tigersharks. The fluids gradually spread, polluting my peoples\' minds and bodies, turning almost all of them into lust-crazed beasts.</i>"\n\n', false );
 			EngineCore.outputText( 'She heaves a sigh, and you place a hand on her shoulder, bringing a small blush to her face.  "<i>Thanks, but I don\'t mind. Really.</i>"  She gives you a quick kiss. "<i>Thanks for listening.</i>"\n\n', false );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Talk option 2];
@@ -2366,7 +2366,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			//(Slight lust gain);
 			EngineCore.dynStats( 'lus', 5 );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Talk option 3];
@@ -2379,7 +2379,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( '"<i>Ah... I guess we don\'t have a good reputation,</i>" she says, misinterpreting your expression and smiling with tight lips. You give her a quick kiss... on the cheek.  Morbid curiosity forces out the question hanging in the air; just what do they taste like?\n\n', false );
 			EngineCore.outputText( '"<i>Well... minotaurs taste like beef, unsurprisingly, but imps taste like a mile of burnt ass.</i>"  With a laugh, you ask if she\'s ever eaten a goblin - or if she prefers to fuck those and then throw them back?  She blushes.  "<i>They are pretty cute... it\'s hard to eat anything cute.  I could eat them out, though...</i>"  You smile at that and, after teasing her about letting you watch next time, you leave her be.\n\n', false );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Talk topic 4.];
@@ -2417,7 +2417,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			}
 			EngineCore.outputText( '  You release her, trying to avoid turning her on too much.  Thanking her for the talk, you leave as she buries herself back into her books.', false );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ]++;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Talk Option 6];
@@ -2435,7 +2435,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'Hesitantly, you ask if tigersharks like Izma can breed - and if they can, is their condition inheritable? Or can they only sire or bear more shark-girls?  She nods.  "<i>Yeah, we can breed - both in the sense of bearing and siring offspring, and in the sense you\'re talking about.  We\'re not ultra-fertile like the shark-men, but we can - and do - get the job done, and we do both father and give birth to more tigersharks.  Honestly, there\'re more second and third generation tigersharks than there are first generation.  They\'re born less frequently than the normal girls are, but not exceptionally so - maybe about 4 in 10, not something like 1 in 10 or 1 in 100.</i>"\n\n', false );
 			EngineCore.outputText( 'You thank Izma for talking to you, insisting that you didn\'t mean to hurt her by probing such painful memories.  She smiles warmly at you and hugs you tight.  "<i>It\'s okay. It... it feels nice to be able to share that information with someone,</i>" she says, giving you a small kiss as she slips her glasses back on.', false );
 			CoC.getInstance().flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ] = 0;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 	};
@@ -2444,7 +2444,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.spriteSelect( 32 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You thank Izma for the interesting conversation, even if it did end up meandering a bit, and then walk away, leaving her to her private thoughts.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Flirt];
 	IzmaScene.prototype.chooseToFlirtWithIzma = function() {
@@ -2467,7 +2467,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			//[(If player is male/genderless);
 			if( CoC.getInstance().player.gender <= 1 ) {
 				EngineCore.outputText( '  "<i>That\'s kinda weird, man... I\'m not sure the god in charge of this world would allow something like that.  It seems too silly.</i>"', false );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			///(Female/herm);
@@ -2557,7 +2557,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		EngineCore.outputText( ', which nuzzles affectionately against its mother before latching onto her nipple and starting to drink.  As it drinks, it grows; by the time it empties Izma\'s first breast, it\'s easily the size of a five year old.  When it\'s finished its meal and belches loudly in satisfaction, it\'s the size of a pre-teen.  Izma takes its rapid development in stride, mother and daughter happily embracing each other.\n\n', false );
 		EngineCore.outputText( 'You help Izma climb back onto shore with your new baby, then lay them both down to rest.  Once they\'re settled down comfortably, cuddling up against each other, you turn and head back to camp, looking to dry yourself off and catch a quick nap.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PC gives birth (alone): used if PC gets pregnant from vaginal and refusing herbs before recruiting Izma or possibly later if a way to force her out is written;
 	IzmaScene.prototype.pcPopsOutASharkTot = function() {
@@ -2667,7 +2667,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		//Select correct scene!;
 		var choice = choices[ Utils.rand( choices.length ) ];
 		if( CoC.getInstance().time.hours < 10 && CoC.getInstance().flags[ kFLAGS.ANEMONE_KID ] > 0 && Utils.rand( 2 ) === 0 ) {
-			CoC.getInstance().scenes.anemoneScene.kidAWatchesSharks();
+			SceneLib.anemoneScene.kidAWatchesSharks();
 			return;
 		}
 
@@ -2696,7 +2696,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		EngineCore.outputText( ' living here; the fruits of your love with Izma.\n\n', false );
 		//The above is the default scene, that plays whenever the player selects the 'Children' option when interacting with Izma./;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		//#1 (Requires 1 Tigershark: ;
 		//NOPE;
 		if( choice === 1 ) {
@@ -2775,7 +2775,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		if( choice === 6 ) {
 			EngineCore.outputText( 'You see that two of your shark-girls are hugging each other in a way that, at first glance, seems familial.  As you get closer, though, you can see it\'s somewhat less than sisterly; each is groping the other\'s breasts, experimentally playing with her sibling\'s boobs to see what makes her gasp and moan in pleasure.  Their faces are pressed together in a very unchaste kiss.  Izma blushes and hastily explains that your children have strong libidos, so it\'s natural for them to experiment like this.  She assures you that they won\'t do anything really sexual with each other - and, even if they did, it\'s not like anything can come of a little harmless girl-on-girl, right?', false );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.inCampRideIzmasDickDongTheWitchIsDead = function() {
 		EngineCore.spriteSelect( 32 );
@@ -2866,7 +2866,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			CoC.getInstance().player.knockUp( PregnancyStore.PREGNANCY_IZMA, PregnancyStore.INCUBATION_IZMA );
 		}
 		CoC.getInstance().player.slimeFeed();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Using Izma's books in camp];
 	///[Books] appears as a tab when interacting with Izma.;
@@ -2907,7 +2907,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.dynStats( 'str', 2 );
 		}
 		EngineCore.outputText( '\n\nAfter about an hour you yawn and stretch, telling Izma that you\'re going off to do other business.  She nods lazily at your words but doesn\'t look up from her old book. "<i>Sure thing ' + CoC.getInstance().player.short + ', I\'m just gonna read this for a little while longer,</i>" Izma says.  You nod at her, before moving off.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[E.Guide];
 	IzmaScene.prototype.entropyGuideByStephenHawking = function() {
@@ -2920,7 +2920,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		//(-2 Libido, -2 Corruption);
 		EngineCore.dynStats( 'lib', -2, 'cor', -2 );
 		EngineCore.outputText( 'As time passes you realize that you do have other things to do.  You thank Izma for her company and get up to leave.  "<i>All right, thanks for sitting with me ' + CoC.getInstance().player.short + '.  You go on ahead, I\'m just going to read some more of this,</i>" she replies, not even looking up from the pages of her book.\n\n', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Porn];
 	IzmaScene.prototype.stephenHawkingPorn = function() {
@@ -2940,7 +2940,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'but that\'s not exactly possible for someone who keeps squirming, creating lewd squishes from below the waist.  You laugh openly and give Izma\'s silver hair a soft tug, before getting up and telling her you have business elsewhere.  Izma simply nods in taciturn response but keeps her gaze fixed on the lewd images before her.  Another laugh escapes your lips as soon as you think you\'re out of earshot.', false );
 		}
 		EngineCore.dynStats( 'lib', 1, 'lus', 5 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Trying to use another book inside the span of 6 hours);
 	IzmaScene.prototype.tooSoonExecutus = function() {
@@ -2969,7 +2969,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( 'This sparks off a happy chain of thoughts in your mind, and you inform your wayward daughter that Izma is now living with you (and there\'s room for another).  She squeaks happily at the news, and tells you that she\'ll meet you at camp.  She pecks you on the cheek, then runs into the shallows and disappears.  You walk away, beaming at the thought of seeing a new face in camp.', false );
 		//(+1 Izma children.);
 		CoC.getInstance().flags[ kFLAGS.IZMA_CHILDREN_SHARKGIRLS ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ask Izma About Removing Her Dick;
 	IzmaScene.prototype.removeIzmasPenis = function() {
@@ -3075,7 +3075,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'You flash Izma a smile and tell her she can regrow her penis.  She cheers so violently that her glasses nearly go flying, "<i>Hell yes!</i>"  The black-striped girl digs into her trunk and pulls out a strange tablet, popping it into her mouth before you can change your mind.  She chews vigorously, finishing it in seconds.  Izma cups her drooling snatch and moans, her palms slowly pushed away from her body by a red, masculine member.  It grows larger by the second, soon surpassing six inches, then eight, then ten, and not stopping until it\'s as big as it used to be.  A second later, a spherical protrusion falls down, filling out a new-grown flap of skin.  Plop!  Another joins it.  Finally, two more orbs fall from her body into her new ballsack.  <b>Izma is a herm again!</b>' );
 			CoC.getInstance().flags[ kFLAGS.IZMA_NO_COCK ] = 0;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck her pussy-Dominant];
 	IzmaScene.prototype.fuckIzmasPussyDominate = function() {
@@ -3201,7 +3201,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		this.izmaPreg();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Anal (dominant)];
 	IzmaScene.prototype.radarIzmaAnalDominant = function() {
@@ -3282,7 +3282,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			//(If PC is genderless, ending: ;
 			EngineCore.outputText( '\n\nContent, you slide to the ground to the right of the trunk you propped yourself up against, going prone as your tigershark lover lands softly on top of you.  Neither of you have the energy to get up, but you won\'t let some random passerby see this and think you are the bitch in this relationship.  With her still inside of you, you roll both yourself and Izma onto your sides, allowing her to stay inside of you as you drift off to sleep. Her arms trace over you and embrace you appreciatively as you surrender yourself to slumber.' );
 			EngineCore.outputText( '\n\nA half hour passes before you wake up; Izma peacefully snoozing away as she holds you in a lover\'s embrace.  Faintly, you pull yourself from her grasp and place your [armor] back on.  As you finish placing the last piece of your gear back on, Izma wakes and rises to her feet, planting a tender kiss on her Alpha\'s neck as she sees you off.  Before you go though, Izma quietly asks, "<i>So... where\'s my gift?</i>", smirking as you turn around to respond to her.  With a firm slap on your ass, you tell her that going all the way with her Alpha was the gift.  Sheepishly grinning, she sees you off as you head out to tend to other matters.' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
@@ -3304,13 +3304,13 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 			EngineCore.outputText( 'With a great show of force, you take Izma under the legs and back, lifting her off the ground and starting toward her bedroll. In little time flat, you reach her bedding and lie her down gently. As you turn, you remark to Izma that she better rest up; you\'ll likely have another "itch" that will need scratching.  Her raspy words ring out behind you as you begin to walk away; "<i>Promise?</i>"  Turning your head slightly to catch her in your left eye, you grin mischievously at the shark-morph and continue on your way.' );
 			EngineCore.dynStats( 'cor', -2 );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Leave her];
 	IzmaScene.prototype.radarIzmaLeaveHerInTheDirtAfterAnalDom = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Laughing, you tell Izma that she needs to work on her stamina, and that she\'ll have to recuperate out here in the grass.  She weakly acknowledges your choice, telling you that it\'s the right thing to do with worn out betas.  You stop and forcefully tell her that she did well; just that she needs to work on her endurance.  With a shaky nod, she smiles and drifts off to sleep.  To ensure she remains safe, you keep watch nearby as she naps peacefully.  Thankfully, she wakes after a half hour and saunters seductively past you, thanking her Alpha for fucking her and watching over her as she heads off to the lake to clean up.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Izma's ass (Dominant)];
 	IzmaScene.prototype.radarFucksIzmasAss = function() {
@@ -3535,7 +3535,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		EngineCore.outputText( 'Izma growls while she pumps away at her erection, saying, "<i>Yeah, you like that, don\'t ya ink-slut?</i>"' );
 		EngineCore.outputText( '\n\n' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' bites her lower lip and ' );
-		if( CoC.getInstance().scenes.latexGirl.gooObedience() > 50 ) {
+		if( SceneLib.latexGirl.gooObedience() > 50 ) {
 			EngineCore.outputText( 'eagerly' );
 		} else {
 			EngineCore.outputText( 'sheepishly' );
@@ -3549,9 +3549,9 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		}
 		EngineCore.outputText( ' with a toe, drawing a pleasured gasp from the submissive.' );
 		EngineCore.outputText( '\n\n' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' shudders as she pushes her hand in and out of herself.  Her whole forearm is dripping with onyx moisture, and the noisy squelches are easy to hear from where you\'re watching.  "<i>Yes... I\'m a slutty, submissive girl...  Can I have your cum, mistress Izma?  Please?  I\'m putting on such a good show!</i>"' );
-		if( CoC.getInstance().scenes.latexGirl.gooObedience() < 50 ) {
+		if( SceneLib.latexGirl.gooObedience() < 50 ) {
 			EngineCore.outputText( '  A look of annoyance flashes across her face as soon as she says it, like she didn\'t really want to say that so openly.' );
-		} else if( CoC.getInstance().scenes.latexGirl.gooObedience() <= 80 ) {
+		} else if( SceneLib.latexGirl.gooObedience() <= 80 ) {
 			EngineCore.outputText( '  A conflicted look flashes across her face as soon as the words slip out, but there\'s no taking them back.' );
 		} else {
 			EngineCore.outputText( '  A hungry look flashes in her eyes as soon as the words leave her mouth, and she licks her lips hungrily.' );
@@ -3562,7 +3562,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '\n\nHands reaching out towards the slippery, sheathed quartette, ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' hums around the throat-stretching bulge as she does her best to milk it, gently squeezing each cum factory in turn.  Izma hooks a leg over ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + '\'s shoulder and begins to roughly fuck the onyx beauty.  She hammers her cock home with crude thrusts that pound all fifteen inches straight into the goo-girl\'s core, the only sounds half-strangled hums of pleasure and the heated squelches Izma\'s groin makes when it bottoms out on her partner\'s greedy lips.' );
 		EngineCore.outputText( '\n\n"<i>Oooh, fuck, quit sucking so hard,</i>" Izma tries to command, but it winds up sounding more like begging.  ' );
 		//OBEDIENCE FAIL;
-		if( CoC.getInstance().scenes.latexGirl.gooObedience() / 5 + CoC.getInstance().scenes.latexGirl.gooFluid() / 5 + Utils.rand( 20 ) < 10 ) {
+		if( SceneLib.latexGirl.gooObedience() / 5 + SceneLib.latexGirl.gooFluid() / 5 + Utils.rand( 20 ) < 10 ) {
 			EngineCore.outputText( '' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' grows and sucks harder, cheeks hollowed with suckling hunger.  You can see them stretch and go even more concave with rhythmic pulsations, vacuum-tight around the orange shaft.  Izma moans and tries to pull out, but she barely manages to extract an inch before her whole length is noisily pulled back in.  The shark-girl tries to pry the slutty, hungry little goo off of herself again and again, but each time, all she winds up doing is getting sensuously devoured again and again.  ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' gives her four balls another appreciative squeeze, and Izma\'s eyes suddenly roll back, helpless again the hungry sluts impressive oral talents.' );
 			EngineCore.outputText( '\n\n"<i>C-c-cumming!  Ohhhh by the gods, yes!  Ungh!</i>" Izma cries as her hips begin to weakly thrust against their onyx prison, smushing ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + '\'s lips into her toned middle.  The smooth, latex sheath around her sack trembles, wrinkling as Izma\'s balls pull tight against her, and then, ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + ' is gurgling noisily, massaging all four of those cum factories as they pour their cargo straight into her throat, feeding her the warm, soupy cum she craves.  They stay locked like that for upwards of a minute, Izma occassionally trying to talk but usually just babbling contently while she\'s milked for every drop.' );
 			EngineCore.outputText( '\n\nAbruptly, the striped hermaphrodite slumps back against a rock, her drained dong sliding out of the constricting tightness of ' + CoC.getInstance().flags[ kFLAGS.GOO_NAME ] + '\'s throat with a wet pop.  The crimson dick is encased in a hardening shell of latex, and you must admit, it\'s a good look on her.  Izma sighs, "<i>You disobedient slut...</i>" and staggers back up onto her feet.  Gesturing down at her glossy, black dick, she comments, "<i>I guess it is a nice look on me.</i>"' );
@@ -3580,7 +3580,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ]++;
 		CoC.getInstance().flags[ kFLAGS.GOO_FLUID_AMOUNT ] = 100;
 		EngineCore.dynStats( 'lus', 20 + CoC.getInstance().player.lib / 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.stopIzmaLatexy = function() {
 		EngineCore.clearOutput();
@@ -3588,7 +3588,7 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.outputText( '\n\nVisibly chastized, the tigershark-girl backs off with a meek, "<i>Yes, Alpha.</i>"  Just like that, she\'s running off, probably to jack that raging mega-boner she built up from playing with the goo.' );
 		CoC.getInstance().flags[ kFLAGS.IZMA_X_LATEXY_DISABLED ] = 1;
 		CoC.getInstance().flags[ kFLAGS.TIMES_IZMA_DOMMED_LATEXY ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Click Latexy Submenu In Izma's Menu;
 	IzmaScene.prototype.izmaLatexySubmenu = function() {
@@ -3618,5 +3618,5 @@ angular.module( 'cocjs' ).run( function( $log, PregnancyStore, Izma, ConsumableL
 		EngineCore.menu();
 		EngineCore.addButton( 4, 'Back', this.izmaLatexySubmenu );
 	};
-	CoC.getInstance().registerScene( 'izmaScene', new IzmaScene() );
+	SceneLib.registerScene( 'izmaScene', new IzmaScene() );
 } );

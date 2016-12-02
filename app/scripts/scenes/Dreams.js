@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dreams() {
 	}
 
@@ -72,12 +72,12 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, StatusAffects, Descript
 			}
 		}
 		//Halloween;
-		if( CoC.getInstance().scenes.fera.isHalloween() ) {
+		if( SceneLib.fera.isHalloween() ) {
 			choices.push( 14 );
 			choices.push( 14 );
 			choices.push( 14 );
 		}
-		if( CoC.getInstance().scenes.anemoneScene.kidAXP() >= 40 && CoC.getInstance().player.lust >= 70 && CoC.getInstance().player.gender > 0 ) {
+		if( SceneLib.anemoneScene.kidAXP() >= 40 && CoC.getInstance().player.lust >= 70 && CoC.getInstance().player.gender > 0 ) {
 			choices.push( 15 );
 			choices.push( 15 );
 			choices.push( 15 );
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, StatusAffects, Descript
 				EngineCore.outputText( '\n\nYou launch yourself up right, screaming out as sweat covers your body.  You are alone in the middle of your camp, right where you went to sleep. Slowly you realize you must have had a nightmare.  You recall how real it felt as you rub at your neck.  You get to your feet and wince as pain shoots up your leg. Looking down, you see your toe bleeding.' );
 			} else if( daydream === 15 ) {
 				EngineCore.outputText( 'something unusual...\n' );
-				CoC.getInstance().scenes.anemoneScene.kidADreams();
+				SceneLib.anemoneScene.kidADreams();
 			} else if( daydream === 16 ) {
 				if( CoC.getInstance().player.gender <= 1 ) {
 					if( Utils.rand( 2 ) === 0 ) {
@@ -437,5 +437,5 @@ angular.module( 'cocjs' ).run( function( Utils, PerkLib, StatusAffects, Descript
 		}
 		EngineCore.doNext( EventParser.playerMenu );
 	};
-	CoC.getInstance().registerScene( 'dreams', new Dreams() );
+	SceneLib.registerScene( 'dreams', new Dreams() );
 } );

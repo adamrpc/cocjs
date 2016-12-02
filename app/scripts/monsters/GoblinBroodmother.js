@@ -1,17 +1,20 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( Goblin, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects ) {
-	var GoblinBroodmother = angular.copy( Goblin );
+angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( SceneLib, Goblin, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects ) {
+	function GoblinBroodmother() {
+		this.init(this, arguments);
+	}
+	angular.extend(GoblinBroodmother.prototype, Goblin.prototype);
 	GoblinBroodmother.prototype.defeated = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The goblin broodmother is defeated!  You find a bottle of succubi milk on her.  That stuff is banned in Tel\'Adre - and for good reason, but it might come in handy.  You pocket the foul fluid for now.' );
 		EngineCore.outputText( '  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Do you?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fuck', CoC.getInstance().scenes.urtaQuest.winFuckAGoblinBroodmotherAsUrta );
-		EngineCore.addButton( 4, 'Leave', CoC.getInstance().scenes.urtaQuest.nagaPleaseNagaStoleMyDick );
+		EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest.winFuckAGoblinBroodmotherAsUrta );
+		EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest.nagaPleaseNagaStoleMyDick );
 	};
 	GoblinBroodmother.prototype.won = function() {
-		CoC.getInstance().scenes.urtaQuest.urtaLosesToGoblin();
+		SceneLib.urtaQuest.urtaLosesToGoblin();
 	};
 	GoblinBroodmother.prototype.init = function( that ) {
 		Goblin.prototype.init( that, [ true ] );

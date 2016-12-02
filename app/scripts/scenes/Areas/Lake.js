@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
 	function Lake() {
 	}
 
@@ -8,12 +8,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 	Lake.prototype.exploreLake = function() {
 		//Increment exploration count
 		CoC.getInstance().player.exploredLake++;
-		if( CoC.getInstance().scenes.aprilFools.poniesYN() ) {
+		if( SceneLib.aprilFools.poniesYN() ) {
 			return;
 		}
 		//Helia monogamy fucks
-		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !CoC.getInstance().scenes.helScene.followerHel() ) {
-			CoC.getInstance().scenes.helScene.helSexualAmbush();
+		if( CoC.getInstance().flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 1 && CoC.getInstance().flags[ kFLAGS.HEL_RAPED_TODAY ] === 0 && Utils.rand( 10 ) === 0 && CoC.getInstance().player.gender > 0 && !SceneLib.helScene.followerHel() ) {
+			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
 		if( CoC.getInstance().player.exploredLake % 20 === 0 ) {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		//UNCOMMON EVENTS
 		//Goo finding!
 		if( Utils.rand( 30 ) === 0 && CoC.getInstance().flags[ kFLAGS.GOO_TFED_MEAN ] + CoC.getInstance().flags[ kFLAGS.GOO_TFED_NICE ] > 0 && CoC.getInstance().flags[ kFLAGS.GOO_SLAVE_RECRUITED ] === 0 ) {
-			CoC.getInstance().scenes.latexGirl.encounterLeftBehindGooSlave();
+			SceneLib.latexGirl.encounterLeftBehindGooSlave();
 			return;
 		}
 		//Chance of dick-dragging! OLD:10% + 10% per two foot up to 30%
@@ -93,34 +93,34 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		//==============================
 		//Pre-emptive chance of discovering Amily the stupidshit mouse
 		if( select === 9 ) {
-			CoC.getInstance().scenes.amilyScene.discoverAmilyVillage();
+			SceneLib.amilyScene.discoverAmilyVillage();
 		}
 		//Pre-emptive chance of discovering the Beautiful Sword
 		else if( select === 10 ) {
-			CoC.getInstance().scenes.swordInStone.findSwordInStone();
+			SceneLib.swordInStone.findSwordInStone();
 		}
 		//Pre-emptive chance of finding the boat
 		else if( select === 11 ) {
-			CoC.getInstance().scenes.boat.discoverBoat();
+			SceneLib.boat.discoverBoat();
 		}
 		//Meet Izma every 8 attempts
 		else if( select === 5 ) {
-			CoC.getInstance().scenes.izmaScene.meetIzmaAtLake();
+			SceneLib.izmaScene.meetIzmaAtLake();
 		}
 		//Chance of dick-dragging! 10% + 10% per two foot up to 30%
 		else if( select === 8 ) {
 			//True sets to use lake scene!
-			CoC.getInstance().scenes.forest.bigJunkForestScene( true );
+			SceneLib.forest.bigJunkForestScene( true );
 		} else if( select === 4 ) {
 			//Chance of seeing ooze convert goo!
 			//More common if factory blew up
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && Utils.rand( 10 ) === 0 ) {
-				CoC.getInstance().scenes.gooGirlScene.spyOnGooAndOozeSex();
+				SceneLib.gooGirlScene.spyOnGooAndOozeSex();
 				return;
 			}
 			//Else pretty rare.
 			else if( Utils.rand( 25 ) === 0 ) {
-				CoC.getInstance().scenes.gooGirlScene.spyOnGooAndOozeSex();
+				SceneLib.gooGirlScene.spyOnGooAndOozeSex();
 				return;
 			}
 			var girlOdds = 50;
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 			}
 			//Slimegirl!
 			if( Utils.rand( 100 ) <= girlOdds ) {
-				CoC.getInstance().scenes.gooGirlScene.encounterGooGirl();
+				SceneLib.gooGirlScene.encounterGooGirl();
 			}
 			//OOZE!
 			else {
@@ -183,11 +183,11 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 				EngineCore.outputText( '  You bet you could cover the same distance even faster next time.\n', false );
 				EngineCore.dynStats( 'spe', 0.75 );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		} else if( select === 1 ) {
 			//No boat, no kaiju
 			if( CoC.getInstance().player.level >= 5 && CoC.getInstance().flags[ kFLAGS.KAIJU_DISABLED ] === 0 && CoC.getInstance().player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
-				CoC.getInstance().scenes.kaiju.kaijuMeeting();
+				SceneLib.kaiju.kaijuMeeting();
 				return;
 			}
 			EngineCore.outputText( 'Your stroll around the lake increasingly bores you, leaving your mind to wander.  ', true );
@@ -205,7 +205,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 				EngineCore.outputText( 'into daydreams of raunchy perverted sex, flooding your groin with warmth.', false );
 				EngineCore.dynStats( 'lus', (CoC.getInstance().player.cor / 10 + CoC.getInstance().player.lib / 10) );
 			}
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Find whitney or equinum
 		else if( select === 2 ) {
@@ -224,12 +224,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 					}
 					//If you havent met whitney enough to know the farm....
 					else {
-						CoC.getInstance().scenes.farm.farmExploreEncounter();
+						SceneLib.farm.farmExploreEncounter();
 					}
 				}
 				//If you havent met whitney, you can find the farm....
 				else {
-					CoC.getInstance().scenes.farm.farmExploreEncounter();
+					SceneLib.farm.farmExploreEncounter();
 				}
 			}
 		} else if( select === 3 ) {
@@ -239,12 +239,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 				EngineCore.outputText( 'After a moment, a number of the figures disembark down the gangplank and immediately go off in different directions.  You count half a dozen of them, and guess that they are female when one of them passes by close to you and you see the hole in her outfit over her naughty bits.  You look back at the boat to see it close the gangplank, and move back onto the lake, with only one of the figures still on board.  Surprised to hear a sudden yell, you look to the side and see the clothing of the one who passed you earlier shift and twist before becoming some pink outfit that clings to her backside.  You are stunned for a moment as she disappears from sight before you shake your head and move on.  It seems there are new residents to the lake.\n\n<b>(Fetish Cultists can now be encountered!)</b>', false );
 				//(increase player lust from the sights they saw)
 				EngineCore.dynStats( 'lus', 5 );
-				EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
-			CoC.getInstance().scenes.fetishCultistScene.fetishCultistEncounter();
+			SceneLib.fetishCultistScene.fetishCultistEncounter();
 		} else if( select === 6 ) {
-			CoC.getInstance().scenes.rathazul.encounterRathazul();
+			SceneLib.rathazul.encounterRathazul();
 		} else {
 			EngineCore.outputText( 'OH SHIT! LAKE EXPLORE BE BROKED.  SELECT: ' + select + '.  You should probably go to fenoxo.com and click the link to report a bug and tell Fen about it.' );
 		}
@@ -253,10 +253,10 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.clearOutput();
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'You find a long and oddly flared vial half-buried in the sand.  Written across the middle band of the vial is a single word: "Equinum".\n' );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.EQUINUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.EQUINUM, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You find an odd, fruit-bearing tree growing near the lake shore.  One of the fruits has fallen on the ground in front of you.  You pick it up.\n' );
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.W_FRUIT, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.W_FRUIT, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Lake.prototype.eggChoose = function( eggType ) {
@@ -284,12 +284,12 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		}
 		EngineCore.outputText( ' light.  Immediately it flows into your skin, glowing through your arm as if it were translucent.  It rushes through your shoulder and torso, down into your pregnant womb.  The other lights vanish.' );
 		CoC.getInstance().player.statusAffect( CoC.getInstance().player.findStatusAffect( StatusAffects.Eggs ) ).value1 = eggType; //Value 1 is the egg type. If pregnant with OviElixir then StatusAffects.Eggs must exist
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lake.prototype.eggChooseEscape = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You throw yourself into a roll and take off, leaving the ring of lights hovering in the distance behind you.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Just want to do a quick Ottergirl event submission after you mentioned it!
 	Lake.prototype.ottahGirl = function() {
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nYou take a minute to recover before doing the same.  ' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.FISHFIL, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//For Chicks
 	Lake.prototype.ottersForGals = function() {
@@ -520,14 +520,14 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nYou take several minutes to recover before doing the same.  ' );
 		CoC.getInstance().player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.FISHFIL, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//For Pansies
 	Lake.prototype.avoidZeOtterPussy = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head and explain you can\'t.  She simply shrugs, "<i>Ain\'t no skin off my back.</i>"' );
 		EngineCore.outputText( '\n\nThe two of you sit in silence for a little while.  It doesn\'t feel like an awkward silence, just a serene, relaxing void of noise.  The gentle lapping of the water almost puts you to sleep.  Eventually, you stand, say your goodbyes and leave.  As you\'re leaving, Callu shouts, "<i>Come round any time, ya hear?</i>"  You nod absently, then make your way back to camp.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//For Fatties
 	Lake.prototype.getSomeFishYaFatty = function() {
@@ -536,8 +536,8 @@ angular.module( 'cocjs' ).run( function( $log, CoC, Utils, EngineCore, kFLAGS, S
 		EngineCore.outputText( '\n\nShe retrieves a delicious-smelling slab of roasted fish, properly salted and wrapped in a large green leaf.  "<i>Here ya\'re, fresh as it comes \'less you want it still walkin\' and talkin\'.</i>"' );
 		EngineCore.outputText( '\n\nYou thank Callu for the food and take your leave.  ' );
 		//(You have gained Fish Fillet!)
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.FISHFIL, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.FISHFIL, SceneLib.camp.returnToCampUseOneHour );
 	};
 
-	CoC.getInstance().registerScene( 'lake', new Lake() );
+	SceneLib.registerScene( 'lake', new Lake() );
 } );

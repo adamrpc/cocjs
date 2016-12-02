@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, PregnancyStore, Descriptors, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffects, Utils, PregnancyStore, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function XmasJackFrost() {
 	}
 
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		EngineCore.outputText( '\n\n"<i>Pity... well, if you\'ll excuse me, this mountain ain\'t snowy enough just yet!</i>"  He resumes his furious masturbation, spraying another gush of snow on the side of the mountain.' );
 		EngineCore.outputText( '\n\nSeeing no reason to linger, you return to your camp.' );
 		CoC.getInstance().flags[ kFLAGS.JACK_FROST_YEAR ] = OnLoadVariables.date.fullYear;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Yes=];
 	XmasJackFrost.prototype.jizzSnowOnMyCampPlease = function() {
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		EngineCore.outputText( '\n\nYou thank him for the surprisingly kind gesture, and start to head back down to camp.  Even as you go, you can see the first huge jet of snow arcing its way across the sky...' );
 		CoC.getInstance().flags[ kFLAGS.JACK_FROST_YEAR ] = OnLoadVariables.date.fullYear;
 		CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 1;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Back in camp;
 	XmasJackFrost.prototype.processJackFrostEvent = function() {
@@ -91,14 +91,14 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			EngineCore.addButton( 0, 'Next', this.processJackFrostEvent );
 		}
 		//No followers;
-		else if( CoC.getInstance().scenes.camp.companionsCount() === 0 ) {
+		else if( SceneLib.camp.companionsCount() === 0 ) {
 			//Only if PC really has NO ONE to be with. aka: ForeverAlone.gif;
 			EngineCore.outputText( 'You sigh... this really reminds you of back home... you only wish you had someone to share this feeling with... Well, there is no reason you shouldn\'t enjoy yourself while it snows, so you set about rolling a big ball of snow to make a snowman out of...' );
 			//Skip to next day...;
 			CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 0;
 			EngineCore.HPChange( CoC.getInstance().player.maxHP(), false );
 			EngineCore.fatigue( -100 );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 		}
 		//Rathazul;
 		else if( CoC.getInstance().player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] === 2 ) {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			return;
 		}
 		//Jojo;
-		else if( (CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || CoC.getInstance().scenes.jojoScene.campCorruptJojo()) && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 4 ) {
+		else if( (CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || SceneLib.jojoScene.campCorruptJojo()) && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 4 ) {
 			//Pure;
 			if( CoC.getInstance().player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 				EngineCore.outputText( 'Jojo is sitting on his usual rock, one hand out to catch snowflakes with a beatific smile of awe on his face.  "<i>Look, [name], snow!  I haven\'t seen snow since I was a very, very small boy.</i>"  He tells you.' );
@@ -167,10 +167,10 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		}
 		//Amily;
 		//less than 5!;
-		else if( CoC.getInstance().scenes.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 5 ) {
+		else if( SceneLib.amilyScene.amilyFollower() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 5 ) {
 			CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 6;
 			//Pure;
-			if( !CoC.getInstance().scenes.amilyScene.amilyCorrupt() ) {
+			if( !SceneLib.amilyScene.amilyCorrupt() ) {
 				EngineCore.outputText( 'Amily is warily prowling across the icy surface, occasionally glancing all around as if trying to spot an ambush.  Other times, she suddenly leaps up in a flurry, whirling around in mid-air as something catches her over-large ears.  All in all, it\'s quite obvious she\'s scared.' );
 				EngineCore.outputText( '\n\nApproaching her, you ask what\'s gotten her so worried?' );
 				EngineCore.outputText( '\n\n"<i>Can\'t you see all this snow?  There hasn\'t been snow in Mareth since I was a little baby girl - the demons must have something to do with this!</i>"  Amily hisses, clearly expecting an attack to come at any moment.' );
@@ -230,29 +230,29 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			return;
 		}
 		//Tainted Ember;
-		else if( CoC.getInstance().scenes.emberScene.followerEmber() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 6 ) {
+		else if( SceneLib.emberScene.followerEmber() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 6 ) {
 			CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 7;
-			EngineCore.outputText( 'The dragon is wandering your camp in open fascination.  "<i>What is this weird white stuff?  It\'s cold and wet... but soft and fluffy, too,</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' says, gently catching a snowflake.' );
-			EngineCore.outputText( '\n\nHaving heard ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' question, you approach Ember and tell ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' that\'s just snow.' );
-			EngineCore.outputText( '\n\n"<i>Snow...?</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'He', 'She' ) + ' repeats in a curious, blatantly awed voice.  "<i>...It\'s so pretty.</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' tells you.' );
-			EngineCore.outputText( '\n\nYou ask if this is ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' first time seeing snow.  It always snowed back home around this time of the year.  Why... back when you were a child, you used to play all the time in the snow.' );
+			EngineCore.outputText( 'The dragon is wandering your camp in open fascination.  "<i>What is this weird white stuff?  It\'s cold and wet... but soft and fluffy, too,</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' says, gently catching a snowflake.' );
+			EngineCore.outputText( '\n\nHaving heard ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' question, you approach Ember and tell ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' that\'s just snow.' );
+			EngineCore.outputText( '\n\n"<i>Snow...?</i>" ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' repeats in a curious, blatantly awed voice.  "<i>...It\'s so pretty.</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' tells you.' );
+			EngineCore.outputText( '\n\nYou ask if this is ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' first time seeing snow.  It always snowed back home around this time of the year.  Why... back when you were a child, you used to play all the time in the snow.' );
 			EngineCore.outputText( '\n\n"<i>So it\'s for kids,</i>" Ember notes, sounding kind of depressed - and a little envious, especially given the way she still looks so eagerly at the snow all around you.' );
-			EngineCore.outputText( '\n\nPerhaps... would ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' like to play in the snow with you?' );
+			EngineCore.outputText( '\n\nPerhaps... would ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' like to play in the snow with you?' );
 			EngineCore.outputText( '\n\n"<i>I thought you said this was for little kids?  I\'m no baby!</i>" Ember protests.' );
-			EngineCore.outputText( '\n\nWho said it was just for kids?  You just said you used to play all the time when you were a child, there is no reason why you couldn\'t play now that you\'re grown up either... after all, back in your village, even adults played in the snow.  Unless... ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' doesn\'t like the idea of spending the day playing with you?  That would be a pity, since it\'s ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' first time seeing snow...' );
+			EngineCore.outputText( '\n\nWho said it was just for kids?  You just said you used to play all the time when you were a child, there is no reason why you couldn\'t play now that you\'re grown up either... after all, back in your village, even adults played in the snow.  Unless... ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' doesn\'t like the idea of spending the day playing with you?  That would be a pity, since it\'s ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' first time seeing snow...' );
 			EngineCore.outputText( '\n\n"<i>What?  I... ooh, very well.  Teach me how you play with this stuff,</i>" Ember says, blowing a thin trail of steam out of each nostril.' );
-			EngineCore.outputText( '\n\nYou smile and begin explaining to the dragon all about the games you used to play when it snowed back home.  Ember listens attentively with a gleam in ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' eyes.' );
+			EngineCore.outputText( '\n\nYou smile and begin explaining to the dragon all about the games you used to play when it snowed back home.  Ember listens attentively with a gleam in ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' eyes.' );
 			EngineCore.outputText( '\n\nBy the time you\'re done Ember\'s tail is waving excitedly behind her.  You ask how she\'d feel about a snowball fight?' );
-			EngineCore.outputText( '\n\n"<i>All right, let\'s try it!</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' agrees, as eager as any kid back in Ingnam.' );
-			EngineCore.outputText( '\n\nYou explain to ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' the rules and walk a short distance away... then declare the match started!  Ember is pretty good... but being ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' first time doing this, ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' ends up not being able to hit you as many times as you hit ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ', while you expertly dodge and roll her snowballs.' );
+			EngineCore.outputText( '\n\n"<i>All right, let\'s try it!</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' agrees, as eager as any kid back in Ingnam.' );
+			EngineCore.outputText( '\n\nYou explain to ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' the rules and walk a short distance away... then declare the match started!  Ember is pretty good... but being ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' first time doing this, ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' ends up not being able to hit you as many times as you hit ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ', while you expertly dodge and roll her snowballs.' );
 			EngineCore.outputText( '\n\n"<i>Damn it, stand still, [name]!  You\'re slippier than the rabbits I go catching in the mornings!</i>" the irate dragon complains.' );
-			EngineCore.outputText( '\n\nRather than complaining ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' should be focusing on hitting you, otherwise you\'re going to end up crushing ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' in this match!  You tease ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ', throwing another snowball right on ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' belly.' );
-			EngineCore.outputText( '\n\nThe dragon promptly drops to ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' knees and starts sweeping together huge armfuls of snow, crushing and melding them together until ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' has made a snowball the size of a small boulder, which ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' promptly hurls at you.' );
+			EngineCore.outputText( '\n\nRather than complaining ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' should be focusing on hitting you, otherwise you\'re going to end up crushing ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' in this match!  You tease ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ', throwing another snowball right on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' belly.' );
+			EngineCore.outputText( '\n\nThe dragon promptly drops to ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' knees and starts sweeping together huge armfuls of snow, crushing and melding them together until ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' has made a snowball the size of a small boulder, which ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' promptly hurls at you.' );
 			EngineCore.outputText( '\n\nWoah!  The large ball of snow connects squarely with your face, bowling you over and burying you under the snow.  Having the air knocked out of you, you scramble to dig yourself off the snow.' );
-			EngineCore.outputText( '\n\nA pair of claw-fingered hands promptly come clawing their way through the snow, grabbing you by the shoulders and pulling you bodily out of the snow.  "<i>Well?  I think I won that round,</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' gloats, a twinkle of delight in ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' eye.' );
-			EngineCore.outputText( '\n\nCoughing up some snow, you concede defeat, congratulating Ember on winning ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' first snowball fight... but then, you smirk and tell ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' this was all beginner\'s luck... and next time you\'ll beat ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' for sure.' );
-			EngineCore.outputText( '\n\n"<i>So you say, but the truth is you know you\'ll never beat me,</i>" Ember brags.  Then ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' lowers her eyelids and gives you a coy look.  "<i>And now, for the victor, a prize,</i>" ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' growls, then swoops in to kiss you passionately.  Several minutes pass before ' + CoC.getInstance().scenes.emberScene.emberMF( 'he', 'she' ) + ' breaks the kiss, a somewhat goofy smile on ' + CoC.getInstance().scenes.emberScene.emberMF( 'his', 'her' ) + ' face.  "<i>I\'m going to go and play in the snow some more.  See you, [name].</i>"  ' + CoC.getInstance().scenes.emberScene.emberMF( 'He', 'She' ) + ' giggles, then ambles off.' );
-			EngineCore.outputText( '\n\nYou wave ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' away - maybe being beaten isn\'t so bad.  Your thoughts turn to Ember\'s passionate kiss...  It certainly is a nice sight, to see ' + CoC.getInstance().scenes.emberScene.emberMF( 'him', 'her' ) + ' so happy.  Having it snow on your camp was a great idea after all.' );
+			EngineCore.outputText( '\n\nA pair of claw-fingered hands promptly come clawing their way through the snow, grabbing you by the shoulders and pulling you bodily out of the snow.  "<i>Well?  I think I won that round,</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' gloats, a twinkle of delight in ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' eye.' );
+			EngineCore.outputText( '\n\nCoughing up some snow, you concede defeat, congratulating Ember on winning ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' first snowball fight... but then, you smirk and tell ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' this was all beginner\'s luck... and next time you\'ll beat ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' for sure.' );
+			EngineCore.outputText( '\n\n"<i>So you say, but the truth is you know you\'ll never beat me,</i>" Ember brags.  Then ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' lowers her eyelids and gives you a coy look.  "<i>And now, for the victor, a prize,</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' growls, then swoops in to kiss you passionately.  Several minutes pass before ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' breaks the kiss, a somewhat goofy smile on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' face.  "<i>I\'m going to go and play in the snow some more.  See you, [name].</i>"  ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' giggles, then ambles off.' );
+			EngineCore.outputText( '\n\nYou wave ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' away - maybe being beaten isn\'t so bad.  Your thoughts turn to Ember\'s passionate kiss...  It certainly is a nice sight, to see ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' so happy.  Having it snow on your camp was a great idea after all.' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this.processJackFrostEvent );
 		}
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		}
 		//Helia;
 		//if she ain't a follower and is a lover, just have her visit.;
-		else if( CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 9 && (CoC.getInstance().scenes.helScene.fuckBuddyHel() || CoC.getInstance().scenes.helFollower.followerHel()) ) {
+		else if( CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 9 && (SceneLib.helScene.fuckBuddyHel() || SceneLib.helFollower.followerHel()) ) {
 			EngineCore.outputText( '"<i>Hey, champ, what\'s going on here?</i>"  Helia calls as she sees you approach.  Gentle trails of steam are wafting from the salamander\'s body as her own internal heat melts any snow that builds up on her.' );
 			EngineCore.outputText( '\n\nYou greet your salamander lover, telling her you found a way to make it snow on your camp... so you were just planning on having a snow-day play-day on your camp, while it lasts.' );
 			EngineCore.outputText( '\n\n"<i>What\'s a snow-day play-day?</i>"  The firey lizard-girl asks, clearly not understanding the reference; it may not have snowed in the plains even before this accursed drought.' );
@@ -433,62 +433,62 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			return;
 		}
 		//Isabella;
-		else if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 10 ) {
+		else if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 10 ) {
 			EngineCore.outputText( 'The bovine adventurer Isabella is staring at the snow around her with a sad look on her face, one hand gently raised to catch snowflakes.  She watches them gather in her palm and heaves a huge sigh.  You quietly approach her and ask what\'s wrong; is she homesick?' );
 			EngineCore.outputText( '\n\n"<i>' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( 'Da, [name], I am,' );
 			} else {
 				EngineCore.outputText( 'Yes, [name], I am,' );
 			}
 			EngineCore.outputText( '</i>" she replies.  ' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '"<i>Back home, in mine land, it vould be snowing all over at this time of year, and ve vould be having big vinter festival to celebrate ze ending of old year and coming of new year.  This land, it is so dry and hot...  I had forgotten it, but seeing zis snow makes me remember it and all I have lost by being stuck here.</i>"  She sighs.' );
 			} else {
 				EngineCore.outputText( '"<i>Back home, in my old land, it would be snowing all over at this time of year, and we would be having a big winter festival to celebrate the ending of the old year and the coming of the new one.  This land, it\'s so dry and hot...  I had forgotten it, but seeing this snow makes me remember it and all I have lost by being stuck here.</i>"  She sighs.' );
 			}
 
 			EngineCore.outputText( '\n\nYes, you agree.  It does bring back memories.  Though you don\'t know if you\'ve been in this world quite as long as Isabella has.  You chuckle to yourself.  If you were back in your village, you and your family would be gathering for a big feast, playing in the snow, drinking, laughing... all the jolly good stuff.  Still, at least you\'re not alone here in Mareth.  You look at Isabella with a smile.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\n"<i>So, you are having a celebration at this time of year too?  How coincidental,</i>" she muses, but then favors you with a friendly smile.  "<i>But, da, it is good zat ve have found each other and so must not be lonely at zis time of year.</i>"  Then she sighs, "<i>I could use a nice hot cup of yochalot, though.</i>"' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>So, you have a celebration at this time of year too?  How coincidental,</i>" she muses, but then favors you with a friendly smile.  "<i>But, yeah, it\'s good that we have found each other and have each other\'s company at this time of year.</i>"  Then she sighs, "<i>I could use a nice hot cup of yochalot, though.</i>"' );
 			}
 			EngineCore.outputText( '\n\nYochalot?  You ask in curiosity.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\n"<i>Da, yochalot.  It is very sweet, tasty treat, made from grinding up special bean seeds.  We add powder to warm milk and it is most yummy, mmm...</i>"  Isabella makes a show of rubbing her hands over her belly with a delighted smile.  "<i>I would always have a great big mug of hot yochalot at this time of year, ja?</i>"' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>Yep! Yochalot.  It\'s a very sweet, tasty treat, made from grinding up special bean seeds.  We add powder to warm milk and it is most yummy, mmm...</i>"  Isabella makes a show of rubbing her hands over her belly with a delighted smile.  "<i>I would always have a great big mug of hot yochalot at this time of year.</i>"' );
 			}
 			EngineCore.outputText( '\n\nYochalot... sounds a lot like chocolate...  Still, you\'d like to try it sometime.  You tell the cow-girl as much.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\nAt this, she looks crestfallen.  "<i>I am sorry, mein little sweety, but I am having no yochalot on me - I drank ze last of mine some time ago, and I do not think zey have such thing in this vorld any more.  At least, none that has not been tampered with, like the demons have ruined so many other nice things.</i>"  She scowls.  "<i>The only thing I could be offering you is nice, warm milk, fresh from the tap, so to speak.</i>"  She pats her hefty quad-nippled boobs to make it clear where the milk would come from.' );
 			} else {
 				EngineCore.outputText( '\n\nAt this, she looks crestfallen.  "<i>I am sorry, my little sweet, but I don\'t have any yochalot on me - I drank the last of mine some time ago, and I don\'t think they have such thing in this world any more.  At least, none that have not been doubtlessly tampered with, like the demons have ruined so many other nice things.</i>"  She scowls.  "<i>The only thing I could be offering you is nice, warm milk, fresh from the tap, so to speak.</i>"  She pats her hefty quad-nippled boobs to make it clear where the milk would come from.' );
 			}
 
 			EngineCore.outputText( '\n\nPity, but then again, Isabella\'s milk is pretty tasty.  You confess you\'re feeling at least a bit chilly, so, you ask the cow-girl if she wouldn\'t mind warming you up with some of her sweet-tasting milk?' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\nIsabella looks surprised, and then grins mischievously.  "<i>Okay then, mein sweet,</i>" she says, calmly exposing her breasts.  "<i>I vill give you all ze milk you could want,</i>" she adds, then suddenly lunges for you, grabbing your head and pulling you into a headlock that, not so coincidentally, mashes your face against her naked boobs.  "<i>Naughty, cheeky [name]!  If you are wanting to drink mein milk, zen you are not needing zis subterfuge to get me in the mood,</i>" she chortles good-naturedly as she finishes, her homesickness evidently forgotten with the diversion you\'ve presented her.' );
 			} else {
 				EngineCore.outputText( '\n\nIsabella looks surprised, and then grins mischievously.  "<i>Okay then, sweet,</i>" she says, calmly exposing her breasts.  "<i>I will give you all the milk you could want,</i>" she adds, then suddenly lunges for you, grabbing your head and pulling you into a headlock that, not so coincidentally, mashes your face against her naked boobs.  "<i>Naughty, cheeky [name]!  If you want to drink my milk, then you don\'t need this subterfuge to get me in the mood,</i>" she chortles good-naturedly as she finishes, her homesickness evidently forgotten with the diversion you\'ve presented her.' );
 			}
 
 			EngineCore.outputText( '\n\nSeeing as you\'re already so conveniently positioned, you waste no time in opening your mouth and taking her four nipples into your mouth, suckling in earnest, as the cow-girl\'s tasty milk fills your mouth and belly.  You momentarily stop your nursing to lick a stray drop of milk that has escaped your mouth, smiling to Isabella, you tell her that her milk truly hits the spot.  You can already feel yourself getting warmer.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\nIsabella smiles and cuddles you against her bosom.  "<i>Be honest; you vere not vanting mein milk, you vere wanting to be cheering me up, da?</i>" she laughs.  Busted!  You laugh yourself, though your plan seems to have worked pretty well, and you\'re not complaining about the bellyful of tasty milk you\'ve gotten either.  You burp sheepishly, for emphasis.' );
 			} else {
 				EngineCore.outputText( '\n\nIsabella smiles and cuddles you against her bosom.  "<i>Be honest; you weren\'t wanting my milk, you wanted to cheer me up, huh?</i>" she laughs.  Busted!  You laugh yourself, though your plan seems to have worked pretty well, and you\'re not complaining about the bellyful of tasty milk you\'ve gotten either.  You burp sheepishly, for emphasis.' );
 			}
 
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\n"<i>You are just ze sweetest little thing, aren\'t you, [name]?</i>"  Isabella laughs, her breasts jiggling heavily from the force.  "<i>Vell, if you are liking mein milk so much, perhaps you should have some more, da?</i>"  She grins, gently lifting one breast with a free hand to better offer it to you.' );
 			} else {
 				EngineCore.outputText( '\n\n"<i>You are just the sweetest little thing, aren\'t you, [name]?</i>"  Isabella laughs, her breasts jiggling heavily from the force.  "<i>Well, if you are liking my milk so much, perhaps you should have some more, yeah?</i>"  She grins, gently lifting one breast with a free hand to better offer it to you.' );
 			}
 
 			EngineCore.outputText( '\n\nSounds like a plan, you tell the cow-girl.  You take the offered tit in your hands and proceed to bury yourself into the pillowy mound, latching onto her nipples and draining them of all its contents as fast as you can without choking.' );
-			if( CoC.getInstance().scenes.isabellaFollowerScene.isabellaAccent() ) {
+			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				EngineCore.outputText( '\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  "<i>Da, zat ist good, [name].  I love to empty zese big boobs of mine, but I am loving you more,</i>" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you\'ll just busy yourself with the cow-girl\'s teats, you can return the feelings later...' );
 			} else {
 				EngineCore.outputText( '\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  "<i>Yeah, that\'s good, [name].  I love to empty these big boobs of mine, but I think I love you more,</i>" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you\'ll just busy yourself with the cow-girl\'s teats, you can return the feelings later...' );
@@ -498,7 +498,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			EngineCore.addButton( 0, 'Next', this.processJackFrostEvent );
 		}
 		//Kiha;
-		else if( CoC.getInstance().scenes.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 11 ) {
+		else if( SceneLib.kihaFollower.followerKiha() && CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 11 ) {
 			EngineCore.outputText( '"<i>Ah-ah-ahchoo!</i>"' );
 			EngineCore.outputText( '\n\n"<i>Bless you,</i>" you say to Kiha as you approach the dragon-girl.' );
 			EngineCore.outputText( '\n\nKiha sniffles and wipes her nose on her arm when she sees you.  "<i>[name], what is this weird white stuff?  It\'s cold and wet and - achoo!</i>"  She sneezes again, spraying a gout of flame across the camp.  "<i>And the flakes keep flying up my nose,</i>" she snuffles.' );
@@ -522,17 +522,17 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			EngineCore.outputText( 'This small holiday of yours was much needed.  You feel reinvigorated and even more determined to put an end to this struggle with demons.' );
 			EngineCore.outputText( '\n\nThe only thing left to end this day is a feast.  Though your family is not here to join you, at least you won\'t be dining alone.' );
 			//(if One sexable follower);
-			if( CoC.getInstance().scenes.camp.loversCount() + CoC.getInstance().scenes.camp.slavesCount() === 1 ) {
+			if( SceneLib.camp.loversCount() + SceneLib.camp.slavesCount() === 1 ) {
 				EngineCore.outputText( '\n\nYou take care of the preparations and cooking, whipping up a delightful meal for you and your companion.  You can tell that you were not the only one needing this break, and judging by the way your companions eyes you as the two of you eat... it seems the day is not over yet...' );
 			}
 			//(if no sexable follower);
-			else if( CoC.getInstance().scenes.camp.loversCount() + CoC.getInstance().scenes.camp.slavesCount() === 0 ) {
+			else if( SceneLib.camp.loversCount() + SceneLib.camp.slavesCount() === 0 ) {
 				EngineCore.outputText( '\n\nYou take care of the preparations and cooking, whipping up a delightful meal for you and your companion' );
-				if( CoC.getInstance().scenes.camp.companionsCount() > 1 ) {
+				if( SceneLib.camp.companionsCount() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( '.  You can tell that you were not the only one needing this break... but unfortunately all good things must come to an end, and so you bid your companion' );
-				if( CoC.getInstance().scenes.camp.companionsCount() > 1 ) {
+				if( SceneLib.camp.companionsCount() > 1 ) {
 					EngineCore.outputText( 's' );
 				}
 				EngineCore.outputText( ' good night and retire for the night.' );
@@ -545,7 +545,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 			EngineCore.HPChange( CoC.getInstance().player.maxHP(), false );
 			EngineCore.fatigue( -100 );
 			CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 0;
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 	//[=Fuck Her=];
@@ -598,7 +598,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\nSitting down on your bedroll, you open your arms, inviting Amily over.  The mouse promptly approaches' );
 		if( CoC.getInstance().flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 ) {
-			EngineCore.outputText( ', her own ' + CoC.getInstance().scenes.amilyScene.amilyCock() + ' jutting out in anticipation' );
+			EngineCore.outputText( ', her own ' + SceneLib.amilyScene.amilyCock() + ' jutting out in anticipation' );
 		}
 		EngineCore.outputText( ', wriggling into your arms and angling her pussy over your ' + Descriptors.cockDescript( 0 ) + '.  With the ease of long practice, she slides smoothly down its length, her warm, wet depths greedily inhaling your masculinity.  "<i>Ah, nothing like a nice hard cock in your cunt to make you feel warmer,</i>" she coos.' );
 		EngineCore.outputText( '\n\nYou simply grin and begin bucking your hips against her, suppressing your moans by kissing her, hugging her tightly against you, holding your bodies flush together.  The mouse hugs you as tightly as she can, smothering you with kisses as her hands roam nimbly across your back, slinking down to squeeze your ass with an obvious hunger to molest you.' );
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		EngineCore.outputText( '\n\nNow, now... you can\'t have your slut forgetting his place... so you grab his balls and begin forcefully grasping at it, but rather than pain, the former monk only displays delight at the act; his brain enjoying both the pain and pleasure of the act in equal measure.  "<i>Fuh-forgive me, [master]!  I was wrong!</i>" Jojo pleads.' );
 		EngineCore.outputText( '\n\nThat\'s better.  You release him and stand over him, issuing a single order.  If he wants it, you want to hear him ask it, like a proper slut should.  Swallowing audibly, the mouse-slut does his best to calm himself down, but he never stops panting as he begs. "<i>M - [Master], please... please show this unworthy slut how to fuck in the snow... please, let me cum,</i>" he says meekly, cock throbbing in anticipation.' );
 		EngineCore.outputText( '\n\nNow that\'s what you like to hear, and you promptly impale yourself on Jojo\'s handy shaft, brutally forcing it inch by inch inside you until you have forced him to the ground with your efforts.  Moaning with satisfaction at being stuffed, you begin to roughly rise and fall, pistoning back and forth in order to sate your pleasures.' );
-		EngineCore.outputText( '\n\nJojo goes berserk, babbling incoherently as he grabs your hips and begins roughly slamming himself into your [vagina], trying to dig as deep into you as he can, even as his pre leaking shaft lubricates your tunnel.  You try to exert some control over the ex-CoC.getInstance().scenes.jojoScene.monk, but eventually decide it\'s better to just sit back and enjoy the ride - however, you can\'t resist taunting Jojo over what a depraved little slut he has become, totally incapable of controlling himself. "<i>S-Sluuut... I\'m... sluuuut,</i>" he utters incoherently between moans.' );
+		EngineCore.outputText( '\n\nJojo goes berserk, babbling incoherently as he grabs your hips and begins roughly slamming himself into your [vagina], trying to dig as deep into you as he can, even as his pre leaking shaft lubricates your tunnel.  You try to exert some control over the ex-SceneLib.jojoScene.monk, but eventually decide it\'s better to just sit back and enjoy the ride - however, you can\'t resist taunting Jojo over what a depraved little slut he has become, totally incapable of controlling himself. "<i>S-Sluuut... I\'m... sluuuut,</i>" he utters incoherently between moans.' );
 		CoC.getInstance().player.cuntChange( 20, true, true, false );
 		EngineCore.outputText( '\n\nYou thrust, buck, and heave, enjoying everything there is about mastering this once-pure soul and reducing him to your fuck puppet.  Finally, with an ecstatic howl, you cum, female lubricants gushing onto his burning hot cock' );
 		if( CoC.getInstance().player.hasCock() ) {
@@ -707,5 +707,5 @@ angular.module( 'cocjs' ).run( function( OnLoadVariables, StatusAffects, Utils, 
 		EngineCore.addButton( 0, 'Next', this.processJackFrostEvent );
 		CoC.getInstance().flags[ kFLAGS.JACK_FROST_PROGRESS ] = 5;
 	};
-	CoC.getInstance().registerScene( 'xmasJackFrost', new XmasJackFrost() );
+	SceneLib.registerScene( 'xmasJackFrost', new XmasJackFrost() );
 } );

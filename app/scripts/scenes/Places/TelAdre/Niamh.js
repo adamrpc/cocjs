@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			EngineCore.outputText( '\n\nYou lean back against the bar as the weight on your chest grows ever heavier.  You gasp for air as the growth arouses you even further.  You feel a hand on your wrist and Niamh pulls you around behind the bar.  She grabs a shot glass and holds it up to one of your sensitive nipples, collecting the beverage before sniffing it.' );
 			// Description depends on Holiday.;
 			// New Years;
-			if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
+			if( SceneLib.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
 				EngineCore.outputText( '\n\n"<i>Cor, well ah\'ll be.  Sweetie, you be leaking Champagne.</i>"  She gives your other nipple a tweak to fill a second shot glass.  The same clear liquid pours out, and the little champagne bubbles tickle your nipples to new heights of sensitivity, causing your ' );
 				if( CoC.getInstance().player.hasVagina() ) {
 					EngineCore.outputText( 'pussy to wetten' );
@@ -183,12 +183,12 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
 			// Christmas;
-			else if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
+			else if( SceneLib.xmasBitch.isHolidays() ) {
 				EngineCore.outputText( '\n\nThe off color indicates it isn\'t milk filling the shot glass, but you aren\'t sure what it is.  Niamh darts her tongue into it and grins.  "<i>Ooooh.  Mmmmm.  Egg nog.  So delicious.</i>"  She slurps the whole shot glass backs and then blinks.  "<i>Whoah.  An\' rather strong shtuff to boot!</i>"  She wraps an arm around your shoulders.  "<i>Lass, I bet those puppies of yours are gonna be squirting that holiday joy for awhile.  Hows about ye let me prop ye up onna bar here and sell that liquid cheer of yours?  I bet it won\'t take long to drain them considering how delicious ye are.  Make you a fair bit o\' gems too!</i>"' );
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
 			// Valentine's;
-			else if( CoC.getInstance().scenes.valentines.isValentine() ) {
+			else if( SceneLib.valentines.isValentine() ) {
 				EngineCore.outputText( '\n\nThe aroma is distinct and Niamh comments, "<i>My, that\'s quite a delectable white wine you\'re leakin\' there lass.</i>"  She pulls on another nipple to drain a bit more from you.  "<i>Mmmmm, and the other is a good red.</i>"  She grins.  "<i>I bet there are a bunch o\' couples in town that\'d pay good gems for what you\'ve got sloshin\' around inside those babies there.</i>"  She cuddles up close to you.  "<i>What you say sweetie?  Gimme an hour o\' your time?  See if the bar goers can drain you dry?  Ah\'ll make it worth ye worth.</i>"  She winks.' );
 				//[SELL YOUR BOOZE]  [LEAVE];
 			}
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			EngineCore.outputText( ' breasts have had the last of their beer squeezed from them.  She sighs in relief, caressing her shrunken breasts; while still hovering at around G-cup size, they\'re much smaller than they are when the day starts for her.  "<i>Me thanks for the business; ye got the last mug for today.  Still, I\'ll be here tomorrow, full as ever.</i>" She sighs softly.  "<i>I regret to say that Niamh\'s Black Cat Beer doesn\'t look to be going out of business anytime soon.</i>"  She stands and gathers her coat, slipping her arms into the sleeves.  The nimble girl draws the garment across her buxom chest, buttoning the slightly strained buttons with deceptive ease.  Dressed properly, she starts away, a bag full of gems bouncing against her swaying hips. You watch her go, staring at her back until she walks out the door.' );
 		}
 		CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[To Go];
 	Niamh.prototype.blackCatBeerToGo = function() {
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( '\n\n' );
 		CoC.getInstance().flags[ kFLAGS.MET_NIAMH ]++;
 		//PC gains 1x BCB;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BC_BEER, CoC.getInstance().scenes.telAdre.barTelAdre );
+		SceneLib.inventory.takeItem( ConsumableLib.BC_BEER, SceneLib.telAdre.barTelAdre );
 	};
 	//Talk;
 	Niamh.prototype.talkToNiamh = function() {
@@ -280,14 +280,14 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		if( CoC.getInstance().player.gems >= 2 ) {
 			beer = this.getANiamhBeer;
 		}
-		EngineCore.choices( 'Beer', beer, '', null, '', null, '', null, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Beer', beer, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave;
 	Niamh.prototype.leaveNiamh = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide that you don\'t really want to talk to this strange cat-girl and, as politely as possible, excuse yourself.' );
 		//Player returns to Wet Bitch menu;
-		EngineCore.doNext( CoC.getInstance().scenes.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
 	};
 	//Black Cat Beer;
 	//is affected by Black Cat Beer item effects;
@@ -410,7 +410,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		}
 		CoC.getInstance().flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = 25;
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//24 hours later, random encounter on the Plains;
 	Niamh.prototype.niamhPostTelAdreMoveOut = function() {
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 	Niamh.prototype.niamhCorruptMobileSnackTurnDown = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You turn her down, fabricating a little tale about how you just got done drinking a delicious beverage, and you couldn\'t possibly have anything more.  She nods sagely, pauses, and loudly belches.  Even in her soused state, she retains some semblance of manners, so she chuckles nervously while moving a hand to her lips.  "<i>Sorry \'bout tha\'...</i>" she mutters, slinking off.  You have a feeling you\'ll see her again.' );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[yup];
 	Niamh.prototype.niamhCorruptedMobileSnackDrinkTime = function() {
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			this.blackCatBeerEffects( CoC.getInstance().player, false, true );
 			//[end encounter]*/;
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Niamh.prototype.bimboChampagne = function( character, clearScreen, intro ) {
 		if( clearScreen ) {
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		if( CoC.getInstance().player.hasCock() ) {
 			fuck = this.bazaarSex;
 		}
-		EngineCore.choices( 'Get A Drink', drink, 'Tit-Fuck', fuck, '', null, '', null, 'Back', CoC.getInstance().scenes.bazaar.enterTheBazaar );
+		EngineCore.choices( 'Get A Drink', drink, 'Tit-Fuck', fuck, '', null, '', null, 'Back', SceneLib.bazaar.enterTheBazaar );
 	};
 	//[bimbo/corrupted beer drink texts];
 	Niamh.prototype.bazaardNiamhDrink = function() {
@@ -603,7 +603,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		//Corrupt;
 		else {
 			EngineCore.outputText( 'Succubus milk Niamh Not implemented yet' );
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//{If player drinks from the tap:};
@@ -614,7 +614,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( '\n\nYou snap back to your senses with a jolt, finding yourself flat on your back and gazing up at the sky.  "<i>Like, are you alright, [name]?</i>" Niamh asks, amused.  "<i>My fizzy titties, like, really hit some people harder than they can, y\'know, deal with.  You okay?</i>"' );
 		EngineCore.outputText( '\n\nYou push yourself upright and assure the pretty catgirl that you feel, like, super-duper wonderful!  You punctuate this declaration with a burp as the sudden motion makes all the yummy bubbles in your belly dance, and then you giggle at how naughty that was.' );
 		this.bimboChampagne( CoC.getInstance().player, false, false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//grabbing Bim Cham in a to-go box;
 	Niamh.prototype.getBimboChampFromNiamh = function() {
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( '\n\nPushing that slightly scary thought to the side, you lean in, firmly grasping one stiff nipple and forcing it to the mouth of your container.  Ignoring her increasingly loud and frequent groans, you dutifully milk the bubbly into the flask, stopper it up, and rise.  Niamh tries to follow you, too aroused by the milking to resist her carnal urges, but you easily push her to the side, her ponderous melons throwing her off balance.' );
 		EngineCore.outputText( '\n\nShe lands into a big pile of similarly blonde and giggling girls who waste no time in swarming her.  You chuckle and shake your head.  Perhaps you\'ll come back later.\n\n' );
 		//bimbo champagne aqua-aired;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOCH, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.BIMBOCH, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Bazaar sex];
 	Niamh.prototype.bazaarSex = function() {
@@ -649,7 +649,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		{
 			EngineCore.outputText( '\n\nSuccubi Milk Niamph not implemnted yet.' );
 		}
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Meet Sean with bimbo champagne in inventory];
@@ -666,7 +666,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		} else {
 			yep = this.yeahSeanLetsBimbooze;
 		}
-		EngineCore.choices( 'Yep', yep, '', null, '', null, '', null, 'Back', CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
+		EngineCore.choices( 'Yep', yep, '', null, '', null, '', null, 'Back', SceneLib.dungeon2Supplimental.incubusShop );
 	};
 	//yeah I got this;
 	Niamh.prototype.yeahSeanLetsBimbooze = function() {
@@ -694,14 +694,14 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 		EngineCore.outputText( 'You drop the vial into a pouch on your person.\n\n' );
 		//bimbo liqueur aqcquired;
 		CoC.getInstance().flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 0;
-		CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.BIMBOLQ, CoC.getInstance().scenes.dungeon2Supplimental.incubusShop );
+		SceneLib.inventory.takeItem( ConsumableLib.BIMBOLQ, SceneLib.dungeon2Supplimental.incubusShop );
 	};
 	// [LEAVE];
 	Niamh.prototype.leaveWithBeerTits = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The offer is tempting but right now you\'d much rather deal with your boozy boobs privately.  You take off while trying to keep your [armor] modestly in place over your tits but it\'s difficult.  Your nipples constantly leak and drip a trail of alcohol all the way back to camp.  Thankfully by the time you arrive the effects seem to have mostly worn off.  Your nipples return to dripping milk, but although they\'ve shrunk back down a bit they don\'t quite shrink all the way, leaving you with somewhat larger endowments than you had before.' );
 		CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	// [SELL YOUR BOOZE];
 	// Non-holidays have small payout of gems proportional to lactation.  Boob rating increases by 1.;
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
 			EngineCore.outputText( '\n\nYou feel flushed from the sensations, but finally you run dry.  Your breasts have shrunk back down, but they still feel a little larger than they were earlier.  As little droplets of milk instead of booze return to dripping from your nipples, Niamh hands you your cut of the gems you earned from the sales.' );
 			//[LEAVE];
-			EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 		//If lust is high;
 		else {
@@ -1023,19 +1023,19 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			CoC.getInstance().player.growTits( 2, CoC.getInstance().player.bRows(), false, 2 );
 		}
 		CoC.getInstance().player.orgasm();
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Niamh.prototype.boozeBoobsType = function() {
 		// New Years;
-		if( CoC.getInstance().scenes.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
+		if( SceneLib.xmasBitch.isHolidays() && OnLoadVariables.date.date >= 31 ) {
 			return 'champagne';
 		}// Saint Patrick's;
 		else if( OnLoadVariables.date.date === 17 && OnLoadVariables.date.month === 2 ) {
 			return 'Saint Patrick\'s Day lagar';
 		}
 		// Christmas;
-		else if( CoC.getInstance().scenes.xmasBitch.isHolidays() ) {
+		else if( SceneLib.xmasBitch.isHolidays() ) {
 			return 'egg nog';
 		}// Valentine's;
 		else if( OnLoadVariables.date.date === 14 && OnLoadVariables.date.month === 1 ) {
@@ -1046,5 +1046,5 @@ angular.module( 'cocjs' ).run( function( EventParser, Descriptors, ImageManager,
 			return 'beer';
 		}
 	};
-	CoC.getInstance().registerScene( 'niamh', new Niamh() );
+	SceneLib.registerScene( 'niamh', new Niamh() );
 } );

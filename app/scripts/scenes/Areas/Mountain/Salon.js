@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, Descriptors, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, Appearance, Descriptors, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
 	function Salon() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 	//const SALON_PAID:int = 441;;
 	Salon.prototype.hairDresser = function() {
 		EngineCore.outputText( 'While exploring the mountain, you find a cleverly concealed doorway.  From inside you can hear the sound of blades being sharpened.  Do you enter the doorway?', true );
-		EngineCore.doYesNo( this.salonGreeting, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this.salonGreeting, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.salonGreeting = function() {
 		if( CoC.getInstance().player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.addButton( 3, 'Minotaur', this.gloryholeMinotaur );
 		EngineCore.addButton( 4, 'Incubus', this.gloryholeIncubus );
 		EngineCore.addButton( 8, 'Buy MinoCum', minoCum );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 		//EngineCore.choices('Goblin Blow',blow,'Canine',this.gloryholeDoggie,'Imp',this.gloryholeImp,'Minotaur',this.gloryholeMinotaur,'Incubus',this.gloryholeIncubus,'',0,'',0,'',0,'Buy MinoCum',minoCum,'Leave',13);;
 	};
 	Salon.prototype.buyMinoCum = function() {
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 			CoC.getInstance().player.gems -= 60;
 			EngineCore.outputText( 'You happily give Lynnette 60 gems and pick up the bottle full of glistening, heavenly cum.  ', true );
 			EngineCore.statScreenRefresh();
-			CoC.getInstance().scenes.inventory.takeItem( ConsumableLib.MINOCUM, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+			SceneLib.inventory.takeItem( ConsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Salon.prototype.salonPurchaseMenu = function() {
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.addButton( 5, 'Buy MinoCum', minoCum );
 		EngineCore.addButton( 7, 'Mud Facial', mudFacial2 );
 		EngineCore.addButton( 8, 'Sand Facial', sandFacial2 );
-		EngineCore.addButton( 9, 'Leave', CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairDresserGreeting = function() {
 		EngineCore.spriteSelect( 38 );
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.getInstance().player.hairLength = 1;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutMedium = function() {
 		EngineCore.spriteSelect( 38 );
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.getInstance().player.hairLength = 10;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutLong = function() {
 		EngineCore.spriteSelect( 38 );
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.getInstance().player.hairLength = 25;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairGrow = function() {
 		EngineCore.spriteSelect( 38 );
@@ -410,11 +410,11 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		CoC.getInstance().flags[ kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD ] = 0;
 		CoC.getInstance().player.hairLength += temp;
 		EngineCore.outputText( Utils.num2Text( temp ) + ' more inches of ' + CoC.getInstance().player.hairColor + ' hair.', false );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.buyDye = function( itype ) {
 		EngineCore.outputText( '', true );
-		CoC.getInstance().scenes.inventory.takeItem( itype, CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.dyeMenu = function() {
 		EngineCore.spriteSelect( 38 );
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special mud\'.  You close your eyes, letting them plaster your ' + CoC.getInstance().player.face() + ' with the stuff in hopes that it will improve your complexion as much as you\'ve been promised.  A pair of cucumber slices are laid out on your eyes, obscuring your view.\n\n', false );
 		EngineCore.outputText( 'With that finished, the crowd of busty, green-skinned women disperses to leave you in peace.  Time drags on, but eventually the mud hardens and cracks.  As if on cue, tiny hands emerge with wet rags to scrub your face clean.  Once they\'ve finished, you feel like a whole new you! (+10 femininity)', false );
 		CoC.getInstance().player.modFem( 100, 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.sandFacial = function() {
 		EngineCore.spriteSelect( 38 );
@@ -558,7 +558,7 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		EngineCore.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special sand\'.  You close your eyes, letting them splatter your ' + CoC.getInstance().player.face() + ' with the rough, textured goop.  It doesn\'t feel very good, but that won\'t matter if it makes you as handsome as it\'s supposed to.\n\n', false );
 		EngineCore.outputText( 'After a while the goblin girls come back and clean the stuff from your face. (+10 masculinity)', false );
 		CoC.getInstance().player.modFem( 0, 10 );
-		EngineCore.doNext( CoC.getInstance().scenes.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 Salon.LYNNETTE_PREGNANCY_CYCLE = 1022; //0-3 = pregnant. 4-6 = not.
@@ -821,5 +821,5 @@ angular.module( 'cocjs' ).run( function( $rootScope, CoC, PerkLib, Appearance, D
 		}
 		return CoC.getInstance().flags[ kFLAGS.LYNNETTE_APPROVAL ];
 	};
-	CoC.getInstance().registerScene( 'salon', new Salon() );
+	SceneLib.registerScene( 'salon', new Salon() );
 } );

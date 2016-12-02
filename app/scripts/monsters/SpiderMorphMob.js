@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( CockTypesEnum, AppearanceDefs, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
-	var SpiderMorphMob = angular.copy( Monster );
+angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTypesEnum, AppearanceDefs, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+	function SpiderMorphMob() {
+		this.init(this, arguments);
+	}
+	angular.extend(SpiderMorphMob.prototype, Monster.prototype);
 	//==============================;
 	// SPOIDAH HORDE COMBAT SHIZZLE HERE!;
 	//==============================;
@@ -82,14 +85,14 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( CockTypesEnum, Ap
 	};
 
 	SpiderMorphMob.prototype.defeated = function() {
-		CoC.getInstance().scenes.kihaFollower.beatSpiderMob();
+		SceneLib.kihaFollower.beatSpiderMob();
 	};
 	SpiderMorphMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );
 			EngineCore.doNext( Combat.endLustLoss );
 		} else {
-			CoC.getInstance().scenes.kihaFollower.loseToSpiderMob();
+			SceneLib.kihaFollower.loseToSpiderMob();
 		}
 	};
 	SpiderMorphMob.prototype.init = function(that, args) {
