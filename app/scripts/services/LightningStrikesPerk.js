@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('LightningStrikesPerk', function (PerkType, CoC) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
 		if(CoC.getInstance().player.spe >= 60) {
 			return '<b>Increases the attack damage for non-heavy weapons.</b>';

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('WizardsFocusPerk', function (PerkType) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function(params) {
 		return "Increases your spell effect modifier by " + params.value1 * 100 + "%.";
 	};

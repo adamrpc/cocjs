@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('PiercedCrimstonePerk', function (PerkType) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function(params) {
 		return "Increases minimum lust by " + Math.round(params.value1) + ".";
 	};

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('SluttySeductionPerk', function (PerkType) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function(params) {
 		return "Increases odds of successfully teasing and lust damage of successful teases by " + params.value1 + " points.";
 	};

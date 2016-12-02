@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('PiercedFertitePerk', function (PerkType) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function(params) {
 		return "Increases cum production by " + Math.round(2*params.value1) + "% and fertility by " + Math.round(params.value1) + ".";
 	};

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('cocjs').factory('CleansingPalmPerk', function (PerkType, CoC) {
-	var perk = angular.copy(PerkType);
+	function perk() {
+		this.init(this, arguments);
+	}
+	angular.extend(perk.prototype, PerkType.prototype);
 	perk.prototype.getDesc = function() {
 		if (CoC.getInstance().player.cor >= 10) {
 			return "<b>DISABLED</b> - Corruption too high!";
