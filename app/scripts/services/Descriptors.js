@@ -85,10 +85,14 @@ angular.module('cocjs').factory('Descriptors', function ( Appearance, CoC, Utils
 		CoC_Settings.error( 'ERROR called with no vaginas.' );
 		return 'ERROR called with no vaginas.';
 	};
-	Descriptors.cockDescript = CoC.player.cockDescript;
+	Descriptors.cockDescript = function( cockIndex ) {
+		CoC.player.cockDescript( cockIndex );
+	};
 	Descriptors.allBreastsDescript = function() {
 		return Appearance.allBreastsDescript( CoC.player );
 	};
-	Descriptors.breastDescript = CoC.player.breastDescript;
+	Descriptors.breastDescript = function( rowNum ) {
+		CoC.player.breastDescript( rowNum );
+	};
 	return Descriptors;
 });
