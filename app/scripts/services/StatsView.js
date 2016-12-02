@@ -6,13 +6,14 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 			return;
 		}
 		this.stats = {};
+		var that = this;
 		_.forEach([ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust', 'fatigue', 'HP', 'level', 'XP', 'coreStats', 'gems', 'time' ], function(statType) {
-			this.stats[statType] = {};
-			this.stats[statType].text = _.capitalize(statType);
-			this.stats[statType].num = -1;
-			this.stats[statType].bar = -1;
-			this.stats[statType].up = false;
-			this.stats[statType].down = false;
+			that.stats[statType] = {};
+			that.stats[statType].text = _.capitalize(statType);
+			that.stats[statType].num = -1;
+			that.stats[statType].bar = -1;
+			that.stats[statType].up = false;
+			that.stats[statType].down = false;
 		});
 	}
 	// <- statsScreenRefresh
