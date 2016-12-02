@@ -9,7 +9,7 @@ angular.module('cocjs').factory('StatusAffectType', function (CoC_Settings) {
 	
 	StatusAffectType.prototype.init = function(that, args) {
 		that._id = args[0];
-		if (STATUSAFFECT_LIBRARY[that._id] !== null) {
+		if (STATUSAFFECT_LIBRARY[that._id]) {
 			CoC_Settings.error('Duplicate status affect ' + that._id);
 		}
 		STATUSAFFECT_LIBRARY[that._id] = that;

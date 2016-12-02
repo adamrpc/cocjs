@@ -10,7 +10,7 @@ angular.module('cocjs').factory('PerkType', function (CoC_Settings) {
 		that.name = args[1];
 		that.desc = args[2];
 		that.longDesc = args[3] || that.desc;
-		if (PERK_LIBRARY[that.id] !== null) {
+		if (PERK_LIBRARY[that.id]) {
 			CoC_Settings.error("Duplicate perk id " + that.id + ", old perk is " + PERK_LIBRARY[that.id].name);
 		}
 		PERK_LIBRARY[that.id] = that;
