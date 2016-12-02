@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAGS, $showdown, Descriptors, Combat) {
+angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, kFLAGS, $showdown, Descriptors ) {
 	function Parser() {
 		this.init( this, arguments );
 	}
@@ -100,7 +100,6 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 		"sheath"					: function() { return CoC.player.sheathDescription(); },
 		"skin"						: function() { return CoC.player.skin(); },
 		"skinfurscales"				: function() { return CoC.player.skinFurScales(); },
-		"teasetext"					: function() { return Combat.teaseText(); },
 		"tongue"					: function() { return Descriptors.tongueDescript(); },
 		"vag"						: function() { return Descriptors.vaginaDescript(); },
 		"vagina"					: function() { return Descriptors.vaginaDescript(); },
@@ -1011,6 +1010,9 @@ angular.module( 'cocjs' ).factory( 'Parser', function(SceneLib, $log, CoC, kFLAG
 			return false;
 		}
 		return str === str.toUpperCase();
+	};
+	Parser.registerSingleArgConverters = function( name, callback ) {
+		Parser.singleArgConverters[name] = callback;
 	};
 	return Parser;
 });
