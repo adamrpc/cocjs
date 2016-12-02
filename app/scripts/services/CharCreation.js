@@ -2235,5 +2235,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.getInstance().player.gems += 300;
 		EngineCore.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
 	};
-	return new CharCreation();
+	var charCreationManager = new CharCreation();
+	MainView.registerCharCreation( charCreationManager );
+	return charCreationManager;
 } );
