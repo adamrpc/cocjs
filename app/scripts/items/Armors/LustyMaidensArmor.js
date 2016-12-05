@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 	angular.extend(LustyMaidensArmor.prototype, Armor.prototype);
 	LustyMaidensArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'LMArmor', 'LMArmor', 'lusty maiden\'s armor', 'a bikini-like set of armor that could only belong to a lusty maiden', 6, 400, 'This skimpy chain bikini barely qualifies as armor.  Indeed, the chain is made from links much finer and lighter than normal, so fine that it feels almost silken under your fingertips.  A simple seal in the g-string-like undergarment states, "Virgins only."', 'Light' ] );
+		that.classNames.push('LustyMaidensArmor');
 	};
 	LustyMaidensArmor.prototype.canUse = function() {
 		if( CoC.player.biggestTitSize() < AppearanceDefs.BREAST_CUP_A ) { //{No titties}

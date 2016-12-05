@@ -76,6 +76,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 	};
 	Marble.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Marble');
 		$log.debug( 'Marble Constructor!' );
 		that.a = '';
 		that.short = 'Marble';

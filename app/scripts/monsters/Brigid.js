@@ -64,6 +64,7 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appear
 	};
 	Brigid.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Brigid');
 		that.a = '';
 		that.short = 'Brigid the Jailer';
 		that.imageName = 'brigid';

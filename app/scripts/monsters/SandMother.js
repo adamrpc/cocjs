@@ -13,6 +13,7 @@ angular.module( 'cocjs' ).factory( 'SandMother', function( SceneLib, CoC, Utils,
 	};
 	SandMother.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SandMother');
 		that.a = 'the ';
 		that.short = 'Sand Mother';
 		that.imageName = 'sandmother';

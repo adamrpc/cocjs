@@ -257,6 +257,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC
 	};
 	Amily.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Amily');
 		that.a = '';
 		that.short = 'Amily';
 		that.imageName = 'amily';

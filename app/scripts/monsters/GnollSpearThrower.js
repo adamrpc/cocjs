@@ -371,6 +371,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 	};
 	GnollSpearThrower.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('GnollSpearThrower');
 		that.a = 'the ';
 		that.short = 'gnoll spear-thrower';
 		that.imageName = 'gnollspearthrower';

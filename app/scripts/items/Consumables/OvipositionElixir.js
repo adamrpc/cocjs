@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'OvipositionElixir', function( $log, Pregnanc
 	angular.extend(OvipositionElixir.prototype, Consumable.prototype);
 	OvipositionElixir.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'OviElix', 'Ovi Elixir', 'a hexagonal crystal bottle tagged with an image of an egg', 30, 'This hexagonal crystal bottle is filled with a strange green fluid.  A tag with a picture of an egg is tied to the neck of the bottle, indicating it is somehow connected to egg-laying.' ] );
+		that.classNames.push('OvipositionElixir');
 	};
 	OvipositionElixir.prototype.canUse = function() {
 		if( CoC.player.hasVagina() ) {

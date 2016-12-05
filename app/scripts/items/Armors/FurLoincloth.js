@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 	angular.extend(FurLoincloth.prototype, Armor.prototype);
 	FurLoincloth.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'FurLoin', 'FurLoin', 'revealing fur loincloths', 'a front and back set of loincloths', 0, 100, 'A pair of loincloths to cover your crotch and butt.  Typically worn by people named \'Conan\'.', 'Light' ] );
+		that.classNames.push('FurLoincloth');
 	};
 	return new Proxy( FurLoincloth, {
 		construct: function( target ) {

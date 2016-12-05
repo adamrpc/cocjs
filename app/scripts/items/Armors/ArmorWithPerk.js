@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'ArmorWithPerk', function( Armor, CoC ) {
 	angular.extend(ArmorWithPerk.prototype, Armor.prototype);
 	ArmorWithPerk.prototype.init = function( that, args ) {
 		Armor.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 2 ], args[ 3 ], args[ 4 ], args[ 5 ], args[ 6 ], args[ 7 ], args.length > 14 ? args[ 14 ] : false ] );
+		that.classNames.push('ArmorWithPerk');
 		that.playerPerk = args[ 8 ];
 		that.playerPerkV1 = args[ 9 ];
 		that.playerPerkV2 = args[ 10 ];

@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'BimboLiqueur', function( CockTypesEnum, CoC,
 	angular.extend(BimboLiqueur.prototype, Consumable.prototype);
 	BimboLiqueur.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'BimboLq', 'BimboLq', 'a potent bottle of \'Bimbo Liqueur\'', 1000, 'This small bottle of liqueur is labelled \'Bimbo Liqueur\'.  There\'s a HUGE warning label about the effects being strong and usually permanent, so you should handle this with care.' ] );
+		that.classNames.push('BimboLiqueur');
 	};
 	BimboLiqueur.prototype.canUse = function() {
 		if( CoC.player.findPerk( PerkLib.FutaForm ) < 0 ) {

@@ -159,6 +159,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 	};
 	Kiha.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Kiha');
 		that.a = '';
 		that.short = 'Kiha';
 		that.imageName = 'kiha';

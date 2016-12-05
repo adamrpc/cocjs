@@ -40,6 +40,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, EngineCore
 	};
 	LustyDemons.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('LustyDemons');
 		that.a = 'the ';
 		that.short = 'lusty demons';
 		that.imageName = 'demonmob';

@@ -19,6 +19,7 @@ angular.module( 'cocjs' ).factory( 'MaleSpiderMorph', function( SceneLib, Abstra
 	};
 	MaleSpiderMorph.prototype.init = function( that, args ) {
 		AbstractSpiderMorph.prototype.init( that, args );
+		that.classNames.push('MaleSpiderMorph');
 		that.a = 'the ';
 		that.short = 'male spider-morph';
 		that.imageName = 'malespidermorph';

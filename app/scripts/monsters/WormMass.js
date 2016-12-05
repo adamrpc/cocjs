@@ -24,6 +24,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	};
 	WormMass.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('WormMass');
 		$log.debug( 'WormMass Constructor!' );
 		that.a = 'the ';
 		that.short = 'worms';

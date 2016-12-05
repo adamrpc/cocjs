@@ -4,7 +4,11 @@ angular.module('cocjs').factory('Creature', function ($log, CoC, Utils, Ass, Coc
 	function Creature() {
 		this.init(this, arguments);
 	}
+	Creature.prototype.hasClassName = function(name) {
+		return _.find(that.classNames, name);
+	};
 	Creature.prototype.init = function(that) {
+		that.classNames = ['Creature'];
 		that.breastRows = [];
 		that.perks = [];
 		that.statusAffects = [];

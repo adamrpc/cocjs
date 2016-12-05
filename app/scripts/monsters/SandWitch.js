@@ -43,6 +43,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( SceneLib, $log, CoC, M
 	};
 	SandWitch.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SandWitch');
 		$log.debug( 'SandWitch Constructor!' );
 		that.a = 'the ';
 		that.short = 'sand witch';

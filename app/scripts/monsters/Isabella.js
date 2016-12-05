@@ -152,6 +152,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC,
 	};
 	Isabella.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Isabella');
 		that.a = '';
 		that.short = 'Isabella';
 		that.imageName = 'isabella';

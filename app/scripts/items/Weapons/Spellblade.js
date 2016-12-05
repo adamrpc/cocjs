@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'Spellblade', function( CoC, Weapon, PerkLib 
 	angular.extend(Spellblade.prototype, Weapon.prototype);
 	Spellblade.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'S.Blade', 'S.Blade', 'inscribed spellblade', 'a spellblade', 'slash', 8, 500, 'Forged not by a swordsmith but a sorceress, this arcane-infused blade amplifies your magic.  Unlike the wizard staves it is based on, this weapon also has a sharp edge, a technological innovation which has proven historically useful in battle.', 'Wizard\'s Focus' ] );
+		that.classNames.push('Spellblade');
 	};
 	Spellblade.prototype._superPlayerEquip = Spellblade.prototype.playerEquip;
 	Spellblade.prototype.playerEquip = function() {

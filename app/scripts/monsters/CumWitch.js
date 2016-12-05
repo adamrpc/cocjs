@@ -16,6 +16,7 @@ angular.module( 'cocjs' ).factory( 'CumWitch', function( SceneLib, CoC, Monster,
 	};
 	CumWitch.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('CumWitch');
 		that.a = 'the ';
 		that.short = 'Cum Witch';
 		that.imageName = 'cumwitch';

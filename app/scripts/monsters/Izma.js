@@ -149,6 +149,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 	};
 	Izma.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Izma');
 		that.a = '';
 		that.short = 'Izma';
 		that.imageName = 'izma';

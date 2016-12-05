@@ -34,6 +34,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, Status
 	};
 	SharkGirl.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SharkGirl');
 		$log.debug( 'SharkGirl Constructor!' );
 		that.a = 'the ';
 		that.short = 'shark-girl';

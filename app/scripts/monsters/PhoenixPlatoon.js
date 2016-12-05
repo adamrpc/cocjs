@@ -16,6 +16,7 @@ angular.module( 'cocjs' ).factory( 'PhoenixPlatoon', function( SceneLib, CoC, Ap
 	};
 	PhoenixPlatoon.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('PhoenixPlatoon');
 		that.a = 'the ';
 		that.short = 'phoenix platoon';
 		that.imageName = 'phoenixmob';

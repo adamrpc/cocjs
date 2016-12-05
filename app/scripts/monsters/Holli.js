@@ -223,6 +223,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	};
 	Holli.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Holli');
 		that.a = '';
 		that.short = 'Holli';
 		that.imageName = 'holli';

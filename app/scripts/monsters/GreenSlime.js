@@ -47,6 +47,7 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( $log, SceneLib, CoC, 
 	};
 	GreenSlime.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('GreenSlime');
 		$log.debug( 'GreenSlime Constructor!' );
 		that.a = 'a ';
 		that.short = 'green slime';

@@ -18,6 +18,7 @@ angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( SceneLib, Gobl
 	};
 	GoblinBroodmother.prototype.init = function( that ) {
 		Goblin.prototype.init( that, [ true ] );
+		that.classNames.push('GoblinBroodmother');
 		that.a = 'the ';
 		that.short = 'goblin broodmother';
 		that.imageName = 'goblin';

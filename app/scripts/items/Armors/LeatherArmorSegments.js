@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'LeatherArmorSegments', function( Armor, Engi
 	angular.extend(LeatherArmorSegments.prototype, Armor.prototype);
 	LeatherArmorSegments.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'UrtaLta', 'UrtaLta', 'leather armor segments', 'leather armor segments', 5, 76, null, 'Light', true ] );
+		that.classNames.push('LeatherArmorSegments');
 	};
 	LeatherArmorSegments.prototype.removeText = function() {
 		EngineCore.outputText( 'You have your old set of ' + ArmorLib.LEATHRA.longName + ' left over.  ' );

@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, 
 	angular.extend(Armor.prototype, Useable.prototype);
 	Armor.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 3 ], args.length > 5 ? args[ 5 ] : 0, args.length > 6 ? args[ 6 ] : null ] );
+		that.classNames.push('Armor');
 		that.name = args[ 2 ];
 		that.def = args[ 4 ];
 		that.perk = args.length > 7 ? args[ 7 ] : '';

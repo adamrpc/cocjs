@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'SluttySwimwear', function( CoC, ArmorWithPer
 	angular.extend(SluttySwimwear.prototype, ArmorWithPerk.prototype);
 	SluttySwimwear.prototype.init = function( that ) {
 		ArmorWithPerk.prototype.init( that, [ 'S.Swmwr', 'S.Swmwr', 'slutty swimwear', 'a skimpy black bikini', 0, 6, 'An impossibly skimpy black bikini. You feel dirty just looking at it... and a little aroused, actually.', 'Light', PerkLib.SluttySeduction, 6, 0, 0, 0, '', true ] );
+		that.classNames.push('SluttySwimwear');
 	};
 	SluttySwimwear.prototype.useText = function() { //Produces any text seen when equipping the armor normally
 		EngineCore.dynStats( 'lus', 5 );

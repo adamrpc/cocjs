@@ -113,6 +113,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Mo
 	};
 	SandTrap.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SandTrap');
 		//1/3 have fertilized eggs!
 		if( Utils.rand( 3 ) === 0 ) {
 			that.createStatusAffect( StatusAffects.Fertilized, 0, 0, 0, 0 );

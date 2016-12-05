@@ -128,6 +128,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, 
 	};
 	BeeGirl.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('BeeGirl');
 		that.a = 'a ';
 		that.short = 'bee-girl';
 		that.imageName = 'beegirl';

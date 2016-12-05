@@ -93,6 +93,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, Naga, CoC, Mons
 	};
 	Sirius.prototype.init = function( that ) {
 		Naga.prototype.init( that, [ true ] );
+		that.classNames.push('Sirius');
 		that.a = '';
 		that.short = 'Sirius, a naga hypnotist';
 		that.imageName = 'sirius';

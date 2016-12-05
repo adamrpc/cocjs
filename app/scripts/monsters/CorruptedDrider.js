@@ -170,6 +170,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 	};
 	CorruptedDrider.prototype.init = function(that, args) {
 		AbstractSpiderMorph.prototype.init(that, args);
+		that.classNames.push('CorruptedDrider');
 		var hairColor = Utils.randomChoice( 'red', 'orange', 'green' );
 		var skinTone = Utils.randomChoice( 'yellow', 'purple', 'red', 'turquoise' );
 		var pierced = Utils.rand( 2 ) === 0;

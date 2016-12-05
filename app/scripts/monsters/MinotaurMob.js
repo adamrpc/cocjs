@@ -155,6 +155,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, CoC, kFLAG
 	};
 	MinotaurMob.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('MinotaurMob');
 		that.a = 'the ';
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] < 20 ) {
 			that.short = 'minotaur gang';

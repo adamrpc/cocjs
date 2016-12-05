@@ -98,6 +98,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	};
 	TentacleBeast.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('TentacleBeast');
 		$log.debug( 'TentacleBeast Constructor!' );
 		that.a = 'the ';
 		that.short = 'tentacle beast';

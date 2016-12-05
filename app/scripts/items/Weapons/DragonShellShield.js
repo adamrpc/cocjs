@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'DragonShellShield', function( CoC, kFLAGS, W
 	angular.extend(DragonShellShield.prototype, Weapon.prototype);
 	DragonShellShield.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'DrgnShl', 'DrgnShl', 'dragon-shell shield', 'a dragon-shell shield', 'smack', 0, 1500, 'A durable shield that has been forged from the remains of the dragon egg you found in the swamp.  Absorbs any fluid attacks you can catch, rendering them useless.', 'Large' ] );
+		that.classNames.push('DragonShellShield');
 	};
 	DragonShellShield.prototype.useText = function() { //Produces any text seen when equipping the armor normally
 		if( CoC.flags[ kFLAGS.TIMES_EQUIPPED_EMBER_SHIELD ] === 0 ) {

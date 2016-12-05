@@ -16,6 +16,7 @@ angular.module( 'cocjs' ).factory( 'SandWitchMob', function( SceneLib, CoC, Util
 	};
 	SandWitchMob.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SandWitchMob');
 		that.a = 'the ';
 		that.short = 'sand witches';
 		that.imageName = 'sandwitchmob';

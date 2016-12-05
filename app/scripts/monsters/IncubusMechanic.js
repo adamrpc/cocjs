@@ -141,6 +141,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 	};
 	IncubusMechanic.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('IncubusMechanic');
 		that.a = 'the ';
 		that.short = 'incubus mechanic';
 		that.imageName = 'incubusmechanic';

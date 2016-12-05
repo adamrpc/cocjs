@@ -280,6 +280,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 	};
 	Sheila.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Sheila');
 		var sheilaDemon = CoC.flags[ kFLAGS.SHEILA_DEMON ] === 1;
 		that.a = '';
 		that.short = 'Sheila';

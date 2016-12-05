@@ -23,6 +23,7 @@ angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, CockTypesEnum, C
 	};
 	Zetaz.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Zetaz');
 		that.a = '';
 		that.short = 'Zetaz';
 		that.imageName = 'zetaz';

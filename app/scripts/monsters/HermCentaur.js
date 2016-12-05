@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, CockTypesE
 	angular.extend(HermCentaur.prototype, Monster.prototype);
 	HermCentaur.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('HermCentaur');
 		that._usedGottaCum = false;
 		that._usedHeal = false;
 		that._chargingArouse = false;

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC, StatusAffects, kFLAGS, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, Doppleganger, Clara, Basilisk, LivingStatue, JeanClaude, Minotaur, BeeGirl, Jojo, Harpy, Sophie, Ember, Kiha, Hel, Isabella, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
+angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC, StatusAffects, kFLAGS, Utils, EngineCore, ItemType, MainView, PerkLib, Descriptors, EventParser, ConsumableLib, WeaponLib, ArmorLib, OnLoadVariables, AppearanceDefs, ImageManager) {
 	var Combat = {};
 	Combat.endHpVictory = function() {
 		CoC.monster.defeated_(true);
@@ -351,7 +351,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			EngineCore.outputText("You shake your head and file your memories in the past, where they belong.  It's time to fight!\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.Confusion);
 			Combat.enemyAI();
-		} else if (CoC.monster instanceof Doppleganger) {
+		} else if (CoC.monster.handlePlayerWait) {
 			EngineCore.clearOutput();
 			EngineCore.outputText("You decide not to take any action this round.\n\n");
 			CoC.monster.handlePlayerWait();
@@ -741,11 +741,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
-		if(CoC.monster instanceof Basilisk) {
+		if(monster.hasClassName( 'Basilisk' )) {
 			//basilisk counter attack (block attack, significant speed loss): 
 			if(CoC.player.inte / 5 + Utils.rand(20) < 25) {
 				EngineCore.outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You find yourself staring directly into the basilisk's face!  Quickly you snap your eyes shut and recoil backwards, swinging madly at the lizard to force it back, but the damage has been done; you can see the terrible grey eyes behind your closed lids, and you feel a great weight settle on your bones as it becomes harder to move.", false);
-				Basilisk.basiliskSpeed(CoC.player,20);
+				SceneLib.basiliskScene.basiliskSpeed(CoC.player,20);
 				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 				Combat.combatRoundOver();
 				return;
@@ -905,7 +905,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}
 		}
 		// Have to put it before doDamage, because doDamage applies the change, as well as status effects and shit.
-		if (CoC.monster instanceof Doppleganger) {
+		if (CoC.monster.mirrorAttack) {
 			if (CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
 				if (damage > 0 && CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
 					damage *= 1.1;
@@ -990,7 +990,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 				}
 				//50% Bleed chance
 				if (CoC.player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.monster.armorDef < 10 && CoC.monster.findStatusAffect(StatusAffects.IzmaBleed) < 0) {
-					if (CoC.monster instanceof LivingStatue) {
+					if (monster.hasClassName( 'LivingStatue' )) {
 						EngineCore.outputText("Despite the rents you've torn in its stony exterior, the statue does not bleed.");
 					} else {
 						CoC.monster.createStatusAffect(StatusAffects.IzmaBleed,3,0,0,0);
@@ -1004,7 +1004,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}
 			
 		}
-		if (CoC.monster instanceof JeanClaude && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if (monster.hasClassName( 'JeanClaude' ) && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
 			if (CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 				// noop
 			}
@@ -1295,7 +1295,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 		if(monster.short === "tit-fucked Minotaur") {
 			itype = ConsumableLib.MINOCUM;
 		}
-		if((monster instanceof Minotaur) && monster.weaponName === "axe") {
+		if((monster.hasClassName( 'Minotaur' )) && monster.weaponName === "axe") {
 			if( Utils.rand(2) === 0) {
 				//50% breakage!
 				if( Utils.rand(2) === 0) {
@@ -1317,17 +1317,17 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 				itype = ConsumableLib.MINOBLO;
 			}
 		}
-		if(monster instanceof BeeGirl) {
+		if(monster.hasClassName( 'BeeGirl' )) {
 			//force honey drop if milked
 			if(CoC.flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] === 1) {
 				itype = Utils.randomChoice(ConsumableLib.BEEHONY, ConsumableLib.PURHONY);
 				CoC.flags[kFLAGS.FORCE_BEE_TO_PRODUCE_HONEY] = 0;
 			}
 		}
-		if(monster instanceof Jojo && SceneLib.jojoScene.monk > 4) {
+		if(monster.hasClassName( 'Jojo' ) && SceneLib.jojoScene.monk > 4) {
 			itype = Utils.randomChoice(ConsumableLib.INCUBID, ConsumableLib.INCUBID, ConsumableLib.B__BOOK, ConsumableLib.SUCMILK);
 		}
-		if(monster instanceof Harpy || monster instanceof Sophie) {
+		if(monster.hasClassName( 'Harpy' ) || monster.hasClassName( 'Sophie' )) {
 			if( Utils.rand(10) === 0) {
 				itype = ArmorLib.W_ROBES;
 			} else if( Utils.rand(3) === 0 && CoC.player.findPerk(PerkLib.LuststickAdapted) >= 0) {
@@ -1337,7 +1337,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}
 		}
 		//Chance of armor if at level 1 pierce fetish
-		if(!OnLoadVariables.plotFight && !(monster instanceof Ember) && !(monster instanceof Kiha) && !(monster instanceof Hel) && !(monster instanceof Isabella) && CoC.flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.player.hasItem(ArmorLib.SEDUCTA, 1) && !SceneLib.ceraphFollowerScene.ceraphIsFollower()) {
+		if(!OnLoadVariables.plotFight && !monster.hasClassName( 'Ember' ) && !monster.hasClassName( 'Kiha' ) && !monster.hasClassName( 'Hel' ) && !monster.hasClassName( 'Isabella' ) && CoC.flags[kFLAGS.PC_FETISH] === 1 && Utils.rand(10) === 0 && !CoC.player.hasItem(ArmorLib.SEDUCTA, 1) && !SceneLib.ceraphFollowerScene.ceraphIsFollower()) {
 			itype = ArmorLib.SEDUCTA;
 		}
 		if(!OnLoadVariables.plotFight && Utils.rand(200) === 0 && CoC.player.level >= 7) {
@@ -1484,7 +1484,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 		}
 		//Basilisk compulsion
 		if(CoC.player.findStatusAffect(StatusAffects.BasiliskCompulsion) >= 0) {
-			Basilisk.basiliskSpeed(CoC.player,15);
+			SceneLib.basiliskScene.basiliskSpeed(CoC.player,15);
 			//Continuing effect text: 
 			EngineCore.outputText("<b>You still feel the spell of those grey eyes, making your movements slow and difficult, the remembered words tempting you to look into its eyes again. You need to finish this fight as fast as your heavy limbs will allow.</b>\n\n", false);
 		}
@@ -1850,7 +1850,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}else if(CoC.monster.lust >= 90) { //(Enemy dangerously aroused)
 				EngineCore.outputText("You can see her thighs coated with clear fluids, the feathers matted and sticky as she struggles to contain her lust.", false);
 			}
-		} else if(CoC.monster instanceof Clara) {
+		} else if(CoC.monster.hasClassName( 'Clara' )) {
 			//Clara is becoming aroused
 			if(CoC.monster.lust > 40 && CoC.monster.lust <= 65) {
 				EngineCore.outputText("The anger in her motions is weakening.");
@@ -3562,9 +3562,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}
 			damage = (damage + Utils.rand(bonusDamage)) * CoC.monster.lustVuln;
 			
-			if (CoC.monster instanceof JeanClaude) {
+			if (CoC.monster.handleTease) {
 				CoC.monster.handleTease(damage, true);
-			} else if (CoC.monster instanceof Doppleganger && CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
+			} else if (CoC.monster.mirrorTease && CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
 				CoC.monster.mirrorTease(damage, true);
 			} else if (!justText) {
 				CoC.monster.teased(damage);
@@ -3587,9 +3587,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			if (!justText && !SceneLib.urtaQuest.isUrta()) {
 				Combat.teaseXP(5);
 			}
-			if (CoC.monster instanceof JeanClaude) {
+			if (CoC.monster.handleTease) {
 				CoC.monster.handleTease(0, false);
-			} else if (CoC.monster instanceof Doppleganger) {
+			} else if (CoC.monster.mirrorTease) {
 				CoC.monster.mirrorTease(0, false);
 			} else if (!justText) {
 				EngineCore.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " seems unimpressed.", false);
@@ -3958,7 +3958,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof JeanClaude) {
+		if (CoC.monster.hasClassName( 'JeanClaude' )) {
 			EngineCore.outputText("Jean-Claude howls, reeling backwards before turning back to you, rage clenching his dragon-like face and enflaming his eyes. Your spell seemed to cause him physical pain, but did nothing to blind his lidless sight.");
 			EngineCore.outputText("\n\n“<i>You think your hedge magic will work on me, intrus?</i>” he snarls. “<i>Here- let me show you how it’s really done.</i>” The light of anger in his eyes intensifies, burning a retina-frying white as it demands you stare into it...");
 			if ( Utils.rand(CoC.player.spe) >= 50 || Utils.rand(CoC.player.inte) >= 50) {
@@ -3980,7 +3980,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			return;
 		}
 		EngineCore.outputText("You glare at " + CoC.monster.a + CoC.monster.short + " and point at " + CoC.monster.pronoun2 + ".  A bright flash erupts before " + CoC.monster.pronoun2 + "!\n", true);
-		if (!(CoC.monster instanceof LivingStatue)) {
+		if (!CoC.monster.hasClassName( 'LivingStatue' )) {
 			if( Utils.rand(3) !== 0) {
 				EngineCore.outputText(" <b>" + CoC.monster.getCapitalA() + CoC.monster.short + " ", false);
 				if(CoC.monster.plural && CoC.monster.short !== "imp horde") {
@@ -4030,7 +4030,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof Doppleganger) {
+		if (CoC.monster.handleSpellResistance) {
 			CoC.monster.handleSpellResistance("whitefire");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4088,7 +4088,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 				return;
 			}
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("You thrust your palm forward, causing a blast of pure energy to slam against the giant stone statue- to no effect!");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4155,7 +4155,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("The fire courses over the stone behemoths skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
@@ -4432,7 +4432,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("Your fangs can't even penetrate the giant's flesh.");
 			Combat.enemyAI();
 			return;
@@ -4485,7 +4485,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("Your fangs can't even penetrate the giant's flesh.");
 			Combat.enemyAI();
 			return;
@@ -4547,7 +4547,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("There is nothing inside the golem to whisper to.");
 			EngineCore.changeFatigue(1);
 			Combat.enemyAI();
@@ -4621,7 +4621,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("The fire courses by the stone skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
@@ -4696,7 +4696,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof LivingStatue) {
+		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			EngineCore.outputText("The fire courses by the stone skin harmlessly. It does leave the surface of the statue glossier in its wake.");
 			Combat.enemyAI();
 			return;
@@ -4716,7 +4716,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			Combat.enemyAI();
 			return;
 		}
-		if (CoC.monster instanceof Doppleganger) {
+		if (CoC.monster.handleSpellResistance) {
 			CoC.monster.handleSpellResistance("fireball");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4903,7 +4903,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 		EngineCore.outputText("", true);
 		if(CoC.monster.short === "plain girl" || CoC.monster.findPerk(PerkLib.Incorporeality) >= 0) {
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself toward the opponent's frame.  Sadly, it was doomed to fail, as you bounce right off your foe's ghostly form.", false);
-		} else if (CoC.monster instanceof LivingStatue) {
+		} else if ( CoC.monster.hasClassName( 'LivingStatue' ) ) {
 			EngineCore.outputText("There is nothing to possess inside the golem.");
 		} else if((!CoC.monster.hasCock() && !CoC.monster.hasVagina()) || CoC.monster.lustVuln === 0 || CoC.monster.inte === 0 || CoC.monster.inte > 100) { //Sample possession text (>79 int, perhaps?):
 			EngineCore.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself into the opponent's frame.  Unfortunately, it seems ", false);

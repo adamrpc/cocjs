@@ -99,6 +99,7 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, 
 	};
 	Shouldra.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Shouldra');
 		that.a = 'the ';
 		that.short = 'plain girl';
 		that.imageName = 'shouldra';

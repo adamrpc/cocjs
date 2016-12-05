@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'InquisitorsRobes', function( ArmorWithPerk, 
 	angular.extend(InquisitorsRobes.prototype, ArmorWithPerk.prototype);
 	InquisitorsRobes.prototype.init = function( that ) {
 		ArmorWithPerk.prototype.init( that, [ 'I.Robes', 'I.Robes', 'inquisitor\'s robes', 'inquisitor\'s robes', 8, 2000, 'These foreboding red and gold robes are embroidered with the symbols of a lost kingdom.  Wearing them will cause spells to tax your health instead of exhausting you.', 'Light', PerkLib.BloodMage, 0, 0, 0, 0 ] );
+		that.classNames.push('InquisitorsRobes');
 	};
 	InquisitorsRobes.prototype.useText = function() {
 		EngineCore.outputText( 'You unfold the robes you received from the secret chamber in the swamp and inspect them.  They have not changed since the last time you saw them - perhaps the transformative magic promised in the letter has been exhausted.  Looking at the two separate parts to the outfit, it becomes clear that the mantle is constructed of a thicker fabric and is intended to be the primary protection of the outfit - what protection a robe can provide, at least.  The undershirt is made of a much lighter material, and you dare say that it could prove quite a classy number on its own.  You strip naked and then slip into the robe.\n\n' );

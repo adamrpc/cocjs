@@ -156,6 +156,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 	};
 	Tamani.prototype.init = function( that ) {
 		Goblin.prototype.init( that, [ false ] );
+		that.classNames.push('Tamani');
 		that.a = '';
 		that.short = 'Tamani';
 		that.imageName = 'tamani';

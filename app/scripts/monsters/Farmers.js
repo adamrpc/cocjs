@@ -18,6 +18,7 @@ angular.module( 'cocjs' ).factory( 'Farmers', function( SceneLib, CockTypesEnum,
 	};
 	Farmers.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Farmers');
 		that.a = 'the ';
 		that.short = 'farmers';
 		that.imageName = 'farmers';

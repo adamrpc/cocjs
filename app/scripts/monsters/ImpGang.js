@@ -10,6 +10,7 @@ angular.module( 'cocjs' ).factory( 'ImpGang', function( CockTypesEnum, Monster )
 	};
 	ImpGang.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('ImpGang');
 		that.removeStatuses();
 		that.removePerks();
 		that.removeCock( 0, that.cocks.length );

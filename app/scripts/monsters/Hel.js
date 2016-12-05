@@ -175,6 +175,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appe
 	};
 	Hel.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Hel');
 		if( CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_HER ] === 1 ) {
 			that.a = '';
 			that.short = 'Hel';

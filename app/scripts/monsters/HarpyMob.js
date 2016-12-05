@@ -16,6 +16,7 @@ angular.module( 'cocjs' ).factory( 'HarpyMob', function( SceneLib, CoC, Appearan
 	};
 	HarpyMob.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('HarpyMob');
 		that.a = 'the ';
 		that.short = 'harpy horde';
 		that.imageName = 'harpymob';

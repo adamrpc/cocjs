@@ -73,6 +73,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, SceneLib, CoC, kFLAG
 	};
 	Harpy.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Harpy');
 		if( args[ 0 ] ) {
 			return;
 		}

@@ -53,6 +53,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( SceneLib, $log, EventParser
 	};
 	Jojo.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Jojo');
 		$log.debug( 'Jojo Constructor!' );
 		that.a = '';
 		that.short = 'Jojo';

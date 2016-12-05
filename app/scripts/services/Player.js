@@ -8,6 +8,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 
 	Player.prototype.init = function( that, args ) {
 		Character.prototype.init( that, args );
+		that.classNames.push('Player');
 		//Item things
 		that.itemSlot1 = new ItemSlot();
 		that.itemSlot2 = new ItemSlot();

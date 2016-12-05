@@ -68,6 +68,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 	};
 	Anemone.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Anemone');
 		that.a = 'the ';
 		that.short = 'anemone';
 		that.imageName = 'anemone';

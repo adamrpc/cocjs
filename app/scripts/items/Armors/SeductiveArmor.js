@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'SeductiveArmor', function( SceneLib, ArmorLi
 	angular.extend(SeductiveArmor.prototype, Armor.prototype);
 	SeductiveArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'SeductA', 'SeductA', 'scandalously seductive armor', 'a set of scandalously seductive armor', 0, 1, 'A complete suit of scalemail shaped to hug tightly against every curve, it has a solid steel chest-plate with obscenely large nipples molded into it.  The armor does nothing to cover the backside, exposing the wearer\'s cheeks to the world.' ] );
+		that.classNames.push('SeductiveArmor');
 	};
 	SeductiveArmor.prototype.useText = function() {
 		if( !SceneLib.ceraphFollowerScene.ceraphIsFollower() ) {

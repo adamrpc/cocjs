@@ -7,6 +7,7 @@ angular.module('cocjs').factory('Useable', function ( CommonItem, CoC_Settings )
 	angular.extend(Useable.prototype, CommonItem.prototype);
 	Useable.prototype.init = function(that, args) {
 		CommonItem.prototype.init(that, args);
+		that.classNames.push('Useable');
 	};
 	Useable.prototype.canUse = function() { //If an item cannot be used it should provide some description of why not
 		return true;

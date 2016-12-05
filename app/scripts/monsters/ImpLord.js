@@ -59,6 +59,7 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, Imp, CockTypes
 	};
 	ImpLord.prototype.init = function( that, args ) {
 		Imp.prototype.init( that, args );
+		that.classNames.push('ImpLord');
 		that.a = 'the ';
 		that.short = 'imp lord';
 		that.imageName = 'implord';

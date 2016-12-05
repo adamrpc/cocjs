@@ -118,6 +118,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 	};
 	Satyr.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Satyr');
 		that.a = 'a ';
 		that.short = 'satyr';
 		that.imageName = 'satyr';

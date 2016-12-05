@@ -126,6 +126,7 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	};
 	Doppleganger.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Doppleganger');
 		that._roundCount = 0;
 		that.a = 'the ';
 		that.short = 'doppleganger';

@@ -193,6 +193,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, CoC, PerkLib, 
 	};
 	SandWitch.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('SandWitch');
 		if( Utils.rand( 3 ) !== 2 ) {
 			CoC.flags[ kFLAGS.redheadIsFuta ] = 1;
 		}

@@ -28,6 +28,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 	};
 	Minotaur.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Minotaur');
 		//Most times they dont have an axe
 		that.hasAxe = args[ 0 ] || Utils.rand( 3 ) === 0;
 		var furColor = Utils.randomChoice( 'black', 'brown' );

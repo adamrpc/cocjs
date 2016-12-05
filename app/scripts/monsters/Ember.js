@@ -146,6 +146,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, SceneLib, CockType
 	};
 	Ember.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Ember');
 		that.a = ' ';
 		that.short = 'Ember';
 		that.imageName = 'ember';

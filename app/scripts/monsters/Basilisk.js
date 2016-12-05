@@ -5,24 +5,6 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 		this.init(this, arguments);
 	}
 	angular.extend(Basilisk.prototype, Monster.prototype);
-	Basilisk.basiliskSpeed = function( player, amount ) {
-		if( amount === undefined ) {
-			amount = 0;
-		}
-		if( CoC.player.spe - amount < 1 ) {
-			amount = CoC.player.spe - 1;
-			if( amount < 0 ) {
-				amount = 0;
-			}
-		}
-		CoC.player.spe -= amount;
-		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
-			CoC.player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
-		} else {
-			CoC.player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
-		}
-		MainView.statsView.showStatDown( 'spe' );
-	};
 	//special 1: basilisk mental compulsion attack
 	//(Check vs. Intelligence/Sensitivity, loss = recurrent speed loss each
 	//round, one time lust increase):
@@ -33,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 			EngineCore.outputText( 'You can\'t help yourself... you glimpse the reptile\'s grey, slit eyes. You look away quickly, but you can picture them in your mind\'s eye, staring in at your thoughts, making you feel sluggish and unable to coordinate. Something about the helplessness of it feels so good... you can\'t banish the feeling that really, you want to look in the basilisk\'s eyes forever, for it to have total control over you.', false );
 			EngineCore.dynStats( 'lus', 3 );
 			//apply status here
-			Basilisk.basiliskSpeed( CoC.player, 20 );
+			SceneLib.basiliskScene.basiliskSpeed( CoC.player, 20 );
 			CoC.player.createStatusAffect( StatusAffects.BasiliskCompulsion, 0, 0, 0, 0 );
 		}
 		//Failure:
@@ -77,6 +59,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	};
 	Basilisk.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('Basilisk');
 		that.a = 'the ';
 		that.short = 'basilisk';
 		that.imageName = 'basilisk';

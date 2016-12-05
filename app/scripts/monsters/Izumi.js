@@ -8,6 +8,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	// Set trace outout for this classes' content.
 	Izumi.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Izumi');
 		that.a = '';
 		that.short = 'Izumi';
 		that.imageName = 'izumi';

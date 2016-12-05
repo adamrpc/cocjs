@@ -290,6 +290,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( $log, SceneLib, kFLAGS, P
 	};
 	Ceraph.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Ceraph');
 		$log.debug( 'Ceraph Constructor!' );
 		that.a = '';
 		that.short = 'Ceraph';

@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, SceneLib, Cons
 	angular.extend(KitsuneGift.prototype, Consumable.prototype);
 	KitsuneGift.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'KitGift', 'KitGift', 'a kitsune\'s gift', 0, 'A small square package given to you by a forest kitsune.  It is wrapped up in plain white paper and tied with a string.  Who knows what\'s inside?' ] );
+		that.classNames.push('KitsuneGift');
 	};
 	KitsuneGift.prototype.useItem = function() {
 		EngineCore.clearOutput();

@@ -130,6 +130,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 	};
 	Kelt.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Kelt');
 		var breakLevel2 = CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 2;
 		that.a = '';
 		that.short = 'Kelt';

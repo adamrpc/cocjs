@@ -109,6 +109,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 	];
 	ChameleonGirl.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('ChameleonGirl');
 		var skinToneAdj = Utils.randomChoice( SKIN_VARIATIONS );
 		that.a = 'the ';
 		that.short = 'chameleon girl';

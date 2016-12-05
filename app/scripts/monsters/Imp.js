@@ -74,10 +74,11 @@ angular.module( 'cocjs' ).factory( 'Imp', function( SceneLib, $log, CockTypesEnu
 		}
 	};
 	Imp.prototype.init = function( that, args ) {
+		Monster.prototype.init( that, args );
+		that.classNames.push('Imp');
 		if( args[ 0 ] ) {
 			return;
 		}
-		Monster.prototype.init( that, args );
 		$log.debug( 'Imp Constructor!' );
 		that.a = 'the ';
 		that.short = 'imp';

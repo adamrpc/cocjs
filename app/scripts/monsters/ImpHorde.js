@@ -22,6 +22,7 @@ angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, CoC, $log, Co
 	ImpHorde.prototype.init = function( that, args ) {
 		$log.debug( 'ImpHorde Constructor!' );
 		Monster.prototype.init( that, args );
+		that.classNames.push('ImpHorde');
 		that.a = 'the ';
 		that.short = 'imp horde';
 		that.imageName = 'impmob';

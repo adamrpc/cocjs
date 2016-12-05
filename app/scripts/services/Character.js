@@ -6,7 +6,8 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 	}
 	angular.extend(Character.prototype, Creature.prototype);
 	Character.prototype.init = function(that) {
-		Creature.prototype.init(this);
+		Creature.prototype.init(that);
+		that.classNames.push('Character');
 		that._femininity = 50;
 		//BEARDS! Not used anywhere right now but WHO WANTS A BEARD?
 		that.beardLength = 0;

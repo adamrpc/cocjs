@@ -97,6 +97,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 	};
 	SpiderMorphMob.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('SpiderMorphMob');
 		that.a = 'the ';
 		that.short = 'mob of spiders-morphs';
 		that.imageName = 'spidermorphmob';

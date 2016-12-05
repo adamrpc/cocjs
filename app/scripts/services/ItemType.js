@@ -8,6 +8,7 @@ angular.module('cocjs').factory('ItemType', function ( $log, CoC_Settings ) {
 	var ITEM_LIBRARY = {};
 	var ITEM_SHORT_LIBRARY = {};
 	ItemType.prototype.init = function(that, args) {
+		that.classNames = ['ItemType'];
 		that.id = args[0];
 		that.shortName = args.length > 1 && args[1] !== undefined ? args[1] : that.id;
 		that.longName = args.length > 2 && args[2] !== undefined ? args[2] : that.shortName;

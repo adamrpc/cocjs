@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( SceneLib, CoC, Utils, Co
 	angular.extend(GroPlus.prototype, Consumable.prototype);
 	GroPlus.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'GroPlus', 'GroPlus', 'a needle filled with Gro+', 50, 'This is a small needle with a reservoir full of blue liquid.  A faded label marks it as \'GroPlus\'.  Its purpose seems obvious.' ] );
+		that.classNames.push('GroPlus');
 	};
 	GroPlus.prototype.canUse = function() {
 		return true;

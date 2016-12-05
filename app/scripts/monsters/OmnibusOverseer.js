@@ -59,6 +59,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 	};
 	OmnibusOverseer.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('OmnibusOverseer');
 		that.a = 'the ';
 		that.short = 'Omnibus Overseer';
 		that.imageName = 'omnibusoverseer';

@@ -91,6 +91,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 	};
 	InfestedHellhound.prototype.init = function( that ) {
 		HellHound.prototype.init( that, [ true ] );
+		that.classNames.push('InfestedHellhound');
 		$log.debug( 'InfestedHellhound Constructor!' );
 		that.a = 'the ';
 		that.short = 'infested hellhound';

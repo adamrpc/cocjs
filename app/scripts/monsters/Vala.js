@@ -95,6 +95,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 	};
 	Vala.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('Vala');
 		that.a = '';
 		that.short = 'Vala';
 		that.imageName = 'vala';

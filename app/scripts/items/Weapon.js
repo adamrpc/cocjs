@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'Weapon', function( Useable, EngineCore ) {
 	angular.extend(Weapon.prototype, Useable.prototype);
 	Weapon.prototype.init = function( that, args ) {
 		Useable.prototype.init( that, [ args[ 0 ], args[ 1 ], args[ 3 ], args.length > 6 ? args[ 6 ] : 0, args.length > 7 ? args[ 7 ] : null ] );
+		that.classNames.push('Weapon');
 		that.name = args[ 2 ];
 		that.verb = args[ 4 ];
 		that.attack = args[ 5 ];

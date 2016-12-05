@@ -171,6 +171,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, SceneLib, Co
 	};
 	FetishCultist.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('FetishCultist');
 		$log.debug( 'FetishCultist Constructor!' );
 		that.a = 'the ';
 		that.short = 'fetish cultist';

@@ -91,6 +91,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, E
 	};
 	HellHound.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('HellHound');
 		if( !args[ 0 ] ) {
 			return;
 		}

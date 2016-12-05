@@ -84,6 +84,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 	};
 	MilkySuccubus.prototype.init = function( that, args ) {
 		AbstractSuccubus.prototype.init( that, args );
+		that.classNames.push('MilkySuccubus');
 		that.a = 'the ';
 		that.short = 'milky succubus';
 		that.imageName = 'milkysuccubus';

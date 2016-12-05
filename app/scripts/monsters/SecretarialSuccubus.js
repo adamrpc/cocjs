@@ -33,6 +33,7 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, Ab
 	};
 	SecretarialSuccubus.prototype.init = function( that, args ) {
 		AbstractSuccubus.prototype.init( that, args );
+		that.classNames.push('SecretarialSuccubus');
 		this.a = 'the ';
 		that.short = 'secretarial succubus';
 		that.imageName = 'secretarialsuccubus';

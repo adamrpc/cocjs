@@ -267,6 +267,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, $log, Harpy, Pe
 	};
 	Sophie.prototype.init = function( that ) {
 		Harpy.prototype.init( that, [ true ] );
+		that.classNames.push('Sophie');
 		$log.debug( 'Sophie Constructor!' );
 		that.a = '';
 		that.short = 'Sophie';

@@ -93,6 +93,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 	};
 	TamanisDaughters.prototype.init = function( that ) {
 		Goblin.prototype.init( that, [ true ] );
+		that.classNames.push('TamanisDaughters');
 		that.a = 'the group of ';
 		that.short = 'Tamani\'s daughters';
 		that.imageName = 'tamanisdaughters';

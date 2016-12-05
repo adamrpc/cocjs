@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'HairExtensionSerum', function( kFLAGS, CoC, 
 	angular.extend(HairExtensionSerum.prototype, Consumable.prototype);
 	HairExtensionSerum.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'ExtSerm', 'ExtSerm', 'a bottle of hair extension serum', 6, 'This is a bottle of foamy pink liquid, purported by the label to increase the speed at which the user\'s hair grows.' ] );
+		that.classNames.push('HairExtensionSerum');
 	};
 	HairExtensionSerum.prototype.canUse = function() {
 		if( CoC.flags[ kFLAGS.INCREASED_HAIR_GROWTH_SERUM_TIMES_APPLIED ] <= 2 ) {

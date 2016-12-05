@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'RizzaRoot', function( PerkLib, Utils, Simple
 	angular.extend(RizzaRoot.prototype, SimpleConsumable.prototype);
 	RizzaRoot.prototype.init = function( that ) {
 		SimpleConsumable.prototype.init( that, [ 'RizzaRt', 'Rizza Root', 'a tube of rizza root strands', that.rizzaRootEffect, 10, 'A small ceramic tube full of fine red root strands.  They smell something like citrus fruit.' ] );
+		that.classNames.push('RizzaRoot');
 	};
 	RizzaRoot.prototype.rizzaRootEffect = function( player ) {
 		EngineCore.clearOutput();

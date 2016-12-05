@@ -126,10 +126,11 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		}
 	};
 	GoblinAssassin.prototype.init = function( that, args ) {
+		Monster.prototype.init( that, args );
+		that.classNames.push('GoblinAssassin');
 		if( args[ 0 ] ) {
 			return;
 		}
-		Monster.prototype.init( that, args );
 		that.a = 'the ';
 		that.short = 'goblin assassin';
 		that.imageName = 'goblinassassin';

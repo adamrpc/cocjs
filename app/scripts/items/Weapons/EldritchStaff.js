@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'EldritchStaff', function( CoC, Weapon, Weapo
 	angular.extend(EldritchStaff.prototype, Weapon.prototype);
 	EldritchStaff.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'E.Staff', 'E.Staff', 'eldritch staff', 'an eldritch staff', 'thwack', 10, WeaponLib.DEFAULT_VALUE, 'This eldritch staff once belonged to the Harpy Queen, who was killed after her defeat at your hands.  It fairly sizzles with magical power.', 'Wizard\'s Focus' ] );
+		that.classNames.push('EldritchStaff');
 	};
 	EldritchStaff.prototype._superPlayerEquip = EldritchStaff.prototype.playerEquip;
 	EldritchStaff.prototype.playerEquip = function() {

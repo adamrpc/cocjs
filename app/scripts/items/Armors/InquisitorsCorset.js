@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'InquisitorsCorset', function( Armor, PerkLib
 	angular.extend(InquisitorsCorset.prototype, Armor.prototype);
 	InquisitorsCorset.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'I.Corst', 'I.Corst', 'inquisitor\'s corset', 'an inquisitor\'s corset', 4, 2000, 'This sexualized and feminine red and gold ensemble carries with it the hopes of a shamed sorcerer.  Wearing it will cause spells to tax your health instead of exhausting you.', 'Light' ] );
+		that.classNames.push('InquisitorsCorset');
 	};
 	InquisitorsCorset.prototype.useText = function() {
 		EngineCore.outputText( 'You remove the clothing you received from the underground chamber in the swamp.  The sexual nature of the clothing excites you a bit, as does the knowledge that it will be functional in combat.  You quickly disrobe, eager to try it on.\n\n' );

@@ -6,6 +6,7 @@ angular.module('cocjs').factory('KeyItemClass', function () {
 		this.init(this, arguments);
 	}
 	KeyItemClass.prototype.init = function(that, args) {
+		that.classNames = ['KeyItemClass'];
 		that.keyName = args.length > 0 ? args[0] : '';
 		that.value1 = args.length > 1 ? args[1] : 0;
 		that.value2 = args.length > 2 ? args[2] : 0;

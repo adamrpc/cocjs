@@ -29,6 +29,7 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, Appear
 	};
 	GooArmorMonster.prototype.init = function( that ) {
 		GooGirl.prototype.init( that, [ true ] );
+		that.classNames.push('GooArmorMonster');
 		that.a = 'a ';
 		that.short = 'Goo Armor';
 		that.imageName = 'gooarmor';

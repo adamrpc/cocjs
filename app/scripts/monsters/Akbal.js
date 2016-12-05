@@ -153,6 +153,7 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 	};
 	Akbal.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Akbal');
 		$log.debug( 'Akbal Constructor!' );
 		that.a = '';
 		that.short = 'Akbal';

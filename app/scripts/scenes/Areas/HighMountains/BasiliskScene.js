@@ -3,7 +3,24 @@
 angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView, EventParser ) {
 	function BasiliskScene() {
 	}
-
+	BasiliskScene.prototype.basiliskSpeed = function( player, amount ) {
+		if( amount === undefined ) {
+			amount = 0;
+		}
+		if( CoC.player.spe - amount < 1 ) {
+			amount = CoC.player.spe - 1;
+			if( amount < 0 ) {
+				amount = 0;
+			}
+		}
+		CoC.player.spe -= amount;
+		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+			CoC.player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
+		} else {
+			CoC.player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
+		}
+		MainView.statsView.showStatDown( 'spe' );
+	};
 	//Vars
 	//276 - Times Encountered
 	//Battle Consequences
@@ -25,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			EngineCore.outputText( 'Using every vestige of your willpower, you tear your gaze away from the terrible, paralyzing sight.  Panting and feeling groggy, you desperately hold the rock formation in the corner of your eye. A tall, thin bipedal shape disengages from the stone against which it had been camouflaging itself, and stalks predatorily towards you.  With small, quick glances you glean fleeting impressions of grey-green scales, a tightly muscled yellow underbelly, cruelly curved index claws, a whip like tail. The creature moves its snub head towards yours suddenly, trying to catch your gaze with its deadly grey eyes again.  You recoil and ready yourself to fight it as best you can.\n\n', false );
 			var basilisk = new Basilisk();
 			//(spd loss)
-			Basilisk.basiliskSpeed( CoC.player, 5 );
+			this.basiliskSpeed( CoC.player, 5 );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
 			Combat.startCombat( basilisk );
 		}

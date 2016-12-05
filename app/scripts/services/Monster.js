@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	angular.extend(Monster.prototype, Creature.prototype);
 	Monster.prototype.init = function( that, args ) {
 		Creature.prototype.init( that, args );
+		that.classNames.push('Monster');
 		that.bonusHP = 0;
 		that.long = null;
 		that.plural = false;

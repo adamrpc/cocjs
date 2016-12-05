@@ -119,6 +119,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 	};
 	MinotaurLord.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('MinotaurLord');
 		that.a = 'the ';
 		that.short = 'minotaur lord';
 		that.imageName = 'minotaurlord';

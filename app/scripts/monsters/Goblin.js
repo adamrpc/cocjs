@@ -129,10 +129,11 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		}
 	};
 	Goblin.prototype.init = function( that, args ) {
+		Monster.prototype.init( that, args );
+		that.classNames.push('Goblin');
 		if( args[ 0 ] ) {
 			return;
 		}
-		Monster.prototype.init( that, args );
 		that.a = 'the ';
 		that.short = 'goblin';
 		that.imageName = 'goblin';

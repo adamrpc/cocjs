@@ -50,6 +50,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, CockTypesEn
 	};
 	JeanClaude.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('JeanClaude');
 		that.a = '';
 		that.short = 'Jean-Claude';
 		that.imageName = 'jeanclaude';

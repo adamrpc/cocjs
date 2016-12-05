@@ -86,6 +86,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, M
 	};
 	DemonPack.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('DemonPack');
 		$log.debug( 'DemonPack Constructor!' );
 		that.a = 'the ';
 		that.short = 'demons';

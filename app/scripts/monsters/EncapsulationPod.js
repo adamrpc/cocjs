@@ -72,6 +72,7 @@ angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( SceneLib, Weigh
 	};
 	EncapsulationPod.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('EncapsulationPod');
 		that.a = 'the ';
 		that.short = 'pod';
 		that.imageName = 'pod';

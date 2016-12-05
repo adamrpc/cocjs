@@ -139,6 +139,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 	};
 	FetishZealot.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);
+		that.classNames.push('FetishZealot');
 		$log.debug( 'FetishZealot Constructor!' );
 		that.a = 'the ';
 		that.short = 'fetish zealot';

@@ -85,6 +85,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	};
 	Naga.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Naga');
 		if( args[ 0 ] ) {
 			return;
 		}

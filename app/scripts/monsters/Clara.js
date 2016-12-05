@@ -140,6 +140,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, Descriptors, $lo
 	};
 	Clara.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Clara');
 		$log.debug( 'Clara Constructor!' );
 		that.a = '';
 		that.short = 'Clara';

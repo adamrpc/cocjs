@@ -155,6 +155,7 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 	};
 	Helspawn.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Helspawn');
 		var weapon = CoC.flags[ kFLAGS.HELSPAWN_WEAPON ];
 		that.a = '';
 		that.short = CoC.flags[ kFLAGS.HELSPAWN_NAME ];

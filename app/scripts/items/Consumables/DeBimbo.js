@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 	angular.extend(DeBimbo.prototype, Consumable.prototype);
 	DeBimbo.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'Debimbo', 'Debimbo', 'a bottle marked as \'Debimbo\'', 250 ] );
+		that.classNames.push('DeBimbo');
 	};
 	DeBimbo.prototype.canUse = function() {
 		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {

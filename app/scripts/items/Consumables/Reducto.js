@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( SceneLib, CockTypesEnum,
 	angular.extend(Reducto.prototype, Consumable.prototype);
 	Reducto.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'Reducto', 'Reducto', 'a salve marked as \'Reducto\'', 30, 'This container full of paste can be used to shrink a body part down by a significant amount.' ] );
+		that.classNames.push('Reducto');
 	};
 	Reducto.prototype.canUse = function() {
 		return true;

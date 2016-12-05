@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCo
 	angular.extend(GooArmor.prototype, Armor.prototype);
 	GooArmor.prototype.init = function( that ) {
 		Armor.prototype.init( that, [ 'GooArmor', 'GooArmor', 'goo armor', 'Valeria, the goo-girl armor', 22, 1, 'This shining suit of platemail is more than just platemail - it houses the goo-girl, Valeria!  Together, they provide one tough defense, but you had better be okay with having goo handling your junk while you fight if you wear this!' ] );
+		that.classNames.push('GooArmor');
 	};
 	GooArmor.prototype.useText = function() { //Produces any text seen when equipping the armor normally
 		EngineCore.outputText( 'With an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );

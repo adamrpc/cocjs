@@ -7,6 +7,7 @@ angular.module( 'cocjs' ).factory( 'JeweledRapier', function( CoC, Weapon, kFLAG
 	angular.extend(JeweledRapier.prototype, Weapon.prototype);
 	JeweledRapier.prototype.init = function( that ) {
 		Weapon.prototype.init( that, [ 'JRapier', 'JRapier', 'jeweled rapier', 'a jeweled rapier', 'slash', 13, 1400, 'This jeweled rapier is ancient but untarnished.  The hilt is wonderfully made, and fits your hand like a tailored glove.  The blade is shiny and perfectly designed for stabbing.' ] );
+		that.classNames.push('JeweledRapier');
 	};
 	return new Proxy( JeweledRapier, {
 		construct: function( target ) {

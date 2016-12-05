@@ -247,6 +247,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 	};
 	Phouka.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('Phouka');
 		that.a = 'the ';
 		that.short = args[0];
 		that.long = 'The ' + that.short + ' is flying around near you, waiting for an opening.  He has the general appearance of a faerie, though he is slightly larger and his skin and wings are coal black.  A large cock stands erect between his legs.  His cat-like green eyes, filled with lust, follow your every motion.';

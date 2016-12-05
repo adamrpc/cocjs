@@ -170,6 +170,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCor
 	};
 	GooGirl.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('GooGirl');
 		if( !args[ 0 ] ) {
 			return;
 		}

@@ -8,6 +8,7 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 	angular.extend(PhoukaWhiskey.prototype, Consumable.prototype);
 	PhoukaWhiskey.prototype.init = function( that ) {
 		Consumable.prototype.init( that, [ 'P_Whsky', 'Ph. Whiskey', 'a small bottle of whiskey', 20, 'A small, corked glass bottle with a dark amber liquid inside.  The whiskey smells strongly of peat.' ] );
+		that.classNames.push('PhoukaWhiskey');
 	};
 	PhoukaWhiskey.prototype.canUse = function() {
 		switch( this.phoukaWhiskeyAcceptable( CoC.player ) ) {

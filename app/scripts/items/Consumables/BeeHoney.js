@@ -24,6 +24,7 @@ angular.module( 'cocjs' ).factory( 'BeeHoney', function( CockTypesEnum, CoC, Sta
 			honeyValue = (args[ 0 ] ? PURE_HONEY_VALUE : 6);
 		}
 		Consumable.prototype.init( that, [ honeyName, honeyName, honeyLong, honeyValue, honeyDesc ] );
+		that.classNames.push('BeeHoney');
 	};
 	BeeHoney.prototype.canUse = function() {
 		if( this.value === SPECIAL_HONEY_VALUE && CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) { //Exgartuan doesn't like the special honey

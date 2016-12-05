@@ -80,6 +80,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ap
 	};
 	AbstractSuccubus.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
+		that.classNames.push('AbstractSuccubus');
 	};
 	AbstractSuccubus.prototype.kissAttack = function() {
 		//[Kiss of Death Text];
