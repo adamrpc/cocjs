@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, EventParser, PregnancyStore, kFLAGS, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, PregnancyStore, kFLAGS, Combat ) {
 	function Oasis() { }
 	Oasis.prototype.oasisEncounter = function() {
 		EngineCore.spriteSelect( 46 );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, ConsumableLib, StatusAffects, Appearance, Utils, EventParser, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, ConsumableLib, StatusAffects, Appearance, Utils, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function FarmCorruption() {
 		this.slotNames = [
 			'collarbone',

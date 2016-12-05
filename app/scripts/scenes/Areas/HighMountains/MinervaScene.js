@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, EventParser, Minerva ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, Minerva ) {
 	function MinervaScene() {
 	}
 

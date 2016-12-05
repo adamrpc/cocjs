@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, EventParser, Combat, HellHound, PregnancyStore, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, Combat, HellHound, PregnancyStore, CockTypesEnum ) {
 	function HellHoundScene() {
 	}
 

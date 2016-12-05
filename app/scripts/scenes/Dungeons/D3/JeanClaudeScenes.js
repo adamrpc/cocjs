@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
 	function JeanClaudeScenes() {
 	}
 

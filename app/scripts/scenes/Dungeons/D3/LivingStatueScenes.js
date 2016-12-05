@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, EventParser, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, CoC, EngineCore ) {
 	function LivingStatueScenes() {
 	}
 

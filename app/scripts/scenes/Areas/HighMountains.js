@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, EventParser, ConsumableLib, Combat, Harpy ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, ConsumableLib, Combat, Harpy ) {
 	function HighMountains() {
 	}
 	//Explore High Mountain

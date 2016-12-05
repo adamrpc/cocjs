@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAffects, Combat, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, EventParser, kFLAGS) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAffects, Combat, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, kFLAGS) {
 	function TentacleBeastScene() {
 	}
 

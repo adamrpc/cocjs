@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
 	function KitsuneScene() {
 	}
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTypesEnum, ImageManager, PregnancyStore, StatusAffects, Utils, EventParser, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, CockTypesEnum, ImageManager, PregnancyStore, StatusAffects, Utils, Descriptors, CoC, EngineCore ) {
 	function KeltScene() {
 	}
 

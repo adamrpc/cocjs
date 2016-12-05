@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Farm() {
 	}
 

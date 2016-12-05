@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, StatusAffects, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function MilkWaifu() {
 	}

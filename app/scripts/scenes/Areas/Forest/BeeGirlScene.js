@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
 	function BeeGirlScene() {
 	}
 

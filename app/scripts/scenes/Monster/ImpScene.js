@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, EventParser, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function ImpScene() {
 	}
 

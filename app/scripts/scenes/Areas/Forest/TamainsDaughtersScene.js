@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
 	function TamainsDaughtersScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );

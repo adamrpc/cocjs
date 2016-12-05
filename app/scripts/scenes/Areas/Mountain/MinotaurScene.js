@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, EventParser, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
 	function MinotaurScene() {
 	}
 

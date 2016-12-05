@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, EventParser, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, CoC, EngineCore ) {
 	function SuccubusGardenerScenes() {
 	}
 

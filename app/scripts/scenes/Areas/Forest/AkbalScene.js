@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, PerkLib, ImageManager, Akbal, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, PerkLib, ImageManager, Akbal, CockTypesEnum ) {
 	function AkbalScene() {
 	}
 

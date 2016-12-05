@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, CoC, EngineCore ) {
 	function BrigidScene() {
 	}
 

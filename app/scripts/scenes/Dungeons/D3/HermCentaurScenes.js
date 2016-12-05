@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, kFLAGS, CoC, EngineCore ) {
 	function HermCentaurScenes() {
 	}
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
 	function SandWitchScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
