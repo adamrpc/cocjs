@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, UsableLib ) {
+angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, ChainedDrop, Combat, ConsumableLib, UsableLib ) {
 	function GreenSlime() {
 		this.init(this, arguments);
 	}

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function( EngineCore, SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'Parser', function( MainView, EngineCore, Combat, SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
 	function Parser() {
 		this.init( this, arguments );
 	}
@@ -47,6 +47,7 @@ angular.module( 'cocjs' ).factory( 'Parser', function( EngineCore, SceneLib, $lo
 		// already handled in the various *Descript() functions.
 		// no need to duplicate them.
 		// Note: all key strings MUST be ENTIRELY lowercase.
+		"teasetext"					: function() { return Combat.teaseText(); },
 		"agility"					: function() { return "[Agility]"; },
 		"armor"						: function() { return CoC.player.armorName;},
 		"armorname"					: function() { return CoC.player.armorName;},
@@ -1010,5 +1011,6 @@ angular.module( 'cocjs' ).factory( 'Parser', function( EngineCore, SceneLib, $lo
 	Parser.registerSingleArgConverters = function( name, callback ) {
 		Parser.singleArgConverters[name] = callback;
 	};
+	MainView.registerParser(Parser);
 	return Parser;
 });

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Amily', function( EventParser, SceneLib, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore, PerkLib ) {
 	function Amily() {
 		this.init(this, arguments);
 	}

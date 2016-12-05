@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib, kFLAGS, PerkLib, EventParser, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib, kFLAGS, PerkLib, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Ceraph() {
 		this.init(this, arguments);
 	}

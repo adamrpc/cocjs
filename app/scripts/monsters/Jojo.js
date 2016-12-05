@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, EventParser, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
 	function Jojo() {
 		this.init(this, arguments);
 	}

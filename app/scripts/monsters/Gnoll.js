@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, EventParser, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
 	function Gnoll() {
 		this.init(this, arguments);
 	}

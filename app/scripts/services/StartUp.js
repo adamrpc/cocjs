@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, EventParser, ImageManager, InputManager) {
+angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, ImageManager, InputManager) {
 	var StartUp = {};
 	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {

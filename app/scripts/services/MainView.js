@@ -9,9 +9,9 @@
  ****/
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MainView', function(EngineCore, Parser, Combat, OnLoadVariables, SceneLib, $log, kFLAGS, CoC, StatsView, Appearance, Perk, PerkLib) {
+angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneLib, $log, kFLAGS, CoC, StatsView, Appearance, Perk, PerkLib) {
 	var BOTTOM_BUTTON_COUNT = 10;
-    var parser = new Parser( );
+    var parser = null;
 	var sprites = [
 		'0-akbal.png',
 		'100-rubi_horns.png',
@@ -374,13 +374,12 @@ angular.module( 'cocjs' ).factory( 'MainView', function(EngineCore, Parser, Comb
 		MainView.hideMenuButton( MainView.MENU_PERKS );
 		MainView.hideMenuButton( MainView.MENU_STATS );
 	};
+	MainView.registerParser = function( _parser ) {
+		parser = _parser;
+	};
 	MainView.outputText = function( output, purgeText, parseAsMarkdown ) {
 		// we have to purge the output text BEFORE calling parseText, because if there are scene commands in
 		// the parsed text, parseText() will write directly to the output
-
-		// This is cleaup in case someone hits the Data or new-game button when the event-test window is shown.
-		// It\'s needed since those buttons are available even when in the event-tester
-		MainView.hideTestInputPanel();
 		if( purgeText ) {
 			MainView.clearOutput();
 		}
@@ -392,6 +391,10 @@ angular.module( 'cocjs' ).factory( 'MainView', function(EngineCore, Parser, Comb
 			CoC.currentText += output;
 		}
 	};
+	var combatMenuCallback = null;
+	MainView.registerCombatMenu = function( _combatMenuCallback ) {
+		combatMenuCallback = _combatMenuCallback;
+	};
 	MainView.playerMenu = function() {
 		if( !CoC.isInCombat() ) {
 			MainView.spriteSelect( -1 );
@@ -399,7 +402,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function(EngineCore, Parser, Comb
 		MainView.resetNewGameButton();
 		MainView.nameBox.visible = false;
 		if( CoC.gameState === 1 || CoC.gameState === 2 ) {
-			Combat.combatMenu();
+			combatMenuCallback();
 			return;
 		}
 		//Clear restriction on item overlaps if not in combat
