@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, CockTypesEnum, StatusAffects, AppearanceDefs, EventParser, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockTypesEnum, StatusAffects, AppearanceDefs, EventParser, kFLAGS, Utils, Descriptors, CoC, EngineCore ) {
 	function Dominika() {
 	}
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, CumWitch, Combat, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, MainView, CumWitch, Combat, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonSandWitch() {
 	}
 
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		//[END];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -1 );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 		CoC.player.HP = CoC.player.maxHP();
 	};
 	//Female;
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nYou wander around the desert for a while, muttering an introduction of who you are and what you want to do.  Then, you see a figure walking along the dunes. Okay, time to show them your stuff.  Getting to the figure, you announce yourself:' );
 		EngineCore.outputText( '\n\n"<i>Excuse me, I\'m a sand witch, may I cast a spell on you?</i>"' );
 		CoC.player.HP = CoC.player.maxHP();
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//*Membered Folks Get Milked;
 	DungeonSandWitch.prototype.memeberedFolksFindTrueWuv = function() {
@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		EngineCore.outputText( '\n\nEventually, she\'s deemed purified enough to traverse the caves on her own, and though Ophelia does not lactate, the sisters make great use of her fluids.  Your monstrous lover spends most of her time with you, however.  Your adventure ended, but you found a love who genuinely treasures you and ensures that you get to experience dozens of orgasms an hour for days at a time...' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 5 );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//PC Wins;
 	DungeonSandWitch.prototype.yoYouBeatUpSomeSandWitchesYOUMONSTER = function() {
@@ -996,7 +996,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 
 		EngineCore.outputText( '\n\nYou swallow a creamy batch of her spunk and cup her heavy balls.  They\'ve grown a little since you moved in, you suppose to keep up with your voracious appetite for her seed, but your black lover doesn\'t seem to mind.  If anything, she seems quite happy to have you between her knees while she\'s studying her spells.  You can focus on swallowing her cum until you\'re full, and she gets the motivation she needs to properly develop her magics.  Why, just last week she learned how to make her jizz taste like chocolate - that was a great week!' );
 		EngineCore.outputText( '\n\nStill, as you massage her quaking testes and drink down her delicious jism, you have to think, "<i>Life is good.</i>"' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//*Male Loss - Turned Into Cum Pump;
 	DungeonSandWitch.prototype.cumWitchCumPumpBadEnd = function() {
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 			EngineCore.outputText( 'rescuing' );
 		}
 		EngineCore.outputText( ' Marae.  Their abilities, numbers, and familiarity at dealing with demons lend them great success at battling Lethice\'s growing hordes, and within the span of another decade, the demons are exterminated.  The witches are hailed as saviors, and young females of all races seek to join them.  You, of course, inseminate all of them.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//*Repeat Desert Loss Male;
 	DungeonSandWitch.prototype.repeatLoseToCumWitchForDudes = function() {
@@ -3310,7 +3310,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		}
 		EngineCore.outputText( 'n the bloodiest battle ever to take place on Mareth, the demons were defeated, wiped from the world in a blaze of white fire.  In the years that followed, the covens worked to undo all that had been wronged in the world.  Many demons remained, but their influence was on the wane.  The world moved on, and those that remained wisely hid.' );
 		EngineCore.outputText( '\n\nThe sand witches turned the deserts into a jungle paradise, and though they lacked the taint of corruption, they never stopped their policies of aggressively bringing in blood.  Many were brainwashed into service, like the champion, but peace was brought to Mareth.  The unanswered question... is a world ruled by lusty milk witches any better than the corrupt one that preceded it?' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//*Lose Female Loss;
 	//>Get turned into sand witch.;
@@ -3441,7 +3441,7 @@ angular.module( 'cocjs' ).run( function( SandMother, PregnancyStore, MainView, C
 		}
 		EngineCore.outputText( 'n the bloodiest battle ever to take place on Mareth, the demons were defeated, wiped from the world in a blaze of white fire.  In the years that followed, the covens worked to undo all that had been wronged in the world. Many demons remained, but their influence was on the wane.  The world moved on, and those that remained wisely hid.' );
 		EngineCore.outputText( '\n\nThe sand witches turned the deserts into a jungle paradise, and though they lacked the taint of corruption, they never stopped their policies of aggressively bringing in new blood.  Many were brainwashed into service, like the champion, but peace was brought to Mareth.  The unanswered question remains: is a world ruled by lusty milk witches any better than the \'corrupt\' one that preceded it?' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 
 	//Friendly Options;

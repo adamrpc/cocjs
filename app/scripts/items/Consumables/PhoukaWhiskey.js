@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, PregnancyStore, kFLAGS, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, StatusAffects, PregnancyStore, kFLAGS, CoC, Utils, Consumable, EngineCore ) {
 	function PhoukaWhiskey() {
 		this.init(this, arguments);
 	}
@@ -143,5 +143,5 @@ angular.module( 'cocjs' ).factory( 'PhoukaWhiskey', function( StatusAffects, Pre
 		}
 		EngineCore.statScreenRefresh();
 	};
-	return PhoukaWhiskey;
+	ConsumableLib.registerConsumable( 'P_WHSKY', new PhoukaWhiskey() );
 } );

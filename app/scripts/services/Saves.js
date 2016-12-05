@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log, CoC, Utils, CockTypesEnum, EngineCore, MainView, EventParser, kFLAGS, Player, ItemType, WeaponLib, ArmorLib, AppearanceDefs, InputManager, OnLoadVariables ) {
+angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $rootScope, $log, CoC, Utils, CockTypesEnum, EngineCore, MainView, EventParser, kFLAGS, Player, ItemType, WeaponLib, ArmorLib, AppearanceDefs, InputManager, OnLoadVariables ) {
 	var SAVE_FILE_CURRENT_INTEGER_FORMAT_VERSION = 816;
 	//Didn't want to include something like this, but an integer is safer than depending on the text version number from the CoC class.
 	//Also, this way the save file version doesn't need updating unless an important structural change happens in the save file.
-	function Saves( gameStateDirectGet, gameStateDirectSet ) {
+	function Saves() {
 		this.saveFileNames = [ 'CoC_1', 'CoC_2', 'CoC_3', 'CoC_4', 'CoC_5', 'CoC_6', 'CoC_7', 'CoC_8', 'CoC_9' ];
 		this.versionProperties = [ 'legacy', '0.8.3f7', '0.8.3f8', '0.8.4.3', 'latest' ];
 		this.savedGameDir = 'data/com.fenoxo.coc';
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 			EngineCore.addButton( 1, 'Load', this.loadScreen );
 			EngineCore.addButton( 2, '', null ); // TODO : Save to file
 			EngineCore.addButton( 3, 'Delete', this.deleteScreen );
-			EngineCore.addButton( 4, 'Back', EventParser.gameOver, true );
+			EngineCore.addButton( 4, 'Back', EngineCore.gameOver, true );
 			return;
 		}
 		if( CoC.player.str === 0 ) {

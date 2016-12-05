@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PlayerEvents', function(SceneLib, $rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum ) {
+angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, $rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
 		$rootScope.$on('time-change', this.timeChange);

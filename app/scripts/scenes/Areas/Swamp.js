@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCore, EventParser ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils, EngineCore ) {
 	function Swamp() {
 	}
 

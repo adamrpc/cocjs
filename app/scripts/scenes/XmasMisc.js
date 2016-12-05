@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EventParser, AppearanceDefs, ConsumableLib, CockTypesEnum, OnLoadVariables, Utils, Descriptors, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, ConsumableLib, CockTypesEnum, OnLoadVariables, Utils, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function XmasMisc() {
 	}
 

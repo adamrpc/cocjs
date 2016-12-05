@@ -134,14 +134,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 				EngineCore.outputText( '\n\nYou don\'t go soft after you finish squirting. You don\'t even get to catch your breath. The orange channel might be holding still as it digests your load, but your dick' + ((CoC.player.cocks.length > 1) ? 's are' : ' is') + ' still getting more sensitive. You don\'t even need motion for the clutching walls to arouse you any more, and once it starts moving... you\'re not sure you\'ll be able to handle it.' );
 				EngineCore.outputText( '\n\nA few seconds later, you find out that you can\'t handle it when the tentacle strokes you. The wave of skittering, electric pleasure overloads your mind, and breakers for your consciousness shut it down while your dick' + ((CoC.player.cocks.length > 1) ? 's throb' : 'throbs') + ', loving every moment of it.' );
 				EngineCore.outputText( '\n\nSometime later, you come to in between orgasms, surrounded in green, but there is so much sensory data coming from your crotch that your eyes might as well be blind by comparison. You marvel at this new life and wonder if you\'ll ever tire of admiring the texture of these walls. The next orgasm blasts those thoughts away, answering the question for you. Raw, unfiltered pleasure. That\'s what matters to you now.' );
-				EventParser.gameOver();
+				EngineCore.gameOver();
 			}
 		}
 	};
 	SuccubusGardenerScenes.prototype.tentaFailII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '\n\nYou\'re held captive, overwhelmed by your own senses, and brought to nirvana ceaselessly. The demons never even try to free your fate, held captive as you are by one of the eldest tentacle beasts. You spend the rest of your life feeding it, incapable of focusing on anything but your own feelings of ecstasy.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.endHer = function() {
 		EngineCore.clearOutput();
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		}
 		EngineCore.outputText( ' You\'re a fountain of wetness now, fit only for cumming and taking cum in. The thought triggers a second orgasm on the back of the first while the spent tentacle exits.' );
 		EngineCore.outputText( '\n\nAnother, larger tentacle takes its place, sealing most of the first\'s load inside. There\'s no waiting, only fucking and climbing to one orgasm after another. The space between climaxes narrows with each one until your world becomes a constant, irresistible tide of bliss.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.maleLoss = function( hpVictory ) {
 		EngineCore.clearOutput();
@@ -491,7 +491,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 	SuccubusGardenerScenes.prototype.maleLossPetIII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The champion, more canine than [man], became little more than one mutt among many that the demons had tamed, used for everything from breeding to hunting escaped slaves, and ' + CoC.player.mf( 'he', 'she' ) + ' loved it, delighted in it even. Eventually, ' + CoC.player.mf( 'his', 'her' ) + ' owner bred her numerous times, creating a bloodline of strong, loyal servants that eventually helped keep all of Mareth under the demon\'s heels.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.maleLossFeeder = function() {
 		EngineCore.clearOutput();
@@ -623,7 +623,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		}
 		EngineCore.outputText( '\n\nThoughts of escape float away on the tides of pleasure washing over you. Your other thoughts and worries aren\'t far behind either. The corruptive elements and ceaseless orgasms see to it that you don\'t bother trying to think or worry ever again. Luckily, the human brain is an adaptive thing, and parts that once handled things like math or reading restructure to handle the additional input from your nervous system. The longer you stay there, the better it feels.' );
 		EngineCore.outputText( '\n\nYou never want to leave. In fact, you never want again.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SceneLib.registerScene( 'succubusGardenerScenes', new SuccubusGardenerScenes() );
 } );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, kFLAGS, EventParser, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kFLAGS, Utils, PerkLib, ConsumableLib, AppearanceDefs, CoC, EngineCore ) {
 	function Thanksgiving() {
 	}
 

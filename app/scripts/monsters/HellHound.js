@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'HellHound', function( $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, PerkLib, WeightedDrop, AppearanceDefs, StatusAffects, EventParser, Combat, ConsumableLib ) {
 	function HellHound() {
 		this.init(this, arguments);
 	}

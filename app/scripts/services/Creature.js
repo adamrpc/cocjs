@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Creature', function ($log, CoC, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
+angular.module('cocjs').factory('Creature', function (StatusAffect, $log, CoC, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
 	function Creature() {
 		this.init(this, arguments);
 	}
 	Creature.prototype.hasClassName = function(name) {
-		return _.find(that.classNames, name);
+		return _.find(this.classNames, name);
 	};
 	Creature.prototype.init = function(that) {
 		that.classNames = ['Creature'];

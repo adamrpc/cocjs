@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	//Izma the Tigershark.;
 	//Credits: Jokester, Quiet Browser, LukaDoc and Bob.;
@@ -774,7 +774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, PregnancyStore, Izma, C
 		EngineCore.outputText( '"<i>Ah well, those are concerns for a later date.  Come on, sweetheart,</i>" Izma says, turning and opening her skirt to reveal the familiar sight of her throbbing erection.  You grin and bend yourself over a nearby rock, lifting your own striped shark tail up.  She grunts and buries her fat cock into your asshole, making you gasp loudly; you start to moan and push back against her from the pleasure.\n\n', false );
 		EngineCore.outputText( 'Izma seems to pause for a moment, distracted by something; you whine slightly in protest.  "<i>Shut up for a second,</i>" she orders.  You turn your head and narrow your eyes in a bid to see what Izma is looking at, and eventually pick out a figure drawing closer along the sands.  A human girl, from what you can see.  The sight manages to bring back a few memories of a more confused time, before you met your alpha. Izma grins at the sight and licks her lips.  "<i>Well, wouldja look at that.  Hm... I suppose I could do with a harem...</i>"', false );
 		//GAME OVERYUUUUU;
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 
 	//[Victory rape-use penus];

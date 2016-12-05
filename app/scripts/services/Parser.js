@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function( SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'Parser', function( EngineCore, SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
 	function Parser() {
 		this.init( this, arguments );
 	}

@@ -13,12 +13,12 @@ angular.module('cocjs').factory('WeaponLib', function ( Weapon ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
 					}
-					if(_.has(armors, name) ) {
+					if(_.has(weapons, name) ) {
 						return weapons[ name ];
 					}
 					return target[ name ];
 				},
-				set: function( target, name, value ) {
+				set: function() {
 					return;
 				}
 			} );

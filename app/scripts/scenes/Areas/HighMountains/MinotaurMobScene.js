@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, AppearanceDefs, Appearance, PerkLib, EventParser ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, AppearanceDefs, Appearance, PerkLib ) {
 	//Vars:
 	//325 Times met
 	//326 Number of sons grown
@@ -1292,7 +1292,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MinotaurMob
 		EngineCore.outputText( 'He\'s pulled back and replaced, and you wonder which of your boys is getting sloppy seconds.  Who cares, as long as you get to feel him cum in you until you go dizzy!', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 100, 'sen', 100 );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 
 	//[Discipline Eldest]

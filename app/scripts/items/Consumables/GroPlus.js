@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GroPlus', function( SceneLib, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Consumable, EngineCore ) {
 	function GroPlus() {
 		this.init(this, arguments);
 	}
@@ -119,5 +119,5 @@ angular.module( 'cocjs' ).factory( 'GroPlus', function( SceneLib, CoC, Utils, Co
 		EngineCore.outputText( 'You put the vial away.\n\n' );
 		SceneLib.inventory.returnItemToInventory( this );
 	};
-	return GroPlus;
+	ConsumableLib.registerConsumable( 'GROPLUS', new GroPlus() );
 } );

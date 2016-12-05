@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'RizzaRoot', function( PerkLib, Utils, SimpleConsumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, PerkLib, Utils, SimpleConsumable, EngineCore ) {
 	function RizzaRoot() {
 		this.init(this, arguments);
 	}
@@ -53,5 +53,5 @@ angular.module( 'cocjs' ).factory( 'RizzaRoot', function( PerkLib, Utils, Simple
 			EngineCore.outputText( '\n\nYou don’t feel anything happening along your spine.  Perhaps this is as tall as the rizza root can make you.' );
 		}
 	};
-	return RizzaRoot;
+	ConsumableLib.registerConsumable( 'RIZZART', new RizzaRoot() );
 } );

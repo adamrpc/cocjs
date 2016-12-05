@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				EngineCore.outputText( 'The desire for more of the drugs battles with your need to fuck and be fucked, until a small functioning part of your brain realizes it\'ll be easier to get sex than to get more of the drug.  You pull free and throw yourself into the mass of sweaty bodies, losing yourself in the salty tang of sweat and sex, pleasing nipples, clits, and cocks with your hands, and giving and receiving as much pleasure as you can.  You\'re in heaven.  Vaguely you realize time is passing, but it is a secondary concern next to the idea of having another groin-soaking orgasm.   You fuck and suck until you pass out from delirium.\n\n' );
 				//GAME OVERZZ;
 				EngineCore.outputText( 'In time you wake, your body aching both from the exertion and a desire for more.  On one hand you had a mission here, but why fight and struggle with danger and loneliness when you could be high on sex and cumming near-constantly?  You cuddle up to an exhausted girl and decide to wait for the drug-mistresses to give you another turn in the pile.  One of them turns, as if noticing your train of thought, and wheels over a breast-pump.  She hooks it up to your still-leaking nipples and you moo with happiness.  She grins, promising another dose to you if you are a good cow for her.' );
-				EventParser.gameOver();
+				EngineCore.gameOver();
 				return;
 			}
 		}
@@ -927,7 +927,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 
 		EngineCore.outputText( '<b>This kind of treatment continues for a few days, until sucking, fucking and getting fucked is the only thing you desire. As your mind is now broken, injections are no longer necessary to keep you in a perfect pleasure state. After a month, they even untie you, since you are now their complete cum-puppet, eager only to please and obey.</b>', false );
 		//The style on this part wasn't up to par with the rest, so I rewrote some of it, while keeping the meaning;
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.succubusTalkOne = function() {
 		EngineCore.spriteSelect( 55 );
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 || CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
 			EngineCore.outputText( '  With Marble here too, you\'ll be around for a long time.' );
 		}
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.succubusLossRape = function() {
 		EngineCore.spriteSelect( 55 );
@@ -2161,7 +2161,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 			EngineCore.outputText( 'I want you to stay here and cum \'til morning.  My pet needs lots of nutrition to recharge, and I have plans for new ways to teach you to obey tomorrow.</i>"\n\n', false );
 			EngineCore.outputText( 'Happy to have such a wonderful task, you spend the next day being bathed in drugged aphrodisiacs, cumming over and over and over.  Every morning the creature flashes you into obedience while the voice teaches you more and more about how to think.  After a week you\'re the perfect pet.  By the end of your first month of servitude, any memories of your past life are gone.  You spend the rest of your days feeding your mistress and her pet, and helping her refine and breed her pets in order to teach others the way.', false );
-			EventParser.gameOver();
+			EngineCore.gameOver();
 			return;
 		}
 		//Dick version;
@@ -2213,7 +2213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.outputText( 'Your mistress pats your head and whispers commands in your ear while the now-sated slave-making creature devours your cum, turning it into more \'reward\'.  You don\'t pay attention to her words, what\'s important is serving mistress and cumming for your panty-toy as often as possible.  You don\'t need to worry, she will tell you what to think.  She\'s just so perfect and amazing, you don\'t know why anyone would want to harm her or her wonderful creations.  \'Gods it feels good to obey\' is the last thought your mind ever thinks for itself.\n\n', false );
 			EngineCore.outputText( 'In the days to come, you spend your time being teased by your new mistress until you feel as if you\'ll burst, then being brought to sudden explosive orgasms that fill your panty-prison to capacity.  After every session you black out, but each time you mind less and less.  You wanted to be here, having these wonderful orgasms and obeying your beautiful mistress.\n\n', false );
 			EngineCore.outputText( 'After a month she starts letting you live without your favorite panties.  You beg her to put them back on you, but she often makes you crawl around the factory, pooling pre-cum everywhere from your swollen prick as you beg her to be put back into the pleasure-panties.  Sometimes, if you\'re lucky, she\'ll fuck you, or send you out to catch another adventurer.  There is nothing you love more than cumming into your tentacle-panties while another one of your mistress\' creations teaches a slut how to embrace her true nature.', false );
-			EventParser.gameOver();
+			EngineCore.gameOver();
 			return;
 		}
 		//(Female) ;
@@ -2276,7 +2276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.outputText( 'You blink a few times, and sit up, finding yourself back in the chair.  Your pink panty-creature has closed back up, trapping the demon\'s cum inside you.  The corrupted seed is so potent you can actually feel it tainting your body further as it spreads into your core.  You stretch languidly as you try to recover from the best orgasm of your life.  Perhaps you can escape?  No, you can\'t leave, the panties are already massaging your aching cunt and toying with your still-hard ' + Descriptors.clitDescript() + '.  You squirm as it affects you, ramping your body\'s desires back up to the max.  Maybe if you take a load in the front AND back at the same time it\'ll sate the creature long enough for you to escape....\n\n', false );
 			EngineCore.outputText( 'You set off into the factory, looking for the Omnibus and an Incubus to help.\n\n', false );
 			EngineCore.outputText( '<b>One month later:</b>\nYou lick the demonic jism from your lips and stretch, happy your mistress provided you with your fifth orgasm of the morning.  Normally she only lets her favorite slut get her off three or four times before lunch.  You squirm as your panties go to work, taking you back to that wonderful plateau of pleasure that only your masters and mistresses can bring you down from.  Thinking back, this really is the best way for things to end.  You thank your mistress and ask if you can see if any of the imps want to knock you up again.  She smiles condescendingly and nods, making your cunt squeeze with happiness.  Imps have such great cum!', false );
-			EventParser.gameOver();
+			EngineCore.gameOver();
 			return;
 		}
 	};
@@ -2451,7 +2451,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		} else {
 			EngineCore.outputText( 'As a demon, you rapidly moved up the ranks, eventually taking command of the factory and its inhabitants.  The previous commander was reduced to a willing cock-sleeve, ever-eager to obey your slightest order.  By the time the next year has come around, you\'ve managed to earn the coveted honor of collecting the next champion. It should be quite satisfying...', false );
 		}
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.takeSupervisorsKey = function() {
 		EngineCore.clearOutput();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EventParser, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function Giacomo() {
 		this.checkedSuccubi = 0;
 		$rootScope.$on( 'time-change', this.timeChange );
@@ -688,7 +688,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Descriptors, CoC,
 				}
 				EngineCore.outputText( '  As the reality soaks in, you feel a sharp pain in your stomach and your cock. You NEED to feed. Cum, milk, it doesn\'t matter. Likewise, your dick is hard and you need to cum. Despite your need, you cannot bring yourself to masturbate. You want ANOTHER\'S attention.\n\n', false );
 				EngineCore.outputText( 'Without further acknowledgement, you take up your on your demonic wings to find your first "meal". The Succubus left behind simply giggles as she sees another of her kind take up the night in search for more meals and pleasure.', false );
-				EventParser.gameOver();
+				EngineCore.gameOver();
 				return;
 			} else {
 				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00111 ]++;

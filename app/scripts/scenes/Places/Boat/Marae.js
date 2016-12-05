@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Appearance, ConsumableLib, CockTypesEnum, ImageManager, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, ConsumableLib, CockTypesEnum, ImageManager, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Marae() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -201,7 +201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Appearance, Cons
 		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
 			EngineCore.outputText( '\n\nOn the shore, Marble looks out on the lake, wondering what happened to the one whom she loved.', false );
 		}
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	Marae.prototype.maraeStealLethicite = function() {
 		EngineCore.spriteSelect( 40 );

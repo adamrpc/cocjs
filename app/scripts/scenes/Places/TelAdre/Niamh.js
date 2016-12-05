@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EventParser, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );

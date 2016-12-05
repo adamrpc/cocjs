@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, WeaponLib, PregnancyStore, CockTypesEnum, Combat, Ember, PerkLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, PregnancyStore, CockTypesEnum, Combat, Ember, PerkLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//import flash.media.Video;;
 	//Tainted Ember;
 	//Link: Tainted Ember;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib, CockTypesEnum, PregnancyStore, Descriptors, Combat, EventParser, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, IncubusMechanic, PerkLib, CockTypesEnum, PregnancyStore, Descriptors, Combat, kFLAGS, CoC, EngineCore ) {
 	function IncubusMechanicScenes() {
 	}
 
@@ -579,7 +579,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 	IncubusMechanicScenes.prototype.maleLossToMechanicIII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The champion finally got to cum once Lethice had her turn, but by that point, pussy was all ' + CoC.player.mf( 'he', 'she' ) + ' could think about. Release came more frequently with the demon queen\'s permission. It didn\'t really matter, though. The champion was addicted to riding on the edge of climax, broken into nothing more than a demonic vibrator.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 
 	IncubusMechanicScenes.prototype.errybodyelseLossToMechanic = function( hpVictory ) {
@@ -677,7 +677,7 @@ angular.module( 'cocjs' ).run( function( StatusAffects, IncubusMechanic, PerkLib
 		EngineCore.outputText( '\n\n"<i>Gonna cum!</i>" the mechanic announces as he ruts against your [face].' );
 		EngineCore.outputText( '\n\nYou suck harder, [legs] quivering from how hard you\'re trying to squeeze your button, and feel a sudden warmth explode in the back of your throat. It pours a thick, rich load of cum into your belly\'s wanton stomach. You can feel its corruptive influence acting on you already, helping you come to terms with your new station. Your tongue worships the underside of his knot, the tip tickling his quaking, emptying balls. This is your place after all, to pleasure with your mouth and drip with your cunt, always horny and willing, always delirious with the pleasant, corrupted buzz of an insatiable need.' );
 		EngineCore.outputText( '\n\nYou\'ll do anything to keep yourself pleasantly slick for your masters. You don\'t even protest when the plug is forced back into your mouth and hooked to a nutrient solution.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SceneLib.registerScene( 'incubusMechanicScenes', new IncubusMechanicScenes() );
 } );

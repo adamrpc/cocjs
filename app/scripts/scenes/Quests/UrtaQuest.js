@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, EventParser, ItemSlot, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, GnollSpearThrower, MinotaurLord, MilkySuccubus, ItemSlot, AppearanceDefs, CockTypesEnum, StatusAffects, Player, PerkLib, ItemType, Combat, WeaponLib, ArmorLib, GoblinBroodmother, PregnancyStore, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function UrtaQuest() {
 		this.urtaQItems1 = new ItemSlot();
 		this.urtaQItems2 = new ItemSlot();

@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('cocjs').factory('PiercedCrimstonePerk', function (PerkType) {
-	function perk() {
+	function Perk() {
 		this.init(this, arguments);
 	}
-	angular.extend(perk.prototype, PerkType.prototype);
-	perk.prototype.getDesc = function(params) {
+	angular.extend(Perk.prototype, PerkType.prototype);
+	Perk.prototype.getDesc = function(params) {
 		return "Increases minimum lust by " + Math.round(params.value1) + ".";
 	};
-	perk.prototype.init = function(that) {
+	Perk.prototype.init = function(that) {
 		PerkType.prototype.init(that, ["Pierced: Crimstone", "Pierced: Crimstone", "You've been pierced with Crimstone and your lust seems to stay a bit higher than before."]);
 	};
-	return perk;
+	return Perk;
 });

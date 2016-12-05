@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Combat, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function CeraphFollowerScene() {
 	}
 

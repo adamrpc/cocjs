@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Anemone, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 	//Encountered via Boat (unless a new Under-Lake area is;
 	//unlocked);
 	//NPC details (proto-codex): Giant, colorful freshwater;

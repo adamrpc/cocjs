@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Reducto', function( SceneLib, CockTypesEnum, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum, CoC, Utils, Consumable, EngineCore ) {
 	function Reducto() {
 		this.init(this, arguments);
 	}
@@ -140,5 +140,5 @@ angular.module( 'cocjs' ).factory( 'Reducto', function( SceneLib, CockTypesEnum,
 		EngineCore.outputText( 'You put the salve away.\n\n' );
 		SceneLib.inventory.returnItemToInventory( this );
 	};
-	return Reducto;
+	ConsumableLib.registerConsumable( 'REDUCTO', new Reducto() );
 } );

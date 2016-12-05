@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 			EngineCore.outputText( '\n\n"<i>Not bad, old man,</i>" the jailer quips.  "<i>I didn\'t think you had that much life left in you.  Maybe I\'ll keep you with this woman for a while!</i>"  The salamander\'s eye hardens, but he says nothing; Brigid looks from him to you and Kiri, but you both assume expressions of studied incomprehension.  "<i>... Whatever.  You bitches get up; you\'ve had your turns and I\'ve got a lot more cunts to pack full.</i>"  She begins pulling Hel\'s chains free of the iron ring at the end of the table.' );
 			EngineCore.outputText( '\n\nKiri frowns unhappily as she slips your cock from her pussy, then kisses you.  "<i>Remember, [name]... just hold on!  And... save some of your seed for me!</i>"  She lingers for a while, looking in your eyes affectionately, but Brigid grabs her by the hair and, swearing filthily, pulls her away.  A sadistic-looking phoenix takes her place, straddling you and slipping your sore prick into her cunt... the last thing you manage to do before your head is filled with the agony and ecstasy of having your raw shaft ridden again right after orgasm is to wonder exactly how long salamander-harpy half-breeds gestate...' );
 			//[GAME THE FUCK OVER, SON; WHERE IS MY MONEY?];
-			EventParser.gameOver();
+			EngineCore.gameOver();
 		}
 		//(else if not visibly pregnant F or H);
 		else {
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, EventPar
 			}
 			EngineCore.outputText( '.  Brigid makes her way up the stairs, leaving you and the others at the mercy of the assorted horde.  The harpy rides your mouth greedily, knocking your head into the hard stone floor, and the last thing you can see around her feathery thighs before you slip into unconsciousness again is Kiri being pulled roughly from her resting place atop Hel by a mean-looking, wide-hipped harpy matron who takes her place, sitting sideways and drawing her talons sadistically across Hel\'s vulnerable chest to smear Kiri\'s seed around...' );
 			//[GAME OVER, MOTHERFUCKER];
-			EventParser.gameOver();
+			EngineCore.gameOver();
 		}
 	};
 	SceneLib.registerScene( 'brigidScene', new BrigidScene() );

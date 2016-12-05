@@ -9,8 +9,9 @@
  ****/
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, StatsView, Appearance, Perk, PerkLib) {
+angular.module( 'cocjs' ).factory( 'MainView', function(EngineCore, Parser, Combat, OnLoadVariables, SceneLib, $log, kFLAGS, CoC, StatsView, Appearance, Perk, PerkLib) {
 	var BOTTOM_BUTTON_COUNT = 10;
+    var parser = new Parser( );
 	var sprites = [
 		'0-akbal.png',
 		'100-rubi_horns.png',
@@ -351,9 +352,49 @@ angular.module( 'cocjs' ).factory( 'MainView', function($log, kFLAGS, CoC, Stats
 	MainView.resetNewGameButton = function( ) {
 		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', _charCreationManager.newGameGo );
 	};
+	MainView.spriteSelect = function( choice ) {
+		if(choice === undefined) {
+			choice = 0;
+		}
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
+			MainView.selectSprite( choice );
+		} else if( choice >= 0 ) {
+			$log.trace( 'hiding sprite because flags' );
+			MainView.selectSprite( -1 );
+		}
+	};
+	MainView.clearOutput = function() {
+		CoC.currentText = '';
+		MainView.clearOutputText();
+		if( CoC.gameState !== 3 ) {
+			MainView.hideMenuButton( MainView.MENU_DATA );
+		}
+		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
+		MainView.hideMenuButton( MainView.MENU_LEVEL );
+		MainView.hideMenuButton( MainView.MENU_PERKS );
+		MainView.hideMenuButton( MainView.MENU_STATS );
+	};
+	MainView.outputText = function( output, purgeText, parseAsMarkdown ) {
+		// we have to purge the output text BEFORE calling parseText, because if there are scene commands in
+		// the parsed text, parseText() will write directly to the output
+
+		// This is cleaup in case someone hits the Data or new-game button when the event-test window is shown.
+		// It\'s needed since those buttons are available even when in the event-tester
+		MainView.hideTestInputPanel();
+		if( purgeText ) {
+			MainView.clearOutput();
+		}
+		output = parser.recursiveParser( output, parseAsMarkdown );
+		//OUTPUT!
+		if( purgeText ) {
+			CoC.currentText = output;
+		} else {
+			CoC.currentText += output;
+		}
+	};
 	MainView.playerMenu = function() {
 		if( !CoC.isInCombat() ) {
-			EngineCore.spriteSelect( -1 );
+			MainView.spriteSelect( -1 );
 		}
 		MainView.resetNewGameButton();
 		MainView.nameBox.visible = false;

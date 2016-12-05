@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, SceneLib, ConsumableLib, UseableLib, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, UseableLib, Utils, Consumable, EngineCore ) {
 	function KitsuneGift() {
 		this.init(this, arguments);
 	}
@@ -107,5 +107,5 @@ angular.module( 'cocjs' ).factory( 'KitsuneGift', function( $log, SceneLib, Cons
 		}
 		return false; //Any other case does not have a sub-EngineCore.menu.
 	};
-	return KitsuneGift;
+	ConsumableLib.registerConsumable( 'KITGIFT', new KitsuneGift() );
 } );

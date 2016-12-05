@@ -909,7 +909,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 			EngineCore.addButton( 0, 'Izma', SceneLib.izmaScene.izmaFollowerMenu );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 2 ) {
-			EngineCore.addButton( 0, 'Izmael', EventParser.gameOver );
+			EngineCore.addButton( 0, 'Izmael', EngineCore.gameOver );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 1 ) {

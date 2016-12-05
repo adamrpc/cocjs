@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Combat, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieFollowerScene() {
 		this.eggColors = [
 			'Black',

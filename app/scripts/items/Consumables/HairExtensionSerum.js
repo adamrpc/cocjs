@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HairExtensionSerum', function( kFLAGS, CoC, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, kFLAGS, CoC, Consumable, EngineCore ) {
 	function HairExtensionSerum() {
 		this.init(this, arguments);
 	}
@@ -38,5 +38,5 @@ angular.module( 'cocjs' ).factory( 'HairExtensionSerum', function( kFLAGS, CoC, 
 		}
 		return false;
 	};
-	return HairExtensionSerum;
+	ConsumableLib.registerConsumable( 'EXTSERM', new HairExtensionSerum() );
 } );

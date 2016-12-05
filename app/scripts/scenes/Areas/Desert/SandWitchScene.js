@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( 'No sooner have you spoken than a huge torrent of milk spurts from each of your nipples. Between the sudden alleviation of your pain and the sensitivity of your nipples, you orgasm almost instantly with a huge groan of relief. When you can focus your eyes again, you see that the Sand Witch... your new Mistress... is bathing languidly in the basin, relaxing in a pool of your fresh breastmilk.\n\n' );
 			EngineCore.outputText( 'The dusky-skinned witch catches your eye and smiles, this time more warmly than before. "<i>See? You\'ll enjoy yourself more if you obey your Mistress. After all, I <b>ALWAYS</b> get what I want...</i>"\n\nAs much as you hate to admit it, you realize that she\'s right. You\'re trapped here on top of your bloated bust, at the mercy of this perverse spellcaster. She has all the time in the world to train you, and between the pain of overfilled breasts and the orgasmic joy of being drained, it won\'t take her long to turn you into a perfectly obedient, even eager, milk-slave...' );
 		}
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//Sandwitch gets raped
 	SandWitchScene.prototype.sandwitchRaped = function() {

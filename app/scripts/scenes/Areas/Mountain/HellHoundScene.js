@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		}
 		EngineCore.outputText( 'You feel inclined to agree at the wonderful feeling of your new body, and the incredible amount of power you feel rushing through you.  You move one of your hands so that you can play with both your dicks and your cunts, relishing in the feeling of them and the flames that lie within.  You gasp for a moment, and open your mouth as a rush of heat rises up from your chest and a burst of flame emerges from your mouth.\n\n', false );
 		EngineCore.outputText( 'A powerful demon steps out in front of you, and picks up the crystal.  You can feel a strong connection with him, and you know this is your master.  "<i>Well now, I think you need a new name now in commemoration of being the first three headed hellhound, and for being the one who will give me the world.</i>"  He unceremoniously puts the crystal in his mouth and swallows it.  "<i>Your new name is Cerberus, and you\'re my greatest pet.</i>"  He steps closer and looks into your center head\'s eyes for a moment.  "<i>That\'s much better than being a champion ever was, isn\'t it?</i>"  You can\'t help but eagerly nod in agreement.', false );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	HellHoundScene.prototype.hellHoundPropahRape = function() {
 		EngineCore.outputText( '', true );

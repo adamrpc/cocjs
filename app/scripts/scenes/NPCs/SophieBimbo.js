@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, ConsumableLib, Combat, PerkLib, Descriptors, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, ConsumableLib, Combat, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieBimbo() {
 		this.eggColors = [
 			'Black',

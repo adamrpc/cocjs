@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTypesEnum, PregnancyStore, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $log, CockTypesEnum, PregnancyStore, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function HolliScene() {
 	}
 
@@ -1535,7 +1535,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		EngineCore.outputText( '\n\nDazed, the brown-haired girl struggles to her feet, wobbling from the pounding her pelvis took.  "<i>Uh... you\'re welcome.  Happy to help resist the demons in... any way I can.</i>"  The silent figure\'s [cock smallest] twitches and pushes out one last drop of semen, and the girl looks at the shaft wistfully.  Shaking her head to break up her daydream, she dresses herself, picks up the staff, and collects several of the fruits, then makes her way into the world, disappearing into the ever-present red dust.' );
 		EngineCore.outputText( '\n\n"<i>Simple-minded fool,</i>" Holli spits at the distant, retreating back of the newest Champion, stroking the erect shaft of her partner.  "<i>I\'m eager to see where and when she will take root.  Though, I wonder if your seed will impregnate her before mine can absorb it all?</i>"' );
 		//--[Game Over], man! [Game Over]!--;
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	HolliScene.prototype.girlsGetANiceManToBadEnd = function() {
 		EngineCore.clearOutput();
@@ -1691,7 +1691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		EngineCore.outputText( '\n\n"<i>Oh, wow!</i>" the young man exclaims, gathering his clothes, staff, and some clean fruit.  "<i>You guys are amazing... thank you so much for everything.  When I beat the demons, I will be sure to come back here again!</i>"  With a wave, he sets off through the trees.' );
 		EngineCore.outputText( '\n\nHolli watches him until he\'s out of sight.  "<i>When something seems too good to be true... it probably is.  Stupid imbecile.</i>"  She turns to the figure in the tree, who is frowning deeply.  "<i>Oh my... I was just lying before, but <b>do</b> you actually like him?  Well, you\'ll meet him again - when he sprouts and joins with Marae\'s roots.  In the meanwhile, I\'m eager to see what the child of a pure human man and a once-human dryad like you will be.  I wonder if its tree will be more interesting than those of the imp- and beast-spawns you\'ve given birth to already?</i>"' );
 		//--Oh shit, it's already... [Game Over]--;
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	HolliScene.prototype.holliAndGenderlessSittingInATree = function() {
 		EngineCore.clearOutput();
@@ -1723,7 +1723,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Holli, PerkLib, $log, CockTyp
 		}
 		EngineCore.outputText( '...' );
 		//--Dante's Purgatorio is an epic poem about [Game Over]--;
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	HolliScene.prototype.amilyComesBack = function() {
 		EngineCore.clearOutput();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, EngineCore, kFLAGS, EventParser, Utils, AppearanceDefs, Combat, Imp, Goblin, ComsumableLib, Descriptors, Appearance, StatusAffects ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kFLAGS, Utils, AppearanceDefs, Combat, Imp, Goblin, ComsumableLib, Descriptors, Appearance, StatusAffects ) {
 	function Exploration() { }
 	Exploration.prototype.doExplore = function() {
 		if( CoC.player.explored === 0 ) {

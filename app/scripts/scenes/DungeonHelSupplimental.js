@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.outputText( '\n\nThe Harpy Queen stretches her wings wide as she steps away from Hel, now already being mounted by one of the Queen\'s daughters, and saunters over to you, salamander seed still freely leaking from her gaping egg-hole. She cups your cheek, sliding her long fingers across your sensitive, thoroughly drugged skin. Your entire body tingles as she smiles upon you, barely aware of the half-dozen sluts slurping at your spent seed as one of her daughters forces herself onto your enhanced member.' );
 		EngineCore.outputText( '\n\n"<i>You\'ve been a good stud since you came to me, [name],</i>" the Queen laughs airily, patting your swollen nuts.  "<i>The size of my brood has quadrupled since you and Hel \'volunteered\' to help us.  Mmm, a free Mareth will surely have you to thank for the army that will liberate it from the demons.  You might even be something of a hero, if you want. The Champion of Free Mareth, if you will.  That wouldn\'t be so bad, would it?  After all, that\'s why you came here...</i>"' );
 		EngineCore.outputText( '\n\nBefore you can respond, another orgasm washes over you, and a huge load of seed explodes into the thirty-first slut to claim your seed today.  Over her shoulders, you can see dozens more harpies, half of them your own spawn, waiting their turn.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//HARPY QUEEN -- PC VICTORIOUS;
 	DungeonHelSupplimental.prototype.harpyQueenDefeatedByPC = function() {

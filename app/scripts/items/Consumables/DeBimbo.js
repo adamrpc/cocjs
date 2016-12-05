@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Consumable, PerkLib, EngineCore ) {
 	function DeBimbo() {
 		this.init(this, arguments);
 	}
@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 		EngineCore.outputText( 'Well, time to see what this smelly, old rat was on about!  You pinch your nose and swallow the foul-tasting mixture with a grimace.  Oh, that\'s just <i>nasty!</i>  You drop the vial, which shatters on the ground, clutching at your head as a wave of nausea rolls over you.  Stumbling back against a rock for support, you close your eyes.  A constant, pounding ache throbs just behind your temples, and for once, you find yourself speechless.  A pained groan slips through your lips as thoughts and memories come rushing back.  One after another, threads of cognizant thought plow through the simple matrices of your bimbo mind, shredding and replacing them.' );
 		EngineCore.outputText( '\n\nYou... you were an air-headed ditz!  A vacuous, idiot-girl with nothing between her ears but hunger for dick and pleasure!  You shudder as your faculties return, the pain diminishing with each passing moment.' );
 	};
-	return new Proxy( DeBimbo, {
+	var DeBimboProxy = new Proxy( DeBimbo, {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
@@ -52,4 +52,5 @@ angular.module( 'cocjs' ).factory( 'DeBimbo', function( CoC, Consumable, PerkLib
 			} );
 		}
 	} );
+	ConsumableLib.registerConsumable( 'DEBIMBO', new DeBimboProxy() );
 } );

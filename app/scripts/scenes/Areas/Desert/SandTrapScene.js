@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandTrap ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, EventParser, PregnancyStore, kFLAGS, Combat, SandTrap ) {
 	function SandTrapScene() {
 	}
 
@@ -751,7 +751,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 		EngineCore.outputText( '.  But, of course, as a fresh dominant urge takes you and drags you reluctantly from your needy genitals, there is much still left to be done.' );
 		EngineCore.outputText( '\n\nYou spend the rest of your life fulfilling the duties of a Flytrap, leading unsuspecting wanderers of the desert into the grasp of the Sandtraps.  When times are lean you gladly submit to the Sandtraps yourself - gleefully allow them to pump your moist, obedient ass full of eggs.  They don\'t have to do that too often though, because you quickly become an absolute master at fooling travellers with your looks; able to sense what even the most cautious want to see and becoming it at the twitch of a wing, the ultimate desert mirage.  Before too long the air of Mareth\'s desert and plains become full of little Flytraps, their reaches treacherously pregnant with shifting Sandtraps, deadly even to the demons; you are joined by many others who willingly submit to the warm oil and the thoughts in the sky.  You have fulfilled your desztiny.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SceneLib.registerScene( 'sandTrapScene', new SandTrapScene() );
 } );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'BimboLiqueur', function( CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
 	function BimboLiqueur() {
 		this.init(this, arguments);
 	}
@@ -205,5 +205,5 @@ angular.module( 'cocjs' ).factory( 'BimboLiqueur', function( CockTypesEnum, CoC,
 		CoC.player.genderCheck();
 		return false;
 	};
-	return BimboLiqueur;
+	ConsumableLib.registerConsumable( 'BIMBOLQ', new BimboLiqueur() );
 } );

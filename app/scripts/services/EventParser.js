@@ -2,28 +2,7 @@
 
 angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
-	EventParser.gameOver = function( clear ) { //Leaves text on screen unless clear is set to true
-		if( clear ) {
-			EngineCore.clearOutput();
-		}
-		EngineCore.outputText( '\n\n<b>GAME OVER</b>' );
-		EngineCore.menu();
-		EngineCore.addButton( 0, 'Game Over', EventParser.gameOverMenuOverride );
-		EngineCore.addButton( 3, 'NewGamePlus', CharCreation.newGamePlus );
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
-			EngineCore.addButton( 4, 'Debug Cheat', MainView.playerMenu );
-		}
-		EventParser.gameOverMenuOverride();
-		CoC.setInCombat( false );
-		OnLoadVariables.dungeonLoc = 0; //Replaces inDungeon = false;
-	};
-	EventParser.gameOverMenuOverride = function() { //Game over event; override whatever the fuck has been done to the UI up to this point to force display of the data and new game buttons
-		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
-		MainView.showMenuButton( MainView.MENU_DATA );
-		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
-		MainView.hideMenuButton( MainView.MENU_LEVEL );
-		MainView.hideMenuButton( MainView.MENU_PERKS );
-	};
+
 	EventParser.getCurrentStackTrace = function() {
 		var tempError = new Error();
 		return tempError.getStackTrace();

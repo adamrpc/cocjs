@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('cocjs').factory('LightningStrikesPerk', function (PerkType, CoC) {
-	function perk() {
+	function Perk() {
 		this.init(this, arguments);
 	}
-	angular.extend(perk.prototype, PerkType.prototype);
-	perk.prototype.getDesc = function() {
+	angular.extend(Perk.prototype, PerkType.prototype);
+	Perk.prototype.getDesc = function() {
 		if(CoC.player.spe >= 60) {
 			return '<b>Increases the attack damage for non-heavy weapons.</b>';
 		}
 		return '<b>You are too slow to benefit from this perk.</b>';
 	};
-	perk.prototype.init = function(that) {
+	Perk.prototype.init = function(that) {
 		PerkType.prototype.init(that, ['Lightning Strikes', 'Lightning Strikes', '<b>You choose the "Lightning Strikes" perk, increasing the attack damage for non-heavy weapons.</b>']);
 	};
-	return perk;
+	return Perk;
 });

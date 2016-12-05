@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, Isabella, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	//Isabella Flags:;
 	//256	PC decided to approach Isabella's camp yet? 1;

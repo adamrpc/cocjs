@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character, ItemSlot, Pregnancy, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
+angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character, ItemSlot, ArmorLib, WeaponLib, PerkLib, AppearanceDefs, StatusAffects, EngineCore, MainView, CoC_Settings, CoC, kFLAGS, Utils, Appearance, Descriptors, ItemType ) {
 	function Player() {
 		this.init(this, arguments);
 	}

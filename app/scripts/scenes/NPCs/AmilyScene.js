@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Descriptors, PerkLib, UsableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Descriptors, PerkLib, UsableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 	/*Amily the Mousegirl Breeder
 	 * Plus human stuff
 	 =============================================

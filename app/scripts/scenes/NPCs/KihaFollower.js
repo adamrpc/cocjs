@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Kiha, SpiderMorphMob, ConsumableLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMob, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	function KihaFollower() {
 	}

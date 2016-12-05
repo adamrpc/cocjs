@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, EventPa
 	LivingStatueScenes.prototype.fuckinMarbleOP = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You slump to your knees, overwhelmed and unable to see the shadow of the falling hammer. Your last thoughts are of regret.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SceneLib.registerScene( 'livingStatueScenes', new LivingStatueScenes() );
 } );

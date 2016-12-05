@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '<b>Months later...</b>' );
 		EngineCore.outputText( '\n\nYou sigh as your latest litter of imps clamor around your nipples, hungry for their mother\'s milk.  They\'re such greedy, ceaselessly ravenous creatures.  Having their clutching mouths on your nipples all the time makes it so hard to sleep, and it doesn\'t help that the \'father\' insists on rutting with you and knotting you for hours until she\'s \'sure\' your pregnant.' );
 		EngineCore.outputText( '\n\nThe rest of your days are lived out like that, interrupted only for fresh injections of demonic chemicals and thick centaur-cum.  Amazingly, the demon\'s experiments bear fruit, and you have the honor of birthing the first true demon offspring - the first of many.  Though you\'re eventually traded to a new owner once you\'re well used and other sluts have been similar prepared, you keep a sense of a perverse pride through it all.  You were the first demon mother.  You helped the new species propagate and assure their dominance over lesser forms of life, like yourself.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	HermCentaurScenes.prototype.maleLoss = function( hpVictory ) {
 		EngineCore.clearOutput();
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 	HermCentaurScenes.prototype.maleLossII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'As the years roll by, you see lots of pussy, and lots of injections.  They test all kinds of cocktails on you.  Ones that makes your balls swell, or your seed runny, or thick, or even black.  Eventually, one of your children comes out as something other than an imp.  The first proper demon infant.  Too fucked up to feel anything but pride, you can only marvel at your amazing virility as you seed the birth of a new species, knocking up every demon with a cunt in a month-long orgy.  Your jism fuels the ascendency of an entire race, dooming Mareth.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	SceneLib.registerScene( 'hermCentaurScenes', new HermCentaurScenes() );
 } );

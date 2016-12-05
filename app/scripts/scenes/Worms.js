@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( StatusAffects, $log, Combat, WormMass, EventParser, Descriptors, kFLAGS, Utils, PerkLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log, Combat, WormMass, Descriptors, kFLAGS, Utils, PerkLib, CoC, EngineCore ) {
 	function Worms() {
 	}
 

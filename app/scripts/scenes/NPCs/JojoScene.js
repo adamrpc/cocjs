@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, $log, PregnancyStore, ConsumableLib, PerkLib, EventParser, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log, PregnancyStore, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 
 	function JojoScene() {
 		this.pregnancy = new PregnancyStore( 0, 0, kFLAGS.JOJO_BUTT_PREGNANCY_TYPE, kFLAGS.JOJO_EGGCUBATE_COUNT );

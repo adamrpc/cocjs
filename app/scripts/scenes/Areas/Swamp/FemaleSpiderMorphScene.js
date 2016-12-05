@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, FemaleSpiderMorph, EventParser, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, FemaleSpiderMorph, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function FemaleSpiderMorphScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 100 );

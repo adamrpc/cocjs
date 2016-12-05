@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Hel', function( SceneLib, $log, kFLAGS, Appearance, ArmorLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib) {
+angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kFLAGS, Appearance, ArmorLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib) {
 	function Hel() {
 		this.init(this, arguments);
 	}

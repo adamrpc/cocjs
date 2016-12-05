@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors, Combat, EventParser ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors, Combat ) {
 	function GreenSlimeScene() {
 	}
 

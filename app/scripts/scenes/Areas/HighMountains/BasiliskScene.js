@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView ) {
 	function BasiliskScene() {
 	}
 	BasiliskScene.prototype.basiliskSpeed = function( player, amount ) {
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		EngineCore.outputText( 'Hours go by.  Night begins to fall.  You get very used to what you can see in your direct line of vision.  You wish you could say you get just as used to the sensation of being trapped on the edge of orgasm, but you don\'t.  Every particle of your body screams for release, the overwhelming sensation drowns any thought you have, and you realize if this lasts much longer you will go insane.  By the time the stars start to come out you are bargaining with every deity who might be listening- <i>get me out of this fix, and I will do anything, anything, for whoever saves me.  I will be a demon\'s slave, I will stop drinking so much, I will actually concentrate on saving the world... anything.</i>  It is as you are beseeching the heavens in this way for the tenth time that you hear footsteps behind you.  Somebody has come for you!  It has to be someone who can help you, somebody who cares about you, it HAS to be.\n\n', false );
 		EngineCore.outputText( 'A pale blue finger traces the line of your frozen chin before a leering, female face swallows up your line of vision.  "<i>Well, well, well. Look at what we have here,</i>" purrs the succubus into your cold, marble ear.  Other shapes prowl into view, stalking reptile shapes, as the demon runs her hands sensually over your form, testing every smooth surface, protuberance and cranny that she can reach.  You cannot feel a thing, except an overwhelming sense of dread.  "<i>Played with the lizards a bit too much did we, friend?  I hope you learnt your lesson.  It\'s a real shame, when you think about it.</i>"  The succubus actually sounds almost upset as she looks you over.  "<i>You would have made a fine slave.  The things we would have done to you... ah well.  Que sera sera. Remove this!</i>" she straightens up smartly and claps her hands.  "<i>Take this statue to Lethice\'s castle.  I am sure it will look excellent in her front hall, and I know she will appreciate the present.</i>"  The basilisks snake up to you and then heave you into their arms.  As they haul you into the night, the succubus\'s voice reaches you.  "<i>Did you know that marble is a metamorphic rock, statue? It takes tens of thousands of years to wear down. Meta-MORPH-ic, get it? Hahahahahaha!</i>"\n\n', false );
 		EngineCore.outputText( 'You have no voice, and you must scream.', false );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//Defeated, Taken Advantage of: nobody
 	BasiliskScene.prototype.basiliskAdvantageNobody = function() {

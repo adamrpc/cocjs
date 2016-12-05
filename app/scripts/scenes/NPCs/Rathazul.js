@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, UsableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//const RATHAZUL_DEBIMBO_OFFERED:int = 744;;
 	//Rathazul the Alchemist;
 	//Encounter, random text for potential uses, EngineCore.choices.;

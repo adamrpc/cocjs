@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandWitch', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, Descriptors, EventParser ) {
+angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, Descriptors ) {
 	function SandWitch() {
 		this.init(this, arguments);
 	}

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( StatusAffects, PerkLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	/**
 	 * Whee!
 	 * (No @ tag for coder)

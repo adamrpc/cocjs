@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, SuccubusGardener, Combat, Utils, EventParser, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGardener, Combat, Utils, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
 	function D3() {
 		this.rooms = {};
 		this._currentRoom = null; // I don't think we'll need to save/load this, as we're not gonna allow saving in the dungeon, and it'll be overwritten by calling enterD3();

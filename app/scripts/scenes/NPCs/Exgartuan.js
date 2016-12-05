@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, $log, CockTypesEnum, Combat, PerkLib, $rootScope, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, CockTypesEnum, Combat, PerkLib, $rootScope, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	//EXGARTUAN STATUS;
 	//v1 - Location - 1 = dick, 2 = tits;
 	//v2 - Sleep counter - 0 = awake, positive numbers = hours of sleep;

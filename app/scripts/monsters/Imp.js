@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Imp', function( SceneLib, $log, CockTypesEnum, Descriptors, EventParser, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, CockTypesEnum, Descriptors, EventParser, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function Imp() {
 		this.init(this, arguments);
 	}

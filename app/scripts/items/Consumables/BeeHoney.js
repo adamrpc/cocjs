@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'BeeHoney', function( CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
 	var PURE_HONEY_VALUE = 40;
 	var SPECIAL_HONEY_VALUE = 20;
 	function BeeHoney() {
@@ -323,5 +323,7 @@ angular.module( 'cocjs' ).factory( 'BeeHoney', function( CockTypesEnum, CoC, Sta
 		}
 		return false;
 	};
-	return BeeHoney;
+	ConsumableLib.registerConsumable( 'BEEHONY', new BeeHoney(false, false) );
+	ConsumableLib.registerConsumable( 'PURHONY', new BeeHoney(true, false) );
+	ConsumableLib.registerConsumable( 'SPHONEY', new BeeHoney(false, true) );
 } );

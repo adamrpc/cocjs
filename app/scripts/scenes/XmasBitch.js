@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLib, AppearanceDefs, ArmorLib, StatusAffects, EventParser, Descriptors, kFLAGS, Utils, PerkLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, ConsumableLib, AppearanceDefs, ArmorLib, StatusAffects, Descriptors, kFLAGS, Utils, PerkLib, CoC, EngineCore ) {
 	function XmasBitch() {
 	}
 

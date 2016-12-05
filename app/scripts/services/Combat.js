@@ -741,7 +741,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
-		if(monster.hasClassName( 'Basilisk' )) {
+		if(CoC.monster.hasClassName( 'Basilisk' )) {
 			//basilisk counter attack (block attack, significant speed loss): 
 			if(CoC.player.inte / 5 + Utils.rand(20) < 25) {
 				EngineCore.outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You find yourself staring directly into the basilisk's face!  Quickly you snap your eyes shut and recoil backwards, swinging madly at the lizard to force it back, but the damage has been done; you can see the terrible grey eyes behind your closed lids, and you feel a great weight settle on your bones as it becomes harder to move.", false);
@@ -990,7 +990,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 				}
 				//50% Bleed chance
 				if (CoC.player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.monster.armorDef < 10 && CoC.monster.findStatusAffect(StatusAffects.IzmaBleed) < 0) {
-					if (monster.hasClassName( 'LivingStatue' )) {
+					if (CoC.monster.hasClassName( 'LivingStatue' )) {
 						EngineCore.outputText("Despite the rents you've torn in its stony exterior, the statue does not bleed.");
 					} else {
 						CoC.monster.createStatusAffect(StatusAffects.IzmaBleed,3,0,0,0);
@@ -1004,7 +1004,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, Parser, $log, CoC,
 			}
 			
 		}
-		if (monster.hasClassName( 'JeanClaude' ) && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if (CoC.monster.hasClassName( 'JeanClaude' ) && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
 			if (CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 				// noop
 			}

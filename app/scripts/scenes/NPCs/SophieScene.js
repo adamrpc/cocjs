@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancyStore, Sophie, Harpy, CoC_Settings, PerkLib, Combat, Descriptors, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, PregnancyStore, Sophie, Harpy, CoC_Settings, PerkLib, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function SophieScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.SOPHIE_PREGNANCY_TYPE, kFLAGS.SOPHIE_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 150, 120, 100 );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Appearance, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	//176 TIMES HAD YOGA;
 	//177 MET/FUCKED - 0 = never met.  1 = met but not fucked. 2 = fucked;
 	//24'x3' wang;

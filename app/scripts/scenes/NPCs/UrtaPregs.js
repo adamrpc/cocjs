@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, EventParser, PregnancyStore, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancyStore, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function UrtaPregs() {
 	}
 

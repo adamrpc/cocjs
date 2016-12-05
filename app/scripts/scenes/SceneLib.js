@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cocjs').factory('SceneLib', function ( $log ) {
+angular.module('cocjs').factory('SceneLib', function () {
 	var scenes = {};
 	function SceneLib() {}
 	SceneLib.prototype.registerScene = function(name, scene) {
@@ -18,7 +18,7 @@ angular.module('cocjs').factory('SceneLib', function ( $log ) {
 					}
 					return target[ name ];
 				},
-				set: function( target, name, value ) {
+				set: function() {
 					return;
 				}
 			} );

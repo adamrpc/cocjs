@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, WeaponLib, PerkLib, Descriptors, AppearanceDefs, ArmorLib, EventParser, CoC, kFLAGS, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponLib, PerkLib, Descriptors, AppearanceDefs, ArmorLib, CoC, kFLAGS, StatusAffects, EngineCore ) {
 	//The event itself:;
 	//Requirement: Player has found Desert storage chest &;
 	//Tel'Adre has been found.;

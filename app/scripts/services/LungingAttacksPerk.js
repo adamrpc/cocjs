@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('cocjs').factory('LungingAttacksPerk', function (PerkType, CoC) {
-	function perk() {
+	function Perk() {
 		this.init(this, arguments);
 	}
-	angular.extend(perk.prototype, PerkType.prototype);
-	perk.prototype.getDesc = function() {
+	angular.extend(Perk.prototype, PerkType.prototype);
+	Perk.prototype.getDesc = function() {
 		if(CoC.player.spe >= 75) {
 			return '<b>Grants 50% armor penetration for standard attacks.</b>';
 		}
 		return '<b>You are too slow to benefit from this perk.</b>';
 	};
-	perk.prototype.init = function(that) {
+	Perk.prototype.init = function(that) {
 		PerkType.prototype.init(that, ['Lunging Attacks', 'Lunging Attacks', '<b>You choose the "Lunging Attacks" perk, granting 50% armor penetration for standard attacks.</b>']);
 	};
-	return perk;
+	return Perk;
 });

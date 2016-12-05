@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, EventParser ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib ) {
 	function ErlKingScene() {
 	}
 
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.outputText( 'With a woods-shaking howl, you climax, spraying your belly and chest with cum.  Your limbs go wobbly, and your eyes cross, barely able to see the Master’s spooge-spattered hand in front of your face.  You know what he wants and you obediently clean his glove with your tongue, slurping down your own cum from his fingers.\n\n' );
 		EngineCore.outputText( 'The Master stands up, and as you wobble to your feet, the two other Hounds move forwards, their broad tongue licking your chest, stomach, and dick, cleaning the cum from your fur.\n\n' );
 		EngineCore.outputText( '<b>The Master sounds his horn, and your ears perk up.  Astride his horse, he gallops off into the fog-haunted woods, and, like the rest of the Hounds, you follow.</b>\n\n' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	ErlKingScene.prototype.predatoryPrey = function() {
 		EngineCore.clearOutput();

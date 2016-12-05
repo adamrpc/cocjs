@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, EventParser, Utils, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, Utils, Combat, StatusAffects ) {
 	function Inventory() {
 		this.itemStorage = [];
 		this.gearStorage = [];
@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Useable, Armor, Weapon,
 	Inventory.prototype.giveHumanizer = function() {
 		if( CoC.flags[ kFLAGS.TIMES_CHEATED_COUNTER ] > 0 ) {
 			EngineCore.outputText( '<b>I was a cheater until I took an arrow to the knee...</b>', true );
-			EventParser.gameOver();
+			EngineCore.gameOver();
 			return;
 		}
 		EngineCore.outputText( 'I AM NOT A CROOK.  BUT YOU ARE!  <b>CHEATER</b>!\n\n', true );

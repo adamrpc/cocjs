@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Shouldra', function( SceneLib, EventParser, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, EventParser, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
 	function Shouldra() {
 		this.init(this, arguments);
 	}

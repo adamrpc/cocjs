@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Boat() {
 	}
 

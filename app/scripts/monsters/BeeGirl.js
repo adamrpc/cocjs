@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'BeeGirl', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat, WeightedDrop, kFLAGS, EventParser, ConsumableLib, UseableLib ) {
+angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat, WeightedDrop, kFLAGS, EventParser, ConsumableLib, UseableLib ) {
 	function BeeGirl() {
 		this.init(this, arguments);
 	}

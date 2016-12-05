@@ -1,10 +1,16 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs, Parser ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs ) {
 	var EngineCore = {};
-    var parser = new Parser( );
 	EngineCore.silly = function() {
 		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
+	};
+	var gameOverCallback = null;
+	EngineCore.registerGameOver = function( callback ) {
+		gameOverCallback = callback;
+	};
+	EngineCore.gameOver = function( clear ) {
+		gameOverCallback( clear );
 	};
 	EngineCore.HPChange = function( changeNum, display ) {
 		if( changeNum === 0 ) {
@@ -50,15 +56,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.clone = angular.copy;
 	EngineCore.clearOutput = function() {
-		CoC.currentText = '';
-		MainView.clearOutputText();
-		if( CoC.gameState !== 3 ) {
-			MainView.hideMenuButton( MainView.MENU_DATA );
-		}
-		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
-		MainView.hideMenuButton( MainView.MENU_LEVEL );
-		MainView.hideMenuButton( MainView.MENU_PERKS );
-		MainView.hideMenuButton( MainView.MENU_STATS );
+		MainView.clearOutput();
 	};
 	EngineCore.rawOutputText = function( output, purgeText ) {
 		//OUTPUT!
@@ -72,22 +70,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 	};
 	EngineCore.outputText = function( output, purgeText, parseAsMarkdown ) {
-		// we have to purge the output text BEFORE calling parseText, because if there are scene commands in
-		// the parsed text, parseText() will write directly to the output
-
-		// This is cleaup in case someone hits the Data or new-game button when the event-test window is shown.
-		// It\'s needed since those buttons are available even when in the event-tester
-		MainView.hideTestInputPanel();
-		if( purgeText ) {
-			EngineCore.clearOutput();
-		}
-		output = parser.recursiveParser( output, parseAsMarkdown );
-		//OUTPUT!
-		if( purgeText ) {
-			CoC.currentText = output;
-		} else {
-			CoC.currentText += output;
-		}
+		MainView.outputText( output, purgeText, parseAsMarkdown );
 	};
 	EngineCore.flushOutputTextToGUI = function() {
 		MainView.mainText.getTextFormat().size = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
@@ -1730,15 +1713,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 	};
 	EngineCore.spriteSelect = function( choice ) {
-		if(choice === undefined) {
-			choice = 0;
-		}
-		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
-			MainView.selectSprite( choice );
-		} else if( choice >= 0 ) {
-			$log.trace( 'hiding sprite because flags' );
-			MainView.selectSprite( -1 );
-		}
+		MainView.spriteSelect( choice );
 	};
 	return EngineCore;
 });

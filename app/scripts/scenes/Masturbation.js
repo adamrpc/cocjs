@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, EngineCore, PerkLib, StatusAffects, Utils, EventParser, CockTypesEnum, AppearanceDefs, Descriptors ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, EngineCore, PerkLib, StatusAffects, Utils, CockTypesEnum, AppearanceDefs, Descriptors ) {
 	function Masturbation() {
 	}
 	Masturbation.prototype.masturbateMenu = function() {
@@ -2212,7 +2212,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, EngineCore
 		EngineCore.outputText( '"<i>AHA!</i>" the hawkish purveyor cries.  "<i>I have a new product to sell! I will call it the \'One Woman Show!\'</i>"\n\n' );
 		EngineCore.outputText( 'Giacomo cackles smugly at his idea.  "<i>Who knows how much someone will pay me for a live woman who can\'t stop cumming!</i>"\n\n' );
 		EngineCore.outputText( 'Giacomo loads you up onto his cart and sets off for his next sale.  You do not care.  You do not realize what has happened.  All you know is that the creature keeps cumming and it feels... sooooo GODDAMN GOOD!' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	Masturbation.prototype.lickYerGirlParts = function() { //Female cat masturbation
 		EngineCore.clearOutput();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, Combat, Shouldra, Descriptors, Appearance, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat, Shouldra, Descriptors, Appearance, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function ShouldraScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );

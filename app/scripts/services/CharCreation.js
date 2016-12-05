@@ -1,9 +1,31 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC, kFLAGS, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
+angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC, kFLAGS, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
 	function CharCreation() {
 		this.customPlayerProfile = null;
 	}
+	CharCreation.prototype.gameOver = function( clear ) { //Leaves text on screen unless clear is set to true
+		if( clear ) {
+			EngineCore.clearOutput();
+		}
+		EngineCore.outputText( '\n\n<b>GAME OVER</b>' );
+		EngineCore.menu();
+		EngineCore.addButton( 0, 'Game Over', this.gameOverMenuOverride );
+		EngineCore.addButton( 3, 'NewGamePlus', this.newGamePlus );
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+			EngineCore.addButton( 4, 'Debug Cheat', MainView.playerMenu );
+		}
+		this.gameOverMenuOverride();
+		CoC.setInCombat( false );
+		OnLoadVariables.dungeonLoc = 0; //Replaces inDungeon = false;
+	};
+	CharCreation.prototype.gameOverMenuOverride = function() { //Game over event; override whatever the fuck has been done to the UI up to this point to force display of the data and new game buttons
+		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
+		MainView.showMenuButton( MainView.MENU_DATA );
+		MainView.hideMenuButton( MainView.MENU_APPEARANCE );
+		MainView.hideMenuButton( MainView.MENU_LEVEL );
+		MainView.hideMenuButton( MainView.MENU_PERKS );
+	};
 	CharCreation.prototype.newGamePlus = function() {
 		CoC.flags[ kFLAGS.NEW_GAME_PLUS_BONUS_STORED_XP ] = CoC.player.XP;
 		if( CoC.flags[ kFLAGS.NEW_GAME_PLUS_BONUS_STORED_XP ] === 0 ) {
@@ -128,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			//Clear Raphael's training variable so it does not effect
 			//Weapon strength post-newgame.
 			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 0;
-			if( !(oldPlayer.armor.id === 'GooArmor') ) {
+			if( oldPlayer.armor.id !== 'GooArmor' ) {
 				CoC.player.setArmor( oldPlayer.armor );
 			} else {
 				CoC.player.setArmor( ArmorLib.C_CLOTH );
@@ -2237,5 +2259,6 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	var charCreationManager = new CharCreation();
 	MainView.registerCharCreation( charCreationManager );
+	EngineCore.registerGameOver( charCreationManager.gameOver );
 	return charCreationManager;
 } );

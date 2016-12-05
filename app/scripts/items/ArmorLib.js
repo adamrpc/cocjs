@@ -18,7 +18,7 @@ angular.module('cocjs').factory('ArmorLib', function ( Armor, ArmorWithPerk, Per
 					}
 					return target[ name ];
 				},
-				set: function( target, name, value ) {
+				set: function() {
 					return;
 				}
 			} );

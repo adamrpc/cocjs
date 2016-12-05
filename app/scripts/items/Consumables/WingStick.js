@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'WingStick', function( CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Utils, Consumable, EngineCore ) {
 	function WingStick() {
 		this.init(this, arguments);
 	}
@@ -37,5 +37,5 @@ angular.module( 'cocjs' ).factory( 'WingStick', function( CoC, Utils, Consumable
 		}
 		return false;
 	};
-	return WingStick;
+	ConsumableLib.registerConsumable( 'W_STICK', new WingStick() );
 } );

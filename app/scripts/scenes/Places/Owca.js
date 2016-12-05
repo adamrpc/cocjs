@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, EventParser, ConsumableLib, PerkLib, AppearanceDefs, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Owca() {
 	}
 
@@ -1129,7 +1129,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, LustyDemons, WeaponLi
 		EngineCore.outputText( '\n\nThese spontaneous, dirty words make the imp fucking you from behind instantly cum; with a powerful last push, he blasts you with his seed, filling and soaking your backside with thick white goo.  You reach for Vapula, helplessly hugging her tits and suckling her nipples as you sob in pleasure-induced humiliation.' );
 		EngineCore.outputText( '\n\n"<i>Very well, slut.  Your former life as a villager is over.  It\'s time to move on to your new life; and trust me, it\'s going to be much more exciting.  Actually, I don\'t think you\'ll be willing to ever leave this place...</i>"' );
 		EngineCore.outputText( '\n\nYou furiously nod in approval.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//Subdue Vapula Scene - begins Vapula Follower Content(Z);
 	//[Triggered if submissiveness reaches 0 when beating the horde.] ;

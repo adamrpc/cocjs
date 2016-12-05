@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooGirl', function( SceneLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, WeaponLib, UsableLib ) {
+angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, EventParser, ChainedDrop, Combat, ConsumableLib, WeaponLib, UsableLib ) {
 	function GooGirl() {
 		this.init(this, arguments);
 	}

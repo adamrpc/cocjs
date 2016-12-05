@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dreams() {
 	}
 

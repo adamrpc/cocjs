@@ -1041,7 +1041,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( 'Exgartuan moans, "<i>Ohhhhhh yeeeeaaaaahhhh...</i>" before slipping into silence.\n\n', false );
 		}
 		EngineCore.outputText( 'You spend the rest of your life trapped in orgasm, constantly feeding the growth of what becomes the biggest goblin tribe in all the land of Mareth.  Even when every single one of them is pregnant, they let you enjoy your reward.  Over time your capacity for memory, morals, or anything other feeling besides pleasure dwindles.  Trapped in a heaven of your own choosing, you gave up everything that you were for never-ending bliss.', false );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//[NO]
 	TamainsDaughtersScene.prototype.tamaniDaughtersDeclineBadEnd = function() {
@@ -1078,7 +1078,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( 'The well endowed goblin next to you announces, "<i>Dad has decided that he will willingly stay here and fuck each of us as often as we want.  Let\'s get him some succubi\'s delight, I want mom to watch him fill me when she gets home!</i>"\n\n', false );
 		EngineCore.outputText( 'A cheer reverberates off the ceiling as your daughters crowd around you, pressing their buxom chests and rounded backsides against you.  You\'re led to a secluded corner and fed food and strange drinks, while being kept incredibly horny for hours as you await Tamani\'s return.  True to her word, your daughter is on top of you in a flash once the clan\'s matriarch enters the room, and you\'re helpless to do anything but submit to her velvet pussy.  You cum loudly and messily, creaming her walls and flooding the area around you with spunk while Tamani is forced to watch with a jealous look on her face.\n\n', false );
 		EngineCore.outputText( 'The rest of your life continues on in a similar fashion – you\'re kept happily fed, full, and pleasured by your hundreds of pregnant wives as your harem grows.  There\'s no shortage of sex, and no shortage of desire thanks to your wives\' alchemical talents.  Within the span of a month you\'ve utterly forgotten about your quest – it\'s hard to focus on anything but cuddling with your wives and daughters while you await your next fuck.', false );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//[Lose to Daughters With Tamani There]
 	TamainsDaughtersScene.prototype.loseToDaughtersWithTamaniThere = function() {

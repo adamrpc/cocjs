@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, EventParser, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, UsableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	/*Design Notes
 	 Arian has a "<i>health</i>" stat that goes from 0 to 100. Where 0 equals very sick and 100 equals healthy. This also works as a sort of affection meter.
 	 Interacting with the PC will improve Arian's health; be it talking, giving items or sex.

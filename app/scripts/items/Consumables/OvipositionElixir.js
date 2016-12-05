@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'OvipositionElixir', function( $log, PregnancyStore, StatusAffects, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, $log, PregnancyStore, StatusAffects, CoC, Utils, Consumable, EngineCore ) {
 	function OvipositionElixir() {
 		this.init(this, arguments);
 	}
@@ -83,5 +83,5 @@ angular.module( 'cocjs' ).factory( 'OvipositionElixir', function( $log, Pregnanc
 		}
 		return (false);
 	};
-	return OvipositionElixir;
+	ConsumableLib.registerConsumable( 'OVIELIX', new OvipositionElixir() );
 } );

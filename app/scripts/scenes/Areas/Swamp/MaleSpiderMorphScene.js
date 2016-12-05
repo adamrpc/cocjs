@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MaleSpiderMorph, EventParser, ConsumableLib, Utils, PregnancyStore, Combat, CoC, EngineCore, Descriptors, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, ConsumableLib, Utils, PregnancyStore, Combat, CoC, EngineCore, Descriptors, OnLoadVariables ) {
 	function MaleSpiderMorphScene() {
 	}
 

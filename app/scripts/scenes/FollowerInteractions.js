@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, EngineCore, ConsumableLib, PerkLib, StatusAffects, ArmorLib, WeaponLib, Utils, EventParser ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, EngineCore, ConsumableLib, PerkLib, StatusAffects, ArmorLib, WeaponLib, Utils ) {
 	function FollowerInteractions() {
 	}
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, EventParser, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, EventParser, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
 	function AntsScene() {
 		$rootScope.$on( 'time-change', this.timeChange );
 		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
@@ -411,7 +411,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, kFLAGS
 		EngineCore.outputText( '\n\nDays past of the same routine. An ant comes, gives you a cup and sometimes some food then disappears back into the tunnels...' );
 		EngineCore.outputText( '\n\n<b>Epilogue</b>\n' );
 		EngineCore.outputText( 'You live out the rest of your days in blissful ignorance, helping the colony in any way you can. Mostly you\'re used as an experimental sex toy. They force you to drink an uncountable number of different potions and elixirs. Eventually you start to beg for more as your mind and body crave the sexual liquids. Oftentimes Chylla even puts you in the arena, sometimes to pleasure yourself in front of the whole colony or calling upon you to service as many males as you can please at once. Sometimes you\'re a male, sometimes you\'re a female, and sometimes both. Your mind becomes completely consumed with pleasing the colony in any way you can. You never get to see the outside world or Phylla again, but you don\'t care. You\'re busy pleasing every cock placed in front of you. As long as you\'re helping the colony grow and become strong, nothing else matters to you.' );
-		EventParser.gameOver();
+		EngineCore.gameOver();
 	};
 	//Good End
 	//Good End / Waifu Content
