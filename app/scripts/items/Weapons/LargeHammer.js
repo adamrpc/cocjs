@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LargeHammer', function( CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 	function LargeHammer() {
 		this.init(this, arguments);
 	}
@@ -16,5 +16,5 @@ angular.module( 'cocjs' ).factory( 'LargeHammer', function( CoC, Weapon, EngineC
 		EngineCore.outputText( 'This hammer is too large for you to wield effectively.  ' );
 		return false;
 	};
-	return LargeHammer;
+	WeaponLib.registerWeapon( 'L_HAMMR', new LargeHammer() );
 } );

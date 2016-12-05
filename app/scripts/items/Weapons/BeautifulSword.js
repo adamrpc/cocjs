@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 	function BeautifulSword() {
 		this.init(this, arguments);
 	}
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Weapon, Engi
 		EngineCore.outputText( 'You grab hold of the handle of the sword only to have it grow burning hot.  You\'re forced to let it go lest you burn yourself.  Something within the sword must be displeased.  ' );
 		return false;
 	};
-	return new Proxy( BeautifulSword, {
+	var BeautifulSwordProxy = new Proxy( BeautifulSword, {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
@@ -34,4 +34,5 @@ angular.module( 'cocjs' ).factory( 'BeautifulSword', function( CoC, Weapon, Engi
 			} );
 		}
 	} );
+	WeaponLib.registerWeapon( 'B_SWORD', new BeautifulSwordProxy() );
 } );

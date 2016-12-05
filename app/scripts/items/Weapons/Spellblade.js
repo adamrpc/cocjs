@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Spellblade', function( CoC, Weapon, PerkLib ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, PerkLib ) {
 	function Spellblade() {
 		this.init(this, arguments);
 	}
@@ -24,5 +24,5 @@ angular.module( 'cocjs' ).factory( 'Spellblade', function( CoC, Weapon, PerkLib 
 		}
 		return this._superPlayerRemove();
 	};
-	return Spellblade;
+	WeaponLib.registerWeapon( 'S_BLADE', new Spellblade() );
 } );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'JeweledRapier', function( CoC, Weapon, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, kFLAGS ) {
 	function JeweledRapier() {
 		this.init(this, arguments);
 	}
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'JeweledRapier', function( CoC, Weapon, kFLAG
 		Weapon.prototype.init( that, [ 'JRapier', 'JRapier', 'jeweled rapier', 'a jeweled rapier', 'slash', 13, 1400, 'This jeweled rapier is ancient but untarnished.  The hilt is wonderfully made, and fits your hand like a tailored glove.  The blade is shiny and perfectly designed for stabbing.' ] );
 		that.classNames.push('JeweledRapier');
 	};
-	return new Proxy( JeweledRapier, {
+	var JeweledRapierProxy = new Proxy( JeweledRapier, {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
@@ -27,4 +27,5 @@ angular.module( 'cocjs' ).factory( 'JeweledRapier', function( CoC, Weapon, kFLAG
 			} );
 		}
 	} );
+	WeaponLib.registerWeapon( 'JRAPIER', new JeweledRapierProxy() );
 } );

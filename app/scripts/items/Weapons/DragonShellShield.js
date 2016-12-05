@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'DragonShellShield', function( CoC, kFLAGS, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, kFLAGS, Weapon, EngineCore ) {
 	function DragonShellShield() {
 		this.init(this, arguments);
 	}
@@ -23,5 +23,5 @@ angular.module( 'cocjs' ).factory( 'DragonShellShield', function( CoC, kFLAGS, W
 		}
 		CoC.flags[ kFLAGS.TIMES_EQUIPPED_EMBER_SHIELD ]++;
 	};
-	return DragonShellShield;
+	WeaponLib.registerWeapon( 'DRGNSHL', new DragonShellShield() );
 } );

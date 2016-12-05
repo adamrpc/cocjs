@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Fists', function( CoC, Weapon ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon ) {
 	function Fists() {
 		this.init(this, arguments);
 	}
@@ -14,5 +14,5 @@ angular.module( 'cocjs' ).factory( 'Fists', function( CoC, Weapon ) {
 	Fists.prototype.playerRemove = function() {
 		return null;
 	};
-	return Fists;
+	WeaponLib.registerWeapon( 'FISTS', new Fists() );
 } );

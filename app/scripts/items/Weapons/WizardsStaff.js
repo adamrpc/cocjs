@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'WizardsStaff', function( CoC, Weapon, PerkLib ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, PerkLib ) {
 	function WizardsStaff() {
 		this.init(this, arguments);
 	}
@@ -24,5 +24,5 @@ angular.module( 'cocjs' ).factory( 'WizardsStaff', function( CoC, Weapon, PerkLi
 		}
 		return this._superPlayerRemove();
 	};
-	return WizardsStaff;
+	WeaponLib.registerWeapon( 'W_STAFF', new WizardsStaff() );
 } );

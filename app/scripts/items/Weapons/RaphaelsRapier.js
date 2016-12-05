@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'RaphaelsRapier', function( CoC, Weapon, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, kFLAGS ) {
 	function RaphaelsRapier() {
 		this.init(this, arguments);
 	}
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'RaphaelsRapier', function( CoC, Weapon, kFLA
 		Weapon.prototype.init( that, [ 'RRapier', 'RRapier', 'vulpine rapier', 'Raphael\'s vulpine rapier', 'slash', 8, 1000, 'He\'s bound it with his red sash around the length like a ribbon, as though he has now gifted it to you.  Perhaps it is his way of congratulating you.' ] );
 		that.classNames.push('RaphaelsRapier');
 	};
-	return new Proxy( RaphaelsRapier, {
+	var RaphaelsRapierProxy = new Proxy( RaphaelsRapier, {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
@@ -27,4 +27,5 @@ angular.module( 'cocjs' ).factory( 'RaphaelsRapier', function( CoC, Weapon, kFLA
 			} );
 		}
 	} );
+	WeaponLib.registerWeapon( 'RRAPIER', new RaphaelsRapierProxy() );
 } );

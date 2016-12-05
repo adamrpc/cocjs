@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LargeClaymore', function( CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 	function LargeClaymore() {
 		this.init(this, arguments);
 	}
@@ -16,5 +16,5 @@ angular.module( 'cocjs' ).factory( 'LargeClaymore', function( CoC, Weapon, Engin
 		EngineCore.outputText( 'You aren\'t strong enough to handle such a heavy weapon!  ' );
 		return false;
 	};
-	return LargeClaymore;
+	WeaponLib.registerWeapon( 'CLAYMOR', new LargeClaymore() );
 } );
