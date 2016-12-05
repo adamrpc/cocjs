@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LeatherArmorSegments', function( Armor, EngineCore, ArmorLib ) {
+angular.module( 'cocjs' ).run( function( Armor, EngineCore, ArmorLib ) {
 	function LeatherArmorSegments() {
 		this.init(this, arguments);
 	}
@@ -17,5 +17,5 @@ angular.module( 'cocjs' ).factory( 'LeatherArmorSegments', function( Armor, Engi
 		this._superPlayerRemove();
 		return ArmorLib.LEATHRA;
 	};
-	return LeatherArmorSegments;
+	ArmorLib.registerArmor( 'URTALTA', new LeatherArmorSegments() );
 } );

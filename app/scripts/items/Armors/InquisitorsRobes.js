@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'InquisitorsRobes', function( ArmorWithPerk, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ArmorLib, ArmorWithPerk, PerkLib, EngineCore ) {
 	function InquisitorsRobes() {
 		this.init(this, arguments);
 	}
@@ -16,5 +16,5 @@ angular.module( 'cocjs' ).factory( 'InquisitorsRobes', function( ArmorWithPerk, 
 		EngineCore.outputText( 'To finish the look, you take the two fingerless alchemical gloves and slide them over your hands.  What seems to be a prayer is embroidered in gold on their back.\n\n' );
 		EngineCore.outputText( 'You feel pious.\n\n\n\n(<b>Perk Gained - Blood Mage</b>: Spells consume HP (minimum 5) instead of fatigue!)\n\n' );
 	};
-	return InquisitorsRobes;
+	ArmorLib.registerArmor( 'I_ROBES', new InquisitorsRobes() );
 } );

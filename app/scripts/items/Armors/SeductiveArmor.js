@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SeductiveArmor', function( SceneLib, ArmorLib, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
 	function SeductiveArmor() {
 		this.init(this, arguments);
 	}
@@ -33,5 +33,5 @@ angular.module( 'cocjs' ).factory( 'SeductiveArmor', function( SceneLib, ArmorLi
 		this._superPlayerEquip();
 		return ArmorLib.COMFORTABLE_UNDERCLOTHES; //After seductive armor magic the player is left in their underclothes
 	};
-	return SeductiveArmor;
+	ArmorLib.registerArmor( 'SEDUCTA', new SeductiveArmor() );
 } );

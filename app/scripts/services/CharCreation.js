@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC, kFLAGS, GooArmor, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
+angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC, kFLAGS, EngineCore, MainView, AppearanceDefs, ArmorLib, WeaponLib, EventParser, StatusAffects, Player, CockTypesEnum, Descriptors, PerkLib, ConsumableLib, Utils, OnLoadVariables ) {
 	function CharCreation() {
 		this.customPlayerProfile = null;
 	}
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			//Clear Raphael's training variable so it does not effect
 			//Weapon strength post-newgame.
 			CoC.flags[ kFLAGS.RAPHAEL_RAPIER_TRANING ] = 0;
-			if( !(oldPlayer.armor instanceof GooArmor) ) {
+			if( !(oldPlayer.armor.id === 'GooArmor') ) {
 				CoC.player.setArmor( oldPlayer.armor );
 			} else {
 				CoC.player.setArmor( ArmorLib.C_CLOTH );

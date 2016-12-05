@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( ArmorLib, SceneLib, AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
 	function LustyMaidensArmor() {
 		this.init(this, arguments);
 	}
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
-	return new Proxy( LustyMaidensArmor, {
+	var LustyMaidensArmorProxy = new Proxy( LustyMaidensArmor, {
 		construct: function( target ) {
 			return new Proxy( target, {
 				get: function( target, name ) {
@@ -180,4 +180,5 @@ angular.module( 'cocjs' ).factory( 'LustyMaidensArmor', function( SceneLib, Appe
 			} );
 		}
 	} );
+	ArmorLib.registerArmor( 'LMARMOR', new LustyMaidensArmorProxy() );
 } );

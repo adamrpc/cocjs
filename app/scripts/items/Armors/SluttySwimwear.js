@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SluttySwimwear', function( CoC, ArmorWithPerk, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ArmorLib, CoC, ArmorWithPerk, PerkLib, EngineCore ) {
 	function SluttySwimwear() {
 		this.init(this, arguments);
 	}
@@ -42,5 +42,5 @@ angular.module( 'cocjs' ).factory( 'SluttySwimwear', function( CoC, ArmorWithPer
 		}
 		EngineCore.outputText( '\n\n' );
 	};
-	return SluttySwimwear;
+	ArmorLib.registerArmor( 'S_SWMWR', new SluttySwimwear() );
 } );

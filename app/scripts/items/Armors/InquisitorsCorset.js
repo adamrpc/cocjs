@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'InquisitorsCorset', function( Armor, PerkLib, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( ArmorLib, Armor, PerkLib, EngineCore, CoC ) {
 	function InquisitorsCorset() {
 		this.init(this, arguments);
 	}
@@ -48,5 +48,5 @@ angular.module( 'cocjs' ).factory( 'InquisitorsCorset', function( Armor, PerkLib
 		}
 		return this._superPlayerRemove();
 	};
-	return InquisitorsCorset;
+	ArmorLib.registerArmor( 'I_CORST', new InquisitorsCorset() );
 } );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ComfortableClothes', function( Armor, CoC ) {
+angular.module( 'cocjs' ).run( function( Armor, ArmorLib, CoC ) {
 	function ComfortableClothes() {
 		this.init(this, arguments);
 	}
@@ -12,6 +12,5 @@ angular.module( 'cocjs' ).factory( 'ComfortableClothes', function( Armor, CoC ) 
 	ComfortableClothes.prototype.supportsBulge = function() {
 		return CoC.player.modArmorName !== 'crotch-hugging clothes';
 	};
-
-	return ComfortableClothes;
+	ArmorLib.registerArmor( 'C_CLOTH', new ComfortableClothes() );
 } );

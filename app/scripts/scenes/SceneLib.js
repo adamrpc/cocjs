@@ -13,9 +13,6 @@ angular.module('cocjs').factory('SceneLib', function ( $log ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
 					}
-					if(_.has(target.prototype, name)) {
-						return target.prototype[name];
-					}
 					if(_.has(scenes, name) ) {
 						return scenes[ name ];
 					}

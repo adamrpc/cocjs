@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, EventParser, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore, LustyMaidensArmor ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, EventParser, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function ImpScene() {
 	}
 
 	ImpScene.prototype.impVictory = function() {
 		EngineCore.clearOutput();
 		var canFeed = (CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0);
-		var canBikiniTits = (CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor instanceof LustyMaidensArmor);
+		var canBikiniTits = (CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor');
 		EngineCore.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses and begins masturbating feverishly.' );
 		if( canFeed ) {
 			if( CoC.player.lust >= 33 ) {

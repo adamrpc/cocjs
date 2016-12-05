@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, EventParser, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore, LustyMaidensArmor ) {
+angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, EventParser, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
 	function MinotaurScene() {
 	}
 
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 			feedposit = 'Lay Eggs';
 			temp2 = this.layEggsInAMinotaurSpiderLike;
 		}
-		if( (temp2 === null || Utils.rand( 2 ) === 0) && CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor instanceof LustyMaidensArmor ) {
+		if( (temp2 === null || Utils.rand( 2 ) === 0) && CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor' ) {
 			feedposit = 'B.Titfuck';
 			temp2 = CoC.player.armor.lustyMaidenPaizuri;
 		}

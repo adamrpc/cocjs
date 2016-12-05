@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ComfortableUnderclothes', function( Armor ) {
+angular.module( 'cocjs' ).run( function( Armor, ArmorLib ) {
 	function ComfortableUnderclothes() {
 		this.init(this, arguments);
 	}
@@ -12,5 +12,5 @@ angular.module( 'cocjs' ).factory( 'ComfortableUnderclothes', function( Armor ) 
 	ComfortableUnderclothes.prototype.playerRemove = function() {
 		return null; //Player never picks up their underclothes
 	};
-	return ComfortableUnderclothes;
+	ArmorLib.registerArmor( 'COMFORTABLE_UNDERCLOTHES', new ComfortableUnderclothes() );
 } );

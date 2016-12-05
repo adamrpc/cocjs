@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( ArmorLib, Armor, kFLAGS, EngineCore, CoC ) {
 	function GooArmor() {
 		this.init(this, arguments);
 	}
@@ -45,5 +45,5 @@ angular.module( 'cocjs' ).factory( 'GooArmor', function( Armor, kFLAGS, EngineCo
 		CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;
 		return null; //Can't put Valaria in your inventory
 	};
-	return GooArmor;
+	ArmorLib.registerArmor( 'GOOARMR', new GooArmor() );
 } );

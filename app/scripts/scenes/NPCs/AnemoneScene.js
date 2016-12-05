@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Anemone, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, EventParser, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 	//Encountered via Boat (unless a new Under-Lake area is;
 	//unlocked);
 	//NPC details (proto-codex): Giant, colorful freshwater;
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Anemone, LustyMaidensArmor, I
 				vaginaRape = this.rapeAnemoneWithPussy;
 			}
 			var bikiniTits = null;
-			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor instanceof LustyMaidensArmor ) {
+			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor' ) {
 				bikiniTits = CoC.player.armor.lustyMaidenPaizuri;
 			}
 			EngineCore.choices( 'Your Ass', this.victoryButtholeRape, 'Your Cock', cockRape, 'Your Vagina', vaginaRape, 'Her Butt', anal, 'Lay Egg', eggs,
