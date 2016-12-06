@@ -168,7 +168,9 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, CoC, kFLAGS, E
 	Minerva.prototype.defeated = function(){
 		SceneLib.minervaScene.beatUpDatSharpie();
 	};
-	Minerva.prototype.won = SceneLib.minervaScene.loseToMinerva;
+	Minerva.prototype.won = function() {
+		SceneLib.minervaScene.loseToMinerva();
+	};
 	Minerva.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
 		that.classNames.push('Minerva');
