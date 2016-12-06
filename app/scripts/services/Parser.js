@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Parser', function( MainView, EngineCore, Combat, SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
+angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib, $log, CoC, CoC_Settings, kFLAGS, $showdown, Descriptors ) {
 	function Parser() {
 		this.init( this, arguments );
 	}
@@ -1011,6 +1011,5 @@ angular.module( 'cocjs' ).factory( 'Parser', function( MainView, EngineCore, Com
 	Parser.registerSingleArgConverters = function( name, callback ) {
 		Parser.singleArgConverters[name] = callback;
 	};
-	MainView.registerParser(Parser);
-	return Parser;
+	MainView.registerParser(new Parser());
 });

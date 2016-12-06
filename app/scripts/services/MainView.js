@@ -383,6 +383,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		if( purgeText ) {
 			MainView.clearOutput();
 		}
+		$log.debug(parser);
 		output = parser.recursiveParser( output, parseAsMarkdown );
 		//OUTPUT!
 		if( purgeText ) {
