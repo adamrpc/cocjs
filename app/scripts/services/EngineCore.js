@@ -199,14 +199,12 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.addButton( 1, 'Skip', EngineCore.perkSkip );
 	};
 	EngineCore.perkSelect = function( selected ) {
-		CoC.stage.focus = null;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			EngineCore.applyPerk( selected );
 		}
 	};
 	EngineCore.perkSkip = function() {
-		CoC.stage.focus = null;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			MainView.playerMenu();

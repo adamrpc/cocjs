@@ -4,7 +4,6 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 	var StartUp = {};
 	//MainMenu - kicks player out to the main menu
 	StartUp.mainMenu = function() {
-		CoC.stage.focus = MainView.mainText;
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 		}
