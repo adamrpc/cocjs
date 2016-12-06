@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
+angular.module( 'cocjs' ).run( function( UseableLib, SimpleUseable, MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
 	function KitsuneScene() {
 	}
 
@@ -2024,4 +2024,5 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, ConsumableL
 		EngineCore.outputText( 'It\'s not much use to you other than decoration, but based on the craftsmanship alone you judge that you could get a fair price for it if you pawned it off.' );
 	};
 	SceneLib.registerScene( 'kitsuneScene', new KitsuneScene() );
+	UseableLib.registerUseable( 'GLDSTAT', new SimpleUseable('GldStat', 'GldStat', 'a golden statue', 600, 'An intricate golden idol of an androgynous humanoid figure with nine long tails.  It probably had some spiritual significance to its owner.', '', SceneLib.kitsuneScene.kitsuneStatue) );
 } );
