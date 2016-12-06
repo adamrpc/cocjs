@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Useable, PerkLib, EngineCore ) {
 	function DeBimbo() {
 		this.init(this, arguments);
 	}
-	angular.extend(DeBimbo.prototype, Consumable.prototype);
+	angular.extend(DeBimbo.prototype, Useable.prototype);
 	DeBimbo.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'Debimbo', 'Debimbo', 'a bottle marked as \'Debimbo\'', 250 ] );
+		Useable.prototype.init( that, [ 'Debimbo', 'Debimbo', 'a bottle marked as \'Debimbo\'', 250 ] );
 		that.classNames.push('DeBimbo');
 	};
 	DeBimbo.prototype.canUse = function() {

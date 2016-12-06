@@ -128,5 +128,5 @@ angular.module('cocjs').factory('ConsumableLib', function (SceneLib, SimpleConsu
 	instance.registerConsumable( 'LARGE_EGGS', [instance.L_BLKEG,instance.L_BLUEG,instance.L_BRNEG,instance.L_PNKEG,instance.L_PRPEG,instance.L_WHTEG] );
 	instance.registerConsumable( 'SMALL_EGGS', [instance.BLACKEG,instance.BLUEEGG,instance.BROWNEG,instance.PINKEGG,instance.PURPLEG,instance.WHITEEG] );
 	
-	return ConsumableLib;
+	return instance;
 });

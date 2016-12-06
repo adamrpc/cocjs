@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum, CoC, Utils, Useable, EngineCore ) {
 	function Reducto() {
 		this.init(this, arguments);
 	}
-	angular.extend(Reducto.prototype, Consumable.prototype);
+	angular.extend(Reducto.prototype, Useable.prototype);
 	Reducto.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'Reducto', 'Reducto', 'a salve marked as \'Reducto\'', 30, 'This container full of paste can be used to shrink a body part down by a significant amount.' ] );
+		Useable.prototype.init( that, [ 'Reducto', 'Reducto', 'a salve marked as \'Reducto\'', 30, 'This container full of paste can be used to shrink a body part down by a significant amount.' ] );
 		that.classNames.push('Reducto');
 	};
 	Reducto.prototype.canUse = function() {

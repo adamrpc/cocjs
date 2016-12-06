@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, UseableLib, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, UseableLib, Utils, Useable, EngineCore ) {
 	function KitsuneGift() {
 		this.init(this, arguments);
 	}
-	angular.extend(KitsuneGift.prototype, Consumable.prototype);
+	angular.extend(KitsuneGift.prototype, Useable.prototype);
 	KitsuneGift.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'KitGift', 'KitGift', 'a kitsune\'s gift', 0, 'A small square package given to you by a forest kitsune.  It is wrapped up in plain white paper and tied with a string.  Who knows what\'s inside?' ] );
+		Useable.prototype.init( that, [ 'KitGift', 'KitGift', 'a kitsune\'s gift', 0, 'A small square package given to you by a forest kitsune.  It is wrapped up in plain white paper and tied with a string.  Who knows what\'s inside?' ] );
 		that.classNames.push('KitsuneGift');
 	};
 	KitsuneGift.prototype.useItem = function() {

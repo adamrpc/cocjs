@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Creature', function (StatusAffect, $log, CoC, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
+angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
 	function Creature() {
 		this.init(this, arguments);
 	}

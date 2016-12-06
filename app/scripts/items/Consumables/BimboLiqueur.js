@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Useable, PerkLib, EngineCore ) {
 	function BimboLiqueur() {
 		this.init(this, arguments);
 	}
-	angular.extend(BimboLiqueur.prototype, Consumable.prototype);
+	angular.extend(BimboLiqueur.prototype, Useable.prototype);
 	BimboLiqueur.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'BimboLq', 'BimboLq', 'a potent bottle of \'Bimbo Liqueur\'', 1000, 'This small bottle of liqueur is labelled \'Bimbo Liqueur\'.  There\'s a HUGE warning label about the effects being strong and usually permanent, so you should handle this with care.' ] );
+		Useable.prototype.init( that, [ 'BimboLq', 'BimboLq', 'a potent bottle of \'Bimbo Liqueur\'', 1000, 'This small bottle of liqueur is labelled \'Bimbo Liqueur\'.  There\'s a HUGE warning label about the effects being strong and usually permanent, so you should handle this with care.' ] );
 		that.classNames.push('BimboLiqueur');
 	};
 	BimboLiqueur.prototype.canUse = function() {

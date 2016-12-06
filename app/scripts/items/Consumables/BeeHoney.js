@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Consumable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Useable, PerkLib, EngineCore ) {
 	var PURE_HONEY_VALUE = 40;
 	var SPECIAL_HONEY_VALUE = 20;
 	function BeeHoney() {
 		this.init(this, arguments);
 	}
-	angular.extend(BeeHoney.prototype, Consumable.prototype);
+	angular.extend(BeeHoney.prototype, Useable.prototype);
 	BeeHoney.prototype.init = function( that, args ) {
 		var honeyName;
 		var honeyLong;
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, Stat
 			honeyDesc = 'This fine crystal vial is filled with a thick amber liquid that glitters ' + (args[ 0 ] ? '' : 'dully ') + 'in the light.  You can smell a sweet scent, even though it is tightly corked.';
 			honeyValue = (args[ 0 ] ? PURE_HONEY_VALUE : 6);
 		}
-		Consumable.prototype.init( that, [ honeyName, honeyName, honeyLong, honeyValue, honeyDesc ] );
+		Useable.prototype.init( that, [ honeyName, honeyName, honeyLong, honeyValue, honeyDesc ] );
 		that.classNames.push('BeeHoney');
 	};
 	BeeHoney.prototype.canUse = function() {

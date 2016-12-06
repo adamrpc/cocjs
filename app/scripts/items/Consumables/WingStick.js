@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Utils, Useable, EngineCore ) {
 	function WingStick() {
 		this.init(this, arguments);
 	}
-	angular.extend(WingStick.prototype, Consumable.prototype);
+	angular.extend(WingStick.prototype, Useable.prototype);
 	WingStick.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'W.Stick', 'Wingstick', 'a wingstick', 16, 'A tri-bladed throwing weapon.  Though good for only a single use, it\'s guaranteed to do high damage if it hits.  (Cost) (DMG: 40-100)' ] );
+		Useable.prototype.init( that, [ 'W.Stick', 'Wingstick', 'a wingstick', 16, 'A tri-bladed throwing weapon.  Though good for only a single use, it\'s guaranteed to do high damage if it hits.  (Cost) (DMG: 40-100)' ] );
 		that.classNames.push('WingStick');
 	};
 	WingStick.prototype.canUse = function() {

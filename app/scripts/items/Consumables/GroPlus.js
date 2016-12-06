@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Useable, EngineCore ) {
 	function GroPlus() {
 		this.init(this, arguments);
 	}
-	angular.extend(GroPlus.prototype, Consumable.prototype);
+	angular.extend(GroPlus.prototype, Useable.prototype);
 	GroPlus.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'GroPlus', 'GroPlus', 'a needle filled with Gro+', 50, 'This is a small needle with a reservoir full of blue liquid.  A faded label marks it as \'GroPlus\'.  Its purpose seems obvious.' ] );
+		Useable.prototype.init( that, [ 'GroPlus', 'GroPlus', 'a needle filled with Gro+', 50, 'This is a small needle with a reservoir full of blue liquid.  A faded label marks it as \'GroPlus\'.  Its purpose seems obvious.' ] );
 		that.classNames.push('GroPlus');
 	};
 	GroPlus.prototype.canUse = function() {

@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, kFLAGS, CoC, Consumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, kFLAGS, CoC, Useable, EngineCore ) {
 	function HairExtensionSerum() {
 		this.init(this, arguments);
 	}
-	angular.extend(HairExtensionSerum.prototype, Consumable.prototype);
+	angular.extend(HairExtensionSerum.prototype, Useable.prototype);
 	HairExtensionSerum.prototype.init = function( that ) {
-		Consumable.prototype.init( that, [ 'ExtSerm', 'ExtSerm', 'a bottle of hair extension serum', 6, 'This is a bottle of foamy pink liquid, purported by the label to increase the speed at which the user\'s hair grows.' ] );
+		Useable.prototype.init( that, [ 'ExtSerm', 'ExtSerm', 'a bottle of hair extension serum', 6, 'This is a bottle of foamy pink liquid, purported by the label to increase the speed at which the user\'s hair grows.' ] );
 		that.classNames.push('HairExtensionSerum');
 	};
 	HairExtensionSerum.prototype.canUse = function() {
