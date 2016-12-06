@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 	};
 	var BeautifulSwordProxy = new Proxy( BeautifulSword, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -30,6 +30,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

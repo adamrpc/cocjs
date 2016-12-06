@@ -8,7 +8,7 @@ angular.module('cocjs').factory('SceneLib', function () {
 	};
 	var SceneLibProxy = new Proxy( SceneLib, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -19,7 +19,7 @@ angular.module('cocjs').factory('SceneLib', function () {
 					return target[ name ];
 				},
 				set: function() {
-					return;
+					return true;
 				}
 			} );
 		}

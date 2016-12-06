@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, kFLAGS ) {
 	};
 	var RaphaelsRapierProxy = new Proxy( RaphaelsRapier, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -23,6 +23,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, kFLAGS ) {
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

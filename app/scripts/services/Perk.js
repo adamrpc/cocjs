@@ -13,7 +13,7 @@ angular.module('cocjs').factory('Perk', function () {
 	};
 	return new Proxy( Perk, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -31,9 +31,10 @@ angular.module('cocjs').factory('Perk', function () {
 				},
 				set: function( target, name, value ) {
 					if( name === 'perkName' || name === 'perkDesc' || name === 'perkLongDesc' ) {
-						return;
+						return true;
 					}
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

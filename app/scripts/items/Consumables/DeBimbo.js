@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Useable, PerkLib, E
 	};
 	var DeBimboProxy = new Proxy( DeBimbo, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -48,6 +48,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Useable, PerkLib, E
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, SceneLib, AppearanceDefs, kFL
 	};
 	var LustyMaidensArmorProxy = new Proxy( LustyMaidensArmor, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -176,6 +176,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, SceneLib, AppearanceDefs, kFL
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

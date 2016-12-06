@@ -16,25 +16,25 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		that.itemSlot4 = new ItemSlot();
 		that.itemSlot5 = new ItemSlot();
 		that.itemSlots = [ that.itemSlot1, that.itemSlot2, that.itemSlot3, that.itemSlot4, that.itemSlot5 ];
-		this.armor = ArmorLib.COMFORTABLE_UNDERCLOTHES;
-		this.weapon = WeaponLib.FISTS;
-		this.modArmorName = '';
-		this.slotName = 'VOID';
-		this.autoSave = false;
+		that.armor = ArmorLib.COMFORTABLE_UNDERCLOTHES;
+		that.weapon = WeaponLib.FISTS;
+		that.modArmorName = '';
+		that.slotName = 'VOID';
+		that.autoSave = false;
 		//Lust vulnerability
 		//TODO for backwards compatibility reasons but should be phased out.
-		this.lustVuln = 1;
+		that.lustVuln = 1;
 		//Teasing attributes
-		this.teaseLevel = 0;
-		this.teaseXP = 0;
+		that.teaseLevel = 0;
+		that.teaseXP = 0;
 		//Perks used to store 'queued' perk buys
-		this.perkPoints = 0;
+		that.perkPoints = 0;
 		//Number of times explored for new areas
-		this.explored = 0;
-		this.exploredForest = 0;
-		this.exploredDesert = 0;
-		this.exploredMountain = 0;
-		this.exploredLake = 0;
+		that.explored = 0;
+		that.exploredForest = 0;
+		that.exploredDesert = 0;
+		that.exploredMountain = 0;
+		that.exploredLake = 0;
 	};
 	Player.prototype.spellMod = function() {
 		var mod = 1;
@@ -1939,58 +1939,59 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	var PlayerProxy = new Proxy( Player, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
 					}
 					if( name === 'armorName' ) {
-						if( this.modArmorName.length > 0 ) {
-							return this.modArmorName;
+						if( target.modArmorName.length > 0 ) {
+							return target.modArmorName;
 						}
-						return this.armor.name;
+						return target.armor.name;
 					}
 					if( name === 'armorDef' ) {
-						return this.getArmorDef();
+						return target.getArmorDef();
 					}
 					if( name === 'armorBaseDef' ) {
-						return this.armor.def;
+						return target.armor.def;
 					}
 					if( name === 'armorPerk' ) {
-						return this.armor.perk;
+						return target.armor.perk;
 					}
 					if( name === 'armorValue' ) {
-						return this.armor.value;
+						return target.armor.value;
 					}
 					if( name === 'weaponName' ) {
-						return this.weapon.name;
+						return target.weapon.name;
 					}
 					if( name === 'weaponVerb' ) {
-						return this.weapon.verb;
+						return target.weapon.verb;
 					}
 					if( name === 'weaponBaseAttack' ) {
-						return this.weapon.attack;
+						return target.weapon.attack;
 					}
 					if( name === 'weaponPerk' ) {
-						return this.weapon.perk;
+						return target.weapon.perk;
 					}
 					if( name === 'weaponValue' ) {
-						return this.weapon.value;
+						return target.weapon.value;
 					}
 					if( name === 'weaponAttack' ) {
-						return this.getWeaponAttack();
+						return target.getWeaponAttack();
 					}
 					if( name === 'minotaurScore' ) {
-						return this.minoScore();
+						return target.minoScore();
 					}
 					return target[ name ];
 				},
 				set: function( target, name, value ) {
 					if( _.find( [ 'armorValue', 'armorName', 'armorDef', 'armorPerk', 'weaponName', 'weaponVerb', 'weaponAttack', 'weaponPerk', 'weaponValue' ], name ) ) {
 						CoC_Settings.error( 'ERROR to directly set CoC.player.' + name );
-						return;
+						return true;
 					}
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

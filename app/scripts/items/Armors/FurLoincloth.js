@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 	};
 	return new Proxy( FurLoincloth, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -23,6 +23,7 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

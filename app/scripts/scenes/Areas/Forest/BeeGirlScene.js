@@ -2220,7 +2220,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	var BeeGirlSceneProxy = new Proxy( BeeGirlScene, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -2239,17 +2239,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				set: function( target, name, value ) {
 					if( name === 'attitude' ) {
 						CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] = (CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] & BEE_GIRL_CONVERSATION) + value;
-						return;
+						return true;
 					}
 					if( name === 'badEndWarning' ) {
 						CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] = (CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] & (BEE_GIRL_ATTITUDE | BEE_GIRL_CONVERSATION)) + (value ? 0x80000000 : 0);
-						return;
+						return true;
 					}
 					if( name === 'conversation' ) {
 						CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] = (CoC.flags[ kFLAGS.BEE_GIRL_STATUS ] & BEE_GIRL_ATTITUDE) + (value << 16);
-						return;
+						return true;
 					}
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

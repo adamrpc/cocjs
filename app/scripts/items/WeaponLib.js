@@ -8,7 +8,7 @@ angular.module('cocjs').factory('WeaponLib', function ( Weapon ) {
 	};
 	var WeaponLibProxy = new Proxy( WeaponLib, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -19,7 +19,7 @@ angular.module('cocjs').factory('WeaponLib', function ( Weapon ) {
 					return target[ name ];
 				},
 				set: function() {
-					return;
+					return true;
 				}
 			} );
 		}

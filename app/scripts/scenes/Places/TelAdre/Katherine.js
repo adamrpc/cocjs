@@ -6339,7 +6339,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ArmorLib, BreastStor
 	};
 	var KatherineProxy = new Proxy( Katherine, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -6370,32 +6370,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ArmorLib, BreastStor
 				set: function( target, name, value ) {
 					if( name === 'ballSize' ) {
 						CoC.flags[ kFLAGS.KATHERINE_BALL_SIZE ] = value;
-						return;
+						return true;
 					}
 					if( name === 'cockLength' ) {
 						CoC.flags[ kFLAGS.KATHERINE_DICK_LENGTH ] = value;
-						return;
+						return true;
 					}
 					if( name === 'cockNumber' ) {
 						CoC.flags[ kFLAGS.KATHERINE_DICK_COUNT ] = value;
-						return;
+						return true;
 					}
 					if( name === 'knotSize' ) {
 						CoC.flags[ kFLAGS.KATHERINE_KNOT_THICKNESS ] = value;
-						return;
+						return true;
 					}
 					if( name === 'fertile' ) {
-						return;
+						return true;
 					}
 					if( name === 'furry' ) {
 						CoC.flags[ kFLAGS.KATHERINE_IS_CAT_GIRL ] = (value ? 0 : 1);
-						return;
+						return true;
 					}
 					if( name === 'hairColor' ) {
 						CoC.flags[ kFLAGS.KATHERINE_HAIR_COLOR ] = value;
-						return;
+						return true;
 					}
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

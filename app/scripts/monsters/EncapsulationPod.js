@@ -107,18 +107,19 @@ angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( SceneLib, Weigh
 	};
 	var EncapsulationPodProxy = new Proxy( EncapsulationPod, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
 					}
 					if( name === 'long' ) {
-						return this._getLong();
+						return target._getLong();
 					}
 					return target[ name ];
 				},
 				set: function( target, name, value ) {
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}

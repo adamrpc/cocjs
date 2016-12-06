@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).factory( 'ItemSlot', function( ItemType, CoC_Settings 
 
 	var ItemSlotProxy = new Proxy( ItemSlot, {
 		construct: function( target ) {
-			return new Proxy( target, {
+			return new Proxy( new target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];
@@ -67,16 +67,17 @@ angular.module( 'cocjs' ).factory( 'ItemSlot', function( ItemType, CoC_Settings 
 							target.itype = ItemType.NOTHING;
 						}
 						target._quantity = value;
-						return;
+						return true;
 					}
 					if( name === 'unlocked' ) {
 						if( target._unlocked !== value ) {
 							target.emptySlot();
 						}
 						target._unlocked = value;
-						return;
+						return true;
 					}
 					target[ name ] = value;
+					return true;
 				}
 			} );
 		}
