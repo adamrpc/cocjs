@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.outputText( output, purgeText, parseAsMarkdown );
 	};
 	EngineCore.flushOutputTextToGUI = function() {
-		MainView.mainText.getTextFormat().size = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
+		MainView.fontSize = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
 		MainView.setOutputText( CoC.currentText );
 	};
 	EngineCore.displayPerks = function() {

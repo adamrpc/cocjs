@@ -128,6 +128,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		visible: false,
 		value: ''
 	};
+	MainView.fontSize = null;
 	MainView.bindingPane = {
 		visible: false,
 		functions: [],
