@@ -43,13 +43,14 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 	Saves.prototype.loadScreen = function() {
 		var slots = [];
 		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', true );
+		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
 			var test = localStorage.getItem( saveFileName );
-			EngineCore.outputText( this.loadSaveDisplay( test, index + 1 ), false );
+			EngineCore.outputText( that.loadSaveDisplay( test, index + 1 ), false );
 			if( test && test.data && test.data.flags[ 2066 ] === undefined ) {
 				slots.push( function() {
 					$log.info( 'Loading save with name', saveFileName, 'at index', index );
-					if( this.loadGame( saveFileName ) ) {
+					if( that.loadGame( saveFileName ) ) {
 						EngineCore.doNext(  MainView.playerMenu );
 						EngineCore.showStats();
 						EngineCore.statScreenRefresh();
@@ -80,12 +81,13 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		}
 		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', false );
 		var saveFuncs = [];
+		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			EngineCore.outputText( this.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			EngineCore.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
 			$log.info( 'Creating save function with indice = ', index );
 			saveFuncs.push( function() {
 				$log.info( 'Saving game with name', saveFileName, 'at index', index );
-				this.saveGame( saveFileName );
+				that.saveGame( saveFileName );
 			} );
 		} );
 		if( CoC.player.slotName === 'VOID' ) {
@@ -182,12 +184,13 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 	Saves.prototype.deleteScreen = function() {
 		EngineCore.outputText( 'Slot,  Race,  Sex,  Game Days Played\n', true );
 		var delFuncs = [];
+		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			EngineCore.outputText( this.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			EngineCore.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
 			$log.info( 'Creating delete function with indice = ', index );
 			delFuncs.push( function() {
 				CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] = saveFileName;
-				this.confirmDelete();
+				that.confirmDelete();
 			} );
 		} );
 		EngineCore.outputText( '\n<b>ONCE DELETED, YOUR SAVE IS GONE FOREVER.</b>', false );

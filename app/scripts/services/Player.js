@@ -1059,17 +1059,18 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			//multiple
 			EngineCore.outputText( '\n', false );
 			var modifiedRowCount = 0;
+			var that = this;
 			_.forEach(this.breastRows, function(breastRow, index) {
 				if( breastRow.breastRating > 0 ) {
 					breastRow.breastRating--;
 					modifiedRowCount++;
 					EngineCore.outputText( '\n', false );
-					if( index < this.breastRows.length - 1 ) {
+					if( index < that.breastRows.length - 1 ) {
 						EngineCore.outputText( '...and y', false );
 					} else {
 						EngineCore.outputText( 'Y', false );
 					}
-					EngineCore.outputText( 'our ' + Descriptors.breastDescript( index ) + ' shrink, dropping to ' + this.breastCup( index ) + 's.', false );
+					EngineCore.outputText( 'our ' + Descriptors.breastDescript( index ) + ' shrink, dropping to ' + that.breastCup( index ) + 's.', false );
 				}
 				if( breastRow.breastRating < 0 ) {
 					breastRow.breastRating = 0;
@@ -1857,9 +1858,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	Player.prototype.increaseEachCock = function( lengthDelta ) {
 		var totalGrowth = 0;
+		var that = this;
 		_.forEach(this.cocks, function(cock, index) {
 			$log.debug( 'increaseEachCock at: ' + index );
-			totalGrowth += this.increaseCock( index, lengthDelta );
+			totalGrowth += that.increaseCock( index, lengthDelta );
 		});
 		return totalGrowth;
 	};

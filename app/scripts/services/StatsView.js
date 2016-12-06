@@ -23,10 +23,10 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 		this.stats.time.text = "<b><u>Day #: {DAYS}</u></b>\n<b>Time : {HOURS}:00</b>"
 			.replace( "{DAYS}", CoC.time.days )
 			.replace( "{HOURS}", CoC.time.hours );
-				
+		var that = this;
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'fatigue', 'lust' ], function( statName ) {
-			this.stats[statName].bar = CoC.player[statName] / 100;
-			this.stats[statName].num = CoC.player[statName];
+			that.stats[statName].bar = CoC.player[statName] / 100;
+			that.stats[statName].num = CoC.player[statName];
 		} );
 		this.stats.HP.bar = CoC.player.HP / CoC.player.maxHP();
 		this.stats.HP.num = CoC.player.HP;
@@ -46,9 +46,10 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 	};
 	// <- hideUpDown
 	StatsView.prototype.hideUpDown = function() {
+		var that = this;
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust', 'fatigue', 'HP', 'xp' ], function( statName ) {
-			this.stats[statName].up = false;
-			this.stats[statName].down = false;
+			that.stats[statName].up = false;
+			that.stats[statName].down = false;
 		} );
 		this.mainView.hideLevelUp();
 	};
@@ -57,13 +58,14 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 			return 'old' + statName.charAt( 0 ).toUpperCase() + statName.substr( 1 );
 		}
 		this.upDownsContainer.visible = true;
+		var that = this;
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust' ], function( statName ) {
 			var oldStatName = _oldStatNameFor( statName );
 			if( CoC.player[ statName ] > CoC.oldStats[ oldStatName ] ) {
-				this.showStatUp( statName );
+				that.showStatUp( statName );
 			}
 			if( CoC.player[ statName ] < CoC.oldStats[ oldStatName ] ) {
-				this.showStatDown( statName );
+				that.showStatDown( statName );
 			}
 		} );
 	};

@@ -35,12 +35,13 @@ angular.module('cocjs').factory('Vagina', function (Utils) {
 			'vaginalWetness', 'vaginalLooseness', 'type',
 			'fullness', 'labiaPierced', 'clitPierced'
 		]);
+		var that = this;
         _.forEach(['labia', 'clit'], function(value) {
             _.forEach(['PShort', 'PLong'], function(value2) {
-                if(this[value + 'Pierced'] && this[value + value2] === '') {
+                if(that[value + 'Pierced'] && that[value + value2] === '') {
                     error += _.capitalize(value) + ' pierced but ' + value + value2 + ' = \'\'. ';
-                } else if(this[value + value2] !== '') {
-                    error += _.capitalize(value) + ' not pierced but ' + value + value2 + ' = \'' + this[value + value2] + '\'. ';
+                } else if(that[value + value2] !== '') {
+                    error += _.capitalize(value) + ' not pierced but ' + value + value2 + ' = \'' + that[value + value2] + '\'. ';
                 }
             });
         });
