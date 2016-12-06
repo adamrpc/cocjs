@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		}
 	};
 	MainView.clearOutput = function() {
-		CoC.currentText = '';
+		MainView.mainText = '';
 		MainView.clearOutputText();
 		if( CoC.gameState !== 3 ) {
 			MainView.hideMenuButton( MainView.MENU_DATA );
@@ -388,10 +388,11 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		output = parser.recursiveParser( output, parseAsMarkdown );
 		//OUTPUT!
 		if( purgeText ) {
-			CoC.currentText = output;
+			MainView.mainText = output;
 		} else {
-			CoC.currentText += output;
+			MainView.mainText += output;
 		}
+		$log.debug('Text that should display : ', MainView.mainText);
 	};
 	var combatMenuCallback = null;
 	MainView.registerCombatMenu = function( _combatMenuCallback ) {

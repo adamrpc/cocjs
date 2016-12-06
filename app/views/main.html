@@ -1,5 +1,5 @@
-<div id="stats" ng-if="main.statsView.visible">
-	<div class="stat" ng-repeat="(statName, stat) in main.statsView.stats">
+<div id="stats" ng-if="main.MainView.statsView.visible">
+	<div class="stat" ng-repeat="(statName, stat) in main.MainView.statsView.stats">
 		<span class="text">{{stat.text}}</span>
 		<span class="num" ng-if="stat.num >= 0">{{stat.num}}</span>
 		<span class="bar" ng-if="stat.bar >= 0">{{stat.bar}}</span>
@@ -7,11 +7,11 @@
 		<span class="down" ng-if="stat.down">-</span>
 	</div>
 </div>
-<div id="bindings" ng-if="main.bindingPane.visible" ng-keydown="main.bindingPane.keyDown($event)">
+<div id="bindings" ng-if="main.MainView.bindingPane.visible" ng-keydown="main.MainView.bindingPane.keyDown($event)">
 	<ul>
-		<li ng-repeat="func in main.bindingPane.functions">
+		<li ng-repeat="func in main.MainView.bindingPane.functions">
 			<b>{{func.Name}}&nbsp;:</b>
-			<button ng-click="main.bindingPane.listenForKey(func.PrimaryKey)" ng-disabled="main.bindingPane.currentKey">
+			<button ng-click="main.MainView.bindingPane.listenForKey(func.PrimaryKey)" ng-disabled="main.MainView.bindingPane.currentKey">
 				<span ng-if="!func.PrimaryKey">
 					Not set
 				</span>
@@ -28,7 +28,7 @@
 					{{func.PrimaryKey.key}}
 				</span>
 			</button>
-			<button ng-click="listenFor(func.SecondaryKey)" ng-disabled="main.bindingPane.currentKey">
+			<button ng-click="listenFor(func.SecondaryKey)" ng-disabled="main.MainView.bindingPane.currentKey">
 				<span ng-if="!func.SecondaryKey">
 					Not set
 				</span>
@@ -48,15 +48,15 @@
 		</li>
 	</ul>
 </div>
-<div id="mainText" ng-bind-html="main.mainText"></div>
-<select ng-if="main.aCb.visible" ng-model="main.aCb.value" ng-options="option.perk as option.label for option in main.aCb.dataProvider track by option.label">
+<div id="mainText" ng-bind-html="main.MainView.mainText"></div>
+<select ng-if="main.MainView.aCb.visible" ng-model="main.MainView.aCb.value" ng-options="option.perk as option.label for option in main.MainView.aCb.dataProvider track by option.label">
 	<option value="">Choose a perk</option>
 </select>
-<span ng-repeat="(btnName, btn) in main.menuButtons">
+<span ng-repeat="(btnName, btn) in main.MainView.menuButtons">
 	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
 </span>
-<span ng-repeat="btn in main.bottomButtons">
+<span ng-repeat="btn in main.MainView.bottomButtons">
 	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
 </span>
-<img ng-src="images/sprites/{{main.sprite.index}}" ng-if="main.sprite.visible">
-<input ng-if="main.nameBox.visible" ng-model="main.nameBox.value" ng-focus="main.nameBox.focus = true" ng-blur="main.nameBox.focus = false" ng-keydown="main.handleNameBoxKey()">
+<img ng-src="images/sprites/{{main.MainView.sprite.index}}" ng-if="main.MainView.sprite.visible">
+<input ng-if="main.MainView.nameBox.visible" ng-model="main.MainView.nameBox.value" ng-focus="main.MainView.nameBox.focus = true" ng-blur="main.MainView.nameBox.focus = false" ng-keydown="main.handleNameBoxKey()">

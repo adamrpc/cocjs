@@ -12,19 +12,13 @@ angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope
 	CoC.player2 = new Player();
 	CoC.monster = new Monster();
 	CoC.playerEvent = new PlayerEvents();
-	this.statsView = MainView.statsView;
-	this.bindingPane = MainView.bindingPane;
-	this.sprite = MainView.sprite;
-	this.bottomButtons = MainView.bottomButtons;
-	this.menuButtons = MainView.bottomButtons;
-	this.nameBox = MainView.nameBox;
-	this.aCb = MainView.aCb;
+	this.MainView = MainView;
 	this.handleNameBoxKey = function() {
 		if(MainView.nameBox.KeyHandler) {
 			MainView.nameBox.KeyHandler();
 		}
 	};
-	$scope.$watch('main.aCb.value', EngineCore.changeHandler);
+	$scope.$watch('main.MainView.aCb.value', EngineCore.changeHandler);
 	$rootScope.StartUp = StartUp; // TODO fix architecture
 	StartUp.mainMenu();
 });

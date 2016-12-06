@@ -54,8 +54,6 @@ angular.module('cocjs').factory('CoC', function ( ) {
 				return (that.time.days * 24 + that.time.hours);
 			}
 		};
-		//The string holds all the "story" text, mainly used in engineCore
-		that.currentText = '';
 		/**
 		 * Plot Variables
 		 * Booleans and numbers about whether you've found certain places

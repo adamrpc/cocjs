@@ -62,10 +62,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//OUTPUT!
 		if( purgeText ) {
 			EngineCore.clearOutput();
-			CoC.currentText = output;
+			MainView.mainText = output;
 			MainView.setOutputText( output );
 		} else {
-			CoC.currentText += output;
+			MainView.mainText += output;
 			MainView.appendOutputText( output );
 		}
 	};
@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.flushOutputTextToGUI = function() {
 		MainView.fontSize = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
-		MainView.setOutputText( CoC.currentText );
+		MainView.setOutputText( MainView.mainText );
 	};
 	EngineCore.displayPerks = function() {
 		EngineCore.outputText( '', true );
