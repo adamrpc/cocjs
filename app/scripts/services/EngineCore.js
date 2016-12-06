@@ -433,18 +433,18 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	// Returns a string or undefined.
 	EngineCore.getButtonToolTipText = function( buttonText ) {
 		var toolTipText = '';
-		if(buttonText === undefined) {
+		if( buttonText === null ) {
 			buttonText = '';
 		}
 		if( buttonText.indexOf( ' x' ) !== -1 ) {
 			buttonText = buttonText.split( ' x' )[ 0 ];
 		}
 		var itype = ItemType.lookupItem( buttonText );
-		if( itype !== null ) {
+		if( itype !== undefined ) {
 			toolTipText = itype.description;
 		}
 		itype = ItemType.lookupItemByShort( buttonText );
-		if( itype !== null ) {
+		if( itype !== undefined ) {
 			toolTipText = itype.description;
 		}
 		if( buttonText.indexOf( 'Tail Whip' ) !== -1 ) {
@@ -739,8 +739,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.choices = function() { //New typesafe version
 		EngineCore.menu();
-		_.forEach(_.range(0, arguments.length - 1, 2), function(choice, index) {
-			EngineCore.addButton( index, arguments[choice], arguments[choice + 1] );
+		var args = Array.from( arguments );
+		_.forEach(_.range(0, args.length - 1, 2), function(choice, index) {
+			EngineCore.addButton( index, args[choice], args[choice + 1] );
 		});
 	};
 	/****
