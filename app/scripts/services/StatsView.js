@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
+angular.module( 'cocjs' ).factory( 'StatsView', function($log, CoC) {
 	function StatsView( mainView ) {
 		if( !mainView ) {
 			return;
 		}
+		this.mainView = mainView;
 		this.stats = {};
 		var that = this;
 		_.forEach([ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust', 'fatigue', 'HP', 'level', 'XP', 'coreStats', 'gems', 'time' ], function(statType) {
@@ -47,7 +48,8 @@ angular.module( 'cocjs' ).factory( 'StatsView', function(CoC) {
 	// <- hideUpDown
 	StatsView.prototype.hideUpDown = function() {
 		var that = this;
-		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust', 'fatigue', 'HP', 'xp' ], function( statName ) {
+		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust', 'fatigue', 'HP', 'XP' ], function( statName ) {
+			$log.debug(statName, that.stats[statName], that.stats);
 			that.stats[statName].up = false;
 			that.stats[statName].down = false;
 		} );
