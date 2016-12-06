@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 		if( isPrimary === undefined ) {
 			isPrimary = true;
 		}
-		if(!controlMethods[ keyCode ]) {
+		if(!controlMethods[ funcName ]) {
 			$log.warn( 'Failed to bind control method [' + funcName + '] to keyCode [' + keyCode + ']' );
 			return;
 		}
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 	 */
 	InputManager.RemoveExistingKeyBind = function( keyCode ) {
 		// If the key is already bound to a method, remove it from that method
-		if( keysToControlMethods.has(keyCode) && keysToControlMethods[ keyCode ] !== null ) {
+		if( _.has(keysToControlMethods, keyCode) && keysToControlMethods[ keyCode ] !== null ) {
 			if( controlMethods[ keysToControlMethods[ keyCode ] ].PrimaryKey === keyCode ) {
 				controlMethods[ keysToControlMethods[ keyCode ] ].PrimaryKey = controlMethods[ keysToControlMethods[ keyCode ] ].SecondaryKey;
 				controlMethods[ keysToControlMethods[ keyCode ] ].SecondaryKey = InputManager.UNBOUNDKEY;
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 	 * @param    keyCode        The KeyCode for which we wish to execute the BoundControlMethod for.
 	 */
 	InputManager.ExecuteKeyCode = function( keyCode ) {
-		if( keysToControlMethods.has(keyCode) && keysToControlMethods[ keyCode ] !== null ) {
+		if( _.has(keysToControlMethods, keyCode) && keysToControlMethods[ keyCode ] !== null ) {
 			$log.debug( 'Attempting to exec func [' + controlMethods[ keysToControlMethods[ keyCode ] ].Name + ']' );
 			controlMethods[ keysToControlMethods[ keyCode ] ].Func();
 		}
