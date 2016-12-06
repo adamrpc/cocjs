@@ -124,13 +124,13 @@ angular.module('cocjs').factory('PregnancyStore', function ($log, CoC) {
 	   is in her pregnancy with the event property. They can also be checked using the eventTriggered() function. This checks to see which was the latest event
 	   the player noticed. The eventTriggered() function only triggers once per event per pregnancy. */
 	PregnancyStore.prototype.addPregnancyEventSet = function() {
-		var pregVector = arguments;
+		var pregVector = Array.from( arguments );
 		pregVector.push(-1); //Make last element -1 to ensure there is always a match
 		this._pregnancyEventValue.push(pregVector);
 	};
 	//Same as addPregnancyEventSet, but for butts
 	PregnancyStore.prototype.addButtPregnancyEventSet = function() {
-		var pregVector = arguments;
+		var pregVector = Array.from( arguments );
 		pregVector.push(-1); //Make last element -1 to ensure there is always a match
 		this._buttPregnancyEventValue.push(pregVector);
 	};

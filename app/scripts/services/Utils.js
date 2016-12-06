@@ -6,12 +6,12 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 	var NUMBER_WORDS_POSITIONAL = ["zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
 	
 	var curry = function(func) {
-		var args = _.slice(arguments, 1);
+		var args = _.slice(Array.from( arguments ), 1);
 		if (!func) {
 			CoC_Settings.error('curryFunction(null,' + args + ')');
 		}
 		return function () {
-			return func.apply(null,_.concat(args, arguments));
+			return func.apply(null,_.concat(args, Array.from( arguments )));
 		};
 	};
 		
@@ -54,7 +54,7 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 	};
 	
 	var randomChoice = function() {
-		var args = arguments;
+		var args = Array.from( arguments );
 		if ((args.length === 1) && (_.isArray(args[0]))) {
 			args = args[0];
 		}

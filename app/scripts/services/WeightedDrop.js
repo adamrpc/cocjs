@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'WeightedDrop', function( ) {
 	WeightedDrop.prototype.addMany = function() {
 		var weight = arguments[ 0 ];
 		var that = this;
-		_.forEach( _.drop( arguments ), function( item ) {
+		_.forEach( _.drop( Array.from( arguments ) ), function( item ) {
 			that.items.push( [ item, weight ] );
 			that.sum += weight;
 		} );

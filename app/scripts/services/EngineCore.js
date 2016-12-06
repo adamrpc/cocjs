@@ -690,7 +690,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 	};
 	EngineCore.createCallBackFunction2 = function( func ) {
-		var args = _.drop(arguments);
+		var args = _.drop(Array.from( arguments ));
 		if( func === null ) {
 			CoC_Settings.error( 'createCallBackFunction(null,' + args + ')' );
 		}
@@ -1377,7 +1377,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	 */
 	EngineCore.dynStats = function() {
 		// Check num of args, we should have a multiple of 2
-		var args = arguments;
+		var args = Array.from( arguments );
 		if( (args.length % 2) !== 0 ) {
 			$log.error( 'dynStats aborted. Keys->Arguments could not be matched' );
 			return;
