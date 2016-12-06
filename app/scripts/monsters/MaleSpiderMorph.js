@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MaleSpiderMorph', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UsableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'MaleSpiderMorph', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UseableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function MaleSpiderMorph() {
 		this.init(this, arguments);
 	}
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'MaleSpiderMorph', function( SceneLib, Abstra
 		that.level = 13;
 		that.gems = Utils.rand( 10 ) + 10;
 		that.drop = new WeightedDrop().add( ConsumableLib.S_GOSSR, 5 )
-			.add( UsableLib.T_SSILK, 1 )
+			.add( UseableLib.T_SSILK, 1 )
 			.add( null, 4 );
 		that.tailType = AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN;
 		that.tailRecharge = 0;

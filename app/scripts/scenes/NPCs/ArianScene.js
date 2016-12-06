@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, UsableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	/*Design Notes
 	 Arian has a "<i>health</i>" stat that goes from 0 to 100. Where 0 equals very sick and 100 equals healthy. This also works as a sort of affection meter.
 	 Interacting with the PC will improve Arian's health; be it talking, giving items or sex.
@@ -3256,7 +3256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UsableLib, $rootSco
 		EngineCore.outputText( '\n\n<b>Shielding Spell Two Black Chitin and One Tough Silk - Increases defense for the duration of the battle.' );
 		EngineCore.outputText( '\n<b>Immolation Spell 2x Goblin Ale and 1x Sweet Gossamer - Deals damage over time.' );
 		EngineCore.menu();
-		if( CoC.player.hasItem( UsableLib.B_CHITN, 2 ) && CoC.player.hasItem( UsableLib.T_SSILK ) ) {
+		if( CoC.player.hasItem( UseableLib.B_CHITN, 2 ) && CoC.player.hasItem( UseableLib.T_SSILK ) ) {
 			EngineCore.addButton( 0, 'Shielding', this.arianSpellPlace, 'Shielding Spell' );
 		}
 		if( CoC.player.hasItem( ConsumableLib.GOB_ALE, 2 ) && CoC.player.hasItem( ConsumableLib.S_GOSSR ) ) {
@@ -3278,8 +3278,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UsableLib, $rootSco
 		if( spell === 'Shielding Spell' ) {
 			CoC.player.createStatusAffect( StatusAffects.ShieldingSpell, 0, 0, 0, 0 );
 			//Shielding Spell: 2x Black Chitin and 1x Tough Silk. - Increases defense for the duration of the battle.;
-			CoC.player.consumeItem( UsableLib.B_CHITN, 2 );
-			CoC.player.consumeItem( UsableLib.T_SSILK );
+			CoC.player.consumeItem( UseableLib.B_CHITN, 2 );
+			CoC.player.consumeItem( UseableLib.T_SSILK );
 		}
 		if( spell === 'Immolation Spell' ) {
 			CoC.player.createStatusAffect( StatusAffects.ImmolationSpell, 0, 0, 0, 0 );

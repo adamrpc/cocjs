@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
 
 	function KihaScene() {
 	}
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UsableLib, Kiha, ConsumableLi
 		} else if( event < 9 ) {
 			itype = ConsumableLib.COAL___;
 		} else if( event < 10 ) {
-			itype = UsableLib.T_SSILK;
+			itype = UseableLib.T_SSILK;
 		}
 		EngineCore.outputText( 'While exploring, you find an item on the ground!  ', false );
 		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );

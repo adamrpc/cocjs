@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UsableLib, AppearanceDefs, PregnancyStore, ConsumableLib, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLib, AppearanceDefs, PregnancyStore, ConsumableLib, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Benoit() {
 	}
 
@@ -427,10 +427,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UsableLib
 		//Slot 3 Any one of the following: Maid's Clothes, Wizard Robes, Tough Silk, Slutty Swimwear, Goo Chunk, Chitin Plate;
 		CoC.flags[ kFLAGS.BENOIT_3 ] = Utils.randomChoce(
 			ArmorLib.W_ROBES.id,
-			UsableLib.T_SSILK.id,
+			UseableLib.T_SSILK.id,
 			ArmorLib.S_SWMWR.id,
-			UsableLib.GREENGL.id,
-			UsableLib.B_CHITN.id
+			UseableLib.GREENGL.id,
+			UseableLib.B_CHITN.id
 		);
 
 		if( Utils.rand( 10 ) === 0 ) {

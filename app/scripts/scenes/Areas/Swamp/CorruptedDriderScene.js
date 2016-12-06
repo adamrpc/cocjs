@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDefs, UsableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDefs, UseableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function CorruptedDriderScene() {
 	}
 
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 			if( CoC.player.cockThatFits( CoC.monster.vaginalCapacity() ) >= 0 ) {
 				EngineCore.outputText( '\nYou could fuck her pussy, though you\'d be within easy reach of her lips.  If she gets any crazy ideas, it\'d be hard to stop her.', false );
 				vagFuck = this.winDriderPCDickInSpiderCunt;
-				if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN || CoC.player.hasItem( UsableLib.T_SSILK ) ) {
+				if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN || CoC.player.hasItem( UseableLib.T_SSILK ) ) {
 					EngineCore.outputText( '\nYou could bind her up with some webbing for some bondage.  Her lips are dangerous, after all.' );
 					careful = this.driderVagSmartFuck;
 				}
@@ -963,7 +963,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 			this.driderTiedUpPartTwo( false );
 		}
 		//(Champion has some Tough Spider Silk on them);
-		else if( CoC.player.hasItem( UsableLib.T_SSILK ) ) {
+		else if( CoC.player.hasItem( UseableLib.T_SSILK ) ) {
 			EngineCore.outputText( '\n\nRemembering the bundle of silk that you have with you, it doesn\'t take long to come up with a very enticing idea for dealing with the drider.  However, you have a feeling that you won\'t be able to do much else with the silk if you go through with your plan.  Are you sure you want to use it on her?' );
 			//[Yes] [No];
 			EngineCore.doYesNo( EngineCore.createCallBackFunction( this.driderTiedUpPartTwo, true ), this.dontSilkRapeDrider );
@@ -986,7 +986,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		var y = x + 1;
 		if( useItem ) {
 			EngineCore.clearOutput();
-			CoC.player.consumeItem( UsableLib.T_SSILK );
+			CoC.player.consumeItem( UseableLib.T_SSILK );
 			EngineCore.outputText( 'Smirking to yourself, you advance on the collapsed girl, [cock ' + y + '] straining against your clothing in anticipation of what\'s to come.' );
 		}
 		EngineCore.outputText( '\n\nDarting forwards suddenly, you seize her wrists, pulling her arms above her head' );

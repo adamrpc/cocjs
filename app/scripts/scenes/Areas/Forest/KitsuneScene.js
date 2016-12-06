@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( UseableLib, SimpleUseable, MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UsableLib ) {
+angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UseableLib ) {
 	function KitsuneScene() {
 	}
 
@@ -1928,7 +1928,7 @@ angular.module( 'cocjs' ).run( function( UseableLib, SimpleUseable, MainView, Sc
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.addButton( 1, 'Meditate', this.meditateLikeAKitsuneEhQuestionMark );
 		}
-		if( CoC.player.hasItem( UsableLib.GLDSTAT ) || CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
+		if( CoC.player.hasItem( UseableLib.GLDSTAT ) || CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.addButton( 2, 'Statue', this.stealAStatue );
 		}
 		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
@@ -2006,7 +2006,7 @@ angular.module( 'cocjs' ).run( function( UseableLib, SimpleUseable, MainView, Sc
 		EngineCore.outputText( 'The thought of how many gems you\'ll be able to get for it is enough to quickly suppress those feelings, avarice winning out over guilt.' );
 		//+10 COR, add Gold Statue to inventory, Advance 1hr and return to camp
 		EngineCore.dynStats( 'lus', 10 );
-		SceneLib.inventory.takeItem( UsableLib.GLDSTAT, SceneLib.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( UseableLib.GLDSTAT, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 1;
 	};
 	//[Put it Back]
@@ -2015,7 +2015,7 @@ angular.module( 'cocjs' ).run( function( UseableLib, SimpleUseable, MainView, Sc
 		EngineCore.outputText( 'Regretting your decision, you replace the statue on the pedestal, your guilty conscience winning out over greed today.' );
 		//Advance 1hr and return to camp.
 		CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 0;
-		CoC.player.consumeItem( UsableLib.GLDSTAT );
+		CoC.player.consumeItem( UseableLib.GLDSTAT );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Use:

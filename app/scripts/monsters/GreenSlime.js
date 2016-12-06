@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, ChainedDrop, Combat, ConsumableLib, UsableLib ) {
+angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, SceneLib, CoC, EngineCore, Monster, CockTypesEnum, Utils, WeaponLib, AppearanceDefs, StatusAffects, ChainedDrop, Combat, ConsumableLib, UseableLib ) {
 	function GreenSlime() {
 		this.init(this, arguments);
 	}
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 		that.gems = Utils.rand( 5 ) + 1;
 		that.drop = new ChainedDrop().add( WeaponLib.PIPE, 1 / 10 )
 			.add( ConsumableLib.WETCLTH, 1 / 2 )
-			.elseDrop( UsableLib.GREENGL );
+			.elseDrop( UseableLib.GREENGL );
 		that.special1 = that.lustReduction;
 		that.special2 = Combat.lustAttack;
 		that.special3 = Combat.lustAttack;

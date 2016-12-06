@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UsableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UseableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
 	function CorruptedDrider() {
 		this.init(this, arguments);
 	}
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 			that.gems = Utils.rand( 10 ) + 20;
 		}
 		that.drop = new WeightedDrop().add( ConsumableLib.B_GOSSR, 5 )
-			.add( UsableLib.T_SSILK, 1 )
+			.add( UseableLib.T_SSILK, 1 )
 			.add( null, 4 );
 		that.checkMonster();
 	};

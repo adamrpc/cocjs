@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UseableLib, $log, PerkLib, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//const RATHAZUL_DEBIMBO_OFFERED:int = 744;;
 	//Rathazul the Alchemist;
 	//Encounter, random text for potential uses, EngineCore.choices.;
@@ -161,14 +161,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 			EngineCore.outputText( 'He eyes the onyx egg in your inventory and offers a little advice.  "<i>Be careful with black eggs.  They can turn your skin to living latex or rubber.  The smaller ones are usually safer, but everyone reacts differently.  I\'d get rid of them, if you want my opinion.</i>"\n\n' );
 		}
 		//Item crafting offer;
-		if( CoC.player.hasItem( UsableLib.GREENGL, 2 ) ) {
+		if( CoC.player.hasItem( UseableLib.GREENGL, 2 ) ) {
 			if( CoC.player.findStatusAffect( StatusAffects.RathazulArmor ) < 0 ) {
 				EngineCore.outputText( 'He pipes up with a bit of hope in his voice, "<i>I can smell the essence of the tainted lake-slimes you\'ve defeated, and if you\'d let me, I could turn it into something a bit more useful to you.  You see, the slimes are filled with the tainted essence of the world-mother herself, and once the taint is burned away, the remaining substance remains very flexible but becomes nearly impossible to cut through.  With the gel of five defeated slimes I could craft you a durable suit of armor.</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( 'He pipes up with a bit of excitement in his voice, "<i>With just five pieces of slime-gel I could make another suit of armor...</i>"\n\n', false );
 			}
 			spoken = true;
-			if( CoC.player.hasItem( UsableLib.GREENGL, 5 ) ) {
+			if( CoC.player.hasItem( UseableLib.GREENGL, 5 ) ) {
 				showArmorMenu = true;
 				totalOffers++;
 			} else {
@@ -176,10 +176,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 			}
 		}
 		//Item crafting offer;
-		if( CoC.player.hasItem( UsableLib.B_CHITN ) ) {
+		if( CoC.player.hasItem( UseableLib.B_CHITN ) ) {
 			EngineCore.outputText( 'The elderly rat looks at you intently and offers, "<i>I see you\'ve gathered a piece of chitin from the giant bees of the forests.  If you bring me five pieces I could probably craft it into some tough armor.</i>"\n\n', false );
 			spoken = true;
-			if( CoC.player.hasItem( UsableLib.B_CHITN, 5 ) ) {
+			if( CoC.player.hasItem( UseableLib.B_CHITN, 5 ) ) {
 				showArmorMenu = true;
 				totalOffers++;
 			} else {
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 			reductos = this.buyReducto;
 		}
 		//SPOIDAH;
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UsableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
 			showArmorMenu = true;
 			spoken = true;
 			totalOffers++;
@@ -418,11 +418,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 	Rathazul.prototype.rathazulArmorMenu = function() {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
-		var beeArmor = (CoC.player.hasItem( UsableLib.B_CHITN, 5 ) ? this.craftCarapace : null);
-		var gelArmor = (CoC.player.hasItem( UsableLib.GREENGL, 5 ) ? this.craftOozeArmor : null);
+		var beeArmor = (CoC.player.hasItem( UseableLib.B_CHITN, 5 ) ? this.craftCarapace : null);
+		var gelArmor = (CoC.player.hasItem( UseableLib.GREENGL, 5 ) ? this.craftOozeArmor : null);
 		var silk = null;
 		EngineCore.outputText( 'Which armor project would you like to pursue with Rathazul?' );
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UsableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
 			silk = this.craftSilkArmor;
 		}
 		EngineCore.choices( 'BeeArmor', beeArmor, 'GelArmor', gelArmor, 'SpiderSilk', silk, '', null, 'Back', this.returnToRathazulMenu );
@@ -432,7 +432,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You hand the bundled webbing to Rathazul carefully, lest you damage the elderly mouse.  He gives you a bemused smile and snatches the stuff from your grasp while he mutters, "<i>I\'m not falling apart you know.</i>"\n\n', false );
 		//(Not enough webs: ;
-		if( !CoC.player.hasItem( UsableLib.T_SSILK, 5 ) ) {
+		if( !CoC.player.hasItem( UseableLib.T_SSILK, 5 ) ) {
 			EngineCore.outputText( 'The rat shakes his head and hands it back to you.  "<i>This isn\'t enough for me to make anything with.  I\'ll need at least five bundles of this stuff total, so you\'ll need to find more,</i>" he explains.\n\n', false );
 			//(optional spider bonus: ;
 			if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN ) {
@@ -458,7 +458,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 		EngineCore.outputText( 'You sort 500 gems into a pouch and toss them to Rathazul, along with the rest of the webbing.  The wizened alchemist snaps the items out of the air with lightning-fast movements and goes to work immediately.  He bustles about with enormous energy, invigorated by the challenging task before him.  It seems Rathazul has completely forgotten about you, but as you turn to leave, he calls out, "<i>What did you want me to make?  A mage\'s robe or some nigh-impenetrable armor?</i>"\n\n', false );
 		CoC.player.gems -= 500;
 		EngineCore.statScreenRefresh();
-		CoC.player.destroyItems( UsableLib.T_SSILK, 5 );
+		CoC.player.destroyItems( UseableLib.T_SSILK, 5 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Armor', this.chooseArmorOrRobes, 1 );
 		EngineCore.addButton( 1, 'Robes', this.chooseArmorOrRobes, 2 );
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 	};
 	Rathazul.prototype.craftOozeArmor = function() {
 		EngineCore.spriteSelect( 49 );
-		CoC.player.destroyItems( UsableLib.GREENGL, 5 );
+		CoC.player.destroyItems( UseableLib.GREENGL, 5 );
 		EngineCore.outputText( 'Rathazul takes the green gel from you and drops it into an empty cauldron.  With speed well beyond what you\'d expect from such an elderly creature, he nimbly unstops a number of vials and pours them into the cauldron.  He lets the mixture come to a boil, readying a simple humanoid-shaped mold from what you had thought was piles of junk material.  In no time at all, he has cast the boiling liquid into the mold, and after a few more minutes he cracks it open, revealing a suit of glistening armor.\n\n', true );
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		SceneLib.inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
@@ -596,7 +596,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, UsableL
 		if( CoC.player.biggestTitSize() >= 8 ) {
 			EngineCore.outputText( 'Your ' + Appearance.biggestBreastSizeDescript() + ' barely fit into the breastplate, leaving you displaying a large amount of jiggling cleavage.\n\n', false );
 		}
-		CoC.player.destroyItems( UsableLib.B_CHITN, 5 );
+		CoC.player.destroyItems( UseableLib.B_CHITN, 5 );
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		SceneLib.inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
 		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );

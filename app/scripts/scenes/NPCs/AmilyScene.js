@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Descriptors, PerkLib, UsableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Descriptors, PerkLib, UseableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
 	/*Amily the Mousegirl Breeder
 	 * Plus human stuff
 	 =============================================
@@ -1495,11 +1495,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( '"<i>You managed to get your hands on ultra-pure giant bee honey?</i>" she asks, sounding impressed.  "<i>I hear that stuff\'s so pure it can actually help purge the eater of demonic taint - but it\'s probably otherwise the same as regular bee honey.</i>"\n\n', false );
 			}
 			//Green Glob:;
-			else if( CoC.player.itemSlot1.itype === UsableLib.GREENGL ) {
+			else if( CoC.player.itemSlot1.itype === UseableLib.GREENGL ) {
 				EngineCore.outputText( '"<i>A blob of slime from a green gel?  Hmm...</i>" she looks thoughtful.  "<i>I think I remember my dad once telling me you could make a really strong armor out of a special distillation of green oozes.  I can\'t say for sure, and I wouldn\'t have the equipment even if I did remember.</i>"\n\n', false );
 			}
 			//Bee Chitin:;
-			else if( CoC.player.itemSlot1.itype === UsableLib.B_CHITN ) {
+			else if( CoC.player.itemSlot1.itype === UseableLib.B_CHITN ) {
 				EngineCore.outputText( '"<i>If you had a sufficient mass of this stuff, you could make a suit of armor out of it.  It needs special alchemical reagents, though, otherwise it\'ll just get all brittle and smashed up.</i>"\n\n', false );
 			} else {
 				EngineCore.outputText( 'She looks at it and shrugs, not really familiar with it.\n\n', false );
@@ -5594,11 +5594,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( '"<i>You managed to get your hands on ultra-pure giant bee honey?</i>" she asks, sounding impressed. "<i>I hear that stuff\'s so pure it can actually help purge the eater of demonic taint - but why would you want to do that?</i>" she asks mockingly.\n\n', false );
 			}
 			//Green Glob:;
-			else if( CoC.player.itemSlot1.itype === UsableLib.GREENGL ) {
+			else if( CoC.player.itemSlot1.itype === UseableLib.GREENGL ) {
 				EngineCore.outputText( '"<i>A blob of slime from a green gel? Hmm...</i>" She looks thoughtful. "<i>I think I remember my dad once telling  me you could make a really strong armor out of a special distillation of green oozes. Slut doesn\'t remember for sure, but she thinks you look better naked ' + CoC.player.mf( 'master', 'mistress' ) + '</i>," she says seductively.</i>"\n\n', false );
 			}
 			//Bee Chitin:;
-			else if( CoC.player.itemSlot1.itype === UsableLib.B_CHITN ) {
+			else if( CoC.player.itemSlot1.itype === UseableLib.B_CHITN ) {
 				EngineCore.outputText( '"<i>If you had a sufficient mass of this stuff, you could make a suit of armor out of it. It needs special alchemical reagents, though, otherwise it\'ll just get all brittle and smashed up. But why bother? That would hide your perfect body, ' + CoC.player.mf( 'master', 'mistress' ) + '</i>," she says seductively.\n\n', false );
 			} else {
 				EngineCore.outputText( 'She looks at it and shrugs, not really familiar with it.\n\n', false );

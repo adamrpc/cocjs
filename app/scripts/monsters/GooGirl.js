@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, ChainedDrop, Combat, ConsumableLib, WeaponLib, UsableLib ) {
+angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC, EngineCore, Monster, Utils, PerkLib, AppearanceDefs, StatusAffects, ChainedDrop, Combat, ConsumableLib, WeaponLib, UseableLib ) {
 	function GooGirl() {
 		this.init(this, arguments);
 	}
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		that.gems = Utils.rand( 5 ) + 1;
 		that.drop = new ChainedDrop().add( WeaponLib.PIPE, 1 / 10 )
 			.add( ConsumableLib.WETCLTH, 1 / 2 )
-			.elseDrop( UsableLib.GREENGL );
+			.elseDrop( UseableLib.GREENGL );
 		that.checkMonster();
 	};
 	//Color types are presented as [Blue slimes/Purple Slimes/Clear Slimes]
