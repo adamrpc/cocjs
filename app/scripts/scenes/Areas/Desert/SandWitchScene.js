@@ -9,7 +9,6 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		//Event: 0 (= not pregnant), 1, 2 (< 96)
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_DRIDER_EGGS, 96 );
 		//Event: 0 (= not pregnant), 1, 2 (< 96)
-		CoC.timeAwareClassAdd( this );
 	}
 
 	//Implementation of TimeAwareInterface

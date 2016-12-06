@@ -11,9 +11,6 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		$rootScope.$on('time-change-large', this.timeChangeLarge);
 	}
 	
-	PhoukaScene.prototype.PhoukaScene = function() {
-		CoC.timeAwareClassAdd( this );
-	};
 	//Implementation of TimeAwareInterface
 	PhoukaScene.prototype.timeChange = function() {
 		if( CoC.player.statusAffectv1( StatusAffects.PhoukaWhiskeyAffect ) > 0 ) {
