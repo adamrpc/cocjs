@@ -211,6 +211,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 	};
 	EngineCore.changeHandler = function( selected ) {
+		if( selected === null ) {
+			return;
+		}
 		//Store perk name for later addition
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You have selected the following perk:\n\n' );
