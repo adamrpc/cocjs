@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ComsumableLib, Combat, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ConsumableLib, Combat, OnLoadVariables ) {
 	function Mountain() {
 	}
 
@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		}
 		//(Acquired minotaur cum!)
 		CoC.time.hours++;
-		SceneLib.inventory.takeItem( ComsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
+		SceneLib.inventory.takeItem( ConsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.watchAMinoCumSlut = function() {
 		EngineCore.clearOutput();

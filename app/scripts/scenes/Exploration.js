@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kFLAGS, Utils, AppearanceDefs, Combat, Imp, Goblin, ComsumableLib, Descriptors, Appearance, StatusAffects ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kFLAGS, Utils, AppearanceDefs, Combat, Imp, Goblin, ConsumableLib, Descriptors, Appearance, StatusAffects ) {
 	function Exploration() { }
 	Exploration.prototype.doExplore = function() {
 		if( CoC.player.explored === 0 ) {
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 	};
 
 	Exploration.prototype.debugOptions = function() {
-		SceneLib.inventory.takeItem( ComsumableLib.W_FRUIT, MainView.playerMenu );
+		SceneLib.inventory.takeItem( ConsumableLib.W_FRUIT, MainView.playerMenu );
 	};
 	//Massive bodyparts scene
 	//[DESERT]
