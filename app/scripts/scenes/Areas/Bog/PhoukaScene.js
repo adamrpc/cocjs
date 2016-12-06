@@ -2,15 +2,15 @@
 
 angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
+		this.phoukaForm = 0; //This keeps track of the form of the phouka across different scenes and through combat
+		this.PHOUKA_FORM_FAERIE = 0;
+		this.PHOUKA_FORM_BUNNY = 1;
+		this.PHOUKA_FORM_GOAT = 2;
+		this.PHOUKA_FORM_HORSE = 3;
 		$rootScope.$on('time-change', this.timeChange);
 		$rootScope.$on('time-change-large', this.timeChangeLarge);
 	}
-
-	PhoukaScene.phoukaForm = 0; //This keeps track of the form of the phouka across different scenes and through combat
-	PhoukaScene.PHOUKA_FORM_FAERIE = 0;
-	PhoukaScene.PHOUKA_FORM_BUNNY = 1;
-	PhoukaScene.PHOUKA_FORM_GOAT = 2;
-	PhoukaScene.PHOUKA_FORM_HORSE = 3;
+	
 	PhoukaScene.prototype.PhoukaScene = function() {
 		CoC.timeAwareClassAdd( this );
 	};
@@ -36,7 +36,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		return this.phoukaNameText( 'phouka', 'faerie creature' );
 	};
 	PhoukaScene.prototype.phoukaEncounter = function() { //General entry point for everything except halloween special encounter
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_FAERIE; //Reset to faerie form at the start of any encounter
+		this.phoukaForm = this.PHOUKA_FORM_FAERIE; //Reset to faerie form at the start of any encounter
 		var choiceChance = 0;
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] === 0 ) { //Guarantee first Phouka encounter is with faerie fire
 			CoC.flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ] = OnLoadVariables.date.fullYear - 1; //If you've never encountered phoukas before then we can safely set all this stuff here
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		} //Now you know what to call them
 		CoC.player.consumeItem( ConsumableLib.P_WHSKY, 1 );
 		EngineCore.outputText( '\n\nThe phouka zips over to a nearby tree and collects a pair of leather drinking cups while you pry the cork out of the bottle.  As he returns his form shifts and grows, becoming a bunny-morph.  You guess in faerie form these phouka are lightweights - that or they just can’t physically take in enough booze for their liking.  He takes the bottle and pours some of the clear amber liquid into the cups, offering one to you.' );
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_BUNNY;
+		this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 		if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
 			EngineCore.menu();
 			EngineCore.addButton( 1, 'Drink', this.phoukaDrinkAccept );
@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 					if( CoC.flags[ kFLAGS.PHOUKA_LORE ] === 0 ) {
 						CoC.flags[ kFLAGS.PHOUKA_LORE ] = 1;
 					} //Now you know what to call them
-					PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_BUNNY;
+					this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 					if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
 						EngineCore.outputText( '  He pours some of the clear amber liquid into the other cup and offers it to you.' );
 						EngineCore.menu();
@@ -323,7 +323,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				EngineCore.outputText( '\n\nAs you drink another cup of whiskey the phouka topples over, utterly drunk. You\'ve been feeling the effects but your drinking buddy is done.' );
 			}
 			EngineCore.outputText( '  He lets out a little giggle and begins to shrink. Tendrils of black smoke rise from the bunny morph’s black fur as he shrinks back to the size and shape of a faerie.' );
-			PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_FAERIE;
+			this.phoukaForm = this.PHOUKA_FORM_FAERIE;
 			if( CoC.player.lust < 33 ) {
 				EngineCore.outputText( '  It looks like he needs a nap and you take that as your cue to get out of here.' );
 			} else {
@@ -407,17 +407,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 		} else { //You win by lust and have the chance to fuck the phouka if you’re horny
 			EngineCore.outputText( 'The ' + this.phoukaName() + ' collapses to the ground and begins to jab his cock into the peat.' );
-			if( PhoukaScene.phoukaForm !== PhoukaScene.PHOUKA_FORM_FAERIE ) {
+			if( this.phoukaForm !== this.PHOUKA_FORM_FAERIE ) {
 				EngineCore.outputText( '  As you watch, wisps of black smoke start to rise from him and his body starts to shrink.  In moments the ' );
-				if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+				if( this.phoukaForm === this.PHOUKA_FORM_BUNNY ) {
 					EngineCore.outputText( 'bunny morph' );
-				} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
+				} else if( this.phoukaForm === this.PHOUKA_FORM_GOAT ) {
 					EngineCore.outputText( 'goat morph' );
-				} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+				} else if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 					EngineCore.outputText( 'stallion' );
 				}
 				EngineCore.outputText( ' has shrunk back down to the size and shape of a ' + this.phoukaNameText( 'phouka', 'faerie' ) + '.' );
-				PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_FAERIE;
+				this.phoukaForm = this.PHOUKA_FORM_FAERIE;
 			}
 			if( CoC.player.lust < 33 ) {
 				EngineCore.outputText( '  The threat dealt with you scoop, dig and finally extract yourself from the mire.  Your lower half is soaked and you long to sit in front of the fire at your camp.  Hefting your supplies you turn back the way you came.' );
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.clearOutput();
 		if( postCombat ) {
 			EngineCore.outputText( 'As you collapse the ' + this.phoukaName() );
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_BUNNY ) {
 				EngineCore.outputText( ' hops over and stands in front of you' );
 			} else {
 				EngineCore.outputText( ' begins to shapeshift in front of you.  He changes into various forms, looks you over and finally changes into a black furred bunny-morph' );
@@ -544,18 +544,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		} else {
 			if( CoC.player.cor <= 50 ) {
 				EngineCore.outputText( 'It might not be the wisest move, but you decide to let the ' + this.phoukaName() + ' have his way with you.  You tell him you would prefer a little bunny loving and the ' + this.phoukaName() + ' grins from ear to ear. <i>“Comin\' right up,”</i> he says' );
-				if( PhoukaScene.phoukaForm !== PhoukaScene.PHOUKA_FORM_BUNNY ) {
+				if( this.phoukaForm !== this.PHOUKA_FORM_BUNNY ) {
 					EngineCore.outputText( ', and morphs into a rabbit' );
 				}
 				EngineCore.outputText( '.  Hopefully he\'ll be gentle with a willing partner.' );
 			} else {
 				EngineCore.outputText( 'You can\'t think of any good reason to refuse a roll in the hay (or the mire) with this ' + this.phoukaName() + '.  You tell him that you want to feel his big bunny cock deep inside you.  The ' + this.phoukaName() + ' grins as you begin seductively stripping off you armor.' );
-				if( PhoukaScene.phoukaForm !== PhoukaScene.PHOUKA_FORM_BUNNY ) {
+				if( this.phoukaForm !== this.PHOUKA_FORM_BUNNY ) {
 					EngineCore.outputText( '  He goes through a short series of warm up exercises and then transforms himself into the rabbit you desire.' );
 				}
 			}
 		}
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_BUNNY;
+		this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 		EngineCore.outputText( '\n\nThe bunny advances on you and says <i>“I can\'t wait to blow my load inside that nice pussy of yours.”</i> His paws split apart into fingers in a way you are sure would be excruciating for a real rabbit.  The bunny slides his hands over your belly while his nose sniffs at the back of your neck. [if (isPregnant = true)<i>“They say pregnant girls love ta fuck.  You ready for some meat?”</i>][if (isPregnant = false)His fingers begin to tease your [clit] as he asks you <i>“Ready for some meat?”</i>]' );
 		if( (CoC.player.lust > 80) || (CoC.player.cor > 50) ) {
 			EngineCore.outputText( ' You can only moan in response.  The thought of this rabbit stuffing you has your [vagina] leaking already.' );
@@ -585,7 +585,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			} else {
 				EngineCore.outputText( 'Your body falls to the ground, too weak to fight back against the ' + this.phoukaName() + ' any longer.' );
 			}
-			if( PhoukaScene.phoukaForm !== PhoukaScene.PHOUKA_FORM_GOAT ) {
+			if( this.phoukaForm !== this.PHOUKA_FORM_GOAT ) {
 				EngineCore.outputText( '  As you lay there, the ' + this.phoukaName() + '\'s body stretches and morphs until it takes the form of a large, black furred goat-morph.' );
 			}
 		} else {
@@ -596,7 +596,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				EngineCore.outputText( 'Then you put on a show, taking your clothes off piece by piece.  You strip off your final undergarment, bend over and wink your asshole at the goat.' );
 			}
 		}
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_GOAT;
+		this.phoukaForm = this.PHOUKA_FORM_GOAT;
 		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '\n\n<i>“Aw missy, why’d ye have te be so cruel? Ye’ve got that sexy cunt there just beggin’ fer a cock,”</i> says the goat, wrapping his front legs around your [if (isTaur = true)flanks][if (isTaur = false)upper body]. When you stare at him he laughs and adds <i>“I’ll give yer ass a good poundin if that’s what ye want - don’t worry about that. I just don’t know why ye don’t want me in here.”</i> His smooth hoof slides up and down your slit before he gets down to business.\n\n' );
 		} else {
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.clearOutput();
 		if( postCombat ) {
 			EngineCore.outputText( 'As you collapse the ' + this.phoukaName() );
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 				EngineCore.outputText( ' circles you in a slow trot, his top half shaping into a centaur form before finally stopping directly in front of you.' );
 			} else {
 				EngineCore.outputText( ' begins to shapeshift in front of you.  It grows and grows, finally taking the form of a massive, black, centaur stallion with an equally massive prick.' );
@@ -654,7 +654,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				EngineCore.outputText( 'The more you think about it the more you decide you could use a real fucking.  You smile at the ' + this.phoukaName() + ', telling him you want the biggest cock he can muster.  The ' + this.phoukaName() + 'morphs into the form you expected, that of a black, centaur stallion [if (tallness <= 96)taller than you are][if (tallness > 96)that\'s about your height].  Maybe that tree trunk between his legs can scratch your itch.' );
 			}
 		}
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_HORSE;
+		this.phoukaForm = this.PHOUKA_FORM_HORSE;
 		EngineCore.outputText( '  On closer inspection the centaur is a bit unusual.  For a start, he has shiny green eyes.  Parts of his flanks look like thin wings pressed against its sides.  His nose is a little shorter and his face a lot more human than you would have expected.  He sees you looking him over and says <i>[if (isTaur = true)“I\'ve been waitin for this.  A nice big mare to fuck the daylights out of][if (isTaur = false)“Yer gonna be sorry ye weren\'t born with four legs and a cunt you could lose an arm in, princess].”</i>\n\n' );
 		if( !postCombat || lustLoss ) {
 			EngineCore.outputText( 'Considering the fire in your vagina that\'s crying out to be quenched, you don\'t care how big this horse\'s cock is.  You just need something to fill you NOW.' );
@@ -789,7 +789,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 	};
 	PhoukaScene.prototype.phoukaSexPregnate = function( postCombat ) { //Whether by horse, bunny or (male) faerie sex it all ends up here if the PC has a vagina
 		if( CoC.player.isPregnant() ) {
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 				EngineCore.outputText( '\n\nYou just feel constant pressure against your sealed cervix.  The ' + this.phoukaName() + '’s balls shows no signs of slowing down and the pressure continues to build.  Finally your vagina expands enough to allow an ocean of cum to jet out of you.' );
 			} else {
 				EngineCore.outputText( '\n\nGallons of warm cum blast against your cervix and then spray back out of your snatch.' );
@@ -799,24 +799,24 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			} else {
 				EngineCore.outputText( '  As the thick grey cum leaks from your cunt you finally give in and get yourself off.  There\'s no way you could have made it back to camp feeling like that.' );
 			}
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_FAERIE ) {
 				EngineCore.outputText( '\n\nNow that you\'ve got your fill you [if (isTaur = true)pull away from][if (isTaur = false)roll off] your faerie lover.  He shrinks back to his normal size and launches himself into the air.  You\'re too tired to stop him from buzzing into the bushes and you quickly lose track of him.' );
 			}
 			this.phoukaSexPregnateEnd( postCombat );
 			return;
 		}
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+		if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 			EngineCore.outputText( '\n\nYou just feel constant pressure building inside your belly.  In moments you look nine months pregnant.  An unwholesome feeling of saccharine sweetness seems to permeate your whole body.  Your teeth feel like they\'re rotting from the root out.  The ' + this.phoukaName() + ' shows no signs of slowing down and the pressure continues to build.  Finally your womb can hold no more and the stallion seed leaks back out of your violated cervix.\n\nThe winded horse morph [if (isTaur = true)rubs the side of his head against your mane and asks you, <i>“Are ye ready to be my breeding mare? \'Cause I stuffed yer twat with enough seed fer a dozen babies.”</i>][if (isTaur = false)says, <i>“Well slut, I hope ye liked the feel of a real stallion cock.”</i> Then he whispers, <i>“The big question is how fertile is that spacious womb o\' yours?”</i>]' );
 		}//Horse
 		else {
 			EngineCore.outputText( '\n\nGallons of warm cum force past your cervix and into your womb.  You start to feel sick to your stomach, like you\'ve eaten way too much candy.  Your belly begins to expand and you feel the ' + this.phoukaName() + '\'s fingers running across the tightening flesh.  As your belly button pops out he laughs and asks you, <i>“What do ya think my chances are, slut?  How fertile is that big womb o\' yours?”</i>' );
 		}
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_FAERIE, PregnancyStore.INCUBATION_FAERIE );
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( this.phoukaForm === this.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( ' The ' + this.phoukaName() + ' may have cum, but his cock is still rock solid.  You ignore his comments and start rocking your hips faster, determined to get more enjoyment out of him than this. <i>“Yes missy, yes. That\'s right - cum fer me an drop an egg or two.”</i>\n\nYou can feel the cum sloshing around inside your womb, you can feel the sweet taste in the back of your throat, but you need more!  Finally you close your eyes and your whole body shudders as you cum.[if (hasCock = true)  [EachCock] fires long strands of cum into the bog and all over your faerie partner.]\n\nYour [vagina] goes to work milking the ' + this.phoukaName() + '\'s prick and you hear a moan of pleasure from the little monster.  You feel even greater pressure building inside your womb.  The clenching of your love tunnel has driven him over the edge and the ' + this.phoukaName() + ' is cumming again.  You try to [if (isTaur = true)pull away from][if (isTaur = false)lift yourself off] him, but another of your own orgasms hits.  When it’s over, you\'re left with a distended belly that wouldn\'t look out of place on a woman giving birth.  You roll onto your side and the enlarged faerie slides out of your box.  You hope most of that mess will leak out.  Instead you see only a few dribbles of thick grey cum ooze out of your pussy.' );
 		}
 		if( (!postCombat) || (CoC.player.cor > 50) ) {
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 				EngineCore.outputText( ' The ' + this.phoukaName() + ' certainly got off, but you\'re still horny.  Despite the pain you begin working your body forward and back along his cock.  Your nerves have gone dull so you can\'t even feel most of his cock.  Luckily your cervix is still tight, so you can feel him there.\n\nThe ' + this.phoukaName() + ' stands still and begins to laugh. <i>“That\'s right, prove yer a slut fer stallions like me.  Cum for me bitch.”</i> Your belly wobbles obscenely as you move, the skin stretched tight and your belly button rubbing against the mud.  Finally your entire vagina, from lips to cervix, clenches down on his wonderful shaft.  You want nothing more than for this moment to continue, to be filled completely by this super-sized, fuckhole destroying horse-cock.[if (hasCock = true)  At the same time [eachCock] releases the cum that has been building up in your [balls].  The mud beneath you become warm and white.]' );
 			} else { //BUNNY
 				EngineCore.outputText( ' Thankfully, the ' + this.phoukaName() + ' begins to rub his fingers against your clit.  Your orgasm causes your whole vagina to ripple as your body tries to draw even more sperm inside your belly.  [if (hasCock = true)[EachCock] fires long strands of cum uselessly into the bog.  ]' );
@@ -827,18 +827,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				}
 			}
 		} else {
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 				EngineCore.outputText( ' You feel the ' + this.phoukaName() + ' lift one of his front legs [if (isNaga = true)and place it against your soft underbelly][if (isNaga = false)between your thighs].  You doubt a real horse\'s leg could bend that way, but the cursed shapeshifter manages it with ease.  He starts rubbing the smooth surface of his hoof against your clit until you can take no more.  Still impaled on his meaty mast, you can\'t even fight back.' );
 			} else {
 				EngineCore.outputText( ' To add insult to injury the ' + this.phoukaName() + ' starts to rub his fingers against your clit, forcing you to have an orgasm against your will.' );
 			}
 			EngineCore.outputText( '  As he gets you off your abused cunt muscles try in vain to pull even more cum into your womb.  [if (hasCock = true)[EachCock] fires long strands of cum into the bog, wasting your seed in the lifeless waters.  ]You try to hold back tears that are half pain, half embarrassment at being so completely dominated by this perverted faerie.' );
 		}
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( this.phoukaForm === this.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( '\n\nThe ' + this.phoukaName() + '\'s whole body deflates along with his cock.  You\'re too tired to stop him as he' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+		} else if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
 			EngineCore.outputText( '\n\nThe black furred horse steps back, yanking his member out of your devastated cunt and transforms into a faerie.  He' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		} else if( this.phoukaForm === this.PHOUKA_FORM_BUNNY ) {
 			EngineCore.outputText( '\n\nThe black furred bunny pulls out of you and shifts into the form of a faerie.  He' );
 		} else {
 			EngineCore.outputText( '\n\nHe' );
@@ -870,8 +870,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 	};
 	PhoukaScene.prototype.phoukaSexPregnateEnd = function( postCombat ) { //Everything after the sex. Handles awards, gem loss and text for player leaving the bog
 		CoC.player.orgasm();
-		EngineCore.dynStats( 'cor', Utils.rand( 1 ) + (postCombat && (PhoukaScene.phoukaForm !== PhoukaScene.PHOUKA_FORM_FAERIE) ? 1 : 3) ); //Extra two corruption for being enough of a pervert to want to fuck the phouka
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) { //In this case postCombat means you need an award because you must have won to get faerie sex
+		EngineCore.dynStats( 'cor', Utils.rand( 1 ) + (postCombat && (this.phoukaForm !== this.PHOUKA_FORM_FAERIE) ? 1 : 3) ); //Extra two corruption for being enough of a pervert to want to fuck the phouka
+		if( this.phoukaForm === this.PHOUKA_FORM_FAERIE ) { //In this case postCombat means you need an award because you must have won to get faerie sex
 			EngineCore.outputText( '\n\nSatisfied for now you begin to put your clothes back on.  Maybe that ' + this.phoukaName() + ' will learn, maybe not.' );
 			if( CoC.player.cor > 50 ) {
 				EngineCore.outputText( '  But either way you plan to return and give all of them that lesson.' );
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			}
 			EngineCore.outputText( '\n\nNow that it\'s finished with you the ' + this.phoukaName() + ' shrinks back down into a small black faerie and buzzes off to some other part of the bog.' );
 			EngineCore.outputText( '\n\nYou ' );
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE && !CoC.player.isTaur() ) {
+			if( this.phoukaForm === this.PHOUKA_FORM_HORSE && !CoC.player.isTaur() ) {
 				EngineCore.outputText( 'wait for the throbbing pain in your pelvis to subside.  Then you ' );
 			}
 			if( postCombat ) {
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			}
 			if( CoC.player.cor <= 50 ) {
 				EngineCore.outputText( 'As you trudge back to camp you have to wonder - why did you decide to visit the bog again?' );
-			} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE && CoC.player.isTaur() ) {
+			} else if( this.phoukaForm === this.PHOUKA_FORM_HORSE && CoC.player.isTaur() ) {
 				EngineCore.outputText( '  It was quite the ride and you find yourself looking forward to your next trip into the bog.' );
 			} else {
 				EngineCore.outputText( 'Not what you expected, but at least you got off.' );

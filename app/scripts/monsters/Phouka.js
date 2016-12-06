@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, PhoukaScene, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
 	function Phouka() {
 		this.init(this, arguments);
 	}
@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		//Only the bunny, goat and horse forms make physical attacks
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you due to his blindness!\n', false );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			damage = Math.round( (60 + 30 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //60 === Bunny Strength, 30 === Bunny Weapon Attack
 			EngineCore.outputText( 'The bunny morph hops towards you.  At the last second he changes direction and throws a kick toward you with his powerful hind legs.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 				CoC.player.takeDamage( damage );
 				EngineCore.outputText( '\nThe kick connects and leaves you reeling.' );
 			}
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_GOAT ) {
 			damage = Math.round( (80 + 40 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //80 === Goat Strength, 40 === Goat Weapon Attack
 			EngineCore.outputText( 'The goat morph races toward you, head down.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
@@ -45,23 +45,23 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		Combat.combatRoundOver();
 	};
 	Phouka.prototype.phoukaFightLustAttack = function() { //Only the faerie, bunny and horse forms make lust attacks
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( 'The ' + this.short + ' uses his wings to climb high up in the air above you.  Then he starts jerking his cock at you with one hand while fondling his balls with the other.  ' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			EngineCore.outputText( 'The bunny morph leaps forward, trying to catch you off guard and grapple you.  ' );
 		} else {
 			EngineCore.outputText( 'The stallion rears up on his hind legs, waving his massive cock at you.  ' );
 		}
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+			if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 				EngineCore.outputText( 'You throw yourself out of the way at the last moment and succeed in throwing the ' + this.short + ' off balance. He staggers away, his attempted attack ruined.\n' );
 			} else {
 				EngineCore.outputText( 'You manage to look away in time and the ' + this.short + '\'s lewd display has no real effect on you.\n' );
 			}
 		} else {
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+			if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 				EngineCore.outputText( 'A drizzle of precum rains down around you.  The sight of the ' + this.short + ' pumping his shaft along with the smell of the salty yet sweet fluids makes you wish you could stop fighting and concentrate on pleasuring yourself.' );
-			} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+			} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 				EngineCore.outputText( 'He grabs you and rubs up against your body.  For a moment you are lost in the feeling of his soft black fur.  Then you feel his cock pressing against your ribs and shove him away.' );
 			} else {
 				EngineCore.outputText( 'You are hypnotized by the equine cock jabbing at the air.  Then the ' + this.short + ' charges past you and you can taste the musk in the air.' );
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 			this.phoukaFightSilence();
 		} else {
 			var transformChance = Utils.rand( 9 ); //2 in 3 chance of staying in current form
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+			if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 				if( blinded ) {
 					transformChance = Utils.rand( 3 );
 				}//100% chance of change from blind phouka if not doing silence attack
@@ -113,13 +113,13 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 				case 2:
 					this.phoukaTransformToHorse();
 			}
-			if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+			if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 				this.phoukaFightLustAttack();
 			}//Can only get here if the phouka isn’t blind
-			else if( (PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY) && (Utils.rand( 4 ) !== 0) && (!blinded) ) {
+			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY) && (Utils.rand( 4 ) !== 0) && (!blinded) ) {
 				this.phoukaFightLustAttack();
 			}//Bunny has a 75% chance of teasing attack, no teasing while blind
-			else if( (PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE) && (Utils.rand( 4 ) === 0) && (!blinded) ) {
+			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_HORSE) && (Utils.rand( 4 ) === 0) && (!blinded) ) {
 				this.phoukaFightLustAttack();
 			}//Horse has a 25% chance of teasing attack, no teasing while blind
 			else {
@@ -163,12 +163,12 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		}
 	};
 	Phouka.prototype.phoukaTransformToBunny = function() {
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			return;
 		} //Already a bunny, so no change
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( 'The faerie suddenly drops out of the air.  A look of concentration sets in on its face and it begins to expand and warp.  You blink and see that in front of you there is now a 5 foot tall bunny morph.\n\n' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_GOAT ) {
 			EngineCore.outputText( 'As the goat morph charges towards you it starts to grow.  By the time it gets close it has changed completely and you now face a 5 foot tall bunny morph.\n\n' );
 		} else { //Was a horse
 			EngineCore.outputText( 'As the horse morph charges towards you it quite suddenly shrinks.  You have to adjust your defence as a 5 foot tall bunny morph is now hopping your way.\n\n' );
@@ -176,15 +176,15 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		this.long = 'The ' + this.short + ' is hopping around near you, waiting for an opening.  He has the general appearance of a bunny with coal black fur.  A large cock stands erect between his legs.  His cat-like green eyes, filled with lust, follow your every motion.';
 		this.armorValue = 60;
 		this.spe = 90;
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_BUNNY;
+		SceneLib.phoukaScene.phoukaForm = SceneLib.phoukaScene.PHOUKA_FORM_BUNNY;
 	};
 	Phouka.prototype.phoukaTransformToGoat = function() {
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_GOAT ) {
 			return;
 		} //Already a goat, so no change
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( 'The faerie suddenly drops out of the air.  A look of concentration sets in on its face and it begins to expand and warp.  You blink and see that in front of you there is now a 4 foot tall goat morph.\n\n' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			EngineCore.outputText( 'The bunny morph hops back from you and starts to melt and change.  You blink and see that in front of you there is now a 4 foot tall goat morph.\n\n' );
 		} else { //Was a horse
 			EngineCore.outputText( 'As the horse morph charges towards you it quite suddenly shrinks.  You have to adjust your defence as it is now a 4 foot tall goat morph.\n\n' );
@@ -192,15 +192,15 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		this.long = 'The ' + this.short + ' is charging back and forth just out of reach, waiting for an opening.  He has the general appearance of a goat with coal black fur.  He has large glossy black horns and a large cock between his legs.  His cat-like green eyes, filled with lust, follow your every motion.';
 		this.armorValue = 60;
 		this.spe = 70;
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_GOAT;
+		SceneLib.phoukaScene.phoukaForm = SceneLib.phoukaScene.PHOUKA_FORM_GOAT;
 	};
 	Phouka.prototype.phoukaTransformToHorse = function() {
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_HORSE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_HORSE ) {
 			return;
 		} //Already a horse, so no change
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 			EngineCore.outputText( 'The faerie suddenly drops out of the air.  A look of concentration sets in on its face and it begins to grow larger and larger.  You watch amazed as the creature\'s form stretches.  Finally it seems unable to grow further and settles into the form of a massive stallion.\n\n' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			EngineCore.outputText( 'The bunny morph hops back from you and starts to grow and melt.  You watch amazed as the creature\'s form stretches.  Finally it seems unable to grow further and settles into the form of a massive stallion.\n\n' );
 		} else { //Was a goat
 			EngineCore.outputText( 'The goat morph eyes you then seems to think better of charging again.  It backs away and starts to grow larger and larger, its features and body shape twisting and reforming.  Finally it seems unable to grow further and settles into the form of a massive stallion.\n\n' );
@@ -208,15 +208,15 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		this.long = 'The ' + this.short + ' is running in a wide circle around you, waiting for an opening.  He has the general appearance of a stallion with coal black fur.  A massive cock stands erect between his legs.  His cat-like green eyes, filled with lust, follow your every motion.';
 		this.armorValue = 75;
 		this.spe = 55;
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_HORSE;
+		SceneLib.phoukaScene.phoukaForm = SceneLib.phoukaScene.PHOUKA_FORM_HORSE;
 	};
 	Phouka.prototype.phoukaTransformToPhouka = function() {
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_FAERIE ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 			return;
 		} //Already a faerie, so no change
-		if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_BUNNY ) {
+		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			EngineCore.outputText( 'The bunny morph hops back from you and starts to melt and shrink.  In seconds only a tiny faerie is left floating in the air where the bunny once was.\n\n' );
-		} else if( PhoukaScene.phoukaForm === PhoukaScene.PHOUKA_FORM_GOAT ) {
+		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_GOAT ) {
 			EngineCore.outputText( 'The goat morph bounds away from you and starts to melt and deform.  In seconds only a tiny faerie is left floating in the air where the goat once was.\n\n' );
 		} else { //Was a horse
 			EngineCore.outputText( 'The horse morph charges past you.  You look over your shoulder and wonder where the stallion could have gone.  Then you see the tiny faerie zipping back for another attack.\n\n' );
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 		this.long = 'The ' + this.short + ' is flying around near you, waiting for an opening.  He has the general appearance of a faerie, though he is slightly larger and his skin and wings are coal black.  A large cock stands erect between his legs.  His cat-like green eyes, filled with lust, follow your every motion.';
 		this.armorValue = 80;
 		this.spe = 80;
-		PhoukaScene.phoukaForm = PhoukaScene.PHOUKA_FORM_FAERIE;
+		SceneLib.phoukaScene.phoukaForm = SceneLib.phoukaScene.PHOUKA_FORM_FAERIE;
 	};
 	Phouka.prototype.handleAwardItemText = function( itype ) {
 		EngineCore.outputText( '  You are just about to leave when you remember that glint from the hollow of that nearby tree.' );
