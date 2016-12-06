@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, EngineCore, Monster, Utils, TamainsDaughtersScene, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
+angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
 	function TamanisDaughters() {
 		this.init(this, arguments);
 	}
@@ -30,12 +30,12 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 		EngineCore.dynStats( 'lus', 1 + CoC.player.lib / 15 + Utils.rand( CoC.player.cor / 30 ) );
 	};
 	TamanisDaughters.prototype.tamaniShowsUp = function() {
-		if( TamainsDaughtersScene.tamaniPresent ) {
+		if( SceneLib.tamainsDaughtersScene.tamaniPresent ) {
 			if( Utils.rand( 4 ) === 0 ) {
 				this.goblinDrugAttack();
 			} //Tamani already there - chance of potion
 		} else if( Utils.rand( 6 ) === 0 ) {
-			TamainsDaughtersScene.tamaniPresent = true;
+			SceneLib.tamainsDaughtersScene.tamaniPresent = true;
 			EngineCore.outputText( 'A high-pitched yet familiar voice calls out, "<i><b>So this is where you skanks ran off to---wait a second.  Are you trying to poach Tamani\'s man!?</b></i>"\n\n', false );
 			EngineCore.outputText( 'You can see Tamani lurking around the rear of the goblin pack, visibly berating her daughters.  On one hand it sounds like she might help you, but knowing goblins, she\'ll probably forget about her anger and help them subdue you for more cum...\n\n', false );
 			//(+5 mob strength)
