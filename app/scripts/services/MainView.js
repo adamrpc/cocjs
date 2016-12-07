@@ -321,10 +321,10 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		MainView.mainText = '';
 	};
 	MainView.appendOutputText = function( text ) {
-		MainView.mainText += text;
+		MainView.mainText += text.replace('\n', '<br>');
 	};
 	MainView.setOutputText = function( text ) {
-		MainView.mainText = text;
+		MainView.mainText = text.replace('\n', '<br>');
 	};
 	MainView.sprite = {visible: false, index: -1};
 	MainView.selectSprite = function( index ) {
@@ -388,9 +388,9 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		output = parser.recursiveParser( output, parseAsMarkdown );
 		//OUTPUT!
 		if( purgeText ) {
-			MainView.mainText = output;
+			MainView.setOutputText( output );
 		} else {
-			MainView.mainText += output;
+			MainView.appendOutputText( output );
 		}
 		$log.debug('Text that should display : ', MainView.mainText);
 	};

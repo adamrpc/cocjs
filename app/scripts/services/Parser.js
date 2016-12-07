@@ -981,7 +981,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			// since we\'re initially called via a outputText command, the content of the first page\'s text will be overwritten
 			// when we return. Therefore, in a horrible hack, we return the contents of mainTest.htmlText as the ret value, so
 			// the outputText call overwrites the window content with the exact same content.
-			MainView.mainText = ret;
+			MainView.setOutputText( ret );
 		}
 		return ret;
 	};

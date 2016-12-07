@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 		bindingMode = true;
 		InputManager._bindingFunc = funcName;
 		InputManager._bindingSlot = isPrimary;
-		MainView.mainText.htmlText = '<b>Hit the key that you want to bind ' + funcName + ' to!</b>';
+		MainView.setOutputText( '<b>Hit the key that you want to bind ' + funcName + ' to!</b>' );
 		// hide some buttons that will fuck shit up
 		MainView.hideCurrentBottomButtons();
 		InputManager.HideBindingPane();
