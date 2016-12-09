@@ -1260,7 +1260,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		EngineCore.outputText( '"<i>Hello, pet,</i>" she says, and you notice worry in her voice.  There are slight bags under her eyes, and her crimson ponytail is a little unkempt, with hair jutting out at odd angles.  Something clearly has her frazzled.' );
 		EngineCore.outputText( '\n\n"<i>I\'ll just come right out with it. I went to the Covenant today...  I\'m pregnant,</i>" she says, matter-of-factly, "<i>and it\'s yours.</i>"' );
 		EngineCore.outputText( '\n\n"<i>I\'d been taking some herbs to counteract pregnancy, but I guess it was just no match for you.' );
-		if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (SceneLib.telAdre.edryn.pregnancy.isPregnant && CoC.flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
+		if( CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] > 0 || (SceneLib.edryn.pregnancy.isPregnant && CoC.flags[ kFLAGS.EDRYN_PREGNANT_AND_NOT_TOLD_PC_YET ] !== 0) ) {
 			EngineCore.outputText( '  Should have figured as much after you got Edryn pregnant.' );
 		}
 		EngineCore.outputText( '</i>"  She wrenches her hands nervously and looks you in the eye. The cool, confident yoga instructor has clearly melted away, revealing the real her.  "<i>I know we\'re not serious, but ' );

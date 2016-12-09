@@ -472,7 +472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 35 ) {
 			EngineCore.outputText( 'Sadly, the pudding isn\'t free, and it looks like you don\'t have the 35 gems you\'d need to try a bite!' );
-			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.bakeryScene.bakeryuuuuuu );
 			return;
 		}
 		CoC.player.gems -= 35;
@@ -505,7 +505,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			CoC.player.hornType = AppearanceDefs.HORNS_ANTLERS;
 			CoC.player.horns = 4 + Utils.rand( 12 );
 		}
-		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.bakeryScene.bakeryuuuuuu );
 	};
 	//4. Donto's Polar Pete;
 	//Random Holiday plains encounter;

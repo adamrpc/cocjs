@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 			EngineCore.outputText( 'overstaying your welcome', false );
 		}
 		EngineCore.outputText( ' – you depart.', false );
-		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.bakeryScene.bakeryuuuuuu );
 	};
 	//[Yes – baking];
 	Maddie.prototype.handOverIngredientsItBeBakingTimeYo = function() {
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( '"<i>Thanks.  Figured out what went wrong with Maddie\'s help.  Made masterpiece.  Buy giant cupcake sometime.  Delicious!  Promise it\'s safe and non-addictive.  Expensive though.  Ingredients rare.\n\n', false );
 		EngineCore.outputText( '-X</i>"', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = 4;
-		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.bakeryScene.bakeryuuuuuu );
 	};
 	SceneLib.registerScene( 'maddie', new Maddie() );
 } );

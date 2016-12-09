@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 			EngineCore.outputText( 'You ask her if she really believes that.  After all, you\'ve beaten her twice now.  Kiha shudders and yells, "<i>I just said so!  Gods, don\'t be so... so fucking dense!  If you were right, Lethice wouldn\'t be on her throne and they never would\'ve been able to make monsters like... ahh, n-never mind.  Dumbass!</i>"\n\n', false );
 			EngineCore.outputText( 'Shrugging, you decide she\'s unlikely to talk more on this topic for now, so you change the topic to something else - your own history.  You tell her of your village, of the portal, and the day you were chosen as champion.  You talk of your training, and how different this land was from everything you expected.  You tell of your struggles.  You describe your victories.  You commiserate about your defeats.  You pour out all of the best and worst of your journeys in this strange realm.  Surprisingly, Kiha listens with rapt attention, never once interrupting.\n\n', false );
 			EngineCore.outputText( 'Once you finish she comes out of it and mutters, "<i>So you had it hard?  It doesn\'t matter.  I had it harder.</i>"  She launches into the air and flies away before you can answer.', false );
-			if( EngineCore.silly() && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 && SceneLib.telAdre.lottie.lottieMorale() <= 33 ) {
+			if( EngineCore.silly() && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] > 0 && SceneLib.lottie.lottieMorale() <= 33 ) {
 				EngineCore.outputText( '  Is that what it feels like to be Lottie?', false );
 			}
 		}

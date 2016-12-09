@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 			place = this.rubisFuckingHouseYouPervert;
 		}
 		//[Milk] [Tea] [Chat] [Rubi's Place (Relationship 20+)] [Leave];
-		EngineCore.choices( 'Milk', this, milk, 'Tea', this, tea, 'Chat', this, this.chatWithRubi, 'Rubi\'s Place', this, place, 'Leave', SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.choices( 'Milk', this, milk, 'Tea', this, tea, 'Chat', this, this.chatWithRubi, 'Rubi\'s Place', this, place, 'Leave', SceneLib.telAdre, SceneLib.bakeryScene.bakeryuuuuuu );
 	};
 	//Choose Milk?;
 	Rubi.prototype.buyRubiMilk = function() {

@@ -1588,7 +1588,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Mutations, StatusAffects, Pre
 		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_COTTON && CoC.player.pregnancyIncubation === 1 ) {
 			CoC.player.knockUpForce(); //Clear Pregnancy
 			displayedUpdate = true;
-			SceneLib.telAdre.cotton.birthingCottonsKids();
+			SceneLib.cotton.birthingCottonsKids();
 		}
 		//GOO BIRF;
 		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_GOO_GIRL && CoC.player.pregnancyIncubation === 1 ) {

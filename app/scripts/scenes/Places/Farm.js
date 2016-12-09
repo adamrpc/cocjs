@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.menu();
 			if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
-					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly, SceneLib.kelly.kelly.breakingKeltOptions );
+					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );
 				} else {
 					EngineCore.addButton( 1, 'Kelt', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );
 				}

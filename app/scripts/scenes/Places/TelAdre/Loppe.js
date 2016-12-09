@@ -627,7 +627,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] === 0 ) {
-			EngineCore.addButton( 0, 'Visit Mom', SceneLib.telAdre, SceneLib.telAdre.umasShop.firstVisitPart1 );
+			EngineCore.addButton( 0, 'Visit Mom', SceneLib.telAdre, SceneLib.umasShop.firstVisitPart1 );
 			EngineCore.addButton( 1, 'Mebbe Later', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );

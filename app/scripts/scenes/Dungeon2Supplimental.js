@@ -2318,7 +2318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	Dungeon2Supplimental.prototype.incubusShop = function() {
 		EngineCore.spriteSelect( 52 );
 		if( CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] === 1 ) {
-			SceneLib.telAdre.niamh.getBimboozeFromSean();
+			SceneLib.niamh.getBimboozeFromSean();
 			return;
 		}
 		EngineCore.clearOutput();

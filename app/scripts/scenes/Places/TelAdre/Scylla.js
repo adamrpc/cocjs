@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				return;
 			}
 			//Otherwise she has to be sober and you need to have balls (I'm not sure why, but it is so)
-			if( SceneLib.telAdre.katherine.needIntroductionFromScylla() ) {
+			if( SceneLib.katherine.needIntroductionFromScylla() ) {
 				return;
 			}
 			if( Utils.rand( 3 ) === 0 ) {

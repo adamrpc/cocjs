@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, Descriptors, 
 		//Go directly to sex if you know what's in store!;
 		else {
 			if( CoC.flags[ kFLAGS.BROOKE_MET ] === 0 ) {
-				SceneLib.telAdre.brooke.meetBrookeFirstTime();
+				SceneLib.brooke.meetBrookeFirstTime();
 			} else {
 				this.useTheSexMachine();
 			}

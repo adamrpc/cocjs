@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//TODO: Figure out this whole thing. You play as Urta but the whole quest saves you state into this variable and swaps back and forth;
 		//whenever you 'leave' the quest;
 	UrtaQuest.prototype.urtaBusy = function() {
-		return (SceneLib.telAdre.edryn.pregnancy.type === PregnancyStore.PREGNANCY_TAOTH || CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] === -1);
+		return (SceneLib.edryn.pregnancy.type === PregnancyStore.PREGNANCY_TAOTH || CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] === -1);
 	};
 	UrtaQuest.prototype.isUrta = function() {
 		if( CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] > 0 && CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] < 1 ) {
@@ -2573,8 +2573,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Urta shudders from head to toe, barely able to restrain herself around you.  "<i>Oooooh... uh... okay, then.  I\'ll come back... when... when it\'s time, okay?</i>" she titters, almost drunkenly, already prancing off towards the desert.  The lusty vixen looks over her shoulder at you as she jogs off, a trail of lubricant spattering in her wake, her tongue lolling wildly as her eye-humps you.  After a long moment, she looks away, perhaps unable to bear gazing on you any longer.  You hope everything turns out okay...' );
 		//[Urta and Edryn disabled until birth event];
-		CoC.flags[ kFLAGS.URTA_FERTILE ] = SceneLib.telAdre.edryn.pregnancy.type;       //Use these two flags to store the pregnancy that Taoth is overriding.
-		CoC.flags[ kFLAGS.URTA_PREG_EVERYBODY ] = SceneLib.telAdre.edryn.pregnancy.incubation; //Since they can't be in use prior to Taoth being born this is fine.
+		CoC.flags[ kFLAGS.URTA_FERTILE ] = SceneLib.edryn.pregnancy.type;       //Use these two flags to store the pregnancy that Taoth is overriding.
+		CoC.flags[ kFLAGS.URTA_PREG_EVERYBODY ] = SceneLib.edryn.pregnancy.incubation; //Since they can't be in use prior to Taoth being born this is fine.
 		SceneLib.edryn.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_TAOTH, 24 );
 		CoC.setInCombat( false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
