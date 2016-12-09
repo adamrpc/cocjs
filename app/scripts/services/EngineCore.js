@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			if( CoC.player.findPerk( PerkLib.HistoryHealer ) >= 0 ) {
 				changeNum *= 1.2;
 			}
-			if( CoC.player.HP + Math.parseInt( changeNum ) > CoC.player.maxHP() ) {
+			if( CoC.player.HP + changeNum > CoC.player.maxHP() ) {
 				if( CoC.player.HP >= CoC.player.maxHP() ) {
 					if( display ) {
 						EngineCore.outputText( 'You\'re as healthy as you can be.\n', false );
@@ -34,20 +34,20 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				CoC.player.HP = CoC.player.maxHP();
 			} else {
 				if( display ) {
-					EngineCore.outputText( 'You gain ' + Math.parseInt( changeNum ) + ' HP.\n', false );
+					EngineCore.outputText( 'You gain ' + changeNum + ' HP.\n', false );
 				}
-				CoC.player.HP += Math.parseInt( changeNum );
+				CoC.player.HP += changeNum;
 				MainView.statsView.showStatUp( 'hp' );
 			}
 		} else { //Negative HP
 			if( CoC.player.HP + changeNum <= 0 ) {
 				if( display ) {
-					EngineCore.outputText( 'You take ' + Math.parseInt( changeNum * -1 ) + ' damage, dropping your HP to 0.\n', false );
+					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage, dropping your HP to 0.\n', false );
 				}
 				CoC.player.HP = 0;
 			} else {
 				if( display ) {
-					EngineCore.outputText( 'You take ' + Math.parseInt( changeNum * -1 ) + ' damage.\n', false );
+					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage.\n', false );
 				}
 				CoC.player.HP += changeNum;
 			}
@@ -422,10 +422,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			var matches = [];
 			if( /^buttons\[[0-9]\]/.test( buttonName ) ) {
 				matches = /^buttons\[([0-9])\]/.exec( buttonName );
-				buttonIndex = Math.parseInt( matches[ 1 ], 10 );
+				buttonIndex = parseInt( matches[ 1 ], 10 );
 			} else if( /^b[0-9]Text$/.test( buttonName ) ) {
 				matches = /^b([0-9])Text$/.exec( buttonName );
-				buttonIndex = Math.parseInt( matches[ 1 ], 10 );
+				buttonIndex = parseInt( matches[ 1 ], 10 );
 				buttonIndex = buttonIndex === 0 ? 9 : buttonIndex - 1;
 			}
 		}
