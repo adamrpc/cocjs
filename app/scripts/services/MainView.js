@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		}
 		button.labelText = label;
 		button.callback = function() {
-			return callback.apply();
+			return callback.call( null );
 		};
 		button.toolTipText = toolTipViewText;
 		button.visible = true;
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		}
 		if( callback ) {
 			button.callback = function() {
-				return callback.apply( obj );
+				return callback.call( obj );
 			};
 		}
 	};
@@ -348,14 +348,14 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 	};
 	MainView.registerSave = function( saveManager ) {
 		MainView.menuButtons.dataButton.callback = function() {
-			return saveManager.saveLoad.apply( saveManager );
+			return saveManager.saveLoad.call( saveManager );
 		};
 	};
 	var _charCreationManager = null;
 	MainView.registerCharCreation = function( charCreationManager ) {
 		_charCreationManager = charCreationManager;
 		MainView.menuButtons.newGameButton.callback = function() {
-			return charCreationManager.newGameGo.apply( charCreationManager );
+			return charCreationManager.newGameGo.call( charCreationManager );
 		};
 	};
 	MainView.resetNewGameButton = function( ) {

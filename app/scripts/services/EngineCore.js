@@ -680,16 +680,16 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		if( arg === -9000 || arg === null ) {
 			return function() {
-				return func.apply( object );
+				return func.call( object );
 			};
 		} else {
 			return function() {
-				return func.apply( object, arg );
+				return func.call( object, arg );
 			};
 		}
 	};
 	EngineCore.createCallBackFunction2 = function( object, func ) {
-		var args = _.drop(Array.from( arguments ));
+		var args = _.drop(_.drop(Array.from( arguments )));
 		if( !_.isFunction( func ) ) {
 			CoC_Settings.error( 'createCallBackFunction2(' + func + ', ' + args + ')' );
 		}
