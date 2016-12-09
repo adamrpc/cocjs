@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			CoC.player.addStatusValue( StatusAffects.Luststick, 1, -1 );
 			if( Utils.rand( 2 ) === 0 && CoC.player.hasCock() ) { //50% chance to lust spike
 				//Display if haven't displayed
-				if( CoC.player.flags[ kFLAGS.PC_CURRENTLY_LUSTSTICK_AFFECTED ] === 0 ) {
+				if( CoC.flags[ kFLAGS.PC_CURRENTLY_LUSTSTICK_AFFECTED ] === 0 ) {
 					EngineCore.outputText( '\nYour body tingles, practically a slave to the effects of harpy lipstick.  Blood surges to ' + CoC.player.sMultiCockDesc() + ', making you groan out loud with forced pleasure.  Unasked-for fantasies assault you, and you spend a few moments fantasizing about fucking feathery women before you come to your senses.\n' );
 					CoC.flags[ kFLAGS.PC_CURRENTLY_LUSTSTICK_AFFECTED ]++;
 					needNext = true;
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) { //Luststick resistance unlock
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) { //Luststick resistance unlock
 			SceneLib.sophieBimbo.unlockResistance();
 			if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
 				CoC.player.removeStatusAffect( StatusAffects.Luststick );

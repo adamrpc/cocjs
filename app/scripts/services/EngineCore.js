@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.levelUpStatToughness = function() {
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
-		$log.trace( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
+		$log.debug( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
 		EngineCore.statScreenRefresh();
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
@@ -835,7 +835,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.doNext = function( obj, event ) {
 		//Prevent new events in combat from automatically overwriting a game over.
 		if( MainView.getButtonText( 0 ).indexOf( 'Game Over' ) !== -1 ) {
-			$log.trace( 'Do next setup cancelled by game over' );
+			$log.debug( 'Do next setup cancelled by game over' );
 			return;
 		}
 		EngineCore.choices('Next', obj, event);
@@ -1372,7 +1372,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			case '/':
 				return old / val;
 			default:
-				$log.trace( 'applyOperator(' + old + ',\'' + op + '\',' + val + ') unknown op' );
+				$log.debug( 'applyOperator(' + old + ',\'' + op + '\',' + val + ') unknown op' );
 				return old;
 		}
 	};
@@ -1675,7 +1675,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//If cock is bigger than unmodified vagina can hold - 100% stretch!
 		if( CoC.player.vaginas[ vIndex ].capacity() <= CoC.monster.cocks[ cIndex ].cArea() ) {
 			if( CoC.player.vaginas[ vIndex ] < 5 ) {
-				$log.trace( 'CUNT STRETCHED: By cock larger than it\'s total capacity.' );
+				$log.debug( 'CUNT STRETCHED: By cock larger than it\'s total capacity.' );
 				if( display ) {
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
@@ -1699,7 +1699,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//If cock is within 75% of max, streeeeetch 33% of the time
 		if( CoC.player.vaginas[ vIndex ].capacity() * 0.75 <= CoC.monster.cocks[ cIndex ].cArea() ) {
 			if( CoC.player.vaginas[ vIndex ] < 5 ) {
-				$log.trace( 'CUNT STRETCHED: By cock @ 75% of capacity.' );
+				$log.debug( 'CUNT STRETCHED: By cock @ 75% of capacity.' );
 				if( display ) {
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
 						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );

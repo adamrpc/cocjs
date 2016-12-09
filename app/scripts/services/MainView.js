@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
 			MainView.selectSprite( choice );
 		} else if( choice >= 0 ) {
-			$log.trace( 'hiding sprite because flags' );
+			$log.debug( 'hiding sprite because flags' );
 			MainView.selectSprite( -1 );
 		}
 	};

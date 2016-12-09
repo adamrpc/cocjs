@@ -1309,7 +1309,7 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 			}
 		}
 		if(stretched) {
-			$log.trace('BUTT STRETCHED TO ' + (this.ass.analLooseness) + '.');
+			$log.debug('BUTT STRETCHED TO ' + (this.ass.analLooseness) + '.');
 		}
 		return stretched;
 	};
@@ -1345,7 +1345,7 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 			}
 		}
 		if(stretched) {
-			$log.trace('CUNT STRETCHED TO ' + (this.vaginas[0].vaginalLooseness) + '.');
+			$log.debug('CUNT STRETCHED TO ' + (this.vaginas[0].vaginalLooseness) + '.');
 		}
 		return stretched;
 	};

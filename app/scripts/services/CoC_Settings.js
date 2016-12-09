@@ -38,7 +38,7 @@ angular.module('cocjs').factory('CoC_Settings', function ($log, $rootScope) {
 		var retStr = '';
 		_.forEach(buttonEvents, function(event, index) {
 			retStr = retStr + event + '\n';
-			$log.trace('x = ', index, 'Array Val = ', event);
+			$log.debug('x = ', index, 'Array Val = ', event);
 		});
 		return retStr;
 	};

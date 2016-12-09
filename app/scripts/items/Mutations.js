@@ -262,10 +262,10 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 	Mutations.growDemonCock = function(growCocks, player) {
 		_.forEach(_.range(growCocks), function() {
 			player.createCock();
-			$log.trace("COCK LENGTH: " + player.cocks[length - 1].cockLength);
+			$log.debug("COCK LENGTH: " + player.cocks[length - 1].cockLength);
 			player.cocks[player.cocks.length - 1].cockLength = Utils.rand(3) + 4;
 			player.cocks[player.cocks.length - 1].cockThickness = 0.75;
-			$log.trace("COCK LENGTH: " + player.cocks[length - 1].cockLength);
+			$log.debug("COCK LENGTH: " + player.cocks[length - 1].cockLength);
 		});
 		EngineCore.outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ", false);
 		if (growCocks === 1) {
@@ -4243,7 +4243,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		//Clear cocks
 		while (player.cocks.length > 0) {
 			player.removeCock(0, 1);
-			$log.trace("1 cock purged.");
+			$log.debug("1 cock purged.");
 		}
 		//Reset dongs!
 		if (player.gender === 1 || player.gender === 3) {
@@ -4262,7 +4262,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		while (player.vaginas.length > 0) {
 			virgin = player.vaginas[0].virgin;
 			player.removeVagina(0, 1);
-			$log.trace("1 vagina purged.");
+			$log.debug("1 vagina purged.");
 		}
 		//Reset vaginal virginity to correct state
 		if (player.gender >= 2) {

@@ -180,7 +180,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 				this.thickness = goal;
 			}
 		}
-		$log.trace('MOD THICKNESS FIRE');
+		$log.debug('MOD THICKNESS FIRE');
 		
 		if (goal >= this.thickness && goal >= 50) { //DIsplay 'U GOT FAT'
 			return 'Your center of balance changes a little bit as your body noticeably widens. (+' + strength + ' body thickness)';
@@ -425,7 +425,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 		//If unpregnant and fertility wins out:
 		if (this.getPregnancyIncubation() === 0 && this.totalFertility() + bonus > Math.floor(Math.random() * beat) && this.hasVagina()) {
 			this.knockUpForce(type, incubation);
-			$log.trace('PC Knocked up with pregnancy type: ' + type + ' for ' + incubation + ' incubation.');
+			$log.debug('PC Knocked up with pregnancy type: ' + type + ' for ' + incubation + ' incubation.');
 		}
 		//Chance for eggs fertilization - ovi elixir and imps excluded!
 		if (_.indexOf([PregnancyStore.PREGNANCY_IMP, PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.PREGNANCY_ANEMONE], type) < 0) {
@@ -480,7 +480,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 		//If unpregnant and fertility wins out:
 		if (this.getButtPregnancyIncubation() === 0 && this.totalFertility() + bonus > Math.floor(Math.random() * beat)) {
 			this.buttKnockUpForce(type, incubation);
-			$log.trace('PC Butt Knocked up with pregnancy type: ' + type + ' for ' + incubation + ' incubation.');
+			$log.debug('PC Butt Knocked up with pregnancy type: ' + type + ' for ' + incubation + ' incubation.');
 		}
 	};
 

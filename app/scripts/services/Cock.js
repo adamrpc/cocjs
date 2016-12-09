@@ -50,13 +50,13 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 			return lengthDelta;
 		}
 		var threshhold = 0;
-		$log.trace('growcock starting at:' + lengthDelta);
+		$log.debug('growcock starting at:' + lengthDelta);
 		if (lengthDelta > 0) { // growing
-			$log.trace('and growing...');
+			$log.debug('and growing...');
 			threshhold = 24;
 			// BigCock Perk increases incoming change by 50% and adds 12 to the length before diminishing returns set in
 			if (bigCock) {
-				$log.trace('growCock found BigCock Perk');
+				$log.debug('growCock found BigCock Perk');
 				lengthDelta *= 1.5;
 				threshhold += 12;
 			}
@@ -66,10 +66,10 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 			}
 			// Modify growth for cock socks
 			if (this.sock === 'scarlet') {
-				$log.trace('growCock found Scarlet sock');
+				$log.debug('growCock found Scarlet sock');
 				lengthDelta *= 1.5;
 			} else if (this.sock === 'cobalt') {
-				$log.trace('growCock found Cobalt sock');
+				$log.debug('growCock found Cobalt sock');
 				lengthDelta *= 0.5;
 			}
 			// Do diminishing returns
@@ -79,11 +79,11 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 				lengthDelta /= 2;
 			}
 		} else {
-			$log.trace('and shrinking...');
+			$log.debug('and shrinking...');
 			threshhold = 0;
 			// BigCock Perk doubles the incoming change value and adds 12 to the length before diminishing returns set in
 			if (bigCock) {
-				$log.trace('growCock found BigCock Perk');
+				$log.debug('growCock found BigCock Perk');
 				lengthDelta *= 0.5;
 				threshhold += 12;
 			}
@@ -93,10 +93,10 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 			}
 			// Modify growth for cock socks
 			if (this.sock === 'scarlet') {
-				$log.trace('growCock found Scarlet sock');
+				$log.debug('growCock found Scarlet sock');
 				lengthDelta *= 0.5;
 			} else if (this.sock === 'cobalt') {
-				$log.trace('growCock found Cobalt sock');
+				$log.debug('growCock found Cobalt sock');
 				lengthDelta *= 1.5;
 			}
 			// Do diminishing returns
@@ -106,7 +106,7 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 				lengthDelta /= 2;
 			}
 		}
-		$log.trace('then changing by: ' + lengthDelta);
+		$log.debug('then changing by: ' + lengthDelta);
 		this.cockLength += lengthDelta;
 		if (this.cockLength < 1) {
 			this.cockLength = 1;
@@ -198,7 +198,7 @@ angular.module('cocjs').factory('Cock', function ($log, CockTypesEnum, Utils) {
 				increase++;
 			}
 		}
-		$log.trace('thickenCock called and thickened by: ' + amountGrown);
+		$log.debug('thickenCock called and thickened by: ' + amountGrown);
 		return amountGrown;
 	};
 	return Cock;
