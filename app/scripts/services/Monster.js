@@ -508,7 +508,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 		var action = _.sample( _.filter( [ this.eAttack, this.special1, this.special2, this.special3 ], function( special ) {
 			return special !== null;
 		} ) );
-		action();
+		action.apply(this);
 	};
 	/**
 	 * All branches of this method and all subsequent scenes should end either with
