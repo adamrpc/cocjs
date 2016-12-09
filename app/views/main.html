@@ -1,6 +1,6 @@
 <div id="stats" ng-if="main.MainView.statsView.visible">
 	<div class="stat" ng-repeat="(statName, stat) in main.MainView.statsView.stats">
-		<span class="text">{{stat.text}}</span>
+		<span class="text" ng-bind-html="stat.text"></span>
 		<span class="num" ng-if="stat.num >= 0">{{stat.num}}</span>
 		<span class="bar" ng-if="stat.bar >= 0">{{stat.bar}}</span>
 		<span class="up" ng-if="stat.up">+</span>
