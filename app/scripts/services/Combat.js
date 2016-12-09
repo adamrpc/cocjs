@@ -179,7 +179,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.grappleStruggle);
 			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.grappleWait);
 		} else { //REGULAR MENU
-			EngineCore.addButton(0, "Attack", null, Combat.attacks);
+			EngineCore.addButton(0, "Attack", null, attacks);
 			EngineCore.addButton(1, "Tease", null, Combat.teaseAttack);
 			EngineCore.addButton(2, "Spells", null, magic);
 			EngineCore.addButton(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
