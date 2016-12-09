@@ -36,11 +36,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	HelScene.prototype.timeChangeLarge = function() {
 		//Helia's morning surprise!;
-		if( CoC.time.hours === 23 && SceneLib.helFollower.followerHel() && CoC.flags[ kFLAGS.HEL_BONUS_POINTS ] >= 150 && CoC.flags[ kFLAGS.HELIA_KIDS_CHAT ] === 0 ) {
+		if( CoC.time.hours === 23 && this.followerHel() && CoC.flags[ kFLAGS.HEL_BONUS_POINTS ] >= 150 && CoC.flags[ kFLAGS.HELIA_KIDS_CHAT ] === 0 ) {
 			SceneLib.helSpawnScene.heliaBonusPointsAward();
 			return true;
 		}
-		if( CoC.time.hours === 8 && SceneLib.helFollower.followerHel() && CoC.flags[ kFLAGS.HEL_NTR_TRACKER ] === 1 ) {
+		if( CoC.time.hours === 8 && this.followerHel() && CoC.flags[ kFLAGS.HEL_NTR_TRACKER ] === 1 ) {
 			SceneLib.helSpawnScene.helGotKnockedUp();
 			return true;
 		}
