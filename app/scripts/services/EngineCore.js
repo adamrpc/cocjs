@@ -1415,9 +1415,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					stat = args[ i ];
 					op = false;
 				}
-				var argIndex = _.findIndex(argNamesShort, stat);
+				var argIndex = argNamesShort.indexOf(stat);
 				if(argIndex === -1) {
-					argIndex = _.findIndex(argNamesFull, stat);
+					argIndex = argNamesFull.indexOf(stat);
 				}
 				if(argIndex === -1) {
 					$log.error( 'Couldn\'t find the arg name ' + args[ i ] + ' in the index arrays. Welp!' );
