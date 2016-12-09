@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				Combat.cleanupAfterCombat(); //Only happens when there's no way to fuck the imp
 				return;
 			}
-			EngineCore.addButton( 0, (CoC.player.isTaur() ? 'Centaur Rape' : 'Male Rape'), maleRape );
+			EngineCore.addButton( 0, (CoC.player.isTaur() ? 'Centaur Rape' : 'Male Rape'), this, maleRape );
 			if( CoC.player.hasFuckableNipples() ) {
 				EngineCore.addButton( 2, 'NippleFuck', this, this.noogaisNippleRape );
 			}
