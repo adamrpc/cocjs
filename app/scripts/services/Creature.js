@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
+angular.module('cocjs').factory('Creature', function ( $log, CoC, EngineCore, Utils, Ass, Cock, Vagina, BreastRow, BreastStore, AppearanceDefs, Perk, StatusAffects, CoC_Settings, CockTypesEnum, Appearance, PerkLib) {
 	function Creature() {
 		this.init(this, arguments);
 	}
@@ -358,12 +358,12 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 		}).length;
 	};
 	Creature.prototype.orgasm = function() {
-		this.getCoC.dynStats('lus=', 0, 'res', false);
+		EngineCore.dynStats('lus=', 0, 'res', false);
 		this.hoursSinceCum = 0;
 		if (this.countCockSocks('gilded') > 0) {
 			var randomCock = Utils.rand( this.cocks.length );
 			var bonusGems = Utils.rand( this.cocks[randomCock].cockThickness ) + this.countCockSocks('gilded'); // int so AS rounds to whole numbers
-			this.getCoC.outputText('Feeling some minor discomfort in your ' + this.cockDescript(randomCock) + ' you slip it out of your [armor] and examine it. <b>With a little exploratory rubbing and massaging, you manage to squeeze out ' + this.bonusGems + ' gems from its cum slit.</b>' );
+			EngineCore.outputText('Feeling some minor discomfort in your ' + this.cockDescript(randomCock) + ' you slip it out of your [armor] and examine it. <b>With a little exploratory rubbing and massaging, you manage to squeeze out ' + this.bonusGems + ' gems from its cum slit.</b>' );
 			this.gems += bonusGems;
 		}
 	};
@@ -1773,12 +1773,6 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 	};
 	Creature.prototype.breastSize = function(val) {
 		return Appearance.breastSize(val);
-	};
-	Creature.prototype.getGame = function() {
-		return CoC;
-	};
-	Creature.prototype.getFlags = function() {
-		return this.getCoC.flags;
 	};
 	return Creature;
 });

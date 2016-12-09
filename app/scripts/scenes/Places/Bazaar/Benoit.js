@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 
 		// Benoit enters 'clutch' every 21 days, for 7 days;
 		var startDay = CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ];
-		var currDay = this.getGame().model.time.days;
+		var currDay = CoC.time.days;
 		var diffDays = (currDay - startDay) % 28;
 		if( diffDays >= 21 ) {
 			return true;
@@ -158,7 +158,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			CoC.flags[ kFLAGS.FEMOIT_EGGS_LAID ] += CoC.flags[ kFLAGS.FEMOIT_EGGS ];
 			CoC.flags[ kFLAGS.FEMOIT_EGGS ] = 0;
 			CoC.flags[ kFLAGS.FEMOIT_INCUBATION ] = 0;
-			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] = this.getGame().model.time.days; // Cycle 'resets' based off birth day.
+			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] = CoC.time.days; // Cycle 'resets' based off birth day.
 		}
 	};
 	//Introduction Scenes;
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			}
 			suggest = this.eggySuggest;
 			suggestText = 'Suggest';
-		} else if( CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT_DONE ] === 1 && CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] <= this.getGame().model.time.days && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT_DONE ] === 1 && CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] <= CoC.time.days && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
 			this.femoitNextDayEvent();
 		} else if( this.benoitInClutch() && CoC.flags[ kFLAGS.FEMOIT_READY_FOR_EGGS ] === 0 && (CoC.flags[ kFLAGS.BENOIT_STATUS ] === 1 || CoC.flags[ kFLAGS.BENOIT_STATUS ] === 2) ) {
 			CoC.flags[ kFLAGS.FEMOIT_READY_FOR_EGGS ]++;
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 				this.femoitBirths();
 				return;
 			}
-		} else if( !this.benoitInClutch() && !this.benoitPreggers() && (this.getGame().model.time.days - CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] >= 30) && (CoC.flags[ kFLAGS.BENOIT_STATUS ] > 0) ) {
+		} else if( !this.benoitInClutch() && !this.benoitPreggers() && (CoC.time.days - CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] >= 30) && (CoC.flags[ kFLAGS.BENOIT_STATUS ] > 0) ) {
 			if( CoC.flags[ kFLAGS.FEMOIT_FIRST_CLUTCH_MISSED ] === 0 ) {
 				CoC.flags[ kFLAGS.FEMOIT_FIRST_CLUTCH_MISSED ]++;
 				EngineCore.outputText( 'When you enter the stall, you are greeted by the smell of something cooking. Investigating further brings you to the blind basilisk\'s small kitchen, where she is busy frying something. Her nose preoccupied with her meal, she doesn\'t realize you\'re approaching until you touch her shoulder, yelping in shock.' );
@@ -1171,7 +1171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		if( !CoC.player.hasItem( ConsumableLib.P_S_MLK, 2 ) || !CoC.player.hasItem( ConsumableLib.L_PNKEG ) || !CoC.player.hasItem( ConsumableLib.OVIELIX ) || !CoC.player.hasItem( ConsumableLib.REPTLUM ) ) {
 			EngineCore.outputText( 'You don\'t have the necessary ingredients to attempt this yet.' );
 			EngineCore.outputText( '\n\n<b>(Requires 2x Purified Succubus Milk, 1x Large Pink Egg, 1x Ovi Elixir, 1x Reptilium.)</b>' );
-			this.getGame().flushOutputTextToGUI();
+			EngineCore.flushOutputTextToGUI();
 		} else {
 			CoC.player.destroyItems( ConsumableLib.P_S_MLK, 2 );
 			CoC.player.destroyItems( ConsumableLib.L_PNKEG, 1 );
@@ -1184,7 +1184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			EngineCore.outputText( '\n\n"<i>Well... not ze worst sing I have ever tasted,</i>" he says. "<i>It could \'ave used more alcoh-hol zo.  Uh.  Uhhhhhhh...</i>"  He clenches the desk as a tremendous gurgling sound emanates from his gut.  Pierre whines, and unconsciously both you and the dog back away from the basilisk as he begins to twitch and spasm.  There is a grinding noise as his bones begin to shift; although he is holding onto the counter as hard as he can, he cannot stop knocking bottles and trinkets onto the floor as his flesh begins to move.  His torso sucks in, a great deal of mass moving downwards; the sound of long johns giving at the seams trades with an unpleasant cracking and popping sound as his shoulders shift inwards.  There is a sprouting sound as iridescent red feathers emerge upon his crown; below his clenched teeth and eyes, his jaw line softens and moves upwards.  The basilisk\'s now slighter front bulges faintly, and with that the transformation stops, or at least the transformation you can readily observe.  Judging by the way his gut continues to groan and the way he continues to clutch the wooden surface hard enough to leave yet more claw marks, something fairly significant is happening in the ruins of Benoit\'s long johns.' );
 			EngineCore.outputText( '\n\n"<i>Zut.  Fucking.  Alors,</i>" the basilisk manages at last.  The creature\'s voice has gone up by several octaves; although it is still deep, it now sounds rather... husky.  "<i>Zat was almost as bad as zat time I tried goblin food.  Is... is zat me?</i>" Benoit puts a claw to his... no, her throat in a panic.  Her hands then roam downwards and upwards, each new protuberance and crevice discovered amplifying her disquiet.  "<i>Zis... zis can\'t be real,</i>" she mutters.  "<i>Zis can\'t actually \'ave \'appened...</i>"  She turns as if to try and shake herself out of a dream, and knocks over a pile of books with her behind.  Your one salient thought as you watch is that whatever else you\'ve managed to do to the blind basilisk, she certainly has it going on now.  She stands in the fairly impressive mess the two of you have created wringing her hands, apparently unwilling to move her new physique around for fear of knocking over even more of the stock.' );
 			EngineCore.outputText( '\n\n"<i>C... could you come back tomorrow?</i>" says Benoit unevenly.  "<i>Zis is... I need some time to get my \'ead around zis.</i>"  You put the books back on the counter, scratch a terrified-looking Pierre behind the ear, and take your leave.' );
-			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] = this.getGame().model.time.days + 1;
+			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] = CoC.time.days + 1;
 			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT_DONE ] = 1;
 			EngineCore.menu();
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
