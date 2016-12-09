@@ -59,7 +59,6 @@ angular.module( 'cocjs' ).factory( 'StatsView', function($log, CoC) {
 		function _oldStatNameFor( statName ) {
 			return 'old' + statName.charAt( 0 ).toUpperCase() + statName.substr( 1 );
 		}
-		this.upDownsContainer.visible = true;
 		var that = this;
 		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust' ], function( statName ) {
 			var oldStatName = _oldStatNameFor( statName );
