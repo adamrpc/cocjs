@@ -1071,7 +1071,7 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, EngineCore, Ut
 		return this.countCocksOfType(CockTypesEnum.TENTACLE);
 	};
 	Creature.prototype.findFirstCockType = function(ctype) {
-		return _.indexOf(_.find(this.cocks, function(value) { return value.cockType === ctype; }));
+		return _.indexOf(this.cocks, _.find(this.cocks, function(value) { return value.cockType === ctype; }));
 	};
 	//Change first normal cock to horsecock!
 	//Return number of affected cock, otherwise -1
@@ -1577,10 +1577,10 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, EngineCore, Ut
 		return this.breastRows.length === 0 ? -1 : _.minBy(this.breastRows, function(value) { return value.breastRating; });
 	};
 	Creature.prototype.smallestTitRow = function() {
-		return this.breastRows.length === 0 ? -1 : _.indexOf(_.minBy(this.breastRows, function(value) { return value.breastRating; }));
+		return this.breastRows.length === 0 ? -1 : _.indexOf(this.breastRows, _.minBy(this.breastRows, function(value) { return value.breastRating; }));
 	};
 	Creature.prototype.biggestTitRow = function() {
-		return this.breastRows.length === 0 ? -1 : _.indexOf(_.maxBy(this.breastRows, function(value) { return value.breastRating; }));
+		return this.breastRows.length === 0 ? -1 : _.indexOf(this.breastRows, _.maxBy(this.breastRows, function(value) { return value.breastRating; }));
 	};
 	Creature.prototype.averageBreastSize = function() {
 		return _.meanBy(this.breastRows, function(value) { return value.breastRating; });

@@ -1638,9 +1638,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("Y", false);
 			}
 			if(CoC.monster.plural) {
-				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.Descriptors.vaginaDescript() + "s until they're totally fertilized and pregnant.\n\n", false);
+				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.vaginaDescript() + "s until they're totally fertilized and pregnant.\n\n", false);
 			} else {
-				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.Descriptors.vaginaDescript() + " until it's totally fertilized and pregnant.\n\n", false);
+				EngineCore.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.vaginaDescript() + " until it's totally fertilized and pregnant.\n\n", false);
 			}
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
@@ -1960,7 +1960,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
 					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " are obviously turned on, you can smell " + CoC.monster.pronoun3 + " arousal in the air.  ", false);
 				} else {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' " + CoC.monster.Descriptors.vaginaDescript() + "s are practically soaked with their lustful secretions.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "' " + CoC.monster.vaginaDescript() + "s are practically soaked with their lustful secretions.  ", false);
 				}
 			}
 		} else {
@@ -1980,7 +1980,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				if(CoC.monster.lust >= 70 && CoC.monster.lust < 85) {
 					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is obviously turned on, you can smell " + CoC.monster.pronoun3 + " arousal in the air.  ", false);
 				} else {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " is practically soaked with her lustful secretions.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + " is practically soaked with her lustful secretions.  ", false);
 				}
 			}
 		}
@@ -3781,27 +3781,27 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(CoC.monster.vaginas.length > 0 && CoC.monster.lust >= 60) {
 			if(CoC.monster.plural) {
 				if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s dampen perceptibly.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + "s dampen perceptibly.  ", false);
 				}else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
 					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s crotches become sticky with girl-lust.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s become sloppy and wet.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + "s become sloppy and wet.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
 					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.monster.a + CoC.monster.short + "'s thighs.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + "s instantly soak " + CoC.monster.pronoun2 + " groin.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + "s instantly soak " + CoC.monster.pronoun2 + " groin.  ", false);
 				}
 			} else {
 				if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_NORMAL) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " dampens perceptibly.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + " dampens perceptibly.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_WET) {
 					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s crotch becomes sticky with girl-lust.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLICK) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " becomes sloppy and wet.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + " becomes sloppy and wet.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_DROOLING) {
 					EngineCore.outputText("Thick runners of girl-lube stream down the insides of " + CoC.monster.a + CoC.monster.short + "'s thighs.  ", false);
 				} else if(CoC.monster.vaginas[0].vaginalWetness === AppearanceDefs.VAGINA_WETNESS_SLAVERING) {
-					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.Descriptors.vaginaDescript() + " instantly soaks her groin.  ", false);
+					EngineCore.outputText(CoC.monster.getCapitalA() + CoC.monster.short + "'s " + CoC.monster.vaginaDescript() + " instantly soaks her groin.  ", false);
 				}
 			}
 		}
