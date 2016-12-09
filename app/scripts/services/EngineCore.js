@@ -1411,7 +1411,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				}
 				var op = args[ i ].charAt( args[ i ].length - 1 );
 				var stat = args[ i ].substr(0, args[ i ].length - 1);
-				if(!_.find(['+', '-', '*', '/', '='], op)) {
+				if(['+', '-', '*', '/', '='].indexOf(op) === -1) {
 					stat = args[ i ];
 					op = false;
 				}
