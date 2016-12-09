@@ -10,8 +10,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	//- Player does not have a cock or balls, for now;
 	function Raphael() {
 		this.checkedRussetRogue = 0;
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

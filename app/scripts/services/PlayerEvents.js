@@ -3,8 +3,13 @@
 angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, $rootScope, $log, CoC, PerkLib, kFLAGS, AppearanceDefs, EngineCore, StatusAffects, Descriptors, EventParser, Utils, PregnancyStore, CockTypesEnum ) {
 	//Handles all timeChange events for the player. Needed because player is not unique.
 	function PlayerEvents() {
-		$rootScope.$on('time-change', this.timeChange);
-		$rootScope.$on('time-change-large', this.timeChangeLarge);
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.checkedTurkey = 0; //Make sure we test each of these events just once in timeChangeLarge
 		this.checkedDream = 0;
 	}

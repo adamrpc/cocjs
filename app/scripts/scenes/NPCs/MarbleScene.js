@@ -21,8 +21,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	 Special abilities lightly corrupted creature with most of the corruption centered in their breast milk.  It is addictive to those that drink it repeatedly, eventually making them dependent on the one from whom it was drunk. The milk also strengthens the drinker and helps them to relocate the one who nursed them, though that Lacta Bovine is granted limited powers of control over them.  Finally, the breasts of Lacta Bovine are incredibly resilient and able to heal from almost any damage, even being cut off. Thus, they can produce milk for their entire life without fail.
 	 */
 	function MarbleScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.MARBLE_PREGNANCY_TYPE, kFLAGS.MARBLE_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 648, 528, 432, 288, 144 );
 		//Event: 0 (= not pregnant),  1,   2,   3,   4,   5,  6 (< 144);

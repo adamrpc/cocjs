@@ -31,8 +31,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	//226 -Is PC losing the Roxanne's drinking contest intentionally?;
 	//227 -Drinking Contest Bonus Score;
 	function Roxanne() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

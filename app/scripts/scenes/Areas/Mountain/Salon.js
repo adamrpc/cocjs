@@ -2,8 +2,13 @@
 
 angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, Appearance, Descriptors, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
 	function Salon() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

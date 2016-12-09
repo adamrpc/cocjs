@@ -2,8 +2,13 @@
 
 angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
 	function TamainsDaughtersScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.TAMANI_DAUGHTERS_PREGNANCY_TYPE, kFLAGS.TAMANI_DAUGHTER_PREGGO_COUNTDOWN, 0, 0 );
 		this.tamaniPresent = false;
 	}

@@ -4,8 +4,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	function FemaleSpiderMorphScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 100 );
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

@@ -7,8 +7,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.PHOUKA_FORM_BUNNY = 1;
 		this.PHOUKA_FORM_GOAT = 2;
 		this.PHOUKA_FORM_HORSE = 3;
-		$rootScope.$on('time-change', this.timeChange);
-		$rootScope.$on('time-change-large', this.timeChangeLarge);
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 	
 	//Implementation of TimeAwareInterface

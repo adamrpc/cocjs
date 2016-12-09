@@ -11,8 +11,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	//261  Times Izzy sleep-raped the PC?;
 	//-Has PC raped her?;
 	function IsabellaScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.checkedIsabella = 0; //Make sure we test this event just once in timeChangeLarge
 	}
 

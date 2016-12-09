@@ -9,8 +9,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//girl at least once. (add code to shark girl encounter that ;
 	//creates Izmacounter and sets value to 1 if it doesn't exist);
 	function IzmaScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.IZMA_PREGNANCY_TYPE, kFLAGS.IZMA_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 250, 200, 150, 100, 50 );
 		//Event: 0 (= not pregnant),  1,   2,   3,   4,  5,  6 (< 50);

@@ -55,8 +55,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	//-joeycount: counts number of PC's children with Sheila, both for determining her attitude toward pregnancy and for the More Stats page; may be better suited as a status affect;
 	//-sheilaforge: counts up 1 per day once PC has turned Sheila's lethicite over to the T'A weaponsmith, modifies [Weapons] button outputs in that city's menu if sheilacite = 3;
 	function SheilaScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.SHEILA_PREGNANCY_TYPE, kFLAGS.SHEILA_PREGNANCY_INCUBATION, 0, 0 );
 	}
 

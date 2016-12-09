@@ -2,8 +2,13 @@
 
 angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageManager, PerkLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib, OnLoadVariables ) {
 	function Niamh() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

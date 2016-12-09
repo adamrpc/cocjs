@@ -43,8 +43,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 	 --Random lust increases when time passes, combined with more growth.
 	 */
 	function Exgartuan() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.checkedExgartuan = 0;
 	}
 

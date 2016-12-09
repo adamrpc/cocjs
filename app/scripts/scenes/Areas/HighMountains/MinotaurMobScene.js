@@ -7,8 +7,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 	//327 Number of sons pending
 	//328 growup countdown
 	function MinotaurMobScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface

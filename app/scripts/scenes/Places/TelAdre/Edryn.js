@@ -4,8 +4,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 	function Edryn() {
 		this.pregnancy = new PregnancyStore( kFLAGS.EDRYN_PREGNANCY_TYPE, kFLAGS.EDRYN_PREGNANCY_INCUBATION, 0, 0 );
 		this.edrynHeliaLastThreesomeCheck = 0;
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

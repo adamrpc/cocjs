@@ -8,8 +8,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		this.pregnancy = new PregnancyStore( kFLAGS.COTTON_PREGNANCY_TYPE, kFLAGS.COTTON_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 300, 200, 100, 40 );
 		//Event: 0 (= not pregnant),  1,   2,   3,  4,  5 (< 40);
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 
 	//Implementation of TimeAwareInterface;

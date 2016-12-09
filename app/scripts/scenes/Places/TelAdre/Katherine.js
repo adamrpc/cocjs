@@ -4,10 +4,19 @@
 angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ArmorLib, BreastStore, $rootScope, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Katherine() {
 		this.breasts = new BreastStore( kFLAGS.KATHERINE_BREAST_SIZE );
-		$rootScope.$on( 'before-save', this.breasts.updateBeforeSave );
-		$rootScope.$on( 'after-load', this.breasts.updateAfterLoad );
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'before-save', function() {
+			that.breasts.updateBeforeSave();
+		});
+		$rootScope.$on( 'after-load', function() {
+			that.breasts.updateAfterLoad();
+		});
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 	Katherine.KBIT_CLOTHES_TATTERED = 0; //These values are used for the KATHERINE_CLOTHES, KATHERINE_CLOTHES_PREF and KATHERINE_CLOTHES_WORN flags
 	Katherine.KBIT_CLOTHES_UNIFORM = 1;

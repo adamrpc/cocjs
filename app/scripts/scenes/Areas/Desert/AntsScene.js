@@ -2,8 +2,13 @@
 
 angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
 	function AntsScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.PHYLLA_VAGINAL_PREGNANCY_TYPE, kFLAGS.PHYLLA_DRIDER_INCUBATION, 0, 0 );
 	}
 	

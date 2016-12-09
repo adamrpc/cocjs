@@ -6,8 +6,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		this.pregnancy = new PregnancyStore( 0, 0, kFLAGS.JOJO_BUTT_PREGNANCY_TYPE, kFLAGS.JOJO_EGGCUBATE_COUNT );
 		this.monk = 0;
 		this.doClear = true;
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 	}
 	//Implementation of TimeAwareInterface;
 	JojoScene.prototype.timeChange = function() {

@@ -22,8 +22,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 	 -If the player lose 3 times, game over as breeding stud.
 	 */
 	function TamaniScene() {
-		$rootScope.$on( 'time-change', this.timeChange );
-		$rootScope.$on( 'time-change-large', this.timeChangeLarge );
+		var that = this;
+		$rootScope.$on( 'time-change', function() {
+			that.timeChange();
+		});
+		$rootScope.$on( 'time-change-large', function() {
+			that.timeChangeLarge();
+		});
 		this.pregnancy = new PregnancyStore( kFLAGS.TAMANI_PREGNANCY_TYPE, kFLAGS.TAMANI_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 96, 48 );
 		//Event: 0 (= not pregnant), 1,  2,  3 (< 48)
